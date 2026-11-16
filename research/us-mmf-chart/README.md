@@ -54,6 +54,19 @@ Status: source validation and data architecture. No production chart, no homepag
 - SEC page notes updates to include N-MFP3 submissions in July 2025 and prior updates to NT filings and series/class names in May 2023.
 
 
+
+### 7. Federal Reserve Z.1 — quarterly AUM by fund type (preferred category split)
+- Official table: https://www.federalreserve.gov/releases/z1/current/html/S123_s.htm
+- Total AUM series: `MMMFFAQ027S` (FRED) / Z.1 line 1, FL634090005.
+- Government: `BOGZ1FL634090033Q` / Z.1 memo line 15, FL634090033.
+- Prime: `BOGZ1FL634090043Q` / Z.1 memo line 16, FL634090043.
+- Tax-exempt: `BOGZ1FL634090053Q` / Z.1 memo line 17, FL634090053.
+- The three fund-type categories reconcile to total financial assets within USD 1 million (rounding) in every quarter from 2010 Q4 through 2026 Q2.
+- Archived file: `data/us-mmf/fed_mmf_aum_by_fund_type_2010q4_2026q2.csv` (63 quarterly rows). It stores total, Government, Prime, Tax-exempt, category sum, and reconciliation difference.
+- 2026 Q2: total USD 8,441,374m; Government USD 6,893,476m; Prime USD 1,393,709m; Tax-exempt USD 154,189m. Categories sum exactly to total.
+- Use this Z.1 series for the category stacked chart, not OFR or EFA, because all three categories and total are from the same table and reconcile. Use EFA monthly files only for the separate portfolio-instrument detail panel.
+- Floating NAV category data begin 2016 Q4; stable/floating NAV is a separate split and must not be confused with Government/Prime/Tax-exempt fund type.
+
 ### 6. Federal Reserve Enhanced Financial Accounts — monthly holdings by fund type
 - Official page: https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm
 - Monthly security-level holdings dataset from SEC Form N-MFP, available beginning December 2010; page last updated 2026-09-18.
@@ -94,7 +107,7 @@ Status: source validation and data architecture. No production chart, no homepag
 - [x] Create an initial FRED AUM quarterly data snapshot (210 observations, 1974 Q1–2026 Q2) at `data/us-mmf/fed_mmmffaq027s_1974q1_2026q2.csv`; validated row count, unique dates, uninterrupted quarterly cadence, and latest value against FRED. This first snapshot was transcribed from the official FRED table; replace it with the raw-download output before production use.
 - [x] Identify OFR's public no-token API and its `mmf` dataset endpoint; raw response can be archived with provenance.
 - [ ] Retrieve and inspect the OFR API payload and OFR Monitor category chart CSV exports; map the exact series for total AUM and Government / Prime / Tax Exempt before building category history.
-- [ ] Build monthly/quarterly reconciliation and revision-aware data snapshots.
+- [ ] Parse the official Z.1 CSV ZIP into a directly refreshed quarterly history, replacing the manually transcribed seed snapshot.
 - [ ] Finalize UI and implement interactive chart.
 - [ ] Browser QA on desktop and mobile.
 - [ ] User review before any main-branch or public index update.
@@ -118,7 +131,7 @@ Status: source validation and data architecture. No production chart, no homepag
 - OFR Monitor provides a visible Data button that downloads the current chart view as CSV. Category chart: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
 - The monitor currently reports data through 2026-09-30 and notes that its aggregates are OFR-derived on an ultimate-parent basis. This differs from raw SEC fund-level totals.
 - SEC Form N-MFP raw data sets are public from September 2010 through October 2026, updated monthly; SEC warns that filings/extraction can contain errors and that the data are provided as-filed.
-- Downloader: `scripts/us_mmf/update_public_data.py`. It downloads the FRED CSV and complete OFR `mmf` JSON dataset, archives raw snapshots, produces a cleaned positive-observation FRED CSV, and writes SHA-256 metadata. It has been committed but not yet executed against live endpoints; no successful live-download claim is made.
+- Downloader: `scripts/us_mmf/update_public_data.py`. It archives the Federal Reserve Z.1 CSV package, four EFA monthly holdings CSVs, and the OFR `mmf` API response with SHA-256 metadata. The live FRED graph CSV endpoint timed out from GitHub Actions, so the verified branch snapshot remains the temporary normalized AUM file until the Z.1 CSV ZIP parser is completed. The EFA CSVs downloaded successfully; the OFR API response is gzip-compressed and is now decompressed before parsing.
 
 - Structural break confirmation: OFR category chart notes six categories from April 2016 and a June 2024 reporting change removing the Government fee/no-fee distinction. Source: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
 - QA script: `scripts/us_mmf/test_fed_aum_data.py` checks required columns, positive values, quarterly date continuity, unique/sorted dates, USD conversion, quarter labels, and the latest 2026 Q2 value.
