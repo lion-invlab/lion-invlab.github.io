@@ -47,6 +47,7 @@ def validate(page, label):
     check(label + "_repo_dimension_data_loaded", "Repo 維度" in page.locator("#load-status").inner_text(), page.locator("#load-status").inner_text())
     check(label + "_repo_chart_rendered", page.locator("#repo-chart path.repo-series").count() == 5)
     check(label + "_repo_zoom_enabled", page.locator("#repo-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    print(label + "_repo_debug", page.locator("#repo-chart path.repo-series").evaluate_all("(els)=>els.map(e=>({stroke:e.getAttribute(\"stroke\"),d:e.getAttribute(\"d\")}))"), flush=True)
     page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
     check(label + "_repo_collateral_switch", page.locator("#repo-chart path.repo-series").count() == 3)
     page.locator("#repo-dimension-controls button[data-dimension='tenor']").click()
