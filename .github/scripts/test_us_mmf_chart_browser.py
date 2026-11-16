@@ -143,6 +143,10 @@ def validate(page, label):
     page.wait_for_timeout(450)
 
     if label == "mobile":
+        # Earlier mobile touch-drag checks scroll down to Repo/Holdings. Bring
+        # the total chart back into the viewport before dispatching CDP pinch.
+        page.locator("#total-chart").scroll_into_view_if_needed()
+        page.wait_for_timeout(200)
         box = page.locator("#total-chart").bounding_box()
         cx = box["x"] + box["width"] * 0.55
         cy = box["y"] + box["height"] * 0.48
