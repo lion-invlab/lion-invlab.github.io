@@ -1182,3 +1182,13 @@
 - **最終交付 Gate：`review_ready=false`。** 雖然HTML、內容及瀏覽器／視覺QA通過，Pages部署亦成功，但目前工具環境無法直接開啟 `https://lion-invlab.github.io/preview/2026-11-17-simulation.html`（外部網域存取不可用），依規則不把部署成功冒充為URL已驗證。QA sidecar已同步標記 `review_ready=false`，只待實際URL開啟確認。
 - 剩餘資料註記：W47 coverage incomplete；CNN Fear & Greed採FGScore備援；FedWatch採Investing.com Fed Rate Monitor備援；11檔ETF採Investing.com Global歷史頁備援；部分新聞原文頁無法直接開啟；HTHT無公告前Yahoo預期快照。這些均已在審核版pending_items透明揭露。
 - 通知：啟動通知與階段①–⑤均為 `NOT_AVAILABLE`；notify_parent回傳404 Action not found，每次依規則重試一次，沒有任何一次回傳 `status=notified`。階段①–④時間沿用執行紀錄05:29／05:32／05:33／05:50；階段⑤工具未回傳可用時間戳。不得視為已送達。
+
+
+## 2026-11-17 06:26–06:30｜排程接續驗證與交付狀態
+- 重新讀取模擬 WR SIM-1.3（`6f35be118830948880d2dbed2e73eff6eec09413`）、Manifest（`dc6090c895e2abc17bb16225f4a581ddee5821b1`）、QA contract v1.4（`824c327fb66fc8c5d4107b69abd9316c00bfe903`）及 weekday 母版（`f010ff118d7a5a2c1f6e834aa24f832766383c2b`）。母版 SHA 與 Manifest 相符。
+- 只讀 main W47 JSON：`1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5`；25 economic／23 earnings；HTML provenance 的 W47 SHA 與資料 commit 一致。未讀寫任何 calendar JSON。
+- 重新讀取 main preview：`preview/2026-11-17-simulation.html` SHA `c9546bded696b463851c4e83ba564cd3bf7f2a54`；main HEAD `64a9c0dcb14602efccf9edc9635610c301df664f` 僅新增此檔；main index SHA `0f5940c2e50e7ec7be8dd6e8535fd42d08190fcc` 未變。靜態 HTML 與既有 Playwright／視覺 QA 證據沿用；Pages deploy job 43968681241 success。
+- 預覽 URL 再次無法由 web 工具開啟，container DNS 亦失敗；故 `review_ready=false`，不得把部署成功說成已確認可瀏覽。
+- 現行 SIM-1.3 要求 ChatGPT 直接填母版、不經 Assembler；先前 05:50 紀錄顯示使用 `build_review_html.py`。此流程合規性尚未消除，列為待處理；本輪不冒險重新組裝。
+- 本輪啟動與階段①–⑤通知均各重試一次後回傳 HTTP 404 `Action not found`，狀態 `FAILED`，無 `status=notified`。
+- 未修改首頁、正式母版、WR、Manifest 或任何 calendar JSON；未發布首頁。
