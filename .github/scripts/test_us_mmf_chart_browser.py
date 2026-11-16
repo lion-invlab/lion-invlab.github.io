@@ -44,6 +44,15 @@ def validate(page, label):
     check(label + "_transaction_zoom_enabled", page.locator("#flow-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
     check(label + "_holding_stack_rendered", page.locator("#holding-chart path.area-holding").count() == 6)
     check(label + "_holding_zoom_enabled", page.locator("#holding-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    check(label + "_repo_dimension_data_loaded", "Repo 維度" in page.locator("#load-status").inner_text(), page.locator("#load-status").inner_text())
+    check(label + "_repo_chart_rendered", page.locator("#repo-chart path.repo-series").count() == 5)
+    check(label + "_repo_zoom_enabled", page.locator("#repo-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
+    check(label + "_repo_collateral_switch", page.locator("#repo-chart path.repo-series").count() == 3)
+    page.locator("#repo-dimension-controls button[data-dimension='tenor']").click()
+    check(label + "_repo_tenor_switch", page.locator("#repo-chart path.repo-series").count() == 3)
+    page.locator("#repo-dimension-controls button[data-dimension='counterparty']").click()
+    check(label + "_repo_counterparty_switch", page.locator("#repo-chart path.repo-series").count() == 5)
     check(label + "_holding_total_188_months", page.locator("#holding-legend .legend-item").count() == 6)
     page.locator("#holding-type-controls button[data-type=\"Government\"]").click()
     check(label + "_holding_government_switch", page.locator("#holding-chart path.area-holding").count() == 5)
@@ -110,7 +119,7 @@ def validate(page, label):
         page.locator("#holding-type-controls button[data-type='Total']").click()
         page.wait_for_timeout(300)
 
-    for chart_id in ("total-chart", "type-chart", "flow-chart", "holding-chart"):
+    for chart_id in ("total-chart", "type-chart", "flow-chart", "holding-chart", "repo-chart"):
         box = page.locator("#" + chart_id).bounding_box()
         check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.evaluate("window.innerWidth") + 1, box)
         if label == "mobile":
