@@ -151,6 +151,60 @@ def normalize_z1_s123(raw_csv: bytes) -> tuple[bytes, bytes, dict]:
 
 
 
+def normalize_ofr_mmf_portfolio(ofr_obj: dict) -> tuple[bytes, dict]:
+    """Normalize OFR's mutually exclusive broad asset classes and total."""
+    selected = {
+        "MMF-MMF_TOT-M": "Total",
+        "MMF-MMF_T_TOT-M": "U.S. Treasury securities",
+        "MMF-MMF_AG_TOT-M": "Federal Agency and GSE securities",
+        "MMF-MMF_BRA_TOT-M": "Bank-related assets",
+        "MMF-MMF_OA_TOT-M": "Other assets",
+        "MMF-MMF_RP_TOT-M": "Repurchase agreements",
+    }
+    series = ofr_obj.get("timeseries", {})
+    missing = set(selected) - set(series)
+    if missing:
+        raise ValueError(f"OFR MMF dataset missing required portfolio series: {sorted(missing)}")
+
+    data = {}
+    names = {}
+    for mnemonic, label in selected.items():
+        obj = series[mnemonic]
+        observations = obj.get("timeseries", {}).get("aggregation")
+        if not isinstance(observations, list) or not observations:
+            raise ValueError(f"OFR series has no aggregation observations: {mnemonic}")
+        names[mnemonic] = obj.get("metadata", {}).get("description", {}).get("name", label)
+        data[mnemonic] = {str(d): float(v) for d, v in observations if d and v is not None}
+
+    dates = sorted(set.intersection(*(set(v) for v in data.values())))
+    if len(dates) != 191 or dates[0] != "2010-11-30" or dates[-1] != "2026-09-30":
+        raise ValueError(f"Unexpected OFR MMF portfolio coverage: {len(dates)} months, {dates[:1]} to {dates[-1:]}")
+    out = io.StringIO()
+    writer = csv.writer(out, lineterminator="\\n")
+    writer.writerow(["date", "asset_class", "mnemonic", "series_name", "value_usd", "value_usd_trillion", "share_of_total"])
+    max_diff = 0.0
+    for d in dates:
+        total = data["MMF-MMF_TOT-M"][d]
+        components = [data[m][d] for m in selected if m != "MMF-MMF_TOT-M"]
+        diff = sum(components) - total
+        max_diff = max(max_diff, abs(diff))
+        if abs(diff) > 1.0:
+            raise ValueError(f"OFR broad asset class reconciliation failed at {d}: {diff} USD")
+        for mnemonic, label in selected.items():
+            value = data[mnemonic][d]
+            writer.writerow([d, label, mnemonic, names[mnemonic], f"{value:.2f}", f"{value/1e12:.9f}", f"{value/total:.9f}" if total else "0"])
+    return out.getvalue().encode(), {
+        "status": "downloaded_normalized_and_reconciled",
+        "series_count": len(selected),
+        "observations_per_series": len(dates),
+        "first_observation": dates[0],
+        "latest_observation": dates[-1],
+        "latest_total_usd_trillion": round(data["MMF-MMF_TOT-M"][dates[-1]] / 1e12, 9),
+        "max_broad_asset_class_reconciliation_difference_usd": max_diff,
+        "note": "OFR month-end holdings by five mutually exclusive broad asset classes; category components reconcile to total.",
+    }
+
+
 def normalize_efa_holdings(efa_raw: dict[str, bytes]) -> tuple[bytes, dict]:
     """Normalize Fed EFA monthly instrument holdings to long-form USD millions."""
     expected = {"total", "prime", "government", "tax_exempt"}
@@ -385,6 +439,14 @@ def main() -> None:
             "top_level_keys": sorted(ofr_obj.keys()),
             "series_count": len(ofr_obj.get("timeseries", {})),
         })
+        ofr_csv, ofr_stats = normalize_ofr_mmf_portfolio(ofr_obj)
+        ofr_path_normalized = DATA_DIR / "fed_mmf_ofr_portfolio_latest.csv"
+        write_bytes(ofr_path_normalized, ofr_csv)
+        ofr_info["normalized_portfolio"] = {
+            "file": str(ofr_path_normalized.relative_to(ROOT)),
+            "sha256": sha256(ofr_csv),
+            **ofr_stats,
+        }
     except Exception as exc:
         ofr_info.update({"status": "download_failed", "error": repr(exc)})
 
