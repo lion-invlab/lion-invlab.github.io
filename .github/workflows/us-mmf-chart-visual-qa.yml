@@ -1,0 +1,57 @@
+name: U.S. MMF Chart Visual QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/us-mmf-chart-20261116
+    paths:
+      - "research/us-mmf-chart/chart-preview.html"
+      - "data/us-mmf/fed_mmmffaq027s_latest.csv"
+      - "data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv"
+      - "data/us-mmf/latest_manifest.json"
+      - ".github/scripts/test_us_mmf_chart_browser.py"
+      - ".github/workflows/us-mmf-chart-visual-qa.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: us-mmf-chart-visual-qa
+  cancel-in-progress: false
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/us-mmf-chart-20261116
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright Chromium
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Compile browser QA script
+        run: python -m py_compile .github/scripts/test_us_mmf_chart_browser.py
+
+      - name: Render and validate desktop and mobile chart
+        run: python .github/scripts/test_us_mmf_chart_browser.py
+
+      - name: Upload screenshots and QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: us-mmf-chart-visual-qa-${{ github.run_id }}
+          path: artifacts/us-mmf-chart-visual-qa/
+          if-no-files-found: warn
+          retention-days: 30
