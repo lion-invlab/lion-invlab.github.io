@@ -1,21 +1,17 @@
 {
   "status": "QA_PASSED",
-  "review_ready": false,
-  "review_ready_blockers": [
-    "S&P 500與Russell 2000的11/16現金指數收盤尚未取得可核實資料；不得以CFD數字冒充現金收盤。",
-    "5檔已公布財報的可比市場共識與第一個完整交易時段股價反應尚未取得，不能完成Beat/Miss與股價反應判讀。"
-  ],
+  "review_ready": true,
+  "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "行情基準日2026-11-16。44項行情已逐項查核；42項取得可用的11/16資料，2項暫待核實（S&P 500現金收盤、Russell 2000現金收盤）。MOVE採使用者提供之Merrill Lynch Option Volatility Estimate畫面截圖：11/16 16:17 ET為101.28、+2.52%，前收98.79。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位只採同日現金指數OHLC；缺資料不以CFD替代。",
-    "warning_note": "本次只唯讀main W47與W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。S&P 500現金收盤與Russell 2000現金收盤待核實；MOVE已依使用者提供之11/16 16:17 ET截圖補入101.28（+2.52%）。5檔已公布財報實際EPS/Revenue可讀，但市場共識及股價反應尚未完成。",
+    "quality_note": "行情基準日2026-11-16。44項行情已逐項查核，均取得可用的11/16數值；MOVE採使用者提供的Merrill Lynch MOVE畫面截圖（101.28、+2.52%、前收98.79）。S&P 500（^SPX）與Russell 2000（^RUT）採Yahoo Finance現金指數歷史資料作備援；Investing.com HK同名頁為CFD，不混用。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位：道瓊、Nasdaq、SOX採Investing.com HK現金指數；S&P 500與Russell 2000採Yahoo Finance現金指數。",
+    "warning_note": "本次只唯讀main W47與必要的main W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。44項行情均有11/16可用數值；MOVE採使用者提供之11/16 16:17 ET截圖101.28（+2.52%）。S&P 500與Russell 2000採Yahoo Finance現金指數歷史列，未以CFD替代。5檔已公布財報中，4檔有公告前Yahoo平均預期快照並完成EPS／Revenue數值比較；HTHT無Yahoo快照，實際值照列、預期顯示未取得。5檔第一個完整交易時段股價反應已擷取。",
     "pending_items": [
       "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
-      "S&P 500與Russell 2000的Investing.com HK歷史頁為CFD；為避免將CFD冒充現金指數，主表暫待同日現金收盤資料。其餘已明確標示的CFD不與現金指數混用。",
       "CNN Fear & Greed採用FGScore 11/16 15:59 ET快照30（Fear）；CNN官方頁與圖表端點本輪無法直接讀取。",
-      "5檔已公布財報（HTHT、BEKE、BIDU、ARMK、TSN）有實際EPS／Revenue，但市場共識與第一個完整交易時段股價反應仍未取得；不作Beat/Miss判讀。",
       "CME FedWatch官方嵌入QuikStrike頁因referrer拒絕存取；採Investing.com Fed Rate Monitor（頁面明確以CME 30-Day Fed Funds futures推算），未取得獨立CME畫面快照。",
       "11檔產業ETF的HK歷史頁本輪未更新至11/16；依D2第三輪改讀同一Investing.com來源系統Global歷史頁，已取得11/16資料並保留備援註記。",
-      "部分Cnyes與Investing.com原文頁本輪無法直接開啟；以搜尋結果的標題／時間／摘要及可讀來源交叉核對，未宣稱所有原文全文均已讀取。"
+      "部分Cnyes與Investing.com原文頁本輪無法直接開啟；以搜尋結果的標題／時間／摘要及可讀來源交叉核對，未宣稱所有原文全文均已讀取。",
+      "HTHT已公布實際EPS／Revenue，但未取得Yahoo Finance公告前平均預期快照；實際值照列、預期顯示「預期資料尚未取得」，不作方向性判斷。BEKE、BIDU、ARMK、TSN使用公告前Yahoo平均預期值完成EPS／Revenue數值比較；5檔均已擷取第一個完整交易時段股價反應。"
     ],
     "report_cutoff_taipei": "2026-11-17 05:25（台灣時間）",
     "news_window_taipei": "2026-11-16 12:00–2026-11-17 05:25（台灣時間）"
@@ -23,17 +19,17 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-17-simulation.html",
   "report_date": "2026-11-17",
-  "report_git_blob_sha": "e11bb236261dae0dd9906a34a2d4e58cac954cc7",
-  "report_sha256": "f47f7852d318f5a52a2dcad0e6fa223814f6db8140029c45766ce4d6a37ea248",
-  "build_commit_sha": "3732ef7ad7258753476da8b3ff5740f45743258c",
-  "builder_blob_sha": "1563b4d2ba90e91a4f10a3ebc0e0f5b1d953a21f",
-  "fixture_blob_sha": "abe73c1eb8d633a74517c9e90228724690fd5783",
+  "report_git_blob_sha": "c9546bded696b463851c4e83ba564cd3bf7f2a54",
+  "report_sha256": "50ae90d2ab7d4c2e63329eb4b8619f45c1d51534de676e722f25eef155d2655b",
+  "build_commit_sha": "0a7b11c92e2830d6b1b87a1414fad1f948a6fa10",
+  "builder_blob_sha": "a2b69b18e15358d21347c8b0fad12cf0a6603931",
+  "fixture_blob_sha": "20392761f64b5b3995c0744d9f506a32bc929bdb",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
   "calendar_main_commit_sha": "2e57b1372300689a5f0a278d79d5b9bce3452f1b",
   "calendar_current_blob_sha": "1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "3e04908897539aefcb6d2b434e675172ef1f2075497f4e2be78590a52d3b7895",
-  "visual_evidence_sha256": "82a64403d9d74ca875699dfa4516d909ca51fc47acf0bf8500f26500e1ea379e",
+  "visual_evidence_sha256": "d7f88ff1c20654764f24edae19f9e263e0096891f3b26e28fee62e335e69afc8",
   "viewports": [
     1440,
     768,
@@ -41,6 +37,6 @@
     390,
     360
   ],
-  "workflow_run_id": "43967398973",
+  "workflow_run_id": "43968158184",
   "workflow_run_attempt": "1"
 }
