@@ -1,16 +1,16 @@
 {
-  "retrieved_at_utc": "2026-11-16T03:41:23+00:00",
-  "github_actions_run_id": "43799659343",
-  "github_actions_run_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43799659343",
+  "retrieved_at_utc": "2026-11-16T03:41:29+00:00",
+  "github_actions_run_id": "43799670417",
+  "github_actions_run_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43799670417",
   "policy": "free_public_sources_only",
   "fed_z1_release": {
     "status": "downloaded_and_normalized",
     "source_url": "https://www.federalreserve.gov/releases/z1/current/z1_csv_files.zip",
     "table": "S123.s",
     "table_member": "csv/S123_s.csv",
-    "raw_zip_snapshot": "data/us-mmf/raw/fed_z1_csv_package_20261116T034123Z.zip",
+    "raw_zip_snapshot": "data/us-mmf/raw/fed_z1_csv_package_20261116T034129Z.zip",
     "raw_zip_sha256": "b63af9755437df0fb88b7cf346f8f9eaeb22bf1aa2b5df1709334135c43de4b6",
-    "raw_table_snapshot": "data/us-mmf/raw/fed_z1_S123_s_20261116T034123Z.csv",
+    "raw_table_snapshot": "data/us-mmf/raw/fed_z1_S123_s_20261116T034129Z.csv",
     "raw_table_sha256": "d0b5c4d103919529776165939e477c0884016380751508a5b1d135bbd60a2d7a",
     "normalized_total_file": "data/us-mmf/fed_mmmffaq027s_latest.csv",
     "normalized_total_sha256": "845e56f561208367036e58a4bfeaa5c3fb170ab8fbd7cbecbd635399b70ee03d",
@@ -30,7 +30,7 @@
     "source_url": "https://www.federalreserve.gov/releases/z1/current/z1_csv_files.zip",
     "table": "S123.t",
     "table_member": "csv/S123_t.csv",
-    "raw_table_snapshot": "data/us-mmf/raw/fed_z1_S123_t_20261116T034123Z.csv",
+    "raw_table_snapshot": "data/us-mmf/raw/fed_z1_S123_t_20261116T034129Z.csv",
     "raw_table_sha256": "23d1091782878f8214ae8d6d86ea7000193399bda3469de6cfde62f9a55f6577",
     "normalized_file": "data/us-mmf/fed_mmf_transactions_latest.csv",
     "normalized_sha256": "c7d7312896b2e696d631f463b6a76237e897a6b74173169796ba5f5436d4e503",
@@ -54,28 +54,28 @@
       "total": {
         "status": "downloaded",
         "source_url": "https://www.federalreserve.gov/releases/efa/total-money-market-funds-investment-holdings-historical.csv",
-        "raw_snapshot": "data/us-mmf/raw/fed_efa_total_20261116T034123Z.csv",
+        "raw_snapshot": "data/us-mmf/raw/fed_efa_total_20261116T034129Z.csv",
         "raw_sha256": "f84072d54f30ccbe6e557c34c250ae5956d2d8533b0767a5b42f57a4b792acc9",
         "size_bytes": 10906
       },
       "prime": {
         "status": "downloaded",
         "source_url": "https://www.federalreserve.gov/releases/efa/prime-money-market-funds-investment-holdings-historical.csv",
-        "raw_snapshot": "data/us-mmf/raw/fed_efa_prime_20261116T034123Z.csv",
+        "raw_snapshot": "data/us-mmf/raw/fed_efa_prime_20261116T034129Z.csv",
         "raw_sha256": "c052e1e6608d0b8115eb7c3363d5f025a99492f4642c38e1493ce66ebbbe477b",
         "size_bytes": 10596
       },
       "government": {
         "status": "downloaded",
         "source_url": "https://www.federalreserve.gov/releases/efa/government-money-market-funds-investment-holdings-historical.csv",
-        "raw_snapshot": "data/us-mmf/raw/fed_efa_government_20261116T034123Z.csv",
+        "raw_snapshot": "data/us-mmf/raw/fed_efa_government_20261116T034129Z.csv",
         "raw_sha256": "8c469018f67d52bb9d360763e6cda977b8c647f6a8e6824e9c9ca96b6b8b64f3",
         "size_bytes": 9422
       },
       "tax_exempt": {
         "status": "downloaded",
         "source_url": "https://www.federalreserve.gov/releases/efa/exempt-money-market-funds-investment-holdings-historical.csv",
-        "raw_snapshot": "data/us-mmf/raw/fed_efa_tax_exempt_20261116T034123Z.csv",
+        "raw_snapshot": "data/us-mmf/raw/fed_efa_tax_exempt_20261116T034129Z.csv",
         "raw_sha256": "3d03a0f47cc30c89e0b215c3098a8e3f51350b23f5a40a90a270eda70139473d",
         "size_bytes": 6387
       }
@@ -103,8 +103,8 @@
     "dataset_key": "mmf",
     "source_url": "https://data.financialresearch.gov/v1/series/dataset?dataset=mmf",
     "status": "downloaded",
-    "raw_snapshot": "data/us-mmf/raw/ofr_mmf_dataset_20261116T034123Z.json.gz",
-    "raw_sha256": "6f3f41bdc9801a336dbff76a57cdaecdc35aaf9f3411070820eb25690bca9b4e",
+    "raw_snapshot": "data/us-mmf/raw/ofr_mmf_dataset_20261116T034129Z.json.gz",
+    "raw_sha256": "5686ed86a5cdb71bd5cf20356bbbb9a7b0eca111ef870996ad55668e82eeb164",
     "decompressed_sha256": "4ab982a544e40a89a056eece52e1bb7c10021242b6b3d82f24133ad10c1895ec",
     "top_level_keys": [
       "long_name",
