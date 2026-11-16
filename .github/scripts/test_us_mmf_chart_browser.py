@@ -47,7 +47,6 @@ def validate(page, label):
     check(label + "_repo_dimension_data_loaded", "Repo 維度" in page.locator("#load-status").inner_text(), page.locator("#load-status").inner_text())
     check(label + "_repo_chart_rendered", page.locator("#repo-chart path.repo-series").count() == 5)
     check(label + "_repo_zoom_enabled", page.locator("#repo-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
-    print(label + "_repo_debug", page.locator("#repo-chart path.repo-series").evaluate_all("(els)=>els.map(e=>({stroke:e.getAttribute(\"stroke\"),d:e.getAttribute(\"d\")}))"), flush=True)
     page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
     check(label + "_repo_collateral_switch", page.locator("#repo-chart path.repo-series").count() == 3)
     page.locator("#repo-dimension-controls button[data-dimension='tenor']").click()
@@ -62,6 +61,7 @@ def validate(page, label):
     page.locator("#holding-type-controls button[data-type=\"Tax-exempt\"]").click()
     check(label + "_holding_tax_exempt_switch", page.locator("#holding-chart path.area-holding").count() == 3)
     page.locator("#holding-type-controls button[data-type=\"Total\"]").click()
+    check(label + "_all_chart_paths_finite", page.locator("svg path[d]").evaluate_all("(els)=>els.every(e=>!/(NaN|Infinity|undefined)/.test(e.getAttribute(\"d\")||\"\"))"))
     check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
     check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
 
