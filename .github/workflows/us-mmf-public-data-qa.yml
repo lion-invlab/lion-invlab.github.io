@@ -28,13 +28,16 @@ jobs:
           python-version: "3.12"
 
       - name: Compile data scripts
-        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py
+        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py scripts/us_mmf/test_fund_type_breakdown.py
 
       - name: Download free public source snapshots
         run: python scripts/us_mmf/update_public_data.py
 
-      - name: Validate live Fed AUM series
+      - name: Validate Fed Z.1 quarterly AUM snapshot
         run: python scripts/us_mmf/test_fed_aum_data.py data/us-mmf/fed_mmmffaq027s_latest.csv
+
+      - name: Validate quarterly Government / Prime / Tax-exempt split
+        run: python scripts/us_mmf/test_fund_type_breakdown.py
 
       - name: Upload immutable raw source snapshots and manifest
         uses: actions/upload-artifact@v4
