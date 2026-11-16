@@ -620,6 +620,49 @@ def main():
         label = anchor.get_text(" ", strip=True)
         if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
         elif label == "Brent原油期貨": set_text(anchor, "Brent 原油期貨")
+    # Energy quote rows get an isolated three-column layout. The mother template has
+    # several later generic .row rules; this scoped high-specificity override prevents
+    # WTI/Brent labels and quote values from colliding on narrow mobile screens.
+    energy_mobile_css = soup.new_tag("style", id="tac-energy-quote-mobile-overlap-fix-v2")
+    energy_mobile_css.string = """
+html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(64px,auto) minmax(58px,auto)!important;
+  align-items:center!important;
+  column-gap:6px!important;
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>b{
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  font-size:14px!important;
+  line-height:1.35!important;
+}
+html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.r{
+  min-width:0!important;
+  justify-self:end!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+  font-size:14px!important;
+  font-variant-numeric:tabular-nums!important;
+}
+@media(max-width:600px){
+ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row{
+   grid-template-columns:minmax(0,1fr) minmax(62px,auto) minmax(56px,auto)!important;
+   column-gap:4px!important;
+ }
+ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>b{font-size:13px!important}
+ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.r{font-size:12px!important}
+}
+"""
+    existing_energy_css = soup.select_one("#tac-energy-quote-mobile-overlap-fix-v2")
+    if existing_energy_css:
+        existing_energy_css.replace_with(energy_mobile_css)
+    else:
+        soup.head.append(energy_mobile_css)
     # Date/title: update only existing text nodes.
     for node in soup.select(".top .report-date, header .report-date"):
         if node.get_text(strip=True):
