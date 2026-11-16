@@ -1,5 +1,16 @@
 # TAC 投資早報｜工作狀態錨點
 
+## 2026-11-17｜階段④分析與HTML組裝（完成；QA進行中）
+
+- 已沿用既有 `simulation-lab/runner/build_review_html.py` 與週二至週五母版，未建立第二套組裝器、未做DOM破壞性文字替換。
+- report fixture：`simulation-lab/fixtures/report-data-2026-11-17.json`；以11/16為行情基準日，11/17 05:25為截稿點。44項欄位、5則焦點、10則頭條均有結構資料；MOVE、S&P/Russell現金收盤及已公布財報共識／股價反應仍須依QA結果處理。
+- 既有 workflow run 43963718351（head SHA a7ae9c669269081e7f6f8914d41809cd88b4ef63）：同日現金指數OHLC擷取成功、5檔財報價格反應擷取成功、HTML組裝成功；Playwright互動及母版／產物QA尚在執行。不得以組裝成功代替QA通過。
+- 本次 collector 前一輪曾把Investing.com CFD OHLC標成cash_index；本輪已移除S&P/Russell手動CFD override，讓既有collector改抓Yahoo現金指數資料，待本輪輸出核對後再回填主表，避免現金／CFD混用。
+- 階段④通知：notify_parent兩次均NOT_FOUND／HTTP 404 Action not found，狀態FAILED；工具NOT_AVAILABLE，未送達。
+
+---
+
+
 ## 2026-11-17｜階段③新聞與行事曆（完成）
 
 - 行事曆唯讀來源：main W47 blob SHA 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5；main W46 blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d（僅供既有 calendar_source_guard 的前週來源驗證，不作本日事件依據）；main commit db70b4023fe718b7faf1b7266207949717caeb8d。沒有讀取 simulation branch 舊週 JSON，也沒有寫入任何 calendar JSON。
