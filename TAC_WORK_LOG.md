@@ -1114,3 +1114,11 @@
 - WTI Dec-26 CLZ6 85.37 (-3.60%, vol 174.93K)；Brent Jan-27 LCOF7 92.16 (-3.53%, vol 248.43K)；Gold Dec-26 GCZ6 3,855.40 (-0.80%, vol 160.59K)；Silver Dec-26 SIZ6 46.925 (-4.47%, vol 70.47K)。
 - UST 2Y/10Y/30Y 4.62%/5.12%/5.46%；FX DXY 103.57, USD/TWD 32.963, EUR/USD 1.0997, GBP/USD 1.3183, AUD/USD 0.6737, USD/JPY 159.46。
 - 關鍵價位 OHLC 仍待 collector／同日 cash OHLC 驗證。通知兩次皆 NOT_FOUND，階段② FAILED。
+
+
+## 2026-11-17 05:33｜階段③新聞與行事曆核對完成
+
+- 唯讀 main calendar：W47 blob 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5，W46 blob edf33bdd3b9573b08a9381f617ac3ad4357a1c2d，main commit db70b4023fe718b7faf1b7266207949717caeb8d。W47 25經濟、23財報；5經濟與5財報已公布，18檔財報後續事件。未修改任何行事曆 JSON。
+- 5則宏觀焦點、10則市場頭條均符合 11/16 12:00 至 11/17 05:25 台北時間窗口。部分來源原文頁存取受限，僅使用可讀搜尋摘要/其他官方交叉資料，將在品質註記揭露。
+- 5檔已公布財報有實際 EPS/Revenue，但市場共識及股價反應仍未取得，不作 Beat/Miss 判斷。
+- 階段③通知兩次均 404 Action not found，狀態 FAILED / NOT_AVAILABLE。
