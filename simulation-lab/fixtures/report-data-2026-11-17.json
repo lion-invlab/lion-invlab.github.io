@@ -111,14 +111,14 @@
       }
     },
     "標普500指數": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "7,416.59",
+      "change_display": "-1.9%",
       "source": {
-        "name": "Investing.com HK｜S&P 500 CFD歷史資料（不作現金指數替代）",
-        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
-        "data_date": null,
-        "quote_type": "pending_cash_index_close",
-        "note": "HK頁11/16列為CFD 7,413.60、-1.96%；本次關鍵價位採現金指數OHLC，為避免現金／CFD混用，主表暫不以CFD替代現金指數收盤。"
+        "name": "AP｜How major US stock indexes fared Monday 11/16/2026",
+        "url": "https://apnews.com/article/2e6a9c41b6336e9240c1b01585d20cd4",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "AP當日市場收盤報導明確列出S&P 500收7,416.59、下跌1.9%；採現金指數收盤，不採Investing.com HK同名CFD。"
       }
     },
     "那斯達克綜合指數": {
@@ -133,14 +133,14 @@
       }
     },
     "羅素2000指數": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "2,742.94",
+      "change_display": "-1.7%",
       "source": {
-        "name": "Investing.com HK｜Russell 2000 CFD歷史資料（不作現金指數替代）",
-        "url": "https://hk.investing.com/indices/smallcap-2000-historical-data",
-        "data_date": null,
-        "quote_type": "pending_cash_index_close",
-        "note": "HK頁11/16列為CFD 2,744.80、-1.64%；本次關鍵價位採現金指數OHLC，為避免現金／CFD混用，主表暫不以CFD替代現金指數收盤。"
+        "name": "AP｜How major US stock indexes fared Monday 11/16/2026",
+        "url": "https://apnews.com/article/2e6a9c41b6336e9240c1b01585d20cd4",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "AP當日市場收盤報導明確列出Russell 2000收2,742.94、下跌1.7%；採現金指數收盤，不採Investing.com HK同名CFD。"
       }
     },
     "費城半導體指數": {
@@ -537,9 +537,9 @@
   "summary_title": "AI風險趨避擴散、費半重挫，升息定價逼近全面反映",
   "market_comments": {
     "global_markets": [
-      "📌 全球｜美股與亞洲科技權重市場同步承壓，歐股小幅收低；市場焦點由AI資本支出規模轉向投資回報與利率折現。",
+      "📌 全球｜美股三大指數與小型股同步下跌，S&P 500收7,416.59（-1.9%）、Russell 2000收2,742.94（-1.7%）；科技股領跌，歐股小幅收低。",
       "📌 風險｜VIX升至22.91、CNN Fear & Greed為30（Fear）；MOVE收101.28、單日上升2.52%，債券市場波動同步升溫。",
-      "📌 美國｜道瓊跌1.51%、NASDAQ Composite跌2.54%、SOX跌5.28%；S&P 500現金收盤待核實，Investing.com HK同名頁為CFD，不作現金指數替代。",
+      "📌 美國｜道瓊跌1.51%、S&P 500收7,416.59（-1.9%）、NASDAQ Composite跌2.54%、SOX跌5.28%；S&P 500與Russell 2000採AP現金指數收盤報導，非CFD。",
       "📌 亞洲｜台灣跌6.03%、KOSPI跌3.59%、日經以現金交易日口徑跌2.42%；港股小幅收高，A股科技板塊受壓。",
       "📌 歐洲｜FTSE 100收10,892.93（+0.09%）、DAX 26,598.64（-0.57%）、CAC 8,352.00（-0.20%）、STOXX 600 662.31（-0.28%）；採BNY/StreetAccount現貨收盤摘要。"
     ],
@@ -571,7 +571,7 @@
       "text": "短線以控制槓桿、降低單一AI權值集中度及保留流動性為先。NVIDIA財報應檢查訂單能否轉化為營收、毛利與自由現金流；未看到基本面驗證前，不把急跌本身當成買進理由。"
     }
   ],
-  "warning_note": "本次只唯讀main W47與W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。S&P 500現金收盤與Russell 2000現金收盤待核實；MOVE已依使用者提供之11/16 16:17 ET截圖補入101.28（+2.52%）。5檔已公布財報實際EPS/Revenue可讀，但市場共識及股價反應尚未完成。",
+  "warning_note": "本次只唯讀main W47與W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。5檔已公布財報（HTHT、BEKE、BIDU、ARMK、TSN）實際EPS／Revenue可讀，但各來源市場共識口徑存在差異，且第一個完整交易時段股價反應尚未全部取得；暫不完成Beat/Miss及股價反應判讀。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -684,7 +684,7 @@
   },
   "qa_run_revision": "SIM-1.3",
   "market_sentiment": "市場情緒明顯轉向防禦。VIX快速升高、CNN Fear & Greed落在恐懼區，且12月FedWatch已高度定價升息25bp；短線不宜把科技股急跌直接視為買點，應等待財報與利率訊號確認。",
-  "quality_note": "行情基準日2026-11-16。44項行情已逐項查核；42項取得可用的11/16資料，2項暫待核實（S&P 500現金收盤、Russell 2000現金收盤）。MOVE採使用者提供之Merrill Lynch Option Volatility Estimate畫面截圖：11/16 16:17 ET為101.28、+2.52%，前收98.79。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位只採同日現金指數OHLC；缺資料不以CFD替代。",
+  "quality_note": "行情基準日2026-11-16。44項行情已逐項查核並取得可用資料。S&P 500收7,416.59（-1.9%）、Russell 2000收2,742.94（-1.7%），採AP當日現金指數收盤報導，未以Investing.com HK CFD替代。MOVE採使用者提供之Merrill Lynch Option Volatility Estimate畫面截圖：11/16 16:17 ET為101.28、+2.52%，前收98.79。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。",
   "report_cutoff_taipei": "2026-11-17 05:25（台灣時間）",
   "news_window_taipei": "2026-11-16 12:00–2026-11-17 05:25（台灣時間）",
   "key_levels_overrides": {
@@ -722,7 +722,6 @@
   "review_notice": "11/17審核版｜行情基準日2026-11-16；資料截稿2026-11-17 05:25台灣時間。S&P 500現金收盤與Russell 2000現金收盤待核實；MOVE採使用者提供截圖補入101.28（+2.52%）；W47行事曆coverage為incomplete。僅供審核，不上架正式首頁。",
   "pending_items": [
     "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
-    "S&P 500與Russell 2000的Investing.com HK歷史頁為CFD；為避免將CFD冒充現金指數，主表暫待同日現金收盤資料。其餘已明確標示的CFD不與現金指數混用。",
     "CNN Fear & Greed採用FGScore 11/16 15:59 ET快照30（Fear）；CNN官方頁與圖表端點本輪無法直接讀取。",
     "5檔已公布財報（HTHT、BEKE、BIDU、ARMK、TSN）有實際EPS／Revenue，但市場共識與第一個完整交易時段股價反應仍未取得；不作Beat/Miss判讀。",
     "CME FedWatch官方嵌入QuikStrike頁因referrer拒絕存取；採Investing.com Fed Rate Monitor（頁面明確以CME 30-Day Fed Funds futures推算），未取得獨立CME畫面快照。",
@@ -730,7 +729,6 @@
     "部分Cnyes與Investing.com原文頁本輪無法直接開啟；以搜尋結果的標題／時間／摘要及可讀來源交叉核對，未宣稱所有原文全文均已讀取。"
   ],
   "review_ready_blockers": [
-    "S&P 500與Russell 2000的11/16現金指數收盤尚未取得可核實資料；不得以CFD數字冒充現金收盤。",
     "5檔已公布財報的可比市場共識與第一個完整交易時段股價反應尚未取得，不能完成Beat/Miss與股價反應判讀。"
   ]
 }
