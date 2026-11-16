@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+"""QA for OFR MMF repo dimension normalization."""
+import csv, sys
+from collections import defaultdict
+from pathlib import Path
+
+path = Path(sys.argv[1] if len(sys.argv) > 1 else "data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv")
+rows = list(csv.DictReader(path.open(encoding="utf-8")))
+assert rows, "No normalized repo dimension rows"
+by_dim_date = defaultdict(dict)
+for row in rows:
+    by_dim_date[(row["dimension"], row["date"])][row["mnemonic"]] = float(row["value_usd"])
+expected = {
+    "tenor": {"MMF-MMF_RP_OO-M", "MMF-MMF_RP_LE30-M", "MMF-MMF_RP_G30-M"},
+    "collateral": {"MMF-MMF_RP_T_TOT-M", "MMF-MMF_RP_AG_TOT-M", "MMF-MMF_RP_OA_TOT-M"},
+    "counterparty": {"MMF-MMF_RP_wDFI-M", "MMF-MMF_RP_wFFI-M", "MMF-MMF_RP_wFICC-M", "MMF-MMF_RP_wFR-M", "MMF-MMF_RP_wOCP-M"},
+}
+for dim, members in expected.items():
+    candidate_dates = {date for (dimension, date) in by_dim_date if dimension == dim}
+    dates = sorted(date for date in candidate_dates if set(by_dim_date[(dim, date)]) == members)
+    assert dates, f"No complete dates for {dim}"
+    assert dates[-1] == "2026-09-30", f"{dim} latest date mismatch: {dates[-1]}"
+    for date in dates:
+        total = sum(by_dim_date[(dim, date)].values())
+        dim_rows = [r for r in rows if r["dimension"] == dim and r["date"] == date]
+        repo_totals = {float(r["repo_total_usd"]) for r in dim_rows}
+        assert len(repo_totals) == 1, f"Inconsistent canonical repo total in {dim} at {date}"
+        assert abs(total - next(iter(repo_totals))) <= 1.0, f"{dim} does not reconcile at {date}"
+    print(f"PASS {dim}: {len(dates)} fully reconciled months, {dates[0]} to {dates[-1]}")
+latest = {r["mnemonic"]: r for r in rows if r["date"] == "2026-09-30"}
+for key in expected["counterparty"] | expected["tenor"] | expected["collateral"]:
+    assert key in latest, f"Missing latest series {key}"
+print(f"PASS latest categories: {len(latest)}")
