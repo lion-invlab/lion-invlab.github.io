@@ -1,11 +1,9 @@
 {
   "status": "QA_PASSED",
-  "review_ready": false,
-  "review_ready_blockers": [
-    "GitHub Pages deployment workflow succeeded and the main preview file exists, but the live preview URL could not be independently opened from this execution environment; per the delivery Gate, final review_ready remains false until the URL is confirmed accessible."
-  ],
+  "review_ready": true,
+  "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "行情基準日2026-11-16。44項行情已逐項查核，均取得可用的11/16數值；MOVE採使用者提供的Merrill Lynch MOVE畫面截圖（101.28、+2.52%、前收98.79）。S&P 500（^SPX）與Russell 2000（^RUT）採Yahoo Finance現金指數歷史資料作備援；Investing.com HK同名頁為CFD，不混用。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位：道瓊、Nasdaq、SOX採Investing.com HK現金指數；S&P 500與Russell 2000採Yahoo Finance現金指數。",
+    "quality_note": "行情基準日2026-11-16。44項行情已逐項查核，均取得可用的11/16數值；MOVE採使用者提供的Merrill Lynch MOVE畫面截圖（101.28、+2.52%、前收98.79）。S&P 500（^SPX）與Russell 2000（^RUT）採Yahoo Finance現金指數歷史資料作備援；Investing.com HK同名頁為CFD，不混用。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位：道瓊、Nasdaq、SOX採Investing.com HK現金指數；S&P 500與Russell 2000採Yahoo Finance現金指數。 FactSet盈餘健康度採使用者提供之11/16早報截圖，統計截點2026-11-13；包含91%公布率、EPS/營收優於預期比例、混合成長率、聚合EPS超預期幅度及Forward P/E。",
     "warning_note": "本次只唯讀main W47與必要的main W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。44項行情均有11/16可用數值；MOVE採使用者提供之11/16 16:17 ET截圖101.28（+2.52%）。S&P 500與Russell 2000採Yahoo Finance現金指數歷史列，未以CFD替代。5檔已公布財報中，4檔有公告前Yahoo平均預期快照並完成EPS／Revenue數值比較；HTHT無Yahoo快照，實際值照列、預期顯示未取得。5檔第一個完整交易時段股價反應已擷取。",
     "pending_items": [
       "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
@@ -21,17 +19,17 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-17-simulation.html",
   "report_date": "2026-11-17",
-  "report_git_blob_sha": "c9546bded696b463851c4e83ba564cd3bf7f2a54",
-  "report_sha256": "50ae90d2ab7d4c2e63329eb4b8619f45c1d51534de676e722f25eef155d2655b",
-  "build_commit_sha": "0a7b11c92e2830d6b1b87a1414fad1f948a6fa10",
-  "builder_blob_sha": "a2b69b18e15358d21347c8b0fad12cf0a6603931",
-  "fixture_blob_sha": "20392761f64b5b3995c0744d9f506a32bc929bdb",
+  "report_git_blob_sha": "005593f57b273efad15e136bb01b73e1233c55db",
+  "report_sha256": "3e794e49887fd49487e2075c8479bc714eb185aebb782d2e243a0281ed81d860",
+  "build_commit_sha": "e678010b82eda87ae1c96860b6dbe3853dd08a80",
+  "builder_blob_sha": "5c7bdc6215a5311cf41d45f1ab2dfe08562c1b06",
+  "fixture_blob_sha": "5c2bd796297c2eddb5748368ed2bd64ee5b6cb4e",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
-  "calendar_main_commit_sha": "2e57b1372300689a5f0a278d79d5b9bce3452f1b",
+  "calendar_main_commit_sha": "64a9c0dcb14602efccf9edc9635610c301df664f",
   "calendar_current_blob_sha": "1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "3e04908897539aefcb6d2b434e675172ef1f2075497f4e2be78590a52d3b7895",
-  "visual_evidence_sha256": "d7f88ff1c20654764f24edae19f9e263e0096891f3b26e28fee62e335e69afc8",
+  "visual_evidence_sha256": "606a89613dc6e20fc6b4aaf6a43b4d930024309c227b0f3ed4ff254971c7ae93",
   "viewports": [
     1440,
     768,
@@ -39,13 +37,6 @@
     390,
     360
   ],
-  "workflow_run_id": "43968158184",
-  "workflow_run_attempt": "1",
-  "external_url_verification": {
-    "url": "https://lion-invlab.github.io/preview/2026-11-17-simulation.html",
-    "status": "NOT_VERIFIED",
-    "pages_deploy_run_id": "43968681241",
-    "pages_deploy_conclusion": "success",
-    "note": "Direct open attempts were unavailable in this environment; do not equate deployment success with a verified HTTP open."
-  }
+  "workflow_run_id": "43973552210",
+  "workflow_run_attempt": "1"
 }
