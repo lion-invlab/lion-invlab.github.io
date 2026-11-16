@@ -83,6 +83,36 @@
       ],
       "interpretation": "Portfolio investment holdings by fund type. Not identical to Z.1 total financial assets; do not add to or substitute for the Z.1 AUM series.",
       "qa_rule": "Sum instrument holdings within each category; verify Prime + Government + Tax-exempt equals Total within rounding before use."
+    },
+    "fed_z1_quarterly_fund_type_aum": {
+      "source": "Federal Reserve Z.1 Financial Accounts, table S123.s",
+      "frequency": "quarterly",
+      "units_raw": "Millions of U.S. Dollars",
+      "seasonal_adjustment": "Not Seasonally Adjusted",
+      "coverage_start": "2010-10",
+      "coverage_end_verified": "2026-04",
+      "series": {
+        "total_aum": "MMMFFAQ027S / FL634090005",
+        "government": "BOGZ1FL634090033Q / FL634090033",
+        "prime": "BOGZ1FL634090043Q / FL634090043",
+        "tax_exempt": "BOGZ1FL634090053Q / FL634090053"
+      },
+      "fields": [
+        "fred_observation_date",
+        "quarter_label",
+        "total_aum_millions_usd",
+        "government_millions_usd",
+        "prime_millions_usd",
+        "tax_exempt_millions_usd",
+        "category_sum_millions_usd",
+        "difference_millions_usd",
+        "source_url",
+        "retrieved_at_utc",
+        "vintage_date",
+        "sha256"
+      ],
+      "reconciliation_tolerance_millions_usd": 1,
+      "interpretation": "Government + Prime + Tax-exempt reconcile to total AUM within USD 1 million due to rounding for the archived 2010 Q4–2026 Q2 history. Use this for the quarterly fund-type stacked chart."
     }
   },
   "global_rules": {
