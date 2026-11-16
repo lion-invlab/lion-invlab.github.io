@@ -9,6 +9,7 @@ on:
       - "research/us-mmf-chart/chart-preview.html"
       - "data/us-mmf/fed_mmmffaq027s_latest.csv"
       - "data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv"
+      - "data/us-mmf/fed_mmf_transactions_latest.csv"
       - "data/us-mmf/latest_manifest.json"
       - ".github/scripts/test_us_mmf_chart_browser.py"
       - ".github/workflows/us-mmf-chart-visual-qa.yml"
