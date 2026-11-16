@@ -150,6 +150,41 @@ def normalize_z1_s123(raw_csv: bytes) -> tuple[bytes, bytes, dict]:
     }
 
 
+def normalize_z1_s123_transactions(raw_csv: bytes) -> tuple[bytes, dict]:
+    """Normalize S123.t net acquisition transactions; retain SAAR units."""
+    reader = csv.DictReader(io.StringIO(raw_csv.decode("utf-8-sig")))
+    required = {"date", "FA634090005.Q"}
+    if not reader.fieldnames or not required.issubset(reader.fieldnames):
+        raise ValueError(f"Unexpected Z.1 S123.t columns: {reader.fieldnames}")
+
+    out = io.StringIO()
+    writer = csv.writer(out, lineterminator="\\n")
+    writer.writerow(["date", "quarter_label", "net_acquisition_millions_usd_saar", "net_acquisition_usd_trillion_saar"])
+    rows, first_date, last_date = 0, None, None
+    for row in reader:
+        label = (row.get("date") or "").strip()
+        if not label or ":Q" not in label:
+            continue
+        year, quarter, iso_date = parse_quarter(label)
+        raw = (row.get("FA634090005.Q") or "").strip()
+        if raw in ("", ".", "ND"):
+            continue
+        value = int(float(raw))
+        writer.writerow([iso_date, f"{year} Q{quarter}", value, f"{value / 1_000_000:.6f}"])
+        rows += 1
+        first_date = first_date or iso_date
+        last_date = iso_date
+
+    if rows < 4 or not last_date:
+        raise ValueError(f"Unexpectedly short S123.t transaction history: {rows}")
+    return out.getvalue().encode(), {
+        "observations": rows, "first_observation": first_date, "latest_observation": last_date,
+        "series_id": "MMMFTAQ027S", "series_code": "FA634090005",
+        "units": "Millions of U.S. dollars, seasonally adjusted annual rate",
+        "interpretation": "Net acquisition of financial assets by money market funds; financial-account transactions, not investor net subscriptions/redemptions.",
+    }
+
+
 def main() -> None:
     fetched_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -165,13 +200,23 @@ def main() -> None:
             (n for n in z1_names if n.lower().endswith("/s123_s.csv")),
             None,
         )
-        if not s123_name:
-            raise ValueError("Z.1 CSV package does not contain csv/S123_s.csv")
+        s123_t_name = next(
+            (n for n in z1_names if n.lower().endswith("/s123_t.csv")),
+            None,
+        )
+        if not s123_name or not s123_t_name:
+            raise ValueError("Z.1 CSV package must contain both S123_s.csv and S123_t.csv")
         s123_raw = archive.read(s123_name)
+        s123_t_raw = archive.read(s123_t_name)
 
     s123_path = RAW_DIR / f"fed_z1_S123_s_{stamp}.csv"
+    s123_t_path = RAW_DIR / f"fed_z1_S123_t_{stamp}.csv"
     write_bytes(s123_path, s123_raw)
+    write_bytes(s123_t_path, s123_t_raw)
     total_csv, types_csv, z1_stats = normalize_z1_s123(s123_raw)
+    transactions_csv, transaction_stats = normalize_z1_s123_transactions(s123_t_raw)
+    transactions_path = DATA_DIR / "fed_mmf_transactions_latest.csv"
+    write_bytes(transactions_path, transactions_csv)
 
     total_path = DATA_DIR / "fed_mmmffaq027s_latest.csv"
     types_path = DATA_DIR / "fed_mmf_aum_by_fund_type_latest.csv"
@@ -193,6 +238,17 @@ def main() -> None:
         "normalized_fund_type_sha256": sha256(types_csv),
         "archive_member_count": len(z1_names),
         **z1_stats,
+    }
+    z1_transactions_info = {
+        "status": "downloaded_and_normalized",
+        "source_url": Z1_CSV_URL,
+        "table": "S123.t",
+        "table_member": s123_t_name,
+        "raw_table_snapshot": str(s123_t_path.relative_to(ROOT)),
+        "raw_table_sha256": sha256(s123_t_raw),
+        "normalized_file": str(transactions_path.relative_to(ROOT)),
+        "normalized_sha256": sha256(transactions_csv),
+        **transaction_stats,
     }
 
     fed_efa_info = {}
@@ -248,6 +304,7 @@ def main() -> None:
         ),
         "policy": "free_public_sources_only",
         "fed_z1_release": z1_info,
+        "fed_z1_transactions": z1_transactions_info,
         "fred_crosscheck_reference": {
             "series_id": "MMMFFAQ027S",
             "url": FRED_URL,
