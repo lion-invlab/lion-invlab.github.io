@@ -46,6 +46,7 @@ jobs:
           git add data/us-mmf/fed_mmmffaq027s_latest.csv data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv data/us-mmf/latest_manifest.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh U.S. MMF public data snapshots"
+            git pull --rebase origin research/us-mmf-chart-20261116
             git push origin HEAD:research/us-mmf-chart-20261116
           fi
 
