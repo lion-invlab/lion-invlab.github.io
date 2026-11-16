@@ -23,9 +23,9 @@ for dim, members in expected.items():
     for date in dates:
         total = sum(by_dim_date[(dim, date)].values())
         dim_rows = [r for r in rows if r["dimension"] == dim and r["date"] == date]
-        implied = [float(r["value_usd"]) / float(r["share_of_repo_total"]) for r in dim_rows if float(r["share_of_repo_total"]) > 0]
-        assert implied and max(implied) - min(implied) <= 2.0, f"Inconsistent repo total implied by {dim} at {date}"
-        assert abs(total - implied[0]) <= 2.0, f"{dim} does not reconcile at {date}"
+        repo_totals = {float(r["repo_total_usd"]) for r in dim_rows}
+        assert len(repo_totals) == 1, f"Inconsistent canonical repo total in {dim} at {date}"
+        assert abs(total - next(iter(repo_totals))) <= 1.0, f"{dim} does not reconcile at {date}"
     print(f"PASS {dim}: {len(dates)} fully reconciled months, {dates[0]} to {dates[-1]}")
 latest = {r["mnemonic"]: r for r in rows if r["date"] == "2026-09-30"}
 for key in expected["counterparty"] | expected["tenor"] | expected["collateral"]:
