@@ -150,3 +150,5 @@ Status: source validation and data architecture. No production chart, no homepag
 - Data files loaded by the preview: `data/us-mmf/fed_mmmffaq027s_latest.csv`, `data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv`, and `data/us-mmf/latest_manifest.json`.
 - Browser QA: `.github/workflows/us-mmf-chart-visual-qa.yml`; tests desktop and 390px mobile layout, data load, KPI values, chart series rendering, zoom controls and horizontal overflow. Screenshots and report are retained as workflow artifacts.
 - This preview is research-only. It is not linked from the main interactive-chart index and has not been published to main.
+
+- Latest browser QA: PASS on desktop and 390px mobile. Verified chart data loading, latest KPIs, line/stacked-area rendering, zoom presets, zoom reset, no horizontal overflow, no console/page errors, and an actual two-finger pinch gesture (zoom scale increased to 2.07x). Workflow run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43793626168
