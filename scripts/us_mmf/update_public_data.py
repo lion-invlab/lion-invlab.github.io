@@ -30,7 +30,8 @@ USER_AGENT = "TAC-US-MMF-Research/1.0 (public-data archival)"
 
 def fetch(url: str) -> bytes:
     req = Request(url, headers={"User-Agent": USER_AGENT})
-    with urlopen(req, timeout=90) as response:
+    print(f"Fetching public source: {url}", flush=True)
+    with urlopen(req, timeout=25) as response:
         if response.status != 200:
             raise RuntimeError(f"HTTP {response.status} for {url}")
         return response.read()
@@ -111,13 +112,25 @@ def main() -> None:
     write_bytes(fred_raw_path, fred_raw)
     write_bytes(fred_clean_path, fred_clean)
 
-    ofr_raw = fetch(OFR_URL)
-    # Validate JSON before archiving; retain the complete payload unchanged.
-    ofr_obj = json.loads(ofr_raw.decode("utf-8"))
-    if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
-        raise ValueError("OFR API response does not contain the expected dataset timeseries object")
-    ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json"
-    write_bytes(ofr_path, ofr_raw)
+    ofr_info = {"dataset_key": "mmf", "source_url": OFR_URL}
+    try:
+        ofr_raw = fetch(OFR_URL)
+        # Validate JSON before archiving; retain the complete payload unchanged.
+        ofr_obj = json.loads(ofr_raw.decode("utf-8"))
+        if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
+            raise ValueError("OFR API response does not contain the expected dataset timeseries object")
+        ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json"
+        write_bytes(ofr_path, ofr_raw)
+        ofr_info.update({
+            "status": "downloaded",
+            "raw_snapshot": str(ofr_path.relative_to(ROOT)),
+            "raw_sha256": sha256(ofr_raw),
+            "top_level_keys": sorted(ofr_obj.keys()),
+            "series_count": len(ofr_obj.get("timeseries", {})),
+        })
+    except Exception as exc:
+        # Keep the Fed dataset and its QA usable if the separate OFR service is temporarily unavailable.
+        ofr_info.update({"status": "download_failed", "error": repr(exc)})
 
     manifest = {
         "retrieved_at_utc": fetched_at,
@@ -130,14 +143,7 @@ def main() -> None:
             "raw_sha256": sha256(fred_raw),
             "processed_sha256": sha256(fred_clean),
         },
-        "ofr": {
-            "dataset_key": "mmf",
-            "source_url": OFR_URL,
-            "raw_snapshot": str(ofr_path.relative_to(ROOT)),
-            "raw_sha256": sha256(ofr_raw),
-            "top_level_keys": sorted(ofr_obj.keys()),
-            "series_count": len(ofr_obj.get("timeseries", {})),
-        },
+        "ofr": ofr_info,
     }
     manifest_path = DATA_DIR / "latest_manifest.json"
     write_bytes(
