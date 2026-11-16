@@ -24,6 +24,7 @@ def check(name, ok, detail=None):
         raise AssertionError(f"{name}: {detail}")
 
 def validate(page, label):
+    # Desktop: wheel/drag; mobile: verify real two-finger pinch via CDP.
     page.goto("http://127.0.0.1:8766/research/us-mmf-chart/chart-preview.html", wait_until="networkidle", timeout=90000)
     page.wait_for_function("document.querySelector('#load-status')?.textContent.includes('資料載入完成')", timeout=90000)
     check(label + "_data_loaded", "資料載入完成" in page.locator("#load-status").inner_text(), page.locator("#load-status").inner_text())
