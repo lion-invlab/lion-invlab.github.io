@@ -325,7 +325,7 @@
 ### D3. 指標專屬來源與口徑
 - **SOX：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/phlx-semiconductor-historical-data`，採最近已完成交易日正式收盤及日漲跌幅；核對日期、指數名稱與延遲標記。Yahoo Finance `^SOX` 僅作備援／交叉核對。
 - **VIX：** 優先 Investing.com 香港站 `https://hk.investing.com/indices/volatility-s-p-500`，採最近已完成交易日正式收盤；Cboe 歷史資料 `https://www.cboe.com/tradable_products/vix/vix_historical_data` 作官方交叉核對，Yahoo Finance `^VIX` 作備援。
-- **MOVE：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/ice-bofaml-move-historical-data`。備援依序為 Yahoo Finance `https://finance.yahoo.com/quote/%5EMOVE/history`（代號 `^MOVE`）、CNBC `https://www.cnbc.com/quotes/.MOVE`（代號 `.MOVE`）、再為 EODData `https://www.eoddata.com/stockquote/INDEX/MOVE.htm`（代碼 `INDEX:MOVE`）。Yahoo Finance `^MOVE` 為本早報所追蹤的 MOVE 指標第一備援序列，不得僅因 Yahoo 頁面顯示名稱文字與 ICE BofA MOVE 的正式名稱不同，就逕行判定為不同標的或排除。CNBC `.MOVE` 為第二備援來源；必須能直接讀取頁面所示標的、指定交易日期、報價／收盤欄位及更新時間，若頁面受 robots、登入或動態載入限制而無法讀取，記錄為「工具未能讀取頁面資料」，不得將搜尋摘要視為正式讀值，並繼續使用下一備援。EODData 僅在 Yahoo 與 CNBC 均無法讀取或缺少指定日期資料時使用，須核對其 `INDEX:MOVE` 標的說明、指定交易日期及 Close 欄位；其報價精度可能只有一位小數，不得將四捨五入後的數值誤認為與 Investing.com 完全相同精度。查核時均須確認資料日期、收盤時間及收盤欄位；不得把盤中值、其他日期值或搜尋摘要當成指定交易日收盤。Yahoo／CNBC 頁面截圖可作為其畫面所示報價、日期及收盤時間的證據，並須註明證據型態為「使用者提供截圖」，不得冒稱助理已獨立直讀／刷新該網頁。
+- **MOVE：** 第一優先來源為 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/ice-bofaml-move-historical-data`；若該頁未提供指定交易日最新報價，第二來源改為 TradingView 的 ICE BofA MOVE 指數報價頁，必須核對標的身分、指定交易日期、Close／收盤欄位及更新時間，不得以盤中值或搜尋摘要代替。若 TradingView 亦無法取得同日期可核實資料，才可使用 Yahoo Finance `^MOVE`（`https://finance.yahoo.com/quote/%5EMOVE/history`）作下一順位備援，後續再依可讀性使用 CNBC `.MOVE` 與 EODData `INDEX:MOVE`。每筆須保留實際來源、資料日期、收盤時間及報價欄位；使用者提供截圖可作畫面證據，但必須標示「使用者提供截圖」，不得冒稱助理已獨立直讀／刷新該網頁。
 - **CNN Fear & Greed：** 優先直接開啟 CNN Business 官方頁面 `https://edition.cnn.com/markets/fear-and-greed`（或 `https://www.cnn.com/markets/fear-and-greed`），在每次早報行情查核當下，以儀表板中央／指針所指向的**當前分數**為正式讀數；不可採用下方「Previous close」數字代替。`Previous close` 是上一個美股交易日的收盤值，只能作為前收比較欄位，必須依實際美股交易日判定日期，不可誤認為當前值。同步記錄儀表板當前分數、指針所在情緒區間、頁面顯示的 `Last updated` 時間及時區、查核時間與網址。若頁面只顯示當前分數及更新時間，仍以該分數為準；不得因資料端點或第三方資料較容易讀取而覆蓋官方頁面當前儀表板讀數。官方頁面無法讀取時，才嘗試 CNN 頁面使用的資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`；該端點是 CNN 網頁使用的非正式資料端點，無公開穩定性保證。CNN 官方頁面與端點皆不可用時，第三方即時備援依序使用 FGScore 的「US stocks · CNN / Provider index」`https://fgscore.com/en/markets/sp500`，再使用 Financial Context CNN Fear & Greed Tracker `https://staging.fcontext.com/en/fear-and-greed`。僅可採用明確標示 CNN 原始 Provider Index 的分數，不可採用第三方自行估算的 Nasdaq／其他市場情緒分數或自行合成指數；須記錄來源時間戳、資料日期、讀取時間及備援狀態。若第三方來源間數值或時間戳不一致，先核對資料日期、時區及更新時間；無法解釋即標示待核實，不取平均、不自行挑值。GitHub 歷史資料集僅供歷史日期回查／缺口交叉核對，不得充當當前即時備援。
 - **FedWatch：** 日常讀取優先使用 Investing.com Fed Rate Monitor `https://www.investing.com/central-banks/fed-rate-monitor`，必須在本次製作當下讀取，記錄台灣時間、目標 FOMC 會議日期、各目標利率區間機率及頁面可得的期貨價格／比較欄位。CME 官方工具 `https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool` 僅作方法與交叉核對，不得把 Investing.com 數據稱為 CME 官方數據。機率合計與卡片／長條圖須一致；無法取得動態機率或更新時間時標示待核實，不用舊快照或自行推算填補。
 - **美國公債殖利率 2Y／10Y／30Y：** 優先美國財政部 Daily Treasury Par Yield Curve Rates `https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics`，三個期限採同一資料日期的 CMT／par yield。備援 FRED：`https://fred.stlouisfed.org/series/DGS2`、`https://fred.stlouisfed.org/series/DGS10`、`https://fred.stlouisfed.org/series/DGS30`。不得混用個別債券即時殖利率或不同日期。
@@ -772,3 +772,11 @@
 ## F3-補充10｜最終四狀態與畫面驗收
 - 財報比較狀態僅保留優於預期、符合預期、低於預期、尚未公布／數值尚未齊備四種；不得再產生比較口徑不相容、市場共識來源分歧或待核實狀態。
 - 來源、口徑、PIT 等資訊保留為資料註記，不得作為方向性判讀的阻斷條件。
+
+
+### 版本 SIM-1.3 補充修訂（2026-11-17｜FactSet 快照接線與 MOVE 備援調整）
+- FactSet 盈餘健康度必須由當日 fixture 的具日期快照驅動，不得在 HTML 組裝器內硬編碼歷史值；若報告日期為 2026/11/17，且已取得 2026/11/13 快照，輸出不得回退至 2026/11/06。QA 必須核對統計日期及核心數值，舊快照殘留即阻斷審核版。
+- MOVE 來源順位依使用者 2026/11/17 指示更新：Investing.com 香港站為第一來源；無指定日期最新報價時，TradingView 為第二來源；Yahoo Finance、CNBC、EODData 僅依序作後續備援。
+- 使用者提供的 2026/11/16 MOVE 截圖可作當日數值證據（101.28、+2.52%、前收98.79），但來源欄須標示為使用者提供畫面，不得冒稱直接讀取 TradingView。
+- 能源合約名稱、價格與漲跌幅須採獨立欄位；手機版不得重疊或覆蓋。視覺 QA 應至少檢查 360px、390px、412px，未實測的尺寸不得宣稱通過。
+- 總結、情緒、盤面觀察及各區 📌評論須有不同任務；不得以重複行情數字充當評論，亦不得把尚未證實的市場敘事寫成確定因果。
