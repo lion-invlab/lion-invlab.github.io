@@ -1,7 +1,9 @@
 {
   "status": "QA_PASSED",
-  "review_ready": true,
-  "review_ready_blockers": [],
+  "review_ready": false,
+  "review_ready_blockers": [
+    "GitHub Pages deployment workflow succeeded and the main preview file exists, but the live preview URL could not be independently opened from this execution environment; per the delivery Gate, final review_ready remains false until the URL is confirmed accessible."
+  ],
   "data_audit": {
     "quality_note": "行情基準日2026-11-16。44項行情已逐項查核，均取得可用的11/16數值；MOVE採使用者提供的Merrill Lynch MOVE畫面截圖（101.28、+2.52%、前收98.79）。S&P 500（^SPX）與Russell 2000（^RUT）採Yahoo Finance現金指數歷史資料作備援；Investing.com HK同名頁為CFD，不混用。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位：道瓊、Nasdaq、SOX採Investing.com HK現金指數；S&P 500與Russell 2000採Yahoo Finance現金指數。",
     "warning_note": "本次只唯讀main W47與必要的main W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。44項行情均有11/16可用數值；MOVE採使用者提供之11/16 16:17 ET截圖101.28（+2.52%）。S&P 500與Russell 2000採Yahoo Finance現金指數歷史列，未以CFD替代。5檔已公布財報中，4檔有公告前Yahoo平均預期快照並完成EPS／Revenue數值比較；HTHT無Yahoo快照，實際值照列、預期顯示未取得。5檔第一個完整交易時段股價反應已擷取。",
@@ -38,5 +40,12 @@
     360
   ],
   "workflow_run_id": "43968158184",
-  "workflow_run_attempt": "1"
+  "workflow_run_attempt": "1",
+  "external_url_verification": {
+    "url": "https://lion-invlab.github.io/preview/2026-11-17-simulation.html",
+    "status": "NOT_VERIFIED",
+    "pages_deploy_run_id": "43968681241",
+    "pages_deploy_conclusion": "success",
+    "note": "Direct open attempts were unavailable in this environment; do not equate deployment success with a verified HTTP open."
+  }
 }
