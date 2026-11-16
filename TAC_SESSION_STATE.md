@@ -1,5 +1,20 @@
 # TAC 投資早報｜工作狀態錨點
 
+## 2026-11-17｜早報人工流程接手（階段①完成）
+
+- 啟動時間：2026-11-17 05:29:04 Asia/Taipei；報告日期：2026-11-17（週二）；預定行情基準日：2026-11-16（待逐項核實）。
+- 模擬區唯一 WR 實際版本：SIM-1.3（2026-11-15），blob SHA：6f35be118830948880d2dbed2e73eff6eec09413；讀取路徑：simulation-lab/TAC_WORK_RULES_SIM.md。使用者指定預期 SIM-1.2，但當次檔案已升為 SIM-1.3，依實際最新內容執行；未讀取退役根目錄 WR 或 main WR。
+- Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA dc6090c895e2abc17bb16225f4a581ddee5821b1；週二至週五 simulation_path 為 simulation-lab/baseline/weekday-mother-template.html，核准 simulation SHA f010ff118d7a5a2c1f6e834aa24f832766383c2b，實際相符。正式母版 SHA（Manifest 記錄）3785405e331b10ec6189002e480be2a1edbe20ef。
+- QA 契約：simulation-lab/baseline/mother-template-qa-contract.md，版本 1.4，SHA 824c327fb66fc8c5d4107b69abd9316c00bfe903；文件內仍有 SIM-1.2 舊文字，依最新 WR 的 A1.4 作為唯一詳細 QA 附件使用，不將其視為第二份 WR。
+- main HEAD：db70b4023fe718b7faf1b7266207949717caeb8d；main 當週資料庫唯一讀取來源：data/calendar/weeks/2026-W47.json，blob SHA 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5。04:35 最新 audit 04:39:07，run_status=partial_success_actuals_and_events_updated_consensus_sources_unreadable；經濟事件 25 筆、財報事件 23 筆。僅讀取，不寫入 JSON。
+- 母版結構快速檢查：DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 唯一；工具字串計數暫見 175 個 ID（QA 契約基準 174），尚待真正 HTML parser 排除註解／確認，未判定為結構差異。週二至週五不存在上週兩區塊（後續以 DOM parser 驗證）。
+- 通知：啟動通知及階段①通知均連續兩次呼叫 notify_parent，皆因 NOT_FOUND: Action not found 失敗；狀態 FAILED，未宣稱送達。人工通知工具目前不可用。
+- 保護範圍：本次只允許更新 simulation branch 的既有 Session State／Work Log 與必要模擬產物；main 僅限當日 preview 例外通道；不得碰 index.html、母版、Manifest、WR、W47 JSON。
+- 下一步：行情逐項查核；先依 D 節讀取 44 項清單及來源，先核實 2026-11-16 交易日期／官方日曆，再逐項直接開啟指定來源。待確認真正 DOM parser 能力與現有組裝器可用性。
+
+---
+
+
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
