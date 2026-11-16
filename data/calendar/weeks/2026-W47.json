@@ -11225,7 +11225,7 @@
         "eps_snapshots": 21,
         "revenue_snapshots": 21
       },
-      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。 TSN EPS basis code was tightened to GAAP_DILUTED_EPS after the issuer statement explicitly confirmed diluted EPS -0.22.",
+      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。 TSN EPS basis code was tightened to GAAP_DILUTED_EPS after the issuer statement explicitly confirmed diluted EPS -0.22. Snapshot raw-response/hash blockers are 18 upcoming events per metric (36 combined), not 36 per metric.",
       "data_commit_sha": "d69a3aa1884c7fa9edccbb84df466c02a3be7a93",
       "data_commit_blob_sha": "e5c5c4c30cf25d79253c934329865ce1c307cf84",
       "postwrite_checks": {
@@ -11372,7 +11372,7 @@
         "pending_cutoff_time": 0,
         "pending_required_fields": 21,
         "not_pre_release": 0,
-        "raw_response_or_hash_unavailable": 36,
+        "raw_response_or_hash_unavailable": 18,
         "released_events_no_historical_pit": 5
       },
       "REVENUE": {
@@ -11382,7 +11382,7 @@
         "pending_cutoff_time": 0,
         "pending_required_fields": 21,
         "not_pre_release": 0,
-        "raw_response_or_hash_unavailable": 36,
+        "raw_response_or_hash_unavailable": 18,
         "released_events_no_historical_pit": 5
       }
     },
@@ -11523,7 +11523,9 @@
         "raw_response_hash_not_fabricated": true,
         "attempts_observed_at_batch": true,
         "actual_sources_observed_at_batch": true,
-        "tyson_diluted_basis_verified": true
+        "tyson_diluted_basis_verified": true,
+        "snapshot_blocked_count_per_metric_18": true,
+        "snapshot_blocked_total_36": true
       }
     },
     "source_url_correction": {
@@ -11537,6 +11539,7 @@
     "attempts_observed_at": "2026-11-17T04:56:03+08:00",
     "basis_code_corrections": [
       "TSN EPS basis code corrected from GAAP_EPS to GAAP_DILUTED_EPS after re-reading issuer statement of income, which explicitly labels diluted EPS -0.22."
-    ]
+    ],
+    "raw_response_or_hash_unavailable_count": 36
   }
 }
