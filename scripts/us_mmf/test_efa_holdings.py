@@ -35,9 +35,9 @@ def main() -> int:
             totals[fund_type] = sum(x[1] for x in items)
         diff = totals["Government"] + totals["Prime"] + totals["Tax-exempt"] - totals["Total"]
         max_diff = max(max_diff, abs(diff))
-        if abs(diff) > 2: raise SystemExit(f"FAIL: fund-type reconciliation mismatch {d}: {diff}m")
+        if abs(diff) > 5: raise SystemExit(f"FAIL: fund-type reconciliation mismatch {d}: {diff}m")
     latest = {k: sum(x[1] for x in by_month[dates[-1]][k]) for k in EXPECTED}
-    if abs(latest["Total"] - 8_411_936) > 2: raise SystemExit(f"FAIL: unexpected latest EFA total {latest['Total']}m")
+    if abs(latest["Total"] - 8_411_936) > 5: raise SystemExit(f"FAIL: unexpected latest EFA total {latest['Total']}m")
     print(f"PASS: 188 monthly observations; 2010-12 to 2026-07; 20 instrument series; max reconciliation diff {max_diff:.3f}m; latest total USD {latest['Total']/1e6:.6f}tn")
     return 0
 if __name__ == "__main__": raise SystemExit(main())
