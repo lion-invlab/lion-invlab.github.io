@@ -150,6 +150,86 @@ def normalize_z1_s123(raw_csv: bytes) -> tuple[bytes, bytes, dict]:
     }
 
 
+
+def normalize_efa_holdings(efa_raw: dict[str, bytes]) -> tuple[bytes, dict]:
+    """Normalize Fed EFA monthly instrument holdings to long-form USD millions."""
+    expected = {"total", "prime", "government", "tax_exempt"}
+    if set(efa_raw) != expected:
+        raise ValueError(f"EFA files incomplete: {sorted(efa_raw)}")
+
+    out = io.StringIO()
+    writer = csv.writer(out, lineterminator="\\n")
+    writer.writerow([
+        "date", "fund_type", "instrument", "value_millions_usd",
+        "value_usd_trillion", "share_of_fund_type",
+    ])
+    all_dates: dict[str, dict[str, list[tuple[str, float]]]] = {}
+    totals_by_date: dict[str, float] = {}
+    for category, payload in efa_raw.items():
+        reader = csv.DictReader(io.StringIO(payload.decode("utf-8-sig")))
+        if not reader.fieldnames or "Date" not in reader.fieldnames:
+            raise ValueError(f"EFA {category} file has no Date column")
+        instruments = [x for x in reader.fieldnames if x != "Date"]
+        if not instruments:
+            raise ValueError(f"EFA {category} file has no instrument columns")
+        for row in reader:
+            date_text = (row.get("Date") or "").strip()
+            if not date_text:
+                continue
+            dt = datetime.strptime(date_text, "%b %d, %Y").date()
+            iso = dt.isoformat()
+            vals = []
+            for instrument in instruments:
+                raw = (row.get(instrument) or "").strip()
+                if raw in ("", ".", "ND"):
+                    raise ValueError(f"EFA missing value: {category} {iso} {instrument}")
+                value = float(raw)
+                if value < 0:
+                    raise ValueError(f"EFA negative holding: {category} {iso} {instrument}")
+                vals.append((instrument.removesuffix(" (millions)"), value))
+            if iso not in all_dates:
+                all_dates[iso] = {}
+            all_dates[iso][category] = vals
+            if category == "total":
+                totals_by_date[iso] = sum(v for _, v in vals)
+
+    dates = sorted(all_dates)
+    if len(dates) != 188 or dates[0] != "2010-12-31" or dates[-1] != "2026-07-31":
+        raise ValueError(f"Unexpected EFA coverage: {len(dates)} months, {dates[:1]} to {dates[-1:]}")
+    if any(set(all_dates[d]) != expected for d in dates):
+        raise ValueError("EFA fund-type files do not share identical monthly coverage")
+
+    max_recon = 0.0
+    for d in dates:
+        type_sum = sum(sum(v for _, v in all_dates[d][cat]) for cat in ("prime", "government", "tax_exempt"))
+        diff = type_sum - totals_by_date[d]
+        max_recon = max(max_recon, abs(diff))
+        if abs(diff) > 2.0:
+            raise ValueError(f"EFA fund-type reconciliation failed at {d}: {diff} million USD")
+
+        for category in ("total", "government", "prime", "tax_exempt"):
+            vals = all_dates[d][category]
+            denom = sum(v for _, v in vals)
+            label = {"total": "Total", "government": "Government", "prime": "Prime", "tax_exempt": "Tax-exempt"}[category]
+            for instrument, value in vals:
+                writer.writerow([
+                    d, label, instrument, f"{value:.3f}",
+                    f"{value / 1_000_000:.9f}",
+                    f"{value / denom:.9f}" if denom else "0",
+                ])
+
+    return out.getvalue().encode(), {
+        "status": "downloaded_normalized_and_reconciled",
+        "observations_per_fund_type": len(dates),
+        "first_observation": dates[0],
+        "latest_observation": dates[-1],
+        "fund_types": ["Total", "Government", "Prime", "Tax-exempt"],
+        "max_fund_type_to_total_reconciliation_difference_millions_usd": round(max_recon, 6),
+        "normalized_units": "USD millions and USD trillions",
+        "note": "Monthly security-level portfolio holdings; differs slightly from Z.1 total financial assets and is not a flow measure.",
+    }
+
+
 def normalize_z1_s123_transactions(raw_csv: bytes) -> tuple[bytes, dict]:
     """Normalize S123.t net acquisition transactions; retain SAAR units."""
     reader = csv.DictReader(io.StringIO(raw_csv.decode("utf-8-sig")))
@@ -252,11 +332,13 @@ def main() -> None:
     }
 
     fed_efa_info = {}
+    fed_efa_raw = {}
     for category, url in FED_EFA_URLS.items():
         try:
             payload = fetch(url)
             path = RAW_DIR / f"fed_efa_{category}_{stamp}.csv"
             write_bytes(path, payload)
+            fed_efa_raw[category] = payload
             fed_efa_info[category] = {
                 "status": "downloaded",
                 "source_url": url,
@@ -270,6 +352,17 @@ def main() -> None:
                 "source_url": url,
                 "error": repr(exc),
             }
+
+    efa_normalized_info = {"status": "not_available"}
+    if len(fed_efa_raw) == len(FED_EFA_URLS):
+        efa_csv, efa_stats = normalize_efa_holdings(fed_efa_raw)
+        efa_path = DATA_DIR / "fed_mmf_holdings_by_type_latest.csv"
+        write_bytes(efa_path, efa_csv)
+        efa_normalized_info = {
+            "normalized_file": str(efa_path.relative_to(ROOT)),
+            "normalized_sha256": sha256(efa_csv),
+            **efa_stats,
+        }
 
     ofr_info = {"dataset_key": "mmf", "source_url": OFR_URL}
     try:
@@ -314,6 +407,7 @@ def main() -> None:
             "source_page": "https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm",
             "coverage_expected_from": "2010-12",
             "files": fed_efa_info,
+            "normalized": efa_normalized_info,
             "note": "Portfolio investment holdings by fund type; separate from Z.1 total financial assets.",
         },
         "ofr": ofr_info,
