@@ -107,8 +107,8 @@ def main() -> None:
     ofr_raw = fetch(OFR_URL)
     # Validate JSON before archiving; retain the complete payload unchanged.
     ofr_obj = json.loads(ofr_raw.decode("utf-8"))
-    if not isinstance(ofr_obj, dict) or "mmf" not in ofr_obj:
-        raise ValueError("OFR API response does not contain the expected 'mmf' dataset")
+    if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
+        raise ValueError("OFR API response does not contain the expected dataset timeseries object")
     ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json"
     write_bytes(ofr_path, ofr_raw)
 
@@ -129,6 +129,7 @@ def main() -> None:
             "raw_snapshot": str(ofr_path.relative_to(ROOT)),
             "raw_sha256": sha256(ofr_raw),
             "top_level_keys": sorted(ofr_obj.keys()),
+            "series_count": len(ofr_obj.get("timeseries", {})),
         },
     }
     manifest_path = DATA_DIR / "latest_manifest.json"
