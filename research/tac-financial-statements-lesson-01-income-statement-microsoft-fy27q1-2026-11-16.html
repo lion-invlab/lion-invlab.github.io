@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111d30">
+<meta name="description" content="TAC 財報入門系列第一課：以微軟 FY2027 第一季原始財報逐項中文翻譯損益表，學會理解營收、成本、毛利、營業利益、淨利與 EPS。">
+<meta name="tac:publish" content="true">
+<meta name="tac:title" content="公司到底賺了多少錢？用微軟財報看懂損益表">
+<meta name="tac:date" content="2026-11-16">
+<meta name="tac:category" content="投資教育">
+<meta name="tac:summary" content="從微軟 FY2027 Q1 原始損益表出發，逐項中英對照翻譯，白話解釋每個會計科目，並示範毛利率、營業利益率、淨利率與年增率的計算。">
+<meta name="tac:tags" content="財報入門|損益表|Income Statement|微軟|Microsoft|營收|毛利|營業利益|淨利|EPS">
+<title>第一課｜公司到底賺了多少錢？用微軟財報看懂損益表｜TAC 專題報導</title>
+<style>
+:root{--r:#b8202f;--n:#111d30;--g:#c7a66a;--ink:#202630;--muted:#697586;--line:#e4e8ee;--paper:#f3f5f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+.top{height:5px;background:linear-gradient(90deg,var(--r) 0 68%,var(--g) 68%)}.wrap{max-width:1040px;margin:auto;padding:0 22px}
+.mast{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{color:var(--r);font-weight:950;letter-spacing:1.5px;white-space:nowrap}.brand small{display:block;color:#929aa5;font-size:9px;letter-spacing:2px}
+.back{font-size:11px;color:#697586;text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 11px;white-space:nowrap}.meta{font-size:10px;color:#8993a0;letter-spacing:1px;font-weight:800;white-space:nowrap}
+.hero{margin:26px 0 18px;padding:34px 38px;border-radius:18px;background:linear-gradient(120deg,#101b2c,#1d304b);color:white;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #c7a66a55;border-radius:50%;right:-100px;top:-150px;box-shadow:0 0 0 25px #c7a66a0c,0 0 0 55px #c7a66a09}
+.eyebrow{font-size:10px;color:#d8bd83;letter-spacing:2px;font-weight:900}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.3;margin:12px 0}.hero p{font-size:14px;color:#c6d0dc;max-width:760px;margin:0}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{font-size:10px;border:1px solid #d2b77d77;color:#e8d8b6;border-radius:99px;padding:4px 10px}
+.insight{display:grid;grid-template-columns:145px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--r);border-radius:12px;padding:18px 21px;margin:18px 0 25px}.insight b{font-size:10px;color:var(--r);letter-spacing:1.4px}.insight strong{display:block;color:var(--r);font-size:clamp(17px,2.1vw,20px);font-weight:950;line-height:1.55}.insight p{font-size:13px;color:#5d6876;margin:4px 0}
+.sec{margin:28px 0}.sec h2{font-size:21px;color:var(--n);margin:0 0 10px}.sec h3{font-size:17px;color:var(--n);margin:22px 0 8px}.sec p{font-size:14px;color:#475261;margin:8px 0}
+.cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card,.metric{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 18px #17243807}.card b{font-size:9px;color:var(--r);letter-spacing:1.4px}.card h4{font-size:15px;color:var(--n);margin:5px 0}.card p{font-size:12px;color:#667180;margin:4px 0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.metric label{font-size:10px;color:#7d8794;font-weight:800}.value{font-size:clamp(23px,3vw,30px);color:var(--r);font-weight:950;line-height:1.35;font-variant-numeric:tabular-nums}.small{font-size:10px;color:#8993a0}
+.formula{background:var(--n);color:#fff;border-radius:11px;padding:14px 18px;margin:12px 0}.formula small{display:block;color:#bdc8d5;font-size:10px}.formula b{font-size:9px;color:#d8bd83;letter-spacing:1.5px}.eq{font-family:Georgia,serif;font-size:18px;line-height:1.55}
+.callout{background:#fff9ed;border:1px solid #ead9b5;border-radius:11px;padding:14px 17px;margin:14px 0}.callout strong{font-size:15px;color:var(--r)}.callout p{font-size:12px;color:#67583f;margin:4px 0}
+table{width:100%;border-collapse:collapse;background:white;border-radius:11px;overflow:hidden;margin:13px 0;font-size:12px}th{background:#17263b;color:white;text-align:left;padding:10px}td{padding:10px;border-bottom:1px solid #edf0f3;color:#4c5867;vertical-align:top}tr:last-child td{border:0}
+.tablewrap{overflow-x:auto;border-radius:11px}.statement{min-width:640px}.statement th:nth-child(n+2),.statement td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}.statement td:first-child{font-weight:700;color:#273448}.statement .total td{font-weight:950;color:#17263b;background:#f5f7fa}.statement .key td{font-weight:950;color:var(--r);background:#fff8f8}
+.translation{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.translation:last-child{border:0}.term{font-weight:950;color:var(--n)}.term small{display:block;color:#8993a0;font-size:10px;font-weight:700}.meaning{font-size:13px;color:#526071}
+.guide{margin:14px 0 18px;background:#fff;border:1px solid #dfe5ec;border-radius:12px;padding:16px 18px}.guide .gt{font-size:12px;font-weight:950;letter-spacing:1.2px;color:var(--r);margin-bottom:8px}.guide p{font-size:12px;color:#586575;margin:6px 0}.guide .rule{border-left:3px solid #c7a66a;padding:7px 11px;background:#fffaf0;margin-top:9px;font-size:12px;color:#65563d}
+.lesson-nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.lesson-nav a{font-size:11px;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 11px;color:#536071}.lesson-nav a.current{background:var(--r);border-color:var(--r);color:white}
+.source a{color:var(--r);font-weight:800;text-decoration:none}.source li{font-size:12px;color:#596575;margin:7px 0}.foot{margin:40px 0 30px;padding:18px 0;border-top:1px solid var(--line);font-size:10px;color:#8b95a2}.foot b{color:var(--r)}.disclaimer{font-size:10px;color:#8b95a2}
+@media(max-width:680px){.wrap{padding:0 14px}.mast{flex-wrap:wrap}.meta{display:none}.hero{padding:25px 20px}.hero h1{font-size:28px}.insight{grid-template-columns:1fr;gap:4px;padding:15px}.cardgrid,.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.translation{grid-template-columns:1fr;gap:3px}.sec h2{font-size:18px}.tablewrap{margin-right:-2px}.statement{font-size:11px}th,td{padding:8px 7px}}
+</style>
+</head>
+<body><div class="top"></div><main class="wrap">
+<header class="mast"><div class="brand">TAC 投資早報<small>INVESTMENT RESEARCH</small></div><a class="back" href="../special-reports.html">← 返回專題報導</a><div class="meta">TAC SPECIAL REPORT · 2026.11.16</div></header>
+<section class="hero"><div class="eyebrow">TAC FINANCIAL LITERACY SERIES　/　LESSON 01</div><h1>公司到底賺了多少錢？<br>用微軟財報看懂損益表</h1><p>不用金融背景，也能讀懂企業財報。這一課直接打開 Microsoft 微軟的原始財報，逐項翻譯損益表，理解公司如何從營收一步步走到最後的淨利與每股盈餘。</p><div class="pills"><span class="pill">第一課｜損益表</span><span class="pill">原始英文逐項翻譯</span><span class="pill">Microsoft FY2027 Q1</span><span class="pill">零基礎入門</span></div></section>
+<div class="insight"><b>THIS LESSON</b><div><strong>先學會看懂一張損益表：公司賣了多少、花了多少、最後真正留下多少。</strong><p>本篇採用微軟截至 2026 年 9 月 30 日的 FY2027 第一季財報。數字來自公司官方公布的未經查核季度財務報表，並與去年同期比較。</p></div></div>
+<nav class="lesson-nav"><a class="current" href="#lesson1">01 損益表</a><a href="#lesson2">02 資產負債表（後續上架）</a><a href="#lesson3">03 現金流量表（後續上架）</a><a href="#lesson4">04 管理層說明（後續上架）</a><a href="#lesson5">05 市場預期（後續上架）</a><a href="#lesson6">06 投資判讀（後續上架）</a></nav>
+<section class="sec" id="lesson1"><h2>一、先認識損益表：它在回答什麼問題？</h2><p>損益表（Income Statement）記錄企業在一段期間內的收入、成本、費用及獲利。它不是某一天的財務快照，而是「這一季」或「這一年」的經營成績單。</p>
+<div class="cardgrid"><div class="card"><b>PERIOD｜期間</b><h4>一段時間的成績</h4><p>例如 2026 年 7 月 1 日至 9 月 30 日。期間內發生的營收、成本與費用都會被記錄。</p></div><div class="card"><b>QUESTION｜核心問題</b><h4>最後留下多少獲利？</h4><p>從最上方的營收開始，扣除成本、營業費用、其他損益與稅負，最後得到淨利。</p></div></div>
+<div class="callout"><strong>先記住一個觀念</strong><p>營收不是淨利。公司收到或認列 100 元營收，不代表賺到 100 元；還要扣掉提供產品或服務的成本、日常營運費用及稅負。</p></div></section>
+<section class="sec"><h2>二、微軟原始損益表：英文與中文逐項對照</h2><p>以下先呈現原始科目，再提供中文翻譯。這是學習財報最重要的一步：先知道英文欄位在說什麼，再理解數字的意義。</p>
+<div class="guide"><div class="gt">READ THE HEADER｜先看報表抬頭</div><p><b>MICROSOFT CORPORATION — INCOME STATEMENTS</b>：微軟公司－損益表。</p><p><b>(In millions, except per share amounts) (Unaudited)</b>：除每股金額外，單位均為百萬美元；未經會計師查核。</p><p><b>Three Months Ended September 30</b>：截至 9 月 30 日止的三個月。2026 欄是本期，2025 欄是去年同期。</p><div class="rule">注意：表內金額單位是「百萬美元」。例如 92,279 代表 92,279 百萬美元，也就是 922.79 億美元（US$92.279 billion），不是 92,279 美元。</div></div>
+<div class="tablewrap"><table class="statement"><thead><tr><th>英文原始科目</th><th>中文翻譯</th><th>2026 Q1</th><th>2025 Q1</th></tr></thead><tbody>
+<tr><td>Revenue — Product</td><td>產品營收</td><td>$14,631</td><td>$15,922</td></tr>
+<tr><td>Revenue — Service and other</td><td>服務及其他營收</td><td>77,648</td><td>61,751</td></tr>
+<tr class="total"><td>Total revenue</td><td>營收總額</td><td>$92,279</td><td>$77,673</td></tr>
+<tr><td>Cost of revenue — Product</td><td>產品營收成本</td><td>$2,471</td><td>$2,922</td></tr>
+<tr><td>Cost of revenue — Service and other</td><td>服務及其他營收成本</td><td>27,249</td><td>21,121</td></tr>
+<tr class="total"><td>Total cost of revenue</td><td>營收成本總額</td><td>$29,720</td><td>$24,043</td></tr>
+<tr class="key"><td>Gross margin</td><td>毛利</td><td>$62,559</td><td>$53,630</td></tr>
+<tr><td>Research and development</td><td>研究與開發費用（研發費用）</td><td>$9,047</td><td>$8,146</td></tr>
+<tr><td>Sales and marketing</td><td>銷售及行銷費用</td><td>5,716</td><td>5,717</td></tr>
+<tr><td>General and administrative</td><td>一般及行政管理費用</td><td>1,881</td><td>1,806</td></tr>
+<tr class="key"><td>Operating income</td><td>營業利益</td><td>$45,915</td><td>$37,961</td></tr>
+<tr><td>Other income (expense), net</td><td>其他收入（費用）淨額</td><td>38</td><td>(3,660)</td></tr>
+<tr class="total"><td>Income before income taxes</td><td>稅前淨利</td><td>$45,953</td><td>$34,301</td></tr>
+<tr><td>Provision for income taxes</td><td>所得稅費用</td><td>9,324</td><td>6,554</td></tr>
+<tr class="key"><td>Net income</td><td>稅後淨利</td><td>$36,629</td><td>$27,747</td></tr>
+<tr><td>Earnings per share — Basic</td><td>基本每股盈餘（基本 EPS）</td><td>$4.93</td><td>$3.73</td></tr>
+<tr class="key"><td>Earnings per share — Diluted</td><td>稀釋每股盈餘（稀釋 EPS）</td><td>$4.92</td><td>$3.72</td></tr>
+<tr><td>Weighted average shares outstanding — Basic</td><td>加權平均流通股數（基本）</td><td>7,426</td><td>7,433</td></tr>
+<tr><td>Weighted average shares outstanding — Diluted</td><td>加權平均流通股數（稀釋）</td><td>7,446</td><td>7,466</td></tr>
+</tbody></table></div>
+<p class="disclaimer">金額單位：百萬美元；EPS 單位：美元／股；加權平均股數單位：百萬股。括號表示負數。來源：Microsoft FY2027 Q1 官方財報。</p>
+</section>
+<section class="sec"><h2>三、逐項白話解釋：每一行到底代表什麼？</h2>
+<div class="translation"><div class="term">Revenue<small>營收／收入</small></div><div class="meaning">公司銷售產品或提供服務所認列的收入。微軟將產品與服務及其他收入分開列示。現在的微軟以雲端與訂閱服務為重要業務，因此服務及其他收入占比很高。</div></div>
+<div class="translation"><div class="term">Cost of revenue<small>營收成本</small></div><div class="meaning">為了交付產品或服務而直接發生的成本。對微軟而言，服務成本可能包含資料中心、伺服器、網路、技術營運及提供雲端服務所需的人力與折舊等。它不是公司所有支出。</div></div>
+<div class="translation"><div class="term">Gross margin<small>毛利</small></div><div class="meaning">營收扣除營收成本後的金額。它代表產品或服務扣除直接交付成本後，還剩下多少空間支付研發、行銷、行政等費用。中文常稱「毛利」，但英文報表的 Gross margin 在這張表中指毛利金額，不是毛利率。</div></div>
+<div class="translation"><div class="term">Research and development<small>研究與開發費用</small></div><div class="meaning">投入新產品、新技術、軟體、AI 模型及平台研發的費用。研發費用增加可能是公司加大投資，也可能反映維持競爭力所需成本，不能單憑增加就判定好或壞。</div></div>
+<div class="translation"><div class="term">Sales and marketing<small>銷售及行銷費用</small></div><div class="meaning">推廣產品、取得客戶、銷售團隊及市場活動等費用。可觀察企業為了取得營收，需要投入多少銷售與行銷資源。</div></div>
+<div class="translation"><div class="term">General and administrative<small>一般及行政管理費用</small></div><div class="meaning">公司整體管理與行政支出，例如管理部門、人事、法務、財務、辦公及公司治理等費用。</div></div>
+<div class="translation"><div class="term">Operating income<small>營業利益</small></div><div class="meaning">毛利扣除主要營業費用後的成果，反映企業本業營運賺錢的能力。它通常比淨利更適合用來觀察核心營運表現，因為尚未納入部分非營業項目及所得稅。</div></div>
+<div class="translation"><div class="term">Other income (expense), net<small>其他收入（費用）淨額</small></div><div class="meaning">本業營業利益以外的其他收入與費用合計，例如部分投資損益、利息或其他非營業項目。2025 年同期此項為負 36.60 億美元，對稅前淨利造成拖累；分析時要查附註，不要把它直接當成本業收入。</div></div>
+<div class="translation"><div class="term">Income before income taxes<small>稅前淨利</small></div><div class="meaning">所得稅費用扣除前的獲利。這張表可由營業利益加上其他收入（費用）淨額得到。</div></div>
+<div class="translation"><div class="term">Provision for income taxes<small>所得稅費用</small></div><div class="meaning">公司在該期間認列的所得稅費用。它不一定等於當期實際繳出去的現金稅款；現金繳稅與會計認列的差異，需再看現金流量表及財報附註。</div></div>
+<div class="translation"><div class="term">Net income<small>稅後淨利</small></div><div class="meaning">扣除成本、營業費用、其他損益及所得稅後，最後認列的獲利。它是損益表最重要的結果之一，但仍要搭配現金流量表確認獲利是否轉化為現金。</div></div>
+<div class="translation"><div class="term">Earnings per share (EPS)<small>每股盈餘</small></div><div class="meaning">將歸屬普通股股東的盈餘，依加權平均流通股數計算成每一股對應的盈餘。投資人常用 EPS 觀察每股獲利能力，也是本益比（PE）的計算基礎之一。</div></div>
+<div class="translation"><div class="term">Basic / Diluted<small>基本／稀釋</small></div><div class="meaning">基本 EPS 使用基本加權平均股數；稀釋 EPS 則納入可能因員工股票、可轉換證券等而增加的潛在股數。稀釋 EPS 通常略低或等於基本 EPS。微軟本季基本 EPS 為 4.93 美元，稀釋 EPS 為 4.92 美元。</div></div>
+</section>
+<section class="sec"><h2>四、從微軟數字算出四個重要指標</h2><p>看懂科目後，下一步是把金額轉成比率。比率能幫助我們比較不同季度、不同規模的公司。</p>
+<div class="metrics"><div class="metric"><label>營收年增率</label><div class="value">+18.8%</div><div class="small">92.279 ÷ 77.673 − 1</div></div><div class="metric"><label>毛利率</label><div class="value">67.8%</div><div class="small">62.559 ÷ 92.279</div></div><div class="metric"><label>營業利益率</label><div class="value">49.8%</div><div class="small">45.915 ÷ 92.279</div></div><div class="metric"><label>淨利率</label><div class="value">39.7%</div><div class="small">36.629 ÷ 92.279</div></div></div>
+<div class="formula"><b>FORMULA 01｜營收年增率 REVENUE GROWTH</b><div class="eq">（本期營收 − 去年同期營收）÷ 去年同期營收 × 100%</div><small>微軟：（92,279 − 77,673）÷ 77,673 ≈ 18.8%</small></div>
+<div class="formula"><b>FORMULA 02｜毛利率 GROSS MARGIN</b><div class="eq">毛利 ÷ 營收 × 100%</div><small>微軟：62,559 ÷ 92,279 ≈ 67.8%</small></div>
+<div class="formula"><b>FORMULA 03｜營業利益率 OPERATING MARGIN</b><div class="eq">營業利益 ÷ 營收 × 100%</div><small>微軟：45,915 ÷ 92,279 ≈ 49.8%</small></div>
+<div class="formula"><b>FORMULA 04｜淨利率 NET PROFIT MARGIN</b><div class="eq">稅後淨利 ÷ 營收 × 100%</div><small>微軟：36,629 ÷ 92,279 ≈ 39.7%</small></div>
+<div class="guide"><div class="gt">HOW TO INTERPRET｜這些比率告訴我們什麼？</div><p><b>營收年增 18.8%</b>：微軟本季營收比去年同期增加近兩成，代表營收規模持續擴大。</p><p><b>毛利率 67.8%</b>：每 100 美元營收，扣除直接營收成本後約剩 67.8 美元，用來支付研發、銷售、行政等費用並形成營業利益。</p><p><b>營業利益率 49.8%</b>：每 100 美元營收，扣除營收成本與主要營業費用後，約留下 49.8 美元營業利益。</p><p><b>淨利率 39.7%</b>：每 100 美元營收，最後約留下 39.7 美元稅後淨利。</p><div class="rule">比率高不等於股價便宜，也不代表未來一定成長。必須與公司過去、同業及市場預期比較；不同產業的合理利潤率差異很大。</div></div>
+</section>
+<section class="sec"><h2>五、投資人不能只看淨利：微軟本季有一個重要細節</h2><p>微軟 FY2027 Q1 的 GAAP 淨利年增 32%，稀釋 EPS 也年增 32%。乍看非常強勁，但閱讀財報時，還要確認成長是否受到非經常性或投資損益影響。</p>
+<table><thead><tr><th>項目</th><th>GAAP（一般公認會計原則）</th><th>Non-GAAP（非 GAAP 調整後）</th></tr></thead><tbody><tr><td>2026 Q1 淨利</td><td>US$36.629B</td><td>US$36.422B</td></tr><tr><td>2025 Q1 淨利</td><td>US$27.747B</td><td>US$30.833B</td></tr><tr><td>淨利年增率</td><td>+32%</td><td>+18%</td></tr><tr><td>2026 Q1 稀釋 EPS</td><td>$4.92</td><td>$4.89</td></tr><tr><td>稀釋 EPS 年增率</td><td>+32%</td><td>+18%</td></tr></tbody></table>
+<p>微軟官方說明，Non-GAAP 調整排除了 OpenAI 投資影響。去年同期 GAAP 淨利受到 OpenAI 投資相關收益影響，因此 GAAP 與 Non-GAAP 的年增率差距明顯。</p>
+<div class="callout"><strong>初學者一定要記住：GAAP 與 Non-GAAP 不能混在一起比較。</strong><p>GAAP 是依正式會計準則編製的數字；Non-GAAP 是公司額外提供的調整後指標。閱讀時先看 GAAP，再了解公司排除了哪些項目、為什麼排除，以及調整是否合理。不要只挑成長率較漂亮的口徑。</p></div>
+</section>
+<section class="sec"><h2>六、第一課的投資判讀：我們目前能得出什麼結論？</h2>
+<div class="cardgrid"><div class="card"><b>POSITIVE SIGNAL</b><h4>營收與營業利益同步成長</h4><p>營收年增約 18.8%，營業利益年增約 20.9%，本業營運成果有成長。</p></div><div class="card"><b>WATCH ITEM</b><h4>毛利率略有下降</h4><p>本季毛利率約 67.8%，去年同期約 69.0%。營收成本成長速度高於營收，值得持續觀察。</p></div><div class="card"><b>IMPORTANT CONTEXT</b><h4>GAAP 淨利受投資項目影響</h4><p>GAAP 淨利年增 32%，Non-GAAP 淨利年增 18%。需理解 OpenAI 投資影響，避免過度解讀單一增幅。</p></div><div class="card"><b>NEXT QUESTION</b><h4>獲利有沒有變成現金？</h4><p>損益表無法回答現金是否真正流入，也看不出資本支出與現金餘額。這是第三課要處理的問題。</p></div></div>
+<div class="insight"><b>LESSON 01 SUMMARY</b><div><strong>微軟本季營收與本業營業利益持續成長，但毛利率略降，且 GAAP 淨利增幅受到去年同期投資損益基期影響。</strong><p>這是一個初步損益表判讀，不是完整投資結論。還需要檢查資產負債表、現金流量表、管理層展望與估值，才能判斷企業體質及股票是否值得投資。</p></div></div>
+</section>
+<section class="sec source"><h2>原始資料與延伸閱讀</h2><ol><li><a href="https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast" target="_blank" rel="noopener">Microsoft Investor Relations｜FY2027 Q1 Earnings Release & Financial Statements</a> — 本篇損益表及 GAAP／Non-GAAP 對照的主要來源。</li><li><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm" target="_blank" rel="noopener">U.S. SEC｜Microsoft Form 10-Q, quarter ended September 30, 2026</a> — 美國證券交易委員會季度申報原始文件。</li><li><a href="https://www.microsoft.com/en-us/investor/events/fy-2027/earnings-fy-2027-q1" target="_blank" rel="noopener">Microsoft FY2027 Q1 Earnings Conference Call</a> — 管理層對季度表現的說明與問答。</li></ol><p class="disclaimer">資料期間：截至 2026/09/30 止三個月；財報公布日：2026/10/28。報表為未經查核季度財務資訊。金額除另有說明外均為百萬美元。本文為投資教育用途，不構成個別投資建議。</p></section>
+<footer class="foot"><b>TAC 投資早報｜看懂企業財報：從零開始的六堂投資實戰課</b><br>第一課：損益表｜Microsoft FY2027 Q1｜2026/11/16<br>後續課程將逐篇完成並加入本專題系列。</footer>
+</main></body></html>
