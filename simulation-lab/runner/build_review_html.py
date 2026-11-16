@@ -164,6 +164,28 @@ def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
 
+
+def earnings_status_label(item, metric, state):
+    """Name missing consensus explicitly when actual results are already published."""
+    labels = {
+        "beat": "優於預期",
+        "miss": "低於預期",
+        "inline": "符合預期",
+        "incomparable": "比較口徑不相容",
+        "consensus_divergent": "市場共識來源分歧",
+    }
+    if state == "pending":
+        actual_key, estimate_key = (
+            ("eps_actual", "eps_estimate") if metric == "eps"
+            else ("revenue_actual", "revenue_estimate")
+        )
+        actual, estimate = item.get(actual_key), item.get(estimate_key)
+        if actual not in (None, "") and estimate in (None, ""):
+            return "預期資料尚未取得"
+        return "尚未公布"
+    return labels.get(state, "尚未公布")
+
+
 def earnings_commentary(item):
     """Keep editorial prose consistent with the engine's persisted EPS/revenue statuses."""
     statuses = {
@@ -174,8 +196,9 @@ def earnings_commentary(item):
         "beat": "優於預期",
         "miss": "低於預期",
         "inline": "符合預期",
-        "pending": "尚未公布／數值尚未齊備",
+        "pending": "尚未公布",
         "incomparable": "比較口徑不相容",
+        "consensus_divergent": "市場共識來源分歧",
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
@@ -237,7 +260,10 @@ def earnings_commentary(item):
                 continue
         kept.append(part)
 
-    summary = "；".join(f"{metric.upper() if metric == 'eps' else '營收'}：{labels[statuses[metric]]}" for metric in ("eps", "revenue"))
+    summary = "；".join(
+        f"{metric.upper() if metric == 'eps' else '營收'}：{earnings_status_label(item, metric, statuses[metric])}"
+        for metric in ("eps", "revenue")
+    )
     return ("；".join(kept) + ("；" if kept else "") + summary)
 
 
@@ -1346,8 +1372,9 @@ def main():
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
-                    state = comparison if comparison in ("beat","miss","inline") else "pending"
-                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
+                    state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                    metric_key = "eps" if label == "EPS" else "revenue"
+                    status_text = earnings_status_label(x, metric_key, state)
                     # The single TAC engine has already persisted the numerical comparison; render its result only.
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                     h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
@@ -1560,7 +1587,8 @@ def main():
                         ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
                         state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
-                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
+                        metric_key = "eps" if label == "EPS" else "revenue"
+                        status_text = earnings_status_label(x, metric_key, state)
                         # The single TAC engine has already persisted the numerical comparison; render its result only.
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)

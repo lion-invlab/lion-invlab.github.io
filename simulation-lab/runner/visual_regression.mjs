@@ -136,7 +136,7 @@ try {
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
         if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
         if (item.id === "focus-tab-levels") {
-          const source = panel.querySelector("details.compact-disclosure")?.textContent || "";
+          const source = panel.querySelector("details.compact-disclosure, details.source-details")?.textContent || "";
       const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
           if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
           else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
@@ -234,10 +234,15 @@ try {
               const expectedTitle = metricIndex === 0 ? "EPS" : "營收";
               const title = resultCard.querySelector(":scope > .earnings-actual-card-title")?.textContent.trim() || "";
               if (title !== expectedTitle) invalid.push("card " + (i+1) + ": expected one " + expectedTitle + " card, found " + title);
-              if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedLabels[state]) {
+              const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
+              const actualValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "實際")?.querySelector(":scope > strong")?.textContent.trim() || "";
+              const estimateValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "預期")?.querySelector(":scope > strong")?.textContent.trim() || "";
+              const expectedStatusLabel = state === "pending"
+                ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得" ? "預期資料尚未取得" : "尚未公布")
+                : expectedLabels[state];
+              if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedStatusLabel) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
               }
-              const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
               const rowLabels = rows.map(row => row.querySelector(":scope > span")?.textContent.trim() || "");
               if (JSON.stringify(rowLabels) !== JSON.stringify(["實際", "預期"])) {
                 invalid.push("card " + (i+1) + ": " + expectedTitle + " must show exactly one 實際 and one 預期 row");
@@ -348,7 +353,7 @@ try {
     await revealEconomicCards(masterPage);
     await revealEconomicCards(reportPage);
     const readEconomicCardStyle = async page => page.evaluate(() => {
-      const card = document.querySelector("#last-week-calendar details.econ-event");
+      const card = document.querySelector("#calendar details.econ-event, #last-week-calendar details.econ-event");
       if (!card) return { exists: false };
       // Compare only the shared outer shell against the immutable formal mother.
       // The five-zone economic detail layout is a separately approved simulation
@@ -399,7 +404,7 @@ try {
     snapshots[v.name].economic_card_mother_parity = {
       master: masterEconomicStyle, report: reportEconomicStyle, differences: economicStyleDifferences
     };
-    const economicCardSelector = "#last-week-calendar details.econ-event";
+    const economicCardSelector = "#calendar details.econ-event, #last-week-calendar details.econ-event";
     if (await masterPage.locator(economicCardSelector).count()) {
       await masterPage.locator(economicCardSelector).first().screenshot({
         path: path.join(output, `${v.name}-economic-card-master.png`)
