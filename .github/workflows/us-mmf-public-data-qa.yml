@@ -1,0 +1,48 @@
+name: U.S. MMF Public Data QA
+
+on:
+  push:
+    branches:
+      - research/us-mmf-chart-20261116
+    paths:
+      - "scripts/us_mmf/**"
+      - "data/us-mmf/**"
+      - ".github/workflows/us-mmf-public-data-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  download-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/us-mmf-chart-20261116
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile data scripts
+        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py
+
+      - name: Download free public source snapshots
+        run: python scripts/us_mmf/update_public_data.py
+
+      - name: Validate live Fed AUM series
+        run: python scripts/us_mmf/test_fed_aum_data.py data/us-mmf/fed_mmmffaq027s_latest.csv
+
+      - name: Upload immutable raw source snapshots and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: us-mmf-public-source-snapshot
+          path: |
+            data/us-mmf/raw/*
+            data/us-mmf/latest_manifest.json
+            data/us-mmf/fed_mmmffaq027s_latest.csv
+          if-no-files-found: error
+          retention-days: 90
