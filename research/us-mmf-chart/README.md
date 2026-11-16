@@ -149,6 +149,27 @@ Status: source validation and data architecture. No production chart, no homepag
 - Structural break confirmation: OFR category chart notes six categories from April 2016 and a June 2024 reporting change removing the Government fee/no-fee distinction. Source: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
 - QA script: `scripts/us_mmf/test_fed_aum_data.py` checks required columns, positive values, quarterly date continuity, unique/sorted dates, USD conversion, quarter labels, and the latest 2026 Q2 value.
 
+## EFA monthly portfolio holdings (2026-11-16)
+- Official source: https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm
+- The Fed documents these monthly security-level holdings as based on SEC Form N-MFP; EFA tables include total, Prime, Government and Tax-exempt portfolio allocation. Coverage begins December 2010. The Fed notes totals differ slightly from Z.1 S123.s because EFA excludes fund-of-funds and includes some non-portfolio assets.
+- Normalized output: `data/us-mmf/fed_mmf_holdings_by_type_latest.csv` (long form: month, fund type, instrument, USD millions, USD trillions, share).
+- Coverage: 188 monthly observations per group, 2010-12 to 2026-07; 20 instrument series in total.
+- Reconciliation: Government + Prime + Tax-exempt EFA holdings match EFA Total to within USD 3 million maximum across all months; the small difference is source rounding. QA permits up to USD 5 million and checks every monthly portfolio share sums to 100%.
+- Latest EFA total at 2026-07-31: USD 8.411936 trillion. Government USD 6.886513T; Prime USD 1.371120T; Tax-exempt USD 0.154302T.
+- Latest Government mix: U.S. Treasuries 47.59%; U.S. Treasury repo 23.26%; U.S. Agencies 17.50%; U.S. Agency repo 11.26%; Other assets 0.39%.
+- Latest Prime mix: U.S. Government security repo 27.54%; Other instruments 23.44%; Certificates of deposit 15.00%; Unsecured commercial paper 14.38%; Other repo 12.27%; Asset-backed commercial paper 7.38%.
+- Latest Tax-exempt mix: Variable rate demand obligations 74.53%; Other municipal 14.05%; Other assets 11.41%.
+- Interactive chart: fourth panel in `chart-preview.html`, with selectors for Total, Government, Prime and Tax-exempt. Each portfolio is normalized to 100% within its own category; dollar values remain available in tooltips.
+- Data QA: `scripts/us_mmf/test_efa_holdings.py` validates coverage, monthly date consistency, instrument counts, units, portfolio shares and fund-type reconciliation.
+
+## OFR monthly MMF dataset research
+- Official dataset: https://www.financialresearch.gov/short-term-funding-monitor/datasets/mmf/
+- Based on SEC Form N-MFP filings and OFR mappings; 42 series currently returned by the public dataset API.
+- Useful series groups include total investments, U.S. Treasury securities, repo investments, repo collateral types and repo counterparty categories. Median repo yields are also available from 2016-04 onward.
+- Selected series for future liquidity research: `MMF-MMF_TOT-M` (total investments), `MMF-MMF_T_TOT-M` (U.S. Treasury securities), `MMF-MMF_RP_TOT-M` (repo total), `MMF-MMF_RP_wDFI-M` (repo with U.S. financial institutions), `MMF-MMF_RP_wFFI-M` (repo with foreign financial institutions), and `MMF-MMF_RP_wFR-M` (repo with Federal Reserve).
+- Do not sum overlapping repo collateral, tenor and counterparty series; they are alternative cuts of the same underlying repo positions. The OFR series are holdings snapshots, not flows.
+- OFR dataset is retained as compressed raw JSON with SHA-256 in the source snapshot artifact. Further charting is deferred until definitions and overlaps are mapped.
+
 ## Z.1 transactions ingestion and third chart panel (2026-11-16)
 - [x] Parse the official Z.1 CSV package table S123.t alongside S123.s.
 - [x] Archive the raw S123.t table and SHA-256 in the public-data workflow artifact.
