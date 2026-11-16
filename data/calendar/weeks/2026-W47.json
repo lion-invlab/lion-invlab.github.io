@@ -2420,7 +2420,7 @@
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": "FY2026 Q4 Sales USD14.585bn（報表年增5.2%，排除額外一週與法律準備金後年減4.0%）；GAAP EPS -USD0.22，Adjusted EPS USD0.61。GAAP虧損使潛在稀釋證券被排除。公告前可比市場共識未取得，不作 Beat／Miss 判讀。",
+        "financial_judgment": "FY2026 Q4 Sales USD14.585bn（報表年增5.2%，排除額外一週與法律準備金後年減4.0%）；GAAP diluted EPS -USD0.22，Adjusted EPS USD0.61。公告前可比市場共識未取得，不作 Beat／Miss 判讀。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2445,7 +2445,7 @@
           "publisher": "Tyson Foods, Inc.",
           "notes": "發行人公告明列 Tyson Foods, Inc. (NYSE: TSN)。"
         },
-        "eps_actual_basis": "GAAP net income (loss) per share attributable to Tyson; potentially dilutive securities excluded as antidilutive in the loss quarter",
+        "eps_actual_basis": "GAAP diluted EPS (issuer explicitly reports diluted -0.22; Class A basic -0.22 and Class B basic -0.20 are separately shown)",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -2453,7 +2453,7 @@
         "legacy_revenue_estimate": null,
         "legacy_consensus_source": null,
         "legacy_revenue_consensus_source": null,
-        "eps_actual_basis_code": "GAAP_EPS",
+        "eps_actual_basis_code": "GAAP_DILUTED_EPS",
         "eps_estimate_basis_code": null,
         "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
@@ -2848,7 +2848,7 @@
           "publisher": "Tyson Foods, Inc.",
           "published_at": "2026-11-16",
           "observed_at": "2026-11-17T04:56:03+08:00",
-          "notes": "Issuer reports Q4 sales USD14,585 million and GAAP EPS USD-0.22; adjusted non-GAAP EPS USD0.61 is separately disclosed. GAAP potentially dilutive securities were excluded as antidilutive because of the quarterly loss.",
+          "notes": "Issuer reports Q4 sales USD14,585 million; GAAP diluted EPS is explicitly -USD0.22 (Class A basic -0.22 and Class B basic -0.20 are separately shown). Adjusted non-GAAP EPS USD0.61 is separately disclosed.",
           "secondary_refs": []
         }
       },
@@ -11225,7 +11225,7 @@
         "eps_snapshots": 21,
         "revenue_snapshots": 21
       },
-      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。",
+      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。 TSN EPS basis code was tightened to GAAP_DILUTED_EPS after the issuer statement explicitly confirmed diluted EPS -0.22.",
       "data_commit_sha": "d69a3aa1884c7fa9edccbb84df466c02a3be7a93",
       "data_commit_blob_sha": "e5c5c4c30cf25d79253c934329865ce1c307cf84",
       "postwrite_checks": {
@@ -11522,7 +11522,8 @@
         "no_new_snapshot": true,
         "raw_response_hash_not_fabricated": true,
         "attempts_observed_at_batch": true,
-        "actual_sources_observed_at_batch": true
+        "actual_sources_observed_at_batch": true,
+        "tyson_diluted_basis_verified": true
       }
     },
     "source_url_correction": {
@@ -11533,6 +11534,9 @@
     "data_commit_readback_blob_sha": "e5c5c4c30cf25d79253c934329865ce1c307cf84",
     "source_observation_batch_at": "2026-11-17T04:56:03+08:00",
     "actual_sources_observed_at": "2026-11-17T04:56:03+08:00",
-    "attempts_observed_at": "2026-11-17T04:56:03+08:00"
+    "attempts_observed_at": "2026-11-17T04:56:03+08:00",
+    "basis_code_corrections": [
+      "TSN EPS basis code corrected from GAAP_EPS to GAAP_DILUTED_EPS after re-reading issuer statement of income, which explicitly labels diluted EPS -0.22."
+    ]
   }
 }
