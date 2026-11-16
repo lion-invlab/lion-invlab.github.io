@@ -158,7 +158,7 @@ def normalize_z1_s123_transactions(raw_csv: bytes) -> tuple[bytes, dict]:
         raise ValueError(f"Unexpected Z.1 S123.t columns: {reader.fieldnames}")
 
     out = io.StringIO()
-    writer = csv.writer(out, lineterminator="\\n")
+    writer = csv.writer(out, lineterminator="\n")
     writer.writerow(["date", "quarter_label", "net_acquisition_millions_usd_saar", "net_acquisition_usd_trillion_saar"])
     rows, first_date, last_date = 0, None, None
     for row in reader:
