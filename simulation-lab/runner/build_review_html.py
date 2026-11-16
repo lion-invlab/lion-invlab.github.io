@@ -620,6 +620,7 @@ def main():
         label = anchor.get_text(" ", strip=True)
         if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
         elif label == "Brent原油期貨": set_text(anchor, "Brent 原油期貨")
+    # [build-tac-report] Rebuild the current report and run browser QA for energy tab.
     # Energy quote rows get an isolated three-column layout. The mother template has
     # several later generic .row rules; this scoped high-specificity override prevents
     # WTI/Brent labels and quote values from colliding on narrow mobile screens.
