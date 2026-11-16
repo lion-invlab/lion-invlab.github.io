@@ -41,8 +41,17 @@ def main():
     assert earnings_comparison_status(item,"revenue") == "pending"
     commentary=earnings_commentary(item)
     assert "EPS：優於預期" in commentary
-    assert "營收：尚未公布／數值尚未齊備" in commentary
+    assert "營收：尚未公布" in commentary
     assert "待核實" not in commentary
+
+    # When actual results exist but the consensus estimate was not captured,
+    # state the missing estimate explicitly instead of implying actuals are absent.
+    item=make(0.82,0.79,4.25,None)
+    apply_judgment(item,"2026-11-15T13:00:00+08:00")
+    assert earnings_comparison_status(item,"revenue") == "pending"
+    commentary=earnings_commentary(item)
+    assert "EPS：優於預期" in commentary
+    assert "營收：預期資料尚未取得" in commentary
     # Monday's previous-week cards must be recalculated too; they were previously
     # rendered from stale legacy statuses because only the current week was processed.
     prior = make(4.56, 2.66, 6.77, 6.80)
