@@ -38,6 +38,18 @@ Status: source validation and data architecture. No production chart, no homepag
 - Source: https://fred.stlouisfed.org/series/MMMFTAQ027S
 - This is a financial-account transactions measure, not a direct weekly/monthly subscription-redemption statistic. Never label it simply as “net fund flows” without explaining the accounting definition and SAAR unit. Keep it as a separate optional panel pending further validation.
 
+### 2A. Federal Reserve Z.1 — MMF net acquisition transactions (separate panel)
+- Official table: https://www.federalreserve.gov/releases/z1/current/html/S123_t.htm
+- Table: S123.t, line 1, series code: FA634090005; FRED mirror: MMMFTAQ027S.
+- Meaning: net acquisition of financial assets by the MMF sector in the financial accounts. This is a transaction measure and is distinct from the S123.s balance-sheet AUM level.
+- Frequency: quarterly; units: millions of U.S. dollars, seasonally adjusted annual rate (SAAR).
+- Latest official value at 2026 Q2: USD 723,692 million SAAR (USD 723.692 billion SAAR).
+- The series can be negative; preserve negative values. Do not convert it to a quarterly cash amount by treating the SAAR figure as the quarter's actual total.
+- Critical interpretation: this is not a direct measure of investor net subscriptions/redemptions. Label it “MMF 金融資產淨取得額（季調年率）”, not “資金淨流入”.
+- Ingestion: the public Z.1 ZIP parser now reads both S123.s and S123.t, archives the S123.t raw table with SHA-256, and normalizes the total transaction series to `data/us-mmf/fed_mmf_transactions_latest.csv`.
+- QA: `scripts/us_mmf/test_mmf_transactions.py` checks sorted unique quarterly dates, uninterrupted quarterly cadence, units, quarter labels, and the official 2026 Q2 value.
+- Fund-type transaction breakdown is not being charted yet; the total transaction series is the only candidate pending full ingestion QA and interpretation review.
+
 ### 3. OFR U.S. Money Market Fund Monitor — monthly category and portfolio detail
 - Source page: https://www.financialresearch.gov/money-market-funds/
 - Underlying source: SEC Form N-MFP plus OFR aggregation/analysis
