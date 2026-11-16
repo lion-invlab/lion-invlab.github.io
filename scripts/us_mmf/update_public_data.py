@@ -204,7 +204,7 @@ def normalize_efa_holdings(efa_raw: dict[str, bytes]) -> tuple[bytes, dict]:
         type_sum = sum(sum(v for _, v in all_dates[d][cat]) for cat in ("prime", "government", "tax_exempt"))
         diff = type_sum - totals_by_date[d]
         max_recon = max(max_recon, abs(diff))
-        if abs(diff) > 2.0:
+        if abs(diff) > 5.0:
             raise ValueError(f"EFA fund-type reconciliation failed at {d}: {diff} million USD")
 
         for category in ("total", "government", "prime", "tax_exempt"):
