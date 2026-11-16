@@ -109,3 +109,6 @@ Status: source validation and data architecture. No production chart, no homepag
 - The monitor currently reports data through 2026-09-30 and notes that its aggregates are OFR-derived on an ultimate-parent basis. This differs from raw SEC fund-level totals.
 - SEC Form N-MFP raw data sets are public from September 2010 through October 2026, updated monthly; SEC warns that filings/extraction can contain errors and that the data are provided as-filed.
 - Downloader: `scripts/us_mmf/update_public_data.py`. It downloads the FRED CSV and complete OFR `mmf` JSON dataset, archives raw snapshots, produces a cleaned positive-observation FRED CSV, and writes SHA-256 metadata. It has been committed but not yet executed against live endpoints; no successful live-download claim is made.
+
+- Structural break confirmation: OFR category chart notes six categories from April 2016 and a June 2024 reporting change removing the Government fee/no-fee distinction. Source: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
+- QA script: `scripts/us_mmf/test_fed_aum_data.py` checks required columns, positive values, quarterly date continuity, unique/sorted dates, USD conversion, quarter labels, and the latest 2026 Q2 value.
