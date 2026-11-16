@@ -36,7 +36,7 @@ def validate(page, label):
     check(label + "_tax_exempt_kpi", page.locator("#kpi-tax").inner_text() == "$0.15T")
     check(label + "_total_line_rendered", page.locator("#total-chart path.line-total").count() == 1)
     check(label + "_fund_type_areas_rendered", page.locator("#type-chart path.area").count() == 3)
-    check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && e.style.touchAction==='none'"))
+    check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
     check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && e.style.touchAction==='none'"))
 
     page.locator("#total-controls button[data-years='10']").click()
@@ -57,7 +57,7 @@ def validate(page, label):
 
     for chart_id in ("total-chart", "type-chart"):
         box = page.locator("#" + chart_id).bounding_box()
-        check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.viewport_size["width"] + 1, box)
+        check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.evaluate("window.innerWidth") + 1, box)
     check(label + "_no_horizontal_page_overflow", page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"))
     page.screenshot(path=str(OUT / (label + ".png")), full_page=True)
 
@@ -69,11 +69,13 @@ with sync_playwright() as p:
     desktop.on("requestfailed", lambda req: report["failed_requests"].append({"url": req.url, "error": req.failure}))
     validate(desktop, "desktop")
 
-    mobile = browser.new_page(viewport={"width": 390, "height": 844}, device_scale_factor=1, is_mobile=True, has_touch=True)
+    mobile_context = browser.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=1, is_mobile=True, has_touch=True)
+    mobile = mobile_context.new_page()
     mobile.on("console", lambda msg: report["console_errors"].append(msg.text) if msg.type == "error" else None)
     mobile.on("pageerror", lambda err: report["page_errors"].append(str(err)))
     mobile.on("requestfailed", lambda req: report["failed_requests"].append({"url": req.url, "error": req.failure}))
     validate(mobile, "mobile")
+    mobile_context.close()
     browser.close()
 
 check("no_page_errors", len(report["page_errors"]) == 0, report["page_errors"])
