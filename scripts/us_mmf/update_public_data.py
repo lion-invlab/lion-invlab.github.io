@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""Download free public U.S. MMF source data and archive immutable snapshots.
+"""Download and normalize free public U.S. MMF data from Federal Reserve Z.1.
 
-No API keys or paid subscriptions are required.
-The script deliberately stores OFR's complete raw JSON response before any
-series selection, so subsequent mapping decisions remain auditable.
+The Z.1 S123.s table is the common source for total AUM and fund-type split.
+Raw source snapshots are archived separately; normalized files are reproducible.
 """
 from __future__ import annotations
 
 import csv
-import hashlib
 import gzip
+import hashlib
 import io
 import json
-import os
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,11 +19,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data" / "us-mmf"
 RAW_DIR = DATA_DIR / "raw"
-FRED_SERIES = "MMMFFAQ027S"
-FRED_URL = (
-    "https://fred.stlouisfed.org/graph/fredgraph.csv"
-    f"?id={FRED_SERIES}&cosd=1974-01-01"
-)
+FRED_URL = "https://fred.stlouisfed.org/data/MMMFFAQ027S"
 Z1_CSV_URL = "https://www.federalreserve.gov/releases/z1/current/z1_csv_files.zip"
 OFR_URL = "https://data.financialresearch.gov/v1/series/dataset?dataset=mmf"
 FED_EFA_URLS = {
@@ -40,7 +34,7 @@ USER_AGENT = "TAC-US-MMF-Research/1.0 (public-data archival)"
 def fetch(url: str) -> bytes:
     req = Request(url, headers={"User-Agent": USER_AGENT})
     print(f"Fetching public source: {url}", flush=True)
-    with urlopen(req, timeout=25) as response:
+    with urlopen(req, timeout=30) as response:
         if response.status != 200:
             raise RuntimeError(f"HTTP {response.status} for {url}")
         return response.read()
@@ -55,57 +49,103 @@ def write_bytes(path: Path, data: bytes) -> None:
     path.write_bytes(data)
 
 
-def build_fred_clean_csv(raw: bytes) -> tuple[bytes, dict]:
-    text = raw.decode("utf-8-sig")
-    reader = csv.DictReader(io.StringIO(text))
-    if not reader.fieldnames:
-        raise ValueError("FRED CSV is missing its header")
-    date_col = next(
-        (x for x in reader.fieldnames if x.strip().lower() in ("date", "observation_date")),
-        None,
-    )
-    if not date_col:
-        raise ValueError(f"Unexpected FRED CSV date column: {reader.fieldnames}")
-    value_col = next(
-        (x for x in reader.fieldnames if x != date_col and x.strip() == FRED_SERIES),
-        None,
-    ) or next((x for x in reader.fieldnames if x != date_col), None)
-    if not value_col:
-        raise ValueError("FRED CSV has no value column")
+def parse_quarter(label: str) -> tuple[int, int, str]:
+    year_text, quarter_text = label.split(":Q")
+    year, quarter = int(year_text), int(quarter_text)
+    if quarter not in (1, 2, 3, 4):
+        raise ValueError(f"Invalid Z.1 quarter label: {label}")
+    month = (quarter - 1) * 3 + 1
+    return year, quarter, f"{year}-{month:02d}-01"
 
-    out = io.StringIO()
-    writer = csv.writer(out, lineterminator="\n")
-    writer.writerow([
+
+def normalize_z1_s123(raw_csv: bytes) -> tuple[bytes, bytes, dict]:
+    reader = csv.DictReader(io.StringIO(raw_csv.decode("utf-8-sig")))
+    required = {
+        "date", "FL634090005.Q", "FL634090033.Q",
+        "FL634090043.Q", "FL634090053.Q",
+    }
+    if not reader.fieldnames or not required.issubset(reader.fieldnames):
+        raise ValueError(f"Unexpected Z.1 S123.s columns: {reader.fieldnames}")
+
+    total_out = io.StringIO()
+    total_writer = csv.writer(total_out, lineterminator="\n")
+    total_writer.writerow([
         "fred_observation_date", "value_raw_millions_usd",
-        "value_usd_trillion", "quarter_label"
+        "value_usd_trillion", "quarter_label",
     ])
-    rows = []
-    for row in reader:
-        date = (row.get(date_col) or "").strip()
-        raw_value = (row.get(value_col) or "").strip()
-        if not date or raw_value in ("", ".", "NA", "nan"):
-            continue
-        value = float(raw_value)
-        if value <= 0:
-            continue
-        year, month, _ = date.split("-")
-        quarter = (int(month) - 1) // 3 + 1
-        writer.writerow([
-            date, f"{value:.0f}", f"{value / 1_000_000:.6f}",
-            f"{year} Q{quarter}"
-        ])
-        rows.append((date, value))
 
-    if not rows:
-        raise ValueError("No positive FRED observations found")
-    if rows[-1][0] < "2026-04-01":
-        raise ValueError(f"FRED latest observation unexpectedly old: {rows[-1][0]}")
-    return out.getvalue().encode("utf-8"), {
-        "series_id": FRED_SERIES,
-        "observation_count": len(rows),
-        "first_positive_observation": rows[0][0],
-        "latest_observation": rows[-1][0],
-        "latest_value_raw_millions_usd": rows[-1][1],
+    type_out = io.StringIO()
+    type_writer = csv.writer(type_out, lineterminator="\n")
+    type_writer.writerow([
+        "date", "quarter_label", "total_aum_millions_usd",
+        "government_millions_usd", "prime_millions_usd",
+        "tax_exempt_millions_usd", "category_sum_millions_usd",
+        "difference_millions_usd",
+    ])
+
+    total_rows, type_rows, max_abs_diff = 0, 0, 0
+    first_total, last_total, first_types, last_types = None, None, None, None
+
+    for row in reader:
+        label = (row.get("date") or "").strip()
+        if not label or ":Q" not in label:
+            continue
+        year, quarter, iso_date = parse_quarter(label)
+        total_raw = (row.get("FL634090005.Q") or "").strip()
+        if total_raw not in ("", ".", "ND"):
+            total = int(float(total_raw))
+            if total > 0:
+                total_writer.writerow([
+                    iso_date, total, f"{total / 1_000_000:.6f}",
+                    f"{year} Q{quarter}",
+                ])
+                total_rows += 1
+                first_total = first_total or iso_date
+                last_total = iso_date
+
+        if (year, quarter) >= (2010, 4):
+            vals = [
+                int(float((row.get(code) or "0").strip() or "0"))
+                for code in (
+                    "FL634090033.Q", "FL634090043.Q", "FL634090053.Q",
+                )
+            ]
+            gov, prime, tax_exempt = vals
+            if total_raw in ("", ".", "ND"):
+                raise ValueError(f"Missing total AUM for fund-type row {label}")
+            total = int(float(total_raw))
+            category_sum = gov + prime + tax_exempt
+            diff = category_sum - total
+            if abs(diff) > 1:
+                raise ValueError(
+                    f"Z.1 category split fails reconciliation at {label}: {diff}m"
+                )
+            type_writer.writerow([
+                iso_date, f"{year} Q{quarter}", total, gov, prime,
+                tax_exempt, category_sum, diff,
+            ])
+            type_rows += 1
+            first_types = first_types or iso_date
+            last_types = iso_date
+            max_abs_diff = max(max_abs_diff, abs(diff))
+
+    if total_rows != 210 or last_total != "2026-04-01":
+        raise ValueError(
+            f"Unexpected Z.1 total history: {total_rows} rows, last={last_total}"
+        )
+    if type_rows != 63 or last_types != "2026-04-01":
+        raise ValueError(
+            f"Unexpected Z.1 category history: {type_rows} rows, last={last_types}"
+        )
+
+    return total_out.getvalue().encode(), type_out.getvalue().encode(), {
+        "total_observations": total_rows,
+        "total_first_observation": first_total,
+        "total_latest_observation": last_total,
+        "category_observations": type_rows,
+        "category_first_observation": first_types,
+        "category_latest_observation": last_types,
+        "max_category_reconciliation_difference_millions_usd": max_abs_diff,
     }
 
 
@@ -114,53 +154,50 @@ def main() -> None:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-    # Archive the Federal Reserve's official Z.1 CSV package. FRED's graph CSV
-    # endpoint has timed out from the runner, so use the Board's own release files.
+    # Federal Reserve Z.1 official release CSV package.
     z1_raw = fetch(Z1_CSV_URL)
     z1_path = RAW_DIR / f"fed_z1_csv_package_{stamp}.zip"
     write_bytes(z1_path, z1_raw)
     with zipfile.ZipFile(io.BytesIO(z1_raw)) as archive:
         z1_names = archive.namelist()
-        s123_candidates = [
-            name for name in z1_names
-            if "S123" in Path(name).name.upper() and name.lower().endswith(".csv")
-        ]
-        extracted_s123 = []
-        for name in s123_candidates:
-            target = RAW_DIR / f"fed_z1_{Path(name).name}_{stamp}"
-            write_bytes(target, archive.read(name))
-            extracted_s123.append(str(target.relative_to(ROOT)))
+        s123_name = next(
+            (n for n in z1_names if n.lower().endswith("/s123_s.csv")),
+            None,
+        )
+        if not s123_name:
+            raise ValueError("Z.1 CSV package does not contain csv/S123_s.csv")
+        s123_raw = archive.read(s123_name)
 
-    # Until the official Z.1 CSV table is parsed into the normalized series,
-    # retain the independently checked 1974Q1-2026Q2 FRED table snapshot.
-    fallback = DATA_DIR / "fed_mmmffaq027s_1974q1_2026q2.csv"
-    fallback_bytes = fallback.read_bytes()
-    fred_clean_path = DATA_DIR / "fed_mmmffaq027s_latest.csv"
-    write_bytes(fred_clean_path, fallback_bytes)
-    fred_info = {
-        "status": "verified_branch_snapshot_pending_z1_csv_parser",
-        "series_id": FRED_SERIES,
-        "source_url": FRED_URL,
-        "processed_file": str(fred_clean_path.relative_to(ROOT)),
-        "processed_sha256": sha256(fallback_bytes),
-        "note": "Existing historical snapshot retained; live FRED graph CSV endpoint timed out. Official Z.1 CSV package archived separately.",
-    }
+    s123_path = RAW_DIR / f"fed_z1_S123_s_{stamp}.csv"
+    write_bytes(s123_path, s123_raw)
+    total_csv, types_csv, z1_stats = normalize_z1_s123(s123_raw)
+
+    total_path = DATA_DIR / "fed_mmmffaq027s_latest.csv"
+    types_path = DATA_DIR / "fed_mmf_aum_by_fund_type_latest.csv"
+    write_bytes(total_path, total_csv)
+    write_bytes(types_path, types_csv)
+
     z1_info = {
-        "status": "downloaded",
+        "status": "downloaded_and_normalized",
         "source_url": Z1_CSV_URL,
-        "raw_snapshot": str(z1_path.relative_to(ROOT)),
-        "raw_sha256": sha256(z1_raw),
-        "size_bytes": len(z1_raw),
+        "table": "S123.s",
+        "table_member": s123_name,
+        "raw_zip_snapshot": str(z1_path.relative_to(ROOT)),
+        "raw_zip_sha256": sha256(z1_raw),
+        "raw_table_snapshot": str(s123_path.relative_to(ROOT)),
+        "raw_table_sha256": sha256(s123_raw),
+        "normalized_total_file": str(total_path.relative_to(ROOT)),
+        "normalized_total_sha256": sha256(total_csv),
+        "normalized_fund_type_file": str(types_path.relative_to(ROOT)),
+        "normalized_fund_type_sha256": sha256(types_csv),
         "archive_member_count": len(z1_names),
-        "s123_csv_members": s123_candidates,
-        "extracted_s123_files": extracted_s123,
+        **z1_stats,
     }
 
     fed_efa_info = {}
     for category, url in FED_EFA_URLS.items():
         try:
             payload = fetch(url)
-            # Preserve the source CSV bytes unchanged; parsing and summation are a later QA stage.
             path = RAW_DIR / f"fed_efa_{category}_{stamp}.csv"
             write_bytes(path, payload)
             fed_efa_info[category] = {
@@ -180,12 +217,15 @@ def main() -> None:
     ofr_info = {"dataset_key": "mmf", "source_url": OFR_URL}
     try:
         ofr_raw = fetch(OFR_URL)
-        # OFR serves the API payload with gzip content encoding.
-        ofr_json_bytes = gzip.decompress(ofr_raw) if ofr_raw.startswith(bytes([31, 139])) else ofr_raw
+        ofr_json_bytes = (
+            gzip.decompress(ofr_raw)
+            if ofr_raw.startswith(bytes([31, 139]))
+            else ofr_raw
+        )
         ofr_obj = json.loads(ofr_json_bytes.decode("utf-8"))
         if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
-            raise ValueError("OFR API response does not contain the expected dataset timeseries object")
-        ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json"
+            raise ValueError("OFR API response does not contain dataset timeseries")
+        ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json.gz"
         write_bytes(ofr_path, ofr_raw)
         ofr_info.update({
             "status": "downloaded",
@@ -196,19 +236,22 @@ def main() -> None:
             "series_count": len(ofr_obj.get("timeseries", {})),
         })
     except Exception as exc:
-        # Keep the Fed dataset and its QA usable if the separate OFR service is temporarily unavailable.
         ofr_info.update({"status": "download_failed", "error": repr(exc)})
 
     manifest = {
         "retrieved_at_utc": fetched_at,
         "policy": "free_public_sources_only",
         "fed_z1_release": z1_info,
-        "fred_reference_series": fred_info,
+        "fred_crosscheck_reference": {
+            "series_id": "MMMFFAQ027S",
+            "url": FRED_URL,
+            "note": "The normalized primary data are parsed from the Federal Reserve Z.1 S123.s CSV package; FRED is a cross-check reference.",
+        },
         "fed_efa_monthly_holdings_by_type": {
             "source_page": "https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm",
             "coverage_expected_from": "2010-12",
             "files": fed_efa_info,
-            "note": "These are portfolio investment holdings by type, not the Z.1 total financial assets series; Federal Reserve notes scope differences.",
+            "note": "Portfolio investment holdings by fund type; separate from Z.1 total financial assets.",
         },
         "ofr": ofr_info,
     }
