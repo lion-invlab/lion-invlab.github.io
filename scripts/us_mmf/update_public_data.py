@@ -158,7 +158,7 @@ def normalize_efa_holdings(efa_raw: dict[str, bytes]) -> tuple[bytes, dict]:
         raise ValueError(f"EFA files incomplete: {sorted(efa_raw)}")
 
     out = io.StringIO()
-    writer = csv.writer(out, lineterminator="\\n")
+    writer = csv.writer(out, lineterminator="\n")
     writer.writerow([
         "date", "fund_type", "instrument", "value_millions_usd",
         "value_usd_trillion", "share_of_fund_type",
