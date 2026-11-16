@@ -61,7 +61,6 @@ def validate(page, label):
     page.locator("#holding-type-controls button[data-type=\"Tax-exempt\"]").click()
     check(label + "_holding_tax_exempt_switch", page.locator("#holding-chart path.area-holding").count() == 3)
     page.locator("#holding-type-controls button[data-type=\"Total\"]").click()
-    check(label + "_all_chart_paths_finite", page.locator("svg path[d]").evaluate_all("(els)=>els.every(e=>!/(NaN|Infinity|undefined)/.test(e.getAttribute(\"d\")||\"\"))"))
     check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
     check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
 
@@ -129,6 +128,7 @@ def validate(page, label):
             check(label + "_" + chart_id + "_axis_font_size", font_size >= 15, font_size)
     bad_paths = page.locator("svg path[d]").evaluate_all("(els)=>els.filter(e=>/(NaN|Infinity|undefined)/.test(e.getAttribute(\"d\")||\"\")).map(e=>({svg:e.ownerSVGElement?.id,cls:e.getAttribute(\"class\"),d:(e.getAttribute(\"d\")||\"\").slice(0,180)}))")
     print(label + "_bad_svg_paths", bad_paths, flush=True)
+    check(label + "_all_chart_paths_finite", len(bad_paths) == 0, bad_paths)
     check(label + "_no_horizontal_page_overflow", page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"))
     page.screenshot(path=str(OUT / (label + ".png")), full_page=True)
 
