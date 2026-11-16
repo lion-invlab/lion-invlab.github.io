@@ -55,6 +55,26 @@ def validate(page, label):
     page.locator("#type-controls button[data-years='all']").click()
     page.wait_for_timeout(450)
 
+    if label == "mobile":
+        box = page.locator("#total-chart").bounding_box()
+        cx = box["x"] + box["width"] * 0.55
+        cy = box["y"] + box["height"] * 0.48
+        cdp = page.context.new_cdp_session(page)
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [
+            {"x": cx - 28, "y": cy, "id": 1, "radiusX": 8, "radiusY": 8, "force": 1},
+            {"x": cx + 28, "y": cy, "id": 2, "radiusX": 8, "radiusY": 8, "force": 1},
+        ]})
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchMove", "touchPoints": [
+            {"x": cx - 58, "y": cy, "id": 1, "radiusX": 8, "radiusY": 8, "force": 1},
+            {"x": cx + 58, "y": cy, "id": 2, "radiusX": 8, "radiusY": 8, "force": 1},
+        ]})
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+        page.wait_for_timeout(300)
+        pinch_k = page.locator("#total-chart").evaluate("(e)=>e.__zoom.k")
+        check(label + "_two_finger_pinch_zoom", pinch_k > 1.05, pinch_k)
+        page.locator("#total-controls button[data-years='all']").click()
+        page.wait_for_timeout(450)
+
     for chart_id in ("total-chart", "type-chart"):
         box = page.locator("#" + chart_id).bounding_box()
         check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.evaluate("window.innerWidth") + 1, box)
