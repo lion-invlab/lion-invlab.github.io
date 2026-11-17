@@ -284,7 +284,8 @@ jobs:
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           npm install --no-save playwright
-          npx playwright install --with-deps chromium
+          # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
+          npx playwright install chromium
       - name: Test navigation tabs accordions and source links
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
