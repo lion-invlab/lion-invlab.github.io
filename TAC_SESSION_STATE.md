@@ -1,3 +1,25 @@
+## 2026-11-18 05:26–05:41｜TAC 早報人工試跑最終狀態（未交付 HTML）
+
+- 執行日期：2026-11-18（三）；資料基準日：2026-11-17（二）；截稿時間：05:25 Asia/Taipei；本次接續檢查時間至 2026-11-18 05:41:24 +08:00。
+- 唯一模擬區 WR：SIM-1.3；blob SHA `582bee096185b6542be565950da2656c15191eda`。讀取時間：本次啟動後第一個 GitHub 讀取動作（約 05:26）。依當次實際版本執行；未讀取退役模擬區根目錄 WR，未讀取 main WR 作為第二權威。
+- Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA 契約 v1.4 SHA `824c327fb66fc8c5d4107b69abd9316c00bfe903`；週二至週五母版 SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- main 正式 W47 行事曆 JSON 僅唯讀：`data/calendar/weeks/2026-W47.json`，blob SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`，updated_at 2026-11-18 04:36:10 Asia/Taipei；25 筆經濟事件、23 筆財報事件，coverage=incomplete。週三版不需上週摺疊資料，因此未讀 W46。未讀 simulation branch 舊週 JSON；沒有寫入任何行事曆 JSON。
+- 行情 44 項分類（本輪核對至 05:41）：23 項有 11/17 可用資料（15 個主要指數、6 組匯率、2 項能源期貨）；19 項最新可用資料仍為 11/16（11 檔產業 ETF、2 項貴金屬期貨、3 檔美債殖利率、VIX／MOVE／Fear & Greed）；2 項待核實（Russell 2000、SOX，缺少可確認的 11/17 正式收盤）。ETF 與貴金屬來源頁 11/17 列仍為盤中或尚未更新，不以盤中值冒充收盤。
+- 11/17 已核對的主要指數：Dow 50,759.42（-1.64%）、S&P 500 7,340.53（-1.02%）、Nasdaq 24,328.38（-0.74%）；Nikkei 58,860.43（-1.34%）、KOSPI 4,968.48（-2.59%）、TWSE 40,092.11（-2.31%）、STI 5,109.13（-1.43%）、ASX 200 8,883.20（-1.79%）、Shanghai 3,584.58（-0.50%）、Shenzhen 10,638.52（-0.49%）、Hang Seng 23,508.17（-1.03%）、FTSE 100 10,689.30（-1.77%）、DAX 26,045.37（-2.08%）、CAC 40 8,216.78（-1.62%）、STOXX 600 650.72（-1.75%）。Dow／S&P 點位以 WSJ 收盤報價作 Investing.com HK 未取得 11/17 終值時的交叉來源；STI 使用 Investing.com Global 備援頁。
+- 11/17 匯率：DXY 103.59（+0.04%）、USD/TWD 32.912（-0.12%）、EUR/USD 1.1002（+0.04%）、GBP/USD 1.3213（+0.20%）、AUD/USD 0.6735（-0.03%）、USD/JPY 159.37（-0.04%）。能源：WTI 前月期貨 Reuters settlement 86.01（+0.34%）、Brent 前月期貨 93.14（+0.76%）；兩項合約月以 11/16 既有台帳的前月合約識別，Reuters 當篇報導未直接列出合約月，故應在報告註明來源口徑。貴金屬 GCZ6／SIZ6 最新可確認仍為 11/16，未冒充 11/17。
+- 11/16 最新可用風險／利率快照：美債 2Y 4.62%、10Y 5.12%、30Y 5.46%；VIX 22.91、MOVE 101.28、CNN Fear & Greed 30（Fear）。均需標示 11/16 資料日。Fed Rate Monitor 最新可讀快照為 12 月升息 25bp 99.5%、升息 50bp 0.5%（2026-11-17 11:25 ET）；較早 CME cross-check 為 95.7%／4.3%，屬不同快照時間，不可混為同一時點。
+- W47 日曆：11/18 有 5 筆經濟事件、4 筆財報事件。04:35 後 05:20 公布的 NVDA 財報只允許補入報告層，不回寫 JSON。已核對 NVDA 營收 115.8B、EPS 2.68，FactSet EPS 共識 2.48、營收共識約 109B；MarketWatch／FT 報導 Q4 指引約 130B。NVIDIA 官方 IR 新聞稿頁本輪未能獨立開啟，因此 EPS GAAP／non-GAAP 分類仍需官方公告核對。DIS adjusted EPS 1.77 vs Investing.com 共識 1.68、營收 25.95B vs 25.21B；JD 官方實際值與 Investing.com 共識幣別／計量基礎不一致，不作 Beat/Miss；HD 共識來源分歧，未作方向判斷。
+- 已核對 11/17 經濟資料：美國零售銷售月增 0.2%、不含汽車 +0.6%、不含汽車與汽油 +0.5%；Fed 工業生產 -0.4%、製造業 +0.3%、產能利用率 76.4%；英國失業率 4.6%、regular pay +3.5%、total pay +3.6%、職缺 690k。中國 NBS 10 月工業生產 +4.8%、零售銷售 +0.4%、前 10 月固定資產投資 -8.1%（NBS 原始發布日 11/16，僅作行事曆已公布資料，不納入 11/17 12:00 起的新聞選稿窗）。
+- FactSet 盈餘健康度：11/16 最新文章顯示 aggregate EPS surprise +3.1%、blended earnings growth +31.9%；11/13 完整 scorecard 為 91% 公司已公布、84% EPS beat、74% revenue beat。不同資料日需分別標示。
+- 分析草稿：主題為「AI 財報超預期，市場仍在重估高估值與資金成本」。盤面觀察重點：① NVDA 強勁財報確認 AI 需求仍強，但不等於所有 AI 供應鏈都能轉成現金流；② 零售控制組 +0.6% 與工業生產 -0.4% 顯示經濟分化；③ 12 月升息機率接近 100%，折現率仍壓抑高估值；④ 歐美風險趨避與能源地緣溢價並存。Market Sentiment 草稿為「風險趨避偏高、AI 基本面韌性仍在、利率與估值壓力未解」。
+- 新聞已篩選 5 則宏觀焦點與 10 則市場頭條來源，主題涵蓋美國零售／工業資料、英國勞動市場、AI 晶片出口管制、歐股科技股賣壓、油輪攻擊與油價，以及 NVDA／DIS／JD／HD 財報；尚未寫入 HTML。
+- HTML 組裝阻塞：SIM-1.3／QA 契約要求真正 DOM parser、只更新核准母版節點。已讀取現有 `simulation-lab/runner/build_review_html.py`（BeautifulSoup DOM updater）與 `.github/workflows/tac-simulation-lab.yml`；該 workflow 會連帶執行 Equibles／ORTEX／Investing 等額外探測及多項 QA，超出本次人工單日範圍，故未啟動。當前執行環境無法直接執行既有 Python DOM updater；未用字串替換、未建立替代 HTML、未建立新 fixture 或新 assembler。
+- 未建立 `preview/2026-11-18-simulation.html`；main preview 路徑目前不存在，沒有可驗證 URL。未修改 main/index.html、正式母版、WR、Manifest、其他 main 檔案或任何 calendar JSON。main/index.html 當前 SHA `9782c479e653a0f1b0f5aeb2a4f3f80c45d7e2c1`；最新 index 專屬提交為 2026-11-17T01:31:24Z 的既有首頁調整，本輪未寫入。main HEAD `ec1d93df8e3116d11270ff9e5b74790b52a743f1` 為 Chart 3 資料更新。
+- QA：未有當日 HTML，故未執行 HTML 完整性、連結、瀏覽器互動、手機視覺或 URL 驗證；不得引用前一日測試。review_ready=false。
+- 通知紀錄：啟動通知及階段①–⑤均各呼叫兩次；每次皆回傳 HTTP 404「Action not found」，沒有任何一次 status=notified。錯誤發生於本輪 05:26:12–05:41:24 +08:00 期間；各階段精確秒級時間未由通知端點提供。所有通知狀態均為 FAILED，未記作送達。
+- 下一步：若要完成本日審核版，需提供可安全執行既有 BeautifulSoup updater 的環境，或另行明確授權使用會連帶執行額外探測的現有 simulation workflow；未獲授權前不寫入 main preview。
+
+
 
 ## 2026-11-18｜階段②補充：NVDA 財報與市場收盤方向
 
