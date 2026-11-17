@@ -1,0 +1,3 @@
+report_date=2026-11-18
+mode=build
+purpose=Run the full date-matched TAC review build and QA on the simulation branch only. Do not modify main/index.html.
