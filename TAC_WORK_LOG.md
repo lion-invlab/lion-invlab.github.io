@@ -1237,3 +1237,10 @@
 - 本輪後續重新查詢歷史列後，先前初查的 DXY 103.59、USD/TWD 32.912、EUR/USD 1.1002、GBP/USD 1.3213、AUD/USD 0.6735、USD/JPY 159.37 均屬盤中／非最終歷史快照，不應作為 11/17 收盤值；已以後續歷史收盤資料取代。
 - 11/17 匯率採用值：DXY 103.43（-0.11%）；USD/TWD 32.908（-0.13%）；EUR/USD 1.10133（+0.20%）；GBP/USD 1.3197（+0.08%）；AUD/USD 0.6736（-0.01%）；USD/JPY 159.30（-0.10%）。DXY／USD-TWD／GBP-USD／AUD-USD 以 Investing.com Global 歷史列作香港站未更新時的備援；EUR-USD／USD-JPY 以 Reuters 11/17 市場收盤報價交叉核對。
 - 44 項分類總數不變：23 項 11/17 可用、19 項最後可用日 11/16、2 項待核實（Russell 2000、SOX）。
+
+
+## 2026-11-18 05:46｜main 首頁 SHA 最終覆核更正
+
+- 以兩次連續 fetch_file 確認 main `index.html` blob SHA 為 `9782c479e6537ad2fbb58f66c449b900fedd1d2e`；取代本記錄較早誤寫的 SHA。main HEAD 為 `ec1d93df8e3116d11270ff9e5b74790b52a743f1`（2026-11-17T21:29:40Z，Chart 3 FRED／ALFRED 資料更新）。最新兩筆 index 專屬提交分別為 2026-11-17T01:31:24Z（盈餘健康度小卡配色）及 2026-11-17T00:15:11Z（首頁總結）；均早於本次 11/18 早報試跑，本輪未修改 index。
+- 再次確認 main `preview/2026-11-18-simulation.html` 不存在（GitHub API 404）；main W47 JSON SHA 仍為 `6b28cd025f26f403ae3f6cee9b229f369d6a5250`；SIM-1.3 SHA 仍為 `582bee096185b6542be565950da2656c15191eda`。
+- 本更正記錄時間：2026-11-18 05:46 Asia/Taipei。
