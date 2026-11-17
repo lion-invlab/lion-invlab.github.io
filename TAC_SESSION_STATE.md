@@ -1,3 +1,18 @@
+## 2026-11-18｜TAC 早報審核版最終完成（SIM-1.3，QA_PASSED）
+
+- **狀態：** 11/18（三）審核 HTML 已組裝、人工內容檢查、Playwright 互動、母版比對、獨立溯源、44 項行情與新聞結構驗收全部通過；`review_ready=true`、`review_ready_blockers=[]`。正式首頁尚未更新，等待使用者審核與明確授權。
+- **審核檔：** `preview/2026-11-18-simulation.html`；Git blob SHA `47db490cdfb53b8192d291a306bbec9ad9a1308a`；SHA-256 `7ab600fc363cee761c41e1d35d26ce4bf896f3427f03f5021a9e73ef2c071927`；QA JSON `preview/2026-11-18-simulation.qa.json`，blob SHA `67f2a176dae89bb9e14fa7a932c3ef5245dba843`；GitHub Actions run `44193096116`（success）。
+- **依據：** SIM-1.3 SHA `582bee096185b6542be565950da2656c15191eda`；weekday mother SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`；fixture SHA `10633b55c4b4aa46770aba907be226c695979359`；DOM builder SHA `71d9134819c718775fd72f7495af78e66bcae037`。僅在 `simulation/tac-process-lab-2026-11-06` 工作。
+- **驗收：** 日期／母版／行事曆／44項行情／5則焦點新聞／10則熱門頭條驗證通過；Playwright 導覽、折疊、來源連結通過；母版一致性與獨立 provenance 通過；QA evidence 已封存至對應 HTML blob；審核檔與證據已存回 simulation branch。視覺驗收 viewport：1440、768、412、390、360 px。
+- **行情資料日期：** 44 項中 25 項為 11/17，19 項採 11/16 最新可核實值（11檔產業ETF、3檔美債殖利率、2項貴金屬、MOVE、Fear & Greed、SOX）。SOX 11/17來源互相衝突，保留11/16；不得把19項舊值標成11/17。FactSet盈餘健康度為11/13快照。
+- **NVDA 報告層補充：** main W47事件時間為11/18 05:20，官方Q3 FY2027公告只補入本報告層，未回寫main JSON。實際GAAP EPS US$2.70、non-GAAP EPS US$2.68、營收US$115.844B；公告前Yahoo Finance 11/15 13:50台灣時間快照：EPS US$2.47（43位分析師）、營收US$108.73B（45位分析師），兩項均優於預期。卡片同時連結NVIDIA官方公告及Yahoo公告前共識來源；股價反應明確標示待11/18美股首個完整交易時段，不提前猜測。
+- **行事曆：** main W47 JSON只讀，SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`，狀態仍為incomplete（25筆經濟／23筆財報）。沒有修改行事曆資料庫。
+- **正式首頁保護：** main `index.html`重新讀取SHA為 `9782c479e6537ad2fbb58f66c449b900fedd1d2e`，與本次開始前一致；main W47 SHA亦未變。沒有修改main首頁、正式母版、main WR或正式資料庫。
+- **流程改善：** simulation workflow新增`run_optional_probes`布林選項，Equibles／ORTEX／Investing額外研究探測與W46 PIT audit日常預設跳過；必要的Yahoo共識投影、OHLC、財報股價反應、DOM組裝、Playwright、母版比對及provenance仍執行。Playwright改為只安裝Chromium，不重跑apt依賴安裝。
+- **交付限制：** 本檔只供審核；未獲使用者明確批准前，不得複製至main `index.html`、不得部署GitHub Pages。
+
+---
+
 
 
 ## 2026-11-18｜11/17 收盤與 NVIDIA 官方財報補核（本輪 05:xx）
