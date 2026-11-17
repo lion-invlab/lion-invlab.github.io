@@ -243,14 +243,13 @@
       }
     },
     "英國 FTSE 100": {
-      "display": "10,689.30",
-      "change_display": "-1.77%",
+      "display": "10,706.57",
+      "change_display": "-1.61%",
       "source": {
-        "name": "BNY｜StreetAccount 2026-11-16 EU Market Recap",
-        "url": "https://www.adrbny.com/market-analysis/daily-dr-market-summary/adrnews.2026-11-16-streetaccount-summary-eu-market-recap-ftse-100-009-to-1089293-dax-057-to-2659864-cac40-020-to-835200-stoxx-600-028-to-66231.html",
+        "name": "Investing.com｜FTSE 100歷史資料",
+        "url": "https://www.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-17",
-        "quote_type": "cash_index_close",
-        "note": "11/17現金指數收盤，依歷史收盤列核對，非盤中報價。"
+        "evidence_note": "直接核對歷史資料表 Nov 17, 2026 row：Close 10,706.57，Change -1.61%；不採頁首即時衍生報價 10,689.30。"
       }
     },
     "德國 DAX": {
