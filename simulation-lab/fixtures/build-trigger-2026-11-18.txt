@@ -1,0 +1,3 @@
+Build request: 2026-11-18
+Mode: full build
+Scope: simulation branch only
