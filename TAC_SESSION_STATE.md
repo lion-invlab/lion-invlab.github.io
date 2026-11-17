@@ -1,3 +1,10 @@
+
+## 2026-11-18｜階段②補充：NVDA 財報與市場收盤方向
+
+- MarketWatch/Dow Jones 即時財報卡已回讀：NVIDIA Q3 FY2027 revenue $115.8B、年增 103%；EPS $2.68，高於 FactSet consensus $2.48。MarketWatch 未在該卡片標明 EPS 會計口徑；數值可先用於事件事實與方向性比較，正式財報卡需補充公司公告的 GAAP／non-GAAP 分列。來源：https://www.marketwatch.com/livecoverage/nvidia-earnings-stock-nvidia-jensen-huang-results-call/card/nvidia-tops-third-quarter-revenue-and-earnings-estimates-9pjVbkPtUQhP9JQqfT0y。
+- Reuters 11/17 21:24 UTC 報導確認 NVIDIA Q4 FY27 revenue 指引 $130.0B ±3%，高於 LSEG 平均預期 $125.25B；公司指引未假設中國資料中心晶片銷售。Reuters 同篇確認盤後股價約上漲 2%。來源：https://www.reuters.com/business/nvidia-forecasts-quarterly-revenue-above-estimates-first-report-since-huangs-2026-11-17/。
+- Reuters 11/17 美股收盤報導：Dow -1.67%、S&P 500 -1.02%、Nasdaq -0.74%；AP 報導確認約 17/20 S&P 500 成分股下跌。指數點位及完整 44 項行情仍待逐項歷史列核對，暫不寫入數值主表。
+- 投資判讀候選：NVIDIA 營收與 EPS 超預期、Q4 指引亦高於預期，代表 AI 算力需求尚未出現明確反轉；但股市在財報前仍全面走弱，反映市場要求的不只是需求成長，而是 AI 資本支出的投資回報、融資品質、出口限制與治理風險。不能把單一公司 beat 解讀為整體 AI 交易已解除風險。
 ## 2026-11-18｜早報人工接手（階段①基線鎖定；行情／新聞查核進行中）
 
 - 報告日期：2026-11-18（週三）；預定行情基準日：2026-11-17；時區 Asia/Taipei。工作分支：`simulation/tac-process-lab-2026-11-06`。本次只在 simulation branch 工作；未修改 main 首頁、正式母版、Manifest、WR 或任何行事曆 JSON。
