@@ -1,3 +1,15 @@
+## 2026-11-18｜早報人工接手（階段①基線鎖定；行情／新聞查核進行中）
+
+- 報告日期：2026-11-18（週三）；預定行情基準日：2026-11-17；時區 Asia/Taipei。工作分支：`simulation/tac-process-lab-2026-11-06`。本次只在 simulation branch 工作；未修改 main 首頁、正式母版、Manifest、WR 或任何行事曆 JSON。
+- 模擬區唯一規則已重新讀取：SIM-1.3，路徑 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `582bee096185b6542be565950da2656c15191eda`。Manifest：`simulation-lab/baseline/mother-template-manifest.json`，SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`。週三選用 `simulation-lab/baseline/weekday-mother-template.html`，實際 SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`，與 Manifest 相符。QA 契約 SHA `824c327fb66fc8c5d4107b69abd9316c00bfe903`。
+- 唯一行事曆來源：main `data/calendar/weeks/2026-W47.json`，blob SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`，更新時間 `2026-11-18T04:36:10+08:00`，coverage `incomplete`；共 25 筆經濟事件、23 筆財報事件。只讀，未回寫。今日經濟事件 5 筆：澳洲 Q3 薪資價格指數、英國 10 月 CPI、ECB 金融穩定評估、歐元區 10 月 HICP、美國 10 月新屋開工／建築許可／住宅完工。今日財報事件 4 筆：NVDA（05:20，release_time／after_market）、ZTO（08:30，call_time）、TGT（21:00，call_time）、LOW（22:00，call_time）；畫面必須區分財報發布時間與電話會議時間，不得把 call_time 當發布時間。
+- 已讀取上一交易日 fixture `simulation-lab/fixtures/report-data-2026-11-17.json`（SHA `5c2bd796297c2eddb5748368ed2bd64ee5b6cb4e`）。其中 FactSet 盈餘健康度明確標記統計日 2026-11-13，Q3 2026：公布率 91%、EPS beat 84%、Revenue beat 74%、混合 EPS 年增 31.9%、混合營收年增 14.4%、聚合 EPS surprise +3.1%、Forward P/E 18.3 倍。此為 11/13 最新具日期快照，可作今日延續資料，但必須保留統計日，不得改標成 11/17。
+- 11/17 美股收盤方向已有 Reuters 當日報導支持：Dow -1.67%、S&P 500 -1.02%、Nasdaq -0.74%，三者延續跌勢；市場主軸為 AI 估值／資本支出回報疑慮、出口管制及 Nvidia 管理層變動風險。Reuters 報導並確認 NVIDIA Q4 FY27 revenue 指引 1300 億美元 ±3%，高於 LSEG 預估 1,252.5 億美元；但當前可讀 Reuters 版本未列 Q3 actual EPS／revenue。市場收盤點位、完整 44 項行情、11 檔產業 ETF、MOVE、Fear & Greed、FedWatch 及關鍵價位尚未完成 11/17 日期核實，禁止沿用 11/16 數值冒充今日行情。
+- NVIDIA Q3 FY27 財報已於美股 11/17 盤後發布；目前可見 MarketWatch 摘要及新聞轉載指向營收 1,158 億美元、EPS 2.68 美元（非 GAAP），但尚待公司原始公告完整回讀及 GAAP／non-GAAP 分欄核實後，才可寫入財報卡。不得以預覽共識取代實際值。
+- 當前進度：階段①基線鎖定完成；階段②行情核查未完成；階段③新聞／行事曆僅完成事件讀取，尚未完成新聞 5+10 篩選；階段④分析／HTML 尚未開始；QA 未執行；`review_ready=false`。下一步先完成 11/17 行情資料與 NVDA 原始公告核實，再整理新聞及撰寫 SIM-1.3 總結。不可從 11/17 fixture 直接改日期產生 11/18 審核版。
+
+---
+
 # TAC 投資早報｜工作狀態錨點
 
 ## 2026-11-17｜階段④分析與HTML組裝（完成；QA進行中）
