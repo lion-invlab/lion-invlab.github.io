@@ -1,5 +1,16 @@
 
 
+## 2026-11-18｜11/17 收盤與 NVIDIA 官方財報補核（本輪 05:xx）
+
+- **NVIDIA 官方公告已直接回讀：** https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027 。Q3 FY2027（截至 2026-10-25）營收 US$115.8B（YoY +103%、QoQ +20%）；Data Center US$107.6B（YoY +110%）；GAAP EPS US$2.70、non-GAAP EPS US$2.68；GAAP／non-GAAP gross margin 74.8%／74.9%；Q4 FY2027 revenue guidance US$130.0B ±3%，且 outlook 不假設中國 Data Center compute revenue。這取代前一版「EPS 口徑待官方核對」的狀態。Reuters 報導 LSEG 營收共識約 US$125.25B；MarketWatch 財報卡顯示 FactSet EPS 共識 US$2.48，須保留不同供應商名稱，不混成同一共識。
+- **美股現金指數補核（AP 11/17 close）：** S&P 500 7,340.53（-1.02%）；Dow 50,759.42（-1.64%）；Nasdaq Composite 24,328.38（-0.74%）；Russell 2000 2,701.87（-1.50%）。AP 原始報導：https://apnews.com/article/wall-street-stocks-dow-nasdaq-ff6caef4d9289cf7f1e6ee48a706eddc 。因此 Russell 2000 由先前待核實改為已取得 AP 同日現金指數收盤；百分比以 AP 明列跌點及 close 核對。Reuters 報導百分比略有四捨五入差異，主表同一來源組採 AP 數值。
+- **SOX 暫維持待核實：** Yahoo Finance 歷史頁列 11/17 close 9,494.68（-1.20%）；Investing.com Global 歷史頁列 9,588.0（-0.24%）；Nasdaq Index Overview 顯示 11/17 data-as-of 9,642.88（+0.34%），三者明顯不一致，且 Nasdaq 頁面可能為即時而非日終 close。未將任一值寫成已核實收盤。
+- **VIX 更新：** Yahoo Finance ^VIX 歷史日線列 11/17 close 26.41（前收 22.91，約 +15.28%）；可作 11/17 日終值，來源：https://finance.yahoo.com/quote/%5EVIX/history/ 。MOVE、恐慌貪婪指數仍採 11/16 最新可確認值，須標示資料日。
+- **ETF／利率／貴金屬：** 本輪搜尋僅取得部分第三方 sector ETF 資料，未達 11 檔完整、同一來源口徑；美債官方 11/17 par yield 尚未出現可讀日終列；GCZ6／SIZ6 11/17 CME settlement 未完成核實。以上均維持 11/16 最新可用值，清楚標示日期，不以盤中／第三方不完整資料替代。
+- **內容判讀校正：** NVIDIA 財報顯示 AI Data Center 當季需求與管理層指引仍強，但美股當日四大指數全面下跌，AP 指出市場跌勢廣泛。合理結論是「AI 需求未見單季反轉，然而股價正在折價治理、出口限制、資本支出回報與折現率風險」，而非「NVIDIA beat 所以 AI 交易風險解除」。
+- **HTML 執行阻塞再次確認：** simulation workflow 有 build／QA 的正確 DOM + Playwright 路徑，但其 push／dispatch build 前置步驟會額外執行 Equibles historical remainder、ORTEX TEST、Investing earnings page probes、Yahoo methodology probe、W46 PIT audit 等資料探測；目前 GitHub 工具連線只提供 fetch/update／rerun，沒有 workflow_dispatch action。尚未建立 11/18 fixture，也未觸發 workflow；沒有用舊 fixture 改日期或字串替換產生 HTML。下一步應先將每日 build 與可選資料探測解耦（只改 simulation workflow，保留必要 self-tests、PIT projection、OHLC／price-reaction、DOM assembly、Playwright、visual regression、artifact provenance），再建立日期匹配的 11/18 fixture 並以專用 build trigger 執行。未經實際執行不得宣稱審核版完成。
+
+
 ## 2026-11-18 05:46｜main 首頁 SHA 最終覆核更正
 
 - 以兩次連續 fetch_file 確認 main `index.html` blob SHA 為 `9782c479e6537ad2fbb58f66c449b900fedd1d2e`；取代本記錄較早誤寫的 SHA。main HEAD 為 `ec1d93df8e3116d11270ff9e5b74790b52a743f1`（2026-11-17T21:29:40Z，Chart 3 FRED／ALFRED 資料更新）。最新兩筆 index 專屬提交分別為 2026-11-17T01:31:24Z（盈餘健康度小卡配色）及 2026-11-17T00:15:11Z（首頁總結）；均早於本次 11/18 早報試跑，本輪未修改 index。
