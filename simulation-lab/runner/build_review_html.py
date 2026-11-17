@@ -203,6 +203,7 @@ def apply_report_layer_earnings_actuals(data):
             "eps_actual_currency", "eps_actual_period", "revenue_actual", "revenue_actual_display",
             "revenue_actual_basis", "revenue_actual_basis_code", "revenue_actual_currency",
             "revenue_actual_unit", "revenue_actual_period", "judgment",
+            "price_reaction",
         )
         for key in allowed:
             if key in overlay:
@@ -211,6 +212,8 @@ def apply_report_layer_earnings_actuals(data):
         target["report_layer_only"] = True
         target["actual_source"] = source
         target["source"] = source
+        target["source_url"] = source["url"]
+        target["source_name"] = source.get("name") or "發行公司官方公告"
         applied += 1
     return applied
 
