@@ -13953,7 +13953,10 @@
       "files_modified": [
         "data/calendar/weeks/2026-W47.json"
       ],
-      "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_sources_unreadable"
+      "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_sources_unreadable",
+      "data_commit_sha": "eec8d31d6b9b3ad60f803c0c62ee685a0109b747",
+      "data_commit_blob_sha": "2564931317feb211505abdb5d1ad2fbdc7705478",
+      "postwrite_readback_verified_at": "2026-11-18T04:36:10+08:00"
     }
   ],
   "last_update_audit": {
@@ -14199,10 +14202,12 @@
     "attempt_sequences_verified": true,
     "final_validation_status": "passed_partial_consensus_sources_unreadable",
     "last_verified_at": "2026-11-18T04:36:10+08:00",
-    "data_commit_sha": null,
-    "data_commit_blob_sha": null,
+    "data_commit_sha": "eec8d31d6b9b3ad60f803c0c62ee685a0109b747",
+    "data_commit_blob_sha": "2564931317feb211505abdb5d1ad2fbdc7705478",
     "postwrite_readback": {
       "verified_at": "2026-11-18T04:36:10+08:00",
+      "first_data_commit_sha": "eec8d31d6b9b3ad60f803c0c62ee685a0109b747",
+      "first_data_commit_blob_sha": "2564931317feb211505abdb5d1ad2fbdc7705478",
       "checks": {
         "same_week_path": true,
         "schema_version_1_retained": true,
@@ -14231,6 +14236,7 @@
     "source_observation_batch_at": "2026-11-18T04:36:10+08:00",
     "actual_sources_observed_at": "2026-11-18T04:36:10+08:00",
     "attempts_observed_at": "2026-11-18T04:36:10+08:00",
-    "basis_code_corrections": []
+    "basis_code_corrections": [],
+    "data_commit_readback_blob_sha": "2564931317feb211505abdb5d1ad2fbdc7705478"
   }
 }
