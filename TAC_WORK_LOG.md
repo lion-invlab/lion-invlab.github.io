@@ -1267,3 +1267,10 @@
 - **NVDA：** 官方Q3 FY2027 GAAP EPS 2.70、non-GAAP EPS 2.68、營收US$115.844B；Yahoo公告前11/15 13:50台灣時間快照EPS US$2.47（43位）、營收US$108.73B（45位），均優於預期；股價反應待11/18首個完整美股交易時段。只補報告層，未回寫main行事曆。
 - **首頁保護：** main index SHA `9782c479e6537ad2fbb58f66c449b900fedd1d2e`，W47 SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`；本次前後一致，未碰main首頁／母版／WR／行事曆資料庫。
 - **workflow調整：** 額外Equibles／ORTEX／Investing研究探測與W46 PIT audit改為選擇性，日常預設跳過；必要資料投影與完整DOM／Playwright／視覺／provenance QA保留。
+
+
+## 2026-11-18｜審核版例外通道補正
+
+- 依 SIM-1.3 第0節審核版例外通道及 H 節規定，審核版唯一交付位置為 main `preview/2026-11-18-simulation.html`，不是 simulation branch 的 preview 路徑。
+- 已將 simulation branch 已驗證 HTML（source blob SHA `47db490cdfb53b8192d291a306bbec9ad9a1308a`）新增至 main 指定 preview 路徑；main commit `236156aed95aae18383efc7551916c25815f40ff`；回讀 blob SHA 完全相同，內容 byte-for-byte 一致。
+- 本次只使用審核版例外通道；未修改 main `index.html`、WR、母版、Manifest、W47 JSON 或其他 main 資產。正式首頁仍須等待使用者核准。
