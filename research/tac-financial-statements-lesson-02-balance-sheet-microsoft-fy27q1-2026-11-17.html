@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>資產負債表：看懂一家公司的家底｜TAC 財報閱讀與投資判讀 第二堂</title>
+<meta name="description" content="零金融背景也能學會看資產負債表。以 Microsoft FY2027 Q1 官方財報逐項翻譯，理解資產、負債、股東權益與償債能力。">
+<style>
+:root{--r:#b8202f;--n:#111d30;--g:#c7a66a;--ink:#202630;--muted:#697586;--line:#e4e8ee;--paper:#f3f5f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+.top{height:5px;background:linear-gradient(90deg,var(--r) 0 68%,var(--g) 68%)}.wrap{max-width:1040px;margin:auto;padding:0 22px}
+.mast{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{color:var(--r);font-weight:950;letter-spacing:1.5px;white-space:nowrap}.brand small{display:block;color:#929aa5;font-size:9px;letter-spacing:2px}
+.back{font-size:11px;color:#697586;text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 11px;white-space:nowrap}.meta{font-size:10px;color:#8993a0;letter-spacing:1px;font-weight:800;white-space:nowrap}
+.hero{margin:26px 0 18px;padding:34px 38px;border-radius:18px;background:linear-gradient(120deg,#101b2c,#1d304b);color:white;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #c7a66a55;border-radius:50%;right:-100px;top:-150px;box-shadow:0 0 0 25px #c7a66a0c,0 0 0 55px #c7a66a09}
+.eyebrow{font-size:10px;color:#d8bd83;letter-spacing:2px;font-weight:900}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.3;margin:12px 0}.hero p{font-size:14px;color:#c6d0dc;max-width:760px;margin:0}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{font-size:10px;border:1px solid #d2b77d77;color:#e8d8b6;border-radius:99px;padding:4px 10px}
+.insight{display:grid;grid-template-columns:145px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--r);border-radius:12px;padding:18px 21px;margin:18px 0 25px}.insight b{font-size:10px;color:var(--r);letter-spacing:1.4px}.insight strong{display:block;color:var(--r);font-size:clamp(17px,2.1vw,20px);font-weight:950;line-height:1.55}.insight p{font-size:13px;color:#5d6876;margin:4px 0}
+.sec{margin:28px 0}.sec h2{font-size:21px;color:var(--n);margin:0 0 10px}.sec h3{font-size:17px;color:var(--n);margin:22px 0 8px}.sec p{font-size:14px;color:#475261;margin:8px 0}
+.cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card,.metric{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 18px #17243807}.card b{font-size:9px;color:var(--r);letter-spacing:1.4px}.card h4{font-size:15px;color:var(--n);margin:5px 0}.card p{font-size:12px;color:#667180;margin:4px 0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.metric label{font-size:10px;color:#7d8794;font-weight:800}.value{font-size:clamp(23px,3vw,30px);color:var(--r);font-weight:950;line-height:1.35;font-variant-numeric:tabular-nums}.small{font-size:10px;color:#8993a0}
+.formula{background:var(--n);color:#fff;border-radius:11px;padding:14px 18px;margin:12px 0}.formula small{display:block;color:#bdc8d5;font-size:10px}.formula b{font-size:9px;color:#d8bd83;letter-spacing:1.5px}.eq{font-family:Georgia,serif;font-size:18px;line-height:1.55}
+.callout{background:#fff9ed;border:1px solid #ead9b5;border-radius:11px;padding:14px 17px;margin:14px 0}.callout strong{font-size:15px;color:var(--r)}.callout p{font-size:12px;color:#67583f;margin:4px 0}
+table{width:100%;border-collapse:collapse;background:white;border-radius:11px;overflow:hidden;margin:13px 0;font-size:12px}th{background:#17263b;color:white;text-align:left;padding:10px}td{padding:10px;border-bottom:1px solid #edf0f3;color:#4c5867;vertical-align:top}tr:last-child td{border:0}
+.tablewrap{overflow-x:auto;border-radius:11px}.statement{min-width:640px}.statement th:nth-child(n+2),.statement td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}.statement td:first-child{font-weight:700;color:#273448}.statement .total td{font-weight:950;color:#17263b;background:#f5f7fa}.statement .key td{font-weight:950;color:var(--r);background:#fff8f8}
+.translation{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.translation:last-child{border:0}.term{font-weight:950;color:var(--n)}.term small{display:block;color:#8993a0;font-size:10px;font-weight:700}.meaning{font-size:13px;color:#526071}
+.guide{margin:14px 0 18px;background:#fff;border:1px solid #dfe5ec;border-radius:12px;padding:16px 18px}.guide .gt{font-size:12px;font-weight:950;letter-spacing:1.2px;color:var(--r);margin-bottom:8px}.guide p{font-size:12px;color:#586575;margin:6px 0}.guide .rule{border-left:3px solid #c7a66a;padding:7px 11px;background:#fffaf0;margin-top:9px;font-size:12px;color:#65563d}
+.lesson-nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.lesson-nav a{font-size:11px;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 11px;color:#536071}.lesson-nav a.current{background:var(--r);border-color:var(--r);color:white}
+.series-roadmap{margin:22px 0 18px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:13px}.series-roadmap h2{font-size:19px;color:var(--n);margin:0 0 5px}.series-roadmap>p{font-size:12px;color:var(--muted);margin:0 0 10px}.series-roadmap table{margin:10px 0 0;font-size:12px}.series-roadmap th:first-child{width:34%}.series-roadmap td:first-child{font-weight:850;color:var(--n)}.series-roadmap .done{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#fbecee;color:var(--r);font-size:9px;white-space:nowrap}
+.source a{color:var(--r);font-weight:800;text-decoration:none}.source li{font-size:12px;color:#596575;margin:7px 0}.foot{margin:40px 0 30px;padding:18px 0;border-top:1px solid var(--line);font-size:10px;color:#8b95a2}.foot b{color:var(--r)}.disclaimer{font-size:10px;color:#8b95a2}
+@media(max-width:680px){.wrap{padding:0 14px}.mast{flex-wrap:wrap}.meta{display:none}.hero{padding:25px 20px}.hero h1{font-size:28px}.insight{grid-template-columns:1fr;gap:4px;padding:15px}.cardgrid,.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.translation{grid-template-columns:1fr;gap:3px}.sec h2{font-size:18px}.tablewrap{margin-right:-2px}.statement{font-size:11px}th,td{padding:8px 7px}}
+</style>
+</head>
+<body><div class="top"></div><main class="wrap">
+<header class="mast"><div class="brand">TAC 投資早報<small>INVESTMENT RESEARCH</small></div><a class="back" href="../special-reports.html">← 返回專題報導</a><div class="meta">TAC SPECIAL REPORT · 2026.11.17</div></header>
+<section class="hero"><div class="eyebrow">TAC FINANCIAL LITERACY SERIES　/　LESSON 02</div><h1>公司真的有錢嗎？<br>看懂資產負債表，摸清企業家底</h1><p>不用會計背景，也能看懂一家公司的財務體質。這一課直接打開 Microsoft 微軟的官方資產負債表，逐項翻譯公司擁有什麼、欠別人多少，以及股東真正擁有的帳面價值。</p><div class="pills"><span class="pill">第二課｜資產負債表</span><span class="pill">原始英文逐項翻譯</span><span class="pill">Microsoft FY2027 Q1</span><span class="pill">零基礎入門</span></div></section>
+<div class="insight"><b>THIS LESSON</b><div><strong>先回答三個最基本的問題：公司有什麼？公司欠多少？扣掉欠款後，帳面上還剩多少屬於股東？</strong><p>本篇採用微軟截至 2026 年 9 月 30 日的 FY2027 第一季資產負債表，並與 2026 年 6 月 30 日比較。所有金額均為百萬美元。</p></div></div>
+<section class="series-roadmap"><h2>六堂課學習地圖</h2><p>從看懂企業賺錢，到看懂企業體質，再走向完整投資判讀。</p><div class="tablewrap"><table><thead><tr><th>核心內容</th><th>專題標題</th></tr></thead><tbody>
+<tr><td>01｜損益表 <span class="done">第一課</span></td><td><a href="tac-financial-statements-lesson-01-income-statement-microsoft-fy27q1-2026-11-16.html">公司到底賺了多少錢？</a></td></tr>
+<tr><td>02｜資產負債表 <span class="done">本篇</span></td><td>公司真的有錢嗎？</td></tr><tr><td>03｜現金流量表</td><td>賺到的錢，真的進口袋了嗎？</td></tr><tr><td>04｜管理階層說明與財報附註</td><td>管理層到底在告訴我們什麼？</td></tr><tr><td>05｜市場預期與財報比較</td><td>財報很好，為什麼股價還會跌？</td></tr><tr><td>06｜綜合基本面投資判讀</td><td>如何從財報找出值得投資的公司？</td></tr>
+</tbody></table></div></section>
+<nav class="lesson-nav"><a href="tac-financial-statements-lesson-01-income-statement-microsoft-fy27q1-2026-11-16.html">01 損益表</a><a class="current" href="#lesson2">02 資產負債表</a><a href="#lesson3">03 現金流量表（後續上架）</a><a href="#lesson4">04 管理層說明（後續上架）</a><a href="#lesson5">05 市場預期（後續上架）</a><a href="#lesson6">06 投資判讀（後續上架）</a></nav>
+
+<section class="sec" id="lesson2"><h2>一、資產負債表是什麼？先把它想成公司的財務快照</h2>
+<p>損益表像一張「這段時間的成績單」，資產負債表則像某一天替公司拍下的財務照片。它告訴我們：在特定日期，公司手上有多少資源、還有多少款項必須支付，以及股東在帳面上擁有多少權益。</p>
+<div class="cardgrid"><div class="card"><b>ASSETS｜資產</b><h4>公司擁有或控制的資源</h4><p>例如銀行存款、投資、客戶尚未付款的帳款、資料中心設備與土地。</p></div><div class="card"><b>LIABILITIES｜負債</b><h4>公司未來需要履行的義務</h4><p>例如欠供應商的貨款、借款、應付薪資，以及已收客戶款項但尚未完成的服務。</p></div><div class="card"><b>STOCKHOLDERS' EQUITY｜股東權益</b><h4>扣除負債後的帳面剩餘</h4><p>把資產減去負債，得到會計帳面上歸屬股東的權益。</p></div></div>
+<div class="formula"><b>THE ACCOUNTING EQUATION｜會計恆等式</b><div class="eq">資產 Assets ＝ 負債 Liabilities ＋ 股東權益 Stockholders’ Equity</div><small>生活例子：一間小店有 100 萬元資產，向銀行及供應商合計欠款 40 萬元，帳面股東權益就是 60 萬元。</small></div>
+<div class="callout"><strong>先記住：資產不是全部現金，股東權益也不是銀行帳戶裡的現金。</strong><p>資產可能是設備、土地、應收帳款或商譽；股東權益則是會計計算後的剩餘權益。這兩個觀念若混淆，就很容易誤判企業的財務實力。</p></div></section>
+
+<section class="sec"><h2>二、微軟的資產：公司手上有哪些東西？</h2><p>先從資產開始。微軟截至 2026 年 9 月 30 日總資產為 779,403 百萬美元，約 7,794.03 億美元。資產分成一年內較可能轉成現金或被使用的流動資產，以及較長期持有的資產。</p>
+<div class="guide"><div class="gt">READ THE HEADER｜先看報表抬頭</div><p><b>MICROSOFT CORPORATION — BALANCE SHEETS</b>：微軟公司－資產負債表。</p><p><b>(In millions) (Unaudited)</b>：單位為百萬美元；未經會計師查核。</p><p><b>September 30, 2026 / June 30, 2026</b>：比較 2026 年 9 月 30 日與 2026 年 6 月 30 日兩個時點，不是兩段期間的累計金額。</p><div class="rule">單位換算：表內 20,281 代表 20,281 百萬美元，也就是 202.81 億美元（US$20.281 billion）。</div></div>
+<div class="tablewrap"><table class="statement"><thead><tr><th>英文原始科目</th><th>中文翻譯</th><th>2026/09/30</th><th>2026/06/30</th></tr></thead><tbody>
+<tr><td colspan="4"><b>ASSETS｜資產</b></td></tr>
+<tr><td colspan="4"><b>Current assets｜流動資產</b></td></tr>
+<tr><td>Cash and cash equivalents</td><td>現金及約當現金</td><td>$20,281</td><td>$20,935</td></tr>
+<tr><td>Short-term investments</td><td>短期投資</td><td>44,228</td><td>55,908</td></tr>
+<tr class="total"><td>Total cash, cash equivalents, and short-term investments</td><td>現金、約當現金及短期投資合計</td><td>64,509</td><td>76,843</td></tr>
+<tr><td>Accounts receivable, net of allowance for doubtful accounts</td><td>應收帳款（扣除呆帳備抵）</td><td>62,084</td><td>80,876</td></tr>
+<tr><td>Inventories</td><td>存貨</td><td>1,835</td><td>1,397</td></tr>
+<tr><td>Other current assets</td><td>其他流動資產</td><td>57,709</td><td>48,594</td></tr>
+<tr class="key"><td>Total current assets</td><td>流動資產合計</td><td>186,137</td><td>207,710</td></tr>
+<tr><td colspan="4"><b>Long-term assets｜非流動資產</b></td></tr>
+<tr><td>Property and equipment, net of accumulated depreciation</td><td>不動產及設備（扣除累計折舊）</td><td>346,844</td><td>313,076</td></tr>
+<tr><td>Operating lease right-of-use assets</td><td>營業租賃使用權資產</td><td>30,178</td><td>24,177</td></tr>
+<tr><td>Equity and other investments</td><td>權益及其他投資</td><td>37,808</td><td>36,348</td></tr>
+<tr><td>Goodwill</td><td>商譽</td><td>119,646</td><td>119,651</td></tr>
+<tr><td>Intangible assets, net</td><td>無形資產（淨額）</td><td>17,751</td><td>18,609</td></tr>
+<tr><td>Other long-term assets</td><td>其他長期資產</td><td>41,039</td><td>38,805</td></tr>
+<tr class="key"><td>Total assets</td><td>資產總額</td><td>$779,403</td><td>$758,376</td></tr>
+</tbody></table></div>
+<p class="disclaimer">金額單位：百萬美元。來源：Microsoft FY2027 Q1 官方資產負債表。</p></section>
+
+<section class="sec"><h2>三、資產逐項白話解釋：帳上的東西，真的都能拿來付帳嗎？</h2>
+<div class="translation"><div class="term">Cash and cash equivalents<small>現金及約當現金</small></div><div class="meaning">公司可以立即使用的現金，以及期限短、流動性高、價值變動風險很低的短期工具。這是最接近「公司口袋裡現金」的項目，但仍要留意是否有受限制或不能自由動用的資金。</div></div>
+<div class="translation"><div class="term">Short-term investments<small>短期投資</small></div><div class="meaning">公司暫時不需要立即使用、但預計短期內可變現的投資。它與現金不同，可能有到期日、價格或流動性差異；不能不加區分地當成活期存款。</div></div>
+<div class="translation"><div class="term">Accounts receivable<small>應收帳款</small></div><div class="meaning">公司已經提供產品或服務、已認列收入，但客戶還沒付錢。它是公司有權收取的款項，不代表錢已經進銀行。若客戶延遲付款或無力付款，可能形成呆帳。</div></div>
+<div class="translation"><div class="term">Inventories<small>存貨</small></div><div class="meaning">準備出售或用於提供產品服務的商品、原料及在製品。存貨需要時間賣出，也可能過時、跌價或滯銷，因此不能視為現金。</div></div>
+<div class="translation"><div class="term">Other current assets<small>其他流動資產</small></div><div class="meaning">一年內預期可使用、收回或轉成費用的其他資產，可能包含預付款、應收稅款及其他營運項目。名稱很籠統，想知道細項必須看財報附註。</div></div>
+<div class="translation"><div class="term">Property and equipment<small>不動產及設備</small></div><div class="meaning">辦公室、土地、資料中心、伺服器、網路設備及其他長期使用的資產。微軟本季此項增加約 337.68 億美元，值得連結到 AI 與雲端基礎設施投資；但增加不等於當季全部現金支出，還要搭配現金流量表及折舊資料。</div></div>
+<div class="translation"><div class="term">Operating lease right-of-use assets<small>營業租賃使用權資產</small></div><div class="meaning">公司透過租賃取得使用某些辦公空間、設備或設施的權利，會在資產端認列使用權資產；另一端通常也會有租賃負債。這不是公司買下了該物件。</div></div>
+<div class="translation"><div class="term">Equity and other investments<small>權益及其他投資</small></div><div class="meaning">持有其他公司的股權或其他投資。價值可能隨投資標的表現而變動，並非營運現金。</div></div>
+<div class="translation"><div class="term">Goodwill<small>商譽</small></div><div class="meaning">公司收購另一家公司時，支付價格超過可辨認淨資產公平價值的部分。它反映預期綜效、客戶關係或其他無法單獨辨認的價值；若未來預期落空，可能需要認列減損。</div></div>
+<div class="translation"><div class="term">Intangible assets<small>無形資產</small></div><div class="meaning">沒有實體形狀、但具有經濟價值的資產，例如專利、技術、軟體、商標或客戶關係。其帳面價值可能隨攤銷或減損下降。</div></div>
+<div class="callout"><strong>投資判讀提醒：資產總額很大，不代表公司能立刻拿出同等金額還債。</strong><p>微軟的 779,403 百萬美元總資產中，有大量金額是資料中心設備、商譽、投資與其他長期資產。要判斷短期付款能力，必須進一步看流動資產的組成、負債到期時間及現金流量。</p></div></section>
+
+<section class="sec"><h2>四、微軟的負債：公司到底欠了哪些款項？</h2><p>負債不是只有銀行借款。公司日常營運也會產生應付供應商貨款、薪資、稅款、租賃義務，以及已經向客戶收錢但還沒完成的服務。</p>
+<div class="tablewrap"><table class="statement"><thead><tr><th>英文原始科目</th><th>中文翻譯</th><th>2026/09/30</th><th>2026/06/30</th></tr></thead><tbody>
+<tr><td colspan="4"><b>Current liabilities｜流動負債</b></td></tr>
+<tr><td>Accounts payable</td><td>應付帳款</td><td>$42,625</td><td>$42,416</td></tr>
+<tr><td>Current portion of long-term debt</td><td>長期借款一年內到期部分</td><td>4,391</td><td>9,227</td></tr>
+<tr><td>Accrued compensation</td><td>應計薪酬／應付員工薪酬</td><td>10,156</td><td>14,945</td></tr>
+<tr><td>Short-term income taxes</td><td>短期應付所得稅</td><td>1,447</td><td>2,534</td></tr>
+<tr><td>Short-term unearned revenue</td><td>短期遞延收入／尚未履約收入</td><td>66,866</td><td>72,965</td></tr>
+<tr><td>Other current liabilities</td><td>其他流動負債</td><td>26,483</td><td>26,738</td></tr>
+<tr class="key"><td>Total current liabilities</td><td>流動負債合計</td><td>151,968</td><td>168,825</td></tr>
+<tr><td colspan="4"><b>Long-term liabilities｜非流動負債</b></td></tr>
+<tr><td>Long-term debt</td><td>長期借款</td><td>31,090</td><td>31,067</td></tr>
+<tr><td>Long-term income taxes</td><td>長期應付所得稅</td><td>29,235</td><td>28,647</td></tr>
+<tr><td>Long-term unearned revenue</td><td>長期遞延收入／尚未履約收入</td><td>2,697</td><td>2,747</td></tr>
+<tr><td>Deferred income taxes</td><td>遞延所得稅負債</td><td>3,174</td><td>3,054</td></tr>
+<tr><td>Operating lease liabilities</td><td>營業租賃負債</td><td>21,719</td><td>16,532</td></tr>
+<tr><td>Other long-term liabilities</td><td>其他長期負債</td><td>69,011</td><td>65,117</td></tr>
+<tr class="key"><td>Total liabilities</td><td>負債總額</td><td>$308,894</td><td>$315,989</td></tr>
+</tbody></table></div>
+<p class="disclaimer">金額單位：百萬美元。財報另列有 Commitments and contingencies（承諾與或有事項），屬重要揭露，但不是上述負債總額的加總項目。</p>
+</section>
+
+<section class="sec"><h2>五、負債逐項白話解釋：不是每一種欠款都一樣</h2>
+<div class="translation"><div class="term">Accounts payable<small>應付帳款</small></div><div class="meaning">公司已經收到供應商提供的商品或服務，但還沒付款。就像商店先向供應商進貨，約定月底結帳。</div></div>
+<div class="translation"><div class="term">Current portion of long-term debt<small>長期借款一年內到期部分</small></div><div class="meaning">原本屬於長期借款，但接下來一年內必須償還的部分。這比一般營運應付款更直接涉及還本壓力。</div></div>
+<div class="translation"><div class="term">Accrued compensation<small>應計薪酬</small></div><div class="meaning">員工已經提供勞務，公司已認列但尚未支付的薪資、獎金或相關薪酬。</div></div>
+<div class="translation"><div class="term">Short-term income taxes<small>短期應付所得稅</small></div><div class="meaning">已認列、預計短期內支付的所得稅款。</div></div>
+<div class="translation"><div class="term">Unearned revenue<small>遞延收入／尚未履約收入</small></div><div class="meaning">公司先向客戶收款或開立帳單，但產品或服務尚未全部交付，因此還不能把全部金額認列為收入。微軟大量訂閱與雲端服務可能形成這類款項。它代表未來仍有交付服務的義務，不等於銀行借款，也不應直接解讀為財務危機。</div></div>
+<div class="translation"><div class="term">Long-term debt<small>長期借款</small></div><div class="meaning">一年後才到期的借款或債券。判斷壓力時要看利率、到期時間、現金流及再融資能力，不能只看總額。</div></div>
+<div class="translation"><div class="term">Deferred income taxes<small>遞延所得稅負債</small></div><div class="meaning">因會計帳面與稅務計算時點不同，未來可能需要支付的所得稅影響。它不一定是近期要支付的現金帳單。</div></div>
+<div class="translation"><div class="term">Operating lease liabilities<small>營業租賃負債</small></div><div class="meaning">因租用辦公室、設施或設備而承諾在未來支付的租金義務。資產端的使用權資產，通常與負債端的租賃負債相互對應。</div></div>
+<div class="callout"><strong>本課最重要的區分：負債總額，不等於有息借款。</strong><p>微軟負債總額 3,088.94 億美元，其中流動與長期借款合計約 354.81 億美元。其餘還包括應付帳款、遞延收入、租賃、稅務及其他營運義務。分析借款壓力時，必須先把負債拆開看。</p></div></section>
+
+<section class="sec"><h2>六、股東權益：扣掉所有負債後，帳面上還剩多少？</h2>
+<div class="tablewrap"><table class="statement"><thead><tr><th>英文原始科目</th><th>中文翻譯</th><th>2026/09/30</th><th>2026/06/30</th></tr></thead><tbody>
+<tr><td>Common stock and paid-in capital</td><td>普通股及資本公積／投入資本</td><td>$119,571</td><td>$117,406</td></tr>
+<tr><td>Retained earnings</td><td>保留盈餘</td><td>354,795</td><td>328,265</td></tr>
+<tr><td>Accumulated other comprehensive loss</td><td>累積其他綜合損失</td><td>(3,857)</td><td>(3,284)</td></tr>
+<tr class="key"><td>Total stockholders’ equity</td><td>股東權益總額</td><td>$470,509</td><td>$442,387</td></tr>
+<tr class="total"><td>Total liabilities and stockholders’ equity</td><td>負債及股東權益總額</td><td>$779,403</td><td>$758,376</td></tr>
+</tbody></table></div>
+<div class="translation"><div class="term">Common stock and paid-in capital<small>普通股及資本公積</small></div><div class="meaning">股東投入公司的資本，以及依會計規則列入資本公積的金額。它不是公司目前市值，也不是股東今天把股票賣掉能拿回的金額。</div></div>
+<div class="translation"><div class="term">Retained earnings<small>保留盈餘</small></div><div class="meaning">公司歷年累積獲利，扣除股利分配及其他調整後留在公司的帳面金額。它不代表這些錢全部以現金形式存在，可能已投入設備、營運或其他資產。</div></div>
+<div class="translation"><div class="term">Accumulated other comprehensive loss<small>累積其他綜合損失</small></div><div class="meaning">某些依會計規則不直接列入當期淨利、而先列入其他綜合損益的累積損失，例如部分投資評價或外幣換算影響。</div></div>
+<div class="formula"><b>CHECK THE BALANCE｜核對會計恆等式</b><div class="eq">308,894 ＋ 470,509 ＝ 779,403</div><small>負債總額＋股東權益總額＝資產總額。兩邊相等，代表資產負債表的基本加總關係成立。</small></div></section>
+
+<section class="sec"><h2>七、五個財務指標：初步判斷公司短期與長期體質</h2><p>比率不是考試公式，而是把龐大的金額轉成容易比較的尺度。以下用微軟本季數字示範，並且說明每個比率看得到什麼、看不到什麼。</p>
+<div class="metrics">
+<div class="metric"><label>流動比率｜Current Ratio</label><div class="value">1.22 倍</div><div class="small">186,137 ÷ 151,968</div></div>
+<div class="metric"><label>現金比率｜Cash Ratio</label><div class="value">0.42 倍</div><div class="small">64,509 ÷ 151,968</div></div>
+<div class="metric"><label>負債比率｜Liabilities / Assets</label><div class="value">39.6%</div><div class="small">308,894 ÷ 779,403</div></div>
+<div class="metric"><label>股東權益比率｜Equity Ratio</label><div class="value">60.4%</div><div class="small">470,509 ÷ 779,403</div></div>
+</div>
+<div class="formula"><b>01｜流動比率 CURRENT RATIO</b><div class="eq">流動資產 ÷ 流動負債</div><small>微軟：186,137 ÷ 151,968 ≈ 1.22 倍。白話：每有 100 元一年內到期的負債，帳上約有 122 元流動資產可以支應。</small></div>
+<div class="guide"><div class="gt">HOW TO READ｜流動比率不能直接當現金看</div><p>這 122 元裡面可能有現金、短期投資、應收帳款、存貨及其他流動資產。應收帳款還要等客戶付款，存貨還要賣出去，因此 1.22 倍不代表公司隨時能拿出 122 元現金。</p></div>
+<div class="formula"><b>02｜現金比率 CASH RATIO</b><div class="eq">現金、約當現金及短期投資 ÷ 流動負債</div><small>微軟：64,509 ÷ 151,968 ≈ 0.42 倍。白話：每 100 元流動負債，約有 42 元現金及短期投資作為較直接的流動性來源。</small></div>
+<div class="formula"><b>03｜負債比率 LIABILITIES TO ASSETS</b><div class="eq">負債總額 ÷ 資產總額 × 100%</div><small>微軟：308,894 ÷ 779,403 ≈ 39.6%。白話：每 100 元帳面資產，約有 39.6 元是透過負債形成，另外約 60.4 元由股東權益支應。</small></div>
+<div class="formula"><b>04｜股東權益比率 EQUITY RATIO</b><div class="eq">股東權益總額 ÷ 資產總額 × 100%</div><small>微軟：470,509 ÷ 779,403 ≈ 60.4%。這是負債比率的另一面，顯示帳面資產由股東權益支應的比例。</small></div>
+<div class="formula"><b>05｜淨現金部位 NET CASH POSITION</b><div class="eq">現金、約當現金及短期投資 − 有息借款</div><small>微軟：64,509 −（4,391＋31,090）＝ 29,028 百萬美元，約 290.28 億美元淨現金。</small></div>
+<div class="callout"><strong>指標要一起看，不能單獨打分數。</strong><p>流動比率回答短期資產與短期義務的相對規模；現金比率更聚焦可快速動用的資金；負債比率與股東權益比率看資金結構；淨現金則比較現金投資與有息借款。不同產業、商業模式與收款週期，會讓合理區間大不相同。</p></div></section>
+
+<section class="sec"><h2>八、實戰判讀：微軟這張資產負債表透露哪些訊息？</h2>
+<div class="cardgrid">
+<div class="card"><b>STRENGTH｜財務緩衝</b><h4>持有大量現金與短期投資</h4><p>現金及短期投資合計 645.09 億美元，高於約 354.81 億美元的有息借款，簡單計算仍有約 290.28 億美元淨現金。</p></div>
+<div class="card"><b>CAPEX｜資本投入</b><h4>資料中心設備持續擴張</h4><p>不動產及設備較 2026/06/30 增加約 337.68 億美元。這反映長期資產規模擴大，但要用現金流量表確認實際資本支出與付款節奏。</p></div>
+<div class="card"><b>LIQUIDITY｜短期流動性</b><h4>流動比率約 1.22 倍</h4><p>流動資產高於流動負債，但其中包含應收帳款及其他流動資產，不能解讀為現金可立即覆蓋所有短期負債。</p></div>
+<div class="card"><b>BUSINESS MODEL｜商業模式</b><h4>遞延收入是重要項目</h4><p>短期遞延收入約 668.66 億美元。對訂閱及雲端服務企業而言，客戶預先付款可能形成此項負債，代表未來仍有服務交付義務，不等同銀行借款。</p></div>
+</div>
+<div class="guide"><div class="gt">WHAT CHANGED｜與上一季相比</div><p><b>總資產</b>由 758,376 增至 779,403 百萬美元，增加 21,027 百萬美元。</p><p><b>不動產及設備</b>由 313,076 增至 346,844 百萬美元，增加 33,768 百萬美元，是資產端最值得注意的變化之一。</p><p><b>現金及短期投資</b>由 76,843 降至 64,509 百萬美元，減少 12,334 百萬美元。不能只看到現金下降就認定財務轉差，必須再看投資支出、營運現金流與融資活動。</p><p><b>總負債</b>由 315,989 降至 308,894 百萬美元，減少 7,095 百萬美元；但不同負債項目有升有降，仍需拆開檢視。</p></div>
+<div class="callout"><strong>AI 投資要追蹤的不是「設備越多越好」，而是投資能否帶來回報。</strong><p>微軟擴大資料中心與設備，可能支援 Azure、AI 服務與未來營收成長；但同時也帶來折舊、能源、維護與資本回收壓力。下一步要檢查現金流量表中的資本支出、營運現金流，以及管理層對產能利用與需求的說明。</p></div>
+</section>
+
+<section class="sec"><h2>九、讀完這一課，你應該能回答五個問題</h2>
+<div class="cardgrid">
+<div class="card"><b>01</b><h4>公司有多少資產？</h4><p>微軟截至 2026/09/30 的資產總額為 7,794.03 億美元。</p></div>
+<div class="card"><b>02</b><h4>資產是不是等於現金？</h4><p>不是。設備、應收帳款、商譽、投資都屬於資產，但變現能力與用途不同。</p></div>
+<div class="card"><b>03</b><h4>負債是不是都很危險？</h4><p>不是。要區分借款、營運應付款、租賃義務及遞延收入，並看期限與現金流。</p></div>
+<div class="card"><b>04</b><h4>股東權益是不是現金？</h4><p>不是。它是資產扣除負債後的帳面剩餘權益，不代表可立即分配的現金。</p></div>
+<div class="card"><b>05</b><h4>還需要看哪一張報表？</h4><p>現金流量表。它能協助判斷公司是否真正產生現金，以及投資設備花了多少錢。</p></div>
+</div>
+<div class="insight"><b>LESSON 02 SUMMARY</b><div><strong>微軟的資產規模與股東權益都相當龐大，現金及短期投資高於有息借款；同時，資料中心設備快速增加，顯示公司持續投入長期基礎設施。</strong><p>但資產負債表只是特定日期的財務快照。要判斷 AI 投資是否創造價值、現金是否足以支應擴張，還必須搭配現金流量表、財報附註與管理層說明。這也是第三課要接續回答的問題。</p></div></div>
+</section>
+<section class="sec source"><h2>原始資料與延伸閱讀</h2><ol>
+<li><a href="https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast" target="_blank" rel="noopener">Microsoft Investor Relations｜FY2027 Q1 Earnings Release & Financial Statements</a> — 本篇資產負債表的主要來源。</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm" target="_blank" rel="noopener">U.S. SEC｜Microsoft Form 10-Q, quarter ended September 30, 2026</a> — 美國證券交易委員會季度申報原始文件。</li>
+<li><a href="https://www.microsoft.com/en-us/investor/events/fy-2027/earnings-fy-2027-q1" target="_blank" rel="noopener">Microsoft FY2027 Q1 Earnings Conference Call</a> — 管理層對季度表現的說明與問答。</li>
+</ol><p class="disclaimer">資料基準日：2026/09/30；比較日：2026/06/30。財報公布日：2026/10/28。金額除另有說明外均為百萬美元。本文為投資教育用途，不構成個別投資建議。比率採本篇明確列示之計算口徑，應搭配財報附註及現金流量判讀。</p></section>
+<footer class="foot"><b>TAC 投資早報｜看懂企業財報：從零開始的六堂投資實戰課</b><br>第二課：資產負債表｜Microsoft FY2027 Q1｜2026/11/17<br>本篇為獨立審核版，尚未發布至正式專題索引。</footer>
+</main></body></html>
