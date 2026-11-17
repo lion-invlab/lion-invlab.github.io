@@ -3,7 +3,7 @@
   "review_ready": true,
   "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "行情基準日2026-11-17。44項行情欄位均有明確資料日：25項為11/17，19項為11/16最後可核實值；未將盤中報價冒充收盤。費半11/17不同來源數值不一致，主表保留11/16最後可核實現金指數值。11檔產業ETF只呈現單日漲跌幅，最新同源完整資料日為11/16。WTI Z6與Brent F7採Newsquawk明列的指定合約結算。FactSet盈餘健康度為11/13統計快照；MOVE與CNN Fear & Greed為11/16資料日。",
+    "quality_note": "行情基準日2026-11-17。44項行情欄位均有明確資料日：25項為11/17，19項為11/16最後可核實值；未將盤中報價冒充收盤。費半11/17不同來源數值不一致，主表保留11/16最後可核實現金指數值。11檔產業ETF只呈現單日漲跌幅，最新同源完整資料日為11/16。WTI Z6與Brent F7採Newsquawk明列的指定合約結算。FactSet盈餘健康度為11/13統計快照；MOVE與CNN Fear & Greed為11/16資料日。 NVIDIA財報卡使用Yahoo Finance公告前快照（11/15 05:50 UTC，EPS 43位／營收45位分析師），並在來源列顯示共識來源及觀測時間。",
     "warning_note": "W47行事曆於11/18 04:36更新，25筆經濟事件、23筆財報事件，coverage仍為incomplete；早報僅唯讀，未回寫資料庫。44項行情中25項已取得11/17資料，19項採11/16最後可核實資料；費半11/17來源衝突，暫保留11/16。FactSet盈餘健康度統計日為11/13，MOVE與CNN Fear & Greed最新可核實日期為11/16。",
     "pending_items": [
       "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
@@ -12,7 +12,7 @@
       "CNN Fear & Greed採FGScore 11/16 15:59 ET快照30（Fear）；CNN官方頁與圖表端點本輪無法直接讀取。",
       "MOVE 101.28（+2.52%）採使用者提供之11/16 TradingView／Merrill Lynch MOVE畫面截圖，不宣稱助理直接讀取TradingView。",
       "FactSet盈餘健康度採11/13完整scorecard，不得標示為11/17資料。",
-      "NVIDIA Q3 FY2027官方公告已核實GAAP EPS 2.70、non-GAAP EPS 2.68；共識比較須保留FactSet EPS共識2.48及LSEG營收共識約125.25B的供應商差異。"
+      "NVIDIA Q3 FY2027官方實際值採公司公告；本報告公告前共識採Yahoo Finance 11/15 05:50 UTC快照：EPS平均US$2.47121（43位分析師）、營收平均US$108.7319B（45位分析師）。FactSet／LSEG屬不同供應商快照，不混入本卡比較。"
     ],
     "report_cutoff_taipei": "2026-11-18 05:25（台灣時間）",
     "news_window_taipei": "2026-11-17 12:00–2026-11-18 05:25（台灣時間）"
@@ -20,17 +20,17 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-18-simulation.html",
   "report_date": "2026-11-18",
-  "report_git_blob_sha": "5a1b962173b9f508ed919183029cbaeec2cd55d2",
-  "report_sha256": "6712af4b88183f24d254bfdf655b4362202af4409700e17e690402e179a38ac5",
-  "build_commit_sha": "f5d18af7d9f15a892f62f0d3d4e350e38e74b03c",
-  "builder_blob_sha": "87464017b8afc88c5d83ec0b960d3a9f85ba102c",
-  "fixture_blob_sha": "b161217c9127f13433c2f461eb5c63feab466955",
+  "report_git_blob_sha": "47db490cdfb53b8192d291a306bbec9ad9a1308a",
+  "report_sha256": "7ab600fc363cee761c41e1d35d26ce4bf896f3427f03f5021a9e73ef2c071927",
+  "build_commit_sha": "53df134d9a010372dcd05b5e22684ea25f9b0430",
+  "builder_blob_sha": "71d9134819c718775fd72f7495af78e66bcae037",
+  "fixture_blob_sha": "10633b55c4b4aa46770aba907be226c695979359",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
   "calendar_main_commit_sha": "ec1d93df8e3116d11270ff9e5b74790b52a743f1",
   "calendar_current_blob_sha": "6b28cd025f26f403ae3f6cee9b229f369d6a5250",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "890d584bc68690dd74bcd26d3bfc47fba09014e49cced506406136f0685a0e0b",
-  "visual_evidence_sha256": "5ef7b163273b6e6c13456e45f13c15f13678c489b18d64583031c784ae60e77e",
+  "visual_evidence_sha256": "293eba9bd1865d1390a2213233884ddce630533045f69e0edefca4861d294820",
   "viewports": [
     1440,
     768,
@@ -38,6 +38,6 @@
     390,
     360
   ],
-  "workflow_run_id": "44192708880",
+  "workflow_run_id": "44193096116",
   "workflow_run_attempt": "1"
 }
