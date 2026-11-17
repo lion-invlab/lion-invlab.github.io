@@ -1192,3 +1192,12 @@
 - 現行 SIM-1.3 要求 ChatGPT 直接填母版、不經 Assembler；先前 05:50 紀錄顯示使用 `build_review_html.py`。此流程合規性尚未消除，列為待處理；本輪不冒險重新組裝。
 - 本輪啟動與階段①–⑤通知均各重試一次後回傳 HTTP 404 `Action not found`，狀態 `FAILED`，無 `status=notified`。
 - 未修改首頁、正式母版、WR、Manifest 或任何 calendar JSON；未發布首頁。
+
+## 2026-11-18｜早報接手基線與資料查核紀錄
+
+- **模擬規則與母版鎖定：** SIM-1.3 blob SHA `582bee096185b6542be565950da2656c15191eda`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；weekday 模擬母版 SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b)；QA 契約 SHA `824c327fb66fc8c5d4107b69abd9316c00bfe903`。上述來源均由 simulation branch 回讀確認。
+- **行事曆唯讀：** main W47 blob SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`，updated_at 2026-11-18 04:36:10 +08:00，25 economic／23 earnings，coverage incomplete。今日 5 筆經濟事件、4 筆財報事件；財報卡時間類型含 release_time 與 call_time，需分開顯示。沒有寫入 JSON。
+- **FactSet 快照延續：** 11/17 fixture SHA `5c2bd796297c2eddb5748368ed2bd64ee5b6cb4e` 中 FactSet 11/13 數據可供延續，數值為 reported 91%、EPS beat 84%、Revenue beat 74%、blended EPS YoY +31.9%、blended Revenue YoY +14.4%、EPS surprise +3.1%、Forward P/E 18.3x。今日畫面必須標示 as of 11/13。
+- **市場事件證據：** Reuters 2026-11-17 收盤報導列 Dow -1.67%、S&P 500 -1.02%、Nasdaq -0.74%；Reuters 另確認 NVIDIA Q4 FY27 revenue guidance $130.0B ±3%，高於 LSEG 平均預期 $125.25B。Reuters 來源：https://www.reuters.com/business/us-stock-futures-slip-ahead-nvidia-results-fed-speakers-focus-2026-11-17/ 及 https://www.reuters.com/business/nvidia-forecasts-quarterly-revenue-above-estimates-first-report-since-huangs-2026-11-17/。
+- **待核實：** 11/17 全套 44 項行情、11 檔產業 ETF、MOVE、Fear & Greed、FedWatch、五大指數 OHLC／關鍵價位仍未核實；不複用 11/16 報價。NVIDIA Q3 FY27 實際營收／GAAP 與 non-GAAP EPS 尚待完整公司公告回讀；目前二手摘要提及 revenue $115.8B、non-GAAP EPS $2.68，不視為已完成來源驗證。
+- **狀態：** 只完成開工基線與行事曆讀取；未產生 HTML、未執行 QA、未更新 main preview、未發布首頁。SIM-1.3 總結 Gate 尚未執行。
