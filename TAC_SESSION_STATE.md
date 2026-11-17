@@ -1824,3 +1824,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **流程合規疑義：** 本次實際 WR SIM-1.3 的 A1 補充要求 ChatGPT 直接填入核准母版，不經 Assembler／Renderer；既有 05:50 Work Log 卻記載使用 `build_review_html.py`。本輪未重新執行該 builder，亦未用字串替換或重建 DOM；此流程差異列為 review_ready=false 的另一待處理項，需在可安全使用 DOM parser 的環境依現行 WR 核實／修正。
 - 通知：本輪啟動通知、階段①至⑤均兩次呼叫後仍回傳 HTTP 404 `Action not found`，無任何一次取得 `status=notified`；本輪狀態記為 `FAILED`，不可視為送達。錯誤時間約 2026-11-17 06:26–06:30 +08:00。
 - 本輪未修改 main/index.html、正式母版、WR、Manifest 或任何 calendar JSON；未發布首頁。
+
+## 2026-11-18｜審核版例外通道補正
+
+- 依 SIM-1.3 第0節審核版例外通道及 H 節規定，審核版唯一交付位置為 main `preview/2026-11-18-simulation.html`，不是 simulation branch 的 preview 路徑。
+- 已將 simulation branch 已驗證 HTML（source blob SHA `47db490cdfb53b8192d291a306bbec9ad9a1308a`）新增至 main 指定 preview 路徑；main commit `236156aed95aae18383efc7551916c25815f40ff`；回讀 blob SHA 完全相同，內容 byte-for-byte 一致。
+- 本次只使用審核版例外通道；未修改 main `index.html`、WR、母版、Manifest、W47 JSON 或其他 main 資產。正式首頁仍須等待使用者核准。
