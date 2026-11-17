@@ -687,7 +687,17 @@
   "quality_note": "行情基準日2026-11-17。44項行情欄位均有明確資料日：25項為11/17，19項為11/16最後可核實值；未將盤中報價冒充收盤。費半11/17不同來源數值不一致，主表保留11/16最後可核實現金指數值。11檔產業ETF只呈現單日漲跌幅，最新同源完整資料日為11/16。WTI Z6與Brent F7採Newsquawk明列的指定合約結算。FactSet盈餘健康度為11/13統計快照；MOVE與CNN Fear & Greed為11/16資料日。 NVIDIA財報卡使用Yahoo Finance公告前快照（11/15 05:50 UTC，EPS 43位／營收45位分析師），並在來源列顯示共識來源及觀測時間。",
   "report_cutoff_taipei": "2026-11-18 05:25（台灣時間）",
   "news_window_taipei": "2026-11-17 12:00–2026-11-18 05:25（台灣時間）",
-  "key_levels_overrides": {},
+  "key_levels_overrides": {
+    "sox": {
+      "trading_date": "2026-11-17",
+      "open": 9698.3,
+      "high": 9745.2,
+      "low": 9295,
+      "close": 9550.6,
+      "source_name": "Investing.com HK｜PHLX Semiconductor現金指數歷史資料",
+      "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data"
+    }
+  },
   "review_notice": "11/18審核版｜行情基準日2026-11-17；資料截稿2026-11-18 05:25台灣時間。W47行事曆coverage仍為incomplete；19項行情採11/16最後可核實資料並在來源日期註明。僅供審核，不上架正式首頁。",
   "pending_items": [
     "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
