@@ -168,6 +168,52 @@ def recalculate_released_earnings(data, observed_at):
                 counts[section] += 1
     return counts
 
+def apply_report_layer_earnings_actuals(data):
+    """Apply post-cutoff issuer results to this report only; never mutate main calendar JSON."""
+    overlays = data.get("report_layer_earnings_actuals", [])
+    if not overlays:
+        return 0
+    cutoff_text = str(data.get("report_cutoff_taipei") or "")[:16]
+    try:
+        cutoff = datetime.strptime(cutoff_text, "%Y-%m-%d %H:%M")
+    except ValueError as exc:
+        raise ValueError("report-layer earnings overlay requires an explicit Taipei report cutoff") from exc
+    by_id = {x.get("id"): x for x in data.get("earnings", {}).get("events", [])}
+    applied = 0
+    for overlay in overlays:
+        event_id = overlay.get("event_id")
+        target = by_id.get(event_id)
+        if target is None:
+            raise ValueError(f"report-layer earnings overlay event not found in authoritative calendar: {event_id}")
+        if target.get("ticker") != overlay.get("ticker") or target.get("event_date") != overlay.get("event_date"):
+            raise ValueError(f"report-layer earnings overlay identity mismatch: {event_id}")
+        event_dt = datetime.fromisoformat(str(target.get("event_date")))
+        event_local = event_dt.astimezone(timezone(timedelta(hours=8))).replace(tzinfo=None) if event_dt.tzinfo else event_dt
+        if event_local > cutoff:
+            raise ValueError(f"report-layer earnings overlay is later than report cutoff: {event_id}")
+        if target.get("status") in ("released", "published", "completed") or any(
+            target.get(k) not in (None, "") for k in ("eps_actual", "revenue_actual")
+        ):
+            raise ValueError(f"refusing to overwrite authoritative post-release actuals: {event_id}")
+        source = overlay.get("actual_source")
+        if not isinstance(source, dict) or not str(source.get("url") or "").startswith("https://"):
+            raise ValueError(f"report-layer earnings overlay lacks a verifiable issuer source: {event_id}")
+        allowed = (
+            "eps_actual", "eps_actual_display", "eps_actual_basis", "eps_actual_basis_code",
+            "eps_actual_currency", "eps_actual_period", "revenue_actual", "revenue_actual_display",
+            "revenue_actual_basis", "revenue_actual_basis_code", "revenue_actual_currency",
+            "revenue_actual_unit", "revenue_actual_period", "judgment",
+        )
+        for key in allowed:
+            if key in overlay:
+                target[key] = overlay[key]
+        target["status"] = "released"
+        target["report_layer_only"] = True
+        target["actual_source"] = source
+        target["source"] = source
+        applied += 1
+    return applied
+
 def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
@@ -351,6 +397,11 @@ def main():
                 "預期資料尚未取得. Do not read simulation-branch calendar snapshots or infer estimates."
             ),
         }
+    report_layer_actuals_applied = apply_report_layer_earnings_actuals(data)
+    if report_layer_actuals_applied:
+        recalculate_released_earnings(
+            data, data.get("report_cutoff_taipei") or data["report_date"]
+        )
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
         reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"
