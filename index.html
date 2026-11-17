@@ -247,8 +247,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 #sentiment .sbox .label{font-size:15px;line-height:1.35}
 #sentiment .sbox strong{font-size:27px;margin:5px 0}
 #sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:15px;line-height:1.45}
-#sentiment .source-details{margin-top:5px;font-size:11px;color:var(--muted)}
-#sentiment .source-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:750;padding:2px 0}
+#sentiment .source-details{margin-top:5px;font-size:11px;color:var(--muted)}#sentiment .source-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:750;padding:2px 0}
 #sentiment .source-details summary::-webkit-details-marker{display:none}
 #sentiment .source-details summary:before{content:"＋";font-weight:900;color:var(--red)}
 #sentiment .source-details[open] summary:before{content:"－"}
@@ -497,8 +496,7 @@ body.release-ready .news-window-warning { display: none !important; }
 
 /* 匯率、能源、貴金屬報價：第三欄漲跌幅統一靠右 */
 #industry-bonds-fx-commodities #fx .row>span:last-child,
-#industry-bonds-fx-commodities #tac-assets-panel-3 .row>span:last-child,
-#industry-bonds-fx-commodities #tac-assets-panel-4 .row>span:last-child{
+#industry-bonds-fx-commodities #tac-assets-panel-3 .row>span:last-child,#industry-bonds-fx-commodities #tac-assets-panel-4 .row>span:last-child{
   text-align:right!important;
   justify-self:stretch!important;
   white-space:nowrap!important;
@@ -747,8 +745,7 @@ main.wrap details.calendar-口徑-collapse p{
 @media(prefers-reduced-motion:reduce){.tac-tabset .tac-tab-nav label{transition:none!important}}
 </style>
 <style id="tac-apple-accordion-polish">
-/* Apple-inspired premium accordion for sector performance */
-#industry-bonds-fx-commodities .sector-collapse{margin-top:12px;border:1px solid rgba(60,60,67,.14);border-radius:18px;background:rgba(255,255,255,.86);box-shadow:0 3px 12px rgba(20,24,35,.055);overflow:hidden;transition:box-shadow .25s ease,border-color .25s ease}
+/* Apple-inspired premium accordion for sector performance */#industry-bonds-fx-commodities .sector-collapse{margin-top:12px;border:1px solid rgba(60,60,67,.14);border-radius:18px;background:rgba(255,255,255,.86);box-shadow:0 3px 12px rgba(20,24,35,.055);overflow:hidden;transition:box-shadow .25s ease,border-color .25s ease}
 #industry-bonds-fx-commodities .sector-collapse>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:66px;padding:15px 16px;background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%);color:#25262a;font-size:15px;line-height:1.4;font-weight:850;letter-spacing:.1px;border:0;border-radius:0;transition:background .2s ease}
 #industry-bonds-fx-commodities .sector-collapse>summary::-webkit-details-marker{display:none}
 #industry-bonds-fx-commodities .sector-collapse>summary:before{content:"＋";display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#c62828;color:#fff;font-size:21px;line-height:1;font-weight:500;box-shadow:0 3px 8px rgba(198,40,40,.2);transition:transform .28s cubic-bezier(.2,.8,.2,1),background .2s ease}
@@ -997,8 +994,7 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
    border:1px solid #ffeb00!important;
    color:#c62828!important;
    box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
-   text-align:center!important;
-   left:auto!important;
+   text-align:center!important;   left:auto!important;
    right:auto!important;
    transform:none!important;
  }
@@ -1247,8 +1243,7 @@ document.addEventListener('DOMContentLoaded',function(){
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
 <meta content="Tue-Fri V33 baseline" name="tac-mother-version"/>
-<style id="tac-full-preview-cnn-fg-band-v9">
-/* V9: force a single-column card layout and continuous blended spectrum */
+<style id="tac-full-preview-cnn-fg-band-v9">/* V9: force a single-column card layout and continuous blended spectrum */
 #sentiment .sent>section.sbox.cnn-fg-preview{
  display:block!important;grid-column:1/-1!important;grid-template-columns:none!important;
  position:relative!important;float:none!important;width:100%!important;max-width:100%!important;
@@ -1497,8 +1492,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 /* FINAL FOMC composition: top row = meeting + observation; bottom row = rate */
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:8px!important;row-gap:8px!important;align-items:stretch!important}
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important;min-width:0!important;width:auto!important}
-html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:2!important;grid-row:1!important;min-width:0!important;width:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
-html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:2!important;min-width:0!important;width:auto!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:2!important;grid-row:1!important;min-width:0!important;width:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:2!important;min-width:0!important;width:auto!important}
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:3!important}
 @media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{padding:11px 10px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{padding:17px 15px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate b{font-size:clamp(24px,6vw,32px)!important}}
 </style>
@@ -1747,8 +1741,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
  html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
  html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
    font-size:15px!important;
- }
-}
+ }}
 </style>
 <style id="fed-probability-card-background-fix-v3">
 /* V3：明確覆蓋後續樣式，讓兩張 FedWatch 機率小卡確實顯示對應底色 */
@@ -1997,8 +1990,7 @@ body #sentiment > .title { color:#fff!important; }
 }
 </style>
 <style id="tac-major-section-heading-marker-v3">
-body main.wrap article.card > .title,
-body main.wrap section.card > .title {
+body main.wrap article.card > .title,body main.wrap section.card > .title {
   display:flex!important; align-items:center!important; justify-content:flex-start!important; gap:10px!important;
 }
 body main.wrap article.card > .title::before,
@@ -2247,8 +2239,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
   #industry-bonds-fx-commodities .energy-card .row b a {
     font-size:16px !important;
     font-weight:700 !important;
-    line-height:1.35 !important;
-    letter-spacing:normal !important;
+    line-height:1.35 !important;    letter-spacing:normal !important;
     transform:none !important;
   }
 }
@@ -2273,7 +2264,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
 <section class="grid two">
 <article class="card bluf">
 <div class="title" style="color:#b42332!important">總結</div>
-<h1>AI需求疑慮升溫，科技股承壓；輝達財報成短線關鍵</h1><p><strong>盤面主軸</strong>｜Semianalysis下修未來五年AI加速器、資本支出、HBM與電力需求預估，引發市場重新檢視AI投資回報及輝達成長前景；NAND價格走弱、SK海力士回檔與英特爾訴訟，進一步加深半導體產業壓力。<br/><strong>風險延伸</strong>｜OpenAI面臨加州監管訴訟，加密貨幣亦因降息預期轉弱而修正；美國AI政策傳聞與SpaceX星艦回收突破則提供局部利多。<br/><strong>操作建議</strong>｜短線不追價、不急於抄底，先保留現金並觀察輝達財報及期權結算後的市場反應。若主要指數於支撐區止跌、半導體賣壓收斂，可分批布局QQQ／SPY；若財報未能支撐AI需求與獲利預期，則優先控管持倉風險，等待更明確的止跌訊號。</p>
+<h1>AI 的信仰，正在接受獲利現實的考驗。</h1><p><strong>盤面主軸</strong>｜這波科技股賣壓，真正值得注意的不是單純的財報前獲利了結，而是市場開始重新檢視 AI 基礎建設的投資報酬率。Semianalysis 大幅下修未來五年 AI 加速器、資本支出、HBM 與電力需求預估，動搖市場對 AI 基礎建設持續高速擴張的想像。當市場開始懷疑龐大的資本支出能否轉化為足夠的營收與獲利，輝達的出貨、定價能力與毛利率自然成為檢驗焦點。<br/><strong>產業訊號</strong>｜記憶體市場也出現值得警惕的訊號。NAND 現貨價格自 10 月中下旬以來走弱，市場甚至預期明年第一季仍有進一步下跌空間；SK 海力士股價同步重挫，顯示市場對半導體景氣的疑慮已不只集中在單一公司。<br/><strong>市場判讀</strong>｜目前市場偏向風險收縮，AI 題材正從成長想像轉向獲利驗證。科技股賣壓碰上散戶與 CTA 部位調整，市場情緒正在轉弱；但空單部位偏高也意味著市場並非只有單向下跌風險，輝達財報與選擇權到期可能放大短線波動，甚至觸發空頭回補。這不代表 AI 長期趨勢已經結束，而是市場不再願意無條件給予高估值，資金會更嚴格區分能將 AI 需求轉化為營收、利潤與現金流的企業。<br/><strong>操作方向</strong>｜現階段不宜急著抄底，也不需要因為短線賣壓就全面看空。保留現金，避免在半導體賣壓尚未收斂前追價；若 QQQ、SPY 接近重要支撐後出現止跌訊號，可考慮分階段建立部位。輝達財報與展望將是短線方向的重要分水嶺；若財報無法支撐原有成長預期，半導體估值可能進一步修正，不應把超跌直接當成買進理由。</p><p><strong>一句話結論：</strong>市場不是不相信 AI，而是開始要求 AI 證明自己真的能賺錢。</p>
 </article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
@@ -2497,8 +2488,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 #overview p{font-size:15px!important;line-height:1.9!important;color:#414751!important}
 #overview .chips{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:20px!important}
 #overview .chip{display:flex!important;align-items:center!important;justify-content:center!important;min-height:38px!important;padding:8px 10px!important;border:1px solid #e1e4e8!important;border-radius:5px!important;background:#f5f6f8!important;font-weight:850!important;font-size:13px!important}
-#sentiment.card{
-  position:relative!important;overflow:hidden!important;
+#sentiment.card{  position:relative!important;overflow:hidden!important;
   background:linear-gradient(150deg,#171b22 0%,#202630 60%,#12161c 100%)!important;
   color:#f5f7fa!important;border:1px solid #313946!important;border-top:5px solid #e0b04b!important;
   border-radius:10px!important;box-shadow:0 8px 24px rgba(18,24,33,.16)!important;
@@ -2747,8 +2737,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="tfn-list" id="tfn-list"><div>正在載入基準日資料…</div></div>
 </section></div>
 <div class="tfn-foot"><label class="tfn-ack"><input id="tfn-ack" type="checkbox"/><span><span class="tfn-royal-char">本宮</span> 知道了</span></label><span class="tfn-hint">勾選後立即關閉此提醒</span></div>
-</div>
-</div><script id="tac-fund-popup-v7-js">
+</div></div><script id="tac-fund-popup-v7-js">
 (function(){
  const data=[["2026-10-28","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-10-28","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-10-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-12-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","0285／0286","季配","摩根官方"],["2026-10-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-11-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-12-31","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-10-28","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-10-28","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-10-29","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-11-27","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-12-30","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-10-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-10-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-11-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-12-31","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["","安聯台灣科技基金","5503｜累積","不配息","安聯／級別資料"],["","施羅德環球基金系列－環球永續增長","053L／T107｜累積","不配息","級別資料"],["","施羅德環球黃金","053W／053X／T109｜累積","不配息","級別資料"],["","摩根日本基金","0235／0236／T616／T617｜累積","不配息","級別資料"],["2026-10-29","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-11-27","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-12-30","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-10-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2455｜配息類股","配息","Allianz 2026 官方行事曆"]];
  const root=document.getElementById('tac-fund-notice');
@@ -2997,8 +2986,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 #sentiment .sent .sbox .label .label-zh,
 #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
   font-size:14px!important;
-  font-weight:650!important;
-}
+  font-weight:650!important;}
 @media(max-width:390px){
   #sentiment .sent .sbox .label,
   #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
@@ -3247,8 +3235,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview {
     linear-gradient(118deg,
       rgba(255,255,255,.19) 0%,
       rgba(255,255,255,.065) 13%,
-      rgba(255,255,255,.015) 34%,
-      transparent 49%,
+      rgba(255,255,255,.015) 34%,      transparent 49%,
       rgba(101,164,197,.07) 67%,
       rgba(8,20,32,.13) 100%),
     rgba(35,48,62,.49)!important;
@@ -3497,8 +3484,7 @@ main.wrap #sentiment .title:first-child {
    var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
    bubble.style.left=left+'px';
    bubble.style.top=Math.max(12,r.top-bubble.offsetHeight-18)+'px';
-  }
-  requestAnimationFrame(place);
+  }  requestAnimationFrame(place);
   window.addEventListener('resize',place,{passive:true});
   var timer=window.setTimeout(function(){
    bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
@@ -3747,8 +3733,7 @@ main.wrap #sentiment .title:first-child {
  var style=document.createElement('style');
  style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{left:var(--tac-bubble-tail-left,62px)!important}}';
  document.head.appendChild(style);
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(alignBubbleTailToToolbar)},{once:true});
- else requestAnimationFrame(alignBubbleTailToToolbar);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(alignBubbleTailToToolbar)},{once:true}); else requestAnimationFrame(alignBubbleTailToToolbar);
  window.addEventListener('resize',alignBubbleTailToToolbar,{passive:true});
 })();
 </script>
@@ -3997,8 +3982,7 @@ main.wrap #sentiment .title:first-child {
   var bubble=document.querySelector('.tac-toolbar-bubble-preview');
   if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
   var r=btn.getBoundingClientRect();
-  var left=Math.min(window.innerWidth-244,r.right+10);
-  var width=Math.max(145,window.innerWidth-left-14);
+  var left=Math.min(window.innerWidth-244,r.right+10);  var width=Math.max(145,window.innerWidth-left-14);
   bubble.style.setProperty('left',left+'px','important');
   bubble.style.setProperty('top',(r.bottom+8)+'px','important');
   bubble.style.setProperty('width',width+'px','important');
