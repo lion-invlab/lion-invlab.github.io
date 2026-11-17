@@ -1,3 +1,11 @@
+
+
+## 2026-11-18 05:46｜main 首頁 SHA 最終覆核更正
+
+- 以兩次連續 fetch_file 確認 main `index.html` blob SHA 為 `9782c479e6537ad2fbb58f66c449b900fedd1d2e`；取代本記錄較早誤寫的 SHA。main HEAD 為 `ec1d93df8e3116d11270ff9e5b74790b52a743f1`（2026-11-17T21:29:40Z，Chart 3 FRED／ALFRED 資料更新）。最新兩筆 index 專屬提交分別為 2026-11-17T01:31:24Z（盈餘健康度小卡配色）及 2026-11-17T00:15:11Z（首頁總結）；均早於本次 11/18 早報試跑，本輪未修改 index。
+- 再次確認 main `preview/2026-11-18-simulation.html` 不存在（GitHub API 404）；main W47 JSON SHA 仍為 `6b28cd025f26f403ae3f6cee9b229f369d6a5250`；SIM-1.3 SHA 仍為 `582bee096185b6542be565950da2656c15191eda`。
+- 本更正記錄時間：2026-11-18 05:46 Asia/Taipei。
+
 ## 2026-11-18｜11/17 匯率歷史收盤資料更正（取代本日早段盤中快照）
 
 - 本輪後續重新查詢歷史列後，先前初查的 DXY 103.59、USD/TWD 32.912、EUR/USD 1.1002、GBP/USD 1.3213、AUD/USD 0.6735、USD/JPY 159.37 均屬盤中／非最終歷史快照，不應作為 11/17 收盤值；已以後續歷史收盤資料取代。
