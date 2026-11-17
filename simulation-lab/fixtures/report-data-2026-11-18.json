@@ -144,14 +144,14 @@
       }
     },
     "費城半導體指數": {
-      "display": "9,610.65",
-      "change_display": "-5.28%",
+      "display": "9,550.60",
+      "change_display": "-0.62%",
       "source": {
         "name": "Investing.com HK｜PHLX Semiconductor現金指數歷史資料",
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
-        "data_date": "2026-11-16",
+        "data_date": "2026-11-17",
         "quote_type": "cash_index_close",
-        "note": "11/17 Yahoo、Investing.com與Nasdaq頁面收盤／即時欄位互相衝突；保留最後可交叉確認的11/16現金指數收盤，不以任何單一不一致數值冒充11/17收盤。"
+        "note": "直接核對歷史資料表2026-11-17列：收市9,550.6，升跌-0.62%；採香港站歷史列，不採頁首即時衍生報價。"
       }
     },
     "香港恆生指數": {
@@ -246,10 +246,11 @@
       "display": "10,706.57",
       "change_display": "-1.61%",
       "source": {
-        "name": "Investing.com｜FTSE 100歷史資料",
-        "url": "https://www.investing.com/indices/uk-100-historical-data",
+        "name": "Investing.com HK｜FTSE 100歷史資料",
+        "url": "https://hk.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-17",
-        "evidence_note": "直接核對歷史資料表 Nov 17, 2026 row：Close 10,706.57，Change -1.61%；不採頁首即時衍生報價 10,689.30。"
+        "quote_type": "cash_index_close",
+        "note": "直接核對歷史資料表2026-11-17列：收市10,706.57，升跌-1.61%；未採頁首衍生即時報價10,689.30。"
       }
     },
     "德國 DAX": {
