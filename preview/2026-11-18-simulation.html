@@ -2277,7 +2277,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
 </article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label"><a class="tac-market-link" href="https://hk.investing.com/indices/volatility-s-p-500" rel="noopener" target="_blank"><span class="label-en">VIX</span></a> <span class="label-zh">｜恐慌指數</span></div><strong>26.41</strong><span class="up">+15.28%</span><details class="source-details"><summary>資料來源</summary><div class="source">11檔ETF｜Yahoo Finance歷史日線收盤價交叉整理（Arcane Markets彙整頁）｜資料日期 2026-11-17｜每日漲跌幅採11/17收盤對11/16收盤；因來源頁面僅提供一位小數百分比，主表依原精度顯示。<a href="https://arcane.markets/markets/equities" rel="noopener" target="_blank">來源與歷史收盤資料</a>；此組數值不是Investing.com HK直接讀值。</div></div></details></div>
+<div class="sbox"><div class="label"><a class="tac-market-link" href="https://hk.investing.com/indices/volatility-s-p-500" rel="noopener" target="_blank"><span class="label-en">VIX</span></a> <span class="label-zh">｜恐慌指數</span></div><strong>26.41</strong><span class="up">+15.28%</span><details class="source-details"><summary>資料來源</summary><div class="source">VIX｜Investing.com 香港站／S&amp;P 500 Volatility Index｜資料日期 2026-11-17｜收盤26.41，日漲幅15.28%。<a href="https://hk.investing.com/indices/volatility-s-p-500" rel="noopener" target="_blank">原始報價頁</a></div></details></div>
 <div class="sbox"><div class="label"><a class="tac-market-link" href="https://hk.investing.com/indices/ice-bofaml-move" rel="noopener" target="_blank"><span class="label-en">MOVE</span></a><span class="label-zh">｜債市波動率</span></div><strong>103.97</strong><span class="up">+2.66%</span><details class="source-details"><summary>資料來源</summary><div class="source">Jooking歷史報價頁｜ICE BofAML MOVE Index（^MOVE）｜資料日期 2026-11-17｜收盤103.97、前收101.28，漲幅約2.66%。此為第三方歷史報價交叉資料，非TradingView直接讀值；TradingView日線尚未取得可核對的11/17收盤值。</div></details></div>
 <section aria-label="CNN Fear and Greed preview" class="sbox cnn-fg-preview">
 <div class="fg6-title"><a class="tac-market-link" href="https://edition.cnn.com/markets/fear-and-greed"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></a></div>
@@ -4242,3 +4242,69 @@ main.wrap #sentiment .title:first-child {
   padding:22px 16px calc(22px + env(safe-area-inset-bottom))!important; gap:9px!important; } }
 </style></body>
 </html>
+<style id="tac-mobile-sentiment-layout-repair-v1">
+/* Repair mobile market-sentiment geometry: two compact quote cards, then full-width CNN and interpretation */
+@media(max-width:700px){
+  html body #sentiment{padding:18px 14px!important;box-sizing:border-box!important}
+  html body #sentiment>.title{font-size:25px!important;margin:0 0 16px!important}
+  html body #sentiment>.sent{
+    display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:10px!important;align-items:stretch!important;width:100%!important;
+  }
+  html body #sentiment>.sent>.sbox:nth-child(1),
+  html body #sentiment>.sent>.sbox:nth-child(2){
+    grid-column:span 1!important;min-width:0!important;min-height:148px!important;
+    height:auto!important;padding:15px 13px!important;margin:0!important;
+    border-radius:18px!important;box-sizing:border-box!important;
+  }
+  html body #sentiment>.sent>.sbox:nth-child(1) .label,
+  html body #sentiment>.sent>.sbox:nth-child(2) .label{
+    display:flex!important;flex-wrap:wrap!important;white-space:normal!important;
+    gap:3px!important;font-size:16px!important;line-height:1.3!important;
+    overflow:visible!important;margin-bottom:12px!important;
+  }
+  html body #sentiment>.sent>.sbox:nth-child(1) .label .label-zh,
+  html body #sentiment>.sent>.sbox:nth-child(2) .label .label-zh{
+    display:inline!important;max-width:100%!important;font-size:12px!important;
+    white-space:normal!important;overflow:visible!important;
+  }
+  html body #sentiment>.sent>.sbox:nth-child(1)>strong,
+  html body #sentiment>.sent>.sbox:nth-child(2)>strong{
+    display:block!important;font-size:32px!important;line-height:1.08!important;
+    margin:0 0 8px!important;
+  }
+  html body #sentiment>.sent>.sbox:nth-child(1)>.up,
+  html body #sentiment>.sent>.sbox:nth-child(2)>.up{font-size:17px!important}
+  html body #sentiment>.sent>.sbox:nth-child(1) details,
+  html body #sentiment>.sent>.sbox:nth-child(2) details{margin-top:10px!important}
+  html body #sentiment>.sent>section.cnn-fg-preview{
+    grid-column:1/-1!important;min-width:0!important;margin:0!important;
+    padding:15px!important;border-radius:18px!important;box-sizing:border-box!important;
+  }
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-title{
+    white-space:normal!important;overflow:visible!important;font-size:16px!important;
+    line-height:1.35!important;
+  }
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-title .label-zh{
+    font-size:13px!important;white-space:normal!important;max-width:none!important;
+  }
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-score-row{
+    display:flex!important;align-items:center!important;gap:12px!important;margin:10px 0!important;
+  }
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-score-main{font-size:34px!important}
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-scale-wrap{margin:10px 0 6px!important}
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-labels{
+    display:flex!important;justify-content:space-between!important;gap:2px!important;
+    white-space:nowrap!important;font-size:10px!important;line-height:1.25!important;
+  }
+  html body #sentiment>.sent>section.cnn-fg-preview .fg6-labels span{
+    flex:1 1 20%!important;min-width:0!important;text-align:center!important;
+    white-space:normal!important;overflow-wrap:anywhere!important;
+  }
+  html body #sentiment>.sent>.sbox:last-child{
+    grid-column:1/-1!important;min-width:0!important;margin:0!important;
+    padding:15px!important;border-radius:18px!important;box-sizing:border-box!important;
+    font-size:15px!important;line-height:1.6!important;
+  }
+}
+</style>
