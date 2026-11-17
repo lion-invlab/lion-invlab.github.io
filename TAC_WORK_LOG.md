@@ -1255,3 +1255,15 @@
 - **ETF／利率／貴金屬：** 本輪搜尋僅取得部分第三方 sector ETF 資料，未達 11 檔完整、同一來源口徑；美債官方 11/17 par yield 尚未出現可讀日終列；GCZ6／SIZ6 11/17 CME settlement 未完成核實。以上均維持 11/16 最新可用值，清楚標示日期，不以盤中／第三方不完整資料替代。
 - **內容判讀校正：** NVIDIA 財報顯示 AI Data Center 當季需求與管理層指引仍強，但美股當日四大指數全面下跌，AP 指出市場跌勢廣泛。合理結論是「AI 需求未見單季反轉，然而股價正在折價治理、出口限制、資本支出回報與折現率風險」，而非「NVIDIA beat 所以 AI 交易風險解除」。
 - **HTML 執行阻塞再次確認：** simulation workflow 有 build／QA 的正確 DOM + Playwright 路徑，但其 push／dispatch build 前置步驟會額外執行 Equibles historical remainder、ORTEX TEST、Investing earnings page probes、Yahoo methodology probe、W46 PIT audit 等資料探測；目前 GitHub 工具連線只提供 fetch/update／rerun，沒有 workflow_dispatch action。尚未建立 11/18 fixture，也未觸發 workflow；沒有用舊 fixture 改日期或字串替換產生 HTML。下一步應先將每日 build 與可選資料探測解耦（只改 simulation workflow，保留必要 self-tests、PIT projection、OHLC／price-reaction、DOM assembly、Playwright、visual regression、artifact provenance），再建立日期匹配的 11/18 fixture 並以專用 build trigger 執行。未經實際執行不得宣稱審核版完成。
+
+
+## 2026-11-18｜TAC 早報審核版最終完成（SIM-1.3）
+
+- **結果：** `QA_PASSED`；`review_ready=true`；阻塞項目0。正式首頁未更新，等待使用者審核與授權。
+- **審核 HTML：** `preview/2026-11-18-simulation.html`；blob SHA `47db490cdfb53b8192d291a306bbec9ad9a1308a`；SHA-256 `7ab600fc363cee761c41e1d35d26ce4bf896f3427f03f5021a9e73ef2c071927`。
+- **QA evidence：** `preview/2026-11-18-simulation.qa.json`；blob SHA `67f2a176dae89bb9e14fa7a932c3ef5245dba843`；workflow run `44193096116` success；viewports 1440／768／412／390／360。
+- **來源與版本：** SIM-1.3；weekday mother SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`；fixture SHA `10633b55c4b4aa46770aba907be226c695979359`；builder SHA `71d9134819c718775fd72f7495af78e66bcae037`。
+- **資料口徑：** 44項中25項為11/17、19項為11/16最新可核實值；SOX 11/17來源衝突故保留11/16；FactSet 11/13、MOVE／Fear & Greed 11/16。W47 main JSON coverage仍incomplete（25經濟／23財報），唯讀未修改。
+- **NVDA：** 官方Q3 FY2027 GAAP EPS 2.70、non-GAAP EPS 2.68、營收US$115.844B；Yahoo公告前11/15 13:50台灣時間快照EPS US$2.47（43位）、營收US$108.73B（45位），均優於預期；股價反應待11/18首個完整美股交易時段。只補報告層，未回寫main行事曆。
+- **首頁保護：** main index SHA `9782c479e6537ad2fbb58f66c449b900fedd1d2e`，W47 SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`；本次前後一致，未碰main首頁／母版／WR／行事曆資料庫。
+- **workflow調整：** 額外Equibles／ORTEX／Investing研究探測與W46 PIT audit改為選擇性，日常預設跳過；必要資料投影與完整DOM／Playwright／視覺／provenance QA保留。
