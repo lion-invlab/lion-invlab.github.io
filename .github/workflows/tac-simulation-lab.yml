@@ -29,6 +29,11 @@ on:
         description: "qa-only 目標；必須是 preview/YYYY-MM-DD-simulation.html"
         required: false
         type: string
+      run_optional_probes:
+        description: "額外研究來源探測（Equibles／ORTEX／Investing.com）；日常早報預設關閉"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -66,6 +71,7 @@ jobs:
           python simulation-lab/runner/equibles_analyst_estimates_probe.py
 
       - name: Probe remaining Equibles historical snapshots (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
         shell: bash
         env:
           EQUIBLES_API_KEY: ${{ secrets.EQUIBLES_API_KEY }}
@@ -74,6 +80,7 @@ jobs:
           python simulation-lab/runner/equibles_historical_snapshot_remainder_probe.py
 
       - name: Probe ORTEX TEST consensus API (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
         shell: bash
         run: |
           set -euo pipefail
@@ -84,6 +91,7 @@ jobs:
         run: python simulation-lab/runner/investing_earnings_probe.py --self-test --output /tmp/investing-probe.json --archive-dir /tmp/investing-raw
 
       - name: Probe Investing.com earnings pages (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
         shell: bash
         run: python simulation-lab/runner/investing_earnings_probe.py --output simulation-lab/output/investing-earnings-probe.json --archive-dir simulation-lab/output/investing-raw
 
@@ -115,6 +123,7 @@ jobs:
           python simulation-lab/runner/validate_earnings_v2.py --self-test
 
       - name: Audit W46 PIT projection (read-only, simulation data only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
         shell: bash
         run: python simulation-lab/runner/audit_simulation_pit_projection.py --report-date 2026-11-16 --output simulation-lab/output/w46-pit-projection-audit.json
 
