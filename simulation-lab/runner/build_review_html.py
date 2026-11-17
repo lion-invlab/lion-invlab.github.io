@@ -1250,12 +1250,14 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
             record["display"] = "待核實"
             record["change_display"] = "待核實"
         for row in rows:
-            # Screenshot-sourced MOVE is evidence, not a clickable Investing.com quote.
-            # Remove the inherited mother-template link so the title cannot imply a different source.
-            if key == "move" and source.get("quote_type") == "user_supplied_market_quote_screenshot":
+            # Preserve the approved mother-template MOVE destination even when the
+            # dated value itself is supported by a user-supplied screenshot. The link
+            # opens the instrument page; source details below continue to identify
+            # the actual evidence type and must not imply that this run scraped it.
+            if key == "move":
                 title_link = row.select_one(".label a.tac-market-link")
-                if title_link:
-                    title_link.unwrap()
+                if title_link and not title_link.get("href"):
+                    title_link["href"] = "https://hk.investing.com/indices/ice-bofaml-move"
             strong=row.select("strong")
             if not strong: raise ValueError(f"{label} value slot missing")
             set_text(strong[-1],record.get("display","待核實"))
