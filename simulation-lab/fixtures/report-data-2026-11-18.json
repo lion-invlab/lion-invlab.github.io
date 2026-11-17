@@ -679,7 +679,7 @@
     "items": []
   },
   "core_observation": {
-    "heading": "今日三大觀察焦點",
+    "heading": "本週三大觀察焦點",
     "text": "① 15:00英國10月CPI、19:00歐元區10月HICP，檢驗能源價格與服務通膨是否再推高歐洲利率預期。② 21:30美國10月新屋開工、建築許可與住宅完工，觀察高房貸利率對住宅需求的傳導。③ 11/19 03:00 FOMC會議紀要，對照FedWatch接近完全定價的12月升息預期；財報面則追蹤NVIDIA毛利率指引與雲端業者資本支出回報。"
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
@@ -733,20 +733,21 @@
       "eps_actual_basis_code": "NON_GAAP_DILUTED_EPS",
       "eps_actual_currency": "USD",
       "eps_actual_period": "FY2027 Q3",
-      "revenue_actual": 115844000000,
+      "revenue_actual": 115.844,
       "revenue_actual_display": "US$115.844B",
-      "revenue_actual_basis": "GAAP total revenue",
+      "revenue_actual_basis": "Total revenue (USD billions)",
       "revenue_actual_basis_code": "US_GAAP_TOTAL_REVENUE",
       "revenue_actual_currency": "USD",
-      "revenue_actual_unit": "USD",
+      "revenue_actual_unit": "B",
       "revenue_actual_period": "FY2027 Q3",
-      "judgment": "NVIDIA Q3 FY2027營收US$115.844B，資料中心營收US$107.6B、年增110%。Q4營收指引US$130.0B±3%，但Q4 GAAP與non-GAAP毛利率指引均為71%至72%，低於本季74.8%與74.9%。",
+      "judgment": "NVIDIA Q3 FY2027營收US$115.844B，資料中心營收US$107.6B、年增110%；Q4營收指引US$130.0B±3%，但Q4 GAAP與non-GAAP毛利率指引均為71%至72%，低於本季74.8%與74.9%",
       "actual_source": {
         "name": "NVIDIA Investor Relations｜Q3 FY2027 official financial results",
         "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/default.aspx",
         "published_at": "2026-11-17",
         "note": "官方公告分列GAAP EPS US$2.70與non-GAAP EPS US$2.68，營收US$115.844B。依main W47公告時程，財報於台灣時間2026-11-18 05:20發布；僅補入本次報告層，不回寫main行事曆JSON。"
-      }
+      },
+      "price_reaction": "待首個完整交易時段（11/18美股收盤後更新）"
     }
   ]
 }
