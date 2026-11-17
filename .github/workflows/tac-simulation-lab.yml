@@ -39,7 +39,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tac-simulation-lab-${{ github.event.inputs.report_date || 'push-smoke' }}
+  group: tac-simulation-lab-fast-${{ github.event.inputs.report_date || 'push-smoke' }}
   cancel-in-progress: true
 
 jobs:
