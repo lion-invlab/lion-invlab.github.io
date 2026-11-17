@@ -684,7 +684,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "風險偏好偏弱，市場並非否定AI需求，而是要求更高的投資回報證據。VIX升高、主要股市同步下跌，且12月升息機率接近完全定價；短線以風險控管、降低集中度與等待市場廣度修復為主。",
-  "quality_note": "行情基準日2026-11-17。44項行情欄位均有明確資料日：25項為11/17，19項為11/16最後可核實值；未將盤中報價冒充收盤。費半11/17不同來源數值不一致，主表保留11/16最後可核實現金指數值。11檔產業ETF只呈現單日漲跌幅，最新同源完整資料日為11/16。WTI Z6與Brent F7採Newsquawk明列的指定合約結算。FactSet盈餘健康度為11/13統計快照；MOVE與CNN Fear & Greed為11/16資料日。",
+  "quality_note": "行情基準日2026-11-17。44項行情欄位均有明確資料日：25項為11/17，19項為11/16最後可核實值；未將盤中報價冒充收盤。費半11/17不同來源數值不一致，主表保留11/16最後可核實現金指數值。11檔產業ETF只呈現單日漲跌幅，最新同源完整資料日為11/16。WTI Z6與Brent F7採Newsquawk明列的指定合約結算。FactSet盈餘健康度為11/13統計快照；MOVE與CNN Fear & Greed為11/16資料日。 NVIDIA財報卡使用Yahoo Finance公告前快照（11/15 05:50 UTC，EPS 43位／營收45位分析師），並在來源列顯示共識來源及觀測時間。",
   "report_cutoff_taipei": "2026-11-18 05:25（台灣時間）",
   "news_window_taipei": "2026-11-17 12:00–2026-11-18 05:25（台灣時間）",
   "key_levels_overrides": {},
@@ -696,7 +696,7 @@
     "CNN Fear & Greed採FGScore 11/16 15:59 ET快照30（Fear）；CNN官方頁與圖表端點本輪無法直接讀取。",
     "MOVE 101.28（+2.52%）採使用者提供之11/16 TradingView／Merrill Lynch MOVE畫面截圖，不宣稱助理直接讀取TradingView。",
     "FactSet盈餘健康度採11/13完整scorecard，不得標示為11/17資料。",
-    "NVIDIA Q3 FY2027官方公告已核實GAAP EPS 2.70、non-GAAP EPS 2.68；共識比較須保留FactSet EPS共識2.48及LSEG營收共識約125.25B的供應商差異。"
+    "NVIDIA Q3 FY2027官方實際值採公司公告；本報告公告前共識採Yahoo Finance 11/15 05:50 UTC快照：EPS平均US$2.47121（43位分析師）、營收平均US$108.7319B（45位分析師）。FactSet／LSEG屬不同供應商快照，不混入本卡比較。"
   ],
   "review_ready_blockers": [],
   "earnings_health": {
