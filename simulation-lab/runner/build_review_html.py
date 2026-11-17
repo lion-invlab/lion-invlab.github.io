@@ -1540,9 +1540,21 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                 source_label=soup.new_tag("label"); source_label.string="來源"
                 source_value=soup.new_tag("div", attrs={"class":["earnings-detail-value"]})
                 if x.get("source_url"):
-                    source_value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
+                    source_value.append(source_link(x["source_url"], x.get("source_name") or "實際財報來源"))
                 else:
-                    source_value.string="來源待核實"
+                    source_value.string="實際財報來源待核實"
+                consensus_url = x.get("consensus_source_url")
+                if consensus_url and consensus_url != x.get("source_url"):
+                    source_value.append("｜公告前共識：")
+                    source_value.append(source_link(consensus_url, x.get("consensus_source_name") or "共識來源"))
+                    observed = x.get("consensus_observed_at")
+                    if observed:
+                        observed_tw = datetime.fromisoformat(str(observed).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%m/%d %H:%M")
+                        counts = []
+                        if x.get("eps_analyst_count") is not None: counts.append(f"EPS {x['eps_analyst_count']}位")
+                        if x.get("revenue_analyst_count") is not None: counts.append(f"營收 {x['revenue_analyst_count']}位")
+                        count_text = "；" + "／".join(counts) if counts else ""
+                        source_value.append(f"（公告前快照 {observed_tw} 台灣時間{count_text}）")
                 source_field.append(source_label); source_field.append(source_value); details.append(source_field)
             else:
                 # Upcoming cards retain the existing forecast disclosure, not a false actual result.
