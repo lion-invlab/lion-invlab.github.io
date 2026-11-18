@@ -1954,3 +1954,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - CNN Fear & Greed：FGScore顯示11/18 25（Fear），並列七項CNN來源指標及各自時間；明確屬備援，不宣稱直讀CNN官方。
 - 11/18 Investing.com HK逐檔可核對ETF：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%。XLC、XLU歷史頁仍停11/17；XLRE結果錯指墨西哥MXN商品，三者待補查。原fixture 11檔ETF值多項不符，不可沿用。
 - 尚未更新fixture或HTML；main與W47 calendar維持唯讀。
+
+
+### 11/18 ETF補查續記
+- XLRE：Investing.com US歷史列11/18 43.67（+0.18%）。
+- XLU：Investing.com停在11/17；StockAnalysis備援列11/18 43.52（+0.23%），未取得香港站11/18列。
+- XLC：Investing.com HK仍停11/17，11/18收盤待查；不可用頁首現價代替。
+- MOVE：未取得TradingView帶日期11/18列；98.15仍僅備援交叉支持，暫不採用。
