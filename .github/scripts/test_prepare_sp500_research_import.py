@@ -12,7 +12,7 @@ class ImportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             source = root / "sp500.csv"
-            source.write_text("Date,Price,Open\nNov 17, 2026,\"6,800.25\",\"6,790.00\"\nNov 16, 2026,\"6,750.50\",\"6,740.00\"\n", encoding="utf-8")
+            source.write_text('Date,Price,Open\n"Nov 17, 2026","6,800.25","6,790.00"\n"Nov 16, 2026","6,750.50","6,740.00"\n', encoding="utf-8")
             compact = root / "compact.json"
             provenance = root / "provenance.json"
             result = convert(source, compact, provenance, URL, STAMP)
@@ -27,15 +27,17 @@ class ImportTests(unittest.TestCase):
 
     def test_rejects_non_investing_source(self):
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td); source = root / "sp500.csv"
-            source.write_text("Date,Price\n\\"Nov 17, 2026\\",6800\n")
+            root = Path(td)
+            source = root / "sp500.csv"
+            source.write_text('Date,Price\n"Nov 17, 2026",6800\n', encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "Investing.com"):
                 convert(source, root/"c.json", root/"p.json", "https://example.com/data.csv", STAMP)
 
     def test_rejects_duplicate_dates(self):
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td); source = root / "sp500.csv"
-            source.write_text("Date,Price\n\\"Nov 17, 2026\\",6800\n\\"Nov 17, 2026\\",6801\n")
+            root = Path(td)
+            source = root / "sp500.csv"
+            source.write_text('Date,Price\n"Nov 17, 2026",6800\n"Nov 17, 2026",6801\n', encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "Duplicate"):
                 convert(source, root/"c.json", root/"p.json", URL, STAMP)
 
