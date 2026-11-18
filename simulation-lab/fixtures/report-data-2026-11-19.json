@@ -6,34 +6,34 @@
   "sentiment": "市場情緒仍偏審慎，但不是單向恐慌：道瓊明顯下跌，Nasdaq與小型股反而收高；VIX由11/17的25.46小降至11/18的25.33，仍處偏高區。FOMC紀要偏鷹、油價下跌與殖利率回落並存，投資人正在區分AI基本面韌性與高估值／資金成本風險。MOVE與CNN Fear & Greed仍採11/16最新可核實值。",
   "focus_news": [
     {
-      "title": "FOMC會議紀要顯示官員對通膨風險仍警惕，部分人討論必要時升息50基點",
-      "published_at_tw": "2026-11-19 03:00",
-      "url": "https://www.reuters.com/business/nasdaq-futures-jump-nvidia-forecast-lifts-ai-trade-ahead-anthropic-pricing-2026-11-18/",
-      "summary": "Fed公布10月會議紀要，官員對通膨持續性仍有分歧，部分人士認為若通膨惡化，可能需要更大幅度升息；市場基準仍偏向12月升息25bp。這使政策風險並未因股市短線反彈而消失。"
+      "title": "沃勒警告通膨壓力擴散，主張Fed評估12月升息50個基點",
+      "published_at_tw": "2026-11-18 21:39",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1765471",
+      "summary": "Investing.com報導，Fed理事Christopher Waller認為通膨壓力比預期頑固，若要更快壓低通膨，12月會議應考慮升息50bp；另一方案是12月升25bp並明確釋出明年1月再升息訊號。這是官員個人政策主張，不代表FOMC已形成共識。"
     },
     {
-      "title": "英國10月通膨維持高檔，核心CPI年增2.8%",
-      "published_at_tw": "2026-11-18 15:00",
-      "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economy/dettaglio/economic-calendar-for-wednesday-november-18-nRC_17112026_1956_743134358.html?lang=en",
-      "summary": "英國10月CPI年增3.6%，高於9月3.5%；核心CPI年增2.8%，與前值相同。物價壓力尚未明顯消退，英國央行降息空間仍受限制。"
+      "title": "英國10月通膨升至3.6%，燃料價格推高物價壓力",
+      "published_at_tw": "2026-11-18 15:08",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1764448",
+      "summary": "英國10月CPI年增由3.5%升至3.6%，符合市場預期；核心CPI維持2.8%、服務通膨3.7%。柴油價格創高推升燃料成本，顯示整體通膨仍有能源驅動壓力，英國央行寬鬆空間受限。"
     },
     {
-      "title": "歐元區10月HICP年增4.0%，核心通膨2.5%",
-      "published_at_tw": "2026-11-18 18:00",
-      "url": "https://www.borsaitaliana.it/borsa/notizie/radiocor/economy/dettaglio/economic-calendar-for-wednesday-november-18-nRC_17112026_1956_743134358.html?lang=en",
-      "summary": "歐元區10月HICP年增4.0%、核心通膨年增2.5%；月增數據顯示能源與食品以外的價格仍有黏著性。這使ECB在評估成長放緩時，仍需留意通膨回落速度。"
+      "title": "歐元區公債殖利率維持高位，交易員警惕通膨黏著",
+      "published_at_tw": "2026-11-18 17:04",
+      "url": "https://hk.investing.com/news/forex-news/article-1764634",
+      "summary": "Investing.com指出，歐洲及英國政府公債殖利率維持多週高位，交易員消化英國通膨升至3.6%的影響，同時警惕歐元區通膨風險。英國10年期公債殖利率升至5.391%，顯示市場對高利率維持更久的定價仍在。"
     },
     {
-      "title": "美國原油庫存增加，WTI跌至8月底以來低點",
-      "published_at_tw": "2026-11-19 04:25",
-      "url": "https://www.reuters.com/business/energy/oil-prices-fall-higher-us-crude-stocks-temper-supply-risks-2026-11-18/",
-      "summary": "Reuters報導，美國原油庫存增加340萬桶，汽油庫存增加520萬桶，蒸餾油增加160萬桶；WTI下跌3.2%至每桶83.26美元，Brent下跌1.28%至91.95美元。庫存增幅強化全球供給過剩預期，短線壓過中東航運風險。"
+      "title": "聯準會10月會議紀要即將公布，市場關注升息路徑與美元走勢",
+      "published_at_tw": "2026-11-18 17:16",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1764639",
+      "summary": "Investing.com報導，Fed 10月FOMC會議紀要預定台灣時間11/19 03:00公布；市場關注官員對通膨、未來升息及政策限制程度的討論。當時美元指數逼近104，黃金跌破3,800美元，反映利率預期持續壓抑無息資產。"
     },
     {
-      "title": "美國房市指標轉弱，待售住宅簽約量降至紀錄低點",
-      "published_at_tw": "2026-11-19 05:20",
-      "url": "https://www.reuters.com/business/nasdaq-futures-jump-nvidia-forecast-lifts-ai-trade-ahead-anthropic-pricing-2026-11-18/",
-      "summary": "Reuters指出，房貸利率上升、建築許可走弱，待售住宅簽約量降至紀錄低點，反映高融資成本正壓抑住宅需求。房市疲弱與通膨黏著並存，使Fed政策取捨更複雜。"
+      "title": "英格蘭銀行預計通膨可能於2027年中再度上升",
+      "published_at_tw": "2026-11-18 16:58",
+      "url": "https://hk.investing.com/news/economy-news/article-93CH-1764628",
+      "summary": "Investing.com引述英格蘭銀行發言人指出，供應鏈既有成本壓力與中東能源風險可能使通膨於2027年中進一步上升。央行將持續調整利率，避免能源成本傳導至更廣泛物價。"
     }
   ],
   "headlines": [
