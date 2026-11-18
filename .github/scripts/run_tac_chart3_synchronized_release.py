@@ -110,8 +110,8 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--fred-dataset",type=Path,default=Path("data/tac-chart3/chart3_market_stress.json"))
-    p.add_argument("--sp500-compact",type=Path,default=Path("data/tac-chart3/sp500_investing_com_daily.compact.json"))
-    p.add_argument("--sp500-provenance",type=Path,default=Path("data/tac-chart3/sp500_investing_com_daily.provenance.json"))
+    p.add_argument("--sp500-compact",type=Path,default=Path("data/tac-chart3/sp500_tac_report_history.compact.json"))
+    p.add_argument("--sp500-provenance",type=Path,default=Path("data/tac-chart3/sp500_tac_report_history.provenance.json"))
     p.add_argument("--release-dir",type=Path,default=Path("data/tac-chart3/synchronized"))
     p.add_argument("--status",type=Path,default=Path("data/tac-chart3/synchronized_status.json"))
     a=p.parse_args()
