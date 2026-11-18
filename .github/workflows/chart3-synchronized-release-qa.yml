@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/scripts/build_tac_chart3_synchronized_release.py"
       - ".github/scripts/test_tac_chart3_synchronized_release.py"
+      - ".github/scripts/prepare_sp500_research_import.py"
+      - ".github/scripts/test_prepare_sp500_research_import.py"
       - ".github/workflows/chart3-synchronized-release-qa.yml"
   workflow_dispatch:
 
@@ -31,4 +33,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run synchronized release unit tests
-        run: python .github/scripts/test_tac_chart3_synchronized_release.py
+        run: |
+          python .github/scripts/test_tac_chart3_synchronized_release.py
+          python .github/scripts/test_prepare_sp500_research_import.py
