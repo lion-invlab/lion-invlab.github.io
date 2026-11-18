@@ -51,7 +51,7 @@ def aware_timestamp(value: str) -> dt.datetime:
 def build_from_d4_capture(capture: dict) -> dict:
     captured_at = capture.get("captured_at_taipei") or capture.get("captured_at")
     if not captured_at:
-        raise ValueError("D4 capture must include captured_at_taipei/captured_at")
+        raise ValueError("D4 capture timestamp must include captured_at_taipei/captured_at")
     stamp = aware_timestamp(captured_at)
     report_date = str(capture.get("report_date") or "")
     trading_date = str(capture.get("trading_date") or "")
@@ -76,6 +76,11 @@ def build_from_d4_capture(capture: dict) -> dict:
         raise ValueError("Only explicitly identified cash-index observations are accepted")
     source_name = str(item.get("source_name") or "").strip()
     source_url = str(item.get("url") or item.get("source_url") or "").strip()
+    host = (urlparse(source_url).hostname or "").lower()
+    if host == "finance.yahoo.com" and "yahoo" not in source_name.lower():
+        raise ValueError("Yahoo URL/source_name mismatch")
+    if (host == "investing.com" or host.endswith(".investing.com")) and "investing.com" not in source_name.lower():
+        raise ValueError("Investing.com URL/source_name mismatch")
     close = parse_close(item)
     method = "tac_d4_yfinance_daily_history" if "yahoo" in source_name.lower() else "tac_d4_source_verified_daily_history"
     return make_record(report_date, trading_date, close, source_name, source_url,
