@@ -1,4 +1,4 @@
-name: TAC Chart 3 synchronized release QA (research branch)
+name: TAC Chart 3 synchronized release runner QA (research branch)
 
 on:
   push:
@@ -6,7 +6,9 @@ on:
       - research/chart3-synchronized-release-20261118
     paths:
       - ".github/scripts/build_tac_chart3_synchronized_release.py"
+      - ".github/scripts/run_tac_chart3_synchronized_release.py"
       - ".github/scripts/test_tac_chart3_synchronized_release.py"
+      - ".github/scripts/test_run_tac_chart3_synchronized_release.py"
       - ".github/scripts/prepare_sp500_research_import.py"
       - ".github/scripts/test_prepare_sp500_research_import.py"
       - ".github/workflows/chart3-synchronized-release-qa.yml"
@@ -14,25 +16,22 @@ on:
 
 permissions:
   contents: read
-
 concurrency:
   group: chart3-synchronized-release-research-qa
   cancel-in-progress: false
-
 jobs:
   synchronized-release-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout research branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: research/chart3-synchronized-release-20261118
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run synchronized release unit tests
+      - name: Run unit tests
         run: |
           python .github/scripts/test_tac_chart3_synchronized_release.py
           python .github/scripts/test_prepare_sp500_research_import.py
+          python .github/scripts/test_run_tac_chart3_synchronized_release.py
