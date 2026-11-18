@@ -2016,3 +2016,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 同步更新fixture分析數字：S&P 500 7,307.49/-0.45%，Russell 2000 2,725.23/+0.86%；摘要、情緒、盤面觀察均已同步。新聞已重選為5則宏觀焦點＋10則事件型頭條，剔除指數漲跌、VIX等市場報價型假新聞。
 - 最新fixture blob SHA `75093c2614f28438021d96d70c9a6b41c5705190`。
 - 第二輪Actions run `44421729178`已排隊，等待完整組裝與QA結果。
+
+
+### 2026-11-19｜焦點新聞來源白名單已修正
+- 第二輪組裝成功，互動 smoke test因焦點新聞來源域名不符合SIM-1.3白名單（只接受Investing.com HK／鉅亨網）失敗。
+- 五則焦點來源已改為：鉅亨Waller、Investing英國CPI、鉅亨FOMC紀要、Investing美國住宅開工、Investing EIA原油庫存；不放寬測試白名單。
+- 最新fixture blob SHA `1a5c89edd83b4ee2658fe2464819bb0ec8d377ec`；第三輪build已觸發。
