@@ -15,7 +15,7 @@
 2. NFCI — Chicago Fed National Financial Conditions Index（FRED/ALFRED）
 3. NFCICREDIT — Chicago Fed NFCI Credit Subindex（FRED/ALFRED）
 4. STLFSI4 — St. Louis Fed Financial Stress Index（FRED/ALFRED）
-5. S&P 500 — TAC 早報 D4 已核實的真實每日現金指數收盤價；優先沿用當日核實來源，逐筆保留實際 source_name/source_url，不得把 Yahoo 或其他備援來源改標成 Investing.com，也不得以週資料、壓縮曲線或插值替代。
+5. S&P 500 — 僅接受已核實且符合本規格來源 Gate 的真實每日現金指數收盤價。可沿用 TAC 早報 D4 已核實資料，但該筆來源必須符合 Investing.com 來源與使用權限要求；Yahoo 或其他備援來源不得未經使用者明確核准就匯入本同步發布序列，也不得改標成 Investing.com。不得以週資料、壓縮曲線或插值替代。
 
 ## 2. 每日檢查與分層流程
 
@@ -24,7 +24,7 @@
 1. 讀取每個來源的 checkpoint、manifest、上次成功時間與 SHA-256。
 2. 分別檢查來源是否有新觀測／新 vintage；依各來源公布頻率擷取，不假設五項同日更新。
 3. 將新資料寫入 staging／候選區，先完成格式、日期、數值、重複鍵、來源回應與雜湊驗證。
-4. ALFRED 四序列沿用 append-only vintage/event 記錄與 current snapshot reconciliation；只取新 vintage 並保留既定 overlap。S&P 500 優先沿用 TAC 早報 D4 已核實的 OHLC，經報告資料交接器累積逐日紀錄，再轉成 Chart 3 close 歷史；不得另開重複行情擷取，也不得把不同日的實際來源混成單一來源標籤。
+4. ALFRED 四序列沿用 append-only vintage/event 記錄與 current snapshot reconciliation；只取新 vintage 並保留既定 overlap。S&P 500 可沿用 TAC 早報 D4 已核實 OHLC，但只有來源符合 Investing.com 來源與使用權限 Gate 的紀錄才可進入本發布流程；不符合者保留於早報原始紀錄，不得匯入或改標。若 D4 無符合條件的資料，使用已驗證的 Investing.com CSV 匯入流程，不得另用未核准供應商補值。
 5. 所有五項檢查完成後，執行共同觀測日期計算與發布 Gate。
 6. 通過 Gate 才建立單一整批快照、更新發布 manifest，並讓圖表讀取新版本；未通過則正式版本完全不變。
 
@@ -192,46 +192,39 @@ Accordingly, the research branch must not assume that the visible download label
 The fail-closed runner now validates that the active manifest references exactly `snapshots/{snapshot_id}.json`, rejects absolute or parent-traversal paths, verifies the referenced snapshot SHA-256 and embedded snapshot identity/date, and rejects an existing immutable snapshot file if its content differs from the candidate. Tests cover a tampered last-good snapshot and an unsafe manifest path. The active manifest is not advanced on either failure.
 
 
-## 16. TAC 早報 D4 的既有 S&P 500 OHLC 交接（2026-11-18 修正）
+## 16. TAC 早報 D4 與 S&P 500 來源 Gate（2026-11-18 修正）
 
-核對正式 WR v5.15 的 D4 後，確認早報每日已由 ChatGPT 直接查核同一基準交易日、同一標的的 OHLC，並記錄來源與日期；這是現有資料擷取責任，不應另建一套重複行情查詢流程。
+TAC 早報 D4 是既有的每日 OHLC 查核位置，可避免重複查價；但「D4 已核實」不代表該來源自動符合 Chart 3 的資料留存與發布條件。Chart 3 五序列同步發布目前要求 S&P 500 採 Investing.com 歷史資料，並遵守其頁面所載資料使用限制。
 
 已核實的交接缺口：
-- 早報 D4 的 OHLC 目前主要保存在當日報告 fixture／Session State／來源折疊區，未形成 Chart 3 可直接增量讀取的長期逐日 close 序列。
-- 同一報告日期的來源可能依當日來源核實結果而異。例如 simulation fixture 2026-11-17 記錄 S&P 500 2026-11-16 OHLC（O 7,513.98、H 7,515.60、L 7,400.15、C 7,416.59），來源標示 Yahoo Finance ^SPX 現金指數，不能重新標成 Investing.com。
-- 2026-11-18 fixture 目前沒有 S&P 500 OHLC override；不得把前一日值冒充當日值。
+- 早報 D4 的 OHLC 目前主要保存在當日報告 fixture／Session State／來源折疊區，尚未形成可直接增量讀取的長期逐日 close 序列。
+- simulation fixture 2026-11-17 記錄的 2026-11-16 S&P 500 OHLC 來源是 Yahoo Finance ^SPX 現金指數。該筆可以保留作為早報 D4 的來源證據，但依本研究分支現行來源 Gate，不可直接匯入 Chart 3 Investing.com 同步發布資料集，也不可重新標記為 Investing.com。
+- 2026-11-18 fixture 沒有 S&P 500 OHLC override；不得把前一日值冒充當日值。
+- D4 既有 fixture 未提供精確行情擷取時間；report cutoff 不可代替 retrieved_at。
 
-因此，後續交接以「TAC 早報 D4 已核實的現金指數 OHLC」為上游資料來源，不另開一套行情擷取。每筆必須保留原始 source_name、source_url、observation_date、retrieved_at、retrieval_method、OHLC 及 record SHA-256；來源可能逐日不同，必須逐筆保存來源，不得用單一全歷史來源標籤覆蓋不同供應商。
+資料進入 Chart 3 的條件：
+- 若 D4 當日來源本身是 Investing.com，且取得方式、留存與預計顯示用途符合適用權限，才可沿用該筆資料；須逐筆保留 source_name、source_url、observation_date、retrieved_at、retrieval_method、OHLC 及 record SHA-256。
+- 若 D4 使用 Yahoo 或其他未經明確核准的備援來源，該筆不得進入本同步發布序列。不得混入歷史後再以單一 Investing.com 標籤包裝。
+- 若 D4 沒有符合來源 Gate 的資料，現階段唯一已驗證的技術匯入方式是使用者提供的 Investing.com CSV；匯入工具不會自行下載資料，也不代表資料使用權限已取得。
+- 沒有精確、帶時區的 retrieved_at 時不得自行推算；不得以 report_cutoff_taipei 代替。
 
-新增研究工具：
-- `.github/scripts/import_sp500_from_tac_report.py`：從既有報告 fixture 的 `key_levels_overrides.sp500` 擷取同日 OHLC，確認報告日期／交易日期一致、OHLC 合理、來源 URL 為 HTTPS、來源註記明確為現金指數且非 CFD，並要求明確傳入帶時區的實際擷取時間。它不下載行情，也不推測擷取時間。
-- 輸出採 append-only JSONL；相同日期相同內容重跑為 no-op，同日不同 close／來源資料則 fail closed，不覆蓋歷史紀錄。
-- 新增五項測試，覆蓋來源與價格擷取、CFD 拒絕、日期錯配、相同資料冪等及同日衝突拒絕。
+D4 JSONL adapter 與 converter 仍保留在研究分支作為獨立實驗工具，但不得作為預設五序列發布輸入，除非後續來源 Gate 明確允許該筆資料。Main、早報正式流程及正式 Chart 3 均未因本研究變更。
 
-目前限制：
-- 此 adapter 只是 D4 → Chart 3 staging 的第一段交接，尚未把 JSONL 轉成五序列發布器所需的完整 S&P 500 compact history，也尚未改寫同步發布器的 provenance schema 以逐筆保留不同來源。
-- 因此不可宣稱 S&P 500 日線已完成自動累積，也不可宣稱五項同步發布已完成。
-- 研究分支 QA workflow 已加入 adapter 測試；須待本次 push workflow 實際完成並回讀結果後，才可標記測試通過。
-- Main、正式早報、正式 Chart 3、首頁及所有既有排程均未修改。
+## 17. Investing.com S&P 500 import and synchronized runner defaults (research branch, 2026-11-18)
 
+The only currently validated S&P 500 ingestion path for the five-series research release is an explicit, user-supplied Investing.com historical CSV export. This is a manual import, not an unattended downloader, and it does not itself establish permission to retain or republish the data.
 
-## 17. D4 daily history handoff and per-observation provenance (research branch, 2026-11-18)
+- `.github/scripts/prepare_sp500_research_import.py` validates the Investing.com HTTPS source URL, required Date/Price columns, positive closes, unique dates and timezone-aware retrieval timestamp. It records the raw CSV SHA-256 and writes:
+  - `data/tac-chart3/sp500_investing_daily.compact.json`
+  - `data/tac-chart3/sp500_investing_daily.provenance.json`
+- `.github/scripts/run_tac_chart3_synchronized_release.py` now defaults to those exact two paths, so the importer output and release runner input are aligned. Both paths remain overridable through CLI arguments.
+- Unit tests assert that the importer output defaults exactly match the runner input defaults.
+- The release builder independently validates the Investing.com host, retrieval metadata, source hash and exact five-way native observation-date intersection before it can create a candidate snapshot.
+- The D4 JSONL importer/converter remain research-only utilities. A D4 row sourced from Yahoo or another unapproved provider is not eligible for this Investing.com-only synchronized release and must not be silently substituted or relabeled.
 
-The S&P 500 source of truth for this integration is the already-verified cash-index OHLC captured by TAC morning report rule D4. The adapter does not make a second market-data request. It preserves the actual provider used for each trading date; when the report uses a fallback provider, that provider remains visible on that date and is never relabeled as Investing.com.
+Operational boundary:
+- The CSV must be obtained through an authorized account/feature and its intended retention/display use must be permitted under applicable terms. The importer is a technical adapter only.
+- No private endpoint, headless scraping, session circumvention or unattended download is implemented.
+- No real S&P 500 CSV has yet been imported into the research dataset; no five-series synchronized snapshot has been published.
+- Main, the official Chart 3 page, the homepage and existing schedules remain unchanged.
 
-Added:
-- `.github/scripts/import_sp500_from_tac_report.py`: validates one report's S&P 500 OHLC, cash-index identity, source URL, trading date and exact timezone-aware retrieval timestamp; it reads `key_levels_overrides.sp500.retrieved_at` when present, otherwise requires an explicit `--retrieved-at`. It never substitutes report cutoff time. The importer appends an immutable daily record to `sp500_tac_report_ohlc.jsonl`; repeated identical observations are no-ops even if retried later, while changed OHLC/source for the same date fails closed.
-- `.github/scripts/build_sp500_from_tac_report_history.py`: validates every JSONL record hash and source metadata, then converts the daily close observations into the Chart 3 compact encoding. Its provenance file carries a separate source_name, source_url, source_note, retrieved_at, retrieval_method and record SHA-256 for every observation date. The compact source hash is tied to the exact JSONL bytes.
-- `.github/scripts/test_build_sp500_from_tac_report_history.py`: tests mixed-provider history, record tampering and CFD rejection.
-- `build_tac_chart3_synchronized_release.py`: accepts either the legacy single-source Investing.com provenance schema or the new TAC D4 per-observation provenance schema. In the D4 mode, every S&P 500 chart point carries its own source metadata; all compact dates must have matching provenance.
-- `run_tac_chart3_synchronized_release.py`: default input paths now point to the TAC D4-derived compact history and provenance files.
-
-Important boundary:
-- The report fixture currently contains report cutoff time, but that is not proof of the exact retrieval timestamp for each price. The importer therefore requires an explicit timezone-aware `retrieved_at`; it must not fabricate one from report cutoff.
-- A report without a verified S&P 500 cash-index OHLC entry cannot add an observation. Missing days are not filled.
-- This research implementation is not yet wired into the morning-report production runner or its daily artifact persistence. It does not create a daily history automatically until that handoff is integrated and tested end-to-end.
-- The new QA tests have been added to the isolated research workflow; workflow execution must be observed before declaring them passed.
-- No Main branch, production report, official Chart 3 page or existing schedule was modified.
-
-
-**Required upstream D4 capture field:** future report-data output must store the actual source retrieval timestamp at `key_levels_overrides.sp500.retrieved_at` (ISO-8601 with timezone), alongside `source_name`, `source_url`, `note`, `trading_date` and OHLC. `report_cutoff_taipei` is only the report cutoff and must never be treated as the market-data retrieval time. If the upstream report does not provide this field, the importer must stop rather than invent a timestamp.
