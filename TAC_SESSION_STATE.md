@@ -1937,3 +1937,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Global Focus 原第3則公債殖利率敘述是價格資訊；第5則 BoE通膨展望與英國CPI重疊。五則焦點應改為 Waller個人政策表態、ONS英國CPI、Fed FOMC會議紀要、Census美國新屋開工／建築許可、EIA庫存報告。各項官方發布時間、實際值、來源及網址已記入 TAC_WORK_LOG.md。
 - 歐元區HICP官方資料已確認4.0%年增、能源21.0%，但本輪未核實Eurostat原始發布時分，故暫不列入焦點新聞，避免誤標時間。
 - 以上均未寫回HTML；preview仍舊版，review_ready=false。
+
+
+
+## 2026-11-19｜44項行情盤點
+- fixture共有44欄位（17指數+11產業ETF+3美債+6 FX/DXY+2能源+2貴金屬+3風險指標），但欄位存在不代表來源查核通過。
+- SPX 11/18收盤重大衝突：AP 7,323.63、Investing HK 7,307.49、Investing US 7,323.52、Yahoo 7,316.93；須確認產品口徑與收盤時點後才可定值。
+- MOVE最新明確資料日為11/17，CNN Fear & Greed目前只取得FGScore備援25，尚無CNN官方值；11檔產業ETF缺逐檔日期及來源證據。其餘多項fixture僅有來源metadata，尚未證明逐頁讀取。
+- 因此44/44僅代表欄位齊全，不代表44項已核實。上述查核缺口已詳列於TAC_WORK_LOG.md；不得把待核實數值放進定稿。
+- HTML仍未更新，review_ready=false。
