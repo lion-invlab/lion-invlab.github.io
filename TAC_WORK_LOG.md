@@ -1311,3 +1311,5 @@
 5. **合規阻塞：** SIM-1.3 A1-補充要求 ChatGPT 直接以 DOM 填入核准母版；D2-補充禁止使用 repo market collectors。GitHub connector 雖可讀取原始檔文字，但本輪無法把 337KB 母版掛載到可用 DOM parser；container 無外網，functions 執行環境沒有 DOMParser。故不能安全地直接 DOM 修改與寫入 main preview。正式狀態標記「未產出審核版」。
 6. 曾觸發 4 次 simulation workflow 診斷（44405550642、44405733686、44405994656、44406269121）；這些流程使用 Assembler／Renderer／Collector，與 SIM-1.3 不符，故不採用。已刪除新增 fixture、simulation preview HTML 及 QA sidecar；未觸碰 main index、main preview 或 W47 DB。
 7. 結論：**11/19 審核版未產出；main 首頁未修改。** 待可用的本機檔案／DOM 寫入橋接後，直接填版並重新讀回驗收；不得以本輪 workflow 成功取代規定流程。
+
+- 補記：依排程規則嘗試 notify_parent 回報阻塞，但目前對話未綁定 parent action，工具回傳 404 Action not found；已在本對話直接回報使用者，未宣稱通知成功。
