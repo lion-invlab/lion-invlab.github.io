@@ -1930,3 +1930,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Global Focus 原五則亦有職責問題：第3則歐洲公債殖利率屬市場價格敘述，應剔除或改用官方通膨事件原文；Waller與FOMC事件不得跨區重複。
 - 當前 simulation preview/2026-11-19-simulation.html SHA fc9278f08fb9ca844b079dead08c0d3deff0b94e 仍保留舊新聞，尚未改寫；本輪只更新新聞查核證據與工作紀錄，未修改HTML、母版、Manifest、main首頁或W47 JSON。review_ready=false。
 - 下一步：在符合 SIM-1.3 的標準 DOM 編輯環境中，將重篩後新聞填入核准 weekday mother template 的既有節點；同步重寫分析與各區評論，之後才執行 QA。不得用字串替換或舊 preview 作為完成品。
+
+
+
+## 2026-11-19 07:12｜Global Focus News 重篩補充
+- Global Focus 原第3則公債殖利率敘述是價格資訊；第5則 BoE通膨展望與英國CPI重疊。五則焦點應改為 Waller個人政策表態、ONS英國CPI、Fed FOMC會議紀要、Census美國新屋開工／建築許可、EIA庫存報告。各項官方發布時間、實際值、來源及網址已記入 TAC_WORK_LOG.md。
+- 歐元區HICP官方資料已確認4.0%年增、能源21.0%，但本輪未核實Eurostat原始發布時分，故暫不列入焦點新聞，避免誤標時間。
+- 以上均未寫回HTML；preview仍舊版，review_ready=false。
