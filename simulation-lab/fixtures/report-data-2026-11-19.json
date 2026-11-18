@@ -100,14 +100,14 @@
   ],
   "global_markets": {
     "道瓊工業指數": {
-      "display": "50,198.17",
+      "display": "50,197.78",
       "change_display": "-1.11%",
       "source": {
-        "name": "Associated Press｜US cash index close",
-        "url": "https://apnews.com/article/990749d3d269f7ef05b9f6c089713a58",
+        "name": "Investing.com HK｜道瓊工業平均指數歷史資料",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
         "data_date": "2026-11-18",
-        "quote_type": "cash_index_close",
-        "note": "AP 11/18現金指數收盤；前收50,759.42，跌561.25點。"
+        "quote_type": "index_historical_daily_close",
+        "note": "直接核對Investing.com香港站2026-11-18歷史列：收市50,197.78，跌1.11%。"
       }
     },
     "標普500指數": {
@@ -122,14 +122,14 @@
       }
     },
     "那斯達克綜合指數": {
-      "display": "24,429.88",
+      "display": "24,429.89",
       "change_display": "+0.42%",
       "source": {
-        "name": "Associated Press｜US cash index close",
-        "url": "https://apnews.com/article/990749d3d269f7ef05b9f6c089713a58",
+        "name": "Investing.com HK｜Nasdaq Composite歷史資料",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
         "data_date": "2026-11-18",
-        "quote_type": "cash_index_close",
-        "note": "AP 11/18現金指數收盤；前收24,328.38，上漲101.50點。"
+        "quote_type": "index_historical_daily_close",
+        "note": "直接核對Investing.com香港站2026-11-18歷史列：收市24,429.89，升0.42%。"
       }
     },
     "羅素2000指數": {
