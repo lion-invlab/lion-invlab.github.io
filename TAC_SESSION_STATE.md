@@ -1967,3 +1967,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 使用者明確指定S&P 500採Investing.com；11/18 close **7,307.49（-0.45%）**。
 - Fixture已更新 global_markets.標普500指數，source URL為Investing.com歷史頁，data_date=2026-11-18，quote_type=investing_com_historical_daily_close；新blob SHA 5232deaff06842b78889072306f28f93fe476bf8。
 - 後續分析必須同步此值；不得再引用AP／Yahoo的7,323.xx作為TAC主報價。其他行情仍逐項核對。
+
+
+## 2026-11-19｜自動續行：XLC／XLU／MOVE
+- XLC與XLU Investing.com HK歷史頁目前均未提供11/18可見日期列；不可將頁首價格冒充歷史收盤。
+- MOVE仍缺TradingView 11/18日期列；暫不更新fixture。
