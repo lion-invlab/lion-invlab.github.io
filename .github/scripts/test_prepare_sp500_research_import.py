@@ -28,14 +28,14 @@ class ImportTests(unittest.TestCase):
     def test_rejects_non_investing_source(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td); source = root / "sp500.csv"
-            source.write_text("Date,Price\nNov 17, 2026,6800\n")
+            source.write_text("Date,Price\n\\"Nov 17, 2026\\",6800\n")
             with self.assertRaisesRegex(ValueError, "Investing.com"):
                 convert(source, root/"c.json", root/"p.json", "https://example.com/data.csv", STAMP)
 
     def test_rejects_duplicate_dates(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td); source = root / "sp500.csv"
-            source.write_text("Date,Price\nNov 17, 2026,6800\nNov 17, 2026,6801\n")
+            source.write_text("Date,Price\nNov 17, 2026,6800\n\\"Nov 17, 2026\\",6801\n")
             with self.assertRaisesRegex(ValueError, "Duplicate"):
                 convert(source, root/"c.json", root/"p.json", URL, STAMP)
 
