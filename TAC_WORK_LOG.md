@@ -1434,3 +1434,10 @@
 - **CNN Fear & Greed：** FGScore明確標示 As of Nov 18, 2026 UTC，CNN provider index **25（Fear）**，並列出七項指標及各自時間；此為有日期的備援值，非已直接讀取CNN官方端點。參考：https://fgscore.com/en/markets/sp500。
 - **11大產業ETF：** Investing.com HK 歷史頁取得下列 11/18 逐檔列：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%。來源分別為各標的 Investing.com HK historical-data 頁。XLC 頁面最新歷史列仍停在11/17；XLU亦停在11/17；XLRE搜尋結果錯指墨西哥MXN報價，三者不得沿用fixture值或冒稱11/18已核實。這7項與fixture原值有重大差異，顯示原11檔ETF欄位不能沿用。
 - **當前判定：** 以上為第二輪已取得的可追溯證據，不代表44項全數通過。未更新 fixture、未修改 HTML、未動 main；仍需完成剩餘行情及三檔ETF補查。
+
+
+### 11/18 ETF補查續記
+- XLRE：Investing.com US歷史資料頁明確列 11/18 收盤 **43.67（+0.18%）**；原先搜尋到的MXN頁為錯誤商品市場頁，已排除。來源：https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data。
+- XLU：Investing.com頁面仍只顯示11/17；StockAnalysis歷史資料列11/18 **43.52（+0.23%）**，可作低順位備援，但尚未取得Investing.com HK 11/18列。來源：https://stockanalysis.com/etf/xlu/history/。
+- XLC：Investing.com HK歷史資料頁仍停11/17；暫無可採用的11/18歷史列。不得把頁首目前報價當作11/18收盤。
+- MOVE備援：本輪未找到TradingView帶日期的11/18歷史列；Investing.com優先來源仍停11/17。98.15僅有4Search及獨立收盤彙總交叉支持，依順位規則仍暫不寫入fixture。
