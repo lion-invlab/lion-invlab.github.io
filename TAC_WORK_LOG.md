@@ -1473,3 +1473,14 @@
 ### XLY最後一檔產業ETF補查
 - Investing.com香港站歷史頁缺11/18日期列；同供應商加拿大站列11/18收盤119.12、+1.73%，已更新fixture。Investing.com UK頁同日列119.29、+1.87%，不同地區數據不一致；本次按同供應商備援採Canada頁並保留差異說明。來源：https://ca.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data。
 - 11檔產業ETF現均有11/18數值及來源記錄；其中XLU採StockAnalysis備援，其餘10檔採Investing.com（香港站或同供應商地區站）。Fixture commit `e1ab80b5a672b8da44100258a09ba39256dac34d`，blob SHA `137f3f015dcafa2d74c6d6135589a7b3703c45e3`。
+
+
+## 2026-11-19｜行情第三輪：全球指數、FX、債券與商品歷史列核對
+
+### 已直接核對 Investing.com HK 11/18 日期列
+- 全球指數：道瓊 **50,197.78/-1.11%**（原fixture 50,198.17，已更正）；Nasdaq Composite **24,429.89/+0.42%**（原fixture 24,429.88，已更正）；Nikkei 225 59,024.28/+0.28%；KOSPI 5,067.44/+1.99%；台灣加權40,194.91/+0.26%；STI 5,054.89/-1.06%；ASX 200 8,821.80/-0.69%；FTSE 100 10,548.21/-1.33%；DAX 25,736.24/-1.19%；CAC 40 8,146.83/-0.85%；STOXX Europe 600 644.04/-1.03%；Shanghai Composite 3,587.83/+0.09%；SZSE Component 10,659.41/+0.20%；SOX 9,652.80/+0.10%。均可由對應Investing.com HK歷史頁11/18列支持。
+- 外匯：EUR/USD 1.0975/-0.22%（fixture一致）；GBP/USD **1.3152/-0.43%**（原1.3148/-0.46%，已更正）；AUD/USD **0.6713/-0.31%**（原0.6714/-0.30%，已更正）；USD/JPY **159.34/-0.02%**（原159.35/-0.01%，已更正）；DXY 103.79/+0.29%（fixture一致）。USD/TWD維持央行銀行間收盤32.947/+0.30%。
+- 美債：美國財政部11/18 Par Yield Curve確認2Y 4.80%、10Y 5.07%、30Y 5.41%，fixture一致。
+- 能源及貴金屬：Investing.com HK歷史列確認WTI Jan-2027 CFD參考81.89/-3.26%；Brent Jan-2027 CFD參考91.79/-1.45%；COMEX GCZ6 3,727.80/-3.53%；COMEX SIZ6 44.975/-5.03%，fixture一致。
+- MOVE：Investing.com HK/Global/China頁面均只有11/17 101.88/+0.59%，11/18日期列缺失。TradingView本輪未取得日期列；Yahoo Finance結果亦只到11/17且顯示不同供應商值。第三方頁顯示11/18 98.15或98.5，但不在規定備援順位，故不採用。保持11/17日期標籤，不得冒充11/18。
+- 直接開啟的Investing.com歷史頁及日期列已於本輪web核對；Dow/Nasdaq及三項FX修正已寫入fixture，最新blob SHA `${f.result.sha}`。
