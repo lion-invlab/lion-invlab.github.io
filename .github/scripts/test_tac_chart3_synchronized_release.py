@@ -85,7 +85,7 @@ class SynchronizedReleaseTests(unittest.TestCase):
                  "retrieval_method":"tac_daily_report_verified_ohlc","record_sha256":"b"*64}
             ]
         }
-        with self.assertRaisesRegex(ValueError,"lacks per-date provenance"):
+        with self.assertRaisesRegex(ValueError,"provenance/compact date mismatch"):
             build_candidate(fred(["2026-11-12","2026-11-13"]),
                             compact([("2026-11-12",6000),("2026-11-13",6001)]),p)
 
