@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail-closed orchestration for the isolated five-series Chart 3 release."""
 from __future__ import annotations
-import argparse, datetime as dt, json, sys
+import argparse, datetime as dt, hashlib, json
 from pathlib import Path
 from build_tac_chart3_synchronized_release import build_candidate, atomic_write
 
@@ -22,18 +22,29 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
     previous_snapshot=None
     previous_manifest=None
     if manifest_path.exists():
-        previous_manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
-        previous_snapshot=release_dir/previous_manifest.get("snapshot_file","")
-        if not previous_snapshot.is_file():
-            write_status(status_path,"BLOCKED_BROKEN_LAST_GOOD_MANIFEST",
-                         manifest=str(manifest_path),snapshot_file=str(previous_snapshot),
-                         published=False,last_good_preserved=True)
-            return 2
-        import hashlib
-        expected_hash=previous_manifest.get("snapshot_sha256")
-        if not expected_hash or hashlib.sha256(previous_snapshot.read_bytes()).hexdigest()!=expected_hash:
-            write_status(status_path,"BLOCKED_LAST_GOOD_HASH_MISMATCH",snapshot_file=str(previous_snapshot),
-                         published=False,last_good_preserved=True)
+        try:
+            previous_manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+            previous_id=previous_manifest["snapshot_id"]
+            relative=Path(previous_manifest["snapshot_file"])
+            if relative.is_absolute() or ".." in relative.parts or relative.parts[:1] != ("snapshots",):
+                raise ValueError("active manifest snapshot_file must remain inside snapshots/")
+            if relative.as_posix() != f"snapshots/{previous_id}.json":
+                raise ValueError("active manifest snapshot_file does not match snapshot_id")
+            previous_snapshot=release_dir/relative
+            if not previous_snapshot.is_file():
+                raise ValueError("last-good snapshot file is missing")
+            raw_previous=previous_snapshot.read_bytes()
+            expected_hash=previous_manifest.get("snapshot_sha256")
+            if not expected_hash or hashlib.sha256(raw_previous).hexdigest()!=expected_hash:
+                write_status(status_path,"BLOCKED_LAST_GOOD_HASH_MISMATCH",snapshot_file=str(previous_snapshot),
+                             published=False,last_good_preserved=True)
+                return 2
+            previous_payload=json.loads(raw_previous.decode("utf-8"))
+            if previous_payload.get("snapshot_id")!=previous_id or previous_payload.get("common_observation_date")!=previous_manifest.get("common_observation_date"):
+                raise ValueError("last-good snapshot identity/date does not match active manifest")
+        except Exception as exc:
+            write_status(status_path,"BLOCKED_BROKEN_LAST_GOOD_MANIFEST",reason=str(exc),
+                         manifest=str(manifest_path),published=False,last_good_preserved=True)
             return 2
 
     try:
@@ -59,8 +70,25 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
     snapshots=release_dir/"snapshots"
     snapshot_name=f'{candidate["snapshot_id"]}.json'
     snapshot_path=snapshots/snapshot_name
-    if not snapshot_path.exists():
+    if snapshot_path.exists():
+        try:
+            existing=json.loads(snapshot_path.read_text(encoding="utf-8"))
+        except Exception as exc:
+            write_status(status_path,"BLOCKED_SNAPSHOT_COLLISION",reason=str(exc),
+                         snapshot_file=str(snapshot_path),published=False,last_good_preserved=True)
+            return 2
+        if existing != candidate:
+            write_status(status_path,"BLOCKED_SNAPSHOT_COLLISION",
+                         snapshot_file=str(snapshot_path),published=False,last_good_preserved=True)
+            return 2
+    else:
         atomic_write(snapshot_path,candidate)
+    snapshot_bytes=snapshot_path.read_bytes()
+    snapshot_hash=hashlib.sha256(snapshot_bytes).hexdigest()
+    if json.loads(snapshot_bytes.decode("utf-8")).get("snapshot_id") != candidate["snapshot_id"]:
+        write_status(status_path,"BLOCKED_SNAPSHOT_WRITE_VERIFICATION",
+                     snapshot_file=str(snapshot_path),published=False,last_good_preserved=True)
+        return 2
     manifest={
         "schema_version":"1.0",
         "status":"PASS",
@@ -71,7 +99,7 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
         "previous_snapshot_id":previous_manifest.get("snapshot_id") if previous_manifest else None,
         "series_latest_observation_dates":{
             item["series_id"]:item["latest_observation_date"] for item in candidate["series"]},
-        "snapshot_sha256":__import__("hashlib").sha256(snapshot_path.read_bytes()).hexdigest()
+        "snapshot_sha256":snapshot_hash
     }
     atomic_write(manifest_path,manifest)
     write_status(status_path,"PUBLISHED",snapshot_id=candidate["snapshot_id"],
