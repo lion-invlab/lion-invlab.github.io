@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json, tempfile, unittest
 from pathlib import Path
-from run_tac_chart3_synchronized_release import DEFAULT_SP500_COMPACT, DEFAULT_SP500_PROVENANCE
+from prepare_sp500_research_import import DEFAULT_COMPACT_PATH, DEFAULT_PROVENANCE_PATH
 from build_tac_chart3_synchronized_release import decode_sp500
 from test_run_tac_chart3_synchronized_release import fred
 from chart3_synchronized_pipeline import run_pipeline
@@ -45,8 +45,8 @@ class PipelineTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"Investing.com"):
                 run_pipeline(csv,"https://example.com/spx.csv",STAMP,f,root/"c.json",root/"p.json",root/"release",root/"status.json")
             self.assertFalse((root/"c.json").exists())
-    def test_default_paths_match_runner_inputs(self):
-        self.assertEqual(DEFAULT_SP500_COMPACT.as_posix(),"data/tac-chart3/sp500_investing_daily.compact.json")
-        self.assertEqual(DEFAULT_SP500_PROVENANCE.as_posix(),"data/tac-chart3/sp500_investing_daily.provenance.json")
+    def test_default_paths_match_investing_csv_importer(self):
+        self.assertEqual(DEFAULT_COMPACT_PATH.as_posix(),"data/tac-chart3/sp500_investing_daily.compact.json")
+        self.assertEqual(DEFAULT_PROVENANCE_PATH.as_posix(),"data/tac-chart3/sp500_investing_daily.provenance.json")
 
 if __name__=="__main__": unittest.main()
