@@ -133,14 +133,14 @@
       }
     },
     "羅素2000指數": {
-      "display": "2,714.31",
-      "change_display": "+0.46%",
+      "display": "2,725.23",
+      "change_display": "+0.86%",
       "source": {
-        "name": "Associated Press｜US cash index close",
-        "url": "https://apnews.com/article/990749d3d269f7ef05b9f6c089713a58",
+        "name": "Investing.com｜Russell 2000歷史資料",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
         "data_date": "2026-11-18",
-        "quote_type": "cash_index_close",
-        "note": "AP 11/18現金指數收盤；前收2,701.87，上漲12.44點。Investing.com同名頁為CFD，故採AP現金指數。"
+        "quote_type": "index_historical_daily_close",
+        "note": "Investing.com歷史資料11/18日期列：收市2,725.23，升0.86%；修正原fixture中未對應該歷史列的2,714.31/+0.46%。"
       }
     },
     "費城半導體指數": {
@@ -159,10 +159,10 @@
       "change_display": "-0.91%",
       "source": {
         "name": "Investing.com HK｜Hang Seng Index歷史資料",
-        "url": "https://hk.investing.com/indices/hang-seng-40-historical-data",
+        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "note": "Investing.com香港站11/18日期列：收市23,294.75，跌0.91%。"
       }
     },
     "上海綜合指數": {
