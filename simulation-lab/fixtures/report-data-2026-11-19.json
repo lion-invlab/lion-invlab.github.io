@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-18",
   "summary": "11/18美股不是全面反彈，而是資金重新挑選標的：道瓊下跌1.11%、S&P 500依Investing.com下跌0.45%，Nasdaq上漲0.42%、Russell 2000上漲0.75%，S&P 500連跌第五個交易日。NVIDIA財報與營收指引優於預期，股價卻由漲轉跌，市場開始要求AI需求轉化為可持續的獲利與現金流，而非只看營收成長。FOMC紀要再度暴露通膨風險與升息討論，短線仍是高估值資產承受資金成本壓力、但部分資金轉向中小型股的分化盤。",
-  "sentiment": "市場情緒仍偏審慎，但不是單向恐慌：道瓊明顯下跌，Nasdaq與小型股反而收高；VIX由11/17的25.46降至11/18的24.56，仍處偏高區。FOMC紀要偏鷹、油價下跌與殖利率回落並存，投資人正在區分AI基本面韌性與高估值／資金成本風險。MOVE最新可核實值為11/17的101.88（+0.59%）；CNN Fear & Greed為11/18的25（Fear）。",
+  "sentiment": "市場情緒仍偏審慎，但不是單向恐慌：道瓊明顯下跌，Nasdaq與小型股反而收高；VIX由11/17的25.46降至11/18的24.56，仍處偏高區。FOMC紀要偏鷹、油價下跌與殖利率回落並存，投資人正在區分AI基本面韌性與高估值／資金成本風險。MOVE於11/18更新至98.16（-3.65%，TradingView Derived Data）；CNN Fear & Greed為11/18的25（Fear）。",
   "focus_news": [
     {
       "title": "Fed華勒示警通膨擴散，稱必要時可能需要升息50個基點",
@@ -469,14 +469,14 @@
       "band": "高"
     },
     "move": {
-      "display": "101.88",
-      "change_display": "+0.59%",
+      "display": "98.16",
+      "change_display": "-3.65%",
       "source": {
-        "name": "Investing.com HK｜ICE BofAML MOVE歷史資料",
-        "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "data_date": "2026-11-17",
-        "quote_type": "index_daily_close",
-        "note": "Investing.com香港站明示延遲資料日期17/11；最新可見歷史列為11/17收市101.88、+0.59%。11/18列尚未發布；TradingView頁本輪無可核實日期，故不採用無日期即時值。"
+        "name": "TradingView｜TVC:MOVE（Derived Data）",
+        "url": "https://www.tradingview.com/symbols/TVC-MOVE/",
+        "data_date": "2026-11-18",
+        "quote_type": "tradingview_derived_data",
+        "note": "依使用者提供之TradingView TVC:MOVE截圖核對：報價98.1635（顯示98.16），日跌3.72／-3.65%，前收101.8874；Google Finance 11/18 16:17 EST截圖另顯示98.15、-3.66%，兩者為顯示精度／計算口徑差異。TradingView標示Derived Data，故明確註記為衍生資料，不冒稱交易所原始報價。"
       },
       "band": "偏高"
     },
