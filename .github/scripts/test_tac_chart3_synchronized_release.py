@@ -22,7 +22,7 @@ def compact(rows):
         prev_day,prev_close=ordinal,cents
     return {"schema_version":"1.0.0","encoding":"zlib+base64","start":rows[0][0],
             "end":rows[-1][0],"rows":len(rows),"payload":base64.b64encode(zlib.compress(bytes(packed))).decode(),
-            "source_dataset_sha256":"test-source-hash"}
+            "source_dataset_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 
 def fred(dates):
     return {"series":[{"series_id":sid,"label":sid,"observations":[{"date":d,"value":1.25} for d in dates],
@@ -31,7 +31,7 @@ def fred(dates):
 
 def provenance():
     return {"source_url":"https://www.investing.com/indices/us-spx-500-historical-data",
-            "retrieved_at":"2026-11-18T00:00:00+00:00","source_sha256":"test-source-hash","method":"user-provided research dataset"}
+            "retrieved_at":"2026-11-18T00:00:00+00:00","source_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","method":"user-provided research dataset"}
 
 class SynchronizedReleaseTests(unittest.TestCase):
     def test_publishes_latest_exact_common_date(self):
