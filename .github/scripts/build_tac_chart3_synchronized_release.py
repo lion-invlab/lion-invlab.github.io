@@ -91,11 +91,34 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
             }
         if not by_date:
             raise ValueError("S&P 500 per-observation provenance is empty")
+        baseline = provenance.get("historical_baseline")
+        if baseline:
+            start = dt.date.fromisoformat(baseline.get("start", ""))
+            end = dt.date.fromisoformat(baseline.get("end", ""))
+            if start > end:
+                raise ValueError("S&P 500 historical baseline date range is invalid")
+            baseline_url = baseline.get("source_url", "")
+            baseline_parsed = urlparse(baseline_url)
+            if baseline_parsed.scheme != "https" or not baseline_parsed.hostname:
+                raise ValueError("S&P 500 historical baseline source URL must be HTTPS")
+            if not baseline.get("source_name") or not baseline.get("retrieval_method"):
+                raise ValueError("S&P 500 historical baseline provenance is incomplete")
+            baseline_hash = baseline.get("source_dataset_sha256")
+            if not isinstance(baseline_hash, str) or len(baseline_hash) != 64 or any(ch not in "0123456789abcdefABCDEF" for ch in baseline_hash):
+                raise ValueError("S&P 500 historical baseline source_dataset_sha256 is invalid")
+            if not baseline.get("retrieval_timestamp_semantics"):
+                raise ValueError("S&P 500 historical baseline must disclose retrieval timestamp limitations")
+            baseline = {
+                **baseline,
+                "start": start.isoformat(),
+                "end": end.isoformat(),
+            }
         return {
-            "source": "TAC daily report D4; actual source retained per observation",
+            "source": "TAC historical compact baseline + daily report source retained per new observation",
             "source_sha256": provenance["source_sha256"],
-            "method": provenance.get("method", "tac_daily_report_verified_ohlc_jsonl"),
+            "method": provenance.get("method", "merge_existing_compact_history_with_append_only_tac_d4_records"),
             "source_observations": by_date,
+            "historical_baseline": baseline,
         }
 
     source_url = provenance.get("source_url", "")
@@ -164,7 +187,14 @@ def build_candidate(fred_dataset: dict, sp500_compact: dict, sp500_provenance: d
     if provenance.get("source_observations"):
         provenance_dates = set(provenance["source_observations"])
         compact_dates = set(sp_values)
-        if provenance_dates != compact_dates:
+        baseline = provenance.get("historical_baseline")
+        if baseline:
+            start, end = baseline["start"], baseline["end"]
+            uncovered = sorted(day for day in compact_dates - provenance_dates if not (start <= day <= end))
+            extra = sorted(provenance_dates - compact_dates)
+            if uncovered or extra:
+                raise ValueError(f"S&P 500 baseline/provenance coverage mismatch; uncovered={uncovered[:5]}, extra={extra[:5]}")
+        elif provenance_dates != compact_dates:
             missing = sorted(compact_dates - provenance_dates)
             extra = sorted(provenance_dates - compact_dates)
             raise ValueError(f"S&P 500 provenance/compact date mismatch; missing={missing[:5]}, extra={extra[:5]}")
@@ -198,15 +228,29 @@ def build_candidate(fred_dataset: dict, sp500_compact: dict, sp500_provenance: d
         })
     sp_native = [x for x in sp_rows if x["date"] <= common_date]
     if provenance.get("source_observations"):
+        baseline = provenance.get("historical_baseline")
         for observation in sp_native:
             source_meta = provenance["source_observations"].get(observation["date"])
-            if source_meta is None:
-                raise ValueError(f"S&P 500 observation lacks per-date provenance: {observation['date']}")
-            observation.update(source_meta)
+            if source_meta is not None:
+                observation.update(source_meta)
+            elif baseline and baseline["start"] <= observation["date"] <= baseline["end"]:
+                observation.update({
+                    "source_name": baseline["source_name"],
+                    "source_url": baseline["source_url"],
+                    "source_note": baseline.get("source_note", ""),
+                    "retrieved_at": None,
+                    "retrieval_method": baseline["retrieval_method"],
+                    "retrieval_timestamp_semantics": baseline["retrieval_timestamp_semantics"],
+                    "source_dataset_sha256": baseline["source_dataset_sha256"],
+                    "baseline_file_sha256": baseline.get("baseline_file_sha256"),
+                    "provenance_granularity": "dataset_range",
+                })
+            else:
+                raise ValueError(f"S&P 500 observation lacks per-date or baseline-range provenance: {observation['date']}")
         sp_source_label = provenance["source"]
         sp_source_fields = {
             "source_sha256": provenance["source_sha256"],
-            "source_provenance_mode": "per_observation",
+            "source_provenance_mode": "historical_baseline_range_plus_per_observation" if baseline else "per_observation",
         }
     else:
         sp_source_label = provenance["source"]
