@@ -47,9 +47,10 @@ class RunnerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td)
             csv_path=root/"investing_sp500.csv"
-            csv_path.write_text(
-                'Date,Price\n"Nov 12, 2026","6,700.25"\n"Nov 13, 2026","6,720.50"\n',
-                encoding="utf-8")
+            csv_path.write_text("""Date,Price
+"Nov 12, 2026","6,700.25"
+"Nov 13, 2026","6,720.50"
+""", encoding="utf-8")
             compact_path=root/"sp500.compact.json"
             provenance_path=root/"sp500.provenance.json"
             convert(csv_path,compact_path,provenance_path,
