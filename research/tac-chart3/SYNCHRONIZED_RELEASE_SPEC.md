@@ -228,3 +228,31 @@ Operational boundary:
 - No real S&P 500 CSV has yet been imported into the research dataset; no five-series synchronized snapshot has been published.
 - Main, the official Chart 3 page, the homepage and existing schedules remain unchanged.
 
+
+
+## 18. TAC D4 daily incremental handoff — Yahoo Finance research experiment (2026-11-18)
+
+The user explicitly approved trying Yahoo Finance for the S&P 500 research data path. This approval applies to this isolated Chart 3 research experiment; it does not authorize changes to Main, the official Chart 3 page, the TAC report production workflow, or any schedule.
+
+Verified existing TAC D4 collector contract in the simulation branch:
+- `simulation-lab/runner/collect_key_levels_ohlc.py` already retrieves the five US cash-index OHLC bars, including Yahoo Finance `^SPX` for S&P 500 when no same-session source override is supplied.
+- Its output contains `report_date`, `trading_date`, `captured_at_taipei`, and `key_levels.items[]`; the S&P 500 item identifies `key=sp500`, `symbol=^SPX`, `quote_type=cash_index`, source name, source URL and an OHLC string containing the close.
+- The capture timestamp is the D4 collector batch timestamp. It is not represented as a per-request timestamp; this limitation must remain explicit in the imported provenance.
+- Existing report fixture `report-data-2026-11-17.json` also demonstrates a Yahoo Finance `^SPX` cash-index observation for 2026-11-16 (close 7416.59), while the next day's fixture does not contain a new Yahoo S&P 500 OHLC override. Never carry that value forward to a later trading date.
+
+New research-branch adapter:
+- `.github/scripts/import_sp500_from_d4_capture.py` reads the existing D4 collector output; it does not fetch or download market data.
+- It validates the capture timestamp, report/trading dates, exact S&P 500 item, `^SPX`/`^GSPC` symbol, explicit `cash_index` identity, HTTPS source and source-name/host consistency.
+- It extracts the true close from the structured close field or D4's rendered `ohlc` string, then appends one close-only observation to `data/tac-chart3/sp500_tac_d4_close.jsonl`.
+- Each record stores its own source name/URL, source symbol, observation date, D4 batch capture timestamp, retrieval method, timestamp semantics and SHA-256. Same-date identical observations are idempotent; conflicting same-date values/sources fail closed.
+- The existing `.github/scripts/build_sp500_from_tac_report_history.py` converter validates close-only records as well as OHLC records and can produce compact close history plus per-observation provenance from the append-only JSONL.
+- Added `.github/scripts/test_import_sp500_from_d4_capture.py` and included it in the isolated research QA workflow.
+
+Important remaining integration work:
+1. The D4 collector output must be made available as a file to the Chart 3 research job. No direct scheduled handoff has yet been connected.
+2. The new incremental compact data must be merged with the existing 1927–2026 S&P 500 history without overwriting or altering historical observations. Historical source metadata must be retained by date/range; do not fabricate per-row original-source retrieval timestamps.
+3. The five-series builder must accept the explicitly user-approved Yahoo D4 source in per-observation provenance for this research experiment while retaining the actual Yahoo source identity. Never relabel it as Investing.com.
+4. End-to-end tests must prove a new D4 capture appends exactly one date, a repeated run is a no-op, a conflict is blocked, and the synchronized release uses the latest exact common date.
+5. This adapter and experiment do not establish third-party licensing or public redistribution rights. Keep the dataset isolated and do not publish to the official chart until the intended use is verified and the user approves deployment.
+
+Current status: adapter and unit tests are committed to the research branch; automated handoff, historical merge, full five-series release and deployment remain incomplete.
