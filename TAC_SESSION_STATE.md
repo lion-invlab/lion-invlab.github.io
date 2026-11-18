@@ -1920,3 +1920,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - HTML 組裝阻塞：目前工具環境無可用的標準 DOMParser／瀏覽器 DOM 操作橋接；SIM-1.3 明確禁止在沒有真正 DOM parser 時宣稱完成 DOM 更新。沒有用粗暴字串替換、沒有重建模板、沒有啟動 workflow/collector/assembler/renderer/orchestrator。
 - main 目標 `preview/2026-11-19-simulation.html` 目前不存在（GitHub 404）；未建立或修改任何 main 檔案。main `index.html` SHA 維持 `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`。
 - 狀態：`review_ready=false`。下一步：在可用標準 DOM parser 的執行環境中，直接對核准 weekday mother template 既有節點填值；修正/標記 2 個待核實市場欄位及 15 筆 earnings consensus/price-reaction 缺口；同一最終 HTML 完成 QA seal、回讀 SHA 與 Pages 實際開啟後，才可寫入唯一 main preview。
+
+
+
+## 2026-11-19 07:08｜第四步新聞重新篩選（使用者糾正熱門頭條不得重述行情）
+- 原熱門頭條 10 則中，指數收盤、VIX、Fear & Greed、FOMC紀要、英國CPI、歐元區HICP、原油庫存／價格及美國房市數據等不應混入熱門頭條；已逐項剔除或移回行情／焦點／行事曆職責區。
+- 已直讀原始報導／公司公告並核對發布時間，重建 10 則事件型候選：NVIDIA停止對中國出貨Hopper、Lowe's第三季與全年展望、Target第三季營運改善、TJX上修全年展望、Palo Alto Networks收購Applied Compute、Everpure第三季財報、Anthropic IPO定價、Blavatnik投資SpaceX、KPMG Canada資料外洩、Alberta資料中心選址與油砂排放政策。來源、原始發布時間、摘要與 URL 詳列於 TAC_WORK_LOG.md 本節。
+- 時間窗更新至 2026-11-19 07:08 Asia/Taipei；上述十則均在 2026-11-18 12:00 至 2026-11-19 07:08 窗口內。熱門頭條不再使用市場指數／波動率／情緒／殖利率／匯率／商品報價換句話說冒充新聞。
+- Global Focus 原五則亦有職責問題：第3則歐洲公債殖利率屬市場價格敘述，應剔除或改用官方通膨事件原文；Waller與FOMC事件不得跨區重複。
+- 當前 simulation preview/2026-11-19-simulation.html SHA fc9278f08fb9ca844b079dead08c0d3deff0b94e 仍保留舊新聞，尚未改寫；本輪只更新新聞查核證據與工作紀錄，未修改HTML、母版、Manifest、main首頁或W47 JSON。review_ready=false。
+- 下一步：在符合 SIM-1.3 的標準 DOM 編輯環境中，將重篩後新聞填入核准 weekday mother template 的既有節點；同步重寫分析與各區評論，之後才執行 QA。不得用字串替換或舊 preview 作為完成品。
