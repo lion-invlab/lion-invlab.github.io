@@ -1461,3 +1461,10 @@
 - 依Investing.com歷史頁逐檔核對並更新 fixture：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%；XLRE 43.67/+0.18%。原fixture中7檔漲跌幅錯誤，已修正；XLRE由錯誤搜尋市場頁改為正確Investing.com歷史資料頁。
 - XLC、XLU香港站目前頁面可見資料仍停11/17，兩檔尚未寫入更新值；保留原始欄位但明確列為未完成，不能視為已驗收。
 - 更新 fixture commit `85d5376d35e5c1b69479ae7cac7e290f7be31e84`，blob SHA `cf1f59c2b83e2b5d07d8a0167ae19baf01835c4d`。僅simulation branch。
+
+
+### 11/18 S&P 11產業ETF收尾
+- XLC：Investing.com香港站缺11/18列，改讀同一供應商加拿大站，11/18收105.58、+0.30%，符合同供應商備援原則。
+- XLU：Investing.com香港及Global頁面均未提供11/18日期列，改用StockAnalysis日期列，收43.52、+0.23%，明確標示備援來源。
+- 11檔ETF目前均有11/18數值及來源：XLE -3.27%、XLF -0.96%、XLK +0.10%、XLI +0.09%、XLC +0.30%、XLB -0.80%、XLU +0.23%、XLRE +0.18%、XLY +1.79%（Investing.com頁面範圍至11/18，但搜尋摘要未回傳當日列；待後續獨立核對）、XLP -0.19%、XLV -1.57%。注意XLY仍需補足明確11/18日期列證據，暫不將11檔整體標示完全驗收。
+- Fixture commit `f626c112781352b93477130f34a6dbc3a8e73a93`，blob SHA `a5e5b98f85cf0b8e61352aa540473bf4ab1d3ed0`。
