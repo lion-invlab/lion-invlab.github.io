@@ -46,7 +46,18 @@ class ImportSp500FromTacReportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "ohlc.jsonl"
             self.assertEqual(append_record(path, rec), "APPENDED")
-            self.assertEqual(append_record(path, rec), "NOOP_IDENTICAL")
+            self.assertEqual(append_record(path, rec), "NOOP_IDENTICAL_OBSERVATION")
+            self.assertEqual(len(path.read_text().splitlines()), 1)
+
+    def test_same_observation_with_new_retrieval_time_keeps_first_capture(self):
+        rec = build_record(fixture(), "2026-11-17T05:10:00+08:00")
+        later = build_record(fixture(), "2026-11-17T05:30:00+08:00")
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "ohlc.jsonl"
+            self.assertEqual(append_record(path, rec), "APPENDED")
+            self.assertEqual(append_record(path, later), "NOOP_IDENTICAL_OBSERVATION")
+            saved = json.loads(path.read_text().splitlines()[0])
+            self.assertEqual(saved["retrieved_at"], rec["retrieved_at"])
             self.assertEqual(len(path.read_text().splitlines()), 1)
 
     def test_conflicting_same_date_is_rejected(self):
