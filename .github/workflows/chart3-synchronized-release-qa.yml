@@ -19,6 +19,8 @@ on:
       - ".github/scripts/test_build_sp500_from_tac_report_history.py"
       - ".github/scripts/import_sp500_from_d4_capture.py"
       - ".github/scripts/test_import_sp500_from_d4_capture.py"
+      - ".github/scripts/merge_sp500_existing_history_with_d4_incremental.py"
+      - ".github/scripts/test_merge_sp500_existing_history_with_d4_incremental.py"
       - ".github/workflows/chart3-synchronized-release-qa.yml"
   workflow_dispatch:
 
@@ -47,3 +49,4 @@ jobs:
           python .github/scripts/test_import_sp500_from_tac_report.py
           python .github/scripts/test_build_sp500_from_tac_report_history.py
           python .github/scripts/test_import_sp500_from_d4_capture.py
+          python .github/scripts/test_merge_sp500_existing_history_with_d4_incremental.py
