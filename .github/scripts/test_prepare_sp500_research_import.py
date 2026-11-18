@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 import json, tempfile, unittest
 from pathlib import Path
-from prepare_sp500_research_import import convert
+from prepare_sp500_research_import import convert, DEFAULT_COMPACT_PATH, DEFAULT_PROVENANCE_PATH
 from build_tac_chart3_synchronized_release import decode_sp500
 
 URL = "https://www.investing.com/indices/us-spx-500-historical-data"
 STAMP = "2026-11-18T12:00:00+00:00"
 
 class ImportTests(unittest.TestCase):
+    def test_default_outputs_match_synchronized_runner_inputs(self):
+        self.assertEqual(DEFAULT_COMPACT_PATH.as_posix(), "data/tac-chart3/sp500_investing_daily.compact.json")
+        self.assertEqual(DEFAULT_PROVENANCE_PATH.as_posix(), "data/tac-chart3/sp500_investing_daily.provenance.json")
+
     def test_converts_investing_csv_and_round_trips(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
