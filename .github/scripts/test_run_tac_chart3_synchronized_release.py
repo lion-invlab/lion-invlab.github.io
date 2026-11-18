@@ -48,7 +48,7 @@ class RunnerTests(unittest.TestCase):
             root=Path(td)
             csv_path=root/"investing_sp500.csv"
             csv_path.write_text(
-                'Date,Price\\n"Nov 12, 2026","6,700.25"\\n"Nov 13, 2026","6,720.50"\\n',
+                'Date,Price\n"Nov 12, 2026","6,700.25"\n"Nov 13, 2026","6,720.50"\n',
                 encoding="utf-8")
             compact_path=root/"sp500.compact.json"
             provenance_path=root/"sp500.provenance.json"
