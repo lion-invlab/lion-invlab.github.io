@@ -50,10 +50,14 @@ def convert(csv_path: Path, compact_path: Path, provenance_path: Path,
     host = (parsed_url.hostname or "").lower()
     if parsed_url.scheme != "https" or (host != "investing.com" and not host.endswith(".investing.com")):
         raise ValueError("Source URL must be an HTTPS Investing.com URL")
+    if "us-spx-500" not in parsed_url.path.lower():
+        raise ValueError("Source URL must identify the Investing.com S&P 500 cash-index history page")
     try:
-        dt.datetime.fromisoformat(retrieved_at.replace("Z", "+00:00"))
+        retrieval_stamp = dt.datetime.fromisoformat(retrieved_at.replace("Z", "+00:00"))
+        if retrieval_stamp.tzinfo is None or retrieval_stamp.utcoffset() is None:
+            raise ValueError("timezone missing")
     except ValueError as exc:
-        raise ValueError("retrieved_at must be an ISO-8601 timestamp") from exc
+        raise ValueError("retrieved_at must be a timezone-aware ISO-8601 timestamp") from exc
 
     raw = csv_path.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
