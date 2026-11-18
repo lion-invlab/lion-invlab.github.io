@@ -1503,3 +1503,9 @@
 - 同時修正分析與新聞 fixture：S&P 500改用使用者指定Investing.com 7,307.49/-0.45%；Russell 2000改為Investing.com 2,725.23/+0.86%；摘要、情緒、盤面觀察同步更新。熱門頭條改為10則事件型新聞（移除指數收盤、VIX等行情改寫），Global Focus固定5則宏觀事件，無重複焦點。
 - Fixture commit `79ac69b9b650670cca6223945e412efaba5dfdc6`，blob SHA `75093c2614f28438021d96d70c9a6b41c5705190`。
 - 新一輪完整建置已由上述fixture commit觸發，Actions run `44421729178`；尚待完成，不得提前宣稱審核版通過。
+
+
+### 焦點新聞來源 Gate 修正
+- 第二輪run `44421729178` 已成功組裝HTML並通過資料準備，但互動測試因既有SIM-1.3來源白名單只接受Investing.com HK／鉅亨網，拒絕了官方ONS、Fed、Census、EIA直接連結。
+- 已依SIM-1.3原規則調整5則焦點新聞連結：Waller與FOMC紀要採鉅亨網；英國CPI、美國住宅開工、EIA原油庫存採Investing.com香港站。內容仍保留原始事件數據與影響，熱門頭條維持10則事件型新聞。
+- 更新fixture commit `c0258617ec61146067d14b4c4e218dd9ce767fdc`，blob SHA `1a5c89edd83b4ee2658fe2464819bb0ec8d377ec`。此修正已觸發第三輪完整建置，等待QA。
