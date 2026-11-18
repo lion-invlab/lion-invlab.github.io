@@ -132,13 +132,14 @@ Research branch: `research/chart3-synchronized-release-20261118`.
 Implemented:
 - `.github/scripts/build_tac_chart3_synchronized_release.py`: validates four FRED/ALFRED series plus S&P 500 compact data; decodes and validates compact daily observations; requires an HTTPS Investing.com source URL, ISO-8601 retrieval timestamp, retrieval method and source hash matching the compact dataset provenance; calculates the exact five-way intersection of non-missing native observation dates; selects the latest common date; builds a single five-series snapshot; writes atomically; refuses to replace an existing release when the common date is not newer.
 - Provenance validation does not require an authorization-reference field. Personal research use is not treated as a missing technical credential; source identity, retrieval method, timestamp and content hash remain mandatory.
+- `.github/scripts/prepare_sp500_research_import.py` provides an explicit CSV import path for a user-supplied Investing.com historical export. It validates the HTTPS source URL, timestamp, required Date/Price columns, positive closes and unique dates; sorts the observations, builds the compact payload and writes matching SHA-256 provenance. This is a manual import utility, not an unattended downloader.
 - `.github/scripts/test_tac_chart3_synchronized_release.py`: tests successful common-date publication, no-common-date rejection, non-Investing.com source rejection and same/older-date no-op behavior.
 - `.github/workflows/chart3-synchronized-release-qa.yml`: isolated research-branch test workflow.
 
 QA run: [44298889579](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44298889579) — completed successfully.
 
 Not yet implemented:
-- Investing.com S&P 500 daily incremental downloader and its provenance sidecar.
+- Investing.com S&P 500 unattended daily incremental downloader; current CSV importer requires a user-supplied export.
 - End-to-end integration with the existing four-series updater, chart-ready builder, release manifest and browser QA.
 - Production scheduling and any Main deployment.
 
