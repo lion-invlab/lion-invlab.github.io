@@ -157,3 +157,12 @@ The data pipeline must still:
 - Support a transparent, validated import path when a reliable direct source interface is unavailable. A manually supplied export must be labeled as such and must not be described as unattended automatic retrieval.
 - Keep source-specific technical and contractual limitations documented, without adding a fabricated authorization credential to the data schema.
 - Never substitute FJA, Yahoo Finance, Stooq or another provider for the required Investing.com source without the user's explicit approval.
+
+
+## 12. Fail-closed orchestration implementation (research branch, 2026-11-18)
+
+Added `.github/scripts/run_tac_chart3_synchronized_release.py` as an isolated orchestration entry point. It reads the existing four-series chart-ready dataset and the separately imported Investing.com S&P 500 compact/provenance pair. Missing files produce `BLOCKED_MISSING_INPUT`; invalid source, schema, hash or common-date checks produce `BLOCKED_VALIDATION_FAILURE`. Both paths leave the active release manifest and last-good snapshot unchanged.
+
+Successful candidates are written as immutable files under `data/tac-chart3/synchronized/snapshots/`. The single `active_manifest.json` pointer is replaced atomically only after the snapshot file is complete. The runner verifies the previous snapshot SHA-256 before advancing it and does nothing when no newer common date exists. A status report records the result. The runner is not yet called by the Main workflow and no schedule has been added.
+
+Added runner tests for missing S&P 500 input, successful snapshot/manifest creation, failed common-date validation preserving the previous manifest, and same-date no-op. Research QA workflow now includes these tests.
