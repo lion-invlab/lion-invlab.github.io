@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>賺到的錢，真的進口袋了嗎？看懂現金流量表｜TAC 財報閱讀與投資判讀 第三堂</title>
+<meta name="description" content="零金融背景也能學會看現金流量表。以 Microsoft FY2027 Q1 官方財報逐項翻譯，理解營業、投資、籌資現金流與自由現金流。">
+<meta name="theme-color" content="#111d30">
+<meta name="tac:publish" content="true">
+<meta name="tac:title" content="賺到的錢，真的進口袋了嗎？看懂現金流量表，拆解微軟 AI 投資的現金真相">
+<meta name="tac:date" content="2026-11-18">
+<meta name="tac:category" content="投資教育">
+<meta name="tac:summary" content="以 Microsoft FY2027 Q1 官方現金流量表為案例，逐項中英對照解釋營業、投資與籌資現金流，拆解 393.67 億美元設備現金支出、186.33 億美元自由現金流，以及 AI 基礎建設投資如何影響現金。">
+<meta name="tac:tags" content="財報入門|現金流量表|Cash Flow Statement|微軟|Microsoft|營業現金流|資本支出|自由現金流|FCF|AI 投資">
+<meta name="tac:series" content="財報閱讀與投資判讀的六堂課｜3">
+<meta name="tac:image" content="https://msftstories.thesourcemediaassets.com/sites/612/2021/06/Windows-11-PC-Devices-1000x750.jpg">
+<style>
+:root{--r:#b8202f;--n:#111d30;--g:#c7a66a;--ink:#202630;--muted:#697586;--line:#e4e8ee;--paper:#f3f5f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+.top{height:5px;background:linear-gradient(90deg,var(--r) 0 68%,var(--g) 68%)}.wrap{max-width:1040px;margin:auto;padding:0 22px}
+.mast{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{color:var(--r);font-weight:950;letter-spacing:1.5px;white-space:nowrap}.brand small{display:block;color:#929aa5;font-size:9px;letter-spacing:2px}
+.back{font-size:11px;color:#697586;text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 11px;white-space:nowrap}.meta{font-size:10px;color:#8993a0;letter-spacing:1px;font-weight:800;white-space:nowrap}
+.hero{margin:26px 0 18px;padding:34px 38px;border-radius:18px;background:linear-gradient(120deg,#101b2c,#1d304b);color:white;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #c7a66a55;border-radius:50%;right:-100px;top:-150px;box-shadow:0 0 0 25px #c7a66a0c,0 0 0 55px #c7a66a09}
+.eyebrow{font-size:10px;color:#d8bd83;letter-spacing:2px;font-weight:900}.hero h1{font-size:clamp(27px,4vw,42px);line-height:1.3;margin:12px 0}.hero p{font-size:14px;color:#c6d0dc;max-width:760px;margin:0}.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pill{font-size:10px;border:1px solid #d2b77d77;color:#e8d8b6;border-radius:99px;padding:4px 10px}
+.insight{display:grid;grid-template-columns:145px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--r);border-radius:12px;padding:18px 21px;margin:18px 0 25px}.insight b{font-size:10px;color:var(--r);letter-spacing:1.4px}.insight strong{display:block;color:var(--r);font-size:clamp(17px,2.1vw,20px);font-weight:950;line-height:1.55}.insight p{font-size:13px;color:#5d6876;margin:4px 0}
+.sec{margin:28px 0}.sec h2{font-size:21px;color:var(--n);margin:0 0 10px}.sec h3{font-size:17px;color:var(--n);margin:22px 0 8px}.sec p{font-size:14px;color:#475261;margin:8px 0}
+.cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card,.metric{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 5px 18px #17243807}.card b{font-size:9px;color:var(--r);letter-spacing:1.4px}.card h4{font-size:15px;color:var(--n);margin:5px 0}.card p{font-size:12px;color:#667180;margin:4px 0}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.metric label{font-size:10px;color:#7d8794;font-weight:800}.value{font-size:clamp(23px,3vw,30px);color:var(--r);font-weight:950;line-height:1.35;font-variant-numeric:tabular-nums}.small{font-size:10px;color:#8993a0}
+.formula{background:var(--n);color:#fff;border-radius:11px;padding:14px 18px;margin:12px 0}.formula small{display:block;color:#bdc8d5;font-size:10px}.formula b{font-size:9px;color:#d8bd83;letter-spacing:1.5px}.eq{font-family:Georgia,serif;font-size:18px;line-height:1.55}
+.callout{background:#fff9ed;border:1px solid #ead9b5;border-radius:11px;padding:14px 17px;margin:14px 0}.callout strong{font-size:15px;color:var(--r)}.callout p{font-size:12px;color:#67583f;margin:4px 0}
+table{width:100%;border-collapse:collapse;background:white;border-radius:11px;overflow:hidden;margin:13px 0;font-size:12px}th{background:#17263b;color:white;text-align:left;padding:10px}td{padding:10px;border-bottom:1px solid #edf0f3;color:#4c5867;vertical-align:top}tr:last-child td{border:0}
+.tablewrap{overflow-x:auto;border-radius:11px}.statement{min-width:650px}.statement th:nth-child(n+3),.statement td:nth-child(n+3){text-align:right;font-variant-numeric:tabular-nums}.statement td:first-child{font-weight:700;color:#273448}.statement .total td{font-weight:950;color:#17263b;background:#f5f7fa}.statement .key td{font-weight:950;color:var(--r);background:#fff8f8}
+.translation{display:grid;grid-template-columns:245px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.translation:last-child{border:0}.term{font-weight:950;color:var(--n)}.term small{display:block;color:#8993a0;font-size:10px;font-weight:700}.meaning{font-size:13px;color:#526071}
+.guide{margin:14px 0 18px;background:#fff;border:1px solid #dfe5ec;border-radius:12px;padding:16px 18px}.guide .gt{font-size:12px;font-weight:950;letter-spacing:1.2px;color:var(--r);margin-bottom:8px}.guide p{font-size:12px;color:#586575;margin:6px 0}.guide .rule{border-left:3px solid #c7a66a;padding:7px 11px;background:#fffaf0;margin-top:9px;font-size:12px;color:#65563d}
+.lesson-nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.lesson-nav a{font-size:11px;text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 11px;color:#536071}.lesson-nav a.current{background:var(--r);border-color:var(--r);color:white}
+.series-roadmap{margin:22px 0 18px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:13px}.series-roadmap h2{font-size:19px;color:var(--n);margin:0 0 5px}.series-roadmap>p{font-size:12px;color:var(--muted);margin:0 0 10px}.series-roadmap table{margin:10px 0 0;font-size:12px}.series-roadmap th:first-child{width:34%}.series-roadmap td:first-child{font-weight:850;color:var(--n)}.series-roadmap .done{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#fbecee;color:var(--r);font-size:9px;white-space:nowrap}
+.source a{color:var(--r);font-weight:800;text-decoration:none}.source li{font-size:12px;color:#596575;margin:7px 0}.foot{margin:40px 0 30px;padding:18px 0;border-top:1px solid var(--line);font-size:10px;color:#8b95a2}.foot b{color:var(--r)}.disclaimer{font-size:10px;color:#8b95a2}
+@media(max-width:680px){.wrap{padding:0 14px}.mast{flex-wrap:wrap}.meta{display:none}.hero{padding:25px 20px}.hero h1{font-size:28px}.insight{grid-template-columns:1fr;gap:4px;padding:15px}.cardgrid,.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.translation{grid-template-columns:1fr;gap:3px}.sec h2{font-size:18px}.tablewrap{margin-right:-2px}.statement{font-size:11px}th,td{padding:8px 7px}}
+</style>
+</head>
+<body><div class="top"></div><main class="wrap">
+<header class="mast"><div class="brand">TAC 投資早報<small>INVESTMENT RESEARCH</small></div><a class="back" href="../special-reports.html">← 返回專題報導</a><div class="meta">TAC SPECIAL REPORT · 2026.11.18</div></header>
+<section class="hero"><div class="eyebrow">TAC FINANCIAL LITERACY SERIES　/　LESSON 03</div><h1>賺到的錢，真的進口袋了嗎？<br>看懂現金流量表，拆解微軟 AI 投資的現金真相</h1><p>損益表告訴我們公司賺了多少，資產負債表告訴我們某一天公司有什麼、欠多少；這一課要追蹤真正的現金：客戶付了多少錢、公司把錢花去哪裡，以及投資大型 AI 基礎設施後還剩多少現金。</p><div class="pills"><span class="pill">第三課｜現金流量表</span><span class="pill">原始英文逐項翻譯</span><span class="pill">Microsoft FY2027 Q1</span><span class="pill">零基礎入門</span></div></section>
+<div class="insight"><b>THIS LESSON</b><div><strong>一家公司可以帳面獲利，卻未必同時收到現金；真正要追問的是：本業有沒有帶進現金？投資花了多少？扣除必要投資後，還剩多少現金？</strong><p>本篇採用微軟截至 2026 年 9 月 30 日止三個月的 FY2027 第一季現金流量表，並與去年同期比較。金額單位均為百萬美元，除非另有註明。</p></div></div>
+<section class="series-roadmap"><h2>六堂課學習地圖</h2><p>從看懂企業賺錢，到看懂企業體質，再走向完整投資判讀。</p><div class="tablewrap"><table><thead><tr><th>核心內容</th><th>專題標題</th></tr></thead><tbody>
+<tr><td>01｜損益表 <span class="done">第一課</span></td><td><a href="tac-financial-statements-lesson-01-income-statement-microsoft-fy27q1-2026-11-16.html">公司到底賺了多少錢？</a></td></tr>
+<tr><td>02｜資產負債表 <span class="done">第二課</span></td><td><a href="tac-financial-statements-lesson-02-balance-sheet-microsoft-fy27q1-2026-11-17.html">公司真的有錢嗎？</a></td></tr>
+<tr><td>03｜現金流量表 <span class="done">本篇</span></td><td>賺到的錢，真的進口袋了嗎？</td></tr>
+<tr><td>04｜管理階層說明與財報附註</td><td>管理層到底在告訴我們什麼？</td></tr>
+<tr><td>05｜市場預期與財報比較</td><td>財報很好，為什麼股價還會跌？</td></tr>
+<tr><td>06｜綜合基本面投資判讀</td><td>如何從財報找出值得投資的公司？</td></tr>
+</tbody></table></div></section>
+<nav class="lesson-nav"><a href="tac-financial-statements-lesson-01-income-statement-microsoft-fy27q1-2026-11-16.html">01 損益表</a><a href="tac-financial-statements-lesson-02-balance-sheet-microsoft-fy27q1-2026-11-17.html">02 資產負債表</a><a class="current" href="#lesson3">03 現金流量表</a><a href="#lesson4">04 管理層說明（後續上架）</a><a href="#lesson5">05 市場預期（後續上架）</a><a href="#lesson6">06 投資判讀（後續上架）</a></nav>
+
+<section class="sec" id="lesson3"><h2>一、先用生活例子理解：賺到錢，不代表錢已經收到</h2>
+<p>想像你開了一家店：這個月賣出 100 萬元商品，其中 30 萬元客戶說下個月才付款。按照會計規則，符合認列條件的銷售可以先列入營收；但銀行帳戶這個月實際收到的錢，可能只有 70 萬元。</p>
+<p>同時，你買了一台 20 萬元的設備。這筆支出會影響現金，但不一定在購買當月一次全部變成損益表費用，而可能透過折舊分多年反映。</p>
+<div class="cardgrid"><div class="card"><b>INCOME STATEMENT｜損益表</b><h4>這段期間做生意，帳面賺多少？</h4><p>依會計規則認列營收、成本與費用，最後得到淨利。</p></div><div class="card"><b>CASH FLOW STATEMENT｜現金流量表</b><h4>這段期間，現金實際怎麼進出？</h4><p>追蹤現金收付，並解釋現金為何增加或減少。</p></div></div>
+<div class="callout"><strong>現金流量表不是另一張「獲利成績單」，而是現金收支的追蹤表。</strong><p>淨利與營業現金流不一樣，不代表一定有問題；關鍵是差異從哪裡來、是否持續，以及公司能否把帳面獲利轉成可運用的現金。</p></div></section>
+
+<section class="sec"><h2>二、現金流量表的三大區塊：現金從哪裡來、流向哪裡？</h2>
+<div class="cardgrid">
+<div class="card"><b>01｜OPERATING ACTIVITIES</b><h4>營業活動現金流（CFO）</h4><p>本業收客戶的錢、付供應商、員工及稅款後，營運活動淨帶進多少現金？</p></div>
+<div class="card"><b>02｜INVESTING ACTIVITIES</b><h4>投資活動現金流（CFI）</h4><p>買設備、蓋資料中心、收購公司、買賣投資後，現金淨流入或流出多少？</p></div>
+<div class="card"><b>03｜FINANCING ACTIVITIES</b><h4>籌資活動現金流（CFF）</h4><p>借錢、還債、發行股票、買回股票與發放股利，讓現金增加或減少多少？</p></div>
+<div class="card"><b>04｜NET CHANGE IN CASH</b><h4>現金最後增加還是減少？</h4><p>把三大活動、匯率影響等合在一起，核對期初與期末現金。</p></div>
+</div>
+<div class="formula"><b>THE CASH FLOW BRIDGE｜現金變動的基本概念</b><div class="eq">期末現金 ＝ 期初現金 ＋ 營業現金流 ＋ 投資現金流 ＋ 籌資現金流 ＋ 匯率等影響</div><small>現金流入通常列正數，現金流出通常以括號或負數表示。看報表時，先辨認符號，不要把括號內的數字當成正數。</small></div></section>
+
+<section class="sec"><h2>三、直接打開微軟原始報表：先看懂報表抬頭</h2>
+<div class="guide"><div class="gt">READ THE HEADER｜報表抬頭</div><p><b>MICROSOFT CORPORATION — CASH FLOWS STATEMENTS</b>：微軟公司－現金流量表。</p><p><b>(In millions) (Unaudited)</b>：單位為百萬美元；未經會計師查核。</p><p><b>Three Months Ended September 30, 2026 / 2025</b>：比較截至 2026 年 9 月 30 日與 2025 年 9 月 30 日止的三個月，不是比較兩個單一日期的餘額。</p><div class="rule">單位換算：58,000 代表 58,000 百萬美元，也就是 580 億美元（US$58.0 billion）。本表是「期間流量」，不是某一天的資產餘額。</div></div>
+<div class="tablewrap"><table class="statement"><thead><tr><th>英文原始科目</th><th>中文翻譯</th><th>2026 Q1</th><th>2025 Q1</th></tr></thead><tbody>
+<tr><td colspan="4"><b>OPERATIONS｜營業活動</b></td></tr>
+<tr><td>Net income</td><td>本期淨利</td><td>$36,629</td><td>$27,747</td></tr>
+<tr><td>Depreciation, amortization, and other</td><td>折舊、攤銷及其他</td><td>11,744</td><td>8,147</td></tr>
+<tr><td>Stock-based compensation expense</td><td>股票薪酬費用</td><td>3,134</td><td>2,983</td></tr>
+<tr><td>Net recognized losses (gains) on investments and derivatives</td><td>投資及衍生工具已認列淨損失（利益）</td><td>(231)</td><td>3,907</td></tr>
+<tr><td>Deferred income taxes</td><td>遞延所得稅</td><td>4,609</td><td>2,491</td></tr>
+<tr><td>Accounts receivable</td><td>應收帳款變動</td><td>17,104</td><td>16,490</td></tr>
+<tr><td>Inventories</td><td>存貨變動</td><td>(436)</td><td>(192)</td></tr>
+<tr><td>Other current assets</td><td>其他流動資產變動</td><td>(1,903)</td><td>(1,162)</td></tr>
+<tr><td>Other long-term assets</td><td>其他長期資產變動</td><td>(6,389)</td><td>(394)</td></tr>
+<tr><td>Accounts payable</td><td>應付帳款變動</td><td>525</td><td>(614)</td></tr>
+<tr><td>Unearned revenue</td><td>遞延收入變動</td><td>(5,942)</td><td>(5,418)</td></tr>
+<tr><td>Income taxes</td><td>所得稅款變動</td><td>(556)</td><td>(2,944)</td></tr>
+<tr><td>Other current liabilities</td><td>其他流動負債變動</td><td>(4,528)</td><td>(5,507)</td></tr>
+<tr><td>Other long-term liabilities</td><td>其他長期負債變動</td><td>4,240</td><td>(477)</td></tr>
+<tr class="key"><td>Net cash from operations</td><td>營業活動現金流量淨額</td><td>$58,000</td><td>$45,057</td></tr>
+<tr><td colspan="4"><b>FINANCING｜籌資活動</b></td></tr>
+<tr><td>Repayments of debt</td><td>償還債務</td><td>(4,850)</td><td>—</td></tr>
+<tr><td>Common stock issued</td><td>發行普通股收到的現金</td><td>598</td><td>689</td></tr>
+<tr><td>Common stock repurchased</td><td>買回庫藏股</td><td>(4,379)</td><td>(5,650)</td></tr>
+<tr><td>Common stock cash dividends paid</td><td>支付普通股現金股利</td><td>(6,757)</td><td>(6,169)</td></tr>
+<tr><td>Other, net</td><td>其他（淨額）</td><td>(1,252)</td><td>(669)</td></tr>
+<tr class="key"><td>Net cash used in financing</td><td>籌資活動現金流量淨額</td><td>(16,640)</td><td>(11,799)</td></tr>
+<tr><td colspan="4"><b>INVESTING｜投資活動</b></td></tr>
+<tr><td>Additions to property and equipment</td><td>增加不動產及設備（現金支出）</td><td>(39,367)</td><td>(19,394)</td></tr>
+<tr><td>Acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets</td><td>收購公司（扣除取得現金及處分）、購買無形與其他資產</td><td>(397)</td><td>(578)</td></tr>
+<tr><td>Purchases of investments</td><td>購買投資</td><td>(5,394)</td><td>(17,671)</td></tr>
+<tr><td>Maturities of investments</td><td>投資到期收回</td><td>5,672</td><td>6,031</td></tr>
+<tr><td>Sales of investments</td><td>出售投資收到的現金</td><td>10,470</td><td>3,262</td></tr>
+<tr><td>Other, net</td><td>其他投資活動（淨額）</td><td>(12,949)</td><td>(6,209)</td></tr>
+<tr class="key"><td>Net cash used in investing</td><td>投資活動現金流量淨額</td><td>(41,965)</td><td>(34,559)</td></tr>
+<tr><td>Effect of foreign exchange rates on cash and cash equivalents</td><td>匯率變動對現金及約當現金的影響</td><td>(49)</td><td>(92)</td></tr>
+<tr class="total"><td>Net change in cash and cash equivalents</td><td>現金及約當現金淨變動</td><td>(654)</td><td>(1,393)</td></tr>
+<tr><td>Cash and cash equivalents, beginning of period</td><td>期初現金及約當現金</td><td>20,935</td><td>30,242</td></tr>
+<tr class="key"><td>Cash and cash equivalents, end of period</td><td>期末現金及約當現金</td><td>$20,281</td><td>$28,849</td></tr>
+</tbody></table></div>
+<p class="disclaimer">金額單位：百萬美元。2025 欄為去年同期比較數；公司註明部分前期數字已重分類，以符合本期呈列方式。</p></section>
+
+<section class="sec"><h2>四、營業活動現金流：本業到底有沒有把獲利變成現金？</h2>
+<p>先看最重要的數字：微軟本季淨利 366.29 億美元，營業活動卻帶進 580 億美元現金。營業現金流比淨利高，不是公司多賺了一筆 213.71 億美元，而是會計淨利與現金收付的時間不同，還要加回折舊等非現金費用，並調整營運資產負債變化。</p>
+<div class="metrics"><div class="metric"><label>本期淨利｜Net Income</label><div class="value">366.29 億</div><div class="small">US$36.629B</div></div><div class="metric"><label>營業現金流｜CFO</label><div class="value">580 億</div><div class="small">US$58.000B</div></div><div class="metric"><label>去年同期 CFO</label><div class="value">450.57 億</div><div class="small">US$45.057B</div></div><div class="metric"><label>CFO 年增率</label><div class="value">+28.7%</div><div class="small">依公布金額計算</div></div></div>
+<div class="translation"><div class="term">Net income<small>本期淨利</small></div><div class="meaning">從損益表帶進來的會計獲利起點。現金流量表不是把淨利直接當現金，而是從淨利開始調整。</div></div>
+<div class="translation"><div class="term">Depreciation, amortization, and other<small>折舊、攤銷及其他</small></div><div class="meaning">設備、伺服器等長期資產的成本，會依使用年限逐步認列費用。折舊會降低會計獲利，但當期通常不會因此再付一次現金，所以在間接法現金流量表中會加回。加回不代表設備免費，也不代表未來不需要更新設備。</div></div>
+<div class="translation"><div class="term">Stock-based compensation expense<small>股票薪酬費用</small></div><div class="meaning">公司用股票或股票相關獎酬支付員工，會形成會計費用，但通常不是當期同額現金薪資支出，因此在現金流量調節中加回。它仍有經濟成本，可能造成股權稀釋，不能因為加回就視為完全沒有成本。</div></div>
+<div class="translation"><div class="term">Accounts receivable<small>應收帳款變動</small></div><div class="meaning">客戶付款時點會影響現金。應收帳款減少通常代表收回先前欠款，對現金流有正面幫助；本季此項調節為正 171.04 億美元，表示應收帳款變動對營業現金流帶來正向貢獻。它不應被誤讀成新增營收。</div></div>
+<div class="translation"><div class="term">Unearned revenue<small>遞延收入變動</small></div><div class="meaning">客戶預先付款、公司尚未完成服務時，會先形成遞延收入。此項減少 59.42 億美元，代表這個項目的變動對本季營業現金流形成負向調節；不等於公司本季沒有收到訂閱款。</div></div>
+<div class="translation"><div class="term">Accounts payable<small>應付帳款變動</small></div><div class="meaning">公司向供應商採購後尚未付款的款項。應付帳款增加，可能讓當期現金支出延後，因此在現金流調節中通常形成正向影響；但長期拖欠供應商並非健康的現金管理方式。</div></div>
+<div class="formula"><b>01｜營業現金流與淨利比率 CASH CONVERSION</b><div class="eq">營業現金流 ÷ 本期淨利</div><small>微軟：58,000 ÷ 36,629 ≈ 1.58 倍。白話：每 1 美元會計淨利，當期約產生 1.58 美元營業現金流。這是本季現金轉換表現，不應只用單季數字就判定長期品質。</small></div>
+<div class="callout"><strong>判讀重點：營業現金流長期跟得上甚至高於淨利，通常是較好的訊號；若多年淨利上升、營業現金流卻持續落後，就要追查應收帳款、存貨、收入認列與付款條件。</strong><p>單季比率可能受收款季節性、稅款支付、客戶預付款及大型帳單時點影響。要看至少數季或全年趨勢，並回到附註理解變化原因。</p></div></section>
+
+<section class="sec"><h2>五、投資活動現金流：微軟把大量現金投入 AI 基礎建設</h2>
+<p>投資活動現金流為負數，不一定是壞事。公司買設備、蓋資料中心或收購技術，會先付出現金，期待未來帶來營收與競爭力。真正要問的是：投資規模是否合理？回報是否逐步出現？公司能否負擔？</p>
+<div class="metrics"><div class="metric"><label>投資活動淨流出</label><div class="value">419.65 億</div><div class="small">US$41.965B</div></div><div class="metric"><label>設備現金支出</label><div class="value">393.67 億</div><div class="small">US$39.367B</div></div><div class="metric"><label>去年同期設備支出</label><div class="value">193.94 億</div><div class="small">US$19.394B</div></div><div class="metric"><label>設備支出年增</label><div class="value">+103.0%</div><div class="small">約為去年同期 2.03 倍</div></div></div>
+<div class="translation"><div class="term">Additions to property and equipment<small>增加不動產及設備</small></div><div class="meaning">公司實際支付現金購買或建置長期使用的設備與設施。本季現金支出 393.67 億美元，較去年同期 193.94 億美元大幅增加，與微軟擴建 AI、雲端運算基礎設施的背景一致。</div></div>
+<div class="translation"><div class="term">Purchases of investments<small>購買投資</small></div><div class="meaning">買入短期或其他投資工具，會讓現金流出；但這不一定是營運消耗，因為之後可能到期收回或出售。</div></div>
+<div class="translation"><div class="term">Maturities of investments<small>投資到期收回</small></div><div class="meaning">先前持有的投資到期，收回本金或款項，形成現金流入。</div></div>
+<div class="translation"><div class="term">Sales of investments<small>出售投資</small></div><div class="meaning">出售先前持有的投資，收到現金。分析時應把購買、到期與出售一起看，不能只看到其中一項就認定公司大幅增加或減少投資。</div></div>
+<div class="translation"><div class="term">Other, net<small>其他投資活動（淨額）</small></div><div class="meaning">未單獨列示的其他投資相關現金流。本季為負 129.49 億美元，是投資活動淨流出的重要來源之一。不能只憑「其他」這個標籤猜測用途，應查閱 10-Q 管理層討論與相關附註。</div></div>
+<div class="callout"><strong>一個非常重要的口徑差異：現金流量表的設備支出 393.67 億美元，不等於管理層所說的資本支出（CapEx）452 億美元。</strong><p>微軟在法說會說明，本季資本支出約 452 億美元，其中包含 74 億美元融資租賃；現金支付的不動產及設備金額約 394 億美元。融資租賃開始時，會計上可把相關資產與租賃義務認列，但並非同一時點全額以現金支付。比較公司 CapEx 時，必須先確認採用的是現金支付口徑，還是包含融資租賃的管理層口徑。</p></div></section>
+
+<section class="sec"><h2>六、籌資活動現金流：公司如何把錢還給資金提供者？</h2>
+<p>籌資活動不只是借錢。償還借款、發行股票、買回自家股票、支付股利，都會出現在這個區塊。</p>
+<div class="metrics"><div class="metric"><label>籌資活動淨流出</label><div class="value">166.40 億</div><div class="small">US$16.640B</div></div><div class="metric"><label>償還債務</label><div class="value">48.50 億</div><div class="small">US$4.850B</div></div><div class="metric"><label>現金股利</label><div class="value">67.57 億</div><div class="small">US$6.757B</div></div><div class="metric"><label>買回庫藏股</label><div class="value">43.79 億</div><div class="small">US$4.379B</div></div></div>
+<div class="translation"><div class="term">Repayments of debt<small>償還債務</small></div><div class="meaning">把借來的本金還給債權人，現金流出。償債會減少現金，但也可能降低未來利息負擔與財務風險。</div></div>
+<div class="translation"><div class="term">Common stock issued<small>發行普通股</small></div><div class="meaning">公司發行股票收到的現金。本季金額相對較小，通常也可能涉及員工股票計畫等安排，應搭配股本變化閱讀。</div></div>
+<div class="translation"><div class="term">Common stock repurchased<small>買回庫藏股</small></div><div class="meaning">公司用現金買回自家股票。可能減少流通股數、提升每股盈餘，但也會消耗現金；是否創造股東價值，還要看買回價格與公司資金需求。</div></div>
+<div class="translation"><div class="term">Common stock cash dividends paid<small>支付普通股現金股利</small></div><div class="meaning">公司把現金分配給股東。股利是股東回報的一種，但若公司為了維持股利而持續借錢，就需要進一步檢視可持續性。</div></div>
+<div class="callout"><strong>微軟本季透過股利與庫藏股，合計返還股東約 101.36 億美元。</strong><p>計算：67.57 億美元現金股利＋43.79 億美元庫藏股支出＝111.36 億美元。注意：此處正確合計為 111.36 億美元；管理層法說會概括說明返還股東約 102 億美元，兩者口徑可能不同，投資人應以現金流量表分項作為現金支付依據，並核對回購結算及法說會口徑。這堂課不把兩種口徑混為一談。</p></div></section>
+
+<section class="sec"><h2>七、最重要的指標：自由現金流 FCF 到底是什麼？</h2>
+<p>公司做完日常生意，帶進營業現金；但若要維持或擴大業務，還得買設備、建資料中心。扣掉資本支出後，剩下的現金常用來觀察企業能否自行支應擴張、還債、發股利或回購股票。</p>
+<div class="formula"><b>FREE CASH FLOW｜自由現金流（本課採現金資本支出口徑）</b><div class="eq">自由現金流 FCF ＝ 營業活動現金流 CFO − 現金資本支出</div><small>微軟：580.00 億 − 393.67 億 ＝ 186.33 億美元。計算採現金流量表「增加不動產及設備」的現金支付金額，不含另行揭露的融資租賃資本支出。</small></div>
+<div class="metrics"><div class="metric"><label>自由現金流｜FCF</label><div class="value">186.33 億</div><div class="small">US$18.633B</div></div><div class="metric"><label>去年同期 FCF</label><div class="value">256.63 億</div><div class="small">US$25.663B</div></div><div class="metric"><label>FCF 年增率</label><div class="value">−27.4%</div><div class="small">依相同現金支出口徑計算</div></div><div class="metric"><label>FCF 利潤率</label><div class="value">20.2%</div><div class="small">FCF ÷ 營收 922.79 億</div></div></div>
+<p>這裡出現一個值得投資人注意的反差：微軟本季營收年增約 18.8%、淨利年增約 32.0%、營業現金流年增約 28.7%；但因現金設備支出從 193.94 億美元升至 393.67 億美元，自由現金流反而較去年同期減少約 27.4%。</p>
+<div class="callout"><strong>FCF 下降，不等於公司經營惡化；但也不能只用「AI 投資」四個字就替它開脫。</strong><p>要追蹤新增算力是否轉化成 Azure 與 AI 服務營收、產能利用率是否提高、折舊與能源成本是否侵蝕利潤，以及未來幾季 FCF 能否回升。資本支出是先付現金、效益可能分多年實現，因此必須看投資回收，而不是只看單季支出。</p></div>
+<div class="guide"><div class="gt">IMPORTANT｜FCF 不是會計準則統一規定的唯一指標</div><p>不同公司或資料供應商可能對資本支出的定義不同，例如是否納入融資租賃、收購或其他項目。比較公司時，務必先確認公式與口徑一致。本篇採 CFO 減現金支付的不動產及設備支出。</p></div></section>
+
+<section class="sec"><h2>八、把三張財報串起來：微軟這一季透露什麼訊息？</h2>
+<div class="cardgrid">
+<div class="card"><b>INCOME STATEMENT｜損益表</b><h4>淨利 366.29 億美元</h4><p>本季會計獲利較去年同期 277.47 億美元增加，代表帳面獲利成長。</p></div>
+<div class="card"><b>BALANCE SHEET｜資產負債表</b><h4>設備資產規模持續增加</h4><p>截至 2026/09/30，不動產及設備帳面金額 3,468.44 億美元，較 2026/06/30 增加 337.68 億美元；這是資產餘額變化，不等同當季現金資本支出。</p></div>
+<div class="card"><b>CASH FLOW｜現金流量表</b><h4>營業現金流 580 億美元</h4><p>本業產生的現金高於淨利，現金轉換比約 1.58 倍；但單季結果仍需觀察後續趨勢。</p></div>
+<div class="card"><b>INVESTMENT｜投資判讀</b><h4>FCF 降至 186.33 億美元</h4><p>AI 基礎建設支出大增，壓低當季自由現金流。下一步要驗證這些投入能否創造足夠營收與現金回報。</p></div>
+</div>
+<div class="guide"><div class="gt">THE INVESTOR'S CHECKLIST｜投資人接下來要追蹤</div><p><b>1. 營業現金流：</b>未來幾季是否持續與淨利同步成長？</p><p><b>2. 應收帳款：</b>客戶付款速度是否維持健康？是否出現營收成長、收款卻惡化？</p><p><b>3. 資本支出：</b>現金支出與包含融資租賃的 CapEx 是否繼續攀升？兩種口徑都要追蹤。</p><p><b>4. 自由現金流：</b>大規模投資後，FCF 是否能穩定、回升？</p><p><b>5. 投資回報：</b>Azure、雲端及 AI 服務的成長，是否足以支撐折舊、能源與營運成本？</p></div></section>
+
+<section class="sec"><h2>九、讀完這一課，你應該能回答五個問題</h2>
+<div class="cardgrid">
+<div class="card"><b>01</b><h4>淨利和營業現金流有何不同？</h4><p>淨利依會計規則認列；營業現金流則調整非現金項目與營運資產負債變動，反映營運帶來的現金。</p></div>
+<div class="card"><b>02</b><h4>投資活動現金流為負就是壞事嗎？</h4><p>不一定。買設備與建資料中心會先流出現金，關鍵是投資是否有效、公司是否負擔得起。</p></div>
+<div class="card"><b>03</b><h4>籌資活動現金流為負代表什麼？</h4><p>可能是還債、發股利或買回股票；要拆開項目判斷，不可直接當成壞消息。</p></div>
+<div class="card"><b>04</b><h4>自由現金流怎麼算？</h4><p>本課採營業現金流減現金資本支出。微軟本季約 186.33 億美元。</p></div>
+<div class="card"><b>05</b><h4>微軟本季最值得追蹤什麼？</h4><p>營業現金流保持強勁，但現金設備支出大增、FCF 年減。未來 AI 投資回報是關鍵。</p></div>
+</div>
+<div class="insight"><b>LESSON 03 SUMMARY</b><div><strong>微軟本季本業帶進 580 億美元現金，但現金設備支出高達 393.67 億美元，按本課口徑計算的自由現金流為 186.33 億美元，較去年同期下降約 27.4%。</strong><p>這不是單純的好或壞，而是一個投資問題：公司正在用大量現金建設 AI 與雲端基礎設施，投資人必須持續檢驗這些支出能否轉化為未來營收、利潤與現金流。讀完三張報表，我們才開始真正看見企業的全貌。</p></div></div>
+</section>
+<section class="sec source"><h2>原始資料與延伸閱讀</h2><ol>
+<li><a href="https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast" target="_blank" rel="noopener">Microsoft Investor Relations｜FY2027 Q1 Earnings Release & Financial Statements</a> — 本篇現金流量表與損益表主要來源。</li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm" target="_blank" rel="noopener">U.S. SEC｜Microsoft Form 10-Q, quarter ended September 30, 2026</a> — 美國證券交易委員會季度申報原始文件，含現金流變動說明。</li>
+<li><a href="https://www.microsoft.com/en-us/Investor/events/fy-2027/earnings-fy-2027-q1" target="_blank" rel="noopener">Microsoft FY2027 Q1 Earnings Conference Call</a> — 管理層說明本季約 452 億美元 CapEx、其中約 74 億美元為融資租賃，以及 580 億美元營業現金流與 186 億美元自由現金流。</li>
+</ol><p class="disclaimer">資料基準期間：截至 2026/09/30 止三個月；比較期間：截至 2025/09/30 止三個月。金額除另有說明外均為百萬美元。FCF 採營業現金流減現金支付的不動產及設備支出計算，與管理層包含融資租賃的 CapEx 口徑不同。本文為投資教育用途，不構成個別投資建議。</p></section>
+<footer class="foot"><b>TAC 投資早報｜看懂企業財報：從零開始的六堂投資實戰課</b><br>第三課：現金流量表｜Microsoft FY2027 Q1｜2026/11/18<br>本篇為第三堂審核預覽，尚未加入正式專題索引。</footer>
+</main></body></html>
