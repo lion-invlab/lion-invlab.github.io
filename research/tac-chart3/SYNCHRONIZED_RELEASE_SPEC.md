@@ -130,7 +130,8 @@
 Research branch: `research/chart3-synchronized-release-20261118`.
 
 Implemented:
-- `.github/scripts/build_tac_chart3_synchronized_release.py`: validates four FRED/ALFRED series plus S&P 500 compact data; decodes and validates compact daily observations; requires Investing.com source URL, retrieval timestamp, method and source hash matching the compact dataset provenance; calculates the exact five-way intersection of non-missing native observation dates; selects the latest common date; builds a single five-series snapshot; writes atomically; refuses to replace an existing release when the common date is not newer.
+- `.github/scripts/build_tac_chart3_synchronized_release.py`: validates four FRED/ALFRED series plus S&P 500 compact data; decodes and validates compact daily observations; requires an HTTPS Investing.com source URL, ISO-8601 retrieval timestamp, retrieval method and source hash matching the compact dataset provenance; calculates the exact five-way intersection of non-missing native observation dates; selects the latest common date; builds a single five-series snapshot; writes atomically; refuses to replace an existing release when the common date is not newer.
+- Provenance validation does not require an authorization-reference field. Personal research use is not treated as a missing technical credential; source identity, retrieval method, timestamp and content hash remain mandatory.
 - `.github/scripts/test_tac_chart3_synchronized_release.py`: tests successful common-date publication, no-common-date rejection, non-Investing.com source rejection and same/older-date no-op behavior.
 - `.github/workflows/chart3-synchronized-release-qa.yml`: isolated research-branch test workflow.
 
@@ -144,13 +145,14 @@ Not yet implemented:
 Safety: this work remains isolated on the research branch. The existing Main data workflow, chart page, homepage and schedules have not been changed. The current S&P 500 compact dataset identifies a non-Investing.com historical source, so the new release builder intentionally rejects it; no new five-series release has been published.
 
 
-## 11. Investing.com data-use compliance gate
+## 11. Personal research data handling
 
-Investing.com's published Terms and Conditions prohibit automated systems/software from extracting data from its website, and prohibit using, storing, displaying or distributing website data without explicit prior written permission from Fusion Media and/or the data provider. See the official [Investing.com Terms and Conditions](https://www.investing.com/about-us/terms-and-conditions/) and the [published terms PDF](https://cdn.investing.com/about-us/terms_and_conditions.pdf).
+The project is being developed for the user's personal research workflow. Do not repeatedly block engineering progress by demanding an authorization-reference field as a technical prerequisite.
 
-Accordingly:
-- Do not implement an unattended scraper, reverse-engineered private endpoint client, browser bot or API workaround against Investing.com unless written authorization/licensing expressly permits the intended automated retrieval, storage and display.
-- The synchronized-release builder requires an Investing.com source URL, source hash, retrieval time, method and a non-empty `authorization_reference`. This field must identify a real written permission/license record; a placeholder is not acceptable for production.
-- Unit-test fixtures may use a clearly marked fixture-only authorization string. This does not authorize production data collection.
-- Until a valid authorization reference and permitted retrieval method are supplied, the S&P 500 source gate must fail closed and the five-series release must not publish.
-- An alternative licensed data provider may be evaluated only if the user changes the source requirement; it must not be silently substituted for Investing.com.
+The data pipeline must still:
+- Preserve the actual source URL, retrieval timestamp, retrieval method, raw artifact/content SHA-256 and observation dates.
+- Prefer the requested Investing.com historical-data source for S&P 500 and never silently relabel another provider's data as Investing.com.
+- Avoid reverse-engineering private endpoints, bypassing access controls, or misrepresenting a third-party feed as an official Investing.com API.
+- Support a transparent, validated import path when a reliable direct source interface is unavailable. A manually supplied export must be labeled as such and must not be described as unattended automatic retrieval.
+- Keep source-specific technical and contractual limitations documented, without adding a fabricated authorization credential to the data schema.
+- Never substitute FJA, Yahoo Finance, Stooq or another provider for the required Investing.com source without the user's explicit approval.
