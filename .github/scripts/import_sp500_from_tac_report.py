@@ -44,7 +44,9 @@ def build_record(report: dict, retrieved_at: str) -> dict:
         raise ValueError("S&P 500 source_name and HTTPS source_url are required")
     if not ("現金指數" in note or "cash index" in note):
         raise ValueError("source note must explicitly identify a cash index")
-    if "cfd" in note or "差價合約" in note:
+    explicitly_non_cfd = ("非cfd" in note or "non-cfd" in note or "not cfd" in note or "非差價合約" in note)
+    explicitly_cfd = (("cfd" in note and not explicitly_non_cfd) or ("差價合約" in note and not explicitly_non_cfd))
+    if explicitly_cfd:
         raise ValueError("CFD observations cannot enter the S&P 500 cash-index history")
     values = {}
     for field in ("open", "high", "low", "close"):
