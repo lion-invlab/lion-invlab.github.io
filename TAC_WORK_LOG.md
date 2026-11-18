@@ -1425,3 +1425,12 @@
 - 其餘市場項目雖多數fixture標示2026-11-18及Investing.com HK歷史頁，但僅metadata不足以證明已實際開啟對應歷史頁並逐列讀值；本輪不能將其宣告為已核實。
 - 結論：44/44欄位存在；目前已可確認至少上述4組風險／證據缺口（SPX報價衝突、MOVE日期落後、CNN僅備援、11ETF缺逐檔來源日期）。44項全量查核仍未通過，任何衝突數值維持待核實，不得寫成確定值。
 - Reuters當日市場綜述可作盤面背景，不能取代各市場正式歷史收盤： https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-18/
+
+
+## 2026-11-19｜11/18 行情第二輪原始歷史頁核對
+
+- **S&P 500：** Yahoo Finance `^GSPC` 與 `^SPX` 歷史列、YCharts 均一致為 11/18 收盤 **7,323.63（-0.23%）**；可排除先前 fixture 7,323.63 與 Yahoo 7,316.93 的差異（Yahoo 頁面已刷新為 7,323.63）。Investing.com 香港站仍顯示 7,307.49，需釐清該頁標的／資料口徑後才能選定 TAC 主值。參考：Yahoo https://finance.yahoo.com/quote/%5EGSPC/history/；YCharts https://ycharts.com/indices/%5ESPX/level。
+- **MOVE：** Investing.com 歷史頁最新可見列仍是 11/17 101.88（+0.59%），不能作為 11/18。備援頁面 4Search Finance 顯示 11/18 收盤 **98.15（-3.66%）**、前收101.88；另有同日市場收盤彙總交叉支持98.15。尚未取得 SIM-1.3順位中的 TradingView 日期列證據，故暫不寫入 fixture。參考：https://www.4search.com/finance/quote/%5EMOVE/。
+- **CNN Fear & Greed：** FGScore明確標示 As of Nov 18, 2026 UTC，CNN provider index **25（Fear）**，並列出七項指標及各自時間；此為有日期的備援值，非已直接讀取CNN官方端點。參考：https://fgscore.com/en/markets/sp500。
+- **11大產業ETF：** Investing.com HK 歷史頁取得下列 11/18 逐檔列：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%。來源分別為各標的 Investing.com HK historical-data 頁。XLC 頁面最新歷史列仍停在11/17；XLU亦停在11/17；XLRE搜尋結果錯指墨西哥MXN報價，三者不得沿用fixture值或冒稱11/18已核實。這7項與fixture原值有重大差異，顯示原11檔ETF欄位不能沿用。
+- **當前判定：** 以上為第二輪已取得的可追溯證據，不代表44項全數通過。未更新 fixture、未修改 HTML、未動 main；仍需完成剩餘行情及三檔ETF補查。
