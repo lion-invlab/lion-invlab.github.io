@@ -1997,3 +1997,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已核對其餘全球指數（Nikkei、KOSPI、TWII、STI、ASX、FTSE、DAX、CAC、STOXX、Shanghai、SZSE、SOX）與fixture相符；美債2Y/10Y/30Y、EUR/USD、DXY、WTI、Brent、GCZ6、SIZ6也與日期列相符。USD/TWD採央行銀行間收盤。
 - MOVE仍只有11/17可核實值101.88/+0.59%；無合格11/18順位來源，不以外部第三方頁取代。
 - Fixture目前blob SHA `3b0dbe91e4887bdf834e22510d57fdbb2a31d92c`。仍需完成香港恆生及Russell 2000來源複核、44項完整來源／日期／時間驗收，再進入HTML組裝。
+
+
+### 2026-11-19｜全球指數第二批更正
+- Russell 2000已依Investing.com 11/18歷史列更正為2,725.23/+0.86%；原fixture 2,714.31/+0.46%錯誤。
+- Hang Seng 23,294.75/-0.91%經Investing.com HK日期列確認，補上來源 metadata。
+- 最新fixture blob SHA `d0d8c9e15b77b53468cdf3298dedb7a936e3f808`。
