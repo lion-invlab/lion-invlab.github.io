@@ -3,16 +3,13 @@
   "review_ready": true,
   "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "行情基準日2026-11-18。已核實更新美股四大現金指數及VIX共5項至11/18；其他行情依各項來源保留11/17或11/16最新可核實收盤，明確標示資料日。11檔產業ETF仍只採Investing.com完整同源資料；美債、貴金屬、MOVE與CNN Fear & Greed不以盤中／替代商品冒充日終值。FactSet盈餘健康度為11/13統計快照。 11/18更新的5項為美股四大現金指數與VIX；其他39項仍按原始來源日期呈現，並未改寫成11/18。",
-    "warning_note": "44項行情不宣稱全部同日：5項已核實至11/18（美股四大現金指數、VIX），其餘依來源分別保留11/17或11/16最後可核實值。11檔產業ETF、三段美債殖利率、兩項指定月份貴金屬、MOVE與CNN Fear & Greed仍有資料日落差。 本次新增11/18美股四大指數與VIX日終值；其他行情仍保留原始來源日期。",
+    "quality_note": "44項行情已逐項核對：43項資料日為2026-11-18，MOVE最新可核實資料日為2026-11-17。指數、11檔產業ETF、債券、匯率、能源、貴金屬及情緒指標均按指定來源逐項讀取歷史列；CFD參考報價明確標示，未混用盤中價。FactSet盈餘健康度仍為11/13統計快照。",
+    "warning_note": "44項行情均已補齊來源及資料日期：43項資料日為2026-11-18，MOVE最新可核實資料日為2026-11-17（101.88，+0.59%）。各項依實際來源標示；XLU使用StockAnalysis備援，其他10檔產業ETF採Investing.com香港站或加拿大站。",
     "pending_items": [
       "W47行事曆coverage仍為incomplete；本報只讀main W47，不直接修補資料庫。",
-      "11檔S&P產業ETF未取得Investing.com同源完整11/18日終列，保留最後可核實資料日。",
-      "美債2Y／10Y／30Y官方日終殖利率最新可核實值仍為11/16；不以新聞盤中報價更新。",
-      "黃金GCZ6與白銀SIZ6指定月份結算最新可核實資料日仍為11/16。",
-      "MOVE與CNN Fear & Greed最新可核實資料日仍為11/16；CNN值採同日備援來源。",
+      "MOVE 11/18歷史列尚未出現；保留Investing.com最新可核實11/17收盤101.88（+0.59%）。",
       "FactSet盈餘健康度統計日為11/13，不得標示為11/18資料。",
-      "SOX 11/17來源衝突，保留11/16最後可核實現金指數收盤。"
+      "XLU 11/18數據採StockAnalysis日期列，非Investing.com來源；已在資料來源註記揭露。"
     ],
     "report_cutoff_taipei": "2026-11-19 05:25（台灣時間）",
     "news_window_taipei": "2026-11-18 12:00–2026-11-19 05:25（台灣時間）"
@@ -20,17 +17,17 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-19-simulation.html",
   "report_date": "2026-11-19",
-  "report_git_blob_sha": "fc9278f08fb9ca844b079dead08c0d3deff0b94e",
-  "report_sha256": "ec32f3a3d358bfd6d052a30bd96ed491012986ab77e4927489e82665c6564aba",
-  "build_commit_sha": "e4e36b02d6c51689e71dd8bde55a73bb3ff8444d",
-  "builder_blob_sha": "a038c515e22eb9153f5f6ba26f68e8be2fc7cc46",
-  "fixture_blob_sha": "f3f061613e549a0e0a82e9933cdf70084de49e7c",
+  "report_git_blob_sha": "7dfce988b437fc64d04657ea855f1457a49f1362",
+  "report_sha256": "2489927da210bc20f3bb8423387fe124f90f292dbdb286297d9af59dee4ed2f3",
+  "build_commit_sha": "410d5839f978440b84effb2c0c1900c348699ba3",
+  "builder_blob_sha": "d93eb66b123fcb4a5d2345079814aabc1e23a178",
+  "fixture_blob_sha": "609aa10c331be251332e4a5060c36b87f1902080",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
-  "calendar_main_commit_sha": "50eaa0837cf6d61db2e99bed75ebe507804b15ed",
+  "calendar_main_commit_sha": "c29a2b52905707544bd147ba52c63c8cacd049b8",
   "calendar_current_blob_sha": "8e33dc278d38cdac40028481b1ec445ca9c51b47",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
-  "interaction_evidence_sha256": "f3355f73650e4aa93e16064495944c764a764e6c7830a2765ff8c96768a926fd",
-  "visual_evidence_sha256": "412cf40d0f01d3957ea62786cef66fbee0a8ff9ded7a618fffad2444242e0237",
+  "interaction_evidence_sha256": "1339625b717b56bd57f2b7d3ce62769c88c6899cdf87628d4d58375647d3cf83",
+  "visual_evidence_sha256": "45b95dc2247c0770d4a423466be66305e4822ce1a5f73de9252a18deb894ea2e",
   "viewports": [
     1440,
     768,
@@ -38,6 +35,6 @@
     390,
     360
   ],
-  "workflow_run_id": "44412203334",
+  "workflow_run_id": "44422217535",
   "workflow_run_attempt": "1"
 }
