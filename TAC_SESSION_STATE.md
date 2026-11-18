@@ -1946,3 +1946,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - MOVE最新明確資料日為11/17，CNN Fear & Greed目前只取得FGScore備援25，尚無CNN官方值；11檔產業ETF缺逐檔日期及來源證據。其餘多項fixture僅有來源metadata，尚未證明逐頁讀取。
 - 因此44/44僅代表欄位齊全，不代表44項已核實。上述查核缺口已詳列於TAC_WORK_LOG.md；不得把待核實數值放進定稿。
 - HTML仍未更新，review_ready=false。
+
+
+## 2026-11-19 07:xx｜11/18 行情第二輪核對
+- S&P 500：Yahoo `^GSPC`／`^SPX` 與 YCharts 均列 7,323.63（-0.23%）；Investing.com HK仍列7,307.49，差異待釐清標的口徑。
+- MOVE：Investing.com仍只有11/17 101.88；4Search備援列11/18 98.15（-3.66%），尚缺TradingView順位日期證據，未寫入fixture。
+- CNN Fear & Greed：FGScore顯示11/18 25（Fear），並列七項CNN來源指標及各自時間；明確屬備援，不宣稱直讀CNN官方。
+- 11/18 Investing.com HK逐檔可核對ETF：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%。XLC、XLU歷史頁仍停11/17；XLRE結果錯指墨西哥MXN商品，三者待補查。原fixture 11檔ETF值多項不符，不可沿用。
+- 尚未更新fixture或HTML；main與W47 calendar維持唯讀。
