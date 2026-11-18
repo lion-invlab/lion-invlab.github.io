@@ -29,6 +29,18 @@ class ImportSp500FromTacReportTests(unittest.TestCase):
         self.assertEqual(rec["retrieved_at"], "2026-11-16T21:10:00+00:00")
         self.assertEqual(len(rec["record_sha256"]), 64)
 
+    def test_uses_exact_timestamp_embedded_in_report_source(self):
+        data = fixture()
+        data["key_levels_overrides"]["sp500"]["retrieved_at"] = "2026-11-17T05:07:12+08:00"
+        rec = build_record(data)
+        self.assertEqual(rec["retrieved_at"], "2026-11-16T21:07:12+00:00")
+
+    def test_does_not_substitute_report_cutoff_for_missing_retrieval_time(self):
+        data = fixture()
+        data["report_cutoff_taipei"] = "2026-11-17 05:25（台灣時間）"
+        with self.assertRaisesRegex(ValueError, "report cutoff is not a substitute"):
+            build_record(data)
+
     def test_rejects_cfd(self):
         data = fixture()
         data["key_levels_overrides"]["sp500"]["note"] = "S&P 500 CFD"
