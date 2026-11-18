@@ -1468,3 +1468,8 @@
 - XLU：Investing.com香港及Global頁面均未提供11/18日期列，改用StockAnalysis日期列，收43.52、+0.23%，明確標示備援來源。
 - 11檔ETF目前均有11/18數值及來源：XLE -3.27%、XLF -0.96%、XLK +0.10%、XLI +0.09%、XLC +0.30%、XLB -0.80%、XLU +0.23%、XLRE +0.18%、XLY +1.79%（Investing.com頁面範圍至11/18，但搜尋摘要未回傳當日列；待後續獨立核對）、XLP -0.19%、XLV -1.57%。注意XLY仍需補足明確11/18日期列證據，暫不將11檔整體標示完全驗收。
 - Fixture commit `f626c112781352b93477130f34a6dbc3a8e73a93`，blob SHA `a5e5b98f85cf0b8e61352aa540473bf4ab1d3ed0`。
+
+
+### XLY最後一檔產業ETF補查
+- Investing.com香港站歷史頁缺11/18日期列；同供應商加拿大站列11/18收盤119.12、+1.73%，已更新fixture。Investing.com UK頁同日列119.29、+1.87%，不同地區數據不一致；本次按同供應商備援採Canada頁並保留差異說明。來源：https://ca.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data。
+- 11檔產業ETF現均有11/18數值及來源記錄；其中XLU採StockAnalysis備援，其餘10檔採Investing.com（香港站或同供應商地區站）。Fixture commit `e1ab80b5a672b8da44100258a09ba39256dac34d`，blob SHA `137f3f015dcafa2d74c6d6135589a7b3703c45e3`。
