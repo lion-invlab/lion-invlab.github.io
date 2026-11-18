@@ -6,7 +6,7 @@ on:
       - research/chart3-synchronized-release-20261118
     paths:
       - ".github/scripts/build_tac_chart3_synchronized_release.py"
-      - ".github/scripts/run_tac_chart3_synchronized_release.py"
+      - ".github/scripts/run_tac_chart3_synchronized_release.py"\n      - ".github/scripts/chart3_synchronized_pipeline.py"\n      - ".github/scripts/test_chart3_synchronized_pipeline.py"
       - ".github/scripts/test_tac_chart3_synchronized_release.py"
       - ".github/scripts/test_run_tac_chart3_synchronized_release.py"
       - ".github/scripts/prepare_sp500_research_import.py"
@@ -38,6 +38,6 @@ jobs:
         run: |
           python .github/scripts/test_tac_chart3_synchronized_release.py
           python .github/scripts/test_prepare_sp500_research_import.py
-          python .github/scripts/test_run_tac_chart3_synchronized_release.py
+          python .github/scripts/test_run_tac_chart3_synchronized_release.py\n          python .github/scripts/test_chart3_synchronized_pipeline.py
           python .github/scripts/test_import_sp500_from_tac_report.py
           python .github/scripts/test_build_sp500_from_tac_report_history.py
