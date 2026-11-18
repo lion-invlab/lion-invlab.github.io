@@ -190,3 +190,26 @@ Accordingly, the research branch must not assume that the visible download label
 ## 15. Additional runner integrity gates (2026-11-18)
 
 The fail-closed runner now validates that the active manifest references exactly `snapshots/{snapshot_id}.json`, rejects absolute or parent-traversal paths, verifies the referenced snapshot SHA-256 and embedded snapshot identity/date, and rejects an existing immutable snapshot file if its content differs from the candidate. Tests cover a tampered last-good snapshot and an unsafe manifest path. The active manifest is not advanced on either failure.
+
+
+## 16. TAC 早報 D4 的既有 S&P 500 OHLC 交接（2026-11-18 修正）
+
+核對正式 WR v5.15 的 D4 後，確認早報每日已由 ChatGPT 直接查核同一基準交易日、同一標的的 OHLC，並記錄來源與日期；這是現有資料擷取責任，不應另建一套重複行情查詢流程。
+
+已核實的交接缺口：
+- 早報 D4 的 OHLC 目前主要保存在當日報告 fixture／Session State／來源折疊區，未形成 Chart 3 可直接增量讀取的長期逐日 close 序列。
+- 同一報告日期的來源可能依當日來源核實結果而異。例如 simulation fixture 2026-11-17 記錄 S&P 500 2026-11-16 OHLC（O 7,513.98、H 7,515.60、L 7,400.15、C 7,416.59），來源標示 Yahoo Finance ^SPX 現金指數，不能重新標成 Investing.com。
+- 2026-11-18 fixture 目前沒有 S&P 500 OHLC override；不得把前一日值冒充當日值。
+
+因此，後續交接以「TAC 早報 D4 已核實的現金指數 OHLC」為上游資料來源，不另開一套行情擷取。每筆必須保留原始 source_name、source_url、observation_date、retrieved_at、retrieval_method、OHLC 及 record SHA-256；來源可能逐日不同，必須逐筆保存來源，不得用單一全歷史來源標籤覆蓋不同供應商。
+
+新增研究工具：
+- `.github/scripts/import_sp500_from_tac_report.py`：從既有報告 fixture 的 `key_levels_overrides.sp500` 擷取同日 OHLC，確認報告日期／交易日期一致、OHLC 合理、來源 URL 為 HTTPS、來源註記明確為現金指數且非 CFD，並要求明確傳入帶時區的實際擷取時間。它不下載行情，也不推測擷取時間。
+- 輸出採 append-only JSONL；相同日期相同內容重跑為 no-op，同日不同 close／來源資料則 fail closed，不覆蓋歷史紀錄。
+- 新增五項測試，覆蓋來源與價格擷取、CFD 拒絕、日期錯配、相同資料冪等及同日衝突拒絕。
+
+目前限制：
+- 此 adapter 只是 D4 → Chart 3 staging 的第一段交接，尚未把 JSONL 轉成五序列發布器所需的完整 S&P 500 compact history，也尚未改寫同步發布器的 provenance schema 以逐筆保留不同來源。
+- 因此不可宣稱 S&P 500 日線已完成自動累積，也不可宣稱五項同步發布已完成。
+- 研究分支 QA workflow 已加入 adapter 測試；須待本次 push workflow 實際完成並回讀結果後，才可標記測試通過。
+- Main、正式早報、正式 Chart 3、首頁及所有既有排程均未修改。
