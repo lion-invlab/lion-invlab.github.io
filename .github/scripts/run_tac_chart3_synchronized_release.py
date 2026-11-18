@@ -5,8 +5,8 @@ import argparse, datetime as dt, hashlib, json
 from pathlib import Path
 from build_tac_chart3_synchronized_release import build_candidate, atomic_write
 
-DEFAULT_SP500_COMPACT = Path("data/tac-chart3/sp500_investing_daily.compact.json")
-DEFAULT_SP500_PROVENANCE = Path("data/tac-chart3/sp500_investing_daily.provenance.json")
+DEFAULT_SP500_COMPACT = Path("data/tac-chart3/sp500_tac_d4_merged.compact.json")
+DEFAULT_SP500_PROVENANCE = Path("data/tac-chart3/sp500_tac_d4_merged.provenance.json")
 
 def write_status(path: Path, status: str, **details):
     obj={"status":status,"checked_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),**details}
