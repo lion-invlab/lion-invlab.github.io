@@ -294,7 +294,7 @@
     "XLI": "+0.09%",
     "XLC": "+0.30%",
     "XLB": "-0.80%",
-    "XLU": "+0.30%",
+    "XLU": "+0.23%",
     "XLRE": "+0.18%",
     "XLY": "+1.79%",
     "XLP": "-0.19%",
@@ -610,13 +610,13 @@
       "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。"
     },
     "XLC": {
-      "name": "Investing.com HK｜XLC歷史資料",
-      "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
-      "close": null,
+      "name": "Investing.com Canada｜XLC歷史資料（香港站缺11/18列）",
+      "url": "https://ca.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "close": "105.58",
       "change_display": "+0.30%",
       "data_date": "2026-11-18",
       "quote_type": "ETF_daily_close",
-      "note": "直接開啟Investing.com香港站歷史資料頁，核對2026-11-18收盤列；依TAC規則僅呈現單日漲跌幅，不顯示收盤價。"
+      "note": "Investing.com香港站11/18日期列缺失，改用同一供應商加拿大站歷史資料列；11/18收盤105.58、+0.30%。"
     },
     "XLB": {
       "name": "Investing.com｜XLB歷史資料",
@@ -628,13 +628,13 @@
       "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。"
     },
     "XLU": {
-      "name": "Investing.com HK｜XLU歷史資料",
-      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
-      "close": null,
-      "change_display": "+0.30%",
+      "name": "StockAnalysis｜XLU歷史資料（Investing.com未提供11/18列）",
+      "url": "https://stockanalysis.com/etf/xlu/history/",
+      "close": "43.52",
+      "change_display": "+0.23%",
       "data_date": "2026-11-18",
-      "quote_type": "ETF_daily_close",
-      "note": "直接開啟Investing.com香港站歷史資料頁，核對2026-11-18收盤列；依TAC規則僅呈現單日漲跌幅，不顯示收盤價。"
+      "quote_type": "ETF_daily_close_backup",
+      "note": "Investing.com香港及Global歷史頁最新可見列均停在11/17；採StockAnalysis明確標示11/18日期列作備援，收盤43.52、+0.23%。"
     },
     "XLRE": {
       "name": "Investing.com｜XLRE歷史資料",
