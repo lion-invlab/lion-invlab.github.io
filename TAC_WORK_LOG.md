@@ -1515,3 +1515,13 @@
 - 第三輪run `44421931029`：HTML組裝成功、互動 smoke test成功；母版視覺回歸在1440/768/412/390/360px均指出今日觀察分頁標題缺少固定文字「本週三大觀察焦點」。原因是本次內容將標題改寫為「接下來三個關鍵觀察」，不符合母版固定標題契約。
 - 已將fixture `core_observation.heading` 恢復為「本週三大觀察焦點」，不修改母版或CSS。更新commit `410d5839f978440b84effb2c0c1900c348699ba3`，fixture blob SHA `609aa10c331be251332e4a5060c36b87f1902080`。
 - 第四輪完整建置已觸發，Actions run `44422217535`，等待視覺、獨立驗證及44項數據Gate。
+
+
+## 2026-11-19｜11/19審核版組裝與四大Gate全數通過
+- **狀態：** `review_ready=true`、`review_ready_blockers=[]`、`status=QA_PASSED`。GitHub Actions run `44422217535`（run 808）成功。
+- **審核檔：** `preview/2026-11-19-simulation.html`；Git blob SHA `7dfce988b437fc64d04657ea855f1457a49f1362`；SHA-256 `2489927da210bc20f3bb8423387fe124f90f292dbdb286297d9af59dee4ed2f3`。QA sidecar `preview/2026-11-19-simulation.qa.json`；blob SHA `e63bdf50ec290e081073c0b274a2191abe9c0b62`。
+- **依據：** fixture blob SHA `609aa10c331be251332e4a5060c36b87f1902080`；weekday mother SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`；builder SHA `d93eb66b123fcb4a5d2345079814aabc1e23a178`；main W47 calendar SHA `8e33dc278d38cdac40028481b1ec445ca9c51b47`（只讀）。
+- **QA：** deterministic self-tests PASS；21筆W47財報共識投影成功；13家已公布公司股價反應擷取成功；互動瀏覽器測試 PASS；母版視覺比對 PASS，viewport 1440/768/412/390/360；獨立HTML/provenance驗證 PASS；日期、行事曆卡數、44行情、5焦點新聞、10熱門頭條驗證 PASS；QA evidence已封存至HTML blob。GitHub Actions在simulation branch回讀HTML與sidecar SHA一致。
+- **行情：** 44項皆有來源與日期，43項為11/18、MOVE保留11/17 101.88（+0.59%）；XLU使用StockAnalysis備援，其他10檔ETF採Investing.com HK／Canada。S&P 500採使用者指定Investing.com 7,307.49/-0.45%。
+- **新聞：** 5則焦點新聞來源符合SIM-1.3白名單；10則熱門頭條均為事件型新聞，不以指數漲跌或VIX當新聞。
+- **保護：** 僅simulation branch寫入。未修改main/index.html、正式母版或main W47 JSON；未部署正式首頁。W47 coverage incomplete、MOVE 11/18缺列、FactSet 11/13快照及XLU備援均如實揭露。
