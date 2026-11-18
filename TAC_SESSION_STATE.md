@@ -1984,3 +1984,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - XLC改採Investing.com Canada 11/18歷史列105.58/+0.30%（香港站缺列）；XLU採StockAnalysis 11/18列43.52/+0.23%（Investing.com兩站未提供當日列），均已寫入fixture並標明備援。
 - XLY仍需補Investing.com 11/18日期列直接證據；11檔整體尚未完全驗收。
 - Fixture blob SHA `a5e5b98f85cf0b8e61352aa540473bf4ab1d3ed0`。
+
+
+### 2026-11-19｜11檔產業ETF欄位已補齊
+- XLY採Investing.com Canada 11/18收盤119.12、+1.73%；Investing.com UK同日數據不同（+1.87%），保留來源差異註記。
+- 11檔ETF均有11/18數值及來源紀錄；XLU為StockAnalysis備援，其餘10檔為Investing.com來源（HK/Canada）。
+- 最新fixture blob SHA `137f3f015dcafa2d74c6d6135589a7b3703c45e3`。
