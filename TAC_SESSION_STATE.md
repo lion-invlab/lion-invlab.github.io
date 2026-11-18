@@ -1990,3 +1990,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - XLY採Investing.com Canada 11/18收盤119.12、+1.73%；Investing.com UK同日數據不同（+1.87%），保留來源差異註記。
 - 11檔ETF均有11/18數值及來源紀錄；XLU為StockAnalysis備援，其餘10檔為Investing.com來源（HK/Canada）。
 - 最新fixture blob SHA `137f3f015dcafa2d74c6d6135589a7b3703c45e3`。
+
+
+## 2026-11-19｜行情第三輪查核進度
+- 已直讀Investing.com HK 11/18歷史列並修正：Dow 50,197.78/-1.11%；Nasdaq 24,429.89/+0.42%；GBP/USD 1.3152/-0.43%；AUD/USD 0.6713/-0.31%；USD/JPY 159.34/-0.02%。
+- 已核對其餘全球指數（Nikkei、KOSPI、TWII、STI、ASX、FTSE、DAX、CAC、STOXX、Shanghai、SZSE、SOX）與fixture相符；美債2Y/10Y/30Y、EUR/USD、DXY、WTI、Brent、GCZ6、SIZ6也與日期列相符。USD/TWD採央行銀行間收盤。
+- MOVE仍只有11/17可核實值101.88/+0.59%；無合格11/18順位來源，不以外部第三方頁取代。
+- Fixture目前blob SHA `3b0dbe91e4887bdf834e22510d57fdbb2a31d92c`。仍需完成香港恆生及Russell 2000來源複核、44項完整來源／日期／時間驗收，再進入HTML組裝。
