@@ -111,14 +111,14 @@
       }
     },
     "標普500指數": {
-      "display": "7,323.63",
-      "change_display": "-0.23%",
+      "display": "7,307.49",
+      "change_display": "-0.45%",
       "source": {
-        "name": "Associated Press｜US cash index close",
-        "url": "https://apnews.com/article/990749d3d269f7ef05b9f6c089713a58",
+        "name": "Investing.com｜S&P 500 (SPX) 歷史資料",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data?cid=40826",
         "data_date": "2026-11-18",
-        "quote_type": "cash_index_close",
-        "note": "AP 11/18現金指數收盤；前收7,340.53，跌16.90點。Investing.com同名頁為CFD，故不以CFD代替現貨指數。"
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "依使用者指定採用Investing.com 11/18歷史資料列：收市7,307.49，跌0.45%；此早報SPX統一以該Investing.com歷史頁為準，不混用AP、Yahoo或其他市場口徑。"
       }
     },
     "那斯達克綜合指數": {
