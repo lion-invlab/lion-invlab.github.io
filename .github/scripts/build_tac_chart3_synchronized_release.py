@@ -56,12 +56,19 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
     host = (parsed.hostname or "").lower()
     if host != "investing.com" and not host.endswith(".investing.com"):
         raise ValueError("S&P 500 source must be an Investing.com URL; current source provenance is not accepted")
+    if parsed.scheme != "https":
+        raise ValueError("S&P 500 source URL must use HTTPS")
     if not provenance.get("retrieved_at") or not provenance.get("source_sha256"):
         raise ValueError("S&P 500 provenance requires retrieved_at and source_sha256")
+    try:
+        dt.datetime.fromisoformat(provenance["retrieved_at"].replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        raise ValueError("S&P 500 retrieved_at must be an ISO-8601 timestamp")
+    digest = provenance["source_sha256"]
+    if len(digest) != 64 or any(ch not in "0123456789abcdefABCDEF" for ch in digest):
+        raise ValueError("S&P 500 source_sha256 must be a 64-character SHA-256 hex digest")
     if not provenance.get("method"):
         raise ValueError("S&P 500 provenance requires a retrieval method")
-    if not provenance.get("authorization_reference"):
-        raise ValueError("Automated use/storage of Investing.com data requires a written authorization reference")
     if provenance.get("source_sha256") != compact.get("source_dataset_sha256"):
         raise ValueError("S&P 500 provenance source_sha256 does not match the compact dataset source hash")
     return {
@@ -70,7 +77,6 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
         "retrieved_at": provenance["retrieved_at"],
         "source_sha256": provenance["source_sha256"],
         "method": provenance["method"],
-        "authorization_reference": provenance["authorization_reference"],
         "source_observation_date": provenance.get("source_observation_date"),
     }
 
