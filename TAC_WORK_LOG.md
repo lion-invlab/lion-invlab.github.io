@@ -534,3 +534,17 @@
 ### 2026-11-09｜首頁 SHA／發布來源差異校正
 - 最新 main `index.html` blob SHA 為 `f167d34ec84f813fafe68bea982b751d62c8c717`，標題已顯示 2026/11/09。GitHub commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC）已先行發布 11/09 首頁；該提交早於本輪局部組裝，本輪未更新 `index.html`。
 - main `preview/2026-11-09.html` 仍為 404；本輪 `/mnt/data/preview-2026-11-09-stageg-panels.html` 是局部工作檔，與既有首頁發布內容不同，不可混稱為正式審核版。
+## 2026-11-18｜S&P 500 每日增量交接接入 Main（WR v5.16）
+
+- 使用者明確授權：在 Main 早報資料交接中，於每日核實 S&P 500 收盤時記錄來源查核時間，並將該筆資料增量交給 Chart 3；不得擴大至首頁、母版或既有排程。
+- 開工重新讀取 Main TAC_WORK_RULES.md v5.15（原 blob SHA 23b52f27b7afad083bbe28ed86021e04759f198d）、Manifest（SHA fade5e3d88de76a79cb5c1656cc592b98827ab55）、Session State、Work Log。開始時 Main HEAD 為 d70e5f263c2056b19d05b2d078cec49b3c5d71a6。
+- 發現既有 schemas/tac-daily-market-snapshot.schema.json 已要求 S&P 500 source 包含 observed_at、data_date、quote_type、instrument；因此未改造 44 項市場資料 Schema，也未重新啟用完整 Snapshot pipeline。
+- 新增 .github/scripts/append_tac_sp500_daily_increment.py：讀取當日已核實的精簡 handoff JSON 或既有 normalized snapshot shape，驗證報告日／交易日、資料日期、Asia/Taipei UTC+08:00 擷取時間、S&P 500 現貨收盤身分、HTTPS 來源、正數價格與 verified 狀態；保留 observed_at，另轉成 UTC retrieved_at 供 Chart 3 下游使用；逐筆 SHA-256；同日相同資料 no-op、同日衝突／舊日期／損毀 ledger fail-closed。
+- 唯一輸出路徑為 data/tac-chart3/sp500_daily_increment.jsonl。此帳只保存 Chart 3 的 S&P 500 每日新增觀測，不是 44 項市場資料庫。來源註記明確保留「S&P 500 現金指數、非 CFD」，符合下游 Chart 3 D4 history importer 的現金指數驗證條件。
+- 新增 .github/scripts/test_append_tac_sp500_daily_increment.py 及獨立 QA workflow .github/workflows/tac-sp500-increment-qa.yml；workflow 只有 push／pull_request 測試觸發，沒有 schedule、沒有市場資料抓取或寫入權限。
+- 最終 QA：run 44314634140，commit 18c31fd6992c42d0b70698823211bd53d35e33d5，job test success；測試涵蓋成功追加、既有 normalized snapshot 輸入、同日 idempotent、同日衝突、資料日期不符、缺少時區、非台北時區／報告日不符、未核實／CFD／錯誤標的、非 HTTPS、ledger SHA 損毀及日期排序。
+- WR 更新至 v5.16，blob SHA b148af4b2c90e9dfc3ac5008f4fa401250a911c1，commit 6d755fb390c4ff5ea10599def6ce422cb4caa00f；新增 S&P 500 每日增量交接規則。Mother Template Guard run 44314422653 success。
+- 程式／測試／QA workflow 最終 blob SHA：helper 9d4847c968994e133eabd5d26b8e61f7d4d9295e；tests cb06f8755cdedc242752c66b7fe50c5345b8dec1；workflow e1942daeabf3f747b5374b402e4fdb88bb1786e5。
+- 尚未寫入真實每日行情：本次只完成 Main 的資料交接程式與規則，沒有在本輪重新查核 S&P 500 原始來源，因此沒有捏造擷取時間或建立空白／假資料列；data/tac-chart3/sp500_daily_increment.jsonl 尚未建立。下一次早報在直接核實 S&P 500 後，依 WR v5.16 以當次實際 observed_at 執行 helper，首次追加才會建立 ledger。
+- 下游狀態：Main 增量帳完成後，仍需由 Chart 3 專用研究流程合併既有 1927–2026 歷史底稿並執行五序列共同日期 Gate；本次沒有把研究分支程式併入 Main，也沒有發布正式 Chart 3。
+- 保護檔案回讀：index.html SHA f0c52a28bff3a5e4136b87c91c3498cc8f6f105d；Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。未修改首頁、雙母版、Manifest、既有 S&P 500 compact 歷史資料、Chart 3 正式資料、既有排程或既有自動化。Main 只新增 helper、測試、測試 workflow，並更新 WR 與工作紀錄。
