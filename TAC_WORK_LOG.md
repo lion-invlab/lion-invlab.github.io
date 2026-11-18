@@ -1490,3 +1490,8 @@
 - Russell 2000：Investing.com 11/18歷史列為 **2,725.23（+0.86%）**，原fixture 2,714.31（+0.46%）錯誤，已更正。來源：https://www.investing.com/indices/smallcap-2000-historical-data。
 - Hang Seng：Investing.com HK 11/18歷史列確認23,294.75（-0.91%），原fixture數字正確，已補上明確來源與日期 metadata。
 - Dow/Nasdaq與三組FX修正已於前一輪寫入；本次fixture最新blob SHA `d0d8c9e15b77b53468cdf3298dedb7a936e3f808`。
+
+
+### 風險指標VIX日期列完成核對
+- Investing.com HK CBOE VIX歷史資料11/18列確認 **24.56（-3.53%）**，前一交易日11/17為25.46；fixture值正確。來源：https://hk.investing.com/indices/volatility-s-p-500-historical-data。
+- MOVE仍以11/17 101.88（+0.59%）作最後可核實值；不得冒充11/18。11/18第三方頁面98.15／98.5不在SIM-1.3指定來源順位，未採用。
