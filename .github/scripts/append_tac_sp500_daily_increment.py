@@ -40,6 +40,8 @@ def parse_timestamp(value: str) -> dt.datetime:
         raise ValueError("source.observed_at must be ISO-8601 date-time") from exc
     if stamp.tzinfo is None or stamp.utcoffset() is None:
         raise ValueError("source.observed_at must include an explicit timezone")
+    if stamp.utcoffset() != dt.timedelta(hours=8):
+        raise ValueError("source.observed_at must use Asia/Taipei UTC+08:00")
     return stamp
 
 
@@ -67,6 +69,8 @@ def extract_handoff(payload: dict) -> dict:
         raise ValueError("source.data_date must match trading_date")
 
     observed_at = parse_timestamp(source.get("observed_at"))
+    if observed_at.date() != report_day:
+        raise ValueError("source.observed_at local date must match report_date")
     close = market.get("value", market.get("close"))
     try:
         close = float(close)
