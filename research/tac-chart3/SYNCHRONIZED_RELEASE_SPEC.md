@@ -15,7 +15,7 @@
 2. NFCI — Chicago Fed National Financial Conditions Index（FRED/ALFRED）
 3. NFCICREDIT — Chicago Fed NFCI Credit Subindex（FRED/ALFRED）
 4. STLFSI4 — St. Louis Fed Financial Stress Index（FRED/ALFRED）
-5. S&P 500 — 真實每日收盤價；指定 Investing.com 歷史資料來源，保留實際交易日期，不得以週資料、壓縮曲線或插值替代。
+5. S&P 500 — TAC 早報 D4 已核實的真實每日現金指數收盤價；優先沿用當日核實來源，逐筆保留實際 source_name/source_url，不得把 Yahoo 或其他備援來源改標成 Investing.com，也不得以週資料、壓縮曲線或插值替代。
 
 ## 2. 每日檢查與分層流程
 
@@ -24,7 +24,7 @@
 1. 讀取每個來源的 checkpoint、manifest、上次成功時間與 SHA-256。
 2. 分別檢查來源是否有新觀測／新 vintage；依各來源公布頻率擷取，不假設五項同日更新。
 3. 將新資料寫入 staging／候選區，先完成格式、日期、數值、重複鍵、來源回應與雜湊驗證。
-4. ALFRED 四序列沿用 append-only vintage/event 記錄與 current snapshot reconciliation；只取新 vintage 並保留既定 overlap。S&P 500 使用獨立的 Investing.com 日線增量擷取器；在該擷取器完成並驗收前，不得宣稱五項同步發布已完整自動化。
+4. ALFRED 四序列沿用 append-only vintage/event 記錄與 current snapshot reconciliation；只取新 vintage 並保留既定 overlap。S&P 500 優先沿用 TAC 早報 D4 已核實的 OHLC，經報告資料交接器累積逐日紀錄，再轉成 Chart 3 close 歷史；不得另開重複行情擷取，也不得把不同日的實際來源混成單一來源標籤。
 5. 所有五項檢查完成後，執行共同觀測日期計算與發布 Gate。
 6. 通過 Gate 才建立單一整批快照、更新發布 manifest，並讓圖表讀取新版本；未通過則正式版本完全不變。
 
@@ -106,7 +106,7 @@
 ## 8. 目前已知缺口（2026-11-18）
 
 - 四項 FRED/ALFRED 序列已有增量更新流程。
-- S&P 500 歷史檔存在，但指定 Investing.com 來源的合規日線增量更新器尚未完成。
+- S&P 500 早報 D4 → append-only OHLC JSONL → compact close history 的研究版工具已建立；尚未接入每日早報產製的自動輸出，因此目前仍需人工提供／觸發報告資料交接。
 - 現有工作流尚未實作五項共同觀測日期計算與原子式發布 Gate。
 - 因此目前只能說「四項序列自動更新已運作」，不能說「五項同步更新已完成」。
 
@@ -213,3 +213,22 @@ The fail-closed runner now validates that the active manifest references exactly
 - 因此不可宣稱 S&P 500 日線已完成自動累積，也不可宣稱五項同步發布已完成。
 - 研究分支 QA workflow 已加入 adapter 測試；須待本次 push workflow 實際完成並回讀結果後，才可標記測試通過。
 - Main、正式早報、正式 Chart 3、首頁及所有既有排程均未修改。
+
+
+## 17. D4 daily history handoff and per-observation provenance (research branch, 2026-11-18)
+
+The S&P 500 source of truth for this integration is the already-verified cash-index OHLC captured by TAC morning report rule D4. The adapter does not make a second market-data request. It preserves the actual provider used for each trading date; when the report uses a fallback provider, that provider remains visible on that date and is never relabeled as Investing.com.
+
+Added:
+- `.github/scripts/import_sp500_from_tac_report.py`: validates one report's S&P 500 OHLC, cash-index identity, source URL, trading date and explicit retrieval timestamp; appends an immutable daily record to `sp500_tac_report_ohlc.jsonl`. Identical retries are no-ops; conflicting same-date records fail closed.
+- `.github/scripts/build_sp500_from_tac_report_history.py`: validates every JSONL record hash and source metadata, then converts the daily close observations into the Chart 3 compact encoding. Its provenance file carries a separate source_name, source_url, source_note, retrieved_at, retrieval_method and record SHA-256 for every observation date. The compact source hash is tied to the exact JSONL bytes.
+- `.github/scripts/test_build_sp500_from_tac_report_history.py`: tests mixed-provider history, record tampering and CFD rejection.
+- `build_tac_chart3_synchronized_release.py`: accepts either the legacy single-source Investing.com provenance schema or the new TAC D4 per-observation provenance schema. In the D4 mode, every S&P 500 chart point carries its own source metadata; all compact dates must have matching provenance.
+- `run_tac_chart3_synchronized_release.py`: default input paths now point to the TAC D4-derived compact history and provenance files.
+
+Important boundary:
+- The report fixture currently contains report cutoff time, but that is not proof of the exact retrieval timestamp for each price. The importer therefore requires an explicit timezone-aware `retrieved_at`; it must not fabricate one from report cutoff.
+- A report without a verified S&P 500 cash-index OHLC entry cannot add an observation. Missing days are not filled.
+- This research implementation is not yet wired into the morning-report production runner or its daily artifact persistence. It does not create a daily history automatically until that handoff is integrated and tested end-to-end.
+- The new QA tests have been added to the isolated research workflow; workflow execution must be observed before declaring them passed.
+- No Main branch, production report, official Chart 3 page or existing schedule was modified.
