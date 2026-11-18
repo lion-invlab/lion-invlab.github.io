@@ -2042,3 +2042,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 對QA_PASSED HTML做全文掃描，發現key-level收折區殘留Yahoo SPX 7,323.63，與使用者指定Investing.com 7,307.49不一致；已改為同一Investing.com日期列OHLC（O7355.69/H7367.11/L7301.61/C7307.49）。
 - SIM-1.3規定Russell 2000用^RUT現貨，不能用Investing.com CFD；主行情及key-level OHLC改採Yahoo 11/18 ^RUT 2,722.10/+0.75%，OHLC 2698.91/2727.56/2697.71/2722.10。
 - Fixture最新blob SHA `a9324bff1a17a1a1efdd5d48865c5f53c71f521e`。第五輪build已由此觸發；先前QA版本不再視為最終交付。
+
+
+## 2026-11-19｜最終審核版QA_PASSED
+- 最終HTML `preview/2026-11-19-simulation.html` blob SHA `1cae8be1bf97fe3bf11a55d3675b0bfc254e2af5`，SHA-256 `85e8fac4f407d105e0c9a882ee3b250116241741a94106cb7dcbb92baa03290f`；QA sidecar `3163255e7998838646a27d9a7d4d7ab8c99550b6`。
+- Actions run `44422655878` success；`review_ready=true`、無阻塞。五種viewport、互動、母版差異、provenance、44行情及新聞／行事曆Gate全通過。
+- S&P 500 7,307.49/-0.45%採Investing.com，key-level OHLC同步；Russell 2000按SIM-1.3採Yahoo ^RUT現貨2,722.10/+0.75%，key-level OHLC同步。舊錯值已從HTML清除。
+- 44項中43項資料日11/18，MOVE最新可核實11/17。XLU採StockAnalysis備援；FactSet盈餘健康度為11/13快照；W47 coverage incomplete均已揭露。
+- 本次未寫入或部署main首頁及W47 JSON。當前main index SHA `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`，W47 SHA `8e33dc278d38cdac40028481b1ec445ca9c51b47`。
