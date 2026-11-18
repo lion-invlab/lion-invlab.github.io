@@ -1830,3 +1830,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 依 SIM-1.3 第0節審核版例外通道及 H 節規定，審核版唯一交付位置為 main `preview/2026-11-18-simulation.html`，不是 simulation branch 的 preview 路徑。
 - 已將 simulation branch 已驗證 HTML（source blob SHA `47db490cdfb53b8192d291a306bbec9ad9a1308a`）新增至 main 指定 preview 路徑；main commit `236156aed95aae18383efc7551916c25815f40ff`；回讀 blob SHA 完全相同，內容 byte-for-byte 一致。
 - 本次只使用審核版例外通道；未修改 main `index.html`、WR、母版、Manifest、W47 JSON 或其他 main 資產。正式首頁仍須等待使用者核准。
+
+
+## 2026-11-18 08:44｜自動製作與驗收接續覆核
+
+- 本輪報告日期 2026-11-18（三），行情基準日 2026-11-17（二），截稿口徑沿用 05:25 Asia/Taipei。
+- 開工重新讀取唯一模擬 WR SIM-1.3，blob SHA `582bee096185b6542be565950da2656c15191eda`（約 2026-11-18 08:44 +08:00）；Manifest `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA 契約 v1.4 `824c327fb66fc8c5d4107b69abd9316c00bfe903`；weekday 模擬母版 `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。來源 SHA 與 Manifest 相符。
+- main W47 行事曆僅唯讀，blob SHA `6b28cd025f26f403ae3f6cee9b229f369d6a5250`，25 經濟／23 財報，coverage=incomplete；未修改任何 JSON。
+- 當日 fixture SHA `f75a1b9c152e3518490aca737250be2700bfd02d`。44 項欄位組成：17 全球指數＋11 產業 ETF＋3 公債殖利率＋6 匯率＋2 能源＋2 貴金屬＋3 風險指標。11 ETF 均有 Investing.com Global 11/16 同源歷史收盤列，只呈現漲跌幅。既有 QA sidecar 對 44 項口徑記載 25 項 11/17、19 項 11/16；但目前 fixture／預覽對 SOX 的 11/17 值與待核實狀態不一致，需修正後重跑。
+- 既有 workflow run `44196490498` success；QA sidecar SHA `b46073486e1d12af7102cbc5fe1457ade5f4ee18`，sidecar 內綁定 HTML blob `9de190f60317ca56d988efb6d1ffe9ac463385fd`。然而目前 simulation preview SHA `79de99005b8727dec56cf943361f67745e4c847d`，main preview SHA `5ba656c212b9d7e4ba3907d49c31fbea890ecffa`，均不等於 sidecar 綁定 SHA；不可把舊 QA 證據套用至目前版本。
+- 最新 simulation preview 將 SOX 關鍵價位標示待核實；main preview 仍列出 SOX 五層關鍵價位，且其 OHLC close 9,482.63 與主表 9,550.60 不一致。此為重大資料一致性問題。main preview 靜態檢查：DOCTYPE/html/head/body 各 1、184 個 ID 無重複、218 個 href 無空值／危險 scheme／失效內部錨點；但這不替代完整 DOM／瀏覽器／視覺 QA。
+- Pages URL `https://lion-invlab.github.io/preview/2026-11-18-simulation.html` 本輪 web 開啟失敗，container DNS 解析失敗；故當前 `review_ready=false`。
+- 另發現本輪開始前 main HEAD 已為 `9beb0e7d9e3b55d943e3416b88b2df9c4c952bdc`；該 commit 修改 `index.html`，Pages deployment run `44205526238` success。此提交早於本輪 08:40 啟動，本輪未修改或回滾首頁；目前對話未取得該首頁更新的另行授權紀錄，需向使用者如實揭露，不推測其來源。
+- 本輪沒有新增或更新當日 HTML，沒有修改 main preview、index、母版、Manifest、WR 或行事曆 JSON。下一步必須先把 fixture、最新 simulation preview 與來源證據對齊，再用既有 DOM build／QA 路徑驗證同一產物；目前無 workflow_dispatch 工具，且直接重跑 build 會覆蓋預覽中尚未回填 fixture 的後續修正，因此未冒險觸發。
+- 狀態：資料與規則基準已重核；HTML 存在但 provenance／QA hash 不一致；SOX 值與關鍵價位不一致；Pages URL 未驗證；`review_ready=false`。
