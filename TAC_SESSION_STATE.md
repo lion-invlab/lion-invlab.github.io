@@ -2003,3 +2003,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Russell 2000已依Investing.com 11/18歷史列更正為2,725.23/+0.86%；原fixture 2,714.31/+0.46%錯誤。
 - Hang Seng 23,294.75/-0.91%經Investing.com HK日期列確認，補上來源 metadata。
 - 最新fixture blob SHA `d0d8c9e15b77b53468cdf3298dedb7a936e3f808`。
+
+
+### 2026-11-19｜VIX完成核對
+- Investing.com HK 11/18歷史列確認VIX 24.56/-3.53%，fixture正確。
+- MOVE仍只有11/17 101.88/+0.59%，保留明確日期；無合格11/18來源，不冒充最新。
