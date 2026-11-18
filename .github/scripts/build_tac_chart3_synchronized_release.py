@@ -161,6 +161,13 @@ def build_candidate(fred_dataset: dict, sp500_compact: dict, sp500_provenance: d
     sp_values = {x["date"]: x["value"] for x in sp_rows}
     if len(sp_values) != len(sp_rows):
         raise ValueError("S&P 500 duplicate dates")
+    if provenance.get("source_observations"):
+        provenance_dates = set(provenance["source_observations"])
+        compact_dates = set(sp_values)
+        if provenance_dates != compact_dates:
+            missing = sorted(compact_dates - provenance_dates)
+            extra = sorted(provenance_dates - compact_dates)
+            raise ValueError(f"S&P 500 provenance/compact date mismatch; missing={missing[:5]}, extra={extra[:5]}")
     valid_sets = [set(x["values"]) for x in fred.values()] + [set(sp_values)]
     common = set.intersection(*valid_sets)
     if not common:
