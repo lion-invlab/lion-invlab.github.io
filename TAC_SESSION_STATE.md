@@ -2036,3 +2036,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 五個viewport 1440/768/412/390/360 視覺比對PASS；互動測試、獨立HTML/provenance驗證、日期／44行情／5焦點／10頭條／行事曆卡數Gate全部PASS。21筆共識投影、13家已公布公司股價反應擷取成功。
 - 44項行情皆有來源日期，43項為11/18，MOVE為11/17 101.88/+0.59%；XLU採StockAnalysis備援。SPX依使用者指定採Investing.com 7,307.49/-0.45%。
 - main首頁、正式母版及W47 JSON均未修改，沒有正式部署。待使用者審核。
+
+
+### 2026-11-19｜關鍵價位來源一致性最後修正
+- 對QA_PASSED HTML做全文掃描，發現key-level收折區殘留Yahoo SPX 7,323.63，與使用者指定Investing.com 7,307.49不一致；已改為同一Investing.com日期列OHLC（O7355.69/H7367.11/L7301.61/C7307.49）。
+- SIM-1.3規定Russell 2000用^RUT現貨，不能用Investing.com CFD；主行情及key-level OHLC改採Yahoo 11/18 ^RUT 2,722.10/+0.75%，OHLC 2698.91/2727.56/2697.71/2722.10。
+- Fixture最新blob SHA `a9324bff1a17a1a1efdd5d48865c5f53c71f521e`。第五輪build已由此觸發；先前QA版本不再視為最終交付。
