@@ -3,11 +3,27 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-09（台灣時間；當日早報 A–F 已完成，G/H 受 DOM parser 環境限制）
+- 最後更新：2026-11-18（台灣時間；S&P 500 每日增量交接已接入 Main，首筆真實日資料尚待下一次早報核實後追加）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
-- 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
+- 正式規則：TAC_WORK_RULES.md v5.16；最新 blob SHA b148af4b2c90e9dfc3ac5008f4fa401250a911c1
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
+
+
+## 2026-11-18｜S&P 500 每日增量交接接入 Main
+
+- 使用者授權範圍：Main 每日早報核實 S&P 500 收盤後，記錄來源查核當下的 Asia/Taipei 時間並追加給 Chart 3；不修改首頁、雙母版、Manifest、既有排程或正式 Chart 3 發布流程。
+- 本次開始時 main HEAD：d70e5f263c2056b19d05b2d078cec49b3c5d71a6。最新 WR：v5.16，blob SHA b148af4b2c90e9dfc3ac5008f4fa401250a911c1。Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。
+- 新增 helper：.github/scripts/append_tac_sp500_daily_increment.py，blob SHA 9d4847c968994e133eabd5d26b8e61f7d4d9295e。
+- 新增測試：.github/scripts/test_append_tac_sp500_daily_increment.py，blob SHA cb06f8755cdedc242752c66b7fe50c5345b8dec1。
+- 新增獨立 QA workflow：.github/workflows/tac-sp500-increment-qa.yml，blob SHA e1942daeabf3f747b5374b402e4fdb88bb1786e5。只在相關檔案 push／pull_request 時執行測試，無 schedule。
+- 最終 QA run 44314634140 success；Mother Template Guard run 44314422653 success。
+- 唯一增量帳路徑：data/tac-chart3/sp500_daily_increment.jsonl。此帳尚未建立，因本次實作沒有重新查核當日 S&P 500 原始來源；不得以舊資料或推估時間建立首筆記錄。
+- 每日使用：核實 S&P 500 現貨每日收盤後，將 report_date、trading_date、close、status=verified 與 source.name/url/observed_at/data_date/quote_type/instrument 組成暫存 handoff JSON，再執行 helper。observed_at 必須是當次實際查核時間、含 UTC+08:00，且本地日期等於 report_date；data_date 必須等於 trading_date。Helper 會保存原始來源時間、轉換 UTC retrieved_at、計算 SHA-256，並執行同日 no-op／衝突阻擋／日期排序／ledger hash 驗證。
+- 既有 Schema 已包含 source.observed_at，本次未改動 44 項行情 Schema。既有 1927–2026 及 1993–2026 compact 歷史檔未修改；每日增量只追加，不重抓歷史。
+- Work Log 最新 blob SHA：4fd011751b2242a4fad55482d2cda0565a90da44；對應更新 commit：28a338a95d60b40d5640a03deec06c47bc8cf631。
+- 保護檔案：index.html SHA f0c52a28bff3a5e4136b87c91c3498cc8f6f105d；Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。未修改。
+- 下一步：下一次正式早報直接核實 S&P 500 收盤時，立即記錄 observed_at 並執行 helper，首次追加後回讀 ledger，核對該日數值、來源、時間戳、record SHA 與檔案 SHA。其後再由 Chart 3 專用研究流程合併既有歷史底稿並執行五序列同步 Gate；Main 增量寫入本身不等於 Chart 3 已發布。
 
 
 ## 2026-11-09｜當日早報活動狀態（報告日週一）
