@@ -16789,7 +16789,35 @@
       ],
       "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_sources_unreadable",
       "postwrite_readback": {
-        "status": "pending_after_data_commit"
+        "status": "verified_after_data_commit",
+        "verified_at": "2026-11-19T04:38:58+08:00",
+        "data_commit_sha": "dbcd36bdd49b974e9a56034e9db8eaff0eb5799e",
+        "data_commit_blob_sha": "c0043c197f4c92c4742126e61a09d808d570d81f",
+        "checks": {
+          "same_week_path": true,
+          "schema_version_1_retained": true,
+          "economic_events_25": true,
+          "current_week_economic_released_15": true,
+          "current_week_economic_upcoming_9": true,
+          "earnings_events_23": true,
+          "earnings_released_13": true,
+          "earnings_upcoming_10": true,
+          "eps_attempts_333": true,
+          "revenue_attempts_333": true,
+          "attempt_suffix_1_2_3": true,
+          "eps_snapshots_21": true,
+          "revenue_snapshots_21": true,
+          "snapshot_ids_unique": true,
+          "old_attempts_prefix_preserved": true,
+          "old_snapshots_prefix_preserved": true,
+          "selected_sources_preserved": true,
+          "legacy_fields_preserved": true,
+          "estimate_fields_untouched": true,
+          "comparison_status_untouched": true,
+          "event_ids_unique": true,
+          "chronological_order": true,
+          "only_authorized_file_modified": true
+        }
       }
     }
   ],
@@ -17203,7 +17231,35 @@
     ],
     "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_sources_unreadable",
     "postwrite_readback": {
-      "status": "pending_after_data_commit"
+      "status": "verified_after_data_commit",
+      "verified_at": "2026-11-19T04:38:58+08:00",
+      "data_commit_sha": "dbcd36bdd49b974e9a56034e9db8eaff0eb5799e",
+      "data_commit_blob_sha": "c0043c197f4c92c4742126e61a09d808d570d81f",
+      "checks": {
+        "same_week_path": true,
+        "schema_version_1_retained": true,
+        "economic_events_25": true,
+        "current_week_economic_released_15": true,
+        "current_week_economic_upcoming_9": true,
+        "earnings_events_23": true,
+        "earnings_released_13": true,
+        "earnings_upcoming_10": true,
+        "eps_attempts_333": true,
+        "revenue_attempts_333": true,
+        "attempt_suffix_1_2_3": true,
+        "eps_snapshots_21": true,
+        "revenue_snapshots_21": true,
+        "snapshot_ids_unique": true,
+        "old_attempts_prefix_preserved": true,
+        "old_snapshots_prefix_preserved": true,
+        "selected_sources_preserved": true,
+        "legacy_fields_preserved": true,
+        "estimate_fields_untouched": true,
+        "comparison_status_untouched": true,
+        "event_ids_unique": true,
+        "chronological_order": true,
+        "only_authorized_file_modified": true
+      }
     }
   }
 }
