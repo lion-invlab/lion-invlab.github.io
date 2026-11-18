@@ -175,3 +175,18 @@ Added runner tests for missing S&P 500 input, successful snapshot/manifest creat
 - Investing.com Support describes long-term daily/weekly/monthly chart history (up to 30 years): https://www.investing-support.com/hc/en-us/articles/115003946765-Exploring-Historical-Data-on-Investing-com-Charts
 
 Engineering consequence: do not implement or depend on an undocumented/private Investing.com API endpoint. The next compliant automation experiment is to evaluate the public website's documented historical-data download control through ordinary browser UI interaction, without bypassing access controls. Until that is demonstrated in the research workflow with a real downloaded CSV, the manual CSV importer remains the only validated Investing.com ingestion path. Do not claim unattended daily S&P 500 ingestion is complete.
+
+
+## 14. Download and data-rights gate (2026-11-18)
+
+Further official-source review:
+
+- The public S&P 500 historical-data page exposes a download option in its page description, but a page-rendered option is not proof that an unauthenticated or free account can download a full CSV: https://www.investing.com/indices/us-spx-500-historical-data
+- Investing.com's own chart-upgrade announcement says one-click chart price-data CSV download is available with InvestingPro: https://www.investing.com/blog/meet-the-new-investingcom-chart-10-upgrades-built-for-how-traders-really-trade-345
+- The historical-data page's rights notice states that the data may not be stored, reproduced, displayed, modified, transmitted or distributed without prior explicit written permission from Fusion Media and/or the data provider. The intended scope and any permitted personal/research use must therefore be checked against the applicable terms/permission before persistent ingestion or republication.
+
+Accordingly, the research branch must not assume that the visible download label means free, anonymous, unattended access. No headless scraping, private endpoint reverse-engineering, cookie/session circumvention or automated export is to be added. The manual CSV importer remains a technical adapter only; it does not grant data-use rights. Before using it with real production data, confirm that the downloaded file was obtained through an authorized account/feature and that the intended retention and display are permitted. Until then, S&P 500 ingestion remains a blocked dependency and no five-series release is published.
+
+## 15. Additional runner integrity gates (2026-11-18)
+
+The fail-closed runner now validates that the active manifest references exactly `snapshots/{snapshot_id}.json`, rejects absolute or parent-traversal paths, verifies the referenced snapshot SHA-256 and embedded snapshot identity/date, and rejects an existing immutable snapshot file if its content differs from the candidate. Tests cover a tampered last-good snapshot and an unsafe manifest path. The active manifest is not advanced on either failure.
