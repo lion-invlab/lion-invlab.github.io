@@ -5,6 +5,9 @@ import argparse, datetime as dt, hashlib, json
 from pathlib import Path
 from build_tac_chart3_synchronized_release import build_candidate, atomic_write
 
+DEFAULT_SP500_COMPACT = Path("data/tac-chart3/sp500_investing_daily.compact.json")
+DEFAULT_SP500_PROVENANCE = Path("data/tac-chart3/sp500_investing_daily.provenance.json")
+
 def write_status(path: Path, status: str, **details):
     obj={"status":status,"checked_at":dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),**details}
     atomic_write(path,obj)
@@ -110,8 +113,8 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--fred-dataset",type=Path,default=Path("data/tac-chart3/chart3_market_stress.json"))
-    p.add_argument("--sp500-compact",type=Path,default=Path("data/tac-chart3/sp500_tac_report_history.compact.json"))
-    p.add_argument("--sp500-provenance",type=Path,default=Path("data/tac-chart3/sp500_tac_report_history.provenance.json"))
+    p.add_argument("--sp500-compact",type=Path,default=DEFAULT_SP500_COMPACT)
+    p.add_argument("--sp500-provenance",type=Path,default=DEFAULT_SP500_PROVENANCE)
     p.add_argument("--release-dir",type=Path,default=Path("data/tac-chart3/synchronized"))
     p.add_argument("--status",type=Path,default=Path("data/tac-chart3/synchronized_status.json"))
     a=p.parse_args()
