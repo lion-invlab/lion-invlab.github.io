@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import base64, datetime as dt, json, tempfile, unittest, zlib
 from pathlib import Path
-from run_tac_chart3_synchronized_release import run
+from run_tac_chart3_synchronized_release import run, DEFAULT_SP500_COMPACT, DEFAULT_SP500_PROVENANCE
 
 def varint(n):
     out=bytearray()
@@ -32,6 +32,10 @@ def prov():
             "method":"manual_csv_export_import"}
 
 class RunnerTests(unittest.TestCase):
+    def test_default_inputs_match_investing_import_outputs(self):
+        self.assertEqual(DEFAULT_SP500_COMPACT.as_posix(), "data/tac-chart3/sp500_investing_daily.compact.json")
+        self.assertEqual(DEFAULT_SP500_PROVENANCE.as_posix(), "data/tac-chart3/sp500_investing_daily.provenance.json")
+
     def setup_inputs(self,root,days=("2026-11-13",)):
         f=root/"fred.json"; s=root/"sp500.json"; p=root/"prov.json"
         f.write_text(json.dumps(fred(list(days))))
