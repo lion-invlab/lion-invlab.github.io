@@ -1441,3 +1441,10 @@
 - XLU：Investing.com頁面仍只顯示11/17；StockAnalysis歷史資料列11/18 **43.52（+0.23%）**，可作低順位備援，但尚未取得Investing.com HK 11/18列。來源：https://stockanalysis.com/etf/xlu/history/。
 - XLC：Investing.com HK歷史資料頁仍停11/17；暫無可採用的11/18歷史列。不得把頁首目前報價當作11/18收盤。
 - MOVE備援：本輪未找到TradingView帶日期的11/18歷史列；Investing.com優先來源仍停11/17。98.15僅有4Search及獨立收盤彙總交叉支持，依順位規則仍暫不寫入fixture。
+
+
+### S&P 500來源選定｜依使用者明確指示（2026-11-19）
+- 使用者決定：S&P 500 一律採 Investing.com 數據，不再以 AP／Yahoo 現金指數數字作為本報告主值。
+- 11/18採用值：**7,307.49（-0.45%）**；來源為 Investing.com S&P 500 (SPX) 歷史資料頁，日期列 2026-11-18。來源：https://www.investing.com/indices/us-spx-500-historical-data?cid=40826。
+- 已更新 simulation-lab/fixtures/report-data-2026-11-19.json 的 global_markets.標普500指數；更新 commit：26fd6dd4eb8f950309a5637c8314d6cef9174c78；新 blob SHA：5232deaff06842b78889072306f28f93fe476bf8。
+- 後續所有摘要、情緒、盤面觀察及相關評論必須同步以7,307.49／-0.45%為基礎；不得混用其他供應商的SPX數字。此決策僅適用本次TAC資料口徑，不代表其他指數一律改用相同市場類型。
