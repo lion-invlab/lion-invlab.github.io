@@ -83,6 +83,31 @@ class MergeExistingHistoryTests(unittest.TestCase):
             self.assertIsNone(sp["observations"][0]["retrieved_at"])
             self.assertEqual(sp["observations"][-1]["source_name"],"Yahoo Finance ^SPX cash index")
 
+    def test_merges_against_real_existing_1927_to_2026_baseline(self):
+        baseline_path = Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json")
+        if not baseline_path.is_file():
+            self.skipTest("Existing historical compact baseline is not present in this checkout")
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            inc=root/"daily.jsonl"
+            compact_out=root/"merged.json"
+            prov_out=root/"merged.provenance.json"
+            inc.write_text(json.dumps(record("2026-11-17",7340.53))+"\n")
+            result=merge(baseline_path,inc,compact_out,prov_out)
+            baseline=json.loads(baseline_path.read_text())
+            merged=json.loads(compact_out.read_text())
+            provenance=json.loads(prov_out.read_text())
+            rows=decode_sp500(merged)
+            self.assertEqual(result["baseline_rows"],baseline["rows"])
+            self.assertEqual(result["incremental_rows"],1)
+            self.assertEqual(rows[0]["date"],"1927-12-30")
+            self.assertEqual(rows[-2]["date"],"2026-11-10")
+            self.assertEqual(rows[-1]["date"],"2026-11-17")
+            self.assertEqual(rows[-1]["value"],7340.53)
+            self.assertEqual(provenance["historical_baseline"]["source_details"],baseline["source_details"])
+            self.assertEqual(provenance["historical_baseline"]["start"],"1927-12-30")
+            self.assertEqual(provenance["historical_baseline"]["end"],"2026-11-10")
+
     def test_rejects_incremental_overlap_with_baseline(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); baseline=root/"baseline.json"; inc=root/"daily.jsonl"
