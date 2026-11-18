@@ -1851,3 +1851,55 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - MOVE：fixture／QA sidecar 使用 11/16 使用者提供截圖 101.28（+2.52%）；目前 main／simulation preview 後續改成 11/17 103.97（+2.66%），來源標示 Jooking 第三方歷史報價。該來源不在 D3 指定來源順位（Investing.com HK → TradingView → Yahoo Finance → CNBC → EODData），且新值未回填 fixture／QA seal，應退回待核實，不得視為已核實 11/17 MOVE。
 - SOX：fixture 主表及 override 仍含 Investing.com HK 11/17 close 9,550.60；main preview 的 OHLC／關鍵價位又使用 close 9,482.63 並計算五層價位；最新 simulation preview 則已將 SOX 關鍵價位設為待核實。三處狀態／數值不一致，需先裁決後同步所有引用欄位。
 - 新聞、MOVE、SOX 均屬當前 preview 的內容 Gate 缺口；不得以 run 44196490498 的 SUCCESS 或其舊 sidecar QA_PASSED 覆蓋這些後續修改。
+
+
+---
+
+## 2026-11-19 早報人工接手狀態｜SIM-1.3 / WR v5.16
+
+### 最終狀態
+- **審核版：未產出。** 不得把任何 GitHub Actions 診斷 HTML 當作正式審核版。
+- 報告日期：2026-11-19；行情基準日：2026-11-18；截稿時間：2026-11-19 05:25 Asia/Taipei。
+- 使用者於本對話要求人工接手；既有早報排程顯示 `status=in_progress`、`chat_ref=null`，未確認成功喚醒對話。
+- main `index.html` 未修改；main `preview/2026-11-19.html` 不存在；未發布正式首頁。
+- main HEAD：`50eaa...`；main index.html SHA：`f0c52a...`（本輪只讀核對）。
+
+### 本輪規範與基準
+- main `TAC_WORK_RULES.md`：v5.16，SHA `6f73...`。
+- simulation `TAC_WORK_RULES_SIM.md`：SIM-1.3，SHA `582bee...`。
+- mother manifest SHA `dc6090...`；weekday mother SHA `f010ff...`；mother QA contract SHA `824c...`。
+- main W47 calendar SHA `8e33...`，更新時間 2026-11-19 04:34 Asia/Taipei。
+- **硬性執行限制：** SIM-1.3 A1-補充要求 ChatGPT 直接填入核准母版，不得以 Snapshot、Collector、Assembler、Renderer 或 Orchestrator 代替直接填版；D2-補充禁止呼叫 repo 行情 collector。此輪已確認目前執行環境無法把 GitHub 337KB 母版完整掛載至可用 DOM 編輯環境；container 無外網，functions 執行環境沒有 DOMParser。故不得改用字串替換或既有 builder 充當 DOM 填版。此為本輪未產出審核版的直接阻塞。
+
+### 44 項行情直讀核對（2026-11-18；SOX 有來源衝突）
+- **全球指數 17 項：** Dow 50,197.78（-1.11%）；S&P 500 7,323.52（-0.23%）；Nasdaq Composite 24,429.89（+0.42%）；Russell 2000 2,716.22（+0.53%）；Hang Seng 23,294.75（-0.91%）；Shanghai 3,587.83（+0.09%）；Shenzhen 10,659.41（+0.20%）；Nikkei 59,024.28（+0.28%）；KOSPI 5,067.44（+1.99%）；TWSE 40,194.91（+0.26%）；STI 5,054.89（-1.06%）；ASX 200 8,821.80（-0.69%）；FTSE 100 10,548.21（-1.33%）；DAX 25,729.05（-1.21%）；CAC 40 8,146.83（-0.85%）；STOXX 600 644.04（-1.03%）。
+- **SOX 衝突：** Investing.com HK 歷史頁為 9,652.8（+0.10%）；Nasdaq 官方歷史頁為 9,637.76（-0.05%）。官方頁其他區塊亦出現不同快照。未強行選值，待交叉核實；SOX 不得當作已定稿。
+- **S&P 11 產業 ETF：** XLE -3.27%；XLF -1.12%；XLK +0.34%；XLI -0.05%；XLC +0.30%；XLB -0.75%；XLU +0.30%；XLRE +0.07%；XLY +1.79%；XLP -0.31%；XLV -2.20%。全部直讀 Investing.com 歷史頁，資料日 11/18。產業輪動不是全面防禦：非必需消費領先，能源及醫療保健落後。
+- **美債 3 項：** 美國財政部 11/18 Daily Treasury Par Yield：2Y 4.80%、10Y 5.07%、30Y 5.41%。
+- **匯率 6 項：** DXY 103.82（+0.32%）；USD/TWD 32.968（+0.16%）；EUR/USD 1.0974（-0.23%）；GBP/USD 1.3148（-0.46%）；AUD/USD 0.6713（-0.31%）；USD/JPY 159.37（約持平）。
+- **能源 2 項：** WTI CLc2／Jan 2027 活躍合約 82.02（-3.11%，11/18，Investing.com 歷史頁，成交量 237.58K）；Brent Jan 2027 LCOF7 91.72（-1.52%，11/18，成交量 256.65K）。
+- **貴金屬 2 項：** COMEX Gold Dec 2026 GCZ6 3,726.30（-3.57%）；COMEX Silver Dec 2026 SIZ6 44.975（-5.03%）。
+- **風險指標 3 項：** VIX 24.56（-3.53%，11/18）；MOVE 101.88（+0.59%，最新可核實日 11/17，11/18 無列）；CNN Fear & Greed 25（Fear，11/18，CNN 原頁無法讀取，採 FGScore 備援）。
+- FedWatch（非 44 項）：12/09 會議，升息 25bp 機率 93.9%、升息 50bp 6.1%；Investing.com 頁面更新 11/18 16:25 EST，即台灣時間 11/19 05:25，正好截稿時點。CME FedWatch 頁面已開啟，但其嵌入表格未能由文字頁面獨立讀取。
+
+### 盤面分析草稿（非審核版）
+- AI 需求仍強，但市場不再只看訂單與營收；NVIDIA Q3 FY2027 營收 USD115.8bn、GAAP diluted EPS USD2.70、Data Center USD107.6bn，Q4 營收指引 USD130bn ±3%，股價當日下跌約 2.9%，反映估值、資本回報及治理風險已被重新定價。
+- 美股指數與產業表現分歧；非必需消費、科技、公用事業、通訊及房地產 ETF 上漲，能源、醫療保健及金融偏弱。不能簡化為全面 risk-off 或全面 AI rally。
+- 長天期美債殖利率回落；美元偏強；油價與金銀明顯下跌。VIX 下行但 CNN Fear & Greed 仍處 Fear、MOVE 略升，情緒訊號不一致，判讀為謹慎而非恐慌。
+- FOMC 紀要討論 AI 債務、複雜融資及避險基金槓桿風險；Waller 提出 12 月升息 50bp 為個人主張，市場期貨仍主要定價升息 25bp。
+- 操作方向草稿：短線中性偏防禦，不追逐財報後急漲 AI 標的；優先檢查訂單能見度、毛利率、自由現金流、資本支出回收及融資槓桿。
+
+### W47 行事曆與財報
+- W47：經濟事件 25（已公布 15、未來 9）；財報事件 23（已公布 13、未來 10）；calendar coverage 仍 incomplete，僅唯讀，未修補 DB。
+- 13 家已公布財報均有實際 EPS／營收欄位；公告前 LSEG、FactSet 無本輪可用授權連線，Investing.com 共識缺少必要的 data_as_of、period、幣別／單位及 GAAP/Adjusted basis 等欄位，21 個 snapshot 均為 pending_required_fields，**沒有任何 accepted consensus**。因此不得產生 Beat／Miss／Inline 判斷。
+- 13 筆已公布財報的股價反應欄仍為 null；不得引用被禁止的 repo collector 產生股價反應。
+
+### 新聞候選（截稿窗口 11/18 12:00–11/19 05:25）
+- 已直讀：Cnyes Fed 會議紀要（11/19 03:15）；Cnyes 日本央行植田談話（11/18 15:50）；Investing.com HK 亞洲收市（17:42）；Investing.com HK Waller 升息談話（21:05）；Cnyes 美股盤前／AI 與 Fed 議題（21:00）。
+- Cnyes 核心零售銷售頁面本輪直接開啟失敗，不列入已核實焦點新聞；可保留為待查候選，不得當成已讀原文。
+
+### 診斷誤用與清理
+- 本輪曾在 simulation branch 觸發 4 次 GitHub Actions 診斷（run IDs：44405550642、44405733686、44405994656、44406269121），曾使用 repo Assembler／Renderer／Collector；依 SIM-1.3 不合規，全部結果只作錯誤定位，不作交付或資料依據。
+- 已刪除本輪新增的 `simulation-lab/fixtures/report-data-2026-11-19.json`、simulation branch `preview/2026-11-19-simulation.html` 及 QA sidecar；不留作正式結果。
+- main `index.html`、main preview、W47 calendar DB 均未修改。
+- **下一步阻塞：** 需提供可將核准母版完整掛載到真正 DOM 編輯環境、並可將 DOM 結果直接寫入 GitHub main `preview/2026-11-19.html` 的檔案橋接。未具備前，不得改用 Builder/Renderer 或宣稱審核版完成。
