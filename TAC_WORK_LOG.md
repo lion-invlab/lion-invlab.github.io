@@ -1405,3 +1405,12 @@
 ### 尚未完成
 - 上述十則已完成原始文章／公告直讀及時間窗核對，屬新聞候選重篩成果，尚未寫回HTML。
 - 目前 simulation preview/2026-11-19-simulation.html（SHA fc9278f08fb9ca844b079dead08c0d3deff0b94e）仍含舊版行情型熱門頭條及焦點新聞重複；未修改該HTML。需先在合規DOM編輯環境中直接修改核准母版既有節點，再回讀同一檔案並執行QA。review_ready仍為false。
+
+
+
+## 2026-11-19 07:12｜Global Focus News 再核對
+- 原 global-focus 第3則「歐洲／英國公債殖利率維持高位」是市場價格敘述，不符合焦點新聞的事件新增資訊標準；第5則 BoE 2027年中通膨展望與英國CPI主題重疊，應移除或改選。
+- 重篩後的五則宏觀焦點方向：① Waller個人升息風險表態（鉅亨網原文發布 11/18 21:32 台北；必須明確註明個人意見）；② 英國10月CPI（ONS 11/18 07:00 GMT＝15:00台北，CPI 3.6%、核心2.8%）；③ FOMC 10/27–28會議紀要（Fed官方 11/18 14:00 EST＝11/19 03:00台北，10–2維持3.75%–4.00%，兩位委員偏好升息25bp；並討論AI融資、非銀行金融槓桿風險）；④ 美國10月新屋開工／建築許可（Census 11/18 08:30 EST＝21:30台北，開工+9.9%至1.309M，但許可-7.4%至1.295M，前瞻需求仍弱）；⑤ EIA週報（11/18 10:30 EST＝23:30台北，原油庫存+3.38M、汽油+5.193M、蒸餾油+1.571M，均高於市場預期；以庫存供需事件表述，不在熱門頭條重複）。
+- Eurostat 10月HICP官方頁確認歐元區年增4.0%、能源年增21.0%，但本輪未能從Eurostat新聞稿本身確認原始時分；不得沿用第三方時間當成官方原始時間，先不列入本輪五則焦點。
+- 原文：ONS https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2026；Fed https://www.federalreserve.gov/newsevents/pressreleases/monetary20261118a.htm；Census https://www.census.gov/construction/nrc/current/；EIA https://www.eia.gov/petroleum/supply/weekly/；鉅亨Waller https://news.cnyes.com/news/id/6666614。
+- 此為新聞篩選與來源查核紀錄，尚未寫回HTML；舊preview仍不得交付。
