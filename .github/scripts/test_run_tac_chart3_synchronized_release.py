@@ -2,6 +2,7 @@
 import base64, datetime as dt, json, tempfile, unittest, zlib
 from pathlib import Path
 from run_tac_chart3_synchronized_release import run, DEFAULT_SP500_COMPACT, DEFAULT_SP500_PROVENANCE
+from prepare_sp500_research_import import convert
 
 def varint(n):
     out=bytearray()
@@ -42,6 +43,28 @@ class RunnerTests(unittest.TestCase):
         s.write_text(json.dumps(compact([(d,6000) for d in days])))
         p.write_text(json.dumps(prov()))
         return f,s,p
+    def test_investing_csv_import_to_atomic_release_end_to_end(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            csv_path=root/"investing_sp500.csv"
+            csv_path.write_text(
+                'Date,Price\\n"Nov 12, 2026","6,700.25"\\n"Nov 13, 2026","6,720.50"\\n',
+                encoding="utf-8")
+            compact_path=root/"sp500.compact.json"
+            provenance_path=root/"sp500.provenance.json"
+            convert(csv_path,compact_path,provenance_path,
+                    "https://www.investing.com/indices/us-spx-500-historical-data",
+                    "2026-11-18T12:00:00+00:00")
+            fred_path=root/"fred.json"
+            fred_path.write_text(json.dumps(fred(["2026-11-12","2026-11-13"])))
+            rc=run(fred_path,compact_path,provenance_path,root/"release",root/"status")
+            self.assertEqual(rc,0)
+            manifest=json.loads((root/"release"/"active_manifest.json").read_text())
+            self.assertEqual(manifest["common_observation_date"],"2026-11-13")
+            snapshot=json.loads((root/"release"/manifest["snapshot_file"]).read_text())
+            self.assertEqual(snapshot["common_observation_date"],"2026-11-13")
+            self.assertEqual(snapshot["source_provenance"]["sp500"]["method"],"manual_csv_export_import")
+
     def test_missing_sp500_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); f=root/"fred.json"; f.write_text(json.dumps(fred(["2026-11-13"])))
