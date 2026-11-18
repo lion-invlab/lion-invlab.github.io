@@ -31,7 +31,7 @@ def fred(dates):
 
 def provenance():
     return {"source_url":"https://www.investing.com/indices/us-spx-500-historical-data",
-            "retrieved_at":"2026-11-18T00:00:00+00:00","source_sha256":"test-source-hash","method":"validated historical table parser"}
+            "retrieved_at":"2026-11-18T00:00:00+00:00","source_sha256":"test-source-hash","method":"licensed data feed","authorization_reference":"fixture-only-test-authorization"}
 
 class SynchronizedReleaseTests(unittest.TestCase):
     def test_publishes_latest_exact_common_date(self):
