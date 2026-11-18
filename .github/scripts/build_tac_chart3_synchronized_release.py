@@ -50,7 +50,7 @@ def decode_sp500(compact: dict):
         raise ValueError("S&P 500 compact date boundaries mismatch")
     return rows
 
-def validate_sp500_provenance(provenance: dict):
+def validate_sp500_provenance(provenance: dict, compact: dict):
     source_url = provenance.get("source_url", "")
     parsed = urlparse(source_url)
     host = (parsed.hostname or "").lower()
@@ -60,6 +60,8 @@ def validate_sp500_provenance(provenance: dict):
         raise ValueError("S&P 500 provenance requires retrieved_at and source_sha256")
     if not provenance.get("method"):
         raise ValueError("S&P 500 provenance requires a retrieval method")
+    if provenance.get("source_sha256") != compact.get("source_dataset_sha256"):
+        raise ValueError("S&P 500 provenance source_sha256 does not match the compact dataset source hash")
     return {
         "source": "Investing.com",
         "source_url": source_url,
@@ -101,7 +103,7 @@ def load_fred_series(dataset: dict):
     return result
 
 def build_candidate(fred_dataset: dict, sp500_compact: dict, sp500_provenance: dict):
-    provenance = validate_sp500_provenance(sp500_provenance)
+    provenance = validate_sp500_provenance(sp500_provenance, sp500_compact)
     fred = load_fred_series(fred_dataset)
     sp_rows = decode_sp500(sp500_compact)
     sp_values = {x["date"]: x["value"] for x in sp_rows}
