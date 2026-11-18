@@ -41,6 +41,8 @@ class Sp500IncrementTests(unittest.TestCase):
             self.assertEqual(row["observed_at"], "2026-11-18T05:12:44+08:00")
             self.assertEqual(row["retrieved_at"], "2026-11-17T21:12:44+00:00")
             self.assertEqual(row["source_name"], "Investing.com 香港站歷史數據")
+            self.assertIn("現金指數", row["source_note"])
+            self.assertIn("非CFD", row["source_note"])
             self.assertEqual(len(row["record_sha256"]), 64)
             self.assertEqual(len(load_existing(path)[0]), 1)
 
