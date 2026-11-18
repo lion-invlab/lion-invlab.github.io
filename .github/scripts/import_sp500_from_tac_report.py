@@ -16,9 +16,16 @@ from urllib.parse import urlparse
 def canonical(obj):
     return json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
-def build_record(report: dict, retrieved_at: str) -> dict:
+def build_record(report: dict, retrieved_at: str | None = None) -> dict:
+    levels = report.get("key_levels_overrides")
+    if not isinstance(levels, dict) or not isinstance(levels.get("sp500"), dict):
+        raise ValueError("report has no key_levels_overrides.sp500 OHLC record")
+    item = levels["sp500"]
+    captured_at = retrieved_at or item.get("retrieved_at")
+    if not captured_at:
+        raise ValueError("exact S&P 500 retrieved_at is required; report cutoff is not a substitute")
     try:
-        stamp = dt.datetime.fromisoformat(retrieved_at.replace("Z", "+00:00"))
+        stamp = dt.datetime.fromisoformat(captured_at.replace("Z", "+00:00"))
     except Exception as exc:
         raise ValueError("retrieved_at must be an ISO-8601 timestamp with timezone") from exc
     if stamp.tzinfo is None:
@@ -30,10 +37,6 @@ def build_record(report: dict, retrieved_at: str) -> dict:
         dt.date.fromisoformat(str(trading_date))
     except Exception as exc:
         raise ValueError("report_date and trading_date must be ISO dates") from exc
-    levels = report.get("key_levels_overrides")
-    if not isinstance(levels, dict) or not isinstance(levels.get("sp500"), dict):
-        raise ValueError("report has no key_levels_overrides.sp500 OHLC record")
-    item = levels["sp500"]
     if item.get("trading_date") != trading_date:
         raise ValueError("S&P 500 OHLC trading_date does not match report trading_date")
     source_name = str(item.get("source_name") or "").strip()
@@ -110,7 +113,7 @@ def append_record(path: Path, record: dict) -> str:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--report-data", type=Path, required=True)
-    parser.add_argument("--retrieved-at", required=True, help="ISO-8601 timestamp including timezone")
+    parser.add_argument("--retrieved-at", help="Exact ISO-8601 source retrieval timestamp; otherwise read key_levels_overrides.sp500.retrieved_at")
     parser.add_argument("--output", type=Path, default=Path("data/tac-chart3/sp500_tac_report_ohlc.jsonl"))
     args = parser.parse_args()
     report = json.loads(args.report_data.read_text(encoding="utf-8"))
