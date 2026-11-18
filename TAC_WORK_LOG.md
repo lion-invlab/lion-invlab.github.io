@@ -1455,3 +1455,9 @@
 - XLU Investing.com香港站可見列亦只到11/17（43.42、-1.59%），11/18列未出現；未採用頁首報價。來源：https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data。
 - MOVE：尚未找到TradingView可讀取的帶日期11/18歷史列；Investing.com第一順位仍停11/17。依規則不將未核實備援值寫入。
 - 此輪未更動fixture及HTML；正在擴展至其餘行情逐項核對。
+
+
+## 2026-11-19｜11/18 S&P 11產業ETF已更正8檔
+- 依Investing.com歷史頁逐檔核對並更新 fixture：XLE 61.29/-3.27%；XLF 56.52/-0.96%；XLK 163.43/+0.10%；XLI 164.90/+0.09%；XLB 50.44/-0.80%；XLP 91.29/-0.19%；XLV 182.34/-1.57%；XLRE 43.67/+0.18%。原fixture中7檔漲跌幅錯誤，已修正；XLRE由錯誤搜尋市場頁改為正確Investing.com歷史資料頁。
+- XLC、XLU香港站目前頁面可見資料仍停11/17，兩檔尚未寫入更新值；保留原始欄位但明確列為未完成，不能視為已驗收。
+- 更新 fixture commit `85d5376d35e5c1b69479ae7cac7e290f7be31e84`，blob SHA `cf1f59c2b83e2b5d07d8a0167ae19baf01835c4d`。僅simulation branch。
