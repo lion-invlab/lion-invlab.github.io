@@ -1978,3 +1978,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已更正8檔Investing.com歷史資料：XLE -3.27%、XLF -0.96%、XLK +0.10%、XLI +0.09%、XLB -0.80%、XLP -0.19%、XLV -1.57%、XLRE +0.18%；各檔收盤及來源已寫入sector_sources供稽核。
 - XLC、XLU尚無Investing.com香港站11/18日期列，不得沿用舊百分比作為已核實結果。
 - Fixture新blob SHA `cf1f59c2b83e2b5d07d8a0167ae19baf01835c4d`。繼續查剩餘行情。
+
+
+### 2026-11-19｜S&P 11產業ETF補齊
+- XLC改採Investing.com Canada 11/18歷史列105.58/+0.30%（香港站缺列）；XLU採StockAnalysis 11/18列43.52/+0.23%（Investing.com兩站未提供當日列），均已寫入fixture並標明備援。
+- XLY仍需補Investing.com 11/18日期列直接證據；11檔整體尚未完全驗收。
+- Fixture blob SHA `a5e5b98f85cf0b8e61352aa540473bf4ab1d3ed0`。
