@@ -11,6 +11,8 @@ on:
       - ".github/scripts/test_run_tac_chart3_synchronized_release.py"
       - ".github/scripts/prepare_sp500_research_import.py"
       - ".github/scripts/test_prepare_sp500_research_import.py"
+      - ".github/scripts/import_sp500_from_tac_report.py"
+      - ".github/scripts/test_import_sp500_from_tac_report.py"
       - ".github/workflows/chart3-synchronized-release-qa.yml"
   workflow_dispatch:
 
@@ -35,3 +37,4 @@ jobs:
           python .github/scripts/test_tac_chart3_synchronized_release.py
           python .github/scripts/test_prepare_sp500_research_import.py
           python .github/scripts/test_run_tac_chart3_synchronized_release.py
+          python .github/scripts/test_import_sp500_from_tac_report.py
