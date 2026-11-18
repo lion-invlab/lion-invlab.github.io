@@ -60,6 +60,8 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
         raise ValueError("S&P 500 provenance requires retrieved_at and source_sha256")
     if not provenance.get("method"):
         raise ValueError("S&P 500 provenance requires a retrieval method")
+    if not provenance.get("authorization_reference"):
+        raise ValueError("Automated use/storage of Investing.com data requires a written authorization reference")
     if provenance.get("source_sha256") != compact.get("source_dataset_sha256"):
         raise ValueError("S&P 500 provenance source_sha256 does not match the compact dataset source hash")
     return {
@@ -68,6 +70,7 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
         "retrieved_at": provenance["retrieved_at"],
         "source_sha256": provenance["source_sha256"],
         "method": provenance["method"],
+        "authorization_reference": provenance["authorization_reference"],
         "source_observation_date": provenance.get("source_observation_date"),
     }
 
