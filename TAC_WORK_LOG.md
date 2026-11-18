@@ -1484,3 +1484,9 @@
 - 能源及貴金屬：Investing.com HK歷史列確認WTI Jan-2027 CFD參考81.89/-3.26%；Brent Jan-2027 CFD參考91.79/-1.45%；COMEX GCZ6 3,727.80/-3.53%；COMEX SIZ6 44.975/-5.03%，fixture一致。
 - MOVE：Investing.com HK/Global/China頁面均只有11/17 101.88/+0.59%，11/18日期列缺失。TradingView本輪未取得日期列；Yahoo Finance結果亦只到11/17且顯示不同供應商值。第三方頁顯示11/18 98.15或98.5，但不在規定備援順位，故不採用。保持11/17日期標籤，不得冒充11/18。
 - 直接開啟的Investing.com歷史頁及日期列已於本輪web核對；Dow/Nasdaq及三項FX修正已寫入fixture，最新blob SHA `${f.result.sha}`。
+
+
+### 全球指數第二批修正
+- Russell 2000：Investing.com 11/18歷史列為 **2,725.23（+0.86%）**，原fixture 2,714.31（+0.46%）錯誤，已更正。來源：https://www.investing.com/indices/smallcap-2000-historical-data。
+- Hang Seng：Investing.com HK 11/18歷史列確認23,294.75（-0.91%），原fixture數字正確，已補上明確來源與日期 metadata。
+- Dow/Nasdaq與三組FX修正已於前一輪寫入；本次fixture最新blob SHA `d0d8c9e15b77b53468cdf3298dedb7a936e3f808`。
