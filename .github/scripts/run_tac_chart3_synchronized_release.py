@@ -29,6 +29,12 @@ def run(fred_dataset: Path, sp500_compact: Path, sp500_provenance: Path,
                          manifest=str(manifest_path),snapshot_file=str(previous_snapshot),
                          published=False,last_good_preserved=True)
             return 2
+        import hashlib
+        expected_hash=previous_manifest.get("snapshot_sha256")
+        if not expected_hash or hashlib.sha256(previous_snapshot.read_bytes()).hexdigest()!=expected_hash:
+            write_status(status_path,"BLOCKED_LAST_GOOD_HASH_MISMATCH",snapshot_file=str(previous_snapshot),
+                         published=False,last_good_preserved=True)
+            return 2
 
     try:
         candidate=build_candidate(
