@@ -51,11 +51,58 @@ def decode_sp500(compact: dict):
     return rows
 
 def validate_sp500_provenance(provenance: dict, compact: dict):
+    if provenance.get("source_sha256") != compact.get("source_dataset_sha256"):
+        raise ValueError("S&P 500 provenance source_sha256 does not match the compact dataset source hash")
+    if provenance.get("observations"):
+        rows = provenance["observations"]
+        by_date = {}
+        for item in rows:
+            day = item.get("date")
+            dt.date.fromisoformat(day)
+            if day in by_date:
+                raise ValueError(f"S&P 500 provenance has duplicate source date {day}")
+            source_url = item.get("source_url", "")
+            parsed = urlparse(source_url)
+            if parsed.scheme != "https" or not parsed.hostname:
+                raise ValueError(f"S&P 500 source URL must be HTTPS for {day}")
+            if not item.get("source_name") or not item.get("retrieval_method") or not item.get("record_sha256"):
+                raise ValueError(f"S&P 500 per-observation provenance is incomplete for {day}")
+            digest = item["record_sha256"]
+            if len(digest) != 64 or any(ch not in "0123456789abcdefABCDEF" for ch in digest):
+                raise ValueError(f"S&P 500 record SHA-256 is invalid for {day}")
+            note = str(item.get("source_note", "")).lower()
+            if not ("現金指數" in note or "cash index" in note):
+                raise ValueError(f"S&P 500 cash-index identity is not explicit for {day}")
+            non_cfd = ("非cfd" in note or "non-cfd" in note or "not cfd" in note or "非差價合約" in note)
+            if (("cfd" in note or "差價合約" in note) and not non_cfd):
+                raise ValueError(f"S&P 500 CFD source is not accepted for {day}")
+            try:
+                stamp = dt.datetime.fromisoformat(item["retrieved_at"].replace("Z", "+00:00"))
+                if stamp.tzinfo is None:
+                    raise ValueError("timezone missing")
+            except (KeyError, TypeError, ValueError):
+                raise ValueError(f"S&P 500 retrieved_at must be timezone-aware ISO-8601 for {day}")
+            by_date[day] = {
+                "source_name": item["source_name"], "source_url": source_url,
+                "source_note": item.get("source_note", ""),
+                "retrieved_at": item["retrieved_at"],
+                "retrieval_method": item["retrieval_method"],
+                "record_sha256": digest,
+            }
+        if not by_date:
+            raise ValueError("S&P 500 per-observation provenance is empty")
+        return {
+            "source": "TAC daily report D4; actual source retained per observation",
+            "source_sha256": provenance["source_sha256"],
+            "method": provenance.get("method", "tac_daily_report_verified_ohlc_jsonl"),
+            "source_observations": by_date,
+        }
+
     source_url = provenance.get("source_url", "")
     parsed = urlparse(source_url)
     host = (parsed.hostname or "").lower()
     if host != "investing.com" and not host.endswith(".investing.com"):
-        raise ValueError("S&P 500 source must be an Investing.com URL; current source provenance is not accepted")
+        raise ValueError("Legacy S&P 500 dataset source must be an Investing.com URL")
     if parsed.scheme != "https":
         raise ValueError("S&P 500 source URL must use HTTPS")
     if not provenance.get("retrieved_at") or not provenance.get("source_sha256"):
@@ -69,14 +116,10 @@ def validate_sp500_provenance(provenance: dict, compact: dict):
         raise ValueError("S&P 500 source_sha256 must be a 64-character SHA-256 hex digest")
     if not provenance.get("method"):
         raise ValueError("S&P 500 provenance requires a retrieval method")
-    if provenance.get("source_sha256") != compact.get("source_dataset_sha256"):
-        raise ValueError("S&P 500 provenance source_sha256 does not match the compact dataset source hash")
     return {
-        "source": "Investing.com",
-        "source_url": source_url,
+        "source": "Investing.com", "source_url": source_url,
         "retrieved_at": provenance["retrieved_at"],
-        "source_sha256": provenance["source_sha256"],
-        "method": provenance["method"],
+        "source_sha256": digest, "method": provenance["method"],
         "source_observation_date": provenance.get("source_observation_date"),
     }
 
@@ -147,15 +190,31 @@ def build_candidate(fred_dataset: dict, sp500_compact: dict, sp500_provenance: d
             "alignment": "native_observations_only_no_forward_fill_no_interpolation",
         })
     sp_native = [x for x in sp_rows if x["date"] <= common_date]
+    if provenance.get("source_observations"):
+        for observation in sp_native:
+            source_meta = provenance["source_observations"].get(observation["date"])
+            if source_meta is None:
+                raise ValueError(f"S&P 500 observation lacks per-date provenance: {observation['date']}")
+            observation.update(source_meta)
+        sp_source_label = provenance["source"]
+        sp_source_fields = {
+            "source_sha256": provenance["source_sha256"],
+            "source_provenance_mode": "per_observation",
+        }
+    else:
+        sp_source_label = provenance["source"]
+        sp_source_fields = {
+            "source_url": provenance["source_url"],
+            "source_sha256": provenance["source_sha256"],
+            "retrieved_at": provenance["retrieved_at"],
+        }
     series.append({
         "series_id": SP500_ID,
         "label": "S&P 500",
         "frequency": "daily",
         "unit": "index points",
-        "source": "Investing.com",
-        "source_url": provenance["source_url"],
-        "source_sha256": provenance["source_sha256"],
-        "retrieved_at": provenance["retrieved_at"],
+        "source": sp_source_label,
+        **sp_source_fields,
         "latest_observation_date": sp_rows[-1]["date"],
         "observations": sp_native,
         "alignment": "native_observations_only_no_forward_fill_no_interpolation",
