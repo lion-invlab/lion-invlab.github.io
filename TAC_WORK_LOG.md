@@ -1525,3 +1525,10 @@
 - **行情：** 44項皆有來源與日期，43項為11/18、MOVE保留11/17 101.88（+0.59%）；XLU使用StockAnalysis備援，其他10檔ETF採Investing.com HK／Canada。S&P 500採使用者指定Investing.com 7,307.49/-0.45%。
 - **新聞：** 5則焦點新聞來源符合SIM-1.3白名單；10則熱門頭條均為事件型新聞，不以指數漲跌或VIX當新聞。
 - **保護：** 僅simulation branch寫入。未修改main/index.html、正式母版或main W47 JSON；未部署正式首頁。W47 coverage incomplete、MOVE 11/18缺列、FactSet 11/13快照及XLU備援均如實揭露。
+
+
+### 最終稽核發現：關鍵價位隱藏OHLC曾與主行情來源不一致，已修正
+- 對已QA_PASSED HTML做最後全文掃描，發現關鍵價位收折來源區仍殘留Yahoo S&P 500收盤7,323.63，與使用者指定Investing.com 7,307.49不一致；Russell 2000 key-level collector的^RUT數值亦與市場主卡資料不一致。
+- 已依SIM-1.3修正來源分工：S&P 500主行情及關鍵價位OHLC均採Investing.com 11/18列（O 7,355.69/H 7,367.11/L 7,301.61/C 7,307.49）；Russell 2000必須用^RUT現貨，不可用Investing.com CFD，改採Yahoo Finance 11/18日線（O 2,698.91/H 2,727.56/L 2,697.71/C 2,722.10，日漲+0.75%）。
+- 已寫入 `key_levels_overrides` 同日OHLC及來源，並同步修正Russell 2000主行情、總結、觀察及市場評論；fixture commit `c1614707330c163a6c5333e37583bc731ec16a26`，blob SHA `a9324bff1a17a1a1efdd5d48865c5f53c71f521e`。
+- 此修正觸發第五輪完整build。先前QA_PASSED版已作廢，不交付；須以新fixture完成重跑及回讀驗收。
