@@ -1414,3 +1414,14 @@
 - Eurostat 10月HICP官方頁確認歐元區年增4.0%、能源年增21.0%，但本輪未能從Eurostat新聞稿本身確認原始時分；不得沿用第三方時間當成官方原始時間，先不列入本輪五則焦點。
 - 原文：ONS https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/october2026；Fed https://www.federalreserve.gov/newsevents/pressreleases/monetary20261118a.htm；Census https://www.census.gov/construction/nrc/current/；EIA https://www.eia.gov/petroleum/supply/weekly/；鉅亨Waller https://news.cnyes.com/news/id/6666614。
 - 此為新聞篩選與來源查核紀錄，尚未寫回HTML；舊preview仍不得交付。
+
+
+
+## 2026-11-19｜44項行情快速盤點與重大衝突（本輪查核）
+- fixture 目前有44個項目：17個全球指數、11個S&P產業ETF、3個美債殖利率、6個匯率／美元指數、2個能源、2個貴金屬、3個風險情緒指標。此為「欄位存在數」，不等於44項均已完成SIM-1.3來源查核。
+- 重要錯誤：標普500 11/18現金指數收盤存在重大衝突。fixture/AP記錄7,323.63（-0.23%）；Investing.com香港站歷史頁顯示7,307.49（-0.45%）；Investing.com美國頁顯示7,323.52（-0.23%）；Yahoo Finance歷史頁顯示7,316.93。不可將不同報價口徑混用，亦不可沿用fixture的AP值而不核對。來源：Investing HK https://www.investing.com/indices/us-spx-500-historical-data?cid=40826；Investing US https://www.investing.com/indices/us-spx-500-historical-data；Yahoo https://finance.yahoo.com/quote/%5EGSPC/history/；AP現金指數 https://apnews.com/article/990749d3d269f7ef05b9f6c089713a58。Reuters當日市場綜述報S&P 500 -0.07%，與以上部分資料亦不一致，須先確認報價產品及收盤時點。
+- 風險指標明確缺口：MOVE只有11/17收盤101.88，不能當成11/18最新；CNN Fear & Greed fixture使用FGScore備援25（11/18），CNN官方頁與端點尚未成功讀取；VIX fixture 24.56但原HTML熱門頭條另寫25.33，屬內部資料矛盾，舊頭條已應剔除。
+- S&P 11產業ETF在fixture只有漲跌幅字串，未附每檔資料日期、收盤值、來源URL、查核時間及原始歷史列證據；依SIM-1.3不能視為完成核實。
+- 其餘市場項目雖多數fixture標示2026-11-18及Investing.com HK歷史頁，但僅metadata不足以證明已實際開啟對應歷史頁並逐列讀值；本輪不能將其宣告為已核實。
+- 結論：44/44欄位存在；目前已可確認至少上述4組風險／證據缺口（SPX報價衝突、MOVE日期落後、CNN僅備援、11ETF缺逐檔來源日期）。44項全量查核仍未通過，任何衝突數值維持待核實，不得寫成確定值。
+- Reuters當日市場綜述可作盤面背景，不能取代各市場正式歷史收盤： https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-18/
