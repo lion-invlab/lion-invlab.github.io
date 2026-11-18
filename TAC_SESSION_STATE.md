@@ -2022,3 +2022,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 第二輪組裝成功，互動 smoke test因焦點新聞來源域名不符合SIM-1.3白名單（只接受Investing.com HK／鉅亨網）失敗。
 - 五則焦點來源已改為：鉅亨Waller、Investing英國CPI、鉅亨FOMC紀要、Investing美國住宅開工、Investing EIA原油庫存；不放寬測試白名單。
 - 最新fixture blob SHA `1a5c89edd83b4ee2658fe2464819bb0ec8d377ec`；第三輪build已觸發。
+
+
+### 2026-11-19｜母版觀察標題恢復
+- 第三輪HTML組裝與互動 smoke test均成功；視覺回歸在所有五種視窗因今日觀察固定標題被改寫而失敗。
+- 已恢復 `core_observation.heading` 為母版契約固定文字「本週三大觀察焦點」，未改母版及CSS。
+- 最新fixture blob SHA `609aa10c331be251332e4a5060c36b87f1902080`；第四輪Actions run `44422217535`已排隊。
