@@ -370,36 +370,36 @@
       }
     },
     "英鎊／美元": {
-      "display": "1.3148",
-      "change_display": "-0.46%",
+      "display": "1.3152",
+      "change_display": "-0.43%",
       "source": {
-        "name": "Investing.com HK｜GBP/USD歷史資料",
+        "name": "Investing.com HK｜英鎊／美元歷史資料",
         "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "spot_daily_close",
-        "note": "Investing.com香港站歷史列2026-11-18：收市1.3148，-0.46%。"
+        "note": "Investing.com香港站2026-11-18歷史列：收市1.3152，跌0.43%。"
       }
     },
     "澳幣／美元": {
-      "display": "0.6714",
-      "change_display": "-0.30%",
+      "display": "0.6713",
+      "change_display": "-0.31%",
       "source": {
-        "name": "Investing.com HK｜AUD/USD歷史資料",
+        "name": "Investing.com HK｜澳幣／美元歷史資料",
         "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "spot_daily_close",
-        "note": "Investing.com香港站歷史列2026-11-18：收市0.6714，-0.30%。"
+        "note": "Investing.com香港站2026-11-18歷史列：收市0.6713，跌0.31%。"
       }
     },
     "美元／日圓": {
-      "display": "159.35",
-      "change_display": "-0.01%",
+      "display": "159.34",
+      "change_display": "-0.02%",
       "source": {
-        "name": "Investing.com HK｜USD/JPY歷史資料",
+        "name": "Investing.com HK｜美元／日圓歷史資料",
         "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "spot_daily_close",
-        "note": "Investing.com香港站歷史列2026-11-18：收市159.35，-0.01%。"
+        "note": "Investing.com香港站2026-11-18歷史列：收市159.34，跌0.02%。"
       }
     }
   },
