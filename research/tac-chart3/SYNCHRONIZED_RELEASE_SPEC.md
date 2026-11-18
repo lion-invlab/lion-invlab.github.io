@@ -123,3 +123,22 @@
 8. 快照發布後，圖表五條線均讀取相同 snapshot_id，且顯示共同截止日與各自實際最新日期。
 9. 回溯歷史時保留各來源原始日期、ALFRED vintage 與缺口，不得 forward-fill 或插值。
 10. 桌機、手機視覺 QA 對新 snapshot 通過後，才標記該版本可供正式圖表使用。
+
+
+## 10. Implementation progress (research branch, 2026-11-18)
+
+Research branch: `research/chart3-synchronized-release-20261118`.
+
+Implemented:
+- `.github/scripts/build_tac_chart3_synchronized_release.py`: validates four FRED/ALFRED series plus S&P 500 compact data; decodes and validates compact daily observations; requires Investing.com source URL, retrieval timestamp, method and source hash matching the compact dataset provenance; calculates the exact five-way intersection of non-missing native observation dates; selects the latest common date; builds a single five-series snapshot; writes atomically; refuses to replace an existing release when the common date is not newer.
+- `.github/scripts/test_tac_chart3_synchronized_release.py`: tests successful common-date publication, no-common-date rejection, non-Investing.com source rejection and same/older-date no-op behavior.
+- `.github/workflows/chart3-synchronized-release-qa.yml`: isolated research-branch test workflow.
+
+QA run: [44298889579](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44298889579) — completed successfully.
+
+Not yet implemented:
+- Investing.com S&P 500 daily incremental downloader and its provenance sidecar.
+- End-to-end integration with the existing four-series updater, chart-ready builder, release manifest and browser QA.
+- Production scheduling and any Main deployment.
+
+Safety: this work remains isolated on the research branch. The existing Main data workflow, chart page, homepage and schedules have not been changed. The current S&P 500 compact dataset identifies a non-Investing.com historical source, so the new release builder intentionally rejects it; no new five-series release has been published.
