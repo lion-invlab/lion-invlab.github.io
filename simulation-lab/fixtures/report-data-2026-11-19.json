@@ -296,7 +296,7 @@
     "XLB": "-0.80%",
     "XLU": "+0.23%",
     "XLRE": "+0.18%",
-    "XLY": "+1.79%",
+    "XLY": "+1.73%",
     "XLP": "-0.19%",
     "XLV": "-1.57%"
   },
@@ -646,13 +646,13 @@
       "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。"
     },
     "XLY": {
-      "name": "Investing.com HK｜XLY歷史資料",
-      "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
-      "close": null,
-      "change_display": "+1.79%",
+      "name": "Investing.com Canada｜XLY歷史資料（香港站缺11/18列）",
+      "url": "https://ca.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+      "close": "119.12",
+      "change_display": "+1.73%",
       "data_date": "2026-11-18",
       "quote_type": "ETF_daily_close",
-      "note": "直接開啟Investing.com香港站歷史資料頁，核對2026-11-18收盤列；依TAC規則僅呈現單日漲跌幅，不顯示收盤價。"
+      "note": "Investing.com香港站11/18日期列缺失；採同一供應商加拿大站11/18歷史列，收盤119.12、+1.73%。Investing.com UK頁面同日顯示不同報價，依同供應商地區備援優先採Canada頁，保留差異註記。"
     },
     "XLP": {
       "name": "Investing.com｜XLP歷史資料",
