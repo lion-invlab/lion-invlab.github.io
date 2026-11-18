@@ -1,0 +1,45 @@
+{
+  "status": "QA_PASSED",
+  "review_ready": true,
+  "review_ready_blockers": [],
+  "data_audit": {
+    "quality_note": "行情基準日2026-11-18。44項行情均保留各自可核實資料日期：20項11/18、9項11/17、15項11/16；不以盤中報價冒充收盤。11檔產業ETF僅顯示單日漲跌幅，最新同源完整資料日為11/16。2年期美債採11/17官方日終par yield；10年及30年採Reuters 11/18市場殖利率，已揭露不同報價口徑。WTI Z6與Brent F7保留11/17指定月份期貨結算；黃金GCZ6、白銀SIZ6保留11/16指定月份期貨結算。VIX 11/17、MOVE及CNN Fear & Greed 11/16。FactSet盈餘健康度為11/13統計快照。FedWatch採11/19 04:35台灣時間前可取得之Investing.com快照，12月升息25bp 93.9%、50bp 6.1%；相較前一週分別變動+3.1及-3.1個百分點。",
+    "warning_note": "W47行事曆於11/19 04:34更新，25筆經濟事件、23筆財報事件，coverage仍為incomplete；早報僅唯讀。44項行情資料日分布：20項為11/18、9項為11/17、15項為11/16；費半11/18僅有方向描述而無可核實收盤點位，保留Investing.com HK 11/17歷史列。FactSet盈餘健康度統計日為11/13。",
+    "pending_items": [
+      "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補行事曆資料庫。",
+      "費半11/18 Reuters未提供可核實收盤點位，主表保留Investing.com HK 11/17歷史列。",
+      "11檔產業ETF最新可核實同源完整資料日為11/16，畫面保留資料日期。",
+      "2年期美債採11/17官方日終par yield；10年與30年採Reuters 11/18市場殖利率，報價口徑不同並已註明。",
+      "USD/TWD、GBP/USD、AUD/USD及USD/JPY最新可核實歷史收盤為11/17；DXY與EUR/USD已更新至11/18。",
+      "WTI Z6與Brent F7最新可核實指定合約結算為11/17；11/18 Reuters現貨/期貨報導未在同一證據中確認指定月份，未混入主表。",
+      "黃金GCZ6與白銀SIZ6最新可核實指定合約結算為11/16；Reuters 11/18現貨報價未替代期貨結算。",
+      "VIX最新可核實正式日終收盤為11/17；MOVE與CNN Fear & Greed最新可核實日期為11/16。",
+      "FactSet盈餘健康度採11/13完整scorecard，不得標示為11/18資料。"
+    ],
+    "report_cutoff_taipei": "2026-11-19 05:25（台灣時間）",
+    "news_window_taipei": "2026-11-18 12:00–2026-11-19 05:25（台灣時間）"
+  },
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "report_path": "preview/2026-11-19-simulation.html",
+  "report_date": "2026-11-19",
+  "report_git_blob_sha": "ff30f161b3e9905d46b4ef32f514fd16ceab23d2",
+  "report_sha256": "a712dc55a9a4a8ef4f18e1d066bf7bf62aefbb1a38b0a5588e0c5f19a7dcad0e",
+  "build_commit_sha": "4781887421b8c5998060e3a97c1b50c9de51c62a",
+  "builder_blob_sha": "a038c515e22eb9153f5f6ba26f68e8be2fc7cc46",
+  "fixture_blob_sha": "586601d5bbf726e117d9882dd1aecd5259594977",
+  "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
+  "calendar_main_commit_sha": "50eaa0837cf6d61db2e99bed75ebe507804b15ed",
+  "calendar_current_blob_sha": "8e33dc278d38cdac40028481b1ec445ca9c51b47",
+  "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
+  "interaction_evidence_sha256": "6749b79ad25423ff515660136671b4cb2325095c22a46481739e4d6033269559",
+  "visual_evidence_sha256": "3e9d739a26895f9f6d9fa07e699b0a6361b6c2fef8d067cf7b9655eb784f4e9f",
+  "viewports": [
+    1440,
+    768,
+    412,
+    390,
+    360
+  ],
+  "workflow_run_id": "44406269121",
+  "workflow_run_attempt": "1"
+}
