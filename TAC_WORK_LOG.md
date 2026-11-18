@@ -1375,3 +1375,33 @@
 - 已讀取核准 weekday mother template 與 QA contract；但當前工具環境沒有標準 DOMParser／瀏覽器 DOM 操作橋接。SIM-1.3 規定沒有真正 DOM parser 不得宣稱完成 DOM 更新。未使用字串替換、未重建母版、未啟動 GitHub Actions、collector、Assembler、Renderer、Orchestrator。
 - 沒有產生當日 HTML；`main/preview/2026-11-19-simulation.html` 仍不存在。未做 HTML integrity/link/desktop/mobile/interaction/browser visual QA；未建立 QA seal；未驗證 Pages URL。
 - review_ready=false。下一步需在有標準 DOM parser 的執行環境填入核准母版，再處理 STI/XLRE 缺值、商品 active-month volume rank、consensus PIT snapshots 與 stock reactions，對同一最終 HTML 完成 QA seal、回讀 SHA、Pages URL 開啟驗證。
+
+
+
+## 2026-11-19 07:08 Asia/Taipei｜新聞第四步重新篩選（使用者指出熱門頭條混入行情重述）
+
+### 規則與判斷
+- 依 simulation SIM-1.3 E 節，報告日 2026-11-19，新聞時間窗為 2026-11-18 12:00 至本次實際截稿 2026-11-19 07:08（Asia/Taipei）；以原始發布時間換算，不以頁面更新時間替代。
+- 市場熱門頭條不得把指數漲跌、VIX/MOVE、Fear & Greed、殖利率、匯率、商品價格或整體市場收盤摘要改寫成新聞。此類內容應回到行情表、Market Sentiment 或盤面分析。
+- 熱門頭條改以有獨立新增資訊的企業公告／財報、交易與併購、監管政策、產業供應鏈及資安事件；同一事件不得與全球焦點重複。目標 10 則不是湊數配額，若合格事件不足則不硬湊。
+
+### 原文直讀後的 10 則合格候選（原始發布時間均落在窗口內）
+1. NVIDIA停止向中國出貨獲許可的Hopper資料中心產品（Reuters，2026-11-18 09:16 UTC／17:16台北）。上季仍有24億美元相關銷售，但目前沒有後續出貨計畫；中國進口限制與美國遠端算力新規使市場准入及供應路徑更複雜。原文：https://www.reuters.com/world/china/nvidia-stops-shipping-us-approved-ai-chips-china-2026-11-18/
+2. Lowe's第三季業績與全年展望（公司原始新聞稿，2026-11-18 06:00 ET／19:00台北）。總銷售年增9.3%、同店銷售增1.8%，公司將全年同店銷售預測由持平上調至+0.5%，但營運利潤率展望下修，反映必要維修需求尚可、成本與大型翻修需求仍有壓力。原文：https://corporate.lowes.com/generation/pdf/document-file.pdf?path=%2Fnewsroom%2Fpress-releases%2Flowes-reports-third-quarter-2026-sales-and-earnings-results&token=EZlqr4bt-Wi_O3pKCu7piA
+3. Target第三季營運改善但服飾仍弱（Reuters，2026-11-18 11:33 UTC／19:33台北）。同店銷售增5.6%、來客量增5%、數位同店銷售增9.8%，全年銷售成長展望由5%上調至約6%；服飾銷售仍跌3.8%，公司將縮減款式並調整價格。原文：https://www.reuters.com/business/retail-consumer/after-another-strong-quarter-target-lifts-annual-sales-growth-target-6-2026-11-18/
+4. TJX上修全年獲利展望（Reuters，2026-11-18 12:36 UTC／20:36台北）。第三季營收15.95B美元，高於LSEG平均預估15.84B；全年調整後EPS展望提高至5.17–5.20美元，折扣零售受惠消費者尋求高性價比，但運輸與燃料成本仍是逆風。原文：https://www.reuters.com/business/off-price-retailer-tjx-beats-quarterly-sales-estimates-2026-11-18/
+5. Palo Alto Networks以45億美元全股票收購Applied Compute（PR Newswire，2026-11-18 16:05 ET／2026-11-19 05:05台北）。將開放權重AI模型訓練及推論平台納入資安產品組合，押注企業AI部署與資安整合；交易仍待監管核准，並須留意股權稀釋及整合執行。原文：https://www.prnewswire.com/news-releases/palo-alto-networks-to-acquire-applied-compute-bringing-secure-open-weight-ai-to-the-enterprise-302944421.html
+6. Everpure第三季營收年增51%並上調全年指引（PR Newswire，2026-11-18 16:05 ET／2026-11-19 05:05台北）。總營收1.5B美元、產品營收年增77%、RPO年增44%，全年營收指引提高至5.20–5.21B美元；反映企業資料基礎設施及AI相關儲存需求，但仍須觀察自由現金流與成長投資效率。原文：https://www.prnewswire.com/news-releases/everpure-announces-third-quarter-fiscal-2027-financial-results-302944321.html
+7. Anthropic IPO以每股83美元定價，高於70–78美元區間（Reuters，2026-11-18 21:26 UTC／2026-11-19 05:26台北）。申購需求強，但公司文件同時揭露算力支出快速增加、營運虧損及龐大基礎設施承諾；上市定價反映資本市場對AI平台的需求，也把資本回收風險帶到檯面。原文：https://www.reuters.com/legal/transactional/anthropic-prices-blockbuster-ipo-83-share-source-says-2026-11-18/
+8. Blavatnik據報持有SpaceX約50億美元股權（Reuters轉述Bloomberg，2026-11-18 20:54 UTC／2026-11-19 04:54台北）。Access Industries自2020年起投資SpaceX；此為大型私人資本配置事件，可補充觀察太空產業與大型私募資產的資本集中。原文：https://www.reuters.com/business/billionaire-blavatnik-takes-5-billion-spacex-stake-bloomberg-reports-2026-11-18/
+9. KPMG Canada客戶稅務文件遭資料外洩（Reuters，2026-11-18 21:42 UTC／2026-11-19 05:42台北）。公司確認事件並通知客戶，但受影響人數、檔案數及入侵方式未披露；屬專業服務業資料治理與資安風險，不應誇大已確認損失。原文：https://www.reuters.com/world/americas/client-files-kpmg-canada-compromised-data-breach-globe-mail-reports-2026-11-18/
+10. Alberta提出資料中心選址限制並取消油砂排放上限（Reuters，2026-11-18 21:34 UTC／2026-11-19 05:34台北）。限制10MW以上資料中心靠近住宅及高品質農地，並制定用水標準；同時取消未曾執行的油砂排放總量上限，將影響加拿大資料中心選址、電力與能源投資的監管條件。原文：https://www.reuters.com/business/energy/alberta-unveils-data-center-limits-drops-oil-sands-emissions-cap-2026-11-18/
+
+### 明確剔除
+- 原熱門頭條的美股指數收盤分化、VIX 25.33、Fear & Greed、FOMC紀要、英國CPI、歐元區HICP、原油庫存／油價、房市數據等，分別屬行情、全球焦點或行事曆事件，不再放在熱門頭條。
+- NVIDIA「財報優於預期但股價下跌」及Reuters整體美股收盤文章不列熱門頭條，避免把價格反應／市場摘要當成事件新聞；NVIDIA中國出貨政策則保留，因為它是獨立的公司供應政策變動。
+- 既有 global-focus 的英國／歐元區公債殖利率文章是市場價格敘述，不符合宏觀事件新聞的獨立新增資訊要求，應移除或改用已公布的官方通膨事件原文；Waller與FOMC紀要可留焦點區，但不得在熱門頭條重複。
+
+### 尚未完成
+- 上述十則已完成原始文章／公告直讀及時間窗核對，屬新聞候選重篩成果，尚未寫回HTML。
+- 目前 simulation preview/2026-11-19-simulation.html（SHA fc9278f08fb9ca844b079dead08c0d3deff0b94e）仍含舊版行情型熱門頭條及焦點新聞重複；未修改該HTML。需先在合規DOM編輯環境中直接修改核准母版既有節點，再回讀同一檔案並執行QA。review_ready仍為false。
