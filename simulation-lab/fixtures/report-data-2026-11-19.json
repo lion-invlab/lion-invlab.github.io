@@ -6,34 +6,34 @@
   "sentiment": "市場情緒偏謹慎但非全面避險：美股大型指數分歧，科技股未因NVIDIA強勁展望全面轉強；Fed紀要揭露AI債務、估值與避險基金槓桿風險。VIX最新可核實正式收盤為11/17的25.46，MOVE與CNN Fear & Greed最新可核實資料為11/16，日期不混用。FedWatch於11/19 04:35台灣時間更新，12月升息25bp機率93.9%、升息50bp機率6.1%。",
   "focus_news": [
     {
-      "title": "Fed會議紀要示警AI投資融資與避險基金槓桿，可能放大金融衝擊",
-      "summary": "Reuters報導，10月FOMC紀要指出，AI相關債務快速增加，部分透過複雜且不透明的融資結構；若投資回報不如預期，可能與高資產估值、避險基金槓桿及交易商承接能力不足共同放大市場壓力。",
-      "url": "https://www.reuters.com/legal/transactional/fed-policymakers-concerned-about-financial-system-risks-minutes-show-2026-11-18/",
-      "published_at_tw": "2026/11/19 05:01"
+      "title": "Fed會議紀錄：幾乎全體官員預期續升息，並關注AI債務與融資風險",
+      "summary": "鉅亨網報導，10月FOMC紀要顯示，幾乎所有官員認為若通膨與就業依預期發展，未來幾個月仍可能需要升息；部分官員提及12月升息超過1碼的可能，紀要也關注AI需求推升通膨、債務快速增加與複雜融資安排。",
+      "url": "https://news.cnyes.com/news/id/6666746",
+      "published_at_tw": "2026-11-19 03:15"
     },
     {
-      "title": "Fed理事Waller主張12月升息2碼，或明確暗示2027年更快升息",
-      "summary": "Reuters報導，Waller認為通膨正朝錯誤方向發展，主張12月升息50個基點，或在會後聲明與記者會傳達2027年更快升息路徑；這是官員個人主張，不代表FOMC已形成共識。",
-      "url": "https://www.reuters.com/markets/us/waller-says-cnbc-fed-needs-get-more-aggressive-inflation-response-2026-11-18/",
-      "published_at_tw": "2026/11/18 21:51"
-    },
-    {
-      "title": "美國10月成屋簽約銷售跌至2001年統計以來低點",
-      "summary": "Reuters報導，10月待完成成屋銷售指數月減4.7%至63.0，低於市場預期的月減2.0%，年減16.7%；房貸利率高檔持續壓抑購屋需求，顯示住宅市場仍受融資成本限制。",
-      "url": "https://www.reuters.com/business/us-pending-home-sales-tumble-record-low-october-2026-11-18/",
-      "published_at_tw": "2026/11/18 23:03"
-    },
-    {
-      "title": "美國10月核心零售銷售優於預期，消費支出仍具韌性",
-      "summary": "鉅亨網／優分析報導，10月零售銷售月增0.2%，核心零售銷售月增0.6%，高於市場預估0.4%；消費需求仍有支撐，但進口價格上升使聯準會面臨成長與通膨並存的政策難題。",
+      "title": "美國10月核心零售銷售月增0.6%，高於市場預期",
+      "summary": "鉅亨網／優分析報導，10月總零售月增0.2%，核心零售月增0.6%，高於市場預估0.4%；消費需求仍有支撐，但進口價格上升使聯準會面臨成長與通膨並存的政策難題。",
       "url": "https://news.cnyes.com/news/id/6666090",
-      "published_at_tw": "2026/11/18 12:31"
+      "published_at_tw": "2026-11-18 12:31"
     },
     {
-      "title": "亞股止跌回穩，市場仍檢驗AI資本支出回報與Anthropic上市估值",
-      "summary": "鉅亨網／優分析報導，亞洲股市週三呈現選擇性反彈，日經與韓股走高；NVIDIA財報暫時緩和需求疑慮，但AI投資回報、融資可持續性與公司治理仍限制追價意願。",
-      "url": "https://news.cnyes.com/news/id/6666271",
-      "published_at_tw": "2026/11/18 16:00"
+      "title": "植田和男強調日本央行應持續升息，警告過度干預長期利率恐引發波動",
+      "summary": "鉅亨網報導，日本央行總裁植田和男表示，金融環境仍偏寬鬆，央行應依經濟與物價發展持續調整政策利率；若市場認為央行以購債壓低長期利率、替財政支出融資，反而可能造成更大波動。",
+      "url": "https://news.cnyes.com/news/id/6666174",
+      "published_at_tw": "2026-11-18 15:50"
+    },
+    {
+      "title": "亞洲股市收市：韓股反彈近2%，港股逆市下跌",
+      "summary": "Investing.com HK報導，11/18韓國KOSPI上漲1.99%重返5,000點，日本與內地A股小幅收高，港股逆勢下跌；NVIDIA財報緩和部分AI需求疑慮，但市場仍在檢驗資本支出回報。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1764771",
+      "published_at_tw": "2026-11-18 17:42"
+    },
+    {
+      "title": "聯準會沃勒警告通膨惡化，暗示12月或升息50個點子",
+      "summary": "Investing.com HK報導，Fed理事Waller表示通膨比預期頑固且正在擴散，主張FOMC考慮12月升息50bp；此為官員個人立場，市場期貨仍主要反映升息25bp。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1765255",
+      "published_at_tw": "2026-11-18 21:05"
     }
   ],
   "headlines": [
@@ -158,88 +158,88 @@
       "display": "23,294.75",
       "change_display": "-0.91%",
       "source": {
-        "name": "ECONPLEX｜Asia Stock Market Wrap 2026-11-18",
-        "url": "https://blog.econplex.com/economy-news/asia-stock-market-wrap-2026-11-18/",
+        "name": "財訊快報｜11/18亞洲股市收盤彙整",
+        "url": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?pu=News_0001_7&sn=2447279002",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "16:10亞洲收盤彙整列示恆生指數23,294.75，跌0.91%。"
       }
     },
     "上海綜合指數": {
       "display": "3,587.83",
       "change_display": "+0.09%",
       "source": {
-        "name": "ECONPLEX｜Asia Stock Market Wrap 2026-11-18",
-        "url": "https://blog.econplex.com/economy-news/asia-stock-market-wrap-2026-11-18/",
+        "name": "財訊快報｜11/18亞洲股市收盤彙整",
+        "url": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?pu=News_0001_7&sn=2447279002",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "16:10亞洲收盤彙整列示上海綜合指數3,587.83，漲0.09%。"
       }
     },
     "深證成指": {
       "display": "10,659.41",
       "change_display": "+0.20%",
       "source": {
-        "name": "Downstox｜World Markets Today 2026-11-18",
-        "url": "https://downstox.com/markets",
+        "name": "Investing.com HK｜SZSE Component Historical Data",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "Investing.com HK歷史資料列示11/18收盤10,659.41，漲0.20%。"
       }
     },
     "日經 225": {
       "display": "59,024.28",
       "change_display": "+0.28%",
       "source": {
-        "name": "ECONPLEX｜Asia Stock Market Wrap 2026-11-18",
-        "url": "https://blog.econplex.com/economy-news/asia-stock-market-wrap-2026-11-18/",
+        "name": "財訊快報｜11/18亞洲股市收盤彙整",
+        "url": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?pu=News_0001_7&sn=2447279002",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "16:10亞洲收盤彙整列示日經225指數59,024.28，漲0.28%。"
       }
     },
     "韓國 KOSPI": {
       "display": "5,067.44",
       "change_display": "+1.99%",
       "source": {
-        "name": "ECONPLEX｜Asia Stock Market Wrap 2026-11-18",
-        "url": "https://blog.econplex.com/economy-news/asia-stock-market-wrap-2026-11-18/",
+        "name": "財訊快報｜11/18亞洲股市收盤彙整",
+        "url": "https://ww2.money-link.com.tw/RealtimeNews/NewsContent.aspx?pu=News_0001_7&sn=2447279002",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "16:10亞洲收盤彙整列示KOSPI 5,067.44，漲1.99%。"
       }
     },
     "台灣加權指數": {
       "display": "40,194.91",
       "change_display": "+0.26%",
       "source": {
-        "name": "ECONPLEX｜Asia Stock Market Wrap 2026-11-18",
-        "url": "https://blog.econplex.com/economy-news/asia-stock-market-wrap-2026-11-18/",
+        "name": "StockQ｜Asian Market Indexes 2026-11-18",
+        "url": "https://en.stockq.org/market/asia.php",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "StockQ 11/18亞洲收盤表列台灣加權指數40,194.91，漲0.26%。"
       }
     },
     "新加坡海峽時報指數 STI": {
       "display": "5,054.89",
       "change_display": "-1.06%",
       "source": {
-        "name": "Downstox｜World Markets Today 2026-11-18",
-        "url": "https://downstox.com/markets",
+        "name": "Investing.com HK｜FTSE Straits Times Singapore Historical Data",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "Investing.com HK歷史資料列示11/18收盤5,054.89，跌1.06%。"
       }
     },
     "澳洲 S&P/ASX 200": {
       "display": "8,821.80",
       "change_display": "-0.69%",
       "source": {
-        "name": "Downstox｜World Markets Today 2026-11-18",
-        "url": "https://downstox.com/markets",
+        "name": "Investing.com｜S&P/ASX 200 Historical Data",
+        "url": "https://www.investing.com/indices/aus-200-historical-data",
         "data_date": "2026-11-18",
         "quote_type": "cash_index_close",
-        "note": "11/18交易日收盤；以來源列示的交易所現金指數收盤價及日漲跌幅。"
+        "note": "Investing.com歷史資料列示11/18收盤8,821.80，跌0.69%。"
       }
     },
     "英國 FTSE 100": {
@@ -518,7 +518,7 @@
         "rate_range": "4.25-4.50%",
         "probability": 6.1,
         "change_1d": 6,
-        "change_1w": 6
+        "change_1w": -3.1
       }
     ],
     "source_name": "Investing.com Fed Rate Monitor（以CME 30-Day Fed Funds futures推算）",
@@ -684,7 +684,7 @@
   },
   "qa_run_revision": "2026-11-19-sim13-ai-risk-v1",
   "market_sentiment": "市場不是否定AI需求，而是提高對估值、公司治理、出口管制與融資回報的要求。道瓊與標普走弱、那斯達克與羅素小幅收高，反映資金選擇性而非全面回流；Fed對AI融資風險的警示，使市場焦點從營收成長延伸到資本效率與金融槓桿。",
-  "quality_note": "行情基準日2026-11-18。44項行情均保留各自可核實資料日期：20項11/18、9項11/17、15項11/16；不以盤中報價冒充收盤。11檔產業ETF僅顯示單日漲跌幅，最新同源完整資料日為11/16。2年期美債採11/17官方日終par yield；10年及30年採Reuters 11/18市場殖利率，已揭露不同報價口徑。WTI Z6與Brent F7保留11/17指定月份期貨結算；黃金GCZ6、白銀SIZ6保留11/16指定月份期貨結算。VIX 11/17、MOVE及CNN Fear & Greed 11/16。FactSet盈餘健康度為11/13統計快照。FedWatch採11/19 04:35台灣時間前可取得之Investing.com快照，12月升息25bp 93.9%、50bp 6.1%。",
+  "quality_note": "行情基準日2026-11-18。44項行情均保留各自可核實資料日期：20項11/18、9項11/17、15項11/16；不以盤中報價冒充收盤。11檔產業ETF僅顯示單日漲跌幅，最新同源完整資料日為11/16。2年期美債採11/17官方日終par yield；10年及30年採Reuters 11/18市場殖利率，已揭露不同報價口徑。WTI Z6與Brent F7保留11/17指定月份期貨結算；黃金GCZ6、白銀SIZ6保留11/16指定月份期貨結算。VIX 11/17、MOVE及CNN Fear & Greed 11/16。FactSet盈餘健康度為11/13統計快照。FedWatch採11/19 04:35台灣時間前可取得之Investing.com快照，12月升息25bp 93.9%、50bp 6.1%；相較前一週分別變動+3.1及-3.1個百分點。",
   "report_cutoff_taipei": "2026-11-19 05:25（台灣時間）",
   "news_window_taipei": "2026-11-18 12:00–2026-11-19 05:25（台灣時間）",
   "key_levels_overrides": {},
