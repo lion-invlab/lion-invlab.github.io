@@ -50,7 +50,7 @@ def record(day, close):
     return body
 
 def fred(dates):
-    return {"series":[{"series_id:sid,"label":sid,"observations":[{"date":d,"value":1.0} for d in dates]}
+    return {"series":[{"series_id":sid,"label":sid,"observations":[{"date":d,"value":1.0} for d in dates]}
                       for sid in ("VIXCLS","NFCI","NFCICREDIT","STLFSI4")]}
 
 class MergeExistingHistoryTests(unittest.TestCase):
