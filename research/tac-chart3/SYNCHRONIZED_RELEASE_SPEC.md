@@ -220,7 +220,7 @@ The fail-closed runner now validates that the active manifest references exactly
 The S&P 500 source of truth for this integration is the already-verified cash-index OHLC captured by TAC morning report rule D4. The adapter does not make a second market-data request. It preserves the actual provider used for each trading date; when the report uses a fallback provider, that provider remains visible on that date and is never relabeled as Investing.com.
 
 Added:
-- `.github/scripts/import_sp500_from_tac_report.py`: validates one report's S&P 500 OHLC, cash-index identity, source URL, trading date and explicit retrieval timestamp; appends an immutable daily record to `sp500_tac_report_ohlc.jsonl`. Identical retries are no-ops; conflicting same-date records fail closed.
+- `.github/scripts/import_sp500_from_tac_report.py`: validates one report's S&P 500 OHLC, cash-index identity, source URL, trading date and exact timezone-aware retrieval timestamp; it reads `key_levels_overrides.sp500.retrieved_at` when present, otherwise requires an explicit `--retrieved-at`. It never substitutes report cutoff time. The importer appends an immutable daily record to `sp500_tac_report_ohlc.jsonl`; repeated identical observations are no-ops even if retried later, while changed OHLC/source for the same date fails closed.
 - `.github/scripts/build_sp500_from_tac_report_history.py`: validates every JSONL record hash and source metadata, then converts the daily close observations into the Chart 3 compact encoding. Its provenance file carries a separate source_name, source_url, source_note, retrieved_at, retrieval_method and record SHA-256 for every observation date. The compact source hash is tied to the exact JSONL bytes.
 - `.github/scripts/test_build_sp500_from_tac_report_history.py`: tests mixed-provider history, record tampering and CFD rejection.
 - `build_tac_chart3_synchronized_release.py`: accepts either the legacy single-source Investing.com provenance schema or the new TAC D4 per-observation provenance schema. In the D4 mode, every S&P 500 chart point carries its own source metadata; all compact dates must have matching provenance.
@@ -232,3 +232,6 @@ Important boundary:
 - This research implementation is not yet wired into the morning-report production runner or its daily artifact persistence. It does not create a daily history automatically until that handoff is integrated and tested end-to-end.
 - The new QA tests have been added to the isolated research workflow; workflow execution must be observed before declaring them passed.
 - No Main branch, production report, official Chart 3 page or existing schedule was modified.
+
+
+**Required upstream D4 capture field:** future report-data output must store the actual source retrieval timestamp at `key_levels_overrides.sp500.retrieved_at` (ISO-8601 with timezone), alongside `source_name`, `source_url`, `note`, `trading_date` and OHLC. `report_cutoff_taipei` is only the report cutoff and must never be treated as the market-data retrieval time. If the upstream report does not provide this field, the importer must stop rather than invent a timestamp.
