@@ -166,3 +166,12 @@ Added `.github/scripts/run_tac_chart3_synchronized_release.py` as an isolated or
 Successful candidates are written as immutable files under `data/tac-chart3/synchronized/snapshots/`. The single `active_manifest.json` pointer is replaced atomically only after the snapshot file is complete. The runner verifies the previous snapshot SHA-256 before advancing it and does nothing when no newer common date exists. A status report records the result. The runner is not yet called by the Main workflow and no schedule has been added.
 
 Added runner tests for missing S&P 500 input, successful snapshot/manifest creation, failed common-date validation preserving the previous manifest, and same-date no-op. Research QA workflow now includes these tests.
+
+
+## 13. Investing.com public interface findings (2026-11-18)
+
+- Investing.com Support states that Investing.com does not offer public API access because of its data-provider agreements: https://www.investing-support.com/hc/en-us/articles/115005473825-Do-You-Offer-API-Access-at-Investing-com
+- The public S&P 500 historical-data page describes daily historical OHLC/change data and provides a download option: https://www.investing.com/indices/us-spx-500-historical-data
+- Investing.com Support describes long-term daily/weekly/monthly chart history (up to 30 years): https://www.investing-support.com/hc/en-us/articles/115003946765-Exploring-Historical-Data-on-Investing-com-Charts
+
+Engineering consequence: do not implement or depend on an undocumented/private Investing.com API endpoint. The next compliant automation experiment is to evaluate the public website's documented historical-data download control through ordinary browser UI interaction, without bypassing access controls. Until that is demonstrated in the research workflow with a real downloaded CSV, the manual CSV importer remains the only validated Investing.com ingestion path. Do not claim unattended daily S&P 500 ingestion is complete.
