@@ -9,6 +9,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 DATE_FORMATS = ("%b %d, %Y", "%d %b %Y", "%d/%m/%Y", "%m/%d/%Y", "%Y-%m-%d")
+DEFAULT_COMPACT_PATH = Path("data/tac-chart3/sp500_investing_daily.compact.json")
+DEFAULT_PROVENANCE_PATH = Path("data/tac-chart3/sp500_investing_daily.provenance.json")
 
 def varint(value: int) -> bytes:
     if value < 0:
@@ -112,8 +114,8 @@ def convert(csv_path: Path, compact_path: Path, provenance_path: Path,
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--csv", type=Path, required=True)
-    parser.add_argument("--compact", type=Path, required=True)
-    parser.add_argument("--provenance", type=Path, required=True)
+    parser.add_argument("--compact", type=Path, default=DEFAULT_COMPACT_PATH)
+    parser.add_argument("--provenance", type=Path, default=DEFAULT_PROVENANCE_PATH)
     parser.add_argument("--source-url", required=True)
     parser.add_argument("--retrieved-at", required=True)
     parser.add_argument("--date-column", default="Date")
