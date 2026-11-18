@@ -47,6 +47,48 @@ class SynchronizedReleaseTests(unittest.TestCase):
         p=provenance();p["source_url"]="https://example.com/sp500.csv"
         with self.assertRaisesRegex(ValueError,"Investing.com"):
             build_candidate(fred(["2026-11-13"]),compact([("2026-11-13",6000)]),p)
+    def test_accepts_mixed_sources_with_per_observation_provenance(self):
+        dates=["2026-11-12","2026-11-13"]
+        p={
+            "source_sha256":"a"*64,
+            "method":"tac_daily_report_verified_ohlc_jsonl",
+            "observations":[
+                {"date":"2026-11-12","source_name":"Yahoo Finance ^SPX",
+                 "source_url":"https://finance.yahoo.com/quote/%5ESPX/history/",
+                 "source_note":"S&P 500 現金指數，non-CFD",
+                 "retrieved_at":"2026-11-13T05:00:00+08:00",
+                 "retrieval_method":"tac_daily_report_verified_ohlc",
+                 "record_sha256":"b"*64},
+                {"date":"2026-11-13","source_name":"Investing.com S&P 500",
+                 "source_url":"https://www.investing.com/indices/us-spx-500-historical-data",
+                 "source_note":"S&P 500 現金指數，non-CFD",
+                 "retrieved_at":"2026-11-14T05:00:00+08:00",
+                 "retrieval_method":"tac_daily_report_verified_ohlc",
+                 "record_sha256":"c"*64}
+            ]
+        }
+        candidate=build_candidate(fred(dates),compact([(d,6000+i) for i,d in enumerate(dates)]),p)
+        sp=next(x for x in candidate["series"] if x["series_id"]=="SP500")
+        self.assertEqual(sp["source_provenance_mode"],"per_observation")
+        self.assertEqual(sp["observations"][0]["source_name"],"Yahoo Finance ^SPX")
+        self.assertEqual(sp["observations"][1]["source_name"],"Investing.com S&P 500")
+        self.assertNotIn("source_url",sp)
+
+    def test_per_observation_provenance_must_cover_every_sp500_date(self):
+        p={
+            "source_sha256":"a"*64,"method":"tac_daily_report_verified_ohlc_jsonl",
+            "observations":[
+                {"date":"2026-11-13","source_name":"Yahoo Finance ^SPX",
+                 "source_url":"https://finance.yahoo.com/quote/%5ESPX/history/",
+                 "source_note":"S&P 500 現金指數，non-CFD",
+                 "retrieved_at":"2026-11-14T05:00:00+08:00",
+                 "retrieval_method":"tac_daily_report_verified_ohlc","record_sha256":"b"*64}
+            ]
+        }
+        with self.assertRaisesRegex(ValueError,"lacks per-date provenance"):
+            build_candidate(fred(["2026-11-12","2026-11-13"]),
+                            compact([("2026-11-12",6000),("2026-11-13",6001)]),p)
+
     def test_does_not_replace_with_same_or_older_common_date(self):
         candidate=build_candidate(fred(["2026-11-13"]),compact([("2026-11-13",6000)]),provenance())
         with tempfile.TemporaryDirectory() as td:
