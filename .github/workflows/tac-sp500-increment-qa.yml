@@ -1,0 +1,28 @@
+name: TAC S&P 500 daily increment QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/scripts/append_tac_sp500_daily_increment.py"
+      - ".github/scripts/test_append_tac_sp500_daily_increment.py"
+      - ".github/workflows/tac-sp500-increment-qa.yml"
+  pull_request:
+    paths:
+      - ".github/scripts/append_tac_sp500_daily_increment.py"
+      - ".github/scripts/test_append_tac_sp500_daily_increment.py"
+      - ".github/workflows/tac-sp500-increment-qa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test append-only S&P 500 handoff
+        run: python .github/scripts/test_append_tac_sp500_daily_increment.py
