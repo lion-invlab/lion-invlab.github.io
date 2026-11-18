@@ -68,6 +68,6 @@ class RunnerTests(unittest.TestCase):
             before=(root/"release"/"active_manifest.json").read_bytes()
             rc=run(f,s,p,root/"release",root/"status")
             self.assertEqual(rc,0); self.assertEqual((root/"release"/"active_manifest.json").read_bytes(),before)
-            self.assertEqual(json.loads((root/"status.json").read_text())["status"],"NO_NEW_COMMON_DATE")
+            self.assertEqual(json.loads((root/"status").read_text())["status"],"NO_NEW_COMMON_DATE")
 
 if __name__=="__main__": unittest.main()
