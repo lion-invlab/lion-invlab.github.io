@@ -1532,3 +1532,12 @@
 - 已依SIM-1.3修正來源分工：S&P 500主行情及關鍵價位OHLC均採Investing.com 11/18列（O 7,355.69/H 7,367.11/L 7,301.61/C 7,307.49）；Russell 2000必須用^RUT現貨，不可用Investing.com CFD，改採Yahoo Finance 11/18日線（O 2,698.91/H 2,727.56/L 2,697.71/C 2,722.10，日漲+0.75%）。
 - 已寫入 `key_levels_overrides` 同日OHLC及來源，並同步修正Russell 2000主行情、總結、觀察及市場評論；fixture commit `c1614707330c163a6c5333e37583bc731ec16a26`，blob SHA `a9324bff1a17a1a1efdd5d48865c5f53c71f521e`。
 - 此修正觸發第五輪完整build。先前QA_PASSED版已作廢，不交付；須以新fixture完成重跑及回讀驗收。
+
+
+## 2026-11-19｜最終來源一致性修正後重新QA通過
+- **最終審核版：** `preview/2026-11-19-simulation.html`；blob SHA `1cae8be1bf97fe3bf11a55d3675b0bfc254e2af5`；SHA-256 `85e8fac4f407d105e0c9a882ee3b250116241741a94106cb7dcbb92baa03290f`。QA sidecar blob SHA `3163255e7998838646a27d9a7d4d7ab8c99550b6`。
+- **最終狀態：** `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`；Actions run `44422655878` success。
+- 最後全文稽核確認：S&P 500主行情7,307.49/-0.45%與key-level OHLC收盤一致，未再殘留Yahoo 7,323.63；Russell 2000主行情改採SIM-1.3要求的Yahoo ^RUT現貨2,722.10/+0.75%，key-level close亦為2,722.10，未再使用Investing CFD 2,725.23。已確認HTML不含舊值7,323.63、2,714.31、2,725.23、+0.86%、VIX 25.33。
+- QA五種viewport 1440/768/412/390/360、互動、母版差異、獨立provenance、日期／44行情／5焦點／10頭條／行事曆卡數均通過。
+- 44行情日期分布43項11/18、MOVE 11/17；XLU備援來源與FactSet 11/13快照、W47 incomplete等限制均揭露。
+- 本次所有寫入僅限simulation branch。當前回讀main `index.html` SHA `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`，main W47 JSON SHA `8e33dc278d38cdac40028481b1ec445ca9c51b47`；本次未對兩者執行寫入或部署。
