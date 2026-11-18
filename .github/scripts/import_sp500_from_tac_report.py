@@ -94,9 +94,14 @@ def append_record(path: Path, record: dict) -> str:
             existing[day] = old
     day = record["observation_date"]
     if day in existing:
-        if existing[day] == record:
-            return "NOOP_IDENTICAL"
-        raise ValueError(f"conflicting S&P 500 record already exists for {day}")
+        old = existing[day]
+        stable_fields = ("series_id", "instrument", "report_date", "observation_date",
+                         "open", "high", "low", "close", "source_name", "source_url",
+                         "source_note", "retrieval_method")
+        if all(old.get(key) == record.get(key) for key in stable_fields):
+            # Preserve the first captured retrieval timestamp and its immutable hash.
+            return "NOOP_IDENTICAL_OBSERVATION"
+        raise ValueError(f"conflicting S&P 500 observation/source already exists for {day}")
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as stream:
         stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
