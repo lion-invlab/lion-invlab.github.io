@@ -679,7 +679,7 @@
     "items": []
   },
   "core_observation": {
-    "heading": "今日三大觀察焦點",
+    "heading": "本週三大觀察焦點",
     "text": "① 03:00公布的FOMC會議紀要：部分官員對通膨風險仍高度警惕，討論若通膨惡化可能升息50bp，需觀察12月政策定價是否再升溫。② 21:30美國初領失業救濟金與費城Fed製造業調查，檢驗勞動市場及製造業景氣。③ AI交易觀察NVIDIA財報後股價反應、Anthropic上市定價及半導體板塊廣度，判斷需求強勁是否足以抵銷估值與資金成本壓力。",
     "details": "美股11/18四大指數漲跌分歧，但S&P 500連跌五日；VIX仍在25附近。不要只看Nasdaq上漲就認定市場全面轉多。"
   },
@@ -688,17 +688,7 @@
   "quality_note": "行情基準日2026-11-18。已核實更新美股四大現金指數及VIX共5項至11/18；其他行情依各項來源保留11/17或11/16最新可核實收盤，明確標示資料日。11檔產業ETF仍只採Investing.com完整同源資料；美債、貴金屬、MOVE與CNN Fear & Greed不以盤中／替代商品冒充日終值。FactSet盈餘健康度為11/13統計快照。 11/18更新的5項為美股四大現金指數與VIX；其他39項仍按原始來源日期呈現，並未改寫成11/18。",
   "report_cutoff_taipei": "2026-11-19 05:25（台灣時間）",
   "news_window_taipei": "2026-11-18 12:00–2026-11-19 05:25（台灣時間）",
-  "key_levels_overrides": {
-    "sox": {
-      "trading_date": "2026-11-17",
-      "open": 9698.3,
-      "high": 9745.2,
-      "low": 9295,
-      "close": 9550.6,
-      "source_name": "Investing.com HK｜PHLX Semiconductor現金指數歷史資料",
-      "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data"
-    }
-  },
+  "key_levels_overrides": {},
   "review_notice": "11/19審核版｜行情基準日2026-11-18；各指標依來源標示最新可核實交易日。W47行事曆僅唯讀；coverage若仍為incomplete，依正式資料庫狀態呈現。僅供審核，不上架正式首頁。",
   "pending_items": [
     "W47行事曆coverage仍為incomplete；本報只讀main W47，不直接修補資料庫。",
