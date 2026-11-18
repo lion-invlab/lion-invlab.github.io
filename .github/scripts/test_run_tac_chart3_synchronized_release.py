@@ -33,9 +33,9 @@ def prov():
             "method":"manual_csv_export_import"}
 
 class RunnerTests(unittest.TestCase):
-    def test_default_inputs_match_investing_import_outputs(self):
-        self.assertEqual(DEFAULT_SP500_COMPACT.as_posix(), "data/tac-chart3/sp500_investing_daily.compact.json")
-        self.assertEqual(DEFAULT_SP500_PROVENANCE.as_posix(), "data/tac-chart3/sp500_investing_daily.provenance.json")
+    def test_default_inputs_match_tac_d4_merged_history(self):
+        self.assertEqual(DEFAULT_SP500_COMPACT.as_posix(), "data/tac-chart3/sp500_tac_d4_merged.compact.json")
+        self.assertEqual(DEFAULT_SP500_PROVENANCE.as_posix(), "data/tac-chart3/sp500_tac_d4_merged.provenance.json")
 
     def setup_inputs(self,root,days=("2026-11-13",)):
         f=root/"fred.json"; s=root/"sp500.json"; p=root/"prov.json"
