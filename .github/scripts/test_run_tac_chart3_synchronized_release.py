@@ -70,4 +70,29 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(rc,0); self.assertEqual((root/"release"/"active_manifest.json").read_bytes(),before)
             self.assertEqual(json.loads((root/"status").read_text())["status"],"NO_NEW_COMMON_DATE")
 
+    def test_tampered_last_good_snapshot_blocks_advance(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td); f,s,p=self.setup_inputs(root)
+            run(f,s,p,root/"release",root/"status")
+            manifest=json.loads((root/"release"/"active_manifest.json").read_text())
+            snap=root/"release"/manifest["snapshot_file"]
+            snap.write_text("{}")
+            f.write_text(json.dumps(fred(["2026-11-14"])))
+            before=(root/"release"/"active_manifest.json").read_bytes()
+            rc=run(f,s,p,root/"release",root/"status")
+            self.assertEqual(rc,2)
+            self.assertEqual((root/"release"/"active_manifest.json").read_bytes(),before)
+            self.assertEqual(json.loads((root/"status").read_text())["status"],"BLOCKED_LAST_GOOD_HASH_MISMATCH")
+
+    def test_manifest_path_traversal_blocks_advance(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td); f,s,p=self.setup_inputs(root)
+            release=root/"release"; release.mkdir()
+            (release/"active_manifest.json").write_text(json.dumps({
+                "snapshot_id":"abc","snapshot_file":"snapshots/../../outside.json",
+                "common_observation_date":"2026-11-12","snapshot_sha256":"0"*64}))
+            rc=run(f,s,p,release,root/"status")
+            self.assertEqual(rc,2)
+            self.assertEqual(json.loads((root/"status").read_text())["status"],"BLOCKED_BROKEN_LAST_GOOD_MANIFEST")
+
 if __name__=="__main__": unittest.main()
