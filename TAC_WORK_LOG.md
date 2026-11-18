@@ -1291,3 +1291,10 @@
 - **main 首頁異動（本輪前已存在）：** main HEAD `9beb0e7d9e3b55d943e3416b88b2df9c4c952bdc`（2026-11-18 00:09:47Z／08:09:47 +08:00）commit message 為 `Publish approved TAC report 2026-11-18 preview`，該 commit 實際修改 `index.html`（87 additions／110 deletions）；當前 index blob SHA `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`。Pages deploy run `44205526238` success。本輪 08:40 後未修改或回滾 index；目前對話未提供該提交的另行授權脈絡，不推測其來源。
 - **最終判定：** `review_ready=false`。阻塞為（1）fixture、main preview、simulation preview 及 QA sidecar provenance 不一致；（2）SOX 主表／OHLC／關鍵價位來源衝突；（3）目前預覽 URL 無法實際開啟驗證；（4）最新 preview 變更未由同一版 QA sidecar 覆蓋。下一步需先把 SOX 裁決與 MOVE／11 ETF 最新資料完整回填至 fixture，再以既有 DOM builder 產生同一份 canonical preview，對該版本執行完整 workflow QA，回讀 HTML／sidecar SHA，最後驗證 Pages URL；不可直接把目前 main preview 定版或發布首頁。
 - **本輪寫入範圍：** 只更新本分支既有 `TAC_SESSION_STATE.md` 與 `TAC_WORK_LOG.md` 作為交接紀錄；未新增／更新 preview、未改 main/index、母版、WR、Manifest 或任何行事曆 JSON。
+
+
+### 2026-11-18 08:45｜內容與來源規則補充檢查
+- 新聞跨區去重：5 則焦點與 10 則頭條中，至少 3 組跨區重複事件（美國零售銷售、AI 晶片出口限制、美銀科技股配置調查）；另有 2 則頭條只標示日期、未提供可核實原始發布時間（AP 美股收盤、NVIDIA 董事會委員會公告）。依 WR E 節，這些不能只因各區標題不同就視為獨立新聞合格。
+- MOVE：fixture／QA sidecar 使用 11/16 使用者提供截圖 101.28（+2.52%）；目前 main／simulation preview 後續改成 11/17 103.97（+2.66%），來源標示 Jooking 第三方歷史報價。該來源不在 D3 指定來源順位（Investing.com HK → TradingView → Yahoo Finance → CNBC → EODData），且新值未回填 fixture／QA seal，應退回待核實，不得視為已核實 11/17 MOVE。
+- SOX：fixture 主表及 override 仍含 Investing.com HK 11/17 close 9,550.60；main preview 的 OHLC／關鍵價位又使用 close 9,482.63 並計算五層價位；最新 simulation preview 則已將 SOX 關鍵價位設為待核實。三處狀態／數值不一致，需先裁決後同步所有引用欄位。
+- 新聞、MOVE、SOX 均屬當前 preview 的內容 Gate 缺口；不得以 run 44196490498 的 SUCCESS 或其舊 sidecar QA_PASSED 覆蓋這些後續修改。
