@@ -1844,3 +1844,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 另發現本輪開始前 main HEAD 已為 `9beb0e7d9e3b55d943e3416b88b2df9c4c952bdc`；該 commit 修改 `index.html`，Pages deployment run `44205526238` success。此提交早於本輪 08:40 啟動，本輪未修改或回滾首頁；目前對話未取得該首頁更新的另行授權紀錄，需向使用者如實揭露，不推測其來源。
 - 本輪沒有新增或更新當日 HTML，沒有修改 main preview、index、母版、Manifest、WR 或行事曆 JSON。下一步必須先把 fixture、最新 simulation preview 與來源證據對齊，再用既有 DOM build／QA 路徑驗證同一產物；目前無 workflow_dispatch 工具，且直接重跑 build 會覆蓋預覽中尚未回填 fixture 的後續修正，因此未冒險觸發。
 - 狀態：資料與規則基準已重核；HTML 存在但 provenance／QA hash 不一致；SOX 值與關鍵價位不一致；Pages URL 未驗證；`review_ready=false`。
+
+
+### 2026-11-18 08:45｜內容與來源規則補充檢查
+- 新聞跨區去重：5 則焦點與 10 則頭條中，至少 3 組跨區重複事件（美國零售銷售、AI 晶片出口限制、美銀科技股配置調查）；另有 2 則頭條只標示日期、未提供可核實原始發布時間（AP 美股收盤、NVIDIA 董事會委員會公告）。依 WR E 節，這些不能只因各區標題不同就視為獨立新聞合格。
+- MOVE：fixture／QA sidecar 使用 11/16 使用者提供截圖 101.28（+2.52%）；目前 main／simulation preview 後續改成 11/17 103.97（+2.66%），來源標示 Jooking 第三方歷史報價。該來源不在 D3 指定來源順位（Investing.com HK → TradingView → Yahoo Finance → CNBC → EODData），且新值未回填 fixture／QA seal，應退回待核實，不得視為已核實 11/17 MOVE。
+- SOX：fixture 主表及 override 仍含 Investing.com HK 11/17 close 9,550.60；main preview 的 OHLC／關鍵價位又使用 close 9,482.63 並計算五層價位；最新 simulation preview 則已將 SOX 關鍵價位設為待核實。三處狀態／數值不一致，需先裁決後同步所有引用欄位。
+- 新聞、MOVE、SOX 均屬當前 preview 的內容 Gate 缺口；不得以 run 44196490498 的 SUCCESS 或其舊 sidecar QA_PASSED 覆蓋這些後續修改。
