@@ -142,3 +142,15 @@ Not yet implemented:
 - Production scheduling and any Main deployment.
 
 Safety: this work remains isolated on the research branch. The existing Main data workflow, chart page, homepage and schedules have not been changed. The current S&P 500 compact dataset identifies a non-Investing.com historical source, so the new release builder intentionally rejects it; no new five-series release has been published.
+
+
+## 11. Investing.com data-use compliance gate
+
+Investing.com's published Terms and Conditions prohibit automated systems/software from extracting data from its website, and prohibit using, storing, displaying or distributing website data without explicit prior written permission from Fusion Media and/or the data provider. See the official [Investing.com Terms and Conditions](https://www.investing.com/about-us/terms-and-conditions/) and the [published terms PDF](https://cdn.investing.com/about-us/terms_and_conditions.pdf).
+
+Accordingly:
+- Do not implement an unattended scraper, reverse-engineered private endpoint client, browser bot or API workaround against Investing.com unless written authorization/licensing expressly permits the intended automated retrieval, storage and display.
+- The synchronized-release builder requires an Investing.com source URL, source hash, retrieval time, method and a non-empty `authorization_reference`. This field must identify a real written permission/license record; a placeholder is not acceptable for production.
+- Unit-test fixtures may use a clearly marked fixture-only authorization string. This does not authorize production data collection.
+- Until a valid authorization reference and permitted retrieval method are supplied, the S&P 500 source gate must fail closed and the five-series release must not publish.
+- An alternative licensed data provider may be evaluated only if the user changes the source requirement; it must not be silently substituted for Investing.com.
