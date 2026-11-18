@@ -280,3 +280,25 @@ Operational correction:
 - `.github/workflows/tac-key-levels-live.yml` exists only on the simulation branch. Its `schedule` trigger does not run from a non-default branch: GitHub documents that scheduled workflows only run on the default branch. The repository's simulation-branch run history contains no runs named `TAC live key-level OHLC capture (simulation only)`; therefore this workflow must not be described as a live daily scheduled feed. It can only be manually dispatched unless separately enabled on the default branch.
 - The official Main TAC report process remains ChatGPT-led and its report data currently lacks a dedicated exact retrieval timestamp field for S&P 500 source records. The existing fixtures demonstrate source URL/date/close but do not supply `retrieved_at` or `market_data_captured_at`.
 - Consequently, the new adapter and tests establish the research-side ingestion contract, not an automated daily handoff. The remaining production integration is to record the exact timestamp at the moment the daily report source is checked and pass that structured report record to the Chart 3 append-only importer. Do not change Main or the official report process without explicit approval.
+
+
+## 20. Existing-history merge and one-command D4 release pipeline (2026-11-18)
+
+Implemented in the isolated research branch:
+- `.github/scripts/merge_sp500_existing_history_with_d4_incremental.py` preserves the existing `sp500_daily_close_1927-2026.compact.json` rows and appends only strictly newer dates from the append-only TAC D4 JSONL. Overlap, duplicate dates, conflicting closes, non-ascending dates or missing source metadata fail closed.
+- The merged compact artifact retains the original baseline `source_details`, original baseline dataset SHA, baseline file SHA, incremental JSONL SHA, row counts and date ranges.
+- Historical baseline provenance is explicitly range-level, not falsely represented as per-observation retrieval provenance. Its snapshot rows carry `provenance_granularity=dataset_range`, `retrieved_at=null`, and a clear statement that the inherited baseline did not retain each row's original retrieval timestamp. New D4/report observations retain full per-date source name, URL, close, retrieval timestamp, method and record SHA.
+- `.github/scripts/build_tac_chart3_synchronized_release.py` now accepts the combined provenance model: baseline date range plus fully sourced incremental observations. It rejects compact dates outside both coverage sets.
+- `.github/scripts/run_tac_chart3_synchronized_release.py` defaults now point to `sp500_tac_d4_merged.compact.json` and `sp500_tac_d4_merged.provenance.json`. The separate manual Investing.com CSV experiment remains isolated and passes its own explicit paths; it is not the default D4 feed.
+- `.github/scripts/chart3_d4_synchronized_pipeline.py` is the one-command research entry point: read existing TAC D4/report JSON, validate and append one S&P 500 close, merge it with the existing 1927–2026 baseline, then run the five-series synchronized release runner. It does not download or scrape Yahoo Finance.
+- End-to-end tests cover successful publish, repeated identical capture (idempotent no-op), missing timestamp (blocked before append), missing FRED input (blocked before append), conflicting same-day close (blocked while preserving last-good), baseline merge, overlap rejection and preservation of the actual 1927–2026 compact history.
+
+QA:
+- Workflow run `44313155244` completed successfully on commit `8a40a123567c216c131505519229056d1f19e6c7`.
+- Nine test modules passed: 54 tests total, including a merge test against the actual existing 1927–2026 baseline.
+- This verifies the research-side data contract and end-to-end pipeline using deterministic test captures. It does not prove that the daily Main report has begun supplying the required capture timestamp or invoking this pipeline.
+
+Remaining production handoff:
+1. The daily report's S&P 500 source record must include an exact timezone-aware `retrieved_at`, or the report JSON must include `market_data_captured_at` captured when the quote is checked. The current report fixtures contain source/date/close but no such timestamp; do not infer it from report date or cutoff.
+2. The daily report process must pass its machine-readable record to this pipeline after the quote has been verified. This production integration requires explicit approval before modifying Main, its report workflow, or any automation schedule.
+3. No Chart 3 release has been published from real D4 input yet; official Chart 3, Main, and all schedules remain unchanged.
