@@ -1298,3 +1298,16 @@
 - MOVE：fixture／QA sidecar 使用 11/16 使用者提供截圖 101.28（+2.52%）；目前 main／simulation preview 後續改成 11/17 103.97（+2.66%），來源標示 Jooking 第三方歷史報價。該來源不在 D3 指定來源順位（Investing.com HK → TradingView → Yahoo Finance → CNBC → EODData），且新值未回填 fixture／QA seal，應退回待核實，不得視為已核實 11/17 MOVE。
 - SOX：fixture 主表及 override 仍含 Investing.com HK 11/17 close 9,550.60；main preview 的 OHLC／關鍵價位又使用 close 9,482.63 並計算五層價位；最新 simulation preview 則已將 SOX 關鍵價位設為待核實。三處狀態／數值不一致，需先裁決後同步所有引用欄位。
 - 新聞、MOVE、SOX 均屬當前 preview 的內容 Gate 缺口；不得以 run 44196490498 的 SUCCESS 或其舊 sidecar QA_PASSED 覆蓋這些後續修改。
+
+
+---
+
+## 2026-11-19 06:03 Asia/Taipei｜早報人工接手／SIM-1.3 驗收
+
+1. 使用者回報早報未啟動並授權接手。讀取 main WR v5.16、simulation SIM-1.3、mother manifest、weekday mother、QA contract、main W47 calendar；確認 main index 與 main preview 只讀。
+2. 排程 peek：早報任務狀態為 in_progress，但 chat_ref=null，未確認它成功喚醒對話；本次由使用者在本對話人工啟動。
+3. 逐頁直讀 44 項市場指標來源；資料基準日 11/18，MOVE 最新可核實為 11/17；SOX 官方 Nasdaq 與 Investing.com HK 數值不一致，暫不定稿。FedWatch 12/09 25bp 93.9%、50bp 6.1%，頁面更新時點為 11/19 05:25 台灣時間。
+4. 讀取 main W47：25 項經濟、23 項財報；15 項經濟與 13 項財報已公布。21 個財報共識 snapshot 均 pending_required_fields，沒有 accepted consensus；13 筆實際財報的股價反應欄為 null。
+5. **合規阻塞：** SIM-1.3 A1-補充要求 ChatGPT 直接以 DOM 填入核准母版；D2-補充禁止使用 repo market collectors。GitHub connector 雖可讀取原始檔文字，但本輪無法把 337KB 母版掛載到可用 DOM parser；container 無外網，functions 執行環境沒有 DOMParser。故不能安全地直接 DOM 修改與寫入 main preview。正式狀態標記「未產出審核版」。
+6. 曾觸發 4 次 simulation workflow 診斷（44405550642、44405733686、44405994656、44406269121）；這些流程使用 Assembler／Renderer／Collector，與 SIM-1.3 不符，故不採用。已刪除新增 fixture、simulation preview HTML 及 QA sidecar；未觸碰 main index、main preview 或 W47 DB。
+7. 結論：**11/19 審核版未產出；main 首頁未修改。** 待可用的本機檔案／DOM 寫入橋接後，直接填版並重新讀回驗收；不得以本輪 workflow 成功取代規定流程。
