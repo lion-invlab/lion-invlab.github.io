@@ -1495,3 +1495,11 @@
 ### 風險指標VIX日期列完成核對
 - Investing.com HK CBOE VIX歷史資料11/18列確認 **24.56（-3.53%）**，前一交易日11/17為25.46；fixture值正確。來源：https://hk.investing.com/indices/volatility-s-p-500-historical-data。
 - MOVE仍以11/17 101.88（+0.59%）作最後可核實值；不得冒充11/18。11/18第三方頁面98.15／98.5不在SIM-1.3指定來源順位，未採用。
+
+
+## 2026-11-19｜全量組裝第一次失敗、已定位修復並重啟
+- GitHub Actions run `44421481514`（run 805）成功完成規則自測、W47只讀行事曆讀取、21筆財報共識投影、13家已公布公司股價反應擷取；HTML組裝在2年期美債變動 `0bp` 的方向分類 Gate 失敗。根因：驗證器正則表達式把 `0bp` 當作正向值，與上游正確設定的 `flat` 衝突。
+- 已修正 `simulation-lab/runner/build_review_html.py`：以明確數值解析及正負號判斷方向，零值（包括0bp）統一為flat。更新 commit `de0402699783181021f47aa18df02bef514ff472`，builder blob SHA `d93eb66b123fcb4a5d2345079814aabc1e23a178`。
+- 同時修正分析與新聞 fixture：S&P 500改用使用者指定Investing.com 7,307.49/-0.45%；Russell 2000改為Investing.com 2,725.23/+0.86%；摘要、情緒、盤面觀察同步更新。熱門頭條改為10則事件型新聞（移除指數收盤、VIX等行情改寫），Global Focus固定5則宏觀事件，無重複焦點。
+- Fixture commit `79ac69b9b650670cca6223945e412efaba5dfdc6`，blob SHA `75093c2614f28438021d96d70c9a6b41c5705190`。
+- 新一輪完整建置已由上述fixture commit觸發，Actions run `44421729178`；尚待完成，不得提前宣稱審核版通過。
