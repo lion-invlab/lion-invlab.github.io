@@ -256,3 +256,27 @@ Important remaining integration work:
 5. This adapter and experiment do not establish third-party licensing or public redistribution rights. Keep the dataset isolated and do not publish to the official chart until the intended use is verified and the user approves deployment.
 
 Current status: adapter and unit tests are committed to the research branch; automated handoff, historical merge, full five-series release and deployment remain incomplete.
+
+
+## 19. Daily TAC report source handoff clarification (2026-11-18)
+
+A read-only review of simulation report fixtures for 2026-11-11 through 2026-11-18 found that the S&P 500 close is already present in the daily report data, but its source varies by report date:
+- 2026-11-10 close: Associated Press
+- 2026-11-11 close: Associated Press
+- 2026-11-12 close: Associated Press
+- 2026-11-13 close: MarketWatch/FactSet OHLC override, with AP cash-close reference
+- 2026-11-16 close: Yahoo Finance `^SPX` cash-index OHLC
+- 2026-11-17 close: Associated Press
+
+The importer must preserve each day's actual source name and URL. It must not require Yahoo for every date, nor rewrite AP/MarketWatch/Yahoo as a single provider. The user's explicit request to test Yahoo authorizes Yahoo as a research source; the daily report's already verified per-day source record remains the source of truth for each observation.
+
+The adapter `.github/scripts/import_sp500_from_d4_capture.py` now supports two machine-readable inputs:
+1. D4 collector output (`captured_at_taipei` + `key_levels.items[]`).
+2. TAC report-data JSON (`key_levels_overrides.sp500` preferred; otherwise `global_markets["標普500指數"]`).
+
+For report-data input, it requires an explicit timezone-aware `retrieved_at` in the source record or an explicit `market_data_captured_at` on the report. It will not substitute report date, report cutoff, or trading date for the actual retrieval timestamp. It validates source URL, date match and cash-index identity, then appends only the close value with per-date source provenance. The converter supports this close-only append-only record format.
+
+Operational correction:
+- `.github/workflows/tac-key-levels-live.yml` exists only on the simulation branch. Its `schedule` trigger does not run from a non-default branch: GitHub documents that scheduled workflows only run on the default branch. The repository's simulation-branch run history contains no runs named `TAC live key-level OHLC capture (simulation only)`; therefore this workflow must not be described as a live daily scheduled feed. It can only be manually dispatched unless separately enabled on the default branch.
+- The official Main TAC report process remains ChatGPT-led and its report data currently lacks a dedicated exact retrieval timestamp field for S&P 500 source records. The existing fixtures demonstrate source URL/date/close but do not supply `retrieved_at` or `market_data_captured_at`.
+- Consequently, the new adapter and tests establish the research-side ingestion contract, not an automated daily handoff. The remaining production integration is to record the exact timestamp at the moment the daily report source is checked and pass that structured report record to the Chart 3 append-only importer. Do not change Main or the official report process without explicit approval.
