@@ -722,33 +722,5 @@
     "prior_blended_eps_yoy": "+31.4%",
     "prior_blended_revenue_yoy": "+14.3%",
     "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
-  },
-  "report_layer_earnings_actuals": [
-    {
-      "event_id": "current-nvda-20261118",
-      "ticker": "NVDA",
-      "event_date": "2026-11-18T05:20:00+08:00",
-      "eps_actual": 2.68,
-      "eps_actual_display": "GAAP US$2.70 / non-GAAP US$2.68",
-      "eps_actual_basis": "Non-GAAP diluted EPS; GAAP diluted EPS separately disclosed at US$2.70",
-      "eps_actual_basis_code": "NON_GAAP_DILUTED_EPS",
-      "eps_actual_currency": "USD",
-      "eps_actual_period": "FY2027 Q3",
-      "revenue_actual": 115.844,
-      "revenue_actual_display": "US$115.844B",
-      "revenue_actual_basis": "Total revenue (USD billions)",
-      "revenue_actual_basis_code": "US_GAAP_TOTAL_REVENUE",
-      "revenue_actual_currency": "USD",
-      "revenue_actual_unit": "B",
-      "revenue_actual_period": "FY2027 Q3",
-      "judgment": "NVIDIA Q3 FY2027營收US$115.844B，資料中心營收US$107.6B、年增110%；Q4營收指引US$130.0B±3%，但Q4 GAAP與non-GAAP毛利率指引均為71%至72%，低於本季74.8%與74.9%",
-      "actual_source": {
-        "name": "NVIDIA Investor Relations｜Q3 FY2027 official financial results",
-        "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/default.aspx",
-        "published_at": "2026-11-17",
-        "note": "官方公告分列GAAP EPS US$2.70與non-GAAP EPS US$2.68，營收US$115.844B。依main W47公告時程，財報於台灣時間2026-11-18 05:20發布；僅補入本次報告層，不回寫main行事曆JSON。"
-      },
-      "price_reaction": "待首個完整交易時段（11/18美股收盤後更新）"
-    }
-  ]
+  }
 }
