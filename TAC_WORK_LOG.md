@@ -1313,3 +1313,65 @@
 7. 結論：**11/19 審核版未產出；main 首頁未修改。** 待可用的本機檔案／DOM 寫入橋接後，直接填版並重新讀回驗收；不得以本輪 workflow 成功取代規定流程。
 
 - 補記：依排程規則嘗試 notify_parent 回報阻塞，但目前對話未綁定 parent action，工具回傳 404 Action not found；已在本對話直接回報使用者，未宣稱通知成功。
+
+
+## 2026-11-19 06:20:45+08:00｜TAC 投資早報 R3 當日人工製作（run 7）
+### 執行基準
+- 實際開始：06:20:45 Asia/Taipei；原排程 05:25，延遲 55m45s。
+- report_date：2026-11-19（週四）；ISO week W47；market_data_date：2026-11-18；news window：11/18 12:00–11/19 06:20:45（Asia/Taipei）。
+- 工作分支：`simulation/tac-process-lab-2026-11-06`。
+- SIM-1.3 WR blob SHA：`582bee096185b6542be565950da2656c15191eda`；Manifest SHA：`dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA contract v1.4 SHA：`824c327fb66fc8c5d4107b69abd9316c00bfe903`；weekday mother template SHA：`f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- main W47 calendar JSON SHA：`8e33dc278d38cdac40028481b1ec445ca9c51b47`，updated_at 04:34；只讀。
+- main index SHA：`f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`；本輪未修改。
+- main 目標 preview `preview/2026-11-19-simulation.html` 不存在；本輪未寫入。
+### 44 項行情（42 有值、2 待核實）
+1) 全球指數（11/18；% 為相對前一交易日）
+- Dow 50,198.17 (-1.11%)；S&P 500 7,323.63 (-0.23%)；Nasdaq 24,429.88 (+0.42%)；Russell 2000 2,714.31 (+0.46%)。採 AP 美股收盤報導之現金指數收盤值。
+- SOX 9,609.3 (-0.35%)，Investing.com HK 歷史頁；已糾正先前錯誤 9,652.8/+0.10。
+- Nikkei 225 59,024.28 (+0.28%，來源頁標示 CFD)；KOSPI 5,067.44 (+1.99%)；Taiwan Weighted 40,194.91 (+0.26%)；Shanghai Composite 3,587.83 (+0.09%)；Shenzhen Component 10,659.41 (+0.20%)。
+- Hang Seng 23,294.75 (-0.91%，來源頁標示 CFD)；ASX 200 8,821.80 (-0.69%)；FTSE 100 10,548.21 (-1.33%，CFD)；DAX 25,729.05 (-1.21%，CFD)；CAC 40 8,146.83 (-0.85%)；STOXX Europe 600 644.04 (-1.03%，CFD)。
+- Singapore STI：Investing.com HK 對應歷史列本輪無法取得，標記待核實；未用 Singapore MSCI futures 替代 STI。
+2) S&P 500 11 ETF（只顯示 %，按漲幅至跌幅排序；Investing.com HK 11/18 歷史列）
+- XLY +1.79%；XLK +0.34%；XLC +0.30%；XLU +0.30%；XLI -0.05%；XLP -0.31%；XLB -0.75%；XLF -1.14%；XLE -1.77%；XLV -2.20%；XLRE 待核實（未找到可核對的 HK 11/18 歷史列）。
+- 已糾正先前不一致值：XLE 正確為 -1.77%，不是 -3.27%；XLF -1.14%；XLB -0.75%；XLV -2.20%。
+3) 美債 CMT（11/18 官方 Treasury daily curve 尚未發布；採最新可核實 11/17）
+- 2Y 4.80%；10Y 5.10%；30Y 5.46%。不得把 11/18 盤中 Treasury quote 當作官方 CMT close。
+4) FX
+- DXY 103.79 (+0.29%)；USD/TWD 32.947 (+0.30%，CBC 銀行間收盤，前一日 32.850)；EUR/USD 1.0973 (-0.24%)；GBP/USD 1.3150 (-0.45%)；AUD/USD 0.6714 (-0.30%)；USD/JPY 159.29 (-0.05%)。
+5) 商品（11/18；Investing.com HK 指定月份頁，均標示即時 CFD，不得稱官方交易所 settlement）
+- WTI Jan-2027 81.89 (-3.26%)，volume 242.78K；Brent Jan-2027 (LCOF7) 91.79 (-1.45%)，volume 256.58K；Gold Dec-2026 (GCZ6) 3,730.02 (-3.47%)，volume 238.94K；Silver Dec-2026 (SIZ6) 45.040 (-4.89%)，volume 77.62K。
+- 已記錄具體月份及頁面 volume；但未逐一比較相鄰月份成交量，active-month rank 尚非完全獨立驗證，故價格只標示平台 CFD close/last。
+6) 風險／情緒
+- VIX 24.56 (-3.53%，Investing.com HK CFD proxy，11/18)；MOVE 101.88 (+0.59%，最新可核實 11/17)；CNN Fear & Greed 25（Fear，FGScore fallback，2026-11-18 16:15 ET）。
+- Fed Rate Monitor：12/09/2026 meeting 25bp hike 93.9%、50bp hike 6.1%；更新時間 11/18 16:55 ET（11/19 05:55 Taiwan）。
+### 新聞與宏觀焦點（5）
+1. FOMC minutes（11/19 03:00 Taiwan 發布）：10–2 維持政策利率，兩名委員傾向當次升息 25bp；紀要顯示幾乎所有與會者認為若通膨未回落，未來仍可能需要進一步升息。市場意義：降息預期受壓，利率上行尾部風險提高。
+2. Waller comments（Cnyes 11/18 21:32 Taiwan）：Waller 指出若通膨擴散／持續，12 月 50bp 升息可作為選項，非既定基準情境。市場意義：增加鷹派尾部風險，需區分個別官員觀點與 FOMC 共識。
+3. UK October CPI（Investing.com/Reuters 11/18 15:08 Taiwan）：headline 3.6% y/y vs 3.5%；core 2.8%，services 3.7%。市場意義：英國通膨黏性抬高 BoE 進一步緊縮風險。
+4. US housing starts / permits（11/18 21:30 Taiwan）：starts 1.309m vs 約 1.245m consensus；permits 1.295m，低於約 1.37m consensus。市場意義：當期開工回升但許可轉弱，未來建築動能不一致。
+5. EIA weekly inventories（Investing.com 11/18 23:30 Taiwan）：crude stocks +3.38m barrels vs 約 +0.4m expected。市場意義：短期供給寬鬆壓低油價，但不可單憑單週庫存推論長期需求轉弱。
+- Euro area October HICP final 4.0% y/y vs 3.8% prior、core 約 2.6%，列入經濟行事曆已公布事件，不重複包裝為第六則焦點。
+### Market Hot Headlines（10，與上述 5 個宏觀焦點不重複）
+1. US equities close mixed（AP 11/18 close）：Dow -1.11%、S&P -0.23%、Nasdaq +0.42%、Russell +0.46%；Nvidia regular-session shares fell about 2.9% after prior-session earnings, showing strong results do not guarantee immediate upside.
+2. Palo Alto Networks Q1 FY2027：revenue US$3.445B，GAAP EPS 0.57 / non-GAAP EPS 1.05；Investing.com forecast reference 0.972 / US$3.31B is not accepted as PIT consensus because the required as-of/basis/archive fields are missing. Company announced Applied Compute acquisition around US$4.5B; after-hours share response reported around +8.5%.
+3. Everpure Q3 FY2027：revenue US$1.4598B (+51% y/y)，GAAP EPS 0.29 / non-GAAP EPS 0.86；company raised FY27 revenue outlook to about US$5.20–5.21B; after-hours response reported around +6%.
+4. TJX Q3 FY2027：revenue about US$15.95B, GAAP EPS 1.39 / adjusted EPS 1.34, comp sales +4%; shares about +8% at regular close.
+5. Target Q3 FY2026：revenue US$27.067B, GAAP/adjusted EPS 2.65; EPS included about US$0.50 tariff-refund benefit, comp sales +5.6%; shares rose about 4% after report.
+6. Lowe's Q3 FY2026：revenue US$22.756B, GAAP EPS 2.98 / adjusted EPS 3.10; adjusted EPS includes about US$0.34 tariff-refund benefit; shares about +1% at close.
+7. Home Depot Q3 FY2026：revenue US$43.398B, GAAP EPS 3.72 / adjusted EPS 3.86; shares slipped less than 1% at close.
+8. ZTO Express Q3 FY2026：revenue RMB14.3616B; diluted EPS RMB3.20 per ADS (about US$0.48), do not mislabel RMB3.20 as USD; after-hours share response around +1.39%.
+9. ECB Financial Stability Review (11/18): warns AI valuation, concentrated exposures and off-balance-sheet commitments of roughly US$4T could amplify financial-system vulnerabilities.
+10. Precious metals selloff (Reuters 11/18): spot gold fell about 3.2% and silver about 5%; stronger dollar and hawkish rate repricing increased pressure on non-yielding assets.
+### 財報／FactSet
+- W47 JSON has 13 published earnings events and 10 upcoming at 04:34. By 06:20, PANW and Everpure had also reported after 04:35; report layer only reclassifies these 2 to published (15 published / 8 upcoming) and does not write JSON.
+- 15 published actuals (GAAP / adjusted where available): HTHT EPS 5.63, revenue 7.75B; BEKE EPS 1.98, revenue 21.0B; BIDU EPS 4.35, revenue 30.807B; ARMK EPS 0.51, revenue 5.293B; TSN EPS -0.22, revenue 14.585B; JD EPS 4.59, revenue 309.6B; DIS EPS 1.51, revenue 25.947B; HD EPS 3.72 / adj 3.86, revenue 43.398B; NVDA EPS 2.70 / non-GAAP 2.68, revenue 115.8B; ZTO EPS RMB3.20 per ADS, revenue RMB14.3616B; TGT EPS 2.65, revenue 27.067B; LOW EPS 2.98 / adj 3.10, revenue 22.756B; TJX EPS 1.39 / adj 1.34, revenue ~15.95B; PANW EPS 0.57 / non-GAAP 1.05, revenue 3.445B; Everpure EPS 0.29 / non-GAAP 0.86, revenue 1.4598B.
+- W47 has 21 EPS and 21 revenue consensus snapshots; all `pending_required_fields` (missing data_as_of/period/currency/basis/analyst_count/raw archive SHA). Therefore no Beat/Miss/Inline label is allowed for any of the 15. All stock_price_reaction fields in the JSON are null; only selected current reactions above were independently reported; other companies remain pending.
+- FactSet Earnings Insight latest available: 2026-11-13; 91% reported, 84% EPS beat, 74% revenue beat, blended earnings growth +31.9%, EPS surprise +3.1%, forward P/E 18.3x.
+### 分析草稿
+- Summary：利率風險升高、AI需求仍強但估值承壓，市場呈現風格分化與風險趨避。
+- Market Sentiment：Fear & Greed 25（Fear）、VIX 24.56；DXY +0.29%、金銀大跌，FedWatch 顯示 12 月升息 25bp 機率 93.9%，50bp 6.1%。屬偏防禦／風險趨避，不是全面恐慌。
+- 盤面觀察重點：① Fed minutes + Waller 把利率風險留在高檔；② UK CPI 3.6%、Euro HICP 4.0% 顯示海外通膨黏性，美國 starts 回升但 permits 下滑；③ PANW/Everpure 財報強但 ECB 警示 AI 融資風險，AI 需看現金流與資本回報；④ Target/Lowe's 的 EPS 含 tariff-refund，一次性利益需與核心營運拆開；⑤ Dow 下跌但 Nasdaq/Russell 上漲，XLY +1.79%、XLE -1.77%，呈現板塊輪動而非單一方向行情。
+### 組裝與 Gate
+- 已讀取核准 weekday mother template 與 QA contract；但當前工具環境沒有標準 DOMParser／瀏覽器 DOM 操作橋接。SIM-1.3 規定沒有真正 DOM parser 不得宣稱完成 DOM 更新。未使用字串替換、未重建母版、未啟動 GitHub Actions、collector、Assembler、Renderer、Orchestrator。
+- 沒有產生當日 HTML；`main/preview/2026-11-19-simulation.html` 仍不存在。未做 HTML integrity/link/desktop/mobile/interaction/browser visual QA；未建立 QA seal；未驗證 Pages URL。
+- review_ready=false。下一步需在有標準 DOM parser 的執行環境填入核准母版，再處理 STI/XLRE 缺值、商品 active-month volume rank、consensus PIT snapshots 與 stock reactions，對同一最終 HTML 完成 QA seal、回讀 SHA、Pages URL 開啟驗證。
