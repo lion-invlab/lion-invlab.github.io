@@ -1509,3 +1509,9 @@
 - 第二輪run `44421729178` 已成功組裝HTML並通過資料準備，但互動測試因既有SIM-1.3來源白名單只接受Investing.com HK／鉅亨網，拒絕了官方ONS、Fed、Census、EIA直接連結。
 - 已依SIM-1.3原規則調整5則焦點新聞連結：Waller與FOMC紀要採鉅亨網；英國CPI、美國住宅開工、EIA原油庫存採Investing.com香港站。內容仍保留原始事件數據與影響，熱門頭條維持10則事件型新聞。
 - 更新fixture commit `c0258617ec61146067d14b4c4e218dd9ce767fdc`，blob SHA `1a5c89edd83b4ee2658fe2464819bb0ec8d377ec`。此修正已觸發第三輪完整建置，等待QA。
+
+
+### 母版視覺 Gate 修正
+- 第三輪run `44421931029`：HTML組裝成功、互動 smoke test成功；母版視覺回歸在1440/768/412/390/360px均指出今日觀察分頁標題缺少固定文字「本週三大觀察焦點」。原因是本次內容將標題改寫為「接下來三個關鍵觀察」，不符合母版固定標題契約。
+- 已將fixture `core_observation.heading` 恢復為「本週三大觀察焦點」，不修改母版或CSS。更新commit `410d5839f978440b84effb2c0c1900c348699ba3`，fixture blob SHA `609aa10c331be251332e4a5060c36b87f1902080`。
+- 第四輪完整建置已觸發，Actions run `44422217535`，等待視覺、獨立驗證及44項數據Gate。
