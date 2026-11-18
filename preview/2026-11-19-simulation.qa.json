@@ -3,11 +3,10 @@
   "review_ready": true,
   "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "44項行情已逐項核對：43項資料日為2026-11-18，MOVE最新可核實資料日為2026-11-17。指數、11檔產業ETF、債券、匯率、能源、貴金屬及情緒指標均按指定來源逐項讀取歷史列；CFD參考報價明確標示，未混用盤中價。FactSet盈餘健康度仍為11/13統計快照。",
-    "warning_note": "44項行情均已補齊來源及資料日期：43項資料日為2026-11-18，MOVE最新可核實資料日為2026-11-17（101.88，+0.59%）。各項依實際來源標示；XLU使用StockAnalysis備援，其他10檔產業ETF採Investing.com香港站或加拿大站。",
+    "quality_note": "44項行情已逐項核對：44項資料日均為2026-11-18；MOVE採TradingView TVC:MOVE衍生資料。指數、11檔產業ETF、債券、匯率、能源、貴金屬及情緒指標均按指定來源逐項讀取歷史列；CFD參考報價明確標示，未混用盤中價。FactSet盈餘健康度仍為11/13統計快照。",
+    "warning_note": "44項行情均已補齊來源及資料日期：44項資料日均為2026-11-18；MOVE為TradingView TVC:MOVE衍生資料98.16（-3.65%）。各項依實際來源標示；XLU使用StockAnalysis備援，其他10檔產業ETF採Investing.com香港站或加拿大站。",
     "pending_items": [
       "W47行事曆coverage仍為incomplete；本報只讀main W47，不直接修補資料庫。",
-      "MOVE 11/18歷史列尚未出現；保留Investing.com最新可核實11/17收盤101.88（+0.59%）。",
       "FactSet盈餘健康度統計日為11/13，不得標示為11/18資料。",
       "XLU 11/18數據採StockAnalysis日期列，非Investing.com來源；已在資料來源註記揭露。"
     ],
@@ -17,11 +16,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-19-simulation.html",
   "report_date": "2026-11-19",
-  "report_git_blob_sha": "9ed27273adfcc1070b4c48e44748415e557025e4",
-  "report_sha256": "8f42e225636822ce71cc2cb1bb6a25ba051f875168e9897bb3b13218fbbdeed9",
-  "build_commit_sha": "b6861a9fb76beae6e0b4c58e9c0986b8558b74ab",
+  "report_git_blob_sha": "94150746d69fa56b6733b2ede63be4e4fb9ff28c",
+  "report_sha256": "4d472df276616f1a3ca6db08d79613e9c81b5dd19a60a3236080c8e76b3c5685",
+  "build_commit_sha": "a5a7037757020262c7fc1a4c298094c63b4e3626",
   "builder_blob_sha": "d93eb66b123fcb4a5d2345079814aabc1e23a178",
-  "fixture_blob_sha": "46e7d8e6921e578100279de5482ff28c8449bd07",
+  "fixture_blob_sha": "f9b69bafe2219153a16d64895e82b377d9e4ed4e",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
   "calendar_main_commit_sha": "c29a2b52905707544bd147ba52c63c8cacd049b8",
   "calendar_current_blob_sha": "8e33dc278d38cdac40028481b1ec445ca9c51b47",
@@ -35,6 +34,6 @@
     390,
     360
   ],
-  "workflow_run_id": "44424141900",
+  "workflow_run_id": "44424480323",
   "workflow_run_attempt": "1"
 }
