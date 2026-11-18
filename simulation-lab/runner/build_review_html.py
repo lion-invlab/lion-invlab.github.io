@@ -1234,7 +1234,13 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                 raise ValueError(f"{container_id}/{label}: directional QA change span missing")
             cls = change[1].get("class", [])
             value = str(record["change_display"]).strip()
-            expected = "down" if re.match(r"^[-−－]", value) else "up" if re.match(r"^[+＋]?\s*[0-9]", value) and not re.match(r"^[+＋]?\s*0(?:\.0+)?(?:\s|$)", value) else "flat" if re.match(r"^[+＋]?\\s*0(?:\\.0+)?(?:\\s|$)", value) else None
+            parsed_change = re.match(r"^([+＋\\-−－]?)\\s*([0-9][0-9,]*(?:\\.[0-9]+)?)", value)
+            if parsed_change:
+                sign = parsed_change.group(1)
+                amount = float(parsed_change.group(2).replace(",", ""))
+                expected = "down" if sign in ("-", "−", "－") else "flat" if amount == 0 else "up"
+            else:
+                expected = None
             if expected and expected not in cls:
                 raise ValueError(f"{container_id}/{label}: TAC direction class mismatch for {value}: {cls}, expected {expected}")
     # Refresh risk quote value, move, source and date together. Never retain mother-template quote annotations.
