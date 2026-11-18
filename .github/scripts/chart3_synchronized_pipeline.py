@@ -52,3 +52,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# QA-triggering no-op: keep this entry point covered by the research workflow.
