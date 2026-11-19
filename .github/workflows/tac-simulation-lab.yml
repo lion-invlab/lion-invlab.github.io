@@ -238,7 +238,7 @@ jobs:
           echo "QA-only target locked: ${REPORT_OUTPUT}"
 
       - name: Project Yahoo pre-release consensus onto main W47 (read-only)
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && (env.REPORT_DATE == '2026-11-16' || env.REPORT_DATE == '2026-11-17' || env.REPORT_DATE == '2026-11-18' || env.REPORT_DATE == '2026-11-19' || env.REPORT_DATE == '2026-11-20')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]') && (env.REPORT_DATE == '2026-11-16' || env.REPORT_DATE == '2026-11-17' || env.REPORT_DATE == '2026-11-18' || env.REPORT_DATE == '2026-11-19' || env.REPORT_DATE == '2026-11-20'))
+        if: false # skip stale 2026-11-15 capture; use fresh report-layer projection from current main W47 calendar
         shell: bash
         run: |
           set -euo pipefail
