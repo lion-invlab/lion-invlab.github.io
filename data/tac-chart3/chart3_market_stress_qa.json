@@ -1,26 +1,26 @@
 {
   "dataset_id": "TAC_CHART3_MARKET_STRESS",
   "status": "PASS",
-  "generated_at": "2026-11-18T21:31:49+00:00",
+  "generated_at": "2026-11-19T21:31:38+00:00",
   "file": "chart3_market_stress.json",
-  "bytes": 1494123,
-  "sha256": "a14cb5d4affd56f798e391291b7da6646c2c5cacbec0b4a4e3654c217a9a2c4e",
+  "bytes": 1494209,
+  "sha256": "724379e86566897170e18938d430bdbecc2252183c11728f234f78d25ac387a6",
   "series": [
     {
       "series_id": "VIXCLS",
       "status": "PASS",
-      "current_rows": 9621,
-      "valid_rows": 9319,
+      "current_rows": 9622,
+      "valid_rows": 9320,
       "missing_rows": 302,
-      "vintage_event_rows": 9643,
-      "initial_release_rows": 4140,
-      "current_sha256": "b5cccdaacf6ec84fea36335bbe50130c1bbcffbd546ee656896bbc9195b82653",
-      "vintage_events_sha256": "8f4ce3de7d88e85d465c553fb6d94eae64c10f211733fceb595af08727f33f55",
-      "initial_release_sha256": "b289fd7a8f349c167d5606eedc84613b75b7700fb4f7c149da1bcb508c4ab675",
+      "vintage_event_rows": 9644,
+      "initial_release_rows": 4141,
+      "current_sha256": "5462716219df8347ac0043169be9eecbd9c591cd41de399496f62b7ad78e6156",
+      "vintage_events_sha256": "58c517f015d33c3dc51d2144c9028673e8840d12949024259cacf30f11652c55",
+      "initial_release_sha256": "ef16eb4f442aee0f11c416398ac9b3e261e6cbd954f32aa54de4460f0a6bc9ae",
       "vintage_coverage": {
         "first": "2010-11-22",
-        "last": "2026-11-17",
-        "count": 3976
+        "last": "2026-11-18",
+        "count": 3977
       },
       "hash_checks": {
         "current_sha256": true,
