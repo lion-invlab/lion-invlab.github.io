@@ -142,4 +142,28 @@ class IncrementalTests(unittest.TestCase):
             self.assertEqual(saved["series"][0]["next_release_date"],"2026-11-19")
             self.assertEqual(saved["retrieved_at"],"2026-11-16T00:00:00Z")
 
+
+    def test_current_freshness_accepts_recent_daily_and_weekly_observations(self):
+        self.assertEqual(INC.validate_current_freshness("VIXCLS",[{"date":"2026-11-17","value":"25.46"}],"2026-11-19")["age_days"],2)
+        self.assertEqual(INC.validate_current_freshness("NFCI",[{"date":"2026-11-13","value":"-0.478"}],"2026-11-19")["age_days"],6)
+        self.assertEqual(INC.validate_current_freshness("NFCICREDIT",[{"date":"2026-11-13","value":"-0.013"}],"2026-11-19")["age_days"],6)
+        self.assertEqual(INC.validate_current_freshness("STLFSI4",[{"date":"2026-11-13","value":"-0.8655"}],"2026-11-19")["age_days"],6)
+
+    def test_current_freshness_rejects_stale_daily_and_weekly_observations(self):
+        with self.assertRaises(RuntimeError):
+            INC.validate_current_freshness("VIXCLS",[{"date":"2026-11-09","value":"25.46"}],"2026-11-19")
+        for sid in ("NFCI","NFCICREDIT","STLFSI4"):
+            with self.assertRaises(RuntimeError):
+                INC.validate_current_freshness(sid,[{"date":"2026-10-30","value":"-0.4"}],"2026-11-19")
+
+    def test_current_freshness_rejects_missing_and_future_observations(self):
+        with self.assertRaises(RuntimeError):
+            INC.validate_current_freshness("VIXCLS",[{"date":"2026-11-18","value":"."}],"2026-11-19")
+        with self.assertRaises(RuntimeError):
+            INC.validate_current_freshness("VIXCLS",[{"date":"2026-11-20","value":"25.0"}],"2026-11-19")
+
+    def test_current_freshness_rejects_unconfigured_series(self):
+        with self.assertRaises(RuntimeError):
+            INC.validate_current_freshness("SP500",[{"date":"2026-11-19","value":"6800"}],"2026-11-19")
+
 if __name__=="__main__":unittest.main(verbosity=2)
