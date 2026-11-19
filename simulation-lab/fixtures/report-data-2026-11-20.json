@@ -2,8 +2,8 @@
   "report_date": "2026-11-20",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-19",
-  "summary": "11/19美股在Anthropic大型IPO首日亮眼、但科技股與主要指數持續走弱的反差中收低。道瓊現貨跌2.19%、S&P 500依Investing.com US現貨指數歷史列跌2.02%、Nasdaq跌2.25%、Russell 2000依AP現貨收盤報導跌2.18%，費半跌2.42%；11大產業ETF全數收黑。市場焦點已由「AI需求是否存在」轉向「龐大算力與資料中心資本支出能否轉化為營收、利潤與自由現金流」。宏觀數據呈現成長降溫與成本壓力並存：初領失業金升至203K、續領升至1.763M；費城Fed製造業指數降至6.3，領先經濟指數10月下滑0.3%。Fed官員Jefferson提醒AI投資短期可能推升總需求與通膨，生產力效益則可能較晚出現。FedWatch對12/9升息25bp的隱含機率達98.2%，市場定價偏鷹。能源價格因地緣政治風險溢價走高，黃金與白銀則回落。",
-  "sentiment": "風險趨避升溫，市場情緒落入極度恐懼區；11大產業ETF全數下跌，VIX升至28.47、FGScore備援值為19（Extreme Fear）。美股主要現貨指數同步回檔，亞洲與歐洲市場亦偏弱；Russell 2000已採AP 11/19現貨收盤報導值，不再使用Investing.com CFD代理報價。",
+  "summary": "11/19美股不是缺少AI利多，而是利多已不足以抵銷估值、資本支出回報與利率風險：Anthropic IPO首日收高17%，道瓊、S&P 500、Nasdaq、Russell 2000與費半卻同步下跌，11大產業ETF全數收黑。短線市場立場偏空，風險控制優先於追逐單一IPO或逢低攤平。宏觀面初領失業金203K高於預期198K、續領升至1.763M，費城Fed製造業指數降至6.3，顯示需求與就業邊際降溫；但價格壓力仍在，FedWatch截至05:20對12/9升息25bp定價98.2%，使折現率風險難以快速解除。操作上先降低高波動曝險、保留流動性；只有在美股主要指數止跌、11大產業ETF不再全面收黑、VIX回落且CNN情緒指數脫離極度恐懼後，才考慮分批恢復風險部位。若指數續創低且VIX再升，防守立場不變。",
+  "sentiment": "股票市場風險快速升溫：VIX 28.47、單日上升15.92%，CNN Provider Index為19、落在0–24的極度恐懼區；兩項訊號都指向股票風險偏好急降。相較之下，MOVE依使用者提供的Investing.com畫面為96.04、下跌2.16%，債券波動率當日反而回落，顯示壓力目前更集中在股票風險定價，不能簡化成所有資產同步恐慌。策略仍以控制股票曝險為先，等市場廣度與情緒同步修復再提高風險。",
   "focus_news": [
     {
       "title": "Investing.com｜美國初領失業金升至203,000人，續領失業金同步增加",
@@ -302,36 +302,36 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "4.80%",
-      "change_display": "0bp",
+      "display": "4.770%",
+      "change_display": "-3bp",
       "source": {
-        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-        "data_date": "2026-11-18",
-        "quote_type": "official_daily_par_yield",
-        "note": "U.S. Treasury 11/18官方par yield；11/17為4.80%，日變動0bp。"
+        "name": "Investing.com Canada｜United States 2-Year Bond Yield歷史資料",
+        "url": "https://ca.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com歷史列：11/19收盤4.770%，日跌0.62%；11/18收盤4.800%，折算日變動約-3bp。採同一標的的逐日歷史列，不混用Treasury CMT par yield。"
       }
     },
     "10年期美債殖利率": {
-      "display": "5.07%",
-      "change_display": "-3bp",
+      "display": "5.048%",
+      "change_display": "-2bp",
       "source": {
-        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-        "data_date": "2026-11-18",
-        "quote_type": "official_daily_par_yield",
-        "note": "U.S. Treasury 11/18官方par yield；11/17為5.10%，日變動-3bp。"
+        "name": "Investing.com US｜United States 10-Year Bond Yield歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com歷史列：11/19收盤5.048%，日跌0.36%；11/18收盤5.066%，折算日變動約-2bp。採同一標的的逐日歷史列，不混用Treasury CMT par yield。"
       }
     },
     "30年期美債殖利率": {
-      "display": "5.41%",
-      "change_display": "-5bp",
+      "display": "5.405%",
+      "change_display": "-1bp",
       "source": {
-        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-        "data_date": "2026-11-18",
-        "quote_type": "official_daily_par_yield",
-        "note": "U.S. Treasury 11/18官方par yield；11/17為5.46%，日變動-5bp。"
+        "name": "Investing.com US｜United States 30-Year Bond Yield歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com歷史列：11/19收盤5.405%，日跌0.14%；11/18收盤5.412%，折算日變動約-1bp。採同一標的的逐日歷史列，不混用Treasury CMT par yield。"
       }
     }
   },
@@ -485,14 +485,14 @@
       "band": "高波動"
     },
     "move": {
-      "display": "98.15",
-      "change_display": "-3.66%",
+      "display": "96.04",
+      "change_display": "-2.16%",
       "source": {
-        "name": "Investing.com HK｜ICE BofA MOVE歷史資料；EODData交叉核對",
+        "name": "Investing.com HK｜ICE BofA MOVE歷史報價（使用者提供截圖）",
         "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "historical_daily_close",
-        "note": "Investing.com及EODData均可核對11/18收盤98.15；TradingView動態頁未能讀出11/19日線，Yahoo及CNBC端點不可讀，故採核實到的最新11/18值，不冒稱11/19。"
+        "data_date": "2026-11-19",
+        "quote_type": "user_provided_screenshot_investing_com_quote",
+        "note": "依使用者於2026-11-20 06:40（Asia/Taipei）提供之截圖；畫面報價時間為Nov 19, 2026 4:17 PM EST，顯示96.04、下跌2.12（-2.16%），並列上次收盤價98.15。此為使用者提供的畫面證據，未宣稱助理獨立刷新或直讀該動態頁。"
       },
       "band": "偏高"
     },
@@ -500,11 +500,11 @@
       "display": "19",
       "change_display": "Extreme Fear",
       "source": {
-        "name": "FGScore｜CNN Fear & Greed fallback",
+        "name": "FGScore｜US stocks · CNN Provider Index（SIM-1.3第一順位備援）",
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-19",
-        "quote_type": "sentiment_index",
-        "note": "FGScore顯示11/19分數19（Extreme Fear）；CNN官方頁與圖表端點本輪無法直接讀取，依SIM-1.3採備援並標示來源。"
+        "quote_type": "cnn_provider_index_fallback",
+        "note": "CNN官方頁面本輪因robots限制無法直接讀取；依SIM-1.3備援順序採FGScore明確標示的US stocks · CNN Provider index。頁面As of Nov 19, 2026 UTC，當前值19、Extreme Fear；其CNN market timestamp為Nov 19, 2026 4:24 PM EST（2026-11-20 05:24 Asia/Taipei），符合05:25截稿前。未採用Financial Context 06:19台灣時間的截稿後更新。"
       },
       "band": "Extreme Fear"
     }
@@ -541,7 +541,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "頁面更新時間2026-11-19 16:05 EST（台灣時間2026/11/20 05:05）；05:20台灣時間讀取。12/9會議升息25bp機率98.2%、升息50bp機率1.8%、維持利率0%。機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
-  "observation": "盤面觀察重點：11/19美股主要現貨指數全面走弱，道瓊跌2.19%、S&P 500跌2.02%、Nasdaq跌2.25%、Russell 2000跌2.18%、費半跌2.42%；11大產業ETF全數下跌。VIX升至28.47、Fear & Greed降至19，顯示風險趨避升溫。市場同時消化Fed偏鷹會議紀要、就業市場再就業壓力，以及AI企業估值、資本支出回報與出口管制風險。",
+  "observation": "盤面觀察重點：11/19美股五大主要現貨指數同步下跌，11大產業ETF全數收黑；Anthropic IPO首日收高17%仍未改善市場廣度。VIX升至28.47、CNN Fear & Greed為19（極度恐懼），而MOVE依使用者提供截圖為96.04、下跌2.16%，顯示股票風險定價急速惡化、債券波動率當日反而回落。宏觀面初領失業金203K高於預期、續領1.763M，費城Fed製造業指數降至6.3，但FedWatch仍定價12/9升息25bp機率98.2%；市場同時面對成長降溫與折現率壓力。",
   "calendar": {
     "week_id": "2026-W47",
     "events": []
@@ -550,20 +550,20 @@
     "week_id": "2026-W47",
     "events": []
   },
-  "summary_title": "AI IPO熱度不敵科技股拋售，市場重新定價風險與利率",
+  "summary_title": "AI IPO火熱、股市全面承壓：市場正重估資本回報與利率",
   "market_comments": {
     "global_markets": [
-      "美股：11/19道瓊現貨收49,097.06（-2.19%）、S&P 500收7,175.89（-2.02%，Investing.com US Type: Index）、Nasdaq收23,879.20（-2.25%）、Russell 2000收2,655.11（-2.18%，AP現貨收盤報導）、費半收9,419.70（-2.42%）。主要現貨指數同步走弱，AI IPO首日強勢未能扭轉整體科技與風險資產賣壓。",
-      "亞洲：日經225收59,444.21（+0.71%，Yahoo收市報價）、韓國KOSPI收5,137.89（+1.39%），台灣加權重挫4.40%、香港恆生跌1.95%，新加坡STI則升0.49%。區域表現分歧，半導體與大型科技股賣壓在台港市場更為明顯。",
-      "中國：上證綜合收3,577.62（-0.28%）、深證成指收10,583.20（-0.71%），兩市同步偏弱但跌幅較台港溫和。政策與AI資本支出預期仍支撐部分產業，但外部科技股估值修正及出口限制消息壓抑風險偏好。",
-      "歐洲：英國FTSE 100現貨收10,452.68（-0.93%，FT.com）、德國DAX收25,463.81（-1.06%，Yahoo ^GDAXI）、法國CAC 40跌0.81%、STOXX Europe 600跌0.88%。歐洲主要市場同步回檔，反映全球利率預期與科技股估值壓力擴散。",
-      "資料口徑：17項全球市場已補齊現貨／可核實收盤；Dow、RUT、Nikkei、FTSE、DAX已改用Yahoo、AP或FT.com現貨來源，不再使用Investing.com CFD代理值。S&P 500採Investing.com US頁面明確標示Type: Index；11大產業ETF均有11/19歷史列。美債殖利率與MOVE最新可核實資料日為11/18。"
+      "美股：11/19道瓊現貨49,097.06（-2.19%）、S&P 500 7,175.89（-2.02%）、Nasdaq 23,879.20（-2.25%）、Russell 2000 2,655.11（-2.18%）、費半9,419.70（-2.42%），五大指數同步收低，11大產業ETF也全數下跌。Anthropic IPO首日收高17%卻未能改善市場廣度，說明資金正在檢驗AI資本支出回報與高估值承受力，而非單純追逐AI題材。短線美股立場偏空，先降低高Beta曝險；待主要指數止跌、產業ETF跌勢收斂且VIX回落，再分批恢復風險部位。若指數續創低且VIX再升，防守不變。",
+      "亞洲：11/19區域表現明顯分歧：日經225 +0.71%、KOSPI +1.39%、新加坡STI +0.49%，但台灣加權重挫4.40%、香港恆生下跌1.95%、澳洲ASX 200下跌1.04%。這不是全亞洲同步下跌，而是高波動市場與大型科技／半導體曝險較重市場承壓更深；出口管制消息是供應鏈風險背景，但單日指數表現不足以證明單一事件造成跌勢。策略上避免把亞洲視為單一交易，先區分相對強勢市場與台港弱勢市場；台港市場需先看到跌勢收斂、指數止跌及成交廣度改善，才考慮分批提高曝險。",
+      "中國：上證綜合3,577.62（-0.28%）、深證成指10,583.20（-0.71%），跌幅較台港溫和但仍同步收低。中國市場當日相對抗跌不等於已形成獨立上升趨勢；外部科技股估值修正與出口限制仍是風險背景。策略上不因單日跌幅較小便追價，等待兩市同步轉強、成交廣度擴大再提高風險。",
+      "歐洲：11/19 FTSE 100現貨10,452.68（-0.93%）、DAX 25,463.81（-1.06%）、CAC 40（-0.81%）、STOXX Europe 600（-0.88%），主要市場全面收低，顯示美股風險重估已伴隨全球股市同步承壓。現有資料支持的是跨市場風險偏好轉弱，尚不足以將歐洲跌勢歸因於單一歐洲本地事件。短線採防守與等待策略；待主要指數止跌、區域市場廣度改善後再分批增加曝險，若全球風險情緒續惡化則不急於抄底。",
+      "資料口徑：全球指數採各自已核實的11/19現貨收盤及來源口徑；S&P 500採Investing.com US Type: Index，Russell 2000採AP現貨收盤報導。MOVE採使用者提供的Investing.com畫面證據（11/19 16:17 EST），三項美債殖利率改採Investing.com各自11/19歷史收盤列。"
     ],
-    "sectors": "11大S&P 500產業ETF均已取得Investing.com 11/19歷史列，且全數收低；非必需消費（XLY -2.79%）與通訊服務（XLC -2.67%）跌幅較深，公用事業（XLU -1.24%）與能源（XLE -0.65%）相對抗跌。這種廣泛賣壓代表資金正在降低整體股票風險曝險，而非只針對少數AI個股調整。",
-    "bonds": "美國公債殖利率採Treasury最新官方11/18資料：2年期4.80%、10年期5.07%、30年期5.41%；10Y-2Y利差約27bp。短端政策定價偏鷹，但長端殖利率較前一日回落，顯示市場同時反映政策利率與成長風險。FedWatch的12/9升息25bp機率為98.2%。",
-    "fx": "美元指數小幅走高，日圓偏弱；英鎊與澳幣回落，反映風險偏好下降及美元資金需求。美元兌新台幣採央行官方收盤匯率，與Investing.com即時報價口徑不同，勿直接混用。",
-    "energy": "WTI與Brent指定合約均上漲，地緣政治風險溢價提供支撐。11/19價格採Investing.com指定月份合約平台收盤/Last，非CME或ICE官方結算；合約月份依交易量與未平倉量核對，Brent公開頁未提供OI。",
-    "metals": "GCZ6與SIZ6採指定合約11/19平台收盤/Last，非CME官方結算；CME最新可得正式Daily Bulletin為11/18。黃金回落較明顯、白銀小幅走低；白銀Dec26與Mar27成交量及OI訊號分歧，已在來源註記揭露。"
+    "sectors": "11大S&P 500產業ETF於11/19全數收低，XLY -2.79%、XLC -2.67%跌幅最深，XLE -0.65%、XLU -1.24%相對抗跌。這種廣度代表賣壓已超出少數AI個股；防禦型與能源類股只是相對跌得較少，不能僅憑單日表現宣稱資金已淨流入。短線不宜只挑跌深科技股攤平，應先等11檔ETF跌勢收斂、上漲家數回升，再判斷風險偏好是否真正修復。",
+    "bonds": "Investing.com 11/19歷史收盤：2Y 4.770%（-3bp）、10Y 5.048%（-2bp）、30Y 5.405%（-1bp），10Y-2Y利差約27.8bp。三個期限均小幅下行，短端降幅略大，曲線僅溫和陡峭化，尚不足以解讀成市場已全面轉向寬鬆；同時Investing.com Fed Rate Monitor在05:20仍定價12/9升息25bp機率98.2%。策略上避免把單日殖利率回落當成長債趨勢反轉，若升息定價未降溫，長天期債券仍需控制久期風險。",
+    "fx": "11/19美元指數103.96（+0.09%），美元兌日圓159.66（+0.19%）；英鎊兌美元1.3085（-0.48%）、澳幣兌美元0.6657（-0.92%）、歐元兌美元1.0972（-0.02%），美元相對英鎊與澳幣偏強，但各貨幣對並非完全同向。USD/TWD 32.942（-0.02%）採央行銀行間官方收盤，不可與即時市場報價混為同一口徑。策略上不以單一DXY漲幅推論所有貨幣，留意高Beta貨幣對美元走弱是否延續。",
+    "energy": "11/19 WTI Jan-2027合約CLF7收83.07（+0.92%），Brent Jan-2027合約LCOF7收92.83（+0.96%），兩者同步上漲，與荷姆茲海峽航運安全及美伊緊張升高的供應風險敘事一致；但報價為Investing.com指定月份合約平台收盤/Last，非CME／ICE官方結算。若運輸風險持續，能源價格可能增加通膨黏著度並壓縮Fed轉鴿空間；若外交降溫、風險溢價回吐，油價可能反向修正，故不宜只憑單日上漲追價。",
+    "metals": "11/19 GCZ6黃金期貨收3,683.50（-1.56%），SIZ6白銀期貨收44.925（-0.30%），兩者均回落，當日並未呈現貴金屬全面避險買盤。由於數值是指定月份合約平台收盤/Last、非CME官方結算，應避免過度解讀單日價格。若美元走強與利率高檔壓力再現，貴金屬反彈可能受限；若股票波動擴大且資金轉向避險，才需重新評估其防禦角色。"
   },
   "last_week_calendar": {
     "week_id": "2026-W46",
@@ -575,19 +575,19 @@
   },
   "summary_points": [
     {
-      "label": "市場主軸",
-      "text": "美股主要現貨指數同步回檔，11大產業ETF全數收黑；Anthropic IPO首日強勢，仍未扭轉整體風險資產賣壓。"
+      "label": "市場立場｜短線偏空、防守優先",
+      "text": "11/19道瓊 -2.19%、S&P 500 -2.02%、Nasdaq -2.25%、Russell 2000 -2.18%、費半 -2.42%，11大產業ETF全數收黑。Anthropic IPO首日收高17%仍未帶動市場廣度改善，顯示資金沒有因單一AI新股熱度而重新承擔整體科技股風險；目前應先控制高Beta曝險，不把IPO強勢誤判為全面風險偏好回升。"
     },
     {
-      "label": "利率與景氣",
-      "text": "FedWatch對12/9升息25bp機率98.2%；初領失業金203K、續領1.763M，費城Fed製造業指數降至6.3，顯示成長動能放緩但通膨壓力未消。"
+      "label": "因果主軸｜成長降溫，折現率壓力未解",
+      "text": "初領失業金203K高於預期198K、續領升至1.763M，費城Fed製造業指數由23.2降至6.3，領先經濟指數10月下滑0.3%，需求動能出現降溫訊號；但FedWatch於05:20仍將12/9升息25bp機率定價為98.2%，能源運輸地緣風險又推升油價約1%。市場同時面對獲利成長疑慮與較高折現率，AI資本支出能否轉成自由現金流成為估值檢驗核心。"
     },
     {
-      "label": "風險訊號",
-      "text": "VIX升至28.47、FGScore為19（Extreme Fear）；MOVE最新可核實值98.15，資料日為11/18。市場同步評估利率、AI資本回報與地緣政治風險。"
+      "label": "操作策略｜等待廣度修復，再分批提高曝險",
+      "text": "短線以低槓桿、降低高波動持倉及保留現金為主，不追逐單一IPO，也不因單日急跌直接攤平。反轉條件是主要現貨指數止跌、11大產業ETF不再全數收黑、VIX自28.47回落，且CNN Fear & Greed持續脫離0–24的極度恐懼區；若指數續創低、VIX再升或升息定價維持極端偏鷹，維持防守並暫緩加碼。"
     }
   ],
-  "warning_note": "美債殖利率及MOVE最新可核實資料日為11/18；不得標示成11/19。WTI、Brent、GCZ6、SIZ6的11/19價格為指定月份合約平台收盤/Last，非CME/ICE官方結算。ROST實際值採公司SEC 8-K官方附件，公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應待後續。CNN Fear & Greed官方頁及圖表端點本輪無法直接讀取，依SIM-1.3使用FGScore備援值19。",
+  "warning_note": "MOVE數值依使用者06:40台灣時間提供的Investing.com截圖，畫面顯示11/19 16:17 EST；此為使用者提供證據，非助理獨立刷新。CNN官方頁本輪受robots限制，依SIM-1.3第一順位第三方備援採FGScore CNN Provider Index 19（Extreme Fear），時間戳Nov 19 16:24 EST，符合05:25截稿。美債殖利率改採Investing.com各期限11/19歷史收盤，非Treasury CMT par yield。WTI、Brent、GCZ6、SIZ6的11/19價格為指定月份合約平台收盤/Last，非CME/ICE官方結算。ROST實際值採公司SEC 8-K官方附件；公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應待後續。W47正式行事曆JSON coverage仍為incomplete，本報只讀main正式JSON。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com｜XLE歷史資料",
@@ -773,12 +773,12 @@
   },
   "core_observation": {
     "heading": "本週三大觀察焦點",
-    "text": "① 美股主要現貨指數同步回檔，11大產業ETF全數收低；Anthropic IPO首日大漲，仍未扭轉科技股賣壓。② FedWatch對12/9升息25bp機率升至98.2%，初領失業金203K、續領1.763M，費城Fed製造業指數降至6.3，成長動能放緩但價格壓力仍在。③ VIX升至28.47、Fear & Greed降至19，市場開始同時折價高估值AI資產、資本支出回報與地緣政治風險。",
-    "details": "① 盤面與廣度：道瓊、S&P 500、Nasdaq、Russell 2000與費半均下跌，11大產業ETF全數收低。這代表賣壓不只集中在少數科技股，而是投資人降低整體股票曝險；Anthropic IPO強勢首秀也未能扭轉市場風險偏好。\n\n② 利率與景氣：FedWatch截稿前顯示12/9升息25bp機率98.2%、升息50bp機率1.8%。美國初領失業金升至203K、續領升至1.763M，費城Fed製造業指數降至6.3，領先經濟指數10月下滑0.3%；成長降溫與通膨黏著並存，讓Fed政策路徑更難轉鴿。\n\n③ AI與風險定價：資料中心投資可能短期推升總需求，但生產力效益何時轉化為營收、利潤與現金流仍待驗證；出口管制與中東能源運輸風險提高供應鏈不確定性。VIX 28.47、Fear & Greed 19顯示市場已進入明顯風險趨避。"
+    "text": "① 股票風險重估：美股五大主要現貨指數同步下跌、11大產業ETF全數收黑，Anthropic IPO首日收高17%仍未帶動市場廣度修復。② 成長降溫但政策偏鷹：初領失業金203K高於預期198K、續領1.763M，費城Fed製造業指數降至6.3；FedWatch仍定價12/9升息25bp機率98.2%。③ 股債波動分歧：VIX 28.47、CNN Fear & Greed 19（極度恐懼），MOVE依使用者提供截圖為96.04（-2.16%），股票恐慌升高但債券波動率回落。",
+    "details": "① 市場廣度與AI定價：道瓊 -2.19%、S&P 500 -2.02%、Nasdaq -2.25%、Russell 2000 -2.18%、費半 -2.42%，11大產業ETF全數收低。Anthropic IPO首日上漲17%是個別新股需求訊號，卻未擴散成整體科技股買盤；市場焦點已轉向AI資本支出能否轉化為可持續營收、利潤與自由現金流。短線偏空，避免把單一IPO熱度視為全面反轉。\n\n② 景氣與政策兩難：初領失業金203K高於預期198K、續領增至1.763M，費城Fed製造業指數由23.2降至6.3，領先經濟指數10月下滑0.3%，顯示景氣邊際降溫；但FedWatch截至05:20仍將12/9升息25bp機率定價為98.2%，油價因地緣政治風險上漲約1%，通膨與折現率壓力尚未解除。\n\n③ 風險訊號與策略：VIX 28.47（+15.92%）、CNN Provider Index 19（Extreme Fear）指向股票風險趨避；MOVE 96.04（-2.16%）則顯示債券波動率同日回落，風險並非所有資產同步擴散。策略以降低高Beta曝險、保留流動性為先；待指數止跌、11大ETF不再全面收黑、VIX回落且CNN指數脫離0–24極度恐懼區，再分批恢復風險部位。若指數續創低且VIX再升，維持防守。"
   },
   "qa_run_revision": "2026-11-20-SIM1.3-final-full-rebuild",
-  "market_sentiment": "極度恐懼｜VIX 28.47、FGScore 19；11大產業ETF全數下跌。美股主要現貨指數同步回檔，FedWatch對12/9升息25bp定價98.2%。",
-  "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。40項採11/19資料，4項（2Y／10Y／30Y美債殖利率及MOVE）採截稿時最新可核實11/18資料，均保留原始資料日。Dow、RUT、Nikkei、FTSE、DAX均改用非CFD現貨收盤來源；11大產業ETF全數核實。",
+  "market_sentiment": "風險趨避升溫｜VIX 28.47（+15.92%）、CNN Fear & Greed 19（Extreme Fear）；MOVE 96.04（-2.16%）。股市恐慌升高、債市波動率回落，顯示壓力目前主要集中於股票風險定價。",
+  "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。更新後44項均以11/19為行情基準；美債2Y／10Y／30Y採Investing.com 11/19歷史收盤列，MOVE採使用者提供之Investing.com 11/19畫面證據並保留截圖時間。Dow、RUT、Nikkei、FTSE、DAX均採非CFD現貨收盤來源；11大產業ETF全數核實。",
   "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
   "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）",
   "key_levels_overrides": {
@@ -795,13 +795,13 @@
   },
   "review_notice": "本檔為2026/11/20審核版，僅供檢視；44個行情欄位均已取得可顯示數值並保留各自資料日期與來源口徑。W47行事曆coverage及部分財報共識欄位仍有待核實，未獲核准前不得正式發布或修改首頁。",
   "pending_items": [
-    "MOVE：Investing.com與EODData最新可核實歷史列為11/18收市98.15（-3.66%），不可標示為11/19資料。",
-    "美債殖利率：截至05:25台灣截稿，U.S. Treasury最新可讀官方par yield日期為11/18；使用2年4.80%、10年5.07%、30年5.41%，不使用截稿後才出現的11/19列。",
+    "MOVE：已採使用者於2026-11-20 06:40（Asia/Taipei）提供的Investing.com截圖，畫面時間11/19 16:17 EST，報價96.04（-2.16%）；未宣稱助理獨立刷新，後續若取得TradingView同日Close再依SIM-1.3來源順位補充核對。",
+    "CNN Fear & Greed：CNN官方頁受robots限制無法直接讀取；依SIM-1.3採FGScore明確標示的CNN Provider Index 19（Extreme Fear），as of Nov 19 UTC，CNN market timestamp 16:24 EST。Financial Context 06:19台灣時間更新晚於05:25截稿，不納入本次快照。",
+    "美債2Y／10Y／30Y：依使用者指定採Investing.com 11/19歷史收盤，分別4.770%、5.048%、5.405%；此為Investing.com債券殖利率歷史序列，與Treasury CMT par yield口徑不同，不混用。",
     "WTI、Brent、GCZ6與SIZ6：採指定月份合約的Investing.com平台收盤/Last，非CME/ICE官方結算；CME 11/19 final Daily Bulletin於截稿時尚未發布，來源註記保留合約月、成交量／OI選擇依據。",
     "W47正式行事曆JSON coverage仍為incomplete；本報只讀main正式JSON，不直接修補資料庫。",
     "ROST：Q3 FY2026實際GAAP EPS 1.91美元、營收約63億美元，採Ross Stores官方SEC 8-K Exhibit 99.1；公告前共識快照缺少data_as_of與EPS／營收口徑，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應仍待後續。",
     "FactSet S&P 500盈餘健康度最新可核實統計日為2026-11-13，不標示為11/19資料。",
-    "CNN Fear & Greed官方頁及圖表端點本輪無法直接讀取，依SIM-1.3使用FGScore備援值19（Extreme Fear）。",
     "SOX Yahoo Finance直接歷史頁回傳429；Yahoo搜尋索引歷史列明確列出11/19收盤9,419.72，與Investing.com HK 9,419.70差0.02點，已以索引列作交叉核對並揭露存取限制。"
   ],
   "review_ready_blockers": [],
@@ -828,9 +828,9 @@
     "prior_blended_revenue_yoy": "+14.3%",
     "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
   },
-  "market_comments_revision": "2026-11-20 cash-index source correction",
-  "summary_source_note": "本次總結與盤面判讀由2026/11/20截稿前逐項核實的行情、新聞及行事曆資料推導；未沿用11/19使用者提供摘要或舊日行情快照。跨日資料均保留原始資料日期與口徑。",
-  "summary_revision": "2026-11-20 cash-index source correction",
+  "market_comments_revision": "2026-11-20 G1 commentary rewrite; MOVE user screenshot; Investing.com 11/19 bond closes",
+  "summary_source_note": "總結與判讀依2026/11/20 05:25台灣截稿前可取得的行情、新聞、FedWatch及情緒資料推導。MOVE另採使用者06:40提供之Investing.com截圖（畫面標示11/19 16:17 EST），明確保留證據來源與時間，不冒稱獨立刷新。",
+  "summary_revision": "2026-11-20 G1 investment judgment and 11/19 source refresh",
   "market_date": "2026-11-19",
   "report_layer_earnings_actuals": [
     {
