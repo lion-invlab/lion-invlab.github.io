@@ -102,7 +102,8 @@ def load_increment_ledger(path: Path):
         seen.add(day)
         if row.get("series_id") != "SP500" or row.get("instrument") != "S&P 500 cash price index":
             raise ValueError(f"Invalid S&P 500 instrument at line {line_no}")
-        if "cfd" in (row.get("source_note") or "").lower():
+        note = (row.get("source_note") or "").lower()
+        if "cfd" in note and "非cfd" not in note:
             raise ValueError(f"CFD observation is prohibited at line {line_no}")
         if row.get("source_name") != "Yahoo Finance S&P 500 (^GSPC) Historical Data":
             raise ValueError(f"Unexpected increment source at line {line_no}")
