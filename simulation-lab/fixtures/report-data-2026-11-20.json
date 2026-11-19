@@ -866,5 +866,6 @@
     "records_pending_required_fields": 21,
     "reason": "All 21 EPS/revenue snapshots carry pending_required_fields and pending_not_adopted; they are preserved for audit but not projected onto earnings cards. The main W47 calendar remains read-only."
   },
-  "commentary_quality_gate": "pass_with_manual_readback_required: summary owns the overall thesis, macro causality and positioning; market observation owns actionable confirmation signals; core observation owns earnings quality; market sentiment owns cross-asset risk interpretation; all pin comments own regional/asset structure and investment implications. None may repeat quote-board point changes or percentage returns; numeric evidence retained only where necessary for macro interpretation."
+  "commentary_quality_gate": "pass_with_manual_readback_required: summary owns the overall thesis, macro causality and positioning; market observation owns actionable confirmation signals; core observation owns earnings quality; market sentiment owns cross-asset risk interpretation; all pin comments own regional/asset structure and investment implications. None may repeat quote-board point changes or percentage returns; numeric evidence retained only where necessary for macro interpretation.",
+  "build_request": "2026-11-20-review-rebuild-after-summary-observation-separation"
 }
