@@ -22,17 +22,17 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-20-simulation.html",
   "report_date": "2026-11-20",
-  "report_git_blob_sha": "ad1b446d8814fe46de33cd2ca925086f39153364",
-  "report_sha256": "f197d7a691ff35c184e676869f71f9bd6b613fa80d3c23d866736837f663c5b9",
-  "build_commit_sha": "d994851476246dee89b2e6bd68642ff0fdc9160e",
+  "report_git_blob_sha": "6718c4a9c29081f2f262f432e308b650828103a5",
+  "report_sha256": "d4e319ef09328a9995c266ed71b5bb2876fecd8ab78c8c9ab5878ab0b07697e1",
+  "build_commit_sha": "20a684076992ffbf160fb1f66138a043b5306279",
   "builder_blob_sha": "0f3df168bddc7fcb73fb427178b17a7f8e036d71",
-  "fixture_blob_sha": "a97277d50f2863945b5e29418871cabc8ab93f12",
+  "fixture_blob_sha": "1d5f71b4f3c60c83d9857cf9a1e7de0240abf19c",
   "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
   "calendar_main_commit_sha": "0296cb03ab1ec6a0544be1ccaa25d4fc7692b0fa",
   "calendar_current_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "ec215433151af2eb32cfe1214163813417956073d9071224b7b1c9f4c4070212",
-  "visual_evidence_sha256": "3acbd109b88e7e8e4f2dc11d773f76bb99e78863a7d34f47d2db9c9e90fff2b2",
+  "visual_evidence_sha256": "241d16c3554441f1cede99020fad0aaa0170f88137da3fa04c0d6954e743f9e6",
   "viewports": [
     1440,
     768,
@@ -40,6 +40,6 @@
     390,
     360
   ],
-  "workflow_run_id": "44634808436",
-  "workflow_run_attempt": "2"
+  "workflow_run_id": "44636761109",
+  "workflow_run_attempt": "1"
 }
