@@ -3653,19 +3653,29 @@
   },
   "sp500_data": {
     "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
-    "git_blob_sha1": "f3789b56e4190e488e5a2a66f772602028ef8516",
-    "dataset_sha256": "2b5eb64566d624da8e412324300860b4f9d2aa225bc775bc15725119ba58e41d",
+    "git_blob_sha1": "4b9cfefa11375edf7ec1e95b7d394eb3c9d767ef",
+    "dataset_sha256": "439183c66a70d24a15ad7f12fa8b905d7892fbe8a1ccbb9ff2bb8526c46f95ac",
     "start": "1927-12-30",
-    "end": "2026-11-10",
-    "rows": 24833,
+    "end": "2026-11-18",
+    "rows": 24839,
     "encoding": "zlib+base64",
     "long_history_source": "FJA pinned repository commit f50e4612d69cf14e4ac8a20b7a42d29f0f081825; repository README identifies SP500.csv source as Yahoo Finance.",
     "long_history_license": "Repository contains MIT LICENSE for repository contents; upstream Yahoo Finance data rights/terms are separate and remain unverified for redistribution.",
-    "recent_snapshot_source": "The recent compact snapshot metadata describes the 1993-12-31–2026-11-10 segment as a previously validated FJA/FRED merged snapshot; row-level source lineage and rights have not been fully recorded in this migration manifest.",
-    "merge_rule": "Use FJA observations strictly before 1993-12-31; retain recent validated compact observations from 1993-12-31 onward; no interpolation or forward-fill.",
+    "recent_snapshot_source": "Validated FJA/FRED compact baseline through 2026-11-10 plus verified Yahoo Finance ^GSPC historical Close increments through 2026-11-18.",
+    "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
     "boundary_overlap_date": "1993-12-31",
     "boundary_abs_difference_points": 0,
-    "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate."
+    "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate.",
+    "increment_ledger": {
+      "path": "data/tac-chart3/sp500_daily_increment.jsonl",
+      "sha256": "f9f4c9cb426d40afb2501f534b5381343756d4c7701da568456f249b570b8062",
+      "first": "2026-11-11",
+      "last": "2026-11-18",
+      "rows": 6,
+      "source_name": "Yahoo Finance S&P 500 (^GSPC) Historical Data",
+      "source_url": "https://finance.yahoo.com/quote/%5EGSPC/history/",
+      "observed_at": "2026-11-19T09:18:19+08:00"
+    }
   },
   "drawdown_validation": {
     "count": 29,
