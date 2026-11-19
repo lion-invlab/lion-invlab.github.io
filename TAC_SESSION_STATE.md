@@ -2109,3 +2109,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **QA：** GitHub Actions run `44193096116` attempt 5 completed/success；status `QA_PASSED`、`review_ready=true`、blockers=[]。互動、母版比較、獨立provenance、日期／行事曆筆數／44項行情／新聞結構均通過。視窗：1440、768、412、390、360px。HTML Git blob SHA `0b00f69ce32c9bf5f5cca03eaa41641a64ab8749`；SHA-256 `d38774d59e8ff6a2e5770692c546b23e73eda848928ab58e566fbfeb278074cd`；QA sidecar blob SHA `c0356ad5fd31ee971a97a108779065f1e5237f73`。
 - **main審核預覽例外通道：** 依既有早報排程明確授權，新增main `preview/2026-11-20-simulation.html`，commit `cea994a0f22fe7482cb9ad8b6ea3de57319cbf66`；寫入後回讀blob SHA仍為 `0b00f69ce32c9bf5f5cca03eaa41641a64ab8749`，與QA seal完全一致。main `index.html` SHA `da06da5bb1e6c6244197eb79358f97bf8f9d7545`、main W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821` 寫入前後一致；本輪未修改首頁、正式母版或行事曆JSON。
 - **Pages URL驗證限制：** 預覽網址 `https://lion-invlab.github.io/preview/2026-11-20-simulation.html` 已建立，但本輪web retrieval對該網址及首頁根網址均回傳不可存取；因此GitHub檔案及QA seal已驗證，Pages實際載入尚未驗證，不將其描述為已確認可開啟。
+
+
+## 2026-11-20｜11/19收盤早報四項修正完成（SIM-1.3；完整QA_PASSED）
+
+- 使用者指定MOVE採Investing.com截圖：96.04（-2.16%）；依使用者2026-11-20 06:40（Asia/Taipei）提供之截圖，畫面時間Nov 19 4:17 PM EST。來源註記明確標示為使用者提供畫面證據，未冒稱助理獨立刷新。
+- CNN Fear & Greed採SIM-1.3第一順位備援FGScore CNN Provider Index：19，Extreme Fear／極度恐懼；時間戳Nov 19 4:24 PM EST（2026-11-20 05:24 Asia/Taipei），符合05:25截稿。Financial Context 06:19台灣時間更新晚於截稿，不納入本次快照。CNN官方頁受robots限制，來源限制明確揭露。
+- 美債殖利率依使用者指定採Investing.com 11/19歷史收盤：2Y 4.770%（-3bp）、10Y 5.048%（-2bp）、30Y 5.405%（-1bp）；10Y-2Y利差27.8bp。來源口徑為Investing.com債券殖利率歷史序列，不混用Treasury CMT par yield。
+- 依SIM-1.3重寫總結及市場評論：總結明確呈現市場立場、因果主軸、操作策略、反轉條件與風險界線；重寫美股、亞股、歐股、產業、債券、匯率、能源、貴金屬及市場情緒評論，避免重複報價作為評論。
+- 人工回讀發現CNN卡片曾因builder只更新分數與指針、未更新可見狀態標籤，導致19仍顯示Fear。已修正`build_review_html.py`，新增0–24／25–44／45–55／56–74／75–100五區間的中英文標籤連動；`test_fear_greed_marker.py`新增邊界及雙語DOM回歸測試；QA contract新增A2.2b。最終HTML回讀確認19顯示Extreme Fear／極度恐懼。
+- W47共識投影原檔21筆EPS／營收快照全部標記pending_required_fields與pending_not_adopted；不採用、不套用到財報卡，原始投影封存於`simulation-lab/analysis/w47-yahoo-consensus-projection-pending-2026-11-20.json`。main W47正式JSON只讀，SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`。
+- 最終fixture blob SHA `e099ca6fb73c43e53d85c9faa9b3de782ed41a90`；builder blob SHA `0f3df168bddc7fcb73fb427178b17a7f8e036d71`；QA contract blob SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`；測試blob SHA `32a1894c2f99fce4e42e18cd5df735f6fd9a72f8`。
+- 完整workflow run `44633497700` completed/success；`QA_PASSED`、`review_ready=true`、blockers=[]。互動測試、核准母版比較、provenance、44項行情／新聞結構Gate均通過；視窗1440／768／412／390／360px。最終HTML blob SHA `0e5f0fee88e11aaf0b98dd6aa6929c1a94e94c0e`，SHA-256 `4b4bfa310635b9cd6c8724929f26668a291a73cb1adac8db715e93a930c36d76`；QA sidecar blob SHA `4a9e1281d9b6a6611d52ba63a286be3f5f94faaa`。
+- 已同步main日期審核預覽 `preview/2026-11-20-simulation.html`及QA sidecar；main preview HTML SHA與simulation QA輸出一致。main `index.html` SHA仍為`da06da5bb1e6c6244197eb79358f97bf8f9d7545`，W47 JSON SHA仍為`727ea2be1c04688d3c4f98d36c452561bbab6821`，均未修改。main預覽更新commit `0296cb03ab1ec6a0544be1ccaa25d4fc7692b0fa`；GitHub Pages deploy run `44633728053` completed/success。
+- 正式首頁未發布；本輪只更新日期審核預覽及simulation規則／測試，沒有修改main `index.html`、正式母版或正式行事曆資料庫。
