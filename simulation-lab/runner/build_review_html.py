@@ -398,6 +398,35 @@ def parse_fear_greed_score(value):
     return score if 0 <= score <= 100 else None
 
 
+def fear_greed_band(value):
+    """Map the validated 0..100 CNN Fear & Greed score to its canonical five bands."""
+    score = parse_fear_greed_score(value)
+    if score is None:
+        return ("Unavailable", "待核實")
+    if score <= 24:
+        return ("Extreme Fear", "極度恐懼")
+    if score <= 44:
+        return ("Fear", "恐懼")
+    if score <= 55:
+        return ("Neutral", "中性")
+    if score <= 74:
+        return ("Greed", "貪婪")
+    return ("Extreme Greed", "極度貪婪")
+
+
+def apply_fear_greed_status(status_node, value):
+    """Keep the visible English/Chinese sentiment labels synchronized with the score."""
+    english, chinese = fear_greed_band(value)
+    english_node = status_node.select_one("span")
+    chinese_node = status_node.select_one("b")
+    if english_node is None or chinese_node is None:
+        raise ValueError("CNN Fear & Greed status must contain English span and Chinese bold label")
+    set_text(english_node, english)
+    set_text(chinese_node, chinese)
+    status_node["aria-label"] = f"{english} / {chinese}"
+    return english, chinese
+
+
 def apply_fear_greed_marker(marker, value):
     """Bind the visible marker to the validated source score, overriding mother CSS."""
     numeric_score = parse_fear_greed_score(value)
@@ -2076,8 +2105,12 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         # The numeric source field is preferred; display is the existing fixture fallback.
         # This inline !important overrides the approved mother's fixed left:23%!important.
         apply_fear_greed_marker(marker, fg_record.get("value", fg_value))
+        status = fg.select_one(".fg6-status")
+        if status is None:
+            raise ValueError("CNN Fear & Greed status label missing from approved mother template")
+        band = apply_fear_greed_status(status, fg_record.get("value", fg_value))
         klass = fg.select_one(".fg6-class")
-        if klass: set_text(klass, fg_record.get("band", "待核實"))
+        if klass: set_text(klass, band[0])
         explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
         explain = fg.select_one(".fg6-explain")
         if explain: set_text(explain, explanation)

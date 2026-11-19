@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bs4 import BeautifulSoup
-from build_review_html import parse_fear_greed_score, apply_fear_greed_marker
+from build_review_html import parse_fear_greed_score, apply_fear_greed_marker, fear_greed_band, apply_fear_greed_status
 
 
 class FearGreedMarkerTests(unittest.TestCase):
@@ -34,6 +34,42 @@ class FearGreedMarkerTests(unittest.TestCase):
                 self.assertEqual(marker.get("aria-hidden"), "true")
                 self.assertNotIn("data-score", marker.attrs)
 
+
+    def test_score_bands_follow_cnn_fear_and_greed_ranges(self):
+        cases = [
+            (0, ("Extreme Fear", "極度恐懼")),
+            (24, ("Extreme Fear", "極度恐懼")),
+            (25, ("Fear", "恐懼")),
+            (44, ("Fear", "恐懼")),
+            (45, ("Neutral", "中性")),
+            (55, ("Neutral", "中性")),
+            (56, ("Greed", "貪婪")),
+            (74, ("Greed", "貪婪")),
+            (75, ("Extreme Greed", "極度貪婪")),
+            (100, ("Extreme Greed", "極度貪婪")),
+        ]
+        for value, expected in cases:
+            with self.subTest(value=value):
+                self.assertEqual(fear_greed_band(value), expected)
+
+    def test_visible_status_updates_both_languages_from_score(self):
+        node = BeautifulSoup(
+            '<div class="fg6-status"><span>Fear</span><i></i><b>恐懼</b></div>',
+            "html.parser"
+        ).div
+        self.assertEqual(apply_fear_greed_status(node, 19), ("Extreme Fear", "極度恐懼"))
+        self.assertEqual(node.select_one("span").get_text(strip=True), "Extreme Fear")
+        self.assertEqual(node.select_one("b").get_text(strip=True), "極度恐懼")
+        self.assertEqual(node.get("aria-label"), "Extreme Fear / 極度恐懼")
+
+    def test_invalid_score_sets_status_to_pending(self):
+        node = BeautifulSoup(
+            '<div class="fg6-status"><span>Fear</span><i></i><b>恐懼</b></div>',
+            "html.parser"
+        ).div
+        self.assertEqual(apply_fear_greed_status(node, "待核實"), ("Unavailable", "待核實"))
+        self.assertEqual(node.select_one("span").get_text(strip=True), "Unavailable")
+        self.assertEqual(node.select_one("b").get_text(strip=True), "待核實")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
