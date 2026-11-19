@@ -1550,3 +1550,13 @@
 - 已新增 SIM-1.3 補充規則「全球主要股市三區評論綁定與防錯 Gate」，commit 184b422ec01e6f5b66d5d6f55a9eb68fb20ac243；新增 QA contract A2.2a，commit d239aaad47caf0c86f86ee81c90300a0a37af21b。規則要求面板 0/1/2 固定對應美國／亞洲／歐洲；各自唯一 .market-reason 的標題、內容及引用指數必須同區，且三區需分別保存 QA 證據；任一失敗不得 review_ready。
 - 未完成事項：11/19 preview 本身尚未修復。當前工具環境沒有可執行的 DOM parser；依 SIM-1.3 不得用字串替換冒充 DOM 修復，故不寫入 HTML、不宣稱完成。須於真正 DOM parser 可用的環境執行最小節點修正，並對三區全量重驗。
 - 保護確認：未修改 main/index.html、main preview、正式母版、Manifest、任何行事曆 JSON；所有文件修正僅限 simulation branch。
+
+
+## 2026-11-19｜三區市場評論錯置已修復（DOM 專項 QA PASS）
+
+- 根因：11/19 fixture 的 `market_comments.global_markets` 是 5 項陣列（0美股、1亞洲、2中國、3歐洲、4行情來源備註），builder 錯誤映射為 2/3/4。故美國面板顯示中國評論、亞洲面板顯示歐洲評論、歐洲面板顯示來源備註。
+- 修正 builder weekday 對應索引：美國 0、亞洲 1+2、歐洲 3；保留 Monday legacy mapping，不改母版。
+- 以獨立 GitHub Actions workflow 執行 BeautifulSoup DOM 修復，僅改三個既有 `.market-reason` 節點；沒有重建整份早報或使用字串替換。
+- Run `44426454169` success。三個面板各自恰有一個評論節點，標題與區域一致，讀回內容與來源 fixture 一致；交叉區域指數名稱檢查通過。專項 QA evidence `preview/2026-11-19-regional-commentary-repair.qa.json`。
+- 最終 HTML：`preview/2026-11-19-simulation.html`，blob SHA `cad78d5eaa5b3777b2c0932158cfaafe92fb2f59`，SHA-256 `857d2f22e4d03630e0a918625eff160bb61d8cfb26eae5dbacc704cc74e1bcc2`。
+- 只寫入 simulation branch；main/index.html、正式母版、Manifest、W47 JSON 均未改。此處為三區評論專項 QA PASS，不宣稱整份早報 review_ready。
