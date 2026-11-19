@@ -1,0 +1,73 @@
+name: TAC Chart 3 merge verified S&P 500 daily increments
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/tac-chart3/sp500_daily_increment.jsonl"
+      - ".github/scripts/merge_tac_sp500_daily_increment.py"
+      - ".github/scripts/test_merge_tac_sp500_daily_increment.py"
+      - ".github/workflows/tac-chart3-sp500-increment-merge.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tac-chart3-sp500-increment-merge
+  cancel-in-progress: false
+
+jobs:
+  merge-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test S&P 500 increment merge invariants
+        run: |
+          python .github/scripts/test_append_tac_sp500_daily_increment.py
+          python .github/scripts/test_merge_tac_sp500_daily_increment.py
+      - name: Merge verified daily increments and rebuild compact histories
+        run: |
+          python .github/scripts/merge_tac_sp500_daily_increment.py \
+            --data-dir data/tac-chart3 \
+            --builder .github/scripts/build_sp500_daily_compact.py
+      - name: Verify compact snapshots and manifest alignment
+        run: |
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          data = Path("data/tac-chart3")
+          recent = json.loads((data / "sp500_daily_close_1993-2026.compact.json").read_text())
+          full = json.loads((data / "sp500_daily_close_1927-2026.compact.json").read_text())
+          manifest = json.loads((data / "manifest.json").read_text())
+          sp = manifest["sp500_data"]
+          assert recent["end"] == "2026-11-18", recent["end"]
+          assert full["end"] == "2026-11-18", full["end"]
+          assert sp["end"] == full["end"]
+          assert sp["rows"] == full["rows"]
+          assert sp["dataset_sha256"] == full["source_dataset_sha256"]
+          assert sp["git_blob_sha1"] == hashlib.sha1(
+              b"blob " + str((data / "sp500_daily_close_1927-2026.compact.json").stat().st_size).encode() + b"\\0" +
+              (data / "sp500_daily_close_1927-2026.compact.json").read_bytes()
+          ).hexdigest()
+          print("S&P 500 compact snapshots and manifest are aligned.")
+          PY
+      - name: Commit merged Chart 3 S&P 500 data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tac-chart3/sp500_daily_close_1993-2026.compact.json data/tac-chart3/sp500_daily_close_1927-2026.compact.json data/tac-chart3/manifest.json
+          if git diff --cached --quiet; then
+            echo "No S&P 500 compact data changes."
+          else
+            git commit -m "data(chart3): merge verified S&P 500 daily increments"
+            git push origin HEAD:main
+          fi
