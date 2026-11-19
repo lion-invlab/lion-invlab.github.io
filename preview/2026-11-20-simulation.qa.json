@@ -1,0 +1,44 @@
+{
+  "status": "QA_PASSED",
+  "review_ready": true,
+  "review_ready_blockers": [],
+  "data_audit": {
+    "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。40項採11/19資料，4項（2Y／10Y／30Y美債殖利率及MOVE）採截稿時最新可核實11/18資料，均保留原始資料日。Dow、RUT、Nikkei、FTSE、DAX均改用非CFD現貨收盤來源；11大產業ETF全數核實。",
+    "warning_note": "美債殖利率及MOVE最新可核實資料日為11/18；不得標示成11/19。WTI、Brent、GCZ6、SIZ6的11/19價格為指定月份合約平台收盤/Last，非CME/ICE官方結算。ROST實際值採公司SEC 8-K官方附件，公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應待後續。CNN Fear & Greed官方頁及圖表端點本輪無法直接讀取，依SIM-1.3使用FGScore備援值19。",
+    "pending_items": [
+      "MOVE：Investing.com與EODData最新可核實歷史列為11/18收市98.15（-3.66%），不可標示為11/19資料。",
+      "美債殖利率：截至05:25台灣截稿，U.S. Treasury最新可讀官方par yield日期為11/18；使用2年4.80%、10年5.07%、30年5.41%，不使用截稿後才出現的11/19列。",
+      "WTI、Brent、GCZ6與SIZ6：採指定月份合約的Investing.com平台收盤/Last，非CME/ICE官方結算；CME 11/19 final Daily Bulletin於截稿時尚未發布，來源註記保留合約月、成交量／OI選擇依據。",
+      "W47正式行事曆JSON coverage仍為incomplete；本報只讀main正式JSON，不直接修補資料庫。",
+      "ROST：Q3 FY2026實際GAAP EPS 1.91美元、營收約63億美元，採Ross Stores官方SEC 8-K Exhibit 99.1；公告前共識快照缺少data_as_of與EPS／營收口徑，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應仍待後續。",
+      "FactSet S&P 500盈餘健康度最新可核實統計日為2026-11-13，不標示為11/19資料。",
+      "CNN Fear & Greed官方頁及圖表端點本輪無法直接讀取，依SIM-1.3使用FGScore備援值19（Extreme Fear）。",
+      "SOX Yahoo Finance直接歷史頁回傳429；Yahoo搜尋索引歷史列明確列出11/19收盤9,419.72，與Investing.com HK 9,419.70差0.02點，已以索引列作交叉核對並揭露存取限制。"
+    ],
+    "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
+    "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）"
+  },
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "report_path": "preview/2026-11-20-simulation.html",
+  "report_date": "2026-11-20",
+  "report_git_blob_sha": "0b00f69ce32c9bf5f5cca03eaa41641a64ab8749",
+  "report_sha256": "d38774d59e8ff6a2e5770692c546b23e73eda848928ab58e566fbfeb278074cd",
+  "build_commit_sha": "0caaf3b0afceac82fa8e9e3162126d8c0481c468",
+  "builder_blob_sha": "522dab40faa2e36a1470726c2107904c4e75a284",
+  "fixture_blob_sha": "fc1bbd8a6896414e7c7c2336f8e5024935f7d9fa",
+  "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
+  "calendar_main_commit_sha": "b9d05dd2a611c21b7bbbf054a692dff86257a2c9",
+  "calendar_current_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+  "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
+  "interaction_evidence_sha256": "2742a11fe3e3bb9d79c12c082f8f38e523b4c16b4a763897573312543f0bbf97",
+  "visual_evidence_sha256": "a18fc31310707aa3df331d85bb3998be14396324149726652f0903292a13fc16",
+  "viewports": [
+    1440,
+    768,
+    412,
+    390,
+    360
+  ],
+  "workflow_run_id": "44193096116",
+  "workflow_run_attempt": "5"
+}
