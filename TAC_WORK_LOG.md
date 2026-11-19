@@ -1570,3 +1570,9 @@
 - Actions run `44427122693` completed/success。QA sidecar blob SHA：`9d738caf7bd7292b42bee2509b8fded04e9207e2`；`QA_PASSED`、`review_ready=true`、無blockers。互動、母版一致性、獨立provenance、44行情及新聞結構Gate均成功；回讀核對QA綁定HTML SHA與實際HTML一致。
 - FedWatch HTML區塊已回讀核實：25bp 93.9%、50bp 6.1%、hold 0.0%，快照時間11/19 05:15；舊99.5%／0.5%已清除。未將機率表述為Fed已決定升息。
 - 僅simulation branch更新；未修改main首頁、正式母版、Manifest或W47行事曆JSON，未部署Pages。等待使用者審核，不自動發布。
+
+
+### 2026-11-19｜QA_PASSED審核預覽已部署GitHub Pages（非正式首頁發布）
+- 使用者要求更新FedWatch後，已將通過完整QA的同日HTML複製到main `preview/2026-11-19-simulation.html`。寫入前核對原blob SHA `137a5b25c2148e059da189623245185b0ee43841`；寫入後blob SHA `4dae7e1d715cd2351e0967ea5e48e33968eb7441`，與simulation branch QA_PASSED HTML完全一致。
+- Pages workflow run `44427371829` completed/success；Deploy to GitHub Pages step success。預覽頁已部署，網址：https://lion-invlab.github.io/preview/2026-11-19-simulation.html 。
+- 只更新main日期審核預覽；未修改 `main/index.html`、正式母版、Manifest或行事曆JSON。正式首頁未發布，仍待使用者核准。
