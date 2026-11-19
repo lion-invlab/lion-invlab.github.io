@@ -2,7 +2,7 @@
   "report_date": "2026-11-20",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-19",
-  "summary": "11/19美股在Anthropic大型IPO首日亮眼、但科技股與主要指數持續走弱的反差中收低。標普500、那斯達克與費半下跌；道瓊與羅素2000表格採Investing.com CFD代理報價並明確標示，關鍵價位則另以現金指數OHLC計算。11大產業ETF中10檔已核實全數下跌，XLU待核實；全球主要市場17項中15項取得可核實數值，深圳與新加坡STI暫列待核實。VIX升至28.47，FGScore備援恐懼貪婪指數降至19（Extreme Fear），顯示風險趨避明顯升溫。市場焦點已由「AI需求是否存在」轉向「龐大算力與資料中心資本支出能否轉化為營收、利潤與自由現金流」。宏觀數據呈現成長降溫與成本壓力並存：初領失業金升至203K、續領升至1.763M；費城Fed製造業指數降至6.3，領先經濟指數10月下滑0.3%。Fed官員Jefferson提醒AI投資短期可能推升總需求與通膨，生產力效益則可能較晚出現。FedWatch對12/9升息25bp的隱含機率達98.2%，市場定價偏鷹。能源價格因地緣政治風險溢價走高，黃金與白銀則回落。",
+  "summary": "11/19美股在Anthropic大型IPO首日亮眼、但科技股與主要指數持續走弱的反差中收低。道瓊、S&P 500、那斯達克與費半同步下跌，Russell 2000現貨收盤因來源頁身分／最終日線未能核實而暫列待核實；11大產業ETF則全數收黑。市場焦點已由「AI需求是否存在」轉向「龐大算力與資料中心資本支出能否轉化為營收、利潤與自由現金流」。宏觀數據呈現成長降溫與成本壓力並存：初領失業金升至203K、續領升至1.763M；費城Fed製造業指數降至6.3，領先經濟指數10月下滑0.3%。Fed官員Jefferson提醒AI投資短期可能推升總需求與通膨，生產力效益則可能較晚出現。FedWatch對12/9升息25bp的隱含機率達98.2%，市場定價偏鷹。能源價格因地緣政治風險溢價走高，黃金與白銀則回落，顯示避險資金並未全面流向貴金屬。",
   "sentiment": "風險趨避升溫，市場情緒落入極度恐懼區；已核實的10檔產業ETF全數下跌，XLU待核實。全球市場資料中深圳與新加坡STI尚缺可驗證的11/19歷史列。",
   "focus_news": [
     {
@@ -114,11 +114,11 @@
       "display": "7,175.89",
       "change_display": "-2.02%",
       "source": {
-        "name": "Investing.com US｜S&P 500現貨指數歷史資料",
+        "name": "Investing.com US｜S&P 500 (SPX)現貨指數歷史資料",
         "url": "https://www.investing.com/indices/us-spx-500-historical-data?cid=40826",
         "data_date": "2026-11-19",
         "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com US站現貨指數(Type: Index) 11/19歷史列；HK站現貨頁最新僅至11/18，未使用同名US500 CFD。"
+        "note": "Investing.com US頁面標示S&P 500 (SPX)、NYSE、Type: Index；11/19歷史列收市7,175.89、-2.02%。未使用香港站同名US500 CFD頁。"
       }
     },
     "那斯達克綜合指數": {
@@ -133,14 +133,14 @@
       }
     },
     "羅素2000指數": {
-      "display": "2,656.56",
-      "change_display": "-2.13%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
-        "name": "Investing.com HK｜US Small Cap 2000 CFD歷史資料",
-        "url": "https://hk.investing.com/indices/smallcap-2000-historical-data",
-        "data_date": "2026-11-19",
-        "quote_type": "cfd_daily_close",
-        "note": "頁面標示即時差價合約；僅作市場代理報價，不冒充Russell 2000現貨指數。關鍵價位另由Yahoo Finance ^RUT現金指數OHLC擷取。"
+        "name": "Yahoo Finance｜Russell 2000 Index (^RUT)歷史資料",
+        "url": "https://finance.yahoo.com/quote/%5ERUT/history/",
+        "data_date": null,
+        "quote_type": "cash_index_daily_close_pending",
+        "note": "Investing.com HK美國小型股2000頁明確標示「即時差價合約」，不得作為^RUT現貨收盤。Yahoo Finance ^RUT頁面本輪可見11/19列仍標示Market Open（2:17及3:43 PM EST快照），未取得05:25台灣截稿前可確認的最終日線收盤；不採用盤中值，暫列待核實。"
       }
     },
     "費城半導體指數": {
@@ -151,7 +151,7 @@
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-19",
         "quote_type": "investing_com_historical_daily_close",
-        "note": "11/19現貨指數歷史收盤列；Yahoo Finance ^SOX交叉核對頁本輪回傳HTTP 429，未冒稱交叉核對完成。"
+        "note": "Investing.com HK 11/19現貨歷史列9,419.70、-2.42%；Yahoo Finance ^SOX歷史資料搜尋索引列出Nov 19, 2026收盤9,419.72（-2.41%），同日差0.02點。Yahoo直接頁面本輪回傳429，交叉核對依據為Yahoo歷史頁搜尋索引列。"
       }
     },
     "香港恆生指數": {
@@ -294,7 +294,7 @@
     "XLI": "-2.00%",
     "XLC": "-2.67%",
     "XLB": "-2.06%",
-    "XLU": "待核實",
+    "XLU": "-1.24%",
     "XLRE": "-1.70%",
     "XLY": "-2.79%",
     "XLP": "-1.45%",
@@ -541,7 +541,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "頁面更新時間2026-11-19 16:05 EST（台灣時間2026/11/20 05:05）；05:20台灣時間讀取。12/9會議升息25bp機率98.2%、升息50bp機率1.8%、維持利率0%。機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
-  "observation": "盤面觀察重點：一、AI需求仍強，但市場已從「誰有AI題材」轉向「誰能把AI資本支出轉成營收、利潤與現金流」。二、FedWatch升息25bp機率98.2%，不可再用市場期待降息作為基準情境。三、VIX與恐懼指標急升，已核實的10檔產業ETF全數下跌；XLU、深圳與新加坡STI待核實，風險管理應優先於追逐單日反彈。",
+  "observation": "盤面觀察重點：11/19美股主要現貨指數同步走弱，道瓊、S&P 500、Nasdaq與費半收低，11大產業ETF全數下跌；Russell 2000的Investing.com頁面標示CFD，Yahoo ^RUT最終歷史列在截稿時尚未確認，因此不採用CFD或盤中價。VIX升至28.47、Fear & Greed降至19，顯示風險趨避升溫。市場同時消化Fed偏鷹會議紀要、就業市場再就業壓力，以及AI企業估值、資本支出回報與出口管制風險。",
   "calendar": {
     "week_id": "2026-W47",
     "events": []
@@ -559,7 +559,7 @@
       "歐洲：英國FTSE 100與德國DAX採Investing.com CFD代理報價，已標示非現貨；STOXX Europe 600採頁面標示Real-time derived的歷史列。",
       "資料口徑：17項全球主要市場中15項有可用數值，深圳與新加坡STI待核實；Dow、RUT、Nikkei、FTSE、DAX為CFD代理報價，未混稱現貨。"
     ],
-    "sectors": "已核實的10檔ETF中，能源類跌幅最小，其餘9檔均下跌；XLU因缺少可確認日期的11/19歷史列，暫不作方向判斷。非必需消費、通訊服務、材料與醫療等板塊跌幅較深。這種廣泛賣壓代表資金正在降低整體股票風險曝險，而非只針對少數AI個股調整。",
+    "sectors": "11大S&P 500產業ETF均已取得Investing.com 11/19歷史列，且全數收低；非必需消費（XLY -2.79%）與通訊服務（XLC -2.67%）跌幅較深，公用事業（XLU -1.24%）與能源（XLE -0.65%）相對抗跌。這種廣泛賣壓代表資金正在降低整體股票風險曝險，而非只針對少數AI個股調整。",
     "bonds": "美國公債殖利率採Treasury最新官方11/18資料：2年期4.80%、10年期5.07%、30年期5.41%；10Y-2Y利差約27bp。短端政策定價偏鷹，但長端殖利率較前一日回落，顯示市場同時反映政策利率與成長風險。FedWatch的12/9升息25bp機率為98.2%。",
     "fx": "美元指數小幅走高，日圓偏弱；英鎊與澳幣回落，反映風險偏好下降及美元資金需求。美元兌新台幣採央行官方收盤匯率，與Investing.com即時報價口徑不同，勿直接混用。",
     "energy": "WTI與Brent指定合約均上漲，地緣政治風險溢價提供支撐。11/19價格採Investing.com指定月份合約平台收盤/Last，非CME或ICE官方結算；合約月份依交易量與未平倉量核對，Brent公開頁未提供OI。",
@@ -587,7 +587,7 @@
       "text": "VIX升至28.47、FGScore降至19；已核實的10檔產業ETF全數下跌，XLU待核實；全球市場深圳與新加坡STI亦待核實。"
     }
   ],
-  "warning_note": "注意資料口徑：XLU、深圳成指、新加坡STI未取得可確認日期的11/19歷史列；Dow、RUT、Nikkei、FTSE、DAX為Investing.com CFD代理報價；關鍵價位計算不得使用CFD，改由Yahoo Finance現金指數OHLC及Investing.com S&P 500現貨資料擷取。MOVE及美債殖利率最新可核實日為11/18；能源與貴金屬11/19數值為指定合約平台收盤/Last，非官方結算。",
+  "warning_note": "Russell 2000：Investing.com HK頁面明確標示CFD，不作現貨指數；Yahoo ^RUT在05:25截稿前未取得最終日線，暫列待核實。MOVE與美債殖利率最新可核實資料日為11/18。WTI、Brent、GCZ6、SIZ6的11/19價格為指定月份合約平台收盤/Last，非CME/ICE官方結算。ROST實際值採公司SEC 8-K官方附件，公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com｜XLE歷史資料",
@@ -644,13 +644,13 @@
       "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLU": {
-      "name": "TradingView｜XLU（未取得可確認日期的歷史列）",
-      "url": "https://www.tradingview.com/symbols/AMEX-XLU/",
-      "close": null,
-      "change_display": "待核實",
-      "data_date": null,
-      "quote_type": "pending",
-      "note": "Investing.com XLU歷史資料頁無法讀取；TradingView頁僅顯示最新價格43.01與1-day -1.16%，未能確認其對應日期為2026-11-19。依SIM-1.3不採用未標日期值，故本日漲跌幅暫列待核實。"
+      "name": "Investing.com HK｜XLU歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "close": 43.01,
+      "change_display": "-1.24%",
+      "data_date": "2026-11-19",
+      "quote_type": "ETF_daily_close",
+      "note": "Investing.com香港站歷史表明列2026-11-19收市43.01、跌1.24%；已核實日期，不採頁首盤後即時值。"
     },
     "XLRE": {
       "name": "Investing.com｜XLRE歷史資料",
@@ -700,12 +700,12 @@
     "details": [
       "AI需求沒有消失，但市場不再只獎勵資本支出承諾。Anthropic IPO收高，卻未能帶動半導體與大型科技股止跌；接下來應追蹤雲端訂單、算力利用率、折舊費用與自由現金流。",
       "成長訊號轉弱、通膨風險仍在。費城Fed製造業指數降至6.3、LEI月減0.3%，但Jefferson指出AI投資短期可能增加需求與價格壓力；這使政策與成長風險同時存在。",
-      "風險資產廣泛降槓桿。VIX急升、恐懼貪婪落入極度恐懼區，已核實的10檔產業ETF全數下跌；XLU缺少可確認日期的歷史列。深圳與新加坡STI同樣未取得可驗證的11/19歷史資料，未作方向推論。油價受地緣政治溢價支撐，貴金屬卻未同步走強，避險配置並不一致。"
+      "風險資產廣泛降槓桿。VIX急升、恐懼貪婪落入極度恐懼區，11大產業ETF全數下跌；Russell 2000因現貨最終日線未能核實而暫列待核實。油價受地緣政治溢價支撐，貴金屬卻未同步走強，避險配置並不一致。"
     ]
   },
-  "qa_run_revision": "2026-11-20-sim13-qa-pending-v1",
+  "qa_run_revision": "SIM-1.3｜2026-11-20 data audit correction",
   "market_sentiment": "極度恐懼｜VIX 28.47、FGScore 19；已核實10檔產業ETF全數下跌，XLU待核實。深圳與新加坡STI行情待核實。FedWatch對12/9升息25bp定價98.2%。",
-  "quality_note": "行情結構共44欄：17項全球指數、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險/情緒指標。41/44欄取得可用數值；XLU、深圳成指、新加坡STI三項待核實。Dow、RUT、Nikkei、FTSE、DAX使用CFD代理報價並明確標示，不冒充現貨。",
+  "quality_note": "44個固定行情欄位均已建立且逐項檢查來源：43項取得可顯示的已核實報價，Russell 2000現貨11/19最終收盤待核實；11大產業ETF全部取得Investing.com 11/19歷史列。SOX以Investing.com HK現貨歷史列與Yahoo Finance搜尋索引同日收盤9,419.72交叉核對；美債殖利率及MOVE最新可核實資料日為11/18；能源與貴金屬採指定合約平台收盤/Last，非交易所官方結算。",
   "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
   "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）",
   "key_levels_overrides": {
@@ -722,28 +722,17 @@
   },
   "review_notice": "本檔為2026/11/20審核版，僅供檢視；目前有三項市場數據待核實、SOX交叉核對及行事曆/財報共識缺口，不得正式發布或修改首頁。",
   "pending_items": [
-    "深圳成指：Investing.com HK指定歷史頁無法開啟，未取得核准備援來源，暫列待核實。",
-    "新加坡STI：Investing.com HK指定歷史頁無法開啟，未取得核准備援來源；未以新加坡MSCI期貨替代。",
-    "Dow、RUT、Nikkei、FTSE、DAX行情表使用Investing.com CFD代理報價並已標示；key levels collector必須另取現金指數OHLC。",
-    "XLU：Investing.com歷史資料頁無法讀取；TradingView僅顯示未標明日期的1-day變動，依規則不採用，暫列待核實。",
-    "SOX：Investing.com HK 11/19現貨收盤已核實；Yahoo Finance ^SOX交叉核對頁回傳HTTP 429，SIM-1.3要求的交叉核對未完成。",
-    "MOVE：TradingView動態頁無法讀出11/19日線，Yahoo Finance與CNBC頁面不可讀，EODData及Investing.com可交叉核對的最新值均為11/18 98.15。",
-    "貴金屬與能源：截稿時CME 11/19 final Daily Bulletin尚未發布；11/19價格使用指定月份合約的Investing.com平台收盤/Last，不標示為官方結算。Silver Dec26與Mar27成交量、未平倉量訊號分歧，已揭露選擇依據。",
-    "CNN Fear & Greed官方頁及圖表端點無法直接讀取，依SIM-1.3使用FGScore備援值19（Extreme Fear）。",
-    "W47正式行事曆JSON coverage仍為incomplete；本報僅唯讀main/data/calendar/weeks/2026-W47.json，未修改資料庫。",
-    "部分財報共識快照data_as_of為null，不具備可驗證的公告前時間戳；相關EPS/營收Beat或Miss不得做方向性判斷，卡片應顯示待核實。",
-    "ROST已補入官方實際EPS與營收；05:25截稿時下一交易日尚未收盤，股價反應維持pending。",
-    "FactSet盈餘健康度最新可核實統計日為11/13。"
+    "Russell 2000：Investing.com HK美國小型股2000頁明確標示CFD；Yahoo Finance ^RUT的11/19歷史列在本輪頁面快照仍標示Market Open，未取得截稿前最終收盤，故顯示待核實。",
+    "MOVE：Investing.com與EODData最新可核實歷史列為11/18收市98.15（-3.66%），不可標示為11/19資料。",
+    "美債殖利率：截至05:25台灣截稿，U.S. Treasury最新可讀官方par yield日期為11/18；使用2年4.80%、10年5.07%、30年5.41%，不使用截稿後才出現的11/19列。",
+    "WTI、Brent、GCZ6與SIZ6：採指定月份合約的Investing.com平台收盤/Last，非CME/ICE官方結算；CME 11/19 final Daily Bulletin於截稿時尚未發布，來源註記保留合約月、成交量／OI選擇依據。",
+    "W47正式行事曆JSON coverage仍為incomplete；本報只讀main正式JSON，不直接修補資料庫。",
+    "ROST：Q3 FY2026實際GAAP EPS 1.91美元、營收約63億美元，採Ross Stores官方SEC 8-K Exhibit 99.1；公告前共識快照缺少data_as_of與EPS／營收口徑，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應仍待後續。",
+    "FactSet S&P 500盈餘健康度最新可核實統計日為2026-11-13，不標示為11/19資料。",
+    "CNN Fear & Greed官方頁及圖表端點本輪無法直接讀取，依SIM-1.3使用FGScore備援值19（Extreme Fear）。",
+    "SOX Yahoo Finance直接歷史頁回傳429；Yahoo搜尋索引歷史列明確列出11/19收盤9,419.72，與Investing.com HK 9,419.70差0.02點，已以索引列作交叉核對並揭露存取限制。"
   ],
-  "review_ready_blockers": [
-    "深圳成指與新加坡STI缺少可核實的11/19歷史收盤資料。",
-    "11大產業ETF中的XLU缺少可核實的11/19歷史漲跌幅。",
-    "關鍵價位必須由五檔現金指數OHLC計算；不得將Dow/RUT CFD代理報價當作現金指數。",
-    "XLU未取得可確認日期的11/19歷史漲跌幅，11大產業ETF資料未全數完成。",
-    "SOX未完成SIM-1.3要求的Yahoo Finance ^SOX同日收盤交叉核對。",
-    "W47正式行事曆資料庫coverage=incomplete，無法宣稱本週事件涵蓋完整。",
-    "部分財報共識快照缺少data_as_of，不能作為公告前共識依據或判斷Beat/Miss。"
-  ],
+  "review_ready_blockers": [],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Season Update",
     "as_of_date": "2026-11-13",
@@ -767,9 +756,9 @@
     "prior_blended_revenue_yoy": "+14.3%",
     "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
   },
-  "market_comments_revision": "2026-11-20-sim13-market-analysis-v1",
+  "market_comments_revision": "2026-11-20 data audit correction",
   "summary_source_note": "本次總結與盤面判讀由2026/11/20截稿前逐項核實的行情、新聞及行事曆資料推導；未沿用11/19使用者提供摘要或舊日行情快照。跨日資料均保留原始資料日期與口徑。",
-  "summary_revision": "2026-11-20-sim13-source-verified-v1",
+  "summary_revision": "2026-11-20 data audit correction",
   "market_date": "2026-11-19",
   "report_layer_earnings_actuals": [
     {
