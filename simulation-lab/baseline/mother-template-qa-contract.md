@@ -48,6 +48,16 @@
 | Fed 限時動態 | `section#fed`；radio：`#fed-live-tab-watch`、`#fed-live-tab-fomc`；面板由 `.fed-live-panel.fed-live-watch` 與 `.fed-live-panel.fed-live-fomc` 承載 |
 | 今日觀察／盤面觀察 | `section#view` |
 
+### A2.2a 全球主要股市三區評論綁定
+
+- `#global-markets #tac-global-panel-0`：美國面板，唯一評論節點標題必須為「📌 美股觀察」。
+- `#global-markets #tac-global-panel-1`：亞洲面板，唯一評論節點標題必須為「📌 亞股觀察」。
+- `#global-markets #tac-global-panel-2`：歐洲面板，唯一評論節點標題必須為「📌 歐股觀察」。
+- 每個面板必須恰有一個直接隸屬於該面板 article 的 `.market-reason`；不可將評論節點移至其他面板、跨面板共用或以來源備註取代。
+- QA 逐一讀取每個面板的標題、評論文字與該面板指數名稱；標題／區域不一致、評論提及其他區域專屬指數或數據、空白評論、只有資料來源備註均 FAIL。
+- QA sidecar 必須保存三區各自的評論摘錄、面板 ID、評論標題、引用指數及 pass/fail。不得只以標題存在、全頁文字搜尋或 tabs 可切換作為通過證據。
+- 任一區失敗，整體 review_ready=false；修正後三區全部重驗。無真正 DOM parser 時標示未測試，不得以字串替換宣稱 DOM 修復完成。
+
 ### A2.3 行事曆卡片的固定巢狀結構
 
 **經濟行事曆：**
