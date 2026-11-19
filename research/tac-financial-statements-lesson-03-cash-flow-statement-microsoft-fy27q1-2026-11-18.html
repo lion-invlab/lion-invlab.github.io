@@ -36,6 +36,9 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 .series-roadmap{margin:22px 0 18px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:13px}.series-roadmap h2{font-size:19px;color:var(--n);margin:0 0 5px}.series-roadmap>p{font-size:12px;color:var(--muted);margin:0 0 10px}.series-roadmap table{margin:10px 0 0;font-size:12px}.series-roadmap th:first-child{width:34%}.series-roadmap td:first-child{font-weight:850;color:var(--n)}.series-roadmap .done{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#fbecee;color:var(--r);font-size:9px;white-space:nowrap}
 .source a{color:var(--r);font-weight:800;text-decoration:none}.source li{font-size:12px;color:#596575;margin:7px 0}.foot{margin:40px 0 30px;padding:18px 0;border-top:1px solid var(--line);font-size:10px;color:#8b95a2}.foot b{color:var(--r)}.disclaimer{font-size:10px;color:#8b95a2}
 @media(max-width:680px){.wrap{padding:0 14px}.mast{flex-wrap:wrap}.meta{display:none}.hero{padding:25px 20px}.hero h1{font-size:28px}.insight{grid-template-columns:1fr;gap:4px;padding:15px}.cardgrid,.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.translation{grid-template-columns:1fr;gap:3px}.sec h2{font-size:18px}.tablewrap{margin-right:-2px}.statement{font-size:11px}th,td{padding:8px 7px}}
+
+/* TAC interactive knowledge check */
+.tac-quiz{background:#fff;border:1px solid var(--line);border-radius:15px;padding:26px;margin:22px 0;box-shadow:0 5px 18px #14233a08}.tac-quiz .quiz-kicker{font-size:10px;letter-spacing:1.5px;color:var(--r);font-weight:900}.tac-quiz h2{font-size:23px;color:var(--n);margin:5px 0 8px}.tac-quiz .quiz-intro{color:var(--muted);font-size:14px;margin:0 0 18px}.tac-q{padding:16px 0;border-top:1px solid var(--line)}.tac-q:first-of-type{border-top:0}.tac-q h3{font-size:16px;line-height:1.65;color:var(--n);margin:0 0 10px}.tac-q button{display:block;width:100%;text-align:left;border:1px solid #dce2ea;background:#fff;padding:10px 13px;border-radius:9px;margin:7px 0;color:var(--ink);font:inherit;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s}.tac-q button:hover:not(:disabled){border-color:var(--g);background:#fbf8f1}.tac-q button:disabled{cursor:default;opacity:1}.tac-q button.chosen{border-color:var(--r);background:#fff5f5}.tac-q button.correct-choice{border-color:#39845b;background:#eff7f1}.tac-feedback{display:none;border-radius:9px;padding:12px 14px;margin-top:10px;font-size:13px;background:#f3f5f8}.tac-feedback.show{display:block}.tac-feedback.good{background:#edf5ef;color:#24583a}.tac-feedback.retry{background:#fbf3e9;color:#78521c}.tac-score{margin-top:14px;padding:13px 15px;border-radius:10px;background:var(--n);color:white;font-weight:800}.tac-score small{display:block;color:#d7dfeb;font-weight:400;font-size:12px;margin-top:3px}@media(max-width:680px){.tac-quiz{padding:20px 16px}.tac-q button{font-size:13px}}
 </style>
 </head>
 <body><div class="top"></div><main class="wrap">
@@ -150,7 +153,15 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 <section class="sec"><h2>八、把三張財報串起來：微軟這一季透露什麼訊息？</h2>
 <div class="cardgrid">
 <div class="card"><b>INCOME STATEMENT｜損益表</b><h4>淨利 366.29 億美元</h4><p>本季會計獲利較去年同期 277.47 億美元增加，代表帳面獲利成長。</p></div>
-<div class="card"><b>BALANCE SHEET｜資產負債表</b><h4>設備資產規模持續增加</h4><p>截至 2026/09/30，不動產及設備帳面金額 3,468.44 億美元，較 2026/06/30 增加 337.68 億美元；這是資產餘額變化，不等同當季現金資本支出。</p></div>
+<div cla
+<section class="tac-quiz" id="tac-lesson-quiz"><div class="quiz-kicker">QUICK CHECK · 小測驗</div><h2>第三課｜現金流量表小測驗</h2><p class="quiz-intro">用五題確認你是否能分辨三類現金流，並理解資本支出與自由現金流。</p>
+<div class="tac-q"><h3>1. 現金流量表主要把現金變動分成哪三類？</h3><button type="button" data-correct="false" data-explanation="現金流量表分為營業活動、投資活動與籌資活動，分別觀察本業、長期投資及資金籌措／返還的現金變化。">A. 營收、成本、淨利</button><button type="button" data-correct="false" data-explanation="現金流量表分為營業活動、投資活動與籌資活動，分別觀察本業、長期投資及資金籌措／返還的現金變化。">B. 流動、固定、無形</button><button type="button" data-correct="true" data-explanation="現金流量表分為營業活動、投資活動與籌資活動，分別觀察本業、長期投資及資金籌措／返還的現金變化。">C. 營業、投資、籌資</button><button type="button" data-correct="false" data-explanation="現金流量表分為營業活動、投資活動與籌資活動，分別觀察本業、長期投資及資金籌措／返還的現金變化。">D. 資產、負債、權益</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>2. 營業現金流（Operating Cash Flow）主要反映什麼？</h3><button type="button" data-correct="true" data-explanation="營業現金流反映本業營運產生的現金，並會調整非現金項目及營運資產負債變動。">A. 本業營運活動帶來的現金</button><button type="button" data-correct="false" data-explanation="營業現金流反映本業營運產生的現金，並會調整非現金項目及營運資產負債變動。">B. 公司股票每天的成交金額</button><button type="button" data-correct="false" data-explanation="營業現金流反映本業營運產生的現金，並會調整非現金項目及營運資產負債變動。">C. 公司所有設備的帳面價值</button><button type="button" data-correct="false" data-explanation="營業現金流反映本業營運產生的現金，並會調整非現金項目及營運資產負債變動。">D. 股東權益的總額</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>3. 公司投資活動現金流為負數，是否一定是壞事？</h3><button type="button" data-correct="false" data-explanation="購買設備、建設資料中心等長期投資會使投資活動現金流流出；要評估投資能否帶來未來回報，而不是只看正負號。">A. 一定是，代表本業虧損</button><button type="button" data-correct="true" data-explanation="購買設備、建設資料中心等長期投資會使投資活動現金流流出；要評估投資能否帶來未來回報，而不是只看正負號。">B. 不一定，可能是購買設備或建設資料中心</button><button type="button" data-correct="false" data-explanation="購買設備、建設資料中心等長期投資會使投資活動現金流流出；要評估投資能否帶來未來回報，而不是只看正負號。">C. 一定代表公司借不到錢</button><button type="button" data-correct="false" data-explanation="購買設備、建設資料中心等長期投資會使投資活動現金流流出；要評估投資能否帶來未來回報，而不是只看正負號。">D. 代表公司沒有任何現金</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>4. 依本課口徑，微軟本季自由現金流如何計算？營業現金流 580 億美元，現金設備支出 393.67 億美元。</h3><button type="button" data-correct="false" data-explanation="自由現金流（FCF）＝營業現金流－現金資本支出，因此 580－393.67＝186.33 億美元。">A. 580＋393.67＝973.67 億美元</button><button type="button" data-correct="true" data-explanation="自由現金流（FCF）＝營業現金流－現金資本支出，因此 580－393.67＝186.33 億美元。">B. 580－393.67＝186.33 億美元</button><button type="button" data-correct="false" data-explanation="自由現金流（FCF）＝營業現金流－現金資本支出，因此 580－393.67＝186.33 億美元。">C. 393.67－580＝186.33 億美元</button><button type="button" data-correct="false" data-explanation="自由現金流（FCF）＝營業現金流－現金資本支出，因此 580－393.67＝186.33 億美元。">D. 580÷393.67＝186.33 億美元</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>5. 微軟本季營業現金流強勁，但自由現金流較去年同期下降。投資人最應追蹤什麼？</h3><button type="button" data-correct="false" data-explanation="大量資本支出會壓低當期自由現金流。重點是後續 Azure、雲端與 AI 服務的成長及獲利，能否支撐折舊、能源與營運成本。">A. 只要營業現金流為正，就不必再看其他數字</button><button type="button" data-correct="true" data-explanation="大量資本支出會壓低當期自由現金流。重點是後續 Azure、雲端與 AI 服務的成長及獲利，能否支撐折舊、能源與營運成本。">B. AI 與雲端投資能否逐步轉化為營收、利潤與現金回報</button><button type="button" data-correct="false" data-explanation="大量資本支出會壓低當期自由現金流。重點是後續 Azure、雲端與 AI 服務的成長及獲利，能否支撐折舊、能源與營運成本。">C. 公司是否停止所有設備投資</button><button type="button" data-correct="false" data-explanation="大量資本支出會壓低當期自由現金流。重點是後續 Azure、雲端與 AI 服務的成長及獲利，能否支撐折舊、能源與營運成本。">D. 只看股價是否上漲即可</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-score">目前得分：0 / 0 題 <small>完成全部五題後即可查看總成績。</small></div></section>
+ss="card"><b>BALANCE SHEET｜資產負債表</b><h4>設備資產規模持續增加</h4><p>截至 2026/09/30，不動產及設備帳面金額 3,468.44 億美元，較 2026/06/30 增加 337.68 億美元；這是資產餘額變化，不等同當季現金資本支出。</p></div>
 <div class="card"><b>CASH FLOW｜現金流量表</b><h4>營業現金流 580 億美元</h4><p>本業產生的現金高於淨利，現金轉換比約 1.58 倍；但單季結果仍需觀察後續趨勢。</p></div>
 <div class="card"><b>INVESTMENT｜投資判讀</b><h4>FCF 降至 186.33 億美元</h4><p>AI 基礎建設支出大增，壓低當季自由現金流。下一步要驗證這些投入能否創造足夠營收與現金回報。</p></div>
 </div>
@@ -172,4 +183,20 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 <li><a href="https://www.microsoft.com/en-us/Investor/events/fy-2027/earnings-fy-2027-q1" target="_blank" rel="noopener">Microsoft FY2027 Q1 Earnings Conference Call</a> — 管理層說明本季約 452 億美元 CapEx、其中約 74 億美元為融資租賃，以及 580 億美元營業現金流與 186 億美元自由現金流。</li>
 </ol><p class="disclaimer">資料基準期間：截至 2026/09/30 止三個月；比較期間：截至 2025/09/30 止三個月。金額除另有說明外均為百萬美元。FCF 採營業現金流減現金支付的不動產及設備支出計算，與管理層包含融資租賃的 CapEx 口徑不同。本文為投資教育用途，不構成個別投資建議。</p></section>
 <footer class="foot"><b>TAC 投資早報｜看懂企業財報：從零開始的六堂投資實戰課</b><br>第三課：現金流量表｜Microsoft FY2027 Q1｜2026/11/18<br>本篇為第三堂審核預覽，尚未加入正式專題索引。</footer>
-</main></body></html>
+</main>
+<script>
+(function(){
+ function choose(button, correct, explanation){
+  const q=button.closest('.tac-q'); if(q.dataset.done==='1') return; q.dataset.done='1';
+  q.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('correct-choice')});
+  button.classList.add('chosen');
+  const feedback=q.querySelector('.tac-feedback'); feedback.className='tac-feedback show '+(correct?'good':'retry');
+  feedback.textContent=(correct?'✓ 答對了！':'再想一想。')+' '+explanation;
+  const quiz=q.closest('.tac-quiz'); const done=quiz.querySelectorAll('.tac-q[data-done="1"]').length;
+  const score=quiz.querySelectorAll('.tac-q[data-done="1"] .tac-feedback.good').length;
+  const bar=quiz.querySelector('.tac-score'); bar.innerHTML='目前得分：'+score+' / '+done+' 題 <small>'+(done===5?'全部完成！總成績 '+score+' / 5 題。':'完成全部五題後即可查看總成績。')+'</small>';
+ }
+ document.addEventListener('click',function(e){const b=e.target.closest('.tac-q button');if(!b)return;choose(b,b.dataset.correct==='true',b.dataset.explanation)});
+})();
+</script>
+</body></html>
