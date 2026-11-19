@@ -2078,3 +2078,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 完整模擬workflow run `44427122693`：completed / success。QA sidecar `preview/2026-11-19-simulation.qa.json` blob SHA `9d738caf7bd7292b42bee2509b8fded04e9207e2`；`status=QA_PASSED`、`review_ready=true`、blockers=[]。組裝、互動測試、母版比對、provenance驗證、44項行情及新聞結構Gate均成功；HTML QA blob SHA與實際回讀一致。
 - FedWatch HTML回讀確認93.9%／6.1%／0%，更新時間11/19 05:15；舊99.5%／0.5%已不存在於FedWatch區塊。僅在simulation branch工作；未修改main/index.html、main正式首頁、正式母版、Manifest或W47行事曆JSON，未部署Pages。
 - 本次完整QA僅代表更新後11/19審核版通過既有workflow Gate，不代表使用者已核准正式首頁發布。
+
+
+### 11/19 FedWatch審核版預覽部署補記
+- 依使用者「更新」指示，已將QA_PASSED的 `preview/2026-11-19-simulation.html` 複製至main同日期審核預覽路徑；main preview blob SHA `4dae7e1d715cd2351e0967ea5e48e33968eb7441`，與simulation審核版完全相同。此次只更新日期審核預覽，未改 `main/index.html`。
+- GitHub Pages deploy run `44427371829` completed/success；審核預覽部署已完成。正式首頁仍維持原狀，沒有正式發布授權。
