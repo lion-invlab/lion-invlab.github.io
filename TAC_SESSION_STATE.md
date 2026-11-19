@@ -1308,3 +1308,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - GitHub Actions run 44434579316：測試步驟 PASS；ALFRED 更新仍在執行，Manifest rebuild、PIT、部署及 visual QA 尚未驗收。不得標記完成。
 - S&P 500：Investing.com 香港站 11/18 歷史表列 7,323.52，但頁面標頭明確標示 CFD。依 WR v5.16 D2 規則不得將 CFD 當成現貨收盤交接；本輪未追加、未造 observed_at。等待符合現貨正式收盤定義的證據。
 - 下一步：追蹤 run 44434579316；完成後回讀 Manifest 四序列 span、chart JSON SHA、PIT QA、Pages 部署與 browser QA。只在 Chart 3 範圍內修復。
+
+
+## 2026-11-19｜Chart 3 S&P 500 歷史增量合併與瀏覽器 QA（最新狀態）
+- 正式規則已更新為 main TAC_WORK_RULES.md v5.17，blob SHA 0210e8e04f4f6b2374997b82a658e15781932e67；使用者接受 Investing.com 香港站歷史頁若明確為 CFD／無法證實現貨口徑時，以 Yahoo Finance ^GSPC 歷史資料頁作備援，僅採 Historical Prices 的 Close，不採 Adj Close。
+- Yahoo Finance ^GSPC 歷史頁核對 2026-11-11 至 2026-11-18 六個交易日：11/11 7619.38、11/12 7592.40、11/13 7561.67、11/16 7416.59、11/17 7340.53、11/18 7323.63。來源頁、Date／OHLC／Close、觀測查核時間 2026-11-19T09:18:19+08:00 均有紀錄。
+- 六筆已追加至 data/tac-chart3/sp500_daily_increment.jsonl，回讀六筆、日期嚴格遞增、逐筆 SHA-256 已驗證。ledger blob SHA 9b282f9fbde0980c307d809f26f00f3cb04e0b90；ledger 整體 SHA-256 f9f4c9cb426d40afb2501f534b5381343756d4c7701da568456f249b570b8062。
+- 新增 .github/scripts/merge_tac_sp500_daily_increment.py、測試及專用 workflow .github/workflows/tac-chart3-sp500-increment-merge.yml；專用 workflow run 44436155487 最終 SUCCESS。將 6 筆增量合併至近期 compact，並透過既有 build_sp500_daily_compact.py 重建完整歷史資料；Manifest 同步記錄來源、筆數、範圍、SHA-256 及 Git blob SHA-1。
+- 更新後 S&P 500 完整歷史 1927-12-30 至 2026-11-18，共 24,839 筆；近期 compact 1993-12-31 至 2026-11-18，共 8,277 筆。Manifest end、rows、dataset_sha256、git_blob_sha1 與 compact 檔一致；原 1927 前段歷史保留，沒有插值或 forward-fill。
+- 瀏覽器 QA 原先因舊測試硬編碼 24,833 筆／2026-11-10 而失敗；已將 .github/scripts/test_chart3_preview_browser.py 改為依 Manifest 與 compact 動態驗證，並更新 chart3-preview.html 的 S&P 500 資料來源說明至 24,839 筆／2026-11-18。最新 QA run 44436438312 SUCCESS，包含 desktop、mobile 390px、mobile 320px、standalone preview、互動與無 console/page/request errors 檢查。
+- GitHub Pages deployment run 44436438399 SUCCESS；預覽網址：https://lion-invlab.github.io/research/tac-chart3/chart3-preview.html 。最新 Chart 3 預覽已部署。相關視覺 QA artifact run 44436438312。
+- 本輪只修改 Chart 3 資料、Manifest、preview 子頁、專用腳本／測試／workflow 及工作紀錄／WR；未修改 index.html、雙母版、早報首頁版面或行事曆 JSON。
+- 先前 Manifest span builder workflow run 44434579316 仍是獨立失敗（Commit only if data changed 步驟）；不得把該 workflow 狀態與本次 S&P 500 merge/QA 成功混為一談。需另行查明其失敗原因，但不影響本次 S&P 500 增量資料與 Chart 3 瀏覽器 QA 已通過的結果。
