@@ -1445,7 +1445,29 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2026,
         "fiscal_quarter": "Q3",
-        "release_status": "released"
+        "release_status": "released",
+        "eps_actual_source": {
+          "name": "H World Group Limited｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://ir.hworld.com/static-files/3ff5f5df-4cd8-4ebc-aaf2-a1079d91938e",
+          "publisher": "H World Group Limited",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "EPS actual evidence: 5.63 CNY; basis=GAAP diluted earnings per ADS; adjusted non-GAAP diluted earnings per ADS is separately disclosed; period=2026 Q3 ended 2026-09-30. Issuer Form 6-K reports total revenue RMB7,750 million and GAAP diluted earnings per ADS RMB5.63; adjusted non-GAAP diluted ADS earnings are separately disclosed.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "H World Group Limited｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://ir.hworld.com/static-files/3ff5f5df-4cd8-4ebc-aaf2-a1079d91938e",
+          "publisher": "H World Group Limited",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "Revenue actual evidence: 7.75 CNY B; basis=Total revenue; period=2026 Q3 ended 2026-09-30. Issuer Form 6-K reports total revenue RMB7,750 million and GAAP diluted earnings per ADS RMB5.63; adjusted non-GAAP diluted ADS earnings are separately disclosed.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-16",
+        "revenue_actual_published_at": "2026-11-16",
+        "eps_actual_observed_at": "2026-11-17T04:56:03+08:00",
+        "revenue_actual_observed_at": "2026-11-17T04:56:03+08:00"
       },
       {
         "id": "current-beke-20261116",
@@ -2208,7 +2230,29 @@
           "observed_at": "2026-11-17T04:56:03+08:00",
           "notes": "Issuer reports net revenues of approximately RMB21.0 billion and diluted net income per ADS of RMB1.98. Values are stored in RMB/CNY; revenue is issuer-rounded to RMB21.0bn.",
           "secondary_refs": []
-        }
+        },
+        "eps_actual_source": {
+          "name": "KE Holdings Inc.｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://investors.ke.com/zh-hans/news-releases/news-release-details/ke-holdings-inc-announces-third-quarter-2026-unaudited-financial",
+          "publisher": "KE Holdings Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "EPS actual evidence: 1.98 CNY; basis=GAAP diluted net income per ADS attributable to ordinary shareholders; adjusted diluted ADS earnings are separately disclosed; period=2026 Q3 ended 2026-09-30. Issuer reports net revenues of approximately RMB21.0 billion and diluted net income per ADS of RMB1.98. Values are stored in RMB/CNY; revenue is issuer-rounded to RMB21.0bn.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "KE Holdings Inc.｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://investors.ke.com/zh-hans/news-releases/news-release-details/ke-holdings-inc-announces-third-quarter-2026-unaudited-financial",
+          "publisher": "KE Holdings Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "Revenue actual evidence: 21 CNY B; basis=Net revenues; period=2026 Q3 ended 2026-09-30. Issuer reports net revenues of approximately RMB21.0 billion and diluted net income per ADS of RMB1.98. Values are stored in RMB/CNY; revenue is issuer-rounded to RMB21.0bn.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-16",
+        "revenue_actual_published_at": "2026-11-16",
+        "eps_actual_observed_at": "2026-11-17T04:56:03+08:00",
+        "revenue_actual_observed_at": "2026-11-17T04:56:03+08:00"
       },
       {
         "id": "current-bidu-20261116",
@@ -2971,7 +3015,29 @@
           "observed_at": "2026-11-17T04:56:03+08:00",
           "notes": "Issuer reports revenue RMB30,807 million and diluted GAAP earnings per ADS RMB4.35; non-GAAP diluted earnings per ADS RMB6.78 is separately disclosed.",
           "secondary_refs": []
-        }
+        },
+        "eps_actual_source": {
+          "name": "Baidu, Inc.｜Third Quarter 2026 Results",
+          "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-third-quarter-2026-results",
+          "publisher": "Baidu, Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "EPS actual evidence: 4.35 CNY; basis=GAAP diluted earnings per ADS; non-GAAP diluted earnings per ADS is separately disclosed; period=2026 Q3 ended 2026-09-30. Issuer reports revenue RMB30,807 million and diluted GAAP earnings per ADS RMB4.35; non-GAAP diluted earnings per ADS RMB6.78 is separately disclosed.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Baidu, Inc.｜Third Quarter 2026 Results",
+          "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-third-quarter-2026-results",
+          "publisher": "Baidu, Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "Revenue actual evidence: 30.807 CNY B; basis=Revenue; period=2026 Q3 ended 2026-09-30. Issuer reports revenue RMB30,807 million and diluted GAAP earnings per ADS RMB4.35; non-GAAP diluted earnings per ADS RMB6.78 is separately disclosed.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-16",
+        "revenue_actual_published_at": "2026-11-16",
+        "eps_actual_observed_at": "2026-11-17T04:56:03+08:00",
+        "revenue_actual_observed_at": "2026-11-17T04:56:03+08:00"
       },
       {
         "id": "current-armk-20261116",
@@ -3736,7 +3802,33 @@
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/1584509/000158450926000152/ex991armkq4fy2026.htm"
           ]
-        }
+        },
+        "eps_actual_source": {
+          "name": "Aramark｜Fourth Quarter Fiscal 2026 Results",
+          "url": "https://aramark.gcs-web.com/news-releases/news-release-details/aramark-reports-earnings-results-fiscal-2026",
+          "publisher": "Aramark",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "EPS actual evidence: 0.51 USD; basis=GAAP diluted EPS (as reported); adjusted diluted EPS is separately disclosed; period=FY2026 Q4 ended 2026-10-02. Issuer reports Q4 revenue USD5,293.209 million and GAAP diluted EPS USD0.51; SEC exhibit explicitly labels diluted EPS. Adjusted EPS USD0.71 is separately disclosed.",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/1584509/000158450926000152/ex991armkq4fy2026.htm"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Aramark｜Fourth Quarter Fiscal 2026 Results",
+          "url": "https://aramark.gcs-web.com/news-releases/news-release-details/aramark-reports-earnings-results-fiscal-2026",
+          "publisher": "Aramark",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "Revenue actual evidence: 5.293209 USD B; basis=Consolidated revenue; period=FY2026 Q4 ended 2026-10-02. Issuer reports Q4 revenue USD5,293.209 million and GAAP diluted EPS USD0.51; SEC exhibit explicitly labels diluted EPS. Adjusted EPS USD0.71 is separately disclosed.",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/1584509/000158450926000152/ex991armkq4fy2026.htm"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-16",
+        "revenue_actual_published_at": "2026-11-16",
+        "eps_actual_observed_at": "2026-11-17T04:56:03+08:00",
+        "revenue_actual_observed_at": "2026-11-17T04:56:03+08:00"
       },
       {
         "id": "current-tsn-20261116",
@@ -4499,7 +4591,29 @@
           "observed_at": "2026-11-17T04:56:03+08:00",
           "notes": "Issuer reports Q4 sales USD14,585 million; GAAP diluted EPS is explicitly -USD0.22 (Class A basic -0.22 and Class B basic -0.20 are separately shown). Adjusted non-GAAP EPS USD0.61 is separately disclosed.",
           "secondary_refs": []
-        }
+        },
+        "eps_actual_source": {
+          "name": "Tyson Foods｜Fourth Quarter and Fiscal 2026 Results",
+          "url": "https://www.tysonfoods.com/news/news-releases/2026/11/tyson-foods-reports-fourth-quarter-2026-results",
+          "publisher": "Tyson Foods, Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "EPS actual evidence: -0.22 USD; basis=GAAP diluted EPS (issuer explicitly reports diluted -0.22; Class A basic -0.22 and Class B basic -0.20 are separately shown); period=FY2026 Q4 ended 2026-10-03. Issuer reports Q4 sales USD14,585 million; GAAP diluted EPS is explicitly -USD0.22 (Class A basic -0.22 and Class B basic -0.20 are separately shown). Adjusted non-GAAP EPS USD0.61 is separately disclosed.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Tyson Foods｜Fourth Quarter and Fiscal 2026 Results",
+          "url": "https://www.tysonfoods.com/news/news-releases/2026/11/tyson-foods-reports-fourth-quarter-2026-results",
+          "publisher": "Tyson Foods, Inc.",
+          "published_at": "2026-11-16",
+          "observed_at": "2026-11-17T04:56:03+08:00",
+          "notes": "Revenue actual evidence: 14.585 USD B; basis=Sales; period=FY2026 Q4 ended 2026-10-03. Issuer reports Q4 sales USD14,585 million; GAAP diluted EPS is explicitly -USD0.22 (Class A basic -0.22 and Class B basic -0.20 are separately shown). Adjusted non-GAAP EPS USD0.61 is separately disclosed.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-16",
+        "revenue_actual_published_at": "2026-11-16",
+        "eps_actual_observed_at": "2026-11-17T04:56:03+08:00",
+        "revenue_actual_observed_at": "2026-11-17T04:56:03+08:00"
       },
       {
         "id": "current-jd-20261117",
@@ -5262,7 +5376,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-17",
-        "actual_observed_at": "2026-11-18T04:36:10+08:00"
+        "actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "eps_actual_source": {
+          "name": "JD.com｜Third Quarter 2026 Results",
+          "url": "https://ir.jd.com/news-releases/news-release-details/jdcom-announces-third-quarter-2026-results",
+          "publisher": "JD.com, Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "EPS actual evidence: 4.59 CNY; basis=GAAP diluted net income per ADS; non-GAAP diluted net income per ADS is separately disclosed; period=2026 Q3 ended 2026-09-30. 發行人公布截至2026-09-30三個月：Net revenues RMB309.6bn；GAAP diluted net income per ADS RMB4.59；Non-GAAP diluted net income per ADS RMB5.88另行揭露。",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "JD.com｜Third Quarter 2026 Results",
+          "url": "https://ir.jd.com/news-releases/news-release-details/jdcom-announces-third-quarter-2026-results",
+          "publisher": "JD.com, Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "Revenue actual evidence: 309.6 CNY B; basis=Net revenues; period=2026 Q3 ended 2026-09-30. 發行人公布截至2026-09-30三個月：Net revenues RMB309.6bn；GAAP diluted net income per ADS RMB4.59；Non-GAAP diluted net income per ADS RMB5.88另行揭露。",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-17",
+        "revenue_actual_published_at": "2026-11-17",
+        "eps_actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "revenue_actual_observed_at": "2026-11-18T04:36:10+08:00"
       },
       {
         "id": "current-dis-20261117",
@@ -6027,7 +6163,33 @@
           ]
         },
         "actual_published_at": "2026-11-17",
-        "actual_observed_at": "2026-11-18T04:36:10+08:00"
+        "actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "eps_actual_source": {
+          "name": "The Walt Disney Company｜Q4 FY2026 Earnings Results",
+          "url": "https://s206.q4cdn.com/979796730/files/content_files/q4-fy26-earnings-final.pdf",
+          "publisher": "The Walt Disney Company",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "EPS actual evidence: 1.51 USD; basis=GAAP diluted EPS; adjusted EPS is separately disclosed; period=FY2026 Q4 ended 2026-10-03. 官方股東信及財報表列Q4 FY2026 revenue USD25,947 million、GAAP diluted EPS USD1.51；adjusted EPS USD1.77另列。財報期間截至2026-10-03，包含第53週。",
+          "secondary_refs": [
+            "https://investors.thewaltdisneycompany.com/news/news-details/2026/The-Walt-Disney-Company-to-Report-Fiscal-Full-Year-and-Fourth-Quarter-2026-Financial-Results-Tomorrow/default.aspx"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "The Walt Disney Company｜Q4 FY2026 Earnings Results",
+          "url": "https://s206.q4cdn.com/979796730/files/content_files/q4-fy26-earnings-final.pdf",
+          "publisher": "The Walt Disney Company",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "Revenue actual evidence: 25.947 USD B; basis=Revenues; period=FY2026 Q4 ended 2026-10-03. 官方股東信及財報表列Q4 FY2026 revenue USD25,947 million、GAAP diluted EPS USD1.51；adjusted EPS USD1.77另列。財報期間截至2026-10-03，包含第53週。",
+          "secondary_refs": [
+            "https://investors.thewaltdisneycompany.com/news/news-details/2026/The-Walt-Disney-Company-to-Report-Fiscal-Full-Year-and-Fourth-Quarter-2026-Financial-Results-Tomorrow/default.aspx"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-17",
+        "revenue_actual_published_at": "2026-11-17",
+        "eps_actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "revenue_actual_observed_at": "2026-11-18T04:36:10+08:00"
       },
       {
         "id": "current-hd-20261117",
@@ -6792,7 +6954,33 @@
           ]
         },
         "actual_published_at": "2026-11-17",
-        "actual_observed_at": "2026-11-18T04:36:10+08:00"
+        "actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "eps_actual_source": {
+          "name": "The Home Depot｜Q3 Fiscal 2026 Earnings Release",
+          "url": "https://ir.homedepot.com/~/media/Files/H/HomeDepot-IR/press-release/q3-2026-earnings-release.pdf",
+          "publisher": "The Home Depot, Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "EPS actual evidence: 3.72 USD; basis=GAAP diluted EPS; adjusted diluted EPS is separately disclosed; period=FY2026 Q3 ended 2026-11-01. 官方財報列示截至2026-11-01三個月 Net sales USD43,398 million、GAAP diluted EPS USD3.72；adjusted diluted EPS USD3.86另列。",
+          "secondary_refs": [
+            "https://ir.homedepot.com/events-and-presentations"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "The Home Depot｜Q3 Fiscal 2026 Earnings Release",
+          "url": "https://ir.homedepot.com/~/media/Files/H/HomeDepot-IR/press-release/q3-2026-earnings-release.pdf",
+          "publisher": "The Home Depot, Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-18T04:36:10+08:00",
+          "notes": "Revenue actual evidence: 43.398 USD B; basis=Net sales; period=FY2026 Q3 ended 2026-11-01. 官方財報列示截至2026-11-01三個月 Net sales USD43,398 million、GAAP diluted EPS USD3.72；adjusted diluted EPS USD3.86另列。",
+          "secondary_refs": [
+            "https://ir.homedepot.com/events-and-presentations"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-17",
+        "revenue_actual_published_at": "2026-11-17",
+        "eps_actual_observed_at": "2026-11-18T04:36:10+08:00",
+        "revenue_actual_observed_at": "2026-11-18T04:36:10+08:00"
       },
       {
         "id": "current-nvda-20261118",
@@ -7557,7 +7745,33 @@
           "secondary_refs": [
             "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/"
           ]
-        }
+        },
+        "eps_actual_source": {
+          "name": "NVIDIA Corporation｜NVIDIA Announces Financial Results for Third Quarter Fiscal 2027",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
+          "publisher": "NVIDIA Corporation",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "EPS actual evidence: 2.7 USD; basis=GAAP diluted earnings per share; period=FY2027 Q3 ended 2026-10-25. 發行人正式財報：Q3 FY2027 Revenue USD115.8bn；GAAP diluted EPS USD2.70；Non-GAAP diluted EPS USD2.68 另列，不混用。Data Center Revenue USD107.6bn。",
+          "secondary_refs": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "NVIDIA Corporation｜NVIDIA Announces Financial Results for Third Quarter Fiscal 2027",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
+          "publisher": "NVIDIA Corporation",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "Revenue actual evidence: 115.8 USD B; basis=GAAP revenue; period=FY2027 Q3 ended 2026-10-25. 發行人正式財報：Q3 FY2027 Revenue USD115.8bn；GAAP diluted EPS USD2.70；Non-GAAP diluted EPS USD2.68 另列，不混用。Data Center Revenue USD107.6bn。",
+          "secondary_refs": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-17",
+        "revenue_actual_published_at": "2026-11-17",
+        "eps_actual_observed_at": "2026-11-19T04:34:05+08:00",
+        "revenue_actual_observed_at": "2026-11-19T04:34:05+08:00"
       },
       {
         "id": "current-zto-20261117",
@@ -8057,7 +8271,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2026,
         "fiscal_quarter": "Q3",
-        "release_status": "released"
+        "release_status": "released",
+        "eps_actual_source": {
+          "name": "ZTO Express (Cayman) Inc.｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://zto.investorroom.com/2026-11-17-ZTO-Reports-Third-Quarter-2026-Unaudited-Financial-Results",
+          "publisher": "ZTO Express (Cayman) Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "EPS actual evidence: 3.2 CNY; basis=Diluted net earnings per ADS attributable to ordinary shareholders; issuer did not label this measure GAAP or non-GAAP; period=2026 Q3 ended 2026-09-30. 發行人 Q3 2026 Revenue RMB14,361.635m（USD2,142.089m）；diluted net earnings per ADS RMB3.20（USD0.48）。來源同時列 basic RMB3.37，僅採 diluted 欄位；發行人未將此項標示為 GAAP／Non-GAAP，故不推定。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/1677250/000110465926129305/tm2630022d1_ex99-1.htm",
+            "https://www.prnewswire.com/news-releases/zto-reports-third-quarter-2026-unaudited-financial-results-302942325.html"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "ZTO Express (Cayman) Inc.｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://zto.investorroom.com/2026-11-17-ZTO-Reports-Third-Quarter-2026-Unaudited-Financial-Results",
+          "publisher": "ZTO Express (Cayman) Inc.",
+          "published_at": "2026-11-17",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "Revenue actual evidence: 14.361635 CNY B; basis=Total revenues; period=2026 Q3 ended 2026-09-30. 發行人 Q3 2026 Revenue RMB14,361.635m（USD2,142.089m）；diluted net earnings per ADS RMB3.20（USD0.48）。來源同時列 basic RMB3.37，僅採 diluted 欄位；發行人未將此項標示為 GAAP／Non-GAAP，故不推定。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/1677250/000110465926129305/tm2630022d1_ex99-1.htm",
+            "https://www.prnewswire.com/news-releases/zto-reports-third-quarter-2026-unaudited-financial-results-302942325.html"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-17",
+        "revenue_actual_published_at": "2026-11-17",
+        "eps_actual_observed_at": "2026-11-19T04:34:05+08:00",
+        "revenue_actual_observed_at": "2026-11-19T04:34:05+08:00"
       },
       {
         "id": "current-tgt-20261118",
@@ -8822,7 +9064,33 @@
           "secondary_refs": [
             "https://corporate.target.com/getmedia/bdfa5ae0-ed6a-4cfc-af14-7f438ee8cd66/Target-Corporation-Reports-Third-Quarter-Earnings.pdf"
           ]
-        }
+        },
+        "eps_actual_source": {
+          "name": "Target Corporation｜Reports Third Quarter Earnings",
+          "url": "https://corporate.target.com/press/release/2026/11/target-corporation-reports-third-quarter-earnings",
+          "publisher": "Target Corporation",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "EPS actual evidence: 2.65 USD; basis=GAAP diluted EPS; issuer also reports Adjusted EPS at the same amount for this quarter; period=FY2026 Q3 ended 2026-10-31. 發行人 Q3 FY2026 net sales USD27,067m；GAAP diluted EPS USD2.65。Tariff refunds 對 GAAP 與 Adjusted EPS 各貢獻 USD0.50；Adjusted EPS 同為 USD2.65，仍分開保存口徑。",
+          "secondary_refs": [
+            "https://corporate.target.com/getmedia/bdfa5ae0-ed6a-4cfc-af14-7f438ee8cd66/Target-Corporation-Reports-Third-Quarter-Earnings.pdf"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Target Corporation｜Reports Third Quarter Earnings",
+          "url": "https://corporate.target.com/press/release/2026/11/target-corporation-reports-third-quarter-earnings",
+          "publisher": "Target Corporation",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "Revenue actual evidence: 27.067 USD B; basis=Net sales; period=FY2026 Q3 ended 2026-10-31. 發行人 Q3 FY2026 net sales USD27,067m；GAAP diluted EPS USD2.65。Tariff refunds 對 GAAP 與 Adjusted EPS 各貢獻 USD0.50；Adjusted EPS 同為 USD2.65，仍分開保存口徑。",
+          "secondary_refs": [
+            "https://corporate.target.com/getmedia/bdfa5ae0-ed6a-4cfc-af14-7f438ee8cd66/Target-Corporation-Reports-Third-Quarter-Earnings.pdf"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-18",
+        "revenue_actual_published_at": "2026-11-18",
+        "eps_actual_observed_at": "2026-11-19T04:34:05+08:00",
+        "revenue_actual_observed_at": "2026-11-19T04:34:05+08:00"
       },
       {
         "id": "current-low-20261118",
@@ -9587,7 +9855,33 @@
           "secondary_refs": [
             "https://finance.yahoo.com/markets/stocks/articles/lowes-reports-third-quarter-2026-110000995.html"
           ]
-        }
+        },
+        "eps_actual_source": {
+          "name": "Lowe's Companies, Inc.｜Third Quarter 2026 Sales and Earnings Results (Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000126/exhibit991-10302026.htm",
+          "publisher": "U.S. SEC EDGAR｜Lowe's issuer exhibit",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "EPS actual evidence: 2.98 USD; basis=GAAP diluted earnings per common share; period=FY2026 Q3 ended 2026-10-30. 發行人 SEC Exhibit 99.1：Q3 FY2026 net sales USD22,756m；GAAP diluted EPS USD2.98；Adjusted diluted EPS USD3.10 另列。兩者均含每股 USD0.34 的關稅退款正面影響。",
+          "secondary_refs": [
+            "https://finance.yahoo.com/markets/stocks/articles/lowes-reports-third-quarter-2026-110000995.html"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Lowe's Companies, Inc.｜Third Quarter 2026 Sales and Earnings Results (Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000126/exhibit991-10302026.htm",
+          "publisher": "U.S. SEC EDGAR｜Lowe's issuer exhibit",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "Revenue actual evidence: 22.756 USD B; basis=Net sales; period=FY2026 Q3 ended 2026-10-30. 發行人 SEC Exhibit 99.1：Q3 FY2026 net sales USD22,756m；GAAP diluted EPS USD2.98；Adjusted diluted EPS USD3.10 另列。兩者均含每股 USD0.34 的關稅退款正面影響。",
+          "secondary_refs": [
+            "https://finance.yahoo.com/markets/stocks/articles/lowes-reports-third-quarter-2026-110000995.html"
+          ]
+        },
+        "eps_actual_published_at": "2026-11-18",
+        "revenue_actual_published_at": "2026-11-18",
+        "eps_actual_observed_at": "2026-11-19T04:34:05+08:00",
+        "revenue_actual_observed_at": "2026-11-19T04:34:05+08:00"
       },
       {
         "id": "current-tjx-20261118",
@@ -10350,7 +10644,29 @@
           "observed_at": "2026-11-19T04:34:05+08:00",
           "notes": "發行人 Q3 FY2027 net sales USD16.0bn；diluted EPS USD1.39；Adjusted diluted EPS USD1.34（排除每股 USD0.05 關稅退款淨利益）。來源未在該數字標籤明示 GAAP，故 basis code 不額外宣稱 GAAP。",
           "secondary_refs": []
-        }
+        },
+        "eps_actual_source": {
+          "name": "The TJX Companies, Inc.｜Reports Q3 FY27 Results",
+          "url": "https://investor.tjx.com/news-releases/news-release-details/tjx-companies-inc-reports-q3-fy27-results-comp-sales-growth-4",
+          "publisher": "The TJX Companies, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "EPS actual evidence: 1.39 USD; basis=Diluted earnings per share; adjusted diluted EPS is separately disclosed at USD1.34; period=FY2027 Q3 ended 2026-10-31. 發行人 Q3 FY2027 net sales USD16.0bn；diluted EPS USD1.39；Adjusted diluted EPS USD1.34（排除每股 USD0.05 關稅退款淨利益）。來源未在該數字標籤明示 GAAP，故 basis code 不額外宣稱 GAAP。",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "The TJX Companies, Inc.｜Reports Q3 FY27 Results",
+          "url": "https://investor.tjx.com/news-releases/news-release-details/tjx-companies-inc-reports-q3-fy27-results-comp-sales-growth-4",
+          "publisher": "The TJX Companies, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-19T04:34:05+08:00",
+          "notes": "Revenue actual evidence: 16 USD B; basis=Net sales; period=FY2027 Q3 ended 2026-10-31. 發行人 Q3 FY2027 net sales USD16.0bn；diluted EPS USD1.39；Adjusted diluted EPS USD1.34（排除每股 USD0.05 關稅退款淨利益）。來源未在該數字標籤明示 GAAP，故 basis code 不額外宣稱 GAAP。",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-18",
+        "revenue_actual_published_at": "2026-11-18",
+        "eps_actual_observed_at": "2026-11-19T04:34:05+08:00",
+        "revenue_actual_observed_at": "2026-11-19T04:34:05+08:00"
       },
       {
         "id": "current-panw-20261119",
@@ -11113,7 +11429,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-18",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "Palo Alto Networks｜Form 8-K and Q1 FY2027 Financial Results",
+          "url": "https://investors.paloaltonetworks.com/static-files/c70b2bd5-d86b-4a4f-8380-c7d6c626b191",
+          "publisher": "Palo Alto Networks, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 0.57 USD; basis=GAAP diluted EPS; period=FY2027 Q1 ended 2026-10-31. Fiscal Q1 2027 ended October 31, 2026. Total revenue was USD 3.44 billion; GAAP net income was USD 482 million and GAAP diluted EPS was USD 0.57. Non-GAAP measures are not substituted for GAAP actuals.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Palo Alto Networks｜Form 8-K and Q1 FY2027 Financial Results",
+          "url": "https://investors.paloaltonetworks.com/static-files/c70b2bd5-d86b-4a4f-8380-c7d6c626b191",
+          "publisher": "Palo Alto Networks, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 3.44 USD USD billions; basis=GAAP total revenue; period=FY2027 Q1 ended 2026-10-31. Fiscal Q1 2027 ended October 31, 2026. Total revenue was USD 3.44 billion; GAAP net income was USD 482 million and GAAP diluted EPS was USD 0.57. Non-GAAP measures are not substituted for GAAP actuals.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-18",
+        "revenue_actual_published_at": "2026-11-18",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-p-20261119",
@@ -11876,7 +12214,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-18",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "Everpure｜Third Quarter Fiscal 2027 Financial Results",
+          "url": "https://investor.everpuredata.com/news-and-events/press-releases/press-release-details/2026/Everpure-Announces-Third-Quarter-Fiscal-2027-Financial-Results/default.aspx",
+          "publisher": "Everpure, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 0.29 USD; basis=GAAP net income per share attributable to common stockholders, diluted; period=FY2027 Q3 ended 2026-11-01. FY2027 Q3 ended November 1, 2026. Total revenue was USD 1,459.791 million; GAAP diluted net income per share attributable to common stockholders was USD 0.29. Non-GAAP diluted EPS USD 0.86 is separate.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Everpure｜Third Quarter Fiscal 2027 Financial Results",
+          "url": "https://investor.everpuredata.com/news-and-events/press-releases/press-release-details/2026/Everpure-Announces-Third-Quarter-Fiscal-2027-Financial-Results/default.aspx",
+          "publisher": "Everpure, Inc.",
+          "published_at": "2026-11-18",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 1.459791 USD USD billions; basis=GAAP total revenue; period=FY2027 Q3 ended 2026-11-01. FY2027 Q3 ended November 1, 2026. Total revenue was USD 1,459.791 million; GAAP diluted net income per share attributable to common stockholders was USD 0.29. Non-GAAP diluted EPS USD 0.86 is separate.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-18",
+        "revenue_actual_published_at": "2026-11-18",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-wmt-20261119",
@@ -12639,7 +12999,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-19",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "Walmart｜Q3 FY2027 Earnings Release",
+          "url": "https://stock.walmart.com/_assets/_8c8425b76a1d46bbbbc16466da2a6b9c/walmart/db/938/10001/earnings_release/Earnings_Release_%28FY27_Q3%29.pdf",
+          "publisher": "Walmart Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 0.62 USD; basis=GAAP diluted net income per common share attributable to Walmart; period=FY2027 Q3 ended 2026-10-31. Q3 FY2027 ended October 31, 2026. GAAP diluted EPS was USD 0.62; adjusted EPS USD 0.65 is separate. GAAP total revenues were USD 188.835 billion, comprising net sales USD 186.757 billion and membership/other income USD 2.078 billion.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Walmart｜Q3 FY2027 Earnings Release",
+          "url": "https://stock.walmart.com/_assets/_8c8425b76a1d46bbbbc16466da2a6b9c/walmart/db/938/10001/earnings_release/Earnings_Release_%28FY27_Q3%29.pdf",
+          "publisher": "Walmart Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 188.835 USD USD billions; basis=GAAP total revenues; period=FY2027 Q3 ended 2026-10-31. Q3 FY2027 ended October 31, 2026. GAAP diluted EPS was USD 0.62; adjusted EPS USD 0.65 is separate. GAAP total revenues were USD 188.835 billion, comprising net sales USD 186.757 billion and membership/other income USD 2.078 billion.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-19",
+        "revenue_actual_published_at": "2026-11-19",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-baba-20261119",
@@ -13402,7 +13784,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-19",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "Alibaba Group｜September Quarter 2026 Results",
+          "url": "https://data.alibabagroup.com/ecms-files/1532295521/e676aff4-e76d-489b-960a-47b9cf36485d/Alibaba%20Group%20Announces%20September%20Quarter%202026%20Results%20and%20Interim%20Results%20for%20the%20Six%20Months%20Ended%20September%2030%2C%202026.pdf",
+          "publisher": "Alibaba Group Holding Limited",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 25.94 CNY; basis=GAAP diluted earnings per ADS (eight ordinary shares per ADS); period=2026 Q3 ended 2026-09-30. Quarter ended September 30, 2026. Revenue was RMB 271,519 million; GAAP diluted earnings per ADS was RMB 25.94 (USD 3.87). Non-GAAP diluted earnings per ADS RMB 8.10 is separate.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Alibaba Group｜September Quarter 2026 Results",
+          "url": "https://data.alibabagroup.com/ecms-files/1532295521/e676aff4-e76d-489b-960a-47b9cf36485d/Alibaba%20Group%20Announces%20September%20Quarter%202026%20Results%20and%20Interim%20Results%20for%20the%20Six%20Months%20Ended%20September%2030%2C%202026.pdf",
+          "publisher": "Alibaba Group Holding Limited",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 271.519 CNY CNY billions; basis=GAAP revenue; period=2026 Q3 ended 2026-09-30. Quarter ended September 30, 2026. Revenue was RMB 271,519 million; GAAP diluted earnings per ADS was RMB 25.94 (USD 3.87). Non-GAAP diluted earnings per ADS RMB 8.10 is separate.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-19",
+        "revenue_actual_published_at": "2026-11-19",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-ntes-20261119",
@@ -14165,7 +14569,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-19",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "NetEase｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://www.prnewswire.com/news-releases/netease-announces-third-quarter-2026-unaudited-financial-results-302945011.html",
+          "publisher": "NetEase, Inc. via PR Newswire",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 1.94 USD; basis=GAAP diluted net income per ADS; period=2026 Q3 ended 2026-09-30. Q3 2026 ended September 30, 2026. Net revenues were RMB 27.9 billion; GAAP diluted net income per ADS was USD 1.94 (the statement also reports RMB 13.36). Basic EPS/ADS and non-GAAP figures are not substituted.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "NetEase｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://www.prnewswire.com/news-releases/netease-announces-third-quarter-2026-unaudited-financial-results-302945011.html",
+          "publisher": "NetEase, Inc. via PR Newswire",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 27.9 CNY CNY billions; basis=GAAP net revenues; period=2026 Q3 ended 2026-09-30. Q3 2026 ended September 30, 2026. Net revenues were RMB 27.9 billion; GAAP diluted net income per ADS was USD 1.94 (the statement also reports RMB 13.36). Basic EPS/ADS and non-GAAP figures are not substituted.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-19",
+        "revenue_actual_published_at": "2026-11-19",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-pdd-20261119",
@@ -14928,7 +15354,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-19",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "PDD Holdings｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://investor.pddholdings.com/news-releases/news-release-details/pdd-holdings-announces-third-quarter-2026-unaudited-financial",
+          "publisher": "PDD Holdings Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 20.04 CNY; basis=GAAP diluted earnings per ADS (four ordinary shares per ADS); period=2026 Q3 ended 2026-09-30. Q3 2026 ended September 30, 2026. Total revenues were RMB 108.3 billion; GAAP diluted earnings per ADS was RMB 20.04 (USD 2.99). Non-GAAP diluted EPS per ADS RMB 21.04 is kept separate.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "PDD Holdings｜Third Quarter 2026 Unaudited Financial Results",
+          "url": "https://investor.pddholdings.com/news-releases/news-release-details/pdd-holdings-announces-third-quarter-2026-unaudited-financial",
+          "publisher": "PDD Holdings Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 108.3 CNY CNY billions; basis=GAAP total revenues; period=2026 Q3 ended 2026-09-30. Q3 2026 ended September 30, 2026. Total revenues were RMB 108.3 billion; GAAP diluted earnings per ADS was RMB 20.04 (USD 2.99). Non-GAAP diluted EPS per ADS RMB 21.04 is kept separate.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-19",
+        "revenue_actual_published_at": "2026-11-19",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-wsm-20261119",
@@ -15691,7 +16139,29 @@
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-19",
-        "actual_observed_at": "2026-11-20T04:39:41+08:00"
+        "actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "eps_actual_source": {
+          "name": "Williams-Sonoma｜Q3 2026 Earnings Release (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/719955/000071995526000244/exhibit991fy2026q3earnings.htm",
+          "publisher": "Williams-Sonoma, Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "EPS actual evidence: 2.38 USD; basis=GAAP diluted EPS; period=FY2026 Q3 ended 2026-11-01. 13 weeks ended November 1, 2026. Net revenues were USD 1,991.175 million; GAAP diluted EPS was USD 2.38. Non-GAAP diluted EPS USD 2.19 is separate.",
+          "secondary_refs": []
+        },
+        "revenue_actual_source": {
+          "name": "Williams-Sonoma｜Q3 2026 Earnings Release (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/719955/000071995526000244/exhibit991fy2026q3earnings.htm",
+          "publisher": "Williams-Sonoma, Inc.",
+          "published_at": "2026-11-19",
+          "observed_at": "2026-11-20T04:39:41+08:00",
+          "notes": "Revenue actual evidence: 1.991175 USD USD billions; basis=GAAP net revenues; period=FY2026 Q3 ended 2026-11-01. 13 weeks ended November 1, 2026. Net revenues were USD 1,991.175 million; GAAP diluted EPS was USD 2.38. Non-GAAP diluted EPS USD 2.19 is separate.",
+          "secondary_refs": []
+        },
+        "eps_actual_published_at": "2026-11-19",
+        "revenue_actual_published_at": "2026-11-19",
+        "eps_actual_observed_at": "2026-11-20T04:39:41+08:00",
+        "revenue_actual_observed_at": "2026-11-20T04:39:41+08:00"
       },
       {
         "id": "current-rost-20261120",
@@ -19330,7 +19800,9 @@
         "eps_attempts": 402,
         "revenue_attempts": 402,
         "eps_snapshots": 21,
-        "revenue_snapshots": 21
+        "revenue_snapshots": 21,
+        "metric_specific_eps_actual_sources": 20,
+        "metric_specific_revenue_actual_sources": 20
       },
       "before_records": {
         "economic": {
@@ -20478,7 +20950,9 @@
             "actual_currency": 20,
             "actual_period": 20,
             "actual_source": 20,
-            "actual_published_at": 20
+            "actual_published_at": 20,
+            "metric_specific_actual_source": 20,
+            "metric_specific_published_at": 20
           },
           "REVENUE": {
             "actual_value": 20,
@@ -20487,7 +20961,9 @@
             "actual_unit": 20,
             "actual_period": 20,
             "actual_source": 20,
-            "actual_published_at": 20
+            "actual_published_at": 20,
+            "metric_specific_actual_source": 20,
+            "metric_specific_published_at": 20
           }
         },
         "comparability": {
@@ -20560,7 +21036,9 @@
         "judgment_engine_version_written": false,
         "no_new_snapshot": true,
         "raw_response_hash_not_fabricated": true,
-        "source_attempts_order_1_2_3": true
+        "source_attempts_order_1_2_3": true,
+        "metric_specific_actual_sources_written": true,
+        "metric_specific_actual_timestamps_written": true
       },
       "wr_provenance": {
         "main_version": "5.17",
@@ -20585,7 +21063,31 @@
       "files_modified": [
         "data/calendar/weeks/2026-W47.json"
       ],
-      "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_missing_required_fields"
+      "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_missing_required_fields",
+      "data_commit_sha": "662b42848c0485341f6f8a067a527eae0395cb17",
+      "data_commit_blob_sha": "916ca848ef0c0da45406e7613c680e5bbe49b5e6",
+      "postwrite_readback": {
+        "verified_at": "2026-11-20T04:39:41+08:00",
+        "data_commit_sha": "662b42848c0485341f6f8a067a527eae0395cb17",
+        "data_commit_blob_sha": "916ca848ef0c0da45406e7613c680e5bbe49b5e6",
+        "commit_files": [
+          "data/calendar/weeks/2026-W47.json"
+        ],
+        "checks": {
+          "blob_sha_matches_data_commit": true,
+          "event_ids_unique": true,
+          "attempt_order_1_2_3": true,
+          "old_attempt_prefix_preserved": true,
+          "old_snapshot_prefix_preserved": true,
+          "snapshot_ids_unique": true,
+          "estimate_fields_unchanged": true,
+          "selected_sources_unchanged": true,
+          "actuals_coverage_20_of_20": true,
+          "schema_version_1_retained": true,
+          "no_new_snapshot_without_raw_response_hash": true,
+          "only_week_json_modified": true
+        }
+      }
     }
   ],
   "last_update_audit": {
@@ -20614,7 +21116,9 @@
       "eps_attempts": 402,
       "revenue_attempts": 402,
       "eps_snapshots": 21,
-      "revenue_snapshots": 21
+      "revenue_snapshots": 21,
+      "metric_specific_eps_actual_sources": 20,
+      "metric_specific_revenue_actual_sources": 20
     },
     "before_records": {
       "economic": {
@@ -21762,7 +22266,9 @@
           "actual_currency": 20,
           "actual_period": 20,
           "actual_source": 20,
-          "actual_published_at": 20
+          "actual_published_at": 20,
+          "metric_specific_actual_source": 20,
+          "metric_specific_published_at": 20
         },
         "REVENUE": {
           "actual_value": 20,
@@ -21771,7 +22277,9 @@
           "actual_unit": 20,
           "actual_period": 20,
           "actual_source": 20,
-          "actual_published_at": 20
+          "actual_published_at": 20,
+          "metric_specific_actual_source": 20,
+          "metric_specific_published_at": 20
         }
       },
       "comparability": {
@@ -21844,7 +22352,9 @@
       "judgment_engine_version_written": false,
       "no_new_snapshot": true,
       "raw_response_hash_not_fabricated": true,
-      "source_attempts_order_1_2_3": true
+      "source_attempts_order_1_2_3": true,
+      "metric_specific_actual_sources_written": true,
+      "metric_specific_actual_timestamps_written": true
     },
     "wr_provenance": {
       "main_version": "5.17",
@@ -21869,6 +22379,30 @@
     "files_modified": [
       "data/calendar/weeks/2026-W47.json"
     ],
-    "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_missing_required_fields"
+    "run_status": "partial_success_economic_and_earnings_actuals_updated_consensus_missing_required_fields",
+    "data_commit_sha": "662b42848c0485341f6f8a067a527eae0395cb17",
+    "data_commit_blob_sha": "916ca848ef0c0da45406e7613c680e5bbe49b5e6",
+    "postwrite_readback": {
+      "verified_at": "2026-11-20T04:39:41+08:00",
+      "data_commit_sha": "662b42848c0485341f6f8a067a527eae0395cb17",
+      "data_commit_blob_sha": "916ca848ef0c0da45406e7613c680e5bbe49b5e6",
+      "commit_files": [
+        "data/calendar/weeks/2026-W47.json"
+      ],
+      "checks": {
+        "blob_sha_matches_data_commit": true,
+        "event_ids_unique": true,
+        "attempt_order_1_2_3": true,
+        "old_attempt_prefix_preserved": true,
+        "old_snapshot_prefix_preserved": true,
+        "snapshot_ids_unique": true,
+        "estimate_fields_unchanged": true,
+        "selected_sources_unchanged": true,
+        "actuals_coverage_20_of_20": true,
+        "schema_version_1_retained": true,
+        "no_new_snapshot_without_raw_response_hash": true,
+        "only_week_json_modified": true
+      }
+    }
   }
 }
