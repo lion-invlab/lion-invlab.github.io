@@ -29,7 +29,12 @@ manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 check("manifest_schema_v2", manifest.get("schema_version") == "2.0.0")
 check("manifest_technical_delivery_ready", manifest.get("release_gate", {}).get("status") == "TECHNICAL_QA_PASSED")
 check("manifest_contains_four_risk_series", {x.get("id") for x in manifest.get("risk_series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
-check("manifest_sp500_history_matches_chart_payload", manifest.get("sp500_data", {}).get("rows") == 24833 and manifest.get("sp500_data", {}).get("start") == "1927-12-30" and manifest.get("sp500_data", {}).get("end") == "2026-11-10")
+sp500_meta = manifest.get("sp500_data", {})
+sp500_compact = json.loads((ROOT / sp500_meta.get("path", "data/tac-chart3/sp500_daily_close_1927-2026.compact.json")).read_text(encoding="utf-8"))
+sp500_rows = int(sp500_meta.get("rows", 0))
+sp500_start = sp500_meta.get("start")
+sp500_end = sp500_meta.get("end")
+check("manifest_sp500_history_matches_chart_payload", sp500_rows == sp500_compact.get("rows") and sp500_start == sp500_compact.get("start") and sp500_end == sp500_compact.get("end") and sp500_end >= "2026-11-18")
 check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.get("risk_data", {}))
 check("manifest_preserves_legacy_pipeline_series", {x.get("series_id") for x in manifest.get("series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
 check("manifest_preserves_legacy_chart_dataset_sha256", isinstance(manifest.get("chart_dataset", {}).get("sha256"), str) and len(manifest["chart_dataset"]["sha256"]) == 64)
@@ -77,8 +82,8 @@ def validate_chart(page, label):
     check(label + "_data_provenance_visible", page.locator("#data-provenance").is_visible())
     check(label + "_data_provenance_identifies_all_four_series", all(name in page.locator("#data-provenance").inner_text() for name in ["VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"]))
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
-    check(label + "_sp500_daily_snapshot_populated", "13 週" in page.locator("#sp500-return").inner_text() and "收盤" in page.locator("#sp500-return").inner_text() and "24,833 筆真實交易日收盤價" in page.locator("#sp500-detail").inner_text())
-    check(label + "_sp500_daily_observation_count", page.locator("#combined-chart svg path[data-series=SP500]").get_attribute("data-observations") == "24833")
+    check(label + "_sp500_daily_snapshot_populated", "13 週" in page.locator("#sp500-return").inner_text() and "收盤" in page.locator("#sp500-return").inner_text() and f"{sp500_rows:,} 筆真實交易日收盤價" in page.locator("#sp500-detail").inner_text())
+    check(label + "_sp500_daily_observation_count", page.locator("#combined-chart svg path[data-series=SP500]").get_attribute("data-observations") == str(sp500_rows))
     drawdown_audit = page.evaluate("""() => {
         const results = DRAWDOWNS.map(dd => {
             const start = Date.parse(dd.peak + "T00:00:00Z");
@@ -219,9 +224,9 @@ def validate_chart(page, label):
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
-    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+    page.wait_for_function("(end)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd===end}", arg=sp500_end, timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-    check(label + "_timeline_reset_restores_full_range", reset == ["1927-12-30", "2026-11-10"], reset)
+    check(label + "_timeline_reset_restores_full_range", reset == [sp500_start, sp500_end], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
     if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
@@ -233,7 +238,7 @@ def validate_chart(page, label):
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
         check(label + "_mouse_wheel_zoom", wheel_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", reset), wheel_zoom)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("(end)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd===end}", arg=sp500_end, timeout=3000)
         reset_before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_drag, timeout=3000)
@@ -261,9 +266,9 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
         pinch = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
-        check(label + "_two_finger_pinch_zoom", pinch_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", ["1927-12-30","2026-11-10"]), pinch)
+        check(label + "_two_finger_pinch_zoom", pinch_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", [sp500_start,sp500_end]), pinch)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("(end)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd===end}", arg=sp500_end, timeout=3000)
         reset_before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_pan, timeout=3000)
@@ -283,7 +288,7 @@ def validate_chart(page, label):
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         check(label + "_one_finger_drag_reveals_earlier_history", panned[0] < before_pan[0], {"before":before_pan,"after":panned})
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("(end)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd===end}", arg=sp500_end, timeout=3000)
 
 try:
     with sync_playwright() as p:
