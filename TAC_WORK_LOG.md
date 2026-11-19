@@ -559,3 +559,15 @@
 - 範圍核對：以 2026-11-19 早報發布 commit 88a34f9bfc852f94515b29a2a99413918ee393d5 為比較基準，至 trigger commit 僅修改上述三個 Chart 3 script/test/trigger 檔；未修改 index、preview、母版、行事曆或 S&P 500 compact 歷史檔。
 - S&P 500 來源查核：重新開啟 Investing.com 香港站歷史頁，11/18 收市列顯示 7,323.52，但頁面標頭同時明確標示「即時差價合約」。依 WR D2-補充二第 3 點，CFD 不得交接為 S&P 500 現貨每日收盤，因此本輪不建立 handoff、不執行 append helper、不以缺少 observed_at 或其他推估值補造紀錄。這是來源口徑阻塞，需取得符合現貨正式收盤定義的來源證據；不得把該 CFD 歷史列冒稱現貨。
 - 下一步：等待 run 44434579316 完成；回讀 Manifest，核對四序列 current／initial-release／vintage span 與底層檔案一致；確認唯一 Chart JSON hash、PIT QA、Pages deploy 及 browser visual QA。若 workflow 失敗，依日誌只修復 Chart 3 範圍。
+
+
+## 2026-11-19｜Yahoo Finance S&P 500 歷史收盤備援、增量合併與 Chart 3 驗收完成
+- 使用者明確接受：Investing.com 香港站 S&P 500 歷史頁若標示 CFD／無法確認現貨正式收盤口徑，允許使用 Yahoo Finance ^GSPC 歷史資料頁備援。正式 WR 更新至 v5.17，blob SHA 0210e8e04f4f6b2374997b82a658e15781932e67，新增指定頁面、只採 Historical Prices 的 Close（不採 Adj Close）、日期／OHLC／現貨標的核對及實際 observed_at 紀錄要求。
+- 直接讀取 Yahoo Finance ^GSPC 歷史頁，核對六個增量交易日：2026-11-11 7619.38、11-12 7592.40、11-13 7561.67、11-16 7416.59、11-17 7340.53、11-18 7323.63；來源 URL https://finance.yahoo.com/quote/%5EGSPC/history/；實際查核時間 2026-11-19T09:18:19+08:00。來源採 Close，不採 Adj Close。
+- 六筆依序追加至 data/tac-chart3/sp500_daily_increment.jsonl；回讀確認 6 筆、日期嚴格遞增、每筆 SHA-256 正確。ledger blob SHA 9b282f9fbde0980c307d809f26f00f3cb04e0b90；ledger SHA-256 f9f4c9cb426d40afb2501f534b5381343756d4c7701da568456f249b570b8062。
+- 新增增量合併 helper .github/scripts/merge_tac_sp500_daily_increment.py、測試 .github/scripts/test_merge_tac_sp500_daily_increment.py 與 workflow .github/workflows/tac-chart3-sp500-increment-merge.yml。Workflow run 44436155487 最終 SUCCESS；先後測試增量 ledger SHA、日期排序、標的／非 CFD、近期 compact 解碼與重新編碼、Manifest 對齊，並呼叫既有 build_sp500_daily_compact.py 重建 1927-present 完整資料。
+- 合併後近期 compact 1993-12-31 至 2026-11-18 共 8,277 筆；完整 compact 1927-12-30 至 2026-11-18 共 24,839 筆。Manifest sp500_data 的 end、rows、dataset_sha256、git_blob_sha1 與完整 compact 一致，並保存增量帳來源、日期、筆數與 SHA。既有 1927 年前段資料保留，無插值、無 forward-fill。
+- 瀏覽器 QA 第一次發現舊 test hard-code 24,833／2026-11-10；已修正為依 Manifest 與 compact 動態比對，並同步更新 chart3-preview.html 的來源說明（24,839 筆、截至 2026-11-18，新增六筆 Yahoo Finance ^GSPC Close）。最新 QA run 44436438312 SUCCESS，desktop、390px mobile、320px mobile、standalone preview、互動及 console/page/request 錯誤檢查全數通過。
+- Pages deployment run 44436438399 SUCCESS；Chart 3 預覽：https://lion-invlab.github.io/research/tac-chart3/chart3-preview.html 。最新 browser QA run 44436438312。
+- 本次只修改 Chart 3 專用資料、Manifest、preview 子頁、scripts/tests/workflows、WR 與紀錄；index.html、雙母版、早報首頁、行事曆 JSON 未修改。
+- 另行註記：前一個 Manifest span builder workflow run 44434579316 仍以 failure 結束，失敗在「Commit only if data changed」步驟；此為獨立工作流程，不得與本次 S&P 500 merge、Manifest 對齊及 browser QA 成功混稱。待後續單獨查明該 commit 步驟失敗原因。
