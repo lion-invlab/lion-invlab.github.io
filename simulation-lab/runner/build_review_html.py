@@ -217,6 +217,48 @@ def apply_report_layer_earnings_actuals(data):
         applied += 1
     return applied
 
+def apply_report_layer_earnings_status(data):
+    """Mark an elapsed release as published-but-unverified without fabricating actuals."""
+    overlays = data.get("report_layer_earnings_status", [])
+    if not overlays:
+        return 0
+    cutoff_text = str(data.get("report_cutoff_taipei") or "")[:16]
+    try:
+        cutoff = datetime.strptime(cutoff_text, "%Y-%m-%d %H:%M")
+    except ValueError as exc:
+        raise ValueError("report-layer earnings status requires an explicit Taipei report cutoff") from exc
+    by_id = {x.get("id"): x for x in data.get("earnings", {}).get("events", [])}
+    applied = 0
+    for overlay in overlays:
+        event_id = overlay.get("event_id")
+        target = by_id.get(event_id)
+        if target is None:
+            raise ValueError(f"report-layer earnings status event not found in authoritative calendar: {event_id}")
+        if target.get("ticker") != overlay.get("ticker") or target.get("event_date") != overlay.get("event_date"):
+            raise ValueError(f"report-layer earnings status identity mismatch: {event_id}")
+        event_dt = datetime.fromisoformat(str(target.get("event_date")))
+        event_local = event_dt.astimezone(timezone(timedelta(hours=8))).replace(tzinfo=None) if event_dt.tzinfo else event_dt
+        if event_local > cutoff:
+            raise ValueError(f"report-layer earnings status is later than report cutoff: {event_id}")
+        if overlay.get("status") != "pending_verification":
+            raise ValueError(f"report-layer status overlay may only set pending_verification: {event_id}")
+        if target.get("status") in ("released", "published", "completed") or any(
+            target.get(k) not in (None, "") for k in ("eps_actual", "revenue_actual")
+        ):
+            raise ValueError(f"refusing to downgrade authoritative released actuals: {event_id}")
+        source = overlay.get("status_source")
+        if not isinstance(source, dict) or not str(source.get("url") or "").startswith("https://"):
+            raise ValueError(f"report-layer earnings status lacks a verifiable publication-status source: {event_id}")
+        target["status"] = "pending_verification"
+        target["report_layer_status_only"] = True
+        target["report_layer_status_source"] = source
+        target["report_layer_status_note"] = overlay.get("note") or (
+            "公告時間已過，第三方報導指出結果已發布；發行公司官方實際值尚待核實，" 
+            "因此不填入實際EPS／營收，也不作優於／低於預期判斷。"
+        )
+        applied += 1
+    return applied
+
 def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
@@ -232,6 +274,8 @@ def earnings_status_label(item, metric, state):
         "consensus_divergent": "市場共識來源分歧",
     }
     if state == "pending":
+        if item.get("status") == "pending_verification":
+            return "公告已發布；實際值待核實"
         actual_key, estimate_key = (
             ("eps_actual", "eps_estimate") if metric == "eps"
             else ("revenue_actual", "revenue_estimate")
@@ -261,6 +305,11 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
+    if item.get("status") == "pending_verification":
+        kept.append(item.get("report_layer_status_note") or (
+            "公告時間已過，第三方報導指出結果已發布；發行公司官方實際值尚待核實，"
+            "因此不填入實際EPS／營收，也不作優於／低於預期判斷。"
+        ))
     for fragment in re.split(r"(?<=[。！？])\s*|[；;]\s*|(?<=\.)\s+(?=[A-Z])", raw):
         part = fragment.strip()
         if not part:
@@ -405,6 +454,7 @@ def main():
         recalculate_released_earnings(
             data, data.get("report_cutoff_taipei") or data["report_date"]
         )
+    report_layer_status_applied = apply_report_layer_earnings_status(data)
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
         reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"
@@ -1474,7 +1524,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         # Actual publication status outranks Taiwan-local calendar date.
         # US after-market releases can fall on the following Taiwan date.
         status = x.get("status") or x.get("status_in_db")
-        if status in ("released", "published"):
+        if status in ("released", "published", "pending_verification"):
             return "published"
         event_day = ((x.get("event_date") or x.get("date") or "")[:10])
         return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
@@ -1551,6 +1601,11 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                     source_value.append(source_link(x["source_url"], x.get("source_name") or "實際財報來源"))
                 else:
                     source_value.string="實際財報來源待核實"
+                status_source = x.get("report_layer_status_source") or {}
+                if status_source.get("url"):
+                    source_value.append("｜公告狀態參考：")
+                    source_value.append(source_link(status_source["url"], status_source.get("name") or "第三方發布報導"))
+                    source_value.append("（僅確認報導已發布，不作實際財報數值來源）")
                 consensus_url = x.get("consensus_source_url")
                 if consensus_url and consensus_url != x.get("source_url"):
                     source_value.append("｜公告前共識：")
