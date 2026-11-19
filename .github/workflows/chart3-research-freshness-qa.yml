@@ -22,4 +22,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Run incremental updater unit tests
-        run: python -m unittest .github/scripts/test_tac_chart3_incremental.py -v
+        run: python .github/scripts/test_tac_chart3_incremental.py
