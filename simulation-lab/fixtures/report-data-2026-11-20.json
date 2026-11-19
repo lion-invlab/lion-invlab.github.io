@@ -510,34 +510,36 @@
     }
   },
   "fedwatch": {
-    "updated_at_tw": "2026/11/19 05:15",
-    "read_at_taipei": "2026/11/19 05:20",
+    "updated_at_tw": "2026/11/20 05:05",
+    "read_at_taipei": "2026/11/20 05:20",
     "target_meeting": "2026-12-09",
-    "current_target_range": "3.75%-4.00%",
+    "current_target_range": "3.75-4.00%",
     "probabilities": [
       {
-        "range": "4.00%-4.25%",
+        "outcome": "hike",
+        "rate_range": "4.00-4.25%",
         "probability": 98.2,
-        "label": "升息25bp"
+        "change_1d": null,
+        "change_1w": null
       },
       {
-        "range": "4.25%-4.50%",
+        "outcome": "hike",
+        "rate_range": "4.25-4.50%",
         "probability": 1.8,
-        "label": "升息50bp"
+        "change_1d": null,
+        "change_1w": null
+      },
+      {
+        "outcome": "hold",
+        "rate_range": "3.75-4.00%",
+        "probability": 0,
+        "change_1d": null,
+        "change_1w": null
       }
     ],
     "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "Investing.com Fed Rate Monitor頁面更新時間2026-11-18 04:15PM EST（台灣時間2026/11/19 05:15）；於05:20台灣時間讀取。12/9會議升息25bp機率93.9%、升息50bp機率6.1%、維持利率0%。快照識別20261119T0520+0800；以05:25早報截點前最新可讀快照為準；機率由CME 30-Day Fed Funds futures推算，並非Fed決策。",
-    "meeting_date": "2026-12-09",
-    "updated_at_taipei": "2026-11-20 05:05（台灣時間）",
-    "source": {
-      "name": "Investing.com Fed Rate Monitor Tool（CME 30-Day Fed Funds futures implied probabilities）",
-      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
-      "data_date": "2026-11-20",
-      "quote_type": "futures_implied_probability",
-      "note": "12/9會議機率於11/20 05:05台灣時間讀取：升息25bp 98.2%、升息50bp 1.8%；屬期貨隱含機率，不代表Fed已決議。"
-    }
+    "note": "頁面更新時間2026-11-19 16:05 EST（台灣時間2026/11/20 05:05）；05:20台灣時間讀取。12/9會議升息25bp機率98.2%、升息50bp機率1.8%、維持利率0%。機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
   "observation": "盤面觀察重點：一、AI需求仍強，但市場已從「誰有AI題材」轉向「誰能把AI資本支出轉成營收、利潤與現金流」。二、FedWatch升息25bp機率98.2%，不可再用市場期待降息作為基準情境。三、VIX與恐懼指標急升，應優先檢查持倉估值、槓桿與流動性，而不是只看單日反彈。",
   "calendar": {
