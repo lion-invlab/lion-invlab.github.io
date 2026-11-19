@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-19",
   "summary": "AI需求仍在升溫，但市場開始追問：龐大的資本支出究竟能否轉化為足以支撐估值的自由現金流？Anthropic IPO首日受到追捧，卻未能帶動美股市場廣度回穩，11大產業ETF全面收黑，反映資金正在重新評估AI投資回報與高估值的承受力。短線立場偏空，風險控制優先於追逐題材或急跌攤平。宏觀面同時出現成長降溫與政策偏鷹的拉扯：初領失業金203K高於預期198K、續領升至1.763M，費城Fed製造業指數降至6.3；但FedWatch截至05:20仍將12/9升息25bp機率定價為98.2%，折現率壓力尚未解除。操作上降低高波動曝險、保留流動性；待市場廣度修復、波動降溫且政策升息定價回落，再分批恢復風險部位。若賣壓擴散、恐慌升高或升息定價維持極端，防守立場不變。",
-  "sentiment": "股票市場風險快速升溫：VIX 28.47、單日上升15.92%，CNN Provider Index為19、落在0–24的極度恐懼區；兩項訊號都指向股票風險偏好急降。相較之下，MOVE依使用者提供的Investing.com畫面為96.04、下跌2.16%，債券波動率當日反而回落，顯示壓力目前更集中在股票風險定價，不能簡化成所有資產同步恐慌。策略仍以控制股票曝險為先，等市場廣度與情緒同步修復再提高風險。",
+  "sentiment": "股票風險偏好急速降溫，恐懼指標已落入極度恐懼區；相較之下，債券波動率當日回落。股債風險訊號並不同步，壓力目前主要集中於股票市場，而非所有資產全面同步失序。策略仍以控制股票曝險為先，待市場廣度與情緒同步修復後，再逐步提高風險承擔。",
   "focus_news": [
     {
       "title": "Investing.com｜美國初領失業金升至203,000人，續領失業金同步增加",
@@ -541,7 +541,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "頁面更新時間2026-11-19 16:05 EST（台灣時間2026/11/20 05:05）；05:20台灣時間讀取。12/9會議升息25bp機率98.2%、升息50bp機率1.8%、維持利率0%。機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
-  "observation": "盤面觀察重點：11/19美股五大主要現貨指數同步下跌，11大產業ETF全數收黑；Anthropic IPO首日收高17%仍未改善市場廣度。VIX升至28.47、CNN Fear & Greed為19（極度恐懼），而MOVE依使用者提供截圖為96.04、下跌2.16%，顯示股票風險定價急速惡化、債券波動率當日反而回落。宏觀面初領失業金203K高於預期、續領1.763M，費城Fed製造業指數降至6.3，但FedWatch仍定價12/9升息25bp機率98.2%；市場同時面對成長降溫與折現率壓力。",
+  "observation": "盤面觀察重點：美股主要現貨指數同步走弱，11大產業ETF全數收黑；Anthropic IPO首日強勢仍未改善整體市場廣度。股票恐慌指標進入極度恐懼區，債券波動率卻當日回落，顯示風險壓力集中於股票市場。宏觀面勞動與製造業數據邊際降溫，但FedWatch仍高度定價升息；市場同時面對成長放緩與折現率壓力。",
   "calendar": {
     "week_id": "2026-W47",
     "events": []
@@ -772,11 +772,11 @@
   },
   "core_observation": {
     "heading": "本週三大觀察焦點",
-    "text": "① 股票風險重估：美股五大主要現貨指數同步下跌、11大產業ETF全數收黑，Anthropic IPO首日收高17%仍未帶動市場廣度修復。② 成長降溫但政策偏鷹：初領失業金203K高於預期198K、續領1.763M，費城Fed製造業指數降至6.3；FedWatch仍定價12/9升息25bp機率98.2%。③ 股債波動分歧：VIX 28.47、CNN Fear & Greed 19（極度恐懼），MOVE依使用者提供截圖為96.04（-2.16%），股票恐慌升高但債券波動率回落。",
-    "details": "① 市場廣度與AI定價：道瓊 -2.19%、S&P 500 -2.02%、Nasdaq -2.25%、Russell 2000 -2.18%、費半 -2.42%，11大產業ETF全數收低。Anthropic IPO首日上漲17%是個別新股需求訊號，卻未擴散成整體科技股買盤；市場焦點已轉向AI資本支出能否轉化為可持續營收、利潤與自由現金流。短線偏空，避免把單一IPO熱度視為全面反轉。\n\n② 景氣與政策兩難：初領失業金203K高於預期198K、續領增至1.763M，費城Fed製造業指數由23.2降至6.3，領先經濟指數10月下滑0.3%，顯示景氣邊際降溫；但FedWatch截至05:20仍將12/9升息25bp機率定價為98.2%，油價因地緣政治風險上漲約1%，通膨與折現率壓力尚未解除。\n\n③ 風險訊號與策略：VIX 28.47（+15.92%）、CNN Provider Index 19（Extreme Fear）指向股票風險趨避；MOVE 96.04（-2.16%）則顯示債券波動率同日回落，風險並非所有資產同步擴散。策略以降低高Beta曝險、保留流動性為先；待指數止跌、11大ETF不再全面收黑、VIX回落且CNN指數脫離0–24極度恐懼區，再分批恢復風險部位。若指數續創低且VIX再升，維持防守。"
+    "text": "① 股票風險重估：美股主要現貨指數同步走弱、11大產業ETF全數收黑，Anthropic IPO首日收高仍未帶動市場廣度修復。② 成長降溫但政策偏鷹：初領失業金高於預期、續領人數增加，費城Fed製造業指數明顯降溫；FedWatch仍高度定價下一次會議升息。③ 股債波動分歧：股票恐慌指標落入極度恐懼區，債券波動率卻在當日回落，股票風險偏好與債券市場壓力並未同步擴散。",
+    "details": "① 市場廣度與AI定價：美股主要現貨指數同步走弱，11大產業ETF全數收低。Anthropic IPO首日上漲是個別新股需求訊號，卻未擴散成整體科技股買盤；市場焦點已轉向AI資本支出能否轉化為可持續營收、利潤與自由現金流。短線偏空，避免把單一IPO熱度視為全面反轉。\n\n② 景氣與政策兩難：初領失業金高於預期、續領人數增加，費城Fed製造業指數明顯降溫，領先經濟指標亦走弱，顯示景氣邊際降溫；但FedWatch仍高度定價下一次會議升息，油價受地緣政治風險支撐，通膨與折現率壓力尚未解除。\n\n③ 風險訊號與策略：股票恐慌指標已落入極度恐懼區，債券波動率卻同日回落，風險並非所有資產同步擴散。策略以降低高Beta曝險、保留流動性為先；待指數止跌、產業參與度回升、股票恐慌降溫且情緒指標脫離極度恐懼區，再分批恢復風險部位。若賣壓續擴散，維持防守。"
   },
   "qa_run_revision": "2026-11-20-SIM1.3-final-full-rebuild",
-  "market_sentiment": "風險趨避升溫｜VIX 28.47（+15.92%）、CNN Fear & Greed 19（Extreme Fear）；MOVE 96.04（-2.16%）。股市恐慌升高、債市波動率回落，顯示壓力目前主要集中於股票風險定價。",
+  "market_sentiment": "風險趨避升溫｜股票市場恐慌升高、債券波動率反而回落，顯示壓力主要集中於股票風險定價，股債訊號並未同步惡化。",
   "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。更新後44項均以11/19為行情基準；美債2Y／10Y／30Y採Investing.com 11/19歷史收盤列，MOVE採使用者提供之Investing.com 11/19畫面證據並保留截圖時間。Dow、RUT、Nikkei、FTSE、DAX均採非CFD現貨收盤來源；11大產業ETF全數核實。",
   "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
   "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）",
@@ -828,7 +828,7 @@
     "prior_blended_revenue_yoy": "+14.3%",
     "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
   },
-  "market_comments_revision": "2026-11-20 SIM-1.3 rewrite: all summary and commentary blocks focus on interpretation, not repeated quote-board returns",
+  "market_comments_revision": "2026-11-20 SIM-1.3 second pass: remove residual VIX/MOVE percentage recitation from sentiment and observation copy; regenerate and manually read back",
   "summary_source_note": "總結與判讀依2026/11/20 05:25台灣截稿前可取得的行情、新聞、FedWatch及情緒資料推導。MOVE另採使用者06:40提供之Investing.com截圖（畫面標示11/19 16:17 EST），明確保留證據來源與時間，不冒稱獨立刷新。",
   "summary_revision": "2026-11-20 SIM-1.3 rewrite: remove redundant index/ETF return recitation; emphasize market causality and investment implications",
   "market_date": "2026-11-19",
@@ -866,22 +866,5 @@
     "records_pending_required_fields": 21,
     "reason": "All 21 EPS/revenue snapshots carry pending_required_fields and pending_not_adopted; they are preserved for audit but not projected onto earnings cards. The main W47 calendar remains read-only."
   },
-  "commentary_quality_gate": {
-    "rule": "總結、Market Sentiment、盤面觀察重點及各區📌評論各有不同任務；不得以重複行情數字充當評論。漲跌幅已在行情表清楚呈現時，評論原則上不再重述，除非該數字本身是支持重要判斷不可替代的證據。",
-    "checked_sections": [
-      "summary",
-      "summary_points",
-      "market_sentiment",
-      "global_markets_us",
-      "global_markets_asia",
-      "global_markets_china",
-      "global_markets_europe",
-      "sectors",
-      "bonds",
-      "fx",
-      "energy",
-      "metals"
-    ],
-    "status": "rewritten_for_redundancy; requires regenerated HTML and full readback"
-  }
+  "commentary_quality_gate": "pass_with_manual_readback_required: summary, market sentiment, core observation, and all pin comments must explain causes/implications without repeating quote-board point changes or percentage returns; numeric evidence retained only where necessary for macro interpretation."
 }
