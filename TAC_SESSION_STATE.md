@@ -2059,3 +2059,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已在 simulation branch 將 SIM-1.3 追加「全球主要股市三區評論綁定與防錯 Gate」；另在 QA contract 增加 A2.2a，要求三個固定面板各自驗證評論標題、評論內容、引用指數與區域一致性，任一錯置即 FAIL、review_ready=false。
 - 當前預覽尚未修復。本輪可用 GitHub 介面只提供檔案讀寫，無可執行的真正 DOM parser；SIM-1.3 明文禁止字串替換並要求真正 DOM 更新，因此未以不合規方式直接改寫 HTML，也未宣稱修復完成。下一步必須在可執行核准 DOM parser 的環境，對三個面板的 .market-reason 節點進行最小文字節點修復，再對三區全部重驗。
 - 本輪只修改 simulation 分支的 SIM WR 與 QA contract；未修改 main、正式首頁、母版、Manifest 或行事曆資料庫。
+
+
+## 2026-11-19 08:xx｜三區市場評論已完成 DOM 修復
+
+- 使用者要求立即修正 11/19 預覽三區評論錯置。根因已確認為 fixture 陣列索引錯誤：`global_markets` 註解索引 0=美股、1=亞洲、2=中國、3=歐洲、4=行情來源備註；舊 builder 卻將 2/3/4 分別當成美股／亞洲／歐洲。
+- 已修正 `simulation-lab/runner/build_review_html.py` 的 weekday 三區映射為美股 0、亞洲 1+中國 2、歐洲 3，保留週一 legacy panel 的獨立映射。
+- 新增隔離的 DOM repair workflow 與 BeautifulSoup repair script；直接以 DOM 節點更新既有 `preview/2026-11-19-simulation.html` 三個 `.market-reason`，不改版面、不動母版。美股取 fixture[0]；亞洲合併 fixture[1] 與 fixture[2]；歐洲取 fixture[3]；fixture[4] 僅為行情來源註記，不再塞入歐洲評論。
+- DOM workflow run `44426454169`：success。三區各自回讀標題、評論及所屬指數；區域交叉污染檢查全部通過。QA evidence：`preview/2026-11-19-regional-commentary-repair.qa.json`，HTML SHA-256 `857d2f22e4d03630e0a918625eff160bb61d8cfb26eae5dbacc704cc74e1bcc2`。
+- 修正後 HTML blob SHA `cad78d5eaa5b3777b2c0932158cfaafe92fb2f59`。本次僅 simulation branch；main/index.html、正式母版、Manifest、W47 JSON 均未修改。
+- 注意：本輪通過的是三區評論 DOM 專項 QA，不等於整份早報重新完成全部 QA／review_ready；如需正式交付仍需依完整 Gate 重驗。
