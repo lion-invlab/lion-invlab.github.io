@@ -517,12 +517,12 @@
     "probabilities": [
       {
         "range": "4.00%-4.25%",
-        "probability": "98.2%",
+        "probability": 98.2,
         "label": "升息25bp"
       },
       {
         "range": "4.25%-4.50%",
-        "probability": "1.8%",
+        "probability": 1.8,
         "label": "升息50bp"
       }
     ],
