@@ -129,6 +129,7 @@ jobs:
         run: python simulation-lab/runner/audit_simulation_pit_projection.py --report-date 2026-11-16 --output simulation-lab/output/w46-pit-projection-audit.json
 
       - name: Probe Yahoo EPS methodology metadata (simulation only)
+        if: false # skip stale 2026-11-15 methodology capture; current run uses main W47 source records
         shell: bash
         run: |
           set -euo pipefail
