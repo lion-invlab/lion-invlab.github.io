@@ -1,0 +1,25 @@
+name: Chart 3 research freshness gate QA
+
+on:
+  push:
+    branches:
+      - research/chart3-incremental-freshness-gate-20261119
+    paths:
+      - ".github/scripts/tac_chart3_incremental.py"
+      - ".github/scripts/test_tac_chart3_incremental.py"
+      - ".github/workflows/chart3-research-freshness-qa.yml"
+
+jobs:
+  freshness-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/chart3-incremental-freshness-gate-20261119
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run incremental updater unit tests
+        run: python -m unittest .github/scripts/test_tac_chart3_incremental.py -v
