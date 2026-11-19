@@ -69,6 +69,42 @@ def write_csv(path, rows, sid, retrieved, source_url, label):
                         "quality_flags":";".join(flags)})
     return hashlib.sha256(path.read_bytes()).hexdigest(), path.stat().st_size
 
+def validate_observation_freshness(sid, rows, as_of=None):
+    """Reject apparently successful downloads whose latest valid observation is stale.
+
+    VIXCLS is business-daily (5 calendar days allows weekends/holidays).
+    The other three indicators are weekly (10 days allows normal release cadence
+    plus holidays). Missing values are ignored; no values are imputed.
+    """
+    from datetime import date
+    limits = {"VIXCLS": 5, "NFCI": 10, "NFCICREDIT": 10, "STLFSI4": 10}
+    if sid not in limits:
+        raise RuntimeError(f"Unknown series for freshness validation: {sid}")
+    valid_dates = []
+    for row in rows:
+        value = row.get("value")
+        obs_date = row.get("date")
+        if value in ("", ".", None) or not obs_date:
+            continue
+        try:
+            valid_dates.append(date.fromisoformat(obs_date))
+        except ValueError as exc:
+            raise RuntimeError(f"{sid}: invalid observation date {obs_date!r}") from exc
+    if not valid_dates:
+        raise RuntimeError(f"{sid}: no valid observations; freshness cannot be verified")
+    today = as_of or date.today()
+    latest = max(valid_dates)
+    age = (today - latest).days
+    if age < 0:
+        raise RuntimeError(f"{sid}: latest observation {latest} is in the future vs {today}")
+    if age > limits[sid]:
+        raise RuntimeError(
+            f"{sid}: STALE current data; latest valid observation={latest}, "
+            f"as_of={today}, age_days={age}, allowed_max_days={limits[sid]}"
+        )
+    return {"latest_valid_observation": latest.isoformat(),
+            "age_days": age, "allowed_max_days": limits[sid]}
+
 def main():
     key = os.environ.get("FRED_API_KEY", "").strip()
     if len(key) != 32 or not key.isalnum() or key.lower() != key:
@@ -139,6 +175,7 @@ def main():
             entry["files"].append({"name":f"{sid}_current.csv","sha256":ch,"bytes":cn})
             entry["current_observations"] = len(rows)
             if not rows: raise RuntimeError("current observations empty")
+            entry["freshness"] = validate_observation_freshness(sid, rows)
 
             # output_type=4 is limited to 2,000 vintage dates per real-time window.
             # Split the vintage-date index into 1,000-date windows and combine.
