@@ -1576,3 +1576,10 @@
 - 使用者要求更新FedWatch後，已將通過完整QA的同日HTML複製到main `preview/2026-11-19-simulation.html`。寫入前核對原blob SHA `137a5b25c2148e059da189623245185b0ee43841`；寫入後blob SHA `4dae7e1d715cd2351e0967ea5e48e33968eb7441`，與simulation branch QA_PASSED HTML完全一致。
 - Pages workflow run `44427371829` completed/success；Deploy to GitHub Pages step success。預覽頁已部署，網址：https://lion-invlab.github.io/preview/2026-11-19-simulation.html 。
 - 只更新main日期審核預覽；未修改 `main/index.html`、正式母版、Manifest或行事曆JSON。正式首頁未發布，仍待使用者核准。
+
+
+## 2026-11-19｜依使用者意見重寫📌評論（非漲跌幅複述）
+- 修正原📌評論將上方報價漲跌幅再次列述的問題。全球美股、亞洲、中國、歐洲及產業、債券、匯率、原油、貴金屬共8則，改以市場驅動、定價意涵、跨資產傳導與後續觀察為主；不再把行情列當成評論正文。
+- 修改fixture blob SHA `73220ada9a9a5a105550632142c46d6b29ce222e`。Actions run `44427774957` completed/success；QA sidecar `2d4ffcfe13fce694ea66a75178c0bc462da08d54`，status=QA_PASSED、review_ready=true、blockers=[]；HTML blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`。
+- 將QA通過HTML同步至main同日preview，main preview blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`；回讀與simulation輸出相同。Pages deploy run `44427975025` completed/success。
+- 保護：未修改main/index.html、母版、Manifest或行事曆JSON；僅更新當日審核預覽，未發布正式首頁。
