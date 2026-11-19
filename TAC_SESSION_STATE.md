@@ -2069,3 +2069,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - DOM workflow run `44426454169`：success。三區各自回讀標題、評論及所屬指數；區域交叉污染檢查全部通過。QA evidence：`preview/2026-11-19-regional-commentary-repair.qa.json`，HTML SHA-256 `857d2f22e4d03630e0a918625eff160bb61d8cfb26eae5dbacc704cc74e1bcc2`。
 - 修正後 HTML blob SHA `cad78d5eaa5b3777b2c0932158cfaafe92fb2f59`。本次僅 simulation branch；main/index.html、正式母版、Manifest、W47 JSON 均未修改。
 - 注意：本輪通過的是三區評論 DOM 專項 QA，不等於整份早報重新完成全部 QA／review_ready；如需正式交付仍需依完整 Gate 重驗。
+
+
+## 2026-11-19｜FedWatch快照更新與完整重建驗收完成
+
+- 使用者要求更新11/19早報FedWatch。Investing.com Fed Rate Monitor於2026-11-18 04:15PM EST更新（台灣時間2026/11/19 05:15），05:20台灣時間讀取；目標會議2026-12-09，目前目標區間3.75–4.00%。最新分布：升息25bp至4.00–4.25%為93.9%；升息50bp至4.25–4.50%為6.1%；維持不變0%。機率來自CME 30-Day Fed Funds futures推算，非Fed決策。Investing.com來源頁：https://www.investing.com/central-banks/fed-rate-monitor 。
+- 更新fixture `simulation-lab/fixtures/report-data-2026-11-19.json`，blob SHA `98aec567dcad1e622c58fa0da99aa526d921dda6`；更新後經既有BeautifulSoup DOM builder重新組裝 `preview/2026-11-19-simulation.html`，blob SHA `4dae7e1d715cd2351e0967ea5e48e33968eb7441`。
+- 完整模擬workflow run `44427122693`：completed / success。QA sidecar `preview/2026-11-19-simulation.qa.json` blob SHA `9d738caf7bd7292b42bee2509b8fded04e9207e2`；`status=QA_PASSED`、`review_ready=true`、blockers=[]。組裝、互動測試、母版比對、provenance驗證、44項行情及新聞結構Gate均成功；HTML QA blob SHA與實際回讀一致。
+- FedWatch HTML回讀確認93.9%／6.1%／0%，更新時間11/19 05:15；舊99.5%／0.5%已不存在於FedWatch區塊。僅在simulation branch工作；未修改main/index.html、main正式首頁、正式母版、Manifest或W47行事曆JSON，未部署Pages。
+- 本次完整QA僅代表更新後11/19審核版通過既有workflow Gate，不代表使用者已核准正式首頁發布。
