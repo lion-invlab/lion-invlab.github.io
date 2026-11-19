@@ -1560,3 +1560,13 @@
 - Run `44426454169` success。三個面板各自恰有一個評論節點，標題與區域一致，讀回內容與來源 fixture 一致；交叉區域指數名稱檢查通過。專項 QA evidence `preview/2026-11-19-regional-commentary-repair.qa.json`。
 - 最終 HTML：`preview/2026-11-19-simulation.html`，blob SHA `cad78d5eaa5b3777b2c0932158cfaafe92fb2f59`，SHA-256 `857d2f22e4d03630e0a918625eff160bb61d8cfb26eae5dbacc704cc74e1bcc2`。
 - 只寫入 simulation branch；main/index.html、正式母版、Manifest、W47 JSON 均未改。此處為三區評論專項 QA PASS，不宣稱整份早報 review_ready。
+
+
+## 2026-11-19｜FedWatch快照修正及11/19審核版重新組裝（QA_PASSED）
+
+- 原11/19 fixture FedWatch沿用11/18 00:25台灣時間舊快照（升息25bp 99.5%、升息50bp 0.5%），未達05:25早報資料截點前最新可用要求。
+- Investing.com Fed Rate Monitor頁面顯示更新時間Nov 18, 2026 04:15PM EST（換算台灣時間11/19 05:15）；05:20台灣時間讀取。12/09會議分布為4.00–4.25% 93.9%、4.25–4.50% 6.1%，現行3.75–4.00%機率0%。來源：https://www.investing.com/central-banks/fed-rate-monitor 。
+- Fixture更新blob SHA：`98aec567dcad1e622c58fa0da99aa526d921dda6`。透過既有DOM builder重新組裝，HTML blob SHA：`4dae7e1d715cd2351e0967ea5e48e33968eb7441`。
+- Actions run `44427122693` completed/success。QA sidecar blob SHA：`9d738caf7bd7292b42bee2509b8fded04e9207e2`；`QA_PASSED`、`review_ready=true`、無blockers。互動、母版一致性、獨立provenance、44行情及新聞結構Gate均成功；回讀核對QA綁定HTML SHA與實際HTML一致。
+- FedWatch HTML區塊已回讀核實：25bp 93.9%、50bp 6.1%、hold 0.0%，快照時間11/19 05:15；舊99.5%／0.5%已清除。未將機率表述為Fed已決定升息。
+- 僅simulation branch更新；未修改main首頁、正式母版、Manifest或W47行事曆JSON，未部署Pages。等待使用者審核，不自動發布。
