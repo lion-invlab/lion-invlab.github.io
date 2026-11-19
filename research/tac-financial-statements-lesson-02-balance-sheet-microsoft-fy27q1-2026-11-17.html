@@ -37,6 +37,9 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 .series-roadmap{margin:22px 0 18px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:13px}.series-roadmap h2{font-size:19px;color:var(--n);margin:0 0 5px}.series-roadmap>p{font-size:12px;color:var(--muted);margin:0 0 10px}.series-roadmap table{margin:10px 0 0;font-size:12px}.series-roadmap th:first-child{width:34%}.series-roadmap td:first-child{font-weight:850;color:var(--n)}.series-roadmap .done{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#fbecee;color:var(--r);font-size:9px;white-space:nowrap}
 .source a{color:var(--r);font-weight:800;text-decoration:none}.source li{font-size:12px;color:#596575;margin:7px 0}.foot{margin:40px 0 30px;padding:18px 0;border-top:1px solid var(--line);font-size:10px;color:#8b95a2}.foot b{color:var(--r)}.disclaimer{font-size:10px;color:#8b95a2}
 @media(max-width:680px){.wrap{padding:0 14px}.mast{flex-wrap:wrap}.meta{display:none}.hero{padding:25px 20px}.hero h1{font-size:28px}.insight{grid-template-columns:1fr;gap:4px;padding:15px}.cardgrid,.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.translation{grid-template-columns:1fr;gap:3px}.sec h2{font-size:18px}.tablewrap{margin-right:-2px}.statement{font-size:11px}th,td{padding:8px 7px}}
+
+/* TAC interactive knowledge check */
+.tac-quiz{background:#fff;border:1px solid var(--line);border-radius:15px;padding:26px;margin:22px 0;box-shadow:0 5px 18px #14233a08}.tac-quiz .quiz-kicker{font-size:10px;letter-spacing:1.5px;color:var(--r);font-weight:900}.tac-quiz h2{font-size:23px;color:var(--n);margin:5px 0 8px}.tac-quiz .quiz-intro{color:var(--muted);font-size:14px;margin:0 0 18px}.tac-q{padding:16px 0;border-top:1px solid var(--line)}.tac-q:first-of-type{border-top:0}.tac-q h3{font-size:16px;line-height:1.65;color:var(--n);margin:0 0 10px}.tac-q button{display:block;width:100%;text-align:left;border:1px solid #dce2ea;background:#fff;padding:10px 13px;border-radius:9px;margin:7px 0;color:var(--ink);font:inherit;font-size:14px;cursor:pointer;transition:background .15s,border-color .15s}.tac-q button:hover:not(:disabled){border-color:var(--g);background:#fbf8f1}.tac-q button:disabled{cursor:default;opacity:1}.tac-q button.chosen{border-color:var(--r);background:#fff5f5}.tac-q button.correct-choice{border-color:#39845b;background:#eff7f1}.tac-feedback{display:none;border-radius:9px;padding:12px 14px;margin-top:10px;font-size:13px;background:#f3f5f8}.tac-feedback.show{display:block}.tac-feedback.good{background:#edf5ef;color:#24583a}.tac-feedback.retry{background:#fbf3e9;color:#78521c}.tac-score{margin-top:14px;padding:13px 15px;border-radius:10px;background:var(--n);color:white;font-weight:800}.tac-score small{display:block;color:#d7dfeb;font-weight:400;font-size:12px;margin-top:3px}@media(max-width:680px){.tac-quiz{padding:20px 16px}.tac-q button{font-size:13px}}
 </style>
 </head>
 <body><div class="top"></div><main class="wrap">
@@ -156,7 +159,15 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 <div class="cardgrid">
 <div class="card"><b>STRENGTH｜財務緩衝</b><h4>持有大量現金與短期投資</h4><p>現金及短期投資合計 645.09 億美元，高於約 354.81 億美元的有息借款，簡單計算仍有約 290.28 億美元淨現金。</p></div>
 <div class="card"><b>CAPEX｜資本投入</b><h4>資料中心設備持續擴張</h4><p>不動產及設備較 2026/06/30 增加約 337.68 億美元。這反映長期資產規模擴大，但要用現金流量表確認實際資本支出與付款節奏。</p></div>
-<div class="card"><b>LIQUIDITY｜短期流動性</b><h4>流動比率約 1.22 倍</h4><p>流動資產高於流動負債，但其中包含應收帳款及其他流動資產，不能解讀為現金可立即覆蓋所有短期負債。</p></div>
+<div class="card"><b>LIQUIDITY｜
+<section class="tac-quiz" id="tac-lesson-quiz"><div class="quiz-kicker">QUICK CHECK · 小測驗</div><h2>第二課｜資產負債表小測驗</h2><p class="quiz-intro">用五題確認你是否理解企業家底、資產負債關係、流動性與遞延收入。</p>
+<div class="tac-q"><h3>1. 資產負債表呈現的是什麼？</h3><button type="button" data-correct="false" data-explanation="資產負債表是特定日期的財務快照，列出資產、負債與股東權益。">A. 公司一整年的營收與費用</button><button type="button" data-correct="true" data-explanation="資產負債表是特定日期的財務快照，列出資產、負債與股東權益。">B. 公司在特定日期的資產、負債與股東權益</button><button type="button" data-correct="false" data-explanation="資產負債表是特定日期的財務快照，列出資產、負債與股東權益。">C. 公司每天的股價變化</button><button type="button" data-correct="false" data-explanation="資產負債表是特定日期的財務快照，列出資產、負債與股東權益。">D. 公司未來三年的營收預測</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>2. 下列哪一個關係式正確？</h3><button type="button" data-correct="true" data-explanation="會計基本等式是資產＝負債＋股東權益，代表企業資產的資金來源由債權人與股東共同提供。">A. 資產＝負債＋股東權益</button><button type="button" data-correct="false" data-explanation="會計基本等式是資產＝負債＋股東權益，代表企業資產的資金來源由債權人與股東共同提供。">B. 資產＝營收－費用</button><button type="button" data-correct="false" data-explanation="會計基本等式是資產＝負債＋股東權益，代表企業資產的資金來源由債權人與股東共同提供。">C. 負債＝資產＋股東權益</button><button type="button" data-correct="false" data-explanation="會計基本等式是資產＝負債＋股東權益，代表企業資產的資金來源由債權人與股東共同提供。">D. 股東權益＝現金＋營收</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>3. 公司帳上有大量資產，是否代表同樣擁有大量現金？</h3><button type="button" data-correct="false" data-explanation="資產不只現金，還可能包括設備、應收帳款、存貨、投資與商譽；不同資產的變現能力不同。">A. 是，所有資產都能立即支付帳單</button><button type="button" data-correct="false" data-explanation="資產不只現金，還可能包括設備、應收帳款、存貨、投資與商譽；不同資產的變現能力不同。">B. 是，設備與商譽都等同現金</button><button type="button" data-correct="true" data-explanation="資產不只現金，還可能包括設備、應收帳款、存貨、投資與商譽；不同資產的變現能力不同。">C. 不一定，資產還包括設備、應收帳款、投資等</button><button type="button" data-correct="false" data-explanation="資產不只現金，還可能包括設備、應收帳款、存貨、投資與商譽；不同資產的變現能力不同。">D. 不是，資產只包含現金</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>4. 微軟本季流動比率約 1.22 倍，最適當的解讀是？</h3><button type="button" data-correct="true" data-explanation="流動比率＝流動資產÷流動負債。約 1.22 倍代表流動資產高於流動負債，但流動資產含應收帳款等，不能視為全部都是現金。">A. 每 1 元流動負債約有 1.22 元流動資產可對應</button><button type="button" data-correct="false" data-explanation="流動比率＝流動資產÷流動負債。約 1.22 倍代表流動資產高於流動負債，但流動資產含應收帳款等，不能視為全部都是現金。">B. 公司有 1.22 倍的淨利成長</button><button type="button" data-correct="false" data-explanation="流動比率＝流動資產÷流動負債。約 1.22 倍代表流動資產高於流動負債，但流動資產含應收帳款等，不能視為全部都是現金。">C. 公司現金一定是流動負債的 1.22 倍</button><button type="button" data-correct="false" data-explanation="流動比率＝流動資產÷流動負債。約 1.22 倍代表流動資產高於流動負債，但流動資產含應收帳款等，不能視為全部都是現金。">D. 公司完全沒有短期償債風險</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-q"><h3>5. 微軟的短期遞延收入，對訂閱與雲端服務企業通常代表什麼？</h3><button type="button" data-correct="false" data-explanation="遞延收入通常來自客戶預先付款；公司尚有未來交付服務的義務，因此列為負債，但不等同銀行借款。">A. 已經到期但未償還的銀行借款</button><button type="button" data-correct="true" data-explanation="遞延收入通常來自客戶預先付款；公司尚有未來交付服務的義務，因此列為負債，但不等同銀行借款。">B. 客戶預先付款，公司未來仍須提供服務</button><button type="button" data-correct="false" data-explanation="遞延收入通常來自客戶預先付款；公司尚有未來交付服務的義務，因此列為負債，但不等同銀行借款。">C. 公司已經收到但可以直接列為股東權益的現金</button><button type="button" data-correct="false" data-explanation="遞延收入通常來自客戶預先付款；公司尚有未來交付服務的義務，因此列為負債，但不等同銀行借款。">D. 客戶欠公司的應收帳款</button><div class="tac-feedback" aria-live="polite"></div></div>
+<div class="tac-score">目前得分：0 / 0 題 <small>完成全部五題後即可查看總成績。</small></div></section>
+短期流動性</b><h4>流動比率約 1.22 倍</h4><p>流動資產高於流動負債，但其中包含應收帳款及其他流動資產，不能解讀為現金可立即覆蓋所有短期負債。</p></div>
 <div class="card"><b>BUSINESS MODEL｜商業模式</b><h4>遞延收入是重要項目</h4><p>短期遞延收入約 668.66 億美元。對訂閱及雲端服務企業而言，客戶預先付款可能形成此項負債，代表未來仍有服務交付義務，不等同銀行借款。</p></div>
 </div>
 <div class="guide"><div class="gt">WHAT CHANGED｜與上一季相比</div><p><b>總資產</b>由 758,376 增至 779,403 百萬美元，增加 21,027 百萬美元。</p><p><b>不動產及設備</b>由 313,076 增至 346,844 百萬美元，增加 33,768 百萬美元，是資產端最值得注意的變化之一。</p><p><b>現金及短期投資</b>由 76,843 降至 64,509 百萬美元，減少 12,334 百萬美元。不能只看到現金下降就認定財務轉差，必須再看投資支出、營運現金流與融資活動。</p><p><b>總負債</b>由 315,989 降至 308,894 百萬美元，減少 7,095 百萬美元；但不同負債項目有升有降，仍需拆開檢視。</p></div>
@@ -179,4 +190,20 @@ table{width:100%;border-collapse:collapse;background:white;border-radius:11px;ov
 <li><a href="https://www.microsoft.com/en-us/investor/events/fy-2027/earnings-fy-2027-q1" target="_blank" rel="noopener">Microsoft FY2027 Q1 Earnings Conference Call</a> — 管理層對季度表現的說明與問答。</li>
 </ol><p class="disclaimer">資料基準日：2026/09/30；比較日：2026/06/30。財報公布日：2026/10/28。金額除另有說明外均為百萬美元。本文為投資教育用途，不構成個別投資建議。比率採本篇明確列示之計算口徑，應搭配財報附註及現金流量判讀。</p></section>
 <footer class="foot"><b>TAC 投資早報｜看懂企業財報：從零開始的六堂投資實戰課</b><br>第二課：資產負債表｜Microsoft FY2027 Q1｜2026/11/17<br>本篇為正式發布內容｜TAC 投資早報專題報導。</footer>
-</main></body></html>
+</main>
+<script>
+(function(){
+ function choose(button, correct, explanation){
+  const q=button.closest('.tac-q'); if(q.dataset.done==='1') return; q.dataset.done='1';
+  q.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.dataset.correct==='true')b.classList.add('correct-choice')});
+  button.classList.add('chosen');
+  const feedback=q.querySelector('.tac-feedback'); feedback.className='tac-feedback show '+(correct?'good':'retry');
+  feedback.textContent=(correct?'✓ 答對了！':'再想一想。')+' '+explanation;
+  const quiz=q.closest('.tac-quiz'); const done=quiz.querySelectorAll('.tac-q[data-done="1"]').length;
+  const score=quiz.querySelectorAll('.tac-q[data-done="1"] .tac-feedback.good').length;
+  const bar=quiz.querySelector('.tac-score'); bar.innerHTML='目前得分：'+score+' / '+done+' 題 <small>'+(done===5?'全部完成！總成績 '+score+' / 5 題。':'完成全部五題後即可查看總成績。')+'</small>';
+ }
+ document.addEventListener('click',function(e){const b=e.target.closest('.tac-q button');if(!b)return;choose(b,b.dataset.correct==='true',b.dataset.explanation)});
+})();
+</script>
+</body></html>
