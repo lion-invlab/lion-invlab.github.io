@@ -2083,3 +2083,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ### 11/19 FedWatch審核版預覽部署補記
 - 依使用者「更新」指示，已將QA_PASSED的 `preview/2026-11-19-simulation.html` 複製至main同日期審核預覽路徑；main preview blob SHA `4dae7e1d715cd2351e0967ea5e48e33968eb7441`，與simulation審核版完全相同。此次只更新日期審核預覽，未改 `main/index.html`。
 - GitHub Pages deploy run `44427371829` completed/success；審核預覽部署已完成。正式首頁仍維持原狀，沒有正式發布授權。
+
+
+### 2026-11-19｜📌評論依使用者要求重寫完成
+- 使用者指出📌評論不應重述漲跌幅，應提供市場驅動、含義與後續觀察。已重寫全球美股、亞洲、中國、歐洲及產業、債券、匯率、原油、貴金屬共8則評論，移除報價複述，保留必要事實脈絡及可操作觀察方向。
+- Fixture blob SHA：`73220ada9a9a5a105550632142c46d6b29ce222e`；完整重建及QA workflow run `44427774957` completed/success。QA sidecar `preview/2026-11-19-simulation.qa.json`：`QA_PASSED`、`review_ready=true`、無 blockers；HTML blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`。
+- 已回讀main `preview/2026-11-19-simulation.html`，8則評論均已更新；前三則全球區域評論不含重複漲跌百分比（檢查結果：PASS）。main preview blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`，與simulation QA通過HTML一致。
+- Pages部署run `44427975025` completed/success。預覽網址：https://lion-invlab.github.io/preview/2026-11-19-simulation.html 。未修改main/index.html；正式首頁仍未發布。
