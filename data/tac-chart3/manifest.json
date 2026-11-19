@@ -12,12 +12,12 @@
       "current_rows": 9621,
       "current_span": {
         "first": "1990-01-02",
-        "last": "2026-11-09"
+        "last": "2026-11-17"
       },
       "initial_release_rows": 4140,
       "initial_release_span": {
         "first": "2010-11-22",
-        "last": "2026-11-09"
+        "last": "2026-11-17"
       },
       "vintage_dates": 3976,
       "vintage_span": {
@@ -40,7 +40,9 @@
       "initial_release_mismatches": 0,
       "event_sha256": "8f4ce3de7d88e85d465c553fb6d94eae64c10f211733fceb595af08727f33f55",
       "current_sha256": "b5cccdaacf6ec84fea36335bbe50130c1bbcffbd546ee656896bbc9195b82653",
-      "initial_release_sha256": "b289fd7a8f349c167d5606eedc84613b75b7700fb4f7c149da1bcb508c4ab675"
+      "initial_release_sha256": "b289fd7a8f349c167d5606eedc84613b75b7700fb4f7c149da1bcb508c4ab675",
+      "valid_rows": 9319,
+      "missing_rows": 302
     },
     {
       "series_id": "NFCI",
@@ -49,12 +51,12 @@
       "current_rows": 2915,
       "current_span": {
         "first": "1971-01-08",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "initial_release_rows": 808,
       "initial_release_span": {
         "first": "2011-05-27",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "vintage_dates": 805,
       "vintage_span": {
@@ -77,7 +79,9 @@
       "initial_release_mismatches": 0,
       "event_sha256": "2ef2573ff722728f4cc5714c970ed6ec3e3237582692167b29630b4e2961d334",
       "current_sha256": "e61e527e7d65f3caafb80bcf3626fa8f3710625f9c942b00caa58c119593a546",
-      "initial_release_sha256": "8f31d83cfc1dcd6e9f9680ec06fb0ed767ec7742646ee9f03bc54047ecb78f59"
+      "initial_release_sha256": "8f31d83cfc1dcd6e9f9680ec06fb0ed767ec7742646ee9f03bc54047ecb78f59",
+      "valid_rows": 2915,
+      "missing_rows": 0
     },
     {
       "series_id": "NFCICREDIT",
@@ -86,12 +90,12 @@
       "current_rows": 2915,
       "current_span": {
         "first": "1971-01-08",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "initial_release_rows": 750,
       "initial_release_span": {
         "first": "2012-07-06",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "vintage_dates": 747,
       "vintage_span": {
@@ -114,7 +118,9 @@
       "initial_release_mismatches": 0,
       "event_sha256": "ae41e4a9ff63794855460715625ac18f801174f0ba5a46da8df7a263ec151219",
       "current_sha256": "93f9af2acec1f9a5012a972300ffe2dd98f88cd9d3823192e891fe2cfd5111ac",
-      "initial_release_sha256": "bdbe3c5937c50f87719bfa6834ecef3c86a19542fddfcff3ff2709b94fc8483d"
+      "initial_release_sha256": "bdbe3c5937c50f87719bfa6834ecef3c86a19542fddfcff3ff2709b94fc8483d",
+      "valid_rows": 2915,
+      "missing_rows": 0
     },
     {
       "series_id": "STLFSI4",
@@ -123,12 +129,12 @@
       "current_rows": 1716,
       "current_span": {
         "first": "1993-12-31",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "initial_release_rows": 210,
       "initial_release_span": {
         "first": "2022-11-11",
-        "last": "2026-10-30"
+        "last": "2026-11-13"
       },
       "vintage_dates": 211,
       "vintage_span": {
@@ -151,7 +157,9 @@
       "initial_release_mismatches": 0,
       "event_sha256": "3b4b86a7eaa41fa1b0caff902a0a0142040f7c7f68d46718979ecf8a250b3cfe",
       "current_sha256": "907fe92caa92ec1c3e6dcbf38725921261d81280681452181fb580ec09f56a7c",
-      "initial_release_sha256": "a274b5459a6b2da1b8bcf5c608c214347507b4e986b7d477ab948e7f52e9af62"
+      "initial_release_sha256": "a274b5459a6b2da1b8bcf5c608c214347507b4e986b7d477ab948e7f52e9af62",
+      "valid_rows": 1716,
+      "missing_rows": 0
     }
   ],
   "raw_file_count": 552,
@@ -3595,7 +3603,7 @@
   "overall_status": "PASS",
   "chart_dataset": {
     "file": "chart3_market_stress.json",
-    "sha256": "cdf15ffabf6984b036ebf829554512d79de94ae2b14109a2a50689006b26e476",
+    "sha256": "a14cb5d4affd56f798e391291b7da6646c2c5cacbec0b4a4e3654c217a9a2c4e",
     "bytes": 1494123,
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
@@ -3726,9 +3734,9 @@
       "frequency": "daily close",
       "span": [
         "1990-01-02",
-        "2026-11-12"
+        "2026-11-17"
       ],
-      "valid_observations": 9316,
+      "valid_observations": 9319,
       "null_observations": 302,
       "source_missing_value_events": 305,
       "missing_event_resolution": "Three previously missing events were later revised to values; no interpolation or forward-fill.",
@@ -3743,12 +3751,13 @@
       "frequency": "weekly ending Friday",
       "span": [
         "1971-01-08",
-        "2026-11-06"
+        "2026-11-13"
       ],
-      "valid_observations": 2914,
+      "valid_observations": 2915,
       "null_observations": 0,
       "rights_status": "FRED page marks data copyrighted; confirm Chicago Fed series terms and public redistribution rights before release.",
-      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Index [NFCI], retrieved via FRED."
+      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Index [NFCI], retrieved via FRED.",
+      "source_missing_value_events": 0
     },
     {
       "id": "NFCICREDIT",
@@ -3757,13 +3766,14 @@
       "frequency": "weekly ending Friday",
       "span": [
         "1971-01-08",
-        "2026-11-06"
+        "2026-11-13"
       ],
-      "valid_observations": 2914,
+      "valid_observations": 2915,
       "null_observations": 0,
       "rights_status": "FRED page marks data copyrighted; confirm Chicago Fed series terms and public redistribution rights before release.",
       "methodology_note": "Component/subindex of NFCI; not an independent second risk confirmation.",
-      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Credit Subindex [NFCICREDIT], retrieved via FRED."
+      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Credit Subindex [NFCICREDIT], retrieved via FRED.",
+      "source_missing_value_events": 0
     },
     {
       "id": "STLFSI4",
@@ -3772,12 +3782,13 @@
       "frequency": "weekly ending Friday",
       "span": [
         "1993-12-31",
-        "2026-11-06"
+        "2026-11-13"
       ],
-      "valid_observations": 1715,
+      "valid_observations": 1716,
       "null_observations": 0,
       "rights_status": "FRED page marks data copyrighted; verify the series-specific copyright label and public redistribution terms before release.",
-      "attribution": "Federal Reserve Bank of St. Louis, St. Louis Fed Financial Stress Index [STLFSI4], retrieved via FRED."
+      "attribution": "Federal Reserve Bank of St. Louis, St. Louis Fed Financial Stress Index [STLFSI4], retrieved via FRED.",
+      "source_missing_value_events": 0
     }
   ],
   "risk_data": {
