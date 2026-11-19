@@ -596,7 +596,14 @@
       "change_display": "-0.65%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLE歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLF": {
       "name": "Investing.com｜XLF歷史資料",
@@ -605,7 +612,14 @@
       "change_display": "-1.39%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLF歷史資料",
+        "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLK": {
       "name": "Investing.com｜XLK歷史資料",
@@ -614,7 +628,14 @@
       "change_display": "-1.90%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLK歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLI": {
       "name": "Investing.com｜XLI歷史資料",
@@ -623,7 +644,14 @@
       "change_display": "-2.00%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLI歷史資料",
+        "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLC": {
       "name": "Investing.com Canada｜XLC歷史資料（香港站缺11/18列）",
@@ -632,7 +660,14 @@
       "change_display": "-2.67%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com Canada｜XLC歷史資料（香港站缺11/18列）",
+        "url": "https://ca.investing.com/etfs/communication-services-select-spdr-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLB": {
       "name": "Investing.com｜XLB歷史資料",
@@ -641,7 +676,14 @@
       "change_display": "-2.06%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLB歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLU": {
       "name": "Investing.com HK｜XLU歷史資料",
@@ -650,7 +692,14 @@
       "change_display": "-1.24%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com香港站歷史表明列2026-11-19收市43.01、跌1.24%；已核實日期，不採頁首盤後即時值。"
+      "note": "Investing.com香港站歷史表明列2026-11-19收市43.01、跌1.24%；已核實日期，不採頁首盤後即時值。",
+      "source": {
+        "name": "Investing.com HK｜XLU歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com香港站歷史表明列2026-11-19收市43.01、跌1.24%；已核實日期，不採頁首盤後即時值。"
+      }
     },
     "XLRE": {
       "name": "Investing.com｜XLRE歷史資料",
@@ -659,7 +708,14 @@
       "change_display": "-1.70%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLRE歷史資料",
+        "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLY": {
       "name": "Investing.com Canada｜XLY歷史資料（香港站缺11/18列）",
@@ -668,7 +724,14 @@
       "change_display": "-2.79%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com Canada｜XLY歷史資料（香港站缺11/18列）",
+        "url": "https://ca.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLP": {
       "name": "Investing.com｜XLP歷史資料",
@@ -677,7 +740,14 @@
       "change_display": "-1.45%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLP歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     },
     "XLV": {
       "name": "Investing.com｜XLV歷史資料",
@@ -686,7 +756,14 @@
       "change_display": "-2.05%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。",
+      "source": {
+        "name": "Investing.com｜XLV歷史資料",
+        "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "ETF_daily_close",
+        "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
+      }
     }
   },
   "key_levels": {
