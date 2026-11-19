@@ -55,7 +55,7 @@ jobs:
           assert sp["rows"] == full["rows"]
           assert sp["dataset_sha256"] == full["source_dataset_sha256"]
           assert sp["git_blob_sha1"] == hashlib.sha1(
-              b"blob " + str((data / "sp500_daily_close_1927-2026.compact.json").stat().st_size).encode() + b"\\0" +
+              b"blob " + str((data / "sp500_daily_close_1927-2026.compact.json").stat().st_size).encode() + b"\0" +
               (data / "sp500_daily_close_1927-2026.compact.json").read_bytes()
           ).hexdigest()
           print("S&P 500 compact snapshots and manifest are aligned.")
