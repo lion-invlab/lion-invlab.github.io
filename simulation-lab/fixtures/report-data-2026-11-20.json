@@ -596,12 +596,7 @@
       "change_display": "-0.65%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLF": {
       "name": "Investing.com｜XLF歷史資料",
@@ -610,12 +605,7 @@
       "change_display": "-1.39%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLK": {
       "name": "Investing.com｜XLK歷史資料",
@@ -624,12 +614,7 @@
       "change_display": "-1.90%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLI": {
       "name": "Investing.com｜XLI歷史資料",
@@ -638,12 +623,7 @@
       "change_display": "-2.00%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLC": {
       "name": "Investing.com Canada｜XLC歷史資料（香港站缺11/18列）",
@@ -652,12 +632,7 @@
       "change_display": "-2.67%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com香港站11/18日期列缺失，改用同一供應商加拿大站歷史資料列；11/18收盤105.58、+0.30%。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLB": {
       "name": "Investing.com｜XLB歷史資料",
@@ -666,12 +641,7 @@
       "change_display": "-2.06%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLU": {
       "name": "StockAnalysis｜XLU歷史資料（Investing.com未提供11/18列）",
@@ -679,13 +649,8 @@
       "close": 43.01,
       "change_display": "-1.24%",
       "data_date": "2026-11-19",
-      "quote_type": "ETF_daily_close_backup",
-      "note": "Investing.com香港及Global歷史頁最新可見列均停在11/17；採StockAnalysis明確標示11/18日期列作備援，收盤43.52、+0.23%。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "quote_type": "ETF_daily_close",
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLRE": {
       "name": "Investing.com｜XLRE歷史資料",
@@ -694,12 +659,7 @@
       "change_display": "-1.70%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLY": {
       "name": "Investing.com Canada｜XLY歷史資料（香港站缺11/18列）",
@@ -708,12 +668,7 @@
       "change_display": "-2.79%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com香港站11/18日期列缺失；採同一供應商加拿大站11/18歷史列，收盤119.12、+1.73%。Investing.com UK頁面同日顯示不同報價，依同供應商地區備援優先採Canada頁，保留差異註記。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLP": {
       "name": "Investing.com｜XLP歷史資料",
@@ -722,12 +677,7 @@
       "change_display": "-1.45%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     },
     "XLV": {
       "name": "Investing.com｜XLV歷史資料",
@@ -736,12 +686,7 @@
       "change_display": "-2.05%",
       "data_date": "2026-11-19",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com歷史資料頁2026-11-18日期列；收盤價留作稽核，TAC版面僅呈現單日漲跌幅。",
-      "source": {
-        "data_date": "2026-11-19",
-        "quote_type": "investing_com_historical_daily_close",
-        "note": "Investing.com歷史日收盤列；早報僅顯示漲跌幅，未將ETF價格混入11大產業表。"
-      }
+      "note": "Investing.com指定ETF歷史日收盤列，日期2026-11-19；收盤價留作稽核，TAC版面僅呈現單日漲跌幅並依漲跌幅排序。"
     }
   },
   "key_levels": {
