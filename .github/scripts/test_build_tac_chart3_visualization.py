@@ -49,4 +49,27 @@ class ChartBuilderTests(unittest.TestCase):
     (sd/"state.json").write_text(json.dumps({"current_sha256":"wrong","events_sha256":"wrong","initial_release_sha256":"wrong","vintage_dates_sha256":"wrong","last_vintage_date":"2026-01-01","current_rows":0}))
    with self.assertRaises(RuntimeError):BUILDER.build(root)
 
+ def test_manifest_date_and_count_summaries_are_synchronized(self):
+  manifest={"series":[{"series_id":"VIXCLS","current_span":{"first":"old","last":"old"},"initial_release_span":{"first":"old","last":"old"}}],
+            "risk_series":[{"id":"VIXCLS","span":["old","old"],"valid_observations":0,"null_observations":0,"source_missing_value_events":0}]}
+  summary={"VIXCLS":{"current_rows":3,"current_span":{"first":"1990-01-02","last":"2026-11-17"},
+    "initial_release_rows":2,"initial_release_span":{"first":"2010-11-22","last":"2026-11-17"},
+    "vintage_dates":4,"vintage_span":{"first":"2010-11-22","last":"2026-11-18"},
+    "event_rows":9,"source_missing_value_events":5,"current_sha256":"c","event_sha256":"e",
+    "initial_release_sha256":"i","valid_rows":2,"missing_rows":1}}
+  chart={"file":"chart3_market_stress.json","sha256":"abc","bytes":123,"qa_file":"chart3_market_stress_qa.json","status":"PASS","generated_at":"2026-11-19T00:00:00Z"}
+  BUILDER.sync_manifest_summaries(manifest,summary,chart)
+  item=manifest["series"][0]
+  self.assertEqual(item["current_span"],{"first":"1990-01-02","last":"2026-11-17"})
+  self.assertEqual(item["initial_release_span"],{"first":"2010-11-22","last":"2026-11-17"})
+  self.assertEqual(item["vintage_span"],{"first":"2010-11-22","last":"2026-11-18"})
+  self.assertEqual(item["current_rows"],3)
+  self.assertEqual(item["event_rows"],9)
+  risk=manifest["risk_series"][0]
+  self.assertEqual(risk["span"],["1990-01-02","2026-11-17"])
+  self.assertEqual(risk["valid_observations"],2)
+  self.assertEqual(risk["null_observations"],1)
+  self.assertEqual(risk["source_missing_value_events"],5)
+  self.assertEqual(manifest["chart_dataset"],chart)
+
 if __name__=="__main__":unittest.main(verbosity=2)
