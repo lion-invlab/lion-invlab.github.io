@@ -138,6 +138,30 @@ def fetch_current(sid,key,latest_vintage):
   rows.extend(p)
  return rows
 
+
+FRESHNESS_MAX_AGE_DAYS={'VIXCLS':5,'NFCI':10,'NFCICREDIT':10,'STLFSI4':10}
+
+def validate_current_freshness(sid,rows,as_of=None):
+ """Fail closed when a FRED current snapshot has no usable or excessively old observation."""
+ if sid not in FRESHNESS_MAX_AGE_DAYS:raise RuntimeError(f'{sid}: no freshness policy configured')
+ as_of=as_of or datetime.now(timezone.utc).date()
+ if isinstance(as_of,str):as_of=datetime.fromisoformat(as_of).date()
+ valid=[]
+ for row in rows:
+  value=str(row.get('value','')).strip()
+  obs=str(row.get('date','')).strip()
+  if not obs or value in ('','.','None','nan','NaN'):continue
+  try:d=datetime.strptime(obs,'%Y-%m-%d').date()
+  except ValueError:raise RuntimeError(f'{sid}: invalid observation date {obs!r}')
+  if d>as_of:raise RuntimeError(f'{sid}: future observation date {obs} after {as_of}')
+  valid.append((d,value))
+ if not valid:raise RuntimeError(f'{sid}: no valid current observations')
+ latest=max(d for d,_ in valid)
+ age=(as_of-latest).days
+ maximum=FRESHNESS_MAX_AGE_DAYS[sid]
+ if age>maximum:raise RuntimeError(f'{sid}: stale current snapshot; latest={latest}, age_days={age}, max_age_days={maximum}')
+ return {'latest_observation_date':latest.isoformat(),'age_days':age,'max_age_days':maximum,'valid_observations':len(valid)}
+
 def fetch_new_events(sid,key,vintages):
  rows=[];now=datetime.now(timezone.utc).date();y0=int(SERIES_START[sid][:4]);windows=[]
  while y0<=now.year:
@@ -195,7 +219,7 @@ def update_series(sid,root,key,retrieved,overlap=5):
  new_events=fetch_new_events(sid,key,selected) if selected else []
  event_tmp=sd/'vintage_events.next.csv.gz';merge_stats=merge_event_gzip(sd/'vintage_events.csv.gz',new_events,event_tmp)
  event_changed,event_sha=replace_if_hash_changed(event_tmp,sd/'vintage_events.csv.gz')
- current=fetch_current(sid,key,dates[-1]);current_rows=[]
+ current=fetch_current(sid,key,dates[-1]);freshness=validate_current_freshness(sid,current);current_rows=[]
  for r in current:
   flags=['source_missing_value'] if r.get('value')=='.' else []
   current_rows.append({'series_id':sid,'observation_date':r['date'],'value':r['value'],'realtime_start':r.get('realtime_start',''),'realtime_end':r.get('realtime_end',''),'retrieved_at':retrieved,'source_method':'FRED API output_type=1 current snapshot','license_status':'review_required_before_redistribution','quality_flags':';'.join(flags)})
@@ -219,7 +243,7 @@ def update_series(sid,root,key,retrieved,overlap=5):
  if changed:
   state.update({'last_vintage_date':dates[-1],'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'current_rows':checked,'current_sha256':current_sha,'last_success_at':retrieved,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'overlap_window':overlap,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added})
   (sd/'state.json').write_text(json.dumps(state,ensure_ascii=False,indent=2))
- return {'series_id':sid,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'current_rows':checked,'current_sha256':current_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added,'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'latest_vintage_date':dates[-1],'changed':changed}
+ return {'series_id':sid,'freshness':freshness,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'current_rows':checked,'current_sha256':current_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added,'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'latest_vintage_date':dates[-1],'changed':changed}
 
 def fetch_release_schedule(key, retrieved):
  """Fetch the next officially scheduled FRED release date for each chart series."""
