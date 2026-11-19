@@ -1,0 +1,44 @@
+name: TAC regional market commentary repair
+
+on:
+  push:
+    branches:
+      - simulation/tac-process-lab-2026-11-06
+    paths:
+      - "simulation-lab/repairs/repair_regional_market_comments_2026_11_19.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tac-regional-commentary-repair-2026-11-19
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout simulation branch only
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install DOM parser
+        run: python -m pip install --disable-pip-version-check beautifulsoup4
+      - name: Repair three regional commentary DOM nodes and verify
+        run: python simulation-lab/repairs/repair_regional_market_comments_2026_11_19.py
+      - name: Commit corrected review and DOM QA evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview/2026-11-19-simulation.html preview/2026-11-19-regional-commentary-repair.qa.json
+          git diff --cached --quiet && { echo "No DOM changes were required"; exit 0; }
+          git commit -m "Repair 2026-11-19 regional market commentary DOM"
+          git push origin HEAD:simulation/tac-process-lab-2026-11-06
