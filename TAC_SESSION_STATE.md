@@ -2097,3 +2097,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 摘要標題：AI熱潮未退，市場開始嚴格檢驗獲利與現金流。Summary points及正文均已更新。Fixture blob SHA `2b199a5560d8243d63ecb3f09325be86591ab17b`。
 - 完整build/QA run `44428569442` completed/success；QA `QA_PASSED`、`review_ready=true`、無阻塞；HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`。
 - 已同步main日期審核預覽並部署；main HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`；Pages deployment run `44428759494` completed/success。正式首頁 `main/index.html` 未修改。
+
+
+## 2026-11-20｜TAC早報審核版完成（SIM-1.3；HTML QA_PASSED）
+
+- **報告日期／行情基準：** 2026-11-20（五）／2026-11-19收盤；截稿時間05:25 Asia/Taipei。
+- **唯一工作規則：** SIM-1.3，blob SHA `df93adafe4fa3bcf508d4543472bba9b1529c6ba`。Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA契約v1.4 SHA `93b77da68281dc02f7f497e2ec1079a6c47193d7`；週二至週五核准母版SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- **44項行情：** 17全球市場、11產業ETF、3美債殖利率、6匯率、2能源、2貴金屬、3風險／情緒指標，全部有欄位及來源。40項採11/19資料；2Y／10Y／30Y美債殖利率與MOVE共4項採截稿時最新可核實11/18資料，均保留資料日期。11大產業ETF均取得11/19歷史列。Dow、RUT、Nikkei、FTSE、DAX已改採Yahoo／AP／FT.com現貨來源，不再用CFD代理值；S&P 500採Investing.com US頁面Type: Index。
+- **新聞／行事曆：** 5則全球焦點新聞、10則市場熱門頭條；焦點來源限定Investing.com HK及鉅亨網。main W47正式JSON只讀，SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，coverage仍為incomplete，未修改資料庫。ROST Q3 FY2026報告層實際GAAP EPS US$1.91、營收約US$6.3B，來源為公司SEC 8-K Exhibit 99.1；公告前共識缺少完整PIT basis/data_as_of，未判定Beat/Miss；盤後公告的下一交易日收盤反應仍待核實。
+- **Fixture／Builder：** fixture SHA `fc1bbd8a6896414e7c7c2336f8e5024935f7d9fa`；DOM builder SHA `522dab40faa2e36a1470726c2107904c4e75a284`。本輪修正了XLU 11/19歷史列、S&P 500現貨頁來源、Dow/RUT/Nikkei/FTSE/DAX現貨來源、17市場欄位名稱與core_observation.details型態；修正焦點新聞來源網域；修正週觀察焦點標題／①②③標記；視覺QA的incomparable缺少basis標籤判斷改為接受「預期口徑未揭露，暫不判定」。
+- **QA：** GitHub Actions run `44193096116` attempt 5 completed/success；status `QA_PASSED`、`review_ready=true`、blockers=[]。互動、母版比較、獨立provenance、日期／行事曆筆數／44項行情／新聞結構均通過。視窗：1440、768、412、390、360px。HTML Git blob SHA `0b00f69ce32c9bf5f5cca03eaa41641a64ab8749`；SHA-256 `d38774d59e8ff6a2e5770692c546b23e73eda848928ab58e566fbfeb278074cd`；QA sidecar blob SHA `c0356ad5fd31ee971a97a108779065f1e5237f73`。
+- **main審核預覽例外通道：** 依既有早報排程明確授權，新增main `preview/2026-11-20-simulation.html`，commit `cea994a0f22fe7482cb9ad8b6ea3de57319cbf66`；寫入後回讀blob SHA仍為 `0b00f69ce32c9bf5f5cca03eaa41641a64ab8749`，與QA seal完全一致。main `index.html` SHA `da06da5bb1e6c6244197eb79358f97bf8f9d7545`、main W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821` 寫入前後一致；本輪未修改首頁、正式母版或行事曆JSON。
+- **Pages URL驗證限制：** 預覽網址 `https://lion-invlab.github.io/preview/2026-11-20-simulation.html` 已建立，但本輪web retrieval對該網址及首頁根網址均回傳不可存取；因此GitHub檔案及QA seal已驗證，Pages實際載入尚未驗證，不將其描述為已確認可開啟。
