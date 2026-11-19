@@ -541,7 +541,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "頁面更新時間2026-11-19 16:05 EST（台灣時間2026/11/20 05:05）；05:20台灣時間讀取。12/9會議升息25bp機率98.2%、升息50bp機率1.8%、維持利率0%。機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
-  "observation": "盤面觀察重點：美股主要現貨指數同步走弱，11大產業ETF全數收黑；Anthropic IPO首日強勢仍未改善整體市場廣度。股票恐慌指標進入極度恐懼區，債券波動率卻當日回落，顯示風險壓力集中於股票市場。宏觀面勞動與製造業數據邊際降溫，但FedWatch仍高度定價升息；市場同時面對成長放緩與折現率壓力。",
+  "observation": "盤面觀察重點：接下來先看三項確認訊號：①上漲家數與等權重指數能否止跌，判斷賣壓是否仍由大型權值向外擴散；②能源、公用事業等相對抗跌族群能否維持韌性，確認防禦配置是否具有延續性；③股票恐慌降溫時，信用與債券市場是否仍保持穩定。若只有權值指數短暫反彈、參與度未改善，不視為市場反轉。",
   "calendar": {
     "week_id": "2026-W47",
     "events": []
@@ -771,9 +771,9 @@
     "items": []
   },
   "core_observation": {
-    "heading": "本週三大觀察焦點",
-    "text": "① 股票風險重估：美股主要現貨指數同步走弱、11大產業ETF全數收黑，Anthropic IPO首日收高仍未帶動市場廣度修復。② 成長降溫但政策偏鷹：初領失業金高於預期、續領人數增加，費城Fed製造業指數明顯降溫；FedWatch仍高度定價下一次會議升息。③ 股債波動分歧：股票恐慌指標落入極度恐懼區，債券波動率卻在當日回落，股票風險偏好與債券市場壓力並未同步擴散。",
-    "details": "① 市場廣度與AI定價：美股主要現貨指數同步走弱，11大產業ETF全數收低。Anthropic IPO首日上漲是個別新股需求訊號，卻未擴散成整體科技股買盤；市場焦點已轉向AI資本支出能否轉化為可持續營收、利潤與自由現金流。短線偏空，避免把單一IPO熱度視為全面反轉。\n\n② 景氣與政策兩難：初領失業金高於預期、續領人數增加，費城Fed製造業指數明顯降溫，領先經濟指標亦走弱，顯示景氣邊際降溫；但FedWatch仍高度定價下一次會議升息，油價受地緣政治風險支撐，通膨與折現率壓力尚未解除。\n\n③ 風險訊號與策略：股票恐慌指標已落入極度恐懼區，債券波動率卻同日回落，風險並非所有資產同步擴散。策略以降低高Beta曝險、保留流動性為先；待指數止跌、產業參與度回升、股票恐慌降溫且情緒指標脫離極度恐懼區，再分批恢復風險部位。若賣壓續擴散，維持防守。"
+    "heading": "獲利成長與驚喜品質",
+    "text": "Q3財報季已有91%的S&P 500企業公布結果，聚合EPS年增31.9%、營收年增14.4%，顯示獲利動能仍強；但EPS與營收優於預期的比例分別為84%與74%，EPS surprise為3.1%，低於近五年平均7.5%。市場面對的不是企業獲利全面衰退，而是高成長能否持續超越預期、並轉化為現金流。",
+    "details": "獲利成長仍具韌性：截至FactSet 2026-11-13統計，Q3已有91%的S&P 500企業公布財報，聚合EPS年增31.9%、營收年增14.4%。這些數據支持企業獲利仍有成長動能，但不能直接推論股價估值必然獲得支撐。\\n\\n預期差距值得留意：EPS beat比例84%、營收beat比例74%，高於各自長期平均；但EPS surprise僅3.1%，低於近五年平均7.5%及近十年平均8.0%。代表企業雖普遍交出優於預期的成績，超預期幅度卻不算突出。\\n\\n估值與回報要求：FactSet統計的forward P/E為18.3倍，低於近五年及近十年平均。市場焦點應由單純年增率轉向未來獲利指引、資本支出回報與自由現金流品質；若成長率回落而預期差距未擴大，高估值族群仍可能面臨重新定價。"
   },
   "qa_run_revision": "2026-11-20-SIM1.3-final-full-rebuild",
   "market_sentiment": "風險趨避升溫｜股票市場恐慌升高、債券波動率反而回落，顯示壓力主要集中於股票風險定價，股債訊號並未同步惡化。",
@@ -828,7 +828,7 @@
     "prior_blended_revenue_yoy": "+14.3%",
     "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
   },
-  "market_comments_revision": "2026-11-20 SIM-1.3 second pass: remove residual VIX/MOVE percentage recitation from sentiment and observation copy; regenerate and manually read back",
+  "market_comments_revision": "2026-11-20 SIM-1.3 second pass: remove residual VIX/MOVE percentage recitation from sentiment and observation copy; regenerate and manually read back; third pass: separate summary thesis from actionable observation and earnings-quality core observation",
   "summary_source_note": "總結與判讀依2026/11/20 05:25台灣截稿前可取得的行情、新聞、FedWatch及情緒資料推導。MOVE另採使用者06:40提供之Investing.com截圖（畫面標示11/19 16:17 EST），明確保留證據來源與時間，不冒稱獨立刷新。",
   "summary_revision": "2026-11-20 SIM-1.3 rewrite: remove redundant index/ETF return recitation; emphasize market causality and investment implications",
   "market_date": "2026-11-19",
@@ -866,5 +866,5 @@
     "records_pending_required_fields": 21,
     "reason": "All 21 EPS/revenue snapshots carry pending_required_fields and pending_not_adopted; they are preserved for audit but not projected onto earnings cards. The main W47 calendar remains read-only."
   },
-  "commentary_quality_gate": "pass_with_manual_readback_required: summary, market sentiment, core observation, and all pin comments must explain causes/implications without repeating quote-board point changes or percentage returns; numeric evidence retained only where necessary for macro interpretation."
+  "commentary_quality_gate": "pass_with_manual_readback_required: summary owns the overall thesis, macro causality and positioning; market observation owns actionable confirmation signals; core observation owns earnings quality; market sentiment owns cross-asset risk interpretation; all pin comments own regional/asset structure and investment implications. None may repeat quote-board point changes or percentage returns; numeric evidence retained only where necessary for macro interpretation."
 }
