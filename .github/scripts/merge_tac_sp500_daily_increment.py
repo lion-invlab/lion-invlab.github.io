@@ -134,7 +134,7 @@ def merge_recent(recent_path: Path, ledger_path: Path):
 
 def git_blob_sha1(path: Path):
     data = path.read_bytes()
-    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
 
 def main():
     ap = argparse.ArgumentParser()
