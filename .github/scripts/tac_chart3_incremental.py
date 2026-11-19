@@ -239,7 +239,8 @@ def update_series(sid,root,key,retrieved,overlap=5):
  dates_obj={'series_id':sid,'vintage_dates':dates,'count':len(dates),'source_endpoint':'FRED series/vintagedates'}
  dates_tmp=sd/'vintage_dates.next.json';dates_tmp.write_text(json.dumps(dates_obj,ensure_ascii=False,indent=2))
  dates_changed,dates_sha=replace_if_hash_changed(dates_tmp,sd/'vintage_dates.json')
- freshness_changed=state.get('freshness')!=freshness\n changed=event_changed or current_changed or dates_changed or bool(new_dates) or initial_changed or freshness_changed
+ freshness_changed=state.get('freshness')!=freshness
+ changed=event_changed or current_changed or dates_changed or bool(new_dates) or initial_changed or freshness_changed
  if changed:
   state.update({'last_vintage_date':dates[-1],'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'current_rows':checked,'current_sha256':current_sha,'last_success_at':retrieved,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'overlap_window':overlap,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added,'freshness':freshness})
   (sd/'state.json').write_text(json.dumps(state,ensure_ascii=False,indent=2))
@@ -296,7 +297,8 @@ def main():
     if result:
      item['current_rows']=result['current_rows'];item['current_sha256']=result.get('current_sha256',item.get('current_sha256'))
      item['event_rows']=result.get('event_count',item.get('event_rows'));item['event_sha256']=result.get('events_sha256',item.get('event_sha256'))
-     item['initial_release_rows']=result['initial_release_rows'];item['initial_release_sha256']=result['initial_release_sha256']\n     item['freshness']=result['freshness']
+     item['initial_release_rows']=result['initial_release_rows'];item['initial_release_sha256']=result['initial_release_sha256']
+     item['freshness']=result['freshness']
      item['vintage_dates']=result.get('vintage_date_count',item.get('vintage_dates'))
      item['vintage_span']={'first':item.get('vintage_span',{}).get('first'),'last':result['latest_vintage_date']}
    (stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
