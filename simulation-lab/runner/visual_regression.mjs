@@ -287,7 +287,7 @@ try {
               const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
               const actualValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "實際")?.querySelector(":scope > strong")?.textContent.trim() || "";
               const estimateValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "預期")?.querySelector(":scope > strong")?.textContent.trim() || "";
-              const hasUndisclosedBasis = resultCard.textContent.includes("未完整揭露");
+              const hasUndisclosedBasis = resultCard.textContent.includes("未完整揭露") || resultCard.textContent.includes("預期口徑未揭露");
               const expectedStatusLabel = state === "pending"
                 ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得" ? "預期資料尚未取得" : "尚未公布")
                 : (state === "incomparable" && hasUndisclosedBasis ? "預期口徑未揭露，暫不判定" : expectedLabels[state]);
