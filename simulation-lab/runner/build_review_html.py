@@ -2352,7 +2352,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     # FINAL regional observation render. Keep the three global-market tabs aligned
     # with the fixture contract (0=US, 1=Asia, 3=Europe) after all earlier mutations.
     final_region_observations = [
-        ("#tac-global-panel-0", "📌 美股觀察", 2),
+        ("#tac-global-panel-0", "📌 美股觀察", 0),
         ("#tac-global-panel-1", "📌 亞股觀察", 1),
         ("#tac-global-panel-2", "📌 歐股觀察", 3),
     ]
