@@ -523,7 +523,7 @@
     ],
     "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "Investing.com Fed Rate Monitor頁面更新時間2026-11-18 04:15PM EST（台灣時間2026/11/19 05:15）；於05:20台灣時間讀取。12/9會議升息25bp機率93.9%、升息50bp機率6.1%、維持利率0%。以05:25早報截點前最新可讀快照為準；機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
+    "note": "Investing.com Fed Rate Monitor頁面更新時間2026-11-18 04:15PM EST（台灣時間2026/11/19 05:15）；於05:20台灣時間讀取。12/9會議升息25bp機率93.9%、升息50bp機率6.1%、維持利率0%。快照識別20261119T0520+0800；以05:25早報截點前最新可讀快照為準；機率由CME 30-Day Fed Funds futures推算，並非Fed決策。"
   },
   "observation": "盤面觀察重點：11/18美股出現明顯分化，道瓊下跌1.11%、S&P 500依Investing.com下跌0.45%，Nasdaq上漲0.42%、Russell 2000上漲0.75%，但S&P 500已連跌五日。NVIDIA財報超預期仍未能帶動股價續漲，顯示市場焦點已由AI需求轉向資本支出回收、利潤率與現金流；FOMC紀要偏鷹，進一步提高高估值資產的折現率壓力。",
   "calendar": {
