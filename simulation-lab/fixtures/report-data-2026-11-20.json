@@ -177,36 +177,36 @@
       }
     },
     "深證成指": {
-      "display": "10,659.41",
-      "change_display": "+0.20%",
+      "display": "10,583.20",
+      "change_display": "-0.71%",
       "source": {
-        "name": "Investing.com HK｜SZSE Component歷史資料",
-        "url": "https://hk.investing.com/indices/szse-component-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "name": "Investing.com HK｜深證成指歷史資料",
+        "url": "https://hk.investing.com/indices/shenzhen-component-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "日經 225": {
-      "display": "59,024.28",
-      "change_display": "+0.28%",
+      "display": "59,444.21",
+      "change_display": "+0.71%",
       "source": {
-        "name": "Investing.com HK｜Nikkei 225歷史資料",
+        "name": "Investing.com HK｜日經225歷史資料",
         "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "韓國 KOSPI": {
-      "display": "5,067.44",
-      "change_display": "+1.99%",
+      "display": "5,137.89",
+      "change_display": "+1.39%",
       "source": {
         "name": "Investing.com HK｜KOSPI歷史資料",
         "url": "https://hk.investing.com/indices/kospi-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "台灣加權指數": {
@@ -221,69 +221,69 @@
       }
     },
     "新加坡海峽時報指數 STI": {
-      "display": "5,054.89",
-      "change_display": "-1.06%",
+      "display": "5,079.49",
+      "change_display": "+0.49%",
       "source": {
-        "name": "Investing.com HK｜STI歷史資料",
-        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "name": "Investing.com HK｜新加坡海峽時報指數歷史資料",
+        "url": "https://hk.investing.com/indices/straits-times-historical-data",
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "澳洲 S&P/ASX 200": {
-      "display": "8,821.80",
-      "change_display": "-0.69%",
+      "display": "8,730.40",
+      "change_display": "-1.04%",
       "source": {
         "name": "Investing.com HK｜S&P/ASX 200歷史資料",
         "url": "https://hk.investing.com/indices/aus-200-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "英國 FTSE 100": {
-      "display": "10,548.21",
-      "change_display": "-1.33%",
+      "display": "10,453.56",
+      "change_display": "-0.93%",
       "source": {
         "name": "Investing.com HK｜FTSE 100歷史資料",
         "url": "https://hk.investing.com/indices/uk-100-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "德國 DAX": {
-      "display": "25,736.24",
-      "change_display": "-1.19%",
+      "display": "25,463.81",
+      "change_display": "-1.06%",
       "source": {
         "name": "Investing.com HK｜DAX歷史資料",
         "url": "https://hk.investing.com/indices/germany-30-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "法國 CAC 40": {
-      "display": "8,146.83",
-      "change_display": "-0.85%",
+      "display": "8,080.74",
+      "change_display": "-0.81%",
       "source": {
         "name": "Investing.com HK｜CAC 40歷史資料",
         "url": "https://hk.investing.com/indices/france-40-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     },
     "STOXX Europe 600": {
-      "display": "644.04",
-      "change_display": "-1.03%",
+      "display": "638.40",
+      "change_display": "-0.88%",
       "source": {
         "name": "Investing.com HK｜STOXX Europe 600歷史資料",
         "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
-        "data_date": "2026-11-18",
-        "quote_type": "index_historical_daily_close",
-        "note": "直接開啟Investing.com香港站歷史資料頁，採2026-11-18日期列收市與升跌幅，不採頁首即時報價。"
+        "data_date": "2026-11-19",
+        "quote_type": "investing_com_historical_daily_close",
+        "note": "Investing.com HK 11/19現貨指數歷史收盤列。"
       }
     }
   },
