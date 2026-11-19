@@ -1301,3 +1301,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 本輪先前使用的 index.html SHA e6a6cc404e91852917693b590d4946dee20bcd56 為較早狀態；最新回讀 main `index.html` blob SHA 為 f167d34ec84f813fafe68bea982b751d62c8c717，內容標題已是「TAC 投資早報｜2026/11/09」。
 - GitHub commit history 證實該首頁更新由既有 commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC，訊息 Publish TAC investment morning report for 2026-11-09）寫入，早於本輪 Stage G 局部組裝；不是本輪操作造成。本輪沒有呼叫 index.html update。
 - `preview/2026-11-09.html` 目前 main contents API 回讀仍為 404；因此首頁已有 11/09 發布內容與本輪本機局部組裝工作檔是兩個不同狀態，不可混稱為同一份審核版。
+## 2026-11-19｜Chart 3 Manifest span 同步修正（目前狀態）
+- 正式規則：main TAC_WORK_RULES.md v5.16，blob SHA b148af4b2c90e9dfc3ac5008f4fa401250a911c1。
+- 已修正 .github/scripts/build_tac_chart3_visualization.py，使其從已驗證的 current、initial-release、vintage 檔案同步 Manifest 的 series[] 與 risk_series[] 日期摘要及數量欄位；新增 Manifest 同步單元測試。
+- main builder blob ac2b392c92125e2dde5c96e8421ad38c841d0bb0；test blob 5e817ef44d6a7712ce149835ffd09177aacaac7b；trigger blob f660bbde4039f0dd53f35f982d393145d826752a。
+- GitHub Actions run 44434579316：測試步驟 PASS；ALFRED 更新仍在執行，Manifest rebuild、PIT、部署及 visual QA 尚未驗收。不得標記完成。
+- S&P 500：Investing.com 香港站 11/18 歷史表列 7,323.52，但頁面標頭明確標示 CFD。依 WR v5.16 D2 規則不得將 CFD 當成現貨收盤交接；本輪未追加、未造 observed_at。等待符合現貨正式收盤定義的證據。
+- 下一步：追蹤 run 44434579316；完成後回讀 Manifest 四序列 span、chart JSON SHA、PIT QA、Pages 部署與 browser QA。只在 Chart 3 範圍內修復。
