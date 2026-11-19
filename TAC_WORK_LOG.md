@@ -1583,3 +1583,10 @@
 - 修改fixture blob SHA `73220ada9a9a5a105550632142c46d6b29ce222e`。Actions run `44427774957` completed/success；QA sidecar `2d4ffcfe13fce694ea66a75178c0bc462da08d54`，status=QA_PASSED、review_ready=true、blockers=[]；HTML blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`。
 - 將QA通過HTML同步至main同日preview，main preview blob SHA `7cd152b0566bf9b63127b9382a5937b1e20257ff`；回讀與simulation輸出相同。Pages deploy run `44427975025` completed/success。
 - 保護：未修改main/index.html、母版、Manifest或行事曆JSON；僅更新當日審核預覽，未發布正式首頁。
+
+
+## 2026-11-19｜總結依使用者提供素材重寫
+- 按使用者明確指示，僅將提供的三大段美股重點整理濃縮為總結，不另行核實來源。摘要呈現宏觀與政策風險、Anthropic IPO及雲端巨頭受益模式，以及NVIDIA、CoreWeave、UNH、網路安全、Target與中概科技的個股分化。
+- Summary title：AI熱潮未退，市場開始嚴格檢驗獲利與現金流。Fixture SHA `2b199a5560d8243d63ecb3f09325be86591ab17b`。
+- Build/QA run `44428569442` success，QA_PASSED、review_ready=true、無blockers；HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`。同步main日期預覽後Pages run `44428759494` success；main預覽HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`。
+- 僅更新 `preview/2026-11-19-simulation.html`，未修改正式首頁 `index.html`。
