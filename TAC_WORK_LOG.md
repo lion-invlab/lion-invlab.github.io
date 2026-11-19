@@ -1541,3 +1541,12 @@
 - QA五種viewport 1440/768/412/390/360、互動、母版差異、獨立provenance、日期／44行情／5焦點／10頭條／行事曆卡數均通過。
 - 44行情日期分布43項11/18、MOVE 11/17；XLU備援來源與FactSet 11/13快照、W47 incomplete等限制均揭露。
 - 本次所有寫入僅限simulation branch。當前回讀main `index.html` SHA `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`，main W47 JSON SHA `8e33dc278d38cdac40028481b1ec445ca9c51b47`；本次未對兩者執行寫入或部署。
+
+
+## 2026-11-19｜全球主要股市三區評論錯置：根因確認與 Gate 補強
+
+- 直接回讀 11/19 simulation preview，定位 #global-markets 下三個固定 tab panel。問題是內容映射錯置，不是 tab/CSS 顯示順序：美國面板評論引用中國指數；亞洲面板評論引用歐洲指數；歐洲面板評論只剩 44 項行情來源備註。
+- 以 11/18 preview 對照，三區評論當日仍各自正確，故錯誤發生在 11/19 當日資料／評論寫入階段，不能只修 CSS 或 tab selector。
+- 已新增 SIM-1.3 補充規則「全球主要股市三區評論綁定與防錯 Gate」，commit 184b422ec01e6f5b66d5d6f55a9eb68fb20ac243；新增 QA contract A2.2a，commit d239aaad47caf0c86f86ee81c90300a0a37af21b。規則要求面板 0/1/2 固定對應美國／亞洲／歐洲；各自唯一 .market-reason 的標題、內容及引用指數必須同區，且三區需分別保存 QA 證據；任一失敗不得 review_ready。
+- 未完成事項：11/19 preview 本身尚未修復。當前工具環境沒有可執行的 DOM parser；依 SIM-1.3 不得用字串替換冒充 DOM 修復，故不寫入 HTML、不宣稱完成。須於真正 DOM parser 可用的環境執行最小節點修正，並對三區全量重驗。
+- 保護確認：未修改 main/index.html、main preview、正式母版、Manifest、任何行事曆 JSON；所有文件修正僅限 simulation branch。
