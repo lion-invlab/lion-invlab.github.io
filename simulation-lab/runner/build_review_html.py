@@ -956,9 +956,9 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     # Target the active global-market tab panels explicitly; the former #asia / #tac-region-panel-2
     # selectors belonged to legacy region tabs and left the visible Asia tab stale.
     narrative_targets = [
-        ("#tac-global-panel-0", "📌 美股觀察", "global_markets", 2),
-        ("#tac-global-panel-1", "📌 亞股觀察", "global_markets", 3),
-        ("#tac-global-panel-2", "📌 歐股觀察", "global_markets", 4),
+        ("#tac-global-panel-0", "📌 美股觀察", "global_markets", 0),
+        ("#tac-global-panel-1", "📌 亞股觀察", "global_markets", 1),
+        ("#tac-global-panel-2", "📌 歐股觀察", "global_markets", 3),
         ("#asia", "📌 亞股摘要", "global_markets", 0),
         ("#tac-region-panel-2", "📌 歐股摘要", "global_markets", 1),
         ("#tac-assets-panel-0", "📌 產業觀察", "sectors", None),
@@ -968,8 +968,8 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         ("#tac-assets-panel-4", "📌 貴金屬觀察", "metals", None),
     ]
     required_observations = [
-        ("#tac-global-panel-1", "📌 亞股觀察", 3),
-        ("#tac-global-panel-2", "📌 歐股觀察", 4),
+        ("#tac-global-panel-1", "📌 亞股觀察", 1),
+        ("#tac-global-panel-2", "📌 歐股觀察", 3),
     ]
     comments = data.get("market_comments", {}).get("global_markets", [])
     for selector, heading, idx in required_observations:
@@ -2350,11 +2350,11 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
         raise ValueError("Commodity commentary still conflicts with displayed settlement prices")
     # FINAL regional observation render. Keep the three global-market tabs aligned
-    # with the fixture contract (2=US, 3=Asia, 4=Europe) after all earlier mutations.
+    # with the fixture contract (0=US, 1=Asia, 3=Europe) after all earlier mutations.
     final_region_observations = [
         ("#tac-global-panel-0", "📌 美股觀察", 2),
-        ("#tac-global-panel-1", "📌 亞股觀察", 3),
-        ("#tac-global-panel-2", "📌 歐股觀察", 4),
+        ("#tac-global-panel-1", "📌 亞股觀察", 1),
+        ("#tac-global-panel-2", "📌 歐股觀察", 3),
     ]
     final_comments = data.get("market_comments", {}).get("global_markets", [])
     for selector, heading, idx in final_region_observations:
