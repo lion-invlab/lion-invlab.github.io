@@ -2050,3 +2050,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - S&P 500 7,307.49/-0.45%採Investing.com，key-level OHLC同步；Russell 2000按SIM-1.3採Yahoo ^RUT現貨2,722.10/+0.75%，key-level OHLC同步。舊錯值已從HTML清除。
 - 44項中43項資料日11/18，MOVE最新可核實11/17。XLU採StockAnalysis備援；FactSet盈餘健康度為11/13快照；W47 coverage incomplete均已揭露。
 - 本次未寫入或部署main首頁及W47 JSON。當前main index SHA `f0c52a28bff3a5e4136b87c91c3498cc8f6f105d`，W47 SHA `8e33dc278d38cdac40028481b1ec445ca9c51b47`。
+
+
+## 2026-11-19 08:xx｜全球主要股市三區評論錯置｜規則補強與待修狀態
+
+- 使用者回報 11/19 審核預覽的美國／亞洲／歐洲市場評論版面錯置。回讀 preview/2026-11-19-simulation.html（原 blob SHA 137a5b25c2148e059da189623245185b0ee43841）確認：#tac-global-panel-0 的「美股觀察」實際寫入上證、深證、恆生評論；#tac-global-panel-1 的「亞股觀察」實際寫入 FTSE、DAX、CAC、STOXX 評論；#tac-global-panel-2 的「歐股觀察」被資料來源／行情備註取代，沒有實質歐股評論。
+- 對照 11/18 預覽可確認，11/18 三區評論分別正確留在美國、亞洲、歐洲面板；11/19 不是母版 CSS 問題，而是當日內容寫入／組裝時的區域評論映射錯誤。
+- 已在 simulation branch 將 SIM-1.3 追加「全球主要股市三區評論綁定與防錯 Gate」；另在 QA contract 增加 A2.2a，要求三個固定面板各自驗證評論標題、評論內容、引用指數與區域一致性，任一錯置即 FAIL、review_ready=false。
+- 當前預覽尚未修復。本輪可用 GitHub 介面只提供檔案讀寫，無可執行的真正 DOM parser；SIM-1.3 明文禁止字串替換並要求真正 DOM 更新，因此未以不合規方式直接改寫 HTML，也未宣稱修復完成。下一步必須在可執行核准 DOM parser 的環境，對三個面板的 .market-reason 節點進行最小文字節點修復，再對三區全部重驗。
+- 本輪只修改 simulation 分支的 SIM WR 與 QA contract；未修改 main、正式首頁、母版、Manifest 或行事曆資料庫。
