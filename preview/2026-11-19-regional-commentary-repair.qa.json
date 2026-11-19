@@ -1,0 +1,61 @@
+{
+  "report_date": "2026-11-19",
+  "repair_type": "BeautifulSoup DOM node update",
+  "source_fixture": "simulation-lab/fixtures/report-data-2026-11-19.json",
+  "source_comment_mapping": {
+    "US": 0,
+    "Asia_including_China": [
+      1,
+      2
+    ],
+    "Europe": 3
+  },
+  "panels": [
+    {
+      "panel_id": "tac-global-panel-0",
+      "heading": "📌 美股觀察",
+      "commentary": "11/18道瓊下跌1.11%、S&P 500（Investing.com）下跌0.45%，Nasdaq上漲0.42%、Russell 2000上漲0.75%。S&P 500連跌五日，NVIDIA財報超預期仍未能帶動股價續漲，顯示市場開始要求AI投資轉化為獲利與現金流。",
+      "index_names": [
+        "道瓊工業指數",
+        "標普500指數",
+        "那斯達克綜合指數",
+        "羅素2000指數",
+        "費城半導體指數"
+      ],
+      "dom_node_count": 1,
+      "verified": true
+    },
+    {
+      "panel_id": "tac-global-panel-1",
+      "heading": "📌 亞股觀察",
+      "commentary": "日經、KOSPI、台灣加權、STI及ASX 200均採11/18 Investing.com歷史日期列；台股收高但盤中震盪加大，需留意高波動下的產業輪動。 上證與深證11/18分別收高0.09%及0.20%，港股恆生下跌0.91%；中國資產走勢仍受內需修復與科技出口限制兩股力量拉扯。",
+      "index_names": [
+        "香港恆生指數",
+        "上海綜合指數",
+        "深證成指",
+        "日經 225",
+        "韓國 KOSPI",
+        "台灣加權指數",
+        "新加坡海峽時報指數 STI",
+        "澳洲 S&P/ASX 200"
+      ],
+      "dom_node_count": 1,
+      "verified": true
+    },
+    {
+      "panel_id": "tac-global-panel-2",
+      "heading": "📌 歐股觀察",
+      "commentary": "FTSE 100下跌1.33%、DAX下跌1.19%、CAC 40下跌0.85%、STOXX Europe 600下跌1.03%；英國通膨仍高，利率維持高檔的壓力尚未解除。",
+      "index_names": [
+        "英國 FTSE 100",
+        "德國 DAX",
+        "法國 CAC 40",
+        "STOXX Europe 600"
+      ],
+      "dom_node_count": 1,
+      "verified": true
+    }
+  ],
+  "all_three_regions_passed": true,
+  "html_sha256_after_repair": "857d2f22e4d03630e0a918625eff160bb61d8cfb26eae5dbacc704cc74e1bcc2"
+}
