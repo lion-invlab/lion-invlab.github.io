@@ -1590,3 +1590,14 @@
 - Summary title：AI熱潮未退，市場開始嚴格檢驗獲利與現金流。Fixture SHA `2b199a5560d8243d63ecb3f09325be86591ab17b`。
 - Build/QA run `44428569442` success，QA_PASSED、review_ready=true、無blockers；HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`。同步main日期預覽後Pages run `44428759494` success；main預覽HTML SHA `d4f4f5048fbdac7ea66295e42c97873fcebf5b14`。
 - 僅更新 `preview/2026-11-19-simulation.html`，未修改正式首頁 `index.html`。
+
+
+## 2026-11-20｜11/19收盤TAC早報審核版完成（SIM-1.3）
+
+- 重新讀取SIM-1.3、Manifest、QA契約與weekday母版；工作範圍限simulation branch，main首頁及正式行事曆唯讀。
+- 完成44項固定行情欄位、11檔ETF、5則焦點新聞、10則熱門頭條。資料日期依各來源明列；40項11/19、4項（美債2Y／10Y／30Y及MOVE）採11/18最新可核實值。Russell 2000改採AP現貨收盤，不使用Investing.com CFD；Dow、Nikkei、FTSE、DAX亦採非CFD現貨來源。
+- W47 main JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`只讀。ROST官方SEC 8-K實際值補入報告層，缺少公告前完整PIT共識口徑，未作Beat/Miss判斷。
+- 修正fixture中core_observation.details型態、每週三大觀察焦點標題與①②③標記、焦點新聞來源域名及視覺QA對未揭露basis狀態的驗收字樣。第一次build與視覺QA失敗均已定位修正，最終run `44193096116` attempt 5成功。
+- 最終HTML：`preview/2026-11-20-simulation.html`，blob SHA `0b00f69ce32c9bf5f5cca03eaa41641a64ab8749`，SHA-256 `d38774d59e8ff6a2e5770692c546b23e73eda848928ab58e566fbfeb278074cd`。QA sidecar `preview/2026-11-20-simulation.qa.json`，blob SHA `c0356ad5fd31ee971a97a108779065f1e5237f73`；QA_PASSED、review_ready=true、無blockers。Viewports 1440／768／412／390／360；互動、母版比對、獨立provenance及44行情／新聞形狀驗收均通過。
+- 依排程授權，僅新增main `preview/2026-11-20-simulation.html`，commit `cea994a0f22fe7482cb9ad8b6ea3de57319cbf66`；寫入後回讀SHA與simulation QA HTML一致。main index SHA `da06da5bb1e6c6244197eb79358f97bf8f9d7545`及W47 JSON SHA保持不變。
+- Pages URL `https://lion-invlab.github.io/preview/2026-11-20-simulation.html`本輪未能由web retrieval實際開啟（首頁根網址亦同樣不可存取）；已確認GitHub main預覽檔存在且SHA一致，但不宣稱Pages已實際驗證。正式首頁未發布。
