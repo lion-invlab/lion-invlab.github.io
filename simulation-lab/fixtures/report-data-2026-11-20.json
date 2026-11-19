@@ -793,7 +793,7 @@
       "source_url": "https://www.investing.com/indices/us-spx-500-historical-data?cid=40826"
     }
   },
-  "review_notice": "本檔為2026/11/20審核版，僅供檢視；44個行情欄位均已取得可顯示數值並保留各自資料日期與來源口徑。W47行事曆coverage及部分財報共識欄位仍有待核實，未獲核准前不得正式發布或修改首頁。",
+  "review_notice": "本檔為2026/11/20審核版，僅供檢視；44個行情欄位均已取得可顯示數值並保留各自資料日期與來源口徑。W47行事曆coverage仍為incomplete；21筆財報共識投影均缺少必要PIT欄位，未採用，維持待核實。未獲核准前不得正式發布或修改首頁。",
   "pending_items": [
     "MOVE：已採使用者於2026-11-20 06:40（Asia/Taipei）提供的Investing.com截圖，畫面時間11/19 16:17 EST，報價96.04（-2.16%）；未宣稱助理獨立刷新，後續若取得TradingView同日Close再依SIM-1.3來源順位補充核對。",
     "CNN Fear & Greed：CNN官方頁受robots限制無法直接讀取；依SIM-1.3採FGScore明確標示的CNN Provider Index 19（Extreme Fear），as of Nov 19 UTC，CNN market timestamp 16:24 EST。Financial Context 06:19台灣時間更新晚於05:25截稿，不納入本次快照。",
@@ -802,7 +802,8 @@
     "W47正式行事曆JSON coverage仍為incomplete；本報只讀main正式JSON，不直接修補資料庫。",
     "ROST：Q3 FY2026實際GAAP EPS 1.91美元、營收約63億美元，採Ross Stores官方SEC 8-K Exhibit 99.1；公告前共識快照缺少data_as_of與EPS／營收口徑，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應仍待後續。",
     "FactSet S&P 500盈餘健康度最新可核實統計日為2026-11-13，不標示為11/19資料。",
-    "SOX Yahoo Finance直接歷史頁回傳429；Yahoo搜尋索引歷史列明確列出11/19收盤9,419.72，與Investing.com HK 9,419.70差0.02點，已以索引列作交叉核對並揭露存取限制。"
+    "SOX Yahoo Finance直接歷史頁回傳429；Yahoo搜尋索引歷史列明確列出11/19收盤9,419.72，與Investing.com HK 9,419.70差0.02點，已以索引列作交叉核對並揭露存取限制。",
+    "W47共識投影：21筆EPS／營收快照均標記pending_required_fields與pending_not_adopted；已封存原始投影供稽核，但不套用至財報卡。main W47 JSON維持唯讀。"
   ],
   "review_ready_blockers": [],
   "earnings_health": {
@@ -854,5 +855,16 @@
       },
       "notes": "官方實際值：銷售額約US$6.3B、GAAP EPS US$1.91、同店銷售+8%、Q4 EPS指引US$2.16–2.25。截稿時下一交易日尚未收盤，股價反應待後續核實；不得以盤後即時價冒充次日收盤。"
     }
-  ]
+  ],
+  "earnings_consensus_projection_status": {
+    "status": "not_applied",
+    "week_id": "2026-W47",
+    "source_projection": "simulation-lab/analysis/w47-yahoo-consensus-projection-pending-2026-11-20.json",
+    "source_projection_blob_sha": "85f322e4091fb1e1c743f39e5408ed538216bc94",
+    "calendar_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+    "records_total": 21,
+    "records_accepted": 0,
+    "records_pending_required_fields": 21,
+    "reason": "All 21 EPS/revenue snapshots carry pending_required_fields and pending_not_adopted; they are preserved for audit but not projected onto earnings cards. The main W47 calendar remains read-only."
+  }
 }
