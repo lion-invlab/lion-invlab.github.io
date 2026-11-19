@@ -548,3 +548,14 @@
 - 尚未寫入真實每日行情：本次只完成 Main 的資料交接程式與規則，沒有在本輪重新查核 S&P 500 原始來源，因此沒有捏造擷取時間或建立空白／假資料列；data/tac-chart3/sp500_daily_increment.jsonl 尚未建立。下一次早報在直接核實 S&P 500 後，依 WR v5.16 以當次實際 observed_at 執行 helper，首次追加才會建立 ledger。
 - 下游狀態：Main 增量帳完成後，仍需由 Chart 3 專用研究流程合併既有 1927–2026 歷史底稿並執行五序列共同日期 Gate；本次沒有把研究分支程式併入 Main，也沒有發布正式 Chart 3。
 - 保護檔案回讀：index.html SHA f0c52a28bff3a5e4136b87c91c3498cc8f6f105d；Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。未修改首頁、雙母版、Manifest、既有 S&P 500 compact 歷史資料、Chart 3 正式資料、既有排程或既有自動化。Main 只新增 helper、測試、測試 workflow，並更新 WR 與工作紀錄。
+## 2026-11-19｜Chart 3 Manifest span 同步修正（workflow 驗收中）
+
+- 開工依據：main TAC_WORK_RULES.md v5.16，blob SHA b148af4b2c90e9dfc3ac5008f4fa401250a911c1；已讀取 main Session State、Work Log、四序列 builder、incremental updater、workflow、Manifest 及 S&P 500 既有資料檔。
+- 根因：.github/scripts/build_tac_chart3_visualization.py 原本只更新 Manifest 的 chart_dataset，未同步 series[].current_span、initial_release_span、vintage_span 及 risk_series[].span 等日期摘要，造成實際資料已更新但 Manifest 保留舊日期。
+- 已修改 builder，從已驗證的 current／initial-release／vintage 檔案計算起訖日期與筆數，並同步 Manifest 的四組 series 摘要、有效／缺值筆數、missing-value event 數及 chart_dataset。未重建資料、未改變唯一 Chart JSON 路徑，未使用插值或 forward-fill。
+- 已新增 test_manifest_date_and_count_summaries_are_synchronized 測試，覆蓋 series span、risk_series span、筆數及 chart_dataset 同步。
+- 已提交 main：builder commit e387957498d36b3c980dfeb15b8fbff68d0aebbe；測試 commit 7ed90fa59bada61c5eaabde6e8cfe8f5825fbf54；trigger commit ea8574068acbb3c8c6b7f2cb272779cdf1b0a881。寫入後回讀 blob：builder ac2b392c92125e2dde5c96e8421ad38c841d0bb0；test 5e817ef44d6a7712ce149835ffd09177aacaac7b；trigger f660bbde4039f0dd53f35f982d393145d826752a。
+- GitHub Actions run 44434579316 已觸發；Test incremental invariants 步驟已成功，ALFRED 增量步驟執行中，builder／PIT／commit 步驟尚未完成，故目前不得宣稱 Manifest 實際更新及部署驗收完成。
+- 範圍核對：以 2026-11-19 早報發布 commit 88a34f9bfc852f94515b29a2a99413918ee393d5 為比較基準，至 trigger commit 僅修改上述三個 Chart 3 script/test/trigger 檔；未修改 index、preview、母版、行事曆或 S&P 500 compact 歷史檔。
+- S&P 500 來源查核：重新開啟 Investing.com 香港站歷史頁，11/18 收市列顯示 7,323.52，但頁面標頭同時明確標示「即時差價合約」。依 WR D2-補充二第 3 點，CFD 不得交接為 S&P 500 現貨每日收盤，因此本輪不建立 handoff、不執行 append helper、不以缺少 observed_at 或其他推估值補造紀錄。這是來源口徑阻塞，需取得符合現貨正式收盤定義的來源證據；不得把該 CFD 歷史列冒稱現貨。
+- 下一步：等待 run 44434579316 完成；回讀 Manifest，核對四序列 current／initial-release／vintage span 與底層檔案一致；確認唯一 Chart JSON hash、PIT QA、Pages deploy 及 browser visual QA。若 workflow 失敗，依日誌只修復 Chart 3 範圍。
