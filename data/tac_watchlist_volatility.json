@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "TAC Custom Watchlist Historical Volatility",
-    "updated_at": "2026-11-19T02:30:16.094702+00:00",
+    "updated_at": "2026-11-20T02:15:00.194414+00:00",
     "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
     "windows": [
       90,
@@ -44,7 +44,7 @@
       "max_drawdown_90d": -0.27315764722910063,
       "vol_ratio_20d_90d": 1.5503659249220092,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SKHY",
@@ -95,7 +95,7 @@
       "max_drawdown_90d": -0.7366518104702542,
       "vol_ratio_20d_90d": 1.1490430920075723,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     }
   ]
 }
