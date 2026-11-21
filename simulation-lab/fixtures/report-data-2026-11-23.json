@@ -2,7 +2,7 @@
   "report_date": "2026-11-23",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-20",
-  "summary": "11/20全球股市遭遇急跌，賣壓集中於半導體與高估值科技：S&P 500下跌3.70%、Nasdaq下跌5.28%、SOX重挫10.73%，台灣加權指數下跌6.23%。市場並非單純否定AI需求，而是開始要求企業證明龐大資本支出能轉化為獲利、自由現金流與合理資本報酬。基本面仍有韌性：台灣10月外銷訂單年增78.3%創高，南韓累計出口首破1兆美元；但半導體出口金額增長部分來自單價，AI伺服器備料、驗收與收款週期拉長也推高營運資金需求。SpaceX約440億美元GPU融資、Nvidia會計調查與美國AI晶片限制，使融資、治理及政策風險同時進入估值。FactSet Q3統計顯示93%公司已公布，EPS年增32.9%、營收年增14.6%，獲利基本面尚未崩壞；短線應檢查資本支出回收期、應收帳款、庫存、信用成本與自由現金流，不把全面回檔直接視為買點。",
+  "summary": "11/20全球股市遭遇急跌，賣壓集中於半導體與高估值科技：Nasdaq下跌5.28%、SOX重挫10.73%、台灣加權指數下跌6.23%；S&P 500現貨漲跌幅尚待以現貨來源完成核實，不以CFD序列替代。市場並非單純否定AI需求，而是開始要求企業證明龐大資本支出能轉化為獲利、自由現金流與合理資本報酬。基本面仍有韌性：台灣10月外銷訂單年增78.3%創高，南韓累計出口首破1兆美元；但半導體出口金額增長部分來自單價，AI伺服器備料、驗收與收款週期拉長也推高營運資金需求。SpaceX約440億美元GPU融資、Nvidia會計調查與美國AI晶片限制，使融資、治理及政策風險同時進入估值。FactSet Q3統計顯示93%公司已公布，EPS年增32.9%、營收年增14.6%，獲利基本面尚未崩壞；短線應檢查資本支出回收期、應收帳款、庫存、信用成本與自由現金流，不把全面回檔直接視為買點。",
   "sentiment": "市場情緒急速轉向防禦：VIX升至35.89（+26.20%）、MOVE升至106.31（+10.69%），FGScore所呈現的CNN Provider最新讀值為10/100、極度恐懼（資料時間11/21 07:59台灣，17:57重新讀取未見更新）。美債殖利率回落與公債買盤反映避險，但黃金、白銀及Bitcoin同步下跌，顯示去槓桿與現金需求可能跨資產傳導。CTA等系統化策略估計已大幅減碼；FedWatch於11/21 13:35台灣時間更新，17:57重新讀取仍未更新，12/9升息25bp機率86.4%、維持13.6%。",
   "focus_news": [
     {
@@ -156,15 +156,21 @@
       }
     },
     "標普500指數": {
-      "display": "6,910.39",
-      "change_display": "-3.70%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜S&P 500 歷史資料（CFD參考序列）",
         "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "11/20歷史資料頁列6,910.39、-3.70%；頁面標示即時差價合約，僅作正常交易日指數參考，不冒稱交易所現貨成交。"
-      }
+      },
+      "rejected_reference": {
+        "display": "6,910.39",
+        "change_display": "-3.70%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     },
     "那斯達克綜合指數": {
       "display": "22,617.73",
@@ -200,15 +206,21 @@
       }
     },
     "日經225": {
-      "display": "56,436.65",
-      "change_display": "-5.06%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜Nikkei 225 歷史資料（CFD參考序列）",
         "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "11/20歷史資料頁列56,436.65、-5.06%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      }
+      },
+      "rejected_reference": {
+        "display": "56,436.65",
+        "change_display": "-5.06%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     },
     "韓國 KOSPI": {
       "display": "4,869.96",
@@ -277,37 +289,55 @@
       }
     },
     "香港恆生指數": {
-      "display": "22,410.80",
-      "change_display": "-1.89%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜Hang Seng Index 歷史資料（CFD參考序列）",
         "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "11/20歷史資料頁列22,410.80、-1.89%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      }
+      },
+      "rejected_reference": {
+        "display": "22,410.80",
+        "change_display": "-1.89%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     },
     "英國 FTSE 100": {
-      "display": "10,367.10",
-      "change_display": "-0.82%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜FTSE 100 歷史資料",
         "url": "https://hk.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "採母版指定 canonical Investing.com HK 商品頁之11/20歷史列10,367.10、-0.82%；不混用其他商品頁或報價序列。"
-      }
+      },
+      "rejected_reference": {
+        "display": "10,367.10",
+        "change_display": "-0.82%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     },
     "德國 DAX": {
-      "display": "24,802.78",
-      "change_display": "-2.60%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜DAX 歷史資料",
         "url": "https://hk.investing.com/indices/germany-30-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "Investing.com HK 11/20歷史資料頁列24,802.78、-2.60%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      }
+      },
+      "rejected_reference": {
+        "display": "24,802.78",
+        "change_display": "-2.60%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     },
     "法國 CAC 40": {
       "display": "7,975.42",
@@ -321,15 +351,21 @@
       }
     },
     "STOXX Europe 600": {
-      "display": "625.65",
-      "change_display": "-2.00%",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com HK｜STOXX Europe 600 歷史資料（CFD參考序列）",
         "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "cfd_index_reference_series",
         "note": "11/20歷史資料頁列625.65、-2.00%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      }
+      },
+      "rejected_reference": {
+        "display": "625.65",
+        "change_display": "-2.00%",
+        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
+      },
+      "qa_status": "cfd_index_reference_rejected"
     }
   },
   "sectors": {
@@ -1650,10 +1686,10 @@
   "summary_title": "AI資本回報與融資風險同步重估",
   "market_comments": {
     "global_markets": [
-      "📌 美股｜道瓊與標普進入修正區、那斯達克年內漲幅回吐，費半單日重挫10.73%；這是AI估值、資本回報與融資風險的重新定價，不應只歸因於單一公司財報。",
-      "📌 亞洲｜台灣加權指數跌6.23%、韓國KOSPI跌5.21%、日經跌5.06%；台股本週跌17.5%，創1990年以來最差單週表現。台灣外銷訂單創紀錄，但伺服器備料與收款週期拉長，部分供應鏈營運現金流承壓；南韓半導體出口值大增則須區分價格與實際出貨量。",
+      "📌 美股｜科技股與半導體賣壓集中；標普500現貨漲跌幅待現貨來源核實，不以CFD序列替代。那斯達克與費半的同日跌幅顯示AI估值、資本回報與融資風險正在重新定價，不應只歸因於單一公司財報。",
+      "📌 亞洲｜台灣加權指數跌6.23%、韓國KOSPI跌5.21%；日經225現貨收盤來源待核實，暫不引用Investing.com CFD參考跌幅。台股本週跌17.5%，創1990年以來最差單週表現。台灣外銷訂單創紀錄，但伺服器備料與收款週期拉長，部分供應鏈營運現金流承壓；南韓半導體出口值大增則須區分價格與實際出貨量。",
       "📌 中國｜上證跌1.22%、深證跌3.09%；美國對海外資料中心及中國企業遠端使用先進AI晶片的限制，可能收緊算力供給並加速中國本土晶片替代。",
-      "📌 歐洲｜FTSE 100跌0.82%、DAX跌2.60%、CAC 40跌1.30%；MPS董事會已公布對Intesa 345億歐元收購要約的正式意見，認為價格公平但未完全反映未來潛在價值，股東投標期即將開始。",
+      "📌 歐洲｜CAC 40跌1.30%；FTSE 100、DAX及STOXX Europe 600的現貨收盤來源待核實，不引用Investing.com CFD參考數值。MPS董事會已公布對Intesa 345億歐元收購要約的正式意見，認為價格公平但未完全反映未來潛在價值，股東投標期即將開始。",
       "📌 口徑｜Investing.com部分指數頁面標示CFD／平台參考序列；報告保留原始標的口徑，不將平台序列冒稱交易所官方現貨。"
     ],
     "sectors": "📌 產業輪動｜必需消費品是唯一收紅板塊（XLP +0.67%），醫療保健接近平盤；科技跌幅最深（XLK -7.27%），工業與非必需消費品亦明顯承壓。防禦型現金流相對抗跌，科技股同時承受估值與資本支出回報檢驗。",
@@ -1785,7 +1821,7 @@
       "text": "不因單一財報或AI長期敘事追價，也不把全面回檔直接當買點。優先檢查企業資產負債表、資本支出回收期、應收帳款與自由現金流；待市場廣度、信用條件與利率波動穩定，再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。部分全球指數採Investing.com平台參考序列／CFD口徑，來源註記不得省略。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 12:55台灣時間暫存快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。 USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
+  "warning_note": "行情基準日2026-11-20。六項明確標示CFD的全球指數已改列待核實，不得以CFD參考序列代替現貨收盤。其他平台參考序列仍須保留來源註記。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1974,7 +2010,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
-  "quality_note": "本輪重新啟動，行情audit與新聞窗口已重新建立；日曆資料必須由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不得採用fixture內嵌calendar/earnings欄位作來源。",
+  "quality_note": "本輪重新啟動，行情audit與新聞窗口已重新建立；六項明確標示CFD的全球指數已從可呈現行情中剔除並改列待核實，原始參考值僅保留於rejected_reference供稽核；須補入現貨／官方指數來源後才可解除阻塞。行事曆資料必須由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不得採用fixture內嵌calendar/earnings欄位作來源。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
