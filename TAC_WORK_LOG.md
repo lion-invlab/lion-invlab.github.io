@@ -1817,3 +1817,9 @@
 - Federal Register IFR 91 FR 74970（2026-11-19生效）已核對：規範特定先進SI晶片出口及向Macau／Country Group D:5企業提供大量遠端算力的許可要求，並對特定第三國先進晶片出口設許可；與Trump課稅表態不可混為一談。
 - Focus Taiwan／CNA 11/20 20:26 Taipei：10月外銷訂單US$123.82bn、年增78.3%，ICT +107.2%、電子+89.8%、機械+36.3%。可作AI需求仍強的基本面對照，不可推論股價風險解除。
 - 原文：Reuters https://www.reuters.com/technology/trump-says-us-penalize-firms-building-data-centers-abroad-2026-11-20/；Federal Register https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm；Focus Taiwan https://focustaiwan.tw/business/202611200021 。新聞窗未封口，以上僅為已核實增量，不代表Phase 4結案。
+
+
+## 2026-11-21｜母版 DOM／Chromium baseline smoke test
+- 實際交付母版於本機 lxml 解析成功：2040 elements、183 IDs、25 scripts、124 styles；Git blob SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。
+- Playwright Chromium page.set_content 載入母版成功、0 pageerror；360/390/412/768/1440五種viewport均無水平溢位；亞洲tab切換與經濟行事曆details展開成功。file:// protocol被執行環境管理政策阻擋（ERR_BLOCKED_BY_ADMINISTRATOR），使用set_content替代並完成載入／互動驗證。
+- 此為母版環境能力測試，不代表11/23審核版QA通過；完整輸出尚未組裝，新聞窗尚未封口。
