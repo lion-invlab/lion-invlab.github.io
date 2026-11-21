@@ -61,6 +61,36 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
 
+      - name: Materialize exact approved Monday mother for local handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p simulation-lab/output
+          cp simulation-lab/baseline/monday-mother-template.html simulation-lab/output/monday-mother-template.html
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          p=Path('simulation-lab/output/monday-mother-template.html')
+          raw=p.read_bytes()
+          soup=BeautifulSoup(raw, 'lxml')
+          evidence={
+            'path': str(p),
+            'bytes': len(raw),
+            'sha256': hashlib.sha256(raw).hexdigest(),
+            'git_blob_sha': __import__('subprocess').check_output(['git','hash-object',str(p)],text=True).strip(),
+            'parser': 'lxml',
+            'html_elements': len(soup.find_all(True)),
+            'ids': len([x for x in soup.find_all(id=True)]),
+            'scripts': len(soup.find_all('script')),
+            'styles': len(soup.find_all('style')),
+            'title': soup.title.get_text(' ',strip=True) if soup.title else None,
+          }
+          Path('simulation-lab/output/mother-transfer-evidence.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
+          print(json.dumps(evidence,ensure_ascii=False,indent=2))
+          assert evidence['git_blob_sha']=='1ac39d50b138e59f4aabf55fc68560ee277ba6f8', 'approved mother blob SHA mismatch'
+          PY
+
       - name: Probe Equibles analyst estimates API (read-only, simulation only)
         if: false # Latest snapshot probe already completed; avoid spending quota again during history pagination.
         shell: bash
