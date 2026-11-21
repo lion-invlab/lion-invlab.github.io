@@ -2045,3 +2045,20 @@
 - 行事曆來源：main W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 fetch 回傳相同既有 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，但本次工具回傳 content 為空字串（0 bytes），尚未能解析事件內容；第三步須再確認可讀性，不沿用舊版宣稱的卡片數量。
 - 行情紀律：所有先前審核版數值均視為未繼承；只可在本次直接讀取指定來源及日期列後逐項鎖定。頁面即時摘要不等於歷史資料列；無法讀到列時記錄工具限制並依 SIM-1.3 D2-補充輪次處理。
 - 當前狀態：第一步完成；第二步進行中；第三至六步尚未完成。舊審核版、舊 QA 及舊 Pages 部署紀錄不得視為本次成果。
+
+
+### 2026-11-21｜重製第二步第一輪：11檔產業ETF歷史資料列鎖定
+- 直接開啟 Investing.com 香港站各ETF歷史資料頁，逐一讀取2026年11月20日列；依SIM-1.3僅呈現百分比，排序如下：
+  - XLP +0.67%（turn713428view5）https://hk.investing.com/etfs/spdr---consumer-staples-historical-data
+  - XLV -0.12%（turn713428view7）https://hk.investing.com/etfs/spdr---health-care-historical-data
+  - XLE -0.62%（turn713428view0）https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data
+  - XLU -0.74%（turn713428view6）https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data
+  - XLRE -0.98%（turn283982view0）https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data
+  - XLF -1.82%（turn713428view1）https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data
+  - XLB -2.19%（turn713428view8）https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data
+  - XLC -2.66%（turn713428view10）https://hk.investing.com/etfs/communication-services-select-spdr-historical-data
+  - XLY -2.95%（turn713428view4）https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data
+  - XLI -3.09%（turn713428view3）https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data
+  - XLK -7.27%（turn713428view2）https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data
+- 11/11項均讀到2026/11/20歷史列，已鎖定。注意：XLI、XLY、XLB、XLC等值與舊工作稿不同，以本輪實際歷史列為準；舊值不得沿用。
+- 第二步仍未結案；債券3項、FX6項、商品4項、風險／情緒3項及獨立FedWatch尚待查核。
