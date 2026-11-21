@@ -38,3 +38,11 @@
 3. 只有完整 Build/QA 通過，才更新 simulation preview。正式首頁仍需使用者明確批准。
 4. VIX、MOVE、CNN Fear & Greed、FedWatch 仍需在 2026-11-23 05:25 台灣時間前刷新；未刷新不得標記 REVIEW_READY。
 5. SIM-1.4 仍為 DRAFT，未核准為唯一 Builder 入口；SIM-1.3 繼續生效。
+
+
+## DOM Gate 後續修正
+
+- Full build `44910974273`：HTML 組裝、瀏覽器互動、母版對照均通過；新增 Today Focus DOM Gate 失敗。
+- 根因：核心觀察收折區原有第二個文字節點在更新時被替換成空字串，序列化後該文字節點消失，導致 callout DOM skeleton 不一致。這不是母版本身錯誤，也不是放寬 Gate 的理由。
+- 修正 commit：`e994f60`。現在保留原有第二個文字節點並填入「其餘補充資料已整併於上方。」；不刪節點、不放寬 DOM Gate。
+- 本次提交會重新觸發完整 11/23 build。前一 run 未通過 DOM Gate，不輸出 QA-passed preview。
