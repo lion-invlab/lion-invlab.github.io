@@ -521,3 +521,6 @@
 
 
 - 2026-11-21 build retry: run `44901082368` 已通過前置及 deterministic tests，組裝 11/23 Monday fixture 時發現 `observation` 為結構物件（heading/text），Builder 原以字串判斷而中止。已修正 `set_market_observation` 支援字串與結構物件，最終 Gate 亦改比較 `observation.text`；新增 regression test，現觸發完整 build 重跑。此錯誤修正尚待 CI 與 build 結果驗證。
+
+
+- 2026-11-21 第二輪 build 修正：run `44901183828` 發現 FOMC 活頁中尚有一段舊程式會把母版原有 `.fc-fomc-observation` 清空、改名並重建成第二個 `.fc-fomc-weekly-events`，導致固定槽位檢查出現不完整／重複結構。已移除該舊重建分支，保留母版原有 observation 節點；Fed 官員行程只在固定母版槽位呈現。新增測試確認 observation 節點前後不變。另將槽位缺漏檢查改為明確 None 檢查並回報缺漏名稱。重新觸發 11/23 Monday build。
