@@ -1615,3 +1615,10 @@
 - 完整workflow run `44633497700` completed/success；`QA_PASSED`、`review_ready=true`、blockers=[]。互動測試、核准母版比較、provenance、44項行情／新聞結構Gate均通過；視窗1440／768／412／390／360px。最終HTML blob SHA `0e5f0fee88e11aaf0b98dd6aa6929c1a94e94c0e`，SHA-256 `4b4bfa310635b9cd6c8724929f26668a291a73cb1adac8db715e93a930c36d76`；QA sidecar blob SHA `4a9e1281d9b6a6611d52ba63a286be3f5f94faaa`。
 - 已同步main日期審核預覽 `preview/2026-11-20-simulation.html`及QA sidecar；main preview HTML SHA與simulation QA輸出一致。main `index.html` SHA仍為`da06da5bb1e6c6244197eb79358f97bf8f9d7545`，W47 JSON SHA仍為`727ea2be1c04688d3c4f98d36c452561bbab6821`，均未修改。main預覽更新commit `0296cb03ab1ec6a0544be1ccaa25d4fc7692b0fa`；GitHub Pages deploy run `44633728053` completed/success。
 - 正式首頁未發布；本輪只更新日期審核預覽及simulation規則／測試，沒有修改main `index.html`、正式母版或正式行事曆資料庫。
+
+
+## 2026-11-21｜2026-11-23（一）早報啟動與階段①來源鎖定
+- 已讀取 simulation branch 最新 SIM-1.3（blob SHA `ead554bf1c42c6376ab9eed73763e0544b180e63`）、Manifest（`dc6090c895e2abc17bb16225f4a581ddee5821b1`）、週一母版（`1ac39d50b138e59f4aabf55fc68560ee277ba6f8`）及 QA 契約 v1.4（`331b4bdfe318462e15cae8ae4cd31c32815960d7`）。週一情境與 SHA 核對通過。
+- main HEAD `6f9672fc826aba7e680e7d8f0072acadd6a7d6a2`。W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`（27 econ／11 earnings，incomplete）；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`（25 econ／23 earnings，incomplete；11/16–20 各 23 筆）。W47 透過 Git blob 讀取完整 JSON。兩週資料庫皆維持唯讀。
+- 目標：報告 2026-11-23，行情基準 2026-11-20；preview `preview/2026-11-23-simulation.html`。未修改 main、母版、Manifest、QA 契約或任何行事曆 JSON。
+- 階段①完成；依 SIM-1.3 A1-補充2，開始階段②前必須更新 Session State 並重新 fetch 最新 WR，完整讀取第二步及 D 節。
