@@ -1,36 +1,19 @@
-## 2026-11-21 22:xx｜SIM-1.4 通盤整併與 11/23 審核版最新狀態（最新狀態錨點）
+## 2026-11-21 最新狀態｜11/23（一）審核版完成最新完整驗收
 
-- **2026-11-21 財報共識順位最新修正：** 使用者最新指示為 Yahoo Finance 第一順位，其餘依序遞補。有效 SIM-1.3 與 SIM-1.4 DRAFT 均已同步為 Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com；EPS／Revenue 各自選源，取得第一個可用平均預期後停止該指標主來源搜尋。
-- **最新 SIM-1.3：** blob SHA 6f8739b77678a3cfd7e296f6059288e0f7ee74f8，commit dd4b28a82fc10b61a939e89fc592cbde311cb54a。
-- **最新 SIM-1.4 DRAFT：** blob SHA 48adcdb587836bf48adf00b02479194eabfaa602，commit 5344f3f34169d35da38b0f9b92c611138f4ee95b；仍為 DRAFT，未生效。
-- **前一筆錯誤順位修正已撤銷：** Yahoo 第四順位的前次修改紀錄保留作追溯，不再代表有效規則。
-- **待辦：** Builder／財報共識擷取程式是否實際遵循 Yahoo 第一順位尚未驗收；需檢查來源選擇邏輯、EPS／Revenue 獨立遞補、原始回應保存與小卡來源標示，再補 regression tests。規則同步不等於程式接線完成。
-
-
-- **工作範圍：** 僅在 `simulation/tac-process-lab-2026-11-06`；目前正式有效規則仍是 SIM-1.3（`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）。SIM-1.4 仍為 DRAFT，未獲使用者核准前不得取代 SIM-1.3。
-- **本次最新 SIM-1.4 草案：** `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `f585c0e08e1075d760c91a5f0eab79a408ca9e45`；最新草案已補入商品名稱／href、行事曆截稿分類、財報雙卡母版版型，以及 SIM-1.3 B3 視覺／互動不變規則。
-- **最新草案修改 commit：** `34791786dc0fd24706f970a5d3a035a1ce1acd5b`（補回 SIM-1.3 B3 視覺／互動規則）；前一筆規則整理 commit `8be16b8195c9bbe23082a79cd522f9e4e7cbfa79`。
-- **QA Contract：** `simulation-lab/baseline/mother-template-qa-contract.md`，v1.9 DRAFT，blob SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`；已同步最新商品連結、漲跌顏色、母版視覺與工具欄互動規則。
-- **母版視覺／互動規則：** 最新草案已補回 SIM-1.3 B3.2–B3.6：上漲紅／下跌綠、中文名稱上／英文代碼小字下、行情連結只包名稱或代碼、五星標題 TAC 紅／四星沿用母版、不恢復已刪除膠囊、工具泡泡與呼吸燈分開驗收。
-- **逐條處置台帳：** `simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md`，最新 SHA `53f227f6cdb3d0e94443593b6067ab5fb1b4b09f`；已補入最新商品／日曆／財報及 B3 視覺規則處置。
-- **Builder 相容性稽核：** `simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md`，最新 SHA `2c385694fa8d4b76d7ef5c3d1bc4d126121ddb62`；已更新 Monday 最新實證、Weekday SHA 邊界及最新草案 provenance 不一致。
-- **Builder 最新實證（規則 SHA 限制）：** 候選 Builder `simulation-lab/runner/build_review_html.py`，blob SHA `fe8da8e131a314897deb68ae608fda9d7647ac16`。GitHub Actions run `44914993653` completed/success；Python deterministic tests、HTML assemble、browser interaction smoke、mother comparison、DOM preservation、artifact/provenance、44 indicators／calendar counts／news shape 均通過。此為指定 Monday fixture 的實證，不代表使用者已核准 Builder 為 SIM-1.4 唯一入口。
-- **規則 provenance 限制：** run `44914993653` 的 QA sidecar `candidate_rules_blob_sha` 是舊版 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前草案 `f585c0e08e1075d760c91a5f0eab79a408ca9e45`；`qa_contract_blob_sha` 亦是舊版 `f6848d21286f63c4eef11682eedd8825b5fd3aad`，不是目前 v1.9 DRAFT `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`。因此該 run 的 PASS 不能宣稱按最新草案驗收；必須以最新草案 SHA 重跑 Monday，並以相同最新 Builder SHA 重跑 Weekday。新雙母版證據完成前，最新草案仍未通過實際 build 驗收。
-- **11/23 預覽：** `preview/2026-11-23-simulation.html`，blob SHA `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA sidecar `preview/2026-11-23-simulation.qa.json`，blob SHA `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`；HTML SHA-256 `1b4d6df6d5c4b8a5fd636ac38e51b726de36848208afd6cf559b3bb83cf8171b`。
-- **QA 狀態必須分開：** `QA_PASSED`；`review_ready=false`；`data_review_ready=false`；`sim14_builder_approval=NOT_APPROVED`；`sim14_review_ready=false`。唯一資料 freshness blocker：VIX、MOVE、CNN Fear & Greed、FedWatch 必須於 2026-11-23 05:25 截稿前重新讀取並更新實際資料時間。不得把技術 QA PASS 說成早報已可交付。
-- **商品連結回讀：** WTI／Brent／GC／SI 的預覽名稱不附合約月份，合約資料留在來源補充說明；四個 href 指向 Investing.com 對應商品歷史頁。當次直接開頁核對頁面標題／合約：WTI 2027年1月、Brent 2027年1月 LCOF7、黃金 2026年12月 GCZ6、白銀 2026年12月 SIZ6。連結驗收須同時核對網域、商品、交易所及合約，不可只檢查 URL 字串。
-- **財報小卡：** Builder 已修正複製母版五星 prototype 後未同步星等 class 的問題；四星公司不再帶五星 class。輸出保留 EPS／Revenue 雙卡及下方詳細區；CSS 124 個 style block 與母版逐塊相同，25 個 script block 數量相同，DOM validator 與 browser smoke 通過。
-- **行事曆分頁：** 經濟 today／upcoming／published = 6／21／0；財報 = 1／10／0。Builder 已修正原先移動 group 造成 nth-child 分頁順序錯置、空組 continue 留在原位、舊 empty-state 未清除等問題；目前分頁按 today → upcoming → published，並依台灣報告截點分類。W47 上週回顧仍保留。
-- **其他資料狀態（2026-11-21 修訂）：** 報告基準日 2026-11-20；新聞窗口已封口於 2026-11-21 17:57:31 台灣時間。六筆全球指數已改用 Investing.com 全球指數歷史頁／DAX Xetra 現貨序列，不再把香港站 CFD 當現貨。WTI／GC／SI 為 CME 11/20 preliminary settlement；Brent 為 Investing.com LCOF7 歷史報價。**USD/TWD 一律採 Investing.com 歷史資料，禁止使用 CBC／央行銀行間收盤或銀行牌告匯率**；11/20 USD/TWD 採用值 32.971（-0.18%），來源為 Investing.com HK USD/TWD 歷史資料頁。
-- **Pages：** workflow deploy run `44915207046` success；但 Web 讀取預覽網址回傳 Internal Error，線上 HTTP 實際載入狀態仍未驗證。不得將部署 workflow success 說成已人工開啟確認。
-- **正式資產保護：** 本輪 SIM-1.4 草案修改僅在 simulation branch。不得修改 main/index.html、正式雙母版、正式 Manifest 或 main 行事曆 JSON；審核版 preview 與正式首頁發布仍是分離授權。
-- **下一步：** ①核對最新草案內所有舊條文衝突與引用編號；②用最新 DRAFT SHA `f585c0e...` 重新執行 Monday build；③以同一 Builder／Manifest／QA Contract／DRAFT SHA 重跑 Weekday fixture；④完成 selector/write inventory、動態容器白名單及負向測試矩陣；⑤等待 11/23 05:25 更新 VIX、MOVE、CNN Fear & Greed、FedWatch 後重新評估 data_review_ready。Builder 仍未獲唯一入口核准，SIM-1.3 仍有效。
-
----
-
-以下保留較早 Session State 紀錄供歷史追溯；若與上述最新狀態衝突，以本節最新 SHA／執行證據為準。
-
-
+- **工作分支：** `simulation/tac-process-lab-2026-11-06`。本次所有規則、fixture、測試、預覽與 QA sidecar 修改均限 simulation branch；main、正式首頁、正式母版、正式行事曆 JSON 均未修改。
+- **有效規則：** SIM-1.3 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`。SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `9163c299522cfb1e177565b2cccd873ba19850f1`，仍為 DRAFT，未獲使用者核准前不得生效。
+- **財報共識順位：** Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com；EPS 與 Revenue 分別逐級選源。
+- **USD/TWD：** 唯一來源 Investing.com。11/20 收市 32.971、日跌 0.18%；預覽名稱連結為 `https://hk.investing.com/currencies/usd-twd-historical-data`。禁止 CBC／央行／銀行牌告替代。
+- **週末四項指標：** 依使用者決策，VIX、MOVE、CNN Fear & Greed、FedWatch 沿用 11/20 既有基準，週日不要求刷新；預覽保留實際資料日期與時間。
+- **NVDA 公告後反應：** Yahoo Finance 歷史日收盤核對 11/17 155.46 → 11/18 150.96，-2.89%；價格反應來源與日期已寫入上週財報卡，原阻塞已解除。
+- **最新完整 build：** run `44921714346`，completed/success。deterministic self-tests、HTML assembly、互動 smoke、母版視覺比較、母版 DOM contract、獨立 artifact/provenance、44 項行情／行事曆筆數／新聞結構驗收全部通過。
+- **最新預覽：** `preview/2026-11-23-simulation.html`，blob SHA `d7bf585b86b0ecbf89dcad9d69eaf0b49728697e`；QA sidecar `preview/2026-11-23-simulation.qa.json`，blob SHA `ecd59e3c9c08841a6074ce9821127ce5ff765e00`。
+- **Provenance：** Builder blob `76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135`；fixture blob `4ba872860df7149fca7d315efdf5da0cdc235173`；active SIM-1.3 blob `116ebb0a6401321148a878fe20c9504df7ce37f7`；candidate SIM-1.4 blob `9163c299522cfb1e177565b2cccd873ba19850f1`。sidecar provenance 與上述 SHA 一致。
+- **QA 狀態：** `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、blockers 空陣列；視覺驗收 viewport 為 1440／768／412／390／360／320。這代表審核版可供使用者檢視，不代表已核准發布。
+- **SIM-1.4 狀態：** `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；不得升格或視為已生效。
+- **商品連結：** WTI、Brent、黃金 GC、白銀 SI 名稱分別連至 Investing.com 對應歷史資料頁；合約代碼／月份留在來源說明，不擠壓商品名稱欄。
+- **行事曆：** W48 main 唯讀資料 27 筆經濟、11 筆財報；W47 回顧 25 筆經濟、23 筆財報。11/23 預覽經濟行事曆今日 6／即將 21／已公布 0；財報今日 1／即將 10／已公布 0。Fed 官員行程槽位保留。
+- **下一步：** 提供此審核版供使用者檢視；只有使用者明確批准後，才可另行更新 main 正式首頁。
 ## 2026-11-18｜TAC 早報審核版最終完成（SIM-1.3，QA_PASSED）
 
 - **狀態：** 11/18（三）審核 HTML 已組裝、人工內容檢查、Playwright 互動、母版比對、獨立溯源、44 項行情與新聞結構驗收全部通過；`review_ready=true`、`review_ready_blockers=[]`。正式首頁尚未更新，等待使用者審核與明確授權。
