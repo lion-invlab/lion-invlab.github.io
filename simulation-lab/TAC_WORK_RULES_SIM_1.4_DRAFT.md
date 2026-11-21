@@ -447,7 +447,7 @@
 
 ### 尚待實證，不得假裝已解決
 1. 44 項母版欄位已依兩份 SHA 鎖定母版抽取名稱、定位及固定 href，詳見 A1.1；尚未完成的是每日 44 筆實際行情核對及現貨／CFD來源驗證。
-2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44896495817 的 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
+2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44896643592 的 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
 3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，QA Contract 已更新為 v1.5 DRAFT 並修正舊 SIM-1.2 引用。兩組母版 ID 集合、style/script 數量一致；DOM／視覺測試尚未執行。報告：simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md。
 4. TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄（不是 simulation-lab/ 子目錄）；本次已讀取並將更新本輪進度。11/23 fixture deterministic contract 已通過，但 6 筆 CFD 指數已改列待核實，情緒／FedWatch待刷新，HTML尚未組裝；不得引用先前不一致的「完成」標記。
 
@@ -459,7 +459,7 @@
 
 ## 2026-11-21 實證更新（仍為 DRAFT）
 
-- GitHub Actions deterministic self-test：run 44896495817，conclusion success；11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、earnings schema／判讀等測試通過。
+- GitHub Actions deterministic self-test：run 44896643592，conclusion success；11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、earnings schema／判讀等測試通過。
 - 11/23 fixture 的六筆 CFD index reference 已由原始數值改為顯示「待核實」，原始參考值另存 rejected_reference；總結／區域評論不再引用這六筆 CFD 漲跌。Workflow 另加 build-level guard，禁止數字型 CFD 指數被渲染為現貨收盤。
 - 仍未產生 11/23 審核版 HTML；未執行 Builder build、DOM 前後差異或 Playwright。市場現貨來源與 VIX／MOVE／CNN／FedWatch刷新仍是 review blockers。
 - QA Contract v1.5 DRAFT 已鎖定 SHA d4ff82cead612969d1afe7cfc1baf53170b1aed4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
