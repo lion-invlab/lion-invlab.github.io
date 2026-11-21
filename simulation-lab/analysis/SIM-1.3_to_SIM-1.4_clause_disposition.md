@@ -493,3 +493,11 @@ SHA：679eae7ba7a40dbad64d15bb448fe53db7d67e09
 - 最新 Monday HTML build run：`44914993653`，Builder SHA `fe8da8e131a314897deb68ae608fda9d7647ac16`，HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`，QA sidecar `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。
 - Weekday 最近 PASS run `44907253127` 使用不同 Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f`；最新 Builder 的 Weekday 同 SHA 驗收仍待完成。
 - SIM-1.4 未獲核准前，SIM-1.3 仍為唯一有效規範。
+
+
+## 2026-11-21｜候選規則 SHA 與既有 build provenance 不一致（重要限制）
+
+- 11/23 run `44914993653` 的 QA sidecar `candidate_rules_blob_sha` 是 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前 SIM-1.4 DRAFT SHA `0d390cc7de7945e1d9af247dbf004f45319d5e99`。
+- 最新三項規則補正是在 run `44914993653` 之後提交，因此現有 HTML／QA PASS 只能證明舊 candidate rules SHA 下的 build；不能宣稱已按最新草案完成驗收。
+- 必須用目前 DRAFT SHA `0d390cc7...` 重新執行 Monday build，並以同一最新 Builder SHA `fe8da8e...` 重新執行 Weekday build。兩次 sidecar 都必須記錄同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA，才可稱為最新版本的雙母版實證。
+- 在重跑前，現有 preview 可供缺陷修復成果參考，但不是最新 SIM-1.4 草案的最終驗收件；不得把舊 PASS 移植到新 SHA。
