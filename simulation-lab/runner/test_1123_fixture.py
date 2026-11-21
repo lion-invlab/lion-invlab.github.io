@@ -86,6 +86,8 @@ def main():
     assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "spot_daily_close"
     assert data["fx"]["美元／新台幣"]["source"]["url"] == "https://hk.investing.com/currencies/usd-twd-historical-data"
     assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
+    assert data["metals"]["黃金期貨 GC"]["display_name"] == "黃金期貨"
+    assert data["metals"]["白銀期貨 SI"]["display_name"] == "白銀期貨"
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
     assert data["energy"]["WTI原油期貨"]["display"] == "83.98"
     assert data["energy"]["WTI原油期貨"]["change_display"] == "+0.93%"
@@ -110,6 +112,8 @@ def main():
     assert weekday["report_date"] == "2026-11-20"
     assert weekday["trading_date"] == "2026-11-19"
     assert "WTI、Brent、GCZ6、SIZ6的11/19價格均採Investing.com HK" in weekday["warning_note"]
+    assert weekday["metals"]["黃金期貨 GC"]["display_name"] == "黃金期貨"
+    assert weekday["metals"]["白銀期貨 SI"]["display_name"] == "白銀期貨"
     assert "平台收盤/Last" not in weekday["warning_note"]
     expected_weekday = {
         ("energy", "WTI原油期貨"): ("83.21", "-0.06%"),
