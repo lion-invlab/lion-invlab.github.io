@@ -1990,8 +1990,9 @@
     "HTML尚未產出；須從核准週一母版複製，依SIM-1.3更新五個既有內容區並完成結構、功能及桌機／手機視覺QA。"
   ],
   "review_ready_blockers": [
-    "NVDA公告後股價反應需補入已核實的首個完整交易日比較；PIT共識缺漏不得判Beat/Miss。",
-    "審核版HTML尚未產出；需完成母版組裝與必要QA。"
+    "六項現貨指數目前使用 Investing.com CFD 參考序列（標普500、日經225、香港恆生、英國FTSE 100、德國DAX、STOXX Europe 600）；依 SIM-1.3 0.9 不得冒充現貨收盤，須改以現貨／官方指數來源核實後才可解除。",
+    "VIX、MOVE、CNN Fear & Greed 與 FedWatch 必須於報告截稿前重新讀取並更新資料時間；目前仍是 2026-11-21 17:57:31 前的快照。",
+    "審核版 HTML 尚未產出；須先解除行情與情緒資料阻塞，再完成母版組裝與必要 QA。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
