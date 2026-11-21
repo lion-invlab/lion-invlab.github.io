@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading, update_contract_link_label
 
 
 def record(value, change, quote_type):
@@ -22,6 +22,25 @@ def record(value, change, quote_type):
             "quote_type": quote_type,
         },
     }
+
+
+def test_contract_month_stays_in_source_metadata_not_product_label():
+    link = BeautifulSoup(
+        '<b><a href="https://old.example">WTI 原油期貨（CLF27（2027年1月））</a></b>',
+        "html.parser",
+    ).a
+    changed = update_contract_link_label(
+        link,
+        "CLF27（2027年1月）",
+        {"url": "https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html"},
+    )
+    assert changed is True
+    assert link.get_text(" ", strip=True) == "WTI 原油期貨"
+    assert "CLF27" not in link.get_text(" ", strip=True)
+    assert "2027年1月" not in link.get_text(" ", strip=True)
+    assert link["href"].startswith("https://www.cmegroup.com/")
+    assert link["target"] == "_blank"
+    assert link["rel"] == ["noopener"]
 
 
 def test_fed_agenda_slots():
@@ -277,6 +296,7 @@ def main():
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
+    test_contract_month_stays_in_source_metadata_not_product_label()
     test_builder_preserves_mother_owned_fed_agenda_and_css()
     test_summary_content_fills_existing_mother_slots()
     test_market_observation_supports_existing_text_slot_shapes()
@@ -286,7 +306,7 @@ def main():
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
-    print("PASS: CFD guard, six cash-index sources, label normalization, earnings labels, and fixed Fed agenda slots")
+    print("PASS: CFD guard, six cash-index sources, compact contract labels, label normalization, earnings labels, and fixed Fed agenda slots")
 
 
 if __name__ == "__main__":
