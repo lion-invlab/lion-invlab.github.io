@@ -430,7 +430,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（目前 SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`，v1.8 DRAFT）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件僅為 SIM-1.4 候選契約，尚未生效。契約明定四種財報狀態、Yahoo／Investing 共識來源順位、兩份母版固定 DOM、Fed 官員行程、FedWatch 兩卡及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.11 DRAFT，blob SHA `f7c1d065c20d1d6fbc187525dbe98a58295b070f`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品合約連結、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -765,4 +765,37 @@
 
 - 本次一致性修訂已完成；以本 commit 的 candidate SIM-1.4 blob SHA 作為雙母版同版回歸基準。
 - 先跑 Monday 2026-11-23，再跑 Weekday 2026-11-20；兩次 build 必須讀取同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA。若任一規則／技術資產在兩次 run 之間變更，先停止並重新凍結版本，不得把不同 SHA 的 run 合併宣稱為同版雙母版驗收。
-- 本節只規定 simulation branch 的回歸順序，不授權 SIM-1.4 生效或正式資產修改。
+- 本節只規定 simulation branch 的回歸順序，不授權 SIM-1.4 生效或正式資產修改。## 附錄 E｜SIM-1.3 → SIM-1.4 條文處置摘要
+
+| SIM-1.3 原規則／新增要求 | SIM-1.4 主文去向 | 裁決 |
+|---|---|---|
+| 0、0.1、0.2、A、A1、A2 | 0、1、10、11 | 合併；權限、單一權威、修改閉環集中 |
+| 0.5、0.6、C 第三步、H | 2、4、9 | 合併；行事曆資料庫 04:35 唯一寫入，05:25 早報唯讀 |
+| 0.7、F2、F3、F4 | 4、5 | 重寫；保留行事曆分頁、財報卡及事件狀態規則 |
+| 0.8 | 5.4 | 保留並集中 |
+| 0.9、D2、D3、D2-補充、D4、D5 | 3、附錄 A | 合併；現貨與 CFD 矛盾裁決為 CFD 不得取代現貨 |
+| C 六階段 | 2 | 重寫為單一流程，每階段有輸入、輸出、驗收及交接 |
+| D1 44 項與 ETF | 3、附錄 A | 保留；以核准母版實際欄位鎖定，不臆測差額 |
+| E 新聞 | 6 | 保留並集中 |
+| F1–F4 | 4、5 | 合併；行事曆與財報分開資料契約 |
+| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo Finance Average Estimate 第一順位、Investing.com 第二順位；EPS／Revenue 分開選源 |
+| G1–G4、11/17、11/19 補充 | 7 | 合併；週一／平日總結分流、三區評論綁定 |
+| H | 0、2、4、11 | 重寫；只保留 04:35 JSON 更新、05:25 唯讀、preview／首頁／封存分離 |
+| I | 0、9、10 | 合併；狀態、恢復、計時及 QA 重跑規則集中 |
+| 第五步 QA、A1 QA 指定 | 1、8、9、附錄 D | 重寫；流程 Gate 與 QA 檢查類型分開定義 |
+| 第六步發布 | 0、9、11 | 重寫；定版綁定 SHA，QA 豁免不得偽裝通過 |
+| J 與所有歷史補充條文 | 獨立歷史檔 | 移至 `simulation-lab/analysis/SIM-1.4_DRAFT_HISTORY.md`，不再混入有效規則 |
+| B3.2–B3.6 母版視覺／互動規則 | 1.3、9.2 | 補回上漲紅／下跌綠、中文名稱／英文代碼層級、連結範圍、五星／四星顏色、禁止恢復已刪除膠囊、工具泡泡與呼吸燈分開驗收 |
+| WTI／Brent／GC／SI 商品顯示及連結 | 3.3、附錄 A | 可見名稱不加合約月份；合約資料留來源說明；href 直接開啟並核對 Investing.com 對應歷史頁 |
+| 行事曆台灣日期／截稿狀態 | 4.9–4.11、9.2 | 同日事件即使晚於截稿仍列今日；過期未證實者待核實；跨時區先轉 Asia/Taipei；延期／取消明確標示 |
+| 財報 EPS／Revenue 雙卡母版版型 | 5.3、8.2、9.2 | 保留母版 DOM／CSS／欄數；不得重建或注入覆蓋樣式 |
+| Builder 唯一入口、provenance 與 sidecar 狀態 | 8.1、9.1、9.3 | 技術 PASS 不等於核准；不同 SHA 的測試證據不得合併宣稱同版雙母版通過 |
+
+完整逐條來源、條文對照及裁決依據見 `simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md`。目前實作狀態、最新 SHA 與未完成 Gate 以 Session State、Work Log 及 Builder 相容性稽核為準；本附錄不重複維護每日進度。
+
+## 版本紀錄
+
+- 2026-11-21：SIM-1.4 首次整併草案；不生效、不覆寫 SIM-1.3。
+- 2026-11-21：補入商品名稱／歷史頁連結、台灣截稿行事曆分類、財報母版雙卡及 B3 視覺／互動規則。
+- 2026-11-21：歷史實證與過期 SHA 快照移至 `simulation-lab/analysis/SIM-1.4_DRAFT_HISTORY.md`；本檔只保留現行候選規則與簡要處置摘要。
+
