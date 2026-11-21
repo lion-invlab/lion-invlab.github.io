@@ -334,23 +334,23 @@
 
 | # | 類別 | 母版標籤 | DOM 定位 | 母版固定 href |
 |---:|---|---|---|---|
-| 1 | 全球指數 | 道瓊工業指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/us-30 |
-| 2 | 全球指數 | 標普500指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/us-spx-500 |
-| 3 | 全球指數 | 那斯達克綜合指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/nasdaq-composite |
-| 4 | 全球指數 | 羅素2000指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/smallcap-2000 |
-| 5 | 全球指數／SOX | 費城半導體指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(5) a.global-index-link` | https://hk.investing.com/indices/phlx-semiconductor |
-| 6 | 全球指數 | 香港恆生指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/hang-sen-40 |
-| 7 | 全球指數 | 上海綜合指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/shanghai-composite |
-| 8 | 全球指數 | 深證成指 | `#global-markets #tac-global-panel-1 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/szse-component |
-| 9 | 全球指數 | 日經 225 | `#global-markets #tac-global-panel-1 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/japan-ni225 |
-| 10 | 全球指數 | 韓國 KOSPI | `#global-markets #tac-global-panel-1 .row:nth-of-type(5) a.global-index-link` | https://hk.investing.com/indices/kospi |
-| 11 | 全球指數 | 台灣加權指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(6) a.global-index-link` | https://hk.investing.com/indices/taiwan-weighted |
-| 12 | 全球指數 | 新加坡海峽時報指數 STI | `#global-markets #tac-global-panel-1 .row:nth-of-type(7) a.global-index-link` | https://hk.investing.com/indices/singapore-straits-time |
-| 13 | 全球指數 | 澳洲 S&P/ASX 200 | `#global-markets #tac-global-panel-1 .row:nth-of-type(8) a.global-index-link` | https://hk.investing.com/indices/aus-200-historical-data |
-| 14 | 全球指數 | 英國 FTSE 100 | `#global-markets #tac-global-panel-2 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/uk-100 |
-| 15 | 全球指數 | 德國 DAX | `#global-markets #tac-global-panel-2 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/germany-30 |
-| 16 | 全球指數 | 法國 CAC 40 | `#global-markets #tac-global-panel-2 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/france-40 |
-| 17 | 全球指數 | STOXX Europe 600 | `#global-markets #tac-global-panel-2 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/stoxx-600 |
+| 1 | 全球指數 | 道瓊工業指數 | `#global-markets #tac-global-panel-0 .row a.global-index-link（面板內第 1 筆）` | https://hk.investing.com/indices/us-30 |
+| 2 | 全球指數 | 標普500指數 | `#global-markets #tac-global-panel-0 .row a.global-index-link（面板內第 2 筆）` | https://hk.investing.com/indices/us-spx-500 |
+| 3 | 全球指數 | 那斯達克綜合指數 | `#global-markets #tac-global-panel-0 .row a.global-index-link（面板內第 3 筆）` | https://hk.investing.com/indices/nasdaq-composite |
+| 4 | 全球指數 | 羅素2000指數 | `#global-markets #tac-global-panel-0 .row a.global-index-link（面板內第 4 筆）` | https://hk.investing.com/indices/smallcap-2000 |
+| 5 | 全球指數／SOX | 費城半導體指數 | `#global-markets #tac-global-panel-0 .row a.global-index-link（面板內第 5 筆）` | https://hk.investing.com/indices/phlx-semiconductor |
+| 6 | 全球指數 | 香港恆生指數 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 1 筆）` | https://hk.investing.com/indices/hang-sen-40 |
+| 7 | 全球指數 | 上海綜合指數 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 2 筆）` | https://hk.investing.com/indices/shanghai-composite |
+| 8 | 全球指數 | 深證成指 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 3 筆）` | https://hk.investing.com/indices/szse-component |
+| 9 | 全球指數 | 日經 225 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 4 筆）` | https://hk.investing.com/indices/japan-ni225 |
+| 10 | 全球指數 | 韓國 KOSPI | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 5 筆）` | https://hk.investing.com/indices/kospi |
+| 11 | 全球指數 | 台灣加權指數 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 6 筆）` | https://hk.investing.com/indices/taiwan-weighted |
+| 12 | 全球指數 | 新加坡海峽時報指數 STI | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 7 筆）` | https://hk.investing.com/indices/singapore-straits-time |
+| 13 | 全球指數 | 澳洲 S&P/ASX 200 | `#global-markets #tac-global-panel-1 .row a.global-index-link（面板內第 8 筆）` | https://hk.investing.com/indices/aus-200-historical-data |
+| 14 | 全球指數 | 英國 FTSE 100 | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 1 筆）` | https://hk.investing.com/indices/uk-100 |
+| 15 | 全球指數 | 德國 DAX | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 2 筆）` | https://hk.investing.com/indices/germany-30 |
+| 16 | 全球指數 | 法國 CAC 40 | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 3 筆）` | https://hk.investing.com/indices/france-40 |
+| 17 | 全球指數 | STOXX Europe 600 | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 4 筆）` | https://hk.investing.com/indices/stoxx-600 |
 | 18 | 產業 ETF | XLE 能源 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(1)` | https://hk.investing.com/etfs/spdr-energy-select-sector-fund |
 | 19 | 產業 ETF | XLK 資訊科技 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(2)` | https://hk.investing.com/etfs/spdr-select-sector---technology |
 | 20 | 產業 ETF | XLRE 房地產 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(3)` | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 |
@@ -362,19 +362,19 @@
 | 26 | 產業 ETF | XLY 非必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(9)` | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector |
 | 27 | 產業 ETF | XLC 通訊服務 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(10)` | https://hk.investing.com/etfs/communication-services-select-spdr |
 | 28 | 產業 ETF | XLP 必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(11)` | https://hk.investing.com/etfs/spdr---consumer-staples |
-| 29 | 美債 | 2年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(1) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield |
-| 30 | 美債 | 10年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(2) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield |
-| 31 | 美債 | 30年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(3) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield |
-| 32 | 外匯 | DXY 美元指數 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(1) a.tac-market-link` | https://www.investing.com/indices/usdollar |
-| 33 | 外匯 | USD/TWD 美元／新台幣 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(2) a.tac-market-link` | https://hk.investing.com/currencies/usd-twd |
-| 34 | 外匯 | EUR/USD 歐元／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(3) a.tac-market-link` | https://hk.investing.com/currencies/eur-usd |
-| 35 | 外匯 | GBP/USD 英鎊／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(4) a.tac-market-link` | https://hk.investing.com/currencies/gbp-usd |
-| 36 | 外匯 | AUD/USD 澳幣／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(5) a.tac-market-link` | https://hk.investing.com/currencies/aud-usd |
-| 37 | 外匯 | USD/JPY 美元／日圓 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(6) a.tac-market-link` | https://hk.investing.com/currencies/usd-jpy |
-| 38 | 商品 | WTI 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/commodities/crude-oil |
-| 39 | 商品 | Brent 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/commodities/brent-oil |
-| 40 | 商品 | 黃金期貨 GC | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/commodities/gold |
-| 41 | 商品 | 白銀期貨 SI | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/commodities/silver |
+| 29 | 美債 | 2年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 1 筆）` | https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield |
+| 30 | 美債 | 10年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 2 筆）` | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield |
+| 31 | 美債 | 30年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 3 筆）` | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield |
+| 32 | 外匯 | DXY 美元指數 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 1 筆）` | https://www.investing.com/indices/usdollar |
+| 33 | 外匯 | USD/TWD 美元／新台幣 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 2 筆）` | https://hk.investing.com/currencies/usd-twd |
+| 34 | 外匯 | EUR/USD 歐元／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 3 筆）` | https://hk.investing.com/currencies/eur-usd |
+| 35 | 外匯 | GBP/USD 英鎊／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 4 筆）` | https://hk.investing.com/currencies/gbp-usd |
+| 36 | 外匯 | AUD/USD 澳幣／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 5 筆）` | https://hk.investing.com/currencies/aud-usd |
+| 37 | 外匯 | USD/JPY 美元／日圓 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 6 筆）` | https://hk.investing.com/currencies/usd-jpy |
+| 38 | 商品 | WTI 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row a.global-index-link（卡片內第 1 筆）` | https://hk.investing.com/commodities/crude-oil |
+| 39 | 商品 | Brent 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row a.global-index-link（卡片內第 2 筆）` | https://hk.investing.com/commodities/brent-oil |
+| 40 | 商品 | 黃金期貨 GC | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row a.global-index-link（卡片內第 1 筆）` | https://hk.investing.com/commodities/gold |
+| 41 | 商品 | 白銀期貨 SI | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row a.global-index-link（卡片內第 2 筆）` | https://hk.investing.com/commodities/silver |
 | 42 | 風險情緒 | VIX | `#sentiment .sbox a[href="https://hk.investing.com/indices/volatility-s-p-500"]` | https://hk.investing.com/indices/volatility-s-p-500 |
 | 43 | 風險情緒 | MOVE | `#sentiment .sbox a[href="https://hk.investing.com/indices/ice-bofaml-move"]` | https://hk.investing.com/indices/ice-bofaml-move |
 | 44 | 風險情緒 | CNN Fear & Greed | `#sentiment .cnn-fg-preview`（卡片內 CNN 官方頁連結） | https://edition.cnn.com/markets/fear-and-greed |
