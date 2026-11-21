@@ -109,3 +109,14 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - Workflow push build run `44899645332`（commit `c8f4bc4fadb7c4daec9220752d8ca4e9eef68724`）已觸發，目的為真正執行 11/23 Monday fixture build、artifact validator、Playwright interaction smoke 及 1440/768/412/390/360/320 視覺回歸；本次記錄時狀態仍 pending，尚無測試結論。
 - 本輪尚未解除原稽核列出的母版 DOM/CSS 注入、週一收折 summary 重建、Fed 區塊重建及完整雙母版 DOM diff blocker；在 run 完成並逐項修正前，Builder 不可核定為 SIM-1.4 唯一入口。
 - main、正式母版、Manifest、正式首頁及正式行事曆 JSON 均未修改。
+
+
+## 2026-11-21｜Fed 官員週行程固定槽位修復（尚待 CI／Build QA）
+
+- 使用者明確要求保留 Fed 官員行程功能；因此不刪除功能，而是修復 Builder 與母版脫節問題。
+- 週一母版新增固定 `#fed .fc-fomc-weekly-events` 外層、標題、清單、事件原型及空狀態槽位；平日母版同步相同契約。事件原型固定含日期、名稱、影響說明、官方來源連結欄位。Builder 僅深複製母版原型並填入欄位，不再清空／重建外層容器或整張卡片。
+- Manifest 已更新 simulation 母版 SHA：Monday `52fa9949b82b0c86974b3cc4785d734321316b02`；Weekday `c91f96e121b6fb779c6775bd845e8eb29c7cc70b`。QA Contract 已新增 Fed 行程槽位及保留結構驗收條款。
+- Builder 修正 `normalize_market_label` 的 regex typo：原始 `r"\\s+"` 只會匹配反斜線與 s 字元，無法移除空白；已改為 `r"\\s+"` 的 Python 正確空白 regex（實際原始碼為單一反斜線），並補全形空白測試。
+- `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
+- Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
+- 仍未通過 CI 前，不宣稱測試成功；仍須跑真正 Monday／weekday HTML build、DOM 零退化、artifact validation、Playwright 桌面／手機與六 viewport 視覺 QA。SIM-1.4 維持 DRAFT，main／正式首頁未修改。
