@@ -402,14 +402,14 @@
       }
     },
     "美元／新台幣": {
-      "display": "32.936",
-      "change_display": "—",
+      "display": "32.971",
+      "change_display": "-0.18%",
       "source": {
-        "name": "中央銀行｜新臺幣／美元銀行間收盤匯率",
-        "url": "https://www.cbc.gov.tw/tw/lp-645-1-1-60.html",
+        "name": "Investing.com HK｜USD/TWD 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "official_interbank_close",
-        "note": "中央銀行官方表列NTD/USD 32.936；報告以等值USD/TWD 32.936呈現。Investing.com 32.971為市場報價，不取代官方銀行間收盤。"
+        "quote_type": "spot_daily_close",
+        "note": "11/20 收市 32.971，開市 33.032、最高 33.058、最低 32.878，日跌 -0.18%；11/19 收市 33.032。採 USD/TWD 市場匯率歷史資料。"
       }
     },
     "歐元／美元": {
@@ -1679,7 +1679,7 @@
     ],
     "sectors": "📌 產業輪動｜必需消費品是唯一收紅板塊（XLP +0.67%），醫療保健接近平盤；科技跌幅最深（XLK -7.27%），工業與非必需消費品亦明顯承壓。防禦型現金流相對抗跌，科技股同時承受估值與資本支出回報檢驗。",
     "bonds": "📌 債券｜美國2年、10年、30年期公債殖利率分別為4.63%、4.92%、5.31%；主要市場公債殖利率回落反映避險需求，但殖利率水準仍高。短端仍受Fed升息定價影響，長端須觀察通膨、期限溢酬與財政供給。",
-    "fx": "📌 匯率｜DXY 103.81小幅回落；USD/TWD採CBC官方銀行間收盤32.936。EUR/USD 1.0968、GBP/USD 1.3083；AUD/USD 0.6621走弱，USD/JPY 158.49回落，顯示美元未全面走強，需區分官方銀行間收盤與平台市場報價。",
+    "fx": "📌 匯率｜DXY 103.81小幅回落；USD/TWD收於32.971、下跌0.18%。EUR/USD 1.0968、GBP/USD 1.3083；AUD/USD 0.6621走弱，USD/JPY 158.49回落，顯示美元未全面走強。",
     "energy": "📌 原油｜WTI 原油期貨 82.40、-0.05%；Brent 原油期貨 92.57、+0.64%。兩者均為指定月份期貨合約而非現貨；WTI 小幅回落、Brent 上漲，顯示區域供需與期限結構仍有差異。觀察重點在供需預期變化，並留意轉倉及到期風險。",
     "metals": "📌 貴金屬｜黃金期貨 3,515.40、-4.62%；白銀期貨 41.070、-7.41%。兩項均採 CME Preliminary 期貨報價，非現貨；升息預期與流動性需求可能壓過傳統避險買盤，去槓桿階段多類資產可能同步承壓。"
   },
@@ -1806,7 +1806,7 @@
       "text": "不因單一財報或AI長期敘事追價，也不把全面回檔直接當買點。優先檢查企業資產負債表、資本支出回收期、應收帳款與自由現金流；待市場廣度、信用條件與利率波動穩定，再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
+  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
