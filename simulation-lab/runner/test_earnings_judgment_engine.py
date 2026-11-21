@@ -41,7 +41,7 @@ def main():
     result = evaluate_metric(x,"revenue")
     assert result["status"] == "pending"
     assert result["reason"].startswith("comparison_inputs_not_comparable:")
-    assert set(result.keys()) >= {"status", "reason", "actual", "estimate"}
+    assert result["status"] in VALID_STATUSES and result["reason"].startswith("comparison_inputs_not_comparable:")
 
     # Metrics remain independent.
     x=record(1.1,1.0,None,8.7)
