@@ -2448,3 +2448,13 @@
 - Fed 官員行程、FedWatch、週一上週經濟行事曆及財報行事曆均保留。
 - 最終狀態 `QA_PASSED`，不是 `REVIEW_READY`。四項指標 VIX、MOVE、CNN Fear & Greed、FedWatch 仍需在 2026-11-23 05:25 台灣時間截稿前刷新。
 - 輸出仍只在 simulation branch；main／正式首頁未修改。SIM-1.3 有效，SIM-1.4 未核准。
+
+
+## 2026-11-21｜能源／商品合約月份標籤擠壓修正
+
+- 使用者指出手機審核版 WTI／Brent 商品名稱附加合約月份後，造成欄位擠壓及文字重疊。
+- 最小修正：Builder 不再把 `contract_label` 附加到商品名稱連結；保留既有 `.tab-panel-meta` 合約來源說明，仍顯示合約代碼／月份、資料日期及非現貨報價註記。未新增 DOM、未改 CSS、未動核准母版。
+- Builder：`168c389873dc91a67212237446cfc6b8320ee809`（blob `f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`）。
+- 回歸測試：`b583fda68a6724d75514b9677e37302d4e5e128a`（blob `7d2479a73dfbd7fa2e436fbc00fa685ee6dc0a33`）；測試確認顯示名稱不含 CLF27／2027年1月，來源連結仍保留。
+- CI run `44913120411` 的第一次失敗是測試斷言錯把 BeautifulSoup 的 `rel` 屬性當成 list，非 Builder 失敗；更正斷言後 run `44913183956` deterministic self-tests 通過，完整 workflow 當時仍執行中。
+- 待辦：完成 11/23 full build 與 DOM／視覺 QA；回讀新 HTML 確認商品名稱簡潔、月份仍在來源說明、360px 手機版欄位不重疊。QA 未完成前不宣稱修正交付完成。
