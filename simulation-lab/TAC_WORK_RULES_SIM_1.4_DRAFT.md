@@ -89,7 +89,7 @@
 
 ### Stage 3｜行事曆與財報事件
 **輸入：** Stage 1 的 main JSON SHA；Stage 2 行情；附錄 C、D。
-**執行：** 早報對 JSON 嚴格唯讀；逐筆核對事件 ID、日期／時區、公司／國家、狀態、實際值、預期值、來源、星等及分頁。財報共識固定由 Yahoo Finance Average Estimate 第一順位；該指標缺值、不可讀或期間不符時，依序遞補 LSEG I/B/E/S、FactSet Estimates、Investing.com。EPS／Revenue 各自獨立選源，取得第一個可用平均預期後停止該指標主來源搜尋。
+**執行：** 早報對 JSON 嚴格唯讀；逐筆核對事件 ID、日期／時區、公司／國家、狀態、實際值、預期值、來源、星等及分頁。財報共識固定由 Yahoo Finance Average Estimate 第一順位；該指標缺值、不可讀或期間不符時，依序遞補 Investing.com、LSEG I/B/E/S、FactSet Estimates。EPS／Revenue 各自獨立選源，取得第一個可用平均預期後停止該指標主來源搜尋。
 **輸出：** 經濟與財報事件顯示資料、已公布實際值、共識來源與判讀、股價反應及待核實項目。
 **驗收：** JSON SHA、事件 ID 唯一、日期／時區正確、已公布實際值有來源、EPS／Revenue 分開判讀、跨幣別比較有明確換算。
 **交接：** 供 Stage 4 分析及 Stage 5 組裝；不得將早報查核結果寫回 JSON。
@@ -485,7 +485,7 @@
 | D1 44 項與 ETF | 3、附錄 A | 保留；以核准母版實際欄位鎖定，不臆測差額 |
 | E 新聞 | 6 | 保留並集中 |
 | F1–F4 | 4、5 | 合併；行事曆與財報分開資料契約 |
-| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo Finance 第一順位，LSEG I/B/E/S、FactSet Estimates、Investing.com 依序遞補；EPS／Revenue 分開選源 |
+| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo Finance 第一順位、Investing.com 第二順位、LSEG I/B/E/S 與 FactSet Estimates 依序遞補；EPS／Revenue 分開選源 |
 | G1–G4、11/17、11/19 補充 | 7 | 合併；週一／平日總結分流、三區評論綁定 |
 | H | 0、2、4、11 | 重寫；只保留 04:35 JSON 更新、05:25 唯讀、preview／首頁／封存分離 |
 | I | 0、9、10 | 合併；狀態、恢復、計時及 QA 重跑規則集中 |
@@ -510,7 +510,7 @@
 
 
 
-- 2026-11-21：依使用者最新指示，統一財報共識來源順位為 Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com；同步 Stage 3、5.2 及條文處置摘要。SIM-1.4 仍為 DRAFT，未生效。
+- 2026-11-21：依使用者最新指示，統一財報共識來源順位為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；同步 Stage 3、5.2 及條文處置摘要。SIM-1.4 仍為 DRAFT，未生效。
 
 - 2026-11-22：依使用者指示新增第 7.4 節「分析內容品質 Gate」；明定總結操作建議、評論因果鏈、區域正確性、避免行情重述、情緒分工及內容 QA sidecar。SIM-1.4 仍為 DRAFT，未生效。
 
