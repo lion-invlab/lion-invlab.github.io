@@ -2148,3 +2148,13 @@
 - 舊審核版刪除狀態：main preview/2026-11-23-simulation.html已由main commit 21c9b392878050643c4eaa7111db401cc9ab2c5c刪除，GitHub回讀404；main index.html SHA仍為85ef90b60788e25973a5bbe39e23b76c7081a53f，首頁未變。
 - 第四步狀態：新聞初選5+10及市場分析草稿已完成；窗口仍open至11/21 23:59，尚未封口。
 - 第五步前置限制：本執行環境functions.exec無DOMParser/document/fetch；GitHub connector可讀寫GitHub檔案，但不能把354KB母版內容物化到本地DOM解析器；container無法直接連網下載raw GitHub檔案。沒有可用的瀏覽器／Playwright工具。依SIM-1.3禁止以regex／字串位置或舊Assembler假裝DOM更新，因此第五步尚未開始、未產生新HTML、未宣稱QA通過。需取得一次性核准母版檔案附件或具本地檔案與DOM parser的執行環境後才能合規組裝。
+
+
+## 2026-11-21 16:25｜跨對話接手核對與HTML組裝路徑根因修正
+- 本輪重新讀取最新 SIM-1.3：blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；Session State 原 SHA `57b83f09c1fab4099a09d0ba55289811cf6580a7`；Work Log 原 SHA `ec368bf42cad138bcc7538ac1595017bae78dfd4`。Monday 模擬母版 SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與 Manifest 登記相符。
+- 接收狀態：第二步44項行情與第三步W47/W48唯讀核對沿用既有鎖定成果，不重抓；第四步已有5則Global Focus、10則Market Hot Headlines及分析初稿。指定新聞窗口仍為2026/11/20 12:00–2026/11/21 23:59 Asia/Taipei；本次核對時間16:25，窗口仍open，不得宣告第四步完成或封口。FedWatch 13.6%／86.4%是較早快照，不得在新快照未取得時標示即時。
+- 組裝路徑重新確認：既有 `simulation-lab/runner/build_review_html.py`（原 blob SHA `0f3df168bddc7fcb73fb427178b17a7f8e036d71`）是BeautifulSoup DOM組裝器；既有 `.github/workflows/tac-simulation-lab.yml`（SHA `ee44265a59b094023a00495b9fcc7f7fe3096eae`）可由simulation branch push觸發，並執行日期匹配fixture、組裝、Playwright互動、視覺回歸、provenance及QA後保存審核版。故先前「必須另取得本地DOM環境才能組裝」的阻塞判斷已被修正：可使用既有GitHub Actions runner遠端執行；workflow_dispatch不是唯一入口。當前尚未建立11/23 fixture，也尚未觸發當日build。
+- 發現組裝器FactSet freshness final gate殘留11/13固定值（31.9%、14.4%、3.1%、18.3）及11/06舊值排除條件，與當前日期化fixture規則衝突；同一builder前段已能由 `earnings_health` fixture動態產生整個Dashboard。已在simulation branch修正：移除固定數字／日期檢查，改為驗證fixture必要欄位均存在且每個值均實際出現在輸出Dashboard；將「截至11/13」改為fixture as_of_date；移除錯誤的「使用者提供11/16截圖」來源敘述；刪除未由fixture支持的「連續第三季高於25%」固定註記。只改資料呈現及驗收邏輯，未改母版或CSS。
+- 修正 commit：`e03cf36a04d5c2a8e29a21aebc46a2af16f5a724`；builder 新 blob SHA `760ab7bbcbd72c3d53f6512b7f7635c651f59254`。已完成GitHub update_file寫入；尚未取得workflow實際執行結果，故此修正標記「已寫入、未測試」，不可宣稱通過。
+- main首頁、正式母版、Manifest、W47/W48正式JSON均未修改；未建立或重用舊preview。
+- 下一步：新聞窗口封口前補查並去重新增新聞；23:59後完成第四步新聞時間窗封口與分析定稿。其後依SIM-1.3重新讀取下一步條文，建立11/23日期匹配fixture，先以非build commit完成builder修正的workflow自我測試，再以 `[build-tac-report]` push觸發正式組裝與QA；如失敗依真實log修復並重跑。
