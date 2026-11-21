@@ -30,7 +30,7 @@ require('economic calendar {key} group has neither event-list nor empty-state sl
 require('earnings calendar {key} group has neither accordion-list nor empty-state slot')
 
 # Whole-panel clears are prohibited. Clearing a list's direct event cards is allowed.
-forbidden("panels.clear()")
-forbidden("ep.clear()")
+forbid("panels.clear()")
+forbid("ep.clear()")
 
 print("PASS: economic and earnings mother panel shells are preserved; only direct event cards are replaced")
