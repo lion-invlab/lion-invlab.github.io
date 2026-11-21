@@ -183,6 +183,13 @@ def reject_cfd_cash_index_quotes(data):
     return rejected
 
 def set_text(node, value):
+    """Replace a plain leaf-text slot only; fail closed rather than erase nested mother DOM."""
+    if node is None:
+        raise ValueError("set_text target node is missing")
+    if any(getattr(child, "name", None) for child in node.contents):
+        raise ValueError(
+            f"set_text refused to erase child elements in <{node.name}>; update an approved leaf text slot"
+        )
     node.clear()
     node.append(str(value))
 
@@ -2176,8 +2183,8 @@ def main():
         if date_node:
             source_label = "CNN官方歷史讀值" if "FGScore" not in str(fg_source.get("name","")) else "FGScore｜CNN Provider Index備援"
             set_text(date_node, f"{source_label}｜{fg_date}")
-        score = fg.select_one(".fg6-score")
-        if score: set_text(score, fg_value)
+        score = fg.select_one(".fg6-score-main")
+        if score: set_leaf_text_preserving_dom(score, fg_value, "CNN Fear & Greed numeric score")
         marker = fg.select_one(".fg6-marker")
         if marker is None:
             raise ValueError("CNN Fear & Greed marker missing from approved mother template")
