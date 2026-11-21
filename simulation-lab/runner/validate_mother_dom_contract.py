@@ -139,16 +139,23 @@ def main():
         if [x.get("class") for x in panels] != expected_focus_panels:
             raise ValueError(f"{label}: Today Focus panel order/classes changed")
         levels_key = require_one(view, ".focus-panel.focus-levels > .key", label + " key levels slot")
+        # The approved Monday and weekday mothers use different native disclosure classes.
+        # Validate the selected mother contract; never force one template's selector onto the other.
+        disclosure_selector = "details.compact-disclosure" if args.template == "monday" else "details.source-details"
         levels_disclosure = require_one(
-            levels_key, "details.compact-disclosure", label + " key levels disclosure"
+            levels_key, disclosure_selector, label + " key levels disclosure"
         )
         require_one(levels_disclosure, "summary", label + " key levels disclosure summary")
         if len(levels_disclosure.find_all("div", recursive=False)) != 1:
             raise ValueError(f"{label}: key levels disclosure body wrapper changed")
         if any(getattr(child, "name", None) == "div" for child in levels_key.children):
             raise ValueError(f"{label}: key levels content slot contains injected card wrappers")
-        mother_levels = require_one(mother, "#view .focus-panel.focus-levels .key details.compact-disclosure > summary", "mother key levels summary")
-        report_levels = require_one(report, "#view .focus-panel.focus-levels .key details.compact-disclosure > summary", "review key levels summary")
+        mother_levels = require_one(
+            mother, f"#view .focus-panel.focus-levels .key {disclosure_selector} > summary", "mother key levels summary"
+        )
+        report_levels = require_one(
+            report, f"#view .focus-panel.focus-levels .key {disclosure_selector} > summary", "review key levels summary"
+        )
         if shape(mother_levels) != shape(report_levels):
             raise ValueError(f"{label}: key levels disclosure summary changed")
         core_callout = require_one(
