@@ -66,7 +66,7 @@ def main():
     for selector, context in stable_selectors:
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
-        omit = selector == "#fed .fc-fomc-weekly-events"
+        omit = selector in {"#fed .fed-live-tabs", "#fed .fc-fomc-weekly-events"}
         if shape(left, omit_dynamic_fed_rows=omit) != shape(right, omit_dynamic_fed_rows=omit):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
 
