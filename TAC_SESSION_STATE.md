@@ -3207,3 +3207,17 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 最新候選 Builder blob SHA：`7a996d3287e3ddcc06a9bdfad44c2d159a1dbcf6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；回歸測試 SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
 - 本次 commit 觸發 2026-11-23 Monday 完整 build。必須確認 deterministic test、HTML build、DOM contract、artifact provenance、Playwright、六視窗視覺 QA 全部通過；任何失敗先修正，不得以之前的 run 結果代替。
 - 之後另以 2026-11-20 Weekday fixture 做完整回歸，驗證 3 卡母版結構；兩種母版都通過前不得宣稱 Dashboard 修復完成。
+
+
+## 2026-11-21｜HTML Builder 第二層 DOM 稽核與母版槽位修復（完整 Build 待驗收）
+
+- 本輪只在 `simulation/tac-process-lab-2026-11-06` 工作；main、正式首頁、正式母版、Manifest、QA Contract、正式行事曆 JSON 均未修改。SIM-1.3 仍是唯一有效規則；SIM-1.4 維持 DRAFT，Builder 未獲核准為唯一入口。
+- 第二層盤點 `simulation-lab/runner/build_review_html.py` 的 DOM 修改操作。確認新聞來源列、各市場資料來源、產業來源、債匯商品來源、Fed 官員行程事件列及行事曆重複卡片，屬於既有動態內容槽或清單原型更新；另找到 Today Focus 核心觀察、關鍵價位及財報卡內層有不必要的重建／清空行為。
+- Today Focus 核心觀察修復：不再 `callout.clear()`、重建標題或移除母版第二個補充區；改為更新既有粗體標題、文字節點及兩個既有細節槽位。weekday 無收折槽位時只更新原有文字節點。
+- 今日關鍵價位修復：五種中文標籤以既有 `.key` 內容槽中的文字／換行呈現；保留原有 `.key` 外層、原始收折節點與 summary，不再注入 `key-level-index`／`key-level-row` 卡片包裝層。此呈現符合 SIM-1.3 D4 的單欄垂直標籤要求。
+- 財報卡修復：新增原有 EPS／營收雙卡與 detail-field 槽位的原位更新 helper。週一使用上週財報卡原型作為已公布結果卡；平日使用母版內既有已公布結果卡。即將公布卡依母版原有欄位數填入：週一 1 個既有內容槽，平日 5 個既有欄位。已公布結果的兩張 EPS／營收卡、實際／預期列、狀態與證據註記均更新原節點，不再清空 `details`／`grid` 後重建卡片。
+- QA 補強：`validate_mother_dom_contract.py` 新增 Today Focus 三分頁、radio／label wiring、核心觀察 callout、關鍵價位收折槽位及財報卡原型欄位數／雙卡結構檢查。新增 `test_earnings_card_dom_preservation.py`，覆蓋週一／平日即將公布與已公布卡片原位更新；workflow 已納入 deterministic self-tests。
+- 主要程式／測試 commits：`dfdbd1e`（核心觀察原位更新）、`cb79817`（Today Focus DOM Gate）、`aaaaaa6`（關鍵價位母版槽位）、`548c532`（關鍵價位回歸斷言）、`59618a0`（財報卡原位 helper）、`9f4fea7`（財報卡原型／槽位更新）、`f0a25b8`（財報卡 DOM 測試）、`cc68585`（workflow 納入測試）、`8aa8046`（舊測試斷言更新）、`eb439f2`（修正財報卡完整迴圈）、`d8a2964`（修正測試呼叫斷言）、`6b189be`（財報卡 shell 驗收）。
+- CI run `44910833366` success：Python compile、既有 deterministic tests 及新增財報卡母版槽位回歸測試通過。run `44910900283` 正在驗證新增 DOM validator；尚未把它記為成功。
+- **下一步：** 確認 run `44910900283` 結果；通過後觸發 2026-11-23 Monday full build，執行 HTML assembly、DOM contract、artifact/provenance、Playwright interaction、六 viewport visual QA。完整 build 通過前，不更新 11/23 preview、不宣稱 review-ready。
+- 11/23 資料 Gate 仍維持既有狀態：VIX、MOVE、CNN Fear & Greed、FedWatch 必須在 2026-11-23 05:25 台灣時間截稿前最後刷新；即使 HTML QA 通過，也不得提前解除這四項 blocker。
