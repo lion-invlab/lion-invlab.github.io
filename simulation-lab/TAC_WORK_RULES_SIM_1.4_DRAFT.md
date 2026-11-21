@@ -330,7 +330,7 @@
 - Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
 - Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
 - 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
-- 下表以兩份 SHA 鎖定 simulation baseline 的實際 HTML anchor／href 抽取。兩份母版使用相同的 44 欄位類型、順序與連結；星期差異只在上週行事曆回顧區，不改變這 44 欄行情結構。
+- 下表以兩份 SHA 鎖定 simulation baseline 的實際 HTML anchor／href 抽取。兩份母版使用相同的 44 欄位類型、名稱及固定連結；17 項全球指數順序一致。11 檔 ETF 的示範排名順序在兩份母版不同（母版內是不同日期的示範漲跌排序），每日必須按當日核實漲跌幅重新排序，不得沿用任一母版的示範排名。
 
 | # | 類別 | 母版標籤 | DOM 定位 | 母版固定 href |
 |---:|---|---|---|---|
@@ -351,17 +351,17 @@
 | 15 | 全球指數 | 德國 DAX | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 2 筆）` | https://hk.investing.com/indices/germany-30 |
 | 16 | 全球指數 | 法國 CAC 40 | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 3 筆）` | https://hk.investing.com/indices/france-40 |
 | 17 | 全球指數 | STOXX Europe 600 | `#global-markets #tac-global-panel-2 .row a.global-index-link（面板內第 4 筆）` | https://hk.investing.com/indices/stoxx-600 |
-| 18 | 產業 ETF | XLE 能源 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(1)` | https://hk.investing.com/etfs/spdr-energy-select-sector-fund |
-| 19 | 產業 ETF | XLK 資訊科技 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(2)` | https://hk.investing.com/etfs/spdr-select-sector---technology |
-| 20 | 產業 ETF | XLRE 房地產 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(3)` | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 |
-| 21 | 產業 ETF | XLU 公用事業 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(4)` | https://hk.investing.com/etfs/spdr-select-sector---utilities |
-| 22 | 產業 ETF | XLB 原材料 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(5)` | https://hk.investing.com/etfs/spdr-materials-select-sector-etf |
-| 23 | 產業 ETF | XLV 醫療保健 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(6)` | https://hk.investing.com/etfs/spdr---health-care |
-| 24 | 產業 ETF | XLI 工業 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(7)` | https://hk.investing.com/etfs/industrial-sector-spdr-trust |
-| 25 | 產業 ETF | XLF 金融 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(8)` | https://hk.investing.com/etfs/financial-select-sector-spdr-fund |
-| 26 | 產業 ETF | XLY 非必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(9)` | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector |
-| 27 | 產業 ETF | XLC 通訊服務 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(10)` | https://hk.investing.com/etfs/communication-services-select-spdr |
-| 28 | 產業 ETF | XLP 必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(11)` | https://hk.investing.com/etfs/spdr---consumer-staples |
+| 18 | 產業 ETF | XLE 能源 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLE 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr-energy-select-sector-fund |
+| 19 | 產業 ETF | XLK 資訊科技 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLK 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr-select-sector---technology |
+| 20 | 產業 ETF | XLRE 房地產 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLRE 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 |
+| 21 | 產業 ETF | XLU 公用事業 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLU 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr-select-sector---utilities |
+| 22 | 產業 ETF | XLB 原材料 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLB 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr-materials-select-sector-etf |
+| 23 | 產業 ETF | XLV 醫療保健 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLV 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr---health-care |
+| 24 | 產業 ETF | XLI 工業 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLI 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/industrial-sector-spdr-trust |
+| 25 | 產業 ETF | XLF 金融 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLF 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/financial-select-sector-spdr-fund |
+| 26 | 產業 ETF | XLY 非必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLY 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector |
+| 27 | 產業 ETF | XLC 通訊服務 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLC 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/communication-services-select-spdr |
+| 28 | 產業 ETF | XLP 必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row（以內含 ticker XLP 的 a.tac-sector-link 識別）` | https://hk.investing.com/etfs/spdr---consumer-staples |
 | 29 | 美債 | 2年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 1 筆）` | https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield |
 | 30 | 美債 | 10年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 2 筆）` | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield |
 | 31 | 美債 | 30年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 3 筆）` | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield |
@@ -379,7 +379,7 @@
 | 43 | 風險情緒 | MOVE | `#sentiment .sbox a[href="https://hk.investing.com/indices/ice-bofaml-move"]` | https://hk.investing.com/indices/ice-bofaml-move |
 | 44 | 風險情緒 | CNN Fear & Greed | `#sentiment .cnn-fg-preview`（卡片內 CNN 官方頁連結） | https://edition.cnn.com/markets/fear-and-greed |
 
-**計數驗證：** 全球指數 17 + 產業 ETF 11 + 美債 3 + 外匯 6 + 商品 4 + 風險情緒 3 = **44**。FedWatch 位於獨立 Fed 區塊，不計入 44。ETF 顯示規則仍為僅顯示漲跌幅並依漲跌幅排序；不得把母版示範排名當作每日排序。
+**計數驗證：** 全球指數 17 + 產業 ETF 11 + 美債 3 + 外匯 6 + 商品 4 + 風險情緒 3 = **44**。FedWatch 位於獨立 Fed 區塊，不計入 44。ETF 顯示規則仍為僅顯示漲跌幅並依漲跌幅排序；兩份母版 11 檔 ticker 與 11 個唯一 href 完全一致，但示範排名順序不同，不得把母版示範排名當作每日排序。實際抽取確認：兩份母版各有 17 個全球市場 row、11 個唯一 ETF href、3 個債券 row、6 個 FX row、4 個商品 row，且 VIX／MOVE／CNN 三卡均存在；合計 44。
 
 **限制：** 上表已抽取母版標籤、定位及固定 href；這不代表示範行情數值是當日行情，也不取代每日直接開啟歷史數據頁核對。nth-of-type 定位只在對應母版 SHA 不變時有效；若 SHA 變更，先更新 Manifest 並重建定位契約，否則 BLOCKED。
 
