@@ -53,6 +53,8 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     cards = health.select(":scope > div:nth-of-type(3) > div")
     if len(cards) != expected_cards or result["cards"] != expected_cards:
         raise AssertionError(f"{template_key}: card count changed: {len(cards)} != {expected_cards}")
+    if data["earnings_health"]["forward_pe"] not in health.get_text(" ", strip=True):
+        raise AssertionError(f"{template_key}: forward P/E value missing from the existing dashboard slots")
     if data["earnings_health"]["as_of_date"] not in health.select_one(".title small").get_text(" ", strip=True):
         raise AssertionError(f"{template_key}: FactSet snapshot date did not update")
     link = health.select_one("details a")
