@@ -27,7 +27,9 @@ require('old_card.decompose()')
 require('economic calendar {key} group has events but no mother event-list slot')
 require('earnings calendar {key} group has events but no mother accordion-list slot')
 require('economic calendar {key} group has neither event-list nor empty-state slot')
+require('empty["class"]=classes+["econ-event-list"]')
 require('earnings calendar {key} group has neither accordion-list nor empty-state slot')
+require('empty["class"]=classes+["earnings-accordion-list"]')
 
 # Whole-panel clears are prohibited. Clearing a list's direct event cards is allowed.
 forbid("panels.clear()")
