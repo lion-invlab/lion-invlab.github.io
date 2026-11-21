@@ -2245,3 +2245,11 @@
 - **Step 3 行事曆唯讀核對：17:53:52–17:54:47，00:55，完成。** main HEAD固定為 `21c9b392878050643c4eaa7111db401cc9ab2c5c`；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，同一main commit讀取。W47：25經濟／23財報，48個事件ID全唯一；五星回顧僅2筆經濟（Warsh開幕致詞、FOMC會議紀要）及1筆財報（NVDA）。W48：27經濟（22四星、5五星）、11財報（10四星、1五星），38個事件ID全唯一。兩週timezone均Asia/Taipei，wr_version 5.17；status=incomplete屬SIM允許的動態狀態，不單憑此判定故障。W48財報有6筆time_type=call_time，必須顯示為電話會議時間而非財報發布時間；HPE與DE時刻未確認，維持待核實。main週JSON嚴格唯讀，未修改。
 - **目前進度：** Step 1–3完成；Step 4新聞／分析尚未開始；Step 5 HTML尚未組裝；Step 6 preview尚未交付。此前17:21舊Run紀錄與本Run分開保留；本Run狀態優先。下一步先重新fetch本WR，讀取Step 4及E節新聞規則，再開始新聞蒐集；新聞截止時間採本輪啟動時的今天（2026-11-21），不是11/23 05:25。
 - **重要更正：** 不得沿用舊Session State尾段「不得使用HTML組裝器」等過時敘述；本Run將依最新SIM-1.3第五步、核准母版與QA契約實際要求執行，不先假定外部workflow/smoke成功等於早報完成。
+
+
+## 2026-11-21 17:58:36｜重新啟動 Run 2：Step 4 新聞與分析完成
+- **Step 4 新聞與市場分析：17:55:32–17:58:36，03:04，完成。** 新聞窗口已依使用者指示封口為2026-11-20 12:00至2026-11-21 17:57:31（Asia/Taipei），不再等待11/23清晨。完成5則焦點新聞、10則市場頭條；原始發布時間與時區保留。新增／更新Reuters南韓AI資料中心、US AI chip curbs、SpaceX約440億美元GPU融資、Nvidia SEC調查、MPS董事會正式意見等；分析已整合AI資本回報、融資成本、信用風險、供應鏈營運資金及出口訂單。
+- Fixture `simulation-lab/fixtures/report-data-2026-11-23.json` 已重建並同步44項行情更正、新聞5+10、summary／sentiment／盤面觀察、市場評論、報告截稿時間及pending/blockers；最新blob SHA `0b4fab04722925a6a9cc15ef26d1925a8631f63d`，commit `78cb37c06398e0d2243843e794633ac0d14d875d`。新聞截點17:57:31；FedWatch頁於17:57重讀但最新更新仍為13:35台灣（13.6% hold／86.4% hike）；FGScore於17:57重讀但Provider最新market timestamp仍為07:59台灣、分數10。兩者都以真實時間戳顯示，不冒稱即時。
+- 行情audit最新blob SHA `3e889d1967949ea899b729e885422c54cecfe49d`，commit `9e68c269d78d58b1020575759bf25dbf7c2ffcbc`；商品來源已校正為CME Daily Bulletin #225 preliminary指定合約結算，銀價百分比-7.41%；XLRE因Investing HK歷史頁無法讀取採Yahoo備援。市場JSON與正式母版仍唯讀。
+- **本輪 Step 1–4 累計耗時 06:08**（00:29 + 01:40 + 00:55 + 03:04），距30分鐘全流程上限尚有23:52。Step 5尚未開始；Step 6尚未開始。
+- 新聞窗口已完成封口，禁止再次無目的重查已鎖定的15則新聞；只有發現時間錯置、事實矛盾或重複時才修正。
