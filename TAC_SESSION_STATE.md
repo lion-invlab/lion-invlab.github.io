@@ -2870,3 +2870,18 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - GitHub Actions Pages build/deploy run `44875660337`，head SHA與最新preview commit一致，狀態 `completed / success`。
 - 以GitHub API回讀preview及main `index.html`：preview內容日期／行情日期／W48 27經濟與11財報／WTI CLF27／CNN 10/100均存在；index SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，本次未修改。
 - Pages外部URL直接開啟工具回傳不可存取，故「部署workflow成功」已確認，但「Pages頁面載入正常HTML」未能由本執行環境獨立實測；交付時明確揭露此限制，不將其寫成已通過。
+
+
+## 2026/11/21｜11/23（一）審核版第二輪修正與驗收
+- 依使用者列出的 10 項問題修正既有 preview；只更新 main 的 `preview/2026-11-23-simulation.html`，未修改正式首頁 `index.html`、母版、Manifest、QA contract 或 W47/W48 JSON。
+- 修正所有市場評論重複段落；重寫總結；移除行事曆大標題內的日期範圍。
+- 11 大產業 ETF 改為單一漲跌幅欄、排名與正確排序；11/20 數值：XLP +0.67%、XLV -0.12%、XLI -0.33%、XLE -0.62%、XLB -0.73%、XLU -0.74%、XLRE -0.98%、XLF -1.82%、XLC -2.67%、XLY -2.79%、XLK -7.27%。來源逐檔連至 Investing.com 歷史數據頁。
+- 美債殖利率改採 U.S. Treasury Daily Treasury Par Yield Curve Rates：11/20 2Y 4.63%、10Y 4.92%、30Y 5.31%；相較 11/19 分別 -13、-12、-9 bp。
+- WTI／Brent 主欄名稱移除合約月份；主欄顯示 WTI 83.41（+1.18%）、Brent 92.49（+0.55%）；CLF27／LCOF7 與月份移至來源補充。
+- 本週財報 11 張卡恢復母版 accordion 結構與「觀察重點」內容欄；W48 經濟 27 張、W47 經濟 2 張、W47 財報 1 張保留。
+- FedWatch 補入 2026/11/21 12:55 台灣時間快照：維持 13.6%、升息一碼 86.4%；補入 NY Fed John C. Williams 11/23 16:00 ET（台灣 11/24 05:00）公開行程及 11/25 Beige Book。
+- 今日關鍵價位依 11/20 OHLC 計算五項指數 S1/P/R1；摘要重寫為上週判讀、本週驗證、策略含意。
+- 靜態 QA 全數通過：183 IDs 唯一、124 style、25 script、17 全球指數、44 行情欄位結構、11 ETF、3 債券、6 FX、4 商品、3 風險指標、W48/W47 卡片數量、FedWatch、關鍵價位、評論不重複、標題無日期。
+- 瀏覽器 QA 通過 360/390/412/768/1440px：無水平溢位、tab 切換、行事曆／財報展開、來源展開、上週區塊預設收折、無 JS errors。
+- main preview commit：`c3501839d8c0c96aca18afa73fcfd44e7eb6d6ad`；blob：`871524712013d34b687913366ce9abdf06baa11d`。index.html SHA 維持 `85ef90b60788e25973a5bbe39e23b76c7081a53f`。
+- Pages URL：`https://lion-invlab.github.io/preview/2026-11-23-simulation.html`；部署後直連視覺載入仍需外部端確認，不以 commit 成功代替 URL 實際驗證。
