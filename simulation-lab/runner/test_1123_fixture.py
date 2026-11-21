@@ -122,8 +122,18 @@ def main():
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
-    assert len(data["review_ready_blockers"]) >= 2
-    assert any("新聞窗口尚未封口" in x for x in data["review_ready_blockers"])
+    assert len(data["review_ready_blockers"]) >= 3
+    cfd_indices = {
+        name for name, item in data["global_markets"].items()
+        if item.get("source", {}).get("quote_type") == "cfd_index_reference_series"
+    }
+    assert cfd_indices == {
+        "標普500指數", "日經225", "香港恆生指數",
+        "英國 FTSE 100", "德國 DAX", "STOXX Europe 600",
+    }, cfd_indices
+    assert any("六項現貨指數" in x and "CFD" in x for x in data["review_ready_blockers"])
+    assert any("VIX" in x and "FedWatch" in x for x in data["review_ready_blockers"])
+    assert any("審核版 HTML 尚未產出" in x for x in data["review_ready_blockers"])
 
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
     workflow = (ROOT / ".github" / "workflows" / "tac-simulation-lab.yml").read_text(encoding="utf-8")
@@ -138,7 +148,9 @@ def main():
     print(f"PASS: 44 market indicators = {counts}")
     print("PASS: 5 focus news + 10 headlines; source timezones, updates and links complete")
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
-    print("PASS: news window remains open through Monday 05:25 cutoff; final build remains blocked")
+    print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
+    print("BLOCKED as expected: six index records are CFD references; no cash-index substitution permitted")
+    print("BLOCKED as expected: sentiment/FedWatch refresh and HTML QA remain outstanding")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
