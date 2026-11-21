@@ -2647,3 +2647,14 @@
 - Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`review_ready_blockers=[]`；六種 viewport 1440／768／412／390／360／320、browser interaction、母版視覺、母版 DOM、獨立 provenance、44 項行情及行事曆／新聞結構驗收均通過。
 - 本次同版 provenance：Builder `60d778c39ffe48140e99e0dad3579ce9f0b33945`；Manifest `5080858c6720847086b7df815432d305d6231b3a`；QA Contract `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`；active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`；candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。
 - SIM-1.4 仍為 DRAFT；sidecar 明確記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。目前只完成 Monday 同版技術驗證；尚須以完全相同版本 SHA 完成 Weekday 母版回歸，才能標記雙母版候選驗證完成。未修改 main、正式首頁、正式母版或正式行事曆 JSON，亦未部署 Pages。
+
+
+## 2026-11-22｜SIM-1.4 同版雙母版候選 Builder 驗證完成
+
+- Weekday run `44954985333` 先暴露 Builder 將 Monday-only 財報來源說明槽位套用至 Weekday mother 的錯誤（`earnings calendar mother source note missing`）。Weekday mother 實際沒有頂層 `.source` 槽位；每張財報卡已有自己的來源欄位。此為 Builder 星期分流錯誤，並非母版缺損。
+- Builder commit `5db23586cb7307b490a9cbb38ccd84f6065f4f01`，blob `036d9ab838a1b4e461de52cadf6c33a8d6236758`：抽出 `update_earnings_calendar_source_note()`；Monday 僅更新原母版 source note；Weekday 驗證不存在 Monday-only slot 後 no-op，不新增／刪除／重建 DOM 或 CSS。Regression test commit `73242392402e7440bb928ec829eae81bfb58b3f2`，blob `e3856b23d609340870ae810d0dd5c1dd30a29e28`，self-tests 通過。
+- Weekday 同版 run `44955117611` completed／success；HTML blob `8b2f7201b380d2152255975cd521a4098ab0f530`、SHA-256 `c432b0cb5a2a27b7001950161a78e323f0889787ce7b4b29d0d7b508aaf42120`；QA sidecar `b9cd2550caa6076276185117d81bda8703a15228`。六個 viewport、互動、視覺、DOM、provenance、44 項行情與行事曆／新聞結構均通過。
+- 重新核對後發現早先 Monday run `44954756293` 使用舊 Builder SHA `60d778c...`，不可與新 Weekday PASS 合併。已以最新 Builder 重新執行 Monday run `44955333627` completed／success；HTML blob `7b04a02edb35a3f90298394faeeb73c204f326a8`、SHA-256 `fc151183bde61339e5c46169da249355316a3cec4da6895e6f4711954348315c`；QA sidecar `25a8079900905bd78b7d59f0e8476e08afaee36d`。完整視覺、互動、DOM、獨立 provenance、44 項行情及行事曆／新聞結構均通過。
+- 最終雙母版同 SHA provenance：Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract v1.14 `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。兩個 sidecar 均 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、無 review blockers。
+- 依 SIM-1.4 §8.1，雙母版隔離實證完成，候選 Builder 可標示 `CANDIDATE_VALIDATED`。但兩個 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；SIM-1.4 仍為 DRAFT，須使用者明確核准 Builder 路徑與 SHA 及規則生效，不能代替使用者批准。
+- 只寫 simulation branch；main、正式首頁、正式母版、Manifest、正式行事曆 JSON 均未修改，Pages 未部署。
