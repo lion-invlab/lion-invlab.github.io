@@ -2973,9 +2973,24 @@ def main():
     }
     provenance_comment = Comment(" TAC_BUILD_PROVENANCE " + json.dumps(build_provenance, ensure_ascii=False, separators=(",", ":")) + " ")
     soup.head.append(provenance_comment)
-    out=Path(args.output)
-    out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_text(str(soup),encoding="utf-8")
+    # Hard-enforce the only permitted write target, even outside GitHub Actions.
+    # resolve() detects preview/ or target symlinks that escape the repository.
+    expected_output = (ROOT / "preview" / f"{report_iso}-simulation.html").resolve()
+    requested_output = Path(args.output)
+    if not requested_output.is_absolute():
+        requested_output = ROOT / requested_output
+    requested_output = requested_output.resolve()
+    if requested_output != expected_output:
+        raise SystemExit(
+            "protected-write guard rejected --output; only "
+            f"preview/{report_iso}-simulation.html is permitted"
+        )
+    preview_root = (ROOT / "preview").resolve()
+    if expected_output.parent != preview_root or preview_root != (ROOT / "preview").absolute():
+        raise SystemExit("protected-write guard rejected preview path or symlink escape")
+    out = expected_output
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(str(soup), encoding="utf-8")
     print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
