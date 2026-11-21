@@ -958,6 +958,24 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
     return {"cards": len(cards), "card_keys": sorted(seen), "source_date": earnings_health["as_of_date"]}
 
 
+
+def update_market_sentiment_interpretation_preserving_dom(sentiment_section, sentiment_text):
+    """Update the existing final sentiment card's text slot without rebuilding its wrapper."""
+    if sentiment_section is None:
+        raise ValueError("market sentiment section missing from approved mother")
+    cards = sentiment_section.select(".sbox")
+    if not cards:
+        raise ValueError("market sentiment interpretation card missing from approved mother")
+    interpretation = cards[-1]
+    parts = interpretation.find_all("div", recursive=False)
+    if len(parts) != 2 or "label" not in parts[0].get("class", []):
+        raise ValueError("market sentiment interpretation mother card must retain label and body slots")
+    if parts[0].get_text(" ", strip=True) != "📌 核心解讀":
+        raise ValueError("market sentiment interpretation label changed unexpectedly")
+    set_leaf_text_preserving_dom(parts[1], sentiment_text, "market sentiment interpretation")
+    return interpretation
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
@@ -1200,15 +1218,7 @@ def main():
     # Market sentiment narrative: replace the dedicated final interpretation card,
     # not metric source/disclosure blocks (the mother template has no paragraph slot).
     sent=unique(soup,"#sentiment","sentiment")
-    sentiment_cards=sent.select(".sbox")
-    if not sentiment_cards:
-        raise ValueError("sentiment interpretation card missing from approved mother template")
-    interpretation=sentiment_cards[-1]
-    interpretation_label=interpretation.select_one(".label")
-    interpretation.clear()
-    if interpretation_label is not None:
-        interpretation.append(interpretation_label)
-    interpretation.append(data["sentiment"])
+    interpretation = update_market_sentiment_interpretation_preserving_dom(sent, data["sentiment"])
     rendered_summary_title = unique(bluf, "h1", "summary headline").get_text(" ", strip=True)
     if rendered_summary_title != summary_title or rendered_summary_title in SUMMARY_HEADING_LABELS:
         raise ValueError("summary headline failed semantic DOM verification")
