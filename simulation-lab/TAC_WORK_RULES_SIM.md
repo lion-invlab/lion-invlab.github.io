@@ -736,14 +736,14 @@
 - 測試必須涵蓋 A 軌正向、B 軌正向、公告後擷取拒絕、同日日期不明拒絕、已知公告後 published_at 拒絕、缺少比較口徑拒絕、EPS／Revenue 分離及舊資料不得繼承方向性結論。
 - SIM-1.3 僅適用模擬分支；未完成回歸測試及實際財報案例驗收前，不得宣稱已正式取代其他分支規則。
 
-### F3-補充5｜Yahoo Finance 第四順位與觀測證據分層（2026-11-15｜SIM-1.3）
+### F3-補充5｜Yahoo Finance 第一順位與觀測證據分層（2026-11-15｜順位依使用者 2026-11-21 指示統一）
 
-1. 共識來源階梯擴充為：LSEG I/B/E/S → FactSet Estimates → Investing.com → Yahoo Finance。Yahoo Finance 僅在前三順位無法取得可追溯、期間正確且可比較的來源時作為第四順位；不得覆蓋較高順位已取得的有效共識。
-2. Yahoo Finance earnings capability 可提供當季 EPS／Revenue average、high、low、分析師數及季度期間，但 observed_at_ms 是 TAC 本次讀取時間，不是 Yahoo 宣告的 data_as_of。必須將 data_as_of 保持 null，並將原始回應不可變保存及計算 SHA-256。
-3. Yahoo Finance 未明確揭露 EPS GAAP／Adjusted 與 Basic／Diluted 口徑時，EPS estimate 可供讀者參考，但 comparison status 必須 pending；不得由歷史實際 EPS、數值大小或其他網站推定其口徑。
-4. Yahoo Finance 未明確揭露 Revenue 精確指標定義時，Revenue estimate 可供讀者參考，但 comparison status 必須 pending；不得僅因欄位名稱為 revenue_estimate 就推定與公司公布的 GAAP revenue／net sales 同口徑。
-5. 若公告前原始回應、來源 URL、ticker、事件時間、財報期間、數值、幣別、統計類型與必要單位均可核對，但會計／營收比較口徑缺漏，卡片可顯示「TAC 公告前觀測共識｜比較口徑待核實」及 estimate／analyst count；方向性判讀仍由唯一引擎禁止輸出。
-6. 此來源新增不代表購買任何訂閱，也不得使用付費歷史資料或聲稱具供應商歷史 PIT。僅使用當次實際可取得的公開資料及 TAC 自行保存的公告前回應。
+1. 財報共識來源階梯固定為：**Yahoo Finance → LSEG I/B/E/S → FactSet Estimates → Investing.com**。Yahoo Finance 為第一順位；其餘依序遞補。不得因低順位來源數字較高／較低而覆蓋已取得的 Yahoo 有效共識。
+2. Yahoo Finance earnings capability 可提供當季 EPS／Revenue average、high、low、分析師數及季度期間。observed_at_ms 是 TAC 本次讀取時間，不是 Yahoo 宣告的 data_as_of；必須將 data_as_of 保持 null，並將原始回應不可變保存及計算 SHA-256。
+3. Yahoo Finance 該指標缺值、未提供、無法讀取、財報期間不符或無法取得可用平均預期時，才進入 LSEG I/B/E/S；LSEG 不可用才進入 FactSet Estimates；FactSet 不可用才進入 Investing.com。EPS 與 Revenue 各自獨立遞補，不要求兩者使用同一來源。
+4. Yahoo Finance 未明確揭露 EPS GAAP／Adjusted 與 Basic／Diluted 口徑時，保留可得估值及來源註記，不得推定未揭露欄位；Revenue 未揭露精確指標定義時亦須註明。依 F3-補充7／8 的實用型數值判讀規則處理，不得把口徑註記偽裝成已確認同口徑。
+5. 若公告前原始回應、來源 URL、ticker、事件時間、財報期間、數值、幣別、統計類型與必要單位均可核對，可依 F3-補充4 的 B 軌標示「TAC 公告前觀測共識」；公告後擷取不得冒稱公告前觀測。
+6. 本順位規則不代表購買任何訂閱，也不得使用付費歷史資料或聲稱 Yahoo 供應商歷史 PIT。低順位來源僅在高順位缺值／不可用時遞補，或作清楚標示的交叉參考，不得混合或平均。
 
 ### F3-補充6｜Yahoo EPS GAAP／Normalized 方法辨識（2026-11-15｜SIM-1.3）
 
@@ -758,7 +758,7 @@
 
 1. TAC 是投資研究與資訊整理工具，不是金融資料供應商或專業評鑑機構；不得以機構級 PIT、逐筆分析師修正紀錄、完整供應商有效時間或全部會計細項作為一般財報判讀的必要門檻。
 2. 只要同一家公司同一財報期間已取得平台 EPS／Revenue 預期值與公司公布實際值，即必須由唯一判讀引擎分別比較並輸出「優於預期／符合預期／低於預期」。不得以「待核實」「比較口徑待核實」「不相容」或來源證據不足取代判讀結果。
-3. 預期值依固定來源階梯選用：LSEG I/B/E/S → FactSet Estimates → Investing.com → Yahoo Finance；只有較高順位來源缺值、不可讀或該指標無法取得時，才進入下一順位。取得第一個可用的同一財報期間平均預期值後停止該指標的主來源搜尋；後續來源僅作交叉參考，不得因數字較高／較低而切換主來源。保留實際來源、平均預期值及可取得的分析師人數。
+3. 預期值以 Yahoo Finance Average Estimate 為第一順位；Yahoo 該指標缺值、未提供、無法讀取、財報期間不符或無法取得可用平均預期時，才依序遞補 LSEG I/B/E/S、FactSet Estimates、Investing.com。取得第一個可用的同一財報期間平均預期值後停止該指標的主來源搜尋；後續來源僅作交叉參考，不得因數字較高／較低而切換主來源。保留實際來源、平均預期值及可取得的分析師人數。
 4. 預設以實際值與預期值的數值差判斷方向；差異在預期值絕對值 1% 以內，視為「符合預期」。若來源精度或顯示精度有更合理的明確容忍值，可使用該項設定。負 EPS 仍按實際值與預期值的有號數值比較（例如虧損小於預期即優於預期）。
 5. EPS 與 Revenue 必須獨立判讀。來源未完整揭露 GAAP／Adjusted、Basic／Diluted 或 Revenue 細項定義時，保留來源註記，不阻斷數值比較；不得把這些限制寫成判讀結果。
 6. 同一財報期間的來源預期與實際數值如採不同顯示單位，先換算至相同單位再比較；幣別不同時優先使用平台已提供的同幣別共識或公開匯率換算，並在資料註記揭露換算方式。不得把未換算的不同幣別數字直接相減。
@@ -767,17 +767,17 @@
 9. 版本化引擎及測試必須驗證：有預期與實際數字即可產生三種方向性結果；缺少任一數值只顯示尚未公布／尚未取得；EPS 與 Revenue 各自獨立；負 EPS、零預期、1% 符合區間及來源口徑未揭露均可正確處理。
 
 
-## F3-補充8｜共識來源固定選用順序（2026-11-15｜使用者確認；2026-11-21 校正順位）
+## F3-補充8｜共識來源固定選用順序（2026-11-15｜使用者確認；2026-11-21 統一 Yahoo 第一順位）
 
 1. EPS 與 Revenue 分別選源；每個指標各自有一個主判讀來源，不要求兩者必須來自同一供應商。
-2. 共識來源固定順位為：**LSEG I/B/E/S → FactSet Estimates → Investing.com → Yahoo Finance**。Yahoo Finance 是第四順位備援，不是第一順位；不得覆蓋前三順位已取得的有效共識。
-3. 每一指標由第一順位開始查找；來源缺值、不可讀、財報期間不符或無法取得該指標平均預期時，才進入下一順位。取得第一個符合條件的平均預期值後，該指標停止主來源搜尋；較低順位來源只能作交叉參考。
-4. Yahoo Finance 僅在 LSEG、FactSet、Investing.com 均無法提供該指標可用共識時啟用。使用 Yahoo earnings estimate 時，記錄 ticker、財報期間、EPS／Revenue 指標、平均預期值、high／low（若有）、分析師人數（若有）、幣別、單位、統計類型、來源 URL、TAC observed_at 與原始回應 SHA-256；不得將 observed_at 冒充 Yahoo 的 data_as_of。Yahoo 未提供的欄位保持 null，不得推估。
-5. Yahoo EPS estimate 若可取得 methodology，須保留 GAAP／Normalized（非 GAAP）辨識；若 GAAP／Normalized 或 Basic／Diluted 口徑未揭露，必須在卡片資料註記揭露。Revenue 若未提供精確指標定義，也須註明「Revenue 指標定義未揭露」。依 F3-補充7及F3-補充10的實用型數值判讀規則，不因口徑註記單獨阻斷數值比較，但不得把未揭露口徑描述成已確認同口徑。
-6. Yahoo 資料只能使用本次實際可取得的公開資料及 TAC 自行保存的原始回應；不得聲稱具有 Yahoo 供應商歷史 PIT、付費歷史資料或公告前 data_as_of。若原始回應是在公告前由 TAC 保存，可依 F3-補充4 的 B 軌標示「TAC 公告前觀測共識」；若公告後才擷取，必須如實標示觀測時間，不得冒稱公告前觀測。
-7. EPS 與 Revenue 可分別採不同來源，例如 LSEG EPS + Yahoo Revenue（僅在前三順位 Revenue 均不可用時）；每一項小卡都必須清楚標示該項實際採用來源及可取得的分析師人數。
+2. 共識來源固定順位為：**Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com**。Yahoo Finance 為第一順位，其餘來源依序遞補。
+3. 每一指標先查 Yahoo Finance 同一財報期間的 Average Estimate；只有該指標缺值、未提供、無法讀取、財報期間不符或無法取得可用平均預期時，才進入 LSEG I/B/E/S；LSEG 不可用才進入 FactSet Estimates；FactSet 不可用才進入 Investing.com。取得第一個可用平均預期後，該指標停止主來源搜尋。
+4. 低順位來源可作透明度交叉參考，但不得覆蓋已選定的高順位主來源，不得混合、平均或因數字較高／較低而任意切換。EPS 與 Revenue 可分別採不同來源；每張卡均須標示各自實際採用來源及可取得的分析師人數。
+5. Yahoo Finance 使用 earnings estimate 時，記錄 ticker、財報期間、EPS／Revenue 指標、平均預期值、high／low（若有）、分析師人數（若有）、幣別、單位、統計類型、來源 URL、TAC observed_at 與原始回應 SHA-256；不得將 observed_at 冒充 Yahoo 的 data_as_of。Yahoo 未提供的欄位保持 null，不得推估。
+6. Yahoo EPS estimate 若可取得 methodology，須保留 GAAP／Normalized（非 GAAP）辨識；若 GAAP／Normalized 或 Basic／Diluted 口徑未揭露，必須在卡片資料註記揭露。Revenue 若未提供精確指標定義，也須註明「Revenue 指標定義未揭露」。依 F3-補充7及F3-補充10的實用型數值判讀規則，不因口徑註記單獨阻斷數值比較，但不得把未揭露口徑描述成已確認同口徑。
+7. Yahoo 資料只能使用本次實際可取得的公開資料及 TAC 自行保存的原始回應；不得聲稱具有 Yahoo 供應商歷史 PIT、付費歷史資料或公告前 data_as_of。若原始回應是在公告前由 TAC 保存，可依 F3-補充4 的 B 軌標示「TAC 公告前觀測共識」；若公告後才擷取，必須如實標示觀測時間，不得冒稱公告前觀測。
 8. 公司實際財報數字以公司正式公布資料為準。比較前先換算至相同顯示單位及幣別；單位換算可由資料處理層完成並記錄。不同幣別不得直接相減，未經換算不得宣稱優於／符合／低於預期。
-9. 本節校正取代舊版 F3-補充8 中「Yahoo Finance 第一順位、Investing.com 第二順位」的表述；同時校正 F3-補充7 第3點的來源選用句。F3-補充7 的實用型比較原則、F3-補充4 的證據分層及 F3-補充5／6 的 Yahoo 欄位與口徑揭露要求仍保留，彼此依本節順位規則一致執行。
+9. 本節統一 F3-補充5及F3-補充7 的來源順位；若歷史條文仍出現 Yahoo 第四順位或 Yahoo 第一順位以外的來源次序，以本節為準。F3-補充7 的實用型比較原則、F3-補充4 的證據分層及 F3-補充5／6 的 Yahoo 欄位與口徑揭露要求仍保留。
 
 ## F3-補充9｜2026-11-16 實際審核版回歸驗收
 - 本次以 simulation branch 最新程式與 `report-data-2026-11-16.json` 產出新的隔離審核版；不得把既有 `simulation-lab/output/TAC_投資早報_2026-11-16_審核版.html` 當成新建成果。
@@ -854,3 +854,12 @@ TAC 投資早報的總結不是新聞摘要，而是以當日市場資訊為依�
 - Yahoo 欄位仍須保存來源 URL、TAC 擷取時間、原始回應及 SHA-256；observed_at 不得冒充 data_as_of。methodology、Revenue 定義或分析師人數未揭露時如實註記，不得自行推估。
 - 保留 SIM-1.3 F3-補充7／10 的實用型數值判讀政策；PIT 證據標籤與數值判讀資格分開，不能把公告後擷取的 Yahoo 數字冒稱公告前共識。
 - 僅修改 simulation branch 的 SIM 工作規則及工作紀錄；不修改 main、正式首頁、母版、Manifest、行事曆 JSON 或 SIM-1.4 DRAFT。
+
+
+## SIM-1.3 補充修訂｜Yahoo Finance 第一順位統一（2026-11-21）
+
+- 依使用者最新明確指示，財報共識來源統一為 Yahoo Finance 第一順位，其餘來源依序遞補：Yahoo Finance → LSEG I/B/E/S → FactSet Estimates → Investing.com。
+- 同步修正 F3-補充5、F3-補充7 第3點及 F3-補充8，移除先前誤將 Yahoo 列為第四順位的規則。
+- EPS 與 Revenue 各自獨立選源；只有 Yahoo 該指標缺值、無法讀取或期間不符時才逐級遞補。取得第一個可用平均預期後停止該指標主來源搜尋；低順位只作透明度交叉參考，不得混合、平均或覆蓋高順位值。
+- Yahoo 的來源 URL、TAC observed_at、原始回應及 SHA-256 必須保存；observed_at 不得冒充 data_as_of。口徑未揭露時如實註記，依實用型數值判讀規則處理。
+- 本次為更正前一筆 2026-11-21 規則修改的順位方向；前一筆錯誤紀錄保留供追溯，不再作為有效規則。
