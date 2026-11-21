@@ -1645,7 +1645,7 @@ def main():
     report_date_meta = soup.select_one('meta[name="report-date"]')
     if report_date_meta:
         report_date_meta["content"] = report_iso
-    # No unapproved one-off DOM/CSS injection is allowed in the daily report builder.
+    # Enforce the mother-locked daily-report boundary: no one-off DOM/CSS injection is allowed.
     # Extraordinary-event content must first have a mother-owned slot and an approved CSS contract.
     special = data.get("special_focus")
     if special:
