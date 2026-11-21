@@ -42,13 +42,11 @@ def main():
     event = data["earnings"]["events"][0]
     assert event["status"] == "pending_verification"
     assert event["eps_actual"] is None and event["revenue_actual"] is None
-    assert earnings_status_label(event, "eps", "pending") == "公告已發布；實際值待核實"
-    assert "官方實際值待核實" in earnings_commentary(event)
-
     # Calendar grouping must compare aware event timestamps with a Taipei-local cutoff.
     assert classify_calendar_group(event, "2026-11-20", "2026-11-20 05:25") == "published"
     assert event["_calendar_publication_state"] == "pending_verification"
     assert earnings_status_label(event, "eps", "pending") == "公告已發布；實際值待核實"
+    assert "官方實際值待核實" in earnings_commentary(event)
     assert calendar_actual_display(event, "2026-11-20 05:25") == "公告已發布；實際值待核實"
 
     # A report-layer flag must not force a future event into the published group.
