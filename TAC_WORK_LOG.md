@@ -1953,3 +1953,11 @@
 - 鉅亨網11/21 08:00〈美股重點新聞摘要2026年11月20日〉：含美中AI軍事決策、人類監督、資料中心政策構想等多個子題；屬彙編型摘要，應拆讀各原始來源後才可獨立採用，不直接整篇當單則新聞。來源：https://news.cnyes.com/news/id/6669679 。
 - 鉅亨網11/21 05:49〈美股盤後｜AI殺盤全面失控〉與09:00美股收盤專題屬同一事件，二擇一，暫以09:00專題為熱門頭條候選；05:49版保留作交叉核對。
 - 本輪新增合格候選，不代表新聞窗口已封口；截稿時間仍為2026-11-23 05:25 Asia/Taipei。新聞名額、跨區平衡及事件去重須於截稿前最後確認。
+
+
+## 2026-11-21｜續作：W48 正式資料庫回讀與新聞來源增量核實
+- 重新 fetch 最新 SIM-1.3（blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）及 QA 契約 v1.4（SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`），依第五／六步規則繼續；未修改母版、Manifest、正式首頁或行事曆 JSON。
+- 重新唯讀讀取 main `data/calendar/weeks/2026-W48.json`，blob SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，updated_at `2026-11-21T09:00:28+08:00`，wr_version 5.17，coverage=incomplete。經濟27筆（四／五星27筆）、財報11筆（四／五星11筆）；HPE及DE時間未知，保留待核實。未寫入 JSON。
+- 重新讀取 main W47 的 Git blob SHA 為 `727ea2be1c04688d3c4f98d36c452561bbab6821`，但 GitHub fetch_file 回傳空內容（UTF-8及base64均為0 bytes）；因此本輪不能以原始 JSON 逐筆重驗 W47，僅保留前次 Work Log 已記錄的篩選結果，不宣稱本輪重新驗收完成。
+- 新聞增量查核：Reuters《The snowballing selloff in global markets》原文／Investing.com Reuters 鏡像確認全球股市自8月高點蒸發近US$9T、台股單週跌17%，並指出AI估值與美國升息預期造成跨資產賣壓；AP 11/20美股收盤確認S&P 500 6,910.39（-3.7%）、Nasdaq 22,617.73（-5.3%）、Dow 48,147.33（-1.9%）、Russell 2000 2,581.79（-2.8%）。Reuters《Take Five》補充下週黑五消費、韓國央行、日本／澳洲通膨與ECB人事觀察。來源URL：Reuters https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/；Investing鏡像 https://ca.investing.com/news/economy-news/the-snowballing-selloff-in-global-markets-4972730；AP https://apnews.com/article/c10b797a17c2acf37924d834efebe135；Reuters Take Five https://www.investing.com/news/economy-news/take-five-shopping-chips-and-central-banks-5041291 。
+- 目前仍未產生11/23審核版。已確認 simulation branch 尚無 `simulation-lab/fixtures/report-data-2026-11-23.json`；GitHub連線可讀寫檔案但可用工具未提供 workflow_dispatch，容器亦無法連線GitHub；本機舊母版副本SHA與核准simulation baseline SHA不同，不可冒用。故不能安全執行既有DOM builder或宣稱已完成母版組裝／QA。未以舊工作稿或字串替換方式造出假預覽。
