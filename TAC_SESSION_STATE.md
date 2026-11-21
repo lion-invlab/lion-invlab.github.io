@@ -2837,3 +2837,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - W48行事曆映射工作稿位於本機 /mnt/data/TAC_投資早報_2026-11-23_行事曆映射工作稿.html，由母版副本直接DOM更新。以UTF-8 parser核對：上週經濟2卡、上週財報1卡、本週經濟27卡、本週財報11卡；W48事件數與JSON總數相符，未修改正式JSON。此僅證明卡片數量映射，不代表逐欄內容、來源、排序與結構QA已通過。
 - 工作稿與核准母版的DOM統計需以同一parser重做正式差異檢查；本次初步解析兩者元素總數有差異，ID數量相同，但尚未完成QA契約的結構差異裁決。行事曆工作稿不得標記review_ready；行情其餘欄位、新聞窗口封口、FedWatch截稿重讀、完整分析與四類QA仍未完成。
 - 保護範圍：未修改main、index.html、正式母版、Manifest、QA契約或W47/W48 JSON；目前僅更新本機工作稿，未寫入main preview，未發布。
+
+
+## 2026-11-21｜WTI 單項補漏 checkpoint
+- 最新SIM-1.3版本／blob SHA：SIM-1.3 / `679eae7ba7a40dbad64d15bb448fe53db7d67e09`。依D2分輪補漏原則，本輪只處理未鎖定的WTI，不重抓已核實行情。
+- WTI合約清單直接讀取：https://www.investing.com/commodities/crude-oil-contracts。11/20成交量：CLZ26 24,186；CLF27 275,335；CLG27 90,192。較活躍月份為Jan-27 CLF27，Last 83.41；Farmbucks CLF27頁確認NYMEX合約、Volume 275.34K、Prev. settlement 82.44，但未標示11/20正式Settlement。Reuters 83.98對應CLZ26，不能當CLF27值。
+- 原Investing HK歷史列82.40仍屬CFD／連續報價，不採用。FT CL.1歷史列83.41雖可見，但直接開啟403，且未能證明為CLF27正式結算。故WTI仍標「待核實」，不把Last冒充Settlement。
+- 只剩WTI此單項結算證據待補；其他已鎖定欄位保持不動。第二步44項整體狀態表仍須依既有紀錄逐項接收，不宣稱第二步結案。未修改任何行情資料庫、main或母版。
