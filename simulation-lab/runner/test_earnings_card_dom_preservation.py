@@ -50,6 +50,15 @@ def test_commodity_link_uses_investing_instrument_url_not_quote_source():
     assert source["url"].startswith("https://www.cmegroup.com/")
 
 
+def test_monday_earnings_source_note_matches_approved_mother_dom():
+    soup = mother("monday-mother-template.html")
+    earnings = soup.select_one("#earnings")
+    assert earnings is not None
+    source_note = earnings.find("div", class_="source", recursive=False)
+    assert source_note is not None, "Monday earnings source note must remain a direct child of #earnings"
+    assert source_note.find("a") is not None, "mother source note link must remain available for stale-link suppression"
+
+
 def test_earnings_star_style_matches_each_card_rating():
     soup = mother("monday-mother-template.html")
     card = next(x for x in soup.select("#earnings details.earnings-accordion") if "five-star-earnings" in x.get("class", []))
@@ -86,6 +95,7 @@ def main():
     published = fixture["last_week_earnings"]["events"][0]
 
     test_commodity_link_uses_investing_instrument_url_not_quote_source()
+    test_monday_earnings_source_note_matches_approved_mother_dom()
     test_earnings_star_style_matches_each_card_rating()
     test_calendar_grouping_respects_publication_status_and_report_cutoff()
     test_calendar_listing_removes_stale_copy_and_prototypes()
