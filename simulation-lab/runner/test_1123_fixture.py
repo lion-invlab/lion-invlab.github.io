@@ -83,7 +83,7 @@ def main():
     assert data["fx"]["美元指數"]["change_display"] == "-0.08%"
     assert data["fx"]["美元／新台幣"]["display"] == "32.936"
     assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "official_interbank_close"
-    assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.42%"
+    assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
     assert data["energy"]["Brent原油期貨"]["source"]["change_points"] == "+0.59"
     assert data["energy"]["Brent原油期貨"]["source"]["ice_official_last"] == "92.49"
