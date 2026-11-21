@@ -365,6 +365,14 @@ jobs:
               [{"display": value} for value in data.get("sectors", {}).values()]
           )
           assert len(indicators) == 44, f"expected 44 indicator fields, got {len(indicators)}"
+          # A CFD index reference may never be rendered as a cash-index close.
+          # Keep the row explicitly pending until a cash/official index source is captured.
+          cfd_rows = [
+              name for name, item in data.get("global_markets", {}).items()
+              if item.get("source", {}).get("quote_type") == "cfd_index_reference_series"
+              and (item.get("display") != "待核實" or item.get("change_display") != "待核實")
+          ]
+          assert not cfd_rows, f"CFD index values must be suppressed, not rendered as cash closes: {cfd_rows}"
           assert len(data.get("focus_news", [])) == 5, "global focus news must contain 5 stories"
           assert len({x.get("title") for x in data["focus_news"]}) == 5, "duplicate focus news titles"
           assert len(data.get("headlines", [])) == 10, "market headlines must contain 10 stories"
