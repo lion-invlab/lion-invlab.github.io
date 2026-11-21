@@ -1744,26 +1744,9 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 .earnings-actual-note{font-size:11px;line-height:1.45;color:#687078;margin-top:7px}
 @media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px}.earnings-actual-card{padding:8px}.earnings-actual-line strong{font-size:12px}.earnings-actual-card-title{font-size:12px}}
 </style>
-<style>
-/* HOTFIX: make EPS/revenue pair span the full company-card width */
-.earnings-accordion-details>.earnings-results-grid{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
-.earnings-results-grid>.earnings-actual-card{width:100%;min-width:0;box-sizing:border-box}
-.earnings-actual-line strong{overflow-wrap:break-word;word-break:normal}
-@media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:8px}.earnings-actual-card{padding:10px}.earnings-actual-line strong{font-size:13px;overflow-wrap:anywhere}}
-</style>
-<style>
-/* FIX v2: remove parent two-column grid constraint for past reported earnings */
-#last-week-earnings .earnings-accordion-details{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-accordion-details>.earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-column:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;align-self:stretch!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-results-grid>.earnings-actual-card{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
-</style>
-<style>
-/* FIX v3: force the EPS/revenue grid to span both columns of the existing details grid */
-#last-week-earnings .earnings-accordion-details > .earnings-results-grid{grid-column:1 / -1!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;width:100%!important;max-width:100%!important;justify-self:stretch!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-results-grid > .earnings-actual-card{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-actual-line strong{font-size:13px!important;overflow-wrap:normal!important;word-break:normal!important}
-#last-week-earnings .earnings-actual-note{overflow-wrap:anywhere!important}
-</style>
+
+
+
 
 <style id="earnings-card-preview-v1-applied">
 /* 已公布財報小卡：套用核准預覽版視覺，不改動財報數值 */
