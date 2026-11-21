@@ -151,3 +151,8 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - `build_review_html.py` now preserves separate EPS and Revenue consensus source URLs/names/timestamps and renders the two sources independently on earnings cards rather than using one shared provider link.
 - This is simulation-only integration. It does not fetch missing lower-tier providers by itself; an actual fallback requires the collector to supply a validated provider attempt in `provider_attempts`. Current W47 Yahoo captures have both metric values, so the correct first-source stop rule should select Yahoo and not query lower tiers.
 - Run full SIM-1.4 regression/build now; no main writes and no W48 JSON changes.
+
+
+## SIM-1.4 selector integration syntax correction
+
+- Corrected the projection writer newline escape after the first compile run caught an unterminated string literal. The selector path remains simulation-only; next run recompiles, runs deterministic tests, rebuilds 11/23 review, and revalidates the six viewport/browser contracts.
