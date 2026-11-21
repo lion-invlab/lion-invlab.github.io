@@ -77,6 +77,27 @@ def main():
         assert item["quote_type"] == "cash_index"
         assert item["url"].startswith("https://")
         assert all(item.get(k) for k in ("ohlc", "s2", "s1", "p", "r1", "r2"))
+    current_calendar = data["calendar"]
+    current_earnings = data["earnings"]
+    previous_calendar = data["last_week_calendar"]
+    previous_earnings = data["last_week_earnings"]
+    assert current_calendar["week_id"] == "2026-W48"
+    assert current_earnings["week_id"] == "2026-W48"
+    assert len(current_calendar["events"]) == 27
+    assert len(current_earnings["events"]) == 11
+    assert len(previous_calendar["events"]) == 2
+    assert len(previous_earnings["events"]) == 1
+    assert all(x["stars"] == 5 for x in previous_calendar["events"])
+    assert all(x["stars"] == 5 for x in previous_earnings["events"])
+    for event in current_calendar["events"] + current_earnings["events"] + previous_calendar["events"] + previous_earnings["events"]:
+        assert event["source_url"].startswith("https://"), event.get("id")
+    assert all(x["eps_estimate"] is None and x["revenue_estimate"] is None for x in current_earnings)
+    nvda = previous_earnings["events"][0]
+    assert nvda["ticker"] == "NVDA"
+    assert nvda["eps_actual"] == 2.7 and nvda["revenue_actual"] == 115.8
+    assert "-2.89%" in nvda["price_reaction"]
+    assert nvda["price_reaction_source"].startswith("https://")
+
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
@@ -89,6 +110,8 @@ def main():
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
     print("PASS: news window remains open through Monday 05:25 cutoff; final build remains blocked")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
+    print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
+    print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
 
 
 if __name__ == "__main__":
