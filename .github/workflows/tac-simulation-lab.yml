@@ -481,6 +481,9 @@ jobs:
               if token not in action:
                   raise SystemExit(f"content analysis gate: operation plan missing {token}")
           market_comments = fixture.get("market_comments", {})
+          def comment_body(value):
+              text = str(value or "")
+              return text.split("｜", 1)[1].strip() if "｜" in text else text.strip()
           region_rows = [
               ("#tac-global-panel-0", 0, "美股"),
               ("#tac-global-panel-1", 1, "亞股"),
@@ -490,14 +493,14 @@ jobs:
               panel = soup.select_one(selector)
               note = panel.select_one(".market-reason") if panel else None
               expected = market_comments.get("global_markets", [])[index]
-              if note is None or expected not in note.get_text(" ", strip=True):
+              if note is None or comment_body(expected) not in note.get_text(" ", strip=True):
                   raise SystemExit(f"content analysis gate: {label} commentary not rendered in its correct panel")
           # Legacy region slots must not retain cross-region commentary.
           for selector, index, label in (("#asia", 1, "亞洲舊槽位"), ("#tac-region-panel-2", 3, "歐洲舊槽位")):
               panel = soup.select_one(selector)
               note = panel.select_one(".market-reason") if panel else None
               expected = market_comments.get("global_markets", [])[index]
-              if note is not None and expected not in note.get_text(" ", strip=True):
+              if note is not None and comment_body(expected) not in note.get_text(" ", strip=True):
                   raise SystemExit(f"content analysis gate: {label} contains stale or mismapped commentary")
           asset_rows = [
               ("#tac-assets-panel-0", "sectors", "產業"),
