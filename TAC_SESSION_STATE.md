@@ -9,7 +9,7 @@
 - **母版基準：** 正式 Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55；simulation Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1。週一正式母版 a568e594e55909041d51d8eae7e6fe5f7986c096／simulation baseline 1ac39d50b138e59f4aabf55fc68560ee277ba6f8；平日正式母版 3785405e331b10ec6189002e480be2a1edbe20ef／simulation baseline f010ff118d7a5a2c1f6e834aa24f832766383c2b。兩組 ID 集合一致，style/script 數量一致；完整 DOM／CSS 差異尚未跑。
 - **44 項母版清單：** 已抽取 17 全球指數、11 ETF、3 美債、6 FX、4 商品、3 情緒指標；兩母版 11 ETF 固定 ticker／href 集合相同，但靜態示範排序不同，日常必須依當日漲跌幅排序。
 - **11/23 fixture：** simulation-lab/fixtures/report-data-2026-11-23.json，blob SHA 5686607538184183272a64c1e8d83e68458d9cce。六筆 CFD index reference 已改列「待核實」，原始值保留 rejected_reference；summary／區域評論不再引用這六筆 CFD 漲跌。review_ready_blockers 保留現貨來源、情緒／FedWatch刷新及 HTML QA 阻塞。
-- **測試證據：** GitHub Actions run 44896643592，commit 7217cbee6e455cf641112d3656b1ca60ede05947，conclusion success。deterministic self-tests、11/23 fixture contract、44 欄計數、新聞 5+10、W47/W48 行事曆投影、財報判讀通過。此 run 沒有執行 HTML build、DOM diff 或 Playwright；不得稱審核版完成。
+- **測試證據：** GitHub Actions run 44896718729，commit 13d87e388496a11130867cc7d447135c6859103c，conclusion success；前一輪 run 44896643592 亦 success。最新 run 驗證已更新的 SIM-1.4 草案 SHA。deterministic self-tests、11/23 fixture contract、44 欄計數、新聞 5+10、W47/W48 行事曆投影、財報判讀通過。此 run 沒有執行 HTML build、DOM diff 或 Playwright；不得稱審核版完成。
 - **QA 視窗：** 320／360／390／412／768／1440 px 已寫入 QA Contract、visual_regression.mjs 及 Workflow evidence 尺寸清單；尚無瀏覽器實際測試證據。
 - **目前未完成：** 6 筆 CFD 指數需以現貨／官方來源重新核實；VIX、MOVE、CNN Fear & Greed、FedWatch 需在報告截稿前刷新；Builder 必須符合母版零結構退化並加入 quote_type 防錯；再做雙母版 build、DOM diff、Playwright 及視覺回歸。未完成前不產生或核准 11/23 審核版。
 - **工作規則：** 開工前、每一階段開始前、每階段完成及交接前，必須重新讀取當前最新 SIM-1.4 完整主文並核對 SHA；不得依記憶或摘要跳階段。
