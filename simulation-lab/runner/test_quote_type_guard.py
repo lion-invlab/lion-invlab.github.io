@@ -96,11 +96,21 @@ def test_1123_fixture_uses_cash_index_historical_sources():
 
 
 def test_structured_market_observation():
-    soup = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser")
+    soup = BeautifulSoup('<div class="key"><b>舊標題</b><br/>舊觀察文字</div>', "html.parser")
     node = soup.select_one(".key")
+    before = [(child.name, child.get("class")) if getattr(child, "name", None) else "#text" for child in node.contents]
     set_market_observation(node, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
+    after = [(child.name, child.get("class")) if getattr(child, "name", None) else "#text" for child in node.contents]
+    assert before == after
     assert node.select_one("b").get_text(strip=True) == "盤面觀察重點"
     assert "測試觀察內容" in node.get_text(" ", strip=True)
+    invalid = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser").select_one(".key")
+    try:
+        set_market_observation(invalid, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("market observation updater accepted a non-mother DOM shape")
 
 
 def test_fedwatch_two_card_contract():
