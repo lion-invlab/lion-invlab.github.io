@@ -2628,3 +2628,12 @@
 - 對照 artifact `tac-simulation-44946578765-1` 內生成 HTML 與 weekday mother：weekday mother 與生成卡的五個 detail labels 完全相同；QA 卻套用 Monday mother 的三個分拆標籤。Monday mother 實際三個標籤為「財報判讀／股價當日表現／來源」，weekday mother 實際五個標籤為「公布時段／EPS 預估／實際／營收預估／實際／財報判讀與股價反應／資料來源」。因此是 visual regression 的跨母版假設錯誤，不是 Builder 生成卡缺欄位。
 - 已將 visual regression 改成按 `mondayRetrospective` 選用對應母版的精確 labels；commit `1f4b692a4a5eaef90bda4bf68ad5bbe5cfb9d0c8`，blob `63d95034922a97847556a70e8b00a7b5420ed69e`。新 weekday run `44946901354` 已觸發，待完成。
 - 另修訂 SIM-1.4 DRAFT（commit `08b6c632a861ae79c7aaa08484b2a98a80704554`，blob `a4254b7b2c18eb521e9c8edfaca8c38db56f82b8`）：週一三段／平日五槽位分開；候選 Builder 可先在 simulation sandbox 做完整測試，但未經使用者核准不可升格唯一生產入口；操作建議由「列齊所有項目」改為立場、可執行動作及觸發／失效條件。仍為 DRAFT，不取代 SIM-1.3。
+
+
+## 2026-11-22｜WTI CFD 誤用更正（以 Investing.com 指定期貨合約歷史頁為準）
+
+- 直接開啟原 WTI Fixture URL（`https://hk.investing.com/commodities/crude-oil-historical-data`）確認頁面標示「即時差價合約」；原 Fixture 把該 CFD 歷史數值誤標成 CLF27 期貨歷史收市，違反合約身分規則。
+- 開啟指定合約頁 `https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037`，頁面標題為 WTI 原油期貨 - 2027年1月 (OIL)，交易所 CME；歷史列：2026-11-20 收市 83.98、+0.93%、成交量 275.34K；2026-11-19 收市 83.21、-0.06%、成交量 92.36K。
+- 修正 11/23 Fixture：WTI 83.98／+0.93%／275.34K；修正 11/20 Fixture：WTI 83.21／-0.06%／92.36K。兩份 source.url、instrument_url 同指向 cid=1178037；更新 history_close／history_change／volume／change_points／來源說明及原油評論。
+- Brent（LCOF7）、黃金（GCZ6）、白銀（SIZ6）指定合約歷史頁抽查均與 Fixture 11/20 數值一致。來源依據：Investing.com HK 各商品歷史頁。
+- 修正後 run `44947008781`（11/20）及 `44947014615`（11/23）已觸發，當時均 in_progress。不得以舊 WTI Fixture 的 run 作最終 QA。
