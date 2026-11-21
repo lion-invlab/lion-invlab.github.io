@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression tests for the practical TAC earnings comparison engine."""
-from earnings_judgment import ENGINE_VERSION, VALID_STATUSES, evaluate_metric, apply_judgment, render_status, render_summary
+from earnings_judgment import ENGINE_VERSION, VALID_STATUSES, evaluate_metric, apply_judgment, render_status, render_summary, consensus_evidence_label
 
 def record(eps_actual, eps_estimate, revenue_actual, revenue_estimate):
     return {
@@ -33,6 +33,27 @@ def main():
     x=record(2.47,2.40,108.73,105.0)
     assert evaluate_metric(x,"eps")["status"] == "beat"
     assert evaluate_metric(x,"revenue")["status"] == "beat"
+    # Selected Yahoo estimate remains usable without PIT, analyst count,
+    # raw archive, statistic or detailed GAAP/Adjusted metadata.
+    x = record(2.70, 2.50, 115.8, 110.0)
+    x.update({
+        "event_date": "2026-11-24T21:00:00+08:00",
+        "eps_estimate_period": "2026 Q3",
+        "revenue_estimate_period": "2026 Q3",
+        "eps_consensus_snapshots": [{
+            "snapshot_id": "a" * 64, "event_id": "earn-test-1", "ticker": "EX",
+            "metric": "EPS", "event_date": x["event_date"], "value": 2.50,
+            "period": "2026 Q3", "source_level": 1, "provider": "Yahoo Finance",
+            "source_url": x["consensus_source"]["url"], "observed_at": None,
+            "data_as_of": None, "basis_code": None, "raw_response_ref": None,
+            "period_end_date": None, "statistic": None,
+        }],
+        "consensus_source": {
+            **x["consensus_source"], "snapshot_id": "a" * 64
+        },
+    })
+    assert consensus_evidence_label(x, "eps") == "來源已記錄（PIT／補充欄位非採用門檻）"
+    assert evaluate_metric(x, "eps")["status"] == "beat"
     # Explicitly non-comparable currency/unit/basis data maps to pending,
     # not a fifth public status. The reason remains available for audit.
     x=record(0.54,0.69,0.9314,1.14)
