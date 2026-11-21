@@ -2301,3 +2301,9 @@
 
 
 - 逐條處置台帳最後更正 SHA：9063340330c3c4960d68654b0ff46ea94962b3b0；將 I.6／摘要中「Session State、Work Log 不存在」的錯誤說法改為根目錄檔案實際存在，避免後續再次誤報缺檔。
+
+
+## 2026-11-21｜D2／D3 逐條處置補齊與最新回歸
+- SIM-1.3 條文處置台帳新增 D2.1–D2.5、D2-補充1–9、D3.1–D3.17、D4、D5 逐條處置，最新 SHA 2c892231ce43ed75932b89833655c01ec904bbc2。
+- SIM-1.4 DRAFT 最新 SHA afb715047f825e1f3766d2b411a6e4224cbce6e4；Builder audit SHA ee1ef0fc852a631f86dcb4f3a058806e6003e8ed；QA compatibility report SHA 8127a6205bafb87af2ebdb47c8f9332ab3dea47d。
+- GitHub Actions run 44896955440（commit 3b7ede2d29dc66db9d44bd4adf26f911a508323f）conclusion success。這是更新後草案的 deterministic self-test 成功；仍未執行 HTML build／DOM diff／Playwright。
