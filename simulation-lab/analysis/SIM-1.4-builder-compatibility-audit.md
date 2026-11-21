@@ -32,7 +32,7 @@
 - 程式依 simulation Manifest 選定 Monday／weekdays simulation baseline，驗證實際 Git blob SHA 同時等於 Manifest simulation_blob_sha 與 CLI expected SHA，並拒絕週末日期。
 - Workflow .github/workflows/tac-simulation-lab.yml 有 build／qa-only 兩種 dispatch 模式；build 依 fixture 日期選版、擷取 earnings price reactions、呼叫本 Builder，接續執行 interaction_smoke.mjs、visual_regression.mjs、validate_review_artifact.py、44 indicators／新聞數量驗收、QA evidence 封存及 simulation branch 回讀 SHA。
 - 最近一次已完成的 deterministic self-test run 44895586059 於 test_1123_fixture.py 失敗；其餘先前測試（calendar source guard、dual mothers、Fear & Greed、summary headline、earnings judgement/schema、report-layer status／calendar overrides 等）均已通過至該失敗點。失敗原因不是 Builder 本身，而是 fixture 與 test 的截稿欄位契約不一致：fixture 的 report_cutoff_taipei 與 news_cutoff_taipei 均為 2026-11-21 17:57:31，test 卻硬編碼要求兩者都等於 2026-11-23 05:25。該 fixture 的 news_window_taipei 已封口於 11/21 17:57:31，但報告日期為 11/23；應分離 report cutoff 與 news cutoff，並同步測試。
-- 近期 smoke run 44896206890、44896155624 等因 test_1123_fixture.py 的舊硬編碼／過度嚴格欄位契約失敗；最新 run 44896337596 正在執行，尚無結果。不得把 cancelled／pending 記為通過。
+- 最新完整 deterministic self-test run：44896495817，conclusion=success；執行的 11/23 fixture contract、44 項計數、新聞 5+10、W47/W48 calendar projection、NVDA actual／price reaction、earnings schema 等測試均通過。較早 runs 曾因 cutoff、source update timestamp、Silver -7.42% stale assertion 失敗；已逐項修正。此 run 沒有執行 HTML build 或 Playwright，不能視為 Builder／視覺 QA 通過。
 - QA Contract v1.5 DRAFT 已增加 320px viewport；visual_regression.mjs 與 workflow QA evidence expected_widths 已同步加入 320px。
 
 ## 已確認的正面基礎
@@ -61,10 +61,12 @@
 
 ## 目前可宣告的證據狀態
 
-- 靜態檢查：完成。
-- 真正 Python build：未測試。
-- DOM 前後差異測試：未測試。
-- Playwright／視覺 QA：未測試。
+- Builder 全檔靜態檢查：完成。
+- Workflow Python compile／deterministic self-tests：run 44896495817 PASS。
+- 11/23 fixture contract：PASS；六筆 CFD 指數已標待核實並保留 rejected_reference，未冒充現貨。
+- 真正 Python HTML build：未執行；11/23 fixture 仍有 CFD／情緒資料 blocker。
+- DOM 前後差異測試：未執行。
+- Playwright／視覺 QA：未執行；320px 已接入程式碼與 evidence gate，但尚未實際跑瀏覽器。
 - 唯一 Builder 核准：未核准。
 
 
@@ -73,3 +75,11 @@
 對 2026-11-23 fixture 實際檢查後，global_markets 有 6 筆明確標示 cfd_index_reference_series：S&P 500、Nikkei 225、Hang Seng、FTSE 100、DAX、STOXX Europe 600。S&P 500 的 key_levels 子模組另有 Yahoo Finance ^GSPC cash_index OHLC；但 44 項 global_markets 主欄仍使用 Investing.com CFD 來源，兩者不可混作同一證據。11/23 fixture 已將這六筆列為 review blocker；尚未替換為現貨來源，不得輸出成正式收盤價。
 
 Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 quote_type；所以它目前可能把有完整來源欄位的 CFD 序列照常渲染。這是 Builder 必須修正的實質阻擋項，不是只靠文字註記可解決。未通過前，Builder 不得核定為 SIM-1.4 唯一入口。
+
+
+## 最新執行證據（2026-11-21）
+
+- GitHub Actions run：44896495817（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07），conclusion success。
+- 成功測試：test_1123_fixture.py、preflight_1123_overrides.py、calendar_source_guard、dual mother validation、earnings judgment/schema、report-layer status／calendar overrides 等。
+- 測試明確回報：44 項計數正確；新聞 5+10；新聞窗口 11/21 17:57:31 已封口、報告截稿 11/23 05:25；六筆 CFD index records 已被抑制成「待核實」；情緒／FedWatch刷新及 HTML QA 仍阻塞。
+- 這是 deterministic self-test 通過，不是審核版產出，不是 HTML build，不是 Playwright 通過。
