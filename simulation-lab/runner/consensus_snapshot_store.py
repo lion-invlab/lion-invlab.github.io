@@ -11,10 +11,10 @@ from pathlib import Path
 from typing import Any
 
 PROVIDER_BY_LEVEL = {
-    1: "LSEG I/B/E/S",
-    2: "FactSet Estimates",
-    3: "Investing.com",
-    4: "Yahoo Finance",
+    1: "Yahoo Finance",
+    2: "Investing.com",
+    3: "LSEG I/B/E/S",
+    4: "FactSet Estimates",
 }
 LEVEL_BY_PROVIDER = {v: k for k, v in PROVIDER_BY_LEVEL.items()}
 CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
