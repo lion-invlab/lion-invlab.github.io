@@ -89,3 +89,6 @@
 
 
 - 2026-11-21 22:38：第一輪 CI 發現舊 `test_quote_type_guard.py` 仍假設商品連結沿用 CME quote source URL；這與新要求「商品名稱連結 → Investing.com、資料來源 → 實際報價證據」相衝突。已同步更新舊測試，確認兩種 URL 分離，不放寬來源證據檢查。
+
+
+- 2026-11-21 22:40：第二輪 CI 已通過新增商品連結／星等／分類／空白文案測試，但舊的 `test_builder_calendar_panel_preservation.py` 仍鎖定舊的直接刪卡實作字串，未接受新的安全 reset helper。已更新測試契約：要求 list wrapper 保留、重設內容、三分頁順序驗證，不再要求舊實作細節。
