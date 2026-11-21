@@ -429,7 +429,7 @@ def earnings_commentary(item):
             "公告時間已過，第三方報導指出結果已發布；發行公司官方實際值尚待核實，"
             "因此不填入實際EPS／營收，也不作優於／低於預期判斷。"
         ))
-    for fragment in re.split(r"(?<=[。！？])\\s*|[；;]\\s*|(?<=\\.)\\s+(?=[A-Z])", raw):
+    for fragment in re.split(r"(?<=[。！？])\s*|[；;]\s*|(?<=\.)\s+(?=[A-Z])", raw):
         part = fragment.strip()
         if not part:
             continue
@@ -720,7 +720,7 @@ def main():
         ]:
             summary_node = unique(soup, selector, "previous-week disclosure summary")
             label_text = summary_node.get_text(" ", strip=True)
-            label_text = re.sub(r"^展開\\s*", "", label_text)
+            label_text = re.sub(r"^展開\s*", "", label_text)
             summary_node.clear()
             marker = soup.new_tag("span", attrs={"class": marker_class, "aria-hidden": "true"})
             marker.string = "▸"
@@ -1411,7 +1411,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                 raise ValueError(f"{container_id}/{label}: directional QA change span missing")
             cls = change[1].get("class", [])
             value = str(record["change_display"]).strip()
-            parsed_change = re.match(r"^([+＋\\-−－]?)\\s*([0-9][0-9,]*(?:\\.[0-9]+)?)", value)
+            parsed_change = re.match(r"^([+＋\\-−－]?)\s*([0-9][0-9,]*(?:\.[0-9]+)?)", value)
             if parsed_change:
                 sign = parsed_change.group(1)
                 amount = float(parsed_change.group(2).replace(",", ""))
