@@ -232,6 +232,11 @@ jobs:
           print("monday" if date.fromisoformat(sys.argv[1]).weekday() == 0 else "weekdays")
           PY
           )"
+          if [[ "${TEMPLATE_KEY}" == "weekdays" ]]; then
+            MOTHER_FILE="simulation-lab/output/weekday-mother-template.html"
+          else
+            MOTHER_FILE="simulation-lab/output/monday-mother-template.html"
+          fi
           EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
           import json, sys
           m = json.loads(open("simulation-lab/baseline/mother-template-manifest.json", encoding="utf-8").read())
@@ -241,6 +246,7 @@ jobs:
           echo "REPORT_DATE=${REPORT_DATE}" >> "$GITHUB_ENV"
           echo "REPORT_DATA=simulation-lab/fixtures/report-data-${REPORT_DATE}.json" >> "$GITHUB_ENV"
           echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
+          echo "MOTHER_FILE=${MOTHER_FILE}" >> "$GITHUB_ENV"
           echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
           echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html" >> "$GITHUB_ENV"
           echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
@@ -271,6 +277,11 @@ jobs:
           print("monday" if date.fromisoformat(sys.argv[1]).weekday()==0 else "weekdays")
           PY
           )"
+          if [[ "${TEMPLATE_KEY}" == "weekdays" ]]; then
+            MOTHER_FILE="simulation-lab/output/weekday-mother-template.html"
+          else
+            MOTHER_FILE="simulation-lab/output/monday-mother-template.html"
+          fi
           EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
           import json,sys
           m=json.loads(open("simulation-lab/baseline/mother-template-manifest.json",encoding="utf-8").read())
@@ -282,6 +293,7 @@ jobs:
           echo "REPORT_OUTPUT=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
           echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
+          echo "MOTHER_FILE=${MOTHER_FILE}" >> "$GITHUB_ENV"
           echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
           echo "QA_ONLY=true" >> "$GITHUB_ENV"
           echo "QA-only target locked: ${REPORT_OUTPUT}"
@@ -373,7 +385,7 @@ jobs:
 
       - name: Verify mother-owned DOM structure unchanged
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
-        run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "simulation-lab/output/${TEMPLATE_KEY}-mother-template.html" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
+        run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "${MOTHER_FILE}" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
 
       - name: Independently validate exact review artifact and provenance
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
