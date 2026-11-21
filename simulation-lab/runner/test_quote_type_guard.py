@@ -211,6 +211,19 @@ def test_market_observation_supports_existing_text_slot_shapes():
     assert before == after
     assert wrapped.get_text(" ", strip=True) == "新標題 新文字"
 
+
+def test_text_update_preserves_source_link_elements():
+    node = BeautifulSoup(
+        '<div class="source">舊說明 <a href="https://example.com">原始來源</a> 舊尾註</div>',
+        "html.parser",
+    ).div
+    before = [(child.name, child.get("href")) if getattr(child, "name", None) else "#text" for child in node.contents]
+    set_text_preserving_child_elements(node, "新說明")
+    after = [(child.name, child.get("href")) if getattr(child, "name", None) else "#text" for child in node.contents]
+    assert before == after
+    assert node.get_text(" ", strip=True) == "新說明 原始來源"
+    assert node.select_one("a").get("href") == "https://example.com"
+
 def main():
     data = {
         "global_markets": {
@@ -239,6 +252,7 @@ def main():
     test_builder_preserves_mother_owned_fed_agenda_and_css()
     test_summary_content_fills_existing_mother_slots()
     test_market_observation_supports_existing_text_slot_shapes()
+    test_text_update_preserves_source_link_elements()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
