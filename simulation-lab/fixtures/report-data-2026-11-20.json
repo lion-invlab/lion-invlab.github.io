@@ -407,7 +407,7 @@
     "WTI原油期貨": {
       "display": "82.44",
       "change_display": "+0.16%",
-      "contract_label": "OIL／CLF27（2027年1月）",
+      "contract_label": "CLF27（2027年1月；Investing.com頁面標示 OIL）",
       "source": {
         "name": "Investing.com HK｜WTI原油期貨歷史數據",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
