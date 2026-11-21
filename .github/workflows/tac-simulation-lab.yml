@@ -152,6 +152,7 @@ jobs:
           python simulation-lab/runner/test_earnings_schema_audit.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
+          python simulation-lab/runner/test_1123_fixture.py
           python simulation-lab/runner/validate_earnings_v2.py --self-test
 
       - name: Audit W46 PIT projection (read-only, simulation data only)
