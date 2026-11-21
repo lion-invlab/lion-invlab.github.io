@@ -72,6 +72,28 @@ def test_fed_agenda_slots():
         assert len(box.select(".fc-fomc-weekly-events")) == 0
 
 
+def test_1123_fixture_uses_cash_index_historical_sources():
+    fixture_path = ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-23.json"
+    data = json.loads(fixture_path.read_text(encoding="utf-8"))
+    rejected = reject_cfd_cash_index_quotes(data)
+    assert rejected == [], rejected
+    expected = {
+        "標普500指數": ("6,910.39", "-3.70%"),
+        "日經225": ("56,436.65", "-5.06%"),
+        "香港恆生指數": ("22,410.80", "-1.89%"),
+        "英國 FTSE 100": ("10,346.34", "-1.02%"),
+        "德國 DAX": ("24,802.78", "-2.60%"),
+        "STOXX Europe 600": ("625.65", "-2.00%"),
+    }
+    for name, (close, change) in expected.items():
+        row = data["global_markets"][name]
+        assert row["display"] == close, (name, row["display"])
+        assert row["change_display"] == change, (name, row["change_display"])
+        assert row["source"]["quote_type"] == "cash_index_close", (name, row["source"])
+        assert "historical-data" in row["source"]["url"]
+        assert "rejected_reference" not in row and row.get("qa_status") != "cfd_index_reference_rejected"
+
+
 def test_structured_market_observation():
     soup = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser")
     node = soup.select_one(".key")
@@ -144,7 +166,8 @@ def main():
     test_fed_agenda_slots()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
-    print("PASS: CFD guard, label normalization, earnings labels, and fixed Fed agenda slots")
+    test_1123_fixture_uses_cash_index_historical_sources()
+    print("PASS: CFD guard, six cash-index sources, label normalization, earnings labels, and fixed Fed agenda slots")
 
 
 if __name__ == "__main__":
