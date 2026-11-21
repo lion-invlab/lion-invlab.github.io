@@ -1749,3 +1749,12 @@
 - 接手時 branch HEAD `892e89abe58965b99f1e4f78839e9f50238b52cf`。SIM-1.3／Manifest／Monday mother／QA Contract SHA 維持 `679eae7ba7a40dbad64d15bb448fe53db7d67e09`／`dc6090c895e2abc17bb16225f4a581ddee5821b1`／`1ac39d50b138e59f4aabf55fc68560ee277ba6f8`／`331b4bdfe318462e15cae8ae4cd31c32815960d7`。
 - 階段狀態依既有證據：Phase 1–4 有工作紀錄；Phase 2 的 44/44 為全部欄位均有登記，並非全部主要來源已核實；Phase 5 未產生 HTML、未執行 QA；Phase 6 未交付。W47/W48 main JSON 僅讀未寫。
 - 本次未修改母版、Manifest、QA Contract、main index、main preview 或行事曆 JSON。
+
+## 2026-11-21｜11/23 早報 Phase 2／3 接手稽核與裁決
+- W47完整JSON透過Git blob endpoint讀取：main blob SHA 727ea2be1c04688d3c4f98d36c452561bbab6821；schema v1、Asia/Taipei、W47；25 economic（5星2、4星23；released19/upcoming6）、23 earnings（5星1、4星22；released20/upcoming3），ID無重複。W47 main未寫入。
+- W48 main SHA 807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa；27 economic（5星5、4星22，全部upcoming）、11 earnings（5星1、4星10，全部upcoming），ID無重複；11家公司EPS／Revenue consensus均null，未來actual=null正常。W48五筆impact_judgment欄誤存URL，替代判讀已記入Session State，main JSON不修改。
+- Phase 2結構為17指數+11 ETF+3 Treasury CMT+6 FX/DXY+4能源／貴金屬+3風險情緒；FedWatch獨立。44/44代表欄位均有值與來源紀錄，不代表44項全部主來源官方收盤。S&P/Russell採AP現貨；Nikkei/Hang Seng/DAX採Yahoo現貨；FTSE採FT；其餘按對應Investing HK歷史頁；ETF採Investing HK；Treasury採同日CMT 2Y4.63/10Y4.92/30Y5.31；USD/TWD採CBC銀行間收盤，其餘FX/DXY依Investing。
+- 行情例外：VIX 35.89為Investing頁CFD參考；MOVE 106.3為EODData 11/20 EOD備援；CNN F&G 10/100為FGScore CNN Provider Index備援；WTI CLF27 83.41、GCZ26 3,515.40、SIZ26 41.070為合約專屬平台last（非CME settlement）；Brent LCOF7 ICE官方delayed last 92.490，Investing同合約顯示92.57，主畫面採ICE官方值並標示last非settlement。FedWatch 11/21 07:05更新後12/9升息86.4%、維持13.6%，取代較早05:55的89.6/10.4。
+- Phase 2判定：44/44均有數值／來源及口徑紀錄；備援項目須在下游明示，不得寫成官方值；不全量重抓已鎖定項目。
+- Phase 1–3接收／稽核完成；Phase 4新聞窗未封口（待11/23 05:25前增量更新）；Phase 5 HTML與QA未完成；Phase 6未交付。Python runtime可用BeautifulSoup 4.14.3、lxml 6.1.1、Playwright及Chromium；尚未解決GitHub connector至本地DOM runtime的完整母版檔案傳遞。不得用regex／字串切片或舊assembler替代。
+- W47/W48 main JSON只讀；本次未修改行事曆、母版、Manifest、QA Contract、main index或main preview。
