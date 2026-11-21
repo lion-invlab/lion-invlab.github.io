@@ -2548,3 +2548,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Investing.com HK AMD短報導頁（11/21 00:41）本輪開啟失敗，不以搜尋摘要代替原文。已改讀可直接開啟的24/7 Wall St後續文章，發布時間2026-11-20 09:52 ET（換算11/20 22:52 Taipei，落在本次新聞窗口），說明Hunterbrook短倉報告指稱AMD對中國伺服器商IEIT的韌體供應關係可能引來出口管制審查；AMD明確否認，且報導指出該報告本身未證明違反出口法規。Reuters 11/19原始報導作交叉核對，但其原始發布時間早於11/20 12:00 Taipei，只作事實核對，不列為本輪頭條來源。24/7 URL：https://247wallst.com/investing/2026/11/20/amd-slides-6-despite-jim-cramer-calling-hunterbrook-short-report-a-hitjob-nvidia-falls-3-near-damodaran-140-buy-price-intel-declines-2/；Reuters cross-check：https://www.reuters.com/world/china/amd-shares-slide-report-says-china-links-could-invite-us-scrutiny-2026-11-19/ 。
 - AMD頭條可採用，但必須寫成「做空機構提出未經獨立證實的指控、AMD否認」，不得寫成已違反出口法規；不沿用盤中-6%作為週五收盤跌幅。
 - 截至11/21 10:03暫定Hot Headlines候選共10個不同事件：AMD中國韌體指控／否認、NVIDIA SEC會計調查、黃金白銀急跌、Anthropic上市第二日回落、CoreWeave CDS飆升、SpaceX 440億美元GPU融資、NVIDIA連7週下跌、Reuters價值股輪動、Trump海外資料中心構想、Bessent H200出口上限／Trump舊晶片表態。最終仍待11/23 05:25前檢查是否有更新、時間窗與去重。
+## 2026-11-21 10:12｜G1因果鏈補強：FOMC紀要與Warsh原文
+- W47五星事件的官方原文已直接開啟。FOMC 10/27–28會議紀要於11/18發布（台灣11/19 03:00）：10比2維持3.75%–4.00%，Cook與Hammack主張升息25bp；紀要記載幾乎所有與會者認為基準情境下後續進一步升息可能適當。Fed staff明確指出AI建置債務快速增加、表外租賃承諾與循環融資可能在投資回報失望時放大損失；多數與會者擔憂AI資產價格重估、非銀行金融機構與避險基金槓桿及被迫賣出。高收益資料中心融資債券利差在會期間顯著擴大。來源：https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm 。
+- FOMC紀要亦指出AI建置需求可能在供給／產能擴張跟不上時推升總需求與科技商品價格；高利率提高槓桿借款人敏感度。市場期貨隱含年末升息及2027年夏季前再升息的機率偏高；Desk survey中位數路徑則較低（12月一次、2027年3月再一次、2028年初降息），顯示市場定價與官員調查中位數存在差異。
+- Warsh 11/16開幕致詞（台灣11/17 01:00）將AI視為可能改變生產力的通用技術，但強調生產力尚未明確結構性突破，並提出若AI投資回報令人失望，可能先經歷大量資本投入與股價上漲，再出現估值下跌與經濟放緩的情境；這是情境分析，不是短期升降息訊號。來源：https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm 。
+- G1因果鏈更新：AI需求與出口訂單仍強（台灣10月外銷訂單年增78.3%），但AI建置融資、表外租賃／循環融資、資料中心高收益債利差與槓桿風險已被Fed紀要明確點出；若AI資本支出回報／現金流無法跟上，利差擴大與高利率會壓低專案IRR，觸發估值下修、風險曝險降低與被迫賣出。SpaceX大型融資超額認購與CoreWeave CDS急升呈現信用市場分層，不可把兩者簡化成AI需求全面消失或融資全面關閉。
+- Warsh偏長期生產力情境、FOMC紀要偏金融穩定／通膨風險、Cook 11/20鷹派談話偏當前利率反應，三者不可混為同一政策訊號；在G1中需分層說明。
+- 本次原文核讀截至2026-11-21 10:12:34+08:00；Phase 4新聞窗口仍未封口。
