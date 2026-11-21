@@ -52,7 +52,7 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 
 ## 6. 最新測試狀態
 
-- GitHub Actions run 44896864229（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07）deterministic self-tests 全部通過；包括雙母版 SHA／結構驗收及 11/23 fixture contract。
+- GitHub Actions run 44897795972（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07）deterministic self-tests 全部通過；包括雙母版 SHA／結構驗收及 11/23 fixture contract。
 - 該 run 未執行 HTML build／Playwright；320px 目前只確認已加入 visual_regression.mjs 及 QA evidence expected_widths，尚無 320px 實際瀏覽器結果。
 - 11/23 fixture 的六筆 CFD index rows 已被改成待核實並保留 rejected_reference；仍有現貨來源與情緒／FedWatch刷新 blocker，因此不應產生或核准審核版。
 
@@ -69,3 +69,6 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 - 共識順位更新為 Yahoo Finance Average Estimate 第一、Investing.com 第二；LSEG／FactSet 為後順位歷史／研究證據，不得覆寫已選來源。PIT 是證據層，不是一般數值判讀必要條件。
 - SIM-1.4 engine 1.4.0 與 schema 已同步四狀態；不相容的幣別／單位／期間映射為 pending 並保留原因。
 - Builder 仍保留 legacy incomparable／consensus_divergent renderer 分支，且 pending 不相容案件目前仍會顯示舊「尚未公布」標籤；依 QA Contract M 應顯示「比較資料尚未齊備」。Builder 保護未修改，這是財報 renderer Gate 的 BLOCKER。
+
+
+- 最新 deterministic regression run 44897795972 success，包含四狀態財報引擎 1.4.0、來源層級 Yahoo=1／Investing=2／LSEG=3／FactSet=4 及 11/23 fixture contract。未執行 browser QA。
