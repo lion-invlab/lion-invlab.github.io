@@ -26,6 +26,25 @@ class CalendarImpactOverrideTests(unittest.TestCase):
         self.assertEqual(data["calendar"]["events"][0]["source_url"], "https://example.com/source")
         self.assertEqual(data["calendar"]["events"][1]["impact"], "Valid market impact text that must remain unchanged.")
 
+    def test_promotes_corrupted_impact_url_to_source_url_when_missing(self):
+        original_url = "https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026"
+        data = {
+            "calendar": {"events": [{
+                "id": "w48-fed-williams",
+                "source": "New York Fed｜Media Advisory",
+                "impact": original_url,
+            }]},
+            "calendar_impact_overrides": [{
+                "event_id": "w48-fed-williams",
+                "impact": "若Williams重申通膨黏性，將推升利率預期並壓抑高估值資產；若偏向等待數據，則可能緩和短端利率壓力。",
+            }],
+        }
+        self.assertEqual(apply_calendar_impact_overrides(data), 1)
+        event = data["calendar"]["events"][0]
+        self.assertEqual(event["impact"], data["calendar_impact_overrides"][0]["impact"])
+        self.assertEqual(event["source_url"], original_url)
+        self.assertEqual(event["source_name"], "New York Fed｜Media Advisory")
+
     def test_refuses_to_overwrite_valid_impact_text(self):
         data = {
             "calendar": {"events": [{"id": "good-1", "impact": "Already valid market impact text."}]},
