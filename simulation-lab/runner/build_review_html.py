@@ -923,6 +923,9 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
             ),
             "保留": (
                 f"EPS 平均超預期 {earnings_health['eps_surprise']}，5 年均值 {surprise_avg}；"
+                f"Forward 12M P/E {earnings_health['forward_pe']}，"
+                f"5 年均值 {earnings_health.get('forward_pe_avg_5y', '待核實')}／"
+                f"10 年均值 {earnings_health.get('forward_pe_avg_10y', '待核實')}；"
                 f"{earnings_health['interpretation']}"
             ),
         }
