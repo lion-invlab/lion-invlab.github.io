@@ -359,3 +359,10 @@ Current Builder blob SHA verified from branch: c4c24c03625b3532f48362d7235755a8f
 - 11/23 build run `44914993653` 的 sidecar candidate rules SHA 仍為 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，與目前 `f585c0e...` 不同。該 build 的 PASS 只能證明舊規則 SHA，不得宣稱最新草案已完成 build QA。
 - 需在最新候選規則 SHA 凍結後，重新跑 Monday 2026-11-23 與 Weekday 2026-11-20；兩者須使用同一 Builder SHA、Manifest SHA、QA Contract SHA 及 candidate rules SHA。現有 Weekday run `44907253127` 使用 Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f`，也不能代替最新 Builder `fe8da8e...` 的 weekday 實證。
 - Builder 唯一入口核准仍 NOT_APPROVED；完整 selector/write inventory、動態容器白名單及負向測試矩陣仍待完成。
+
+
+## 2026-11-21｜QA Contract v1.9 DRAFT 與 build provenance 邊界
+
+- QA Contract 已更新為 1.9 DRAFT，blob SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`；補入 WTI／Brent／GC／SI 名稱不帶合約月份、Investing.com 頁面合約直接開啟核對、上漲紅／下跌綠、中文名稱／英文代碼層級、五星／四星色彩、禁止恢復已刪除膠囊、工具泡泡／呼吸燈分開驗收，以及已公布財報雙卡 DOM／CSS 一致性。
+- 11/23 build run `44914993653` 的 QA sidecar 使用 QA Contract SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`（v1.8 DRAFT），不是目前 v1.9 SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`；candidate rules SHA 亦為舊版 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前 SIM-1.4 DRAFT `f585c0e08e1075d760c91a5f0eab79a408ca9e45`。
+- 因此最新 HTML／QA PASS 不可宣稱符合最新 DRAFT＋QA Contract 組合。必須在兩份候選文件 SHA 凍結後，以同一 Builder SHA、Manifest SHA 分別重跑 Monday 與 Weekday；兩份 sidecar 必須同時記錄最新 candidate rules SHA 與 QA Contract SHA。
