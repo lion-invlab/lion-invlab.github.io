@@ -1102,7 +1102,8 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
-    if item.get("_calendar_publication_state") == "pending_verification":
+    render_state = item.get("_calendar_publication_state")
+    if render_state == "pending_verification" or (render_state is None and item.get("status") == "pending_verification"):
         if has_release_status_evidence(item):
             note = item.get("report_layer_status_note") or (
                 "公告已發布；發行公司官方實際值尚待核實，因此不填入實際 EPS／營收，也不作優於／低於預期判斷。"
