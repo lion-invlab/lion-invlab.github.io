@@ -515,7 +515,7 @@ jobs:
               panel = soup.select_one(selector)
               note = panel.select_one(".market-reason") if panel else None
               expected = market_comments.get(key, "")
-              if not expected or note is None or expected not in note.get_text(" ", strip=True):
+              if not expected or note is None or normalize_analysis_text(comment_body(expected)) not in normalize_analysis_text(note.get_text(" ", strip=True)):
                   raise SystemExit(f"content analysis gate: {label} commentary missing or not rendered")
               if not any(token in expected for token in ("操作", "投資含意", "投資應對")):
                   raise SystemExit(f"content analysis gate: {label} commentary lacks an investment response")
