@@ -2454,3 +2454,29 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 進度證據接收：既有 Session State 記錄 Phase 1 基準鎖定、Phase 2 44/44 登記與第二輪補漏、Phase 3 W47/W48 唯讀核實、Phase 4 暫定新聞／分析內容；Phase 5 尚未產生 HTML、未執行 QA，Phase 6 未交付。Phase 2 的 44/44 是欄位均有值／狀態及來源紀錄，不等於所有項目皆同等主要來源已核實；MOVE、情緒指標、商品合約及 CFD 口徑必須依逐項證據呈現其實際狀態。
 - W47/W48 正式 main JSON 維持唯讀；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`。本次未寫入任何行事曆資料。
 - 本次接手未修改母版、Manifest、QA Contract、main index 或 preview；第五步仍未完成。下一步：依 QA Contract A2.5 既有 SHA 綁定定位契約，完成母版完整內容的 DOM 工作副本建立及 selector 唯一性檢查；只有成功 DOM 更新並完成四類 QA 後才可交付。
+
+## 2026-11-21｜11/23 早報接手稽核補記：Phase 2／3 與欄位裁決
+
+### Phase 2｜44 項行情證據盤點
+- 固定欄位結構：17 全球指數 + 11 S&P 產業 ETF + 3 美國公債 CMT + 6 FX/DXY + 4 能源／貴金屬 + 3 風險情緒 = 44。FedWatch 獨立列示，不計入 44。
+- Session State 已保存 2026-11-20 的 44 項完整值與來源 URL 集合；Investing.com HK 指數／ETF／FX 歷史頁 URL 已在既有紀錄中，其他來源例外亦有記錄。44/44 代表欄位均有值及來源紀錄，不代表全部使用第一順位來源；HTML 必須明示備援、代理與報價口徑。
+- 全球指數來源裁決：S&P 500、Russell 2000採 AP 現貨收盤；Nikkei 225、Hang Seng、DAX採 Yahoo 現貨歷史；FTSE 100採 FT 歷史；其餘依各自 Investing.com HK 歷史頁。11 ETF以 Investing.com HK 歷史頁為主；XLRE 11/20 42.46（-0.98%）已由 Investing.com HK 補核實。
+- 美國公債採同一日期 Treasury CMT：2Y 4.63%（-13bp）、10Y 4.92%（-12bp）、30Y 5.31%（-9bp）。FX：DXY及EUR/USD、GBP/USD、AUD/USD、USD/JPY依 Investing.com；USD/TWD 32.936依央行銀行間收盤，來源區須說明官方報價方向及口徑。
+- 風險指標：VIX 35.89（+26.20%，Investing.com HK頁面為CFD參考，不冒稱Cboe官方現貨收盤）；MOVE 106.3（+10.69%，EODData INDEX:MOVE 11/20 EOD，依D3後順位備援）；CNN Fear & Greed 10/100 Extreme Fear（FGScore CNN Provider Index，更新11/21 05:30 Taipei，屬備援，不稱CNN官網直讀）。
+- 商品合約：WTI NYMEX Jan-2027 CLF27 83.41（+1.18%，volume 275,335；Investing contract-specific platform last，Farmbucks OI 276,408交叉）；Brent ICE Jan-2027 LCOF7，ICE官方 delayed last 92.490、change +0.554（約+0.60%）、volume 264,003；Investing同合約表另見92.57／volume278,237，保留差異，主畫面優先採ICE官方92.490並標示last非settlement；Gold COMEX Dec-2026 GCZ26 3,515.40（-4.62%，volume323,896，Investing平台last，OI171,833由FXEmpire交叉）；Silver COMEX Dec-2026 SIZ26 41.070（-7.41%，volume110,375，Investing平台last，OI48,391由Webull交叉）。CME 11/20 Daily Bulletin當時未更新，WTI／GC／SI不得冒稱CME官方settlement。
+- FedWatch更新差異：11/21 05:55 Taipei曾記錄升息25bp 89.6%、維持10.4%；其後頁面更新至11/21 07:05 Taipei，升息86.4%、維持13.6%。下游採較晚的86.4%／13.6%，舊值只保留為歷史快照。
+- Phase 2判定：44/44欄位均已登記數值、來源與採用口徑；部分為備援或平台last，HTML須如實標示。VIX CFD、MOVE與CNN備援、WTI／GC／SI平台last、Brent ICE delayed last不得寫成同等官方收盤。
+
+### Phase 3｜W47／W48 main JSON 唯讀核查
+- W47透過Git blob endpoint以SHA 727ea2be1c04688d3c4f98d36c452561bbab6821完整讀取。schema_version=1、Asia/Taipei、week 2026-W47、updated_at 2026-11-20T04:39:41+08:00、WR 5.17、status incomplete；經濟25筆（五星2、四星23；released19、upcoming6），財報23筆（五星1、四星22；released20、upcoming3）；跨兩類 event ID 無重複。
+- W47五星回顧：11/17 Kevin Warsh 生產力與就業致詞；11/19 FOMC 10/27–28 minutes；NVDA Q3 FY2027（GAAP diluted EPS USD2.70、Revenue USD115.8bn、Data Center USD107.6bn）。NVDA PIT共識為null，不作Beat/Miss；11/18首個交易日相對11/17收盤-2.89%。
+- W48 main JSON SHA 807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa；week 2026-W48（11/23–11/29）、updated_at 2026-11-21T09:00:28+08:00、WR 5.17、status incomplete；經濟27筆（五星5、四星22，全部upcoming），財報11筆（五星1、四星10，全部upcoming），event ID無重複；未來事件actual=null正常，沒有upcoming事件預填actual。
+- W48 11家財報EPS／Revenue consensus均未達採用條件，欄位維持null；不得顯示未核實forecast或Beat/Miss。
+- W48五筆經濟事件 impact_judgment 欄誤存URL，ID：current-fed-williams-20261123、current-us-initial-claims-20261125、current-de-gfk-confidence-202612、current-fr-hicp-flash-202611、current-de-unemployment-202611。只在HTML呈現層將URL移至來源欄，main JSON不修改。替代判讀：Williams演講是個別官員觀點，不代表FOMC決議；Initial Claims需搭配四週均值及續領人數；GfK/NIM反映消費者情緒而非實際消費；法國HICP保留3.7%市場共識與3.5% MUFG預期差異；德國失業數據保留增加6千與增加2千的預期差異。
+- W48 11/26美股感恩節休市、11/27提前收市；incomplete是動態狀態，不構成資料庫故障。
+- Phase 3判定：W47/W48均已讀取並核對schema、日期、時區、筆數、星等、狀態及重複ID；只讀，未修改任何main JSON。
+
+### 當前工作位置
+- Phase 1–3：依實際證據完成接收／稽核。Phase 4已有11/20 12:00起至11/21約09:03的新聞與分析預備稿，但新聞窗口尚未封口，待11/23 05:25前增量更新。
+- Phase 5：尚未安全執行DOM組裝。Python runtime已確認BeautifulSoup 4.14.3、lxml 6.1.1、Playwright Python及/usr/bin/chromium可用。真正阻塞是GitHub connector取得的完整母版內容尚無法直接物化到共享/mnt/data DOM runtime（raw GitHub網路下載DNS失敗）；不得再寫「環境沒有DOM parser」，也不得使用regex／字串切片或舊assembler。
+- 本次未修改母版、Manifest、QA Contract、W47/W48 JSON、main index或main preview。
