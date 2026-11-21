@@ -91,7 +91,7 @@ def main():
     assert all(x["stars"] == 5 for x in previous_earnings["events"])
     for event in current_calendar["events"] + current_earnings["events"] + previous_calendar["events"] + previous_earnings["events"]:
         assert event["source_url"].startswith("https://"), event.get("id")
-    assert all(x["eps_estimate"] is None and x["revenue_estimate"] is None for x in current_earnings)
+    assert all(x["eps_estimate"] is None and x["revenue_estimate"] is None for x in current_earnings["events"])
     nvda = previous_earnings["events"][0]
     assert nvda["ticker"] == "NVDA"
     assert nvda["eps_actual"] == 2.7 and nvda["revenue_actual"] == 115.8
