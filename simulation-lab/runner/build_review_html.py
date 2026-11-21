@@ -194,17 +194,32 @@ def set_text(node, value):
     node.append(str(value))
 
 def set_text_preserving_child_elements(node, value):
-    """Update the first direct text slot while preserving mother-owned child elements such as source links."""
+    """Update an existing text slot; never add or remove source-link DOM."""
     if node is None:
         raise ValueError("text container is missing")
     text_nodes = [
         child for child in node.contents
         if isinstance(child, NavigableString) and str(child).strip()
     ]
-    if not text_nodes:
-        node.insert(0, str(value))
-        return
-    text_nodes[0].replace_with(str(value))
+    if text_nodes:
+        text_nodes[0].replace_with(str(value))
+        return True
+    # Some source disclosures contain only anchors. Do not invent a new text
+    # node or overwrite link labels; leave those mother-owned links untouched.
+    for candidate in node.descendants:
+        if not isinstance(candidate, NavigableString) or not str(candidate).strip():
+            continue
+        parent = candidate.parent
+        inside_link = False
+        while parent is not None and parent is not node:
+            if getattr(parent, "name", None) == "a":
+                inside_link = True
+                break
+            parent = parent.parent
+        if not inside_link:
+            candidate.replace_with(str(value))
+            return True
+    return False
 
 
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
