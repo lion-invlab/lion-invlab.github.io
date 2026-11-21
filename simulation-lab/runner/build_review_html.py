@@ -126,7 +126,7 @@ def populate_fed_weekly_agenda(soup, data):
         # Preserve the mother-template two-column date/content layout.
         # Responsive stacking belongs in the template media query, not inline
         # styles applied to every viewport.
-        row["style"] = "display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;min-width:0;width:100%;box-sizing:border-box;"
+        row["style"] = "display:grid;grid-template-columns:minmax(0,1fr)!important;gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;min-width:0;width:100%;box-sizing:border-box;"
         row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
         row["class"].append("fc-fomc-weekly-event")
         row.attrs.pop("hidden", None)
