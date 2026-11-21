@@ -3355,3 +3355,17 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 兩份 Fixture 的 WTI `source.url` 與 `instrument_url` 均改為帶 `cid=1178037` 的指定合約歷史頁；更新 history_close、history_change、volume、change_points 及來源說明；11/23 原油評論改為同向走升但不過度推斷因果，11/20 改為漲跌分歧、待驗證供應風險。Brent／GC／SI 的指定合約歷史頁抽查與 Fixture 價格及漲跌幅一致。
 - 最新 WTI 修正後重跑：weekday run `44947008781`、Monday run `44947014615`；當時均 in_progress，尚未宣稱通過。另較早的 11/20 run `44946901354` 使用 WTI 舊 Fixture，結果不得作最終驗收依據。
 - 下一步：檢查兩個最新 run 的完整結果；成功後回讀兩份新 HTML／QA sidecar，確認商品名稱 href、來源說明合約、日期／價格／漲跌幅一致，並驗證財報卡明細標籤按母版分流。
+
+
+## 最新狀態錨點｜2026-11-22｜11/23 審核版完成、SIM-1.4 平日母版實證待完成
+
+- 目標報告：2026-11-23（一）；行情基準日：2026-11-20；工作分支：`simulation/tac-process-lab-2026-11-06`。
+- 唯一有效規則仍為 SIM-1.3：`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`。SIM-1.4 候選草案 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `371554033cd33efb76062827bc6b340e16f28bc2`，仍為 DRAFT，未經使用者核准不得取代 SIM-1.3。
+- QA Contract 已同步為 v1.14 DRAFT，blob SHA `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`；修正週一 simulation mother SHA 為 `72cd41e63f57f17b5b797af6043e839bf5f3b069`，style 數量修正為 121。平日母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 11/23 審核版完整 build run `44954756293` completed/success；HTML `preview/2026-11-23-simulation.html` blob SHA `bf165da826aa3209422dc2c1787cd17c05d9016a`，HTML SHA-256 `b98950ccf6d8446f91e3b20740ce6e799f2a5fd6565a8f9058531acb7a8382e4`；QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `ab5e91131b09c869551e7fa4ba969dfa2bfb4518`。
+- 本次 provenance：Builder `simulation-lab/runner/build_review_html.py` SHA `60d778c39ffe48140e99e0dad3579ce9f0b33945`；Manifest SHA `5080858c6720847086b7df815432d305d6231b3a`；QA Contract SHA `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`；Fixture SHA `948b504a0fba8ba45653cacc0a43cff5377e91a7`；active SIM-1.3 SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`；candidate SIM-1.4 SHA `371554033cd33efb76062827bc6b340e16f28bc2`。
+- QA：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、無 review blockers；六個 viewport 1440／768／412／390／360／320 均已執行；browser interaction、母版視覺比較、母版 DOM、獨立 provenance、44 項行情／行事曆／新聞結構均通過。
+- SIM-1.4 狀態仍為 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。11/23 是 Monday 母版同版測試通過；依 SIM-1.4 §8.1，仍須以相同 Builder／Manifest／QA Contract／active rules／candidate rules SHA 完成 Weekday 母版 2026-11-20 回歸，才能將候選 Builder 標記為雙母版技術驗證完成（CANDIDATE_VALIDATED）。不得把單一 Monday PASS 當作雙母版通過。
+- 11/23 build 第一次 run `44954646324` 因 QA Contract A2.1 使用過期 Monday SHA `36f29b...` 而在獨立 provenance 驗證失敗；已修正契約後由 run `44954756293` 重新完整執行並通過。不得引用第一次失敗 run 作為最終 QA。
+- 審核版僅寫入 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改；未部署 Pages。
+- 下一步：以相同 SHA 觸發 2026-11-20 Weekday fixture 完整 build，回讀其 HTML／QA sidecar 核對 provenance；若通過，再完成 SIM-1.4 條文與實作對照表及候選 Builder 驗收摘要，交使用者核准 SIM-1.4／Builder，不代替使用者核准。
