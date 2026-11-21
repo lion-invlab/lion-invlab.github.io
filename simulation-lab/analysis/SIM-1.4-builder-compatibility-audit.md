@@ -148,3 +148,11 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - Run 44905408554（2026-11-23 Monday，Builder SHA 45bafe4c8e346fe1c51d1eb342c114d8009fc43c）完整成功：組裝、互動、視覺六視窗、DOM validator、artifact provenance、44 項行情結構 Gate 均 PASS；QA sidecar QA_PASSED，但 review_ready=false，原因是 VIX／MOVE／CNN Fear & Greed／FedWatch 快照待截稿前刷新。
 - 後續市場評論 DOM 保護又更新 Builder 至 d6f57d5d7a91526d31747abebc6a228b933402a9，DOM validator 至 52404ce2dc6881566ea998cc84e7af030dff43ba；這一組最新 SHA 尚待重新完成 Monday／weekday build。不可沿用前一 run 的 PASS 代替最新 SHA 驗收。
 - SIM-1.4 仍是 DRAFT；SIM-1.3 仍有效；main／正式首頁／正式母版未修改。
+
+## 2026-11-21｜最新 SHA 驗收更新
+
+- 最新 Builder SHA a3186cf7c10848d0b7d37fdb3d1268dfecaba958；DOM validator SHA e202923cb0d31a8381c238884203599a2937de77；FactSet／情緒 regression SHA 07a5f8a05a0b8518223fc79fe507a4a70cfe3111；CFD／Fed／summary／市場評論 regression SHA a3569c0355c29278bddc0bc9ec551471036cf586。
+- Run 44906325728 以此 Builder SHA 完成 2026-11-23 Monday 完整驗收並成功 persist；Playwright、DOM contract、provenance、44 項行情／新聞結構、六視窗全部 PASS。
+- QA sidecar 3f455650a5c8b0645df54a46652b0801388e9990：QA_PASSED；review_ready=false，唯一 blocker 是 VIX／MOVE／CNN Fear & Greed／FedWatch 快照時間過舊，須在 11/23 截稿前刷新。
+- 最新 SHA 的 weekday 完整回歸尚待本次 11/20 run；在其通過前，雙母版完整驗收不算結案。
+- SIM-1.4 保持 DRAFT，SIM-1.3 繼續有效；main 與正式資產未修改。
