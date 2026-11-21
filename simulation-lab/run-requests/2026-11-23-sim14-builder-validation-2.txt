@@ -1,0 +1,5 @@
+SIM-1.4 builder validation attempt 2
+report_date=2026-11-23
+mode=build
+purpose=Re-run date-matched Monday build after fixing whitespace-normalized global market row matching.
+scope=simulation branch only; no main writes; no production deploy.
