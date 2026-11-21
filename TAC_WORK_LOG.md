@@ -1781,3 +1781,8 @@
 ## 2026-11-21｜AMD頭條原文備援查核
 - Investing.com HK 11/21 00:41頁面本輪讀取失敗，不以搜尋摘要代替。改讀24/7 Wall St 11/20 09:52 ET（11/20 22:52 Taipei，符合新聞窗）後續文章；內容為Hunterbrook對AMD中國伺服器商IEIT韌體關係提出指控、AMD否認，且未證明出口法規違規。Reuters 11/19原始報導只作交叉核對，因時間早於11/20 12:00 Taipei，不列為本輪頭條來源。24/7 URL https://247wallst.com/investing/2026/11/20/amd-slides-6-despite-jim-cramer-calling-hunterbrook-short-report-a-hitjob-nvidia-falls-3-near-damodaran-140-buy-price-intel-declines-2/ 。
 - 10則Hot Headlines候選目前涵蓋AMD、NVIDIA SEC、黃金白銀、Anthropic、CoreWeave、SpaceX、NVIDIA連7週下跌、價值股輪動、Trump海外資料中心構想、Bessent H200出口上限／Trump舊晶片表態；最終仍待11/23 05:25前更新。
+## 2026-11-21 10:12｜G1因果鏈補強
+- 直接核讀Fed 10/27–28 FOMC minutes：10–2維持3.75%–4.00%，Cook/Hammack主張升息；幾乎所有與會者認為基準情境下後續升息可能適當。紀要明確提到AI建置債務、表外租賃、循環融資、資料中心高收益債利差、避險基金槓桿及被迫賣出風險；AI投資回報失望可能引發資產重估。官方URL https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm 。
+- 直接核讀Warsh 11/16演講：AI可能推升長期生產力，但尚未有結構性突破；若AI投資回報令人失望，可能出現估值下跌與經濟放緩情境。此為長期情境，不是短期利率訊號。URL https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm 。
+- G1主因果鏈：AI需求／訂單仍強，但市場重新定價資本支出回報、融資結構與槓桿；高利率抬高資金成本，資料中心高收益債利差擴大，AI估值與信用風險互相放大，可能引發去槓桿及被迫賣出。SpaceX融資超額認購與CoreWeave CDS飆升代表信用市場分層，不等於AI需求全面消失。Warsh長期情境、FOMC金融穩定／通膨風險、Cook近期鷹派發言須分開解讀。
+- Phase 4仍未封口，原文核讀截至11/21 10:12:34+08:00。
