@@ -21,6 +21,66 @@ def normalize_market_label(value):
     return re.sub(r"\s+", "", str(value or "")).casefold()
 
 
+def populate_fedwatch_two_slots(fed, data):
+    """Update the two approved FedWatch cards without cloning or rebuilding DOM."""
+    rows = fed.select(".fc-prob")
+    bar = fed.select_one(".fc-split-bar")
+    legend = fed.select_one(".fc-split-legend")
+    segments = bar.select(":scope > span") if bar else []
+    entries = legend.select(":scope > span") if legend else []
+    if len(rows) != 2 or bar is None or legend is None or len(segments) != 2 or len(entries) != 2:
+        raise ValueError("FedWatch mother template must retain exactly two cards, bar segments and legend entries")
+    outcomes = data.get("fedwatch", {}).get("probabilities") or []
+    def pending(message):
+        for row in rows:
+            set_text(unique(row, "strong", "probability"), "待核實")
+            set_text(unique(row, ".fc-range", "range"), message)
+            set_text(unique(row, ".fc-prob-label span:not(.fc-dot)", "label"), "機率待核實")
+        bar.attrs["hidden"] = "hidden"
+        bar.attrs.pop("aria-label", None)
+        for entry in entries:
+            if len(entry.contents) >= 3:
+                entry.contents[1].replace_with("機率資料待核實 ")
+                set_text(entry.contents[-1], "—")
+        return message
+    if not outcomes:
+        return pending("未取得 05:25 前可用快照")
+    total = sum(float(item["probability"]) for item in outcomes)
+    if abs(total - 100) > 0.2:
+        raise ValueError(f"FedWatch distribution totals {total}")
+    holds = [item for item in outcomes if item.get("outcome") == "hold"]
+    hikes = [item for item in outcomes if item.get("outcome") == "hike"]
+    # The approved mother has only hold + one hike slot. Do not manufacture a
+    # third card or silently omit cut/other outcomes; fail the visual display closed.
+    if len(outcomes) != 2 or len(holds) != 1 or len(hikes) != 1:
+        detail = "；".join(
+            f'{item.get("outcome", "unknown")} {item.get("rate_range", "區間待核實")} {float(item.get("probability", 0)):.1f}%'
+            for item in outcomes
+        )
+        return pending("情境數量／類型超出母版兩卡規格；完整分布見資料時間與快照口徑：" + detail)
+    ordered = [holds[0], hikes[0]]
+    current_range = data.get("fedwatch", {}).get("current_target_range")
+    if not current_range or holds[0].get("rate_range") != current_range:
+        raise ValueError("FedWatch hold outcome does not match the current target range")
+    labels = ["維持不變", "升息"]
+    for row, item, label in zip(rows, ordered, labels):
+        set_text(unique(row, "strong", "probability"), f'{float(item["probability"]):.1f}%')
+        set_text(unique(row, ".fc-range", "range"), item.get("rate_range", "區間待核實"))
+        set_text(unique(row, ".fc-prob-label span:not(.fc-dot)", "label"), label)
+    for segment, entry, label, item in zip(segments, entries, labels, ordered):
+        segment["style"] = f'width:{float(item["probability"]):.1f}%'
+        if len(entry.contents) < 3:
+            raise ValueError("FedWatch legend entry lost its approved child structure")
+        entry.contents[1].replace_with(label + " ")
+        set_text(entry.contents[-1], f'{float(item["probability"]):.1f}%')
+    bar.attrs.pop("hidden", None)
+    bar["aria-label"] = "；".join(
+        f'{label} {float(item["probability"]):.1f}%'
+        for label, item in zip(labels, ordered)
+    )
+    return None
+
+
 def populate_fed_weekly_agenda(soup, data):
     """Fill only the pre-existing Fed agenda slots; never rebuild its outer DOM."""
     box = soup.select_one("#fed .fc-fomc-weekly-events")
@@ -1564,99 +1624,15 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     if fg:
         score=fg[0].select_one(".fg6-score-main")
         if score: set_text(score,data["risk"]["fear_greed"].get("display","待核實"))
-    # FedWatch: only use a snapshot available before the 05:25 report cutoff.
+    # FedWatch: preserve the mother template's two probability-card slots.
     fed=unique(soup,"#fed .fed-live-watch","FedWatch panel")
-    outcomes=data["fedwatch"]["probabilities"]
-    rows=fed.select(".fc-prob")
-    if len(rows)!=2: raise ValueError("approved mother baseline must start with exactly two probability cards")
-    bar=fed.select_one(".fc-split-bar")
-    legend_box=fed.select_one(".fc-split-legend")
-    if bar is None or legend_box is None:
-        raise ValueError("FedWatch distribution bar/legend missing")
-    if not outcomes:
-        for row in rows:
-            set_text(unique(row,"strong","probability"),"待核實")
-            set_text(unique(row,".fc-range","range"),"未取得 05:25 前快照")
-            set_text(unique(row,".fc-prob-label span:not(.fc-dot)","label"),"機率資料待核實")
-        bar["style"]="display:none"
-        for legend in legend_box.select("span"): legend_box.clear()
-        legend_box.append("未取得 05:25 前可用快照")
-    else:
-        total=sum(float(x["probability"]) for x in outcomes)
-        if abs(total-100)>0.2: raise ValueError(f"FedWatch distribution totals {total}")
-        hold=[x for x in outcomes if x["outcome"]=="hold"]
-        hikes=[x for x in outcomes if x["outcome"]=="hike"]
-        cuts=[x for x in outcomes if x["outcome"]=="cut"]
-        current_range=data["fedwatch"].get("current_target_range")
-        if len(hold)!=1 or not current_range or hold[0].get("rate_range")!=current_range:
-            raise ValueError("FedWatch requires one hold outcome matching official current target range")
-        if cuts or not hikes:
-            raise ValueError("This three-card FedWatch layout expects hold plus distinct hike outcomes")
-        current_nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(current_range))]
-        if len(current_nums)!=2: raise ValueError("FedWatch current target range must contain two numeric bounds")
-        expected_steps=set()
-        for item in hikes:
-            nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(item.get("rate_range","")))]
-            step=round(nums[0]-current_nums[0],2) if len(nums)==2 else None
-            upper_step=round(nums[1]-current_nums[1],2) if len(nums)==2 else None
-            if step not in (0.25,0.50) or upper_step!=step:
-                raise ValueError("FedWatch hike range must be distinct +25bp or +50bp: "+str(item.get("rate_range")))
-            expected_steps.add(step)
-        if expected_steps!={0.25,0.50}:
-            raise ValueError("FedWatch must contain separate +25bp and +50bp outcomes")
-        outcome_by_step={}
-        for item in hikes:
-            nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(item["rate_range"]))]
-            outcome_by_step[round(nums[0]-current_nums[0],2)]=item
-        ordered=[hold[0],outcome_by_step[0.25],outcome_by_step[0.50]]
-        container=rows[0].parent
-        template=rows[1]
-        while len(rows)<3:
-            clone=__import__("copy").copy(template)
-            container.append(clone)
-            rows.append(clone)
-        rows=container.select(".fc-prob")
-        if len(rows)!=3: raise ValueError("FedWatch three probability cards failed to materialize")
-        labels=["維持不變","升息一碼（25bp）","升息兩碼（50bp）"]
-        for idx,(row,item,label) in enumerate(zip(rows,ordered,labels)):
-            row["class"]=["fc-prob fc-hold","fc-prob fc-hike","fc-prob fc-hike fc-hike-50bp"][idx]
-            palette=[("#eaf4fc","#2876a8","#216b99"),("#fff0ed","#c93432","#b52d2d"),("#f2edff","#7854b8","#6946a5")][idx]
-            row["style"]=f"background:{palette[0]} !important;border-top:4px solid {palette[1]} !important;color:{palette[2]} !important;"
-            dot=row.select_one(".fc-dot")
-            if dot: dot["style"]=f"background:{palette[1]} !important;"
-            probability_node=unique(row,"strong","probability")
-            set_text(probability_node,f'{float(item["probability"]):.1f}%')
-            probability_node["style"]=f"color:{palette[2]} !important;"
-            range_node=unique(row,".fc-range","range")
-            set_text(range_node,item["rate_range"])
-            range_node["style"]=f"color:{palette[2]} !important;"
-            label_node=unique(row,".fc-prob-label span:not(.fc-dot)","label")
-            set_text(label_node,label)
-            label_node["style"]=f"color:{palette[2]} !important;"
-        bar.clear()
-        bar["aria-label"]="；".join(f'{label} {float(item["probability"]):.1f}%' for label,item in zip(labels,ordered))
-        for cls,item in zip(["fc-split-hold","fc-split-hike","fc-split-hike fc-split-hike-50bp"],ordered):
-            seg=soup.new_tag("span")
-            seg["class"]=cls.split()
-            seg_color=["#2876a8","#c93432","#7854b8"][len(bar.contents)]
-            seg["style"]="width:"+str(float(item["probability"]))+"%;background:"+seg_color+" !important;"
-            bar.append(seg)
-        legend_box.clear()
-        for cls,label,item in zip(["fc-legend-hold","fc-legend-hike","fc-legend-hike-50bp"],labels,ordered):
-            entry=soup.new_tag("span")
-            dot=soup.new_tag("i");dot["class"]=[cls]
-            dot["style"]="background:"+["#2876a8","#c93432","#7854b8"][len(legend_box.contents)]+" !important;"
-            value=soup.new_tag("b");value.string=f'{float(item["probability"]):.1f}%'
-            entry.append(dot);entry.append(label+" ");entry.append(value);legend_box.append(entry)
-        style=soup.new_tag("style",id="tac-fedwatch-three-outcomes-v1")
-        style.string=".fed-live-panel .fc-probs-refined{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;align-items:stretch!important;gap:8px!important}.fed-live-panel .fc-probs-refined .fc-prob{box-sizing:border-box!important;min-width:0!important;min-height:116px!important;height:116px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;align-items:flex-start!important;padding:8px 9px!important;border-radius:14px!important}.fed-live-panel .fc-probs-refined .fc-prob-label{display:flex!important;align-items:center!important;gap:5px!important;min-height:18px!important;white-space:nowrap!important;flex-wrap:nowrap!important;font-size:10px!important;line-height:1.1!important;letter-spacing:-.3px!important}.fed-live-panel .fc-probs-refined .fc-prob strong{display:block!important;min-height:32px!important;line-height:1!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}.fed-live-panel .fc-probs-refined .fc-range{display:block!important;min-height:16px!important;white-space:nowrap!important;font-size:10px!important;line-height:1.1!important}.fed-live-panel .fc-prob.fc-hold{background:#eaf4fc!important;border-top:4px solid #2876a8!important;color:#216b99!important}.fed-live-panel .fc-prob.fc-hike{background:#fff0ed!important;border-top:4px solid #c93432!important;color:#b52d2d!important}.fed-live-panel .fc-prob.fc-hike.fc-hike-50bp{background:#f2edff!important;border-top:4px solid #7854b8!important;color:#6946a5!important}.fed-live-panel .fc-split-bar{display:flex!important;overflow:hidden!important;border-radius:7px!important}.fed-live-panel .fc-split-bar .fc-split-hold{background:#2876a8!important}.fed-live-panel .fc-split-bar .fc-split-hike{background:#c93432!important}.fed-live-panel .fc-split-bar .fc-split-hike-50bp{background:#7854b8!important}.fed-live-panel .fc-split-legend{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:6px!important;align-items:stretch!important}.fed-live-panel .fc-split-legend>span{display:flex!important;align-items:center!important;gap:7px!important;min-width:0!important;white-space:nowrap!important;font-size:11px!important}.fed-live-panel .fc-split-legend>span b{margin-left:auto!important;font-variant-numeric:tabular-nums!important}.fed-live-panel .fc-split-legend i.fc-legend-hold{background:#2876a8!important}.fed-live-panel .fc-split-legend i.fc-legend-hike{background:#c93432!important}.fed-live-panel .fc-split-legend i.fc-legend-hike-50bp{background:#7854b8!important}@media(max-width:560px){.fed-live-panel .fc-probs-refined .fc-prob{padding:8px 6px!important;min-height:108px!important;height:108px!important}.fed-live-panel .fc-probs-refined .fc-prob-label{font-size:9px!important;letter-spacing:-.35px!important}.fed-live-panel .fc-probs-refined .fc-prob strong{font-size:clamp(21px,6.5vw,27px)!important}.fed-live-panel .fc-probs-refined .fc-range{font-size:9px!important}.fed-live-panel .fc-split-legend>span{font-size:9px!important}}@media(max-width:360px){.fed-live-panel .fc-probs-refined{gap:5px!important}.fed-live-panel .fc-probs-refined .fc-prob{padding:9px 4px!important}.fed-live-panel .fc-probs-refined .fc-prob-label{font-size:8px!important}.fed-live-panel .fc-split-legend>span{font-size:8px!important}}";
-        soup.head.append(style)
+    fedwatch_layout_note = populate_fedwatch_two_slots(fed, data)
     ts=data["fedwatch"].get("updated_at_tw","未取得 05:25 前快照")
     for span in fed.select(".fc-split-head span"):
         if "資料時間" in span.get_text() or "官方截圖" in span.get_text() or "Investing.com" in span.get_text():
             set_text(span,f"Fed Rate Monitor｜{ts}")
     # Replace stale mother-template disclaimer with the actual verified snapshot state.
-    snapshot_note = f"Investing.com Fed Rate Monitor｜目標會議 {data['fedwatch'].get('target_meeting','待核實')}｜更新時間 {ts}。"
+    snapshot_note = f"Investing.com Fed Rate Monitor｜目標會議 {data['fedwatch'].get('target_meeting','待核實')}｜更新時間 {ts}。" + ((" " + fedwatch_layout_note) if fedwatch_layout_note else "")
     snapshot_detail = fed.select_one("details")
     if snapshot_detail:
         detail_body = snapshot_detail.select_one("div")
