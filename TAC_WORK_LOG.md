@@ -1758,3 +1758,10 @@
 - Phase 2判定：44/44均有數值／來源及口徑紀錄；備援項目須在下游明示，不得寫成官方值；不全量重抓已鎖定項目。
 - Phase 1–3接收／稽核完成；Phase 4新聞窗未封口（待11/23 05:25前增量更新）；Phase 5 HTML與QA未完成；Phase 6未交付。Python runtime可用BeautifulSoup 4.14.3、lxml 6.1.1、Playwright及Chromium；尚未解決GitHub connector至本地DOM runtime的完整母版檔案傳遞。不得用regex／字串切片或舊assembler替代。
 - W47/W48 main JSON只讀；本次未修改行事曆、母版、Manifest、QA Contract、main index或main preview。
+## 2026-11-21 10:03｜Phase 4 新聞窗口增量核對（暫存）
+- 新增已讀原文的Global Focus候選：Reuters全球賣壓（11/20 15:12 UTC）、Reuters Cook鷹派發言（11/20 17:18 UTC）、CNYES密大消費信心（11/21 02:00 Taipei）、Focus Taiwan台灣10月外銷訂單（11/20 20:26 Taipei）、CNYES美參院能源許可改革（11/21 07:30 Taipei）。
+- 新增Hot Headlines候選：CNYES SEC調查輝達（07:02）、Anthropic IPO第二日回落（06:35）、CoreWeave CDS 1,232.6bp（00:30）、SpaceX 440億美元GPU融資（03:38，Apollo官方稿交叉）、NVIDIA連7週下跌／市值落後Alphabet（06:16）、Reuters價值股輪動（11/20 20:13 UTC）、Trump海外資料中心政策（08:30）、Bessent H200出口上限與Trump舊晶片表態（04:00／04:40）、黃金白銀下跌（02:41更新04:44）。均尚待11/23截稿前再去重／更新。
+- 品質排除：Reuters Fact Check確認網傳要求NVIDIA董事會辭職的員工信為偽造；CNYES相關誤導報導不採用。CNYES 09:00美股盤後摘要不列入熱門頭條以免重複行情表。Citi罕見警訊文章時區未確認，暫不採用。
+- VIX 35.89（+26.20%）已由Cboe官方頁直接核實（11/20 9:15 PM資料），撤銷先前將其標成Investing CFD參考的錯誤註記；主來源為 https://www.cboe.com/tradable-products/vix/ 。
+- Phase 4截至2026-11-21 10:03:28+08:00仍未封口；Global Focus及Hot Headlines僅暫存，不得宣稱最終完成。G1暫定主軸：AI需求／頂級融資仍強，但信用風險、NVIDIA治理與估值重估、價值股輪動及Fed鷹派令市場提高對AI投資回報與槓桿的要求。
+- 本次未修改母版、Manifest、QA Contract、W47/W48 JSON、main index或main preview。
