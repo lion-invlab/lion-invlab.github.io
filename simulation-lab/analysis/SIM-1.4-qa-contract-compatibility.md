@@ -52,7 +52,7 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 
 ## 6. 最新測試狀態
 
-- GitHub Actions run 44896495817（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07）deterministic self-tests 全部通過；包括雙母版 SHA／結構驗收及 11/23 fixture contract。
+- GitHub Actions run 44896643592（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07）deterministic self-tests 全部通過；包括雙母版 SHA／結構驗收及 11/23 fixture contract。
 - 該 run 未執行 HTML build／Playwright；320px 目前只確認已加入 visual_regression.mjs 及 QA evidence expected_widths，尚無 320px 實際瀏覽器結果。
 - 11/23 fixture 的六筆 CFD index rows 已被改成待核實並保留 rejected_reference；仍有現貨來源與情緒／FedWatch刷新 blocker，因此不應產生或核准審核版。
 
