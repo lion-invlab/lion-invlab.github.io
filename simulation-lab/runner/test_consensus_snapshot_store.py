@@ -13,7 +13,50 @@ from consensus_snapshot_store import (
     append_consensus_snapshot,
     archive_raw_response,
     build_consensus_snapshot,
+    select_first_available_estimate,
 )
+
+
+
+class FirstAvailableEstimateSelectionTests(unittest.TestCase):
+    def test_yahoo_value_stops_search_even_when_optional_metadata_is_missing(self):
+        attempts = [
+            {"source_level": 1, "provider": "Yahoo Finance", "value": 2.70,
+             "period": "2026 Q3", "url": "https://finance.yahoo.com/quote/ABC/analysis/",
+             "analyst_count": None, "data_as_of": None, "basis_code": None},
+            {"source_level": 2, "provider": "Investing.com", "value": 2.90,
+             "period": "2026 Q3", "url": "https://www.investing.com/equities/abc-earnings"},
+        ]
+        selected = select_first_available_estimate(attempts, "2026 Q3")
+        self.assertEqual(selected["provider"], "Yahoo Finance")
+        self.assertEqual(selected["value"], 2.70)
+        self.assertEqual(selected["selection_source_level"], 1)
+
+    def test_eps_and_revenue_are_selected_independently_by_caller(self):
+        eps = select_first_available_estimate([
+            {"source_level": 1, "provider": "Yahoo Finance", "value": 1.2, "period": "2026 Q3", "url": "https://finance.yahoo.com/quote/ABC/analysis/"},
+            {"source_level": 2, "provider": "Investing.com", "value": 1.3, "period": "2026 Q3", "url": "https://www.investing.com/equities/abc-earnings"},
+        ], "2026 Q3")
+        revenue = select_first_available_estimate([
+            {"source_level": 1, "provider": "Yahoo Finance", "value": None, "period": "2026 Q3", "url": "https://finance.yahoo.com/quote/ABC/analysis/"},
+            {"source_level": 2, "provider": "Investing.com", "value": 8.4, "period": "2026 Q3", "url": "https://www.investing.com/equities/abc-earnings"},
+            {"source_level": 3, "provider": "LSEG I/B/E/S", "value": 8.5, "period": "2026 Q3", "url": "https://example.com/lseg"},
+        ], "2026 Q3")
+        self.assertEqual(eps["provider"], "Yahoo Finance")
+        self.assertEqual(revenue["provider"], "Investing.com")
+
+    def test_wrong_period_is_skipped_then_next_provider_selected(self):
+        selected = select_first_available_estimate([
+            {"source_level": 1, "provider": "Yahoo Finance", "value": 2.7, "period": "2026 Q4", "url": "https://finance.yahoo.com/quote/ABC/analysis/"},
+            {"source_level": 2, "provider": "Investing.com", "value": 2.8, "period": "2026 Q3", "url": "https://www.investing.com/equities/abc-earnings"},
+        ], "2026 Q3")
+        self.assertEqual(selected["provider"], "Investing.com")
+
+    def test_no_usable_value_returns_none(self):
+        self.assertIsNone(select_first_available_estimate([
+            {"source_level": 1, "provider": "Yahoo Finance", "value": None, "period": "2026 Q3", "url": "https://finance.yahoo.com/quote/ABC/analysis/"},
+            {"source_level": 2, "provider": "Investing.com", "value": 3.0, "period": "2026 Q4", "url": "https://www.investing.com/equities/abc-earnings"},
+        ], "2026 Q3"))
 
 
 class ConsensusSnapshotStoreTests(unittest.TestCase):
@@ -25,7 +68,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             "reporting_period": "2026 Q3",
         }
         self.attempt = {
-            "source_level": 2,
+            "source_level": 3,
             "provider": "LSEG I/B/E/S",
             "url": "https://provider.example/consensus/ABC",
             "observed_at": "2026-11-10T04:00:00+08:00",
@@ -155,7 +198,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             self.build(attempt=attempt)
 
     def test_provider_must_match_source_level(self):
-        attempt = dict(self.attempt, source_level=3, provider="LSEG I/B/E/S")
+        attempt = dict(self.attempt, source_level=2, provider="LSEG I/B/E/S")
         with self.assertRaises(ValueError):
             self.build(attempt=attempt)
 
@@ -226,7 +269,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
                 )
                 revenue_attempt = dict(
                     self.attempt,
-                    source_level=3,
+                    source_level=4,
                     provider="FactSet Estimates",
                     observed_at=poll_time,
                     data_as_of=f"2026-11-{day}",
