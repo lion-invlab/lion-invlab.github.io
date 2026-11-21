@@ -292,7 +292,9 @@ def populate_summary_points_preserving_dom(node, points):
 
 
 def set_market_observation(node, title, value):
-    """Update the approved bold-heading and text slots without rebuilding their DOM."""
+    """Update existing heading/text nodes in place; never clear or rebuild the observation DOM."""
+    if node is None:
+        raise ValueError("market observation target node is missing")
     if isinstance(value, dict):
         title = str(value.get("heading") or title)
         raw = str(value.get("text") or "").strip()
@@ -300,19 +302,35 @@ def set_market_observation(node, title, value):
         raw = str(value or "").strip()
     if "｜" in raw and raw.startswith("📌"):
         raw = raw.split("｜", 1)[1].strip()
-    heading = node.find("b", recursive=False) if node is not None else None
-    line_break = next((child for child in node.children if getattr(child, "name", None) == "br"), None) if node is not None else None
-    text_slot = None
-    if line_break is not None:
-        sibling = line_break.next_sibling
-        while sibling is not None and isinstance(sibling, NavigableString) and not str(sibling).strip():
+
+    heading = node.find("b", recursive=False)
+    line_break = next((child for child in node.children if getattr(child, "name", None) == "br"), None)
+
+    def first_text_after(anchor):
+        sibling = anchor.next_sibling if anchor is not None else None
+        while sibling is not None:
+            if isinstance(sibling, NavigableString) and str(sibling).strip():
+                return sibling
+            if getattr(sibling, "name", None):
+                candidate = next((x for x in sibling.descendants if isinstance(x, NavigableString) and str(x).strip()), None)
+                if candidate is not None:
+                    return candidate
             sibling = sibling.next_sibling
-        if isinstance(sibling, NavigableString):
-            text_slot = sibling
-    if heading is None or line_break is None or text_slot is None:
-        raise ValueError("market observation mother slot must retain direct bold heading, br and text node")
-    heading.string = title
-    text_slot.replace_with(raw)
+        return None
+
+    text_slot = first_text_after(line_break or heading)
+    if text_slot is None and heading is None:
+        text_slot = next((x for x in node.descendants if isinstance(x, NavigableString) and str(x).strip()), None)
+    if text_slot is None:
+        raise ValueError(
+            "market observation has no existing text slot: "
+            + str(node.name) + " class=" + " ".join(node.get("class", []))
+        )
+    if heading is not None:
+        heading.string = title
+        text_slot.replace_with(raw)
+    else:
+        text_slot.replace_with(title + "｜" + raw)
 
 
 def unique(root, selector, label):
