@@ -45,6 +45,9 @@ def test_fed_agenda_slots():
         soup = BeautifulSoup(html, "html.parser")
         box = soup.select_one("#fed .fc-fomc-weekly-events")
         assert box is not None, filename
+        observation_slot = soup.select_one("#fed .fc-fomc-observation")
+        assert observation_slot is not None and "fc-fomc-weekly-events" not in observation_slot.get("class", [])
+        observation_before = (observation_slot.name, tuple(observation_slot.get("class", [])), observation_slot.get_text(" ", strip=True))
         assert len(soup.select("#fed .fc-fomc-weekly-events")) == 1
         outer_children = [(child.name, tuple(child.get("class", []))) for child in box.find_all(recursive=False)]
         list_node = box.select_one(".fc-fomc-weekly-events-list")
@@ -56,6 +59,7 @@ def test_fed_agenda_slots():
         assert "Waller delivers remarks" in box.get_text(" ", strip=True)
         assert "Bowman speaks on banking" in box.get_text(" ", strip=True)
         assert [(child.name, tuple(child.get("class", []))) for child in box.find_all(recursive=False)] == outer_children
+        assert (observation_slot.name, tuple(observation_slot.get("class", [])), observation_slot.get_text(" ", strip=True)) == observation_before
         assert [(child.name, tuple(child.get("class", []))) for child in list_node.find_all(recursive=False)][0] == list_children_before[0]
         assert len(list_node.select(":scope > .fc-fomc-weekly-event")) == 2
         assert list_node.select_one(".fc-fomc-weekly-event-template[hidden]") is not None
