@@ -602,7 +602,7 @@ jobs:
               "actionability_findings": actionability_findings,
               "sim14_builder_approval": "NOT_APPROVED",
               "sim14_review_ready": False,
-              "sim14_blockers": ["SIM-1.4 remains DRAFT; candidate Builder has not been explicitly approved as the unique entry point"],
+              "sim14_blockers": ["Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point"],
               "calendar_main_commit_sha": provenance["calendar_main_commit_sha"],
               "calendar_current_blob_sha": provenance["calendar_current_blob_sha"],
               "calendar_previous_blob_sha": provenance["calendar_previous_blob_sha"],
