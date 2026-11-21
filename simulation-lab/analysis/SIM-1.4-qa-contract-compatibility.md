@@ -21,7 +21,7 @@
 - 正式 Manifest 的 monday／weekdays 路徑與 SHA，均與正式母版檔案實際 SHA 相符。
 - Simulation Manifest 的 simulation_path／simulation_blob_sha，均與兩份 simulation baseline 實際 SHA 相符。
 - 兩份 simulation baseline 與正式母版分開鎖定；不得把 simulation SHA 寫成正式母版 SHA。
-- 兩份母版均有相同核心區塊錨點與 17 項全球主要市場結構；週一另有上週經濟及財報回顧區，平日不得新增。
+- 兩份母版均有相同核心區塊錨點與 17 項全球主要市場結構；11 ETF 的固定 ticker／href 集合相同，但靜態順序不同；週一另有上週經濟及財報回顧區，平日不得新增。
 - 母版 QA 清單列出共用 selector、行事曆卡巢狀結構、週一專用結構、CSS／JS／ID 統計及手機／桌面視覺檢查。
 
 ## 3. QA Contract 的版本與引用矛盾
@@ -46,8 +46,8 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 ## 5. 尚未完成的實證
 
 - 本次確認 Manifest SHA 與兩組母版 SHA 登記一致；但尚未執行 DOM parser 全量驗證、style/script 內容 hash 比對、所有 anchor uniqueness 自動測試。
-- 尚未逐項核實兩份母版的 11 ETF selector／href 完全一致。
-- 尚未在瀏覽器完成 responsive／interaction 測試。
+- 已完成兩份母版 11 ETF 固定 href 比對：各有 11 個唯一 href，ticker／連結集合一致；但母版示範排序不同，故不得把靜態 DOM 順序當每日排名。每日依當日漲跌幅重新排序。
+- visual_regression.mjs 與 Workflow evidence expected_widths 已加入 320px；本次只確認程式碼與 workflow 一致，尚未在瀏覽器完成新 320px build 的 responsive／interaction 測試。
 - QA Contract v1.5 DRAFT 的結構規格可作唯一詳細清單候選，但在 Builder 不相容問題解決前，不可宣稱 SIM-1.4 的完整每日組裝流程已通過。
 
 ## 6. 結論
