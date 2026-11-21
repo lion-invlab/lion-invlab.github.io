@@ -518,3 +518,6 @@
 
 
 - 2026-11-21 build request: 使用當前 2026-11-23 Monday fixture，以最新 simulation Builder／母版／Manifest／QA Contract 執行完整 build mode；此為測試請求，不代表 QA 通過或 SIM-1.4 生效。
+
+
+- 2026-11-21 build retry: run `44901082368` 已通過前置及 deterministic tests，組裝 11/23 Monday fixture 時發現 `observation` 為結構物件（heading/text），Builder 原以字串判斷而中止。已修正 `set_market_observation` 支援字串與結構物件，最終 Gate 亦改比較 `observation.text`；新增 regression test，現觸發完整 build 重跑。此錯誤修正尚待 CI 與 build 結果驗證。
