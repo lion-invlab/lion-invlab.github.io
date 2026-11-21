@@ -2729,3 +2729,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 最新工作稿重新產出：`/mnt/data/TAC_投資早報_2026-11-23_審核工作稿.html`，296,440 bytes，SHA-256 `aac66d182f2f9d0af84de01c0a88b0d712ad93beee2eebf0350f9f471eecd71d`。這是本輪最新檔，取代上一版SHA 38fb81...。
 - SIM-1.3 三區評論 Gate 再驗：#global-markets #tac-global-panel-0/1/2 各有且僅有一個 .market-reason；標題依序「📌 美股觀察」「📌 亞股觀察」「📌 歐股觀察」。美股評論只提美股指數，亞股評論只提亞洲市場，歐股評論只提歐洲市場；三區無跨區指數錯置。
 - 最新瀏覽器QA再次完成：Playwright Chromium關閉Q4基金提醒modal後，360/390/412/768/1440px水平溢位皆0；pageerror 0；重複ID 0；全球市場／產業資產／新聞tabs可切換。工作稿尚非review_ready；新聞窗口、W47/W48行事曆、CNN、FedWatch仍有未結Gate。
+
+
+## 2026-11-21｜CNN Fear & Greed 官方截圖補值（使用者提供 11:59 截圖）
+- 使用者提供 CNN Business 官方 Fear & Greed Index 頁面截圖；讀值為 10/100，分類 Extreme Fear。Previous close 18；1 week ago 37；1 month ago 28；1 year ago 5。
+- CNN頁面標示 Last updated Nov 20 at 6:59:52 PM ET，換算台灣時間 2026-11-21 07:59:52（ET +13小時）。使用者截圖時間 11:59（台灣時間）僅代表畫面取得時間，非指數更新時間。
+- 此截圖作為 CNN 官方頁面直接證據，取代此前「CNN待核實」狀態；不得混用先前第三方10／MarketWatch轉述15的衝突敘述。
+- 已更新工作稿CNN卡片：10／100｜Extreme Fear，附上 previous close／1週／1月／1年對照及雙時間戳；審核橫幅已移除CNN待核字樣。新檔：`/mnt/data/TAC_投資早報_2026-11-23_審核工作稿_CNN更新版.html`，296,496 bytes，SHA-256 `8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3`。
+- Playwright Chromium以page.set_content測390px：CNN卡片顯示10/100及時間戳正確，水平溢位false，pageerror 0。這僅是CNN更新後單一390px smoke test，不代表完整報告QA完成。
+- 本次不使用TinyFish；未修改main、正式母版或W48 JSON。
