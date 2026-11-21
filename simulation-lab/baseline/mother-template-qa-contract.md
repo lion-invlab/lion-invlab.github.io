@@ -265,3 +265,13 @@
 - 依 simulation Manifest SHA `1496a510d144d340c41b642592675233d5bd2917`，更新 A2.1 中週一與平日 simulation baseline SHA：Monday `36f29bcb37816348756f9233b60f0429d675a76e`；Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 本次只同步已由 Manifest 登記的實際母版 SHA，不修改正式母版路徑／SHA，也不改動 DOM selector 或視覺規格。
 - 本契約仍為 DRAFT；SIM-1.4 未經使用者核准前不生效。
+
+
+## N. 母版固定 DOM 零退化比對（SIM-1.4 候選 Gate）
+
+- 每次完整 build 後，必須執行 `simulation-lab/runner/validate_mother_dom_contract.py`，以 Manifest 選定且 SHA 鎖定的母版副本，對照實際審核版 HTML。
+- 必須逐項比對：全部 `style`／`script` 節點與內容、全頁 ID 清單、總結段落原始子節點順序、FedWatch 兩張機率卡及分布長條／圖例、Fed 活頁 radio 與 label 對應、FOMC 固定欄位、Fed 官員行程外層四個固定槽位、QUICK ACCESS 工具欄，以及週一兩個收折區的 summary DOM。
+- 動態資料列只允許出現在明確的資料槽位內；Fed 官員行程可複製母版事件原型，但不得改寫外層容器、標題、清單 wrapper、原型或空狀態節點。
+- 週一／平日母版的總結段落子節點數量與順序必須保持各自原始結構；資料項目數量不符時停止組裝，不得清空段落後自行建立另一種標籤／換行結構。
+- 比對失敗即為 FAIL；不得以 Playwright 視覺測試通過、元素仍可見或人工判斷「看起來一樣」取代結構比對。
+- 本 Gate 不代表資料內容已達 REVIEW_READY；行情刷新、新聞、行事曆及來源證據仍須分別通過各自 Gate。
