@@ -2796,3 +2796,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Reuters 11/20另兩篇AI賣壓／收盤報導已開啟，但與同一美股收盤事件重疊，僅作交叉核對，不重複計入新聞卡。
 - 鉅亨網11/21 09:00美股修正專題列為熱門頭條候選；11:10全球公債殖利率急跌列全球焦點宏觀候選；08:00美股新聞彙編須拆讀原始來源後才可引用。
 - 第四步仍未完成：窗口至11/23 05:25才封口，最後需做5則焦點／10則頭條名額、跨區平衡與去重；不把候選視為完成新聞。
+
+
+## 2026-11-21｜11/23（一）審核版續作狀態（未交付）
+- 本輪最新SIM-1.3：`simulation-lab/TAC_WORK_RULES_SIM.md` blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；QA契約v1.4 SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`。週一simulation母版路徑 `simulation-lab/baseline/monday-mother-template.html`，blob SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
+- 本輪再次唯讀取得main W48：`data/calendar/weeks/2026-W48.json` SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，updated_at `2026-11-21T09:00:28+08:00`，wr_version 5.17，27筆經濟／11筆財報，四／五星篩選結果分別27／11。HPE、DE時間未核實。W47 SHA為 `727ea2be1c04688d3c4f98d36c452561bbab6821`，但本輪GitHub fetch_file回傳空內容（UTF-8與base64皆0 bytes），故不宣稱已重新逐筆核實W47；沿用前次Work Log已記錄篩選結果。
+- 新聞增量已補查Reuters全球拋售原文、AP 11/20美股收盤及Reuters Take Five；來源與數值詳見同日Work Log。新聞窗口仍須依11/23 05:25台灣時間封口，週末新增消息仍可能改變選稿。
+- **當前流程位置：** 第三步W48資料已重新回讀；W47本輪原始JSON取值受API空內容阻塞。第四步新聞新增來源已補查，但窗口尚未封口、完整5+10逐篇時間與摘要尚未最終鎖定。第五步尚未完成；未產生可審核HTML，review_ready=false。
+- **精確組裝阻塞：** simulation branch不存在 `simulation-lab/fixtures/report-data-2026-11-23.json`；可用GitHub工具沒有workflow_dispatch操作，容器無法連線GitHub；本機舊母版副本SHA為正式main母版SHA而非simulation baseline SHA，不能取代核准模擬母版。未執行DOM builder、未生成預覽、未宣稱QA通過。
+- 本輪只更新simulation branch根目錄 `TAC_WORK_LOG.md`（commit `f5c52d00c121f9041c1e2d69473d5a72d1c5c2ed`，blob `f4d26fd2fec649d25fc17e233b90c43a6fd23f2d`）及本Session State；未修改main、index.html、母版、Manifest、W47/W48 JSON或其他正式資產。
