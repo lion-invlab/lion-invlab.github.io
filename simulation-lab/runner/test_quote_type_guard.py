@@ -140,6 +140,22 @@ def test_fedwatch_two_card_contract():
         assert "待核實" in panel.get_text(" ", strip=True)
 
 
+
+def test_builder_preserves_mother_owned_fed_agenda_and_css():
+    builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
+    # Fed agenda content may change, but the mother-owned outer DOM must never be cleared.
+    assert "fed_events_box.clear()" not in builder
+    assert "final_fed_box.clear()" not in builder
+    assert "populate_fed_weekly_agenda(soup, data)" in builder
+    # Layout and typography are owned by the mother templates, not daily Builder patches.
+    for forbidden_id in (
+        "tac-summary-heading-size-alignment",
+        "tac-last-week-disclosure-unified-v1",
+        "tac-simulation-layout-authority-v1",
+        "tac-energy-quote-mobile-overlap-fix-v2",
+    ):
+        assert forbidden_id not in builder, forbidden_id
+
 def main():
     data = {
         "global_markets": {
@@ -165,6 +181,7 @@ def main():
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
+    test_builder_preserves_mother_owned_fed_agenda_and_css()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
