@@ -12,6 +12,8 @@ from build_review_html import (
     populate_earnings_health_dashboard_preserving_dom,
     update_market_sentiment_interpretation_preserving_dom,
     set_market_observation,
+    set_leaf_text_preserving_dom,
+    set_text,
 )
 
 
@@ -39,6 +41,21 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     if health is None:
         raise AssertionError(f"{template_key}: earnings-health section missing")
     before = shape(health)
+    score_wrapper = soup.select_one("#sentiment .cnn-fg-preview .fg6-score")
+    score_main = score_wrapper.select_one(".fg6-score-main") if score_wrapper else None
+    score_before = shape(score_wrapper)
+    set_leaf_text_preserving_dom(score_main, "42", f"{template_key} CNN score")
+    if score_before != shape(score_wrapper) or score_wrapper.select_one(".fg6-outof").get_text(strip=True) != "/100":
+        raise AssertionError(f"{template_key}: CNN score wrapper or /100 suffix was destroyed")
+    guard = BeautifulSoup("<div><span>mother child</span></div>", "html.parser").div
+    try:
+        set_text(guard, "unsafe")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("generic set_text did not fail closed on nested DOM")
+    if guard.select_one("span").get_text(strip=True) != "mother child":
+        raise AssertionError("generic set_text destroyed nested child DOM")
     market_notes = soup.select(".market-reason")
     if not market_notes:
         raise AssertionError(f"{template_key}: no market observation cards found")
