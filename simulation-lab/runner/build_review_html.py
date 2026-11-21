@@ -126,7 +126,7 @@ def populate_fed_weekly_agenda(soup, data):
         # Preserve the mother-template two-column date/content layout.
         # Responsive stacking belongs in the template media query, not inline
         # styles applied to every viewport.
-        row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
+        row["style"] = "display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;min-width:0;width:100%;box-sizing:border-box;"
         row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
         row["class"].append("fc-fomc-weekly-event")
         row.attrs.pop("hidden", None)
@@ -134,6 +134,11 @@ def populate_fed_weekly_agenda(soup, data):
         date_slot = row.select_one(".fc-fomc-weekly-event-date")
         name_slot = row.select_one(".fc-fomc-weekly-event-name")
         impact_slot = row.select_one(".fc-fomc-weekly-event-impact")
+        # Each child must be allowed to shrink/wrap inside the single-column
+        # responsive event card; do not preserve the mother's fixed 94px date rail.
+        for slot in (date_slot, name_slot, impact_slot):
+            if slot is not None:
+                slot["style"] = (str(slot.get("style", "")) + ";min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:normal").strip(";")
         link_slot = row.select_one(".fc-fomc-weekly-event-source")
         if not all((date_slot, name_slot, impact_slot, link_slot)):
             raise ValueError("Fed weekly agenda event prototype slots are incomplete")
