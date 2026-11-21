@@ -2667,3 +2667,13 @@
 - Pages workflow run `44955528272`（Deploy site and TAC previews）completed／success。目標 URL `https://lion-invlab.github.io/preview/2026-11-23-simulation.html`。
 - 嘗試以網頁讀取工具開啟 Pages URL 與根站，均回 Internal Error；故只能確認 GitHub Pages deployment workflow success，不能獨立確認實際頁面載入／畫面。交付時必須如實標示此限制，不得宣稱已目視確認。
 - SIM-1.4 同版雙母版候選 Builder 技術驗證已完成；候選狀態 CANDIDATE_VALIDATED。SIM-1.4 仍為 DRAFT，待使用者明確核准主文及 Builder 唯一路徑／SHA。正式首頁未更新。
+
+
+## 2026-11-22｜SIM-1.4 正式升格與驗收啟動
+
+- 使用者明確授權將 SIM-1.4 Draft 修訂後升格為正式規範。唯一有效規則已寫入 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`；生效日期 2026-11-22。
+- SIM-1.3 原文完整封存至 `simulation-lab/archive/TAC_WORK_RULES_SIM_1.3_ARCHIVE.md`；升格前 Draft 保留並標示 SUPERSEDED。QA Contract v1.16 啟用為 SIM-1.4 唯一詳細 DOM／互動／視覺 QA 附件，blob SHA `eaddf6ece82a5d835953336d892846b8c12f13d8`。
+- 財報來源順位採 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 獨立選源，首筆同公司、同期間有效值即鎖定。舊 Session State 中相反順位是過期狀態紀錄，已由本版明文取代。
+- SIM-1.4 生效不等於 Builder 核准。當前候選 Builder `simulation-lab/runner/build_review_html.py` SHA `3ddbdd1137b99fe509c47f77aa86057dfefa04d2` 尚未獲使用者針對此精確 SHA 核准。QA Contract 仍列財報 renderer 狀態顯示為阻塞項；不得標示 Gate PASS。
+- 先前 run `44960571993` success 僅為前置 smoke tests；Build／瀏覽器／DOM／視覺及審核版輸出步驟 skipped。以此 run 不可宣稱 SIM-1.4 完整驗收通過。
+- 本次僅操作 simulation branch；main、正式首頁、正式母版、正式 Manifest 及正式行事曆 JSON 未修改。
