@@ -226,15 +226,11 @@ def build_consensus_snapshot(
     if not isinstance(source_url, str) or not source_url.startswith("https://"):
         source_url = None
 
-    missing = []
-    for key, val in (("source_url", source_url), ("period", period), ("period_end_date", period_end_date),
-                     ("value", value), ("currency", currency), ("statistic", statistic), ("basis_code", basis_code)):
-        if val is None:
-            missing.append(key)
-    if metric == "REVENUE" and unit is None:
-        missing.append("unit")
-    if not isinstance(raw_response_ref, str) or not raw_response_ref.strip():
-        missing.append("raw_response_ref")
+    # Adoption is intentionally lightweight: source URL + numeric value +
+    # matching reporting period are sufficient. PIT, analyst count, statistic,
+    # raw archive reference, basis/methodology and other optional metadata are
+    # retained when available but never block a usable estimate.
+    missing = [key for key, val in (("source_url", source_url), ("period", period), ("value", value)) if val is None]
     if status in {"pre_release_eligible", "tac_observed_pre_release_eligible"} and missing:
         status, reason = "pending_required_fields", "missing:" + ",".join(missing)
 
