@@ -464,7 +464,7 @@
     "WTI原油期貨": {
       "display": "83.41",
       "change_display": "+1.18%",
-      "contract_label": "CLF27（2027年1月）",
+      "contract_label": "CLF7（2027年1月）",
       "source": {
         "name": "CME Group Daily Information Bulletin #225｜NYMEX CL Futures（Preliminary）",
         "url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
@@ -472,7 +472,7 @@
         "quote_type": "CME_preliminary_settlement",
         "volume": 294626,
         "open_interest": 267254,
-        "note": "CME 11/20 Preliminary Daily Bulletin：CL Jan27（CLF27）settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Dec26成交量24,186、未平倉3,368，Jan27為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
+        "note": "CME 11/20 Preliminary Daily Bulletin：CL Jan27（標準代碼CLF7；部分平台長代碼CLF27）settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Dec26成交量24,186、未平倉3,368，Jan27為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
       }
     },
     "Brent原油期貨": {
@@ -553,7 +553,9 @@
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-20",
         "quote_type": "third_party_provider_index",
-        "note": "FGScore 第三方 CNN Provider Index 11/20 快照；不是 CNN 官方直接讀取值。"
+        "note": "CNN Business 官方頁面讀取遭 robots 阻擋；CNN graphdata endpoint 可開啟但未回傳可讀資料。依 D3 第三順位採 FGScore「US stocks · CNN / Provider index」；頁面 As of Nov 20, 2026 UTC，Market timestamp Nov 20, 2026 18:59 EST（台灣 11/21 07:59），當前分數10、Extreme Fear。這是 CNN Provider 原始指數的第三方呈現，不是 CNN 官方頁面直接讀值；報告截稿時仍須刷新。",
+        "source_timestamp": "2026-11-20 18:59 EST",
+        "read_at_taipei": "2026-11-21 17:00:33"
       }
     }
   },
@@ -627,7 +629,7 @@
       "text": "不因單一財報beat或AI長期敘事追價，也不把全面回檔直接當買點。降低單一高估值與高槓桿曝險，優先現金流、資產負債表與估值緩衝；待市場廣度、信用條件與利率波動同步穩定再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。部分全球指數採Investing.com平台參考序列／CFD口徑，來源註記不得省略。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index，不是CNN官方直接讀值。FedWatch為Investing.com 11/21 12:55台灣時間快照。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。",
+  "warning_note": "行情基準日2026-11-20。部分全球指數採Investing.com平台參考序列／CFD口徑，來源註記不得省略。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 12:55台灣時間暫存快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -731,8 +733,84 @@
   },
   "key_levels": {
     "baseline_date": "2026-11-20",
-    "source": "等待workflow以指定交易日OHLC collector擷取現金指數日內高低收；不得用近似值。",
-    "items": []
+    "trading_date": "2026-11-20",
+    "captured_at_taipei": "2026-11-21 17:00:33",
+    "source": "ChatGPT direct manual verification of Yahoo Finance cash-index historical OHLC; not a collector, GitHub Action or external artifact.",
+    "formula": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；S2=P−(H−L)；R1=2P−L；R2=P+(H−L)。所有輸入均為同一交易日現金指數 OHLC。",
+    "items": [
+      {
+        "key": "dow",
+        "name": "道瓊工業指數",
+        "trading_date": "2026-11-20",
+        "quote_type": "cash_index",
+        "ohlc": "O 49,071.82｜H 49,594.90｜L 47,998.86｜C 48,147.33",
+        "s2": "46,984.32",
+        "s1": "47,565.83",
+        "p": "48,580.36",
+        "r1": "49,161.87",
+        "r2": "50,176.40",
+        "source_name": "Yahoo Finance ^DJI Historical Data｜Nov 20, 2026 4:35:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EDJI/history/"
+      },
+      {
+        "key": "sp500",
+        "name": "S&P 500",
+        "trading_date": "2026-11-20",
+        "quote_type": "cash_index",
+        "ohlc": "O 7,150.39｜H 7,198.67｜L 6,882.66｜C 6,910.39",
+        "s2": "6,681.23",
+        "s1": "6,795.81",
+        "p": "6,997.24",
+        "r1": "7,111.82",
+        "r2": "7,313.25",
+        "source_name": "Yahoo Finance ^GSPC Historical Data｜Nov 20, 2026 4:35:54 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EGSPC/history/?p=%5Egspc"
+      },
+      {
+        "key": "nasdaq",
+        "name": "Nasdaq Composite",
+        "trading_date": "2026-11-20",
+        "quote_type": "cash_index",
+        "ohlc": "O 23,592.67｜H 23,837.76｜L 22,513.01｜C 22,617.73",
+        "s2": "21,664.75",
+        "s1": "22,141.24",
+        "p": "22,989.50",
+        "r1": "23,465.99",
+        "r2": "24,314.25",
+        "source_name": "Yahoo Finance ^IXIC Historical Data｜Nov 20, 2026 5:15:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EIXIC/history/?frequency=1d"
+      },
+      {
+        "key": "sox",
+        "name": "費城半導體指數（SOX）",
+        "trading_date": "2026-11-20",
+        "quote_type": "cash_index",
+        "ohlc": "O 9,160.80｜H 9,204.42｜L 8,342.21｜C 8,408.59",
+        "s2": "7,789.53",
+        "s1": "8,099.06",
+        "p": "8,651.74",
+        "r1": "8,961.27",
+        "r2": "9,513.95",
+        "source_name": "Yahoo Finance ^SOX Historical Data｜Nov 20, 2026 5:15:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5ESOX/history/",
+        "secondary_source_name": "Investing.com HK｜PHLX Semiconductor historical data",
+        "secondary_source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data"
+      },
+      {
+        "key": "russell2000",
+        "name": "Russell 2000",
+        "trading_date": "2026-11-20",
+        "quote_type": "cash_index",
+        "ohlc": "O 2,641.16｜H 2,665.14｜L 2,577.09｜C 2,581.79",
+        "s2": "2,519.96",
+        "s1": "2,550.87",
+        "p": "2,608.01",
+        "r1": "2,638.92",
+        "r2": "2,696.06",
+        "source_name": "Yahoo Finance ^RUT Historical Data｜Nov 20, 2026 4:30:11 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5ERUT/history/"
+      }
+    ]
   },
   "core_observation": {
     "heading": "下週三大觀察焦點",
@@ -740,23 +818,25 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度恐懼、風險承擔意願快速下降；市場正在同時折價AI資本回報、利率維持高檔、信用融資及政策不確定性。",
-  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口，需於11/21 23:59後最後增補。",
+  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口，需於11/21 23:59後最後增補。 五項關鍵價位已由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依經典樞紐點公式計算S2/S1/P/R1/R2；SOX收盤另與Investing.com HK交叉核對。",
   "report_cutoff_taipei": "2026-11-23 05:25",
-  "news_window_taipei": "2026/11/20 12:00–2026/11/21 23:59（台灣時間；窗口尚待封口）",
+  "news_window_taipei": "2026/11/20 12:00–2026/11/23 05:25（台灣時間；週一實際截稿時封口）",
   "key_levels_overrides": {},
-  "review_notice": "2026/11/23（一）審核版｜行情基準日2026/11/20；報告資料截稿2026/11/23 05:25台灣時間；新聞窗口2026/11/20 12:00至2026/11/21 23:59台灣時間。僅供審核，不上架正式首頁。",
+  "review_notice": "2026/11/23（一）審核版｜行情基準日2026/11/20；報告資料截稿2026/11/23 05:25台灣時間；新聞窗口2026/11/20 12:00至2026/11/23 05:25台灣時間。僅供審核，不上架正式首頁。",
   "pending_items": [
-    "新聞窗口尚未封口；11/21 23:59後須重新查詢、確認新增重大新聞及最後更新時間，完成去重後才可build。",
+    "新聞窗口尚未封口；週一版窗口為2026/11/20 12:00至2026/11/23 05:25台灣時間，須納入週末及週一清晨新消息，於報告截稿時最後查詢、核對原始發布／更新時間並去重。",
     "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均不回寫main W47 JSON。六筆經濟事件及三筆財報均為4星，依SIM-1.3 Monday retrospective只呈現5星事件，因此不會出現在上週五星清單。",
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48財報共識資料不足時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。",
     "FactSet 11/20快照需在HTML中顯示統計日；Mag7與其他493家公司EPS成長比較需保留FactSet研究檔來源與口徑。",
     "FedWatch 13.6%／86.4%為12:55台灣時間快照，不標示為16:35即時值。",
-    "11/21新增南韓出口及CrowdStrike／Zscaler併購候選已納入10則頭條初稿；窗口封口時再次確認是否有後續澄清或交易進展。"
+    "11/21新增南韓出口及CrowdStrike／Zscaler併購候選已納入10則頭條初稿；窗口封口時再次確認是否有後續澄清或交易進展。",
+    "CNN Fear & Greed目前採FGScore第三方CNN Provider Index（11/20 18:59 EST／台灣11/21 07:59，10分）；FedWatch為Investing.com 11/21 12:55快照。兩者均須於2026/11/23 05:25報告截稿前刷新，不得冒稱目前即時值。"
   ],
   "review_ready_blockers": [
-    "新聞窗口尚未封口（等待2026-11-21 23:59台灣時間）",
-    "需執行11/23 fixture正式組裝、完整資料QA、Playwright及視覺回歸"
+    "新聞窗口尚未封口（等待2026-11-23 05:25台灣時間；包含週末及週一清晨消息）",
+    "CNN Fear & Greed 與 FedWatch 動態快照尚待報告截稿前刷新",
+    "審核版 HTML 尚未產出；須依 SIM-1.3 由 ChatGPT 直接更新核准母版，並完成結構、功能及視覺 QA"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
@@ -787,7 +867,7 @@
     "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
   },
   "report_layer_earnings_actuals": [],
-  "news_cutoff_taipei": "2026-11-21 23:59",
+  "news_cutoff_taipei": "2026-11-23 05:25",
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [
     {
