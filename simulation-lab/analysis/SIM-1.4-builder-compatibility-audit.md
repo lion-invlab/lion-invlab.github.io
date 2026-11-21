@@ -127,3 +127,24 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - 移除每日 Builder 的 summary heading、週一 disclosure、側欄 layout、能源報價、財報卡片及市場名稱字體 CSS 注入；保留既有母版 CSS／JS。單次突發專題 `special_focus` 為使用者 2026-11-11 明確核准的條件式例外，不作一般每日版位。
 - 移除週一收折 summary 清空重建；Fed 官員行程使用雙母版固定槽位；FedWatch 維持兩卡，不再 clone 第三卡或寫死三情境。多情境資料不符合兩卡版型時 fail closed，完整情境保留在既有快照收折區。
 - QA Contract 更新 SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。實際 build／DOM diff／Playwright 尚待驗收，不得標示 SIM-1.4 完成。
+
+## 2026-11-21｜後續修正：Fed 保留、summary／Dashboard／市場評論 DOM 保護
+
+### 修正結果
+1. **Fed 官員行程保留**：週一與平日 simulation 母版均加入固定四槽位。Builder 僅 clone .fc-fomc-weekly-event-template，更新日期、活動、影響與來源；外層 wrapper、標題、list、prototype、empty-state 不重建。
+2. **FedWatch**：兩卡／兩段／兩圖例固定；不 clone 第三卡。非 hold＋hike 兩情境或其他不符情況標示待核實，完整機率留在既有 snapshot disclosure。
+3. **CSS 注入**：已移除每日 Builder 追加 summary、週一 disclosure、sidebar authority、energy mobile CSS。樣式由 simulation 母版擁有。
+4. **Summary**：新增 populate_summary_points_preserving_dom，保留週一／平日各自原有 b／br／text 子節點序列；資料點數量與母版槽位不符即 fail closed。平日 fixture 調整為五項，以對應平日母版五個槽位。
+5. **FactSet Dashboard／市場情緒**：以母版既有文字槽位更新；保留週一四卡、平日三卡、Dashboard inline style、情緒解讀 label/body wrapper。
+6. **市場評論**：set_market_observation 改為更新原有粗體標題、br、文字節點；不得 clear 後重建。DOM validator 逐一比對所有 .market-reason 的子節點及 inline style。
+7. **行情來源**：保留 quote_type CFD 防錯；修正正規化空白 regex，並加入現貨／provider series 不誤殺測試。
+
+### 新增／更新測試
+- test_quote_type_guard.py：CFD 拒絕、cash/provider 保留、冪等性、兩種 Fed 固定槽位、FedWatch 兩卡、多情境 fail-closed、summary 子節點保留。
+- test_earnings_health_dom_preservation.py：週一／平日 Dashboard 卡片數、inline style、來源日期／連結、forward P/E、Mag7／Other 493 欄位及市場情緒 DOM 保留。
+- validate_mother_dom_contract.py：style/script 完整性、全頁 ID inventory、總結段落、Fed radio／label、FedWatch 卡片／分布、FOMC 固定槽位、官員行程外層、QUICK ACCESS、週一收折區、Dashboard／情緒卡及市場評論 DOM。
+
+### 驗收狀態
+- Run 44905408554（2026-11-23 Monday，Builder SHA 45bafe4c8e346fe1c51d1eb342c114d8009fc43c）完整成功：組裝、互動、視覺六視窗、DOM validator、artifact provenance、44 項行情結構 Gate 均 PASS；QA sidecar QA_PASSED，但 review_ready=false，原因是 VIX／MOVE／CNN Fear & Greed／FedWatch 快照待截稿前刷新。
+- 後續市場評論 DOM 保護又更新 Builder 至 d6f57d5d7a91526d31747abebc6a228b933402a9，DOM validator 至 52404ce2dc6881566ea998cc84e7af030dff43ba；這一組最新 SHA 尚待重新完成 Monday／weekday build。不可沿用前一 run 的 PASS 代替最新 SHA 驗收。
+- SIM-1.4 仍是 DRAFT；SIM-1.3 仍有效；main／正式首頁／正式母版未修改。
