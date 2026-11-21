@@ -88,7 +88,7 @@
 |---|---:|---:|---|
 | VIX | 35.89 | +26.20% | [Investing.com HK 歷史資料](https://hk.investing.com/indices/volatility-s-p-500-historical-data) |
 | MOVE | 106.31 | +10.69% | [Investing.com HK 歷史資料](https://hk.investing.com/indices/ice-bofaml-move-historical-data) |
-| CNN Fear & Greed | 10/100 | Extreme Fear | [FGScore CNN provider-index 備援](https://fgscore.com/en/markets/sp500)，資料時間 Nov 20, 2026 06:59 PM EST；本輪未能直接讀取 CNN 官方頁 |
+| CNN Fear & Greed | 10/100 | Extreme Fear | [FGScore CNN provider-index 備援](https://fgscore.com/en/markets/sp500)，資料時間 Nov 20, 2026 06:59 PM EST；本輪於 2026-11-21 17:57:31 台灣時間重新讀取，CNN 官方頁仍不可直接讀取 |
 
 ## 來源衝突與處理
 
