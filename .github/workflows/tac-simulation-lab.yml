@@ -457,7 +457,7 @@ jobs:
           match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", comment, re.S)
           if not match: raise SystemExit("malformed TAC_BUILD_PROVENANCE")
           provenance = json.loads(match.group(1))
-          # SIM-1.4 DRAFT §7.4: independently gate the analysis actually rendered in the final HTML.
+          # SIM-1.3 G1: Monday has three fixed summary sections; weekdays use a concise daily market judgment.
           fixture_path = Path(f"simulation-lab/fixtures/report-data-{report_date}.json")
           fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
           bluf = soup.select_one("#overview > section.grid.two > article.card.bluf")
@@ -473,28 +473,29 @@ jobs:
           summary_points = fixture.get("summary_points", [])
           from datetime import date
           is_monday = date.fromisoformat(report_date).weekday() == 0
-          required_labels = (
-              ["上週主軸", "風險觀察", "操作建議"] if is_monday
-              else ["當日主軸", "風險觀察", "操作建議"]
-          )
-          if [x.get("label") for x in summary_points] != required_labels:
-              raise SystemExit(
-                  f"content analysis gate: {report_date} summary labels must be {required_labels}; "
-                  f"got {[x.get('label') for x in summary_points]}"
-              )
+          if not isinstance(summary_points, list) or not summary_points:
+              raise SystemExit("content analysis gate: summary points missing")
+          if is_monday:
+              required_labels = ["上週主軸", "風險觀察", "操作建議"]
+              if [x.get("label") for x in summary_points] != required_labels:
+                  raise SystemExit(
+                      f"content analysis gate: Monday summary labels must be {required_labels}; "
+                      f"got {[x.get('label') for x in summary_points]}"
+                  )
           for point in summary_points:
               if not point.get("text") or point["text"] not in summary_text:
                   raise SystemExit(f"content analysis gate: summary point not rendered: {point.get('label')}")
-          risk_text = summary_points[1]["text"]
-          if not re.search(r"11/\d{1,2}", risk_text) or not re.search(r"\d{1,2}:\d{2}", risk_text):
-              raise SystemExit("content analysis gate: risk observation must include a dated and timed upcoming catalyst")
-          action = summary_points[2]["text"]
-          if not any(token in action for token in ("偏多", "偏空", "中性", "防禦")):
-              raise SystemExit("content analysis gate: operation plan must state an investment stance")
-          if not any(token in action for token in ("加碼", "提高風險承擔", "降低曝險", "減碼")):
-              raise SystemExit("content analysis gate: operation plan must state an executable portfolio action")
-          if not any(token in action for token in ("若", "只有", "當")):
-              raise SystemExit("content analysis gate: operation plan must include conditional triggers")
+          if is_monday:
+              risk_text = summary_points[1]["text"]
+              if not re.search(r"11/\d{1,2}", risk_text) or not re.search(r"\d{1,2}:\d{2}", risk_text):
+                  raise SystemExit("content analysis gate: Monday risk observation must include a dated and timed upcoming catalyst")
+              action = summary_points[2]["text"]
+              if not any(token in action for token in ("偏多", "偏空", "中性", "防禦")):
+                  raise SystemExit("content analysis gate: Monday operation plan must state an investment stance")
+              if not any(token in action for token in ("加碼", "提高風險承擔", "降低曝險", "減碼")):
+                  raise SystemExit("content analysis gate: Monday operation plan must state an executable portfolio action")
+              if not any(token in action for token in ("若", "只有", "當")):
+                  raise SystemExit("content analysis gate: Monday operation plan must include conditional triggers")
           market_comments = fixture.get("market_comments", {})
           def normalize_analysis_text(value):
               return re.sub(r"\s+", " ", str(value or "")).strip()
