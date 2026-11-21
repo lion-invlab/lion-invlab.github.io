@@ -1887,3 +1887,10 @@
 - 最新HTML工作稿SHA-256 aac66d182f2f9d0af84de01c0a88b0d712ad93beee2eebf0350f9f471eecd71d，296,440 bytes。
 - SIM-1.3三區評論Gate重新驗收：三個panel各唯一market-reason，標題和區域指數綁定正確，無跨區錯置。
 - Playwright Chromium重跑360/390/412/768/1440px，overflow 0、pageerror 0、duplicate IDs 0，tabs切換正常。尚未達review_ready；CNN、FedWatch、W47/W48行事曆及新聞時間窗未完成。
+
+
+## 2026-11-21｜使用者提供 CNN Business 官方截圖，更新Fear & Greed
+- 官方頁面截圖顯示10/100 Extreme Fear；Previous close 18、1週前37、1月前28、1年前5。頁面最後更新Nov 20 6:59:52 PM ET，換算台灣時間11/21 07:59:52；使用者截圖取得時間11:59，不混為同一時間。
+- CNN卡片已更新，取代待核狀態及第三方衝突數字。新版HTML 296,496 bytes，SHA-256 8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3。
+- Playwright page.set_content 390px smoke test：CNN值與時間戳正確、無水平溢位、pageerror 0。非完整報告QA。
+- 不使用TinyFish；main、正式母版、W48 JSON均未修改。
