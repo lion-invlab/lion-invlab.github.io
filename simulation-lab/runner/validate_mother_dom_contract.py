@@ -58,7 +58,10 @@ def main():
     stable_selectors = [
         ("#overview > section.grid.two > article.card.bluf > p", "summary paragraph"),
         ("#fed .fc-fomc-observation", "FOMC core observation slot"),
-        ("#fed .fed-live-tabs", "Fed live tabs"),
+        ("#fed .fed-live-tab-labels", "Fed live tab labels"),
+        ("#fed .fc-fomc-meeting", "FOMC meeting slot"),
+        ("#fed .fc-fomc-press", "FOMC press conference slot"),
+        ("#fed .fc-fomc-rate", "FOMC policy rate slot"),
         ("#fed .fed-live-watch", "FedWatch panel"),
         ("#fed .fc-fomc-weekly-events", "Fed weekly agenda wrapper"),
         ("#tac-side-tools", "QUICK ACCESS toolbar"),
@@ -66,9 +69,23 @@ def main():
     for selector, context in stable_selectors:
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
-        omit = selector in {"#fed .fed-live-tabs", "#fed .fc-fomc-weekly-events"}
+        omit = selector == "#fed .fc-fomc-weekly-events"
         if shape(left, omit_dynamic_fed_rows=omit) != shape(right, omit_dynamic_fed_rows=omit):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
+
+    # Verify the two tab radio controls and label wiring without diffing their dynamic panel contents.
+    for soup, label in ((mother, "mother"), (report, "review")):
+        radios = soup.select("#fed .fed-live-tabs > input[type=radio]")
+        labels = soup.select("#fed .fed-live-tab-labels > label")
+        if len(radios) != 2 or len(labels) != 2:
+            raise ValueError(f"{label}: Fed live tabs must retain exactly two radio controls and two labels")
+        if [(x.get("id"), x.get("name"), x.get("type")) for x in radios] != [
+            ("fed-live-tab-watch", "fed-live-tab", "radio"),
+            ("fed-live-tab-fomc", "fed-live-tab", "radio"),
+        ]:
+            raise ValueError(f"{label}: Fed live radio IDs/order changed")
+        if [x.get("for") for x in labels] != ["fed-live-tab-watch", "fed-live-tab-fomc"]:
+            raise ValueError(f"{label}: Fed live tab label wiring changed")
 
     # The weekly agenda's generated rows are dynamic, but its four fixed slots must remain.
     for soup, label in ((mother, "mother"), (report, "review")):
