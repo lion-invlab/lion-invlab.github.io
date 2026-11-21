@@ -474,7 +474,8 @@
         "note": "2026-11-20 指定 CME／NYMEX CLF27（2027年1月）歷史列收市 83.98、升跌 +0.93%、成交量 275.34K；使用該合約歷史數據，不採同名即時 CFD。"
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
-      "change_points": "+0.77"
+      "change_points": "+0.77",
+      "display_name": "WTI 原油期貨"
     },
     "Brent原油期貨": {
       "display": "92.57",
@@ -491,7 +492,8 @@
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。"
       },
-      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+      "display_name": "Brent 原油期貨"
     }
   },
   "metals": {
