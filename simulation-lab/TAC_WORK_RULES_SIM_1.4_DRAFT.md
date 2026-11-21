@@ -420,7 +420,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `2d8082159186618f0af9ddb2e799da58884b7ac4`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `26bb1dc456185069753d1c6b9cfa038e97875913`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -462,7 +462,7 @@
 - GitHub Actions run 44897956591，commit 384dab2fdfd498248f6911746db82f968bb8daf7，conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）、11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、財報 schema／判讀等 deterministic tests 通過。該 push run 未觸發 build／QA-only 模式。
 - 11/23 fixture 的六筆 CFD index reference 已由原始數值改為顯示「待核實」，原始參考值另存 rejected_reference；總結／區域評論不再引用這六筆 CFD 漲跌。Workflow 另加 build-level guard，禁止數字型 CFD 指數被渲染為現貨收盤。
 - 仍未產生 11/23 審核版 HTML；未執行 Builder build、DOM 前後差異或 Playwright。市場現貨來源與 VIX／MOVE／CNN／FedWatch刷新仍是 review blockers。
-- QA Contract v1.5 DRAFT 已鎖定 SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
+- QA Contract v1.5 DRAFT 已鎖定 SHA 26bb1dc456185069753d1c6b9cfa038e97875913；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
 
 
 ## 財報引擎 1.4.0 與 Renderer 相容性（2026-11-21）
@@ -500,3 +500,10 @@
 - `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
 - Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
 - 仍未通過 CI 前，不宣稱測試成功；仍須跑真正 Monday／weekday HTML build、DOM 零退化、artifact validation、Playwright 桌面／手機與六 viewport 視覺 QA。SIM-1.4 維持 DRAFT，main／正式首頁未修改。
+
+
+## 2026-11-21｜母版零退化與 FedWatch 版型邊界修正
+
+- Builder 不再每日追加 summary heading、週一 disclosure、側欄 layout、能源報價、財報卡片及市場名稱字體 CSS；不再清空重建週一上週收折 summary。保留使用者曾核准的單次突發專題 `special_focus` 條件式呈現及其專屬樣式，未寫回母版。
+- FedWatch 嚴格沿用母版 2 卡／2 分布段／2 圖例，不再 clone 第三卡、不再以固定 hold/+25bp/+50bp 寫死。超出兩卡可表達的情境數量／類型時，兩卡標待核實、隱藏不完整分布，完整情境保留在既有快照收折區。
+- 最新 QA Contract SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。這些修正仍須經實際 Monday／weekday build、DOM 零退化、Playwright 與六 viewport 視覺驗收；SIM-1.4 仍為 DRAFT。
