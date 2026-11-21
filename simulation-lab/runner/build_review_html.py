@@ -285,7 +285,7 @@ def populate_summary_points_preserving_dom(node, points):
 
 
 def set_market_observation(node, title, value):
-    """Render legacy string or structured {heading, text} observation records."""
+    """Update the approved bold-heading and text slots without rebuilding their DOM."""
     if isinstance(value, dict):
         title = str(value.get("heading") or title)
         raw = str(value.get("text") or "").strip()
@@ -293,12 +293,20 @@ def set_market_observation(node, title, value):
         raw = str(value or "").strip()
     if "｜" in raw and raw.startswith("📌"):
         raw = raw.split("｜", 1)[1].strip()
-    node.clear()
-    heading = BeautifulSoup("", "html.parser").new_tag("b")
+    heading = node.find("b", recursive=False) if node is not None else None
+    line_break = next((child for child in node.children if getattr(child, "name", None) == "br"), None) if node is not None else None
+    text_slot = None
+    if line_break is not None:
+        sibling = line_break.next_sibling
+        while sibling is not None and isinstance(sibling, NavigableString) and not str(sibling).strip():
+            sibling = sibling.next_sibling
+        if isinstance(sibling, NavigableString):
+            text_slot = sibling
+    if heading is None or line_break is None or text_slot is None:
+        raise ValueError("market observation mother slot must retain direct bold heading, br and text node")
     heading.string = title
-    node.append(heading)
-    node.append(BeautifulSoup("<br/>", "html.parser").br)
-    node.append(raw)
+    text_slot.replace_with(raw)
+
 
 def unique(root, selector, label):
     nodes=root.select(selector)
@@ -1342,11 +1350,6 @@ def main():
         meta = panel.select_one(".tab-panel-meta")
         if meta:
             set_text(meta, f"{region_label}市場｜逐項行情以各自資料日期及來源註記；未附來源者不納入本次比較。" )
-        reason = panel.select_one(".market-reason")
-        if reason:
-            comments = data.get("market_comments", {}).get("global_markets", [])
-            if comment_index < len(comments):
-                set_text(reason, comments[comment_index])
         for details_node in panel.select("details.source-details, details.region-source"):
             body = details_node.select_one(".source")
             if body:
