@@ -330,6 +330,17 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Install and verify Traditional Chinese fonts for visual QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+          fc-cache -f
+          font_match="$(fc-match -f '%{family}' 'Noto Sans TC')"
+          echo "Noto Sans TC resolved to: ${font_match}"
+          echo "${font_match}" | grep -Eqi 'Noto Sans CJK'
+
       - name: Install Playwright Chromium for browser QA
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
