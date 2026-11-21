@@ -193,6 +193,21 @@ def set_text(node, value):
     node.clear()
     node.append(str(value))
 
+def set_text_preserving_child_elements(node, value):
+    """Update the first direct text slot while preserving mother-owned child elements such as source links."""
+    if node is None:
+        raise ValueError("text container is missing")
+    text_nodes = [
+        child for child in node.contents
+        if isinstance(child, NavigableString) and str(child).strip()
+    ]
+    if not text_nodes:
+        raise ValueError(f"no existing direct text slot in <{node.name}>")
+    text_nodes[0].replace_with(str(value))
+    for extra in text_nodes[1:]:
+        extra.replace_with("")
+
+
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
 
 def apply_consensus_projection(data, projection, calendar_source):
@@ -1340,7 +1355,7 @@ def main():
         for detail in section.select("details.source-details"):
             body = detail.select_one(".source")
             if body:
-                set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項不列入本次比較並列入待補資料清單。" )
+                set_text_preserving_child_elements(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項不列入本次比較並列入待補資料清單。" )
     # Region quote rows are separate DOM nodes from the U.S. market tab.
     region_rows = {
         "香港恆生指數":"香港恆生指數", "上海綜合指數":"上海綜合指數", "深證成指":"深證成指",
