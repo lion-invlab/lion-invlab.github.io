@@ -288,10 +288,10 @@ jobs:
             --output simulation-lab/output/w47-yahoo-consensus-projection.json \
             --expected-calendar-blob-sha "$(git rev-parse FETCH_HEAD:data/calendar/weeks/2026-W47.json)"
 
-      - name: Capture cash-index OHLC for the selected report date
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+      - name: Skip cash-index OHLC collector (SIM-1.3 D4 requires ChatGPT direct verification)
+        if: false # Do not use repo collector, schedule, or external OHLC artifact for key levels.
         run: |
-          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date "${REPORT_DATE}" --report-data "${REPORT_DATA}" --output simulation-lab/output/key-levels-live.json
+          echo "Key levels are manually verified by ChatGPT from same-day cash-index OHLC in the report fixture."
 
       - name: Capture released earnings price reactions for the selected report date
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
@@ -307,7 +307,7 @@ jobs:
           if [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
             CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
           fi
-          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
 
       - name: Set up Node for browser QA
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
