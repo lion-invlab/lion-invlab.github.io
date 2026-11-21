@@ -3081,3 +3081,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 最新fixture來源校正commit `4fd5397eb0ed7bacedff9f319ba2fc757e1313cc` 對應GitHub Actions run `44886451870`，結論success。成功項目包括checkout simulation only、母版物化、Python compile、deterministic self-tests、earnings schema audit及證據上傳；fixture resolve、HTML assembly、Playwright、視覺QA等因尚未使用[build-tac-report]而skipped。故此run僅證明程式與回歸測試通過，不是11/23 HTML build成功。
 - 最新工作分支仍為 `simulation/tac-process-lab-2026-11-06`；main首頁SHA未變更、正式母版未變更、W47/W48 JSON唯讀未變更。尚未產生preview。
 - 目前等待點只有新聞窗口封口及最後補查；封口後更新fixture、清除新聞窗口blocker，再觸發真正的日期匹配組裝與全套QA。
+
+
+## 2026-11-21 16:52｜新聞候選更新與fixture contract test通過
+- 新聞研究新增兩項更有區別度的候選：南韓累計出口首破1兆美元（原文UAnalyze 11/21 00:08台灣時間；半導體出口量+40.2%、隱含單價+159.8%、出口金額指數+264.3%），以及CrowdStrike洽談收購Zscaler（鉅亨網11/21 11:30台灣時間；交易未確認）。另將Intuit新聞改為UAnalyze原始文章（11/20 21:28），不再使用Cnyes轉載頁。已更新10則市場頭條，移除Black Friday與海外資料中心政策兩則，保留AI全面修正、Nvidia SEC、Intuit、債券殖利率、CTA、黃金、韓國出口、台灣外銷訂單、Bitcoin及資安併購。新增項目均仍屬窗口未封口初稿。
+- 最新分析增補：台灣外銷訂單年增78.3%與南韓出口資料共同支持AI供應鏈需求仍強，但南韓半導體出口值成長有相當部分由單價推動（單價+159.8%遠高於出貨量+40.2%），不能把出口金額直接當作實際出貨量；已寫入總結、盤面觀察及亞洲市場評論。
+- FactSet模組再修正：加入Mag 7 EPS成長27.0%低於其他493家34.7%的成長廣度判讀；FactSet來源PDF改為可追溯HTTPS連結並在資料來源摺疊區提供直接連結，QA Gate核對連結與fixture一致。Builder commit `3fd1e4d51af43a4a9cc6c64a4fcbfdafeb1c9f90`。
+- 新增 `test_1123_fixture.py`，驗證44項行情結構、11 ETF排序、15則新聞原始時區／台灣時間／更新欄位／HTTPS連結、新聞時間窗、FedWatch機率總和、FactSet來源與W47/W48三組report-layer overrides。Workflow已加入此測試。Run `44886797536`（commit `c58e5ca90498d48a6080d25467699620ae66777d`）conclusion=success；Python compile、deterministic self-tests、FactSet schema audit成功。完整HTML build、Playwright、視覺QA仍skipped，因尚未封口及未使用build tag。
+- 新聞卡片metadata顯示已避免Asia/Taipei來源重複顯示兩次相同時間；EST來源則顯示原始時間及台灣換算。Builder commit `c58e5ca90498d48a6080d25467699620ae66777d`。
+- 新增候選Intesa Sanpaolo對Monte dei Paschi提出收購要約（Reuters 11/21 16:16台灣時間）；頁面顯示更新時間17:01台灣時間，晚於本輪16:51檢查時刻，暫不直接納入，封口前再回查是否更新及其交易條件。
+- 目前fixture最新新聞更新commit `bfc7f8d470f93f832666fc339e441e373be11992`；新聞窗口仍開放至23:59。尚未產生HTML審核版，未修改main首頁、正式母版或W47/W48 JSON。
