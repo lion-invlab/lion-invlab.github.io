@@ -2294,3 +2294,7 @@
 - TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄；本輪重新讀取並更新 Session State。先前查詢 simulation-lab/TAC_SESSION_STATE.md、simulation-lab/TAC_WORK_LOG.md 得到 404，不能推論根目錄檔案不存在。
 - 新 Session State SHA：f19863c1d6a4c6284dfd1012e380a86e0599fc1c。
 - main、正式首頁、正式母版、正式 Manifest、main calendar JSON 均未修改；SIM-1.3 原始檔未修改。
+
+
+## 2026-11-21｜最新 SIM-1.4 草案 commit 回歸
+- GitHub Actions run 44896718729，head commit 13d87e388496a11130867cc7d447135c6859103c，conclusion success。此 run 驗證更新後 SIM-1.4 DRAFT 主文仍通過 deterministic self-tests；與 run 44896643592 連續兩次成功。兩者皆未執行 HTML build、DOM diff 或 Playwright。
