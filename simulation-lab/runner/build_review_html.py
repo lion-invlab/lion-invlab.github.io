@@ -2772,6 +2772,7 @@ def main():
                 raise ValueError(f"{panel_id}/{instrument}: full contract label leaked outside source details")
             if contract_label not in source_text:
                 raise ValueError(f"{panel_id}/{instrument}: contract label missing from source details")
+            # Compare display labels independent of harmless Latin/Chinese spacing in the locked mother.
             visible_name = str(record.get("display_name") or instrument).strip()
             visible_row = next(
                 (node for node in panel.select(".row")
