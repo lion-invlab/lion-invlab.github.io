@@ -2738,3 +2738,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 已更新工作稿CNN卡片：10／100｜Extreme Fear，附上 previous close／1週／1月／1年對照及雙時間戳；審核橫幅已移除CNN待核字樣。新檔：`/mnt/data/TAC_投資早報_2026-11-23_審核工作稿_CNN更新版.html`，296,496 bytes，SHA-256 `8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3`。
 - Playwright Chromium以page.set_content測390px：CNN卡片顯示10/100及時間戳正確，水平溢位false，pageerror 0。這僅是CNN更新後單一390px smoke test，不代表完整報告QA完成。
 - 本次不使用TinyFish；未修改main、正式母版或W48 JSON。
+
+
+## 2026-11-21｜P0 交付事故：11/23 HTML母版零退化Gate失敗，成品撤銷
+- 使用者指出11/23工作稿版面與核准母版差距重大。依SIM-1.3重新fetch並完整核對Manifest及QA契約後，直接解析本機核准母版與CNN更新版HTML（均以UTF-8 DOM parser lxml解析）。
+- 核准週一母版SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931：386,622 bytes、2,040 elements、183 IDs（全唯一）、124 style、25 script。
+- 11/23 CNN更新工作稿SHA-256 8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3：296,496 bytes、684 elements、171 IDs、124 style、25 script。相較母版少1,356個DOM elements及12個ID；缺失ID：asia、fed-live-tab-fomc、fed-live-tab-watch、global-focus、headlines、us、week-earnings-published、week-earnings-today、week-earnings-upcoming、week-econ-published、week-econ-today、week-econ-upcoming。
+- 結論：雖保留124 style及25 script，但DOM內容結構被大幅刪減；已違反SIM-1.3母版視覺零退化、完整複製母版、只替換核准內容槽位及QA Contract B/J/K。先前宣稱的無溢位／tabs可切換不構成母版相似度或結構通過證據。此CNN更新工作稿正式撤銷，不得提供審核、上架或作為後續修補基底。
+- 核准母版本機原檔仍存在且SHA與Manifest simulation_blob_sha一致：`/mnt/data/tac-mother-transfer/monday-mother-template.html`，386,622 bytes，SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931。Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract SHA 331b4bdfe318462e15cae8ae4cd31c32815960d7；SIM-1.3 SHA 679eae7ba7a40dbad64d15bb448fe53db7d67e09。
+- 下一步恢復策略：只以核准母版完整複製為新工作基底；依QA契約既有selector填充核准DOM槽位，任何非授權結構／CSS／JS差異均視為FAIL；逐項輸出結構diff與母版同尺寸截圖比較。行事曆卡片需clone母版原始卡片節點填值，保留tabs/details/IDs/class。未完成全量QA前不得產出review_ready。
+- 本輪未修改main、Manifest、母版、QA契約或W48 JSON；未發布審核版。
