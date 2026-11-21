@@ -66,7 +66,11 @@ def main():
                 "unit":m["unit"] if metric=="REVENUE" else None,
                 "basis_code":None,"statistic":m["statistic"],"analyst_count":m["analyst_count"],
             }
-            candidates=[attempt]+item.get("provider_attempts",{}).get(metric,[])\n            selected=select_first_available_estimate(candidates,event["reporting_period"])\n            if selected is not None:\n                attempt=selected\n            snap=build_consensus_snapshot(event,metric,attempt,item["raw_response"],item["raw_response_ref"])
+            candidates=[attempt]+item.get("provider_attempts",{}).get(metric,[])
+            selected=select_first_available_estimate(candidates,event["reporting_period"])
+            if selected is not None:
+                attempt=selected
+            snap=build_consensus_snapshot(event,metric,attempt,item["raw_response"],item["raw_response_ref"])
             snapshots[metric]=snap
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
@@ -128,6 +132,7 @@ def main():
         raise SystemExit(f"W47 source-capture coverage mismatch; missing={sorted(expected_tickers-captured_tickers)} unexpected={sorted(captured_tickers-expected_tickers)}")
     report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"released_events":sum(events[x["ticker"]].get("status") in {"released","published","completed"} for x in output),"upcoming_events":sum(events[x["ticker"]].get("status") in {"upcoming","scheduled"} for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output),"eps_methodology_verified":sum(x.get("eps_methodology_matches_capture") is True for x in output),"eps_gaap":sum(x.get("eps_methodology")=="gaap" for x in output),"eps_normalized":sum(x.get("eps_methodology")=="normalized" for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"
+",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))
 if __name__=="__main__": main()
