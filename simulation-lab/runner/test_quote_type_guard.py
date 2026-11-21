@@ -104,13 +104,11 @@ def test_structured_market_observation():
     assert before == after
     assert node.select_one("b").get_text(strip=True) == "盤面觀察重點"
     assert "測試觀察內容" in node.get_text(" ", strip=True)
-    invalid = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser").select_one(".key")
-    try:
-        set_market_observation(invalid, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
-    except ValueError:
-        pass
-    else:
-        raise AssertionError("market observation updater accepted a non-mother DOM shape")
+    wrapped = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser").select_one(".key")
+    wrapped_before = [child.name for child in wrapped.contents]
+    set_market_observation(wrapped, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
+    assert [child.name for child in wrapped.contents] == wrapped_before
+    assert wrapped.select_one("span").get_text(strip=True) == "盤面觀察重點｜測試觀察內容"
 
 
 def test_fedwatch_two_card_contract():
