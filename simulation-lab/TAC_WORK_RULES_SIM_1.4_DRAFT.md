@@ -103,9 +103,9 @@
 
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
 **輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、QA Contract。
-**執行：** 只能使用經核准的唯一 Builder；DOM 更新只作用於核准槽位；產出指定日期 preview。執行第 9 章 Gate 與四類 QA。
+**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。
 **輸出：** 完整審核版 HTML、組裝收據、QA 報告、HTML SHA-256。
-**驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。未經 Builder 核准或 QA 未通過不得標示 REVIEW_READY。
+**驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
 **交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
 
 ### Stage 6｜審核版交付
@@ -250,10 +250,11 @@
 本條是 Stage 4 的強制內容規格，並納入 Stage 5 資料與內容 QA；技術 build 成功、HTML 結構正確或行情數字完整，均不能替代本 Gate。
 
 **A. 總結必須形成投資判斷**
-- 週一固定三段：「上週主軸」「風險觀察」「操作建議」；週二至週五使用「當日主軸」「風險觀察」「操作建議」。
-- 主軸須指出本期最重要的市場事件／變化，以及市場正在重新定價什麼；不得只把指數漲跌換句話說。
-- 風險觀察須列出尚未發生、會改變市場判斷的事件／數據／財報，附可核實日期或時間及影響路徑。
-- 操作建議必須明確選擇偏多、偏空、中性或防禦立場，並提出可執行的進攻／防守／等待／分批策略；至少說明優先或避開的資產／產業、建議節奏、加碼條件、減碼／避險條件及判斷失效條件。不得只寫「留意」「審慎」「逢低布局」「視情況調整」等無條件空話。
+- **週一總結：** 固定且只包含三段，依序為「上週主軸」「風險觀察」「操作建議」，不得增設平行總結項目。
+- **週二至週五總結：** 依核准平日母版的五個原生摘要文字槽位呈現；目前 Manifest 鎖定的平日母版有五個槽位，Fixture 的 `summary_points` 必須恰好五筆並逐一對應。不得為了套用週一格式，把平日摘要縮成三筆；不得改造母版 DOM 或以 CSS 隱藏多餘槽位。五個槽位的標籤可依當日市場內容命名，不強制使用「當日主軸／風險觀察／操作建議」三個固定標籤。
+- **主軸內容：** 指出本期最重要的市場事件／變化，以及市場正在重新定價什麼；不得只把指數漲跌換句話說。
+- **風險內容：** 優先列出尚未發生、可能改變市場判斷的事件／數據／財報；有可核實日期、時間及影響路徑時應列明。沒有可靠日期／時間時不得猜測，改列可驗證的市場條件。
+- **操作內容：** 必須表達投資立場（偏多、偏空、中性或防禦）、至少一項可執行動作，以及能觸發調整或推翻目前判斷的條件。依當日證據選擇相關資產／產業及操作節奏，不要求每篇總結機械式列齊所有資產、加碼、減碼、避險及失效條件。
 - 策略須由已核實資料推導。若資料不足以支持單一方向，明確採中性／等待，說明分歧證據及何種條件出現後才改變立場；不得為了看似明確而虛構因果或價位。
 
 **B. 市場評論採因果鏈，不抄行情**
@@ -275,7 +276,7 @@
 - 至少包含一個明確的投資決策含意，以及一個能推翻目前判斷的條件。
 
 **E. 強制驗收**
-- Stage 4 輸出前逐欄驗收：總結三段是否完整、區域標題與內容是否對應、每則評論是否具事件／驅動／影響／驗證／應對、是否重複報價、是否出現無證據因果、操作方向是否可執行。
+- Stage 4 輸出前逐欄驗收：週一總結三段是否完整；平日摘要是否恰好對應平日母版五個原生槽位；區域標題與內容是否對應；每則評論是否具事件／驅動／影響／驗證／應對；是否重複報價、是否出現無證據因果、操作方向是否可執行。
 - Stage 5 QA 必須對 Fixture 與最終 HTML 同時檢查以上內容；任一主要區塊只有漲跌幅重述、缺乏可辨識驅動／投資意涵，或操作建議無方向與條件，content_analysis_gate 必須為 FAIL，data_review_ready=false，不得標示 REVIEW_READY。
 - QA sidecar 新增 content_analysis_gate（PASS／FAIL）、analysis_sections_checked、unsupported_causal_claims、duplicate_quote_restatements、actionability_findings；不可用技術 QA 的 QA_PASSED 取代。
 - 修正分析內容後，必須重新組裝 HTML 並重新執行受影響的內容／資料 QA；不得只改 Fixture 或只改 HTML 而不核對兩者一致。
@@ -291,7 +292,7 @@
 4. 必須測試缺少／錯誤 Fixture、Manifest SHA 不符、母版錨點缺失、main JSON 無效、JSON 版本變更、欄位缺漏、重複 ID、輸出路徑錯誤等負向案例。
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
-7. Builder 核准前，本次只能做靜態檢查與候選評估，不得以手工拼 HTML 冒充唯一組裝流程，不得宣稱回歸測試完整通過。
+7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
 
 ### 8.2 組裝限制
 - 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
@@ -307,7 +308,7 @@
 ### 9.1 三道流程 Gate
 - **Gate 0｜輸入與權限：** 報告日期、星期情境、規則版本、Manifest、母版 SHA、QA Contract、main JSON 路徑／SHA、Fixture schema 及權限均正確。失敗為 BLOCKED。
 - **Gate 1｜資料與內容：** 44 項行情均有值或明確狀態；財報、行事曆、新聞及分析具來源與正確日期；關鍵商品身分錯誤不得放行。非核心資料缺漏可 PARTIAL，但不得 REVIEW_READY。
-- **Gate 2｜HTML 與 QA：** Builder 唯一入口已核准；HTML 結構、互動、視覺及資料呈現適用項目全部通過。強制項目未通過不得 REVIEW_READY。
+- **Gate 2｜HTML 與 QA：** 候選 Builder 的隔離測試、HTML 結構、互動、視覺及資料呈現適用項目全部通過，才可標示 CANDIDATE_VALIDATED；只有使用者明確核准該 Builder 路徑及 SHA 後，才可將它升格為唯一生產入口並標示 SIM-1.4 REVIEW_READY。強制項目未通過不得 REVIEW_READY。
 - QA sidecar 必須分開記錄 `QA_PASSED`（技術／結構／互動／視覺測試結果）、`data_review_ready`（資料與內容是否達截稿標準）、`sim14_builder_approval`（使用者是否核准指定 Builder 路徑及 SHA）及 `sim14_review_ready`（是否符合本版 Stage 5／6 的完整 REVIEW_READY）。`review_ready` 舊欄位只表示資料層狀態，不得單獨代表 SIM-1.4 REVIEW_READY；Builder 未核准時 `sim14_review_ready` 必須為 false。
 
 ### 9.2 四類 QA（檢查範圍，不是四道 Gate）
@@ -510,3 +511,11 @@
 - 2026-11-21：依使用者最新指示，統一財報共識來源順位為 Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com；同步 Stage 3、5.2 及條文處置摘要。SIM-1.4 仍為 DRAFT，未生效。
 
 - 2026-11-22：依使用者指示新增第 7.4 節「分析內容品質 Gate」；明定總結操作建議、評論因果鏈、區域正確性、避免行情重述、情緒分工及內容 QA sidecar。SIM-1.4 仍為 DRAFT，未生效。
+
+
+## 2026-11-22 修訂紀錄（仍為 DRAFT，未生效）
+
+- 修正週二至週五摘要規格與核准平日母版的結構衝突：平日母版為五個原生摘要槽位，Fixture 必須提供五筆；不再強制套用週一三段標籤，也不得縮減成三筆或改造母版。
+- 修正 Builder 核准流程的內部矛盾：核准前可在 simulation branch 進行完整候選 Builder 隔離測試，測試通過標示 CANDIDATE_VALIDATED；使用者核准指定路徑及 SHA 後，才可升格唯一生產 Builder 並標示 SIM-1.4 REVIEW_READY。
+- 將操作建議驗收收斂為立場、可執行動作、條件／失效訊號；避免要求每篇總結機械列齊所有資產及所有操作條件。
+- 本次僅修訂 SIM-1.4 DRAFT；SIM-1.3 仍是唯一有效規則，未修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
