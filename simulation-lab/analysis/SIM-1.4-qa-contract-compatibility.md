@@ -13,7 +13,7 @@
 | 平日正式母版 | 母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html | 3785405e331b10ec6189002e480be2a1edbe20ef | Manifest SHA 相符 |
 | 週一 simulation baseline | simulation-lab/baseline/monday-mother-template.html | 1ac39d50b138e59f4aabf55fc68560ee277ba6f8 | Simulation Manifest SHA 相符 |
 | 平日 simulation baseline | simulation-lab/baseline/weekday-mother-template.html | f010ff118d7a5a2c1f6e834aa24f832766383c2b | Simulation Manifest SHA 相符 |
-| Simulation QA Contract | simulation-lab/baseline/mother-template-qa-contract.md | d4ff82cead612969d1afe7cfc1baf53170b1aed4 | 已更新為 v1.5 DRAFT，對齊 SIM-1.4 草案，尚未生效 |
+| Simulation QA Contract | simulation-lab/baseline/mother-template-qa-contract.md | 2d8082159186618f0af9ddb2e799da58884b7ac4 | 已更新為 v1.5 DRAFT，對齊 SIM-1.4 草案，尚未生效 |
 | Main QA 清單 | 母版專區/母版結構驗收清單.md | 74a7c90aaaeee497b7b2b134d9569aee615d95c0 | 已讀取，v1.3 |
 
 ## 2. 已確認一致的基準
@@ -61,3 +61,11 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 **QA Contract：可作唯一詳細 QA 規格的候選，但目前需更正過時版本引用並完成實際 DOM／視覺驗證。**  
 **正式母版及 simulation baseline：Manifest SHA 登記一致；兩組 ID 集合與 style/script 統計一致，選版機制正確。**  
 **SIM-1.4 全流程：尚未通過；Builder compatibility 為目前主要阻擋。QA Contract v1.5 仍是 DRAFT，須待 SIM-1.4 核准後才可生效。**
+
+
+## 2026-11-21 補充：財報四狀態與來源順位
+
+- QA Contract v1.5 DRAFT Section M 已加入 SIM-1.4 財報狀態契約：只允許 beat／miss／inline／pending；不允許 incomparable、consensus_divergent 等第五種狀態。
+- 共識順位更新為 Yahoo Finance Average Estimate 第一、Investing.com 第二；LSEG／FactSet 為後順位歷史／研究證據，不得覆寫已選來源。PIT 是證據層，不是一般數值判讀必要條件。
+- SIM-1.4 engine 1.4.0 與 schema 已同步四狀態；不相容的幣別／單位／期間映射為 pending 並保留原因。
+- Builder 仍保留 legacy incomparable／consensus_divergent renderer 分支，且 pending 不相容案件目前仍會顯示舊「尚未公布」標籤；依 QA Contract M 應顯示「比較資料尚未齊備」。Builder 保護未修改，這是財報 renderer Gate 的 BLOCKER。
