@@ -190,6 +190,7 @@ jobs:
           REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
           python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json --migration-csv simulation-lab/output/earnings-migration-preview.csv
 
+      # Dual-mother regression: rerun the Monday fixture against the same candidate gate.
       - name: Resolve report date, fixture, weekday mother and SHA
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
