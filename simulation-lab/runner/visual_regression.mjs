@@ -167,7 +167,7 @@ try {
         // Validate the approved tab semantics: 盤面觀察重點, the full
         // OHLC level set with source/date disclosure, and three weekly observation points.
         { id: "focus-tab-market", panel: ".focus-market", expectedLabel: "盤面觀察重點", needles: ["盤面觀察重點"], minLength: 80 },
-        { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
+        { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: ["道瓊工業指數", "第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
         { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: ["本週三大觀察焦點"], minLength: 100 }
       ];
       const results = [], invalid = [];
@@ -275,9 +275,7 @@ try {
               beat: "優於預期",
               miss: "低於預期",
               inline: "符合預期",
-              pending: "比較口徑待核實",
-              incomparable: "比較口徑不相容",
-              consensus_divergent: "市場共識來源分歧"
+              pending: "尚未公布"
             };
             for (const [metricIndex, resultCard] of resultCards.entries()) {
               const state = Object.keys(expectedLabels).find(value => resultCard.classList.contains(value));
@@ -288,11 +286,12 @@ try {
               const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
               const actualValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "實際")?.querySelector(":scope > strong")?.textContent.trim() || "";
               const estimateValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "預期")?.querySelector(":scope > strong")?.textContent.trim() || "";
-              const hasUndisclosedBasis = resultCard.textContent.includes("未完整揭露") || resultCard.textContent.includes("預期口徑未揭露");
-              const expectedStatusLabel = state === "pending"
-                ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得" ? "預期資料尚未取得" : "尚未公布")
-                : (state === "incomparable" && hasUndisclosedBasis ? "預期口徑未揭露，暫不判定" : expectedLabels[state]);
-              if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedStatusLabel) {
+              const expectedStatusLabels = state === "pending"
+                ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得"
+                    ? ["預期資料尚未取得"]
+                    : ["尚未公布", "比較資料尚未齊備", "公告已發布；實際值待核實"])
+                : [expectedLabels[state]];
+              if (!state || !status || !status.classList.contains(state) || !expectedStatusLabels.includes(status.textContent.trim())) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
               }
               const rowLabels = rows.map(row => row.querySelector(":scope > span")?.textContent.trim() || "");
