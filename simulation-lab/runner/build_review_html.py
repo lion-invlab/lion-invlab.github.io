@@ -234,11 +234,11 @@ def set_calendar_status_heading(heading, text, status_key):
         set_text(heading, text)
     heading["class"] = ["calendar-status-heading", status_key]
 
-def update_contract_link_label(label_link, contract_label, source_meta, instrument_url=None):
-    """Keep the approved short product label; full contract/month belongs in source details only."""
+def update_contract_link_label(label_link, contract_label, source_meta, instrument_url=None, instrument_key=None, display_name=None):
+    """Keep the visible product name short; full contract/month belongs in source details only."""
     if label_link is None:
         return False
-    base_label = label_link.get_text(" ", strip=True).split("（", 1)[0].strip()
+    base_label = str(display_name or label_link.get_text(" ", strip=True).split("（", 1)[0]).strip()
     set_text(label_link, base_label)
     target_url = instrument_url or source_meta.get("url", "")
     if not str(target_url).startswith("https://hk.investing.com/"):
@@ -249,8 +249,8 @@ def update_contract_link_label(label_link, contract_label, source_meta, instrume
         "黃金期貨GC": "gold-historical-data",
         "白銀期貨SI": "silver-historical-data",
     }
-    normalized_label = "".join(base_label.split())
-    expected_path = expected_paths.get(normalized_label)
+    normalized_key = "".join(str(instrument_key or base_label).split())
+    expected_path = expected_paths.get(normalized_key)
     if expected_path and expected_path not in str(target_url):
         raise ValueError(f"{base_label}: Investing.com link does not match the instrument history page")
     label_link["href"] = target_url
@@ -2053,7 +2053,7 @@ def main():
         for instrument, record in records.items():
             source = record.get("source") if isinstance(record, dict) else None
             if isinstance(source, dict) and source.get("name") and source.get("url") and source.get("data_date"):
-                summary.append((instrument, source, record.get("contract_label")))
+                summary.append((record.get("display_name") or instrument, source, record.get("contract_label")))
         for details_node in group.select("details.source-details"):
             source_node = details_node.select_one(".source")
             if source_node:
@@ -2084,7 +2084,7 @@ def main():
             source_meta = record.get("source") or {}
             label_link = rows[0].select_one("b a")
             if contract_label:
-                update_contract_link_label(label_link, contract_label, source_meta, record.get("instrument_url"))
+                update_contract_link_label(label_link, contract_label, source_meta, record.get("instrument_url"), instrument_key=label, display_name=record.get("display_name"))
             elif label_link and str(source_meta.get("url") or "").startswith("https://"):
                 # The visible instrument link must open the exact source page used for its quote.
                 label_link["href"] = source_meta["url"]
@@ -2830,6 +2830,15 @@ def main():
                 raise ValueError(f"{panel_id}/{instrument}: full contract label leaked outside source details")
             if contract_label not in source_text:
                 raise ValueError(f"{panel_id}/{instrument}: contract label missing from source details")
+            visible_name = str(record.get("display_name") or instrument).strip()
+            visible_row = next(
+                (node for node in panel.select(".row")
+                 if visible_name in node.get_text(" ", strip=True)),
+                None,
+            )
+            visible_link = visible_row.select_one("b a") if visible_row else None
+            if visible_link is None or visible_link.get_text(" ", strip=True) != visible_name:
+                raise ValueError(f"{panel_id}/{instrument}: visible name must be {visible_name!r}; contract details belong in source disclosure")
             source = record.get("source") or {}
             if source.get("quote_type") != "investing_historical_close":
                 raise ValueError(f"{panel_id}/{instrument}: quote must use Investing.com historical close, not Last/preliminary")
