@@ -536,3 +536,6 @@
 
 
 - 2026-11-21 六項指數來源修正：Investing.com HK 六個同名頁面均標示「即時差價合約」，不可因為有歷史數據表就誤認為現貨。已改用 Investing.com 全球指數歷史頁（Real-time derived）及 DAX Xetra 頁，六筆 quote_type 改為 `cash_index_close`；FTSE 100 11/20 收盤修正為 10,346.34（-1.02%），其餘五項依全球頁歷史列核對。Fixture SHA：`8ecaf343336aac51e76a0958784ea69aada346d6`。新增回歸測試驗證六筆均不再觸發 CFD guard。過期「HTML尚未產出」阻塞已移除；只保留 VIX／MOVE／CNN Fear & Greed／FedWatch 於 11/23 05:25 前刷新一項阻塞。現觸發重新 build 與完整 QA。
+
+
+- 2026-11-21 Fixture Gate 測試同步：舊 `test_1123_fixture.py` 仍把「六項 CFD／三個 blocker／HTML未產出」當成預期，與已修正 fixture 衝突。已改為驗證六項均為 `cash_index_close`、六組數字與歷史頁來源正確、沒有 CFD rejected_reference，且只剩 VIX／MOVE／CNN Fear & Greed／FedWatch 一項截稿前刷新阻塞。現再次觸發 Monday build。
