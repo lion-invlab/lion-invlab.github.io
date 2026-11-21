@@ -187,8 +187,8 @@
 - Revenue 核對指標定義、幣別、單位及期間。不能確認指標定義時，保留數值及來源註記，不得把不同指標冒充同口徑。
 - 單位不同先作精確單位換算；幣別不同不得直接相減。只有取得可靠匯率、明確報價方向及換算時點後才可換算，並保存原始值、匯率、換算值與來源。無法可靠換算則不產生 Beat/Miss，標示「幣別不可比」。
 - EPS 與 Revenue 分別計算。基本狀態：優於預期、符合預期、低於預期、尚未公布／數值尚未齊備。差異在預期值絕對值 1% 以內視為符合預期；零預期值不得用百分比門檻，按數值差及精度規則判斷並註明。負 EPS 按有號數值比較。
-- 數值已齊備且可換算時必須輸出判讀，不得因缺少 PIT、分析師人數或部分方法論欄位阻斷。若實際指標定義確實不一致、幣別不可比或期間不一致，不能偽造 Beat/Miss，標示資料不可比原因。
-- EPS 與 Revenue 各自獨立；其中一項資料不足不影響另一項。
+- 數值已齊備且可比較時必須輸出判讀，不得因缺少 PIT、分析師人數或部分方法論欄位阻斷。若幣別、單位、期間明確不相容，或發行公司明確聲明不可比較，公開狀態仍使用 pending，卡片標示「比較資料尚未齊備」並說明原因；不得建立 incomparable 第五狀態，也不得偽造 Beat/Miss。來源未揭露 GAAP／Adjusted 細節本身不得阻止數值比較。來源間估值差異以 conflict flag／註記透明揭露，不得用「共識來源分歧」取代優於／符合／低於判讀。
+- EPS 與 Revenue 各自獨立；其中一項資料不足不影響另一項。公開狀態僅允許四種：beat、miss、inline、pending（優於／低於／符合／尚未公布或資料尚未齊備）；不得出現 incomparable、consensus_divergent 或其他第五種狀態。
 - 卡片必須保留 EPS／Revenue 雙實績卡並列，顯示 actual、estimate、幣別／單位、狀態、來源；下方保留發布時段、兩項比較、財報判讀、股價反應及來源。手機仍維持兩欄並列。
 
 ### 5.4 公告後股價反應
@@ -420,7 +420,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `d4ff82cead612969d1afe7cfc1baf53170b1aed4`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `2d8082159186618f0af9ddb2e799da58884b7ac4`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -462,4 +462,11 @@
 - GitHub Actions deterministic self-test：run 44896864229，conclusion success；11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、earnings schema／判讀等測試通過。
 - 11/23 fixture 的六筆 CFD index reference 已由原始數值改為顯示「待核實」，原始參考值另存 rejected_reference；總結／區域評論不再引用這六筆 CFD 漲跌。Workflow 另加 build-level guard，禁止數字型 CFD 指數被渲染為現貨收盤。
 - 仍未產生 11/23 審核版 HTML；未執行 Builder build、DOM 前後差異或 Playwright。市場現貨來源與 VIX／MOVE／CNN／FedWatch刷新仍是 review blockers。
-- QA Contract v1.5 DRAFT 已鎖定 SHA d4ff82cead612969d1afe7cfc1baf53170b1aed4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
+- QA Contract v1.5 DRAFT 已鎖定 SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
+
+
+## 財報引擎 1.4.0 與 Renderer 相容性（2026-11-21）
+
+- earnings_judgment.py 已更新為 Engine 1.4.0，公開狀態限制為 beat／miss／inline／pending；幣別、單位、期間明確不相容時映射 pending 並保留 comparison reason。Schema const 已同步 1.4.0。
+- 共識快照來源層級已調整為 Yahoo Finance=1、Investing.com=2、LSEG=3、FactSet=4；W47 Yahoo projection 改用 source_level=1。
+- Builder 檔案依交接保護範圍未修改，仍保留 legacy incomparable／consensus_divergent label 分支，且無法將「數值存在但不可比」顯示為「比較資料尚未齊備」。因此財報 renderer Gate 仍為 BLOCKED；visual regression 已改成只接受四種狀態並會檢出該標籤錯置。
