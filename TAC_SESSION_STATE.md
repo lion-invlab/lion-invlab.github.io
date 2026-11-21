@@ -3462,3 +3462,9 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - **狀態邊界：** 本次為 2026-11-23 Monday 情境完整 PASS，僅能將該次審核版標示 REVIEW_READY。Builder 尚未取得使用者對精確 SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8` 的正式核准；不得自行標示 Builder 已獲正式核准，也不得因此修改 main／正式首頁。
 - **隔離範圍：** 本次 workflow checkout simulation branch only；main 僅作行事曆讀取來源，`main_write_scope=read-only`、`production_deploy=forbidden`。本次輸出只寫 simulation branch；未修改 main、正式母版、正式 Manifest、正式首頁或正式行事曆 JSON，未部署 Pages。
 - **下一步：** 將 11/23 審核版及 QA 證據交使用者檢視；另需依 SIM-1.4 §8.1 完成 Weekday 情境同 SHA 回歸，才能宣稱雙母版技術驗證完成。Builder 精確 SHA 仍待使用者核准；正式首頁發布另需獨立明確授權。
+
+
+## 下一個驗收｜2026-11-20 Weekday 母版同 SHA 回歸（已觸發）
+- 依 SIM-1.4 §8.1，11/23 Monday 完整 PASS 尚不足以宣稱雙母版候選 Builder 驗證完成。
+- 已確認 weekday fixture `simulation-lab/fixtures/report-data-2026-11-20.json` 存在，blob SHA `7b2858217a0492dd84e24e56d3b93897380007e8`，報告日期 2026-11-20（週五）、行情基準日需由 fixture／來源稽核確認。
+- 以相同 SIM-1.4、Builder、Manifest、QA Contract 與 validator 啟動完整 weekday build；待新 Run 的視覺、DOM、互動、provenance、44 項行情與資料 Gate 全數通過後，才可提交雙母版候選驗收結論。
