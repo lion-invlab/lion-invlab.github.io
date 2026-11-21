@@ -2458,3 +2458,8 @@
 - 回歸測試：`b583fda68a6724d75514b9677e37302d4e5e128a`（blob `7d2479a73dfbd7fa2e436fbc00fa685ee6dc0a33`）；測試確認顯示名稱不含 CLF27／2027年1月，來源連結仍保留。
 - CI run `44913120411` 的第一次失敗是測試斷言錯把 BeautifulSoup 的 `rel` 屬性當成 list，非 Builder 失敗；更正斷言後 run `44913183956` deterministic self-tests 通過，完整 workflow 當時仍執行中。
 - 待辦：完成 11/23 full build 與 DOM／視覺 QA；回讀新 HTML 確認商品名稱簡潔、月份仍在來源說明、360px 手機版欄位不重疊。QA 未完成前不宣稱修正交付完成。
+
+
+- CI run `44913183956` success：Builder Python compile 與完整 deterministic self-tests 通過；新增 regression test 驗證 WTI 顯示名稱不含合約代碼／月份，且原始來源連結仍保留。
+- run `44913120411` 曾因測試錯誤假設 BeautifulSoup 的 `rel` 屬性型別為 list 而失敗；修正斷言後重跑通過。這是 test assertion 修正，不是放寬 Builder／DOM Gate。
+- 下一步依 SIM-1.3 A2.5／B3 及第六步，重建 2026-11-23 HTML，執行母版 DOM、Playwright 互動及六 viewport 視覺回歸；驗收商品名稱欄不再附加月份，月份仍在既有來源說明。
