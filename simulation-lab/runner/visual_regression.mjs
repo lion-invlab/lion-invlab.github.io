@@ -200,11 +200,27 @@ try {
     const fedPanel = reportPage.locator(".fed-live-watch");
     const fedWatchText = await fedPanel.innerText().catch(() => "");
     const fedCards = await fedPanel.locator(".fc-prob").count().catch(() => 0);
-    for (const requiredLabel of ["維持不變", "升息一碼（25bp）", "升息兩碼（50bp）"]) {
-      if (!fedWatchText.includes(requiredLabel)) failures.push(`${v.name}: FedWatch missing separate outcome ${requiredLabel}`);
+    const fedStructure = await fedPanel.evaluate(node => ({
+      cardCount: node.querySelectorAll(".fc-prob").length,
+      segmentCount: node.querySelectorAll(".fc-split-bar > span").length,
+      legendCount: node.querySelectorAll(".fc-split-legend > span").length,
+      barHidden: node.querySelector(".fc-split-bar")?.hasAttribute("hidden") ?? true,
+      labels: [...node.querySelectorAll(".fc-prob-label span:not(.fc-dot)")].map(x => x.textContent.trim()),
+      values: [...node.querySelectorAll(".fc-prob strong")].map(x => x.textContent.trim())
+    })).catch(() => null);
+    if (!fedStructure || fedCards !== 2 || fedStructure.cardCount !== 2 || fedStructure.segmentCount !== 2 || fedStructure.legendCount !== 2) {
+      failures.push(`${v.name}: FedWatch must preserve the mother template's 2-card / 2-segment / 2-legend structure`);
+    } else if (fedStructure.labels.some(x => !x) || fedStructure.values.some(x => !x)) {
+      failures.push(`${v.name}: FedWatch card labels or probability values are empty`);
+    } else if (fedStructure.values.some(x => x.includes("待核實"))) {
+      const fullPanelText = await reportPage.locator("#fed").innerText().catch(() => "");
+      if (!fedStructure.barHidden || !fullPanelText.includes("完整分布")) failures.push(`${v.name}: unsupported FedWatch scenarios must fail closed and preserve full distribution in the snapshot disclosure`);
+    } else {
+      const pct = fedStructure.values.map(x => Number.parseFloat(x.replace("%", "")));
+      if (fedStructure.barHidden || pct.some(x => !Number.isFinite(x)) || Math.abs(pct.reduce((a,b)=>a+b,0)-100) > 0.2) {
+        failures.push(`${v.name}: FedWatch two-slot probabilities/bar are inconsistent`);
+      }
     }
-    if (fedCards !== 3) failures.push(`${v.name}: FedWatch expected 3 independent probability cards, found ${fedCards}`);
-    if (fedWatchText.includes("升息（25bp／50bp）")) failures.push(`${v.name}: obsolete aggregated hike legend remains`);
     // Regional observation cards live inside switchable global-market tabs.
     // Assert their actual DOM textContent (not rendered innerText/getByText visibility),
     // because inactive tabs are intentionally hidden until selected by the reader.
@@ -294,7 +310,7 @@ try {
                     : comparisonBlocked
                       ? ["比較資料尚未齊備"]
                       : (actualValue && actualValue !== "未取得" && estimateValue === "未取得"
-                          ? ["預期資料尚未取得"]
+                          ? ["比較資料尚未齊備"]
                           : ["尚未公布"]))
                 : [expectedLabels[state]];
               if (!state || !status || !status.classList.contains(state) || !expectedStatusLabels.includes(status.textContent.trim())) {
