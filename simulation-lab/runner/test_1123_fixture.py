@@ -92,6 +92,8 @@ def main():
     assert data["energy"]["WTI原油期貨"]["display"] == "83.98"
     assert data["energy"]["WTI原油期貨"]["change_display"] == "+0.93%"
     assert data["energy"]["WTI原油期貨"]["source"]["url"] == "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
+    assert data["energy"]["WTI原油期貨"]["display_name"] == "WTI 原油期貨"
+    assert data["energy"]["Brent原油期貨"]["display_name"] == "Brent 原油期貨"
     assert "CME／NYMEX CLF27" in data["energy"]["WTI原油期貨"]["source"]["note"]
     assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
     assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
@@ -114,6 +116,8 @@ def main():
     assert "WTI、Brent、GCZ6、SIZ6的11/19價格均採Investing.com HK" in weekday["warning_note"]
     assert weekday["metals"]["黃金期貨 GC"]["display_name"] == "黃金期貨"
     assert weekday["metals"]["白銀期貨 SI"]["display_name"] == "白銀期貨"
+    assert weekday["energy"]["WTI原油期貨"]["display_name"] == "WTI 原油期貨"
+    assert weekday["energy"]["Brent原油期貨"]["display_name"] == "Brent 原油期貨"
     assert "平台收盤/Last" not in weekday["warning_note"]
     expected_weekday = {
         ("energy", "WTI原油期貨"): ("83.21", "-0.06%"),
