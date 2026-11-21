@@ -2135,3 +2135,62 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 正式行事曆唯讀：W48 `data/calendar/weeks/2026-W48.json` SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，狀態 incomplete，更新時間 2026-11-21 09:00 +08:00，27 筆經濟、11 筆財報；W47 `data/calendar/weeks/2026-W47.json` SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，狀態 incomplete，25 筆經濟、23 筆財報，其中 11/16–11/20 日期範圍 23 筆經濟、23 筆財報。W47 透過 blob SHA 讀取完整內容。兩份 JSON 僅讀，不得由早報流程修改。
 - 輸出與保護：只允許本次 simulation branch 審核版及規則明定的日期 preview 例外；main `index.html`、雙母版、Manifest、QA 契約、行事曆 JSON 及其他正式資產均保護。未獲核准不發布首頁。
 - 階段①狀態：完成。階段②待開始：44 項行情逐項掃描，另獨立讀取 FedWatch；先重讀最新 SIM-1.3 第二步完整規則及 D 節來源優先序。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜階段②行情第一輪掃描紀錄
+
+- 查核時間：2026-11-21 上午（台灣時間，依本對話當次直接開啟網頁）；行情基準日 2026-11-20。依 SIM-1.3 C2/D2/D3 直接開啟來源頁；停用 repo 行情擷取器。已完成 44 項固定欄位逐項登記（包含 11 ETF），FedWatch 獨立列示。
+- 44 項結果（值、漲跌、日期、狀態、來源網址及限制）：
+| # | 固定欄位 | 11/20 數值／漲跌 | 狀態與口徑 | 來源 |
+|---:|---|---|---|---|
+| 1 | 道瓊 | 48,147.33 / -1.93% | 主要來源已核實；Investing 歷史頁 | https://hk.investing.com/indices/us-30-historical-data |
+| 2 | S&P 500 | 6,910.79 / -3.69% | 待核實差異：Investing CFD 6,910.79；AP 現貨收盤 6,910.39，差 0.40 點；不冒稱官方現貨 | https://hk.investing.com/indices/us-spx-500-historical-data ; https://apnews.com/article/c10b797a17c2acf37924d834efebe135 |
+| 3 | Nasdaq Composite | 22,617.73 / -5.28% | 主要來源已核實 | https://hk.investing.com/indices/nasdaq-composite-historical-data |
+| 4 | Russell 2000 | 2,582.93 / -2.72% | 待核實差異：Investing CFD 2,582.93；AP 2,581.79 | https://hk.investing.com/indices/smallcap-2000-historical-data ; https://apnews.com/article/c10b797a17c2acf37924d834efebe135 |
+| 5 | SOX | 8,408.6 / -10.73% | 主要來源已核實 | https://hk.investing.com/indices/phlx-semiconductor-historical-data |
+| 6 | Hang Seng | 22,410.80 / -1.89% | 主要來源已核實 | https://hk.investing.com/indices/hang-sen-40-historical-data |
+| 7 | Shanghai Composite | 3,533.79 / -1.22% | 主要來源已核實 | https://hk.investing.com/indices/shanghai-composite-historical-data |
+| 8 | Shenzhen Component | 10,256.39 / -3.09% | 主要來源已核實 | https://hk.investing.com/indices/szse-component-historical-data |
+| 9 | Nikkei 225 | 56,436.65 / -5.06% | 主要來源已核實 | https://hk.investing.com/indices/japan-ni225-historical-data |
+| 10 | KOSPI | 4,869.96 / -5.21% | 主要來源已核實 | https://hk.investing.com/indices/kospi-historical-data |
+| 11 | Taiwan Weighted | 36,033.29 / -6.23% | 主要來源已核實；Investing 歷史頁 | https://hk.investing.com/indices/taiwan-weighted-historical-data |
+| 12 | STI | 4,975.17 / -2.05% | 主要來源已核實 | https://hk.investing.com/indices/singapore-straits-time-historical-data |
+| 13 | ASX 200 | 8,592.60 / -1.58% | 主要來源已核實 | https://hk.investing.com/indices/aus-200-historical-data |
+| 14 | FTSE 100 | 10,346.34 / -1.02% | 主要來源已核實 | https://hk.investing.com/indices/uk-100-historical-data |
+| 15 | DAX | 24,802.78 / -2.60% | 主要來源已核實 | https://hk.investing.com/indices/germany-30-historical-data |
+| 16 | CAC 40 | 7,927.75 / -1.89% | 主要來源已核實 | https://hk.investing.com/indices/france-40-historical-data |
+| 17 | STOXX Europe 600 | 625.66 / -2.00% | 主要來源已核實 | https://hk.investing.com/indices/stoxx-600-historical-data |
+| 18 | XLE | 60.51 / -0.62% | 主要來源已核實 | https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data |
+| 19 | XLF | 54.57 / -1.82% | 主要來源已核實 | https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data |
+| 20 | XLK | 149.01 / -7.27% | 主要來源已核實 | https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data |
+| 21 | XLI | 156.37 / -3.09% | 主要來源已核實 | https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data |
+| 22 | XLY | 112.46 / -2.95% | 主要來源已核實 | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data |
+| 23 | XLP | 90.46 / +0.67% | 主要來源已核實 | https://hk.investing.com/etfs/spdr---consumer-staples-historical-data |
+| 24 | XLU | 42.69 / -0.74% | 主要來源已核實 | https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data |
+| 25 | XLV | 177.24 / -0.12% | 主要來源已核實 | https://hk.investing.com/etfs/spdr---health-care-historical-data |
+| 26 | XLB | 48.34 / -2.19% | 主要來源已核實 | https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data |
+| 27 | XLRE | 42.46 / -0.98% | 待核實：當前頁顯示 11/20 close 及前收 42.88，但歷史表僅更新至 11/19；未將當前報價冒充歷史表核實 | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 |
+| 28 | XLC | 100.03 / -2.66% | 主要來源已核實 | https://hk.investing.com/etfs/communication-services-select-spdr-historical-data |
+| 29 | US Treasury 2Y | 4.76% | 官方 H.15 11/20 日資料 | https://www.federalreserve.gov/releases/h15/ |
+| 30 | US Treasury 10Y | 5.04% | 官方 H.15 11/20 日資料 | https://www.federalreserve.gov/releases/h15/ |
+| 31 | US Treasury 30Y | 5.40% | 官方 H.15 11/20 日資料 | https://www.federalreserve.gov/releases/h15/ |
+| 32 | DXY | 103.84 / -0.05% | 主要來源已核實；美元指數現貨／CFD，不是 DX 期貨 | https://hk.investing.com/indices/usdollar-historical-data |
+| 33 | USD/TWD | 32.971 / -0.18% | 主要來源已核實；Investing 市場報價序列，非央行銀行間官方收盤 | https://hk.investing.com/currencies/usd-twd-historical-data |
+| 34 | EUR/USD | 1.0968 / +0.01% | 主要來源已核實 | https://hk.investing.com/currencies/eur-usd-historical-data |
+| 35 | GBP/USD | 1.3087 / -0.01% | 主要來源已核實 | https://hk.investing.com/currencies/gbp-usd-historical-data |
+| 36 | AUD/USD | 0.6617 / -0.63% | 主要來源已核實 | https://hk.investing.com/currencies/aud-usd-historical-data |
+| 37 | USD/JPY | 158.54 / -0.73% | 主要來源已核實 | https://hk.investing.com/currencies/usd-jpy-historical-data |
+| 38 | WTI | 82.40 / -0.05% | 待核實：頁面連續序列標示 CLc2，尚未完成活躍交割月份及成交量／換月規則核驗；不得冒稱指定合約結算 | https://www.investing.com/commodities/crude-oil-historical-data |
+| 39 | Brent | 92.49 / +0.55% | 待核實：頁面標示 LCOF7，但尚未完成活躍合約成交量與合約選取規則核驗 | https://www.investing.com/commodities/brent-oil-historical-data |
+| 40 | Gold GC | 3,539.00 / -3.98% | 待核實：頁面標示 GCZ6，尚未完成活躍合約成交量／換月核驗 | https://www.investing.com/commodities/gold-historical-data |
+| 41 | Silver SI | 41.080 / -7.39% | 待核實：頁面標示 SIZ6，尚未完成活躍合約成交量／換月核驗 | https://www.investing.com/commodities/silver-historical-data |
+| 42 | VIX | 35.89 / +26.20% | 主要來源 Investing 歷史頁 11/20；Cboe 官方交叉頁已開啟 | https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487 ; https://www.cboe.com/tradable_products/vix/vix_historical_data |
+| 43 | MOVE | 106.3 / +10.69% | 備援來源已核實；Investing 香港歷史頁止於 11/19、TradingView 頁讀取失敗、Yahoo Finance 429；依既定後順位讀取 EODData 11/20 close 106.3 | https://www.eoddata.com/stockquote/INDEX/MOVE.htm |
+| 44 | CNN Fear & Greed | 10 / Extreme Fear | 備援來源已核實；CNN 官方頁遭 robots 限制、CNN endpoint 無可讀內容；FGScore Provider Index 11/20 UTC=10 | https://fgscore.com/en/markets/sp500 |
+
+**獨立 FedWatch（不計入 44 項）：** Investing.com Fed Rate Monitor；目標會議 2026-12-09 14:00 ET；頁面更新 2026-11-20 16:55 EST；未來期貨價格 95.955；目標區間 3.75–4.00：10.4%，4.00–4.25：89.6%。來源：https://www.investing.com/central-banks/fed-rate-monitor
+
+- 第一輪已鎖定項目不重抓；有具體疑義項目列入第二／三輪：S&P 500、Russell 2000（Investing CFD 與 AP 現貨值差異）；XLRE（Investing 歷史表只到 11/19）；WTI、Brent、GC、SI（活躍交割月及成交量選取規則未完成）。MOVE 已依來源後順位使用 EODData；CNN 使用 FGScore Provider Index。所有未核實狀態須向下游傳遞，不可視為確定數字。
+- FedWatch：2026-12-09 FOMC；3.75–4.00 10.4%、4.00–4.25 89.6%；Investing.com 頁面更新 2026-11-20 16:55 EST；Future Price 95.955。此為獨立政策機率資料，不計入 44 項。
+- 交易日核對：本輪各交易所指數及美股 ETF 的 Investing 歷史頁均出現 2026-11-20 當日資料；不以週末盤中 CFD 代替 11/20 收盤。債券採 Fed H.15 同一日期 2Y/10Y/30Y 4.76/5.04/5.40。
+- 行情階段②目前狀態：44/44 已登記；主要來源已核實項目鎖定，待核實項目仍需補查，但不阻止第三階段準備。依 A1-補充2，開始第三階段前先更新本狀態／工作紀錄，然後重新 fetch 最新 SIM-1.3 並讀取第三步完整規定。
