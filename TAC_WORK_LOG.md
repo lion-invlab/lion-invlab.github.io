@@ -2307,3 +2307,36 @@
 - SIM-1.3 條文處置台帳新增 D2.1–D2.5、D2-補充1–9、D3.1–D3.17、D4、D5 逐條處置，最新 SHA 2c892231ce43ed75932b89833655c01ec904bbc2。
 - SIM-1.4 DRAFT 最新 SHA afb715047f825e1f3766d2b411a6e4224cbce6e4；Builder audit SHA ee1ef0fc852a631f86dcb4f3a058806e6003e8ed；QA compatibility report SHA 8127a6205bafb87af2ebdb47c8f9332ab3dea47d。
 - GitHub Actions run 44896955440（commit 3b7ede2d29dc66db9d44bd4adf26f911a508323f）conclusion success。這是更新後草案的 deterministic self-test 成功；仍未執行 HTML build／DOM diff／Playwright。
+
+
+---
+
+## 2026-11-21｜財報四狀態引擎 1.4.0 與來源順位整併
+
+### 規則衝突與處置
+- 重新核對 SIM-1.3 F3-補充10：財報公開狀態只允許 beat／miss／inline／pending；舊 engine 卻仍輸出 incomparable，Builder／visual regression 還接受 incomparable、consensus_divergent，與 schema 四狀態 enum 衝突。
+- SIM-1.4 DRAFT 與 QA Contract v1.5 DRAFT 已明確：不相容的幣別／單位／期間或公司明確聲明不可比，映射為 pending 並保留原因；「數值尚未齊備／比較資料尚未齊備」為 pending 的說明，不得建立第五種狀態。單純未揭露 GAAP／Adjusted 細節不得阻止數值比較。
+- 共識來源順位統一為 Yahoo Finance Average Estimate=1、Investing.com=2、LSEG I/B/E/S=3、FactSet Estimates=4。Yahoo／Investing優先；LSEG／FactSet僅作後順位歷史／研究證據，不得覆蓋較高順位來源。PIT 快照是證據層，不是一般數值判讀必要條件。
+
+### 程式／測試變更（simulation branch）
+- simulation-lab/runner/earnings_judgment.py 更新 Engine 1.4.0，VALID_STATUSES 僅四種；明確不相容的比較輸入回傳 pending 並保留 comparison_inputs_not_comparable reason。SHA 62148064ad08efe72bc5a107a4142d32dffc6c7c。
+- schemas/tac-earnings-record-v2.schema.json 的 judgment_engine_version const 同步 1.4.0。SHA 74630ebc0ef26c79f059fe00641a49c98ecff142。
+- consensus_snapshot_store.py 的來源層級更新 Yahoo=1／Investing=2／LSEG=3／FactSet=4；project_w47_yahoo_consensus.py 的 Yahoo 快照改為 source_level=1。測試亦更新，含 23 個 append-only PIT snapshot tests。
+- visual_regression.mjs 已移除 incomparable／consensus_divergent 狀態要求，改驗四狀態；明確不可比時要求顯示「比較資料尚未齊備」；關鍵價位測試改用第二支撐／第一支撐／中樞／第一壓力／第二壓力中文標籤；修正 energy_tab QA snapshot 被後續 master/report snapshot 覆寫的問題。SHA 08de24c0cf6780e5916ba035fd7646ef3e27eeb0。
+- Workflow 加入 Node --check，驗證 visual_regression.mjs 與 interaction_smoke.mjs 語法。Workflow SHA 98293b1c276ac8af038fb730869673234f9804ab。
+- **未修改** build_review_html.py，維持原始 SHA 04d5976e38ab0da24e19bbe4607da8f1c20e1d35。其 earnings_status_label／earnings_commentary 仍有 legacy label，pending 不可比案件會顯示「尚未公布」而非「比較資料尚未齊備」；visual regression 會拒絕此結果。Builder renderer Gate 仍 BLOCKED。
+
+### CI 結果
+- Run 44897513216、44897599684 曾因來源層級測試與引擎測試斷言不符而失敗；逐項修正：FactSet source_level 4、Yahoo source_level 1，並按 _result 真實欄位修正引擎測試。
+- Run 44897795972 success：四狀態引擎、23 個 PIT snapshot tests、earnings comparison status、schema audit、report-layer status、11/23 fixture contract 均通過。
+- Run 44897956591 success：Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）及 deterministic self-tests 通過。
+- Run 44898020239 success：最新 SIM-1.4 DRAFT commit 的 Python compile、Node syntax checks、deterministic self-tests 通過。
+- 以上均為 deterministic／syntax tests；未執行 HTML build、DOM diff 或 Playwright，不能宣稱審核版完成或 Builder 相容性通過。
+
+### 最新檔案 SHA
+- SIM-1.4 DRAFT：98c0eeb1f3b0f8a519ab556dc216d687b5e4ed04
+- Builder compatibility audit：221be2d0f7285d33045dd6208d517cdc910c2eb6
+- QA compatibility audit：712872f0effef1a475ca97c426a8fccef589401f
+- QA Contract v1.5 DRAFT：2d8082159186618f0af9ddb2e799da58884b7ac4
+- Clause disposition register：2c892231ce43ed75932b89833655c01ec904bbc2
+- Session State 最新 SHA：6f512eeedc83d530a2ed312e6b6f87de144f27fe
