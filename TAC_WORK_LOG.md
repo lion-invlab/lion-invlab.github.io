@@ -1879,3 +1879,11 @@
 - 按SIM-1.3全球三區Gate驗收三個 `.market-reason` 唯一且標題正確：美股／亞股／歐股；無跨區指數錯置。
 - Playwright Chromium測360/390/412/768/1440px，水平溢位0、pageerror 0、重複ID 0；全球市場／產業資產／新聞tab均可切換；基金提醒modal關閉後QA。
 - 此為首版工作稿，不是review_ready；尚缺W47/W48行事曆逐筆驗收、CNN、FedWatch映射、新聞時間窗封口及完整QA。未修改main、正式母版或W48 JSON。
+
+
+## 2026-11-21｜11/23 HTML 工作稿新聞更新與 QA 重跑
+- 全球焦點5則改為鉅亨網／Investing.com優先來源：美債連5漲與AI估值重估、亞太單週跌8.5%、全球公債殖利率回落、美元高位與亞洲貨幣承壓、歐洲AI概念股下跌。文章發布時間均在11/20 12:00台灣時間之後；新聞窗尚未封口。
+- 熱門頭條補足10則候選，含Barclays、Intuit/Mailchimp、Anthropic IPO後回落、AMD做空報告（標明指控未證實）、黃金風險提示、英國零售、Yardeni觀點等；每則保留原文連結並區分事實與評論。
+- 最新HTML工作稿SHA-256 aac66d182f2f9d0af84de01c0a88b0d712ad93beee2eebf0350f9f471eecd71d，296,440 bytes。
+- SIM-1.3三區評論Gate重新驗收：三個panel各唯一market-reason，標題和區域指數綁定正確，無跨區錯置。
+- Playwright Chromium重跑360/390/412/768/1440px，overflow 0、pageerror 0、duplicate IDs 0，tabs切換正常。尚未達review_ready；CNN、FedWatch、W47/W48行事曆及新聞時間窗未完成。
