@@ -288,7 +288,7 @@
 - 若幣別、單位、期間明確不相容，或發行公司明確聲明不可比較，公開狀態仍只能使用 pending，並在財報判讀文字標示「比較資料尚未齊備」及原因；不得建立 incomparable 第五狀態，也不得偽造 Beat／Miss。
 - SIM-1.4 財報判讀引擎版本候選為 1.4.0；schema 的 judgment_engine_version、引擎 VALID_STATUSES、render_status、render_summary、Builder renderer、visual regression 與所有測試必須一致。
 - visual regression 必須拒絕 incomparable／consensus_divergent class；若明確不可比較的財報仍顯示「尚未公布」或方向性結果，亦應 FAIL。數值存在但口徑不相容時應顯示「比較資料尚未齊備」。
-- 目前 Builder 的 earnings_status_label／earnings_commentary 仍含 legacy incomparable／consensus_divergent 顯示分支，且無法為「數值存在但不可比」顯示「比較資料尚未齊備」；此為已知 BLOCKER，Builder 未修正前本契約不得判定財報 renderer Gate PASS。
+- 2026-11-22 重新核對目前 Builder 與單一判讀引擎：公開狀態僅 beat／miss／inline／pending；`earnings_status_label()` 已將明確不可比較的數值狀態顯示為「比較資料尚未齊備」，`earnings_commentary()` 依引擎狀態重建 EPS／Revenue 判讀。`test_earnings_comparison_status.py` 已涵蓋幣別不相容、發行公司明確不可比較、EPS／Revenue 獨立判讀及四狀態；本次 simulation run `44961417262` deterministic self-tests PASS。原先 legacy incomparable／consensus_divergent renderer BLOCKER 關閉，不再列為現行阻塞。後續 Builder SHA 變更時仍須重跑本測試。
 
 
 ## 2026-11-21｜版本 1.6 基準同步紀錄
