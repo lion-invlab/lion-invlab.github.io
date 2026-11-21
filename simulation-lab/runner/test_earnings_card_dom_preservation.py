@@ -16,6 +16,7 @@ from build_review_html import (
     classify_calendar_group,
     reset_calendar_listing,
     update_contract_link_label,
+    populate_fed_weekly_agenda,
 )
 
 
@@ -103,6 +104,11 @@ def main():
     assert before == after and before["fields"] == 1, ("Monday upcoming shell changed", before, after)
     assert "EPS 預估" in mon_details.get_text(" ", strip=True)
     assert "營收預估" in mon_details.get_text(" ", strip=True)
+    monday_rows = mon_details.select(".earnings-detail-value > .earnings-detail-line")
+    assert len(monday_rows) == 5, f"Monday earnings detail should have five labelled rows, got {len(monday_rows)}"
+    assert [row.select_one("strong").get_text(strip=True) for row in monday_rows] == [
+        "發布資訊", "EPS 預估", "營收預估", "共識時間", "資料判讀"
+    ]
 
     mon_published = mon.select_one("#last-week-earnings .earnings-accordion-list details.earnings-accordion")
     mon_details = mon_published.select_one(".earnings-accordion-details")
@@ -133,6 +139,16 @@ def main():
     assert before == after and before["fields"] == 5, ("Weekday upcoming shell changed", before, after)
     assert "EPS 預估" in wd_details.get_text(" ", strip=True)
     assert "營收預估" in wd_details.get_text(" ", strip=True)
+
+    # Fed weekly agenda retains the mother wrappers but uses a stacked event row,
+    # so a fixed 94px date column cannot squeeze the speaker/impact text on mobile.
+    fed_soup = mother("monday-mother-template.html")
+    fed_data = fixture
+    populate_fed_weekly_agenda(fed_soup, fed_data)
+    fed_rows = fed_soup.select("#fed .fc-fomc-weekly-events-list > .fc-fomc-weekly-event")
+    assert fed_rows, "Fed weekly agenda fixture should render at least one verified event"
+    assert all("grid-template-columns:minmax(0,1fr)" in row.get("style", "") for row in fed_rows)
+    assert all(row.select_one(".fc-fomc-weekly-event-date") and row.select_one(".fc-fomc-weekly-event-name") and row.select_one(".fc-fomc-weekly-event-impact") for row in fed_rows)
 
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
     assert "details.clear()" not in builder and "grid.clear()" not in builder
