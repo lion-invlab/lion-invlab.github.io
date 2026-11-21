@@ -2864,6 +2864,27 @@ def main():
         rendered = unique(soup, selector, heading + " final panel").select_one(".market-reason")
         if heading not in rendered.get_text(" ", strip=True) or len(rendered.get_text(" ", strip=True)) < len(heading) + 10:
             raise ValueError(heading + " final observation failed DOM verification")
+    # The Monday mother also retains two legacy regional summary panels. Re-render
+    # these last so their commentary cannot remain cross-wired to the quote-row indices.
+    legacy_region_observations = [
+        ("#asia", "📌 亞股摘要", 1),
+        ("#tac-region-panel-2", "📌 歐股摘要", 3),
+    ]
+    for selector, heading, idx in legacy_region_observations:
+        panel = soup.select_one(selector)
+        if panel is None:
+            continue
+        note = panel.select_one(".market-reason")
+        if note is None:
+            raise ValueError(heading + " legacy summary slot missing")
+        value = final_comments[idx] if idx < len(final_comments) else ""
+        if not str(value).strip():
+            raise ValueError(heading + " legacy summary data missing")
+        set_market_observation(note, heading, value)
+        rendered = note.get_text(" ", strip=True)
+        expected_body = str(value).split("｜", 1)[1].strip() if "｜" in str(value) else str(value).strip()
+        if expected_body not in rendered:
+            raise ValueError(heading + " legacy summary final render mismatch")
     # Final whole-report economic card gate: current-week and Monday retrospective
     # cards must all satisfy the same five-zone DOM contract before serialization.
     current_cards = soup.select("#calendar .week-econ-panels details.econ-event")
