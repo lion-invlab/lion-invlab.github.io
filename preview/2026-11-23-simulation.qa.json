@@ -19,11 +19,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "34ec20c031445b491f2548be26f631a53d3df074",
-  "report_sha256": "92d7407e5f7a4b0fd892c24dee3783f9e88d76a50db3515e9a2925ecea1600c2",
-  "build_commit_sha": "c03ad1253de1028ff4bb9d18404c92d3050e6166",
+  "report_git_blob_sha": "c1eaa30fcb20e62b0f0851c5d174573c7a7479e6",
+  "report_sha256": "a84ef05c23044ded94a695c76d70386a6d63985ed113614d8fe8edb341c57717",
+  "build_commit_sha": "e635b6beee47dd341685ee4b14bd82f907676f4e",
   "builder_blob_sha": "1bf675232f43c0d27a2feeb3d5592a29c90baaae",
-  "fixture_blob_sha": "2d03e694cef191a72b3e7675a34913f9bf9c4d69",
+  "fixture_blob_sha": "948b504a0fba8ba45653cacc0a43cff5377e91a7",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
   "qa_contract_blob_sha": "86c798ae22577c82b292748a864ffe10054ddc18",
@@ -67,6 +67,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44947606456",
+  "workflow_run_id": "44949073945",
   "workflow_run_attempt": "1"
 }
