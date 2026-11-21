@@ -1657,3 +1657,11 @@
 - 補充更正行情：VIX 11/20歷史表 35.89（+26.20%，Investing CFD）；MOVE 11/20 106.31（+10.69%，Investing直接來源），取代先前EODData備援暫記；SPX/Russell Investing頁為CFD，差異以口徑標示；FedWatch 89.6%為升息至4.00–4.25機率，10.4%維持3.75–4.00。
 - 週一硬性要求須核對11/23亞洲市場實際開盤及盤中反應；目前是11/21週六，且新聞窗缺週末至11/23 05:25內容。因此階段④僅為預備稿，狀態「進行中」，不得宣稱完成或製作最終審核版。週一補查後再完成階段④並依A1-補充2重讀第五步。
 - 未修改main、正式母版、Manifest、QA契約或W47/W48 JSON。
+
+
+## 2026-11-21｜SIM-1.3 A1 遵循修正紀錄
+- 修正：曾短暫建立 `simulation-lab/analysis/market-snapshot-2026-11-20.json` 作為行情快照；重新核對 SIM-1.3 A1 後確認禁止另建每日 Snapshot／行情資料庫。已立即刪除，刪除 commit `32e75bdb4007d378602e03e3e159a3ca3978f9a1`，被刪除 blob `7480259c12cba3ce841458d508a94b7a5466c765`。該檔案不得作為後續輸入或證據；當次44項數值改由既有 Session State／Work Log 記錄。
+- 修正：債券殖利率原先誤採Investing.com個別債券市場殖利率；依SIM-1.3 D3改採同一日期美國財政部CMT：2Y 4.63%、10Y 4.92%、30Y 5.31%。
+- 修正：正式行情資料日期仍為2026-11-20；MOVE 106.31因TradingView頁未明示指定交易日／收盤時間，降級為「待核實」，不得在審核版當成已確認的11/20收盤；週一需重新查核。
+- 本次後續製作禁止使用Snapshot／Collector／Assembler／Renderer／GitHub Actions作為行情或HTML中轉；ChatGPT直接查核資料並以真正DOM parser更新核准母版，依SIM-1.3 C5及QA契約執行。
+- 母版身分釐清：simulation manifest 同時登記 main正式週一母版SHA `a568e594e55909041d51d8eae7e6fe5f7986c096` 與 simulation隔離副本SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`；本次模擬只使用後者，兩者差異屬已登記的simulation baseline，不得互相冒稱。main母版、main index均不修改。
