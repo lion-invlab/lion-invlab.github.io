@@ -131,6 +131,12 @@ def main():
         "標普500指數", "日經225", "香港恆生指數",
         "英國 FTSE 100", "德國 DAX", "STOXX Europe 600",
     }, cfd_indices
+    for name in cfd_indices:
+        record = data["global_markets"][name]
+        assert record["display"] == "待核實" and record["change_display"] == "待核實", name
+        assert record.get("qa_status") == "cfd_index_reference_rejected", name
+        assert record.get("rejected_reference", {}).get("display"), name
+    assert "-3.70%" not in data["summary"]
     assert any("六項現貨指數" in x and "CFD" in x for x in data["review_ready_blockers"])
     assert any("VIX" in x and "FedWatch" in x for x in data["review_ready_blockers"])
     assert any("審核版 HTML 尚未產出" in x for x in data["review_ready_blockers"])
