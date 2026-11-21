@@ -1,0 +1,5 @@
+SIM-1.4 full validation rerun
+report_date=2026-11-23
+mode=build
+note=Rerun after prior run was cancelled by a newer push in the shared push-smoke concurrency group. Do not cancel this run with further simulation-lab workflow-triggering commits.
+scope=simulation branch only; no main writes; no production deployment.
