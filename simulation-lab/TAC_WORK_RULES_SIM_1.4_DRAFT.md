@@ -614,3 +614,26 @@
 - QA Contract 已更新為 v1.7 DRAFT，新增市場評論、Market Sentiment 核心解讀及 S&P 500 盈餘 Dashboard 的 DOM／inline style 保護條款。QA Contract SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`；Manifest SHA 仍為 `1496a510d144d340c41b642592675233d5bd2917`；雙母版 SHA 仍為 Monday `36f29bcb37816348756f9233b60f0429d675a76e`／Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 最新候選 Builder SHA：`d6f57d5d7a91526d31747abebc6a228b933402a9`；DOM validator SHA：`52404ce2dc6881566ea998cc84e7af030dff43ba`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；雙母版 DOM regression test SHA：`6ab733532893a17faf8814d677e11d81fa08e6fe`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
 - 上述修改仍須在同一個最新 build commit 重新跑 Monday 與 Weekday；不得引用早一版 run 的成功作為本版通過證據。SIM-1.4 仍為 DRAFT，候選 Builder 尚未取得唯一入口核准。
+
+## 2026-11-21｜Builder 母版零退化修正與回歸狀態（持續 DRAFT）
+
+### 已完成的程式修正
+- Fed 官員週行程功能明確保留。週一／平日母版均有固定外層、標題、清單、原型及空狀態槽位；Builder 只複製原型並填入事件，不清空重建外層。
+- FedWatch 保留母版兩張機率卡、兩段分布及兩個圖例；多情境或不符合兩卡規格時 fail closed，完整情境保留在既有快照說明，不 clone 第三張卡。
+- 移除 Builder 的每日版面 CSS 注入；summary 總結改為填入原有粗體標籤／換行／文字槽位，槽位數不符即停止，不再 clear 後重建。
+- S&P 500 盈餘健康度 Dashboard 改為更新母版既有文字槽位，週一維持 4 張卡、平日 3 張卡；市場情緒解讀保留原有 label/body wrapper 與 inline style。
+- 市場評論改為更新母版既有直接子節點（粗體標題、換行、文字），不清空重建；缺少既有槽位即停止。
+- CFD quote_type 防錯保留；已修正空白正規化雙重跳脫錯誤。
+
+### 最新程式與契約版本
+- Builder：simulation-lab/runner/build_review_html.py，目前 blob SHA d6f57d5d7a91526d31747abebc6a228b933402a9。
+- DOM validator：simulation-lab/runner/validate_mother_dom_contract.py，目前 blob SHA 52404ce2dc6881566ea998cc84e7af030dff43ba。
+- FactSet／市場情緒 DOM regression：simulation-lab/runner/test_earnings_health_dom_preservation.py，目前 blob SHA 6ab733532893a17faf8814d677e11d81fa08e6fe。
+- QA Contract：版本 1.7 DRAFT，blob SHA a1d5bebaff59f635700c20aeb843b9b6a37be77c；Manifest 已登記兩份 simulation 母版 SHA，未修改 main 正式母版。
+
+### 實際驗收紀錄與未完成項
+- 2026-11-23 Monday build run 44905408554 曾完成 HTML 組裝、deterministic tests、Playwright 互動、六種 viewport（1440／768／412／390／360／320）、artifact validation、44 項行情結構驗收及母版 DOM 比對；該次 QA sidecar 為 QA_PASSED。
+- 該次 sidecar 的 review_ready=false：VIX、MOVE、CNN Fear & Greed、FedWatch 快照仍早於 2026-11-21 17:57:31；必須在 2026-11-23 05:25 截稿前重新讀取並更新時間，不能把結構 QA 通過當成資料完整。
+- 上述 run 使用 Builder SHA 45bafe4c8e346fe1c51d1eb342c114d8009fc43c；其後又新增市場評論 DOM 保留修正，故目前最新 Builder SHA 尚須重新跑 Monday／weekday 完整 build 與 DOM validator。
+- 2026-11-20 weekday 曾有完整 build／六視窗 QA 通過紀錄，但後續增加固定 DOM validator、FactSet 欄位顯示與市場評論 DOM 保護；最新 Builder／validator 組合的 weekday 完整回歸仍待重跑。
+- SIM-1.4 不得標示完成或啟用；SIM-1.3 仍為唯一有效規範。正式首頁、main、正式母版及正式行事曆 JSON 均未修改。
