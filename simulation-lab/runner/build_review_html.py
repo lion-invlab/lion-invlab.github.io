@@ -2109,12 +2109,14 @@ def main():
         # retrospective summary/toggle shell from the Monday mother.
         lw_summary_template = lw_template.select_one("summary")
         if lw_summary_template is None: raise ValueError("Monday retrospective summary prototype missing")
+        # Freeze the summary before decompose() destroys its parent card and descendants.
+        lw_summary_prototype = copy.deepcopy(lw_summary_template)
         for old_card in lw_list.find_all("details", class_="econ-event", recursive=False):
             old_card.decompose()
         for x in last_econ.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
             card = BeautifulSoup(template_html, "html.parser").find("details", class_="econ-event")
-            summary_clone = copy.deepcopy(lw_summary_template)
+            summary_clone = copy.deepcopy(lw_summary_prototype)
             card_summary = card.find("summary", recursive=False)
             if summary_clone is None or card_summary is None:
                 raise ValueError("Monday retrospective economic summary prototype is incomplete")
@@ -2145,11 +2147,13 @@ def main():
         le_list = unique(le_details, ".earnings-accordion-list", "last-week earnings list")
         le_template = le_list.select_one("details.earnings-accordion")
         if le_template is None: raise ValueError("Monday mother last-week earnings card template missing")
+        le_template_html = str(le_template)  # freeze before removing the original card from the live list
         for old_card in le_list.find_all("details", class_="earnings-accordion", recursive=False):
             old_card.decompose()
         for x in last_earn.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
-            card = BeautifulSoup(str(le_template), "html.parser").select_one("details.earnings-accordion")
+            card = BeautifulSoup(le_template_html, "html.parser").find("details", class_="earnings-accordion")
+            if card is None: raise ValueError("Frozen Monday retrospective earnings prototype could not be parsed")
             day, clock = dateparts(x.get("date", ""))
             if not x.get("time_known", False): clock = "時間未確認"
             fields = [(".earnings-us-date", day), (".earnings-tw-date", ("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")+"；"+clock), (".earnings-company-name", x.get("company","")), (".earnings-company-sub", str(x.get("ticker",""))+"｜"+str(x.get("industry",""))), (".earnings-stars", startext(x))]
