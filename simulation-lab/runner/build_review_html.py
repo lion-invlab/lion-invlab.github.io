@@ -1645,72 +1645,14 @@ def main():
     report_date_meta = soup.select_one('meta[name="report-date"]')
     if report_date_meta:
         report_date_meta["content"] = report_iso
-    # Optional one-off extraordinary-event feature. It is absent on ordinary days.
+    # No unapproved one-off DOM/CSS injection is allowed in the daily report builder.
+    # Extraordinary-event content must first have a mother-owned slot and an approved CSS contract.
     special = data.get("special_focus")
     if special:
-        required = ("eyebrow","title","subtitle","metrics","analysis_title","analysis","outlook_title","outlook","source_name","source_url")
-        missing = [k for k in required if not special.get(k)]
-        if missing or len(special.get("metrics", [])) != 3:
-            raise ValueError("special_focus incomplete: " + ", ".join(missing))
-        if not str(special["source_url"]).startswith("https://"):
-            raise ValueError("special_focus source URL must be HTTPS")
-        feature = soup.new_tag("section", attrs={"id":"tac-special-focus-cpi","aria-label":special["title"]})
-        feature["style"] = ("position:relative;isolation:isolate;overflow:hidden;border-radius:18px;"
-            "margin:0 0 22px;padding:22px 20px 18px;color:#fff;"
-            "background-color:#080d13;"
-            "background-image:linear-gradient(90deg,rgba(3,7,12,.94) 0%,rgba(3,7,12,.82) 58%,rgba(3,7,12,.66) 100%),"
-            "linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.72)),"
-            "radial-gradient(circle at 82% 12%,rgba(189,133,54,.32),transparent 34%),"
-            "linear-gradient(135deg,#101c2c,#05080d 72%),"
-            "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 400%22%3E%3Cpath fill=%22none%22 stroke=%22%23c99a4c%22 stroke-opacity=%22.16%22 stroke-width=%224%22 d=%22M520 300 L650 260 L730 280 L840 180 L930 205 L1080 90 L1200 110%22/%3E%3Cpath fill=%22none%22 stroke=%22%23ffffff%22 stroke-opacity=%22.10%22 stroke-width=%2218%22 d=%22M0 40 H400 M0 90 H400 M0 140 H400%22/%3E%3Cpath fill=%22%231b2b3c%22 fill-opacity=%22.55%22 d=%22M820 280 V170 H860 V130 H900 V170 H940 V280 Z M790 170 L880 100 L970 170 Z%22/%3E%3Cpath fill=%22%23b53a3a%22 fill-opacity=%22.25%22 d=%22M0 0 H480 V26 H0 Z M0 52 H480 V78 H0 Z M0 104 H480 V130 H0 Z%22/%3E%3Ctext x=%22890%22 y=%22340%22 fill=%22%23d8ad65%22 fill-opacity=%22.22%22 font-size=%22140%22 font-family=%22Arial%22 font-weight=%22900%22%3E%25%3C/text%3E%3C/svg%3E');"
-            "box-shadow:0 12px 32px rgba(0,0,0,.25);")
-        top = soup.new_tag("div")
-        top["style"]="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;"
-        eyebrow=soup.new_tag("span"); eyebrow["style"]="font-size:11px;font-weight:900;letter-spacing:1.8px;color:#e6bd70;"
-        eyebrow.string=special["eyebrow"]
-        date=soup.new_tag("span"); date["style"]="font-size:11px;color:#c1c8d1;"
-        date.string=special.get("date_label",report_label)
-        top.append(eyebrow); top.append(date); feature.append(top)
-        h=soup.new_tag("h2"); h["style"]="margin:0 0 5px;font-size:clamp(23px,3.5vw,34px);line-height:1.18;font-weight:950;color:#fff;"
-        h.string=special["title"]; feature.append(h)
-        sub=soup.new_tag("p",attrs={"class":"tac-special-focus-subtitle"}); sub["style"]="margin:0 0 18px;color:#cbd3dc;font-size:13px;line-height:1.5;"
-        sub.string=special["subtitle"]; feature.append(sub)
-        metric_grid=soup.new_tag("div",attrs={"class":"tac-special-focus-metrics"}); metric_grid["style"]="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:16px;"
-        metric_colors=["#e5b95f","#e9edf3","#e5b95f"]
-        for idx,item in enumerate(special["metrics"]):
-            card=soup.new_tag("div"); card["style"]="min-width:0;padding:12px 11px;border:1px solid rgba(226,190,120,.34);border-radius:12px;background:rgba(6,12,19,.72);backdrop-filter:blur(5px);"
-            label=soup.new_tag("div"); label["style"]="font-size:11px;line-height:1.35;color:#c6ced8;font-weight:750;"
-            label.string=item["label"]
-            value=soup.new_tag("div"); value["style"]=f"font-size:clamp(25px,4vw,38px);line-height:1.1;font-weight:950;letter-spacing:-1px;color:{metric_colors[idx]};margin:6px 0 3px;"
-            value.string=item["value"]
-            note=soup.new_tag("div"); note["style"]="font-size:11px;line-height:1.4;color:#f0c879;"
-            note.string=item["note"]
-            card.append(label);card.append(value);card.append(note);metric_grid.append(card)
-        feature.append(metric_grid)
-        analysis_box=soup.new_tag("div"); analysis_box["style"]="padding:13px 14px;border-left:3px solid #d9a94e;background:rgba(0,0,0,.43);border-radius:0 10px 10px 0;margin-bottom:10px;"
-        ah=soup.new_tag("div"); ah["style"]="font-size:13px;font-weight:900;color:#edc777;margin-bottom:5px;";ah.string=special["analysis_title"]
-        ap=soup.new_tag("p",attrs={"class":"tac-special-focus-analysis"}); ap["style"]="font-size:13px;line-height:1.65;color:#f3f5f7;margin:0;";ap.string=special["analysis"]
-        analysis_box.append(ah);analysis_box.append(ap);feature.append(analysis_box)
-        outlook=soup.new_tag("div"); outlook["style"]="padding:13px 14px;border:1px solid rgba(222,177,93,.5);border-radius:10px;background:rgba(67,42,13,.48);"
-        oh=soup.new_tag("div");oh["style"]="font-size:13px;font-weight:900;color:#f4c56e;margin-bottom:5px;";oh.string=special["outlook_title"]
-        op=soup.new_tag("p",attrs={"class":"tac-special-focus-outlook"});op["style"]="font-size:13px;line-height:1.65;color:#fff;margin:0;";op.string=special["outlook"]
-        outlook.append(oh);outlook.append(op);feature.append(outlook)
-        foot=soup.new_tag("div");foot["style"]="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:#aeb8c4;"
-        src=source_link(special["source_url"],special["source_name"]);src["style"]="color:#d9bd83;text-decoration:underline;"
-        foot.append(src)
-        if special.get("source_note"):
-            note=soup.new_tag("span");note.string=special["source_note"];foot.append(note)
-        stamp=soup.new_tag("span");stamp.string="TAC｜突發專題，非每日固定版位"
-        foot.append(stamp);feature.append(foot)
-        overview=unique(soup,"#overview","overview")
-        bluf_anchor=unique(overview,"section.grid.two > article.card.bluf","summary")
-        bluf_anchor.parent.insert_before(feature)
-        responsive=soup.new_tag("style",id="tac-special-focus-responsive")
-        responsive.string="#tac-special-focus-cpi .tac-special-focus-subtitle{color:#cbd3dc!important}#tac-special-focus-cpi .tac-special-focus-analysis{color:#f3f5f7!important}#tac-special-focus-cpi .tac-special-focus-outlook{color:#fff!important}@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}";
-        head.append(responsive)
-        rendered_special=unique(soup,"#tac-special-focus-cpi","special event focus")
-        if special["title"] not in rendered_special.get_text(" ",strip=True) or any(m["value"] not in rendered_special.get_text(" ",strip=True) for m in special["metrics"]):
-            raise ValueError("special event focus content failed DOM verification")
+        raise ValueError(
+            "special_focus cannot be injected into the daily report: no mother-owned slot is approved; "
+            "refusing to append custom DOM or CSS"
+        )
 
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
