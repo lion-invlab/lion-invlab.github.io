@@ -468,7 +468,8 @@
       "contract_month": "2026-12",
       "volume": "203.70K",
       "data_date": "2026-11-19",
-      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+      "display_name": "黃金期貨"
     },
     "白銀期貨 SI": {
       "display": "44.359",
@@ -489,7 +490,8 @@
       "contract_month": "2026-12",
       "volume": "70.68K",
       "data_date": "2026-11-19",
-      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+      "display_name": "白銀期貨"
     }
   },
   "risk": {
