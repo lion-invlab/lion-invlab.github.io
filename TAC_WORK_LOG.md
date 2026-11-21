@@ -2677,3 +2677,11 @@
 - SIM-1.4 生效不等於 Builder 核准。當前候選 Builder `simulation-lab/runner/build_review_html.py` SHA `3ddbdd1137b99fe509c47f77aa86057dfefa04d2` 尚未獲使用者針對此精確 SHA 核准。QA Contract 仍列財報 renderer 狀態顯示為阻塞項；不得標示 Gate PASS。
 - 先前 run `44960571993` success 僅為前置 smoke tests；Build／瀏覽器／DOM／視覺及審核版輸出步驟 skipped。以此 run 不可宣稱 SIM-1.4 完整驗收通過。
 - 本次僅操作 simulation branch；main、正式首頁、正式母版、正式 Manifest 及正式行事曆 JSON 未修改。
+
+
+## 2026-11-22｜SIM-1.4 首輪完整驗收：財報小卡母版衝突與 Fed 行程 Builder 修正
+
+- 完整 run `44961158565` completed/failure。前置自動測試、資料準備、HTML 組裝、字型與 Playwright 互動 smoke 通過；母版視覺比較失敗，四個 mobile viewport（412／390／360／320px）均回報 EPS／Revenue 雙卡預期 2 欄、實際 1 欄。artifact `14729493381` 的 visual-regression.json 記錄四筆失敗；320px 截圖顯示雙卡上下堆疊。
+- 根因不是單份 HTML 的資料填值：Monday simulation mother CSS 在 max-width:700px 將 `#last-week-earnings .earnings-results-grid` 強制設為單欄，與 QA Contract D2「640px 以下仍兩欄」矛盾。依 SIM-1.4 母版保護，不得自行注入 Builder CSS；需使用者明確授權更新 simulation mother copy 及 Manifest／QA SHA，main mother 不動。
+- 同時查明 Fed 官員行程 Builder 會把母版 prototype 的 94px date rail 改為單欄 inline style。已修正 `build_review_html.py` 只 clone 原型、保留 row 與子節點 style；Builder blob `b6082923a88ab2b592f2d2765f68d4f4214caca8`。Regression test 改為驗證原型樣式完全保留，blob `e5ea8856da5b205d711612d55b9c75267f381350`；workflow run `44961417262` 排隊中，待結果。
+- 本輪未將失敗 HTML／舊 sidecar 當成新審核版封存；未修改 main、正式首頁、正式母版或正式行事曆 JSON。
