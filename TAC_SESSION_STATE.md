@@ -2311,3 +2311,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 合約連結規則：HTML 顯示 WTI Jan 2027、Brent Jan 2027、黃金 GC Dec 2026、白銀 SI Dec 2026；href 指向上述實際列出該交割月份的合約清單頁，並在資料來源區明示報價口徑。不得再用連續合約價格代替具體活躍月份。
 - 修正後 44/44 全部已有值與狀態：主要來源已核實／備援來源已核實；S&P 500、Russell 2000、VIX 依 Investing 頁面標示 CFD，數值僅作 CFD 參考，不冒稱現貨／Cboe官方指數成交。XLRE已核實；四項商品已完成活躍合約選取，但三項 CME 平台價需標明為 contract-specific platform value，Brent採ICE官方 delayed last。
 - CME 11/20 Daily Bulletin 截至 11/21 尚未更新（官方頁仍提供 11/19 previous trade date）；此為官方結算資料發布時點限制，不得宣稱已取得 CME 11/20 settlement。若週一正式 bulletin 在早報截稿前仍未更新，延續目前合約專屬報價及明確口徑，不用舊日 settlement 冒充。
+
+
+## 2026-11-21｜階段④新聞補查第二輪｜選舉背景、半導體出口管制與市場修正定義
+
+- **美國期中選舉結果已由 AP 正式確認**：AP 於 11/3 23:36 ET 宣告民主黨取得參議院控制權，11/4 01:24 ET 宣告民主黨取得眾議院控制權；AP 11/18 更新的結果說明已納入後續 race calls。來源：https://www.ap.org/the-definitive-source/behind-the-news/calling-control-of-congress-in-the-2026-midterm-elections/ 。因此本報可寫「民主黨取得國會兩院控制權」，但需補充總統仍保有否決權、行政權及部分政策執行權；不得將選舉直接描述成市場下跌唯一原因。AP 對選民動機的整理包含生活成本／通膨、伊朗戰事與貪腐疑慮等，資料中心政策則是可能受新國會影響的議題之一。Reuters 11/3–4 選後回顧：https://www.investing.com/news/economic-indicators/takeaways-from-the-us-midterm-elections-4996986 。
+- **修正週一總結因果措辭**：前稿「市場擔心民主黨勝選帶來資料中心建設限制」需降為政策不確定性的其中一個渠道；更直接可核實的市場因素是AI估值、資本支出回收／盈利能力、槓桿與融資成本、Fed政策預期、半導體出口管制及集中持倉去化。Reuters全球市場回顧明確列出AI與利率疑慮、政治不確定性、Nvidia CEO辭任等因素，但不得把任何單一因素寫成唯一原因：https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。
+- **美股修正定義確認**：Reuters 11/20報導 Dow 與 S&P 500 收盤均較歷史高點低逾10%，正式進入 correction；S&P 500連跌七日。來源：https://www.reuters.com/legal/transactional/wall-st-futures-slip-anthropic-debut-fails-reassure-ai-investors-2026-11-20/ 。AP 同日報導 S&P 500收6,910.39、跌3.7%，Nasdaq收22,617.73、跌5.3%，年初至今轉負：https://apnews.com/article/c4c3f4878b12989347f8a930ed813dad 。注意本報 Investing 頁 SPX CFD close 6,910.79；AP/Reuters現貨 close 6,910.39，兩者保留口徑差異，不混值。
+- **台灣市場風險定性**：Reuters 11/20指出台股週跌約17%，為1990年以來最嚴重週跌之一；交易所主席表示市場與國際風險情緒連動，仍強調台灣產業基本面與AI長期需求。來源：https://www.reuters.com/markets/europe/global-markets-taiwan-urgent-2026-11-20/ 。可在總結寫「AI權重與供應鏈集中度放大區域波動」，不應直接寫成台灣企業基本面全面惡化。
+- **新增可用 Market Hot Headline**：Reuters 11/20 08:21 UTC報導美國新出口規則限制中國AI企業透過第三國資料中心取得先進晶片算力；阿里雲預期雲端成長率由53%放緩至明年30%–45%，騰訊稱推論型AI服務可使用國產晶片。來源：https://www.reuters.com/business/retail-consumer/us-ai-chip-curbs-hit-china-tech-stocks-spur-self-sufficiency-push-2026-11-20/ 。此則可取代重複性較高的AI模型政策新聞，凸顯規則對海外算力租用與中國雲端收入的實際傳導。
+- **新增台灣半導體供應鏈新聞（需標示匿名消息來源）**：Reuters 11/19 12:48 UTC引述知情人士稱，台積電暫停部分中國客戶先進製程訂單，受新美國出口規則影響；不是台積電正式公告，報告須寫「Reuters引述知情人士」，不可寫成公司已公開證實。來源：https://www.reuters.com/world/china/tsmc-tightens-china-ai-chip-curbs-new-us-rules-close-manufacturing-loophole-2026-11-19/ 。
+- **市場結構更新**：Reuters全球市場回顧指出全球股票自8月高點市值蒸發近9兆美元、VIX升至約30；美國10年債殖利率單週下滑約17bp，MOVE及主要貨幣隱含波動仍低於上月高點；黃金未能發揮避險功能，可能反映投資人提高現金。此為市場報導與分析師解讀，非可驗證的單一資金流量統計。來源：https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。
+- 新聞補查第二輪已寫入審核素材。週末尚未結束，11/21後續及11/22消息、11/23截稿前更新仍需最後補查；G1要求的11/23亞洲開盤與盤中反應仍待當日資料。階段④維持進行中。
