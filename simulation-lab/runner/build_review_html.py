@@ -16,6 +16,11 @@ def sha_blob(text: str) -> str:
     b=text.encode("utf-8")
     return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
 
+def normalize_market_label(value):
+    """Normalize insignificant whitespace while preserving the original label for display."""
+    return re.sub(r"\\s+", "", str(value or "")).casefold()
+
+
 def reject_cfd_cash_index_quotes(data):
     """Prevent an explicitly identified CFD index series from rendering as a cash-index close."""
     rejected = []
@@ -1274,7 +1279,8 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
-        rows=[r for r in gm.select(".row") if label in r.get_text(" ",strip=True)]
+        normalized_label = normalize_market_label(label)
+        rows=[r for r in gm.select(".row") if normalized_label in normalize_market_label(r.get_text(" ",strip=True))]
         if len(rows)!=1: raise ValueError(f"global market row {label!r} count={len(rows)}")
         vals=rows[0].select("span.r")
         if len(vals)<1: raise ValueError(f"global market value slot missing: {label}")
