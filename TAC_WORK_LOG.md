@@ -2600,3 +2600,11 @@
 - 以上均只修改 simulation branch；未修改 main、正式首頁、正式母版或正式行事曆 JSON。
 - 兩筆 fixture push commit message 均含日期 build tag，且路徑符合 `tac-simulation-lab.yml` push trigger；預期分別啟動 2026-11-20 weekday build 與 2026-11-23 Monday build。**目前尚未取得 workflow run 完成結果，兩次 build 狀態暫列 PENDING，不得宣稱通過。**
 - 下一步：讀取兩次 workflow run 的結果與 artifacts；修正任何 Gate／Builder 問題後重跑。兩種母版需在相同規則、Manifest、QA Contract、Builder SHA 下分別成功，才可完成 SIM-1.4 §8.1 雙母版實證。SIM-1.4 仍為 DRAFT，Builder 未獲使用者核准。
+
+
+### 2026-11-22｜內容 Gate 詞彙判定補正與雙日期 build 觸發
+
+- 再檢查 11/20 平日 Fixture 的區域／資產評論，發現原 Gate 只接受「操作／投資含意／投資應對」三個固定字串，會把「策略上」「配置上」「應追蹤」「重新評估」「防守」等具體投資應對誤判為缺失。已擴充為可辨識的策略／配置／避免／防守／觀察／追蹤／評估等語義提示，未放寬評論必須具投資應對的要求。
+- 以 workflow push build tag 觸發 2026-11-20 平日 build：`b8f59dd01cfc6c5793d8cd263f45411bc82366d2`。
+- 再以 workflow push build tag 觸發 2026-11-23 週一 build：`2e3cc4a461a4d99f3b75bec27b1c01c33d1bded8`。
+- 目前尚無可讀取的 workflow run ID／完成結果；兩份 preview 仍需回讀新 SHA 與 sidecar 才能認定完成。舊 run `44907973204`（平日）與 `44924450638`（週一）使用舊 candidate rules／舊 Gate，不得作為本輪雙母版驗收證據。
