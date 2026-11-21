@@ -478,3 +478,18 @@ SHA：679eae7ba7a40dbad64d15bb448fe53db7d67e09
 | 5.19 舊財報共識順位 | 684–688 | 撤銷／歷史 | 5.2、版本紀錄 | LSEG→FactSet→Investing 已被 Yahoo→Investing 新規覆寫 |
 | 5.17 EPS 同口徑查核 | 690–694 | 重寫 | 5.2–5.3 | 保留同口徑核實原則；不得以未揭露細節／PIT 作一般數值判讀硬阻斷 |
 
+
+
+## 2026-11-21 22:xx｜最新使用者指示與 SIM-1.4 草案增補處置
+
+| 新增／修正要求 | SIM-1.3 原規則背景 | SIM-1.4 草案去向 | 處置 |
+|---|---|---|---|
+| WTI／Brent／GC／SI 可見名稱不得附合約月份或代碼；合約月份、代碼、交易所及報價口徑移至資料來源說明；href 必須直接開啟核對對應 Investing.com 歷史頁及當次合約 | SIM-1.3 5.2／D3 曾要求名稱與 href 同步標示月份，容易造成名稱擠壓；商品身分與合約真實性原則仍有效 | SIM-1.4 3.3 | **使用者最新明確版面指示覆寫可見名稱格式；保留合約身分與 href 一致性。** 不得因此把合約資訊刪除，只改放來源說明 |
+| 行事曆「今日公布／即將公布／已公布」依台灣截稿時點重新分類，不可直接照抄 JSON status；預定時間已過但無發布證據不可自動視為已公布 | SIM-1.3 F4 有排序及狀態搬移規則，但 Builder 曾因舊 status／分頁 DOM 順序而錯置 | SIM-1.4 4.9–4.11 | **新增時間分類與 evidence gate。** JSON 為事件資料權威，HTML renderer 依 report cutoff 做顯示分類；不得回寫 JSON |
+| 財報小卡完全沿用母版 EPS／Revenue 雙卡 DOM／CSS；不得自建卡片、改父層、注入 CSS 或改桌機／手機欄數 | SIM-1.3 F3 規定雙卡版型；先前 Builder 只更新星號文字而未同步星等 class | SIM-1.4 5.3、8.2、9 | **明確增加母版 DOM／CSS 零退化驗收。** 四星／五星 class 必須同步；內容正確但版型不一致仍判失敗 |
+| 最新候選 Builder SHA 的驗收證據需分開標記，不得把不同 SHA 的 Monday／Weekday PASS 合併宣稱雙母版同版通過 | SIM-1.3 I 規定每次修改記錄來源版本及 SHA；SIM-1.4 8.1 要求雙母版實測 | SIM-1.4 8.1、9.1、10 | **新增 SHA 證據邊界。** Monday fe8da8e 已 PASS；Weekday c4c24c0 的 PASS 不可移植，須用 fe8da8e 重跑 |
+
+- 最新 SIM-1.4 DRAFT blob SHA：`0d390cc7de7945e1d9af247dbf004f45319d5e99`。
+- 最新 Monday HTML build run：`44914993653`，Builder SHA `fe8da8e131a314897deb68ae608fda9d7647ac16`，HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`，QA sidecar `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。
+- Weekday 最近 PASS run `44907253127` 使用不同 Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f`；最新 Builder 的 Weekday 同 SHA 驗收仍待完成。
+- SIM-1.4 未獲核准前，SIM-1.3 仍為唯一有效規範。
