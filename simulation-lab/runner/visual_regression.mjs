@@ -286,10 +286,16 @@ try {
               const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
               const actualValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "實際")?.querySelector(":scope > strong")?.textContent.trim() || "";
               const estimateValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "預期")?.querySelector(":scope > strong")?.textContent.trim() || "";
+              const detailText = details?.textContent || "";
+              const comparisonBlocked = /not comparable|不判 beat\/miss|未證明.{0,20}同口徑|幣別不同|貨幣不同|單位不同/i.test(detailText);
               const expectedStatusLabels = state === "pending"
-                ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得"
-                    ? ["預期資料尚未取得"]
-                    : ["尚未公布", "比較資料尚未齊備", "公告已發布；實際值待核實"])
+                ? (detailText.includes("公告已發布")
+                    ? ["公告已發布；實際值待核實"]
+                    : comparisonBlocked
+                      ? ["比較資料尚未齊備"]
+                      : (actualValue && actualValue !== "未取得" && estimateValue === "未取得"
+                          ? ["預期資料尚未取得"]
+                          : ["尚未公布"]))
                 : [expectedLabels[state]];
               if (!state || !status || !status.classList.contains(state) || !expectedStatusLabels.includes(status.textContent.trim())) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
