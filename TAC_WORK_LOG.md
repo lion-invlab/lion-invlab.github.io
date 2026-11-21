@@ -1665,3 +1665,10 @@
 - 修正：正式行情資料日期仍為2026-11-20；MOVE 106.31因TradingView頁未明示指定交易日／收盤時間，降級為「待核實」，不得在審核版當成已確認的11/20收盤；週一需重新查核。
 - 本次後續製作禁止使用Snapshot／Collector／Assembler／Renderer／GitHub Actions作為行情或HTML中轉；ChatGPT直接查核資料並以真正DOM parser更新核准母版，依SIM-1.3 C5及QA契約執行。
 - 母版身分釐清：simulation manifest 同時登記 main正式週一母版SHA `a568e594e55909041d51d8eae7e6fe5f7986c096` 與 simulation隔離副本SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`；本次模擬只使用後者，兩者差異屬已登記的simulation baseline，不得互相冒稱。main母版、main index均不修改。
+
+
+## 2026-11-21｜行情第二輪補漏完成（44/44）
+- XLRE 11/20 close 42.46、前收42.88、-0.98%已由Investing.com頁面核實。
+- WTI採NYMEX Jan27 CLF27（11/20 volume275,335，OI276,408，expiry 12/21）；Brent採ICE Jan27 LCOF7（ICE官方last 92.490，volume264,003，較Feb27 243,351高）；Gold採COMEX Dec26 GCZ26（volume323,896、OI171,833，高於Feb27）；Silver採COMEX Dec26 SIZ26（volume110,375，高於Mar27 39,716，OI可得48,391）。四項商品已依合約成交量、可得OI及到期資訊選定活躍月份。
+- CME 11/20 Daily Bulletin尚未發布，故WTI／Gold／Silver採合約專屬平台last（Investing表格s標記），不冒稱CME official settlement；Brent採ICE官方delayed last。HTML必須顯示交割月份並將href指向列有該月份的合約清單頁。
+- 補漏後44/44均有數值及來源狀態，S&P/Russell/VIX依Investing頁標示CFD，需明確標註口徑。第二階段補漏完成。
