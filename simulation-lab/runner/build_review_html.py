@@ -1087,10 +1087,11 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
             source=soup.new_tag("a",href=item["url"],target="_blank",rel="noopener")
             published_source = str(item.get("published_at_source") or item['published_at_tw'])
             source_timezone = str(item.get("source_timezone") or "Asia/Taipei")
+            published_display = f"{published_source} {source_timezone}" if source_timezone == "Asia/Taipei" else f"{published_source} {source_timezone}（台灣 {item['published_at_tw']}）"
             updated_source = str(item.get("updated_at_source") or item.get("updated_at_tw") or "原文未標示")
             updated_tw = str(item.get("updated_at_tw") or "原文未標示")
             updated_display = updated_source if ("未標示" in updated_source or "未提供絕對時間" in updated_source) else f"{updated_source}（台灣 {updated_tw}）"
-            source.string=f"{host}｜原文發布 {published_source} {source_timezone}（台灣 {item['published_at_tw']}）｜最後更新 {updated_display}｜閱讀原文 ↗"
+            source.string=f"{host}｜原文發布 {published_display}｜最後更新 {updated_display}｜閱讀原文 ↗"
             meta.append(source)
         # Keep the report date and window visible in both news section headers.
         panel_meta=box.select_one(".tab-panel-meta")
