@@ -1,8 +1,8 @@
 ## 2026-11-21｜SIM-1.4 通盤整併與相容性驗收（最新狀態）
 
 - **目前任務：** 在 simulation/tac-process-lab-2026-11-06 分支整併 SIM-1.3 為 SIM-1.4。SIM-1.4 仍是 DRAFT，SIM-1.3 仍是目前有效規範；不得覆寫 SIM-1.3，不得修改 main、正式首頁、正式母版或正式行事曆 JSON。
-- **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA 119b1c3ae559ef40d335f8ba878f3c60877559ef。
-- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA 14eb2b9537b3bea1dae250f8c9bd5bdb3ce42d05；已逐項補齊 A1／A2、B1–B3、C Stage 1–6、D1–D5、E、F1–F4、F3補充1–10、G1–G4、H、I 的子條文與行號。
+- **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA 70a543d10c0351d257306b286e4f45cd4bc4f575。
+- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA 1ec0936a6640ffb70b0af94c08b85ca96e903d87；已逐項補齊 A1／A2、B1–B3、C Stage 1–6、D1–D5、E、F1–F4、F3補充1–10、G1–G4、H、I，以及 J 中所有有效／歷史版本紀錄的子條文與行號。
 - **Builder 稽核：** simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md，blob SHA 221be2d0f7285d33045dd6208d517cdc910c2eb6。build_review_html.py 仍為候選且 BLOCKED：會追加 CSS、改寫 summary／收折 DOM、重建 Fed 區塊，且行情 source guard 未檢查 quote_type，不能核准為唯一 Builder。
 - **QA Contract：** simulation-lab/baseline/mother-template-qa-contract.md 已更新為 v1.5 DRAFT，SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；尚未生效。main 母版結構驗收清單 v1.3 只作歷史／交叉參考，不是第二份 simulation 每日 QA。
 - **QA 相容性報告：** simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md，blob SHA 712872f0effef1a475ca97c426a8fccef589401f。
