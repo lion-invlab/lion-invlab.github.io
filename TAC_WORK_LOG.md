@@ -1838,3 +1838,10 @@
 - 讀取 main `data/calendar/weeks/2026-W48.json`，SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；未修改。
 - 27 經濟事件全為 upcoming；5 筆缺來源、1 筆時間未確認。11 財報事件全為 upcoming；2 筆時間未確認。
 - EPS／Revenue 三層來源無可採用的 PIT 共識；採用數 0、snapshot 0。維持 incomplete，不得推測預期或 Beat/Miss。
+
+
+## 2026-11-21｜FactSet Q3 2026 盈餘健康度模組更新
+- 官方來源：FactSet《Earnings Insight》2026-11-20。Q3 93%已公布；blended EPS growth 32.9%（32.0%前週／29.1%季末）；EPS beat 84%、in-line 5%、miss 11%；EPS surprise +3.5%（5Y +7.5%、10Y +8.0%）。Revenue growth 14.6%（14.2%前週／12.2%季末）；Revenue beat 74%、in-line 0%、miss 26%；Revenue surprise +2.2%（5Y +1.8%、10Y +1.6%）。Forward P/E 17.1x；Q4 EPS growth estimate 28.9%；CY2026 33.7%。
+- 重要判讀：beat比例與surprise幅度不可混為一談。EPS beat比例強，但EPS surprise幅度偏弱；營收beat與surprise均高於5Y／10Y均值。Mag7 27.0%成長低於Other 493的34.7%，惟GAAP特殊項目影響須註明；PDF頁3一句內文32.6%與同頁圖表／表格及FactSet文章34.7%不一致，採圖表／表格一致值並揭露原文差異。
+- 已依核准母版既有DOM更新盈餘健康度區塊，獨立模組預覽SHA-256 acafda7599e2529b8354c78882a143aae711ea01d9f6a16b4cdd6f96a4677ad6；Playwright page.set_content於360/390/412/768/1440px測試均無水平溢位、0 pageerror。此不等於完整報告QA。
+- 詳細來源稽核檔 simulation-lab/analysis/factset-earnings-health-2026-11-20.md commit 08f9fb20610333e12c6e32301aff4c561b1d7ae3。未修改main index、正式母版、W48 JSON；完整11/23審核版仍待組裝。
