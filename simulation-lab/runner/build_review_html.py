@@ -393,18 +393,17 @@ def earnings_comparison_status(item, metric):
 
 
 def earnings_status_label(item, metric, state):
-    """Render one of the four permitted statuses; explain pending causes without inventing a fifth state."""
+    """Name missing consensus explicitly when actual results are already published."""
     labels = {
         "beat": "優於預期",
         "miss": "低於預期",
         "inline": "符合預期",
+        "incomparable": "比較口徑不相容",
+        "consensus_divergent": "市場共識來源分歧",
     }
     if state == "pending":
         if item.get("status") == "pending_verification":
             return "公告已發布；實際值待核實"
-        reason = str(item.get(f"{metric}_comparison_reason") or "")
-        if reason.startswith("comparison_inputs_not_comparable:"):
-            return "比較資料尚未齊備"
         actual_key, estimate_key = (
             ("eps_actual", "eps_estimate") if metric == "eps"
             else ("revenue_actual", "revenue_estimate")
@@ -413,14 +412,24 @@ def earnings_status_label(item, metric, state):
         if actual not in (None, "") and estimate in (None, ""):
             return "預期資料尚未取得"
         return "尚未公布"
+    if state == "incomparable" and item.get(f"{metric}_estimate_basis_code") in (None, ""):
+        return "預期口徑未揭露，暫不判定"
     return labels.get(state, "尚未公布")
 
 
 def earnings_commentary(item):
-    """Keep editorial prose consistent with the engine's four persisted EPS/revenue statuses."""
+    """Keep editorial prose consistent with the engine's persisted EPS/revenue statuses."""
     statuses = {
         "eps": earnings_comparison_status(item, "eps"),
         "revenue": earnings_comparison_status(item, "revenue"),
+    }
+    labels = {
+        "beat": "優於預期",
+        "miss": "低於預期",
+        "inline": "符合預期",
+        "pending": "尚未公布",
+        "incomparable": "比較口徑不相容",
+        "consensus_divergent": "市場共識來源分歧",
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
@@ -433,14 +442,10 @@ def earnings_commentary(item):
         part = fragment.strip()
         if not part:
             continue
-        # Remove legacy fifth-state labels; they are not valid output statuses.
-        if any(label in part for label in (
-            "比較口徑不相容", "市場共識來源分歧", "預期口徑未揭露，暫不判定"
-        )):
-            continue
-        # Drop stale pending labels; the current status is regenerated below.
+        # Drop stale legacy "not yet published / values incomplete" labels;
+        # the current status is regenerated below from actual/estimate fields.
         legacy_pending = bool(re.search(
-            r"(?:EPS|營收|revenue).{0,50}(?:尚未公布／數值尚未齊備|預期資料尚未取得|比較資料尚未齊備|尚未公布)",
+            r"(?:EPS|營收|revenue).{0,40}(?:尚未公布／數值尚未齊備|預期資料尚未取得|尚未公布)",
             part,
             flags=re.IGNORECASE,
         ))
@@ -454,8 +459,50 @@ def earnings_commentary(item):
             part,
             flags=re.IGNORECASE,
         ))
-        if directional:
+        if not directional:
+            kept.append(part)
             continue
+        # Directional verdicts are regenerated below from the single-source
+        # judgment engine. Never retain an old matching verdict: doing so
+        # duplicates EPS/revenue labels each time a Monday retrospective card
+        # is recalculated.
+        continue
+        has_eps = bool(re.search(r"\bEPS\b|每股|per[- ]share", part, flags=re.IGNORECASE))
+        has_revenue = bool(re.search(r"營收|revenue|net sales", part, flags=re.IGNORECASE))
+        # An unqualified directional sentence is ambiguous; do not preserve it.
+        if not has_eps and not has_revenue:
+            continue
+        if has_eps and not has_revenue:
+            status = statuses["eps"]
+            if status not in {"beat", "miss", "inline"}:
+                continue
+            if status == "beat" and re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I):
+                continue
+            if status == "miss" and re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I):
+                continue
+            if status == "inline":
+                continue
+        elif has_revenue and not has_eps:
+            status = statuses["revenue"]
+            if status not in {"beat", "miss", "inline"}:
+                continue
+            if status == "beat" and re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I):
+                continue
+            if status == "miss" and re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I):
+                continue
+            if status == "inline":
+                continue
+        else:
+            # A sentence covering both metrics is only safe when both are directional
+            # and it contains no polarity conflict. Otherwise the whole sentence is removed.
+            if any(statuses[m] not in {"beat", "miss", "inline"} for m in ("eps", "revenue")):
+                continue
+            if statuses["eps"] == "inline" or statuses["revenue"] == "inline":
+                continue
+            if re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I) and "miss" in {statuses["eps"], statuses["revenue"]}:
+                continue
+            if re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I) and "beat" in {statuses["eps"], statuses["revenue"]}:
+                continue
         kept.append(part)
 
     summary = "；".join(
@@ -720,7 +767,7 @@ def main():
         ]:
             summary_node = unique(soup, selector, "previous-week disclosure summary")
             label_text = summary_node.get_text(" ", strip=True)
-            label_text = re.sub(r"^展開\s*", "", label_text)
+            label_text = re.sub(r"^展開\\s*", "", label_text)
             summary_node.clear()
             marker = soup.new_tag("span", attrs={"class": marker_class, "aria-hidden": "true"})
             marker.string = "▸"
@@ -1411,7 +1458,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                 raise ValueError(f"{container_id}/{label}: directional QA change span missing")
             cls = change[1].get("class", [])
             value = str(record["change_display"]).strip()
-            parsed_change = re.match(r"^([+＋\\-−－]?)\s*([0-9][0-9,]*(?:\.[0-9]+)?)", value)
+            parsed_change = re.match(r"^([+＋\\-−－]?)\\s*([0-9][0-9,]*(?:\\.[0-9]+)?)", value)
             if parsed_change:
                 sign = parsed_change.group(1)
                 amount = float(parsed_change.group(2).replace(",", ""))
