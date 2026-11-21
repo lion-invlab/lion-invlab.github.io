@@ -2780,3 +2780,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 新增Reuters全球市場賣壓原文及Investing.com鏡像、Reuters下週宏觀觀察、IMF 11/20 Global Markets Monitor、MacroMicro 11/21日報等候選。Reuters頁面時區仍待確認；IMF需逐頁定位；MacroMicro僅作二級彙整。不可直接標記新聞完成。
 - 當前階段：第三步行事曆資料已篩選但尚未映射完整HTML；第四步新聞窗口仍開放至11/23 05:25，焦點／頭條尚未封口；第五步HTML仍不可交付。已確認不得沿用DOM遭破壞的舊工作稿，必須從核准Monday母版零退化組裝。
 - 下一個可恢復動作：在隔離分支內繼續完成可核實新聞的原文時間／事件去重審查，同時將W47/W48篩選結果映射至既有卡片槽位；不修改main正式JSON、母版、首頁或正式WR。
+
+
+## 2026-11-21｜接手續作 checkpoint（SIM-1.3）
+- 本次重新 fetch WR：SIM-1.3，SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA Contract SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- Monday simulation mother實際 blob SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與最新 Manifest 一致。禁止使用舊工作稿；Library 中 SHA `a568e594...` 是 main 母版，不可冒充 simulation baseline。
+- CNN官方截圖讀值已核實10/100 Extreme Fear，更新時間2026-11-21 07:59:52 Asia/Taipei；舊CNN待核狀態已被覆蓋。
+- 新聞增量：Reuters 11/20 15:12 UTC（台灣23:12）全球賣壓原文、IMF 11/20 Global Markets Monitor、CNA 11/20台股週跌17.5%報導均已直接開啟並核對。Reuters重點：全球股市自8月高點蒸發近US$9T、VIX 30、美10Y本週-17bp、美元指數19個月高位；IMF重點：全球股市連跌第七日、科技股／AI估值壓力及10Y殖利率跌破5%；CNA：TAIEX 36,033.29，當日-6.23%，全週-17.5%。來源詳見 Work Log 本次同名 checkpoint。
+- 階段狀態：第三步已篩選但未完成HTML映射；第四步新聞未封口（至11/23 05:25）；第五步未完成，尚無 review_ready HTML。未修改main、正式母版、首頁或任何行事曆JSON。
+- 下一個恢復點：完成W47/W48已篩事件對母版既有卡片的映射，然後持續第四步新聞窗口增量覆核；新聞窗口於截稿才封口，之後重讀最新SIM-1.3第五步及QA契約，組裝及驗收。
