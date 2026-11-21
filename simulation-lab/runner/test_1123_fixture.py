@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pre-build contract, source-identity, and compact display-name checks for all commodity fixtures."""
+"""[build-tac-report:2026-11-23] Monday fixture contract, source-identity, and compact display-name checks."""
 from datetime import datetime
 import json
 from pathlib import Path
