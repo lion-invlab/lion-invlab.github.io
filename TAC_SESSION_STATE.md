@@ -2296,7 +2296,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 **能源與貴金屬 4 項（按最新完整交易日成交量最高的具體合約；平台last/settlement標記，不冒稱官方結算）：** WTI Jan-27 CLF7 83.41（+1.18%，vol 275,335）；Brent Jan-27 LCOF7 92.57（+0.64%，vol 278,237）；Gold Dec-26 GCZ6 3,515.4（-4.62%，vol 323,896）；Silver Dec-26 SIZ6 41.070（-7.41%，vol 110,375）。來源：Investing.com具體商品合約清單；CME／ICE官方結算頁本次未能讀取到具體合約當日數值，故按D3「具體合約可靠平台歷史報價」備援，名稱與連結須保留合約月份。
 
-**風險情緒 3 項：** VIX 35.89（+26.20%，Investing.com HK 11/20歷史收盤）；MOVE 106.31（+6.80%，TradingView最新可見報價，頁面未明示指定日期／收盤時間，暫列「待核實」，週一需重新核對）；CNN Fear & Greed 10/100（Extreme Fear，FGScore CNN Provider Index，更新時間11/21 05:30台北時間；CNN官方頁及其graphdata端點本次不可讀，依D3第三方備援順序採用）。
+**風險情緒 3 項：** VIX 35.89（+26.20%，Investing.com HK 11/20歷史收盤）；MOVE 106.3（+10.69%，EODData INDEX:MOVE，2026-11-20 End of Day；Investing.com／TradingView／Yahoo／CNBC無法取得同日可核實資料後，依SIM-1.3順位使用EODData）；CNN Fear & Greed 10/100（Extreme Fear，FGScore CNN Provider Index，更新時間11/21 05:30台北時間；CNN官方頁及其graphdata端點本次不可讀，依D3第三方備援順序採用）。
 
 **政策／盈利背景（不計入44項）：** FedWatch 12/9會議：目前目標區間3.75%–4.00%；升息25bp至4.00%–4.25%機率89.6%，維持機率10.4%；更新時間11/21 05:55台北時間。FactSet Earnings Insight 11/20：Q3 93%公司已公布；EPS beat 84%、Revenue beat 74%；混合EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%（低於5年平均+7.5%）；forward P/E 17.1（低於5年19.8、10年19.1）；Mag7 EPS成長27.0%，低於其他493家34.7%。
 
@@ -2323,3 +2323,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **新增台灣半導體供應鏈新聞（需標示匿名消息來源）**：Reuters 11/19 12:48 UTC引述知情人士稱，台積電暫停部分中國客戶先進製程訂單，受新美國出口規則影響；不是台積電正式公告，報告須寫「Reuters引述知情人士」，不可寫成公司已公開證實。來源：https://www.reuters.com/world/china/tsmc-tightens-china-ai-chip-curbs-new-us-rules-close-manufacturing-loophole-2026-11-19/ 。
 - **市場結構更新**：Reuters全球市場回顧指出全球股票自8月高點市值蒸發近9兆美元、VIX升至約30；美國10年債殖利率單週下滑約17bp，MOVE及主要貨幣隱含波動仍低於上月高點；黃金未能發揮避險功能，可能反映投資人提高現金。此為市場報導與分析師解讀，非可驗證的單一資金流量統計。來源：https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。
 - 新聞補查第二輪已寫入審核素材。週末尚未結束，11/21後續及11/22消息、11/23截稿前更新仍需最後補查；G1要求的11/23亞洲開盤與盤中反應仍待當日資料。階段④維持進行中。
+
+
+### 2026-11-20｜五大指數 OHLC 與經典 Pivot（ChatGPT直接讀取Yahoo Finance歷史列；未使用Collector）
+- 資料日期：2026-11-20；公式：P=(H+L+C)/3；S1=2P-H；S2=P-(H-L)；R1=2P-L；R2=P+(H-L)。
+- Dow (^DJI)：O 49,071.82 / H 49,594.90 / L 47,998.86 / C 48,147.33；P 48,580.36；S1 47,565.83；S2 46,984.32；R1 49,161.87；R2 50,176.40。來源：https://finance.yahoo.com/quote/%5EDJI/history/
+- S&P 500 (^GSPC)：O 7,150.39 / H 7,198.67 / L 6,882.66 / C 6,910.39；P 6,997.24；S1 6,795.81；S2 6,681.23；R1 7,111.82；R2 7,313.25。來源：https://finance.yahoo.com/quote/%5EGSPC/history/
+- Nasdaq Composite (^IXIC)：O 23,592.67 / H 23,837.76 / L 22,513.01 / C 22,617.73；P 22,989.50；S1 22,141.24；S2 21,664.75；R1 23,465.99；R2 24,314.25。來源：https://finance.yahoo.com/quote/%5EIXIC/history/
+- PHLX Semiconductor (^SOX)：O 9,160.80 / H 9,204.42 / L 8,342.21 / C 8,408.59；P 8,651.74；S1 8,099.06；S2 7,789.53；R1 8,961.27；R2 9,513.95。來源：https://finance.yahoo.com/quote/%5ESOX/history/；Investing.com HK主要行情收盤顯示8,408.6，僅有0.01四捨五入差。
+- Russell 2000 (^RUT)：O 2,641.16 / H 2,665.14 / L 2,577.09 / C 2,581.79；P 2,608.01；S1 2,550.87；S2 2,519.96；R1 2,638.92；R2 2,696.06。來源：https://finance.yahoo.com/quote/%5ERUT/history/
+- 以上OHLC均為11/20同日現貨指數歷史資料；Pivot僅為技術參考，不代表保證支撐／壓力。
