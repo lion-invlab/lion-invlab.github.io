@@ -89,6 +89,8 @@ def main():
     assert data["energy"]["WTI原油期貨"]["change_display"] == "-0.05%"
     assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
     assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
+    assert "WTI、Brent、GC、SI四項均採Investing.com HK" in data["warning_note"]
+    assert "WTI、GC、SI為CME" not in data["warning_note"]
     for group in ("energy", "metals"):
         for name, item in data[group].items():
             source = item["source"]
@@ -102,6 +104,8 @@ def main():
     weekday = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
     assert weekday["report_date"] == "2026-11-20"
     assert weekday["trading_date"] == "2026-11-19"
+    assert "WTI、Brent、GCZ6、SIZ6的11/19價格均採Investing.com HK" in weekday["warning_note"]
+    assert "平台收盤/Last" not in weekday["warning_note"]
     expected_weekday = {
         ("energy", "WTI原油期貨"): ("82.44", "+0.16%"),
         ("energy", "Brent原油期貨"): ("91.98", "+0.03%"),
