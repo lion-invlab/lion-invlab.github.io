@@ -2130,13 +2130,10 @@ def main():
             if not items:
                 set_text(empty,"目前沒有符合本分頁條件的已核實重要經濟事件。")
                 continue
-            # Monday's approved mother uses an empty-state div for the initially empty
-            # Today group. Reuse that exact node as the dynamic list slot; do not add a wrapper.
             classes=[c for c in empty.get("class",[]) if c!="calendar-status-empty"]
             empty["class"]=classes+["econ-event-list"]
             listing=empty
-        for old_card in listing.find_all("details",class_="econ-event",recursive=False):
-            old_card.decompose()
+        reset_calendar_listing(listing,"econ-event","目前沒有符合本分頁條件的已核實重要經濟事件。",bool(items))
         for x in items:
             card=BeautifulSoup(template_html,"html.parser").select_one("details.econ-event")
             day,clock=dateparts(x.get("date",""))
@@ -2154,7 +2151,6 @@ def main():
             set_economic_source(card, x)
             validate_economic_card(card, f"current-week economic event {x.get('id') or x.get('name')}", "econ-toggle")
             listing.append(card)
-        panels.append(group)
     earn=unique(soup,"#earnings","earnings calendar")
     earnings=data.get("earnings",{}).get("events",[])
     if not earnings: raise ValueError("current-week earnings calendar data missing")
@@ -2207,12 +2203,10 @@ def main():
             if not items:
                 set_text(empty,"目前沒有符合本分頁條件的已核實重要財報事件。")
                 continue
-            # Reuse the mother's existing empty-state node as the dynamic list slot.
             classes=[c for c in empty.get("class",[]) if c!="calendar-status-empty"]
             empty["class"]=classes+["earnings-accordion-list"]
             listing=empty
-        for old_card in listing.find_all("details",class_="earnings-accordion",recursive=False):
-            old_card.decompose()
+        reset_calendar_listing(listing,"earnings-accordion","目前沒有符合本分頁條件的已核實重要財報事件。",bool(items))
         for x in items:
             if earnings_groupkey(x) == "published":
                 if not published_template_html:
@@ -2251,7 +2245,6 @@ def main():
                     details,x,day,clock,session_label,timing_value
                 )
             listing.append(card)
-        ep.append(group)
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     # The published accordion includes past events even when actual results remain unverified.
