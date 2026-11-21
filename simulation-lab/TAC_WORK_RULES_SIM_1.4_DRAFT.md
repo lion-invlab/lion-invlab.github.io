@@ -586,3 +586,13 @@
 2. 再補完整 DOM write allowlist／契約一致性測試，明確界定動態卡片及來源連結槽位；擴充 DOM validator 的檢查範圍或明確限定其名稱與驗收聲明。
 3. 修正 sidecar 狀態欄位，分開 `QA_PASSED`、資料完整度、`SIM14_BUILDER_APPROVED`、`SIM14_REVIEW_READY`；Builder 未獲使用者核准前不得標示 SIM-1.4 REVIEW_READY。
 4. 兩種母版重新跑完整 build／artifact validation／Playwright／六視窗 QA；完成後提交候選 Builder SHA 與證據，等待使用者核准。SIM-1.3 持續有效，SIM-1.4 持續 DRAFT。
+
+
+## 2026-11-21｜S&P 500 Dashboard 與市場情緒 DOM 保留修正（待 CI）
+
+- 再次檢查兩份實際母版後，確認舊 Builder 曾對 `#sp500-earnings-health` 執行 `health.clear()`，再以六張固定卡及 inline style 重建；這違反 QA Contract F 的母版 Dashboard 保留要求。現已改為只更新母版既有文字槽位，週一保留 4 張卡、平日保留 3 張卡，並保留原有容器、卡片、排列、欄數及 inline style。
+- 舊 Builder 對市場情緒最後一張核心解讀卡執行 `interpretation.clear()`，會移除原有 body wrapper 與 inline style。現改為只更新既有 body text node，保留 label／body wrapper。
+- `validate_mother_dom_contract.py` 現已將 `#sp500-earnings-health` 與 `#sentiment .sent > .sbox:last-child` 納入穩定 DOM 比對，並比較兩區 inline style；新增雙母版回歸測試 `test_earnings_health_dom_preservation.py`，已接入 workflow。
+- 最新候選 Builder SHA：`7a996d3287e3ddcc06a9bdfad44c2d159a1dbcf6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；雙母版 regression test SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
+- 以上為程式修改已提交，尚未有這一版 Builder／validator／test 的完整 CI 結果。下一次完整 build 必須同時驗證 Monday 4 卡、Weekday 3 卡、兩區 DOM／inline style 不變、來源連結與日期更新，並通過 provenance validator、互動及六視窗視覺 QA。
+- 此修正不代表 Builder 已取得唯一入口核准；SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效。
