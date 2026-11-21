@@ -22,17 +22,29 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-20-simulation.html",
   "report_date": "2026-11-20",
-  "report_git_blob_sha": "fc5d844d342b2e5657ca8a9c3bbc45db7398cc3a",
-  "report_sha256": "f0aeb54162ed98ec2707d936839b4bc584358bf9f1fdd2ba03dde5c65eb09b45",
-  "build_commit_sha": "d46bceee3830287a9742b89ae399f2298d7394bf",
-  "builder_blob_sha": "b36ae1ba2b3fd3dfbde577fb6df6ea926333b3fc",
+  "report_git_blob_sha": "a638ee6a15a919e86b11313b404cc363f85d1763",
+  "report_sha256": "8cfb603aae5abebfb12fb50610cce8ceab63ca68e64a8ddfc55d7f84a803159b",
+  "build_commit_sha": "06f09ada48f92c1092160a94422c26c15dac250f",
+  "builder_blob_sha": "c4c24c03625b3532f48362d7235755a8fa55850f",
   "fixture_blob_sha": "9b4c361db94f360c1072282f7cd580c59a84223d",
   "template_blob_sha": "19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96",
+  "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
+  "qa_contract_blob_sha": "f6848d21286f63c4eef11682eedd8825b5fd3aad",
+  "active_rules_blob_sha": "679eae7ba7a40dbad64d15bb448fe53db7d67e09",
+  "candidate_rules_blob_sha": "1b808c093bfd6186febdca58021589026ef23700",
+  "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
+  "candidate_builder_blob_sha": "c4c24c03625b3532f48362d7235755a8fa55850f",
+  "data_review_ready": true,
+  "sim14_builder_approval": "NOT_APPROVED",
+  "sim14_review_ready": false,
+  "sim14_blockers": [
+    "SIM-1.4 remains DRAFT; candidate Builder has not been explicitly approved as the unique entry point"
+  ],
   "calendar_main_commit_sha": "21c9b392878050643c4eaa7111db401cc9ab2c5c",
   "calendar_current_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "cc057baca2bab5aa21c0afd9b0664ade5ff4fc2a997f00ebbad47902e6b862aa",
-  "visual_evidence_sha256": "2d10b56124c9d30b779f717de87981da2f05d922493a1c046a90430d05d175a3",
+  "visual_evidence_sha256": "6f5bafa75125fedfaf59665785d84029db24c80e3a98d00f6e3bef4bec3c9272",
   "viewports": [
     1440,
     768,
@@ -41,6 +53,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44904625849",
+  "workflow_run_id": "44907253127",
   "workflow_run_attempt": "1"
 }
