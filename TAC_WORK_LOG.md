@@ -1983,3 +1983,12 @@
 - Fed官方10/28聲明／Policy Rate確認當前區間3.75%–4.00%。來源：https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm；https://www.federalreserve.gov/economy-at-a-glance-policy-rate.htm。
 - 正確標籤：升息25bp至4.00%–4.25%機率86.4%；維持3.75%–4.00%機率13.6%。不可把目標區間當變動幅度，也不可把86.4%標成維持。前一日升息機率99.6%，前一週91.3%。
 - 依SIM-1.3 D3，Investing.com是日常讀取來源；CME只作方法與交叉核對。HTML顯示前需於11/23截稿前再讀取最新值；main資料庫不修改。
+
+
+## 2026-11-21｜續作行情身分核對與行事曆映射進度
+- 重新讀取 SIM-1.3 第二至第五步規則後，繼續核對 2026/11/20 行情。Investing.com 香港站指定 S&P 500 歷史頁（https://hk.investing.com/indices/us-spx-500-historical-data）11/20列為 6,910.39、-3.70%，與 Yahoo Finance ^GSPC及AP收盤報導一致；同站 cid=40826 頁面為另一序列 6,910.79、-3.69%，不得混用。正式採指定歷史頁 6,910.39。
+- SOX Investing.com HK歷史列確認 8,408.6、-10.73%（https://hk.investing.com/indices/phlx-semiconductor-historical-data）；MOVE同站歷史列確認106.31、+10.69%（https://hk.investing.com/indices/ice-bofaml-move-historical-data）。Russell 2000歷史資料與Yahoo Finance ^RUT同日一致：2,581.79、-2.76%；目前搜尋到的Investing.com歷史頁為主站網址 https://www.investing.com/indices/smallcap-2000-historical-data，仍須確認是否有香港站等價頁並記錄來源身分。
+- WTI不可鎖定：香港站歷史頁 https://hk.investing.com/commodities/crude-oil-historical-data 顯示「2027年1月」但標記即時差價合約，11/20列82.40、-0.05%；合約清單另列Jan-27 83.41、+0.97，其他cid序列亦有不同價格。依SIM-1.3不得把CFD／不同序列冒充CME指定月份結算，維持待核實，等待可辨識合約的正式歷史結算資料。
+- W48行事曆映射工作稿位於本機 /mnt/data/TAC_投資早報_2026-11-23_行事曆映射工作稿.html，由母版副本直接DOM更新。以UTF-8 parser核對：上週經濟2卡、上週財報1卡、本週經濟27卡、本週財報11卡；W48事件數與JSON總數相符，未修改正式JSON。此僅證明卡片數量映射，不代表逐欄內容、來源、排序與結構QA已通過。
+- 工作稿與核准母版的DOM統計需以同一parser重做正式差異檢查；本次初步解析兩者元素總數有差異，ID數量相同，但尚未完成QA契約的結構差異裁決。行事曆工作稿不得標記review_ready；行情其餘欄位、新聞窗口封口、FedWatch截稿重讀、完整分析與四類QA仍未完成。
+- 保護範圍：未修改main、index.html、正式母版、Manifest、QA契約或W47/W48 JSON；目前僅更新本機工作稿，未寫入main preview，未發布。
