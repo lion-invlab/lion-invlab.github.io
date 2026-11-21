@@ -68,3 +68,12 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - 11/23 Monday build run `44954756293` 已以固定版本組合通過：Builder `60d778c39ffe48140e99e0dad3579ce9f0b33945`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract v1.14 `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。
 - 依 SIM-1.4 §8.1，現觸發 2026-11-20（週五）Weekday fixture `simulation-lab/fixtures/report-data-2026-11-20.json` 完整 build，使用完全相同的 Builder／Manifest／QA Contract／active rules／candidate rules SHA，驗證雙母版是否可重現。
 - 此次仍為 simulation-only candidate validation；不代表 SIM-1.4 生效、不核准 Builder、不寫 main、不部署 Pages。
+
+
+## 2026-11-22｜Weekday 財報行事曆來源槽位錯誤修復與重跑
+
+- 同版 Weekday build run `44954985333` 已完成至 Builder，但失敗於 `earnings calendar mother source note missing`。根因：Builder 把 Monday mother 的兩個頂層 `.source` 節點假設套用至 Weekday mother；實際 Weekday mother 沒有此頂層來源說明槽位，個別來源已存在每張財報卡內。此為 Builder 母版分流錯誤，不是母版缺損，不應新增 DOM 或 CSS 補位。
+- 已修正 Builder：抽出 `update_earnings_calendar_source_note()`，只在 Monday 情境更新母版既有頂層來源說明；Weekday 情境驗證沒有該 Monday-only 槽位後原樣返回，不改動母版 DOM。
+- 已新增 regression test：Monday 保留並更新原有來源說明與隱藏過期示例連結；Weekday 無頂層來源槽位時必須 no-op，且整段 `#earnings` DOM 字串完全不變。
+- Builder commit `5db23586cb7307b490a9cbb38ccd84f6065f4f01`，blob `036d9ab838a1b4e461de52cadf6c33a8d6236758`；test commit `73242392402e7440bb928ec829eae81bfb58b3f2`，blob `e3856b23d609340870ae810d0dd5c1dd30a29e28`。
+- 以 2026-11-20 Weekday fixture 重新觸發完整 build；本次仍固定 QA Contract／Manifest／active SIM-1.3／candidate SIM-1.4 SHA，驗證修復後雙母版一致性。
