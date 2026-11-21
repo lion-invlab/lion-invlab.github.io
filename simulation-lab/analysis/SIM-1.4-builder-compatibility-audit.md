@@ -246,3 +246,10 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - **候選 Builder 可直接升格為 SIM-1.4 唯一入口：尚未核准。**
 - **SIM-1.4 規則／Manifest／QA Contract／Builder 全面一致性審核：進行中。**
 - **正式 main／首頁／正式母版：未修改。**
+
+
+## 2026-11-21｜凍結本輪候選規則 SHA，重跑同版 Monday
+
+- 本輪 SIM-1.4 DRAFT 已完成雙母版實證後的規則一致性修訂；目前候選規則 SHA：`3d5f067ff08df3ba82409620c3d3afc4265c7792`。
+- Monday 既有成功 run 使用前一版 candidate rules SHA，故需以本次凍結版重新執行 2026-11-23 Monday build；Weekday 亦將在 Monday 完成後，以同一 candidate rules SHA 重跑。
+- 本次只觸發 simulation branch QA；不修改 main、正式母版、正式 Manifest、正式首頁或正式行事曆 JSON。
