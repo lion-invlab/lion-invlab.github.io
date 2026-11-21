@@ -77,3 +77,11 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - 已新增 regression test：Monday 保留並更新原有來源說明與隱藏過期示例連結；Weekday 無頂層來源槽位時必須 no-op，且整段 `#earnings` DOM 字串完全不變。
 - Builder commit `5db23586cb7307b490a9cbb38ccd84f6065f4f01`，blob `036d9ab838a1b4e461de52cadf6c33a8d6236758`；test commit `73242392402e7440bb928ec829eae81bfb58b3f2`，blob `e3856b23d609340870ae810d0dd5c1dd30a29e28`。
 - 以 2026-11-20 Weekday fixture 重新觸發完整 build；本次仍固定 QA Contract／Manifest／active SIM-1.3／candidate SIM-1.4 SHA，驗證修復後雙母版一致性。
+
+
+## 2026-11-22｜SIM-1.4 雙母版同版 SHA 最終對齊
+
+- 2026-11-20 Weekday run `44955117611` 已以 Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2` 完整通過。
+- 2026-11-23 Monday run `44954756293` 通過，但使用 Builder 舊 SHA `60d778c39ffe48140e99e0dad3579ce9f0b33945`。依 SIM-1.4 §8.1，不得與新 Builder 的 Weekday PASS 拼成同版雙母版證據。
+- 現以完全相同的最新版 Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758` 重跑 2026-11-23 Monday fixture；固定同一 Manifest／QA Contract／active rules／candidate rules SHA。只有本次 Monday PASS 後，才可標記雙母版候選 Builder 技術驗證完成。
+- 本次仍只寫 simulation branch；不更新 main preview、不部署 Pages、不修改正式首頁。
