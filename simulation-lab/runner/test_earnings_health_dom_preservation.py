@@ -55,6 +55,9 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
         raise AssertionError(f"{template_key}: card count changed: {len(cards)} != {expected_cards}")
     if data["earnings_health"]["forward_pe"] not in health.get_text(" ", strip=True):
         raise AssertionError(f"{template_key}: forward P/E value missing from the existing dashboard slots")
+    for key in ("mag7_eps_growth", "other_493_eps_growth"):
+        if str(data["earnings_health"][key]) not in health.get_text(" ", strip=True):
+            raise AssertionError(f"{template_key}: {key} missing from the existing dashboard interpretation slot")
     if data["earnings_health"]["as_of_date"] not in health.select_one(".title small").get_text(" ", strip=True):
         raise AssertionError(f"{template_key}: FactSet snapshot date did not update")
     link = health.select_one("details a")
