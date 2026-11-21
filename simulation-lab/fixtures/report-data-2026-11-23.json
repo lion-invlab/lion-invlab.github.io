@@ -6,42 +6,6 @@
   "sentiment": "市場情緒急速轉向防禦：VIX升至35.89（+26.20%）、MOVE升至106.31（+10.69%），FGScore所呈現的CNN Provider最新讀值為10/100、極度恐懼（資料時間11/21 07:59台灣，17:57重新讀取未見更新）。美債殖利率回落與公債買盤反映避險，但黃金、白銀及Bitcoin同步下跌，顯示去槓桿與現金需求可能跨資產傳導。CTA等系統化策略估計已大幅減碼；FedWatch於11/21 13:35台灣時間更新，17:57重新讀取仍未更新，12/9升息25bp機率86.4%、維持13.6%。",
   "focus_news": [
     {
-      "title": "Fed理事Cook：通膨仍高於目標，政策可能需要更具限制性",
-      "published_at_tw": "2026/11/21 01:18",
-      "updated_at_tw": "2026/11/21 01:24",
-      "url": "https://www.investing.com/news/economy-news/feds-cook-says-rate-hikes-needed-to-lower-high-inflation-5042321",
-      "source_timezone": "EST",
-      "published_at_source": "Nov 20, 2026 12:18 PM EST",
-      "summary": "Cook指出通膨仍高於目標，過早放鬆政策可能使通膨更難回到2%；她的談話延續Fed內部偏鷹派訊號。市場需同時衡量通膨黏性與金融條件收緊對需求的滯後影響。"
-    },
-    {
-      "title": "ECB總裁Nagel：12月可能仍需採取行動，但通膨預期維持錨定",
-      "published_at_tw": "2026/11/21 00:01",
-      "updated_at_tw": "2026/11/21 00:06",
-      "url": "https://www.investing.com/news/economy-news/ecbs-nagel-will-likely-need-to-act-in-december-but-price-expectations-remain-anchored-5042238",
-      "source_timezone": "EST",
-      "published_at_source": "Nov 20, 2026 11:01 AM EST",
-      "summary": "Nagel表示央行仍需保留政策行動空間，通膨預期目前大致錨定。市場焦點在於能源與服務價格是否持續推高歐洲物價，以及ECB是否需要維持更久的限制性利率。"
-    },
-    {
-      "title": "南韓總統李在明：AI競賽速度至關重要，盼吸引全球資料中心投資",
-      "published_at_tw": "2026/11/21 13:34",
-      "updated_at_tw": "原文未標示絕對更新時間",
-      "url": "https://www.reuters.com/business/media-telecom/south-koreas-lee-says-speed-is-vital-ai-race-data-centre-visit-2026-11-21/",
-      "source_timezone": "UTC",
-      "published_at_source": "November 21, 2026 5:34 AM UTC",
-      "summary": "李在明視察SK與AWS合作興建的蔚山資料中心，表示南韓必須加快AI基礎建設投資。專案至2029年估計投入7兆韓元，初期規劃103MW並保留大幅擴建空間，反映AI算力需求正轉化為電力、土地、工程人力與資本支出。"
-    },
-    {
-      "title": "英國10月零售銷售月增0.7%，優於市場預期",
-      "published_at_tw": "2026/11/20 15:05",
-      "updated_at_tw": "2026/11/20 17:24",
-      "url": "https://www.investing.com/news/economy-news/uk-retail-sales-rise-07-in-october-beating-forecasts-5040801",
-      "source_timezone": "EST",
-      "published_at_source": "Nov 20, 2026 02:05 AM EST",
-      "summary": "英國10月零售銷售回升，顯示消費短期仍具韌性；但月度反彈不等於需求全面復甦，仍需觀察實質薪資、家庭信心與高利率對可支配所得的壓力。"
-    },
-    {
       "title": "密西根大學11月消費者信心終值升至51.5，一年通膨預期降至3.7%",
       "published_at_tw": "2026/11/21 02:00",
       "updated_at_tw": "原文未標示更新時間",
@@ -49,6 +13,42 @@
       "source_timezone": "Asia/Taipei",
       "published_at_source": "2026/11/21 02:00",
       "summary": "消費者信心較10月回升，短期通膨預期亦下降；但信心水準仍偏低，家庭對物價與就業前景的擔憂尚未解除。需留意消費韌性與通膨預期改善是否能持續。"
+    },
+    {
+      "title": "聯儲局官員庫克：9月加息幅度或不足以遏制通脹壓力",
+      "published_at_tw": "2026/11/21 01:50",
+      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://hk.investing.com/news/economy-news/article-1770420",
+      "source_timezone": "Asia/Hong_Kong",
+      "published_at_source": "2026年11月21日 上午01:50",
+      "summary": "Fed理事Lisa Cook認為，現有借貸成本可能不足以壓抑持續高於目標的通膨；她也指出AI投資與消費韌性仍支撐需求。市場需評估通膨黏性與進一步緊縮對成長的代價。"
+    },
+    {
+      "title": "花旗：市場正向聯儲局發出利率「高得難以為繼」的信號",
+      "published_at_tw": "2026/11/20 21:45",
+      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1770042",
+      "source_timezone": "Asia/Hong_Kong",
+      "published_at_source": "2026年11月20日 下午09:45",
+      "summary": "花旗指出，股市估值下滑與AI投資放緩風險，可能限制Fed進一步升息空間；通膨仍高，但金融條件收緊也增加成長壓力。市場正在重新衡量政策利率與風險資產估值的平衡。"
+    },
+    {
+      "title": "亞太股市重挫迎「黑色星期五」 A股與台日韓無一倖免 AI概念股估值面臨重置",
+      "published_at_tw": "2026/11/20 20:40",
+      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://news.cnyes.com/news/id/6669298",
+      "source_timezone": "Asia/Taipei",
+      "published_at_source": "2026/11/20 20:40",
+      "summary": "AI估值重新定價引發亞太市場同步回檔，台股重挫，日經與韓股跌逾4%，韓國市場一度觸發熔斷。這反映資金正在重新評估科技股估值、融資風險與AI資本支出的回收期。"
+    },
+    {
+      "title": "英國10月零售銷售額增長0.7%，遠超預期，消費者大量囤積商品",
+      "published_at_tw": "2026/11/20 15:25",
+      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1769104",
+      "source_timezone": "Asia/Hong_Kong",
+      "published_at_source": "2026年11月20日 下午03:25",
+      "summary": "英國10月零售銷售月增0.7%，高於市場預期的0.0%，但部分增幅來自政府緊急備災宣導後的長效食品囤貨。消費短期有韌性，仍須觀察實質薪資、家庭信心與高利率壓力。"
     }
   ],
   "headlines": [
