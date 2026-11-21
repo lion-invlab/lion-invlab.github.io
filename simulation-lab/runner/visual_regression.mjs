@@ -46,9 +46,20 @@ const viewports = [
 const browser = await chromium.launch({ headless: true });
 const failures = [];
 const snapshots = {};
+const fontAudits = [];
 async function load(page, file) {
   await page.goto(pathToFileURL(path.resolve(file)).href, { waitUntil: "load" });
-  await page.evaluate(() => document.fonts.ready);
+  const fontAudit = await page.evaluate(async () => {
+    await document.fonts.ready;
+    return {
+      font_family: getComputedStyle(document.body).fontFamily,
+      noto_sans_tc_available: document.fonts.check('16px "Noto Sans TC"', "繁體中文")
+    };
+  });
+  fontAudits.push({ file, ...fontAudit });
+  if (!fontAudit.noto_sans_tc_available || !fontAudit.font_family.includes("Noto Sans TC")) {
+    throw new Error(`繁體中文字型未就緒：${file}；family=${fontAudit.font_family}；Noto Sans TC=${fontAudit.noto_sans_tc_available}`);
+  }
   // Dismiss the approved fund-reminder overlay in QA captures only.
   // The source HTML remains unchanged; this prevents a modal from obscuring the visual baseline.
   await page.evaluate(() => {
@@ -623,7 +634,7 @@ try {
 }
 fs.writeFileSync(path.join(output, "visual-regression.json"), JSON.stringify({
   report_date: reportDate, report_path: reportPath, master_path: masterPath,
-  master_blob_sha: gitBlobSha, template: templateKey, viewports, failures, snapshots
+  master_blob_sha: gitBlobSha, template: templateKey, viewports, failures, snapshots, font_audits: fontAudits
 }, null, 2));
 console.log(`視覺基準比對：${failures.length ? "FAIL" : "PASS"}；視窗：${viewports.map(v => v.width).join(" / ")}；母版 SHA：${gitBlobSha}`);
 if (failures.length) { console.error(failures.join("\n")); process.exit(1); }
