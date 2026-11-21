@@ -1827,16 +1827,24 @@ def main():
     )),None)
     if template is None: raise ValueError("five-zone economic calendar template missing from approved Monday mother")
     validate_economic_card(template, "approved current-week economic prototype", "econ-toggle")
-    group_template=next((g for g in panels.select(".calendar-status-group") if g.select_one(".econ-event-list")),None)
-    if not group_template: raise ValueError("economic calendar status-group template missing")
-    panels.clear()
-    for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
+    econ_groups=panels.select(":scope > .calendar-status-group")
+    if len(econ_groups)!=3: raise ValueError(f"economic calendar must retain exactly three mother status groups; found {len(econ_groups)}")
+    for group in econ_groups:
+        if group.select_one(".calendar-status-heading") is None:
+            raise ValueError("economic calendar mother status heading missing")
+    for group,(key,label) in zip(econ_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in econ if groupkey(x)==key]
-        group=BeautifulSoup(str(group_template),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
-        if heading:
-            set_calendar_status_heading(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）",key)
-        listing=group.select_one(".econ-event-list"); listing.clear()
+        set_calendar_status_heading(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）",key)
+        listing=group.select_one(".econ-event-list")
+        if listing is None:
+            if items: raise ValueError(f"economic calendar {key} group has events but no mother event-list slot")
+            empty=group.select_one(".calendar-status-empty")
+            if empty is None: raise ValueError(f"economic calendar {key} group has neither event-list nor empty-state slot")
+            set_text(empty,"目前沒有符合本分頁條件的已核實重要經濟事件。")
+            continue
+        for old_card in listing.find_all("details",class_="econ-event",recursive=False):
+            old_card.decompose()
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
             day,clock=dateparts(x.get("date",""))
@@ -1863,7 +1871,11 @@ def main():
     ep=unique(earn,".week-earnings-panels","earnings panels")
     et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
     if not et or not eg: raise ValueError("earnings calendar template missing")
-    ep.clear()
+    earnings_groups=ep.select(":scope > .calendar-status-group")
+    if len(earnings_groups)!=3: raise ValueError(f"earnings calendar must retain exactly three mother status groups; found {len(earnings_groups)}")
+    for group in earnings_groups:
+        if group.select_one(".calendar-status-heading") is None:
+            raise ValueError("earnings calendar mother status heading missing")
     def earnings_groupkey(x):
         # Actual publication status outranks Taiwan-local calendar date.
         # US after-market releases can fall on the following Taiwan date.
@@ -1872,14 +1884,20 @@ def main():
             return "published"
         event_day = ((x.get("event_date") or x.get("date") or "")[:10])
         return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
-    for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
+    for group,(key,label) in zip(earnings_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in earnings if earnings_groupkey(x)==key]
-        group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
-        if heading:
-            display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
-            set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
-        listing=group.select_one(".earnings-accordion-list"); listing.clear()
+        display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
+        set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
+        listing=group.select_one(".earnings-accordion-list")
+        if listing is None:
+            if items: raise ValueError(f"earnings calendar {key} group has events but no mother accordion-list slot")
+            empty=group.select_one(".calendar-status-empty")
+            if empty is None: raise ValueError(f"earnings calendar {key} group has neither accordion-list nor empty-state slot")
+            set_text(empty,"目前沒有符合本分頁條件的已核實重要財報事件。")
+            continue
+        for old_card in listing.find_all("details",class_="earnings-accordion",recursive=False):
+            old_card.decompose()
         for x in items:
             card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
             day,clock=dateparts(x.get("date",""))
