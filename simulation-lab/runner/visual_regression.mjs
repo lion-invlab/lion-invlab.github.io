@@ -134,7 +134,7 @@ try {
     }
     await reportPage.locator("#tac-assets-panel-3").screenshot({ path:path.join(output, `${v.name}-energy-report.png`) });
     const a = await inspect(masterPage), b = await inspect(reportPage);
-    snapshots[v.name] = { master: a, report: b };
+    snapshots[v.name] = { ...(snapshots[v.name] || {}), master: a, report: b };
     const summaryHeadingAudit = await reportPage.evaluate(() => {
       const summary = document.querySelector("#overview .card.bluf > .title");
       const reference = document.querySelector("#sentiment > .title");
