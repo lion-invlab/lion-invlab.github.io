@@ -2593,3 +2593,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 階段判定：Phase 1–3接收與稽核已完成；Phase 4已完成截至11/21 10:14:48的新聞／分析草稿，新聞窗口未封口；Phase 5未組裝，四類QA未執行；Phase 6未開始。不得宣稱11/23早報審核版已完成。
 - Phase 5唯一目前阻塞：精確simulation母版1ac39的完整內容尚無法物化至Python DOM runtime。可用的Python DOM parser／Playwright／Chromium均已確認；main母版SHA不同且非五區DOM，舊preview是builder產物且多7 IDs／7 styles，均不得代替。需取得精確simulation母版檔案本身才能依SIM完成DOM更新及QA。
 - 未修改simulation母版、Manifest、QA Contract、W47/W48 main JSON、main index或main preview。
+
+## 2026-11-21｜P0 母版檔案交付橋接已打通（實際檔案驗證）
+- 依 SIM-1.3 隔離 workflow 通道新增「Materialize exact approved Monday mother for local handoff」步驟；workflow 修改 commit：b84f48c47f4e980c1ac8aed72df90f463822ab43；workflow blob SHA：ee44265a59b094023a00495b9fcc7f7fe3096eae。僅修改 simulation branch 的 .github/workflows/tac-simulation-lab.yml，未觸及 main、母版、Manifest、QA Contract 或 Pages。
+- GitHub Actions run 44856388322，job 136699485761，結論 success。Artifact ID 14687264191，名稱 tac-simulation-44856388322-1，ZIP SHA-256 c1d299c1dfe5f2b81888306e9ac75d83596d6bdd1d323ba020da15ffa9c69d44。
+- Artifact 已實際下載並解壓至本工作容器：/mnt/data/tac-mother-transfer/monday-mother-template.html。檔案 386,622 bytes；UTF-8 Unicode code points 354,739；SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931；Git blob SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8，與 Manifest 完全一致。
+- 本機 lxml DOM 實際解析成功：2,040 elements、183 IDs、25 scripts、124 styles；title 為核准母版內原有日期文字（2026/10/26），母版仍是唯讀基準。Workflow sidecar 與本機解析統計相符；sidecar 尾端換行格式為字面 \\n，故本機獨立解析原始 HTML，不依賴 sidecar JSON 完整性。
+- P0 判定：GitHub Connector → Actions workspace → workflow artifact → 本機容器檔案交付已實測成功；不再是阻塞。不得再要求使用者每日上傳母版。
+- 目前下一個實際阻塞：simulation-lab/fixtures/report-data-2026-11-23.json 不存在（GitHub 404）；fixtures 目錄最新為 report-data-2026-11-20.json（blob 1d5f71b4f3c60c83d9857cf9a1e7de0240abf19c）。不可將11/20 fixture冒充11/23資料。Phase 5尚未開始；需依Phase 2/4已核實資料形成日期匹配的11/23資料輸入，之後才可執行DOM組裝與QA。
+- 最新規則與基準回讀：SIM-1.3 679eae7ba7a40dbad64d15bb448fe53db7d67e09；Manifest dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract 331b4bdfe318462e15cae8ae4cd31c32815960d7；Monday mother 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。main/index.html未修改；main preview未建立；沒有正式發布。
