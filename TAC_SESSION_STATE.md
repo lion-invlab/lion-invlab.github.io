@@ -1,3 +1,16 @@
+# 2026-11-22｜SIM-1.4 首輪完整驗收結果與修正進度
+
+- **正式規則：** SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob `e18865fc31a88f98e44cb1f411817e61406a34c1`；QA Contract v1.16 blob `eca3bbdde7838303a0f11b3d03ee2d07ad93c5ef`。SIM-1.3 已封存，不再執行。
+- **首輪完整驗收：** GitHub Actions run `44961158565`，head `7bef09132cfbabe48977484e0e16d63d8b2155a6`，completed/failure。前置自動測試、資料準備、HTML 組裝、字型安裝、Playwright 互動 smoke 均 PASS；母版視覺比較 step 27 FAIL，後續 DOM/provenance/資料驗收及審核版封存未完成。
+- **實際失敗證據：** `simulation-lab/output/visual/visual-regression.json` 四項失敗均為 11/23 上週已公布財報 EPS／營收雙卡在 412／390／360／320px 被渲染成單欄；規格預期兩欄。截圖為 run artifact `14729493381` 的 `mobile-320-published-earnings.png`。CI 生成的 HTML SHA-256 為 `cb43d180f4a85c1d529c01222d9e278ccf74a87ef5206dabd09e54dc2e471d7d`，但因 QA 中止未封存，branch 上舊 preview 與舊 sidecar 不可代表本次 build。
+- **根因：** simulation Monday mother 的 mobile CSS 明確存在 `@media(max-width:700px) ... #last-week-earnings .earnings-results-grid{grid-template-columns:minmax(0,1fr)!important}`，強制 EPS／營收卡單欄；但 QA Contract D2 要求 640px 以下仍兩欄。Builder 目前沒有合法方式覆寫此母版 CSS；修改 Builder inline style 會違反母版零退化規則。這是母版基準與 QA 契約衝突，不是只修單份 HTML 能解決。
+- **Fed 官員行程根因及修正：** Builder 原本將 `.fc-fomc-weekly-event` 寫成單欄 inline grid，並改寫日期／內容子欄 inline style，破壞母版 94px 日期欄＋內容欄。已在 simulation branch 修正為完整保留 prototype 與子節點原始 style：Builder blob `b6082923a88ab2b592f2d2765f68d4f4214caca8`；同步更新 DOM regression test blob `e5ea8856da5b205d711612d55b9c75267f381350`。Smoke workflow run `44961417262` 排隊中，尚未宣稱通過。
+- **待使用者決策的唯一基準變更：** 若要符合 QA Contract 與既有要求，需只修改 simulation branch 的 Monday mother copy，移除 mobile 單欄覆蓋、恢復兩欄；隨後同步 simulation Manifest 的 Monday SHA、QA Contract 的 A2.1／A3 SHA 與對應測試。不得修改 main 正式母版。SIM-1.4 §1.3／§0.3 要求母版／Manifest 變更須使用者明確核准，目前尚未取得這項額外授權。
+- **Builder 核准狀態：** 目前 Builder 路徑 `simulation-lab/runner/build_review_html.py` SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`；尚未取得使用者對此精確 SHA 的明確核准，不得標示 SIM-1.4 REVIEW_READY。
+- **下一步：** 先確認 Fed 官員行程 preservation regression pass；取得使用者對 simulation Monday mother CSS／Manifest 基準更新的明確授權後，完成母版與測試修正，再以最新 SIM-1.4／Builder／Manifest／QA Contract 重跑完整 11/23 build。main 與正式首頁維持未修改。
+
+---
+
 # 2026-11-22｜SIM-1.4 已正式生效｜首次完整驗收進行中
 
 - **唯一有效規則：** `simulation-lab/TAC_WORK_RULES_SIM.md`，SIM-1.4，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。使用者已於 2026-11-22 明確授權升格。
