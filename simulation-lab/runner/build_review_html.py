@@ -1321,7 +1321,7 @@ def replace_text_after_bold_preserving_dom(container, replacements, context):
         raise ValueError(f"{context}: approved bold labels missing: {missing}")
 
 
-def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, monday):
+def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, monday, earnings_week=None):
     """Populate the approved dashboard's existing text slots without rebuilding its cards or layout."""
     if health is None:
         raise ValueError("S&P 500 earnings-health dashboard missing from approved mother")
@@ -1470,8 +1470,9 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
     # report snapshot; never leave a previous report week's count/date behind.
     stale_week_note = next_steps.find("span")
     if stale_week_note is not None:
-        week_start = str(data.get("earnings", {}).get("week_start", ""))
-        week_end = str(data.get("earnings", {}).get("week_end", ""))
+        earnings_week = earnings_week or {}
+        week_start = str(earnings_week.get("week_start", ""))
+        week_end = str(earnings_week.get("week_end", ""))
         snapshot_date = str(earnings_health.get("as_of_date", ""))
         if not (week_start and week_end and snapshot_date):
             raise ValueError("earnings-health current-week note requires week range and FactSet snapshot date")
@@ -2485,7 +2486,7 @@ def main():
         set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。每則新聞均核對原始發布時間、來源時區、台灣換算時間、最後更新狀態及原文連結；未符合時間窗的資料不納入。")
     health = soup.select_one("#sp500-earnings-health")
     if health:
-        populate_earnings_health_dashboard_preserving_dom(health, data.get("earnings_health") or {}, monday)
+        populate_earnings_health_dashboard_preserving_dom(health, data.get("earnings_health") or {}, monday, data.get("earnings") or {})
     fed = soup.select_one("#fed")
     if fed:
         meeting = fed.select_one(".fc-fomc-meeting b")
