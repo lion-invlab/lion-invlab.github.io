@@ -2253,3 +2253,44 @@
 - 行情audit最新blob SHA `3e889d1967949ea899b729e885422c54cecfe49d`，commit `9e68c269d78d58b1020575759bf25dbf7c2ffcbc`；商品來源已校正為CME Daily Bulletin #225 preliminary指定合約結算，銀價百分比-7.41%；XLRE因Investing HK歷史頁無法讀取採Yahoo備援。市場JSON與正式母版仍唯讀。
 - **本輪 Step 1–4 累計耗時 06:08**（00:29 + 01:40 + 00:55 + 03:04），距30分鐘全流程上限尚有23:52。Step 5尚未開始；Step 6尚未開始。
 - 新聞窗口已完成封口，禁止再次無目的重查已鎖定的15則新聞；只有發現時間錯置、事實矛盾或重複時才修正。
+
+
+---
+
+## 2026-11-21｜SIM-1.4 通盤整併、母版抽取與測試修復紀錄
+
+### 規則與母版實證
+- 讀取 SIM-1.3 全文 845 行，SHA 679eae7ba7a40dbad64d15bb448fe53db7d67e09；建立逐條處置台帳及原文行號索引。
+- 讀取正式 Manifest、simulation Manifest、週一／平日正式母版及 simulation baseline。正式 Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55；simulation Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1。兩組正式／simulation 母版 SHA 均與各自 Manifest 登記一致。
+- 週一正式母版 SHA a568e594e55909041d51d8eae7e6fe5f7986c096；simulation baseline SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。平日正式母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef；simulation baseline SHA f010ff118d7a5a2c1f6e834aa24f832766383c2b。
+- 靜態比對兩組母版：Monday 124 style／25 script／183 unique IDs；Weekday 120 style／24 script／174 unique IDs；正式與 simulation ID 集合相同。11 ETF 各有 11 個唯一 href，ticker／連結集合一致，但示範排序不同。完整 parsed DOM／CSS diff 尚未執行。
+- 44 欄位已從兩份母版抽取名稱、DOM 定位及 href，寫入 SIM-1.4 附錄 A1.1。計數為全球指數17（含SOX）＋ETF11＋美債3＋FX6＋商品4＋風險情緒3＝44；FedWatch獨立不計入。
+
+### SIM-1.4 與 QA 契約
+- 草案寫入：simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，最新 SHA 069b7daed799f845698767884d540455a763cd5b。維持 DRAFT，不覆寫 SIM-1.3。
+- QA Contract 更新為 v1.5 DRAFT：simulation-lab/baseline/mother-template-qa-contract.md，SHA d4ff82cead612969d1afe7cfc1baf53170b1aed4。修正舊 SIM-1.2 引用，明確僅作 SIM-1.4 候選附件，未核准前不生效；新增 320px 必要 viewport。
+- visual_regression.mjs SHA 700d55f49d068645d951ded047f1a445c29a4b8c，Workflow SHA e257cc6c051a91b8cdbf21982d6fa013e06640ad，均已加入 320px 測試／evidence 尺寸。
+- 逐條處置台帳：simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，SHA 2be9b45140df0223275a378477413cee3884a73d；新增原文 845 行的條文位置索引及根目錄狀態檔路徑更正。
+
+### Builder 稽核結論
+- build_review_html.py 全檔靜態檢查：2,703 行、176,746 字元。發現追加 CSS、改寫週一收折 summary DOM、重建 Fed 區塊、插入 special_focus 新 DOM；行情檢查僅驗 source name／URL／data_date，未檢查 quote_type，故有將有來源欄位的 CFD 當行情渲染的風險。
+- Builder 稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md，SHA 6a8eab101e97ea9e205d2c69e4242f05a77876d2。判定 BLOCKED，不得列為 SIM-1.4 唯一 Builder；本輪未修改 Builder 程式，未執行 HTML build／DOM diff／Playwright。
+
+### 11/23 fixture 的資料契約修正
+- 分離 report_cutoff_taipei=2026-11-23 05:25 與 news_cutoff_taipei=2026-11-21 17:57:31；修正測試對兩者要求相等的錯誤。
+- 測試不再要求原文一定提供絕對 updated_at_source；原文未標示更新時間時，保留 updated_at_tw 的觀測／未標示狀態，不偽造來源時間。
+- 修正舊測試將白銀跌幅寫成 -7.42% 的錯誤；CME Daily Bulletin #225 preliminary SIZ6 數值計算為 -7.41%。
+- 最重要：確認 11/23 fixture 六筆 global index rows 使用 cfd_index_reference_series：S&P 500、Nikkei 225、Hang Seng、FTSE 100、DAX、STOXX Europe 600。依 SIM-1.3 0.9，不得冒充現貨收盤。六筆已改為 display/change_display「待核實」，原始參考值移至 rejected_reference；summary／區域評論移除這六筆 CFD 漲跌。Fixture SHA 5686607538184183272a64c1e8d83e68458d9cce。
+- Workflow 加入負向 Gate：若 CFD index reference 仍以數字呈現，阻止 build QA 通過。11/23 fixture 保留 blocker：六筆現貨來源未補、VIX／MOVE／CNN／FedWatch需刷新、HTML QA尚未完成。
+- test_1123_fixture.py SHA f61cef9655abd52c7e6e12355fe2c35f6ba35919；新增 6 筆 CFD row 必須待核實、summary 不得引用 CFD 數值等驗收。
+
+### 實際 CI 證據
+- GitHub Actions run 44896643592，commit 7217cbee6e455cf641112d3656b1ca60ede05947，conclusion success。
+- 通過 deterministic self-tests、雙母版 validation、11/23 fixture contract、44 項計數、5 則焦點新聞＋10 則頭條、W47/W48 authoritative calendar projection、財報判讀／schema／report-layer overrides。
+- 測試明確輸出：新聞窗口已於 11/21 17:57:31 封口；報告截稿仍為週一 05:25；六筆 CFD 指數被阻擋；情緒／FedWatch刷新與 HTML QA 仍未完成。
+- 該 run 不是 HTML build，不是 Playwright，不是審核版完成證明。未建立 11/23 preview HTML。
+
+### 根目錄狀態檔路徑更正
+- TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄；本輪重新讀取並更新 Session State。先前查詢 simulation-lab/TAC_SESSION_STATE.md、simulation-lab/TAC_WORK_LOG.md 得到 404，不能推論根目錄檔案不存在。
+- 新 Session State SHA：f19863c1d6a4c6284dfd1012e380a86e0599fc1c。
+- main、正式首頁、正式母版、正式 Manifest、main calendar JSON 均未修改；SIM-1.3 原始檔未修改。
