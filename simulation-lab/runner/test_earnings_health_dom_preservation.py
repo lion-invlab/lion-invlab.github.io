@@ -122,6 +122,14 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
             raise AssertionError(f"{template_key}: {key} missing from the existing dashboard interpretation slot")
     if data["earnings_health"]["as_of_date"] not in health.select_one(".title small").get_text(" ", strip=True):
         raise AssertionError(f"{template_key}: FactSet snapshot date did not update")
+    if monday:
+        next_steps = health.find_all("div", recursive=False)[-1]
+        note = next_steps.select_one("span")
+        note_text = note.get_text(" ", strip=True) if note else ""
+        if "10/26–10/30" in health.get_text(" ", strip=True) or "179 家" in health.get_text(" ", strip=True):
+            raise AssertionError("Monday earnings-health still contains stale October earnings count/date")
+        if data["earnings_health"]["as_of_date"] not in note_text or data["earnings"]["week_start"] not in note_text or data["earnings"]["week_end"] not in note_text:
+            raise AssertionError(f"Monday earnings-health current-week note did not refresh from fixture: {note_text}")
     link = health.select_one("details a")
     if link is None or link.get("href") != data["earnings_health"]["source_url"]:
         raise AssertionError(f"{template_key}: FactSet source link did not update in its existing slot")
