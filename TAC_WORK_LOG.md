@@ -1908,3 +1908,10 @@
 - 更新總結、CNN 10/100、全球17指數與三區評論、11大產業ETF及部分觀察文字；DOM/CSS/JS基礎結構統計保留。
 - Playwright Chromium 390/1440：無水平溢位、pageerror 0、IDs 183。視覺diff、全互動及完整內容QA尚未完成。
 - 行事曆尚未逐筆更新：W47 25經濟/23財報、W48 27經濟/11財報仍未映射至母版卡片；現有卡片保留舊示範資料，僅日期標題更新，故不得交付。FedWatch舊靜態機率尚待安全處理；新聞候選尚待窗口封口與逐篇更新。
+
+
+## 2026-11-21｜W47／W48 行事曆篩選證據補記
+- W47正式JSON（main）SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`：25筆經濟、23筆財報。按週一「上週只顯示五星」規則，篩得經濟2筆（Fed Chair Kevin Warsh 11/17；FOMC Minutes 11/19）、財報1筆（NVDA 11/18）。Jefferson事件原始日期11/14，不納入W47。
+- W48正式JSON（main）SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`：27筆經濟、11筆財報，全部為四／五星。HPE及DE時間未確認，保留待核實；財報EPS／營收共識無合格PIT紀錄，不填預期或Beat/Miss。
+- 重新辨識母版四個既有槽位及DOM selector：上週經濟 `#last-week-calendar`、上週財報 `#last-week-earnings`、本週經濟 `#calendar .week-econ-panels`、本週財報 `#earnings .week-earnings-panels`。保留各自原始toggle class與卡片結構，禁止重建版面。
+- 本次完成篩選與槽位定位，尚未執行HTML映射，第三步未結案；不把篩選成果冒稱為審核版。W47／W48 JSON均未修改。
