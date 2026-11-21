@@ -2608,3 +2608,14 @@
 - 以 workflow push build tag 觸發 2026-11-20 平日 build：`b8f59dd01cfc6c5793d8cd263f45411bc82366d2`。
 - 再以 workflow push build tag 觸發 2026-11-23 週一 build：`2e3cc4a461a4d99f3b75bec27b1c01c33d1bded8`。
 - 目前尚無可讀取的 workflow run ID／完成結果；兩份 preview 仍需回讀新 SHA 與 sidecar 才能認定完成。舊 run `44907973204`（平日）與 `44924450638`（週一）使用舊 candidate rules／舊 Gate，不得作為本輪雙母版驗收證據。
+
+
+## 2026-11-22｜雙母版 Gate 失敗根因與修復
+
+- 重新回讀有效規則後確認：SIM-1.3（`simulation-lab/TAC_WORK_RULES_SIM.md`，blob `116ebb0a6401321148a878fe20c9504df7ce37f7`）才是唯一有效規則；SIM-1.4 DRAFT 未核准。先前依草稿把平日總結固定成三大項，是錯誤套用規則。
+- 讀取 GitHub Actions run `44946255238` job logs，定位 11/23 失敗於「Seal QA evidence」的明確錯誤：`risk observation must include a dated and timed upcoming catalyst`。回讀 Fixture 證實風險觀察已有 11/23（一）22:45 Flash PMI、11/25（三）21:30 GDP／PCE；根因是 workflow Python regex 使用雙重跳脫（例如 `r"11/\\\\d{1,2}"`），造成 false negative。
+- 讀取 run `44946248226` job logs，定位 11/20 Builder 失敗：`summary_points count 3 does not match mother template slots 5`。weekday 母版確實保留 5 個原生槽位，不能只把 Fixture 改成 3 點；且 SIM-1.3 G1 明定平日不套用週一專屬三大項格式。
+- Workflow commit `0b64be2fd7003aea9538f32444f138798a4cfd82` 修正 regex；commit `03df2ff28862d25e11cf82225f64c7c34305b995` 再將內容 Gate 校正為 SIM-1.3：僅週一強制三個固定標籤及日期／時間催化劑、立場／操作／條件；平日只驗證總結文字槽位有完整呈現，不套用週一格式。
+- 11/20 Fixture commit `cb62ae7c0909ddaa1f5ce699b950ee9cd8be83a7`，恢復修改前五個 weekday summary points；回讀 blob SHA `cb27af1cffeafe0cc2bed88e2d297a8640ae168d`，五個標籤與 weekday 母版槽位數相符。
+- 最新修復後重跑：Monday `44946465633`、weekday `44946505385`；記錄當時狀態均為 in_progress，尚未宣稱通過。需待完成後核對 QA sidecar 的實際 SHA／規則版本。
+- 本輪只改 simulation branch workflow 與 11/20 Fixture；未改 main、首頁、正式母版、Manifest 或正式行事曆 JSON。
