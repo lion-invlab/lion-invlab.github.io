@@ -1976,3 +1976,10 @@
 - Deere官方公告：11/25 09:00 CT法說，台灣11/25 23:00；財報實際發布時間仍未由該公告確認。官方：https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement；IR：https://investor.deere.com/home/。
 - HTML卡片須分開呈現財報發布時間（待公司確認）與法說會時間；W48 JSON保持唯讀，不因法說時間已知而覆寫 `time_known=false`。
 - 未修改main、正式母版、Manifest、QA契約、W48 JSON或首頁；HTML卡片映射與QA仍未完成。
+
+
+## 2026-11-21｜FedWatch 12/09 會議機率映射核對
+- Investing.com Fed Rate Monitor資料時間Nov 20 2026 06:05PM EST（台灣11/21 07:05）：12/09會議，3.75%–4.00%目標區間13.6%；4.00%–4.25%目標區間86.4%；Future Price 95.960，機率合計100%。來源：https://www.investing.com/central-banks/fed-rate-monitor。
+- Fed官方10/28聲明／Policy Rate確認當前區間3.75%–4.00%。來源：https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm；https://www.federalreserve.gov/economy-at-a-glance-policy-rate.htm。
+- 正確標籤：升息25bp至4.00%–4.25%機率86.4%；維持3.75%–4.00%機率13.6%。不可把目標區間當變動幅度，也不可把86.4%標成維持。前一日升息機率99.6%，前一週91.3%。
+- 依SIM-1.3 D3，Investing.com是日常讀取來源；CME只作方法與交叉核對。HTML顯示前需於11/23截稿前再讀取最新值；main資料庫不修改。
