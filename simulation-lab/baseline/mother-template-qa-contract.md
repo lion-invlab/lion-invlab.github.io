@@ -23,7 +23,7 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `3abf38e66a582089a5d16527507d39c2edbeee75` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
 | 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
@@ -113,7 +113,7 @@
 
 ## A3. 2026-11-22 基準同步紀錄
 
-- 已回讀 simulation Manifest：週一母版 SHA `72cd41e63f57f17b5b797af6043e839bf5f3b069`、週二至週五母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 已回讀 simulation Manifest：週一母版 SHA `3abf38e66a582089a5d16527507d39c2edbeee75`、週二至週五母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 本契約 A2.1 週一 SHA 已由過期的 `36f29bcb37816348756f9233b60f0429d675a76e` 更正為 Manifest 當前值；樣式標籤數由 124 更正為實際 121。其餘結構統計維持既有基準，仍須由 `validate_mother_dom_contract.py` 及 browser QA 驗證，不以文字統計取代自動化驗收。
 
 ## B. 共用結構完整性（兩份母版均適用）
@@ -331,3 +331,10 @@
 - [ ] 同公司、同財報期間是採用必要條件；來源未揭露部分欄位時保留數值並註記未揭露，不得因此改標「未取得」。
 - [ ] EPS 與 Revenue 獨立 fallback；例如 Yahoo 有 EPS、無 Revenue 時，EPS 鎖定 Yahoo，Revenue 才繼續查 Investing.com。
 - [ ] 來源查詢紀錄只保留實際查過的來源與停止原因；不得虛構未查詢來源的查核結果。
+
+
+## A3.1 2026-11-22 simulation 基準漂移修復
+
+- 最新實際週一母版 blob SHA：`3abf38e66a582089a5d16527507d39c2edbeee75`。原 Manifest `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0` 與實際檔案不符，導致母版物化 Gate 正確停止。
+- 已在 simulation branch 將 Manifest 與本契約 A2.1／A3 同步至實際週一母版 SHA；正式母版及 main Manifest 均未修改。
+- 結構統計沿用既有契約值，仍須由下一次完整 `validate_mother_dom_contract.py`、DOM contract 及 browser QA 實測確認；本次同步不代表視覺驗收通過。
