@@ -14,8 +14,8 @@ def main():
     assert data["report_date"] == "2026-11-23"
     assert data["trading_date"] == "2026-11-20"
     assert data["report_cutoff_taipei"] == "2026-11-23 05:25"
-    assert data["news_cutoff_taipei"] == "2026-11-21 23:59"
-    assert data["report_cutoff_taipei"] != data["news_cutoff_taipei"]
+    assert data["news_cutoff_taipei"] == "2026-11-23 05:25"
+    assert data["report_cutoff_taipei"] == data["news_cutoff_taipei"]
 
     counts = {
         "global_indices": len(data["global_markets"]),
@@ -52,7 +52,7 @@ def main():
     assert len(news) == 15
     assert len({item["url"] for item in news}) == 15
     start = datetime.strptime("2026/11/20 12:00", "%Y/%m/%d %H:%M")
-    end = datetime.strptime("2026/11/21 23:59", "%Y/%m/%d %H:%M")
+    end = datetime.strptime("2026/11/23 05:25", "%Y/%m/%d %H:%M")
     for item in news:
         assert item.get("url", "").startswith("https://"), item.get("title")
         assert item.get("published_at_source"), item.get("title")
@@ -69,6 +69,14 @@ def main():
     assert data["earnings_health"]["mag7_eps_growth"]
     assert data["earnings_health"]["other_493_eps_growth"]
 
+    levels = data["key_levels"]
+    assert levels["baseline_date"] == data["trading_date"]
+    assert [x["key"] for x in levels["items"]] == ["dow", "sp500", "nasdaq", "sox", "russell2000"]
+    for item in levels["items"]:
+        assert item["trading_date"] == data["trading_date"]
+        assert item["quote_type"] == "cash_index"
+        assert item["url"].startswith("https://")
+        assert all(item.get(k) for k in ("ohlc", "s2", "s1", "p", "r1", "r2"))
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
@@ -79,7 +87,8 @@ def main():
     print(f"PASS: 44 market indicators = {counts}")
     print("PASS: 5 focus news + 10 headlines; source timezones, updates and links complete")
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
-    print("PASS: news window remains open; build is correctly blocked until cutoff")
+    print("PASS: news window remains open through Monday 05:25 cutoff; final build remains blocked")
+    print("PASS: five same-day cash-index OHLC key-level sets and source links")
 
 
 if __name__ == "__main__":
