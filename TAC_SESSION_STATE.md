@@ -2959,3 +2959,31 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - **44項狀態總結：** 17全球指數＋11 ETF＋3美債CMT＋6 FX＋4商品＋3風險情緒＝44/44均已逐項登記數值、資料日、來源、口徑與狀態；ETF仍只呈現百分比。四項商品均記錄具體合約月份，WTI／GC／SI採CME preliminary settlement，Brent採Investing.com ICE指定合約歷史close/last。FedWatch獨立於44項，已另外記錄。
 - **修正前輪紀錄引用：** Russell 2000來源實際為Investing.com HK smallcap-2000 historical page（turn148286view3）；先前Session State中的臨時ref字串「turn180479view?」為筆誤，不影響採用值2,581.79（-2.76%）。
 - 第二步完成。進入第三步前，依SIM-1.3 A1-補充2，必須先更新Session State／Work Log，再重新fetch最新SIM-1.3並完整讀取第三步及其行事曆資料庫規則。
+
+## 2026-11-21｜11/23早報重製｜第二步結案與第三步行事曆唯讀核實
+
+### 第二步：44項行情及交易日曆 Gate 完成
+- 44/44欄位已完成同一基準日2026/11/20的數值、標的身分、來源、日期、口徑與狀態登記；明細分布與來源見本Session State前述「17指數」「11ETF」「債券／FX／風險」「4項商品」四筆階段紀錄。已核對各市場2026官方交易／休市日曆：NYSE/Nasdaq、JPX、KRX、TWSE、SGX、新加坡公眾假期、ASX、HKEX、SSE、SZSE、LSE、Xetra、Euronext；2026/11/20為正常星期五交易日，未列於上述官方休市日。TWSE官方11/20日報及各指數歷史列亦有當日交易資料；美國Treasury CMT、CBC匯率、CME Daily Bulletin及ICE／Investing合約歷史列均有11/20資料。
+- 重要後續休市提醒：JPX官方2026交易日曆列示2026/11/23為日本休市日；11/23早報日經指數仍使用11/20收盤，並於市場日曆提醒日本當日休市。
+- 交易日曆來源：NYSE 2026 Holidays https://www.nyse.com/markets/hours-calendars；JPX Trading Calendar https://www.jpx.co.jp/english/corporate/about-jpx/calendar/index.html；KRX Market Hours https://global.krx.co.kr/contents/GLB/06/0601/0601010000/GLB0601010000.jsp；TWSE https://www.twse.com.tw/en/；SGX https://www.sgx.com/securities/trading；ASX https://www.asx.com.au/markets/market-resources/trading-hours-calendar；HKEX https://www.hkex.com.hk/Services/Trading-hours-and-Severe-Weather-Arrangements/Trading-Hours/Securities-Market?sc_lang=en；SSE https://english.sse.com.cn/start/trading/schedule/；SZSE https://www.szse.cn/English/services/trading/tradinghours/index.html；LSE https://www.londonstockexchange.com/trade/trading-access/business-days；Xetra https://www.cashmarket.deutsche-boerse.com/cash-en/trading/calendar；Euronext https://www.euronext.com/en/trading-hours-holidays；Fed holiday schedule https://www.federalreserve.gov/aboutthefed/k8.htm。
+- 第二步狀態：完成。所有44項均有可呈現數值；四項期貨均明示具體月份及報價口徑。Brent採D3備援的Investing.com ICE指定合約歷史close/last，不冒稱官方ICE settlement；CME三項採11/20 Daily Bulletin文字抽取的preliminary settlement。工具的PDF截圖快取顯示舊11/19版，與同一PDF文字抽取的Nov20 #225標頭不一致；此工具影像快取偏差已在Work Log揭露，數值不取自舊截圖。
+
+### 第三步：W47/W48 行事曆資料庫唯讀讀取完成
+- W47正式JSON：main data/calendar/weeks/2026-W47.json blob SHA 727ea2be1c04688d3c4f98d36c452561bbab6821。一般fetch_file回傳空內容，改用GitHub fetch_blob按同一blob SHA成功取得並解析；JSON status=incomplete，含25筆economic及23筆earnings。W48正式JSON：main data/calendar/weeks/2026-W48.json blob SHA 807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa，status=incomplete，含27筆economic及11筆earnings。兩份JSON全程唯讀，未寫入、修補或覆蓋。
+- W47 economic中有1筆歷史校正事件日期為2026/11/14（W46），不屬於W47的11/16–11/22週區間；預覽不將其混入上週事件，僅記錄為資料庫保留的跨週校正項。W47本週實際顯示24筆economic事件、23筆earnings事件。
+- W47有6筆事件在資料庫快照仍為upcoming，但報告基準日後已發布；只在HTML呈現層補入實績，JSON不變：
+  1. 日本10月全國CPI：總合年增2.3%、核心（除生鮮）2.2%、核心核心（除生鮮及能源）2.2%；Statistics Bureau of Japan 11/20官方發布。來源 https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html（Web ref turn186849view1）。
+  2. 加拿大9月零售：名目銷售月增0.8%至C$75.3bn；核心零售+0.1%，實質銷售量+0.1%。Statistics Canada 11/20官方發布。來源 https://www150.statcan.gc.ca/n1/daily-quotidien/261120/dq261120a-eng.htm（turn872960view1）。
+  3. 英國10月零售銷售量：月增0.7%、年增2.3%、三個月增0.4%；9月月減修正為0.6%。ONS 11/20官方發布；W47日曆市場預期月增0.0%。來源 https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/october2026（turn969316view0）。
+  4. 歐元區Q3協商薪資年增2.57%，高於Q2的2.45%；ECB官方統計日曆確認11/20 11:00 CET發布（https://www.ecb.europa.eu/press/calendars/statscal/ges/html/stnwag.en.html，turn872960view3），但ECB資料頁本輪無法讀取實績，2.57%採WSJ二級來源，預覽須標示「二級來源待官方回讀」，不作市場共識比較。
+  5. 密西根11月消費者信心終值51.5（10月48.0；W47預期51.0）；現況49.4、預期52.9；一年通膨預期3.7%（前月4.7%）、長期3.3%（前月3.5%）。官方Survey of Consumers頁面（https://www.sca.isr.umich.edu/，turn872960view4）。
+  6. Fed Lisa Cook演講於11/20 12:15 ET（台灣11/21 01:15）已發布；她指出10月PCE 3.8%、核心3.2%、失業率4.1%、Q3 GDP年率3.4%，並重申10月FOMC應再升息25bp的異議，屬明確偏鷹訊號。Fed官方全文 https://www.federalreserve.gov/newsevents/speech/cook20261120a.htm（turn186849view3/turn186849view6）。
+- W47 earnings原有20筆已公布實績照正式JSON呈現；另3筆原標upcoming但已由發行公司公告，HTML呈現層更新為已公布：
+  - ROST：Q3 diluted EPS $1.91、營收$6.256bn；公司指EPS高於自身指引$1.75–1.83。11/20股價$213.46（-2.92%），盤後$215.44（+0.93%）。來源公司SEC/PRNewswire（turn237971search1/turn237971search2）及Investing歷史頁（turn861802view0）。Reuters事後報導列EPS估計$1.88、營收大致符合，但不是經核驗的公告前PIT快照，不作正式Beat/Miss。
+  - INTU：Q1 FY2027營收$4.354bn、GAAP diluted EPS$2.59、non-GAAP diluted EPS$2.91；並宣布以約$3.68bn出售Mailchimp。11/20股價$270.44（-12.77%），盤後$273.61（+1.17%）。來源公司8-K/EX-99.01（turn842014view1/turn842014view2）及Investing歷史頁（turn861802view1）。
+  - KEYS：Q4 FY2026營收$1.99bn、GAAP diluted EPS$2.82、non-GAAP diluted EPS$3.61；FY27 Q1指引營收$2.04–2.06bn、non-GAAP EPS$3.63–3.69。11/20股價$261.51（-7.07%），盤後$268.00（+2.48%）。來源公司公告（turn390372view2/turn393438view5）及Investing歷史頁（turn861802view2）。
+- 三家公司W47資料庫中保存的Investing.com公告前EPS／Revenue參考值（ROST 1.86／6.23bn、INTU 2.46／4.31bn、KEYS 3.37／1.95bn）缺少可驗證的data_as_of、period_end_date或會計口徑欄位，依SIM-1.3 F3-補充2只能標「參考值、比較口徑未核實」，不得正式判定Beat/Miss。其餘20家公司若未取得有效PIT共識或公告後股價反應，HTML標「待核實」，不得自行填值。
+- W48 27筆economic中，5筆impact_judgment欄誤存URL：current-fed-williams-20261123、current-us-initial-claims-20261125、current-de-gfk-confidence-202612、current-fr-hicp-flash-202611、current-de-unemployment-202611。預覽呈現層將原URL保留為來源連結，改以具體市場傳導判讀文字替代；main JSON保持唯讀。W48 11筆earnings均無有效共識欄，預覽標示共識待核實，不自行補估值。
+- 第三步狀態：完成（完整狀態交付；資料庫仍為incomplete，HTML層保留例外狀態）。不確定性已記錄並傳遞至後續HTML；未阻止新聞及組裝工作繼續。
+
+- 下一步：依SIM-1.3 A1-補充2，重新fetch最新SIM-1.3並完整讀取第四步新聞規定及來源窗口／選題規則後，才開始第四步。
