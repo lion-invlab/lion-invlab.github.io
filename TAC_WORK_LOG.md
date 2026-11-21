@@ -2423,3 +2423,17 @@
 - CI run `44910900283`：<https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44910900283>，當時仍在執行；待確認新增 validator。
 - 此階段尚未執行新的 11/23 full build；舊 preview 不代表新 Builder 已驗收。
 - 所有程式變更僅在 simulation branch；main／正式首頁未變更。SIM-1.3 繼續生效，SIM-1.4 未核准。
+
+
+### Full Build 後續驗收（2026-11-21）
+
+- `44910900283` DOM validator deterministic workflow：success。
+- `44910974273` 首次 full build 在 core callout DOM skeleton Gate 失敗；定位為第二個母版文字節點更新為空字串後消失。保持 Gate 不變，Builder commit `e994f60` 改成保留非空文字節點。
+- `44911112651` full build：success。HTML 組裝、瀏覽器互動、母版對照、DOM contract、artifact/provenance、44 項行情、新聞／行事曆結構均通過。
+- 本次輸出：
+  - HTML blob：`3bf2c6659b7b388cdbc6eb492daf2e31a9693a3f`
+  - QA JSON blob：`cadcd11bf7efd330228eef80256b782f531b042f`
+  - HTML SHA-256：`c8b27bcd1a13f148c7ab0846cad90033d8459a96be6f03f1202f1521366cade4`
+  - `status=QA_PASSED`，但 `review_ready=false`、`data_review_ready=false`。
+- 唯一 review-ready blocker：VIX、MOVE、CNN Fear & Greed、FedWatch 仍需在 11/23 05:25 台灣時間截稿前更新。不得將 QA_PASSED 誤報為 REVIEW_READY。
+- 後續 commit `45e8879` 更新核心觀察 disclosure 第二個既有粗體標題為「其他補充：」，只改文字、不改 DOM。為使 QA JSON 的 builder SHA 與最新程式一致，需再執行 final full build。
