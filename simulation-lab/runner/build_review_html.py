@@ -293,6 +293,8 @@ def calendar_actual_display(item, report_cutoff):
             if has_release_status_evidence(item)
             else "公布狀態待核實"
         )
+    if item.get("status") == "pending_verification":
+        return "公布狀態待核實"
     return f"尚未公布（資料截點 {report_cutoff}）"
 
 
@@ -313,7 +315,11 @@ def classify_calendar_group(item, report_iso, report_cutoff):
     elif status in ("cancelled", "canceled"):
         state = "cancelled"
     elif status == "pending_verification":
-        state = "pending_verification"
+        state = (
+            "pending_verification"
+            if event_day < report_day or (event_day == report_day and time_known and event_dt <= cutoff_dt)
+            else "scheduled"
+        )
     elif event_day < report_day or (event_day == report_day and time_known and event_dt <= cutoff_dt):
         # A scheduled time has elapsed, but no verified publication status exists.
         state = "pending_verification"
@@ -1060,12 +1066,14 @@ def earnings_status_label(item, metric, state):
             return "已取消"
         if item.get("_calendar_publication_state") == "postponed":
             return "已延期／改期後續公布"
-        if item.get("_calendar_publication_state") == "pending_verification" or item.get("status") == "pending_verification":
+        if item.get("_calendar_publication_state") == "pending_verification":
             return (
                 "公告已發布；實際值待核實"
                 if has_release_status_evidence(item)
                 else "公布狀態待核實"
             )
+        if item.get("status") == "pending_verification":
+            return "公布狀態待核實"
         reason = str(item.get(f"{metric}_comparison_reason") or "")
         if reason.startswith("comparison_inputs_not_comparable:"):
             return "比較資料尚未齊備"
@@ -1094,7 +1102,7 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
-    if item.get("_calendar_publication_state") == "pending_verification" or item.get("status") == "pending_verification":
+    if item.get("_calendar_publication_state") == "pending_verification":
         if has_release_status_evidence(item):
             note = item.get("report_layer_status_note") or (
                 "公告已發布；發行公司官方實際值尚待核實，因此不填入實際 EPS／營收，也不作優於／低於預期判斷。"
@@ -1102,6 +1110,8 @@ def earnings_commentary(item):
         else:
             note = "預定時間已過，但尚無可核實的發布證據；實際值及優於／低於預期判斷均待核實。"
         kept.append(note)
+    elif item.get("status") == "pending_verification":
+        kept.append("公布狀態待核實；在取得可核實發布證據前，不填入實際值或作優於／低於預期判斷。")
     for fragment in re.split(r"(?<=[。！？])\s*|[；;]\s*|(?<=\.)\s+(?=[A-Z])", raw):
         part = fragment.strip()
         if not part:
