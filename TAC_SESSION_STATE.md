@@ -3284,3 +3284,19 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 已更新 main 同日 preview HTML／QA sidecar 並回讀 SHA。HTML commit `1239a74ff67f273bf4fd984271f8a829b9be110c`，HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA commit `6213580efcf745a9670dcf296c05ddedc5fbf4ea`，QA blob `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。main/index.html SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f` 未變。
 - Pages deploy run `44915207046` success。web open 仍回 Internal Error，故部署工作成功可證，但線上 HTTP 頁面實際載入未能由本環境確認。
 - QA sidecar `QA_PASSED`，但 `review_ready=false)：VIX、MOVE、CNN Fear & Greed、FedWatch 仍待 11/23 05:25 截稿前刷新；不可宣稱整份早報已 ready。
+
+## 最新狀態錨點｜2026-11-22｜11/23（一）審核版分析修正完成
+
+- 工作分支：`simulation/tac-process-lab-2026-11-06`；目標報告：2026-11-23（一），行情基準日 2026-11-20（五）。
+- 最新 SIM-1.4 DRAFT：`simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `4e695837d9d9eaed161e70e11c127725c8fa25f1`；新增第 7.4 節分析內容品質 Gate。SIM-1.4 仍為 DRAFT，未核准，不得取代 SIM-1.3 成為正式生效規則。
+- 本輪強制回讀 SIM-1.4 後，修正 11/23 fixture 真正供 Builder 使用的 `summary_title`、`summary_points`、`market_comments`、`sentiment`、`observation`；總結卡為「市場主軸／基本面分歧／操作建議」三段，操作立場中性偏防禦，列出加碼與減碼條件。
+- 已重寫美股、亞洲、歐洲、產業、債券、匯率、原油、貴金屬評論；不重複行情漲跌百分比，不將未證實催化因素寫成確定主因。債券評論明確指出殖利率上行與「公債避險買盤」敘事不一致。
+- Builder 修正 Monday 舊區域摘要槽位：`#asia` 使用亞洲評論索引 1；`#tac-region-panel-2` 使用歐洲評論索引 3；最後組裝後再寫入及驗證，避免舊摘要區殘留跨區錯置。
+- QA workflow 已新增內容 Gate，最終 run `44924450638` completed／success。通過 deterministic tests、HTML assembly、browser interaction、母版視覺比較、DOM contract、provenance、44 項行情／行事曆／新聞結構、六種 viewport（1440／768／412／390／360／320）及內容 Gate。
+- 最新審核 HTML：`preview/2026-11-23-simulation.html`，blob SHA `e73e8b6d40378bdb6d441b2c323b54715ff0c9ad`。
+- 最新 QA sidecar：`preview/2026-11-23-simulation.qa.json`，blob SHA `e2562e8433ef977a4de0ff7e4389bd88c33d5d16`；`status=QA_PASSED`、`content_analysis_gate=PASS`、無列出的 unsupported causal claims、duplicate quote restatements 或 actionability findings。
+- SIM-1.4 仍未獲核准，sidecar `sim14_review_ready=false`；QA 通過不等於正式規則批准或正式發布授權。
+- 僅更新 simulation branch 的 Fixture、Builder、QA workflow、preview HTML／sidecar、Work Log、Session State 及 SIM-1.4 DRAFT；main、正式首頁、正式母版、正式行事曆 JSON 未修改。
+- 審核版位置固定在 simulation branch 的 `preview/`；不得將其放到 main 或正式首頁。正式發布須等待使用者明確批准。
+- 下一步：提供使用者檢視最新審核版；若收到修改意見，先回讀最新 SIM-1.4 再修正。若使用者明確批准發布，仍須依正式流程核對批准範圍後才可更新 main。
+
