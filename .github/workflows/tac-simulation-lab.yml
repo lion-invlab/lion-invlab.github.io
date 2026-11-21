@@ -396,7 +396,7 @@ jobs:
               raise SystemExit("interaction evidence is not PASS")
           if visual.get("failures") or visual.get("report_date") != report_date:
               raise SystemExit("visual evidence is not PASS or report date mismatch")
-          expected_widths = [1440, 768, 412, 390, 360]
+          expected_widths = [1440, 768, 412, 390, 360, 320]
           actual_widths = [v.get("width") for v in visual.get("viewports", [])]
           if actual_widths != expected_widths:
               raise SystemExit(f"visual viewport evidence mismatch: {actual_widths}")
