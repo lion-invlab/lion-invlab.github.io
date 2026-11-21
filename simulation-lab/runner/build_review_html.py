@@ -123,10 +123,10 @@ def populate_fed_weekly_agenda(soup, data):
         date_label = f"{status_label}｜{event_date.month}/{event_date.day} {['一','二','三','四','五','六','日'][event_date.weekday()]} {event_date:%H:%M}"
         row = copy.deepcopy(prototype)
         row.attrs = {key: list(value) if isinstance(value, list) else value for key, value in prototype.attrs.items()}
-        # The mother prototype's fixed 94px date column crushes long names and
-        # analysis on phones. Keep the same event DOM slots, but stack the
-        # date above the speaker/content for readable narrow screens.
-        row["style"] = "display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:10px 0;border-top:1px solid #e1e7ee;"
+        # Preserve the mother-template two-column date/content layout.
+        # Responsive stacking belongs in the template media query, not inline
+        # styles applied to every viewport.
+        row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
         row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
         row["class"].append("fc-fomc-weekly-event")
         row.attrs.pop("hidden", None)
