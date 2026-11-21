@@ -40,8 +40,8 @@
 ## Final candidate｜2026-11-23 Monday + 2026-11-20 Weekday historical-close validation
 
 - Builder SHA: b232c8d8546e81292a2a182dde6365badc0abbdc.
-- Monday fixture SHA: 86659926304a477dd99be705cf6d343f6a788b65.
-- Weekday fixture SHA: ccbe0b5251aaf250610bb551dc5b1f83851b25ae.
+- Monday fixture SHA: 7a4a672369a549c4f0e9a5f5ff29d9c8a1c2f533.
+- Weekday fixture SHA: cb27af1cffeafe0cc2bed88e2d297a8640ae168d.
 - SIM-1.4 DRAFT SHA: b6291aa790e28e5eb307cd7155921d697c831d0b.
 - QA Contract v1.13 DRAFT SHA: 86c798ae22577c82b292748a864ffe10054ddc18.
 - Manifest SHA: 1496a510d144d340c41b642592675233d5bd2917.
@@ -59,3 +59,6 @@
 - Full contract code/month appears only in collapsed source details, not row label, panel meta or market-reason.
 - Run 2026-11-23 Monday fixture first; after it passes, run 2026-11-20 Weekday fixture with the same frozen Builder/rules/QA/Manifest and weekday mother.
 - QA status, data readiness, review readiness and SIM-1.4 approval must be reported separately. Simulation branch only; no main write or production deploy.
+
+
+- Audit note update: both fixture warning_note/quality_note now state that WTI, Brent, Gold and Silver use the same-contract Investing.com HK historical close rows; no stale CME-preliminary/Last description remains.
