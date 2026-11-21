@@ -2562,3 +2562,14 @@
 - 已同步修訂 SIM-1.3 與 SIM-1.4 DRAFT：Investing.com HK USD/TWD 歷史資料頁為第一順位；若該站同日歷史列尚未更新，只能遞補 Investing.com 其他站點的同標的歷史資料頁；不得改用央行、銀行牌告或其他平台。若 Investing.com 歷史列不可核實，價格及漲跌幅均標示待核實。
 - 報價與日漲跌幅必須取自同一 Investing.com 歷史列、同一資料日期；商品名稱超連結／來源明細指向實際採用的 Investing.com 歷史資料頁。
 - 本次修訂只在 simulation branch；SIM-1.4 仍為 DRAFT，未獲核准前不生效。
+
+## 2026-11-21｜11/23 審核版最新完整 build 與 QA 完成
+
+- 依使用者決策，將 VIX、MOVE、CNN Fear & Greed、FedWatch 的週日刷新要求移出阻塞；沿用 11/20 基準並保留各項實際資料時間。同步修正 11/23 fixture 與 regression test，避免測試仍要求週日刷新。
+- 以 Yahoo Finance historical daily close 驗證 NVDA 公告後首個交易日反應：11/17 close 155.46、11/18 close 150.96，close-to-close -2.89%；來源網址 `https://finance.yahoo.com/quote/NVDA/history/`。移除已完成的 NVDA 反應 blocker。
+- Full build run `44921714346` completed/success。Deterministic self-tests、母版 SHA transfer、日期／fixture 解析、price-reaction capture、HTML Builder、互動 smoke、六視窗 visual regression、母版 DOM contract、provenance validation、44 項行情／行事曆筆數／新聞結構驗收及 simulation branch artifact persistence 全部成功。
+- 新 HTML blob SHA：`d7bf585b86b0ecbf89dcad9d69eaf0b49728697e`；QA sidecar blob SHA：`ecd59e3c9c08841a6074ce9821127ce5ff765e00`；Builder blob SHA：`76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135`；fixture blob SHA：`4ba872860df7149fca7d315efdf5da0cdc235173`。
+- 最新 sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、無 review blockers；六個 viewport 1440／768／412／390／360／320 全部通過。此為審核版可供使用者檢視，不代表使用者已核准發布。
+- 最終回讀：USD/TWD 32.971、-0.18%，名稱連結為 Investing.com HK 歷史資料頁；HTML 不含 CBC／央行來源字串。WTI／Brent／GC／SI 名稱連結為各自 Investing.com 歷史資料頁。行事曆經濟分組 6／21／0、財報分組 1／10／0；NVDA -2.89% 反應與 Fed 官員行程均保留。
+- SIM-1.3 最新 blob SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`；SIM-1.4 DRAFT 最新 blob SHA `9163c299522cfb1e177565b2cccd873ba19850f1`。SIM-1.4 仍是 DRAFT，`sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`，未核准前不得生效。
+- 最新預覽與 QA sidecar 僅寫入 simulation branch；main、正式首頁、正式母版、正式行事曆 JSON 未修改。正式首頁仍須等待使用者明確批准。
