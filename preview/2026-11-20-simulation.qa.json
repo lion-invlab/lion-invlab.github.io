@@ -22,9 +22,9 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-20-simulation.html",
   "report_date": "2026-11-20",
-  "report_git_blob_sha": "b11eeb5ceab6aebeb29e8a7e9eecd42654946d6c",
-  "report_sha256": "961e39aff1c16a900d5e1faed08faee6e4f6e37d19cc8947aa203c084c6c9e9c",
-  "build_commit_sha": "a5fce91097c3b09a81bd634c97ec051239a4ad77",
+  "report_git_blob_sha": "ad27ddea3d81e2b30ebebd1d13600822831a7f53",
+  "report_sha256": "affa6d5387feed74302e5331277ee061c26e56a841b8b7c3d46b3fd34bd40e3f",
+  "build_commit_sha": "b90c676b474fbb34a1c8e9eb4d2e78a0e7da5f06",
   "builder_blob_sha": "b6082923a88ab2b592f2d2765f68d4f4214caca8",
   "fixture_blob_sha": "7b2858217a0492dd84e24e56d3b93897380007e8",
   "template_blob_sha": "19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96",
@@ -55,13 +55,13 @@
   "sim14_builder_approval": "NOT_APPROVED",
   "sim14_review_ready": false,
   "sim14_blockers": [
-    "SIM-1.4 remains DRAFT; candidate Builder has not been explicitly approved as the unique entry point"
+    "Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point"
   ],
   "calendar_main_commit_sha": "8654fde50761404ec63a56178f224c4dbf41eff5",
   "calendar_current_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
   "interaction_evidence_sha256": "0b9e092f02805b86522e05e39ee6c65c6dd60bf90f2c5039645012b0fcb6581b",
-  "visual_evidence_sha256": "59ea4e09897fc2b7e5ae9b72abf8498b2f1892d46ca52483c8e9b5e60e0c7e46",
+  "visual_evidence_sha256": "40c42801c2db43211c713912f43dfad2a8c1d6bf4fbb087998a69a7bbe4703dc",
   "viewports": [
     1440,
     768,
@@ -70,6 +70,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44962301551",
+  "workflow_run_id": "44962585698",
   "workflow_run_attempt": "1"
 }
