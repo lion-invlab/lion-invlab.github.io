@@ -533,3 +533,6 @@
 
 
 - 2026-11-21 Summary 標題字級第二次修正：前次 21px 規則選錯 selector（誤用 `#overview>.title`，實際母版標題位於 `#overview > section > article.card.bluf > .title`），因此 1440px 計算字級仍為 26px。已改在兩份母版既有最後一個 style block 的精確 selector 設定 21px，沒有新增 style 節點；Manifest 已同步。待重新跑六 viewport。
+
+
+- 2026-11-21 六項指數來源修正：Investing.com HK 六個同名頁面均標示「即時差價合約」，不可因為有歷史數據表就誤認為現貨。已改用 Investing.com 全球指數歷史頁（Real-time derived）及 DAX Xetra 頁，六筆 quote_type 改為 `cash_index_close`；FTSE 100 11/20 收盤修正為 10,346.34（-1.02%），其餘五項依全球頁歷史列核對。Fixture SHA：`8ecaf343336aac51e76a0958784ea69aada346d6`。新增回歸測試驗證六筆均不再觸發 CFD guard。過期「HTML尚未產出」阻塞已移除；只保留 VIX／MOVE／CNN Fear & Greed／FedWatch 於 11/23 05:25 前刷新一項阻塞。現觸發重新 build 與完整 QA。
