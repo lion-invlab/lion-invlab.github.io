@@ -19,10 +19,10 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "c72e9ff89eb91d06736eaef476e028b71fa546c6",
-  "report_sha256": "4c3a9526f9829c3e17d27e10b21d6e012f3ef4266517d0e9709d9ca60ab708dc",
-  "build_commit_sha": "201ea252ab2ff62e78fd5ee5c3af2177af1de791",
-  "builder_blob_sha": "76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135",
+  "report_git_blob_sha": "e73e8b6d40378bdb6d441b2c323b54715ff0c9ad",
+  "report_sha256": "aa21e3b71733cd30ee5b8a3a0780f613a809316ac9e0979fe5f39c59795b02ab",
+  "build_commit_sha": "b03ee4a329cfa23fbc68bb30bbdb8707f9858340",
+  "builder_blob_sha": "3827f002946da7ff6631d3f59304d88f00abf408",
   "fixture_blob_sha": "91ecb2f938ff84f73f018c41fa24bc70ed29c831",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
@@ -30,8 +30,25 @@
   "active_rules_blob_sha": "116ebb0a6401321148a878fe20c9504df7ce37f7",
   "candidate_rules_blob_sha": "4e695837d9d9eaed161e70e11c127725c8fa25f1",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135",
+  "candidate_builder_blob_sha": "3827f002946da7ff6631d3f59304d88f00abf408",
   "data_review_ready": true,
+  "content_analysis_gate": "PASS",
+  "analysis_sections_checked": [
+    "summary",
+    "market_sentiment",
+    "market_observation",
+    "US",
+    "Asia",
+    "Europe",
+    "sectors",
+    "bonds",
+    "FX",
+    "energy",
+    "metals"
+  ],
+  "unsupported_causal_claims": [],
+  "duplicate_quote_restatements": [],
+  "actionability_findings": [],
   "sim14_builder_approval": "NOT_APPROVED",
   "sim14_review_ready": false,
   "sim14_blockers": [
@@ -41,7 +58,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "82a12d00fa6b16ee7a980732b255d638fb250162160b4d1104ec779f1a2da692",
+  "visual_evidence_sha256": "1ac5e8fc2e92e4b803caaeba6788151b7c7dec80f7980b55bd2e3e7892e8d94e",
   "viewports": [
     1440,
     768,
@@ -50,6 +67,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44923295693",
+  "workflow_run_id": "44924450638",
   "workflow_run_attempt": "1"
 }
