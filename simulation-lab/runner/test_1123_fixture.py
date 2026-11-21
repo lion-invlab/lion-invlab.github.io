@@ -85,8 +85,39 @@ def main():
     assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "official_interbank_close"
     assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
-    assert data["energy"]["Brent原油期貨"]["source"]["change_points"] == "+0.59"
-    assert data["energy"]["Brent原油期貨"]["source"]["ice_official_last"] == "92.49"
+    assert data["energy"]["WTI原油期貨"]["display"] == "82.40"
+    assert data["energy"]["WTI原油期貨"]["change_display"] == "-0.05%"
+    assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
+    assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
+    for group in ("energy", "metals"):
+        for name, item in data[group].items():
+            source = item["source"]
+            assert source["quote_type"] == "investing_historical_close", (group, name)
+            assert source["url"] == item["instrument_url"], (group, name)
+            assert source["history_close"] == item["display"], (group, name)
+            assert source["history_change"] == item["change_display"], (group, name)
+            assert "historical-data" in source["url"], (group, name)
+
+    # Weekday fixture must use the same source contract and the prior trading day's historical close.
+    weekday = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
+    assert weekday["report_date"] == "2026-11-20"
+    assert weekday["trading_date"] == "2026-11-19"
+    expected_weekday = {
+        ("energy", "WTI原油期貨"): ("82.44", "+0.16%"),
+        ("energy", "Brent原油期貨"): ("91.98", "+0.03%"),
+        ("metals", "黃金期貨 GC"): ("3,685.50", "-1.51%"),
+        ("metals", "白銀期貨 SI"): ("44.359", "-1.55%"),
+    }
+    for (group, name), (close, change) in expected_weekday.items():
+        item = weekday[group][name]
+        source = item["source"]
+        assert item["display"] == close, (group, name, item["display"])
+        assert item["change_display"] == change, (group, name, item["change_display"])
+        assert source["quote_type"] == "investing_historical_close", (group, name)
+        assert source["data_date"] == "2026-11-19", (group, name)
+        assert source["url"] == item["instrument_url"], (group, name)
+        assert source["history_close"] == close, (group, name)
+        assert source["history_change"] == change, (group, name)
     assert data["fedwatch"]["updated_at_tw"] == "2026/11/21 13:35"
 
     levels = data["key_levels"]
