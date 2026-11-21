@@ -447,7 +447,7 @@
 
 ### 尚待實證，不得假裝已解決
 1. 44 項母版欄位已依兩份 SHA 鎖定母版抽取名稱、定位及固定 href，詳見 A1.1；尚未完成的是每日 44 筆實際行情核對及現貨／CFD來源驗證。
-2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44897795972 的 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
+2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44897956591 的 Python compile、Node syntax checks 與 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
 3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，QA Contract 已更新為 v1.5 DRAFT 並修正舊 SIM-1.2 引用。兩組母版 ID 集合、style/script 數量一致；DOM／視覺測試尚未執行。報告：simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md。
 4. TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄（不是 simulation-lab/ 子目錄）；本次已讀取並將更新本輪進度。11/23 fixture deterministic contract 已通過，但 6 筆 CFD 指數已改列待核實，情緒／FedWatch待刷新，HTML尚未組裝；不得引用先前不一致的「完成」標記。
 
@@ -459,7 +459,7 @@
 
 ## 2026-11-21 實證更新（仍為 DRAFT）
 
-- GitHub Actions deterministic self-test：run 44897795972，conclusion success；11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、earnings schema／判讀等測試通過。
+- GitHub Actions run 44897956591，commit 384dab2fdfd498248f6911746db82f968bb8daf7，conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）、11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、財報 schema／判讀等 deterministic tests 通過。該 push run 未觸發 build／QA-only 模式。
 - 11/23 fixture 的六筆 CFD index reference 已由原始數值改為顯示「待核實」，原始參考值另存 rejected_reference；總結／區域評論不再引用這六筆 CFD 漲跌。Workflow 另加 build-level guard，禁止數字型 CFD 指數被渲染為現貨收盤。
 - 仍未產生 11/23 審核版 HTML；未執行 Builder build、DOM 前後差異或 Playwright。市場現貨來源與 VIX／MOVE／CNN／FedWatch刷新仍是 review blockers。
 - QA Contract v1.5 DRAFT 已鎖定 SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
@@ -473,3 +473,12 @@
 
 
 - 最新 GitHub Actions run 44897956591（commit 384dab2fdfd498248f6911746db82f968bb8daf7）conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）及 deterministic self-tests 均通過。此 run 未執行 HTML build、DOM diff 或 Playwright。
+
+
+## 逐條台帳與財報引擎實作同步（2026-11-21）
+
+- SIM-1.3 逐條處置台帳已補齊 E、F1–F4、F3-補充4–10、G1–G4、H、I，以及 C 第五／六步 Gate 的細項；最新台帳 SHA：77584cdce393bb3bf9b3fcedb3234d908e355743。逐條台帳另含 D2、D2-補充、D3.1–D3.17、D4、D5。
+- 財報判讀引擎 earnings_judgment.py 1.4.0 SHA：62148064ad08efe72bc5a107a4142d32dffc6c7c；公開狀態固定 beat／miss／inline／pending。共識來源層級 Yahoo Finance=1、Investing.com=2、LSEG=3、FactSet=4。schema 與 deterministic tests 已同步。
+- 最新財報引擎 deterministic regression：run 44897795972 success，四狀態判讀、snapshot store 23 tests、schema audit、report-layer status 及 11/23 fixture contract 通過。
+- 最新 Node／Python 語法及 deterministic regression：run 44897956591 success。workflow YAML 縮排問題曾造成 run 44897899979 failure，已修正並由 44897956591 驗證成功。
+- **明確未完成：** 未執行 build mode／QA-only mode；未產出 11/23 HTML；未完成雙母版 DOM diff、Playwright 互動／視覺回歸；Builder 的 legacy 財報狀態 renderer 仍 BLOCKED，且本輪遵守保護限制未修改 Builder。SIM-1.4 仍是 DRAFT，不得啟用。
