@@ -1,13 +1,13 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.16 DRAFT（2026-11-22｜同步週一 simulation mother SHA 及首筆採用原則；尚未生效）
-定位：SIM-1.4 DRAFT 的候選唯一詳細 QA 附件；只有 SIM-1.4 經使用者明確核准生效後，本契約才作為其執行附件。此檔不獨立生效、不取代主規則。
+版本：1.16（2026-11-22｜SIM-1.4 正式執行附件；本契約不獨立於主規則生效）
+定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
 
 ## A. 開工前來源鎖定（未通過即停止）
 
-- [ ] 已先讀取 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`；此草案尚未生效，正式啟用前須由使用者核准。
+- [ ] 已先讀取唯一有效主規則 `simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.4），並記錄其實際 blob SHA。
 - [ ] 已讀取 `simulation-lab/baseline/mother-template-manifest.json`，並依 `simulation_path` 讀取本目錄的唯讀母版副本。
 - [ ] 已依台灣報告日期選定正確情境：週一／週二至週五。
 - [ ] 母版精確路徑與 manifest 登記一致。
@@ -338,3 +338,9 @@
 - 最新實際週一母版 blob SHA：`3abf38e66a582089a5d16527507d39c2edbeee75`。原 Manifest `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0` 與實際檔案不符，導致母版物化 Gate 正確停止。
 - 已在 simulation branch 將 Manifest 與本契約 A2.1／A3 同步至實際週一母版 SHA；正式母版及 main Manifest 均未修改。
 - 結構統計沿用既有契約值，仍須由下一次完整 `validate_mother_dom_contract.py`、DOM contract 及 browser QA 實測確認；本次同步不代表視覺驗收通過。
+
+
+## 2026-11-22｜SIM-1.4 執行附件啟用紀錄
+
+- 隨 SIM-1.4 主規則正式生效，本契約 v1.16 作為唯一詳細 DOM／互動／視覺 QA 執行附件同步啟用；歷史修訂段落中的 DRAFT 標記僅描述當時版本狀態。
+- 本契約中已明列的 Builder 財報 renderer BLOCKER 仍有效：未修正並通過相應測試前，財報 renderer Gate 不得標示 PASS。此啟用紀錄不豁免任何既有 FAIL／BLOCKER。
