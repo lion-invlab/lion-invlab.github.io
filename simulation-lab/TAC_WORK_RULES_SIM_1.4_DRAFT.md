@@ -470,3 +470,6 @@
 - earnings_judgment.py 已更新為 Engine 1.4.0，公開狀態限制為 beat／miss／inline／pending；幣別、單位、期間明確不相容時映射 pending 並保留 comparison reason。Schema const 已同步 1.4.0。
 - 共識快照來源層級已調整為 Yahoo Finance=1、Investing.com=2、LSEG=3、FactSet=4；W47 Yahoo projection 改用 source_level=1。
 - Builder 檔案依交接保護範圍未修改，仍保留 legacy incomparable／consensus_divergent label 分支，且無法將「數值存在但不可比」顯示為「比較資料尚未齊備」。因此財報 renderer Gate 仍為 BLOCKED；visual regression 已改成只接受四種狀態並會檢出該標籤錯置。
+
+
+- 最新 GitHub Actions run 44897956591（commit 384dab2fdfd498248f6911746db82f968bb8daf7）conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）及 deterministic self-tests 均通過。此 run 未執行 HTML build、DOM diff 或 Playwright。
