@@ -23,10 +23,10 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "2eea14b89190df073f95d05dbfcc3b9c44a93ea8",
-  "report_sha256": "142c60016a04b0706b263198ebd58002c0bebe75732d680c37b576f24cdf0dfa",
-  "build_commit_sha": "5fa43cf42e2330a022c1512e499997051e85b28c",
-  "builder_blob_sha": "c4c24c03625b3532f48362d7235755a8fa55850f",
+  "report_git_blob_sha": "6623252620d9fd044cbd6fe733cded639eaf8c74",
+  "report_sha256": "6ca9ec6561d600db332ac293afa739ad2992d87f9396bbfddab309011c29cebf",
+  "build_commit_sha": "e9eb5f21a1a4f36840849b53fb685e803ca479e7",
+  "builder_blob_sha": "fa35ab9cc4a06ddd57452267ad38a13f03a83bbc",
   "fixture_blob_sha": "8ecaf343336aac51e76a0958784ea69aada346d6",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
@@ -34,7 +34,7 @@
   "active_rules_blob_sha": "679eae7ba7a40dbad64d15bb448fe53db7d67e09",
   "candidate_rules_blob_sha": "c5d992b71bb4359b22c266cab00b05d527bdfb0e",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "c4c24c03625b3532f48362d7235755a8fa55850f",
+  "candidate_builder_blob_sha": "fa35ab9cc4a06ddd57452267ad38a13f03a83bbc",
   "data_review_ready": false,
   "sim14_builder_approval": "NOT_APPROVED",
   "sim14_review_ready": false,
@@ -45,7 +45,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "e240827601f4d1fa566eb97ba51b4e05df7dc99c3d6941e30309019c0e1089cc",
-  "visual_evidence_sha256": "69f3912a9c5037522a9224f06d564cc835ce9e15fff7aa713aec43b43cacf89c",
+  "visual_evidence_sha256": "e9cc304a06c1e4c72414a609167d1a5463f7a12ebcd6b7d2768c1de50abe9f7c",
   "viewports": [
     1440,
     768,
@@ -54,6 +54,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44907807730",
+  "workflow_run_id": "44909726897",
   "workflow_run_attempt": "1"
 }
