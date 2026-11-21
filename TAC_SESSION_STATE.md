@@ -3176,3 +3176,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Builder 已移除每日追加 summary、週一 disclosure、側欄、能源、財報卡及市場字體 CSS，並移除週一 summary DOM 清空重建；保留 11/11 使用者核准的單次突發專題 `special_focus` 條件式例外。
 - CI run `44900780456`、`44900949612` success，僅代表 deterministic tests／smoke 通過。尚未完成 build mode、HTML artifact、DOM 零退化、Playwright、六 viewport 視覺驗收。
 - **下一步：** 觸發 2026/11/23 Monday fixture 真正 build，逐項修正 build／DOM／browser QA 失敗，再執行 weekday fixture；全部通過前 SIM-1.4 維持 DRAFT，Builder 不核准為唯一入口。
+
+## 2026-11-21 20:33｜雙母版完整組裝與 QA 驗收更新
+- **週一 2026-11-23 fixture：** GitHub Actions run 44904316843 success。HTML build、母版結構比較、獨立 artifact／provenance 驗證、44 項行情與新聞／行事曆結構驗證、Playwright interaction smoke、六視窗 visual regression 全部通過；行事曆 27/27、財報 11/11、44 indicators、5 focus news、10 headlines。視覺視窗 1440／768／412／390／360／320 px。QA sidecar status=QA_PASSED，但 review_ready=false，唯一 blocker 是四項情緒／FedWatch必須在報告截稿前刷新。
+- 週一 HTML 已存於 preview/2026-11-23-simulation.html，blob SHA e6ea8ca01e38e68cc34fe4d74874f1b915e994d6；QA sidecar preview/2026-11-23-simulation.qa.json，blob SHA f7ccad8ea44c578f3a620bf17b79e2c8be347c92。workflow 已完成遠端 read-back SHA 核對。此為 simulation branch 審核產物，非正式上架。
+- **平日 2026-11-20 fixture：** run 44902986319 success。HTML build、母版結構比較、artifact／provenance、Playwright、六視窗視覺回歸均通過；行事曆 25/25、財報 23/23、44 indicators、5 focus news、10 headlines；QA_PASSED 且 review_ready=true。HTML blob SHA 0597447d59563d459fc4c913639a07d7ecfcdbbf；sidecar SHA 0d18025b4a2a197b1c6c6877ff93b9d6bd8d4bf6。
+- **兩種母版 Builder Gate 均已有完整實際 build 證據。** 先前「未完成 Monday／weekday build、DOM diff、Playwright、六視窗 QA」的舊紀錄由本節更新；不得再把 44900780456／44900949612 smoke-only 狀態當成最新。
+- 2026-11-21 20:33 Asia/Taipei 重新讀取 VIX、MOVE、FGScore CNN Provider Index、Investing.com Fed Rate Monitor：VIX 35.89（11/20 close，Investing.com）；MOVE 106.31（11/20 close，Investing.com HK）；CNN Provider Index 10（FGScore頁顯示As of 11/20 UTC，頁面最新資料日11/21 UTC）；FedWatch 12/09/2026 meeting hold 13.6%、升息25bp 86.4%，Investing.com更新時間Nov 21 00:35 EST＝台灣13:35。讀取時四項來源均未顯示比上述更新的市場觀察值／來源時間。
+- **不得提前解除週一 review_ready blocker：** 現在只是11/21 20:33重新讀取，尚未到11/23 05:25報告截稿；VIX／MOVE仍是11/20最近交易日收盤，FGScore provider值仍as of 11/20 UTC，FedWatch來源最後更新仍Nov 21 00:35 EST。應在截稿前最後刷新；若來源仍未更新，保留實際來源時間與明確註記，不偽造即時資料。
+- main首頁、正式母版、main Manifest、正式W47/W48 JSON均未修改；SIM-1.4仍為DRAFT，未核准生效。
