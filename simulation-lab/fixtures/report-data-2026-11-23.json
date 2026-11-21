@@ -466,11 +466,13 @@
       "change_display": "+1.18%",
       "contract_label": "CLF27（2027年1月）",
       "source": {
-        "name": "CME Group｜Daily Bulletin 2026-11-20 preliminary settlement",
-        "url": "https://www.cmegroup.com/market-data/daily-bulletin.html",
+        "name": "CME Group Daily Information Bulletin #225｜NYMEX CL Futures（Preliminary）",
+        "url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
         "data_date": "2026-11-20",
         "quote_type": "CME_preliminary_settlement",
-        "note": "CME 11/20 preliminary settlement；非最終官方結算價。"
+        "volume": 294626,
+        "open_interest": 267254,
+        "note": "CME 11/20 Preliminary Daily Bulletin：CL Jan27（CLF27）settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Dec26成交量24,186、未平倉3,368，Jan27為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
       }
     },
     "Brent原油期貨": {
@@ -478,11 +480,12 @@
       "change_display": "+0.64%",
       "contract_label": "LCOF7（2027年1月）",
       "source": {
-        "name": "Investing.com HK｜Brent futures historical data",
-        "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
+        "name": "Investing.com HK｜Brent Oil Futures LCOF7（ICE）歷史資料",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
         "data_date": "2026-11-20",
-        "quote_type": "specific_futures_contract_historical_quote",
-        "note": "指定合約 LCOF7 歷史報價；不可稱為 ICE 官方結算價。"
+        "quote_type": "specific_futures_contract_platform_close",
+        "volume": 278240,
+        "note": "具體合約LCOF7（ICE Jan27）；11/20歷史列close 92.57、+0.64%、volume 278.24K。ICE官方合約表同日早段快照顯示Jan27為所列可交易月份中成交量最高；官方頁快照非日終結算，故主畫面採Investing.com具體合約日歷史close，不冒稱ICE official settlement。"
       }
     }
   },
@@ -490,25 +493,29 @@
     "黃金期貨 GC": {
       "display": "3,515.40",
       "change_display": "-4.62%",
-      "contract_label": "GCZ26（2026年12月）",
+      "contract_label": "GCZ6（2026年12月）",
       "source": {
-        "name": "CME Group｜Daily Bulletin 2026-11-20 preliminary settlement",
-        "url": "https://www.cmegroup.com/market-data/daily-bulletin.html",
+        "name": "CME Group Daily Information Bulletin #225｜COMEX GC Futures（Preliminary）",
+        "url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
         "data_date": "2026-11-20",
         "quote_type": "CME_preliminary_settlement",
-        "note": "CME 11/20 preliminary settlement；非最終官方結算價。"
+        "volume": 328143,
+        "open_interest": 150028,
+        "note": "CME 11/20 Preliminary Daily Bulletin：GC Dec26（GCZ6）settlement 3,515.40、點數變動-170.10、成交量328,143、未平倉150,028；Feb27成交量77,998，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
       }
     },
     "白銀期貨 SI": {
       "display": "41.070",
       "change_display": "-7.41%",
-      "contract_label": "SIZ26（2026年12月）",
+      "contract_label": "SIZ6（2026年12月）",
       "source": {
-        "name": "CME Group｜Daily Bulletin 2026-11-20 preliminary settlement",
-        "url": "https://www.cmegroup.com/market-data/daily-bulletin.html",
+        "name": "CME Group Daily Information Bulletin #225｜COMEX SI Futures（Preliminary）",
+        "url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
         "data_date": "2026-11-20",
         "quote_type": "CME_preliminary_settlement",
-        "note": "CME 11/20 preliminary settlement；非最終官方結算價。"
+        "volume": 110979,
+        "open_interest": 41582,
+        "note": "CME 11/20 Preliminary Daily Bulletin：SI Dec26（SIZ6）settlement 41.070、點數變動-3.289、成交量110,979、未平倉41,582；Mar27成交量41,028，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
       }
     }
   },
