@@ -542,3 +542,6 @@
 
 
 - 2026-11-21 Weekday full-build regression request: workflow push trigger now accepts `[build-tac-report:YYYY-MM-DD]` to select an exact dated fixture without changing or moving any fixture. Request `[build-tac-report:2026-11-20]` will exercise the 2026-11-20 weekday mother using its date-matched fixture; this is a regression test only, not a new production report.
+
+
+- 2026-11-21 Weekday regression build follow-up: the 2026-11-20 fixture reached Builder assembly and exposed three missing FactSet fields (`mag7_eps_growth`, `other_493_eps_growth`, `source_url`). The 11/13 FactSet source does not provide a verifiable Mag 7／Other 493 split, so the fixture now marks both split values `待核實` and links the exact 11/13 FactSet PDF; it does not backfill the later 11/20 values. Added a regression test for this pending-state behavior. Re-run weekday build.
