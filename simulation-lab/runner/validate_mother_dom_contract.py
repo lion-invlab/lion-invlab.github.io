@@ -62,7 +62,8 @@ def main():
         ("#fed .fc-fomc-meeting", "FOMC meeting slot"),
         ("#fed .fc-fomc-press", "FOMC press conference slot"),
         ("#fed .fc-fomc-rate", "FOMC policy rate slot"),
-        ("#fed .fed-live-watch", "FedWatch panel"),
+        ("#fed .fc-probs", "FedWatch probability cards"),
+        ("#fed .fc-split-wrap", "FedWatch distribution bar and legend"),
         ("#fed .fc-fomc-weekly-events", "Fed weekly agenda wrapper"),
         ("#tac-side-tools", "QUICK ACCESS toolbar"),
     ]
