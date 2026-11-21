@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, set_market_observation
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation
 
 
 def record(value, change, quote_type):
@@ -141,6 +141,28 @@ def test_fedwatch_two_card_contract():
 
 
 
+
+def test_summary_content_fills_existing_mother_slots():
+    soup = BeautifulSoup(
+        '<p><b>舊標籤一</b><br/>舊文字一<br/><b>舊標籤二</b><br/>舊文字二</p>',
+        "html.parser",
+    )
+    node = soup.p
+    before = [(child.name, str(child) if child.name is None else tuple(child.get("class", []))) for child in node.contents]
+    populate_summary_points_preserving_dom(node, [
+        {"label": "新標籤一", "text": "新文字一"},
+        {"label": "新標籤二", "text": "新文字二"},
+    ])
+    after = [(child.name, str(child) if child.name is None else tuple(child.get("class", []))) for child in node.contents]
+    assert [x[0] for x in after] == [x[0] for x in before]
+    assert node.get_text(" ", strip=True) == "新標籤一 新文字一 新標籤二 新文字二"
+    try:
+        populate_summary_points_preserving_dom(node, [{"label": "只有一項", "text": "不匹配母版"}])
+    except ValueError as exc:
+        assert "does not match mother template slots" in str(exc)
+    else:
+        raise AssertionError("summary slot count mismatch must fail closed")
+
 def test_builder_preserves_mother_owned_fed_agenda_and_css():
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
     # Fed agenda content may change, but the mother-owned outer DOM must never be cleared.
@@ -182,6 +204,7 @@ def main():
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
     test_builder_preserves_mother_owned_fed_agenda_and_css()
+    test_summary_content_fills_existing_mother_slots()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
