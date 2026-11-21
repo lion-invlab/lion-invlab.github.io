@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup, NavigableString
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
-from build_review_html import populate_earnings_health_dashboard_preserving_dom
+from build_review_html import (\n    populate_earnings_health_dashboard_preserving_dom,\n    update_market_sentiment_interpretation_preserving_dom,\n)
 
 
 def shape(node):
@@ -35,6 +35,14 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     if health is None:
         raise AssertionError(f"{template_key}: earnings-health section missing")
     before = shape(health)
+    sentiment = soup.select_one("#sentiment")
+    sentiment_card = sentiment.select(".sbox")[-1]
+    sentiment_before = shape(sentiment_card)
+    update_market_sentiment_interpretation_preserving_dom(sentiment, data["sentiment"])
+    if sentiment_before != shape(sentiment.select(".sbox")[-1]):
+        raise AssertionError(f"{template_key}: sentiment interpretation DOM/style skeleton changed")
+    if data["sentiment"] not in sentiment.select(".sbox")[-1].get_text(" ", strip=True):
+        raise AssertionError(f"{template_key}: sentiment interpretation text did not update")
     result = populate_earnings_health_dashboard_preserving_dom(health, data["earnings_health"], monday)
     after = shape(health)
     if before != after:
@@ -47,7 +55,7 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     link = health.select_one("details a")
     if link is None or link.get("href") != data["earnings_health"]["source_url"]:
         raise AssertionError(f"{template_key}: FactSet source link did not update in its existing slot")
-    print(f"PASS {template_key}: {expected_cards} cards; DOM/style skeleton preserved; source date/link refreshed")
+    print(f"PASS {template_key}: {expected_cards} earnings-health cards; earnings and sentiment DOM/style skeletons preserved; source date/link refreshed")
 
 
 def main():
