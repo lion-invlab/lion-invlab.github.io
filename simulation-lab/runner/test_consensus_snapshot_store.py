@@ -128,8 +128,8 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["source_level"], 1)
         self.assertEqual(snap["provider"], "Yahoo Finance")
-        self.assertEqual(snap["snapshot_status"], "pending_required_fields")
-        self.assertIn("basis_code", snap["reason"])
+        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertIsNone(snap["basis_code"])
         self.assertIsNone(snap["data_as_of"])
 
     def test_missing_provider_as_of_uses_tac_observed_pit_track(self):
@@ -183,14 +183,14 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
 
     def test_missing_raw_response_reference_is_not_eligible(self):
         snap = self.build(ref=None)
-        self.assertEqual(snap["snapshot_status"], "pending_required_fields")
-        self.assertIn("raw_response_ref", snap["reason"])
+        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertIsNone(snap["raw_response_ref"])
 
     def test_missing_basis_is_preserved_but_not_eligible(self):
         attempt = dict(self.attempt, basis_code=None)
         snap = self.build(attempt=attempt)
-        self.assertEqual(snap["snapshot_status"], "pending_required_fields")
-        self.assertIn("basis_code", snap["reason"])
+        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertIsNone(snap["basis_code"])
 
     def test_observed_at_date_only_is_rejected(self):
         attempt = dict(self.attempt, observed_at="2026-11-10")
