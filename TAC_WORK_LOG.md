@@ -2693,3 +2693,12 @@
 - 同一測試 run 也通過財報比較狀態測試。QA Contract 中「Builder 仍含 legacy incomparable／consensus_divergent 且無法顯示比較資料尚未齊備」的舊 blocker 已證實過期並修正；QA Contract blob 更新為 `9d6c7443339af39fc5eb677dee11ea02a24deeca`。
 - 完整 11/23 build run `44961158565` 仍為 failure：visual regression 在 412／390／360／320px 均發現已公布財報 EPS／Revenue 雙卡為單欄。根因為 Monday simulation mother 的 mobile CSS 強制一欄，與 QA Contract D2 兩欄要求及使用者既有版面要求衝突。
 - 此衝突需更新 simulation Monday mother copy、simulation Manifest SHA、QA Contract A2.1／A3 及測試；SIM-1.4 要求母版／Manifest 更新須使用者明確授權，因此目前沒有擅自修改。main 正式母版、正式首頁與正式行事曆 JSON均未動。
+
+
+## 2026-11-22｜依使用者授權修正 simulation Monday mother 手機財報雙卡
+
+- 使用者明確授權僅修改 simulation branch 的 Monday mother CSS、Manifest、QA Contract 與 regression test。
+- Monday mother mobile published earnings grid 在 max-width 700px 由單欄改為 `repeat(2,minmax(0,1fr))`，gap 8px；新 blob SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`。
+- Manifest Monday simulation SHA 更新為同一 blob，Manifest SHA `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 SHA `70121d7798cb899cbe58d9edd5e8e5ede54f137c`；Regression test SHA `f2396aed59272d197eedcc7049dfeb1bdfdcc1ac`。
+- 回讀驗證 Manifest Monday SHA 與母版實際 Git blob 完全一致；QA Contract 僅含新 SHA；test 明確斷言兩欄及禁止舊單欄覆蓋。
+- 此變更未觸及 main／正式母版／正式首頁／正式 Manifest／正式行事曆 JSON。
