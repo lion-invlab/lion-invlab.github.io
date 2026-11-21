@@ -2112,7 +2112,7 @@ def main():
                 else:
                     current_classes.append("pending")
                 vals[1]["class"] = current_classes
-    # Validate TAC directional colors for all refreshed bond/FX/commodity changes.
+    # Validate TAC directional colors by visible label after contract codes are moved to source disclosures.
     for container_id, records in [("bonds", data["bonds"]), ("fx", data["fx"]),
                                   ("tac-assets-panel-3", data["energy"]), ("tac-assets-panel-4", data["metals"])]:
         container = unique(soup, f"#{container_id}", container_id)
