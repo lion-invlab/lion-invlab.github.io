@@ -3221,3 +3221,18 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - CI run `44910833366` success：Python compile、既有 deterministic tests 及新增財報卡母版槽位回歸測試通過。run `44910900283` 正在驗證新增 DOM validator；尚未把它記為成功。
 - **下一步：** 確認 run `44910900283` 結果；通過後觸發 2026-11-23 Monday full build，執行 HTML assembly、DOM contract、artifact/provenance、Playwright interaction、六 viewport visual QA。完整 build 通過前，不更新 11/23 preview、不宣稱 review-ready。
 - 11/23 資料 Gate 仍維持既有狀態：VIX、MOVE、CNN Fear & Greed、FedWatch 必須在 2026-11-23 05:25 台灣時間截稿前最後刷新；即使 HTML QA 通過，也不得提前解除這四項 blocker。
+
+
+### 2026-11-21 後續驗收紀錄
+
+- DOM validator run `44910900283` 已 success。
+- Full build run `44910974273` 曾在 Today Focus core callout DOM skeleton Gate 失敗；原因為第二個原有文字節點被替換成空字串後於序列化時消失。沒有放寬 Gate。
+- Builder commit `e994f60` 改為保留該文字節點並填入內容。Full build run `44911112651` 已 success：
+  - HTML assembly、瀏覽器 tabs／accordions／source links、母版對照、DOM contract、artifact/provenance、44 項行情及新聞／行事曆結構均通過。
+  - HTML blob SHA：`3bf2c6659b7b388cdbc6eb492daf2e31a9693a3f`
+  - QA JSON blob SHA：`cadcd11bf7efd330228eef80256b782f531b042f`
+  - HTML SHA-256：`c8b27bcd1a13f148c7ab0846cad90033d8459a96be6f03f1202f1521366cade4`
+  - QA status：`QA_PASSED`；`review_ready=false`、`data_review_ready=false`。
+- `review_ready` 唯一明確 blocker：VIX、MOVE、CNN Fear & Greed、FedWatch 仍須在 2026-11-23 05:25 台灣時間截稿前重新讀取並更新時間戳。其餘數據品質注意事項保留在 QA JSON 的 data_audit.pending_items。
+- SIM-1.4 仍是 DRAFT／NOT_APPROVED；main 與正式首頁未修改。
+- 後續 Builder commit `45e8879` 僅更新核心觀察收折區第二個既有粗體標題為「其他補充：」，不改變 DOM。因 QA JSON 記錄的 Builder SHA 仍是 `e994f60` 版本，必須再跑一次 full build 才能讓最終 preview 與最新 Builder SHA 一致。
