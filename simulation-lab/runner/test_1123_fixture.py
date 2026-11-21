@@ -69,7 +69,24 @@ def main():
     assert data["earnings_health"]["mag7_eps_growth"]
     assert data["earnings_health"]["other_493_eps_growth"]
 
+    # Market-source audit: exact 2026-11-20 source dates and approved official FX quote.
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for name, item in data[group].items():
+            assert item["source"]["data_date"] == data["trading_date"], (group, name)
+    for ticker, item in data["sector_sources"].items():
+        assert item["data_date"] == data["trading_date"], ticker
+    assert data["fx"]["美元指數"]["display"] == "103.81"
+    assert data["fx"]["美元指數"]["change_display"] == "-0.08%"
+    assert data["fx"]["美元／新台幣"]["display"] == "32.936"
+    assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "official_interbank_close"
+    assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.42%"
+    assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
+    assert data["energy"]["Brent原油期貨"]["source"]["change_points"] == "+0.59"
+    assert data["energy"]["Brent原油期貨"]["source"]["ice_official_last"] == "92.49"
+    assert data["fedwatch"]["updated_at_tw"] == "2026/11/21 13:35"
+
     levels = data["key_levels"]
+    assert levels["source"].startswith("ChatGPT direct manual verification")
     assert levels["baseline_date"] == data["trading_date"]
     assert [x["key"] for x in levels["items"]] == ["dow", "sp500", "nasdaq", "sox", "russell2000"]
     for item in levels["items"]:
@@ -103,6 +120,15 @@ def main():
     assert len(data["calendar_impact_overrides"]) == 5
     assert len(data["review_ready_blockers"]) >= 2
     assert any("新聞窗口尚未封口" in x for x in data["review_ready_blockers"])
+
+    builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
+    workflow = (ROOT / ".github" / "workflows" / "tac-simulation-lab.yml").read_text(encoding="utf-8")
+    assert "key-level-row" in builder
+    for label in ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力"):
+        assert label in builder
+    assert "if: false # Do not use repo collector" in workflow
+    assert "--key-levels-live" not in workflow
+
 
     print("PASS: 11/23 fixture contract")
     print(f"PASS: 44 market indicators = {counts}")
