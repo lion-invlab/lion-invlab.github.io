@@ -152,8 +152,16 @@ def main():
         raise SystemExit("QA Contract does not bind the selected simulation mother SHA")
     active_rules_text = asset_bytes["active_rules"].decode("utf-8")
     candidate_rules_text = asset_bytes["candidate_rules"].decode("utf-8")
-    if "SIM-1.3" not in active_rules_text[:500] or "SIM-1.4" not in candidate_rules_text[:500] or "DRAFT" not in candidate_rules_text[:500]:
-        raise SystemExit("active/candidate rules version identity is inconsistent")
+    active_header = active_rules_text[:700]
+    candidate_header = candidate_rules_text[:700]
+    # SIM-1.4 is now the sole active rule. The former SIM-1.4 draft is
+    # retained only as a superseded provenance artifact, not as a second
+    # active candidate. Validate lifecycle identity instead of the retired
+    # SIM-1.3 / DRAFT pairing.
+    if "SIM-1.4" not in active_header or "正式生效版" not in active_header or "ACTIVE／正式生效" not in active_header:
+        raise SystemExit("active rules must identify SIM-1.4 as the sole formally active version")
+    if "SIM-1.4" not in candidate_header or "SUPERSEDED" not in candidate_header or "不得作為執行規則" not in candidate_header:
+        raise SystemExit("historical SIM-1.4 draft must be explicitly superseded and non-executable")
     fixture_path = provenance.get("fixture_path", "")
     if not fixture_path.startswith("simulation-lab/fixtures/report-data-"):
         raise SystemExit("fixture provenance path outside approved simulation fixtures")
