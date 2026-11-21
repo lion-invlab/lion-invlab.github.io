@@ -46,3 +46,10 @@ Run the same fixed input set and injected failures against each candidate. Selec
 **Important scope**: this fixture is deterministic test input, not live market data. The live acquisition module must populate the same normalized input contract from verified current OHLC before this producer is used in a live report. Until that connection exists, the workflow proves calculation and assembly only, not live retrieval.
 
 Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-data-*.json:key_levels` → `build_review_html.py`.
+
+
+## 2026-11-21｜同版雙母版回歸：Weekday
+
+- Monday 同版回歸已以 candidate SIM-1.4 SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e` 完成（run 44907807730，QA_PASSED；資料型 review_ready=false，僅待四項風險／情緒／FedWatch 截稿刷新）。
+- 現觸發 2026-11-20 Weekday fixture 回歸；本次不修改 Builder、Manifest、QA Contract 或 candidate rules，確保 Weekday 使用與 Monday 相同的規則／技術資產 SHA。
+- 僅供 simulation branch 測試，不授權 SIM-1.4 生效或正式資產修改。
