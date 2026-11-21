@@ -176,17 +176,27 @@ def main():
     assert "EPS 預估" in wd_details.get_text(" ", strip=True)
     assert "營收預估" in wd_details.get_text(" ", strip=True)
 
-    # Fed weekly agenda retains mother wrappers while builder overrides the
-    # fixed date rail with a responsive single-column event layout.
+    # Fed weekly agenda clones the approved prototype without changing its
+    # two-column date/content grid or any child inline styles.
     fed_soup = mother("monday-mother-template.html")
     fed_data = fixture
+    fed_template = fed_soup.select_one("#fed .fc-fomc-weekly-event-template")
+    assert fed_template is not None
+    template_style = fed_template.get("style")
+    template_child_styles = {
+        selector: fed_template.select_one(selector).get("style")
+        for selector in (".fc-fomc-weekly-event-date", ".fc-fomc-weekly-event-name", ".fc-fomc-weekly-event-impact")
+    }
     populate_fed_weekly_agenda(fed_soup, fed_data)
     fed_rows = fed_soup.select("#fed .fc-fomc-weekly-events-list > .fc-fomc-weekly-event")
     assert fed_rows, "Fed weekly agenda fixture should render at least one verified event"
-    assert all("grid-template-columns:minmax(0,1fr)" in row.get("style", "") for row in fed_rows)
-    assert all("min-width:0" in row.get("style", "") and "width:100%" in row.get("style", "") for row in fed_rows)
-    fed_template = fed_soup.select_one("#fed .fc-fomc-weekly-event-template")
-    assert fed_template is not None
+    assert all(row.get("style") == template_style for row in fed_rows), "Fed event row must preserve mother grid style"
+    assert all({
+        selector: row.select_one(selector).get("style")
+        for selector in template_child_styles
+    } == template_child_styles for row in fed_rows), "Fed event child styles must remain mother-owned"
+    builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
+    assert "grid-template-columns:minmax(0,1fr)!important" not in builder, "Builder must not force a single-column Fed agenda layout"
     mother_html = (ROOT / "simulation-lab" / "baseline" / "monday-mother-template.html").read_text(encoding="utf-8")
     assert "FIX v2: remove parent two-column grid constraint" not in mother_html
     assert "FIX v3: force the EPS/revenue grid" not in mother_html
