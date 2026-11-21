@@ -214,3 +214,35 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - Weekday：`QA_PASSED` 且 `review_ready=true`。
 - 這證明候選 Builder 已具備雙母版組裝與 QA 實證；**尚不等於 SIM-1.4 已可生效**。仍須完成規則／程式／Manifest／QA Contract 的一致性審核、SIM-1.4 renderer 舊狀態分支盤點與負向測試，並取得使用者明確核准。
 - SIM-1.3 仍是現行有效規則；SIM-1.4 仍為 DRAFT。main、正式首頁、正式母版、正式 Manifest、正式 W47/W48 JSON 未修改。
+
+
+## 2026-11-21｜雙母版實證後的舊稽核項目重新裁定
+
+本節以下列最新成功 build（Monday run 44906803821、Weekday run 44907253127）及 Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f` 為準。本文前段第 13、19–27、34–37、46–70、88–110、114–157 行是修正前的歷史稽核快照；凡與本節及最新 run 證據衝突者，均不得再當作現況。
+
+### 原始 BLOCKER 的現況
+
+| 舊稽核項目 | 最新程式／測試證據 | 現況 |
+|---|---|---|
+| Builder 追加每日 CSS、改 summary／收折 DOM | 最新 Builder 已移除每日 CSS 注入及週一 summary 清空重建；DOM validator 比對 style/script、ID、summary、details、tabs、radio 等母版結構；兩母版真實 build 均通過 | 已修正並通過目前 QA Contract |
+| Fed 官員行程清空／重建 | `populate_fed_weekly_agenda` 僅使用母版既有 title/list/prototype/empty slots；只移除舊的動態 event instances，保留 wrapper、prototype 與 empty state；來源 URL 只填入既有 anchor | 已修正；雙母版 DOM／build Gate 通過 |
+| FedWatch 重建第三卡／任意機率結構 | `populate_fedwatch_two_slots` 固定使用母版兩張機率卡、兩段 bar 與兩個 legend；不符兩情境契約即 fail closed，完整分布留在既有 snapshot disclosure | 已修正；deterministic tests、兩母版 build 通過 |
+| CFD 被當成現貨收盤 | Builder 的 `reject_cfd_cash_index_quotes` 在渲染邊界拒絕 `cfd_index_reference_series`／`cfd_cash_index_proxy`；保留 rejected_reference 並顯示待核實；quote-type regression tests 通過 | 已修正；最新 11/23 fixture 17 項 global market 全部有 quote_type，沒有 CFD quote_type |
+| 財報舊 incomparable／consensus_divergent renderer | Builder 只接受 beat／miss／inline／pending；已公告而實際值／共識不可比較時顯示「比較資料尚未齊備」；舊狀態不再輸出 | 已修正；四狀態 regression tests 及雙母版 build 通過 |
+| Dashboard／市場情緒／市場評論文字寫入破壞子節點 | 只更新母版既有文字槽位；市場評論比較 b／br／text 子節點與 inline style；source link-only 容器保持不動 | 已修正；DOM regression tests、雙母版 DOM Gate 通過 |
+| Builder／Workflow 母版檔名不一致 | Workflow 將 `weekdays` 明確映射至 `weekday-mother-template.html`，`monday` 映射至 `monday-mother-template.html` | 已修正；Weekday run 44907253127 成功 |
+
+### 尚未裁定為完成的範圍
+
+1. 本次通過證明候選 Builder 在兩份 simulation 母版與兩份指定 fixture 上能完成 build 及現行 QA Contract；不代表所有未來資料組合均已覆蓋。仍需補足重要 selector 缺失／重複、空行程、單一／多情境 FedWatch、所有 quote_type 邊界及資料來源缺失的負向案例矩陣。
+2. 必須重新逐項對照 SIM-1.3 與 SIM-1.4 DRAFT 的規則差異、Manifest 權威 SHA、QA Contract v1.8 DRAFT 與 Builder 行為；雙母版通過不能取代規則條文審核。
+3. CLI 副作用、允許寫入路徑、所有動態容器清空範圍及白名單仍需形成完整可查核的 selector/write inventory。尤其 `.week-earnings-panels`、各 accordion list 等動態資料槽位允許重建其子項，但外層 wrapper、prototype、details／summary、連結及母版控制元件必須保留；此界線要在文件中逐一明列。
+4. 不得把 Monday 的 `review_ready=false` 當成 Builder 失敗：其 HTML／DOM／互動／視覺 Gate 已通過，唯一 blocker 是四項風險／情緒／FedWatch 資料需在 11/23 05:25 截稿前刷新。Weekday 11/20 sidecar 為 `review_ready=true`，但仍保留來源口徑與使用者截圖等 pending／warning 證據。
+5. SIM-1.4 仍為 DRAFT；Builder 尚未取得唯一入口核准。SIM-1.3 仍是唯一現行有效規則。任何啟用或正式首頁更新均需另行明確核准。
+
+### 目前整體判定
+
+- **雙母版 Builder 實作與指定 fixture 實證：PASS。**
+- **候選 Builder 可直接升格為 SIM-1.4 唯一入口：尚未核准。**
+- **SIM-1.4 規則／Manifest／QA Contract／Builder 全面一致性審核：進行中。**
+- **正式 main／首頁／正式母版：未修改。**
