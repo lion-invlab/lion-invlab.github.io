@@ -19,16 +19,16 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "d7bf585b86b0ecbf89dcad9d69eaf0b49728697e",
-  "report_sha256": "f003f1d4ce5918f1158888878049f52f64a500f9361b363038aca31c62e6af54",
-  "build_commit_sha": "3efef67a34af51a41dc004e4a8a30b0781925186",
+  "report_git_blob_sha": "4a21c6dd4c24032a75e4418473b6cf9e85266a6c",
+  "report_sha256": "8975a5ece110c29f3ee4067e99a121857b88170a2cd8119ca2bd1b39c0a8393f",
+  "build_commit_sha": "ba27f282eaa9dfd9adc73f16ff8bd2d4c7cfb1e1",
   "builder_blob_sha": "76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135",
-  "fixture_blob_sha": "4ba872860df7149fca7d315efdf5da0cdc235173",
+  "fixture_blob_sha": "2aac480d777820de3a8e7759717f6b1291a0d92c",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
   "qa_contract_blob_sha": "86c798ae22577c82b292748a864ffe10054ddc18",
   "active_rules_blob_sha": "116ebb0a6401321148a878fe20c9504df7ce37f7",
-  "candidate_rules_blob_sha": "9163c299522cfb1e177565b2cccd873ba19850f1",
+  "candidate_rules_blob_sha": "4e695837d9d9eaed161e70e11c127725c8fa25f1",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "76b8381e9bc59bc35f676c4fd2cfdfa7c17f1135",
   "data_review_ready": true,
@@ -41,7 +41,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "2a8516631701ad6a38764e69efd7ea6d42a9da88abea0bc379d87cdccda5ee3c",
+  "visual_evidence_sha256": "c7560a4ea755b70e6d42f4a5f7acb95336cf89544ce1041b6204ff09c81df093",
   "viewports": [
     1440,
     768,
@@ -50,6 +50,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44921714346",
+  "workflow_run_id": "44922947858",
   "workflow_run_attempt": "1"
 }
