@@ -528,8 +528,8 @@
         "name": "Investing.com HK｜CBOE Volatility Index 歷史資料",
         "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "provider_index_reference_series",
-        "note": "Investing.com 歷史報價；保留平台序列口徑。"
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK 11/20歷史列35.89、+26.20%；CBOE官方VIX歷史資料頁與Yahoo Finance ^VIX同日OHLC／收盤交叉確認：O28.63、H40.03、L26.94、C35.89。此為CBOE VIX現金指數，不是VIX期貨或ETF。"
       }
     },
     "move": {
@@ -540,8 +540,8 @@
         "name": "Investing.com HK｜ICE BofA MOVE Index 歷史資料",
         "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "provider_index_reference_series",
-        "note": "Investing.com 歷史報價；保留 MOVE 指數標的口徑。"
+        "quote_type": "index_reference_quote",
+        "note": "Investing.com HK 11/20歷史列106.31、+10.69%；EODData獨立歷史列以一位小數呈106.3、+10.69%，方向與幅度一致。MOVE為ICE BofA美債市場波動率指數，不是MOVE ETF。"
       }
     },
     "fear_greed": {
