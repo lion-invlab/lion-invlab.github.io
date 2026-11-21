@@ -87,8 +87,10 @@ def main():
     assert data["fx"]["美元／新台幣"]["source"]["url"] == "https://hk.investing.com/currencies/usd-twd-historical-data"
     assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
-    assert data["energy"]["WTI原油期貨"]["display"] == "82.40"
-    assert data["energy"]["WTI原油期貨"]["change_display"] == "-0.05%"
+    assert data["energy"]["WTI原油期貨"]["display"] == "83.98"
+    assert data["energy"]["WTI原油期貨"]["change_display"] == "+0.93%"
+    assert data["energy"]["WTI原油期貨"]["source"]["url"] == "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
+    assert "CME／NYMEX CLF27" in data["energy"]["WTI原油期貨"]["source"]["note"]
     assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
     assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
     assert "WTI、Brent、GC、SI四項均採Investing.com HK" in data["warning_note"]
@@ -101,6 +103,7 @@ def main():
             assert source["history_close"] == item["display"], (group, name)
             assert source["history_change"] == item["change_display"], (group, name)
             assert "historical-data" in source["url"], (group, name)
+            assert "cid=" in source["url"], (group, name)
 
     # Weekday fixture must use the same source contract and the prior trading day's historical close.
     weekday = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
@@ -109,7 +112,7 @@ def main():
     assert "WTI、Brent、GCZ6、SIZ6的11/19價格均採Investing.com HK" in weekday["warning_note"]
     assert "平台收盤/Last" not in weekday["warning_note"]
     expected_weekday = {
-        ("energy", "WTI原油期貨"): ("82.44", "+0.16%"),
+        ("energy", "WTI原油期貨"): ("83.21", "-0.06%"),
         ("energy", "Brent原油期貨"): ("91.98", "+0.03%"),
         ("metals", "黃金期貨 GC"): ("3,685.50", "-1.51%"),
         ("metals", "白銀期貨 SI"): ("44.359", "-1.55%"),
