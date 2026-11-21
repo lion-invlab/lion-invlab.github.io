@@ -2748,3 +2748,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 核准母版本機原檔仍存在且SHA與Manifest simulation_blob_sha一致：`/mnt/data/tac-mother-transfer/monday-mother-template.html`，386,622 bytes，SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931。Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract SHA 331b4bdfe318462e15cae8ae4cd31c32815960d7；SIM-1.3 SHA 679eae7ba7a40dbad64d15bb448fe53db7d67e09。
 - 下一步恢復策略：只以核准母版完整複製為新工作基底；依QA契約既有selector填充核准DOM槽位，任何非授權結構／CSS／JS差異均視為FAIL；逐項輸出結構diff與母版同尺寸截圖比較。行事曆卡片需clone母版原始卡片節點填值，保留tabs/details/IDs/class。未完成全量QA前不得產出review_ready。
 - 本輪未修改main、Manifest、母版、QA契約或W48 JSON；未發布審核版。
+
+
+## 2026-11-21｜Phase 5 母版直接DOM更新重建版（內容尚未完成）
+- 以Manifest指定Monday mother本機唯讀副本為唯一基底，使用lxml HTML DOM parser解析並更新既有內容槽位；未使用舊preview或重新建構頁面。
+- 輸出 `/mnt/data/TAC_投資早報_2026-11-23_母版直更版.html`；387,240 bytes；SHA-256 `a2d326a7cf2c81fcd0b94acb5421d3baf5fe8f8690b2037220b96395ac1cb703`。DOM elements 2,040、IDs 183且全唯一、style 124、script 25，與核准母版的基礎結構統計一致；母版SHA仍為d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931。
+- 已更新總結、CNN Fear & Greed（10/100，Extreme Fear；CNN更新11/21 07:59:52台灣時間，截圖取得11:59）、全球17項指數與三區評論、11大產業ETF漲跌幅、部分今日觀察文字；保留全部母版DOM、CSS、JS及183 IDs。
+- Playwright Chromium system executable實測390px及1440px：scrollWidth=clientWidth，無水平溢位；pageerror 0；183 IDs。此為結構／基本瀏覽器測試，尚未做母版同尺寸視覺差異比對、完整互動回歸及資料內容完整性驗收。
+- **重大未完成：** 上週W47經濟25筆／財報23筆與本週W48經濟27筆／財報11筆尚未按JSON逐筆映射到母版卡片；目前行事曆卡片資料仍含舊母版示範內容，標題日期雖已改成W47/W48，但不能視為有效內容。FedWatch亦維持舊母版靜態數字，尚未完成正確映射，必須清除舊機率或以待核實方式保留母版卡片。Global Focus/Hot Headlines內容也尚未完成當前新聞窗口逐篇替換及驗收。因此本檔不是可審核成品，不可交付review_ready或上架。
+- 下一步必須先讀取最新SIM-1.3第五步／第六步及QA契約，完成W47/W48逐筆DOM卡片更新、FedWatch安全處理、新聞窗口內容更新，再做全套視覺／互動／內容Gate。main、正式母版、Manifest、QA契約及W48 JSON均未修改。
