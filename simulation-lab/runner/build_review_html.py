@@ -2064,7 +2064,9 @@ def main():
                         if contract_label:
                             source_node.append(f"合約：{contract_label}｜")
                         source_node.append(f"{source['data_date']}｜")
-                        source_node.append(source_link(source["url"], "原始資料"))
+                        source_node.append(source_link(source["url"], source.get("link_label", "歷史數據")))
+                        if source.get("note"):
+                            source_node.append(f"｜補充：{source['note']}")
                         source_node.append("；")
                 else:
                     source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關列不納入本次比較。")
@@ -2823,6 +2825,17 @@ def main():
                 raise ValueError(f"{panel_id}/{instrument}: full contract label leaked outside source details")
             if contract_label not in source_text:
                 raise ValueError(f"{panel_id}/{instrument}: contract label missing from source details")
+            source = record.get("source") or {}
+            if source.get("quote_type") != "investing_historical_close":
+                raise ValueError(f"{panel_id}/{instrument}: quote must use Investing.com historical close, not Last/preliminary")
+            if source.get("url") != record.get("instrument_url"):
+                raise ValueError(f"{panel_id}/{instrument}: source URL and product link must be the same history page")
+            if "historical-data" not in str(source.get("url") or ""):
+                raise ValueError(f"{panel_id}/{instrument}: source URL must be an Investing.com historical-data page")
+            if str(record.get("display") or "").replace(",", "") != str(source.get("history_close") or "").replace(",", ""):
+                raise ValueError(f"{panel_id}/{instrument}: displayed quote differs from the captured historical close")
+            if str(record.get("change_display") or "") != str(source.get("history_change") or ""):
+                raise ValueError(f"{panel_id}/{instrument}: displayed daily change differs from the captured historical row")
     # Commodity commentary must match the settlement values actually displayed.
     energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
