@@ -16,6 +16,32 @@ def sha_blob(text: str) -> str:
     b=text.encode("utf-8")
     return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
 
+def reject_cfd_cash_index_quotes(data):
+    """Prevent an explicitly identified CFD index series from rendering as a cash-index close."""
+    rejected = []
+    for name, record in data.get("global_markets", {}).items():
+        if not isinstance(record, dict):
+            continue
+        source = record.get("source") if isinstance(record.get("source"), dict) else {}
+        quote_type = str(source.get("quote_type") or "").strip().lower()
+        if quote_type in {"cfd_index_reference_series", "cfd_cash_index_proxy"}:
+            prior = {
+                key: record.get(key)
+                for key in ("display", "change_display", "source_name", "source_url")
+                if record.get(key) not in (None, "")
+            }
+            if prior:
+                record["rejected_reference"] = {
+                    **(record.get("rejected_reference") or {}),
+                    **prior,
+                    "reason": "CFD reference series is not an eligible cash-index close",
+                }
+            record["display"] = "待核實"
+            record["change_display"] = "待核實"
+            record["qa_status"] = "cfd_index_reference_rejected"
+            rejected.append(name)
+    return rejected
+
 def set_text(node, value):
     node.clear()
     node.append(str(value))
@@ -655,6 +681,8 @@ def main():
             if not all(row.get(field) for field in ("s2","s1","p","r1","r2","ohlc")):
                 raise ValueError(f"live key-level row missing calculated levels/OHLC: {row.get('key')}")
         data["key_levels"]=levels
+    # Explicit CFD index proxies must never render as official/cash index closes.
+    rejected_cfd_indices = reject_cfd_cash_index_quotes(data)
     # Fail closed on quote records without a traceable source and item-level date.
     # A top-level trading_date is not evidence that every market item was updated that day.
     market_groups = ["global_markets", "bonds", "fx", "energy", "metals"]
