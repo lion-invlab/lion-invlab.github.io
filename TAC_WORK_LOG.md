@@ -1845,3 +1845,11 @@
 - 重要判讀：beat比例與surprise幅度不可混為一談。EPS beat比例強，但EPS surprise幅度偏弱；營收beat與surprise均高於5Y／10Y均值。Mag7 27.0%成長低於Other 493的34.7%，惟GAAP特殊項目影響須註明；PDF頁3一句內文32.6%與同頁圖表／表格及FactSet文章34.7%不一致，採圖表／表格一致值並揭露原文差異。
 - 已依核准母版既有DOM更新盈餘健康度區塊，獨立模組預覽SHA-256 acafda7599e2529b8354c78882a143aae711ea01d9f6a16b4cdd6f96a4677ad6；Playwright page.set_content於360/390/412/768/1440px測試均無水平溢位、0 pageerror。此不等於完整報告QA。
 - 詳細來源稽核檔 simulation-lab/analysis/factset-earnings-health-2026-11-20.md commit 08f9fb20610333e12c6e32301aff4c561b1d7ae3。未修改main index、正式母版、W48 JSON；完整11/23審核版仍待組裝。
+
+
+## 2026-11-21｜11/20 行情待核實項目增量裁決
+- STOXX Europe 600：Investing.com歷史列 11/20 625.66（-2.00%）；Börse Stuttgart同日17:50報625.65（-2.00%），差0.01點為來源精度差。採第一順位Investing值625.66，撤銷舊記錄635.77（日期錯置）。
+- Gold Dec 2026 GCZ6：Investing.com歷史列 11/20 3,539.00（-3.98%），成交量323.90K，採第一順位來源，撤銷3515.4暫值。
+- Silver Dec 2026 SIZ6：Investing.com歷史列 11/20 41.080（-7.39%），成交量110.38K，採第一順位來源，撤銷41.07暫值。
+- CNN Fear & Greed仍待核實（CNN官方頁受限，第三方10與媒體轉述15不一致）。FedWatch先前86.4%／89.6%方向解讀撤回；使用者已指出解讀錯誤，未重新確認其既定利率區間映射前不得放入報告。
+- 只更新有新增直接來源證據的項目，不重抓已鎖定行情。
