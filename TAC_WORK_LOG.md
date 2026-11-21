@@ -1915,3 +1915,12 @@
 - W48正式JSON（main）SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`：27筆經濟、11筆財報，全部為四／五星。HPE及DE時間未確認，保留待核實；財報EPS／營收共識無合格PIT紀錄，不填預期或Beat/Miss。
 - 重新辨識母版四個既有槽位及DOM selector：上週經濟 `#last-week-calendar`、上週財報 `#last-week-earnings`、本週經濟 `#calendar .week-econ-panels`、本週財報 `#earnings .week-earnings-panels`。保留各自原始toggle class與卡片結構，禁止重建版面。
 - 本次完成篩選與槽位定位，尚未執行HTML映射，第三步未結案；不把篩選成果冒稱為審核版。W47／W48 JSON均未修改。
+
+
+## 2026-11-21｜週末新聞窗口增量查核（非封口）
+- 鉅亨網 11/21 09:00：「AI疑慮引爆美股重挫！標普、道瓊雙雙陷入修正區間 那斯達克抹去全年漲幅」；涵蓋11/20美股收盤、AI估值與資料中心融資疑慮。原文：https://news.cnyes.com/news/id/6669685 。可列熱門頭條候選，與既有全球焦點避免重複同一事件。
+- 鉅亨網 11/21 05:49：「美股盤後｜AI殺盤全面失控」；包含SOX -10.73%、Nasdaq -5.28%、VIX急升、債券避險及半導體賣壓。原文：https://anuenews.cnyes.com/news/id/6669311 。與前項同屬美股收盤事件，不可在同一新聞區重複包裝。
+- Investing.com／Reuters 11/21 02:12（更新02:19）：「The snowballing selloff in global markets」；報導全球股市自8月高點市值減少近US$9T、台股單週下跌17%、AI與利率疑慮擴大至銅與黃金。原文：https://au.investing.com/news/economy-news/the-snowballing-selloff-in-global-markets-4787059 。可作全球焦點候選。
+- Reuters 11/20：「Tech stocks tumble, Treasury yields fall as traders seek refuge」轉載頁顯示11/20 16:35 UTC，說明日韓跌逾5%、台股週跌17%、SOX週跌17.1%、美10年債殖利率單日下滑。轉載來源：https://www.lse.co.uk/news/global-markets-tech-stocks-tumble-treasury-yields-fall-as-traders-seek-refuge-5wy60vlz4ves1pd.html 。
+- AP 11/20美股收盤報導確認S&P 500 6,910.39、Dow 48,147.33、Nasdaq 22,617.73，並指出AI／科技股拋售與半導體跌幅。原文：https://apnews.com/article/c4c3f4878b12989347f8a930ed813dad 。
+- 風險註記：SEC探查Nvidia會計問題屬媒體引述消息，須保留「據報／Reuters引述知情人士」限定，不可寫成SEC已正式立案或確認違規。新聞窗口持續至11/23 05:25 Asia/Taipei，未封口。
