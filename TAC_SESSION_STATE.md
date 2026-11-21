@@ -2436,3 +2436,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 第五步開始前置條件：重新核對 Manifest、週一 simulation 母版及 QA 契約 SHA；確認報告 fixture 的日期／資料；取得可用真正 DOM parser 的執行方式。不得以 regex／字串切片代替 DOM 更新。不得修改 main index、正式母版、Manifest、QA 契約或 W47/W48 JSON。審核版 preview 只依第六步授權路徑交付。
 - 本次 web增量查核新增來源背景：Reuters 11/20全球科技股拋售與美債殖利率下行；AP 11/20美股修正與科技股下跌；Federal Register 11/19 BIS《Addressing Remote Access to Advanced Semiconductors》臨時最終規則，生效日11/19/2026。新規則明確涵蓋海外資料中心遠端提供算力及印尼、馬來西亞、新加坡、泰國、巴西等目的地許可要求；此為正式規則，不應與特朗普海外資料中心課稅構想混為一談。是否納入新聞卡仍依E節窗口與指定新聞來源限制判斷。
 - 階段⑤狀態：已啟動前置基準核對，尚未開始母版DOM更新，尚未執行QA，尚未產出HTML。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜第五步基準核對結果與阻塞
+- 已按最新 WR（SIM-1.3 blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）完整讀取第五步「母版內容更新與單一 QA Gate」及引用的唯一 QA 契約。
+- Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；週一情境 simulation path `simulation-lab/baseline/monday-mother-template.html`；實際母版 SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與 Manifest 及 QA 契約一致。QA 契約 SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- 週一母版來源鎖定通過；QA 契約已讀取完整。固定要求包括 DOM parser 更新、全球三區評論語意 Gate、行事曆五區卡片、週一上週收折區、FactSet Dashboard、Fed 兩活頁及 360/390/412/768/1440 視覺檢查。
+- **阻塞：** 當前可用 GitHub 連接器能讀取完整母版文字（354,764字元）及寫入檔案，但本對話可用工具中沒有可執行真正 DOM parser／瀏覽器的執行環境。已嘗試尋找 browser/computer/DOM parser/Playwright/Puppeteer 工具，未找到可用執行工具；容器直接下載 raw GitHub 檔案亦受限，web raw URL fetch 回報 DisabledError。依 QA 契約 A2.5，不得使用 regex、字串切片或固定字元範圍替換，也不得宣稱 DOM 修復或 QA 通過。
+- 因此尚未複製並更新每日 HTML、尚未執行四大 QA、尚未寫入 main preview；不以程式碼片段或 GitHub 原始碼頁冒充可預覽審核版。保護檔案與 W47/W48 JSON均未修改。
+- 下一個可恢復動作：在具備可用 DOM parser 的執行環境後，從核准週一母版完整複製，依既有已核實內容槽位批次更新，再執行一次完整四類 QA；在此之前第五步維持「阻塞／未完成」。
