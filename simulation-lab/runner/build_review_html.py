@@ -2126,7 +2126,6 @@ def main():
     title=cal.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["calendar"]["week_start"],data["calendar"]["week_end"],data["calendar"]["week_id"],report_cutoff))
     panels=unique(cal,".week-econ-panels","economic panels")
-    validate_calendar_group_order(panels,"economic calendar")
     econ_templates=panels.select("details.econ-event")
     template=next((c for c in econ_templates if len(c.select(".econ-field"))>=5 and any(
         f.select_one("label") and f.select_one("label").get_text(strip=True) in {"市場影響","觀察重點"}
@@ -2172,13 +2171,13 @@ def main():
             set_economic_source(card, x)
             validate_economic_card(card, f"current-week economic event {x.get('id') or x.get('name')}", "econ-toggle")
             listing.append(card)
+    validate_calendar_group_order(panels,"economic calendar")
     earn=unique(soup,"#earnings","earnings calendar")
     earnings=data.get("earnings",{}).get("events",[])
     if not earnings: raise ValueError("current-week earnings calendar data missing")
     title=earn.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["earnings"]["week_start"],data["earnings"]["week_end"],data["earnings"]["week_id"],report_cutoff))
     ep=unique(earn,".week-earnings-panels","earnings panels")
-    validate_calendar_group_order(ep,"earnings calendar")
     earnings_mother_cards=ep.select("details.earnings-accordion")
     et=next((c for c in earnings_mother_cards if c.select_one(".earnings-results-grid") is None),None)
     eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
@@ -2251,6 +2250,7 @@ def main():
                     details,x,day,clock,session_label,timing_value
                 )
             listing.append(card)
+    validate_calendar_group_order(ep,"earnings calendar")
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     # The published accordion includes past events even when actual results remain unverified.
