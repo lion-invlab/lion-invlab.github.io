@@ -1622,3 +1622,12 @@
 - main HEAD `6f9672fc826aba7e680e7d8f0072acadd6a7d6a2`。W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`（27 econ／11 earnings，incomplete）；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`（25 econ／23 earnings，incomplete；11/16–20 各 23 筆）。W47 透過 Git blob 讀取完整 JSON。兩週資料庫皆維持唯讀。
 - 目標：報告 2026-11-23，行情基準 2026-11-20；preview `preview/2026-11-23-simulation.html`。未修改 main、母版、Manifest、QA 契約或任何行事曆 JSON。
 - 階段①完成；依 SIM-1.3 A1-補充2，開始階段②前必須更新 Session State 並重新 fetch 最新 WR，完整讀取第二步及 D 節。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜行情階段②第一輪完成
+- 依最新 SIM-1.3 第二步與 D3 來源優先序，直接開啟 Investing.com 歷史報價頁、Fed H.15、Fed Rate Monitor、CNN 官方頁及其端點、指定備援與 MOVE 後順位來源。44/44 欄位全部登記（含11 ETF），FedWatch獨立列示。完整逐項值、日期、狀態及來源 URL 已寫入 TAC_SESSION_STATE.md。
+- 已鎖定：主要美股／亞洲／歐洲指數（S&P 500、Russell CFD 差異項除外）、10檔ETF、3檔美債殖利率、DXY、5個貨幣對、VIX、MOVE、CNN。MOVE使用EODData 11/20 close 106.3（+10.69%）；CNN FGScore Provider Index 10（Extreme Fear）。
+- 待核實：S&P 500及Russell 2000 Investing CFD與AP現貨差異；XLRE歷史表未出現11/20列；WTI／Brent／GC／SI尚未完成依成交量及換月規則選定活躍交割月份。不得把這些暫列值視為已核實數字。
+- FedWatch：2026-12-09會議；3.75–4.00為10.4%、4.00–4.25為89.6%；頁面更新2026-11-20 16:55 EST，Future Price 95.955。
+- W48、W47 JSON維持唯讀；未修改main首頁、正式母版、Manifest、QA契約或其他保護資產。
+- 階段②第一輪完成；進入第三階段前，依A1-補充2必須重新fetch最新SIM-1.3並讀取第三步完整規則及引用內容。
