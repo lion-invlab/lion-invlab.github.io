@@ -2063,7 +2063,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
     news_window = soup.select_one("#news-scan .news-window-warning")
     if news_window:
-        set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。焦點新聞與市場熱門頭條均逐則核對原始報導及發布時間；未符合時間窗的資料不納入。")
+        set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。每則新聞均核對原始發布時間、來源時區、台灣換算時間、最後更新狀態及原文連結；未符合時間窗的資料不納入。")
     health = soup.select_one("#sp500-earnings-health")
     if health:
         # The panel must be driven by the dated fixture snapshot, never a hard-coded mother-template fallback.
@@ -2077,7 +2077,8 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         if missing_health:
             raise ValueError("FactSet earnings-health snapshot missing fields: " + ", ".join(missing_health))
         if eh["as_of_date"] < "2026-11-13":
-            raise ValueError("FactSet earnings-health snapshot is stale for 2026-11-17 report")
+            report_label = data.get("report_date", "selected")
+            raise ValueError(f"FactSet earnings-health snapshot is stale for {report_label} report")
         if not str(eh.get("source_url", "")).startswith("https://"):
             raise ValueError("FactSet earnings-health snapshot must include an HTTPS source URL")
         e = {k: _esc(str(v)) for k, v in eh.items()}
