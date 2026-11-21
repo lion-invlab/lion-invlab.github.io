@@ -2608,3 +2608,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 更正前一筆交接紀錄中「缺少 report-data-2026-11-23.json 是下一個阻塞」的判斷：該檔不存在屬於既有 workflow/build_review_html.py 的輸入假設，不是 SIM-1.3 的正式前置條件。SIM-1.3 明定每日早報由 ChatGPT 單一執行者直接整合已核實行情、唯讀行事曆、新聞與分析，直接更新核准母版 DOM；不得經 Snapshot／Collector／Assembler／Renderer 中轉。故不得為了滿足舊 workflow 而補造 fixture，也不得以舊 Builder 代替正式製作。
 - P0 母版檔案交付已解除；下一工作是以本機已驗證的 /mnt/data/tac-mother-transfer/monday-mother-template.html 為唯一底稿，依 SIM-1.3 第五步及 QA Contract 的 DOM 定位契約直接進行節點更新。只使用已核實內容；新聞窗仍未封口，故當前可製作結構／內容預備稿，不能標記最終完成或執行交付。
 - report-data-2026-11-23.json 不存在僅記錄為 legacy workflow 缺少同日 fixture；不再列為 SIM-1.3 阻塞。舊 workflow build mode 不得用於本次正式組裝。
+
+
+## 2026-11-21｜Phase 4 新增原文核實與政策口徑修正（未封口）
+- Reuters「Trump says US to penalize firms building data centers abroad」原文已開啟，發布 2026-11-20 18:08 UTC（2026-11-21 02:08 Asia/Taipei）。Trump表示將對在海外興建資料中心的美國企業課徵「tremendous tax」，但文章沒有提供法案文本、稅率、適用範圍或生效日期；目前屬總統政策表態／提案，不得寫成已生效法規。URL https://www.reuters.com/technology/trump-says-us-penalize-firms-building-data-centers-abroad-2026-11-20/ 。
+- 已直接核對 Federal Register 2026-11-19 IFR（91 FR 74970，FR Doc 2026-23529），生效日為11/19。其實際規則是針對特定先進SI半導體出口／再出口／境內轉移，以及向Macau／Country Group D:5總部企業提供重大算力的海外資料中心遠端存取許可要求；另對印尼、馬來西亞、新加坡、泰國、巴西等目的地設有特定先進晶片許可要求。這與Trump所稱對海外資料中心建設課「tremendous tax」是兩件事，不可混為一談。來源 https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm 。
+- Focus Taiwan／CNA 10月外銷訂單原文已開啟，11/20 20:26 Taipei發布：總額US$123.82bn、年增78.3%、連續第21個月成長；ICT產品+107.2%至US$46.77bn、電子產品+89.8%至US$53.91bn、機械+36.3%；11月預估US$115–118.7bn。這是AI供應鏈需求的正面基本面證據，但不抵銷估值、融資與股價風險。URL https://focustaiwan.tw/business/202611200021 。
+- Phase 4內容調整：Global Focus第4則台灣外銷訂單候選保留；Trump海外資料中心議題改用Reuters原文為首要來源，並以Federal Register IFR補充區分「已生效的先進晶片／遠端算力出口管制」與「尚未具體化的海外建置課稅表態」。新聞時間窗仍未封口，待11/23 05:25前最後增量更新。
