@@ -806,9 +806,9 @@
     {
       "event_id": "current-eurozone-negotiated-wages-2026q3",
       "actual": "歐元區第三季協商薪資年增2.57%（目前採二級來源數值，ECB官方原始表待補核）。",
-      "source_name": "Trading Economics｜Euro Area Negotiated Wages（secondary source）",
-      "source_url": "https://tradingeconomics.com/euro-area/negotiated-wages",
-      "note": "二級來源，尚未取得ECB原始資料表；不得據此判定Beat/Miss。"
+      "source_name": "Trading Economics｜Euro Area Negotiated Wage Growth（secondary source）",
+      "source_url": "https://tradingeconomics.com/euro-area/negotiated-wage-growth",
+      "note": "Trading Economics 11/20 release table reports Q3 2026 2.57% vs Q2 2.45%; secondary source, not an ECB press release."
     },
     {
       "event_id": "current-us-michigan-sentiment-20261120",
@@ -884,8 +884,8 @@
       "eps_actual_basis_code": "GAAP_DILUTED_EPS",
       "eps_actual_currency": "USD",
       "eps_actual_period": "Q4 FY2026",
-      "revenue_actual": 1.99,
-      "revenue_actual_display": "US$1.990B",
+      "revenue_actual": 1.994,
+      "revenue_actual_display": "US$1.994B",
       "revenue_actual_basis": "Total net revenue (USD billions)",
       "revenue_actual_basis_code": "US_GAAP_TOTAL_REVENUE",
       "revenue_actual_currency": "USD",
