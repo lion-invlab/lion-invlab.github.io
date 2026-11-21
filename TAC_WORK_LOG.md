@@ -2463,3 +2463,15 @@
 - CI run `44913183956` success：Builder Python compile 與完整 deterministic self-tests 通過；新增 regression test 驗證 WTI 顯示名稱不含合約代碼／月份，且原始來源連結仍保留。
 - run `44913120411` 曾因測試錯誤假設 BeautifulSoup 的 `rel` 屬性型別為 list 而失敗；修正斷言後重跑通過。這是 test assertion 修正，不是放寬 Builder／DOM Gate。
 - 下一步依 SIM-1.3 A2.5／B3 及第六步，重建 2026-11-23 HTML，執行母版 DOM、Playwright 互動及六 viewport 視覺回歸；驗收商品名稱欄不再附加月份，月份仍在既有來源說明。
+
+
+## 2026-11-21｜WTI／Brent 商品名稱欄位修正完成
+
+- 使用者截圖指出合約代碼／月份塞入商品名稱造成手機版擠壓。Builder 已改為商品名稱只顯示「WTI 原油期貨」「Brent 原油期貨」等母版名稱；合約代碼及月份留在既有 `.tab-panel-meta` 來源說明。
+- Regression test：run `44913183956` success。首次測試 run `44913120411` 的失敗為測試對 `rel` 屬性的型別假設錯誤，已修正後通過。
+- 完整 Build run `44913313447` success：HTML assembly、browser interactions、mother visual comparison、DOM contract、artifact/provenance、44 indicators、calendar/news shape 全部通過。
+- 新 HTML blob `61e2217b1415241b396131541bfa9e72b184525d`；QA sidecar blob `0843ff082cbc27176edd8205ba193a0200cf9fee`；Builder blob `f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`。
+- 產出 HTML 回讀確認：商品名稱不含 `CLF27`／`2027年1月`；上方資料來源說明仍保留 WTI `CLF27（2027年1月）` 及 Brent `LCOF7（2027年1月）`。未新增 DOM、未改 CSS、未改母版。
+- 依既有明確授權更新 main 同日 preview 與 QA sidecar，並分別回讀 SHA。HTML commit `62affdf42147fc6940c3af1b93cb4d415c571547`，QA commit `8a7a8a24f6811259d760a558d1266c1c3f54c229`；兩個 commit 僅分別修改 preview HTML／QA JSON，正式首頁 `main/index.html` 未修改。
+- Pages deploy run `44913480651` success。線上網址無法由本執行環境直接開啟（web fetch Internal Error，容器 DNS 不可用），故 Pages 已部署可由 GitHub Actions 證實，但線上 HTTP 載入狀態標示未能實測。
+- QA sidecar 仍為 `QA_PASSED`、`review_ready=false`；VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新，不可宣稱正式早報已 ready。
