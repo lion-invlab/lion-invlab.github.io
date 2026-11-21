@@ -2619,3 +2619,12 @@
 - 11/20 Fixture commit `cb62ae7c0909ddaa1f5ce699b950ee9cd8be83a7`，恢復修改前五個 weekday summary points；回讀 blob SHA `cb27af1cffeafe0cc2bed88e2d297a8640ae168d`，五個標籤與 weekday 母版槽位數相符。
 - 最新修復後重跑：Monday `44946465633`、weekday `44946505385`；記錄當時狀態均為 in_progress，尚未宣稱通過。需待完成後核對 QA sidecar 的實際 SHA／規則版本。
 - 本輪只改 simulation branch workflow 與 11/20 Fixture；未改 main、首頁、正式母版、Manifest 或正式行事曆 JSON。
+
+
+## 2026-11-22｜平日母版財報 QA 誤判修復與 SIM-1.4 草案修訂
+
+- 11/23 Monday run `44946465633` success；回讀 HTML／QA sidecar。HTML blob `d03603e367d9a57d6870d48971b9c17ab2b7da78`，QA blob `92574e9c14d4c316d977a276c6b03438b3b1843a`；active SIM-1.3 SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`，content Gate PASS，六個視窗均通過；SIM-1.4 未核准仍標 false。
+- 11/20 run `44946578765`：先修復 summary slot mismatch 與 cutoff 格式後，HTML 組裝完成，但 visual regression 在六個 viewport 均誤報 21 張已公布財報卡缺少判讀／股價反應／來源欄位。
+- 對照 artifact `tac-simulation-44946578765-1` 內生成 HTML 與 weekday mother：weekday mother 與生成卡的五個 detail labels 完全相同；QA 卻套用 Monday mother 的三個分拆標籤。Monday mother 實際三個標籤為「財報判讀／股價當日表現／來源」，weekday mother 實際五個標籤為「公布時段／EPS 預估／實際／營收預估／實際／財報判讀與股價反應／資料來源」。因此是 visual regression 的跨母版假設錯誤，不是 Builder 生成卡缺欄位。
+- 已將 visual regression 改成按 `mondayRetrospective` 選用對應母版的精確 labels；commit `1f4b692a4a5eaef90bda4bf68ad5bbe5cfb9d0c8`，blob `63d95034922a97847556a70e8b00a7b5420ed69e`。新 weekday run `44946901354` 已觸發，待完成。
+- 另修訂 SIM-1.4 DRAFT（commit `08b6c632a861ae79c7aaa08484b2a98a80704554`，blob `a4254b7b2c18eb521e9c8edfaca8c38db56f82b8`）：週一三段／平日五槽位分開；候選 Builder 可先在 simulation sandbox 做完整測試，但未經使用者核准不可升格唯一生產入口；操作建議由「列齊所有項目」改為立場、可執行動作及觸發／失效條件。仍為 DRAFT，不取代 SIM-1.3。
