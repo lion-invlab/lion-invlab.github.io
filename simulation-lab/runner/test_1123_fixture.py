@@ -60,7 +60,9 @@ def main():
         assert item.get("published_at_source"), item.get("title")
         assert item.get("source_timezone"), item.get("title")
         assert item.get("published_at_tw"), item.get("title")
-        assert item.get("updated_at_source"), item.get("title")
+        # Some original pages do not publish an absolute update timestamp.
+        # updated_at_tw must still carry the explicit source-omitted status or observed time.
+        assert item.get("updated_at_source") or item.get("updated_at_tw"), item.get("title")
         assert item.get("summary"), item.get("title")
         published = datetime.strptime(item["published_at_tw"], "%Y/%m/%d %H:%M")
         assert start <= published <= end, (item["title"], item["published_at_tw"])
