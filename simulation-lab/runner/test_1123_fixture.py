@@ -73,7 +73,7 @@ def main():
     assert data["earnings_health"]["mag7_eps_growth"]
     assert data["earnings_health"]["other_493_eps_growth"]
 
-    # Market-source audit: exact 2026-11-20 source dates and approved official FX quote.
+    # Market-source audit: exact 2026-11-20 source dates and canonical Investing.com FX history quote.
     for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
         for name, item in data[group].items():
             assert item["source"]["data_date"] == data["trading_date"], (group, name)
@@ -81,8 +81,10 @@ def main():
         assert item["data_date"] == data["trading_date"], ticker
     assert data["fx"]["美元指數"]["display"] == "103.81"
     assert data["fx"]["美元指數"]["change_display"] == "-0.08%"
-    assert data["fx"]["美元／新台幣"]["display"] == "32.936"
-    assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "official_interbank_close"
+    assert data["fx"]["美元／新台幣"]["display"] == "32.971"
+    assert data["fx"]["美元／新台幣"]["change_display"] == "-0.18%"
+    assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "spot_daily_close"
+    assert data["fx"]["美元／新台幣"]["source"]["url"] == "https://hk.investing.com/currencies/usd-twd-historical-data"
     assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
     assert data["energy"]["WTI原油期貨"]["display"] == "82.40"
