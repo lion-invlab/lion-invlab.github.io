@@ -59,7 +59,7 @@ def main():
         for metric,key in (("EPS","eps"),("REVENUE","revenue")):
             m=item[key]
             attempt={
-                "source_level":4,"provider":"Yahoo Finance","url":item["source_url"],
+                "source_level":1,"provider":"Yahoo Finance","url":item["source_url"],
                 "observed_at":item["observed_at"],"data_as_of":None,"published_at":None,
                 "period":event["reporting_period"],"period_end_date":m["period_end_date"],
                 "value":m["estimate"],"currency":m["currency"],
@@ -71,7 +71,7 @@ def main():
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
             source_key="consensus_source" if metric=="EPS" else "revenue_consensus_source"
-            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，依SIM-1.3仍以同期間實際值與平均預期值作數值比較，來源口徑保留註記。"}
+            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，依SIM-1.4以同期間實際值與平均預期值作數值比較；僅在幣別、單位或期間明確不相容時標記資料尚未齊備，來源口徑保留註記。"}
         method_row=methodology_by_ticker.get(item["ticker"],{})
         method_raw=method_row.get("raw_response") if isinstance(method_row,dict) else None
         method_digest=hashlib.sha256(json.dumps(method_raw,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest() if isinstance(method_raw,dict) else None
