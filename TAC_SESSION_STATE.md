@@ -3196,3 +3196,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Workflow QA sidecar 已新增四項資產 SHA、candidate Builder SHA，並分離資料型 `data_review_ready` 與 SIM-1.4 `sim14_review_ready`；Builder 未經使用者明確核准前，`sim14_review_ready=false`。Workflow blob SHA：`e15128010a3048a64cd27dae0df5cf9556c735f0`。
 - **以上為程式／文件變更已提交，不代表新 Gate 已通過。** 必須由後續 Monday／Weekday full build 執行新 validator，並檢查 provenance 四項 SHA、sidecar 狀態及回讀證據；通過前不得核准 Builder 唯一入口。
 - 已知未結：Builder 唯一入口仍未經使用者核准；DOM validator 是指定穩定節點契約比對，不可誤稱全頁逐節點完整 DOM diff；`tac_html_binding_map.json` 的 text-only 寫入宣告仍需與候選 Builder 動態槽位／子節點操作逐 selector 裁決。
+
+
+## 2026-11-21｜Builder 母版 Dashboard 零重建修正（待完整 CI 驗收）
+
+- 找到並修正 S&P 500 盈餘健康度區塊的實際母版退化：舊 Builder 使用 `health.clear()` 清空整個 Dashboard，再重建六張卡與 inline style，違反 QA Contract F 的「保留母版卡片數量、欄數、排列與樣式」。新 Builder 改為依母版原有文字槽位更新；週一保留 4 張卡、平日保留 3 張卡，不改寫容器、卡片、欄位或 inline style。
+- 找到並修正市場情緒最後一張「核心解讀」卡片的 `interpretation.clear()`；新程式只更新既有 body text slot，保留 label、body wrapper 及其 inline style。
+- `validate_mother_dom_contract.py` 新增 S&P 500 盈餘健康度 Dashboard 與市場情緒核心解讀卡的穩定 DOM 比對，並納入 inline style 比對；避免未來清空重建仍可通過。
+- 新增 `test_earnings_health_dom_preservation.py`，以 11/23 Monday 與 11/20 Weekday fixture 驗證兩套母版卡片數量、DOM／inline style 結構、資料日期與來源連結；已加入 simulation workflow deterministic self-tests。測試 import 語法錯誤已修正。
+- 最新候選 Builder blob SHA：`7a996d3287e3ddcc06a9bdfad44c2d159a1dbcf6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；回歸測試 SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
+- 本次 commit 觸發 2026-11-23 Monday 完整 build。必須確認 deterministic test、HTML build、DOM contract、artifact provenance、Playwright、六視窗視覺 QA 全部通過；任何失敗先修正，不得以之前的 run 結果代替。
+- 之後另以 2026-11-20 Weekday fixture 做完整回歸，驗證 3 卡母版結構；兩種母版都通過前不得宣稱 Dashboard 修復完成。
