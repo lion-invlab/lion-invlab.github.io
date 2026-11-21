@@ -2225,3 +2225,14 @@
 - 新聞頭條更新：加入AI伺服器備料／應收帳款／營運現金流的營運資金案例（緯穎、廣達），並納入台灣外銷訂單、南韓出口量價差、台股單週跌17.5%及Reuters Bitcoin報導（發布時間已由原頁UTC 04:10正確換算台灣12:10）。CrowdStrike／Zscaler未確認傳聞已移除。新聞仍是候選稿，窗口未封口。
 - 最新Smoke run `44888410672`，commit `6582d66201753c40ac8599efb5364c2e4e0cd882`，conclusion=success；Python compile、deterministic self-tests、fixture contract、calendar override及preflight測試成功。HTML組裝、Playwright、視覺QA步驟全部skipped，**尚未產生HTML預覽**。此run不是完整報告驗收。
 - main首頁、正式母版、W47/W48正式JSON均未修改。下一步：繼續新聞窗口補查至11/23 05:25；截稿時刷新Fear & Greed及FedWatch；再依SIM-1.3由ChatGPT直接更新核准週一母版DOM，產生審核HTML並完成結構、互動、桌機／手機視覺QA。不得使用HTML組裝器／Renderer，也不得提前上架main。
+
+
+## 2026-11-21 17:21｜市場稽核更正、組裝器路徑與QA規則校正
+- **取代17:10紀錄中的錯誤行情值：** 以 `simulation-lab/production-logs/2026-11-23-market-data-audit.md` 為唯一核對底稿。DXY正確為103.81（-0.08%）；USD/TWD正確採CBC官方銀行間收盤32.936（Investing.com 32.971是市場報價，不採用）；WTI顯示合約代碼CLF27（Jan27），CME preliminary 83.41、+0.97（+1.18%）；白銀為-7.42%；Brent LCOF7歷史close 92.57、+0.59（+0.64%），ICE官方頁同日Last 92.49，兩者口徑不同，不稱為ICE官方結算；FedWatch頁面更新12:35 AM EST＝台灣13:35，16:35台灣讀取，非12:55。Fixture已修正並加入contract test。
+- **取代17:10紀錄中「不得使用HTML組裝器」的錯誤說法：** SIM-1.3與 `mother-template-qa-contract.md` v1.4要求第五步使用核准組裝器填入既有五個內容區，不重建母版DOM。第五步將使用 `simulation-lab/runner/build_review_html.py`；目前尚未執行正式組裝，沒有HTML預覽。
+- D4關鍵價位已改為ChatGPT直接核對的fixture OHLC；workflow的 `Capture cash-index OHLC` 資料擷取步驟已設為skip，build命令移除 `--key-levels-live`，不使用repo OHLC collector或外部OHLC artifact。財報股價反應collector保留，依SIM-1.3第0.8節於正式build使用。
+- Builder commit `3d27bd56bd4dca22c49abc1bf80baf3818752252`：五個指數各自列出第二支撐、第一支撐、中樞、第一壓力、第二壓力，逐行垂直排列；QA gate檢查五個數值及五個中文標籤。Workflow commit `433d479e8b2c599e51a68018fb57b8a10a707b62`；contract test commit `524d15dbf90cf87693deca44e6486ad1fae6165c`。
+- Smoke run `44889158056`（commit `524d15dbf90cf87693deca44e6486ad1fae6165c`）成功：編譯、deterministic self-tests及fixture contract通過；OHLC collector、正式組裝器、price reaction capture、Playwright與視覺QA均未在smoke模式執行，不能稱為完整build或視覺驗收。
+- 已搜尋simulation branch與main完整Git tree，均沒有2026-11-23既有preview/review檔案；沒有舊檔可刪，這次將從核准週一母版重新產生。main index.html、正式母版、Manifest、W47/W48正式JSON仍未修改。
+- Intesa／MPS Reuters正式收購要約已納入第10則市場頭條（Reuters原文發布8:16 UTC＝台灣16:16）；先前Session State所記「暫不納入」已被最新fixture取代。新聞窗口仍為11/20 12:00至11/23 05:25，尚未封口。
+- 六步驟狀態：Step 3 行事曆投影17:00:33–17:12:12完成；Step 4 新聞整理自17:12:12起進行中（17:21:21仍未封口）；Step 5正式組裝未開始；Step 6 main preview寫入與Pages驗證未開始。
