@@ -383,7 +383,7 @@
 
 **計數驗證：** 全球指數 17 + 產業 ETF 11 + 美債 3 + 外匯 6 + 商品 4 + 風險情緒 3 = **44**。FedWatch 位於獨立 Fed 區塊，不計入 44。ETF 顯示規則仍為僅顯示漲跌幅並依漲跌幅排序；兩份母版 11 檔 ticker 與 11 個唯一 href 完全一致，但示範排名順序不同，不得把母版示範排名當作每日排序。實際抽取確認：兩份母版各有 17 個全球市場 row、11 個唯一 ETF href、3 個債券 row、6 個 FX row、4 個商品 row，且 VIX／MOVE／CNN 三卡均存在；合計 44。
 
-**限制：** 上表已抽取母版標籤、定位及固定 href；這不代表示範行情數值是當日行情，也不取代每日直接開啟歷史數據頁核對。nth-of-type 定位只在對應母版 SHA 不變時有效；若 SHA 變更，先更新 Manifest 並重建定位契約，否則 BLOCKED。
+**限制：** 上表已抽取母版標籤、定位及固定 href；這不代表示範行情數值是當日行情，也不取代每日直接開啟歷史數據頁核對。表內第 n 筆定位是對應母版 SHA 下的 DOM row 順序索引，不是可跨版本沿用的 CSS nth-of-type；若 SHA 變更，先更新 Manifest 並重建欄位定位契約，否則 BLOCKED。
 
 ### A2. 指定來源
 - SOX：Investing.com HK `https://hk.investing.com/indices/phlx-semiconductor-historical-data`；Yahoo `^SOX` 備援／交叉核對。
@@ -437,7 +437,7 @@
 | D1 44 項與 ETF | 3、附錄 A | 保留；以核准母版實際欄位鎖定，不臆測差額 |
 | E 新聞 | 6 | 保留並集中 |
 | F1–F4 | 4、5 | 合併；行事曆與財報分開資料契約 |
-| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo → Investing.com 生效，舊 LSEG 優先及 PIT 判讀門檻撤銷 |
+| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo Finance Average Estimate 第一順位、Investing.com 第二順位；EPS／Revenue 分開選源；舊 LSEG 優先及 PIT 判讀門檻撤銷 |
 | G1–G4、11/17、11/19 補充 | 7 | 合併；週一／平日總結分流、三區評論綁定 |
 | H | 0、2、4、11 | 重寫；只保留 04:35 JSON 更新、05:25 唯讀、preview／首頁／封存分離 |
 | I | 0、9、10 | 合併；狀態、恢復、計時及 QA 重跑規則集中 |
@@ -446,12 +446,20 @@
 | J 與所有歷史補充條文 | 本附錄 E／版本紀錄 | 移至歷史，不再當有效規則 |
 
 ### 尚待實證，不得假裝已解決
-1. 44 項母版欄位完整逐項名稱及其固定連結，須由實際核准母版抽取並附表；本草案不以類別摘要猜補。
-2. Builder 唯一入口尚未核准；`build_review_html.py` 靜態稽核發現新增 CSS、重建 Fed 區塊及改寫週一收折 DOM 等不相容風險。稽核報告：`simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md`；通過第 8 章測試及使用者核准前，不得作唯一入口。
-3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，但 Contract v1.4 的 SIM-1.2 舊引用待修正，DOM／視覺測試尚未執行。報告：`simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md`。
-4. `TAC_SESSION_STATE.md` 與 `TAC_WORK_LOG.md` 均存在於 Repository 根目錄（不是 simulation-lab/ 子目錄）；本次已讀取，應依其最新紀錄重建 11/23 狀態。2026-11-23 Fixture、行情稽核及時間紀錄必須重建真實完成狀態；不得引用前次不一致的「完成」標記。
+1. 44 項母版欄位已依兩份 SHA 鎖定母版抽取名稱、定位及固定 href，詳見 A1.1；尚未完成的是每日 44 筆實際行情核對及現貨／CFD來源驗證。
+2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44896495817 的 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
+3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，QA Contract 已更新為 v1.5 DRAFT 並修正舊 SIM-1.2 引用。兩組母版 ID 集合、style/script 數量一致；DOM／視覺測試尚未執行。報告：simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md。
+4. TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄（不是 simulation-lab/ 子目錄）；本次已讀取並將更新本輪進度。11/23 fixture deterministic contract 已通過，但 6 筆 CFD 指數已改列待核實，情緒／FedWatch待刷新，HTML尚未組裝；不得引用先前不一致的「完成」標記。
 
 ---
 
 ## 版本紀錄
 - SIM-1.4 DRAFT（2026-11-21）：首次整併草案；不生效、不覆寫 SIM-1.3。完成條文對照、實證及使用者核准後，才轉為唯一有效規範。
+
+
+## 2026-11-21 實證更新（仍為 DRAFT）
+
+- GitHub Actions deterministic self-test：run 44896495817，conclusion success；11/23 fixture contract、44 欄計數、5+10 新聞、W47/W48 calendar projection、earnings schema／判讀等測試通過。
+- 11/23 fixture 的六筆 CFD index reference 已由原始數值改為顯示「待核實」，原始參考值另存 rejected_reference；總結／區域評論不再引用這六筆 CFD 漲跌。Workflow 另加 build-level guard，禁止數字型 CFD 指數被渲染為現貨收盤。
+- 仍未產生 11/23 審核版 HTML；未執行 Builder build、DOM 前後差異或 Playwright。市場現貨來源與 VIX／MOVE／CNN／FedWatch刷新仍是 review blockers。
+- QA Contract v1.5 DRAFT 已鎖定 SHA d4ff82cead612969d1afe7cfc1baf53170b1aed4；320px 已加入視覺測試程式與 workflow evidence 尺寸清單，但尚無瀏覽器測試證據。
