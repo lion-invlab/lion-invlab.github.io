@@ -5,8 +5,8 @@
     "VIX、MOVE、CNN Fear & Greed 與 FedWatch 必須於報告截稿前重新讀取並更新資料時間；目前仍是 2026-11-21 17:57:31 前的快照。"
   ],
   "data_audit": {
-    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；VIX、MOVE、CNN Fear & Greed、FedWatch仍須在報告截稿前刷新。",
-    "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
+    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；VIX、MOVE、CNN Fear & Greed、FedWatch仍須在報告截稿前刷新。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
+    "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
     "pending_items": [
       "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
       "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均為四星，不出現在週一五星回顧。週一回顧只呈現2筆五星經濟事件與1筆五星NVDA財報。",
@@ -23,11 +23,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "f678811cb41ca3695fc94807a2ed563ba4473555",
-  "report_sha256": "54eef4667ed15579fa545382515284c7e8e12164b61560e33eba05c981b403bf",
-  "build_commit_sha": "e84bacf9b89d3e8f7d0b6923967e30169d8791a3",
+  "report_git_blob_sha": "35bad797506fe62bb4944467604891042a9150a8",
+  "report_sha256": "4ef8985909dff0d467739260ed45d4c68a6a20e8cf7ae67c83878d24b3b92709",
+  "build_commit_sha": "fedeafd59a6785ae939a16481a401f98031725c8",
   "builder_blob_sha": "b232c8d8546e81292a2a182dde6365badc0abbdc",
-  "fixture_blob_sha": "86659926304a477dd99be705cf6d343f6a788b65",
+  "fixture_blob_sha": "7a4a672369a549c4f0e9a5f5ff29d9c8a1c2f533",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
   "qa_contract_blob_sha": "86c798ae22577c82b292748a864ffe10054ddc18",
@@ -45,7 +45,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "cae42eb86fe57426168adc738bc5bfc7ee90d3d2e726358d72cb9bd3016e5dc4",
-  "visual_evidence_sha256": "011994803383efabec5a23154c86c823fe7312094fb82b46e122f7a36be6b708",
+  "visual_evidence_sha256": "1f501c54fe7e37dd35aa686c90716cc26b1f2f7974e2e232bfce8486d37bdfa0",
   "viewports": [
     1440,
     768,
@@ -54,6 +54,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44918438735",
+  "workflow_run_id": "44918711593",
   "workflow_run_attempt": "1"
 }
