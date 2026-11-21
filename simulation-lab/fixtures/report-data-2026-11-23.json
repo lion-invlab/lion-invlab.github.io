@@ -1851,13 +1851,13 @@
       "note": "Investing.com 歷史資料頁 11/20 完整收盤列；依規則僅呈現單日漲跌幅。"
     },
     "XLRE": {
-      "name": "Investing.com HK｜Real Estate Select Sector SPDR ETF (XLRE) historical data",
-      "url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "name": "Yahoo Finance｜Real Estate Select Sector SPDR ETF (XLRE) Historical Data",
+      "url": "https://finance.yahoo.com/quote/XLRE/history/",
       "close": null,
       "change_display": "-0.98%",
       "data_date": "2026-11-20",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com HK 11/20歷史資料頁列42.46、-0.98%；歷史頁直接由核准標的頁的歷史資料連結進入。"
+      "note": "Investing.com HK對應歷史資料頁本輪無法讀取；改用Yahoo Finance XLRE明確日期歷史日線備援，僅顯示11/20單日漲跌幅。"
     },
     "XLY": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
