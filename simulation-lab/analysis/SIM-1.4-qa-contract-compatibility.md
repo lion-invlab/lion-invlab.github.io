@@ -13,7 +13,7 @@
 | 平日正式母版 | 母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html | 3785405e331b10ec6189002e480be2a1edbe20ef | Manifest SHA 相符 |
 | 週一 simulation baseline | simulation-lab/baseline/monday-mother-template.html | 1ac39d50b138e59f4aabf55fc68560ee277ba6f8 | Simulation Manifest SHA 相符 |
 | 平日 simulation baseline | simulation-lab/baseline/weekday-mother-template.html | f010ff118d7a5a2c1f6e834aa24f832766383c2b | Simulation Manifest SHA 相符 |
-| Simulation QA Contract | simulation-lab/baseline/mother-template-qa-contract.md | 331b4bdfe318462e15cae8ae4cd31c32815960d7 | 已讀取，內容有舊版引用 |
+| Simulation QA Contract | simulation-lab/baseline/mother-template-qa-contract.md | d4ff82cead612969d1afe7cfc1baf53170b1aed4 | 已更新為 v1.5 DRAFT，對齊 SIM-1.4 草案，尚未生效 |
 | Main QA 清單 | 母版專區/母版結構驗收清單.md | 74a7c90aaaeee497b7b2b134d9569aee615d95c0 | 已讀取，v1.3 |
 
 ## 2. 已確認一致的基準
@@ -26,14 +26,14 @@
 
 ## 3. QA Contract 的版本與引用矛盾
 
-1. Simulation QA Contract 檔案版本標示 v1.4（2026-11-15），但文件定位行仍稱它是 SIM-1.2 的唯一執行附件；目前唯一規則已是 SIM-1.3，故這是過時文字，需在 SIM-1.4 生效前更正。
+1. 原 v1.4（2026-11-15）契約將定位指向 SIM-1.2，已於 simulation branch 更新為 v1.5 DRAFT（2026-11-21），定位改為 SIM-1.4 候選附件且明確尚未生效。
 2. Contract 的 A2 以 simulation baseline SHA 作每日定位依據，這與 Simulation Manifest 相符；主規則必須明確規定使用 simulation_path／simulation_blob_sha，另記正式 mother path／blob_sha 作來源追溯，不可混用。
 3. Main 的母版結構驗收清單 v1.3 定位為 main TAC_WORK_RULES.md 的附件；它與 simulation contract 內容重疊，但不是 simulation branch 的執行契約。SIM-1.4 不應把 main v1.3 列為第二份每日 QA 清單。
 4. SIM-1.4 主文的附錄 D 應只引用 simulation contract 的固定 SHA；主文保留 Gate／責任／結果定義，不重複列出 selector 與卡片 DOM 詳節。
-5. Contract v1.4 A2.2 的共用 selector 含 #overview、#sentiment、#news-scan、#global-markets、#industry-bonds-fx-commodities、#calendar、#earnings、#sp500-earnings-health、#fed、#view；這些錨點應用於兩個 simulation SHA，不可用搜尋標題文字或 fallback selector。
+5. Contract v1.5 DRAFT A2.2 的共用 selector 含 #overview、#sentiment、#news-scan、#global-markets、#industry-bonds-fx-commodities、#calendar、#earnings、#sp500-earnings-health、#fed、#view；這些錨點應用於兩個 simulation SHA，不可用搜尋標題文字或 fallback selector。
 6. 週一專用 #last-week-calendar、#last-week-earnings 只允許在 Monday baseline；weekday baseline 必須不存在。週一上週收折預設 closed。
 7. 行事曆經濟卡的本週 .econ-toggle 與週一上週 .econ-event-toggle 是刻意不同的 selector；不可為了統一而改寫母版。
-8. Contract 對 360／390／412／768／1440 viewport 的視覺檢查及互動規則，應作為每次母版 SHA 不變時的既有 QA 基準；只有受影響的差異才定向重跑，但不能把未執行項目標為通過。
+8. Contract 對 320／360／390／412／768／1440 viewport 的視覺檢查及互動規則，應作為每次母版 SHA 不變時的既有 QA 基準；只有受影響的差異才定向重跑，但不能把未執行項目標為通過。
 
 ## 4. 結構統計
 
@@ -48,10 +48,10 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 - 本次確認 Manifest SHA 與兩組母版 SHA 登記一致；但尚未執行 DOM parser 全量驗證、style/script 內容 hash 比對、所有 anchor uniqueness 自動測試。
 - 尚未逐項核實兩份母版的 11 ETF selector／href 完全一致。
 - 尚未在瀏覽器完成 responsive／interaction 測試。
-- QA Contract v1.4 的結構規格可作唯一詳細清單，但在其 SIM-1.2 舊引用修正、Builder 不相容問題解決前，不可宣稱 SIM-1.4 的完整每日組裝流程已通過。
+- QA Contract v1.5 DRAFT 的結構規格可作唯一詳細清單候選，但在 Builder 不相容問題解決前，不可宣稱 SIM-1.4 的完整每日組裝流程已通過。
 
 ## 6. 結論
 
 **QA Contract：可作唯一詳細 QA 規格的候選，但目前需更正過時版本引用並完成實際 DOM／視覺驗證。**  
 **正式母版及 simulation baseline：SHA 登記一致，選版機制正確。**  
-**SIM-1.4 全流程：尚未通過；Builder compatibility 為目前主要阻擋。**
+**SIM-1.4 全流程：尚未通過；Builder compatibility 為目前主要阻擋。QA Contract v1.5 仍是 DRAFT，須待 SIM-1.4 核准後才可生效。**
