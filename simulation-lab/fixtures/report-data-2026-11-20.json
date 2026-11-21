@@ -767,8 +767,81 @@
   },
   "key_levels": {
     "baseline_date": "2026-11-19",
-    "source": "五檔現金指數OHLC由workflow專用collector擷取；S&P 500以Investing.com cash index人工核對；Dow、Nasdaq Composite、SOX與Russell 2000以Yahoo Finance現金指數歷史資料核對。CFD代理報價不得進入關鍵價位計算。",
-    "items": []
+    "trading_date": "2026-11-19",
+    "source": "Yahoo Finance cash-index historical OHLC pages; all five records use the same 2026-11-19 trading date. Pivot levels use P=(H+L+C)/3; S1=2P-H; S2=P-(H-L); R1=2P-L; R2=P+(H-L).",
+    "formula": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；S2=P−(H−L)；R1=2P−L；R2=P+(H−L)。所有輸入均為同一交易日現金指數 OHLC。",
+    "items": [
+      {
+        "key": "dow",
+        "name": "道瓊工業指數",
+        "trading_date": "2026-11-19",
+        "quote_type": "cash_index",
+        "ohlc": "O 50,432.32｜H 50,454.81｜L 49,091.92｜C 49,097.06",
+        "s2": "48,185.04",
+        "s1": "48,641.05",
+        "p": "49,547.93",
+        "r1": "50,003.94",
+        "r2": "50,910.82",
+        "source_name": "Yahoo Finance ^DJI Historical Data｜Nov 19, 2026 4:35:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EDJI/history/"
+      },
+      {
+        "key": "sp500",
+        "name": "S&P 500",
+        "trading_date": "2026-11-19",
+        "quote_type": "cash_index",
+        "ohlc": "O 7,389.26｜H 7,415.64｜L 7,173.63｜C 7,175.83",
+        "s2": "7,013.02",
+        "s1": "7,094.43",
+        "p": "7,255.03",
+        "r1": "7,336.44",
+        "r2": "7,497.04",
+        "source_name": "Yahoo Finance ^GSPC Historical Data｜Nov 19, 2026 4:35:54 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EGSPC/history/?p=%5Egspc"
+      },
+      {
+        "key": "nasdaq",
+        "name": "Nasdaq Composite",
+        "trading_date": "2026-11-19",
+        "quote_type": "cash_index",
+        "ohlc": "O 24,809.05｜H 24,939.62｜L 23,870.70｜C 23,879.20",
+        "s2": "23,160.92",
+        "s1": "23,520.06",
+        "p": "24,229.84",
+        "r1": "24,588.98",
+        "r2": "25,298.76",
+        "source_name": "Yahoo Finance ^IXIC Historical Data｜Nov 19, 2026 5:15:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5EIXIC/history/?frequency=1d"
+      },
+      {
+        "key": "sox",
+        "name": "費城半導體指數（SOX）",
+        "trading_date": "2026-11-19",
+        "quote_type": "cash_index",
+        "ohlc": "O 9,938.33｜H 10,109.88｜L 9,412.19｜C 9,419.72",
+        "s2": "8,949.57",
+        "s1": "9,184.65",
+        "p": "9,647.26",
+        "r1": "9,882.34",
+        "r2": "10,344.95",
+        "source_name": "Yahoo Finance ^SOX Historical Data｜Nov 19, 2026 5:15:59 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5ESOX/history/"
+      },
+      {
+        "key": "russell2000",
+        "name": "Russell 2000",
+        "trading_date": "2026-11-19",
+        "quote_type": "cash_index",
+        "ohlc": "O 2,720.26｜H 2,730.01｜L 2,653.92｜C 2,655.11",
+        "s2": "2,603.59",
+        "s1": "2,629.35",
+        "p": "2,679.68",
+        "r1": "2,705.44",
+        "r2": "2,755.77",
+        "source_name": "Yahoo Finance ^RUT Historical Data｜Nov 19, 2026 4:30:11 PM EST",
+        "url": "https://finance.yahoo.com/quote/%5ERUT/history/"
+      }
+    ]
   },
   "core_observation": {
     "heading": "獲利成長與驚喜品質",
