@@ -1648,3 +1648,12 @@
 - FedWatch 12/9：升息25bp 89.6%，維持10.4%；FactSet 11/20 Earnings Insight已納入，更新Q3盈利健康度。
 - 行事曆資料庫W47/W48仍incomplete且唯讀；W48五筆impact_judgment誤存URL，下一階段僅在simulation報告層覆蓋，不改main JSON。
 - 階段②完成；進入階段③前必須重新fetch最新SIM-1.3並完整閱讀第三步與HTML/QA條款。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜階段④新聞與分析預備稿
+- 新聞窗 11/20 12:00 +08 起，暫截至 11/21 08:55 +08。已直接核實5則Global Focus（Reuters全球拋售、Fed Cook；鉅亨能源許可改革、台灣外銷訂單、美國消費者信心）及10則Market Hot Headlines（Nvidia SEC會計調查、Anthropic IPO次日跌幅、Trump海外資料中心課稅、Bessent H200出口上限、SpaceX 440億美元GPU債務融資、Cursor中國AI模型、Ross Stores展望、Nvidia市值排名、Bitcoin跌破6萬、Alphabet加拿大債券發行），各項原文URL、發布時間與摘要已存Session State。
+- 已核對2026中期選舉：民主黨奪回眾議院與參議院控制權；此為政策背景，非單一市場賣壓原因。Reuters報導市場擔心AI投資與利率、資料中心建設政策；另有Trump海外資料中心課稅構想及參院能源許可法案（尚未成法）。
+- 完成週一版三大項總結草稿、Market Sentiment、盤面觀察重點與S&P 500 CFD關鍵價位。SPX OHLC 11/20：7150.39/7198.67/6882.66/6910.79；Pivot 6997.37、S1 6796.08、S2 6681.36、R1 7112.09、R2 7313.38（HTML顯示中文標籤）。
+- 補充更正行情：VIX 11/20歷史表 35.89（+26.20%，Investing CFD）；MOVE 11/20 106.31（+10.69%，Investing直接來源），取代先前EODData備援暫記；SPX/Russell Investing頁為CFD，差異以口徑標示；FedWatch 89.6%為升息至4.00–4.25機率，10.4%維持3.75–4.00。
+- 週一硬性要求須核對11/23亞洲市場實際開盤及盤中反應；目前是11/21週六，且新聞窗缺週末至11/23 05:25內容。因此階段④僅為預備稿，狀態「進行中」，不得宣稱完成或製作最終審核版。週一補查後再完成階段④並依A1-補充2重讀第五步。
+- 未修改main、正式母版、Manifest、QA契約或W47/W48 JSON。
