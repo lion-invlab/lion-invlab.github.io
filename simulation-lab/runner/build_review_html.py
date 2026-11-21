@@ -2109,9 +2109,17 @@ def main():
     title=earn.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["earnings"]["week_start"],data["earnings"]["week_end"],data["earnings"]["week_id"],report_cutoff))
     ep=unique(earn,".week-earnings-panels","earnings panels")
-    et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
-    if not et or not eg: raise ValueError("earnings calendar template missing")
-    earnings_template_html=str(et)  # freeze the approved card prototype before replacing list instances
+    earnings_mother_cards=ep.select("details.earnings-accordion")
+    et=next((c for c in earnings_mother_cards if c.select_one(".earnings-results-grid") is None),None)
+    eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
+    if not et or not eg: raise ValueError("upcoming earnings calendar mother prototype missing")
+    earnings_template_html=str(et)  # freeze the approved upcoming-card prototype
+    published_template=next((c for c in earnings_mother_cards if c.select_one(".earnings-results-grid")),None)
+    if monday:
+        retrospective_prototype=soup.select_one("#last-week-earnings .earnings-accordion-list details.earnings-accordion")
+        if retrospective_prototype is not None and retrospective_prototype.select_one(".earnings-results-grid") is not None:
+            published_template=retrospective_prototype
+    published_template_html=str(published_template) if published_template is not None else None
     earnings_groups=ep.select(":scope > .calendar-status-group")
     if len(earnings_groups)!=3: raise ValueError(f"earnings calendar must retain exactly three mother status groups; found {len(earnings_groups)}")
     for group in earnings_groups:
@@ -2144,138 +2152,18 @@ def main():
         for old_card in listing.find_all("details",class_="earnings-accordion",recursive=False):
             old_card.decompose()
         for x in items:
-            card=BeautifulSoup(earnings_template_html,"html.parser").select_one("details.earnings-accordion")
-            day,clock=dateparts(x.get("date",""))
-            if not x.get("time_known",False): clock="時間未確認"
-            session_label=("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")
-            clock_label=("電話會議 "+clock if x.get("time_type")=="call_time" else clock)
-            fields=[(".earnings-us-date",day),(".earnings-tw-date",session_label+"；"+clock_label),(".earnings-company-name",x.get("company","")),(".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),(".earnings-stars",startext(x))]
-            for sel,val in fields:
-                node=card.select_one(sel)
-                if node: set_text(node,val)
-            # Published and upcoming earnings share one native card shell.
-            # Released cards use the approved EPS/revenue side-by-side layout.
-            details=card.select_one(".earnings-accordion-details")
-            if details is None: raise ValueError("earnings card detail container missing")
             if earnings_groupkey(x) == "published":
-                grid=soup.new_tag("div", attrs={"class":["earnings-results-grid"]})
-                for label, actual_value, estimate, actual_display, estimate_display, comparison in [
-                    ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
-                    ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
-                ]:
-                    state = comparison if comparison in ("beat","miss","inline","pending") else "pending"
-                    metric_key = "eps" if label == "EPS" else "revenue"
-                    status_text = earnings_status_label(x, metric_key, state)
-                    # The single TAC engine has already persisted the numerical comparison; render its result only.
-                    result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
-                    h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
-                    for caption, val, formatted in [("實際",actual_value,actual_display),("預期",estimate,estimate_display)]:
-                        line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
-                        lab=soup.new_tag("span"); lab.string=caption
-                        strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "未取得")
-                        line.append(lab); line.append(strong); result.append(line)
-                    status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
-                    evidence_metric = "eps" if label == "EPS" else "revenue"
-                    evidence_label = consensus_evidence_label(x, evidence_metric)
-                    if evidence_label:
-                        evidence=soup.new_tag("div", attrs={"class":["earnings-actual-note","consensus-evidence-tier"]})
-                        evidence.string=evidence_label
-                        result.append(evidence)
-                    if label=="EPS" and state=="pending" and x.get("eps_basis"):
-                        note=soup.new_tag("div", attrs={"class":["earnings-actual-note"]}); note.string="EPS口徑："+str(x.get("eps_basis")); result.append(note)
-                    grid.append(result)
-                details.clear()
-                details.append(grid)
-                detail_specs=[
-                    ("財報判讀", earnings_commentary(x)),
-                    ("股價當日表現", x.get("price_reaction") or "股價反應待核實。"),
-                ]
-                for field_label, field_value in detail_specs:
-                    field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
-                    label_node=soup.new_tag("label"); label_node.string=field_label
-                    value_node=soup.new_tag("div", attrs={"class":["earnings-detail-value"]})
-                    if field_label == "股價當日表現" and x.get("price_reaction_source_url") and x.get("price_reaction"):
-                        value_node.append(soup.new_string(str(field_value) + "｜"))
-                        value_node.append(source_link(x["price_reaction_source_url"], x.get("price_reaction_source") or "行情來源"))
-                    else:
-                        value_node.string=str(field_value)
-                    field.append(label_node); field.append(value_node); details.append(field)
-                source_field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
-                source_label=soup.new_tag("label"); source_label.string="來源"
-                source_value=soup.new_tag("div", attrs={"class":["earnings-detail-value"]})
-                if x.get("source_url"):
-                    source_value.append(source_link(x["source_url"], x.get("source_name") or "實際財報來源"))
-                else:
-                    source_value.string="實際財報來源待核實"
-                status_source = x.get("report_layer_status_source") or {}
-                if status_source.get("url"):
-                    source_value.append("｜公告狀態參考：")
-                    source_value.append(source_link(status_source["url"], status_source.get("name") or "第三方發布報導"))
-                    source_value.append("（僅確認報導已發布，不作實際財報數值來源）")
-                consensus_url = x.get("consensus_source_url")
-                if consensus_url and consensus_url != x.get("source_url"):
-                    source_value.append("｜公告前共識：")
-                    source_value.append(source_link(consensus_url, x.get("consensus_source_name") or "共識來源"))
-                    observed = x.get("consensus_observed_at")
-                    if observed:
-                        observed_tw = datetime.fromisoformat(str(observed).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%m/%d %H:%M")
-                        counts = []
-                        if x.get("eps_analyst_count") is not None: counts.append(f"EPS {x['eps_analyst_count']}位")
-                        if x.get("revenue_analyst_count") is not None: counts.append(f"營收 {x['revenue_analyst_count']}位")
-                        count_text = "；" + "／".join(counts) if counts else ""
-                        source_value.append(f"（公告前快照 {observed_tw} 台灣時間{count_text}）")
-                source_field.append(source_label); source_field.append(source_value); details.append(source_field)
+                grid=details.select_one(".earnings-results-grid")
+                update_actual_results_grid(grid,x)
+                update_published_earnings_detail_fields(details,x,clock)
             else:
-                # Upcoming cards retain the existing forecast disclosure, not a false actual result.
+                # Keep the selected mother prototype's existing detail-field
+                # wrappers; the Monday shell has one slot and the weekday shell
+                # has five. All forecast/source content is written into those slots.
                 timing_value=("時間待核實" if not x.get("time_known",False) else clock)
-                session_label={"before_market":"盤前","after_market":"盤後"}.get(x.get("session"),"時段待核實")
-                eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "預期資料尚未取得")
-                rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "預期資料尚未取得")
-                source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
-                source_value.string=x.get("source_name") or "來源未取得"
-                if (x.get("status") or x.get("status_in_db")) == "postponed":
-                    schedule_text=f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
-                elif x.get("time_type") == "call_time":
-                    schedule_text=f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
-                else:
-                    schedule_text=f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
-                eps_count=x.get("eps_analyst_count")
-                revenue_count=x.get("revenue_analyst_count")
-                if eps_count is not None: eps_est += f"（{eps_count} 位分析師）"
-                else: eps_est += "（分析師數未提供）"
-                if revenue_count is not None: rev_est += f"（{revenue_count} 位分析師）"
-                else: rev_est += "（分析師數未提供）"
-                if x.get("consensus_source_url"):
-                    consensus_source_value=soup.new_tag("a",href=x["consensus_source_url"],target="_blank",rel="noopener")
-                    consensus_source_value.string=x.get("consensus_source_name") or "共識來源"
-                else:
-                    consensus_source_value=soup.new_tag("span")
-                    consensus_source_value.string="平台共識參考"
-                field_specs=[
-                    ("公布時段／狀態",schedule_text),
-                    ("EPS 預估",eps_est),
-                    ("EPS 口徑",x.get("eps_basis_display") or "平台 EPS 預期口徑（細項未完整揭露）"),
-                    ("EPS 共識證據",x.get("eps_evidence_label") or "平台共識參考"),
-                    ("共識觀測時間", datetime.fromisoformat(x["consensus_observed_at"].replace("Z","+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M") + " 台灣時間" if x.get("consensus_observed_at") else "觀測時間未提供"),
-                    ("營收預估",rev_est),
-                    ("營收口徑",x.get("revenue_basis_display") or "平台 Revenue 預期口徑（細項未完整揭露）"),
-                    ("營收共識證據",x.get("revenue_evidence_label") or "平台共識參考"),
-                    ("共識來源",consensus_source_value),
-                    ("資料來源",source_value),
-                ]
-                prototype=details.select_one(".earnings-detail-field")
-                if prototype is None: raise ValueError("earnings detail field prototype missing")
-                details.clear()
-                for field_label,field_value in field_specs:
-                    field=BeautifulSoup(str(prototype),"html.parser").select_one(".earnings-detail-field")
-                    field["class"]=["earnings-detail-field","wide"]
-                    label_node=field.select_one("label"); value_node=field.select_one(".earnings-detail-value")
-                    if label_node: set_text(label_node,field_label)
-                    if value_node:
-                        value_node.clear()
-                        if hasattr(field_value,"name"): value_node.append(field_value)
-                        else: set_text(value_node,field_value)
-                    details.append(field)
+                update_upcoming_earnings_detail_fields(
+                    details,x,day,clock,session_label,timing_value
+                )
             listing.append(card)
         ep.append(group)
     # Fail closed if any already-released company is missing from the published accordion
@@ -2397,51 +2285,8 @@ def main():
             details = card.select_one(".earnings-accordion-details")
             if details:
                 grid = details.select_one(".earnings-results-grid")
-                if grid:
-                    grid.clear()
-                    for label, actual_value, estimate, actual_display, estimate_display, comparison in [
-                        ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
-                        ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
-                    ]:
-                        state = comparison if comparison in ("beat","miss","inline","pending") else "pending"
-                        metric_key = "eps" if label == "EPS" else "revenue"
-                        status_text = earnings_status_label(x, metric_key, state)
-                        # The single TAC engine has already persisted the numerical comparison; render its result only.
-                        result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
-                        h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
-                        for caption, val, formatted in [("實際", actual_value, actual_display), ("預期", estimate, estimate_display)]:
-                            line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
-                            lab=soup.new_tag("span"); lab.string=caption
-                            strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "未取得")
-                            line.append(lab); line.append(strong); result.append(line)
-                        status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
-                        evidence_metric = "eps" if label == "EPS" else "revenue"
-                        evidence_label = consensus_evidence_label(x, evidence_metric)
-                        if evidence_label:
-                            evidence=soup.new_tag("div", attrs={"class":["earnings-actual-note","consensus-evidence-tier"]})
-                            evidence.string=evidence_label
-                            result.append(evidence)
-                        if label=="EPS" and state=="pending" and x.get("eps_basis"):
-                            note=soup.new_tag("div", attrs={"class":["earnings-actual-note"]})
-                            note.string="EPS口徑："+str(x.get("eps_basis"))
-                            result.append(note)
-                        grid.append(result)
-                for field in details.select(".earnings-detail-field"):
-                    label = field.select_one("label"); value = field.select_one(".earnings-detail-value")
-                    if not label or not value: continue
-                    name = label.get_text(strip=True)
-                    if name in ("財報判讀","財報判讀與股價反應"):
-                        set_text(value, earnings_commentary(x)+"；股價反應："+str(x.get("price_reaction") or "待核實"))
-                    elif name in ("公布時段","股價當日表現"):
-                        value.clear()
-                        value.append("公布時段："+clock+"；股價反應："+str(x.get("price_reaction") or "待核實"))
-                        if x.get("price_reaction_source_url"):
-                            value.append("；")
-                            value.append(source_link(x["price_reaction_source_url"], x.get("price_reaction_source") or "股價來源"))
-                    elif name in ("來源","資料來源"):
-                        value.clear()
-                        if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
-                        else: value.append("來源未取得")
+                update_actual_results_grid(grid, x)
+                update_published_earnings_detail_fields(details, x, clock)
             le_list.append(card)
         if not le_list.select("details.earnings-accordion"): raise ValueError("W45 has no verified five-star published earnings")
         le_range=f"{last_earn.get('week_start','')[5:7]}/{last_earn.get('week_start','')[8:10]}～{last_earn.get('week_end','')[5:7]}/{last_earn.get('week_end','')[8:10]}"
