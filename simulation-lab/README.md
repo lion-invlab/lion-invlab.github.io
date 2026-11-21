@@ -109,3 +109,9 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - `investing_earnings_probe.py` 已改為第二順位 source level 2；blob SHA `120eee8e41e8be288da4ba9500028268f2ef0bdd`。
 - 新增首筆採用／EPS Revenue 分開 fallback／財報期間不符才遞補測試；新增無 PIT／缺方法論欄位仍可採用的判讀測試。測試執行結果待本次 CI build。
 - 本次只做 SIM-1.4 simulation 候選規則與程式驗收，不修改 W48 JSON／Fixture／財報小卡；不修改 main 正式首頁或正式資料。
+
+
+## 2026-11-22｜SIM-1.4 consensus selector test rerun
+
+- 首輪 CI 暴露兩個舊測試仍把 optional `basis_code` 與 `raw_response_ref` 當作採用必要欄位；程式已按 SIM-1.4 移除阻擋條件，測試預期同步修正為可保留 `pre_release_eligible` 狀態。
+- 更新 Yahoo 第一順位測試，明確驗證無 provider data_as_of／EPS basis 仍可用；更新缺 raw archive／basis 測試名稱與預期。未處理 W48。
