@@ -85,3 +85,14 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - 2026-11-23 Monday run `44954756293` 通過，但使用 Builder 舊 SHA `60d778c39ffe48140e99e0dad3579ce9f0b33945`。依 SIM-1.4 §8.1，不得與新 Builder 的 Weekday PASS 拼成同版雙母版證據。
 - 現以完全相同的最新版 Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758` 重跑 2026-11-23 Monday fixture；固定同一 Manifest／QA Contract／active rules／candidate rules SHA。只有本次 Monday PASS 後，才可標記雙母版候選 Builder 技術驗證完成。
 - 本次仍只寫 simulation branch；不更新 main preview、不部署 Pages、不修改正式首頁。
+
+
+## 2026-11-22｜11/23 手機版三項問題修正驗收
+
+- 使用者截圖指出兩項 mobile UI：上週財報 EPS／營收卡數字被拆行、Fed 官員行程區塊窄欄直排。根因已定位：週一母版既有 mobile CSS 將 earnings metric strong 任意換行；Fed 官員行程容器作為 .fc-fomc grid 第五個 child 未指定跨兩欄，落入單欄自動放置。
+- 已在既有 CSS 規則內直接修正（不新增 style block、不新增 DOM）：earnings value 使用 nowrap／keep-all 並保留兩卡並列；Fed agenda 容器與 list 跨兩欄，事件列維持 94px 日期欄 + minmax(0,1fr) 內容欄。母版 blob SHA `e16cc6df649dcee7e09126b4c044479661e399e9`。
+- Manifest 更新 Monday simulation SHA，blob `cc37c33c17f0bc1891b86133499e446999a894f8`。
+- 新增回歸測試斷言 mobile metric nowrap、Fed agenda full span 與 94px event grid；test blob `ece0ab4a6f7382313d65ca417f5486e07a0df70a`。
+- QA Contract 更新為 v1.15 DRAFT，blob `729a4de1f4d7f7dafa0ced7fe3ae95b329f98095`，新增 320/360/390/412px 真實視覺檢查要求。
+- W48 財報資料另行查核：main W48 JSON 11 家，EPS／Revenue estimate 欄位全為 null，且 11 家都沒有 Yahoo Finance 查核紀錄；Investing.com Forecast 觀測值雖有，但全部被記為 missing_required_fields，未採用。這違反 SIM-1.4 §5.2 所定 Yahoo Finance Average Estimate 第一順位，且未能證明該流程已執行。不可把缺少 GAAP／Adjusted 欄位本身當作拒絕可比較平均預期的理由。已查得 Yahoo Finance analysis pages 存在多家公司 Current Qtr (Oct 2026) EPS／Revenue Average Estimate，但必須逐一確認該季度與各財報事件 reporting_period 對應後才可寫入；未核實者不得補猜。
+- 下一步先跑 11/23 Monday 完整 build／六視窗 QA，核對兩個 mobile 問題實際截圖；W48 另做 11 家 Yahoo 優先、EPS／Revenue 分開選源的來源稽核與 report-layer overlay，不修改 main W48 JSON。
