@@ -68,3 +68,12 @@
 - 狀態：`QA_PASSED`，但 `review_ready=false`。VIX、MOVE、CNN Fear & Greed、FedWatch 仍待 2026-11-23 05:25 台灣時間截稿前刷新；不把 QA_PASSED 說成 REVIEW_READY。
 - 六 viewport 1440／768／412／390／360／320 通過；Fed 官員行程、FedWatch、上週經濟及財報行事曆均保留。
 - 本檔、程式、審核版及證據均留在 simulation branch；main／正式首頁未修改。
+
+
+## 2026-11-21｜能源商品名稱欄位擠壓修正
+
+- 使用者提供 11/23 審核版手機截圖，指出 WTI／Brent 商品名稱後方不應附加合約月份，避免擠壓報價欄。
+- Builder 修正：商品列名稱連結只顯示母版原有商品名稱；合約代碼／月份留在既有 `.tab-panel-meta` 來源說明。未改母版、CSS、DOM 結構或價格資料。
+- Builder commit `168c389873dc91a67212237446cfc6b8320ee809`；Builder blob `f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`。
+- Regression test commit `b583fda68a6724d75514b9677e37302d4e5e128a`；CI run `44913183956` success（compile + deterministic tests）。
+- 現在重新執行 2026-11-23 Monday full build，以驗收實際 HTML、DOM、互動及桌面／手機視覺；未完成前不宣稱畫面修正已交付。
