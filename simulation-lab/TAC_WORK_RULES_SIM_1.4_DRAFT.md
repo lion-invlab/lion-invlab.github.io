@@ -677,3 +677,11 @@
 
 - run 44906001227 的來源 helper 回歸測試失敗，原因是測試仍期待舊尾端文字被刪除；最新規則是保留全部既有文字節點與 anchor，故實際輸出應保留「舊尾註」尾端文字。已修正測試預期值，不再要求移除尾端節點。
 - 最新 quote-type regression test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`。本次修正仍需重新跑 deterministic tests 及完整 build。
+
+
+## 2026-11-21｜空白來源槽位的非破壞式補入（待最新 CI）
+
+- run 44906103379 的 deterministic tests 已通過，HTML assemble 階段發現部分母版 `.source` 容器只有既有 anchor，沒有直接文字節點。fail-closed helper 正確拒絕破壞式覆寫，但原先沒有處理「空白文字槽位、子元素仍存在」的情況。
+- 最新 helper 在沒有直接文字節點時，於容器最前方新增說明文字節點，保留所有既有 anchor／href／其他子元素；若已有文字節點則只替換第一個，不刪除其餘文字節點。
+- 新增「只有既有來源 anchor」的回歸案例，驗證說明文字插入後連結仍保留。最新 Builder SHA：`76baf52b7f6a0c9de619934a5bf0fb62eaca89fa`；DOM regression test SHA：`61a969a8504aa7e219ac3f98d2614bba7f92cf81`；quote-type test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
+- 此修正尚未經新一輪 build；必須確認 source-only／source-with-link／empty-source-with-link 三種情況皆通過，然後才可繼續後續 DOM／視覺 Gate。
