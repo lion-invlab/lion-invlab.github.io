@@ -3320,3 +3320,17 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Build trigger commits：weekday `b8f59dd01cfc6c5793d8cd263f45411bc82366d2`；Monday `2e3cc4a461a4d99f3b75bec27b1c01c33d1bded8`。
 - 最新 workflow／fixture 已回讀確認；新 build run 結果尚未取得。最新 preview／QA sidecar 尚未更新為本輪輸出，不可宣稱雙母版通過。
 - 下一步：取得兩個 run 的最新輸出與 QA sidecar，核對相同 Builder、Manifest、QA Contract、active rules、candidate rules SHA；若工具無法讀取 Actions run 狀態，記錄為外部執行狀態不可驗證，不可推測成功。
+
+
+## 最新狀態錨點｜2026-11-22｜SIM-1.3 對齊與雙母版 Gate 修復
+
+- 正式有效規則已重新回讀確認：`simulation-lab/TAC_WORK_RULES_SIM.md`，版本 SIM-1.3，blob SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`。SIM-1.4 DRAFT（blob `4e695837d9d9eaed161e70e11c127725c8fa25f1`）未獲核准，不得作為有效規則。
+- 11/23 run `44946255238` 失敗根因：workflow 內容 Gate 的 Python regex 多寫一層反斜線，導致已含 11/23、22:45 及 11/25、21:30 的風險觀察被誤判缺少日期／時間。這是 Gate 實作錯誤，不是 Fixture 缺資料。
+- 11/20 run `44946248226` 失敗根因：weekday 母版總結區有 5 個既有文字槽位，Builder 嚴格要求 `summary_points` 數量等於母版槽位；Fixture 被錯誤改成 3 點，造成 `summary_points count 3 does not match mother template slots 5`。依 SIM-1.3 G1，平日總結不應強制套用週一三大項格式；已從修改前有效 Fixture 恢復原本 5 點，未改母版或 Builder。
+- Workflow 修正：
+  - `0b64be2fd7003aea9538f32444f138798a4cfd82`：修正日期／時間、空白正規化及百分比檢查 regex 的過度跳脫。
+  - `03df2ff28862d25e11cf82225f64c7c34305b995`：Gate 改以 SIM-1.3 G1 為準；週一才強制「上週主軸／風險觀察／操作建議」及其必要條件，平日不套用週一專屬標籤與條件。
+- 11/20 Fixture 已恢復 5 個 weekday 母版槽位，commit `cb62ae7c0909ddaa1f5ce699b950ee9cd8be83a7`，blob SHA `cb27af1cffeafe0cc2bed88e2d297a8640ae168d`；來源為修改前 Fixture（commit `d845544dede9bf8503563973d05608478df27472`）。
+- 目前最新對應重跑：Monday run `44946465633`、weekday run `44946505385`；截至本錨點仍在執行中。舊 run 的失敗不得當作最新修復結果；舊 preview／QA sidecar 也不得當作新版本通過證據。
+- 只在 simulation branch 修改 workflow 與 11/20 Fixture；main、正式首頁、正式母版、Manifest、正式行事曆 JSON 均未修改。
+- 下一步：讀取兩個最新 run 的完成狀態及失敗日誌；成功後回讀新 preview／QA sidecar，核對 active_rules、Builder、Manifest、QA Contract SHA 及輸出 SHA。未取得雙母版有效 QA 前，不得交付「完成」或發布 main。
