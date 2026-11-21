@@ -2918,3 +2918,20 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
   - CAC 40 7,927.75（-1.89%），https://hk.investing.com/indices/france-40-historical-data（turn180479view11）。
   - STOXX Europe 600 625.65（-2.00%），https://hk.investing.com/indices/stoxx-600-historical-data（turn180479view12；頁面標示CFD）。
 - 上述17項均已讀到指定日期歷史列，第一輪鎖定；不再重抓，除非後續出現具體身分／日期／口徑錯誤證據。第二步尚未結案，ETF、債券、外匯、商品及風險情緒仍待逐項處理。
+
+
+### 2026-11-21｜重製第二步第一輪：11檔產業ETF歷史資料列鎖定
+- 直接開啟 Investing.com 香港站各ETF歷史資料頁，逐一讀取2026年11月20日列；依SIM-1.3僅呈現百分比，排序如下：
+  - XLP +0.67%（turn713428view5）https://hk.investing.com/etfs/spdr---consumer-staples-historical-data
+  - XLV -0.12%（turn713428view7）https://hk.investing.com/etfs/spdr---health-care-historical-data
+  - XLE -0.62%（turn713428view0）https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data
+  - XLU -0.74%（turn713428view6）https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data
+  - XLRE -0.98%（turn283982view0）https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data
+  - XLF -1.82%（turn713428view1）https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data
+  - XLB -2.19%（turn713428view8）https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data
+  - XLC -2.66%（turn713428view10）https://hk.investing.com/etfs/communication-services-select-spdr-historical-data
+  - XLY -2.95%（turn713428view4）https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data
+  - XLI -3.09%（turn713428view3）https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data
+  - XLK -7.27%（turn713428view2）https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data
+- 11/11項均讀到2026/11/20歷史列，已鎖定。注意：XLI、XLY、XLB、XLC等值與舊工作稿不同，以本輪實際歷史列為準；舊值不得沿用。
+- 第二步仍未結案；債券3項、FX6項、商品4項、風險／情緒3項及獨立FedWatch尚待查核。
