@@ -3446,3 +3446,19 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 依 active SIM-1.3 第 0 節及第六步審核版例外通道，使用者本次明確要求完成審核版，故已將唯一 11/23 QA-passed HTML 寫入 main `preview/2026-11-23-simulation.html`。Commit `8654fde50761404ec63a56178f224c4dbf41eff5`，blob SHA `7b04a02edb35a3f90298394faeeb73c204f326a8`；來源為 simulation branch 同 blob。Commit API 確認只改此一個 preview HTML，沒有修改 `index.html`、母版、Manifest 或正式行事曆。
 - Pages workflow run `44955528272`（Deploy site and TAC previews）completed／success。預定 Pages URL：`https://lion-invlab.github.io/preview/2026-11-23-simulation.html`。本輪 web 讀取工具對網站回應兩次均回 Internal Error，無法獨立實測頁面實際載入；因此記錄為「GitHub Pages 部署 workflow 成功；Pages 實際頁面載入未能由本工具驗證」，不得宣稱已目視確認線上畫面。
 - SIM-1.4 仍為 DRAFT；兩份 sidecar 均記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。雙母版候選 Builder 技術驗證已完成，尚待使用者明確核准 SIM-1.4 主文及 Builder 唯一路徑／SHA。正式首頁 `index.html` 未修改。
+
+
+---
+
+# 最新狀態錨點｜2026-11-22｜SIM-1.4 11/23 Monday 完整端到端驗收通過
+
+- **最新完整驗收：** GitHub Actions run `44962000593` completed／success，head commit `a8661b6e0698134da5413e35f8b0210a7e0578b0`。這是 SIM-1.4 生效後、修正規則版本驗證器後的完整新 run；不得引用前一輪失敗 run 作最終證據。
+- **11/23 審核版 HTML：** `preview/2026-11-23-simulation.html`，Git blob SHA `fcc58f8bfd82427405160c110519db4629318dc7`。
+- **QA sidecar：** `preview/2026-11-23-simulation.qa.json`，blob SHA `4b626fc85651c0840f4d69eb4706c24c63282dc7`；狀態 `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`；sidecar 綁定 HTML blob SHA 與實際 HTML 完全一致。
+- **本輪所有 Gate：** deterministic self-tests、Investing.com earnings parser、PIT snapshot store、Playwright 導覽／收折／來源連結、1440／768／412／390／360／320 六視窗視覺比對、母版 DOM 結構、獨立 provenance、日期／行事曆筆數／44 項行情／新聞結構驗證，全部 PASS。11/23 已公布財報 EPS／Revenue 手機雙欄視覺驗收通過；Fed 官員行程母版 prototype／欄位結構未被 Builder 改寫。
+- **Builder 候選：** `simulation-lab/runner/build_review_html.py` SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`。本次獨立驗證器 `validate_review_artifact.py` SHA `2cf1ccdeaaa1254386bfb32a4050960c5b8ac828`。已修正驗證器仍要求 Active=SIM-1.3／Candidate=SIM-1.4 DRAFT 的過期判斷；現在驗證 Active SIM-1.4 正式生效，舊 Draft 為 SUPERSEDED／不可執行。
+- **本次 provenance 鎖定：** SIM-1.4 `e18865fc31a88f98e44cb1f411817e61406a34c1`；封存 Draft `0d64eb9b16202d3e9e6d86a1aa87b7105843d571`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Manifest `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；Fixture `948b504a0fba8ba45653cacc0a43cff5377e91a7`。
+- **資料審核注意：** 行情基準日 2026-11-20；週末四項 VIX／MOVE／CNN Fear & Greed／FedWatch 沿用使用者確認的既有快照並顯示實際時間。QA sidecar 明列新聞封口時間、W47／W48 report-layer overlay、W48 財報 PIT 共識不足項目待核實；不得把待核實資料當成已驗證共識。正式行事曆 JSON 嚴格唯讀。
+- **狀態邊界：** 本次為 2026-11-23 Monday 情境完整 PASS，僅能將該次審核版標示 REVIEW_READY。Builder 尚未取得使用者對精確 SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8` 的正式核准；不得自行標示 Builder 已獲正式核准，也不得因此修改 main／正式首頁。
+- **隔離範圍：** 本次 workflow checkout simulation branch only；main 僅作行事曆讀取來源，`main_write_scope=read-only`、`production_deploy=forbidden`。本次輸出只寫 simulation branch；未修改 main、正式母版、正式 Manifest、正式首頁或正式行事曆 JSON，未部署 Pages。
+- **下一步：** 將 11/23 審核版及 QA 證據交使用者檢視；另需依 SIM-1.4 §8.1 完成 Weekday 情境同 SHA 回歸，才能宣稱雙母版技術驗證完成。Builder 精確 SHA 仍待使用者核准；正式首頁發布另需獨立明確授權。
