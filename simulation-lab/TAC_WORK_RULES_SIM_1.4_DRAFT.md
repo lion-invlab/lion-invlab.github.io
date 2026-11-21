@@ -719,7 +719,7 @@
 - 先前 run 44906329420 的技術組裝、母版 DOM、互動及六視窗比較已通過，但實際 screenshot 中繁體中文字形呈方框；因此該輪視覺結果不可作最終視覺驗收，且推送審核版時遇到 simulation branch concurrent push race，未寫回 preview。
 - QA Contract 更新至 v1.8 DRAFT，要求 CI 安裝 Noto CJK、確認 `fc-match "Noto Sans TC"` 解析至 Noto Sans CJK，Playwright 等待 `document.fonts.ready` 並用 `document.fonts.check` 驗證繁中字型可用；缺字即視覺 QA 失敗。
 - Workflow 已加入 `fonts-noto-cjk` 安裝與 fontconfig 檢查；`visual_regression.mjs` 已加入字型檢查及 font audit 輸出。
-- QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；DOM regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`dc115b0638f3f6772eac7b28ca32a8fed867b020`；visual regression SHA：`d9712593f49dc712d248d262a0e6bff92fdd4720`；workflow SHA：`c3a86f1166206768fb95420ab689d13e4fa8b8aa`。
+- QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；DOM regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`dc115b0638f3f6772eac7b28ca32a8fed867b020`；visual regression SHA：`d9712593f49dc712d248d262a0e6bff92fdd4720`；workflow SHA：`eb95ab66db37dded42d49d3e82386223b6d27265`。
 - 此版尚未執行完整 Monday／Weekday build；字型 Gate 與新版本 provenance 必須以最新 build commit 驗證。SIM-1.4 仍是 DRAFT，Builder 未獲唯一入口核准。
 
 
@@ -727,5 +727,13 @@
 
 - run 44906661785 確認 `fonts-noto-cjk` 已安裝，但 Ubuntu fontconfig 的 `Noto Sans TC` family name 未自動 alias，`fc-match "Noto Sans TC"` 回退為 DejaVu Sans，因此字型 Gate 正確失敗。
 - Workflow 現改為先確認 `Noto Sans CJK TC` 字型存在，再寫入 user-level fontconfig alias：`Noto Sans TC → Noto Sans CJK TC`，重建 cache 後再次驗證 `fc-match`。Playwright 仍需通過 `document.fonts.check` 才可截圖。
-- 最新 workflow SHA：`c3a86f1166206768fb95420ab689d13e4fa8b8aa`；QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`。
+- 最新 workflow SHA：`eb95ab66db37dded42d49d3e82386223b6d27265`；QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`。
 - 本次 alias 修正尚未經 CI 驗證；在 fontconfig、Playwright 字型檢查及六視窗截圖全部確認正常前，不得宣稱視覺 QA 通過。
+
+
+## 2026-11-21｜Weekday 母版檔名映射修正（待重跑）
+
+- run 44906846280 的 Weekday fixture 已完成 HTML assemble、Playwright interaction 與六視窗視覺／字型測試；母版 DOM 驗收未能開始，因 workflow 將 `TEMPLATE_KEY=weekdays` 直接拼成 `weekdays-mother-template.html`，但 manifest materializer 實際輸出檔名是單數 `weekday-mother-template.html`。
+- 已在 build 與 qa-only 兩條路徑新增明確映射：`monday → monday-mother-template.html`；`weekdays → weekday-mother-template.html`，並以 `MOTHER_FILE` 傳給 DOM validator。這是路徑錯誤修正，不是 DOM mismatch 通過證據。
+- 最新 workflow SHA：`eb95ab66db37dded42d49d3e82386223b6d27265`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
+- Weekday 母版必須在此映射修正後重新跑完整流程；不得沿用 44906846280 的失敗 run 當成通過。
