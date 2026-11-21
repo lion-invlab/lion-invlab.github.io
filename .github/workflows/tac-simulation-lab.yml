@@ -39,10 +39,11 @@ permissions:
   contents: write
 
 concurrency:
-  # Each push is isolated by commit SHA; a follow-up smoke run must not cancel
-  # an explicitly tagged date-matched build/QA run. Manual runs serialize by report date.
-  group: tac-simulation-lab-${{ github.event_name == 'workflow_dispatch' && inputs.report_date || github.sha }}
-  cancel-in-progress: true
+  # One writer at a time on the simulation branch. Builds persist date-specific
+  # review HTML/QA sidecars to the same branch; SHA-scoped concurrency allowed
+  # same-date runs to race and overwrite/conflict during persistence.
+  group: tac-simulation-lab-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   isolated-smoke:
