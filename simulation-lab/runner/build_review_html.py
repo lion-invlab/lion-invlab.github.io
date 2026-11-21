@@ -2109,12 +2109,18 @@ def main():
         # retrospective summary/toggle shell from the Monday mother.
         lw_summary_template = lw_template.select_one("summary")
         if lw_summary_template is None: raise ValueError("Monday retrospective summary prototype missing")
-        lw_list.clear()
+        for old_card in lw_list.find_all("details", class_="econ-event", recursive=False):
+            old_card.decompose()
         for x in last_econ.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
-            card = BeautifulSoup(str(template), "html.parser").select_one("details.econ-event")
-            summary_clone = BeautifulSoup(str(lw_summary_template), "html.parser").select_one("summary")
-            card.select_one("summary").replace_with(summary_clone)
+            card = BeautifulSoup(template_html, "html.parser").find("details", class_="econ-event")
+            if card is None:
+                raise ValueError("Frozen approved five-zone economic prototype could not be parsed for Monday retrospective")
+            summary_clone = BeautifulSoup(str(lw_summary_template), "html.parser").find("summary")
+            card_summary = card.find("summary", recursive=False)
+            if summary_clone is None or card_summary is None:
+                raise ValueError("Monday retrospective economic summary prototype is incomplete")
+            card_summary.replace_with(summary_clone)
             day, clock = dateparts(x.get("date", ""))
             if not x.get("time_known", False): clock = "時間未確認"
             for sel, val in [(".econ-date", day), (".econ-time", clock), (".econ-country", x.get("region", "")), (".econ-name", x.get("name", "")), (".econ-stars", startext(x))]:
@@ -2141,7 +2147,8 @@ def main():
         le_list = unique(le_details, ".earnings-accordion-list", "last-week earnings list")
         le_template = le_list.select_one("details.earnings-accordion")
         if le_template is None: raise ValueError("Monday mother last-week earnings card template missing")
-        le_list.clear()
+        for old_card in le_list.find_all("details", class_="earnings-accordion", recursive=False):
+            old_card.decompose()
         for x in last_earn.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
             card = BeautifulSoup(str(le_template), "html.parser").select_one("details.earnings-accordion")
