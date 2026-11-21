@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_review_html import apply_report_layer_earnings_status, earnings_status_label, earnings_commentary
+from build_review_html import apply_report_layer_earnings_status, classify_calendar_group, calendar_actual_display, earnings_status_label, earnings_commentary
 
 EVENT = {
     "id": "current-rost-20261120",
@@ -43,6 +43,35 @@ def main():
     assert event["eps_actual"] is None and event["revenue_actual"] is None
     assert earnings_status_label(event, "eps", "pending") == "公告已發布；實際值待核實"
     assert "官方實際值待核實" in earnings_commentary(event)
+
+    # Calendar grouping must compare aware event timestamps with a Taipei-local cutoff.
+    assert classify_calendar_group(event, "2026-11-20", "2026-11-20 05:25") == "published"
+    assert event["_calendar_publication_state"] == "pending_verification"
+    assert earnings_status_label(event, "eps", "pending") == "公告已發布；實際值待核實"
+    assert calendar_actual_display(event, "2026-11-20 05:25") == "公告已發布；實際值待核實"
+
+    # A report-layer flag must not force a future event into the published group.
+    future = dict(EVENT, event_date="2026-11-20T06:00:00+08:00", status="pending_verification",
+                  report_layer_status_only=True, report_layer_status_source={"url": "https://example.com/status"},
+                  time_known=True)
+    assert classify_calendar_group(future, "2026-11-20", "2026-11-20 05:25") == "today"
+
+    # Source timestamps in another timezone must be converted before deriving the Taiwan event date.
+    cross_tz = dict(EVENT, event_date="2026-11-22T17:00:00-05:00", status="upcoming", time_known=True)
+    assert classify_calendar_group(cross_tz, "2026-11-23", "2026-11-23 05:25") == "today"
+
+    # An elapsed but unverified event remains pending; it is never promoted to released.
+    stale = dict(EVENT, event_date="2026-11-19T09:00:00+08:00", status="upcoming", time_known=True)
+    assert classify_calendar_group(stale, "2026-11-20", "2026-11-20 05:25") == "published"
+    assert stale["_calendar_publication_state"] == "pending_verification"
+    assert earnings_status_label(stale, "eps", "pending") == "公布狀態待核實"
+    assert calendar_actual_display(stale, "2026-11-20 05:25") == "公布狀態待核實"
+
+    cancelled = dict(EVENT, event_date="2026-11-20T07:00:00+08:00", status="cancelled", time_known=True)
+    assert classify_calendar_group(cancelled, "2026-11-20", "2026-11-20 05:25") == "upcoming"
+    assert cancelled["_calendar_publication_state"] == "cancelled"
+    assert earnings_status_label(cancelled, "eps", "pending") == "已取消"
+    assert calendar_actual_display(cancelled, "2026-11-20 05:25") == "已取消"
 
     late = fixture(event_date="2026-11-20T06:00:00+08:00")
     try:
