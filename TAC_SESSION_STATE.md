@@ -2622,3 +2622,30 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Playwright + /usr/bin/chromium 對原始母版使用 page.set_content 載入成功，document title正確，pageerror=0；360、390、412、768、1440五種寬度均無水平溢位（documentElement.scrollWidth等於viewport width）。實際操作亞洲市場tab可切換，經濟行事曆details可展開。
 - 直接 file:// 導航遭執行環境 ERR_BLOCKED_BY_ADMINISTRATOR；改用 Playwright set_content 將原始HTML載入同一Chromium context，已成功完成上述測試。此結果僅證明母版可在本機DOM／瀏覽器環境載入及互動，不等於11/23輸出QA通過。
 - 目前可進入母版DOM更新工作；最終四類QA仍須對完整11/23輸出執行。Phase 4新聞時間窗未封口，不得提前交付最終審核版。
+
+
+## 2026-11-21 11:22 Asia/Taipei｜11/23 早報接手續查（本輪執行紀錄）
+
+### 規範與執行環境
+- 重新讀取 simulation 分支 SIM-1.3；Git Blob SHA：679eae7ba7a40dbad64d15bb448fe53db7d67e09。
+- 重新取得既有 GitHub Actions Artifact 14687264191（workflow run 44856388322），恢復週一母版至 /mnt/data/tac-mother-transfer/monday-mother-template.html；SHA-256：d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931。未建立重複橋接機制。
+- /usr/bin/chromium 可執行；Playwright Python 可啟動。使用 set_content 對母版進行 360/390/412/768/1440 五種視窗 smoke test：頁面載入完成、183 IDs、重複 ID 0、水平溢出 0、console/page errors 0。此結果僅屬母版，不代表 11/23 報告 QA 通過。
+- 母版 58 個 details；關閉載入時顯示的 tac-fund-notice modal 後，產業 ETF details 可正常展開/收合。完整報告瀏覽器 QA 尚未執行。
+- 本輪執行環境找不到 /mnt/data/preview-2026-11-23-draft.html；亦未在 simulation 分支找到該 draft 的可還原版本。交接文件所列 SHA b5f2fb62... 在本輪未能重新計算，故不可聲稱該 draft 已驗證或完成 QA。不得用母版測試冒充報告測試。
+
+### 2026-11-20 行情重新核對（仍非 44/44 Gate 完成）
+- 11 大產業 ETF：11/11 已直接讀取 Investing.com Historical Data 頁面的 2026-11-20 資料列。漲跌幅：XLP +0.67%、XLV -0.12%、XLE -0.62%、XLU -0.74%、XLRE -0.98%、XLF -1.82%、XLB -2.19%、XLC -2.66%、XLY -2.95%、XLI -3.09%、XLK -7.27%。呈現仍須只顯示漲跌幅、排序；上漲紅色、下跌綠色。
+- 固定外匯歷史列：DXY 103.81 (-0.08%)；USD/TWD 32.971 (-0.18%)；EUR/USD 1.0968 (+0.01%)；GBP/USD 1.3083 (-0.04%)；AUD/USD 0.6617 (-0.63%)；USD/JPY 158.54 (-0.73%)。與先前工作紀錄部分值不同，採本輪歷史列並保留來源。
+- 美國公債官方 CMT：2Y 4.63%、10Y 4.92%、30Y 5.31%（2026-11-20）。
+- MOVE：EODData INDEX,MOVE 2026-11-20 close 106.3，+10.69%。
+- VIX：Investing HK 頁標示即時差價合約，不用該 CFD；Yahoo Finance 的 CBOE Volatility Index 歷史列 2026-11-20 close 35.89，+26.20%。
+- CNN Fear & Greed：第三方讀值 10 與 MarketWatch 報導 15 不一致；CNN 官方頁本輪遭 robots/restricted 阻擋。維持待核實，不填入確定值。Tinyfish 工具本輪不可用。
+- WTI：Investing 合約表確認 Jan 2027 (CLF27) 11/20 last 83.41，change +0.97；Brent：Jan 2027 (LCOF7) 11/20 last 92.57，change +0.59。不可與連續合約或其他月份混用。
+- Gold Dec 2026 (GCZ26) 與 Silver Dec 2026 (SIZ6) 的 Investing 合約表與 Yahoo 歷史列有數值差異；暫列待核實，不將 3515.4 或 41.07 當作已驗收收盤。
+- S&P 500：交接文件明確禁止 6910.79 CFD。AP 與 Yahoo 現金指數歷史列均支持 2026-11-20 close 6910.39 (-3.70%)；不得再填 6910.79。Russell 2000 採 AP 現金指數 close 2581.79 (-2.76%)，不採 Investing CFD 2582.93。
+- 其餘指數：Nikkei 225 使用 Nikkei Indexes 官方資料 56436.65 (-5.06%)；Hang Seng 使用 FT 歷史資料 22410.80 (-1.89%)；FTSE 100 使用 FT 歷史資料 10346.34 (-1.02%)；DAX 使用 Xetra 歷史資料 24802.78 (-2.60%)。STOXX Europe 600 出現 Investing 625.66 (-2.00%) 與 STOXX 官方頁顯示 635.77 的衝突，需再裁決。
+
+### 本輪阻塞／下一步
+1. 找回或重建 11/23 draft；未取得 draft 前不可做報告級瀏覽器 QA，也不可宣稱 DOM/互動 Gate 完成。
+2. 44 項仍有 STOXX、CNN Fear & Greed、Gold、Silver 等待核實；其他指數與商品仍須按 Manifest 完整清單逐項核對並記錄來源。
+3. 重新讀取 SIM-1.3 後再進行下一階段；本輪未修改 main、正式母版、Manifest 或 W48 JSON。
