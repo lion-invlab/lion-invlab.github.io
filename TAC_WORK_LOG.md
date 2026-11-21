@@ -2475,3 +2475,14 @@
 - 依既有明確授權更新 main 同日 preview 與 QA sidecar，並分別回讀 SHA。HTML commit `62affdf42147fc6940c3af1b93cb4d415c571547`，QA commit `8a7a8a24f6811259d760a558d1266c1c3f54c229`；兩個 commit 僅分別修改 preview HTML／QA JSON，正式首頁 `main/index.html` 未修改。
 - Pages deploy run `44913480651` success。線上網址無法由本執行環境直接開啟（web fetch Internal Error，容器 DNS 不可用），故 Pages 已部署可由 GitHub Actions 證實，但線上 HTTP 載入狀態標示未能實測。
 - QA sidecar 仍為 `QA_PASSED`、`review_ready=false`；VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新，不可宣稱正式早報已 ready。
+
+
+## 2026-11-21｜11/23 審核版三項缺陷修正
+
+- 商品列名稱連結與報價來源分離；WTI／Brent／GCZ6／SIZ6 名稱連結均指向 Investing.com HK 對應合約歷史頁；原 CME PDF／Investing 歷史報價來源連結仍保留於資料來源說明。網址已由 Investing.com 搜尋結果確認。
+- 財報卡錯誤根因：複製五星母版 prototype 後只更新星號字元，未同步清除五星 class。已依 TAC 星等同步 `five-star-earnings`、`five-star-company`；新增四星／五星 regression test。
+- 行事曆錯誤根因：Builder 將 group append 回原 panels，破壞母版 nth-child 對應；空組 continue 造成舊 group 留在第一位；舊 empty-state 文字未清除。已改為原位更新三個 group，清理舊 list 內容，並以 Gate 驗證順序 today／upcoming／published。日期／狀態依台灣報告截點分類，pending_verification 未到事件時間不得提前列已公布。
+- 完整 Build run `44914993653` success；新增商品連結、卡片樣式、日期分類、過期文案測試全通過。最終 HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`，QA sidecar blob `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。
+- 最終分頁計數：經濟 6／21／0；財報 1／10／0。商品連結、資料來源證據及星等 class 均經 HTML 回讀驗證。
+- main preview 已更新：HTML commit `1239a74ff67f273bf4fd984271f8a829b9be110c`；QA commit `6213580efcf745a9670dcf296c05ddedc5fbf4ea`；Pages deploy run `44915207046` success。main/index.html 未變；Pages 網址無法由 web fetch 實際開啟，故線上載入狀態未測試。
+- `review_ready=false` 尚待 VIX、MOVE、CNN Fear & Greed、FedWatch 於 11/23 05:25 前刷新。
