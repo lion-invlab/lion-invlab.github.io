@@ -430,7 +430,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.12 DRAFT，blob SHA `814c6a247074277703edb95fb6e1dcbd8868fda3`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.13 DRAFT，blob SHA `86c798ae22577c82b292748a864ffe10054ddc18`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -455,7 +455,7 @@
 | 第六步發布 | 0、9、11 | 重寫；定版綁定 SHA，QA 豁免不得偽裝通過 |
 | J 與所有歷史補充條文 | 獨立歷史檔 | 移至 `simulation-lab/analysis/SIM-1.4_DRAFT_HISTORY.md`，不再混入有效規則 |
 | B3.2–B3.6 母版視覺／互動規則 | 1.3、9.2 | 補回上漲紅／下跌綠、中文名稱／英文代碼層級、連結範圍、五星／四星顏色、禁止恢復已刪除膠囊、工具泡泡與呼吸燈分開驗收 |
-| WTI／Brent／GC／SI 商品顯示及連結 | 3.3、附錄 A | 可見名稱不加合約月份；合約資料留來源說明；href 直接開啟並核對 Investing.com 對應歷史頁 |
+| WTI／Brent／GC／SI 商品顯示、價格與連結 | 3.3、附錄 A | 短名稱不加月份；價格／漲跌幅須等於同合約、同日期歷史頁收市列；完整合約資料留來源說明；href 直開 Investing.com 歷史頁 |
 | 行事曆台灣日期／截稿狀態 | 4.9–4.11、9.2 | 同日事件即使晚於截稿仍列今日；過期未證實者待核實；跨時區先轉 Asia/Taipei；延期／取消明確標示 |
 | 財報 EPS／Revenue 雙卡母版版型 | 5.3、8.2、9.2 | 保留母版 DOM／CSS／欄數；不得重建或注入覆蓋樣式 |
 | Builder 唯一入口、provenance 與 sidecar 狀態 | 8.1、9.1、9.3 | 技術 PASS 不等於核准；不同 SHA 的測試證據不得合併宣稱同版雙母版通過 |
