@@ -2773,3 +2773,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Reuters 11/20「Tech stocks tumble, Treasury yields fall as traders seek refuge」轉載：https://www.lse.co.uk/news/global-markets-tech-stocks-tumble-treasury-yields-fall-as-traders-seek-refuge-5wy60vlz4ves1pd.html；AP收盤報導：https://apnews.com/article/c4c3f4878b12989347f8a930ed813dad。作為跨市場與美股收盤交叉來源候選。
 - 鉅亨網11/21 05:49美股盤後報導：https://anuenews.cnyes.com/news/id/6669311。與09:00同屬美股收盤主題，新聞區僅選一篇，避免重複。
 - 重要限制：Nvidia SEC會計探查仍屬媒體引述消息，必須寫成「據報／Reuters引述知情人士」，不可寫成SEC已確認違規。新聞窗口至11/23 05:25才封口；目前只是增量候選，第四步未完成。
+
+
+## 2026-11-21｜自動續作 checkpoint：新聞第二輪
+- 最新 Work Log 已追加第二輪新聞來源查核，commit `c9147534ef44f24c291622bbe0bd5249ce6e764d`，blob SHA `fb0eefb9ebe8cb83b693592e6880e6623962b107`。
+- 新增Reuters全球市場賣壓原文及Investing.com鏡像、Reuters下週宏觀觀察、IMF 11/20 Global Markets Monitor、MacroMicro 11/21日報等候選。Reuters頁面時區仍待確認；IMF需逐頁定位；MacroMicro僅作二級彙整。不可直接標記新聞完成。
+- 當前階段：第三步行事曆資料已篩選但尚未映射完整HTML；第四步新聞窗口仍開放至11/23 05:25，焦點／頭條尚未封口；第五步HTML仍不可交付。已確認不得沿用DOM遭破壞的舊工作稿，必須從核准Monday母版零退化組裝。
+- 下一個可恢復動作：在隔離分支內繼續完成可核實新聞的原文時間／事件去重審查，同時將W47/W48篩選結果映射至既有卡片槽位；不修改main正式JSON、母版、首頁或正式WR。
