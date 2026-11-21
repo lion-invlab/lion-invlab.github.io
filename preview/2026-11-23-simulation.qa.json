@@ -19,18 +19,18 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "04d8c924c1f288f8be825527540c253ed9c6ceca",
-  "report_sha256": "de98b41f3351909b8d248f0e46e9daa3e389d234315fa0415a6bd68f3080ba8b",
-  "build_commit_sha": "c0f585005cf4014302097de4413c21a851606ccb",
-  "builder_blob_sha": "9a2b970d136c129591fbc068873825153b18c727",
+  "report_git_blob_sha": "bf165da826aa3209422dc2c1787cd17c05d9016a",
+  "report_sha256": "b98950ccf6d8446f91e3b20740ce6e799f2a5fd6565a8f9058531acb7a8382e4",
+  "build_commit_sha": "ea7940f6308389cbef68cc263fd963e47e5c2f49",
+  "builder_blob_sha": "60d778c39ffe48140e99e0dad3579ce9f0b33945",
   "fixture_blob_sha": "948b504a0fba8ba45653cacc0a43cff5377e91a7",
-  "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
-  "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
-  "qa_contract_blob_sha": "86c798ae22577c82b292748a864ffe10054ddc18",
+  "template_blob_sha": "72cd41e63f57f17b5b797af6043e839bf5f3b069",
+  "manifest_blob_sha": "5080858c6720847086b7df815432d305d6231b3a",
+  "qa_contract_blob_sha": "86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd",
   "active_rules_blob_sha": "116ebb0a6401321148a878fe20c9504df7ce37f7",
   "candidate_rules_blob_sha": "371554033cd33efb76062827bc6b340e16f28bc2",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "9a2b970d136c129591fbc068873825153b18c727",
+  "candidate_builder_blob_sha": "60d778c39ffe48140e99e0dad3579ce9f0b33945",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -58,7 +58,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "e2d24f48d3cbd2adfada382497bc6082f9d517a8adfae2b4d11f0876222a5679",
+  "visual_evidence_sha256": "5c53399037105fc5a6ab644297bba3620d95720520303b29abc8452864c74854",
   "viewports": [
     1440,
     768,
@@ -67,6 +67,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44951910011",
+  "workflow_run_id": "44954756293",
   "workflow_run_attempt": "1"
 }
