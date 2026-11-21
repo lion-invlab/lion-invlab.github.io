@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading
 
 
 def record(value, change, quote_type):
@@ -238,6 +238,20 @@ def test_link_only_source_container_is_left_intact():
     assert before == after
     assert node.select_one("a").get_text(strip=True) == "原始來源"
 
+
+def test_calendar_status_heading_preserves_badge_wrapper():
+    heading = BeautifulSoup(
+        '<h4 class="calendar-status-heading upcoming"><span class="earnings-badge upcoming">舊標題</span></h4>',
+        "html.parser",
+    ).h4
+    before = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in heading.contents]
+    set_calendar_status_heading(heading, "新標題", "published")
+    after = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in heading.contents]
+    assert before == after
+    assert heading.get("class") == ["calendar-status-heading", "published"]
+    assert heading.select_one(".earnings-badge").get("class") == ["earnings-badge", "published"]
+    assert heading.get_text(strip=True) == "新標題"
+
 def main():
     data = {
         "global_markets": {
@@ -268,6 +282,7 @@ def main():
     test_market_observation_supports_existing_text_slot_shapes()
     test_text_update_preserves_source_link_elements()
     test_link_only_source_container_is_left_intact()
+    test_calendar_status_heading_preserves_badge_wrapper()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
