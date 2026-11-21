@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse, copy, hashlib, json, re, sys, subprocess
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup, Comment, NavigableString
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
 from earnings_judgment import render_status, consensus_evidence_label, apply_judgment
 
@@ -253,6 +253,32 @@ def validate_summary_title(value):
     if len(title) < 8 or len(title) > 36:
         raise ValueError(f"summary_title must be a concise 8–36 character market takeaway; got {len(title)}")
     return title
+
+
+def populate_summary_points_preserving_dom(node, points):
+    """Update the mother-owned summary labels/text nodes without rebuilding its paragraph DOM."""
+    if not isinstance(points, list) or not points:
+        raise ValueError("summary_points must be a non-empty list aligned to the mother template")
+    labels = node.find_all(["b", "strong"], recursive=False)
+    if len(labels) != len(points):
+        raise ValueError(
+            f"summary_points count {len(points)} does not match mother template slots {len(labels)}"
+        )
+    for index, (label, point) in enumerate(zip(labels, points)):
+        if not isinstance(point, dict) or not str(point.get("label", "")).strip() or not str(point.get("text", "")).strip():
+            raise ValueError(f"summary_points[{index}] requires non-empty label and text")
+        label.string = str(point["label"]).strip()
+        separator = label.find_next_sibling("br")
+        if separator is None:
+            raise ValueError(f"summary_points[{index}] mother paragraph is missing its original line-break slot")
+        content = separator.next_sibling
+        while isinstance(content, NavigableString) and not str(content).strip():
+            content = content.next_sibling
+        if not isinstance(content, NavigableString):
+            raise ValueError(f"summary_points[{index}] mother paragraph is missing its original text slot")
+        content.replace_with(str(point["text"]).strip())
+    return len(labels)
+
 
 def set_market_observation(node, title, value):
     """Render legacy string or structured {heading, text} observation records."""
@@ -972,16 +998,7 @@ def main():
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
     summary_title = validate_summary_title(data.get("summary_title"))
     set_text(unique(bluf, "h1", "summary headline"), summary_title)
-    if data.get("summary_points"):
-        summary.clear()
-        for idx,point in enumerate(data["summary_points"]):
-            label=soup.new_tag("strong"); label.string=point["label"]
-            summary.append(label)
-            summary.append("｜"+point["text"])
-            if idx < len(data["summary_points"])-1:
-                summary.append(soup.new_tag("br"))
-    else:
-        set_text(summary,data["summary"])
+    populate_summary_points_preserving_dom(summary, data.get("summary_points"))
     # Market sentiment narrative: replace the dedicated final interpretation card,
     # not metric source/disclosure blocks (the mother template has no paragraph slot).
     sent=unique(soup,"#sentiment","sentiment")
