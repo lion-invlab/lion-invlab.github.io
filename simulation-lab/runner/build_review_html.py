@@ -259,6 +259,47 @@ def apply_report_layer_earnings_status(data):
         applied += 1
     return applied
 
+def apply_last_week_economic_overrides(data):
+    """Apply verified late-reported economic actuals to Monday's report projection only."""
+    overrides = data.get("last_week_economic_overrides", [])
+    if not overrides:
+        return 0
+    events = data.get("last_week_calendar", {}).get("events", [])
+    by_id = {str(item.get("id")): item for item in events}
+    cutoff_text = str(data.get("report_cutoff_taipei") or "")[:16]
+    try:
+        cutoff = datetime.strptime(cutoff_text, "%Y-%m-%d %H:%M")
+    except ValueError as exc:
+        raise ValueError("last-week economic overrides require an explicit Taipei report cutoff") from exc
+    applied = 0
+    for row in overrides:
+        event_id = str(row.get("event_id") or "").strip()
+        target = by_id.get(event_id)
+        if target is None:
+            raise ValueError(f"last-week economic override event not found: {event_id}")
+        if target.get("status") not in ("upcoming", "scheduled") or target.get("actual") not in (None, ""):
+            raise ValueError(f"last-week economic override refused: event is not an unreleased empty record: {event_id}")
+        event_dt = datetime.fromisoformat(str(target.get("date") or ""))
+        event_local = event_dt.astimezone(timezone(timedelta(hours=8))).replace(tzinfo=None) if event_dt.tzinfo else event_dt
+        if event_local > cutoff:
+            raise ValueError(f"last-week economic override is later than report cutoff: {event_id}")
+        actual = str(row.get("actual") or "").strip()
+        if len(actual) < 3 or re.match(r"^https?://", actual, re.I):
+            raise ValueError(f"last-week economic override actual must be explanatory data text: {event_id}")
+        source_url = str(row.get("source_url") or "").strip()
+        if not source_url.startswith("https://"):
+            raise ValueError(f"last-week economic override lacks a verifiable HTTPS source: {event_id}")
+        target["actual"] = actual
+        target["status"] = "released"
+        target["source_url"] = source_url
+        target["source_name"] = str(row.get("source_name") or "官方發布來源")
+        target["report_layer_only"] = True
+        target["actual_source_note"] = str(row.get("note") or "simulation report-layer correction; authoritative main JSON unchanged")
+        applied += 1
+    print(f"PASS: applied {applied} last-week economic actuals in report layer; main JSON remains read-only")
+    return applied
+
+
 def apply_calendar_impact_overrides(data):
     """Repair known URL-corrupted impact text in the report layer only."""
     overrides = data.get("calendar_impact_overrides", [])
@@ -482,6 +523,7 @@ def main():
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
+    apply_last_week_economic_overrides(data)
     apply_calendar_impact_overrides(data)
     # Recalculate released cards in both the current week and Monday's prior-week section.
     # Numeric consensus/actual pairs are sufficient; PIT and basis metadata remain disclosures.
