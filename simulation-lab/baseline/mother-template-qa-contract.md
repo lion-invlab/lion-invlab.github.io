@@ -344,3 +344,10 @@
 
 - 隨 SIM-1.4 主規則正式生效，本契約 v1.16 作為唯一詳細 DOM／互動／視覺 QA 執行附件同步啟用；歷史修訂段落中的 DRAFT 標記僅描述當時版本狀態。
 - 本契約中已明列的 Builder 財報 renderer BLOCKER 仍有效：未修正並通過相應測試前，財報 renderer Gate 不得標示 PASS。此啟用紀錄不豁免任何既有 FAIL／BLOCKER。
+
+
+## 2026-11-22｜SIM-1.4 首次正式規則端到端驗收基準
+
+- 本次驗收依唯一有效主規則 `simulation-lab/TAC_WORK_RULES_SIM.md` 執行；報告日期固定為 2026-11-23，使用週一母版與對應 Fixture。
+- 本次 build 必須重新產生同一規則版本下的 HTML 與 QA sidecar；不得沿用 SIM-1.3 或升格前 Draft 的 QA 證據。
+- Builder 尚未獲使用者核准的精確 SHA 前，測試結果最高標示 CANDIDATE_VALIDATED；任何既有 renderer blocker 仍按 FAIL／BLOCKED 處理。
