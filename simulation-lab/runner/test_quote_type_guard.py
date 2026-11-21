@@ -6,7 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label
+from bs4 import BeautifulSoup
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda
 
 
 def record(value, change, quote_type):
@@ -20,6 +21,51 @@ def record(value, change, quote_type):
             "quote_type": quote_type,
         },
     }
+
+
+def test_fed_agenda_slots():
+    fixtures = [
+        {
+            "name": "Waller delivers remarks",
+            "date": "2026-11-18T09:00:00",
+            "status": "completed",
+            "impact": "觀察對通膨與政策路徑的看法",
+            "source_url": "https://www.federalreserve.gov/newsevents.htm",
+        },
+        {
+            "name": "Bowman speaks on banking",
+            "date": "2026-11-19T14:30:00",
+            "status": "upcoming",
+            "impact": "留意銀行監理政策訊號",
+            "source_url": "https://www.federalreserve.gov/newsevents.htm",
+        },
+    ]
+    for filename in ("monday-mother-template.html", "weekday-mother-template.html"):
+        html = (ROOT / "simulation-lab" / "baseline" / filename).read_text(encoding="utf-8")
+        soup = BeautifulSoup(html, "html.parser")
+        box = soup.select_one("#fed .fc-fomc-weekly-events")
+        assert box is not None, filename
+        assert len(soup.select("#fed .fc-fomc-weekly-events")) == 1
+        outer_children = [(child.name, tuple(child.get("class", []))) for child in box.find_all(recursive=False)]
+        list_node = box.select_one(".fc-fomc-weekly-events-list")
+        list_children_before = [(child.name, tuple(child.get("class", []))) for child in list_node.find_all(recursive=False)]
+        count = populate_fed_weekly_agenda(soup, {
+            "calendar": {"week_start": "2026-11-16", "week_end": "2026-11-22", "events": fixtures}
+        })
+        assert count == 2, (filename, count)
+        assert "Waller delivers remarks" in box.get_text(" ", strip=True)
+        assert "Bowman speaks on banking" in box.get_text(" ", strip=True)
+        assert [(child.name, tuple(child.get("class", []))) for child in box.find_all(recursive=False)] == outer_children
+        assert [(child.name, tuple(child.get("class", []))) for child in list_node.find_all(recursive=False)][0] == list_children_before[0]
+        assert len(list_node.select(":scope > .fc-fomc-weekly-event")) == 2
+        assert list_node.select_one(".fc-fomc-weekly-event-template[hidden]") is not None
+        # No-event weeks preserve the same fixed outer structure and show the explicit empty state.
+        count = populate_fed_weekly_agenda(soup, {
+            "calendar": {"week_start": "2026-11-16", "week_end": "2026-11-22", "events": []}
+        })
+        assert count == 0
+        assert box.select_one(".fc-fomc-weekly-events-empty").has_attr("hidden") is False
+        assert len(box.select(".fc-fomc-weekly-events")) == 0
 
 
 def main():
@@ -46,7 +92,8 @@ def main():
     assert earnings_status_label({"eps_actual": 2.70, "eps_estimate": None}, "eps", "pending") == "比較資料尚未齊備"
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
-    print("PASS: explicit CFD index references are rejected; cash/provider series remain unchanged")
+    test_fed_agenda_slots()
+    print("PASS: CFD guard, label normalization, earnings labels, and fixed Fed agenda slots")
 
 
 if __name__ == "__main__":
