@@ -701,3 +701,14 @@
 - 最新 Builder 已將此最後一處寫入改為 `set_market_observation(reason, "", ...)`，只更新既有市場評論標題／文字槽位，不清空節點。
 - 最新 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
 - 本版尚未完成 Monday／Weekday build；須再執行全套 deterministic tests 與 HTML assemble，確認不再有未核准的 destructive text write。
+
+## 2026-11-21｜最新 Builder SHA 完整 Monday 驗收（weekday 待驗）
+
+- 最新 Builder SHA：a3186cf7c10848d0b7d37fdb3d1268dfecaba958。
+- 最新 DOM validator SHA：e202923cb0d31a8381c238884203599a2937de77。
+- 最新 FactSet／情緒 DOM regression SHA：07a5f8a05a0b8518223fc79fe507a4a70cfe3111。
+- 最新 CFD／Fed／summary／市場評論 regression SHA：a3569c0355c29278bddc0bc9ec551471036cf586。
+- 2026-11-23 Monday 完整 run 44906325728 已成功：deterministic tests、HTML assemble、Playwright 互動、approved-mother visual regression、DOM contract、artifact provenance、44 項行情／新聞結構 Gate、QA-passed HTML persist 均 PASS；六視窗為 1440／768／412／390／360／320。
+- 11/23 sidecar QA_PASSED、review_ready=false；VIX、MOVE、CNN Fear & Greed、FedWatch 的來源快照仍須在報告截稿前刷新。這是資料 freshness Gate，不是 Builder／DOM Gate 失敗。
+- 現在只剩最新同一組 Builder／DOM validator SHA 的 weekday 完整 build 尚未重跑；本次狀態更新將觸發 2026-11-20 weekday regression。
+- SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效；不得部署、不得修改 main／正式首頁／正式母版／正式行事曆 JSON。
