@@ -12,17 +12,14 @@ from datetime import date, datetime, timezone
 import re
 from typing import Any
 
-ENGINE_VERSION = "1.3.0"
-VALID_STATUSES = {
-    "beat", "miss", "inline", "pending", "incomparable"
-}
+ENGINE_VERSION = "1.4.0"
+VALID_STATUSES = {"beat", "miss", "inline", "pending"}
 DIRECTIONAL_STATUSES = {"beat", "miss", "inline"}
 STATUS_LABELS = {
     "beat": "優於預期",
     "miss": "低於預期",
     "inline": "符合預期",
     "pending": "尚未公布／數值尚未齊備",
-    "incomparable": "比較口徑不相容",
 }
 _CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
 EPS_BASIS_CODES = frozenset({
@@ -140,7 +137,7 @@ def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
         return False
 
     level = snapshot.get("source_level")
-    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com", 4: "Yahoo Finance"}
+    providers = {1: "Yahoo Finance", 2: "Investing.com", 3: "LSEG I/B/E/S", 4: "FactSet Estimates"}
     event_date = record.get("event_date")
     estimate_key = f"{metric}_estimate"
     basis_key = f"{metric}_estimate_basis_code"
@@ -233,7 +230,7 @@ def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
     }
 
 
-def _explicitly_incomparable(record: dict, metric: str) -> str | None:
+def _comparison_block_reason(record: dict, metric: str) -> str | None:
     """Block only explicit currency/unit mismatches or a documented non-comparable basis."""
     actual_currency = record.get(f"{metric}_actual_currency")
     estimate_currency = record.get(f"{metric}_estimate_currency")
@@ -272,9 +269,11 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     estimate = _decimal(record.get(f"{metric}_estimate"))
     if actual is None or estimate is None:
         return _result("pending", "actual_or_consensus_not_yet_available", actual, estimate)
-    incomparable_reason = _explicitly_incomparable(record, metric)
-    if incomparable_reason:
-        return _result("incomparable", incomparable_reason, actual, estimate)
+    comparison_block_reason = _comparison_block_reason(record, metric)
+    if comparison_block_reason:
+        # The public status contract has exactly four states. Keep the specific
+        # reason in the audit field, but map non-comparable inputs to pending.
+        return _result("pending", f"comparison_inputs_not_comparable:{comparison_block_reason}", actual, estimate)
 
     # A user-supplied absolute tolerance wins. Otherwise, values within 1% of
     # the absolute consensus are treated as broadly in line, avoiding noise
@@ -556,7 +555,7 @@ def consensus_evidence_label(record: dict, metric: str) -> str | None:
 def render_summary(record: dict) -> str:
     """Render only a summary persisted by this engine version."""
     if record.get("judgment_engine_version") != ENGINE_VERSION:
-        return "EPS／營收預期比較尚未由 TAC 1.3 引擎重算。"
+        return "EPS／營收預期比較尚未由 TAC 1.4 引擎重算。"
     summary = record.get("earnings_comparison_summary")
     return summary if isinstance(summary, str) and summary.strip() else (
         "EPS／營收比較結果尚未產生。"
