@@ -10,35 +10,50 @@
       "published_at_tw": "2026/11/21 01:18",
       "updated_at_tw": "2026/11/21 01:24",
       "url": "https://www.investing.com/news/economy-news/feds-cook-says-rate-hikes-needed-to-lower-high-inflation-5042321",
-      "summary": "Cook指出通膨仍高於目標，過早放鬆政策可能使通膨更難回到2%；她的談話延續Fed內部偏鷹派訊號。市場需同時衡量通膨黏性與金融條件收緊對需求的滯後影響。"
+      "summary": "Cook指出通膨仍高於目標，過早放鬆政策可能使通膨更難回到2%；她的談話延續Fed內部偏鷹派訊號。市場需同時衡量通膨黏性與金融條件收緊對需求的滯後影響。",
+      "published_at_source": "Nov 20, 2026 12:18 PM",
+      "source_timezone": "EST",
+      "updated_at_source": "Nov 20, 2026 12:24 PM EST"
     },
     {
       "title": "Bessent呼籲Fed避免大幅升息，稱能源價格衝擊正在緩和",
       "published_at_tw": "2026/11/20 23:46",
       "updated_at_tw": "2026/11/20 23:48",
       "url": "https://www.investing.com/news/economy-news/bessent-advocates-lower-fed-rate-hike-cites-energy-shock-5042202",
-      "summary": "財長Bessent主張Fed應避免過度升息，並以能源價格衝擊及供應成本變化說明通膨壓力可能緩解。此說法反映行政部門與央行對政策節奏的不同權衡，但不代表Fed已改變決策路徑。"
+      "summary": "財長Bessent主張Fed應避免過度升息，並以能源價格衝擊及供應成本變化說明通膨壓力可能緩解。此說法反映行政部門與央行對政策節奏的不同權衡，但不代表Fed已改變決策路徑。",
+      "published_at_source": "Nov 20, 2026 10:46 AM",
+      "source_timezone": "EST",
+      "updated_at_source": "Nov 20, 2026 10:48 AM EST"
     },
     {
       "title": "ECB總裁Nagel：12月可能仍需採取行動，但通膨預期維持錨定",
       "published_at_tw": "2026/11/21 00:01",
       "updated_at_tw": "2026/11/21 00:06",
       "url": "https://www.investing.com/news/economy-news/ecbs-nagel-will-likely-need-to-act-in-december-but-price-expectations-remain-anchored-5042238",
-      "summary": "Nagel表示央行仍需保留政策行動空間，通膨預期目前大致錨定。市場焦點在於能源與服務價格是否持續推高歐洲物價，以及ECB是否需要維持更久的限制性利率。"
+      "summary": "Nagel表示央行仍需保留政策行動空間，通膨預期目前大致錨定。市場焦點在於能源與服務價格是否持續推高歐洲物價，以及ECB是否需要維持更久的限制性利率。",
+      "published_at_source": "Nov 20, 2026 11:01 AM",
+      "source_timezone": "EST",
+      "updated_at_source": "Nov 20, 2026 11:06 AM EST"
     },
     {
       "title": "英國10月零售銷售月增0.7%，優於市場預期",
       "published_at_tw": "2026/11/20 15:05",
       "updated_at_tw": "2026/11/20 17:24",
       "url": "https://www.investing.com/news/economy-news/uk-retail-sales-rise-07-in-october-beating-forecasts-5040801",
-      "summary": "英國10月零售銷售回升，顯示消費短期仍具韌性；但月度反彈不等於需求全面復甦，仍需觀察實質薪資、家庭信心與高利率對可支配所得的壓力。"
+      "summary": "英國10月零售銷售回升，顯示消費短期仍具韌性；但月度反彈不等於需求全面復甦，仍需觀察實質薪資、家庭信心與高利率對可支配所得的壓力。",
+      "published_at_source": "Nov 20, 2026 02:05 AM",
+      "source_timezone": "EST",
+      "updated_at_source": "Nov 20, 2026 04:24 AM EST"
     },
     {
       "title": "密西根大學11月消費者信心終值升至51.5，一年通膨預期降至3.7%",
       "published_at_tw": "2026/11/21 02:00",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669541",
-      "summary": "消費者信心較10月回升，短期通膨預期亦下降；但信心水準仍偏低，家庭對物價與就業前景的擔憂尚未解除。需留意消費韌性與通膨預期改善是否能持續。"
+      "summary": "消費者信心較10月回升，短期通膨預期亦下降；但信心水準仍偏低，家庭對物價與就業前景的擔憂尚未解除。需留意消費韌性與通膨預期改善是否能持續。",
+      "published_at_source": "2026/11/21 02:00",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     }
   ],
   "headlines": [
@@ -47,70 +62,100 @@
       "published_at_tw": "2026/11/21 05:49",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669311",
-      "summary": "AI需求與龍頭財報仍強，卻未能抵銷市場對資本支出回報、融資結構及政策風險的疑慮。這波跌勢已由高估值晶片股擴散至雲端、資料中心與高風險資產，反映投資人開始要求更明確的現金流證據。"
+      "summary": "AI需求與龍頭財報仍強，卻未能抵銷市場對資本支出回報、融資結構及政策風險的疑慮。這波跌勢已由高估值晶片股擴散至雲端、資料中心與高風險資產，反映投資人開始要求更明確的現金流證據。",
+      "published_at_source": "2026/11/21 05:49",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "Reuters：SEC調查Nvidia會計處理，新加坡營收揭露與循環融資再受檢視",
       "published_at_tw": "2026/11/21 07:02",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669659",
-      "summary": "SEC據報檢視Nvidia可能涉及的會計問題，但調查範圍與啟動時間仍未明，受調查不代表違法。市場另關注地區營收揭露方式及AI循環融資，治理與營收品質風險可能提高科技股風險溢價。"
+      "summary": "SEC據報檢視Nvidia可能涉及的會計問題，但調查範圍與啟動時間仍未明，受調查不代表違法。市場另關注地區營收揭露方式及AI循環融資，治理與營收品質風險可能提高科技股風險溢價。",
+      "published_at_source": "2026/11/21 07:02",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "Intuit下修FY2027營收成長預測，並以36.8億美元出售Mailchimp",
       "published_at_tw": "2026/11/20 21:30",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669447",
-      "summary": "Intuit將全年營收成長預估由9–10%下修至8–9%，主因Credit Karma成長低於預期，並同意出售Mailchimp。這顯示AI工具可能改變金融產品搜尋與推薦模式，成熟SaaS企業也必須證明既有平台的獲客與變現能力。"
+      "summary": "Intuit將全年營收成長預估由9–10%下修至8–9%，主因Credit Karma成長低於預期，並同意出售Mailchimp。這顯示AI工具可能改變金融產品搜尋與推薦模式，成熟SaaS企業也必須證明既有平台的獲客與變現能力。",
+      "published_at_source": "2026/11/20 21:30",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "全球公債殖利率同步下滑，AI估值與資料中心融資風險推動避險",
       "published_at_tw": "2026/11/21 11:10",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669652",
-      "summary": "科技股遭拋售之際，資金轉向主要國家公債，殖利率同步回落；市場不只重估AI股票估值，也開始檢視以舉債興建資料中心、再出租算力的企業信用風險。債券避險需求上升，但殖利率仍處高檔。"
+      "summary": "科技股遭拋售之際，資金轉向主要國家公債，殖利率同步回落；市場不只重估AI股票估值，也開始檢視以舉債興建資料中心、再出租算力的企業信用風險。債券避險需求上升，但殖利率仍處高檔。",
+      "published_at_source": "2026/11/21 11:10",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "高盛恐慌指標升至9分，CTA過去一個月估計已賣出570億美元股票",
       "published_at_tw": "2026/11/21 09:20",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669698",
-      "summary": "高盛估計CTA等動能策略已轉為淨空頭，若市場續跌，系統化賣盤可能進一步擴大。這代表短期波動不只由基本面新聞驅動，也可能受到趨勢、波動率及風險模型觸發的被動減碼放大。"
+      "summary": "高盛估計CTA等動能策略已轉為淨空頭，若市場續跌，系統化賣盤可能進一步擴大。這代表短期波動不只由基本面新聞驅動，也可能受到趨勢、波動率及風險模型觸發的被動減碼放大。",
+      "published_at_source": "2026/11/21 09:20",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "黃金跌至14個月低點，單週重挫9.4%，白銀同步走弱",
       "published_at_tw": "2026/11/21 05:47",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669557",
-      "summary": "鷹派利率預期與AI股拋售引發的流動性需求，使黃金未能發揮傳統避險功能，白銀與其他貴金屬同步下跌。這提醒投資人，去槓桿階段可能出現跨資產現金化，而非單純由股票轉入黃金。"
+      "summary": "鷹派利率預期與AI股拋售引發的流動性需求，使黃金未能發揮傳統避險功能，白銀與其他貴金屬同步下跌。這提醒投資人，去槓桿階段可能出現跨資產現金化，而非單純由股票轉入黃金。",
+      "published_at_source": "2026/11/21 05:47",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "川普擬限制美企赴海外興建資料中心，台灣雲端投資布局增添政策變數",
       "published_at_tw": "2026/11/21 08:30",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://news.cnyes.com/news/id/6669651",
-      "summary": "川普提出限制美國企業海外新建資料中心或課徵重稅，但政策尚未形成正式規則，是否涵蓋既有工程與合作模式仍未明。台灣既有雲端與AI基礎設施投資可能面臨政策不確定性，不能直接視為工程已遭取消。"
+      "summary": "川普提出限制美國企業海外新建資料中心或課徵重稅，但政策尚未形成正式規則，是否涵蓋既有工程與合作模式仍未明。台灣既有雲端與AI基礎設施投資可能面臨政策不確定性，不能直接視為工程已遭取消。",
+      "published_at_source": "2026/11/21 08:30",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "台灣10月外銷訂單年增78.3%創紀錄，資通訊與電子產品接單強勁",
       "published_at_tw": "2026/11/20 19:46",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://uanalyze.com.tw/articles/3897760519",
-      "summary": "外銷訂單達1,238.2億美元，資通訊產品年增107.2%、電子產品年增89.8%，反映AI、高效能運算與雲端需求仍強。訂單不等於當月出口、營收或獲利，後續需追蹤交付、毛利率與現金流轉化。"
+      "summary": "外銷訂單達1,238.2億美元，資通訊產品年增107.2%、電子產品年增89.8%，反映AI、高效能運算與雲端需求仍強。訂單不等於當月出口、營收或獲利，後續需追蹤交付、毛利率與現金流轉化。",
+      "published_at_source": "2026/11/20 19:46",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示更新時間"
     },
     {
       "title": "Bitcoin跌至兩年低點，AI估值疑慮與融資成本上升拖累風險資產",
       "published_at_tw": "2026/11/21 13:32",
       "updated_at_tw": "Reuters頁面顯示Updated ago，未提供絕對更新時間",
       "url": "https://www.reuters.com/business/bitcoin-falls-357-56814-2026-11-21/",
-      "summary": "比特幣一度跌至2024年9月以來低點，顯示市場風險縮減已擴及加密資產。Reuters報導的價格時點為美東週五深夜，與文章發布時間不同；本卡發布時間採11/21 00:32 EST換算台灣時間。"
+      "summary": "比特幣一度跌至2024年9月以來低點，顯示市場風險縮減已擴及加密資產。Reuters報導的價格時點為美東週五深夜，與文章發布時間不同；本卡發布時間採11/21 00:32 EST換算台灣時間。",
+      "published_at_source": "Nov 21, 2026 12:32 AM",
+      "source_timezone": "EST",
+      "updated_at_source": "Reuters頁面顯示Updated ago，未提供絕對時間"
     },
     {
       "title": "Reuters展望Black Friday購物季，檢驗美國消費韌性與全球央行政策",
       "published_at_tw": "2026/11/20 19:07",
       "updated_at_tw": "2026/11/20 19:30",
       "url": "https://www.investing.com/news/economy-news/take-five-shopping-chips-and-central-banks-5041291",
-      "summary": "Reuters將Black Friday視為美國家庭消費健康度的重要檢驗，並提醒市場同時關注韓國央行、歐洲央行人事及亞洲通膨數據。對下週市場而言，促銷季銷售量與折扣幅度將是判斷消費是否降溫的重要線索。"
+      "summary": "Reuters將Black Friday視為美國家庭消費健康度的重要檢驗，並提醒市場同時關注韓國央行、歐洲央行人事及亞洲通膨數據。對下週市場而言，促銷季銷售量與折扣幅度將是判斷消費是否降溫的重要線索。",
+      "published_at_source": "Nov 20, 2026 06:07 AM",
+      "source_timezone": "EST",
+      "updated_at_source": "Nov 20, 2026 06:30 AM EST"
     }
   ],
   "global_markets": {
@@ -706,8 +751,8 @@
     "需執行11/23 fixture正式組裝、完整資料QA、Playwright及視覺回歸"
   ],
   "earnings_health": {
-    "source": "FactSet｜S&P 500 Earnings Insight",
-    "source_url": "https://insight.factset.com/sp-500-earnings-season-update-november-20-2026",
+    "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
+    "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
     "as_of_date": "2026-11-20",
     "period": "Q3 2026",
     "reported_pct": "93%",
@@ -802,7 +847,7 @@
       "price_reaction": "11/20收盤US$213.46（-2.92%）；盤後US$215.44（+0.93%）。Investing.com歷史報價。",
       "actual_source": {
         "name": "Ross Stores, Inc.｜Q3 2026 results",
-        "url": "https://investors.rossstores.com/news-releases/news-release-details/ross-stores-inc-reports-third-quarter-2026-results"
+        "url": "https://investors.rossstores.com/news-releases/news-release-details/ross-stores-reports-strong-third-quarter-sales-and-earnings"
       }
     },
     {
