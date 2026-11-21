@@ -356,7 +356,8 @@ def set_market_observation(node, title, value):
             + str(node.name) + " class=" + " ".join(node.get("class", []))
         )
     if heading is not None:
-        heading.string = title
+        if str(title).strip():
+            heading.string = title
         text_slot.replace_with(raw)
     else:
         text_slot.replace_with(title + "｜" + raw)
@@ -2289,7 +2290,7 @@ def main():
                 spans[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
         reason = panel.select_one(".market-reason")
         comments = data.get("market_comments", {}).get("global_markets", [])
-        if reason and comment_index < len(comments): set_text(reason, comments[comment_index])
+        if reason and comment_index < len(comments): set_market_observation(reason, "", comments[comment_index])
         source = panel.select_one(".source")
         if source:
             source.clear()
