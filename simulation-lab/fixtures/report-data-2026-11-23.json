@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-20",
   "summary": "11/20全球股市遭遇急跌，賣壓集中於半導體與高估值科技：S&P 500下跌3.70%、Nasdaq下跌5.28%、SOX重挫10.73%，台灣加權指數下跌6.23%。市場並非單純否定AI需求，而是開始要求企業證明龐大資本支出能轉化為獲利、自由現金流與合理資本報酬。基本面仍有韌性：台灣10月外銷訂單年增78.3%創高，南韓累計出口首破1兆美元；但半導體出口金額增長部分來自單價，AI伺服器備料、驗收與收款週期拉長也推高營運資金需求。SpaceX約440億美元GPU融資、Nvidia會計調查與美國AI晶片限制，使融資、治理及政策風險同時進入估值。FactSet Q3統計顯示93%公司已公布，EPS年增32.9%、營收年增14.6%，獲利基本面尚未崩壞；短線應檢查資本支出回收期、應收帳款、庫存、信用成本與自由現金流，不把全面回檔直接視為買點。",
-  "sentiment": "市場情緒急速轉向防禦：VIX升至35.89（+26.20%）、MOVE升至106.31（+10.69%），FGScore的CNN Provider備援讀值為10/100、極度恐懼。美債殖利率回落與公債買盤反映避險，但黃金、白銀及Bitcoin同步下跌，顯示去槓桿與現金需求可能跨資產傳導。CTA等系統化策略估計已大幅減碼；FedWatch於11/21 13:35台灣時間快照，12/9升息25bp機率86.4%、維持13.6%，此為有時間戳的盤中快照，不代表17:57即時機率。",
+  "sentiment": "市場情緒急速轉向防禦：VIX升至35.89（+26.20%）、MOVE升至106.31（+10.69%），FGScore所呈現的CNN Provider最新讀值為10/100、極度恐懼（資料時間11/21 07:59台灣，17:57重新讀取未見更新）。美債殖利率回落與公債買盤反映避險，但黃金、白銀及Bitcoin同步下跌，顯示去槓桿與現金需求可能跨資產傳導。CTA等系統化策略估計已大幅減碼；FedWatch於11/21 13:35台灣時間更新，17:57重新讀取仍未更新，12/9升息25bp機率86.4%、維持13.6%。",
   "focus_news": [
     {
       "title": "Fed理事Cook：通膨仍高於目標，政策可能需要更具限制性",
@@ -543,15 +543,15 @@
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-20",
         "quote_type": "third_party_provider_index",
-        "note": "CNN Business 官方頁面讀取遭 robots 阻擋；CNN graphdata endpoint 可開啟但未回傳可讀資料。依 D3 第三順位採 FGScore「US stocks · CNN / Provider index」；頁面 As of Nov 20, 2026 UTC，Market timestamp Nov 20, 2026 18:59 EST（台灣 11/21 07:59），當前分數10、Extreme Fear。這是 CNN Provider 原始指數的第三方呈現，不是 CNN 官方頁面直接讀值；報告截稿時仍須刷新。",
+        "note": "CNN Business官方頁面讀取遭robots阻擋；CNN graphdata endpoint未回傳可讀資料。依D3指定備援採FGScore「US stocks · CNN / Provider index」。本輪17:57:31台灣時間重新讀取，頁面仍顯示As of Nov 20, 2026 UTC，Market timestamp Nov 20, 2026 06:59 PM EST（台灣11/21 07:59），分數10、Extreme Fear；截至本輪截稿未見較新Provider timestamp。MarketWatch當日報導曾提及15，與Provider index讀值有來源差異；依指定備援序列採10並明示第三方呈現，非CNN官方頁面直接讀值。",
         "source_timestamp": "2026-11-20 18:59 EST",
-        "read_at_taipei": "2026-11-21 17:00:33"
+        "read_at_taipei": "2026-11-21 17:57:31"
       }
     }
   },
   "fedwatch": {
     "updated_at_tw": "2026/11/21 13:35",
-    "read_at_taipei": "2026/11/21 16:35",
+    "read_at_taipei": "2026/11/21 17:57",
     "target_meeting": "2026-12-09",
     "current_target_range": "3.75-4.00%",
     "probabilities": [
@@ -568,7 +568,7 @@
     ],
     "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "Investing.com Fed Rate Monitor頁面更新時間Nov 21, 2026 12:35 AM EST（台灣時間13:35），本輪讀取時間16:35台灣時間。12/9會議：維持3.75–4.00%機率13.6%，升息25bp至4.00–4.25%機率86.4%；前一日機率0.4%／99.6%，前一週4.00–4.25%機率91.3%。機率依CME 30-Day Fed Funds futures推算，為時間戳快照，報告截稿前仍須刷新。 本輪報告截稿時間為2026-11-21 17:57:31；13:35快照保留為最近已核實快照，未標示為17:57即時值。"
+    "note": "本輪於2026-11-21 17:57:31台灣時間重新讀取Investing.com Fed Rate Monitor；頁面仍顯示Updated Nov 21, 2026 12:35 AM EST（台灣13:35），未見更新後的新時間戳。12/9會議：維持3.75–4.00%機率13.6%，升息25bp至4.00–4.25%機率86.4%；前一日0.4%／99.6%，前一週4.00–4.25%機率91.3%。本值為截至17:57可取得的最新時間戳快照，不標示為即時報價。"
   },
   "observation": {
     "heading": "盤面觀察重點",
@@ -1985,12 +1985,11 @@
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48財報共識缺乏可驗證PIT快照時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。電話會議時間不得冒充財報發布時間。",
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
-    "FedWatch最近已核實快照為11/21 13:35台灣時間（維持13.6%、升息86.4%）；CNN Provider備援讀值10、時間為11/21 07:59台灣。兩者均非17:57即時值，若無更新資料必須明示時間戳。",
+    "FedWatch於17:57重新讀取，頁面最新更新時間仍為11/21 13:35台灣；FGScore於17:57重新讀取，Provider最新市場時間仍為11/21 07:59台灣。兩者均以實際資料時間戳顯示，不冒稱即時值。",
     "NVDA Q3 FY2027 GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；共識PIT不足，不判Beat/Miss。公告後股價反應需由SIM規定的price-reaction資料或明確歷史收盤證據補入。",
     "HTML尚未產出；須從核准週一母版複製，依SIM-1.3更新五個既有內容區並完成結構、功能及桌機／手機視覺QA。"
   ],
   "review_ready_blockers": [
-    "FedWatch與CNN Fear & Greed目前保留最近已核實快照時間（分別11/21 13:35及07:59台灣）；若未取得更新值，審核版須明確顯示快照時間，不可標示即時。",
     "NVDA公告後股價反應需補入已核實的首個完整交易日比較；PIT共識缺漏不得判Beat/Miss。",
     "審核版HTML尚未產出；需完成母版組裝與必要QA。"
   ],
