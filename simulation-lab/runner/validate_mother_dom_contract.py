@@ -68,13 +68,14 @@ def main():
         ("#fed .fc-fomc-weekly-events", "Fed weekly agenda wrapper"),
         ("#sp500-earnings-health", "S&P 500 earnings-health dashboard"),
         ("#sentiment .sent > .sbox:last-child", "market sentiment interpretation card"),
+        ("#sentiment .cnn-fg-preview .fg6-score", "CNN Fear & Greed score wrapper"),
         ("#tac-side-tools", "QUICK ACCESS toolbar"),
     ]
     for selector, context in stable_selectors:
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
         omit = selector == "#fed .fc-fomc-weekly-events"
-        include_style = selector in {"#sp500-earnings-health", "#sentiment .sent > .sbox:last-child"}
+        include_style = selector in {"#sp500-earnings-health", "#sentiment .sent > .sbox:last-child", "#sentiment .cnn-fg-preview .fg6-score"}
         if shape(left, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right, omit_dynamic_fed_rows=omit, include_style=include_style):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
 
