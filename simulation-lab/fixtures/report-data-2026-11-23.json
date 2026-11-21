@@ -1810,7 +1810,7 @@
     "heading": "本週三大觀察焦點",
     "text": "① 11/23歐元區與美國Flash PMI，檢驗服務業景氣與企業定價能力。② 11/25美國第三季GDP第二次估值與10月PCE／核心PCE，決定利率預期是否再度上修；同日關注Dell財報對AI伺服器需求與毛利率的說明。③ 11/26美國感恩節休市、11/27提前收市，流動性降低時需留意波動放大；另追蹤德國GfK、法國CPI與德國失業數據。"
   },
-  "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
+  "qa_run_revision": "2026-11-22-analysis-gate-rewrite",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
   "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。",
   "report_cutoff_taipei": "2026-11-23 05:25",
