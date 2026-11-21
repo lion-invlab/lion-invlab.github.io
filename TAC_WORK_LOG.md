@@ -2034,3 +2034,14 @@
 - 瀏覽器 QA 通過 360/390/412/768/1440px：無水平溢位、tab 切換、行事曆／財報展開、來源展開、上週區塊預設收折、無 JS errors。
 - main preview commit：`c3501839d8c0c96aca18afa73fcfd44e7eb6d6ad`；blob：`871524712013d34b687913366ce9abdf06baa11d`。index.html SHA 維持 `85ef90b60788e25973a5bbe39e23b76c7081a53f`。
 - Pages URL：`https://lion-invlab.github.io/preview/2026-11-23-simulation.html`；部署後直連視覺載入仍需外部端確認，不以 commit 成功代替 URL 實際驗證。
+
+
+## 2026-11-21｜2026-11-23（一）審核版刪除與 SIM-1.3 全新重製啟動
+- 使用者明確要求刪除舊審核版並以 SIM-1.3 流程重做。
+- 已刪除 main `preview/2026-11-23-simulation.html`；刪除前 blob SHA `871524712013d34b687913366ce9abdf06baa11d`；刪除 commit `21c9b392878050643c4eaa7111db401cc9ab2c5c`；刪除後重新 fetch 回傳 404，確認路徑不存在。
+- 保護資產：main `index.html` SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；未修改正式母版、simulation 母版、Manifest、QA 契約及任何行事曆 JSON。
+- 本次重製只使用 simulation branch `simulation/tac-process-lab-2026-11-06` 的 SIM-1.3，blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；第一步重新核對 Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`，週一 simulation 母版 `simulation-lab/baseline/monday-mother-template.html` SHA `1ac39d50b138e59f4a4abf55fc68560ee277ba6f8`，與 Manifest 登記一致；QA 契約 SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- 報告日期 2026-11-23（一），行情基準日 2026-11-20，預覽路徑仍為 main `preview/2026-11-23-simulation.html`。第一步基準核對完成；開始第二步前須依 A1-補充2 重新 fetch 最新 SIM-1.3 並讀取第二步與 D 節。
+- 行事曆來源：main W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 fetch 回傳相同既有 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，但本次工具回傳 content 為空字串（0 bytes），尚未能解析事件內容；第三步須再確認可讀性，不沿用舊版宣稱的卡片數量。
+- 行情紀律：所有先前審核版數值均視為未繼承；只可在本次直接讀取指定來源及日期列後逐項鎖定。頁面即時摘要不等於歷史資料列；無法讀到列時記錄工具限制並依 SIM-1.3 D2-補充輪次處理。
+- 當前狀態：第一步完成；第二步進行中；第三至六步尚未完成。舊審核版、舊 QA 及舊 Pages 部署紀錄不得視為本次成果。
