@@ -1894,3 +1894,10 @@
 - CNN卡片已更新，取代待核狀態及第三方衝突數字。新版HTML 296,496 bytes，SHA-256 8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3。
 - Playwright page.set_content 390px smoke test：CNN值與時間戳正確、無水平溢位、pageerror 0。非完整報告QA。
 - 不使用TinyFish；main、正式母版、W48 JSON均未修改。
+
+
+## 2026-11-21｜P0：11/23 HTML母版零退化驗收失敗，撤銷工作稿
+- 對核准Monday mother與CNN更新工作稿直接以lxml DOM解析：母版2,040 elements／183 IDs／124 styles／25 scripts；工作稿684 elements／171 IDs／同樣124 styles／25 scripts。工作稿少1,356 elements、12 IDs（asia、fed-live-tab-fomc/watch、global-focus、headlines、us及6個行事曆radio ID）。
+- 判定：DOM內容結構遭大幅刪減，雖CSS/JS數量相同仍不符合母版完整複製與零退化。先前以overflow、pageerror、tab切換通過推定母版視覺驗收屬錯誤驗收。CNN更新稿SHA 8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3撤銷，不得作為審核版或修補基底。
+- 母版本機原檔SHA d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931與Manifest simulation SHA一致；Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract SHA 331b4bdfe318462e15cae8ae4cd31c32815960d7；SIM-1.3 SHA 679eae7ba7a40dbad64d15bb448fe53db7d67e09。
+- 下一步：由完整核准母版重新開始，僅用QA契約既有DOM selectors更新核准內容槽位；完整保留所有DOM、CSS、JS及互動；執行母版差異及同尺寸視覺回歸。不修改main及正式母版。
