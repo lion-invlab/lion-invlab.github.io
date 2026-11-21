@@ -5,7 +5,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_review_html import apply_calendar_impact_overrides
+from build_review_html import apply_calendar_impact_overrides, apply_last_week_economic_overrides
 
 
 class CalendarImpactOverrideTests(unittest.TestCase):
@@ -49,6 +49,82 @@ class CalendarImpactOverrideTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValueError, "event not found"):
             apply_calendar_impact_overrides(data)
+
+
+class LastWeekEconomicOverrideTests(unittest.TestCase):
+    def test_publishes_late_reported_actual_without_mutating_authoritative_source(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_calendar": {"events": [{
+                "id": "current-japan-cpi-202610",
+                "date": "2026-11-20T07:30:00+08:00",
+                "status": "upcoming",
+                "actual": None,
+                "source_url": "https://example.com/schedule",
+            }]},
+            "last_week_economic_overrides": [{
+                "event_id": "current-japan-cpi-202610",
+                "actual": "總合CPI年增2.3%；核心CPI年增2.2%。",
+                "source_name": "Statistics Bureau of Japan",
+                "source_url": "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html",
+            }],
+        }
+        applied = apply_last_week_economic_overrides(data)
+        event = data["last_week_calendar"]["events"][0]
+        self.assertEqual(applied, 1)
+        self.assertEqual(event["status"], "released")
+        self.assertIn("2.3%", event["actual"])
+        self.assertEqual(event["source_url"], "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html")
+        self.assertTrue(event["report_layer_only"])
+
+    def test_missing_event_fails_closed(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_calendar": {"events": []},
+            "last_week_economic_overrides": [{
+                "event_id": "missing",
+                "actual": "Verified actual value.",
+                "source_url": "https://example.com/source",
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "event not found"):
+            apply_last_week_economic_overrides(data)
+
+    def test_refuses_to_overwrite_existing_actual(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_calendar": {"events": [{
+                "id": "released",
+                "date": "2026-11-20T07:30:00+08:00",
+                "status": "released",
+                "actual": "Already published actual.",
+            }]},
+            "last_week_economic_overrides": [{
+                "event_id": "released",
+                "actual": "Replacement actual.",
+                "source_url": "https://example.com/source",
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "not an unreleased empty record"):
+            apply_last_week_economic_overrides(data)
+
+    def test_refuses_future_event(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_calendar": {"events": [{
+                "id": "future",
+                "date": "2026-11-24T07:30:00+08:00",
+                "status": "upcoming",
+                "actual": None,
+            }]},
+            "last_week_economic_overrides": [{
+                "event_id": "future",
+                "actual": "Not yet released.",
+                "source_url": "https://example.com/source",
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "later than report cutoff"):
+            apply_last_week_economic_overrides(data)
 
 
 if __name__ == "__main__":
