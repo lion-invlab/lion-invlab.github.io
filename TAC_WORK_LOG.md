@@ -1639,3 +1639,12 @@
 - W48 五筆 source 欄缺標準 URL，但 impact_judgment 含 URL；已分別核實 NY Fed Williams、FRED Initial Claims、NIM、INSEE、BA 官方資料。德國失業報告官方 10:00 CET=17:00 Taipei，JSON 目前 16:55 +08，列待下次 04:35 修正。
 - HPE 官方電話會議 11/23 17:00 ET 換算 11/24 06:00 Taipei；Deere 11/25 09:00 CT 換算 11/25 23:00 Taipei。資料庫原本只存日期，審核版按官方來源補正顯示，不改 JSON。
 - 本階段僅修改 simulation Session State／Work Log；W47、W48 JSON 維持唯讀。第四階段前須重讀最新 SIM-1.3 第四步規則。
+
+
+## 2026-11-21｜2026-11-23（一）早報階段②行情核實
+- 44/44市場行情完成統一日期鎖定（2026-11-20）；詳細數值、來源、合約、成交量、替代來源理由見 `simulation-lab/analysis/market-snapshot-2026-11-20.json`（SHA `7480259c12cba3ce841458d508a94b7a5466c765`）。
+- 關鍵例外：S&P/RUT/Nikkei/HSI/FTSE/DAX使用現貨來源，不以同名CFD替代；30Y殖利率採Investing.com主站歷史列；XLRE採Yahoo；MOVE採TradingView最新可見值並標記週一覆核；CNN恐懼貪婪採FGScore備援10/100。
+- 活躍期貨合約按成交量最高月份鎖定：CLF7、LCOF7、GCZ6、SIZ6，保留合約月份及volume。
+- FedWatch 12/9：升息25bp 89.6%，維持10.4%；FactSet 11/20 Earnings Insight已納入，更新Q3盈利健康度。
+- 行事曆資料庫W47/W48仍incomplete且唯讀；W48五筆impact_judgment誤存URL，下一階段僅在simulation報告層覆蓋，不改main JSON。
+- 階段②完成；進入階段③前必須重新fetch最新SIM-1.3並完整閱讀第三步與HTML/QA條款。
