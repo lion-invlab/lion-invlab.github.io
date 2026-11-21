@@ -482,3 +482,10 @@
 - 最新財報引擎 deterministic regression：run 44897795972 success，四狀態判讀、snapshot store 23 tests、schema audit、report-layer status 及 11/23 fixture contract 通過。
 - 最新 Node／Python 語法及 deterministic regression：run 44897956591 success。workflow YAML 縮排問題曾造成 run 44897899979 failure，已修正並由 44897956591 驗證成功。
 - **明確未完成：** 未執行 build mode／QA-only mode；未產出 11/23 HTML；未完成雙母版 DOM diff、Playwright 互動／視覺回歸；Builder 的 legacy 財報狀態 renderer 仍 BLOCKED，且本輪遵守保護限制未修改 Builder。SIM-1.4 仍是 DRAFT，不得啟用。
+
+## 2026-11-21 晚間實作與測試狀態（DRAFT，尚未生效）
+
+- Builder 已新增 CFD index reference fail-closed guard，並將財報 renderer 狀態收斂為 beat／miss／inline／pending；回歸測試 `test_quote_type_guard.py` 已加入 simulation workflow。
+- 11/23 真正 build／DOM artifact validation／Playwright／六種 viewport QA 已由 GitHub Actions run `44899645332` 觸發；記錄時仍 pending，未宣稱通過。
+- Builder 仍有已知母版零退化阻塞：額外注入 CSS、重建週一收折 summary DOM、重建 Fed 區塊，以及未完成雙母版逐節點 DOM diff。故目前不得宣告 REVIEW_READY、不得核准 Builder 唯一入口，SIM-1.4 仍維持 DRAFT。
+- main、正式母版、Manifest、正式首頁與正式行事曆 JSON 未修改。
