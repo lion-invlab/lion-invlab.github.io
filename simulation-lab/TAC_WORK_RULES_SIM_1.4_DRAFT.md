@@ -328,7 +328,7 @@
 ### A1.1 核准母版實際 44 欄位／DOM 定位表（已抽取）
 
 **抽取基準**
-- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`。
+- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `dac1d96b69349502b045a4ffd11ae9f5c1b53536`。
 - Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
 - Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
 - 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
@@ -507,3 +507,11 @@
 - Builder 不再每日追加 summary heading、週一 disclosure、側欄 layout、能源報價、財報卡片及市場名稱字體 CSS；不再清空重建週一上週收折 summary。保留使用者曾核准的單次突發專題 `special_focus` 條件式呈現及其專屬樣式，未寫回母版。
 - FedWatch 嚴格沿用母版 2 卡／2 分布段／2 圖例，不再 clone 第三卡、不再以固定 hold/+25bp/+50bp 寫死。超出兩卡可表達的情境數量／類型時，兩卡標待核實、隱藏不完整分布，完整情境保留在既有快照收折區。
 - 最新 QA Contract SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。這些修正仍須經實際 Monday／weekday build、DOM 零退化、Playwright 與六 viewport 視覺驗收；SIM-1.4 仍為 DRAFT。
+
+
+## 2026-11-21｜Builder 相容性修正進度（仍待 build QA）
+
+- 最新 Manifest SHA：`dac1d96b69349502b045a4ffd11ae9f5c1b53536`；QA Contract SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。
+- Fed 官員行程固定槽位已納入週一／平日 simulation 母版；Builder 以母版事件原型填資料。FedWatch 保留母版兩卡結構，多情境不符合時 fail closed 並在既有快照說明列出完整機率。
+- 移除每日 CSS 注入與週一收折 summary 重建；保留 2026-11-11 已核准的單次 `special_focus` 條件式功能作為明確例外。
+- CI run `44900780456`（母版 SHA／Fed agenda slot）及 `44900949612`（FedWatch 雙卡與 Builder CSS 清理）success；以上僅為 smoke／deterministic self-tests，不代表 HTML build、DOM diff、Playwright 或視覺 QA 通過。
