@@ -379,7 +379,7 @@
 | 30 | 美債 | 10年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 2 筆）` | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield |
 | 31 | 美債 | 30年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row a.global-index-link（卡片內第 3 筆）` | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield |
 | 32 | 外匯 | DXY 美元指數 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 1 筆）` | https://www.investing.com/indices/usdollar |
-| 33 | 外匯 | USD/TWD 美元／新台幣 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 2 筆）` | https://hk.investing.com/currencies/usd-twd |
+| 33 | 外匯 | USD/TWD 美元／新台幣 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 2 筆）` | https://hk.investing.com/currencies/usd-twd-historical-data |
 | 34 | 外匯 | EUR/USD 歐元／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 3 筆）` | https://hk.investing.com/currencies/eur-usd |
 | 35 | 外匯 | GBP/USD 英鎊／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 4 筆）` | https://hk.investing.com/currencies/gbp-usd |
 | 36 | 外匯 | AUD/USD 澳幣／美元 | `#industry-bonds-fx-commodities #fx .row a.tac-market-link（卡片內第 5 筆）` | https://hk.investing.com/currencies/aud-usd |
@@ -404,7 +404,7 @@
 - FedWatch：Investing.com `https://www.investing.com/central-banks/fed-rate-monitor`；CME `https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool` 只作方法及交叉核對。
 - 美國公債 2Y／10Y／30Y：美國財政部 Daily Treasury Par Yield Curve Rates `https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics`；FRED DGS2、DGS10、DGS30 備援。三期限同資料日期。
 - DXY：Investing.com `https://www.investing.com/indices/usdollar-historical-data`；不得誤用 DX 期貨。
-- USD/TWD：台灣央行銀行間收盤匯率 `https://www.cbc.gov.tw/tw/lp-645-1-1-60.html`；Investing.com `https://hk.investing.com/currencies/usd-twd` 為市場報價備援，不得冒稱官方銀行間收盤。
+- **USD/TWD 唯一行情來源為 Investing.com。** 第一順位使用 Investing.com HK 歷史資料頁 `https://hk.investing.com/currencies/usd-twd-historical-data`，直接讀取同一歷史資料列的收盤價與日漲跌幅，核對資料日期、USD/TWD 報價方向及現貨匯率標的。若香港站該日歷史列未更新或無法讀取，只能遞補至 Investing.com 其他站點的同標的歷史資料頁；不得改用其他平台。**禁止使用台灣央行／CBC 銀行間收盤、銀行牌告匯率或自行混合不同來源補值。** Investing.com 歷史列仍無法核實時，價格與漲跌幅均標示「待核實」，不得以其他口徑替代，也不得將市場報價稱為央行官方收盤。
 - EUR/USD、GBP/USD、AUD/USD、USD/JPY：Investing.com 各自歷史資料頁；核對報價方向及各市場日界線。
 - WTI：CME／NYMEX Daily Settlements `https://www.cmegroup.com/market-data/daily-settlements.html`；Investing.com 歷史頁備援。
 - Brent：ICE `https://www.ice.com/products/219`；Investing.com 歷史頁備援。
