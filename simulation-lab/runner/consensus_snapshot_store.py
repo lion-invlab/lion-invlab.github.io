@@ -10,11 +10,12 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
+# Canonical order: Yahoo Finance -> LSEG I/B/E/S -> FactSet Estimates -> Investing.com.
 PROVIDER_BY_LEVEL = {
     1: "Yahoo Finance",
-    2: "Investing.com",
-    3: "LSEG I/B/E/S",
-    4: "FactSet Estimates",
+    2: "LSEG I/B/E/S",
+    3: "FactSet Estimates",
+    4: "Investing.com",
 }
 LEVEL_BY_PROVIDER = {v: k for k, v in PROVIDER_BY_LEVEL.items()}
 CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
