@@ -1,5 +1,7 @@
 # SIM-1.4｜HTML Builder 相容性稽核
 
+> **現況讀取提示（2026-11-21 22:xx）：** 本文件前段是早期 Builder SHA `04d5976e38ab0da24e19bbe4607da8f1c20e1d35` 的歷史靜態稽核快照；不得將其舊的「尚未 build」結論當成目前狀態。最新狀態以文末「最新候選 Builder SHA 實證更新」為準：Monday 最新 Builder `fe8da8e...` 已完成 build／QA；Weekday 最新同 SHA build 尚待確認；完整 selector/write whitelist 與負向矩陣仍未完成，Builder 仍未核准為唯一入口。
+
 日期：2026-11-21  
 範圍：僅 simulation branch  
 對象：simulation-lab/runner/build_review_html.py  
@@ -316,3 +318,28 @@ Current Builder blob SHA verified from branch: c4c24c03625b3532f48362d7235755a8f
 2. Cross-reference each target selector against both mother-template DOMs and Manifest; record count, parent path, required child structure, and whether it is an approved dynamic slot.
 3. Add negative tests proving that missing/duplicate targets, missing wrappers/prototypes, altered details/summary controls, absent source links, extra/missing FedWatch rows, missing Fed agenda slots, and unapproved special_focus/CSS injection fail closed.
 4. Re-run both mother fixtures after any Builder or QA Contract change; a changed frozen SHA invalidates the current same-version dual-build evidence.
+
+
+## 2026-11-21 22:xx｜最新候選 Builder SHA 實證更新（取代舊 SHA 的狀態描述）
+
+### 最新 Monday 實證
+- GitHub Actions run：`44914993653`，conclusion `success`；candidate Builder blob SHA：`fe8da8e131a314897deb68ae608fda9d7647ac16`。
+- HTML：`preview/2026-11-23-simulation.html`，blob SHA `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA sidecar blob SHA `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。
+- 成功步驟包括 Python compile／deterministic tests、Monday HTML assembly、Playwright navigation／tabs／accordions／source links、mother comparison、mother-owned DOM structure validation、artifact/provenance、日期／calendar counts／44 indicators／news shape validation、evidence sealing 及 simulation-branch persistence。
+- Monday sidecar：`QA_PASSED`，但 `review_ready=false`；VIX、MOVE、CNN Fear & Greed、FedWatch 仍須在 2026-11-23 05:25 截稿前刷新。SIM-1.4 Builder approval 仍 NOT_APPROVED。
+
+### Weekday 證據邊界
+- 最近可核對的 Weekday 完整 build 為 run `44907253127`，Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f`，QA_PASSED／review_ready=true，且有明確來源 caveats。
+- 此 Weekday SHA 與最新 Monday Builder SHA `fe8da8e...` 不同。因此**不能宣稱最新 Builder SHA 已完成雙母版同版驗收**；必須用 `fe8da8e...` 再跑 Weekday fixture，才能更新為同一凍結 SHA 雙母版通過。
+- 先前 run `44907253127` 的 Weekday 證據仍有效於其自身 Builder SHA，不得丟棄，也不得移植成 fe8da8e 的證據。
+
+### 最新三項使用者回報缺陷的驗證
+1. **商品連結／顯示名稱：** 最新 HTML 的 WTI／Brent／GC／SI 名稱不含合約月份；合約資訊留在來源補充說明。四個連結分別指向 Investing.com HK 商品歷史頁，已直接開啟核對頁面標題／合約：WTI Jan 2027、Brent Jan 2027 LCOF7、Gold Dec 2026 GCZ6、Silver Dec 2026 SIZ6。來源證據 URL 與商品導覽 href 分開保存。
+2. **財報小卡：** 已修正四星／五星 prototype class 同步問題。最新 Monday preview 保留 EPS／Revenue 雙卡並列及下方全寬詳細區；124 個 style blocks 與 Monday mother 逐塊相同，25 個 script blocks 數量相同；母版 DOM validator 及 browser smoke 通過。
+3. **行事曆分頁：** 最新 Monday preview 經濟事件 today／upcoming／published = 6／21／0，財報 = 1／10／0。已修正 status group append 造成 nth-child 順序錯位、空 group 留在原位及舊 empty-state 文案殘留；目前分頁順序 today → upcoming → published，按台灣截稿時點分類。
+
+### 仍未完成的 Builder 相容性 Gate
+- 完整 selector/write inventory 尚未完成；特別是 calendar／earnings 動態容器的 `.clear()` 子節點重建範圍、attribute writes、source disclosure containers 及 conditional `special_focus` 仍須逐 selector 對照母版、Manifest 與 QA Contract。
+- 現行 mother-owned DOM validator 是穩定結構驗證，不等同全節點 byte-for-byte DOM diff；不得以 style/script 數量相同宣稱所有 DOM mutation 已獲授權。
+- 必須補齊負向測試矩陣，並以最新 Builder SHA `fe8da8e...` 重跑 Weekday fixture。
+- **結論：** 最新 Monday build／QA PASS；最新 Builder 的 Weekday 同 SHA 實證待補；完整 selector/write whitelist 待完成；Builder 唯一入口仍 NOT_APPROVED；SIM-1.4 DRAFT、SIM-1.3 active。
