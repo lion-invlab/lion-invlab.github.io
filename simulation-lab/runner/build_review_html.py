@@ -926,7 +926,15 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     # Derive the report-specific news window before rendering either news section.
     news_window_start = (report_date - timedelta(days=3 if monday else 1)).strftime("%Y/%m/%d")
     news_window_start_label = news_window_start + " 12:00"
-    news_window_end_label = report_cutoff
+    news_cutoff = str(data.get("news_cutoff_taipei") or report_cutoff)
+    try:
+        news_cutoff_dt = datetime.strptime(news_cutoff[:16], "%Y-%m-%d %H:%M")
+    except ValueError as exc:
+        raise ValueError("news_cutoff_taipei must be an explicit Taipei YYYY-MM-DD HH:MM timestamp") from exc
+    news_start_dt = datetime.strptime(news_window_start + " 12:00", "%Y/%m/%d %H:%M")
+    if news_cutoff_dt < news_start_dt:
+        raise ValueError("news cutoff precedes the Monday/weekday news-window start")
+    news_window_end_label = news_cutoff
     news_window_label = f"{news_window_start_label}–{news_window_end_label}（台灣時間）"
     for section_id, items_key, expected, section_label in [
         ("global-focus","focus_news",5,"全球焦點"),
