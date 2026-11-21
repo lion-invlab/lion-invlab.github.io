@@ -90,8 +90,9 @@ def populate_fed_weekly_agenda(soup, data):
     listing = box.select_one(".fc-fomc-weekly-events-list")
     prototype = box.select_one(".fc-fomc-weekly-event-template")
     empty = box.select_one(".fc-fomc-weekly-events-empty")
-    if not all((title, listing, prototype, empty)):
-        raise ValueError("Fed weekly agenda template slots are incomplete")
+    missing_slots = [name for name, node in (("title", title), ("list", listing), ("prototype", prototype), ("empty", empty)) if node is None]
+    if missing_slots:
+        raise ValueError("Fed weekly agenda template slots are incomplete: " + ", ".join(missing_slots))
     if title.get_text(" ", strip=True) != "本週聯準會官員行程":
         raise ValueError("Fed weekly agenda title slot changed unexpectedly")
     week_start = str(data.get("calendar", {}).get("week_start", ""))[:10]
