@@ -328,7 +328,7 @@
 ### A1.1 核准母版實際 44 欄位／DOM 定位表（已抽取）
 
 **抽取基準**
-- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `dac1d96b69349502b045a4ffd11ae9f5c1b53536`。
+- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `513cd3ccd3013465c1e595b4f1c455768359337c`。
 - Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
 - Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
 - 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
@@ -495,7 +495,7 @@
 
 - 使用者明確要求保留 Fed 官員行程功能；因此不刪除功能，而是修復 Builder 與母版脫節問題。
 - 週一母版新增固定 `#fed .fc-fomc-weekly-events` 外層、標題、清單、事件原型及空狀態槽位；平日母版同步相同契約。事件原型固定含日期、名稱、影響說明、官方來源連結欄位。Builder 僅深複製母版原型並填入欄位，不再清空／重建外層容器或整張卡片。
-- Manifest 已更新 simulation 母版 SHA：Monday `52fa9949b82b0c86974b3cc4785d734321316b02`；Weekday `c91f96e121b6fb779c6775bd845e8eb29c7cc70b`。QA Contract 已新增 Fed 行程槽位及保留結構驗收條款。
+- Manifest 已更新 simulation 母版 SHA：Monday `50a98bd8363f462cb6856d0a26cd008afa2515dd`；Weekday `873eebe09f84932de6e1f94575914e6c6e9eab89`。QA Contract 已新增 Fed 行程槽位及保留結構驗收條款。
 - Builder 修正 `normalize_market_label` 的 regex typo：原始 `r"\\s+"` 只會匹配反斜線與 s 字元，無法移除空白；已改為 `r"\\s+"` 的 Python 正確空白 regex（實際原始碼為單一反斜線），並補全形空白測試。
 - `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
 - Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
@@ -511,7 +511,7 @@
 
 ## 2026-11-21｜Builder 相容性修正進度（仍待 build QA）
 
-- 最新 Manifest SHA：`dac1d96b69349502b045a4ffd11ae9f5c1b53536`；QA Contract SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。
+- 最新 Manifest SHA：`513cd3ccd3013465c1e595b4f1c455768359337c`；QA Contract SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。
 - Fed 官員行程固定槽位已納入週一／平日 simulation 母版；Builder 以母版事件原型填資料。FedWatch 保留母版兩卡結構，多情境不符合時 fail closed 並在既有快照說明列出完整機率。
 - 移除每日 CSS 注入與週一收折 summary 重建；保留 2026-11-11 已核准的單次 `special_focus` 條件式功能作為明確例外。
 - CI run `44900780456`（母版 SHA／Fed agenda slot）及 `44900949612`（FedWatch 雙卡與 Builder CSS 清理）success；以上僅為 smoke／deterministic self-tests，不代表 HTML build、DOM diff、Playwright 或視覺 QA 通過。
@@ -527,3 +527,6 @@
 
 
 - 2026-11-21 新聞來源 Gate 修正：上一輪 HTML 組裝成功，但 Playwright interaction smoke 因 Global Focus News 來源網域不符規範而停止。原 fixture 混有 Reuters 直連及 www.investing.com 美站網址，與既定 HK Investing.com／鉅亨網來源契約不符。已以可核對的 HK Investing.com 與鉅亨網文章替換五則新聞，保留 11/20 12:00 之後的時間窗、更新發佈時間與摘要，並按時間排序；此為 simulation fixture 修正，尚待完整 build／互動／視覺驗收。
+
+
+- 2026-11-21 視覺 QA 修正：run `44901460631` 已通過 HTML build、互動 smoke 與新聞來源 Gate，但視覺回歸發現舊 QA 契約仍要求三張 FedWatch 卡（與母版兩卡相衝突）、舊財報 pending 標籤，以及總結標題字級不一致；另 11/23 Fixture 的核心觀察 heading 寫成「下週」但報告週是本週。已將兩份 simulation 母版既有 CSS 的總結／市場情緒標題統一為 21px（不新增 style 節點、不修改 main），將視覺 QA 改為兩卡／兩分布段／兩圖例及 fail-closed 驗收，更新財報 pending 標籤預期，並修正 fixture heading 為「本週三大觀察焦點」。最新 simulation 母版 SHA：Monday `50a98bd8363f462cb6856d0a26cd008afa2515dd`；Weekday `873eebe09f84932de6e1f94575914e6c6e9eab89`；Manifest `513cd3ccd3013465c1e595b4f1c455768359337c`。以上修正尚待下一輪六 viewport QA。
