@@ -3185,3 +3185,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 2026-11-21 20:33 Asia/Taipei 重新讀取 VIX、MOVE、FGScore CNN Provider Index、Investing.com Fed Rate Monitor：VIX 35.89（11/20 close，Investing.com）；MOVE 106.31（11/20 close，Investing.com HK）；CNN Provider Index 10（FGScore頁顯示As of 11/20 UTC，頁面最新資料日11/21 UTC）；FedWatch 12/09/2026 meeting hold 13.6%、升息25bp 86.4%，Investing.com更新時間Nov 21 00:35 EST＝台灣13:35。讀取時四項來源均未顯示比上述更新的市場觀察值／來源時間。
 - **不得提前解除週一 review_ready blocker：** 現在只是11/21 20:33重新讀取，尚未到11/23 05:25報告截稿；VIX／MOVE仍是11/20最近交易日收盤，FGScore provider值仍as of 11/20 UTC，FedWatch來源最後更新仍Nov 21 00:35 EST。應在截稿前最後刷新；若來源仍未更新，保留實際來源時間與明確註記，不偽造即時資料。
 - main首頁、正式母版、main Manifest、正式W47/W48 JSON均未修改；SIM-1.4仍為DRAFT，未核准生效。
+
+
+## 2026-11-21｜SIM-1.4 規則／資產 provenance Gate 修復（待完整重跑）
+
+- QA Contract 已由 v1.5 DRAFT 更新為 v1.6 DRAFT；A2.1 simulation mother SHA 已同步 Manifest：Monday `36f29bcb37816348756f9233b60f0429d675a76e`、Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。QA Contract blob SHA：`bc070c8b90c2fd99290abbee578c73b1cce5c578`；Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`。
+- SIM-1.4 DRAFT 附錄 A1.1 與附錄 D 已同步上述 SHA；DRAFT blob SHA：`172533f519bbf0a9a0bf897d811142de82ea2eb2`。SIM-1.3 仍是唯一有效規則。
+- 候選 Builder `simulation-lab/runner/build_review_html.py` 已加入 Manifest、QA Contract、active SIM-1.3 及 candidate SIM-1.4 四項 blob SHA provenance；Builder blob SHA：`9cbe94277508fa5f6df9b4c9a326847751972ad1`。
+- `validate_review_artifact.py` 已加入 build-commit 版本的四項 provenance 回讀驗證，並檢查 QA Contract 確實綁定本次 simulation mother SHA；validator blob SHA：`5490906264518c740f39779784fb6883e5b2a120`。
+- Workflow QA sidecar 已新增四項資產 SHA、candidate Builder SHA，並分離資料型 `data_review_ready` 與 SIM-1.4 `sim14_review_ready`；Builder 未經使用者明確核准前，`sim14_review_ready=false`。Workflow blob SHA：`e15128010a3048a64cd27dae0df5cf9556c735f0`。
+- **以上為程式／文件變更已提交，不代表新 Gate 已通過。** 必須由後續 Monday／Weekday full build 執行新 validator，並檢查 provenance 四項 SHA、sidecar 狀態及回讀證據；通過前不得核准 Builder 唯一入口。
+- 已知未結：Builder 唯一入口仍未經使用者核准；DOM validator 是指定穩定節點契約比對，不可誤稱全頁逐節點完整 DOM diff；`tac_html_binding_map.json` 的 text-only 寫入宣告仍需與候選 Builder 動態槽位／子節點操作逐 selector 裁決。
