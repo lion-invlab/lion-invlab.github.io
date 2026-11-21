@@ -42,6 +42,7 @@ def main():
     assert reject_cfd_cash_index_quotes(data) == ["S&P 500 CFD"]
     assert cfd["display"] == "待核實"
     assert normalize_market_label("日經225") == normalize_market_label("日經 225")
+    assert normalize_market_label("日經　225") == normalize_market_label("日經225")
     assert earnings_status_label({"eps_actual": 2.70, "eps_estimate": None}, "eps", "pending") == "比較資料尚未齊備"
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
