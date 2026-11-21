@@ -2012,3 +2012,10 @@
 7. **QA證據**：style 124、script 25、ID 183且唯一；固定行情欄位44項全部有數值或待核實狀態；新聞5+10；行事曆27+11與2+1；瀏覽器在360／390／412／768／1440px無水平溢位；所有分頁可切換、來源details可展開、經濟卡＋收折可操作、上週區塊預設收合、無JS錯誤。CNN分數區間邊界測試0/24/25/44/45/55/56/74/75/100通過。iPhone實機未測試。
 8. **交付**：只新增／更新main `preview/2026-11-23-simulation.html`，commit `0d979bd07b46799f16840b8f6c1f6723703187bf`，blob `fa2fc94f01715e0922747ae052464a3d412952d4`；回讀確認內容。main `index.html` SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；母版、Manifest、QA契約、行事曆JSON均未修改。
 9. **Pages部署狀態**：部署workflow run `44875660337`（head SHA `0d979bd07b46799f16840b8f6c1f6723703187bf`）在本紀錄建立時仍in_progress；待run完成後再確認Pages URL載入最新HTML。
+
+
+### 2026-11-21 Pages部署追記
+- 最新審核版commit：`0d979bd07b46799f16840b8f6c1f6723703187bf`；preview blob：`fa2fc94f01715e0922747ae052464a3d412952d4`。
+- GitHub Actions Pages build/deploy run `44875660337`，head SHA與最新preview commit一致，狀態 `completed / success`。
+- 以GitHub API回讀preview及main `index.html`：preview內容日期／行情日期／W48 27經濟與11財報／WTI CLF27／CNN 10/100均存在；index SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，本次未修改。
+- Pages外部URL直接開啟工具回傳不可存取，故「部署workflow成功」已確認，但「Pages頁面載入正常HTML」未能由本執行環境獨立實測；交付時明確揭露此限制，不將其寫成已通過。
