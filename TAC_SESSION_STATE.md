@@ -2206,3 +2206,18 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - W48 earnings 台灣時間修正（只在審核版呈現，不寫 JSON）：HPE 官方公告 call 11/23 17:00 ET = 11/24 06:00 Taipei，來源 https://www.hpe.com/us/en/newsroom/press-release/2026/11/hpe-to-present-live-audio-webcast-of-fiscal-2026-fourth-quarter-earnings-conference-call.html；Deere 官方公告 call 11/25 09:00 CT = 11/25 23:00 Taipei，來源 https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement 。資料庫目前將兩筆 event_date 存成 00:00 +08 date-only；報告層按官方時區換算顯示電話會議時間，財報實際發布時間若官方未明確提供則不推定。
 - W48 earnings 其餘官方公告時間依 JSON 保存；HPE、Deere 兩筆的日期／時區差異記入待下次 04:35 更新。W48 的 incomplete 是未來事件進行中狀態，不構成故障；不新增平行清單、不回寫週 JSON。
 - 階段③完成。第四階段開始前，依 A1-補充2 必須先更新 Session State／Work Log，重新 fetch 最新 SIM-1.3 並完整讀取第四步規則及其引用章節。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜階段②行情鎖定完成
+
+- 市場資料基準：2026-11-20（五）正式收盤；快照擷取時間：2026-11-21 09:03 Asia/Taipei。
+- 44/44 行情資料已逐項鎖定，快照檔：`simulation-lab/analysis/market-snapshot-2026-11-20.json`，blob SHA `7480259c12cba3ce841458d508a94b7a5466c765`；commit `f48ee7f430a62b5898f2cb3751c3e12fa6597b43`。項目數：17全球指數＋11產業ETF＋3美債殖利率＋6匯率＋4商品＋3情緒指標。
+- 現貨／CFD身分核對：S&P 500、Russell 2000、Nikkei 225、Hang Seng、FTSE 100、DAX均未以同名CFD替代現貨；S&P/Russell採AP現貨收盤，Nikkei/HSI/DAX採Yahoo現貨歷史，FTSE採FT歷史資料。
+- 產業ETF：11項均有11/20收盤與漲跌幅；XLRE因Investing HK歷史列未提供，改採Yahoo Finance歷史收盤。早報只呈現11項漲跌幅。
+- 債券：2Y 4.705%、10Y 4.941%、30Y 5.336%；30Y因HK歷史頁未更新，改採Investing.com主站11/20歷史列。DXY採Investing.com歷史列103.76（-0.13%），非週末即時報價。
+- 商品合約依成交量最高月份：WTI Jan-27 CLF7（83.41，vol 275,335）、Brent Jan-27 LCOF7（92.57，vol 278,237）、Gold Dec-26 GCZ6（3,515.4，vol 323,896）、Silver Dec-26 SIZ6（41.070，vol 110,375）。
+- 情緒指標：VIX 35.89（11/20歷史收盤）；MOVE 106.31（TradingView最新可見值，頁面未明示日期，暫作11/20最後可得收盤代理，週一必覆核）；CNN Fear & Greed 10/100，依SIM-1.3使用FGScore備援，11/21 05:30台北時間。
+- FedWatch獨立交叉讀取：12/9會議，當前目標區間3.75%-4.00%；升息25bp至4.00%-4.25%機率89.6%，維持機率10.4%，資料更新11/21 05:55台北時間。不是降息機率。
+- FactSet Earnings Insight最新版本為2026-11-20：Q3 93%公司已公布；84% EPS beat、74% revenue beat；EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%低於5年平均+7.5%；forward P/E 17.1低於5年19.8及10年19.1；Mag7 EPS成長27.0%低於其他493家34.7%。
+- 階段②完成。注意：W47、W48正式行事曆仍標記incomplete，唯讀未修改；W47仍有6筆經濟事件、3筆財報未完成狀態更新；W48有5筆經濟事件的impact_judgment欄誤存URL，將在下一階段以報告層修正，不修改main行事曆JSON。
+- 下一階段③：重新讀取最新SIM-1.3第三步與HTML／QA規則；建立11/23週一報告資料、新聞及判讀；對W48 5筆URL-as-impact以report-layer文字覆蓋，保留原始行事曆唯讀。
