@@ -2181,3 +2181,16 @@
 - 策略草稿：維持防守，不因單一財報beat或AI長期需求敘事立即抄底；降低單一AI權值與高槓桿曝險，優先現金流、資產負債表與估值緩衝。重新提高風險部位須等待市場廣度止跌、債券波動及利率預期穩定、資本支出回報／自由現金流有更多證據。沒有核實技術支撐位，不杜撰價位。
 - 舊Session State的「無法使用DOM parser」阻塞已由既有GitHub Actions runner路徑取代，現已過時。自我測試run 44884922063成功，但fixture build、DOM組裝及瀏覽器QA仍未執行。
 - 第四步仍為「初選完成、候選增補中、待窗口封口」；未建立11/23 fixture，未執行HTML組裝；main首頁、正式母版及W47/W48 JSON未修改。
+
+
+## 2026-11-21 16:46｜11/23 fixture初稿與報表層修正進度
+- 最新基準仍為SIM-1.3 SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`、Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；本輪重新讀取SIM、Session State、Work Log及Manifest後才繼續。
+- 已建立 `simulation-lab/fixtures/report-data-2026-11-23.json`，建立commit `13a730c5de79d27bc84977cf11c5c25bc0847406`，其後補齊新聞原始發布時間／原始時區／台灣換算／最後更新欄位（commit `63c6b0c7e786fb0355c1d97357ea9f82e41c4780`），並校正ROST、KEYS及歐元區薪資來源（commit `4fd5397eb0ed7bacedff9f319ba2fc757e1313cc`）。目前fixture包含17項全球指數、11項產業ETF、3項美債殖利率、6項FX、4項商品、3項風險情緒、FedWatch、FactSet、5則焦點新聞、10則市場頭條及行事曆報表層修正。fixture仍為draft，不代表已可交付。
+- 新聞窗口欄位與報告資料截稿分離：`news_cutoff_taipei=2026-11-21 23:59`、`report_cutoff_taipei=2026-11-23 05:25`。builder修正commit `d40321b2dbfe2a0a86f90b644c26b4df681cfb6c`；新聞窗顯示格式修正commit `8f46d219bfbd08c0506081fb2cc94166cb390ace`。避免新聞窗口被錯誤延長至週一報告截稿時間。
+- 新聞卡片已修正為同時顯示原始發布時間與來源時區、台灣換算時間、最後更新時間及原文連結；builder commit `a96895fc0f8681b8e5de8f3ea4b3522363bc519c`。fixture中15則新聞均填入 `published_at_source`、`source_timezone`、`updated_at_source`；原文未標示更新時間者明確標示未標示，不自行推算。
+- W47唯讀JSON核對發現6筆經濟事件status仍為upcoming但已公布，另3筆財報ROST／INTU／KEYS已公布但status仍upcoming。新增 `apply_last_week_economic_overrides`（commit `bac2a9328384747946b250212f52dd29696f9f33`）及 `apply_last_week_earnings_actuals`（commit `96323e249cdd7f345f0f35fb194f97cea2dd0a72`），只修正審核版投影，不回寫main W47 JSON；actuals已使用官方來源及一致GAAP basis，沒有可驗證PIT共識時不判Beat/Miss。ROST官方來源顯示銷售6,255.954m、GAAP EPS1.91；INTU總營收4,354m、GAAP EPS2.59；KEYS營收1,994m、GAAP EPS2.82，non-GAAP另列。
+- W48五筆impact_judgment欄位誤放URL，新增 `apply_calendar_impact_overrides`（commit `0028e04b4913ba08d165c663a01966e51c365373`）及回歸測試（commit `1a40dffd39f059cbbebb0f1026bbac83807b0ecc`）；只替換審核版投影文字，保留原source_url及main W48 JSON唯讀。
+- 新增測試 `simulation-lab/runner/test_calendar_impact_overrides.py`，涵蓋W48 impact、W47經濟實際值及W47財報actual overlay，含fail-closed測試。GitHub Actions run `44886090947`（commit `f56a144a5b6246e0a163da0b4590c01619711ae7`）成功，包含 deterministic self-tests。新聞metadata renderer最新run `44886399534`當時仍在執行；fixture最後來源校正commit `4fd5397eb0ed7bacedff9f319ba2fc757e1313cc`之workflow結果待確認。
+- SIM-1.3規定Monday上週回顧只呈現五星事件；上述6筆經濟及3筆財報均為四星，因此雖在report-layer projection修正狀態與actual，仍不會出現在「上週五星事件」清單。不可為了顯示而擅自放寬五星規則；這是按規範的呈現結果。
+- 新聞窗口於16:46仍未封口，需在11/21 23:59後再查新增重大消息、核對最後更新、去重並定稿。現有15則為候選／初稿，不可宣告新聞階段完成。
+- 尚未建立HTML審核版、尚未執行11/23正式fixture build、DOM／Playwright／視覺QA；因此沒有預覽連結。main首頁、正式母版、W47/W48 JSON均未修改。下一步：先確認最新workflow smoke test；持續監看新聞窗口，封口後重讀SIM-1.3，更新fixture與Session State，再以 `[build-tac-report]` 觸發正式組裝及全套QA。
