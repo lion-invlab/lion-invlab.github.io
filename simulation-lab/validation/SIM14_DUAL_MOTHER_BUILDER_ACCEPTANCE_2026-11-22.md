@@ -1,62 +1,81 @@
 # SIM-1.4 §8.1｜雙母版候選 Builder 技術驗收紀錄
 
-**日期：** 2026-11-22  
+**更新日期：** 2026-11-22  
 **分支：** `simulation/tac-process-lab-2026-11-06`  
 **範圍：** simulation-only；不含 main 寫入、正式首頁更新或 Pages 部署。
 
 ## 驗收結論
 
-週一母版與週二至週五母版均已使用同一組 Builder／Manifest／QA Contract／Active SIM-1.4 完成完整建置與 QA。兩份審核 HTML 均為 `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`；六個 viewport（1440、768、412、390、360、320）均完成視覺驗收。兩個 workflow run 均成功，母版 DOM preservation、瀏覽器互動、獨立 provenance、44 項行情、行事曆筆數與新聞結構 Gate 均通過。
+候選 Builder 已完成寫入路徑防護，並以同一個最新 Builder SHA 分別通過 Monday 與 Weekday 完整端到端回歸。兩次 workflow 均 completed／success；兩份 QA sidecar 均為 `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`，六個 viewport（1440、768、412、390、360、320）均完成視覺驗收。
 
-此結果只代表候選 Builder 的雙母版技術驗收完成（CANDIDATE_VALIDATED），**不代表使用者已核准 Builder 作為唯一 SIM-1.4 生產入口**。
+此結果代表候選 Builder 的雙母版技術回歸及輸出路徑防護測試完成（CANDIDATE_VALIDATED）。**不代表使用者已核准此 Builder 作為唯一 SIM-1.4 生產入口。**兩份 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。
 
-## 兩份完整驗收證據
+## 本輪精確 Builder 與寫入防護
+
+- Builder：`simulation-lab/runner/build_review_html.py`
+- Builder blob SHA：`42eebdfe18394aa7ff4aca6c226b901516ee6bb1`
+- 新增輸出路徑解析／限制：只允許標準化輸出至 `preview/YYYY-MM-DD-simulation.html`；解析實際路徑以防止 traversal 與 symlink escape；拒絕寫入正式首頁、母版、Manifest、正式行事曆 JSON、非標準檔名及 preview 目錄外路徑。
+- 新增負向測試：`simulation-lab/runner/test_builder_output_guard.py`，blob SHA `a6c3ff9107ab912ea01e694aac6f7d87047f94c8`。涵蓋標準輸出、受保護路徑、路徑穿越／錯誤檔名、preview 目錄 symlink escape、輸出檔 symlink escape。
+- 負向測試已納入 workflow deterministic self-tests；Monday 與 Weekday 最新 run 均通過該組測試。
+- 此防護是 Builder 層輸出路徑限制，搭配 workflow simulation-branch-only 隔離；不得解讀為對 GitHub 權限或所有其他程式寫入路徑的全面安全保證。
+
+## 兩份最新同版完整回歸證據
 
 ### Monday｜2026-11-23
-- Workflow run：[`44962942410`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44962942410)
-- Head commit：`9fb148d2fc9a938c6d4e92e4262702980ac2d39a`
-- 全部 39 個工作步驟完成；必要 build、字型、Playwright、互動、母版比對、DOM、獨立驗證、資料結構、QA 封存與 simulation-only persistence 均成功。
-- HTML：`preview/2026-11-23-simulation.html`，Git blob `bd18ea5ff40a84f826dc1f4162ee7f6ec7ce242b`，SHA-256 `3b9a2c652b9f286b7b46823002f244912567645f9874b6f5e783ee1fc50d27cd`。
-- QA sidecar：`preview/2026-11-23-simulation.qa.json`，blob `774b582b2f22b8be6a79bf96cd04eec742ff8e6e`。
-- QA 狀態：`QA_PASSED`；`review_ready=true`；blockers 空陣列；sidecar 綁定 HTML blob SHA 正確。
-- 產製日期 2026-11-23，市場基準日 2026-11-20。
+
+- Workflow run：[`44963378227`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44963378227)
+- Trigger commit：`aee9976633237e2e902eeb385d10ca1012352b4a`
+- HTML：`preview/2026-11-23-simulation.html`
+- HTML Git blob：`586766c7e44c126406b22aefcf8e3342365d5f7f`
+- HTML SHA-256：`211fa41449f83734206858e01222ad1b27339d95b597f0dbecf0e5661c9b7317`
+- QA sidecar：`preview/2026-11-23-simulation.qa.json`
+- QA blob：`66a4a819e6e4be2fa38f1b2a3a916668b869d94b`
+- Sidecar 的 `report_git_blob_sha` 精確綁定上述 HTML；Builder 與 candidate Builder SHA 均為 `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
+- Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、review blockers 空陣列。
+- 六個 viewport：1440／768／412／390／360／320。
 
 ### Weekday｜2026-11-20（週五）
-- Workflow run：[`44962585698`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44962585698)
-- Head commit：`b90c676b474fbb34a1c8e9eb4d2e78a0e7da5f06`
-- 全部必要 build、字型、Playwright、互動、母版比對、DOM、獨立驗證、資料結構、QA 封存與 simulation-only persistence 步驟成功。
-- HTML：`preview/2026-11-20-simulation.html`，Git blob `ad27ddea3d81e2b30ebebd1d13600822831a7f53`。
-- QA sidecar：`preview/2026-11-20-simulation.qa.json`，blob `1c2d91905b7f1dd7b7e6708424e57872a3aaa702`。
-- QA 狀態：`QA_PASSED`；`review_ready=true`；blockers 空陣列；sidecar 綁定 HTML blob SHA 正確。
-- 行情基準日 2026-11-19；44 個固定行情欄位均有可顯示報價並逐項檢查來源。
 
-## 兩母版共同 provenance（完全一致）
+- Workflow run：[`44963530736`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44963530736)
+- Trigger commit：`7f7623d85224e3de02f8825b0bc68e878a4bbcde`
+- HTML：`preview/2026-11-20-simulation.html`
+- HTML Git blob：`aafa41c07ac5d490412a35f296e8169375aaa74a`
+- HTML SHA-256：`7a72460622dfb65720e21a013ace79a486d85db950eae4ee9401098d3a5b2f38`
+- QA sidecar：`preview/2026-11-20-simulation.qa.json`
+- QA blob：`e8232c1f68daec6bf3b05a5e5446abfabf726257`
+- Sidecar 的 `report_git_blob_sha` 精確綁定上述 HTML；Builder 與 candidate Builder SHA 均為 `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
+- Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、review blockers 空陣列。
+- 六個 viewport：1440／768／412／390／360／320。
+
+## 共同 provenance（兩次 sidecar 完全一致）
 
 | 項目 | SHA |
 |---|---|
-| Candidate Builder `simulation-lab/runner/build_review_html.py` | `b6082923a88ab2b592f2d2765f68d4f4214caca8` |
-| Active SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM.md` | `e18865fc31a88f98e44cb1f411817e61406a34c1` |
+| Candidate Builder | `42eebdfe18394aa7ff4aca6c226b901516ee6bb1` |
+| Active SIM-1.4 | `e18865fc31a88f98e44cb1f411817e61406a34c1` |
 | Superseded SIM-1.4 Draft | `0d64eb9b16202d3e9e6d86a1aa87b7105843d571` |
-| Manifest | `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd` |
+| Manifest | `8cab2a945b19ffeea5a922353f4f4b8b9c71b9dd` |
 | QA Contract v1.16 | `30faa8385e19e5bdca0a2fa5c21eda237c52339a` |
 | Monday mother | `b89c76dd37afdc0cf8b406bfd6f06258896c829d` |
 | Weekday mother | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` |
 
-## Gate 與保留事項
+## Gate 與內容稽核
 
-- 兩版六個 viewport 視覺回歸通過；Monday 已公布財報 EPS／Revenue 雙卡在手機寬度維持兩欄。
-- Fed 官員行程沿用母版 prototype 與原始子節點樣式，不由 Builder 改寫成單欄。
-- 44 項行情結構、行事曆數量／日期狀態、新聞結構、來源連結、互動與折疊功能均通過。
-- W48 缺乏可驗證 point-in-time 共識快照者仍顯示待核實，不判定 Beat／Miss。
-- 週末四項市場指標沿用使用者確認的最新基準快照，報告保留實際資料時間；不得把沿用值描述為週日刷新。
-- W47 已公布值與 W48 個別欄位修正屬審核版投影，不回寫 main 正式行事曆 JSON。
-- 本輪未修改 main、正式首頁、正式母版、正式 Manifest 或正式行事曆 JSON；未部署 Pages。
+- 兩次均通過 deterministic self-tests（包含 Builder output guard negative tests）、Investing.com earnings parser、PIT consensus snapshot store、HTML assemble、Playwright navigation／accordion／source links、母版視覺比對、母版 DOM preservation、獨立 artifact/provenance 驗證、日期／行事曆數量／44 項行情／新聞結構驗證、QA sidecar seal 與 simulation-only artifact persistence。
+- Monday 報告行情基準日為 2026-11-20；Weekday 報告行情基準日為 2026-11-19。各報告依其 fixture／日期規則驗證，不混用日期。
+- Monday 六項全球指數改用 Investing.com 全球指數歷史資料頁／DAX Xetra 現貨收盤口徑，不再以香港站股指 CFD 作為呈現或計算來源；WTI、Brent、GC、SI 採 Investing.com HK 指定合約、同日歷史收市列。
+- 週末 VIX、MOVE、CNN Fear & Greed、FedWatch 依使用者確認沿用最新基準快照並保留實際資料時間；不宣稱週日刷新。
+- W48 缺乏可驗證 PIT 共識快照者維持待核實，不判定 Beat／Miss；W47／W48 個別修正限審核版 report-layer overlay，不回寫 main 正式行事曆 JSON。
+- 財報 EPS／Revenue 依各自可驗證來源與 PIT 完整性判斷；不能因缺少有效共識而產生虛假的預估或 Beat／Miss。
+- Fed 官員行程保留母版 prototype 與原始 DOM／子節點樣式；Builder 不得重建母版結構或注入額外 CSS。
 
-## 尚待使用者明確核准
+## 尚未核准的事項與邊界
 
-兩份 QA sidecar 均保留：
+兩份最新 sidecar 均明確保留：
 - `sim14_builder_approval=NOT_APPROVED`
 - `sim14_review_ready=false`
-- blocker：`Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point`
+- 唯一 blocker：`Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point`
 
-**待核准的精確對象：** `simulation-lab/runner/build_review_html.py`，blob SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`。在使用者明確核准前，不得標記 `sim14_review_ready`，不得把候選 Builder 宣告為唯一正式生產入口，也不得更新 main 正式首頁。
+**待使用者核准的精確對象：** `simulation-lab/runner/build_review_html.py`，blob SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
+
+本輪只寫入 `simulation/tac-process-lab-2026-11-06`。未修改 main、正式首頁 `index.html`、正式母版、正式 Manifest、正式行事曆 JSON；未部署 Pages。QA sidecar 的 `review_ready=true` 僅代表該份審核 HTML 通過 QA，不等於 SIM-1.4 Builder 已獲核准或正式生產已開放。
