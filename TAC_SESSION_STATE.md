@@ -3468,3 +3468,17 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 依 SIM-1.4 §8.1，11/23 Monday 完整 PASS 尚不足以宣稱雙母版候選 Builder 驗證完成。
 - 已確認 weekday fixture `simulation-lab/fixtures/report-data-2026-11-20.json` 存在，blob SHA `7b2858217a0492dd84e24e56d3b93897380007e8`，報告日期 2026-11-20（週五）、行情基準日需由 fixture／來源稽核確認。
 - 以相同 SIM-1.4、Builder、Manifest、QA Contract 與 validator 啟動完整 weekday build；待新 Run 的視覺、DOM、互動、provenance、44 項行情與資料 Gate 全數通過後，才可提交雙母版候選驗收結論。
+
+
+## 最新狀態錨點｜2026-11-22｜SIM-1.4 §8.1 同版雙母版＋Builder 輸出防護完成
+
+- 唯一有效規則：SIM-1.4 正式版 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`；SIM-1.3 已封存，舊 Draft 已標示 SUPERSEDED。
+- 最新候選 Builder：`simulation-lab/runner/build_review_html.py`，blob SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。新增標準輸出路徑限制與 symlink／traversal 防護；負向測試 `simulation-lab/runner/test_builder_output_guard.py` blob `a6c3ff9107ab912ea01e694aac6f7d87047f94c8`，已納入 workflow deterministic self-tests。
+- Monday 完整回歸 run `44963378227` completed/success；Weekday 完整回歸 run `44963530736` completed/success。兩者均使用相同 Builder、Manifest、QA Contract、Active SIM-1.4 及母版 SHA provenance。
+- Monday HTML blob `586766c7e44c126406b22aefcf8e3342365d5f7f`，SHA-256 `211fa41449f83734206858e01222ad1b27339d95b597f0dbecf0e5661c9b7317`；QA sidecar blob `66a4a819e6e4be2fa38f1b2a3a916668b869d94b`，`QA_PASSED`、`review_ready=true`、六個 viewport PASS。
+- Weekday HTML blob `aafa41c07ac5d490412a35f296e8169375aaa74a`，SHA-256 `7a72460622dfb65720e21a013ace79a486d85db950eae4ee9401098d3a5b2f38`；QA sidecar blob `e8232c1f68daec6bf3b05a5e5446abfabf726257`，`QA_PASSED`、`review_ready=true`、六個 viewport PASS。
+- 共同 provenance：Builder `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Weekday mother `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`；Manifest `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；SIM-1.4 `e18865fc31a88f98e44cb1f411817e61406a34c1`。
+- 驗收報告已更新：`simulation-lab/validation/SIM14_DUAL_MOTHER_BUILDER_ACCEPTANCE_2026-11-22.md`，blob SHA `29d574536485bf98324fb3fd83cf83c9195994f7`；更新 commit `096723f1fe2ad5b8be31842b6e22162ffa6a575b`。
+- 狀態邊界：兩份 sidecar 仍為 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；唯一待辦是使用者明確核准精確 Builder 路徑與 SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。QA 的 `review_ready=true` 不等於 Builder 已核准。
+- 本輪僅 simulation branch；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
+- 下一步：核對驗收報告／Session State／Work Log 最新提交；待使用者明確核准上述 Builder SHA 後，才可依 SIM-1.4 規定啟動正式生產入口升格工作。正式首頁更新仍需獨立明確授權。
