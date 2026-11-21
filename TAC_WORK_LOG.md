@@ -1681,3 +1681,11 @@
 - 新增Reuters中國AI出口管制新聞：阿里雲預期成長由53%放緩至30–45%，騰訊表示推論型服務可用國產晶片。另有Reuters引述匿名知情人士稱TSMC暫停部分中國先進製程訂單，需明確標示消息來源非公司公告。
 - 修正總結因果：直接市場因素聚焦AI估值、資本支出回收與獲利、槓桿融資成本、Fed政策、半導體出口限制與集中部位去化；國會選舉是政策背景，不寫成唯一原因。
 - 週末新聞與11/23亞洲實際盤勢仍待補查，階段④未結案。
+
+
+## 2026-11-21｜SIM-1.3 D3/D4 行情與關鍵價位完成
+- MOVE來源依規則順序重新核實：Investing.com歷史頁最新只到11/19；TradingView未能取得同日Close／時間；Yahoo Finance ^MOVE及CNBC .MOVE不可讀；最後採EODData INDEX:MOVE 11/20 EOD 106.3，日變動+10.69%。早先TradingView摘要+6.80%因缺乏同日Close／更新時間而不採用。
+- 美國公債殖利率已依D3改為Treasury CMT同日值：2Y4.63%、10Y4.92%、30Y5.31%。
+- 五大指數11/20 OHLC已由ChatGPT直接查閱Yahoo Finance歷史列並計算經典Pivot（P/S1/S2/R1/R2）；明細見Session State上一節。未使用GitHub Actions或Collector。
+- SOX主行情採Investing.com HK收盤8,408.6；Yahoo ^SOX OHLC收盤8,408.59，差異僅0.01，屬顯示精度差。
+- 階段②行情與關鍵價位完成；所有44項均有11/20資料日及可追溯來源，MOVE採最後順位EODData備援，未採TradingView未標明日期的摘要。
