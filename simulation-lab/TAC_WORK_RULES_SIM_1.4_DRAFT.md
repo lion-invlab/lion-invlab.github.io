@@ -750,3 +750,10 @@
 6. **六視窗與字型條件一致。** 本文第 9.2 已補入 320px，並要求實際驗證繁體中文字型；QA Contract v1.8 DRAFT 同樣要求 Noto Sans CJK TC／fontconfig alias 與 Playwright 字型檢查。
 7. **Fed 官員週行程不得刪除。** Builder 使用母版固定 wrapper、title、list、prototype、empty-state；只替換動態 event instances 並填入官方來源連結。FedWatch 仍固定兩卡兩段，不得擅自改回三卡。
 8. **核准狀態不變。** SIM-1.3 仍為唯一現行有效規則；SIM-1.4 仍為 DRAFT。候選 Builder 尚未獲使用者明確核准為唯一入口；本修訂不授權 main、正式首頁、正式母版或正式行事曆 JSON 的修改。
+
+
+## 2026-11-21｜凍結候選規則版本後的雙母版同版重跑
+
+- 本次一致性修訂已完成；以本 commit 的 candidate SIM-1.4 blob SHA 作為雙母版同版回歸基準。
+- 先跑 Monday 2026-11-23，再跑 Weekday 2026-11-20；兩次 build 必須讀取同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA。若任一規則／技術資產在兩次 run 之間變更，先停止並重新凍結版本，不得把不同 SHA 的 run 合併宣稱為同版雙母版驗收。
+- 本節只規定 simulation branch 的回歸順序，不授權 SIM-1.4 生效或正式資產修改。
