@@ -405,70 +405,90 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "83.07",
-      "change_display": "+0.92%",
-      "contract_label": "2027年1月 CLF7",
+      "display": "82.44",
+      "change_display": "+0.16%",
+      "contract_label": "OIL／CLF27（2027年1月）",
       "source": {
-        "name": "Investing.com HK｜WTI Jan 2027 futures歷史資料",
+        "name": "Investing.com HK｜WTI原油期貨歷史數據",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
         "data_date": "2026-11-19",
-        "quote_type": "platform_close_last",
-        "note": "11/19為指定Jan27合約平台歷史收盤/Last，非CME官方結算。CME 11/18 Daily Bulletin確認Jan27 OI 261,229、成交量280,487，高於Feb27 OI 91,368、成交量115,228，故選CLF7。11/19 CME final settlement於本報截稿時尚未發布。"
+        "quote_type": "investing_historical_close",
+        "history_close": "82.44",
+        "history_change": "+0.16%",
+        "volume": 286960,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-19 歷史列收市 82.44、升跌 +0.16%、成交量 286.96K；採歷史收市，不採收市後 Last。頁面標示 WTI 原油期貨 2027年1月（OIL），對應 NYMEX CLF27。"
       },
-      "contract": "CLF7",
+      "contract": "CLF27",
       "contract_month": "2027-01",
-      "volume": "241.56K",
-      "data_date": "2026-11-19"
+      "volume": "286.96K",
+      "data_date": "2026-11-19",
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data"
     },
     "Brent原油期貨": {
-      "display": "92.83",
-      "change_display": "+0.96%",
-      "contract_label": "2027年1月 LCOF7",
+      "display": "91.98",
+      "change_display": "+0.03%",
+      "contract_label": "LCOF7（2027年1月）",
       "source": {
-        "name": "Investing.com｜ICE Brent Jan 2027 futures歷史資料",
-        "url": "https://www.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+        "name": "Investing.com HK｜Brent期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
         "data_date": "2026-11-19",
-        "quote_type": "platform_close_last",
-        "note": "11/19為LCOF7指定合約平台歷史收盤/Last，非ICE官方結算。ICE交易頁11/19 11:05 GMT顯示Jan27成交量74,330，高於Feb27 58,331，支持Jan27為當時最活躍月份；公開頁未提供可核對的OI。"
+        "quote_type": "investing_historical_close",
+        "history_close": "91.98",
+        "history_change": "+0.03%",
+        "volume": 252750,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-19 指定 ICE Jan27 合約歷史列收市 91.98、升跌 +0.03%、成交量 252.75K。"
       },
-      "contract": "LCOF7",
+      "contract": "CLF27",
       "contract_month": "2027-01",
-      "volume": "258.52K",
-      "data_date": "2026-11-19"
+      "volume": "252.75K",
+      "data_date": "2026-11-19",
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "3,683.50",
-      "change_display": "-1.56%",
-      "contract_label": "2026年12月 GCZ6",
+      "display": "3,685.50",
+      "change_display": "-1.51%",
+      "contract_label": "GCZ6（2026年12月）",
       "source": {
-        "name": "Investing.com｜CME GCZ6 Gold Futures歷史資料",
-        "url": "https://www.investing.com/commodities/gold-historical-data?cid=1178341",
+        "name": "Investing.com HK｜黃金期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
         "data_date": "2026-11-19",
-        "quote_type": "platform_close_last",
-        "note": "11/19為GCZ6指定合約平台歷史收盤/Last，非CME官方結算。CME最新可得11/18 Daily Bulletin：Dec26 OI 242,517、成交量180,952；Feb27 OI 53,139、成交量146,115，Dec26為主力合約。11/19 CME final settlement於截稿時尚未發布。"
+        "quote_type": "investing_historical_close",
+        "history_close": "3,685.50",
+        "history_change": "-1.51%",
+        "volume": 203700,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-19 指定 COMEX Dec26 合約歷史列收市 3,685.50、升跌 -1.51%、成交量 203.70K。"
       },
       "contract": "GCZ6",
       "contract_month": "2026-12",
-      "volume": "165.98K",
-      "data_date": "2026-11-19"
+      "volume": "203.70K",
+      "data_date": "2026-11-19",
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
     },
     "白銀期貨 SI": {
-      "display": "44.925",
-      "change_display": "-0.30%",
-      "contract_label": "2026年12月 SIZ6",
+      "display": "44.359",
+      "change_display": "-1.55%",
+      "contract_label": "SIZ6（2026年12月）",
       "source": {
-        "name": "Investing.com｜CME SIZ6 Silver Futures歷史資料",
-        "url": "https://www.investing.com/commodities/silver-historical-data?cid=1178344",
+        "name": "Investing.com HK｜白銀期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
         "data_date": "2026-11-19",
-        "quote_type": "platform_close_last",
-        "note": "11/19為SIZ6指定合約平台歷史收盤/Last，非CME官方結算。CME最新可得11/18 Daily Bulletin：Dec26 OI 80,170，高於Mar27 23,436；但Mar27成交量56,135略高於Dec26 51,415，存在換月分歧，故以OI及近月合約選Dec26並明確揭露。"
+        "quote_type": "investing_historical_close",
+        "history_close": "44.359",
+        "history_change": "-1.55%",
+        "volume": 70680,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-19 指定 COMEX Dec26 合約歷史列收市 44.359、升跌 -1.55%、成交量 70.68K。"
       },
       "contract": "SIZ6",
       "contract_month": "2026-12",
-      "volume": "30.08K",
-      "data_date": "2026-11-19"
+      "volume": "70.68K",
+      "data_date": "2026-11-19",
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
     }
   },
   "risk": {
