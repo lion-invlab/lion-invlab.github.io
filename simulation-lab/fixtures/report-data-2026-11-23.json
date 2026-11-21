@@ -459,22 +459,22 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "82.40",
-      "change_display": "-0.05%",
+      "display": "83.98",
+      "change_display": "+0.93%",
       "contract_label": "CLF27（2027年1月；Investing.com頁面標示 OIL）",
       "source": {
         "name": "Investing.com HK｜WTI原油期貨歷史數據",
-        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-20",
         "quote_type": "investing_historical_close",
-        "history_close": "82.40",
-        "history_change": "-0.05%",
-        "volume": 90190,
+        "history_close": "83.98",
+        "history_change": "+0.93%",
+        "volume": 275340,
         "link_label": "Investing.com 歷史數據",
-        "note": "2026-11-20 歷史列收市 82.40、升跌 -0.05%、成交量 90.19K；採歷史收市，不採收市後 Last。頁面標示 WTI 原油期貨 2027年1月（OIL），對應 NYMEX CLF27。"
+        "note": "2026-11-20 指定 CME／NYMEX CLF27（2027年1月）歷史列收市 83.98、升跌 +0.93%、成交量 275.34K；使用該合約歷史數據，不採同名即時 CFD。"
       },
-      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data",
-      "change_points": "-0.04"
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+      "change_points": "+0.77"
     },
     "Brent原油期貨": {
       "display": "92.57",
@@ -1680,7 +1680,7 @@
     "sectors": "📌 產業輪動｜資金明顯轉向現金流較穩定的防禦型產業，科技與非必需消費等高估值／景氣敏感板塊承受較大壓力。這反映投資人降低對遠期成長的估值容忍度，而非已證明AI終端需求反轉。操作上先降低高估值且資本支出回收期長的曝險，防禦配置以獲利穩定、負債可控為條件；只有在市場廣度改善、企業指引未下修時才分批回補成長股。",
     "bonds": "📌 債券｜本次三個期限殖利率均上行，與「避險資金湧入公債、殖利率回落」的說法相反，因此不能把當日股市下跌解讀為公債已提供有效避險。長端殖利率仍高，市場需同時消化通膨、政策利率與財政供給。操作上不宜只因股市下跌就機械增加長天期公債；先觀察PCE、Fed利率定價及長債供給，待殖利率停止上行、債券價格與股市風險訊號重新呈現避險關係，再拉長存續期間。",
     "fx": "📌 匯率｜美元指數小幅回落，主要貨幣並未呈現單一方向的美元全面走強；這表示本輪風險調整未必由美元流動性單一因素主導。操作上外幣配置以實際負債與資產幣別匹配為先，不因單日波動追逐美元；若美元與美債殖利率重新同步走高，再檢查新興市場及台幣資產的資金壓力。",
-    "energy": "📌 原油｜WTI與Brent走勢分歧，反映兩地基準油價仍受各自供需、運輸與期限結構影響；目前資料不足以把單日變動歸因於特定地緣事件或需求崩落。操作上能源曝險以供需數據、庫存與OPEC+政策確認為先，避免只憑油價單日方向建立趨勢部位，並留意期貨合約換月風險。",
+    "energy": "📌 原油｜WTI與Brent於11/20同向走升，但單日漲幅不足以單獨確認需求改善或地緣供應風險已轉為實際中斷。荷姆茲航運安全與美伊緊張可列為風險溢價觀察因素，仍須以官方航運、裝船、庫存及期限結構驗證。操作上不追逐單日油價，待供需證據與價格結構一致後再調整能源曝險。",
     "metals": "📌 貴金屬｜黃金與白銀未能在股市下跌時同步走強，顯示傳統避險需求可能被現金需求、槓桿部位調整或利率預期抵銷；但缺乏資金流證據，不能直接斷言是強制平倉。操作上暫不把貴金屬視為短線必然避險工具，待實質利率、美元與ETF／期貨資金流方向一致後，再判斷是否恢復避險配置。"
   },
   "last_week_calendar": {
