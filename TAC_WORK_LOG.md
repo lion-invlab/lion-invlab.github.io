@@ -1992,3 +1992,11 @@
 - W48行事曆映射工作稿位於本機 /mnt/data/TAC_投資早報_2026-11-23_行事曆映射工作稿.html，由母版副本直接DOM更新。以UTF-8 parser核對：上週經濟2卡、上週財報1卡、本週經濟27卡、本週財報11卡；W48事件數與JSON總數相符，未修改正式JSON。此僅證明卡片數量映射，不代表逐欄內容、來源、排序與結構QA已通過。
 - 工作稿與核准母版的DOM統計需以同一parser重做正式差異檢查；本次初步解析兩者元素總數有差異，ID數量相同，但尚未完成QA契約的結構差異裁決。行事曆工作稿不得標記review_ready；行情其餘欄位、新聞窗口封口、FedWatch截稿重讀、完整分析與四類QA仍未完成。
 - 保護範圍：未修改main、index.html、正式母版、Manifest、QA契約或W47/W48 JSON；目前僅更新本機工作稿，未寫入main preview，未發布。
+
+
+## 2026-11-21｜WTI 合約身分與價格口徑續查（仍待結算值）
+- 依 SIM-1.3 D3，WTI 欄位要求 NYMEX/CME 指定月份期貨正式結算價；不得以連續合約、CFD 或不同月份報價替代。先前 Investing.com HK 歷史列 82.40（-0.05%）明確是 CFD／連續報價，仍不採用。
+- 直接開啟 Investing.com WTI 合約清單頁（https://www.investing.com/commodities/crude-oil-contracts），頁面標示 2026-11-20 22:54 的合約報價與成交量：Dec-26 CLZ26 83.98、+0.77、成交量24,186；Jan-27 CLF27 83.41、+0.97、成交量275,335；Feb-27 CLG27 82.26、+0.77、成交量90,192。按合約成交量，Jan-27 CLF27 為較活躍合約；Reuters報導WTI 83.98對應Dec-26，不應誤套至CLF27。
+- Farmbucks NYMEX CLF27 合約頁（https://farmbucks.com/futures/energy/wti-crude?contract=CLF27）列出Jan-27、NYMEX、成交量275.34K、前一結算82.44、當日報價83.41（+0.97）。該頁資料能確認合約身分及最新成交價，但頁面未明確把83.41標為正式結算價；Investing.com合約清單亦標示Last，而非Settlement。因此尚不足以將83.41鎖定為SIM要求的正式結算價。
+- FT歷史頁（https://markets.ft.markitdigital.com/data/commodities/tearsheet/historical?c=WTI+Crude+Oil）搜尋結果列11/20 close 83.41，但頁面直接開啟回傳403，且連續代碼CL.1本身不能單獨證明合約月份及結算口徑。Reuters報導11/20 WTI 83.98是Dec-26 CLZ26報價，亦非CLF27結算值。
+- 結論：WTI維持「待核實」，不得填入82.40 CFD、83.98 CLZ26或把83.41 Last冒充Settlement。下一次只需補此欄位的CLF27正式11/20 settlement證據；其餘已鎖定行情不重抓。此為第二步單項補漏，未宣稱44項行情整體結案。
