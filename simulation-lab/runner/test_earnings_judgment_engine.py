@@ -14,7 +14,7 @@ def record(eps_actual, eps_estimate, revenue_actual, revenue_estimate):
     }
 
 def main():
-    assert ENGINE_VERSION == "1.3.0"
+    assert ENGINE_VERSION == "1.4.0"
     x=record(1.20,1.00,9.2,8.7)
     assert evaluate_metric(x,"eps")["status"] == "beat"
     assert evaluate_metric(x,"revenue")["status"] == "beat"
@@ -32,6 +32,16 @@ def main():
     x=record(2.47,2.40,108.73,105.0)
     assert evaluate_metric(x,"eps")["status"] == "beat"
     assert evaluate_metric(x,"revenue")["status"] == "beat"
+    # Explicitly non-comparable currency/unit/basis data maps to pending,
+    # not a fifth public status. The reason remains available for audit.
+    x=record(0.54,0.69,0.9314,1.14)
+    x["revenue_actual_currency"] = "CHF"
+    x["revenue_estimate_currency"] = "USD"
+    result = evaluate_metric(x,"revenue")
+    assert result["status"] == "pending"
+    assert result["reason"].startswith("comparison_inputs_not_comparable:")
+    assert set(result.keys()) >= {"status", "reason", "actual", "estimate"}
+
     # Metrics remain independent.
     x=record(1.1,1.0,None,8.7)
     assert evaluate_metric(x,"eps")["status"] == "beat"
@@ -41,7 +51,7 @@ def main():
     assert render_status(x,"eps") == "beat"
     assert render_status(x,"revenue") == "pending"
     assert "優於預期" in render_summary(x)
-    print("PASS: numerical comparison, 1% inline band, negative EPS, no PIT/basis gate, independent metrics")
+    print("PASS: four-state numerical comparison, 1% inline band, negative EPS, no PIT/basis gate, independent metrics")
 
 if __name__ == "__main__":
     main()
