@@ -304,7 +304,7 @@ def classify_calendar_group(item, report_iso, report_cutoff):
     cutoff_dt = parse_taipei_local_datetime(report_cutoff, "report_cutoff_taipei")
     report_day = datetime.strptime(str(report_iso)[:10], "%Y-%m-%d").date()
     event_day = event_dt.date()
-    time_known = item.get("time_known", True) is not False
+    time_known = item.get("time_known") is True
 
     if status in ("released", "published", "completed"):
         state = "released"
