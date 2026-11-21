@@ -2437,3 +2437,14 @@
   - `status=QA_PASSED`，但 `review_ready=false`、`data_review_ready=false`。
 - 唯一 review-ready blocker：VIX、MOVE、CNN Fear & Greed、FedWatch 仍需在 11/23 05:25 台灣時間截稿前更新。不得將 QA_PASSED 誤報為 REVIEW_READY。
 - 後續 commit `45e8879` 更新核心觀察 disclosure 第二個既有粗體標題為「其他補充：」，只改文字、不改 DOM。為使 QA JSON 的 builder SHA 與最新程式一致，需再執行 final full build。
+
+
+### Final Builder SHA 對齊 Full Build（2026-11-21）
+
+- 最新 Builder commit `45e8879` 的 full build run `44911272905`：success。
+- 最新 Builder SHA `ffc2b319c6bc0e31d97b60197b96564b35394681` 與最終 QA JSON 的 `builder_blob_sha` 完全一致。
+- 最終 HTML blob SHA：`505de1d6df7c2258244ff9b727d6fa0b832b9e59`；QA JSON blob SHA：`4c908c28830c6bdc9b502d11dd9eb672756de56b`；HTML SHA-256：`9f751c4f6762105ceac5db804f9133fa420f7c1b956f55cbd145a6b923d594e0`。
+- 最終驗收：HTML assembly、browser tabs／accordions／source links、mother comparison、DOM contract、artifact/provenance、44 項行情與新聞／行事曆結構均通過；六 viewport 1440／768／412／390／360／320 全部通過。
+- Fed 官員行程、FedWatch、週一上週經濟行事曆及財報行事曆均保留。
+- 最終狀態 `QA_PASSED`，不是 `REVIEW_READY`。四項指標 VIX、MOVE、CNN Fear & Greed、FedWatch 仍需在 2026-11-23 05:25 台灣時間截稿前刷新。
+- 輸出仍只在 simulation branch；main／正式首頁未修改。SIM-1.3 有效，SIM-1.4 未核准。
