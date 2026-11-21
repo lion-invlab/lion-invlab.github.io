@@ -545,3 +545,6 @@
 
 
 - 2026-11-21 Weekday regression build follow-up: the 2026-11-20 fixture reached Builder assembly and exposed three missing FactSet fields (`mag7_eps_growth`, `other_493_eps_growth`, `source_url`). The 11/13 FactSet source does not provide a verifiable Mag 7／Other 493 split, so the fixture now marks both split values `待核實` and links the exact 11/13 FactSet PDF; it does not backfill the later 11/20 values. Added a regression test for this pending-state behavior. Re-run weekday build.
+
+
+- 2026-11-21 Weekday visual QA 修正：2026-11-20 舊 fixture 原本 `key_levels.items=[]`，因此今日觀察第三活頁沒有五檔現金指數 OHLC、支撐／壓力及來源日期，六視窗視覺驗收合理地失敗。已按該報告基準日 2026-11-19 逐筆核對 Yahoo Finance 現金指數歷史頁，補入 Dow／S&P 500／Nasdaq Composite／SOX／Russell 2000 五檔 OHLC，並按同一公式重算 S2/S1/P/R1/R2；新增測試驗證日期一致、來源 URL 與公式結果。沒有沿用 11/20 週一 fixture 的 11/20 OHLC。重新執行 weekday full build。
