@@ -50,7 +50,7 @@
 - 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
 - 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
 - Builder：本版不預先指定任何程式為唯一正式 Builder。候選程式必須通過第 8 章驗收後，才可由使用者核准列入生效版唯一入口。
-- 執行狀態及證據：依第 10 章規定的兩份紀錄分工；若指定檔案不存在，先報告路徑缺失，未經核准不得宣稱已更新。
+- 執行狀態及證據：依第 10 章規定的根目錄兩份既有紀錄分工；讀取時以實際路徑及 SHA 為準。
 
 ### 1.2 開工鎖定資料
 記錄 SIM 規則版本／SHA、Manifest SHA、週一或平日母版路徑／SHA、QA Contract SHA、main HEAD、當週及上週 JSON SHA、報告日期、行情基準日、輸出路徑、Builder 候選版本／SHA、Fixture SHA。任一必要基準缺失或不一致，依 0.4 分類，不得 fallback。
@@ -286,9 +286,9 @@
 ## 10. 狀態管理、恢復與計時
 
 ### 10.1 Session State 與 Work Log 分工
-- `simulation-lab/TAC_SESSION_STATE.md`：當前活動任務的唯一狀態錨點。只保存目前報告日期、最後完成階段、輸入／輸出路徑及 SHA、各階段狀態、待處理項目、下一步及恢復位置。
-- `simulation-lab/TAC_WORK_LOG.md`：追加式重要證據紀錄。保存關鍵來源查核、重要裁決、修正、QA 結果、發布／交付回讀及時間紀錄；不複製整份 Session State。
-- 兩檔若不存在，狀態為 STATE_STORE_MISSING。先確認目錄及歷史檔案，於使用者已授權的 simulation 工作範圍內建立必要檔案；不得宣稱已讀取不存在的紀錄，也不得以其他檔案冒充。
+- `TAC_SESSION_STATE.md`（Repository 根目錄）：當前活動任務的唯一狀態錨點。只保存目前報告日期、最後完成階段、輸入／輸出路徑及 SHA、各階段狀態、待處理項目、下一步及恢復位置。
+- `TAC_WORK_LOG.md`（Repository 根目錄）：追加式重要證據紀錄。保存關鍵來源查核、重要裁決、修正、QA 結果、發布／交付回讀及時間紀錄；不複製整份 Session State。
+- 本次實際核對確認上述兩檔均存在於 Repository 根目錄；本草案不得將它們誤報為 simulation-lab 子目錄檔案或缺檔。若未來路徑／檔案確實不存在，先列為 STATE_STORE_MISSING，核對 Git tree 後再依授權處理；不得虛報讀取或建立。
 - 不另建 Snapshot、第二份台帳、第二個 session、流程協調器或平行資料庫。
 
 ### 10.2 階段交接
@@ -321,7 +321,67 @@
 - 外匯：DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD、USD/JPY。
 - 能源及貴金屬：WTI、Brent、Gold GC、Silver SI。
 - 風險情緒：VIX、MOVE、CNN Fear & Greed；SOX 已列於全球市場清單。FedWatch 獨立列示。
-- 以上分類計數合計 44；Stage 1 仍必須從 Manifest 核准母版抽取實際 44 個欄位名稱、DOM 錨點及固定連結，產生逐欄清單。若實際母版欄位與上述類別或數量不一致，即 BLOCKED，不能自行補想像標的。
+- 以上分類計數合計 44；Stage 1 必須核對本附錄 A1.1 的 44 欄 selector／標籤／href；若母版 SHA 改變、任一欄缺失或兩份母版不一致，即 BLOCKED，不能自行補想像標的。
+
+### A1.1 核准母版實際 44 欄位／DOM 定位表（已抽取）
+
+**抽取基準**
+- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`。
+- Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
+- Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
+- 下表以兩份 SHA 鎖定 simulation baseline 的實際 HTML anchor／href 抽取。兩份母版使用相同的 44 欄位類型、順序與連結；星期差異只在上週行事曆回顧區，不改變這 44 欄行情結構。
+
+| # | 類別 | 母版標籤 | DOM 定位 | 母版固定 href |
+|---:|---|---|---|---|
+| 1 | 全球指數 | 道瓊工業指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/us-30 |
+| 2 | 全球指數 | 標普500指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/us-spx-500 |
+| 3 | 全球指數 | 那斯達克綜合指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/nasdaq-composite |
+| 4 | 全球指數 | 羅素2000指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/smallcap-2000 |
+| 5 | 全球指數／SOX | 費城半導體指數 | `#global-markets #tac-global-panel-0 .row:nth-of-type(5) a.global-index-link` | https://hk.investing.com/indices/phlx-semiconductor |
+| 6 | 全球指數 | 香港恆生指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/hang-sen-40 |
+| 7 | 全球指數 | 上海綜合指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/shanghai-composite |
+| 8 | 全球指數 | 深證成指 | `#global-markets #tac-global-panel-1 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/szse-component |
+| 9 | 全球指數 | 日經 225 | `#global-markets #tac-global-panel-1 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/japan-ni225 |
+| 10 | 全球指數 | 韓國 KOSPI | `#global-markets #tac-global-panel-1 .row:nth-of-type(5) a.global-index-link` | https://hk.investing.com/indices/kospi |
+| 11 | 全球指數 | 台灣加權指數 | `#global-markets #tac-global-panel-1 .row:nth-of-type(6) a.global-index-link` | https://hk.investing.com/indices/taiwan-weighted |
+| 12 | 全球指數 | 新加坡海峽時報指數 STI | `#global-markets #tac-global-panel-1 .row:nth-of-type(7) a.global-index-link` | https://hk.investing.com/indices/singapore-straits-time |
+| 13 | 全球指數 | 澳洲 S&P/ASX 200 | `#global-markets #tac-global-panel-1 .row:nth-of-type(8) a.global-index-link` | https://hk.investing.com/indices/aus-200-historical-data |
+| 14 | 全球指數 | 英國 FTSE 100 | `#global-markets #tac-global-panel-2 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/indices/uk-100 |
+| 15 | 全球指數 | 德國 DAX | `#global-markets #tac-global-panel-2 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/indices/germany-30 |
+| 16 | 全球指數 | 法國 CAC 40 | `#global-markets #tac-global-panel-2 .row:nth-of-type(3) a.global-index-link` | https://hk.investing.com/indices/france-40 |
+| 17 | 全球指數 | STOXX Europe 600 | `#global-markets #tac-global-panel-2 .row:nth-of-type(4) a.global-index-link` | https://hk.investing.com/indices/stoxx-600 |
+| 18 | 產業 ETF | XLE 能源 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(1)` | https://hk.investing.com/etfs/spdr-energy-select-sector-fund |
+| 19 | 產業 ETF | XLK 資訊科技 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(2)` | https://hk.investing.com/etfs/spdr-select-sector---technology |
+| 20 | 產業 ETF | XLRE 房地產 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(3)` | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 |
+| 21 | 產業 ETF | XLU 公用事業 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(4)` | https://hk.investing.com/etfs/spdr-select-sector---utilities |
+| 22 | 產業 ETF | XLB 原材料 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(5)` | https://hk.investing.com/etfs/spdr-materials-select-sector-etf |
+| 23 | 產業 ETF | XLV 醫療保健 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(6)` | https://hk.investing.com/etfs/spdr---health-care |
+| 24 | 產業 ETF | XLI 工業 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(7)` | https://hk.investing.com/etfs/industrial-sector-spdr-trust |
+| 25 | 產業 ETF | XLF 金融 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(8)` | https://hk.investing.com/etfs/financial-select-sector-spdr-fund |
+| 26 | 產業 ETF | XLY 非必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(9)` | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector |
+| 27 | 產業 ETF | XLC 通訊服務 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(10)` | https://hk.investing.com/etfs/communication-services-select-spdr |
+| 28 | 產業 ETF | XLP 必需消費 | `#industry-bonds-fx-commodities .sector-list .sector-row:nth-of-type(11)` | https://hk.investing.com/etfs/spdr---consumer-staples |
+| 29 | 美債 | 2年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(1) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield |
+| 30 | 美債 | 10年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(2) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield |
+| 31 | 美債 | 30年期美債殖利率 | `#industry-bonds-fx-commodities #bonds .row:nth-of-type(3) a.global-index-link` | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield |
+| 32 | 外匯 | DXY 美元指數 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(1) a.tac-market-link` | https://www.investing.com/indices/usdollar |
+| 33 | 外匯 | USD/TWD 美元／新台幣 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(2) a.tac-market-link` | https://hk.investing.com/currencies/usd-twd |
+| 34 | 外匯 | EUR/USD 歐元／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(3) a.tac-market-link` | https://hk.investing.com/currencies/eur-usd |
+| 35 | 外匯 | GBP/USD 英鎊／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(4) a.tac-market-link` | https://hk.investing.com/currencies/gbp-usd |
+| 36 | 外匯 | AUD/USD 澳幣／美元 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(5) a.tac-market-link` | https://hk.investing.com/currencies/aud-usd |
+| 37 | 外匯 | USD/JPY 美元／日圓 | `#industry-bonds-fx-commodities #fx .row:nth-of-type(6) a.tac-market-link` | https://hk.investing.com/currencies/usd-jpy |
+| 38 | 商品 | WTI 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/commodities/crude-oil |
+| 39 | 商品 | Brent 原油期貨 | `#industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/commodities/brent-oil |
+| 40 | 商品 | 黃金期貨 GC | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row:nth-of-type(1) a.global-index-link` | https://hk.investing.com/commodities/gold |
+| 41 | 商品 | 白銀期貨 SI | `#industry-bonds-fx-commodities #tac-assets-panel-4 .row:nth-of-type(2) a.global-index-link` | https://hk.investing.com/commodities/silver |
+| 42 | 風險情緒 | VIX | `#sentiment .sbox a[href="https://hk.investing.com/indices/volatility-s-p-500"]` | https://hk.investing.com/indices/volatility-s-p-500 |
+| 43 | 風險情緒 | MOVE | `#sentiment .sbox a[href="https://hk.investing.com/indices/ice-bofaml-move"]` | https://hk.investing.com/indices/ice-bofaml-move |
+| 44 | 風險情緒 | CNN Fear & Greed | `#sentiment .cnn-fg-preview`（卡片內 CNN 官方頁連結） | https://edition.cnn.com/markets/fear-and-greed |
+
+**計數驗證：** 全球指數 17 + 產業 ETF 11 + 美債 3 + 外匯 6 + 商品 4 + 風險情緒 3 = **44**。FedWatch 位於獨立 Fed 區塊，不計入 44。ETF 顯示規則仍為僅顯示漲跌幅並依漲跌幅排序；不得把母版示範排名當作每日排序。
+
+**限制：** 上表已抽取母版標籤、定位及固定 href；這不代表示範行情數值是當日行情，也不取代每日直接開啟歷史數據頁核對。nth-of-type 定位只在對應母版 SHA 不變時有效；若 SHA 變更，先更新 Manifest 並重建定位契約，否則 BLOCKED。
 
 ### A2. 指定來源
 - SOX：Investing.com HK `https://hk.investing.com/indices/phlx-semiconductor-historical-data`；Yahoo `^SOX` 備援／交叉核對。
@@ -358,7 +418,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md` 的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約檔案標示 v1.4，但仍有「SIM-1.2 唯一執行附件」舊引用；SIM-1.4 生效前須在 simulation 分支修正為 SIM-1.4，並更新其 SHA。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -385,9 +445,9 @@
 
 ### 尚待實證，不得假裝已解決
 1. 44 項母版欄位完整逐項名稱及其固定連結，須由實際核准母版抽取並附表；本草案不以類別摘要猜補。
-2. Builder 唯一入口尚未核准；`build_review_html.py` 必須通過第 8 章測試，未通過不得作唯一入口。
-3. QA Contract 與母版 SHA 的相容性需由現有契約、Manifest 及實際母版做回歸驗收。
-4. 2026-11-23 Fixture、行情稽核及時間紀錄必須重建真實完成狀態；不得引用前次不一致的「完成」標記。
+2. Builder 唯一入口尚未核准；`build_review_html.py` 靜態稽核發現新增 CSS、重建 Fed 區塊及改寫週一收折 DOM 等不相容風險。稽核報告：`simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md`；通過第 8 章測試及使用者核准前，不得作唯一入口。
+3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，但 Contract v1.4 的 SIM-1.2 舊引用待修正，DOM／視覺測試尚未執行。報告：`simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md`。
+4. `TAC_SESSION_STATE.md` 與 `TAC_WORK_LOG.md` 均存在於 Repository 根目錄（不是 simulation-lab/ 子目錄）；本次已讀取，應依其最新紀錄重建 11/23 狀態。2026-11-23 Fixture、行情稽核及時間紀錄必須重建真實完成狀態；不得引用前次不一致的「完成」標記。
 
 ---
 
