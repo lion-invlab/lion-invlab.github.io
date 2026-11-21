@@ -226,7 +226,7 @@ def fetch_one(target: dict, archive_dir: Path) -> dict:
     elif raw:
         for metric in ("EPS", "REVENUE"):
             attempt = {
-                "source_level": 4, "provider": "Investing.com", "url": url,
+                "source_level": 2, "provider": "Investing.com", "url": url,
                 "observed_at": observed_at, "data_as_of": parsed.get("data_as_of"),
                 "published_at": parsed.get("published_at"), "period": parsed.get("period"),
                 "period_end_date": parsed.get("period_end_date"),
@@ -307,7 +307,7 @@ def main():
         "probe": "investing_com_public_earnings_page",
         "captured_at": datetime.now(TAIPEI).isoformat(timespec="seconds"),
         "branch_scope": "simulation/tac-process-lab-2026-11-06",
-        "source_priority": "level 4 fallback only; Yahoo Finance, LSEG and FactSet precede it",
+        "source_priority": "level 2 fallback after Yahoo Finance; stop after first available matching-period value",
         "targets": results,
         "verdict": "ROW_CAPTURED_BUT_PIT_FIELDS_INCOMPLETE" if any(x.get("row_found") for x in results) else "NO_TARGET_ROWS_CAPTURED",
         "limitations": [
