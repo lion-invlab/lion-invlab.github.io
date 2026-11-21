@@ -156,3 +156,29 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - QA sidecar 3f455650a5c8b0645df54a46652b0801388e9990：QA_PASSED；review_ready=false，唯一 blocker 是 VIX／MOVE／CNN Fear & Greed／FedWatch 快照時間過舊，須在 11/23 截稿前刷新。
 - 最新 SHA 的 weekday 完整回歸尚待本次 11/20 run；在其通過前，雙母版完整驗收不算結案。
 - SIM-1.4 保持 DRAFT，SIM-1.3 繼續有效；main 與正式資產未修改。
+
+
+## 2026-11-21｜最新 Monday 完整實證（QA Contract v1.8 DRAFT）
+
+### Run 證據
+- GitHub Actions run：`44906803821`；commit：`4cd50ba5a00fc477f1867414e59eabe85a9abc80`；conclusion：`success`。
+- 報告：`preview/2026-11-23-simulation.html`；HTML Git blob SHA：`c41b645ad29c14034c73c42940a863fd9c8b2feb`；SHA-256：`1cecb801a7ce4de95a35424f27d54be171d5df917f4f6743df02b133a040f684`。
+- QA sidecar：`preview/2026-11-23-simulation.qa.json`；blob SHA：`521afcf08d09616151444c1b518065f235237cc3`。
+- Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`；candidate SIM-1.4 DRAFT SHA：`9d0b2fed694ffe09724f310514f3a4f759b9b956`。
+- Monday mother SHA：`36f29bcb37816348756f9233b60f0429d675a76e`。Sidecar 的 provenance 四項 SHA 均已綁定 build commit；HTML 與 sidecar 已成功 persist 至 simulation branch。
+
+### 驗收結果
+- deterministic self-tests：PASS。
+- HTML assemble：PASS；依 Monday 母版原有結構更新。
+- Playwright navigation／tabs／accordions／source links：PASS。
+- 母版 DOM／inline style contract：PASS。
+- artifact／provenance 驗證：PASS。
+- 日期、行事曆／財報權威資料筆數、44 項行情及新聞結構 Gate：PASS。
+- 六視窗視覺 QA：PASS（1440／768／412／390／360／320 px）；Noto Sans CJK TC 字型已安裝並以 fontconfig alias 對應 Noto Sans TC，Playwright `document.fonts.check` 對母版與報告均為 true，截圖不再有中文字形方框。
+- Visual evidence SHA-256：`4826bd840b96b881360b505ecf5a1830d1fe896239246f128ca93b5710b276ff`；interaction evidence SHA-256：`e240827601f4d1fa566eb97ba51b4e05df7dc99c3d6941e30309019c0e1089cc`。
+
+### 狀態界線
+- QA sidecar：`status=QA_PASSED`，但 `review_ready=false`；唯一資料 blocker 為 VIX、MOVE、CNN Fear & Greed、FedWatch 必須在 2026-11-23 05:25 截稿前刷新。不得把 QA_PASSED 誤稱為資料已可發布。
+- `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效。
+- 本 run 僅寫入 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式 W47/W48 JSON 未修改。
+- **尚未結案**：須以相同 Builder／QA Contract／Manifest／candidate rules SHA 完成 2026-11-20 Weekday full build；雙母版都通過後才可提交 SIM-1.4 核准審查。
