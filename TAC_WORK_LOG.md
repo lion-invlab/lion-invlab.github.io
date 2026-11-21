@@ -2194,3 +2194,10 @@
 - SIM-1.3規定Monday上週回顧只呈現五星事件；上述6筆經濟及3筆財報均為四星，因此雖在report-layer projection修正狀態與actual，仍不會出現在「上週五星事件」清單。不可為了顯示而擅自放寬五星規則；這是按規範的呈現結果。
 - 新聞窗口於16:46仍未封口，需在11/21 23:59後再查新增重大消息、核對最後更新、去重並定稿。現有15則為候選／初稿，不可宣告新聞階段完成。
 - 尚未建立HTML審核版、尚未執行11/23正式fixture build、DOM／Playwright／視覺QA；因此沒有預覽連結。main首頁、正式母版、W47/W48 JSON均未修改。下一步：先確認最新workflow smoke test；持續監看新聞窗口，封口後重讀SIM-1.3，更新fixture與Session State，再以 `[build-tac-report]` 觸發正式組裝及全套QA。
+
+
+## 2026-11-21 16:47｜fixture結構檢查與最新smoke run
+- 對最新 `report-data-2026-11-23.json`（blob SHA `32da0239cd36de6c0f9a239ee8d53db967ae966b`）執行結構檢查：17全球指數、11 ETF、3美債、6 FX、2能源、2貴金屬、3風險指標，合計44；5 focus news、10 headlines，15則均具原始時間、來源時區、台灣時間、更新狀態及HTTPS原文連結；6筆W47經濟覆寫、3筆W47財報actual覆寫、5筆W48 impact覆寫。日期為報告2026-11-23、行情2026-11-20、新聞cutoff 2026-11-21 23:59、報告cutoff 2026-11-23 05:25。
+- 最新fixture來源校正commit `4fd5397eb0ed7bacedff9f319ba2fc757e1313cc` 對應GitHub Actions run `44886451870`，結論success。成功項目包括checkout simulation only、母版物化、Python compile、deterministic self-tests、earnings schema audit及證據上傳；fixture resolve、HTML assembly、Playwright、視覺QA等因尚未使用[build-tac-report]而skipped。故此run僅證明程式與回歸測試通過，不是11/23 HTML build成功。
+- 最新工作分支仍為 `simulation/tac-process-lab-2026-11-06`；main首頁SHA未變更、正式母版未變更、W47/W48 JSON唯讀未變更。尚未產生preview。
+- 目前等待點只有新聞窗口封口及最後補查；封口後更新fixture、清除新聞窗口blocker，再觸發真正的日期匹配組裝與全套QA。
