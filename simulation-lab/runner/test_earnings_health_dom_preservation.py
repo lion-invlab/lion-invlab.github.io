@@ -56,18 +56,39 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
         raise AssertionError("generic set_text did not fail closed on nested DOM")
     if guard.select_one("span").get_text(strip=True) != "mother child":
         raise AssertionError("generic set_text destroyed nested child DOM")
-    market_notes = soup.select(".market-reason")
-    if not market_notes:
-        raise AssertionError(f"{template_key}: no market observation cards found")
-    for index, note in enumerate(market_notes, 1):
+    target_sections = [
+        "#tac-global-panel-0", "#tac-global-panel-1", "#tac-global-panel-2",
+        "#asia", "#tac-region-panel-2", "#tac-assets-panel-0",
+        "#bonds", "#fx", "#tac-assets-panel-3", "#tac-assets-panel-4",
+    ]
+    seen_notes = set()
+    tested_notes = 0
+    for selector in target_sections:
+        section = soup.select_one(selector)
+        note = section.select_one(".market-reason") if section else None
+        if note is None or id(note) in seen_notes:
+            continue
+        seen_notes.add(id(note))
+        tested_notes += 1
         before_note = shape(note)
         heading_node = note.find("b", recursive=False)
         if heading_node is None:
-            raise AssertionError(f"{template_key}: market observation #{index} lacks mother bold heading")
+            raise AssertionError(f"{template_key}: {selector} market observation lacks mother bold heading")
         heading_text = heading_node.get_text(" ", strip=True)
-        set_market_observation(note, heading_text, f"DOM preservation test {index}")
+        set_market_observation(note, heading_text, f"DOM preservation test {tested_notes}")
         if before_note != shape(note):
-            raise AssertionError(f"{template_key}: market observation #{index} DOM/style skeleton changed")
+            raise AssertionError(f"{template_key}: {selector} market observation DOM/style skeleton changed")
+    if tested_notes < 3:
+        raise AssertionError(f"{template_key}: expected at least three market observation slots, got {tested_notes}")
+    focus_key = soup.select_one("#view .focus-panel.focus-market .key")
+    if focus_key is not None:
+        before_focus = shape(focus_key)
+        heading_node = focus_key.find("b", recursive=False)
+        if heading_node is None:
+            raise AssertionError(f"{template_key}: market focus card lacks mother bold heading")
+        set_market_observation(focus_key, heading_node.get_text(" ", strip=True), "DOM preservation test")
+        if before_focus != shape(focus_key):
+            raise AssertionError(f"{template_key}: market focus DOM/style skeleton changed")
     sentiment = soup.select_one("#sentiment")
     sentiment_card = sentiment.select(".sbox")[-1]
     sentiment_before = shape(sentiment_card)
