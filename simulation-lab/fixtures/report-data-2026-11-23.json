@@ -1806,7 +1806,7 @@
       "text": "不因單一財報或AI長期敘事追價，也不把全面回檔直接當買點。優先檢查企業資產負債表、資本支出回收期、應收帳款與自由現金流；待市場廣度、信用條件與利率波動穩定，再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
+  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1995,7 +1995,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；VIX、MOVE、CNN Fear & Greed、FedWatch仍須在報告截稿前刷新。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
@@ -2006,12 +2006,11 @@
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48財報共識缺乏可驗證PIT快照時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。電話會議時間不得冒充財報發布時間。",
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
-    "FedWatch於17:57重新讀取，頁面最新更新時間仍為11/21 13:35台灣；FGScore於17:57重新讀取，Provider最新市場時間仍為11/21 07:59台灣。兩者均以實際資料時間戳顯示，不冒稱即時值。",
-    "NVDA Q3 FY2027 GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；共識PIT不足，不判Beat/Miss。公告後股價反應需由SIM規定的price-reaction資料或明確歷史收盤證據補入。",
-    "VIX、MOVE、CNN Fear & Greed、FedWatch的最後快照時間為11/21 17:57以前；須在11/23 05:25截稿前重新讀取並顯示實際資料時間，未刷新前不可標記 REVIEW_READY。"
+    "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
+    "NVDA Q3 FY2027 GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；共識PIT不足，不判Beat/Miss。公告後股價反應需由SIM規定的price-reaction資料或明確歷史收盤證據補入。"
   ],
   "review_ready_blockers": [
-    "VIX、MOVE、CNN Fear & Greed 與 FedWatch 必須於報告截稿前重新讀取並更新資料時間；目前仍是 2026-11-21 17:57:31 前的快照。"
+    "NVDA Q3 FY2027 公告後股價反應尚未完成同口徑歷史收盤核對；完成前維持 review_ready=false。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
