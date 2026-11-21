@@ -2507,3 +2507,12 @@
 - 因商品名稱、行事曆截稿狀態及財報母版版型三項規則補正發生於該 build 後，舊 run PASS 不可當成最新草案驗收。現有預覽只作舊 SHA 下的修復成果參考。
 - 後續必須以最新草案 SHA 重跑 Monday，並用同一最新 Builder SHA 重跑 Weekday；兩個 sidecar 的規則／Builder／Manifest／QA Contract SHA 必須一致，才算最新版本雙母版驗收。
 - SIM-1.3 仍有效；SIM-1.4 DRAFT 尚未通過最新 provenance build，也未獲使用者核准。
+
+
+## 2026-11-21｜SIM-1.4 補回 B3 母版視覺與互動規則
+
+- 完整比對有效 SIM-1.3 的 B3.2–B3.6 與 SIM-1.4 主文，發現草案漏列漲跌顏色及數項既有視覺／互動要求。已在 SIM-1.4 1.3 與 9.2 補回：上漲紅／下跌綠、中文名稱在上／英文代碼小字在下、行情連結只包名稱或代碼、五星事件標題 TAC 紅／四星沿用母版、不恢復已刪除的「關鍵重點」膠囊、工具泡泡與呼吸燈分別驗收。
+- 最新 SIM-1.4 DRAFT blob SHA：`f585c0e08e1075d760c91a5f0eab79a408ca9e45`；commit `34791786dc0fd24706f970a5d3a035a1ce1acd5b`。
+- Clause disposition 最新 SHA：`53f227f6cdb3d0e94443593b6067ab5fb1b4b09f`；Builder audit 最新 SHA：`2c385694fa8d4b76d7ef5c3d1bc4d126121ddb62`。
+- 既有 build `44914993653` 使用更早 candidate rules SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不能作為目前 `f585c0e...` 規則版本的 build QA 證據；需在最新規則凍結後重跑 Monday／Weekday 同 SHA。
+- SIM-1.3 仍有效；SIM-1.4 DRAFT 未核准；main、正式首頁、正式母版及 main 行事曆 JSON 未修改。
