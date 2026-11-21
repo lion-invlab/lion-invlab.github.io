@@ -3263,3 +3263,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 
 - 2026-11-21 22:18 台灣時間：SIM-1.3 全部分支 deterministic self-tests run `44913183956` 已完成 success；新增商品合約月份標籤回歸測試通過。首次 run `44913120411` 的測試斷言錯誤已修正，不影響 Builder 功能。
 - 已重新 fetch 最新 SIM-1.3（blob `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）及 QA Contract（blob `f6848d21286f63c4eef11682eedd8825b5fd3aad`）；依 A2 修改閉環、B3 版面規範、C／第五步與第六步交付規定進入完整 build／DOM／視覺 QA。
+
+
+## 2026-11-21｜WTI／Brent 商品名稱欄位修正完成
+
+- Full build run `44913313447`：success。HTML 組裝、互動 smoke、母版視覺比較、母版 DOM contract、獨立 artifact/provenance、44 項行情／新聞／行事曆契約全部通過；沿用本次修改範圍相關的 360px 手機及桌面視覺回歸。
+- 新審核 HTML blob SHA：`61e2217b1415241b396131541bfa9e72b184525d`；QA JSON blob SHA：`0843ff082cbc27176edd8205ba193a0200cf9fee`；Builder blob SHA：`f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`。
+- HTML 回讀驗證：商品列顯示「WTI 原油期貨」，不含 `CLF27`／`2027年1月`；既有來源說明仍完整保留 `CLF27（2027年1月）`、`LCOF7（2027年1月）`。沒有改 CSS 或母版 DOM。
+- 已依使用者既有授權更新 main `preview/2026-11-23-simulation.html` 與對應 QA sidecar；main HTML blob SHA `61e2217b1415241b396131541bfa9e72b184525d`，QA blob SHA `0843ff082cbc27176edd8205ba193a0200cf9fee`。兩檔均從 simulation 最新通過 build 複製並 fetch 回讀。
+- main 寫入 commit：HTML `62affdf42147fc6940c3af1b93cb4d415c571547`；QA `8a7a8a24f6811259d760a558d1266c1c3f54c229`。兩個 commit 各只變更其對應 preview 檔；`main/index.html` 未修改。
+- GitHub Pages deploy run `44913480651`：success，部署 head SHA `8a7a8a24f6811259d760a558d1266c1c3f54c229`。但本執行環境無法直接取得 Pages 線上 HTTP 回應（web fetch Internal Error／執行環境 DNS 不可用），故只能確認部署工作成功，不能宣稱已實際開啟線上頁面驗證。預覽網址附新版本識別參數供使用者直接驗收。
+- QA 狀態仍是 `QA_PASSED`，不是 `REVIEW_READY`；VIX、MOVE、CNN Fear & Greed、FedWatch 仍需於 11/23 05:25 截稿前刷新。
