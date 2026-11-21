@@ -2543,3 +2543,15 @@
 - 保留 SIM-1.3 實用型數值比較政策；PIT 是來源證據標籤，不可把公告後擷取資料冒稱公告前觀測。
 - SIM-1.3 更新 commit：`f6f57bd888802e61186182c4106013850d3ac34a`；新 blob SHA：`de009a096f01392af2b33e52fc62f276348c80a0`。
 - 僅修改 simulation branch 的 SIM-1.3 與本工作紀錄；未修改 main、正式首頁、母版、Manifest、行事曆 JSON 或 SIM-1.4 DRAFT。規則更新尚未代表 Builder、共識擷取程式或財報小卡已完成接線與回歸測試。
+
+
+## 2026-11-21｜更正：財報共識來源統一 Yahoo Finance 第一順位，並同步 SIM-1.4
+
+- **更正前一筆錯誤修改：** 前一筆紀錄將 Yahoo Finance 誤設為第四順位，與使用者最新指示相反。該筆紀錄保留作為錯誤操作追溯，不再是有效規則；有效順位以本筆及最新 SIM-1.3／SIM-1.4 草案為準。
+- 使用者明確要求：Yahoo Finance 第一順位，其餘來源依序遞補。統一順位為 **Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com**。
+- 已更新有效規則 simulation-lab/TAC_WORK_RULES_SIM.md：同步修正 F3-補充5、F3-補充7 第3點及 F3-補充8；EPS 與 Revenue 各自獨立選源，取得第一個可用平均預期後停止該指標主來源搜尋；低順位來源只作交叉參考，不得混合、平均或覆蓋高順位值。
+- 已同步更新 simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md：Stage 3、5.2 共識來源與選用、條文處置摘要及版本紀錄均改為 Yahoo 第一順位。SIM-1.4 仍是 DRAFT，尚未生效。
+- Yahoo 欄位仍須保存來源 URL、TAC observed_at、原始回應及 SHA-256；observed_at 不得冒充 data_as_of；未揭露的 EPS methodology、Basic／Diluted 或 Revenue 定義如實註記。
+- SIM-1.3 新 commit：dd4b28a82fc10b61a939e89fc592cbde311cb54a；blob SHA：6f8739b77678a3cfd7e296f6059288e0f7ee74f8。
+- SIM-1.4 DRAFT 新 commit：5344f3f34169d35da38b0f9b92c611138f4ee95b；blob SHA：48adcdb587836bf48adf00b02479194eabfaa602。
+- 僅修改 simulation branch 的 SIM-1.3、SIM-1.4 DRAFT、Session State 與 Work Log；未修改 main、正式首頁、正式母版、Manifest 或行事曆 JSON。Builder／共識資料擷取接線與回歸測試尚未執行，不宣稱程式已同步完成。
