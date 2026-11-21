@@ -3038,3 +3038,9 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 修正 commit：`e03cf36a04d5c2a8e29a21aebc46a2af16f5a724`；builder 新 blob SHA `760ab7bbcbd72c3d53f6512b7f7635c651f59254`。已完成GitHub update_file寫入；尚未取得workflow實際執行結果，故此修正標記「已寫入、未測試」，不可宣稱通過。
 - main首頁、正式母版、Manifest、W47/W48正式JSON均未修改；未建立或重用舊preview。
 - 下一步：新聞窗口封口前補查並去重新增新聞；23:59後完成第四步新聞時間窗封口與分析定稿。其後依SIM-1.3重新讀取下一步條文，建立11/23日期匹配fixture，先以非build commit完成builder修正的workflow自我測試，再以 `[build-tac-report]` push觸發正式組裝與QA；如失敗依真實log修復並重跑。
+
+
+## 2026-11-21 16:3x｜組裝器修正後自我測試與新聞候選補充
+- FactSet builder 修正 commit `e03cf36a04d5c2a8e29a21aebc46a2af16f5a724` 的 GitHub Actions push workflow 已完成：run ID `44884922063`，job `isolated-smoke`，conclusion=success。成功步驟包含安裝依賴、Monday母版SHA複核、Investing earnings parser self-test、PIT snapshot store self-test、Python compile、deterministic self-tests、main earnings schema audit。日期解析、fixture build、DOM組裝、Playwright、視覺回歸、完整審核版驗證均為skipped（本commit未使用[build-tac-report]且尚無11/23 fixture），因此這是程式自我測試成功，不是11/23組裝或QA成功。
+- 新聞補充候選（不與現有AI恐慌摘要完全重複）：Reuters「AI tech rout prompts US investors to rush into value stocks」，原始發布Nov 20, 2026 8:13 PM UTC（台灣11/21 04:13），頁面更新欄顯示Updated ago；內容指出市場由AI科技股轉向美債與低估值價值股，S&P 500中位數股票年初至今+5%、指數約+1%，價值指數+7%、成長指數-4%。來源：https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/。可作市場熱門頭條候選，待窗口封口時確認保留與否；不以同一AI大跌新聞重複湊數。
+- 本輪時間窗口仍未封口；第四步狀態仍為「初選完成、待封口」，尚未進入正式HTML組裝。
