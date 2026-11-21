@@ -3369,3 +3369,17 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 11/23 build 第一次 run `44954646324` 因 QA Contract A2.1 使用過期 Monday SHA `36f29b...` 而在獨立 provenance 驗證失敗；已修正契約後由 run `44954756293` 重新完整執行並通過。不得引用第一次失敗 run 作為最終 QA。
 - 審核版僅寫入 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改；未部署 Pages。
 - 下一步：以相同 SHA 觸發 2026-11-20 Weekday fixture 完整 build，回讀其 HTML／QA sidecar 核對 provenance；若通過，再完成 SIM-1.4 條文與實作對照表及候選 Builder 驗收摘要，交使用者核准 SIM-1.4／Builder，不代替使用者核准。
+
+
+## 最新狀態錨點｜2026-11-22｜SIM-1.4 雙母版候選 Builder 驗證完成
+
+- 目標審核版：2026-11-23（一）；行情基準日 2026-11-20；工作分支 `simulation/tac-process-lab-2026-11-06`。
+- 有效規則仍為 SIM-1.3：`simulation-lab/TAC_WORK_RULES_SIM.md` blob `116ebb0a6401321148a878fe20c9504df7ce37f7`。SIM-1.4 候選主文 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md` blob `371554033cd33efb76062827bc6b340e16f28bc2`，仍為 DRAFT，未獲使用者核准，不取代 SIM-1.3。
+- 候選 QA Contract v1.14 DRAFT：`simulation-lab/baseline/mother-template-qa-contract.md` blob `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`。Manifest blob `5080858c6720847086b7df815432d305d6231b3a`。Monday mother blob `72cd41e63f57f17b5b797af6043e839bf5f3b069`；Weekday mother blob `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 候選唯一 Builder 路徑：`simulation-lab/runner/build_review_html.py`，blob SHA `036d9ab838a1b4e461de52cadf6c33a8d6236758`。已修正 Monday-only earnings source-note slot 假設；Weekday mother 無該頂層槽位時 Builder 必須 no-op，且不得新增 DOM／CSS。新增 regression test，deterministic self-tests 通過。
+- 2026-11-23 Monday 最新同版 run `44955333627` completed／success：HTML blob `7b04a02edb35a3f90298394faeeb73c204f326a8`，HTML SHA-256 `fc151183bde61339e5c46169da249355316a3cec4da6895e6f4711954348315c`，QA sidecar blob `25a8079900905bd78b7d59f0e8476e08afaee36d`；`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、無 review blockers。
+- 2026-11-20 Weekday 最新同版 run `44955117611` completed／success：HTML blob `8b2f7201b380d2152255975cd521a4098ab0f530`，HTML SHA-256 `c432b0cb5a2a27b7001950161a78e323f0889787ce7b4b29d0d7b508aaf42120`，QA sidecar blob `b9cd2550caa6076276185117d81bda8703a15228`；`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、無 review blockers。
+- 兩個日期的 provenance 已核對完全相同：Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。依 SIM-1.4 §8.1，雙母版隔離測試已完成，候選 Builder 狀態可標示 `CANDIDATE_VALIDATED`。
+- SIM-1.4 尚未 REVIEW_READY：兩份 sidecar 均記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`，唯一剩餘項目是使用者明確核准候選 Builder 路徑與 SHA，並核准 SIM-1.4 草案生效。不得代替使用者批准。
+- 兩份審核版及 QA sidecar 僅存在 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改，Pages 未部署。
+- 下一步：向使用者交付 11/23 審核版檔案與 QA 證據，並提供 SIM-1.4 主文／Builder 的核准摘要。若要取得 Pages 可直接預覽的網址，需依有效規則另行取得 main/preview 寫入授權；不得把 simulation branch 的 HTML 誤稱為已部署的線上預覽。
