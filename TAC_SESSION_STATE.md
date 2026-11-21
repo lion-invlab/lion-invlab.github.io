@@ -3166,3 +3166,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
 - Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
 - 仍未通過 CI 前，不宣稱測試成功；仍須跑真正 Monday／weekday HTML build、DOM 零退化、artifact validation、Playwright 桌面／手機與六 viewport 視覺 QA。SIM-1.4 維持 DRAFT，main／正式首頁未修改。
+
+
+## 2026-11-21｜SIM-1.4 母版相容性修復與下一步
+
+- 使用者要求保留 Fed 官員行程；已在週一／平日 simulation 母版建立固定槽位，Manifest SHA `dac1d96b69349502b045a4ffd11ae9f5c1b53536`、QA Contract SHA `26bb1dc456185069753d1c6b9cfa038e97875913`。正式 main 母版與首頁均未修改。
+- Builder 修正空白正規化 regex；新增 CFD quote_type guard 測試、雙母版 Fed 官員行程槽位測試及 FedWatch 雙卡／多情境 fail-closed 測試。
+- FedWatch 僅更新母版既有兩卡／兩段／兩圖例；不再 clone 第三卡、不寫死 +25bp/+50bp。多情境超出兩卡時，視覺分布標示待核實，完整機率列在原有快照說明。
+- Builder 已移除每日追加 summary、週一 disclosure、側欄、能源、財報卡及市場字體 CSS，並移除週一 summary DOM 清空重建；保留 11/11 使用者核准的單次突發專題 `special_focus` 條件式例外。
+- CI run `44900780456`、`44900949612` success，僅代表 deterministic tests／smoke 通過。尚未完成 build mode、HTML artifact、DOM 零退化、Playwright、六 viewport 視覺驗收。
+- **下一步：** 觸發 2026/11/23 Monday fixture 真正 build，逐項修正 build／DOM／browser QA 失敗，再執行 weekday fixture；全部通過前 SIM-1.4 維持 DRAFT，Builder 不核准為唯一入口。
