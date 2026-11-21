@@ -2602,3 +2602,9 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - P0 判定：GitHub Connector → Actions workspace → workflow artifact → 本機容器檔案交付已實測成功；不再是阻塞。不得再要求使用者每日上傳母版。
 - 目前下一個實際阻塞：simulation-lab/fixtures/report-data-2026-11-23.json 不存在（GitHub 404）；fixtures 目錄最新為 report-data-2026-11-20.json（blob 1d5f71b4f3c60c83d9857cf9a1e7de0240abf19c）。不可將11/20 fixture冒充11/23資料。Phase 5尚未開始；需依Phase 2/4已核實資料形成日期匹配的11/23資料輸入，之後才可執行DOM組裝與QA。
 - 最新規則與基準回讀：SIM-1.3 679eae7ba7a40dbad64d15bb448fe53db7d67e09；Manifest dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract 331b4bdfe318462e15cae8ae4cd31c32815960d7；Monday mother 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。main/index.html未修改；main preview未建立；沒有正式發布。
+
+
+## 2026-11-21｜Phase 5 路徑更正（SIM-1.3，不依賴 report-data fixture）
+- 更正前一筆交接紀錄中「缺少 report-data-2026-11-23.json 是下一個阻塞」的判斷：該檔不存在屬於既有 workflow/build_review_html.py 的輸入假設，不是 SIM-1.3 的正式前置條件。SIM-1.3 明定每日早報由 ChatGPT 單一執行者直接整合已核實行情、唯讀行事曆、新聞與分析，直接更新核准母版 DOM；不得經 Snapshot／Collector／Assembler／Renderer 中轉。故不得為了滿足舊 workflow 而補造 fixture，也不得以舊 Builder 代替正式製作。
+- P0 母版檔案交付已解除；下一工作是以本機已驗證的 /mnt/data/tac-mother-transfer/monday-mother-template.html 為唯一底稿，依 SIM-1.3 第五步及 QA Contract 的 DOM 定位契約直接進行節點更新。只使用已核實內容；新聞窗仍未封口，故當前可製作結構／內容預備稿，不能標記最終完成或執行交付。
+- report-data-2026-11-23.json 不存在僅記錄為 legacy workflow 缺少同日 fixture；不再列為 SIM-1.3 阻塞。舊 workflow build mode 不得用於本次正式組裝。
