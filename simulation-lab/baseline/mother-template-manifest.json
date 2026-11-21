@@ -15,8 +15,8 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。",
-      "simulation_blob_sha": "52fa9949b82b0c86974b3cc4785d734321316b02",
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
+      "simulation_blob_sha": "50a98bd8363f462cb6856d0a26cd008afa2515dd",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -27,8 +27,8 @@
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
-      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。",
-      "simulation_blob_sha": "c91f96e121b6fb779c6775bd845e8eb29c7cc70b",
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
+      "simulation_blob_sha": "873eebe09f84932de6e1f94575914e6c6e9eab89",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -85,6 +85,10 @@
     {
       "date": "2026-11-21",
       "change": "依使用者指示保留 Fed 官員週行程功能；雙母版於 FOMC 活頁加入固定外層容器、標題、事件清單、事件原型及空狀態槽位。Builder 僅複製核准事件原型並填入文字／來源欄位，不再清空重建 Fed 外層 DOM；同步更新 simulation 母版 SHA。未修改 main 正式母版或首頁。"
+    },
+    {
+      "date": "2026-11-21",
+      "change": "Simulation-only mother typography correction: align #overview and #sentiment section headings at 21px in existing mother CSS; update both simulation template SHA locks. Formal main mothers remain unchanged."
     }
   ]
 }
