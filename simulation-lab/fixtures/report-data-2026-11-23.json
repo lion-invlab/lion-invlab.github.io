@@ -471,7 +471,8 @@
         "open_interest": 267254,
         "note": "CME Daily Bulletin #225（Preliminary）：NYMEX CLF27 Jan27 settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Jan27成交量高於Feb27，故採Jan27活躍合約。Preliminary非Final settlement。",
         "change_points": "+0.97"
-      }
+      },
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
     },
     "Brent原油期貨": {
       "display": "92.57",
@@ -488,7 +489,8 @@
         "ice_official_last": "92.49",
         "comparison_contract": "LCOG7（2027年2月）",
         "comparison_volume": 252750
-      }
+      },
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
     }
   },
   "metals": {
@@ -504,7 +506,8 @@
         "volume": 328143,
         "open_interest": 150028,
         "note": "CME 11/20 Preliminary Daily Bulletin：GC Dec26（GCZ6）settlement 3,515.40、點數變動-170.10、成交量328,143、未平倉150,028；Feb27成交量77,998，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
-      }
+      },
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
     },
     "白銀期貨 SI": {
       "display": "41.070",
@@ -518,7 +521,8 @@
         "volume": 110979,
         "open_interest": 41582,
         "note": "CME 11/20 Preliminary Daily Bulletin：SI Dec26（SIZ6）settlement 41.070、點數變動-3.289、成交量110,979、未平倉41,582；Mar27成交量41,028，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
-      }
+      },
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
     }
   },
   "risk": {
