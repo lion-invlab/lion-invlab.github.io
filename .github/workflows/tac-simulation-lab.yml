@@ -141,7 +141,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py
+          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
 
@@ -343,6 +343,10 @@ jobs:
       - name: Compare review against the date-selected approved mother
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
+
+      - name: Verify mother-owned DOM structure unchanged
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "simulation-lab/output/${TEMPLATE_KEY}-mother-template.html" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
 
       - name: Independently validate exact review artifact and provenance
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
