@@ -15,6 +15,7 @@ EVENT = {
     "eps_actual": None,
     "revenue_actual": None,
     "judgment": "",
+    "time_known": True,
 }
 
 def fixture(status="pending_verification", event_date=EVENT["event_date"]):
