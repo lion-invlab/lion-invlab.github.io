@@ -56,6 +56,9 @@ def main():
                   report_layer_status_only=True, report_layer_status_source={"url": "https://example.com/status"},
                   time_known=True)
     assert classify_calendar_group(future, "2026-11-20", "2026-11-20 05:25") == "today"
+    assert earnings_status_label(future, "eps", "pending") == "公布狀態待核實"
+    assert calendar_actual_display(future, "2026-11-20 05:25") == "公布狀態待核實"
+    assert "公布狀態待核實" in earnings_commentary(future)
 
     # Source timestamps in another timezone must be converted before deriving the Taiwan event date.
     cross_tz = dict(EVENT, event_date="2026-11-22T17:00:00-05:00", status="upcoming", time_known=True)
