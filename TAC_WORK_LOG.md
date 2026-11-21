@@ -1942,3 +1942,14 @@
 - IMF《Global Markets Monitor — November 20, 2026》已讀取：頁1明確指出全球股市連跌第七日、科技股下跌與AI估值憂慮、10年期美債殖利率跌破5%；頁2後續通膨與能源指標可供交叉背景，不將其混作本次11/20收盤值。來源：https://www.imfconnect.org/content/dam/imf/News%20and%20Generic%20Content/GMM/archive/GMM%20November%2020%2C%202026.pdf 。
 - CNA／Focus Taiwan 11/20 17:40報導：台股收36,033.29，當日-6.23%，全週-17.5%，為1990年代初以來最差週表現之一；可用於台灣市場熱門頭條。來源：https://focustaiwan.tw/business/202611200015 。
 - 狀態未變更：第三步事件篩選已完成但尚未映射完整HTML；第四步新聞窗口仍開放至2026-11-23 05:25 Asia/Taipei，不能提前標記封口；第五步尚未交付。此輪只完成來源覆核，未宣稱 HTML 已完成或 QA 通過；未修改 main、行事曆 JSON、正式母版或首頁。
+
+
+## 2026-11-21｜第四步新聞增量：原文時間核實與候選去重
+- Reuters〈AI tech rout prompts US investors to rush into value stocks〉原文已開啟；11/20 15:07 EDT（台灣11/21 04:07），更新17:17 EDT。內容：資金由AI科技股轉向美債及低估值價值股；Nasdaq週跌為2020/3以來最大、S&P 500較10/6高點回落約12%；S&P 500成分股中位數YTD約+5%、Value +7%、Growth -4%。來源：https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/ 。
+- Reuters〈Instant view: Nasdaq plunges 5% a day after Anthropic debut, but investors still believe in AI〉原文候選：11/20收盤事件；與Reuters收盤稿及鉅亨網美股收盤稿主題重疊，保留作交叉驗證，不另佔全球焦點／熱門頭條名額。來源：https://www.reuters.com/business/view-nasdaq-plunges-5-day-after-anthropic-debut-investors-still-believe-ai-2026-11-20/ 。
+- Reuters〈Wall St ends sharply lower on AI selloff, S&P 500, Dow in correction〉原文候選：11/20美股收盤，與已選同一收盤事件，去重，不另列卡片。來源：https://www.reuters.com/legal/transactional/wall-st-futures-slip-anthropic-debut-fails-reassure-ai-investors-2026-11-20/ 。
+- 鉅亨網11/21 09:00〈AI疑慮引爆美股重挫！標普、道瓊雙雙陷入修正區間 那斯達克抹去全年漲幅〉：作美股熱門頭條候選，涵蓋標普／道瓊進入修正、Nasdaq年初至今轉負、費半與AI股重挫。來源：https://news.cnyes.com/news/id/6669685 。
+- 鉅亨網11/21 11:10〈全球公債殖利率急跌！AI股重挫掀避險潮 美債連五日走低〉：可作全球焦點宏觀候選，主題是股市風險去槓桿向債市避險輪動；其Fed升息機率敘述不作本報告FedWatch數據來源，僅保留原文新聞觀點並標明出處。來源：https://news.cnyes.com/news/id/6669652 。
+- 鉅亨網11/21 08:00〈美股重點新聞摘要2026年11月20日〉：含美中AI軍事決策、人類監督、資料中心政策構想等多個子題；屬彙編型摘要，應拆讀各原始來源後才可獨立採用，不直接整篇當單則新聞。來源：https://news.cnyes.com/news/id/6669679 。
+- 鉅亨網11/21 05:49〈美股盤後｜AI殺盤全面失控〉與09:00美股收盤專題屬同一事件，二擇一，暫以09:00專題為熱門頭條候選；05:49版保留作交叉核對。
+- 本輪新增合格候選，不代表新聞窗口已封口；截稿時間仍為2026-11-23 05:25 Asia/Taipei。新聞名額、跨區平衡及事件去重須於截稿前最後確認。
