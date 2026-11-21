@@ -2071,12 +2071,15 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         from html import escape as _esc
         eh = data.get("earnings_health") or {}
         required_health = ["as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct",
-                           "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise", "forward_pe"]
+                           "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise", "forward_pe",
+                           "mag7_eps_growth", "other_493_eps_growth", "source_url"]
         missing_health = [key for key in required_health if not str(eh.get(key, "")).strip()]
         if missing_health:
             raise ValueError("FactSet earnings-health snapshot missing fields: " + ", ".join(missing_health))
         if eh["as_of_date"] < "2026-11-13":
             raise ValueError("FactSet earnings-health snapshot is stale for 2026-11-17 report")
+        if not str(eh.get("source_url", "")).startswith("https://"):
+            raise ValueError("FactSet earnings-health snapshot must include an HTTPS source URL")
         e = {k: _esc(str(v)) for k, v in eh.items()}
         cards = [
             ("混合盈餘年增率", e["blended_eps_yoy"], f"前週 {e.get('prior_blended_eps_yoy','')}"),
@@ -2101,9 +2104,9 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
 <div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px;color:#202124">盈餘與營收成長維持強勁，但聚合 EPS 驚喜幅度低於歷史均值；市場開始更重視成長品質。</div>
 <div style="font-size:13px;line-height:1.7;color:#30343a">截至 {e['as_of_date']}，標普 500 有 {e['reported_pct']} 成份股公布 Q3 財報；{e['eps_beat_pct']} EPS、{e['revenue_beat_pct']} 營收優於預期。混合 EPS 年增 {e['blended_eps_yoy']}、營收年增 {e['blended_revenue_yoy']}，但聚合 EPS 僅高於預估 {e['eps_surprise']}，低於五年均值 {e.get('eps_surprise_avg_5y','')} 與十年均值 {e.get('eps_surprise_avg_10y','')}。</div></div>
 <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px">{card_html}</div>
-<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>Q3 混合 EPS 與營收均維持雙位數成長，且多數公司優於市場預期。<br><b style="color:#ad7427">保留：</b>聚合 EPS 超預期幅度僅 {e['eps_surprise']}，低於五年與十年均值；優於預期的公司比例高，不代表驚喜幅度同樣強。<br><b style="color:#202124">估值：</b>Forward 12M P/E 為 {e['forward_pe']}，低於五年與十年均值，仍須搭配利率與獲利預估觀察。</div></div>
+<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>Q3 混合 EPS 與營收均維持雙位數成長，且多數公司優於市場預期。<br><b style="color:#2563a6">成長廣度：</b>Mag 7 EPS 成長 {e['mag7_eps_growth']}，低於其他493家公司的 {e['other_493_eps_growth']}，獲利成長來源正擴散至大型科技以外。<br><b style="color:#ad7427">保留：</b>聚合 EPS 超預期幅度僅 {e['eps_surprise']}，低於五年與十年均值；優於預期的公司比例高，不代表驚喜幅度同樣強。<br><b style="color:#202124">估值：</b>Forward 12M P/E 為 {e['forward_pe']}，低於五年與十年均值，仍須搭配利率與獲利預估觀察。</div></div>
 <div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度能否回升、Q4 獲利成長預估是否下修，以及大型科技公司能否把 AI 資本支出轉化為營收、利潤與現金流。</div>
-<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">來源：FactSet Q3 2026 Earnings Insight；統計截點 {e['as_of_date']}。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估，不代表全部成份股均已公布。</div></details>
+<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">來源：<a class="factset-source-link" href="{e['source_url']}" target="_blank" rel="noopener noreferrer">FactSet Q3 2026 Earnings Insight</a>；統計截點 {e['as_of_date']}。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估，不代表全部成份股均已公布。</div></details>
 """, "html.parser")
         for _node in list(_health_fragment.contents):
             health.append(_node)
@@ -2566,6 +2569,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     required_health_values = (
         "as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct",
         "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise", "forward_pe",
+        "mag7_eps_growth", "other_493_eps_growth",
     )
     missing_health_values = [
         key for key in required_health_values
@@ -2582,6 +2586,9 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
             "S&P 500 earnings-health panel does not match the dated fixture values: "
             + ", ".join(mismatched_health_values)
         )
+    factset_source = final_health.select_one("a.factset-source-link")
+    if not factset_source or factset_source.get("href") != expected_health.get("source_url"):
+        raise ValueError("FactSet source link is missing or does not match the dated fixture URL")
     # Commodity commentary must match the settlement values actually displayed.
     energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
