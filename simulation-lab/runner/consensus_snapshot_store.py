@@ -10,7 +10,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
-# Canonical order: Yahoo Finance -> LSEG I/B/E/S -> FactSet Estimates -> Investing.com.
+# Canonical order: Yahoo Finance -> Investing.com -> LSEG I/B/E/S -> FactSet Estimates.
 PROVIDER_BY_LEVEL = {
     1: "Yahoo Finance",
     2: "Investing.com",
