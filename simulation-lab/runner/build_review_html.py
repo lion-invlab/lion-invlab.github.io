@@ -268,10 +268,11 @@ def populate_summary_points_preserving_dom(node, points):
         if not isinstance(point, dict) or not str(point.get("label", "")).strip() or not str(point.get("text", "")).strip():
             raise ValueError(f"summary_points[{index}] requires non-empty label and text")
         label.string = str(point["label"]).strip()
-        separator = label.find_next_sibling("br")
-        if separator is None:
-            raise ValueError(f"summary_points[{index}] mother paragraph is missing its original line-break slot")
-        content = separator.next_sibling
+        content = label.next_sibling
+        # Monday's approved paragraph uses <b><br/>text</b>; weekday's
+        # approved paragraph uses <b>text</b><br/>. Preserve either mother shape.
+        if getattr(content, "name", None) == "br":
+            content = content.next_sibling
         while isinstance(content, NavigableString) and not str(content).strip():
             content = content.next_sibling
         if not isinstance(content, NavigableString):
