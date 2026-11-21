@@ -115,7 +115,7 @@
 ## 3. 行情資料契約
 
 ### 3.1 固定數量與欄位
-- 固定行情共 44 項，已包含 11 大產業 ETF；不得把 ETF 重複計數。
+- 固定行情共 44 項，計數組成為：全球主要市場 17 項（含 SOX）、11 大產業 ETF 11 項、美國公債殖利率 3 項、外匯 6 項、能源與貴金屬 4 項、風險情緒指標 3 項（VIX、MOVE、CNN Fear &\u0020Greed）；合計 44 項。SOX 已包含在全球主要市場 17 項，不得重複計數。ETF 已包含在 44 項，不得另加計。
 - ETF：XLE、XLF、XLK、XLI、XLY、XLP、XLU、XLV、XLB、XLRE、XLC。只顯示漲跌幅，依當日漲跌幅排序，保留母版原欄位及互動。
 - FedWatch 為獨立政策機率資料，不計入 44 項。
 - 44 項逐項實際欄位名稱，以核准母版及 Manifest 對應版本為唯一依據；不得依本章摘要自行增刪或猜測。類別涵蓋全球主要股市、11 大產業 ETF、美國 2Y／10Y／30Y、公債／外匯／能源／貴金屬及風險情緒欄位。
@@ -314,14 +314,14 @@
 ## 附錄 A｜44 項行情來源與欄位核對表
 
 ### A1. 固定欄位基準
-44 項固定欄位以核准母版實際欄位為唯一計數依據；已知類別如下，不能將下列類別摘要誤當成完整 44 欄：
+44 項固定欄位以核准母版實際欄位為唯一計數依據。類別計數為全球主要市場 17（含 SOX）、ETF 11、美債 3、外匯 6、能源與貴金屬 4、VIX／MOVE／CNN 情緒 3，合計 44。下列清單明列各類別名稱；實際欄位 selector／標籤與連結仍須由核准母版逐項抽取，避免只憑摘要判斷欄位對應：
 - 全球主要市場：道瓊、S&P 500、Nasdaq Composite、Russell 2000、SOX、Nikkei 225、KOSPI、台灣加權、Singapore STI、S&P/ASX 200、上海綜合、深證成指、Hang Seng、FTSE 100、DAX、CAC 40、STOXX Europe 600。
 - 11 大產業 ETF：XLE、XLF、XLK、XLI、XLY、XLP、XLU、XLV、XLB、XLRE、XLC。
 - 美國公債：2Y、10Y、30Y。
 - 外匯：DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD、USD/JPY。
 - 能源及貴金屬：WTI、Brent、Gold GC、Silver SI。
 - 風險情緒：VIX、MOVE、CNN Fear & Greed；SOX 已列於全球市場清單。FedWatch 獨立列示。
-- 以上清單的欄位合計未必等於 44；任何差額不得自行補想像標的。每次 Stage 1 必須從 Manifest 核准母版實際列出 44 個欄位，產生逐欄清單；欄位對不上即 BLOCKED，待母版欄位盤點確認後才可繼續。
+- 以上分類計數合計 44；Stage 1 仍必須從 Manifest 核准母版抽取實際 44 個欄位名稱、DOM 錨點及固定連結，產生逐欄清單。若實際母版欄位與上述類別或數量不一致，即 BLOCKED，不能自行補想像標的。
 
 ### A2. 指定來源
 - SOX：Investing.com HK `https://hk.investing.com/indices/phlx-semiconductor-historical-data`；Yahoo `^SOX` 備援／交叉核對。
