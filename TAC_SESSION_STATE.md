@@ -2217,7 +2217,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 債券：2Y 4.705%、10Y 4.941%、30Y 5.336%；30Y因HK歷史頁未更新，改採Investing.com主站11/20歷史列。DXY採Investing.com歷史列103.76（-0.13%），非週末即時報價。
 - 商品合約依成交量最高月份：WTI Jan-27 CLF7（83.41，vol 275,335）、Brent Jan-27 LCOF7（92.57，vol 278,237）、Gold Dec-26 GCZ6（3,515.4，vol 323,896）、Silver Dec-26 SIZ6（41.070，vol 110,375）。
 - 情緒指標：VIX 35.89（11/20歷史收盤）；MOVE 106.31（TradingView最新可見值，頁面未明示日期，暫作11/20最後可得收盤代理，週一必覆核）；CNN Fear & Greed 10/100，依SIM-1.3使用FGScore備援，11/21 05:30台北時間。
-- FedWatch獨立交叉讀取：12/9會議，當前目標區間3.75%-4.00%；升息25bp至4.00%-4.25%機率89.6%，維持機率10.4%，資料更新11/21 05:55台北時間。不是降息機率。
+- FedWatch獨立交叉讀取：12/9會議，當前目標區間3.75%-4.00%；升息25bp至4.00%-4.25%機率89.6%，維持機率10.4%，資料更新11/21 07:05台北時間。不是降息機率。
 - FactSet Earnings Insight最新版本為2026-11-20：Q3 93%公司已公布；84% EPS beat、74% revenue beat；EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%低於5年平均+7.5%；forward P/E 17.1低於5年19.8及10年19.1；Mag7 EPS成長27.0%低於其他493家34.7%。
 - 階段②完成。注意：W47、W48正式行事曆仍標記incomplete，唯讀未修改；W47仍有6筆經濟事件、3筆財報未完成狀態更新；W48有5筆經濟事件的impact_judgment欄誤存URL，將在下一階段以報告層修正，不修改main行事曆JSON。
 - 下一階段③：重新讀取最新SIM-1.3第三步與HTML／QA規則；建立11/23週一報告資料、新聞及判讀；對W48 5筆URL-as-impact以report-layer文字覆蓋，保留原始行事曆唯讀。
@@ -2387,3 +2387,42 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既有排程截稿05:25 Asia/Taipei早於日本現貨市場08:00及台灣現貨市場09:00開盤。05:25不可能取得當日現貨市場開盤後資料。此為排程截點與內容要求的客觀衝突；不得預寫實際開盤，也不得將期貨／盤前報價冒充現貨開盤。需在11/23執行前決定：延後報告截稿／交付，或保留05:25版本並將亞洲現貨開盤反應列為後續更新。此項不影響目前可先完成的新聞、日曆與分析預備稿。
 
 - 以上均為暫定內容，不代表階段④完成；新聞窗仍延伸至實際截稿時間，且週一亞洲現貨市場反應尚未發生。
+
+
+## 2026-11-21｜階段④ 新聞、判讀與財報資料核實完成
+
+- 新聞選取窗：2026-11-20 12:00 至 2026-11-21 09:03（Asia/Taipei）。Global Focus News 僅選宏觀；Market Hot Headlines 共10則，均在時間窗內，避免以同一篇文章重複佔位。
+
+**Global Focus News（5則宏觀）：**
+1. 11/20 14:06｜AI trade裂縫擴大、全球股市拋售，市場重新評估AI資本支出回報；https://hk.investing.com/news/stock-market-news/article-1769045
+2. 11/20 15:30｜全球主權債殖利率急跌，美國10年債殖利率連跌五日；https://hk.investing.com/news/forex-news/article-1769028
+3. 11/20 15:50｜美債連漲五日，與市場仍偏升息的利率預期形成背離；https://news.cnyes.com/news/id/6669006
+4. 11/20 16:59｜亞洲股市遭遇2020年以來最差一週，台灣與科技供應鏈領跌；https://hk.investing.com/news/stock-market-news/article-1769302
+5. 11/20 20:53｜Citi警告系統化資金可能繼續減倉，尚未到可確認抄底時刻；https://hk.investing.com/news/stock-market-news/article-1769923
+
+**Market Hot Headlines（10則）：**
+1. 11/21 05:49｜美股盤後：AI賣壓擴散，三大指數重挫；https://news.cnyes.com/news/id/6669311
+2. 11/20 18:26｜Intuit出售Mailchimp並調降營收展望；https://hk.investing.com/news/stock-market-news/article-1769486
+3. 11/20 16:46｜歐洲AI相關股票走弱，估值重估擴散至設備與晶片供應鏈；https://hk.investing.com/news/stock-market-news/article-93CH-1769237
+4. 11/21 00:41｜AMD遭做空研究報告質疑，AMD否認指控；https://hk.investing.com/news/stock-market-news/article-93CH-1770389
+5. 11/21 03:24｜NVIDIA遭報導指SEC調查，調查不等於違法結論；https://hk.investing.com/news/stock-market-news/article-1770484
+6. 11/21 02:41｜黃金與白銀同步急跌，貴金屬避險效果短線失靈；https://hk.investing.com/news/commodities-news/article-1770540
+7. 11/21 06:35｜Anthropic上市第二個交易日股價回落約8.5%；https://news.cnyes.com/news/id/6669673
+8. 11/20 17:24｜美指期貨齊跌、黃金連跌、美債殖利率下行；https://hk.investing.com/news/stock-market-news/article-1769319
+9. 11/21 03:00｜本週重點股票走勢：AI及半導體權值股成為跌幅焦點；https://hk.investing.com/news/stock-market-news/article-1770474
+10. 11/21 07:00（更新07:47）｜VIX盤中觸及40，高盛模型估算下跌情境CTA潛在賣出806億美元；https://hk.investing.com/news/stock-market-news/article-1770683（模型情境，不是已確認賣單）
+
+**市場判讀定稿：**
+- 上週主軸：AI資本支出回報與高估值疑慮引發再定價，跌勢由美國半導體擴散至全球科技供應鏈；SOX單日-10.73%、Nasdaq-5.28%、S&P500-3.70%。
+- 風險觀察：VIX收35.89（盤中一度40）、MOVE 106.3（+10.69%）、FGScore CNN proxy 10/100；公債殖利率下行但12/9升息仍為主情境，市場不是已確認的Fed轉鴿。黃金白銀與股票同步下跌，需留意流動性去槓桿。
+- 操作建議：降低槓桿與高Beta集中度，不急於抄底；優先觀察市場廣度、VIX/MOVE回落、FedWatch升息機率續降與信用利差；感恩節短週、11/26休市及11/27提前收市，流動性較薄，避免追價與過度持倉。
+- 盤面觀察重點：①AI賣壓已由單一權值股擴散；②債券殖利率下行與升息預期並存，反映成長風險而非政策轉向；③FactSet顯示獲利成長仍強，但Mag7成長低於其他493家，市場更重視現金流與資本回報。
+- 市場情緒：VIX 35.89（+26.20%）、MOVE 106.3（+10.69%）、FGScore 10/100 Extreme Fear；VIX漲幅超過80%被Cboe受訪主管解釋為指數下跌帶來的機械性反應，不等同全部來自恐慌性買Put。高盛CTA 806億美元為下跌情境模型估算，非實際已下單。
+- 區域評論：美國科技／半導體跌幅最重；亞洲2020年以來最差週線，台灣、韓國、日本領跌；歐洲AI設備與晶片股同步承壓。中國市場相對抗跌但深圳仍跌3.09%。
+- 產業輪動：11大ETF僅XLP上漲+0.67%；XLK -7.27%為最大跌幅，防禦性消費相對抗跌。早報僅顯示ETF漲跌幅並按漲跌排序。
+- 債券與政策：Treasury CMT 2Y4.63%、10Y4.92%、30Y5.31%；12/9 FedWatch最新11/21 07:05：升息25bp至4.00%-4.25%機率86.4%，維持3.75%-4.00%機率13.6%；前一日升息機率99.6%。Investing.com Fed Rate Monitor為可讀取來源；CME官方動態頁本次未能取得可獨立核對的當次表格，故不宣稱已完成官方頁交叉確認。
+- FactSet Earnings Insight 11/20：Q3 93%公司已公布；84% EPS beat、74% revenue beat；混合EPS成長32.9%、營收成長14.6%；EPS surprise +3.5%低於5年平均+7.5%；forward P/E 17.1低於5年19.8及10年19.1；Mag7 EPS成長27.0%低於其他493家34.7%。
+- NVDA W47五星財報：GAAP diluted EPS 2.70美元、Revenue 115.8B美元、Data Center 107.6B美元、Q4 FY2027 Revenue指引130B美元±3%；Yahoo歷史收盤11/17 155.46、11/18 150.96，公告後首個交易日-2.89%。W47資料庫沒有合格EPS／Revenue共識，故不判Beat/Miss。
+- W48 11家公司EPS與Revenue共識欄位均缺。已依F3-補充8嘗試Yahoo Finance Average Estimate、Investing.com第二順位；但Yahoo網頁摘要未提供F3-補充6要求的GAAP/Normalized methodology及raw response SHA，Investing.com Forecast亦無足夠methodology／原始回應證據，均不採用。報告卡標示「預期資料未達採用條件」，不顯示未驗證數字；此缺口列入下次04:35行事曆DB更新。
+- W48五筆URL-as-impact事件只在HTML報告層把URL移至來源連結並補上判讀，不回寫JSON。
+- 階段④完成；下一步必須重新讀取SIM-1.3第五步與QA契約，再以simulation baseline母版直接DOM組裝審核版。
