@@ -184,7 +184,7 @@
 ### 5.2 共識來源與選用
 1. EPS 與 Revenue 分別選源，不要求兩者來自同一平台。
 2. **固定順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。** Yahoo Finance 是第一順位，Investing.com 是第二順位，其餘依序遞補。
-3. 每個指標先查 Yahoo Finance 同一財報期間的 Average Estimate；只有該指標缺值、未提供、無法讀取、財報期間不符或無法取得可用平均預期時，才依序嘗試 LSEG I/B/E/S、FactSet Estimates、Investing.com。取得第一個可用平均預期後，該指標停止主來源搜尋。
+3. 每個指標依序查 Yahoo Finance、Investing.com、LSEG I/B/E/S、FactSet Estimates 的同一財報期間 Average Estimate；前一順位缺值、未提供、無法讀取、期間不符或無法取得可用平均預期時，才查下一順位。取得第一個有效平均預期後，該指標立即鎖定並停止其餘來源搜尋。
 4. 每一指標一旦取得符合同公司、同財報期間的有效預估值，立即鎖定並停止該指標的後續來源搜尋；不得為了交叉核對而繼續抓取低順位來源。不得混合、平均或因數字較高／較低而任意切換。EPS 與 Revenue 可分別採不同來源；卡片標示實際採用來源及可取得的分析師人數。
 5. 每一指標保存來源 URL、查核時間、資料／公告時間（若可得）、財報期間、estimate、幣別、單位、分析師數（若可得）、EPS methodology（若可得）、採用或跳過原因。
 6. Yahoo observed_at 只代表 TAC 觀測時間，不得冒充供應商 data_as_of。PIT 原始回應、時間戳及 SHA 可作證據保存，但不再是一般數值判讀的先決門檻。
