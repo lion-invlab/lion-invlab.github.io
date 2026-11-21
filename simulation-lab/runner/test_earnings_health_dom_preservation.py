@@ -38,6 +38,18 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     if health is None:
         raise AssertionError(f"{template_key}: earnings-health section missing")
     before = shape(health)
+    market_notes = soup.select(".market-reason")
+    if not market_notes:
+        raise AssertionError(f"{template_key}: no market observation cards found")
+    for index, note in enumerate(market_notes, 1):
+        before_note = shape(note)
+        heading_node = note.find("b", recursive=False)
+        if heading_node is None:
+            raise AssertionError(f"{template_key}: market observation #{index} lacks mother bold heading")
+        heading_text = heading_node.get_text(" ", strip=True)
+        set_market_observation(note, heading_text, f"DOM preservation test {index}")
+        if before_note != shape(note):
+            raise AssertionError(f"{template_key}: market observation #{index} DOM/style skeleton changed")
     sentiment = soup.select_one("#sentiment")
     sentiment_card = sentiment.select(".sbox")[-1]
     sentiment_before = shape(sentiment_card)
