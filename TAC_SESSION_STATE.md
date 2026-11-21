@@ -2480,3 +2480,36 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Phase 1–3：依實際證據完成接收／稽核。Phase 4已有11/20 12:00起至11/21約09:03的新聞與分析預備稿，但新聞窗口尚未封口，待11/23 05:25前增量更新。
 - Phase 5：尚未安全執行DOM組裝。Python runtime已確認BeautifulSoup 4.14.3、lxml 6.1.1、Playwright Python及/usr/bin/chromium可用。真正阻塞是GitHub connector取得的完整母版內容尚無法直接物化到共享/mnt/data DOM runtime（raw GitHub網路下載DNS失敗）；不得再寫「環境沒有DOM parser」，也不得使用regex／字串切片或舊assembler。
 - 本次未修改母版、Manifest、QA Contract、W47/W48 JSON、main index或main preview。
+## 2026-11-21 10:03｜Phase 4 新聞窗口增量核對（暫存，尚未封口）
+
+### Global Focus 5 則候選（宏觀／政策，原文已開啟）
+1. Reuters 全球市場賣壓擴大：2026-11-20 15:12 UTC（11/20 23:12 Taipei）。8月高點以來全球股票市值蒸發近9兆美元；台灣單週跌17%；VIX報導當時觸及30；美10Y週跌17bp；美元升至19個月高點；黃金未發揮避險作用。URL https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。Reuters文章是當時快照，VIX需以Cboe後續官方數據為準。
+2. Reuters Fed Cook鷹派發言：2026-11-20 17:18 UTC（11/21 01:18 Taipei）。Cook認為9月25bp升息不足、通膨沒有足夠降溫證據，並稱延後可能迫使後續更大幅升息；同時她認為成長強、就業穩。URL https://www.reuters.com/business/feds-cook-says-rate-hikes-needed-lower-high-inflation-2026-11-20/ 。
+3. 鉅亨網美國11月密大消費信心：2026-11-21 02:00 Taipei。終值51.5（10月48.0、預期51.6）；一年期通膨預期4.7%降至3.7%，5–10年3.5%降至3.3%。調查期間10/20–11/16，故不得視為反映11/20股災後的即時民意。URL https://news.cnyes.com/news/id/6669541 。
+4. Focus Taiwan／CNA台灣10月外銷訂單：2026-11-20 20:26 Taipei。123.82bn美元、年增78.3%、連續第21個月成長；ICT +107.2%、電子產品+89.8%、機械+36.3%；11月預估115–118.7bn美元。URL https://focustaiwan.tw/business/202611200021 。
+5. 鉅亨網美參院能源許可改革：2026-11-21 07:30 Taipei。參院62–33通過，送眾院審議；加快電廠／輸電線審查並要求資料中心自付能源成本。尚非已完成立法。URL https://news.cnyes.com/news/id/6669677 。
+
+### Market Hot Headlines 10 則候選（需在11/23截稿前再去重／更新）
+- AMD：Investing.com/HK 11/21 00:41頁面目前無法成功讀取，暫不採用，除非截稿前取得可讀原文及AMD回應。
+- NVIDIA SEC會計調查：鉅亨網11/21 07:02更新，Reuters原始報導為11/20；調查範圍仍不明，新加坡營收揭露是否屬調查內容未確認，不得寫成違規定案。URL https://news.cnyes.com/news/id/6669659 。
+- 黃金／白銀下跌：Investing.com HK／FX168 11/21 02:41發布、04:44更新；現貨金一度3514.29美元、銀40.880美元；避險資產亦遭減倉。文內FedWatch 93.9%是較早快照，已被11/21 07:05最新86.4%取代，不可沿用。URL https://hk.investing.com/news/commodities-news/article-1770540 。
+- Anthropic：鉅亨網11/21 06:35；ANT週五收88.91美元、跌8.5%，相對83美元IPO價僅高約7.1%，反映市場重新檢驗高估值及AI資本支出回報。URL https://news.cnyes.com/news/id/6669673 。
+- CoreWeave信用風險：鉅亨網11/21 00:30；5Y CDS一度1,232.6bp、上升76.2bp；市場隱含5年違約機率逾65%（不是實際違約預測）；9%票息、2031債券約80美分。URL https://news.cnyes.com/news/id/6669543 。
+- SpaceX GPU融資：鉅亨網／優分析11/21 03:38；Apollo與Goldman約440億美元融資超額認購並擴大，購買NVIDIA Vera Rubin及相關設備，預計設備於2027上半年交付後開始租賃。Apollo官方新聞稿已交叉核對。URL https://www.apollo.com/insights-news/pressreleases/2026/11/apollo-and-goldman-sachs-announce-pricing-of-44-billion-spacex-gpu-financing-3407671 。
+- NVIDIA連跌與市值排名：鉅亨網11/21 06:16；週五125.53美元、跌14.01%，連7日及連7週收黑；七週跌幅約46%，市值約3.03兆美元，低於Alphabet約3.24兆美元。URL https://news.cnyes.com/news/id/6668153 。
+- AI賣壓下的價值股輪動：Reuters 11/20 20:13 UTC（11/21 04:13 Taipei）；S&P 500中位數股票2026年迄今+5%，指數僅+1%；Value +7%、Growth -4%；Nasdaq年初至今轉負。URL https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/ 。
+- 美國海外資料中心政策：鉅亨網11/21 08:30；Trump稱不允許美企海外建資料中心並揚言課重稅，但坦言尚未與幕僚討論，適用範圍及既有台灣專案未明，僅屬政策表態，不是已生效規則。URL https://news.cnyes.com/news/id/6669651 。
+- 對中晶片出口政策：鉅亨網11/21 04:00（Bessent：H200仍為取得許可後最高出口規格、無預期政策改變）及04:40（Trump稱只想賣較舊晶片、全面協議內容未明）。兩者合併呈現政策訊號，不得說H200可免審自由出口。URLs https://news.cnyes.com/news/id/6669308 and https://news.cnyes.com/news/id/6669309 。
+
+### 新聞品質裁決／排除
+- 鉅亨網11/21 07:50「輝達董事會開除CEO／數百員工聯署」類報導不採用：Reuters Fact Check確認網傳要求董事會辭職的員工信為偽造；真實的Stand With Jensen公開信是另一件事，並未要求董事集體辭職。URL https://www.reuters.com/fact-check/fake-letter-calls-nvidia-boards-resignation-over-huang-exit-2026-11-20/ 。
+- 鉅亨網11/21 09:00美股盤後摘要不列入10則熱門頭條，避免把指數漲跌表重複當新聞；市場數據由44項行情區呈現。
+- Citi「2000年以來僅觸發三次」警訊頁面時間顯示08:42 AM但未標時區，暫不納入，待確認時區／原始發布時間。
+
+### Phase 2來源修正
+- VIX 35.89（+26.20%）已由Cboe官方VIX頁直接確認，撤銷先前把此值標成Investing CFD參考的錯誤註記。Cboe頁面列示2026-11-20 VIX Spot Price 35.89、Change +26.20%，資料時間11/20 9:15 PM。URL https://www.cboe.com/tradable-products/vix/ 。Investing.com HK同值頁面只作交叉，不是主來源。
+
+### Phase 4狀態
+- 新聞窗口起點11/20 12:00 Taipei；本次已更新至11/21 10:03:28 Taipei，尚未封口。以上Global Focus及Hot Headlines均為候選／暫存，11/23 05:25前必須再檢查增量新聞、發布時間、原文、重複事件及最新數值後才能標示最終完成。
+- G1分析主軸暫定：台灣AI出口訂單與SpaceX融資顯示算力需求／頂級融資仍在，但CoreWeave CDS、NVIDIA估值重估、AI成長股轉價值股顯示資本市場正在提高對回報、槓桿及治理的要求；Fed鷹派風險與VIX上升使短線不宜把AI需求韌性直接等同股價底部。
+- 本次未修改母版、Manifest、QA Contract、行事曆JSON、main index或main preview。
