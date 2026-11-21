@@ -2679,3 +2679,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - CNN Fear & Greed：CNN 官方頁直接開啟仍受限制；第三方 10 與媒體轉述 15 不一致，維持「待核實」，不填值。
 - FedWatch：撤回先前 86.4%／89.6% 等方向性結論；使用者已指出先前解讀錯誤，在未重新核對使用者既定利率區間映射前，禁止將該數字或「升息機率」敘述帶入 11/23 早報。保留獨立欄位為待重新判讀，不將錯誤數值沿用。
 - 本輪只修正上述行情狀態與來源記錄；其餘已鎖定行情不重抓。
+
+## 2026-11-21｜2026-11-20 全球17項指數逐項歷史列核對
+- 直接開啟各指定 Investing.com HK 歷史資料頁並讀取 2026-11-20 row；S&P 500、Russell 2000 依使用者明確要求改採 AP 現金指數，Nikkei 225採Nikkei Indexes官方、Hang Seng採FT歷史現貨來源，避免將CFD當作這四項現貨歷史收盤。
+- 美國5項：Dow Jones 48,147.33 (-1.93%)；S&P 500 6,910.39 (-3.70%，AP現金指數)；Nasdaq Composite 22,617.73 (-5.28%)；Russell 2000 2,581.79 (-2.76%，AP現金指數)；SOX 8,408.6 (-10.73%)。來源分別為Investing歷史列（Dow/Nasdaq/SOX）及AP 11/20收盤報導（SPX/RUT）。
+- 亞洲8項：Hang Seng 22,410.80 (-1.89%，FT現貨歷史)；Shanghai Composite 3,533.79 (-1.22%)；Shenzhen Component 10,256.39 (-3.09%)；Nikkei 225 56,436.65 (-5.06%，Nikkei Indexes官方)；KOSPI 4,869.96 (-5.21%)；Taiwan Weighted 36,033.29 (-6.23%)；STI 4,975.17 (-2.05%)；S&P/ASX 200 8,592.60 (-1.58%)。除Hang Seng／Nikkei外採Investing HK歷史列。
+- 歐洲4項：FTSE 100 10,346.34 (-1.02%)；DAX 24,802.78 (-2.60%)；CAC 40 7,927.75 (-1.89%)；STOXX Europe 600 625.66 (-2.00%)。均採Investing HK歷史列；STOXX另由Börse Stuttgart 625.65獨立交叉核對，0.01點為來源精度差。
+- 17項均鎖定日期2026-11-20；關鍵來源頁：Dow https://hk.investing.com/indices/us-30-historical-data；Nasdaq https://hk.investing.com/indices/nasdaq-composite-historical-data；SOX https://hk.investing.com/indices/phlx-semiconductor-historical-data；Shanghai https://hk.investing.com/indices/shanghai-composite-historical-data；Shenzhen https://hk.investing.com/indices/szse-component-historical-data；KOSPI https://hk.investing.com/indices/kospi-historical-data；TWSE https://hk.investing.com/indices/taiwan-weighted-historical-data；STI https://hk.investing.com/indices/singapore-straits-time-historical-data；ASX https://hk.investing.com/indices/aus-200-historical-data；FTSE https://hk.investing.com/indices/uk-100-historical-data；DAX https://hk.investing.com/indices/germany-30-historical-data；CAC https://hk.investing.com/indices/france-40-historical-data；STOXX https://hk.investing.com/indices/stoxx-600-historical-data；AP https://apnews.com/article/c10b797a17c2acf37924d834efebe135。
+- 44項總盤點：17項指數、11項ETF、3項美債殖利率、6項FX、4項商品、3項風險情緒。按現有紀錄已核實43項，CNN Fear & Greed仍待核實；FedWatch為獨立政策指標，另因先前判讀錯誤暫停使用，不能計入44項。
