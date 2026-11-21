@@ -19,6 +19,14 @@ def main():
     assert "2026/11/20 12:00" in data["news_window_taipei"]
     assert "2026/11/21 17:57:31" in data["news_window_taipei"]
 
+    weekday_data = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
+    weekday_wti = weekday_data["energy"]["WTI原油期貨"]
+    assert weekday_wti["display"] == weekday_wti["source"]["history_close"] == "83.21"
+    assert weekday_wti["volume"] == "92.36K"
+    assert weekday_wti["source"]["volume"] == 92360
+    assert weekday_wti["source"]["name"].startswith("Investing.com HK")
+    assert weekday_wti["instrument_url"] == weekday_wti["source"]["url"]
+
     counts = {
         "global_indices": len(data["global_markets"]),
         "sectors": len(data["sectors"]),
