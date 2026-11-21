@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pre-build contract checks for the 2026-11-23 Monday and paired 2026-11-20 weekday fixtures."""
+"""Pre-build contract, source-identity, and compact commodity-label checks for both report fixtures."""
 from datetime import datetime
 import json
 from pathlib import Path
