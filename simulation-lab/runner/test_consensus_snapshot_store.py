@@ -226,7 +226,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
                 )
                 revenue_attempt = dict(
                     self.attempt,
-                    source_level=2,
+                    source_level=4,
                     provider="FactSet Estimates",
                     observed_at=poll_time,
                     data_as_of=f"2026-11-{day}",
