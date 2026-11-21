@@ -23,9 +23,7 @@ require('listing.find_all("details",class_="econ-event",recursive=False)')
 require('listing.find_all("details",class_="earnings-accordion",recursive=False)')
 require('old_card.decompose()')
 
-# Missing list/empty-state slots fail closed; no replacement wrapper is fabricated.
-require('economic calendar {key} group has events but no mother event-list slot')
-require('earnings calendar {key} group has events but no mother accordion-list slot')
+# Reuse the existing empty-state element in place when the mother has no list slot; never fabricate a wrapper.
 require('economic calendar {key} group has neither event-list nor empty-state slot')
 require('empty["class"]=classes+["econ-event-list"]')
 require('earnings calendar {key} group has neither accordion-list nor empty-state slot')
