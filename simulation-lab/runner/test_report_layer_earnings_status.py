@@ -68,6 +68,18 @@ def main():
     assert earnings_status_label(stale, "eps", "pending") == "公布狀態待核實"
     assert calendar_actual_display(stale, "2026-11-20 05:25") == "公布狀態待核實"
 
+    assert "公布狀態待核實" in earnings_commentary(stale)
+
+    # A report-date event with unknown time must not be treated as elapsed midnight.
+    unknown_time = dict(EVENT, event_date="2026-11-20T00:00:00+08:00", status="upcoming", time_known=False)
+    assert classify_calendar_group(unknown_time, "2026-11-20", "2026-11-20 05:25") == "today"
+    assert unknown_time["_calendar_publication_state"] == "scheduled"
+
+    postponed = dict(EVENT, event_date="2026-11-19T09:00:00+08:00", status="postponed", time_known=True)
+    assert classify_calendar_group(postponed, "2026-11-20", "2026-11-20 05:25") == "upcoming"
+    assert postponed["_calendar_publication_state"] == "postponed"
+    assert earnings_status_label(postponed, "eps", "pending") == "已延期／改期後續公布"
+
     cancelled = dict(EVENT, event_date="2026-11-20T07:00:00+08:00", status="cancelled", time_known=True)
     assert classify_calendar_group(cancelled, "2026-11-20", "2026-11-20 05:25") == "upcoming"
     assert cancelled["_calendar_publication_state"] == "cancelled"
