@@ -2343,3 +2343,6 @@
 
 
 - Clause disposition register latest SHA 3fd6a08a9f6b737fb3266a862302299016d783f5；F3-補充8 已明確落地 Yahoo=1／Investing=2／LSEG=3／FactSet=4，F3-補充10 已明確落地四狀態及不可比映射 pending，不得新增第五狀態。
+
+
+- 逐條處置台帳進一步擴充至 E1–E7、F1.1–F1.4、F2、F3公司範圍／雙卡規格、F3補充1.1–1.8、補充2.1–2.9、補充3.1–3.9、F4.1–F4.4；最新 SHA c7fbb2b6ee6a765297b75266456e8275cef24662。
