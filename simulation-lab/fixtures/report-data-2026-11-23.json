@@ -1806,7 +1806,7 @@
       "text": "不因單一財報或AI長期敘事追價，也不把全面回檔直接當買點。優先檢查企業資產負債表、資本支出回收期、應收帳款與自由現金流；待市場廣度、信用條件與利率波動穩定，再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
+  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1995,7 +1995,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；VIX、MOVE、CNN Fear & Greed、FedWatch仍須在報告截稿前刷新。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；VIX、MOVE、CNN Fear & Greed、FedWatch仍須在報告截稿前刷新。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
