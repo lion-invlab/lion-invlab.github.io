@@ -777,7 +777,12 @@ def update_upcoming_earnings_detail_fields(details, item, day, clock, session_la
             row.append(label)
             row.append(value)
             fragments.append(row)
-        set_value_slot(value_node, fragments)
+        # Append block rows directly. set_value_slot inserts <br> between
+        # all list items, which creates unwanted blank line breaks between
+        # block-level row containers on mobile.
+        value_node.clear()
+        for fragment in fragments:
+            value_node.append(fragment)
     elif len(fields) == 5:
         mapped = {
             "公布時段": schedule,
@@ -2346,6 +2351,21 @@ def main():
                 )
             listing.append(card)
     validate_calendar_group_order(ep,"earnings calendar")
+    # The approved mother contains a dated October example source sentence.
+    # Never carry that stale week into a new Monday report. Keep the existing
+    # source wrapper and child anchor DOM, but hide the obsolete example link;
+    # each current-week card already carries its own event-specific source.
+    earnings_source_note = earn.select_one(":scope > .source")
+    if earnings_source_note is None:
+        raise ValueError("earnings calendar mother source note missing")
+    stale_source_link = earnings_source_note.find("a")
+    if stale_source_link is not None:
+        stale_source_link["hidden"] = "hidden"
+        stale_source_link.attrs.pop("href", None)
+    set_text_preserving_child_elements(
+        earnings_source_note,
+        f"本週財報期間：{data['earnings']['week_start']}～{data['earnings']['week_end']}（{data['earnings']['week_id']}）。各公司發布時間、預估與來源以個別財報卡所列資料為準；未取得可驗證共識者不填入數值。",
+    )
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     # The published accordion includes past events even when actual results remain unverified.
