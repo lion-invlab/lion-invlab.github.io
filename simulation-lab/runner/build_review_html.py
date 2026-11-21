@@ -428,6 +428,9 @@ def earnings_status_label(item, metric, state):
     if state == "pending":
         if item.get("status") == "pending_verification":
             return "公告已發布；實際值待核實"
+        reason = str(item.get(f"{metric}_comparison_reason") or "")
+        if reason.startswith("comparison_inputs_not_comparable:"):
+            return "比較資料尚未齊備"
         actual_key, estimate_key = (
             ("eps_actual", "eps_estimate") if metric == "eps"
             else ("revenue_actual", "revenue_estimate")
