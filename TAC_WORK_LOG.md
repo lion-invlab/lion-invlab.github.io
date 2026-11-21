@@ -2340,3 +2340,6 @@
 - QA Contract v1.5 DRAFT：2d8082159186618f0af9ddb2e799da58884b7ac4
 - Clause disposition register：2c892231ce43ed75932b89833655c01ec904bbc2
 - Session State 最新 SHA：6f512eeedc83d530a2ed312e6b6f87de144f27fe
+
+
+- Clause disposition register latest SHA 3fd6a08a9f6b737fb3266a862302299016d783f5；F3-補充8 已明確落地 Yahoo=1／Investing=2／LSEG=3／FactSet=4，F3-補充10 已明確落地四狀態及不可比映射 pending，不得新增第五狀態。
