@@ -99,8 +99,8 @@ def main():
                          ".fc-fomc-weekly-event-template", ".fc-fomc-weekly-events-empty"):
             require_one(box, selector, label + " Fed agenda slot")
     if args.template == "monday":
-        for selector in ("#last-week-calendar > details.last-week-calendar-collapse > summary",
-                         "#last-week-earnings > details.last-week-earnings-collapse > summary"):
+        for selector in ("#last-week-calendar details.last-week-calendar-collapse > summary",
+                         "#last-week-earnings details.last-week-earnings-collapse > summary"):
             if shape(require_one(mother, selector, "mother Monday disclosure")) != shape(require_one(report, selector, "review Monday disclosure")):
                 raise ValueError(f"Monday disclosure DOM changed: {selector}")
     elif mother.select("#last-week-calendar, #last-week-earnings") or report.select("#last-week-calendar, #last-week-earnings"):
