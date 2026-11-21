@@ -819,10 +819,10 @@
     },
     {
       "event_id": "current-fed-cook-us-economy-global-20261121",
-      "actual": "演講已發表；Cook強調通膨仍高、貨幣政策仍須保持限制性，屬偏鷹派訊號。",
+      "actual": "演講已發表；Cook指出10月PCE年增3.8%、核心PCE年增3.2%，認為通膨仍無明顯回落，並透露她在10月FOMC主張再升息25bp而投反對票。",
       "source_name": "Federal Reserve｜Governor Lisa Cook speech",
       "source_url": "https://www.federalreserve.gov/newsevents/speech/cook20261120a.htm",
-      "note": "Fed官方演講文字；只修正審核版投影，不回寫W47 JSON。"
+      "note": "Federal Reserve 官方演講原文；明確記錄其10月會議異議與通膨判斷，只修正審核版投影。"
     }
   ],
   "last_week_earnings_actuals": [
