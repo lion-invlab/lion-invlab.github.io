@@ -2334,13 +2334,29 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     levels_data = data.get("key_levels") or {}
     level_items = levels_data.get("items", [])
     if len(level_items) == 5:
+        # SIM-1.3 D4: show each cash-index pivot level as its own vertical row,
+        # with Chinese labels only; preserve the approved outer mother-template DOM.
         for item in level_items:
-            line = soup.new_tag("div")
-            label = soup.new_tag("b")
-            label.string = item["name"] + "："
-            line.append(label)
-            line.append(f"支撐 S2：{item['s2']}｜支撐 S1：{item['s1']}｜中樞 P：{item['p']}｜壓力 R1：{item['r1']}｜壓力 R2：{item['r2']}")
-            levels_box.append(line)
+            group = soup.new_tag("div", attrs={"class": "key-level-index"})
+            title = soup.new_tag("div", attrs={"class": "key-level-index-title"})
+            title_label = soup.new_tag("b")
+            title_label.string = item["name"] + "｜"
+            title.append(title_label)
+            group.append(title)
+            for zh_label, field in (
+                ("第二支撐", "s2"),
+                ("第一支撐", "s1"),
+                ("中樞", "p"),
+                ("第一壓力", "r1"),
+                ("第二壓力", "r2"),
+            ):
+                row = soup.new_tag("div", attrs={"class": "key-level-row"})
+                label = soup.new_tag("b")
+                label.string = zh_label + "："
+                row.append(label)
+                row.append(str(item[field]))
+                group.append(row)
+            levels_box.append(group)
             levels_box.append(soup.new_tag("br"))
     else:
         pending = soup.new_tag("div")
@@ -2496,8 +2512,12 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     levels_text = focus_tabs["levels"].get_text(" ", strip=True)
     level_items = (data.get("key_levels") or {}).get("items", [])
     if len(level_items) == 5:
-        if any(item["s1"] not in levels_text or item["p"] not in levels_text or item["r1"] not in levels_text for item in level_items):
-            raise ValueError("one or more key levels did not assemble")
+        required_level_fields = ("s2", "s1", "p", "r1", "r2")
+        if any(item[field] not in levels_text for item in level_items for field in required_level_fields):
+            raise ValueError("one or more of the five same-day cash-index key levels did not assemble")
+        required_chinese_labels = ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力")
+        if any(label not in levels_text for label in required_chinese_labels):
+            raise ValueError("key levels must use all five Chinese labels in vertical rows")
     elif "暫不提供支撐" not in levels_text:
         raise ValueError("pending key levels state did not assemble")
     if data["core_observation"]["text"] not in focus_tabs["core"].get_text(" ", strip=True):
