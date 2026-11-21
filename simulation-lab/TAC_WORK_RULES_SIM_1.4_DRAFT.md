@@ -683,7 +683,7 @@
 
 - run 44906103379 的 deterministic tests 已通過，HTML assemble 階段發現部分母版 `.source` 容器只有既有 anchor，沒有直接文字節點。fail-closed helper 正確拒絕破壞式覆寫，但原先沒有處理「空白文字槽位、子元素仍存在」的情況。
 - 最新 helper 若有直接文字節點，只更新第一個並保留其他文字節點／子元素；若容器只有 anchor、沒有獨立文字槽位，則回傳 False 並完全不改動，不新增節點、不覆蓋來源連結。
-- 新增「只有既有來源 anchor」的回歸案例，驗證說明文字插入後連結仍保留。最新 Builder SHA：`a3eae425d9b9bb21e2bb2314b22778d65ac2e842`；DOM regression test SHA：`61a969a8504aa7e219ac3f98d2614bba7f92cf81`；quote-type test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
+- 新增「只有既有來源 anchor」的回歸案例，驗證說明文字插入後連結仍保留。最新 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；DOM regression test SHA：`61a969a8504aa7e219ac3f98d2614bba7f92cf81`；quote-type test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
 - 此修正尚未經新一輪 build；必須確認 source-only／source-with-link／empty-source-with-link 三種情況皆通過，然後才可繼續後續 DOM／視覺 Gate。
 
 
@@ -691,5 +691,13 @@
 
 - run 44906194763 顯示 link-only source regression test 不應要求 Builder 新增文字節點。母版若只有來源 anchor 而沒有獨立文字槽位，Builder 必須完全不動該容器；報告日期由既有 `.tab-panel-meta` 提供，來源 anchor 仍保留原 href／label。
 - 最新 `set_text_preserving_child_elements` 採此口徑：有直接文字槽位才更新；只有 anchor 時回傳 False 並保持 DOM 完全不變。雙母版 regression test 與 quote-type test 已同步。
-- 最新候選 Builder SHA：`a3eae425d9b9bb21e2bb2314b22778d65ac2e842`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`c122c18e330d0198debec48adedd972c092c5479`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- 最新候選 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
 - 上述最新 SHA 尚未取得完整 Monday／Weekday CI 通過證據。SIM-1.4 仍為 DRAFT，Builder 未獲唯一入口核准。
+
+
+## 2026-11-21｜最後一處 market-reason 破壞性寫入修正（待重跑）
+
+- run 44906262981 的 deterministic tests 通過，HTML assemble 在 global market panel 的另一處舊程式碼失敗：仍以 `set_text(reason,...)` 清空 `.market-reason`，觸發 fail-closed guard。
+- 最新 Builder 已將此最後一處寫入改為 `set_market_observation(reason, "", ...)`，只更新既有市場評論標題／文字槽位，不清空節點。
+- 最新 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
+- 本版尚未完成 Monday／Weekday build；須再執行全套 deterministic tests 與 HTML assemble，確認不再有未核准的 destructive text write。
