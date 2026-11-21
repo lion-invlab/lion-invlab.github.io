@@ -1805,3 +1805,8 @@
 - 本機檔案 /mnt/data/tac-mother-transfer/monday-mother-template.html：386622 bytes；SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931；Git blob SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8（與 Manifest 一致）；lxml解析 2040 elements／183 IDs／25 scripts／124 styles。P0正式解除。
 - workflow 修改僅限 simulation branch .github/workflows/tac-simulation-lab.yml；未改母版、Manifest、QA Contract、main index、main preview或W48 JSON。
 - 下一阻塞為缺少 report-data-2026-11-23.json；fixtures目前最新日期為11/20，不能重用舊日期冒充。Phase 5未開始、QA未執行、預覽未建立。下一步應從已核實行情／新聞／分析資料產生11/23日期匹配fixture，補足缺項後再DOM組裝。
+
+
+## 2026-11-21｜更正：缺少 report-data fixture 並非 SIM-1.3 阻塞
+- 前筆把 report-data-2026-11-23.json 缺檔列為下一阻塞，判斷不正確。SIM-1.3 第0節／每日製作責任及第五步要求 ChatGPT 直接以核准母版 DOM 更新內容，不依賴 Snapshot／Collector／Assembler／Renderer，也不要求 report-data fixture。舊 workflow build_review_html.py 的 fixture 需求不得擴張成正式流程前置條件。
+- 後續以已交付並驗證 SHA 的母版原始 HTML，在本機以 BeautifulSoup/lxml 直接更新 DOM；不使用舊 Builder，不補造11/23 fixture。新聞時間窗尚未封口，先做可用內容的 DOM 預備稿，最終版待11/23 05:25前增量核實後完成。
