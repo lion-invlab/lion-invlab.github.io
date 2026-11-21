@@ -367,6 +367,16 @@ def apply_calendar_impact_overrides(data):
         current = str(target.get("impact") or "").strip()
         if not re.match(r"^https?://", current, re.I):
             raise ValueError(f"calendar impact override refused: source field is not a URL for {event_id}")
+        # In the authoritative W48 schema the source URL was mistakenly placed
+        # in impact_judgment while source is a plain-text source name. Preserve
+        # that URL as source_url before replacing the corrupted impact field.
+        existing_source_url = str(target.get("source_url") or "").strip()
+        if existing_source_url and not existing_source_url.startswith("https://"):
+            raise ValueError(f"calendar impact override found an invalid existing source_url: {event_id}")
+        if not existing_source_url:
+            target["source_url"] = current
+        if not target.get("source_name") and isinstance(target.get("source"), str):
+            target["source_name"] = target["source"]
         replacement = str(row.get("impact") or "").strip()
         if len(replacement) < 20 or re.match(r"^https?://", replacement, re.I):
             raise ValueError(f"calendar impact override must be explanatory text, not a URL: {event_id}")
