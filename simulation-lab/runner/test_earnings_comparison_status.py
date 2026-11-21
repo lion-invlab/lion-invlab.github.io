@@ -51,11 +51,11 @@ def main():
     assert earnings_comparison_status(item,"revenue") == "pending"
     commentary=earnings_commentary(item)
     assert "EPS：優於預期" in commentary
-    assert "營收：預期資料尚未取得" in commentary
+    assert "營收：比較資料尚未齊備" in commentary
     item["judgment"]="EPS：尚未公布／數值尚未齊備；營收：尚未公布／數值尚未齊備"
     commentary=earnings_commentary(item)
     assert "尚未公布／數值尚未齊備" not in commentary
-    assert commentary.count("預期資料尚未取得") == 1
+    assert commentary.count("比較資料尚未齊備") == 1
     item["eps_estimate"]=6.16
     item["eps_estimate_basis_code"]=None
     assert earnings_status_label(item,"eps","beat") == "優於預期"
@@ -78,8 +78,7 @@ def main():
     item["revenue_currency"]="CHF actual; USD estimate (not comparable)"
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
     assert earnings_comparison_status(item,"revenue") == "pending"
-    # Renderer label is NOT_TESTED until the protected Builder is refactored;
-    # this test validates the engine's four-state result only.
+    assert earnings_status_label(item, "revenue", "pending") == "比較資料尚未齊備"
 
     # Brookfield's official note explicitly says the legacy EPS/revenue
     # estimates are not proven comparable with reported IFRS/consolidated values.
@@ -88,8 +87,8 @@ def main():
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
     assert earnings_comparison_status(item,"eps") == "pending"
     assert earnings_comparison_status(item,"revenue") == "pending"
-    # Builder commentary label remains a compatibility blocker; do not treat
-    # its current legacy wording as an approved SIM-1.4 result.
+    assert earnings_status_label(item, "eps", "pending") == "比較資料尚未齊備"
+    assert earnings_status_label(item, "revenue", "pending") == "比較資料尚未齊備"
 
     # FNV explicitly withholds only EPS comparison; its revenue pair remains usable.
     item=make(2.05,1.74,549.3,568.44)
