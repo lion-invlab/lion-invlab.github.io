@@ -664,3 +664,10 @@
 - Builder 已改用 `set_text_preserving_child_elements` 更新來源說明文字，保留母版既有 anchor／href／子元素；新增回歸測試確認來源連結仍存在且 DOM／樣式不變。
 - 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；Dashboard／市場評論／來源連結 regression test SHA：`b0fc64650be06d2a4f64435e2d7c9930f4852391`；quote-type test SHA：`4aa2214f175cd2a8bb1970a648fc8512f0c527a2`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
 - 本次修改尚未完整驗收。最新 build 必須確認 fail-closed guard 不再阻止合法的來源揭露文字更新，同時不刪除既有連結；再完成 Monday／Weekday build、DOM、provenance、Playwright、六視窗 QA。
+
+
+## 2026-11-21｜來源揭露文字節點保留的第二次修正（待重跑）
+
+- run 44905957224 在來源連結 regression test 失敗：當時版本雖保留 anchor，但將來源容器內其他直接文字節點改成空字串，仍改變 DOM text-node 結構。
+- 最新 helper 已改為只更新第一個核准文字槽位，保留後續所有文字節點及所有 child elements；不再移除或清空其餘文字節點。回歸測試同時比對 DOM skeleton 與來源 anchor href。
+- 本次為 fail-closed／DOM-preservation 原則的修正，不可只因 anchor 仍存在就判定結構完整。必須在最新 commit 重新執行 regression tests 與完整 HTML build。
