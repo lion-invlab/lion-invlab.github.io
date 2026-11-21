@@ -2703,3 +2703,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 **Market Sentiment修正版**：VIX 35.89（+26.20%）、MOVE 106.3（+10.69%）顯示股債波動同步升高；美國10年期CMT殖利率4.92%，Reuters亦指出週五美債殖利率下行。黃金GCZ6 3,539.00（-3.98%）、白銀SIZ6 41.080（-7.39%）同步下跌，反映現金需求、美元與利率預期壓力可能壓過傳統避險買盤。CNN Fear & Greed因官方頁／端點無法讀取且第三方讀值不一致，主畫面標示待核實，不使用10或15。FedWatch因先前解讀錯誤，撤回86.4%／89.6%等舊敘述；在完成正確目標利率區間映射前，不放機率值、不寫升息機率結論。
 
 - 本段為新的有效G1／Market Sentiment草稿，明確覆蓋同一Session State前文含FedWatch 86.4%／89.6%的舊版草稿；舊紀錄保留作錯誤稽核，不得被HTML或下游摘要引用。
+
+
+## 2026-11-21｜新聞窗口增量覆核與週一截稿時點衝突
+- 本輪補查確認 Reuters 11/20「AI tech rout prompts US investors to rush into value stocks」原始報導時間 11/20 15:07 EST（台灣11/21 04:07），更新至17:17 EST；內容確認資金由AI科技股轉向債券與低估值價值股，Nasdaq單週跌幅為2020年3月以來最大，S&P 500由10/6高點回落12%進入修正，S&P 500中位數成分股年初至今約+5%、Value +7%、Growth -4%。來源：https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/（可讀轉載保留Reuters署名及原文時間：https://www.marketscreener.com/news/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-ce785ed3dd8ef021）。
+- Reuters 11/20「Tech leads global stocks rout, Treasury yields fall」原始時間11/20 11:37 EST（台灣11/21 00:37），更新17:35 EST；確認美10年債殖利率單月最大跌幅、日韓股市跌逾5%、台股週跌17%為1990以來最嚴重週跌之一、SOX週跌17.1%，必需消費是當日唯一收紅S&P產業。來源轉載：https://www.marketscreener.com/news/tech-stocks-tumble-treasury-yields-fall-as-traders-seek-refuge-ce785ed3da81f423 。
+- AP 11/20 16:30 EST（台灣11/21 05:30）收盤報導確認S&P 500現貨6,910.39、Nasdaq22,617.73、Dow48,147.33、Russell 2,581.79及單週跌幅；與本輪現貨數據一致。來源：https://apnews.com/article/c10b797a17c2acf37924d834efebe135 。
+- 新聞窗口仍持續至實際截稿2026-11-23 05:25 Asia/Taipei；週末及截稿前新消息尚未封口，以上為本輪新增覆核，不代表第四步完成。
+- 時點衝突：既定早報截稿05:25早於台灣／日本／香港等亞洲主要市場週一開盤（約09:00後），因此「05:25審核版」不可能同時核對11/23亞洲市場實際開盤與盤中反應。不得假稱已完成；需在報告中明確以11/20亞洲收盤作基準，若使用者要求11/23開盤／盤中反應，應另做開盤後更新版或補充頁，不得回填到05:25截稿快照。
