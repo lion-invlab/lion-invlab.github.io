@@ -234,6 +234,20 @@ def set_calendar_status_heading(heading, text, status_key):
         set_text(heading, text)
     heading["class"] = ["calendar-status-heading", status_key]
 
+def update_contract_link_label(label_link, contract_label, source_meta):
+    """Keep the product name compact; contract identity belongs in source metadata."""
+    if label_link is None:
+        return False
+    # Strip any legacy appended contract suffix, but never append the month to the
+    # visible product name. The .tab-panel-meta source explanation carries it.
+    base_label = label_link.get_text(" ", strip=True).split("（", 1)[0].strip()
+    set_text(label_link, base_label)
+    if source_meta.get("url", "").startswith("http"):
+        label_link["href"] = source_meta["url"]
+        label_link["target"] = "_blank"
+        label_link["rel"] = "noopener"
+    return True
+
 
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
 
@@ -1900,14 +1914,8 @@ def main():
             contract_label = record.get("contract_label")
             if contract_label:
                 label_link = rows[0].select_one("b a")
-                if label_link:
-                    base_label = label_link.get_text(" ", strip=True).split("（", 1)[0]
-                    set_text(label_link, f"{base_label}（{contract_label}）")
-                    source_meta = record.get("source") or {}
-                    if source_meta.get("url", "").startswith("http"):
-                        label_link["href"] = source_meta["url"]
-                        label_link["target"] = "_blank"
-                        label_link["rel"] = "noopener"
+                source_meta = record.get("source") or {}
+                update_contract_link_label(label_link, contract_label, source_meta)
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
