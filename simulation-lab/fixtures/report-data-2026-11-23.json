@@ -156,21 +156,17 @@
       }
     },
     "標普500指數": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "6,910.39",
+      "change_display": "-3.70%",
       "source": {
-        "name": "Investing.com HK｜S&P 500 歷史資料（CFD參考序列）",
-        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "name": "Investing.com｜S&P 500 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "11/20歷史資料頁列6,910.39、-3.70%；頁面標示即時差價合約，僅作正常交易日指數參考，不冒稱交易所現貨成交。"
-      },
-      "rejected_reference": {
-        "display": "6,910.39",
-        "change_display": "-3.70%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "全球指數頁標示 Real-time derived，11/20/2026 收市 6,910.39、跌幅 -3.70%；非股指 CFD 頁。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     },
     "那斯達克綜合指數": {
       "display": "22,617.73",
@@ -206,21 +202,17 @@
       }
     },
     "日經225": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "56,436.65",
+      "change_display": "-5.06%",
       "source": {
-        "name": "Investing.com HK｜Nikkei 225 歷史資料（CFD參考序列）",
-        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "name": "Investing.com｜Nikkei 225 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/japan-ni225-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "11/20歷史資料頁列56,436.65、-5.06%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      },
-      "rejected_reference": {
-        "display": "56,436.65",
-        "change_display": "-5.06%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "全球指數頁標示 Real-time derived，11/20/2026 收市 56,436.65、跌幅 -5.06%；非股指 CFD 頁。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     },
     "韓國 KOSPI": {
       "display": "4,869.96",
@@ -289,55 +281,43 @@
       }
     },
     "香港恆生指數": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "22,410.80",
+      "change_display": "-1.89%",
       "source": {
-        "name": "Investing.com HK｜Hang Seng Index 歷史資料（CFD參考序列）",
-        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+        "name": "Investing.com｜Hang Seng 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/hang-sen-40-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "11/20歷史資料頁列22,410.80、-1.89%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      },
-      "rejected_reference": {
-        "display": "22,410.80",
-        "change_display": "-1.89%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "全球指數頁標示 Real-time derived，11/20/2026 收市 22,410.80、跌幅 -1.89%；非股指 CFD 頁。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     },
     "英國 FTSE 100": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "10,346.34",
+      "change_display": "-1.02%",
       "source": {
-        "name": "Investing.com HK｜FTSE 100 歷史資料",
-        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "name": "Investing.com｜FTSE 100 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "採母版指定 canonical Investing.com HK 商品頁之11/20歷史列10,367.10、-0.82%；不混用其他商品頁或報價序列。"
-      },
-      "rejected_reference": {
-        "display": "10,367.10",
-        "change_display": "-0.82%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "全球指數頁標示 Real-time derived，11/20/2026 收市 10,346.34、跌幅 -1.02%；取代香港站 CFD 參考值 10,367.10、-0.82%。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     },
     "德國 DAX": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "24,802.78",
+      "change_display": "-2.60%",
       "source": {
-        "name": "Investing.com HK｜DAX 歷史資料",
-        "url": "https://hk.investing.com/indices/germany-30-historical-data",
+        "name": "Investing.com｜DAX 歷史數據（Xetra）",
+        "url": "https://www.investing.com/indices/germany-30-historical-data?cid=23657",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "Investing.com HK 11/20歷史資料頁列24,802.78、-2.60%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      },
-      "rejected_reference": {
-        "display": "24,802.78",
-        "change_display": "-2.60%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "商品規格明確標示 Xetra，11/20/2026 收市 24,802.78、跌幅 -2.60%；非 CFD 參考序列。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     },
     "法國 CAC 40": {
       "display": "7,975.42",
@@ -351,21 +331,17 @@
       }
     },
     "STOXX Europe 600": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "625.65",
+      "change_display": "-2.00%",
       "source": {
-        "name": "Investing.com HK｜STOXX Europe 600 歷史資料（CFD參考序列）",
-        "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
+        "name": "Investing.com｜STOXX 600 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/stoxx-600-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "11/20歷史資料頁列625.65、-2.00%；頁面標示即時差價合約，正常交易日作指數參考，不冒稱交易所現貨成交。"
-      },
-      "rejected_reference": {
-        "display": "625.65",
-        "change_display": "-2.00%",
-        "reason": "CFD reference series rejected under SIM-1.3 0.9; retained only for audit, not rendered as cash-index close."
-      },
-      "qa_status": "cfd_index_reference_rejected"
+        "quote_type": "cash_index_close",
+        "note": "全球指數頁標示 Real-time derived，11/20/2026 收市 625.65、跌幅 -2.00%；非股指 CFD 頁。",
+        "instrument_type": "cash_index",
+        "verified_at_tw": "2026-11-21"
+      }
     }
   },
   "sectors": {
