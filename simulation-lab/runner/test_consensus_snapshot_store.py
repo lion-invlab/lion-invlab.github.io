@@ -25,7 +25,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             "reporting_period": "2026 Q3",
         }
         self.attempt = {
-            "source_level": 1,
+            "source_level": 3,
             "provider": "LSEG I/B/E/S",
             "url": "https://provider.example/consensus/ABC",
             "observed_at": "2026-11-10T04:00:00+08:00",
@@ -77,13 +77,13 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         validator = jsonschema.Draft202012Validator(schema["$defs"]["consensusSnapshot"])
         validator.validate(self.build())
 
-    def test_yahoo_finance_fourth_tier_capture_is_stored_but_basis_gap_blocks_eligibility(self):
-        attempt = dict(self.attempt, source_level=4, provider="Yahoo Finance",
+    def test_yahoo_finance_first_tier_capture_is_stored_but_basis_gap_blocks_eligibility(self):
+        attempt = dict(self.attempt, source_level=1, provider="Yahoo Finance",
                        data_as_of=None, basis_code=None,
                        observed_at="2026-11-09T13:00:00+08:00",
                        url="https://finance.yahoo.com/quote/ABC/analysis/")
         snap = self.build(attempt=attempt)
-        self.assertEqual(snap["source_level"], 4)
+        self.assertEqual(snap["source_level"], 1)
         self.assertEqual(snap["provider"], "Yahoo Finance")
         self.assertEqual(snap["snapshot_status"], "pending_required_fields")
         self.assertIn("basis_code", snap["reason"])
@@ -155,7 +155,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             self.build(attempt=attempt)
 
     def test_provider_must_match_source_level(self):
-        attempt = dict(self.attempt, source_level=3, provider="LSEG I/B/E/S")
+        attempt = dict(self.attempt, source_level=2, provider="LSEG I/B/E/S")
         with self.assertRaises(ValueError):
             self.build(attempt=attempt)
 
