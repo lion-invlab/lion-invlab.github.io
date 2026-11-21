@@ -2757,3 +2757,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Playwright Chromium system executable實測390px及1440px：scrollWidth=clientWidth，無水平溢位；pageerror 0；183 IDs。此為結構／基本瀏覽器測試，尚未做母版同尺寸視覺差異比對、完整互動回歸及資料內容完整性驗收。
 - **重大未完成：** 上週W47經濟25筆／財報23筆與本週W48經濟27筆／財報11筆尚未按JSON逐筆映射到母版卡片；目前行事曆卡片資料仍含舊母版示範內容，標題日期雖已改成W47/W48，但不能視為有效內容。FedWatch亦維持舊母版靜態數字，尚未完成正確映射，必須清除舊機率或以待核實方式保留母版卡片。Global Focus/Hot Headlines內容也尚未完成當前新聞窗口逐篇替換及驗收。因此本檔不是可審核成品，不可交付review_ready或上架。
 - 下一步必須先讀取最新SIM-1.3第五步／第六步及QA契約，完成W47/W48逐筆DOM卡片更新、FedWatch安全處理、新聞窗口內容更新，再做全套視覺／互動／內容Gate。main、正式母版、Manifest、QA契約及W48 JSON均未修改。
+
+
+## 2026-11-21｜第三步行事曆篩選續作（唯讀；未完成母版映射）
+- 依 SIM-1.3 第三步逐筆重新讀取 main 正式 JSON：W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，updated_at `2026-11-20T04:39:41+08:00`，economic 25／earnings 23；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，updated_at `2026-11-21T09:00:28+08:00`，economic 27／earnings 11。兩份 JSON 均唯讀，未寫入。
+- 依週一篩選：W47 上週五星經濟事件 2 筆（11/17 Fed Chair Kevin Warsh 致詞；11/19 FOMC 10/27–28會議紀要），五星財報 1 筆（11/18 NVDA）。W47 其餘四星或以下不呈現；不把11/14 Jefferson演講誤列為W47事件。
+- W48 本週經濟 27 筆均為四／五星；財報 11 筆均為四／五星。W48 有 HPE、DE 兩筆 time_known=false，必須在卡片標示時間待核實；不得猜測時刻。資料庫沒有合格 PIT EPS／Revenue 共識，故不得填預期或Beat/Miss。
+- 母版 DOM 結構已實際檢查：上週經濟使用 `#last-week-calendar .econ-event-list > details.econ-event` 並保留 `.econ-event-toggle`；上週財報使用 `#last-week-earnings .earnings-accordion-list > details.earnings-accordion`；本週經濟／財報需分別填入原有 `.week-econ-panels`／`.week-earnings-panels` 的三個狀態分頁，經濟事件保留 `.econ-toggle`，財報保留EPS／Revenue雙實際卡結構。
+- 本次只完成 JSON 逐筆篩選及模板槽位辨識；尚未將完整事件卡片寫入 HTML，第三步尚未交接完成。不得宣稱已產出審核版。
