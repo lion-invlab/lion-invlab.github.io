@@ -2658,3 +2658,12 @@
 - 最終雙母版同 SHA provenance：Builder `036d9ab838a1b4e461de52cadf6c33a8d6236758`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract v1.14 `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。兩個 sidecar 均 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、無 review blockers。
 - 依 SIM-1.4 §8.1，雙母版隔離實證完成，候選 Builder 可標示 `CANDIDATE_VALIDATED`。但兩個 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；SIM-1.4 仍為 DRAFT，須使用者明確核准 Builder 路徑與 SHA 及規則生效，不能代替使用者批准。
 - 只寫 simulation branch；main、正式首頁、正式母版、Manifest、正式行事曆 JSON 均未修改，Pages 未部署。
+
+
+## 2026-11-22｜11/23 審核版 main/preview 交付與 Pages 部署
+
+- 依 active SIM-1.3 第 0 節及第六步審核版例外通道（使用者本次明確要求完成審核版），將最新同版雙母版 QA 通過的 11/23 HTML 寫入 main `preview/2026-11-23-simulation.html`；commit `8654fde50761404ec63a56178f224c4dbf41eff5`，blob `7b04a02edb35a3f90298394faeeb73c204f326a8`。來源 simulation HTML blob 相同。
+- Commit API 的 changed files 僅有 `preview/2026-11-23-simulation.html`；沒有修改 `index.html`、母版、Manifest、正式行事曆 JSON 或其他 main 檔案。
+- Pages workflow run `44955528272`（Deploy site and TAC previews）completed／success。目標 URL `https://lion-invlab.github.io/preview/2026-11-23-simulation.html`。
+- 嘗試以網頁讀取工具開啟 Pages URL 與根站，均回 Internal Error；故只能確認 GitHub Pages deployment workflow success，不能獨立確認實際頁面載入／畫面。交付時必須如實標示此限制，不得宣稱已目視確認。
+- SIM-1.4 同版雙母版候選 Builder 技術驗證已完成；候選狀態 CANDIDATE_VALIDATED。SIM-1.4 仍為 DRAFT，待使用者明確核准主文及 Builder 唯一路徑／SHA。正式首頁未更新。
