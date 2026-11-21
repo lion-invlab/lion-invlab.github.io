@@ -501,3 +501,10 @@ SHA：679eae7ba7a40dbad64d15bb448fe53db7d67e09
 - 最新三項規則補正是在 run `44914993653` 之後提交，因此現有 HTML／QA PASS 只能證明舊 candidate rules SHA 下的 build；不能宣稱已按最新草案完成驗收。
 - 必須用目前 DRAFT SHA `0d390cc7...` 重新執行 Monday build，並以同一最新 Builder SHA `fe8da8e...` 重新執行 Weekday build。兩次 sidecar 都必須記錄同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA，才可稱為最新版本的雙母版實證。
 - 在重跑前，現有 preview 可供缺陷修復成果參考，但不是最新 SIM-1.4 草案的最終驗收件；不得把舊 PASS 移植到新 SHA。
+
+
+## 2026-11-21｜B3 母版視覺／互動規則的實際落點補正
+
+- 回讀 SIM-1.3 B3.2–B3.6 原文後，發現先前處置台帳雖已列為保留，但 SIM-1.4 主文 1.3／9.2 尚未完整承接。現已在 SIM-1.4 DRAFT 1.3 明確加入：上漲紅／下跌綠；中文名稱上、英文代碼小字下且不加括號；連結只包名稱／代碼；五星標題 TAC 紅、四星沿用母版；不重加已刪除的「關鍵重點」膠囊；工具泡泡與呼吸燈分開驗收。
+- QA Contract 對應落點：SIM-1.4 9.2 的互動 QA 與視覺 QA，並保留母版 CSS／DOM 零退化規則。
+- 最新 SIM-1.4 DRAFT SHA：`f585c0e08e1075d760c91a5f0eab79a408ca9e45`。這是 build `44914993653` 之後的新規則版本；既有 build 不得作為此 SHA 的驗收證據，需重新 build。
