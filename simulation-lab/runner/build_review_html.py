@@ -2543,6 +2543,9 @@ def main():
             if first_heading is None:
                 raise ValueError("core observation disclosure heading slot missing")
             first_heading.string = "本次核心觀察依據："
+            first_bolds = detail_nodes[0].find_all("b", recursive=False)
+            if len(first_bolds) > 1:
+                first_bolds[1].string = "其他補充："
             first_texts = [
                 child for child in detail_nodes[0].contents
                 if isinstance(child, NavigableString) and str(child).strip()
