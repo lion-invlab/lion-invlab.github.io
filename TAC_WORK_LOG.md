@@ -1924,3 +1924,11 @@
 - Reuters 11/20：「Tech stocks tumble, Treasury yields fall as traders seek refuge」轉載頁顯示11/20 16:35 UTC，說明日韓跌逾5%、台股週跌17%、SOX週跌17.1%、美10年債殖利率單日下滑。轉載來源：https://www.lse.co.uk/news/global-markets-tech-stocks-tumble-treasury-yields-fall-as-traders-seek-refuge-5wy60vlz4ves1pd.html 。
 - AP 11/20美股收盤報導確認S&P 500 6,910.39、Dow 48,147.33、Nasdaq 22,617.73，並指出AI／科技股拋售與半導體跌幅。原文：https://apnews.com/article/c4c3f4878b12989347f8a930ed813dad 。
 - 風險註記：SEC探查Nvidia會計問題屬媒體引述消息，須保留「據報／Reuters引述知情人士」限定，不可寫成SEC已正式立案或確認違規。新聞窗口持續至11/23 05:25 Asia/Taipei，未封口。
+
+
+## 2026-11-21｜新聞窗口增量查核（第二輪）
+- Reuters 原文「The snowballing selloff in global markets」已找到可讀鏡像，發布 2026-11-20 17:12、更新17:18（頁面時區未明示，需以原站/頁面標示再確認）；報導全球股市自8月高點蒸發近US$9T、台股單週跌17%，AI估值與美國進一步升息預期共同觸發跨資產賣壓，銅與黃金亦走弱，美10年債殖利率週跌17bp。Reuters原文：https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/；Investing.com Reuters鏡像：https://za.investing.com/news/economy-news/the-snowballing-selloff-in-global-markets-4589196。
+- Reuters「Take Five: Shopping, chips and central banks」11/20 06:07（更新06:13；頁面時區待核）提供下週宏觀觀察主題：美國黑五／網購消費、韓國央行利率決策、ECB高層人事、東京與澳洲通膨數據。來源：https://www.investing.com/news/economy-news/take-five-shopping-chips-and-central-banks-5041291。
+- IMF《Global Markets Monitor — November 20, 2026》可作官方跨市場背景來源；本輪擷取摘要含中國人民銀行中間價、人民幣與中國股市／ETF資金流動資訊。PDF：https://www.imfconnect.org/content/dam/imf/News%20and%20Generic%20Content/GMM/archive/GMM%20November%2020%2C%202026.pdf。需逐頁定位後才可引用具體數值。
+- 11/21 MacroMicro日報指出AI賣壓拖累全球股市、債券上漲，並整理美國消費者信心、通膨預期、日本核心CPI等；屬二級彙整來源，不取代官方統計。來源：https://en.macromicro.me/quickie?id=67。
+- 新聞窗口仍未封口；上述屬候選與交叉查核，不直接視為已完成5則焦點／10則頭條。不得把未核時區或二級來源改寫成已核實原始事實。
