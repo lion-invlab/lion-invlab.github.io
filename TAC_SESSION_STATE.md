@@ -1,8 +1,11 @@
 ## 2026-11-21 22:xx｜SIM-1.4 通盤整併與 11/23 審核版最新狀態（最新狀態錨點）
 
 - **工作範圍：** 僅在 `simulation/tac-process-lab-2026-11-06`；目前正式有效規則仍是 SIM-1.3（`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）。SIM-1.4 仍為 DRAFT，未獲使用者核准前不得取代 SIM-1.3。
-- **本次最新 SIM-1.4 草案：** `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `0d390cc7de7945e1d9af247dbf004f45319d5e99`；最新草案已補入三項明確規則：①商品名稱不附合約月份／代碼，合約資料放來源說明，href 必須開啟驗證對應 Investing.com 合約歷史頁；②行事曆狀態依台灣時區及 report_cutoff_taipei 判斷，不照抄 JSON 狀態字串；③財報雙實績卡必須沿用母版 DOM／CSS，不得自行改版或注入樣式。
-- **最新草案修改 commit：** `8be16b8195c9bbe23082a79cd522f9e4e7cbfa79`（SIM-1.4 draft rule ordering）；前一筆草案規則增補 commit `b5a9edafe967c00eecd86600cbaead094ccf706f`。
+- **本次最新 SIM-1.4 草案：** `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `f585c0e08e1075d760c91a5f0eab79a408ca9e45`；最新草案已補入三項明確規則：①商品名稱不附合約月份／代碼，合約資料放來源說明，href 必須開啟驗證對應 Investing.com 合約歷史頁；②行事曆狀態依台灣時區及 report_cutoff_taipei 判斷，不照抄 JSON 狀態字串；③財報雙實績卡必須沿用母版 DOM／CSS，不得自行改版或注入樣式。
+- **最新草案修改 commit：** `34791786dc0fd24706f970a5d3a035a1ce1acd5b`（補回 SIM-1.3 B3 視覺／互動規則）；前一筆規則整理 commit `8be16b8195c9bbe23082a79cd522f9e4e7cbfa79`。
+- **母版視覺／互動規則：** 最新草案已補回 SIM-1.3 B3.2–B3.6：上漲紅／下跌綠、中文名稱上／英文代碼小字下、行情連結只包名稱或代碼、五星標題 TAC 紅／四星沿用母版、不恢復已刪除膠囊、工具泡泡與呼吸燈分開驗收。
+- **逐條處置台帳：** `simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md`，最新 SHA `53f227f6cdb3d0e94443593b6067ab5fb1b4b09f`；已補入最新商品／日曆／財報及 B3 視覺規則處置。
+- **Builder 相容性稽核：** `simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md`，最新 SHA `2c385694fa8d4b76d7ef5c3d1bc4d126121ddb62`；已更新 Monday 最新實證、Weekday SHA 邊界及最新草案 provenance 不一致。
 - **Builder 最新實證（規則 SHA 限制）：** 候選 Builder `simulation-lab/runner/build_review_html.py`，blob SHA `fe8da8e131a314897deb68ae608fda9d7647ac16`。GitHub Actions run `44914993653` completed/success；Python deterministic tests、HTML assemble、browser interaction smoke、mother comparison、DOM preservation、artifact/provenance、44 indicators／calendar counts／news shape 均通過。此為指定 Monday fixture 的實證，不代表使用者已核准 Builder 為 SIM-1.4 唯一入口。
 - **規則 provenance 限制：** run `44914993653` 的 QA sidecar `candidate_rules_blob_sha` 是舊版 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前草案 `0d390cc7de7945e1d9af247dbf004f45319d5e99`。因此該 run 的 PASS 不能宣稱按最新草案驗收；必須以最新草案 SHA 重跑 Monday，並以相同最新 Builder SHA 重跑 Weekday。新雙母版證據完成前，最新草案仍未通過實際 build 驗收。
 - **11/23 預覽：** `preview/2026-11-23-simulation.html`，blob SHA `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA sidecar `preview/2026-11-23-simulation.qa.json`，blob SHA `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`；HTML SHA-256 `1b4d6df6d5c4b8a5fd636ac38e51b726de36848208afd6cf559b3bb83cf8171b`。
