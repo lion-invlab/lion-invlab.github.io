@@ -62,3 +62,17 @@
 
 
 - Audit note update: both fixture warning_note/quality_note now state that WTI, Brent, Gold and Silver use the same-contract Investing.com HK historical close rows; no stale CME-preliminary/Last description remains.
+
+
+## Weekday mother validation｜2026-11-20
+
+- Request: run the same frozen Builder/rules/QA/Manifest against the Tuesday–Friday mother using the 2026-11-20 fixture.
+- Report date: 2026-11-20; trading date: 2026-11-19.
+- Builder SHA: b232c8d8546e81292a2a182dde6365badc0abbdc.
+- Weekday fixture SHA: cb27af1cffeafe0cc2bed88e2d297a8640ae168d.
+- SIM-1.4 DRAFT SHA: b6291aa790e28e5eb307cd7155921d697c831d0b.
+- QA Contract v1.13 DRAFT SHA: 86c798ae22577c82b292748a864ffe10054ddc18.
+- Manifest SHA: 1496a510d144d340c41b642592675233d5bd2917.
+- Weekday mother SHA: 19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96.
+- Expected commodity historical closes for 2026-11-19: WTI 82.44 (+0.16%); Brent 91.98 (+0.03%); Gold 3,685.50 (-1.51%); Silver 44.359 (-1.55%).
+- Re-run all DOM, source-link, commodity source/close, calendar, earnings-card, FedWatch, responsive and provenance checks. No main write or production deploy.
