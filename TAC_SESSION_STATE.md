@@ -3300,3 +3300,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 審核版位置固定在 simulation branch 的 `preview/`；不得將其放到 main 或正式首頁。正式發布須等待使用者明確批准。
 - 下一步：提供使用者檢視最新審核版；若收到修改意見，先回讀最新 SIM-1.4 再修正。若使用者明確批准發布，仍須依正式流程核對批准範圍後才可更新 main。
 
+
+
+## 最新進度錨點｜2026-11-22
+
+- 目前任務：SIM-1.4 雙母版內容品質 Gate／Builder 實證；分支 `simulation/tac-process-lab-2026-11-06`。
+- 最新修正：Workflow 內容 Gate 已按星期分流；11/20 平日及 11/23 週一 Fixture 摘要均已改為各自規定的三段結構，風險觀察含日期與時間，操作建議含立場、動作及條件。
+- Workflow commit：`d845544dede9bf8503563973d05608478df27472`。
+- 11/20 Fixture commit：`05967a2ef818854befa46bc6654a9610ebb3c9da`；11/23 Fixture commit：`609353fc0842291187af1155466dd03bca25c40e`。
+- 兩次日期 build 已由 push trigger 條件觸發；執行結果尚未取得，狀態 PENDING。
+- 不可將先前 11/23 run `44924450638` 的 PASS 當作本輪新 Fixture／新 Gate 的驗收證據。
+- 下一步：確認 11/20 與 11/23 新 run，檢查 sidecar provenance 的 active rules／candidate rules／Builder／Manifest／QA Contract SHA；兩個母版需一致且均通過。只在 simulation branch 工作；不發布 main。
