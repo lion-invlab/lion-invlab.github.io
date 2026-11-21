@@ -137,7 +137,7 @@ def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
         return False
 
     level = snapshot.get("source_level")
-    providers = {1: "Yahoo Finance", 2: "Investing.com", 3: "LSEG I/B/E/S", 4: "FactSet Estimates"}
+    providers = {1: "Yahoo Finance", 2: "LSEG I/B/E/S", 3: "FactSet Estimates", 4: "Investing.com"}
     event_date = record.get("event_date")
     estimate_key = f"{metric}_estimate"
     basis_key = f"{metric}_estimate_basis_code"
@@ -489,7 +489,7 @@ def render_status(record: dict, metric: str) -> str:
 
 def _valid_tac_observation_reference(record: dict, metric: str, snapshot: dict, source: dict) -> bool:
     """Validate a pre-release captured reference even when comparison basis is unresolved."""
-    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com", 4: "Yahoo Finance"}
+    providers = {1: "Yahoo Finance", 2: "LSEG I/B/E/S", 3: "FactSet Estimates", 4: "Investing.com"}
     expected_metric = "EPS" if metric == "eps" else "REVENUE"
     value = record.get(f"{metric}_estimate")
     period = record.get(f"{metric}_estimate_period")
