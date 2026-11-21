@@ -1,15 +1,15 @@
 ## 2026-11-21｜SIM-1.4 通盤整併與相容性驗收（最新狀態）
 
 - **目前任務：** 在 simulation/tac-process-lab-2026-11-06 分支整併 SIM-1.3 為 SIM-1.4。SIM-1.4 仍是 DRAFT，SIM-1.3 仍是目前有效規範；不得覆寫 SIM-1.3，不得修改 main、正式首頁、正式母版或正式行事曆 JSON。
-- **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA 98c0eeb1f3b0f8a519ab556dc216d687b5e4ed04。
-- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA c7fbb2b6ee6a765297b75266456e8275cef24662；已補 SIM-1.3 全文 845 行的條文／附錄行號索引。
+- **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA f31f8f7cb0f22920b7b957601dbb2b9ceae22304。
+- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA 77584cdce393bb3bf9b3fcedb3234d908e355743；已逐項補齊 E、F1–F4、F3補充1–10、G1–G4、H、I，以及 C 第五／六步 QA／發布 Gate 的子條文與行號。
 - **Builder 稽核：** simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md，blob SHA 221be2d0f7285d33045dd6208d517cdc910c2eb6。build_review_html.py 仍為候選且 BLOCKED：會追加 CSS、改寫 summary／收折 DOM、重建 Fed 區塊，且行情 source guard 未檢查 quote_type，不能核准為唯一 Builder。
 - **QA Contract：** simulation-lab/baseline/mother-template-qa-contract.md 已更新為 v1.5 DRAFT，SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；尚未生效。main 母版結構驗收清單 v1.3 只作歷史／交叉參考，不是第二份 simulation 每日 QA。
 - **QA 相容性報告：** simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md，blob SHA 712872f0effef1a475ca97c426a8fccef589401f。
 - **母版基準：** 正式 Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55；simulation Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1。週一正式母版 a568e594e55909041d51d8eae7e6fe5f7986c096／simulation baseline 1ac39d50b138e59f4aabf55fc68560ee277ba6f8；平日正式母版 3785405e331b10ec6189002e480be2a1edbe20ef／simulation baseline f010ff118d7a5a2c1f6e834aa24f832766383c2b。兩組 ID 集合一致，style/script 數量一致；完整 DOM／CSS 差異尚未跑。
 - **44 項母版清單：** 已抽取 17 全球指數、11 ETF、3 美債、6 FX、4 商品、3 情緒指標；兩母版 11 ETF 固定 ticker／href 集合相同，但靜態示範排序不同，日常必須依當日漲跌幅排序。
 - **11/23 fixture：** simulation-lab/fixtures/report-data-2026-11-23.json，blob SHA 5686607538184183272a64c1e8d83e68458d9cce。六筆 CFD index reference 已改列「待核實」，原始值保留 rejected_reference；summary／區域評論不再引用這六筆 CFD 漲跌。review_ready_blockers 保留現貨來源、情緒／FedWatch刷新及 HTML QA 阻塞。
-- **測試證據：** GitHub Actions run 44898020239，commit 6ba2e7c9083d954b404e46dd98abdfdd43eb759a，conclusion success；前序 run 44897956591、44897795972 亦 success。最新 run 驗證四狀態財報引擎、Yahoo／Investing來源順位、Node syntax checks 與更新後 SIM-1.4 草案。deterministic self-tests、11/23 fixture contract、44 欄計數、新聞 5+10、W47/W48 行事曆投影、財報判讀通過。此 run 沒有執行 HTML build、DOM diff 或 Playwright；不得稱審核版完成。
+- **測試證據：** GitHub Actions run 44898020239，commit 6ba2e7c9083d954b404e46dd98abdfdd43eb759a，conclusion success；驗證該 commit 的 deterministic tests。其後又更新逐條台帳及草案（最新草案 SHA f31f8f7c...、台帳 SHA 77584cd...），尚未有針對這兩個最新文件 commit 的 CI run。前序 run 44897956591、44897795972 success。所有成功 run 均未執行 HTML build、DOM diff 或 Playwright；不得稱審核版完成。
 - **QA 視窗：** 320／360／390／412／768／1440 px 已寫入 QA Contract、visual_regression.mjs 及 Workflow evidence 尺寸清單；尚無瀏覽器實際測試證據。
 - **財報引擎 1.4.0：** earnings_judgment.py SHA 62148064ad08efe72bc5a107a4142d32dffc6c7c；schema SHA 74630ebc0ef26c79f059fe00641a49c98ecff142。公開狀態只有 beat／miss／inline／pending；共識順位 Yahoo=1、Investing=2、LSEG=3、FactSet=4；PIT 不作一般數值比較必要條件。單元／來源層級測試通過。
 - **Builder renderer 阻塞：** 保護中的 build_review_html.py 維持原始 SHA 04d5976e38ab0da24e19bbe4607da8f1c20e1d35，未修改；其 legacy earnings label 無法把「數值存在但不可比」顯示為「比較資料尚未齊備」，visual regression 將檢出並阻止 QA PASS。
