@@ -244,9 +244,9 @@ def test_calendar_status_heading_preserves_badge_wrapper():
         '<h4 class="calendar-status-heading upcoming"><span class="earnings-badge upcoming">舊標題</span></h4>',
         "html.parser",
     ).h4
-    before = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in heading.contents]
+    before = [child.name for child in heading.contents]
     set_calendar_status_heading(heading, "新標題", "published")
-    after = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in heading.contents]
+    after = [child.name for child in heading.contents]
     assert before == after
     assert heading.get("class") == ["calendar-status-heading", "published"]
     assert heading.select_one(".earnings-badge").get("class") == ["earnings-badge", "published"]
