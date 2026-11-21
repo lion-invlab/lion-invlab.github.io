@@ -1,3 +1,23 @@
+## 2026-11-21｜SIM-1.4 通盤整併與相容性驗收（最新狀態）
+
+- **目前任務：** 在 simulation/tac-process-lab-2026-11-06 分支整併 SIM-1.3 為 SIM-1.4。SIM-1.4 仍是 DRAFT，SIM-1.3 仍是目前有效規範；不得覆寫 SIM-1.3，不得修改 main、正式首頁、正式母版或正式行事曆 JSON。
+- **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA 069b7daed799f845698767884d540455a763cd5b。
+- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA 2be9b45140df0223275a378477413cee3884a73d；已補 SIM-1.3 全文 845 行的條文／附錄行號索引。
+- **Builder 稽核：** simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md，blob SHA 6a8eab101e97ea9e205d2c69e4242f05a77876d2。build_review_html.py 仍為候選且 BLOCKED：會追加 CSS、改寫 summary／收折 DOM、重建 Fed 區塊，且行情 source guard 未檢查 quote_type，不能核准為唯一 Builder。
+- **QA Contract：** simulation-lab/baseline/mother-template-qa-contract.md 已更新為 v1.5 DRAFT，SHA d4ff82cead612969d1afe7cfc1baf53170b1aed4；尚未生效。main 母版結構驗收清單 v1.3 只作歷史／交叉參考，不是第二份 simulation 每日 QA。
+- **QA 相容性報告：** simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md，blob SHA dd9d968f1995db519b4b1d37126d7c39df80ab23。
+- **母版基準：** 正式 Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55；simulation Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1。週一正式母版 a568e594e55909041d51d8eae7e6fe5f7986c096／simulation baseline 1ac39d50b138e59f4aabf55fc68560ee277ba6f8；平日正式母版 3785405e331b10ec6189002e480be2a1edbe20ef／simulation baseline f010ff118d7a5a2c1f6e834aa24f832766383c2b。兩組 ID 集合一致，style/script 數量一致；完整 DOM／CSS 差異尚未跑。
+- **44 項母版清單：** 已抽取 17 全球指數、11 ETF、3 美債、6 FX、4 商品、3 情緒指標；兩母版 11 ETF 固定 ticker／href 集合相同，但靜態示範排序不同，日常必須依當日漲跌幅排序。
+- **11/23 fixture：** simulation-lab/fixtures/report-data-2026-11-23.json，blob SHA 5686607538184183272a64c1e8d83e68458d9cce。六筆 CFD index reference 已改列「待核實」，原始值保留 rejected_reference；summary／區域評論不再引用這六筆 CFD 漲跌。review_ready_blockers 保留現貨來源、情緒／FedWatch刷新及 HTML QA 阻塞。
+- **測試證據：** GitHub Actions run 44896643592，commit 7217cbee6e455cf641112d3656b1ca60ede05947，conclusion success。deterministic self-tests、11/23 fixture contract、44 欄計數、新聞 5+10、W47/W48 行事曆投影、財報判讀通過。此 run 沒有執行 HTML build、DOM diff 或 Playwright；不得稱審核版完成。
+- **QA 視窗：** 320／360／390／412／768／1440 px 已寫入 QA Contract、visual_regression.mjs 及 Workflow evidence 尺寸清單；尚無瀏覽器實際測試證據。
+- **目前未完成：** 6 筆 CFD 指數需以現貨／官方來源重新核實；VIX、MOVE、CNN Fear & Greed、FedWatch 需在報告截稿前刷新；Builder 必須符合母版零結構退化並加入 quote_type 防錯；再做雙母版 build、DOM diff、Playwright 及視覺回歸。未完成前不產生或核准 11/23 審核版。
+- **工作規則：** 開工前、每一階段開始前、每階段完成及交接前，必須重新讀取當前最新 SIM-1.4 完整主文並核對 SHA；不得依記憶或摘要跳階段。
+- **狀態檔路徑更正：** TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄；先前查 simulation-lab/ 子目錄的 404 不代表根目錄缺檔。
+- **最後確認：** 本輪未修改 main、正式首頁 index.html、正式母版、正式 Manifest 或 main calendar JSON；SIM-1.3 原始檔未改。
+
+---
+
 ## 2026-11-18｜TAC 早報審核版最終完成（SIM-1.3，QA_PASSED）
 
 - **狀態：** 11/18（三）審核 HTML 已組裝、人工內容檢查、Playwright 互動、母版比對、獨立溯源、44 項行情與新聞結構驗收全部通過；`review_ready=true`、`review_ready_blockers=[]`。正式首頁尚未更新，等待使用者審核與明確授權。
