@@ -104,7 +104,8 @@ def main():
             and method_row.get("eps_matches_captured_value") is True
             and method_row.get("revenue_matches_captured_value") is True
             and method_row.get("raw_response_sha256")==method_digest
-            and method_row.get("source_url")==selected_attempts["EPS"].get("url")\n            and selected_attempts["EPS"].get("provider")=="Yahoo Finance"
+            and method_row.get("source_url")==selected_attempts["EPS"].get("url")
+            and selected_attempts["EPS"].get("provider")=="Yahoo Finance"
             and method_pre_release
             and eps_method in ("gaap","normalized")
         )
