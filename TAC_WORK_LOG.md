@@ -2555,3 +2555,10 @@
 - SIM-1.3 新 commit：dd4b28a82fc10b61a939e89fc592cbde311cb54a；blob SHA：6f8739b77678a3cfd7e296f6059288e0f7ee74f8。
 - SIM-1.4 DRAFT 新 commit：5344f3f34169d35da38b0f9b92c611138f4ee95b；blob SHA：48adcdb587836bf48adf00b02479194eabfaa602。
 - 僅修改 simulation branch 的 SIM-1.3、SIM-1.4 DRAFT、Session State 與 Work Log；未修改 main、正式首頁、正式母版、Manifest 或行事曆 JSON。Builder／共識資料擷取接線與回歸測試尚未執行，不宣稱程式已同步完成。
+
+
+## 2026-11-21｜USD/TWD 行情來源統一修訂
+- 使用者明確指定：USD/TWD 美元／新台幣一律採 Investing.com，不再使用台灣央行／CBC 銀行間收盤資料。
+- 已同步修訂 SIM-1.3 與 SIM-1.4 DRAFT：Investing.com HK USD/TWD 歷史資料頁為第一順位；若該站同日歷史列尚未更新，只能遞補 Investing.com 其他站點的同標的歷史資料頁；不得改用央行、銀行牌告或其他平台。若 Investing.com 歷史列不可核實，價格及漲跌幅均標示待核實。
+- 報價與日漲跌幅必須取自同一 Investing.com 歷史列、同一資料日期；商品名稱超連結／來源明細指向實際採用的 Investing.com 歷史資料頁。
+- 本次修訂只在 simulation branch；SIM-1.4 仍為 DRAFT，未獲核准前不生效。
