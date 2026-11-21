@@ -2299,3 +2299,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 **風險情緒 3 項：** VIX 35.89（+26.20%，Investing.com HK 11/20歷史收盤）；MOVE 106.31（+6.80%，TradingView最新可見報價，頁面未明示指定日期／收盤時間，暫列「待核實」，週一需重新核對）；CNN Fear & Greed 10/100（Extreme Fear，FGScore CNN Provider Index，更新時間11/21 05:30台北時間；CNN官方頁及其graphdata端點本次不可讀，依D3第三方備援順序採用）。
 
 **政策／盈利背景（不計入44項）：** FedWatch 12/9會議：目前目標區間3.75%–4.00%；升息25bp至4.00%–4.25%機率89.6%，維持機率10.4%；更新時間11/21 05:55台北時間。FactSet Earnings Insight 11/20：Q3 93%公司已公布；EPS beat 84%、Revenue beat 74%；混合EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%（低於5年平均+7.5%）；forward P/E 17.1（低於5年19.8、10年19.1）；Mag7 EPS成長27.0%，低於其他493家34.7%。
+
+
+## 2026-11-21｜行情第二輪補漏完成｜44/44 固定欄位完成登記
+
+- **XLRE 補核實：** Investing.com XLRE 頁顯示 11/20 最新收盤 42.46、前收 42.88，-0.98%，16:59:59 closed；因此改判主要來源已核實，不再待核實。來源：https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413
+- **WTI 活躍合約：** 11/20 以 NYMEX Jan 2027 CLF27 為主選；Investing 合約表 Jan27 volume 275,335、last 83.41（表內 s 標記）、+0.97（+1.18%）；Farmbucks cross-check volume 275.34K、OI 276.41K、expiry 2026-12-21。11/19 Jan27 volume 286,961、OI 280,487，仍為最近活躍月份；Dec26 11/20 volume 24,186，Feb27 90,192。來源：https://www.investing.com/commodities/crude-oil-contracts ; https://farmbucks.com/futures/energy/wti-crude?contract=CLF27 ; https://whittakertec.com/futures/crude-oil/
+- **Brent 活躍合約：** 11/20 ICE Jan 2027 LCOF7 主選；ICE 官方延遲報價 last 92.490、change +0.554（約+0.60%）、volume 264,003；Feb27 volume 243,351、Mar27 135,611；11/19 Jan27 volume 56,107，故 Jan27 仍為成交量最高且未到 11/30 最後交易日。Investing 合約表同日 Jan27 volume 278,237，Feb27 252,505，與 ICE 排名一致。官方 ICE 價格採 last，不冒稱 settlement。來源：https://www.ice.com/products/219 ; https://www.investing.com/commodities/brent-oil-contracts
+- **Gold 活躍合約：** 11/20 COMEX Dec 2026 GCZ26 主選；Investing 合約表 last 3,515.40（s 標記）、change -170.10（-4.62%）、volume 323,896；FXEmpire cross-check OI 171,833；Feb27 volume 74,394、OI151,333，Jan27 volume983。Dec26 expiry 2026-12-29，未到最後交易／通知日。CME Daily Bulletin 11/20 尚未更新，故本次採 Investing contract-specific platform value，明確標示非已驗證 CME 官方 settlement。來源：https://www.investing.com/commodities/gold-contracts ; https://www.fxempire.com/commodities/gc/contracts
+- **Silver 活躍合約：** 11/20 COMEX Dec 2026 SIZ26 主選；Investing 合約表 last 41.070（s 標記）、change -3.289（約-7.41%）、volume 110,375；Webull cross-check OI 48,391；Mar27 volume39,716、Jan27 1,793、Feb27 181。Dec26 expiry 2026-12-29。11/19 Dec26 volume70.68K，11/20升至110.38K，支持其仍為最近活躍合約。CME Daily Bulletin 11/20 尚未更新，故採合約專屬平台值，非已驗證 CME 官方 settlement。來源：https://www.investing.com/commodities/silver-contracts ; https://www.webull.com/quote/comex-SIZ6 ; https://www.investing.com/commodities/silver-historical-data
+- 合約連結規則：HTML 顯示 WTI Jan 2027、Brent Jan 2027、黃金 GC Dec 2026、白銀 SI Dec 2026；href 指向上述實際列出該交割月份的合約清單頁，並在資料來源區明示報價口徑。不得再用連續合約價格代替具體活躍月份。
+- 修正後 44/44 全部已有值與狀態：主要來源已核實／備援來源已核實；S&P 500、Russell 2000、VIX 依 Investing 頁面標示 CFD，數值僅作 CFD 參考，不冒稱現貨／Cboe官方指數成交。XLRE已核實；四項商品已完成活躍合約選取，但三項 CME 平台價需標明為 contract-specific platform value，Brent採ICE官方 delayed last。
+- CME 11/20 Daily Bulletin 截至 11/21 尚未更新（官方頁仍提供 11/19 previous trade date）；此為官方結算資料發布時點限制，不得宣稱已取得 CME 11/20 settlement。若週一正式 bulletin 在早報截稿前仍未更新，延續目前合約專屬報價及明確口徑，不用舊日 settlement 冒充。
