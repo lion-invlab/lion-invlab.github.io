@@ -108,7 +108,7 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
         raise AssertionError(f"{template_key}: sentiment interpretation DOM/style skeleton changed")
     if data["sentiment"] not in sentiment.select(".sbox")[-1].get_text(" ", strip=True):
         raise AssertionError(f"{template_key}: sentiment interpretation text did not update")
-    result = populate_earnings_health_dashboard_preserving_dom(health, data["earnings_health"], monday)
+    result = populate_earnings_health_dashboard_preserving_dom(health, data["earnings_health"], monday, data.get("earnings", {}))
     after = shape(health)
     if before != after:
         raise AssertionError(f"{template_key}: DOM tags/classes/inline styles changed during data population")
