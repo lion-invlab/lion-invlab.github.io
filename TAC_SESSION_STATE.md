@@ -1,3 +1,17 @@
+# 2026-11-22｜SIM-1.4｜手機版財報雙卡母版基準已修正，完整驗收啟動
+
+- **正式規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.4，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。
+- **使用者授權：** 2026-11-22 明確授權修改 simulation-only Monday mother、Manifest、QA Contract 與 regression tests；未授權 main。
+- **Monday mother：** `simulation-lab/baseline/monday-mother-template.html` SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`。手機 max-width 700px 已公布財報 EPS／Revenue grid 改為 `repeat(2,minmax(0,1fr))`，gap 8px；移除單欄覆蓋。只改既有 CSS 宣告，未改 DOM、style/script 節點、ID 或其他版面。
+- **Manifest：** `simulation-lab/baseline/mother-template-manifest.json` SHA `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；Monday simulation SHA 已與母版實際 blob 完全一致。Weekday SHA 未變。
+- **QA Contract：** v1.16 SHA `70121d7798cb899cbe58d9edd5e8e5ede54f137c`；A2.1／A3.2 已同步新 Monday SHA，D2 仍明定手機財報雙卡兩欄。
+- **Regression test：** `test_earnings_card_dom_preservation.py` SHA `f2396aed59272d197eedcc7049dfeb1bdfdcc1ac`；已斷言 max-width 700px 必須兩欄，且不得存在舊單欄規則。
+- **Builder：** `build_review_html.py` SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`；Fed 官員行程 prototype 樣式保留修正已在 run `44961417262` deterministic self-tests PASS。
+- **本次驗收：** 以最新 SIM-1.4、母版、Manifest、QA Contract、Builder、Fixture 執行完整 2026-11-23 Monday build；必須重新產生 HTML 與 sidecar，不沿用舊 preview 證據。Builder 精確 SHA 尚未獲使用者核准，故即使技術驗收通過亦先標示 CANDIDATE_VALIDATED，等待使用者核准。
+- **安全範圍：** 所有修改只在 `simulation/tac-process-lab-2026-11-06`。main 正式母版、正式 Manifest、正式首頁與正式行事曆 JSON 均未修改。
+
+---
+
 # 2026-11-22｜SIM-1.4 現行狀態｜等待母版基準變更授權
 
 - **正式規則：** SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob `e18865fc31a88f98e44cb1f411817e61406a34c1`。
