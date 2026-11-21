@@ -2863,3 +2863,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 第五步QA：資料／內容、母版結構、互動功能、視覺回歸均完成。母版與預覽style數124相同、script數25相同、ID數183且唯一；W48經濟卡27、W48財報卡11、W47經濟卡2、W47財報卡1；17全球指數、11 ETF、3債券、6 FX、4商品、5+10新聞數量核對。360／390／412／768／1440px均無水平溢位；18組分頁可切換、資料來源details可展開、經濟事件紅色＋收折可操作、上週區塊預設收合、無JavaScript錯誤。CNN 0/24/25/44/45/55/56/74/75/100分段邊界測試通過。iPhone實機未測試。
 - 第六步：審核版寫入main `preview/2026-11-23-simulation.html`；最新commit `0d979bd07b46799f16840b8f6c1f6723703187bf`，blob SHA `fa2fc94f01715e0922747ae052464a3d412952d4`。GitHub回讀核對報告日期、行情日期、W48 27／11事件、WTI CLF27、CNN 10/100均存在。main `index.html` SHA回讀為 `85ef90b60788e25973a5bbe39e23b76c7081a53f`；本次未寫入首頁。
 - Pages部署：GitHub Actions run `44875660337`（head SHA `0d979bd07b46799f16840b8f6c1f6723703187bf`）當時仍in_progress；待部署完成後回讀線上URL，未提前宣稱Pages已驗證。
+
+
+### 2026-11-21 Pages部署追記
+- 最新審核版commit：`0d979bd07b46799f16840b8f6c1f6723703187bf`；preview blob：`fa2fc94f01715e0922747ae052464a3d412952d4`。
+- GitHub Actions Pages build/deploy run `44875660337`，head SHA與最新preview commit一致，狀態 `completed / success`。
+- 以GitHub API回讀preview及main `index.html`：preview內容日期／行情日期／W48 27經濟與11財報／WTI CLF27／CNN 10/100均存在；index SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，本次未修改。
+- Pages外部URL直接開啟工具回傳不可存取，故「部署workflow成功」已確認，但「Pages頁面載入正常HTML」未能由本執行環境獨立實測；交付時明確揭露此限制，不將其寫成已通過。
