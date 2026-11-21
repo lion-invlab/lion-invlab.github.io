@@ -123,6 +123,10 @@ def populate_fed_weekly_agenda(soup, data):
         date_label = f"{status_label}｜{event_date.month}/{event_date.day} {['一','二','三','四','五','六','日'][event_date.weekday()]} {event_date:%H:%M}"
         row = copy.deepcopy(prototype)
         row.attrs = {key: list(value) if isinstance(value, list) else value for key, value in prototype.attrs.items()}
+        # The mother prototype's fixed 94px date column crushes long names and
+        # analysis on phones. Keep the same event DOM slots, but stack the
+        # date above the speaker/content for readable narrow screens.
+        row["style"] = "display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:10px 0;border-top:1px solid #e1e7ee;"
         row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
         row["class"].append("fc-fomc-weekly-event")
         row.attrs.pop("hidden", None)
@@ -750,7 +754,30 @@ def update_upcoming_earnings_detail_fields(details, item, day, clock, session_la
         if label_node is None or value_node is None:
             raise ValueError("single-slot Monday earnings prototype is incomplete")
         set_text(label_node, "財報預估、共識與發布資訊")
-        set_value_slot(value_node, [schedule, eps_line, rev_line, observed_line, item.get("judgment") or item.get("source_notes") or "觀察重點待核實"])
+        # Monday's approved mother has one detail-field wrapper. Preserve that
+        # wrapper, but render its contents as clearly separated labelled rows
+        # instead of one undifferentiated paragraph.
+        detail_rows = [
+            ("發布資訊", schedule),
+            ("EPS 預估", eps_line.replace("EPS 預估：", "", 1)),
+            ("營收預估", rev_line.replace("營收預估：", "", 1)),
+            ("共識時間", observed_line.replace("共識觀測時間：", "", 1)),
+            ("資料判讀", item.get("judgment") or item.get("source_notes") or "觀察重點待核實"),
+        ]
+        fragments = []
+        for row_index, (row_label, row_value) in enumerate(detail_rows):
+            row = BeautifulSoup("", "html.parser").new_tag("div")
+            row["class"] = ["earnings-detail-line"]
+            row["style"] = "padding:6px 0;line-height:1.55;" + ("border-bottom:1px solid #dfe5e8;" if row_index < len(detail_rows)-1 else "")
+            label = BeautifulSoup("", "html.parser").new_tag("strong")
+            label["style"] = "display:block;font-size:12px;color:#53616b;margin-bottom:2px;"
+            label.string = row_label
+            value = BeautifulSoup("", "html.parser").new_tag("span")
+            value.string = str(row_value)
+            row.append(label)
+            row.append(value)
+            fragments.append(row)
+        set_value_slot(value_node, fragments)
     elif len(fields) == 5:
         mapped = {
             "公布時段": schedule,
@@ -1438,6 +1465,21 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
         )},
         "earnings-health next steps",
     )
+    # The approved Monday mother carried a stale October-only S&P 500
+    # calendar sentence. Refresh its existing trailing span from the current
+    # report snapshot; never leave a previous report week's count/date behind.
+    stale_week_note = next_steps.find("span")
+    if stale_week_note is not None:
+        week_start = str(data.get("earnings", {}).get("week_start", ""))
+        week_end = str(data.get("earnings", {}).get("week_end", ""))
+        snapshot_date = str(earnings_health.get("as_of_date", ""))
+        if not (week_start and week_end and snapshot_date):
+            raise ValueError("earnings-health current-week note requires week range and FactSet snapshot date")
+        set_leaf_text_preserving_dom(
+            stale_week_note,
+            f"FactSet 快照截至 {snapshot_date}；本週公司公布時程請以 {week_start}～{week_end} 財報行事曆為準。",
+            "earnings-health current-week note",
+        )
 
     source_details = health.find("details", recursive=False)
     source_body = source_details.find("div", recursive=False) if source_details else None
