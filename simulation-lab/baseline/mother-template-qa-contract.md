@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.13 DRAFT（2026-11-21｜鎖定商品歷史收市價、來源連結與合約一致性；尚未生效）
+版本：1.14 DRAFT（2026-11-22｜同步最新母版 SHA／結構統計及商品歷史收市價契約；尚未生效）
 定位：SIM-1.4 DRAFT 的候選唯一詳細 QA 附件；只有 SIM-1.4 經使用者明確核准生效後，本契約才作為其執行附件。此檔不獨立生效、不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -23,7 +23,7 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `36f29bcb37816348756f9233b60f0429d675a76e` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `72cd41e63f57f17b5b797af6043e839bf5f3b069` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
 | 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
@@ -110,6 +110,11 @@
 - [ ] 連結順序固定為「美股個股波動率」→「Q4 精選基金」→「專題報導」→「互動式圖表」→「歷史早報」。
 - [ ] 「互動式圖表」唯一連結指向 `https://lion-invlab.github.io/interactive-charts/`。
 - [ ] 每日審核版必須從母版繼承此入口；不得由每日資料更新流程刪除或覆蓋。
+
+## A3. 2026-11-22 基準同步紀錄
+
+- 已回讀 simulation Manifest：週一母版 SHA `72cd41e63f57f17b5b797af6043e839bf5f3b069`、週二至週五母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 本契約 A2.1 週一 SHA 已由過期的 `36f29bcb37816348756f9233b60f0429d675a76e` 更正為 Manifest 當前值；樣式標籤數由 124 更正為實際 121。其餘結構統計維持既有基準，仍須由 `validate_mother_dom_contract.py` 及 browser QA 驗證，不以文字統計取代自動化驗收。
 
 ## B. 共用結構完整性（兩份母版均適用）
 
