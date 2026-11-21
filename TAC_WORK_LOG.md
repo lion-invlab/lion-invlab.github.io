@@ -2298,3 +2298,6 @@
 
 ## 2026-11-21｜最新 SIM-1.4 草案 commit 回歸
 - GitHub Actions run 44896718729，head commit 13d87e388496a11130867cc7d447135c6859103c，conclusion success。此 run 驗證更新後 SIM-1.4 DRAFT 主文仍通過 deterministic self-tests；與 run 44896643592 連續兩次成功。兩者皆未執行 HTML build、DOM diff 或 Playwright。
+
+
+- 逐條處置台帳最後更正 SHA：9063340330c3c4960d68654b0ff46ea94962b3b0；將 I.6／摘要中「Session State、Work Log 不存在」的錯誤說法改為根目錄檔案實際存在，避免後續再次誤報缺檔。
