@@ -1,4 +1,4 @@
-# [build-tac-report] Rebuild the 2026-11-17 review after accepting dated screenshot evidence for MOVE.
+# [build-tac-report:2026-11-23] Rebuild Monday after retrospective prototype and list-slot repair.
 #!/usr/bin/env python3
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
