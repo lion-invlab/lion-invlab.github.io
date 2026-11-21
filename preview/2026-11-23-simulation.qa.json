@@ -23,16 +23,16 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "8c8ff75d1c04c757c8763a7071c1ab56fd25ddc7",
-  "report_sha256": "5a7411ce02090b0f6ed6b47e115755f57e35975646f26b1ab9ea4d24d7b9780f",
-  "build_commit_sha": "2fb3ee995bbee1ee4b95e2bebdffff9fdb2cc6a3",
+  "report_git_blob_sha": "983e6677379a0db644ad802cfa1a1d283788e6bf",
+  "report_sha256": "37d3d1fc31dd0216f0387eb2f0e45f91d33f4a591f7743225b741676f72c5e45",
+  "build_commit_sha": "dafdf293845d979ef9e9e79fe358e733a96e4802",
   "builder_blob_sha": "68726bce554ea166bc4bf1f9fa95f28d2fba321b",
   "fixture_blob_sha": "5118b2367c48dec579632c383e0473977f5e3c09",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
   "qa_contract_blob_sha": "f7c1d065c20d1d6fbc187525dbe98a58295b070f",
   "active_rules_blob_sha": "679eae7ba7a40dbad64d15bb448fe53db7d67e09",
-  "candidate_rules_blob_sha": "65329afcd0e479fac22959ad336c3565f521669d",
+  "candidate_rules_blob_sha": "ad9fc500d8f0837a8ef29178d811423d2d855db8",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "68726bce554ea166bc4bf1f9fa95f28d2fba321b",
   "data_review_ready": false,
@@ -45,7 +45,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "494aeb09b57e0397d860aee30e422e2e6fde363a21605a57577e11fbb395c0e9",
-  "visual_evidence_sha256": "fa0047b6903ba091b990a2a7a85b27b1be72ba1854b06d2f2a43293a94b43583",
+  "visual_evidence_sha256": "110e0279ec84cba71aaa43868afdc537a475db21376f392277fe85062cb38528",
   "viewports": [
     1440,
     768,
@@ -54,6 +54,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44917118755",
+  "workflow_run_id": "44917360329",
   "workflow_run_attempt": "1"
 }
