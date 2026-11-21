@@ -11,6 +11,9 @@ from earnings_judgment import render_status, consensus_evidence_label, apply_jud
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
+QA_CONTRACT = ROOT / "simulation-lab/baseline/mother-template-qa-contract.md"
+ACTIVE_RULES = ROOT / "simulation-lab/TAC_WORK_RULES_SIM.md"
+CANDIDATE_RULES = ROOT / "simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md"
 
 def sha_blob(text: str) -> str:
     b=text.encode("utf-8")
@@ -2283,6 +2286,14 @@ def main():
         "template_key": "monday" if monday else "weekdays",
         "template_path": str(master_path.relative_to(ROOT)),
         "template_blob_sha": actual,
+        "manifest_path": str(MANIFEST.relative_to(ROOT)),
+        "manifest_blob_sha": sha_blob(MANIFEST.read_text(encoding="utf-8")),
+        "qa_contract_path": str(QA_CONTRACT.relative_to(ROOT)),
+        "qa_contract_blob_sha": sha_blob(QA_CONTRACT.read_text(encoding="utf-8")),
+        "active_rules_path": str(ACTIVE_RULES.relative_to(ROOT)),
+        "active_rules_blob_sha": sha_blob(ACTIVE_RULES.read_text(encoding="utf-8")),
+        "candidate_rules_path": str(CANDIDATE_RULES.relative_to(ROOT)),
+        "candidate_rules_blob_sha": sha_blob(CANDIDATE_RULES.read_text(encoding="utf-8")),
         "fixture_path": str(Path(args.data)),
         "fixture_blob_sha": sha_blob(Path(args.data).read_text(encoding="utf-8")),
         "builder_path": str(Path(__file__).relative_to(ROOT)),
