@@ -1832,3 +1832,9 @@
 - 行情：11 大產業 ETF 11/11 已核對；外匯六項與美債 2Y/10Y/30Y 已按 11/20 歷史/官方資料更新；MOVE 106.3；VIX 35.89。S&P 500 改採現金指數 6910.39，拒絕 6910.79 CFD；Russell 2000 採 AP 現金指數 2581.79。
 - 待核實：STOXX Europe 600、CNN Fear & Greed、Gold Dec 2026、Silver Dec 2026 有來源差異；不得填為確定值。
 - 本輪未修改 main/index.html、正式母版、Manifest、W48 JSON；未發布首頁。
+
+
+## 2026-11-21 11:35 Asia/Taipei｜W48 唯讀核驗
+- 讀取 main `data/calendar/weeks/2026-W48.json`，SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；未修改。
+- 27 經濟事件全為 upcoming；5 筆缺來源、1 筆時間未確認。11 財報事件全為 upcoming；2 筆時間未確認。
+- EPS／Revenue 三層來源無可採用的 PIT 共識；採用數 0、snapshot 0。維持 incomplete，不得推測預期或 Beat/Miss。
