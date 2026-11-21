@@ -249,24 +249,83 @@ def update_contract_link_label(label_link, contract_label, source_meta, instrume
     return True
 
 
+def parse_taipei_local_datetime(value, field_name):
+    """Parse a date/time as Asia/Taipei; naive values are defined as Taipei-local."""
+    raw = str(value or "").strip()
+    if not raw:
+        raise ValueError(f"{field_name} is required for calendar classification")
+    try:
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{field_name} is not a valid ISO date/time: {raw}") from exc
+    taipei = timezone(timedelta(hours=8))
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=taipei)
+    else:
+        parsed = parsed.astimezone(taipei)
+    return parsed.replace(tzinfo=None)
+
+
+def has_release_status_evidence(item):
+    """Only dedicated publication-status/actual sources count; schedule URLs do not."""
+    for key in ("report_layer_status_source", "status_source", "actual_source"):
+        source = item.get(key)
+        if isinstance(source, dict) and str(source.get("url") or "").startswith("https://"):
+            return True
+    for key in ("report_layer_status_source_url", "status_source_url", "actual_source_url"):
+        if str(item.get(key) or "").startswith("https://"):
+            return True
+    return False
+
+
+def calendar_actual_display(item, report_cutoff):
+    """Render publication uncertainty honestly without inventing an actual value."""
+    state = item.get("_calendar_publication_state", "scheduled")
+    if state == "released":
+        return item.get("actual") or "已公布；實際值待核實"
+    if state == "pending_verification":
+        return (
+            "公告已發布；實際值待核實"
+            if has_release_status_evidence(item)
+            else "公布狀態待核實"
+        )
+    return f"尚未公布（資料截點 {report_cutoff}）"
+
+
 def classify_calendar_group(item, report_iso, report_cutoff):
-    """Classify an event by explicit publication state and Taiwan-local report cutoff."""
+    """Classify by Taiwan-local date/cutoff while keeping unverified status unpromoted."""
     status = str(item.get("status") or item.get("status_in_db") or "").lower()
     event_text = str(item.get("event_date") or item.get("date") or "")
-    event_day = event_text[:10]
+    event_dt = parse_taipei_local_datetime(event_text, "calendar event_date")
+    cutoff_dt = parse_taipei_local_datetime(report_cutoff, "report_cutoff_taipei")
+    report_day = datetime.strptime(str(report_iso)[:10], "%Y-%m-%d").date()
+    event_day = event_dt.date()
+    time_known = item.get("time_known", True) is not False
+
     if status in ("released", "published", "completed"):
+        state = "released"
+    elif status == "postponed":
+        state = "postponed"
+    elif status == "pending_verification":
+        state = "pending_verification"
+    elif event_day < report_day or (event_day == report_day and time_known and event_dt <= cutoff_dt):
+        # A scheduled time has elapsed, but no verified publication status exists.
+        state = "pending_verification"
+    else:
+        state = "scheduled"
+    item["_calendar_publication_state"] = state
+
+    if state == "released":
         return "published"
-    if status == "postponed":
+    if state == "postponed":
         return "upcoming"
-    if status == "pending_verification":
-        try:
-            event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
-            cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
-            if event_dt <= cutoff_dt or item.get("report_layer_status_only"):
-                return "published"
-        except ValueError:
-            pass
-    return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
+    if event_day < report_day:
+        return "published"
+    if event_day == report_day:
+        if time_known and event_dt <= cutoff_dt:
+            return "published"
+        return "today"
+    return "upcoming"
 
 
 def validate_calendar_group_order(panel, label):
@@ -986,8 +1045,12 @@ def earnings_status_label(item, metric, state):
         "inline": "符合預期",
     }
     if state == "pending":
-        if item.get("status") == "pending_verification":
-            return "公告已發布；實際值待核實"
+        if item.get("_calendar_publication_state") == "pending_verification" or item.get("status") == "pending_verification":
+            return (
+                "公告已發布；實際值待核實"
+                if has_release_status_evidence(item)
+                else "公布狀態待核實"
+            )
         reason = str(item.get(f"{metric}_comparison_reason") or "")
         if reason.startswith("comparison_inputs_not_comparable:"):
             return "比較資料尚未齊備"
@@ -1016,11 +1079,14 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
-    if item.get("status") == "pending_verification":
-        kept.append(item.get("report_layer_status_note") or (
-            "公告時間已過，第三方報導指出結果已發布；發行公司官方實際值尚待核實，"
-            "因此不填入實際EPS／營收，也不作優於／低於預期判斷。"
-        ))
+    if item.get("_calendar_publication_state") == "pending_verification" or item.get("status") == "pending_verification":
+        if has_release_status_evidence(item):
+            note = item.get("report_layer_status_note") or (
+                "公告已發布；發行公司官方實際值尚待核實，因此不填入實際 EPS／營收，也不作優於／低於預期判斷。"
+            )
+        else:
+            note = "預定時間已過，但尚無可核實的發布證據；實際值及優於／低於預期判斷均待核實。"
+        kept.append(note)
     for fragment in re.split(r"(?<=[。！？])\s*|[；;]\s*|(?<=\.)\s+(?=[A-Z])", raw):
         part = fragment.strip()
         if not part:
@@ -2139,10 +2205,11 @@ def main():
     for group in econ_groups:
         if group.select_one(".calendar-status-heading") is None:
             raise ValueError("economic calendar mother status heading missing")
-    for group,(key,label) in zip(econ_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
+    for group,(key,label) in zip(econ_groups,[("today","今日公布"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in econ if groupkey(x)==key]
         heading=group.select_one(".calendar-status-heading")
-        set_calendar_status_heading(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）",key)
+        display_label = ("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else label)
+        set_calendar_status_heading(heading,f"{display_label}｜重要性★★★★☆以上（{len(items)}項）",key)
         listing=group.select_one(".econ-event-list")
         if listing is None:
             empty=group.select_one(".calendar-status-empty")
@@ -2166,7 +2233,7 @@ def main():
                 if lab and lab.get_text(strip=True)=="觀察重點": set_text(lab,"市場影響")
             card["class"]=["econ-event","five-star" if int(x.get("stars") or 0)>=5 else "four-star"]
             putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
-            putfield(card,"實際",x.get("actual") if x.get("status")=="released" else f"尚未公布（資料截點 {report_cutoff}）")
+            putfield(card,"實際",calendar_actual_display(x, report_cutoff))
             putfield(card,"市場影響",x.get("impact") or "待核實")
             set_economic_source(card, x)
             validate_economic_card(card, f"current-week economic event {x.get('id') or x.get('name')}", "econ-toggle")
@@ -2196,10 +2263,10 @@ def main():
             raise ValueError("earnings calendar mother status heading missing")
     def earnings_groupkey(x):
         return classify_calendar_group(x, report_iso, report_cutoff)
-    for group,(key,label) in zip(earnings_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
+    for group,(key,label) in zip(earnings_groups,[("today","今日公布"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in earnings if earnings_groupkey(x)==key]
         heading=group.select_one(".calendar-status-heading")
-        display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
+        display_label=("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
         set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
         listing=group.select_one(".earnings-accordion-list")
         if listing is None:
