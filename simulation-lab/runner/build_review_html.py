@@ -226,6 +226,27 @@ def set_text_preserving_child_elements(node, value):
     return False
 
 
+def update_earnings_calendar_source_note(earnings_section, data, monday):
+    """Refresh the Monday-only mother source note; weekday mother has no such slot."""
+    earnings_card = earnings_section.select_one(":scope > article.calendar-card")
+    source_notes = earnings_card.find_all("div", class_="source", recursive=False) if earnings_card else []
+    if not monday:
+        if source_notes:
+            raise ValueError("weekday earnings mother unexpectedly contains a Monday-only direct source note")
+        return
+    if len(source_notes) < 2:
+        raise ValueError("Monday earnings calendar mother source note missing")
+    source_note = source_notes[-1]
+    stale_source_link = source_note.find("a")
+    if stale_source_link is not None:
+        stale_source_link["hidden"] = "hidden"
+        stale_source_link.attrs.pop("href", None)
+    set_text_preserving_child_elements(
+        source_note,
+        f"本週財報期間：{data['earnings']['week_start']}～{data['earnings']['week_end']}（{data['earnings']['week_id']}）。各公司發布時間、預估與來源以個別財報卡所列資料為準；未取得可驗證共識者不填入數值。",
+    )
+
+
 def set_calendar_status_heading(heading, text, status_key):
     """Update the existing badge text slot while preserving its mother-owned wrapper."""
     if heading is None:
@@ -2351,23 +2372,7 @@ def main():
                 )
             listing.append(card)
     validate_calendar_group_order(ep,"earnings calendar")
-    # The approved mother contains a dated October example source sentence.
-    # Never carry that stale week into a new Monday report. Keep the existing
-    # source wrapper and child anchor DOM, but hide the obsolete example link;
-    # each current-week card already carries its own event-specific source.
-    earnings_card = earn.select_one(":scope > article.calendar-card")
-    earnings_source_notes = earnings_card.find_all("div", class_="source", recursive=False) if earnings_card else []
-    earnings_source_note = earnings_source_notes[-1] if len(earnings_source_notes) >= 2 else None
-    if earnings_source_note is None:
-        raise ValueError("earnings calendar mother source note missing")
-    stale_source_link = earnings_source_note.find("a")
-    if stale_source_link is not None:
-        stale_source_link["hidden"] = "hidden"
-        stale_source_link.attrs.pop("href", None)
-    set_text_preserving_child_elements(
-        earnings_source_note,
-        f"本週財報期間：{data['earnings']['week_start']}～{data['earnings']['week_end']}（{data['earnings']['week_id']}）。各公司發布時間、預估與來源以個別財報卡所列資料為準；未取得可驗證共識者不填入數值。",
-    )
+    update_earnings_calendar_source_note(earn, data, monday)
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     # The published accordion includes past events even when actual results remain unverified.
