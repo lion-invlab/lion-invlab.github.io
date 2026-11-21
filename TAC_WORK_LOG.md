@@ -2499,3 +2499,11 @@
 - 最新 workflow run `44914993653` success；HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA sidecar blob `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。QA_PASSED 但 review_ready=false；VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新。Pages deploy run `44915207046` success，但線上 HTTP 載入未能由本環境確認。
 - main/index.html、正式母版、正式 Manifest、main 行事曆 JSON 均未修改；SIM-1.3 未修改。SIM-1.4 與候選 Builder 均未取得使用者正式核准。
 
+
+
+## 2026-11-21｜SIM-1.4 最新規則 SHA 與 build provenance 邊界更正
+
+- 發現 11/23 build run `44914993653` 的 QA sidecar `candidate_rules_blob_sha` 為 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，而最新 SIM-1.4 DRAFT 已更新至 `0d390cc7de7945e1d9af247dbf004f45319d5e99`。
+- 因商品名稱、行事曆截稿狀態及財報母版版型三項規則補正發生於該 build 後，舊 run PASS 不可當成最新草案驗收。現有預覽只作舊 SHA 下的修復成果參考。
+- 後續必須以最新草案 SHA 重跑 Monday，並用同一最新 Builder SHA 重跑 Weekday；兩個 sidecar 的規則／Builder／Manifest／QA Contract SHA 必須一致，才算最新版本雙母版驗收。
+- SIM-1.3 仍有效；SIM-1.4 DRAFT 尚未通過最新 provenance build，也未獲使用者核准。
