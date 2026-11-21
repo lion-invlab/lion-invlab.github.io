@@ -1,0 +1,5 @@
+SIM-1.4 validation request
+report_date=2026-11-23
+mode=build
+purpose=Exercise the actual date-matched Monday mother build, artifact validation, Playwright interaction smoke, and six-viewport visual regression on the isolated simulation branch only.
+safety=No main writes, no production deployment, no formal mother or manifest changes.
