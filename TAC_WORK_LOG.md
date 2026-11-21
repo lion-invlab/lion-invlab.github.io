@@ -2486,3 +2486,16 @@
 - 最終分頁計數：經濟 6／21／0；財報 1／10／0。商品連結、資料來源證據及星等 class 均經 HTML 回讀驗證。
 - main preview 已更新：HTML commit `1239a74ff67f273bf4fd984271f8a829b9be110c`；QA commit `6213580efcf745a9670dcf296c05ddedc5fbf4ea`；Pages deploy run `44915207046` success。main/index.html 未變；Pages 網址無法由 web fetch 實際開啟，故線上載入狀態未測試。
 - `review_ready=false` 尚待 VIX、MOVE、CNN Fear & Greed、FedWatch 於 11/23 05:25 前刷新。
+
+
+## 2026-11-21｜SIM-1.4 三項規則補正與 11/23 實證狀態回讀
+
+- 回讀有效規則 SIM-1.3（blob `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）及 SIM-1.4 DRAFT；確認 SIM-1.3 仍有效，SIM-1.4 尚未定版。
+- 更新 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`：商品名稱不得附加合約月份／代碼，合約資訊放來源說明；商品連結需直接開啟核對 Investing.com 頁面商品、交易所及合約；行事曆分頁狀態按 Asia/Taipei 與 report cutoff 重算，不得照抄 JSON 狀態；財報雙卡必須沿用 SHA 鎖定母版 DOM／CSS，不得自創版型或追加 CSS。
+- 草案更新 commit：`b5a9edafe967c00eecd86600cbaead094ccf706f`；調整行事曆條文順序 commit：`8be16b8195c9bbe23082a79cd522f9e4e7cbfa79`；最新草案 blob SHA：`0d390cc7de7945e1d9af247dbf004f45319d5e99`。
+- 回讀 11/23 預覽 HTML：`d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`。WTI、Brent、GC、SI 名稱不附月份；四個連結分別指向 Investing.com 對應歷史頁，並直接開頁核對當前頁面商品／合約標題。商品來源證據及 CME preliminary／平台 close 口徑仍保留在來源說明。
+- 財報小卡回讀確認 EPS／Revenue 雙卡並列及全寬詳細區；預覽 124 個 style block 與母版逐塊相同、25 個 script block 數量相同；五星 class 修復與母版 DOM／browser smoke 已在 run `44914993653` 通過。
+- 行事曆分頁計數：經濟 6／21／0、財報 1／10／0。已修正 group append／nth-child 錯位、空組位置與舊 empty-state 文案殘留。狀態依截稿時點分類。
+- 最新 workflow run `44914993653` success；HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA sidecar blob `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。QA_PASSED 但 review_ready=false；VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新。Pages deploy run `44915207046` success，但線上 HTTP 載入未能由本環境確認。
+- main/index.html、正式母版、正式 Manifest、main 行事曆 JSON 均未修改；SIM-1.3 未修改。SIM-1.4 與候選 Builder 均未取得使用者正式核准。
+
