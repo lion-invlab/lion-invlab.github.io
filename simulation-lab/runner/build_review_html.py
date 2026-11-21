@@ -2779,7 +2779,7 @@ def main():
                 None,
             )
             visible_link = visible_row.select_one("b a") if visible_row else None
-            if visible_link is None or visible_link.get_text(" ", strip=True) != visible_name:
+            if visible_link is None or "".join(visible_link.get_text(" ", strip=True).split()) != "".join(visible_name.split()):
                 raise ValueError(f"{panel_id}/{instrument}: visible name must be {visible_name!r}; contract details belong in source disclosure")
             source = record.get("source") or {}
             if source.get("quote_type") != "investing_historical_close":
