@@ -55,11 +55,11 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
         raise AssertionError("source note update destroyed the existing source link DOM")
     empty_source_box = BeautifulSoup('<div class="source"><a href="https://example.com">FactSet</a></div>', "html.parser").div
     empty_source_shape = shape(empty_source_box)
-    set_text_preserving_child_elements(empty_source_box, "new source note")
-    if empty_source_box.select_one("a").get("href") != "https://example.com":
-        raise AssertionError("empty source note slot update removed its existing link")
-    if empty_source_box.get_text(" ", strip=True) != "new source note FactSet":
-        raise AssertionError("empty source note slot was not populated before the existing link")
+    changed = set_text_preserving_child_elements(empty_source_box, "new source note")
+    if changed is not False or empty_source_shape != shape(empty_source_box):
+        raise AssertionError("link-only source disclosure must remain unchanged; no new text node may be invented")
+    if empty_source_box.select_one("a").get("href") != "https://example.com" or empty_source_box.get_text(" ", strip=True) != "FactSet":
+        raise AssertionError("link-only source disclosure link or label was altered")
     guard = BeautifulSoup("<div><span>mother child</span></div>", "html.parser").div
     try:
         set_text(guard, "unsafe")
