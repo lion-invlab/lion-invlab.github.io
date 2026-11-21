@@ -122,24 +122,28 @@ def main():
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
-    assert len(data["review_ready_blockers"]) >= 3
+    assert len(data["review_ready_blockers"]) == 1
     cfd_indices = {
         name for name, item in data["global_markets"].items()
-        if item.get("source", {}).get("quote_type") == "cfd_index_reference_series"
+        if item.get("source", {}).get("quote_type") in {"cfd_index_reference_series", "cfd_cash_index_proxy"}
     }
-    assert cfd_indices == {
-        "標普500指數", "日經225", "香港恆生指數",
-        "英國 FTSE 100", "德國 DAX", "STOXX Europe 600",
-    }, cfd_indices
-    for name in cfd_indices:
+    assert cfd_indices == set(), cfd_indices
+    expected_cash_indices = {
+        "標普500指數": ("6,910.39", "-3.70%"),
+        "日經225": ("56,436.65", "-5.06%"),
+        "香港恆生指數": ("22,410.80", "-1.89%"),
+        "英國 FTSE 100": ("10,346.34", "-1.02%"),
+        "德國 DAX": ("24,802.78", "-2.60%"),
+        "STOXX Europe 600": ("625.65", "-2.00%"),
+    }
+    for name, (close, change) in expected_cash_indices.items():
         record = data["global_markets"][name]
-        assert record["display"] == "待核實" and record["change_display"] == "待核實", name
-        assert record.get("qa_status") == "cfd_index_reference_rejected", name
-        assert record.get("rejected_reference", {}).get("display"), name
-    assert "-3.70%" not in data["summary"]
-    assert any("六項現貨指數" in x and "CFD" in x for x in data["review_ready_blockers"])
+        assert record["display"] == close and record["change_display"] == change, name
+        assert record["source"]["quote_type"] == "cash_index_close", name
+        assert "historical-data" in record["source"]["url"], name
+        assert "rejected_reference" not in record, name
     assert any("VIX" in x and "FedWatch" in x for x in data["review_ready_blockers"])
-    assert any("審核版 HTML 尚未產出" in x for x in data["review_ready_blockers"])
+    assert not any("審核版 HTML 尚未產出" in x for x in data["review_ready_blockers"])
 
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
     workflow = (ROOT / ".github" / "workflows" / "tac-simulation-lab.yml").read_text(encoding="utf-8")
