@@ -1,0 +1,5 @@
+SIM-1.4 final validation attempt
+report_date=2026-11-23
+mode=build
+purpose=Run the latest four-state earnings and CFD quote guards, then actual Monday mother HTML assembly, independent validation, interaction and responsive browser QA.
+safety=Simulation branch only; no main writes; no Pages deployment.
