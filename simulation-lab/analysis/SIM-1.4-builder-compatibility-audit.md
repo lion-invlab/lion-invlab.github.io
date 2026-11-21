@@ -83,3 +83,11 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - 成功測試：test_1123_fixture.py、preflight_1123_overrides.py、calendar_source_guard、dual mother validation、earnings judgment/schema、report-layer status／calendar overrides 等。
 - 測試明確回報：44 項計數正確；新聞 5+10；新聞窗口 11/21 17:57:31 已封口、報告截稿 11/23 05:25；六筆 CFD index records 已被抑制成「待核實」；情緒／FedWatch刷新及 HTML QA 仍阻塞。
 - 這是 deterministic self-test 通過，不是審核版產出，不是 HTML build，不是 Playwright 通過。
+
+
+## 2026-11-21 補充：財報 Renderer 與新引擎不相容
+
+- 保護中的 build_review_html.py 維持原始 SHA 04d5976e38ab0da24e19bbe4607da8f1c20e1d35，本輪未修改。
+- earnings_judgment.py 已升級 1.4.0，公開狀態只有 beat／miss／inline／pending；不相容輸入會輸出 pending 並保留 comparison reason。Schema 已同步 1.4.0，visual_regression.mjs 已只接受四種狀態。
+- Builder 的 earnings_status_label／earnings_commentary 仍含 incomparable／consensus_divergent 舊標籤與分支。對於數值存在但幣別／單位／期間明確不相容的紀錄，Builder 目前會把 pending 顯示成「尚未公布」，而 QA Contract v1.5 Section M 要求「比較資料尚未齊備」。
+- 因交接保護限制，本輪不修改 Builder；此項列為 BLOCKER。除非 Builder 後續修正並通過 4-state renderer tests／Playwright，否則不得核准為唯一 Builder，亦不得宣稱財報卡片 QA PASS。
