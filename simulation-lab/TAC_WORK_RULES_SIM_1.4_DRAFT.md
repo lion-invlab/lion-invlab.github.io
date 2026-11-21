@@ -420,7 +420,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `a1d5bebaff59f635700c20aeb843b9b6a37be77c`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -569,7 +569,7 @@
 - SIM-1.3（目前有效規則）blob SHA：`679eae7ba7a40dbad64d15bb448fe53db7d67e09`。
 - 本草案 SIM-1.4 blob SHA：以本次 commit 回讀值為準。
 - Simulation Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`。
-- QA Contract v1.6 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- QA Contract v1.6 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
 - Monday simulation mother SHA：`36f29bcb37816348756f9233b60f0429d675a76e`；Weekday：`19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。附錄 A1.1 與 QA Contract A2.1 已同步這兩個目前 SHA；正式母版 SHA 仍各自獨立，不得混用。
 
 ### 仍未通過的 SIM-1.4 規則／技術 Gate
@@ -611,7 +611,7 @@
 - run 44905304475 在新 Dashboard DOM-preservation deterministic tests 通過後，於最後 FactSet Gate 失敗：Mag 7／Other 493 數值尚未寫入保留的母版文字槽位。後續已在既有 Monday／Weekday「正面／保留」文字槽位補入 Mag 7、Other 493 及 Forward 12M P/E，不增加卡片、不改變欄位排列。
 - FactSet 來源連結 Gate 改為驗證母版既有 `details a` 的 href；不再要求平日母版原本不存在的 `.factset-source-link` class，避免為通過 Gate 而改寫母版屬性。
 - `set_market_observation` 已由清空重建改為只更新母版既有直接子節點 `b／br／text`；移除前置的冗餘 destructive `set_text(reason,...)`。DOM validator 現比對所有 `.market-reason` 子樹及 inline style；雙母版回歸測試亦涵蓋市場評論槽位。
-- QA Contract 已更新為 v1.7 DRAFT，新增市場評論、Market Sentiment 核心解讀及 S&P 500 盈餘 Dashboard 的 DOM／inline style 保護條款。QA Contract SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`；Manifest SHA 仍為 `1496a510d144d340c41b642592675233d5bd2917`；雙母版 SHA 仍為 Monday `36f29bcb37816348756f9233b60f0429d675a76e`／Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- QA Contract 已更新為 v1.7 DRAFT，新增市場評論、Market Sentiment 核心解讀及 S&P 500 盈餘 Dashboard 的 DOM／inline style 保護條款。QA Contract SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；Manifest SHA 仍為 `1496a510d144d340c41b642592675233d5bd2917`；雙母版 SHA 仍為 Monday `36f29bcb37816348756f9233b60f0429d675a76e`／Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`52404ce2dc6881566ea998cc84e7af030dff43ba`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；雙母版 DOM regression test SHA：`6ab733532893a17faf8814d677e11d81fa08e6fe`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
 - 上述修改仍須在同一個最新 build commit 重新跑 Monday 與 Weekday；不得引用早一版 run 的成功作為本版通過證據。SIM-1.4 仍為 DRAFT，候選 Builder 尚未取得唯一入口核准。
 
@@ -629,7 +629,7 @@
 - Builder：simulation-lab/runner/build_review_html.py，目前 blob SHA e03e4af65007a6cfdd3c241a1219ea28d42cbabf。
 - DOM validator：simulation-lab/runner/validate_mother_dom_contract.py，目前 blob SHA 52404ce2dc6881566ea998cc84e7af030dff43ba。
 - FactSet／市場情緒 DOM regression：simulation-lab/runner/test_earnings_health_dom_preservation.py，目前 blob SHA 6ab733532893a17faf8814d677e11d81fa08e6fe。
-- QA Contract：版本 1.7 DRAFT，blob SHA a1d5bebaff59f635700c20aeb843b9b6a37be77c；Manifest 已登記兩份 simulation 母版 SHA，未修改 main 正式母版。
+- QA Contract：版本 1.7 DRAFT，blob SHA f6848d21286f63c4eef11682eedd8825b5fd3aad；Manifest 已登記兩份 simulation 母版 SHA，未修改 main 正式母版。
 
 ### 實際驗收紀錄與未完成項
 - 2026-11-23 Monday build run 44905408554 曾完成 HTML 組裝、deterministic tests、Playwright 互動、六種 viewport（1440／768／412／390／360／320）、artifact validation、44 項行情結構驗收及母版 DOM 比對；該次 QA sidecar 為 QA_PASSED。
@@ -645,7 +645,7 @@
 - CNN Fear & Greed 分數原先寫入父層 `.fg6-score`，會移除 `.fg6-score-main` 與固定 `.fg6-outof`（/100）子節點。現改為只更新 `.fg6-score-main`；validator 比對分數 wrapper 結構與 inline style。
 - 市場評論 helper 已改為保留母版直接子節點 `b／br／text`；測試範圍限定為 Builder 真正會更新的三區市場評論、產業／債券／匯率／商品評論，以及今日市場觀點槽位。validator 仍比對全頁所有 `.market-reason` 的結構與 inline style。
 - run 44905555873（commit cebd527）在 deterministic tests 階段失敗：測試曾過度涵蓋所有 `.market-reason`，包含 Builder 不會寫入的舊節點。已將測試範圍收斂至 Builder 實際寫入的母版槽位；該 run 不可算通過。
-- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`86ad959871e9e9ecfbfd32644b06d3f34d2e05ae`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；DOM regression test SHA：`70cb06d15ed736bb7dc31b4b42455937d1566f6a`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`86ad959871e9e9ecfbfd32644b06d3f34d2e05ae`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；DOM regression test SHA：`70cb06d15ed736bb7dc31b4b42455937d1566f6a`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
 - 44905408554 曾在較早版本通過完整 Monday build，但該版本未包含後續市場評論與 fail-closed CNN 更新；本版仍須以最新 commit 重跑 Monday／Weekday，不得沿用舊 run 當成最終驗收。
 
 
@@ -654,7 +654,7 @@
 - run 44905688058 的雙母版 Dashboard／情緒 DOM 測試已通過；失敗點是另一支 quote-type regression test 使用了不符合母版的簡化 `<div><span>` 節點，卻要求 updater 自動建立 `b`。已將該測試改為使用核准母版的 `b／br／text` 結構，並加入非母版結構必須 fail-closed 的負向案例。
 - 市場評論回歸測試已限定於 Builder 真正會更新的區塊；對沒有粗體標題、但有既有文字槽位的合法評論節點，依現有 DOM 更新文字而不新增標籤。DOM validator 比對所有 `.market-reason` 的子樹與 inline style；重複的同一比對區塊已合併。
 - Builder 通用 `set_text` 現在遇到子元素即拒絕清空；CNN 分數只更新 `.fg6-score-main`，保留 `/100`；市場觀察、Market Sentiment、S&P 500 Dashboard 均只更新既有節點。
-- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；Dashboard／評論 DOM test SHA：`f4b2be83bd6efb0eeb93f9b08bf2f43f3c2d33ab`；quote-type test SHA：`e83ca9011ec6a03672b18eb2522ee633b6fc74ab`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；Dashboard／評論 DOM test SHA：`f4b2be83bd6efb0eeb93f9b08bf2f43f3c2d33ab`；quote-type test SHA：`e83ca9011ec6a03672b18eb2522ee633b6fc74ab`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
 - 本版仍需重新跑 deterministic tests、Monday build、Weekday build、母版 DOM、provenance、Playwright、六視窗 QA。任何一項失敗均不可標示 QA_PASSED／SIM-1.4 REVIEW_READY；SIM-1.4 仍未生效。
 
 
@@ -662,7 +662,7 @@
 
 - run 44905791885 已通過 deterministic tests，進入 HTML build；在更新市場行情來源揭露時，fail-closed `set_text` 正確阻止清空含有來源連結的 `.source` 容器。這證明 guard 有效，也暴露一個原先未列入白名單的來源文字槽位。
 - Builder 已改用 `set_text_preserving_child_elements` 更新來源說明文字，保留母版既有 anchor／href／子元素；新增回歸測試確認來源連結仍存在且 DOM／樣式不變。
-- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；Dashboard／市場評論／來源連結 regression test SHA：`b0fc64650be06d2a4f64435e2d7c9930f4852391`；quote-type test SHA：`4aa2214f175cd2a8bb1970a648fc8512f0c527a2`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- 最新候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；Dashboard／市場評論／來源連結 regression test SHA：`b0fc64650be06d2a4f64435e2d7c9930f4852391`；quote-type test SHA：`4aa2214f175cd2a8bb1970a648fc8512f0c527a2`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`；QA Contract v1.7 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
 - 本次修改尚未完整驗收。最新 build 必須確認 fail-closed guard 不再阻止合法的來源揭露文字更新，同時不刪除既有連結；再完成 Monday／Weekday build、DOM、provenance、Playwright、六視窗 QA。
 
 
@@ -683,7 +683,7 @@
 
 - run 44906103379 的 deterministic tests 已通過，HTML assemble 階段發現部分母版 `.source` 容器只有既有 anchor，沒有直接文字節點。fail-closed helper 正確拒絕破壞式覆寫，但原先沒有處理「空白文字槽位、子元素仍存在」的情況。
 - 最新 helper 若有直接文字節點，只更新第一個並保留其他文字節點／子元素；若容器只有 anchor、沒有獨立文字槽位，則回傳 False 並完全不改動，不新增節點、不覆蓋來源連結。
-- 新增「只有既有來源 anchor」的回歸案例，驗證說明文字插入後連結仍保留。最新 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；DOM regression test SHA：`61a969a8504aa7e219ac3f98d2614bba7f92cf81`；quote-type test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
+- 新增「只有既有來源 anchor」的回歸案例，驗證說明文字插入後連結仍保留。最新 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；DOM regression test SHA：`61a969a8504aa7e219ac3f98d2614bba7f92cf81`；quote-type test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
 - 此修正尚未經新一輪 build；必須確認 source-only／source-with-link／empty-source-with-link 三種情況皆通過，然後才可繼續後續 DOM／視覺 Gate。
 
 
@@ -691,7 +691,7 @@
 
 - run 44906194763 顯示 link-only source regression test 不應要求 Builder 新增文字節點。母版若只有來源 anchor 而沒有獨立文字槽位，Builder 必須完全不動該容器；報告日期由既有 `.tab-panel-meta` 提供，來源 anchor 仍保留原 href／label。
 - 最新 `set_text_preserving_child_elements` 採此口徑：有直接文字槽位才更新；只有 anchor 時回傳 False 並保持 DOM 完全不變。雙母版 regression test 與 quote-type test 已同步。
-- 最新候選 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；QA Contract v1.7 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
+- 最新候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；QA Contract v1.7 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`。
 - 上述最新 SHA 尚未取得完整 Monday／Weekday CI 通過證據。SIM-1.4 仍為 DRAFT，Builder 未獲唯一入口核准。
 
 
@@ -699,12 +699,12 @@
 
 - run 44906262981 的 deterministic tests 通過，HTML assemble 在 global market panel 的另一處舊程式碼失敗：仍以 `set_text(reason,...)` 清空 `.market-reason`，觸發 fail-closed guard。
 - 最新 Builder 已將此最後一處寫入改為 `set_market_observation(reason, "", ...)`，只更新既有市場評論標題／文字槽位，不清空節點。
-- 最新 Builder SHA：`a3186cf7c10848d0b7d37fdb3d1268dfecaba958`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
+- 最新 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；quote-type test SHA：`a3569c0355c29278bddc0bc9ec551471036cf586`；Dashboard／市場評論／來源 regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`。
 - 本版尚未完成 Monday／Weekday build；須再執行全套 deterministic tests 與 HTML assemble，確認不再有未核准的 destructive text write。
 
 ## 2026-11-21｜最新 Builder SHA 完整 Monday 驗收（weekday 待驗）
 
-- 最新 Builder SHA：a3186cf7c10848d0b7d37fdb3d1268dfecaba958。
+- 最新 Builder SHA：c4c24c03625b3532f48362d7235755a8fa55850f。
 - 最新 DOM validator SHA：e202923cb0d31a8381c238884203599a2937de77。
 - 最新 FactSet／情緒 DOM regression SHA：07a5f8a05a0b8518223fc79fe507a4a70cfe3111。
 - 最新 CFD／Fed／summary／市場評論 regression SHA：a3569c0355c29278bddc0bc9ec551471036cf586。
@@ -712,3 +712,12 @@
 - 11/23 sidecar QA_PASSED、review_ready=false；VIX、MOVE、CNN Fear & Greed、FedWatch 的來源快照仍須在報告截稿前刷新。這是資料 freshness Gate，不是 Builder／DOM Gate 失敗。
 - 現在只剩最新同一組 Builder／DOM validator SHA 的 weekday 完整 build 尚未重跑；本次狀態更新將觸發 2026-11-20 weekday regression。
 - SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效；不得部署、不得修改 main／正式首頁／正式母版／正式行事曆 JSON。
+
+
+## 2026-11-21｜繁中字型視覺 Gate（QA Contract v1.8 DRAFT）
+
+- 先前 run 44906329420 的技術組裝、母版 DOM、互動及六視窗比較已通過，但實際 screenshot 中繁體中文字形呈方框；因此該輪視覺結果不可作最終視覺驗收，且推送審核版時遇到 simulation branch concurrent push race，未寫回 preview。
+- QA Contract 更新至 v1.8 DRAFT，要求 CI 安裝 Noto CJK、確認 `fc-match "Noto Sans TC"` 解析至 Noto Sans CJK，Playwright 等待 `document.fonts.ready` 並用 `document.fonts.check` 驗證繁中字型可用；缺字即視覺 QA 失敗。
+- Workflow 已加入 `fonts-noto-cjk` 安裝與 fontconfig 檢查；`visual_regression.mjs` 已加入字型檢查及 font audit 輸出。
+- QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；候選 Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；DOM validator SHA：`e202923cb0d31a8381c238884203599a2937de77`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；DOM regression test SHA：`07a5f8a05a0b8518223fc79fe507a4a70cfe3111`；quote-type test SHA：`dc115b0638f3f6772eac7b28ca32a8fed867b020`；visual regression SHA：`d9712593f49dc712d248d262a0e6bff92fdd4720`；workflow SHA：`16b99a284f1a64c745255bde404d22c703fa8803`。
+- 此版尚未執行完整 Monday／Weekday build；字型 Gate 與新版本 provenance 必須以最新 build commit 驗證。SIM-1.4 仍是 DRAFT，Builder 未獲唯一入口核准。
