@@ -58,7 +58,7 @@ def main():
     assert commentary.count("預期資料尚未取得") == 1
     item["eps_estimate"]=6.16
     item["eps_estimate_basis_code"]=None
-    assert earnings_status_label(item,"eps","incomparable") == "預期口徑未揭露，暫不判定"
+    assert earnings_status_label(item,"eps","beat") == "優於預期"
     # Monday's previous-week cards must be recalculated too; they were previously
     # rendered from stale legacy statuses because only the current week was processed.
     prior = make(4.56, 2.66, 6.77, 6.80)
@@ -77,22 +77,28 @@ def main():
     item=make(0.54,0.69,0.9314,1.14)
     item["revenue_currency"]="CHF actual; USD estimate (not comparable)"
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
-    assert earnings_comparison_status(item,"revenue") == "incomparable"
+    assert earnings_comparison_status(item,"revenue") == "pending"
+    assert "營收：比較資料尚未齊備" in earnings_commentary(item)
 
     # Brookfield's official note explicitly says the legacy EPS/revenue
     # estimates are not proven comparable with reported IFRS/consolidated values.
     item=make(0.54,0.69,20.691,1.8)
     item["financial_judgment"]="EPS／revenue estimates 未證明與 IFRS diluted EPS／consolidated revenue 同口徑，不判 beat/miss。"
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
-    assert earnings_comparison_status(item,"eps") == "incomparable"
-    assert earnings_comparison_status(item,"revenue") == "incomparable"
+    assert earnings_comparison_status(item,"eps") == "pending"
+    assert earnings_comparison_status(item,"revenue") == "pending"
+    commentary = earnings_commentary(item)
+    assert "EPS：比較資料尚未齊備" in commentary
+    assert "營收：比較資料尚未齊備" in commentary
+    assert "比較口徑不相容" not in commentary
 
     # FNV explicitly withholds only EPS comparison; its revenue pair remains usable.
     item=make(2.05,1.74,549.3,568.44)
     item["financial_judgment"]="EPS consensus basis 未揭露，不判 beat/miss；Q3 revenue US$549.3M 低於 estimate US$568.44M。"
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
-    assert earnings_comparison_status(item,"eps") == "incomparable"
+    assert earnings_comparison_status(item,"eps") == "pending"
     assert earnings_comparison_status(item,"revenue") == "miss"
+    assert "EPS：比較資料尚未齊備" in earnings_commentary(item)
 
     # Ordinary numeric pairs continue to use the 1% practical threshold.
     item=make(1.02,1.00,8.0,8.7)
@@ -100,7 +106,7 @@ def main():
     assert earnings_comparison_status(item,"eps") == "beat"
     assert earnings_comparison_status(item,"revenue") == "miss"
 
-    print("PASS: practical numerical judgment, explicit non-comparable exceptions, and retrospective recalculation")
+    print("PASS: four-state practical numerical judgment, pending comparability exceptions, and retrospective recalculation")
 
 if __name__ == "__main__":
     main()
