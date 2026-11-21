@@ -155,7 +155,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             self.build(attempt=attempt)
 
     def test_provider_must_match_source_level(self):
-        attempt = dict(self.attempt, source_level=2, provider="LSEG I/B/E/S")
+        attempt = dict(self.attempt, source_level=3, provider="LSEG I/B/E/S")
         with self.assertRaises(ValueError):
             self.build(attempt=attempt)
 
