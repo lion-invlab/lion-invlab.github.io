@@ -234,19 +234,49 @@ def set_calendar_status_heading(heading, text, status_key):
         set_text(heading, text)
     heading["class"] = ["calendar-status-heading", status_key]
 
-def update_contract_link_label(label_link, contract_label, source_meta):
-    """Keep the product name compact; contract identity belongs in source metadata."""
+def update_contract_link_label(label_link, contract_label, source_meta, instrument_url=None):
+    """Keep product labels compact and link the instrument name to its Investing.com instrument page."""
     if label_link is None:
         return False
-    # Strip any legacy appended contract suffix, but never append the month to the
-    # visible product name. The .tab-panel-meta source explanation carries it.
     base_label = label_link.get_text(" ", strip=True).split("（", 1)[0].strip()
     set_text(label_link, base_label)
-    if source_meta.get("url", "").startswith("http"):
-        label_link["href"] = source_meta["url"]
-        label_link["target"] = "_blank"
-        label_link["rel"] = "noopener"
+    target_url = instrument_url or source_meta.get("url", "")
+    if not str(target_url).startswith("https://hk.investing.com/"):
+        raise ValueError("commodity instrument link must target the corresponding Investing.com HK page")
+    label_link["href"] = target_url
+    label_link["target"] = "_blank"
+    label_link["rel"] = "noopener"
     return True
+
+
+def reset_calendar_listing(listing, card_class, empty_text, has_items):
+    """Remove stale prototype cards and stale empty-state copy while preserving the mother list wrapper."""
+    if listing is None:
+        raise ValueError("calendar list wrapper missing")
+    for child in list(listing.contents):
+        if isinstance(child, NavigableString):
+            child.extract()
+        elif getattr(child, "name", None) == "details" and card_class in child.get("class", []):
+            child.decompose()
+        else:
+            raise ValueError(f"unexpected child in mother calendar list: <{getattr(child, 'name', None)}>")
+    if not has_items:
+        listing.append(empty_text)
+
+
+def apply_earnings_star_style(card, item):
+    """Match the cloned card's star-level classes to its actual TAC star rating."""
+    stars = int(item.get("stars") or 0)
+    company = card.select_one(".earnings-company-name")
+    if company is None:
+        raise ValueError("earnings company name slot missing")
+    card_classes = [c for c in card.get("class", []) if c != "five-star-earnings"]
+    company_classes = [c for c in company.get("class", []) if c != "five-star-company"]
+    if stars >= 5:
+        card_classes.append("five-star-earnings")
+        company_classes.append("five-star-company")
+    card["class"] = card_classes
+    company["class"] = company_classes
 
 
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
@@ -1915,7 +1945,7 @@ def main():
             if contract_label:
                 label_link = rows[0].select_one("b a")
                 source_meta = record.get("source") or {}
-                update_contract_link_label(label_link, contract_label, source_meta)
+                update_contract_link_label(label_link, contract_label, source_meta, record.get("instrument_url"))
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
@@ -2038,8 +2068,22 @@ def main():
             z=datetime.fromisoformat(v); return z.strftime("%m/%d"), z.strftime("%H:%M") if z.hour or z.minute else "時間未確認"
         except Exception: return "日期待核實","時間未確認"
     def groupkey(x):
-        d=(x.get("date") or "")[:10]
-        return "today" if d==report_iso else ("upcoming" if d>report_iso else "published")
+        status = str(x.get("status") or x.get("status_in_db") or "").lower()
+        event_day = str(x.get("event_date") or x.get("date") or "")[:10]
+        if status in ("released", "published", "completed"):
+            return "published"
+        if status == "postponed":
+            return "upcoming"
+        if status == "pending_verification":
+            event_text = str(x.get("event_date") or x.get("date") or "")
+            try:
+                event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
+                cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
+                if event_dt <= cutoff_dt or x.get("report_layer_status_only"):
+                    return "published"
+            except ValueError:
+                pass
+        return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
     def startext(x):
         n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
     def putfield(card,label,value):
@@ -2134,12 +2178,22 @@ def main():
         if group.select_one(".calendar-status-heading") is None:
             raise ValueError("earnings calendar mother status heading missing")
     def earnings_groupkey(x):
-        # Actual publication status outranks Taiwan-local calendar date.
-        # US after-market releases can fall on the following Taiwan date.
-        status = x.get("status") or x.get("status_in_db")
-        if status in ("released", "published", "pending_verification"):
+        # A pending-verification flag is not proof that a future event has already occurred.
+        status = str(x.get("status") or x.get("status_in_db") or "").lower()
+        event_text = str(x.get("event_date") or x.get("date") or "")
+        event_day = event_text[:10]
+        if status in ("released", "published", "completed"):
             return "published"
-        event_day = ((x.get("event_date") or x.get("date") or "")[:10])
+        if status == "postponed":
+            return "upcoming"
+        if status == "pending_verification":
+            try:
+                event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
+                cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
+                if event_dt <= cutoff_dt or x.get("report_layer_status_only"):
+                    return "published"
+            except ValueError:
+                pass
         return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
     for group,(key,label) in zip(earnings_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in earnings if earnings_groupkey(x)==key]
@@ -2184,6 +2238,7 @@ def main():
                 node=card.select_one(sel)
                 if node:
                     set_text(node,val)
+            apply_earnings_star_style(card, x)
             details=card.select_one(".earnings-accordion-details")
             if details is None:
                 raise ValueError("earnings card detail container missing")
