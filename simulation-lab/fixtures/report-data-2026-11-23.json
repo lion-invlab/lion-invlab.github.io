@@ -344,11 +344,192 @@
       }
     }
   },
-  "sectors": "📌 產業輪動｜資金明顯轉向現金流較穩定的防禦型產業，科技與非必需消費等高估值／景氣敏感板塊承受較大壓力。這反映投資人降低對遠期成長的估值容忍度，而非已證明AI終端需求反轉。操作上先降低高估值且資本支出回收期長的曝險，防禦配置以獲利穩定、負債可控為條件；只有在市場廣度改善、企業指引未下修時才分批回補成長股。",
-  "bonds": "📌 債券｜本次三個期限殖利率均上行，與「避險資金湧入公債、殖利率回落」的說法相反，因此不能把當日股市下跌解讀為公債已提供有效避險。長端殖利率仍高，市場需同時消化通膨、政策利率與財政供給。操作上不宜只因股市下跌就機械增加長天期公債；先觀察PCE、Fed利率定價及長債供給，待殖利率停止上行、債券價格與股市風險訊號重新呈現避險關係，再拉長存續期間。",
-  "fx": "📌 匯率｜美元指數小幅回落，主要貨幣並未呈現單一方向的美元全面走強；這表示本輪風險調整未必由美元流動性單一因素主導。操作上外幣配置以實際負債與資產幣別匹配為先，不因單日波動追逐美元；若美元與美債殖利率重新同步走高，再檢查新興市場及台幣資產的資金壓力。",
-  "energy": "📌 原油｜WTI與Brent走勢分歧，反映兩地基準油價仍受各自供需、運輸與期限結構影響；目前資料不足以把單日變動歸因於特定地緣事件或需求崩落。操作上能源曝險以供需數據、庫存與OPEC+政策確認為先，避免只憑油價單日方向建立趨勢部位，並留意期貨合約換月風險。",
-  "metals": "📌 貴金屬｜黃金與白銀未能在股市下跌時同步走強，顯示傳統避險需求可能被現金需求、槓桿部位調整或利率預期抵銷；但缺乏資金流證據，不能直接斷言是強制平倉。操作上暫不把貴金屬視為短線必然避險工具，待實質利率、美元與ETF／期貨資金流方向一致後，再判斷是否恢復避險配置。",
+  "sectors": {
+    "XLP": "+0.67%",
+    "XLV": "-0.12%",
+    "XLE": "-0.62%",
+    "XLB": "-0.73%",
+    "XLU": "-0.74%",
+    "XLRE": "-0.98%",
+    "XLF": "-1.82%",
+    "XLC": "-2.66%",
+    "XLY": "-2.95%",
+    "XLI": "-3.09%",
+    "XLK": "-7.27%"
+  },
+  "bonds": {
+    "2年期美債殖利率": {
+      "display": "4.63%",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "data_date": "2026-11-20",
+        "quote_type": "official_daily_par_yield",
+        "note": "11/20 官方日終 par yield；不補未提供的日變動。"
+      }
+    },
+    "10年期美債殖利率": {
+      "display": "4.92%",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "data_date": "2026-11-20",
+        "quote_type": "official_daily_par_yield",
+        "note": "11/20 官方日終 par yield；不補未提供的日變動。"
+      }
+    },
+    "30年期美債殖利率": {
+      "display": "5.31%",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "data_date": "2026-11-20",
+        "quote_type": "official_daily_par_yield",
+        "note": "11/20 官方日終 par yield；不補未提供的日變動。"
+      }
+    }
+  },
+  "fx": {
+    "美元指數": {
+      "display": "103.81",
+      "change_display": "-0.08%",
+      "source": {
+        "name": "Investing.com HK｜US Dollar Index 歷史資料",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_index_cfd_reference",
+        "note": "11/20歷史收盤103.81、日變動-0.08%；美元指數現貨／CFD參考序列，不是DX美元指數期貨。"
+      }
+    },
+    "美元／新台幣": {
+      "display": "32.971",
+      "change_display": "-0.18%",
+      "source": {
+        "name": "Investing.com HK｜USD/TWD 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_daily_close",
+        "note": "11/20 收市 32.971，開市 33.032、最高 33.058、最低 32.878，日跌 -0.18%；11/19 收市 33.032。採 USD/TWD 市場匯率歷史資料。"
+      }
+    },
+    "歐元／美元": {
+      "display": "1.0968",
+      "change_display": "+0.01%",
+      "source": {
+        "name": "Investing.com HK｜EUR/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_daily_close",
+        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+      }
+    },
+    "英鎊／美元": {
+      "display": "1.3083",
+      "change_display": "-0.04%",
+      "source": {
+        "name": "Investing.com HK｜GBP/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_daily_close",
+        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+      }
+    },
+    "澳幣／美元": {
+      "display": "0.6621",
+      "change_display": "-0.57%",
+      "source": {
+        "name": "Investing.com HK｜AUD/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_daily_close",
+        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+      }
+    },
+    "美元／日圓": {
+      "display": "158.49",
+      "change_display": "-0.76%",
+      "source": {
+        "name": "Investing.com HK｜USD/JPY 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "spot_daily_close",
+        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+      }
+    }
+  },
+  "energy": {
+    "WTI原油期貨": {
+      "display": "82.40",
+      "change_display": "-0.05%",
+      "contract_label": "CLF27（2027年1月；Investing.com頁面標示 OIL）",
+      "source": {
+        "name": "Investing.com HK｜WTI原油期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+        "data_date": "2026-11-20",
+        "quote_type": "investing_historical_close",
+        "history_close": "82.40",
+        "history_change": "-0.05%",
+        "volume": 90190,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 歷史列收市 82.40、升跌 -0.05%、成交量 90.19K；採歷史收市，不採收市後 Last。頁面標示 WTI 原油期貨 2027年1月（OIL），對應 NYMEX CLF27。"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+      "change_points": "-0.04"
+    },
+    "Brent原油期貨": {
+      "display": "92.57",
+      "change_display": "+0.64%",
+      "contract_label": "LCOF7（2027年1月）",
+      "source": {
+        "name": "Investing.com HK｜Brent期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+        "data_date": "2026-11-20",
+        "quote_type": "investing_historical_close",
+        "history_close": "92.57",
+        "history_change": "+0.64%",
+        "volume": 278240,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
+    }
+  },
+  "metals": {
+    "黃金期貨 GC": {
+      "display": "3,515.40",
+      "change_display": "-4.62%",
+      "contract_label": "GCZ6（2026年12月）",
+      "source": {
+        "name": "Investing.com HK｜黃金期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+        "data_date": "2026-11-20",
+        "quote_type": "investing_historical_close",
+        "history_close": "3,515.40",
+        "history_change": "-4.62%",
+        "volume": 323900,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 3,515.40、升跌 -4.62%、成交量 323.90K。"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
+    },
+    "白銀期貨 SI": {
+      "display": "41.070",
+      "change_display": "-7.41%",
+      "contract_label": "SIZ6（2026年12月）",
+      "source": {
+        "name": "Investing.com HK｜白銀期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+        "data_date": "2026-11-20",
+        "quote_type": "investing_historical_close",
+        "history_close": "41.070",
+        "history_change": "-7.41%",
+        "volume": 110380,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 41.070、升跌 -7.41%、成交量 110.38K。"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
+    }
+  },
   "risk": {
     "vix": {
       "display": "35.89",
@@ -1494,11 +1675,11 @@
       "📌 亞洲｜台灣與韓國科技權重市場同步承壓，但出口與訂單數據仍強，顯示問題不只是需求消失，而是市場開始檢查訂單能否轉成出貨、毛利與現金。台灣外銷訂單創高，仍須追蹤伺服器備料、驗收與收款週期；韓國出口金額亦須拆解價格與實際出貨量。投資含意：優先持有現金轉換能力佳、庫存與應收帳款可控的供應鏈；對營運資金需求高、客戶集中或需持續融資的公司降低部位。若後續出貨量、毛利率與收款天數改善，才逐步提高配置。",
       "📌 歐洲｜區域指數呈現修正，但目前可確認的MPS／Intesa收購要約屬個別公司事件，不能拿來解釋整體歐股走勢。應把區域市場表現與併購個案分開判讀，後續觀察歐元區PMI、企業獲利指引及銀行信用條件是否同步惡化。投資含意：暫不因單一併購消息調整歐洲整體配置；維持對景氣敏感、融資依賴高企業的審慎態度，待PMI與獲利預期止跌再提高週期股曝險。"
     ],
-    "sectors": "📌 產業輪動｜必需消費品是唯一收紅板塊（XLP +0.67%），醫療保健接近平盤；科技跌幅最深（XLK -7.27%），工業與非必需消費品亦明顯承壓。防禦型現金流相對抗跌，科技股同時承受估值與資本支出回報檢驗。",
-    "bonds": "📌 債券｜美國2年、10年、30年期公債殖利率分別為4.63%、4.92%、5.31%；主要市場公債殖利率回落反映避險需求，但殖利率水準仍高。短端仍受Fed升息定價影響，長端須觀察通膨、期限溢酬與財政供給。",
-    "fx": "📌 匯率｜DXY 103.81小幅回落；USD/TWD收於32.971、下跌0.18%。EUR/USD 1.0968、GBP/USD 1.3083；AUD/USD 0.6621走弱，USD/JPY 158.49回落，顯示美元未全面走強。",
-    "energy": "📌 原油｜WTI 原油期貨 82.40、-0.05%；Brent 原油期貨 92.57、+0.64%。兩者均為指定月份期貨合約而非現貨；WTI 小幅回落、Brent 上漲，顯示區域供需與期限結構仍有差異。觀察重點在供需預期變化，並留意轉倉及到期風險。",
-    "metals": "📌 貴金屬｜黃金期貨 3,515.40、-4.62%；白銀期貨 41.070、-7.41%。兩項均採 CME Preliminary 期貨報價，非現貨；升息預期與流動性需求可能壓過傳統避險買盤，去槓桿階段多類資產可能同步承壓。"
+    "sectors": "📌 產業輪動｜資金明顯轉向現金流較穩定的防禦型產業，科技與非必需消費等高估值／景氣敏感板塊承受較大壓力。這反映投資人降低對遠期成長的估值容忍度，而非已證明AI終端需求反轉。操作上先降低高估值且資本支出回收期長的曝險，防禦配置以獲利穩定、負債可控為條件；只有在市場廣度改善、企業指引未下修時才分批回補成長股。",
+    "bonds": "📌 債券｜本次三個期限殖利率均上行，與「避險資金湧入公債、殖利率回落」的說法相反，因此不能把當日股市下跌解讀為公債已提供有效避險。長端殖利率仍高，市場需同時消化通膨、政策利率與財政供給。操作上不宜只因股市下跌就機械增加長天期公債；先觀察PCE、Fed利率定價及長債供給，待殖利率停止上行、債券價格與股市風險訊號重新呈現避險關係，再拉長存續期間。",
+    "fx": "📌 匯率｜美元指數小幅回落，主要貨幣並未呈現單一方向的美元全面走強；這表示本輪風險調整未必由美元流動性單一因素主導。操作上外幣配置以實際負債與資產幣別匹配為先，不因單日波動追逐美元；若美元與美債殖利率重新同步走高，再檢查新興市場及台幣資產的資金壓力。",
+    "energy": "📌 原油｜WTI與Brent走勢分歧，反映兩地基準油價仍受各自供需、運輸與期限結構影響；目前資料不足以把單日變動歸因於特定地緣事件或需求崩落。操作上能源曝險以供需數據、庫存與OPEC+政策確認為先，避免只憑油價單日方向建立趨勢部位，並留意期貨合約換月風險。",
+    "metals": "📌 貴金屬｜黃金與白銀未能在股市下跌時同步走強，顯示傳統避險需求可能被現金需求、槓桿部位調整或利率預期抵銷；但缺乏資金流證據，不能直接斷言是強制平倉。操作上暫不把貴金屬視為短線必然避險工具，待實質利率、美元與ETF／期貨資金流方向一致後，再判斷是否恢復避險配置。"
   },
   "last_week_calendar": {
     "week_id": "2026-W47",
@@ -1810,7 +1991,7 @@
     "heading": "本週三大觀察焦點",
     "text": "① 11/23歐元區與美國Flash PMI，檢驗服務業景氣與企業定價能力。② 11/25美國第三季GDP第二次估值與10月PCE／核心PCE，決定利率預期是否再度上修；同日關注Dell財報對AI伺服器需求與毛利率的說明。③ 11/26美國感恩節休市、11/27提前收市，流動性降低時需留意波動放大；另追蹤德國GfK、法國CPI與德國失業數據。"
   },
-  "qa_run_revision": "2026-11-22-analysis-gate-rewrite",
+  "qa_run_revision": "2026-11-22-analysis-gate-rewrite-v2",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
   "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。",
   "report_cutoff_taipei": "2026-11-23 05:25",
