@@ -2119,7 +2119,7 @@ def main():
         for label, record in records.items():
             if record.get("change_display") is None:
                 continue
-            normalized_label = "".join(str(label).split())
+            normalized_label = "".join(str(record.get("display_name") or label).split())
             row = next((r for r in container.select(".row")
                         if normalized_label in "".join(r.get_text(" ", strip=True).split())), None)
             if row is None:
