@@ -8,7 +8,10 @@ from bs4 import BeautifulSoup, NavigableString
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
-from build_review_html import (\n    populate_earnings_health_dashboard_preserving_dom,\n    update_market_sentiment_interpretation_preserving_dom,\n)
+from build_review_html import (
+    populate_earnings_health_dashboard_preserving_dom,
+    update_market_sentiment_interpretation_preserving_dom,
+)
 
 
 def shape(node):
