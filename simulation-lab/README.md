@@ -115,3 +115,8 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 
 - 首輪 CI 暴露兩個舊測試仍把 optional `basis_code` 與 `raw_response_ref` 當作採用必要欄位；程式已按 SIM-1.4 移除阻擋條件，測試預期同步修正為可保留 `pre_release_eligible` 狀態。
 - 更新 Yahoo 第一順位測試，明確驗證無 provider data_as_of／EPS basis 仍可用；更新缺 raw archive／basis 測試名稱與預期。未處理 W48。
+
+
+## SIM-1.4 consensus tests rerun 2
+
+- Corrected the two remaining legacy status expectations: Yahoo capture without provider as-of uses TAC-observed status; a source with provider data-as-of but missing optional EPS basis remains provider-as-of eligible. No W48 files read or changed.
