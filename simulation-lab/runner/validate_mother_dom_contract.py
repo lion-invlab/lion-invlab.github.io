@@ -11,7 +11,7 @@ def parse(path: str):
     return BeautifulSoup(Path(path).read_text(encoding="utf-8"), "lxml")
 
 
-def shape(node, omit_dynamic_fed_rows=False):
+def shape(node, omit_dynamic_fed_rows=False, include_style=False):
     if isinstance(node, NavigableString):
         return "#text" if str(node).strip() else None
     if not getattr(node, "name", None):
@@ -19,11 +19,12 @@ def shape(node, omit_dynamic_fed_rows=False):
     if omit_dynamic_fed_rows and "fc-fomc-weekly-event" in node.get("class", []) and "fc-fomc-weekly-event-template" not in node.get("class", []):
         return None
     attrs = {}
-    for key in ("id", "class", "name", "type", "for", "role"):
+    keys = ("id", "class", "name", "type", "for", "role", "style") if include_style else ("id", "class", "name", "type", "for", "role")
+    for key in keys:
         if node.has_attr(key):
             value = node.get(key)
             attrs[key] = tuple(value) if isinstance(value, list) else str(value)
-    children = [shape(child, omit_dynamic_fed_rows) for child in node.children]
+    children = [shape(child, omit_dynamic_fed_rows, include_style) for child in node.children]
     return (node.name, tuple(sorted(attrs.items())), tuple(child for child in children if child is not None))
 
 
@@ -65,13 +66,15 @@ def main():
         ("#fed .fc-probs", "FedWatch probability cards"),
         ("#fed .fc-split-wrap", "FedWatch distribution bar and legend"),
         ("#fed .fc-fomc-weekly-events", "Fed weekly agenda wrapper"),
+        ("#sp500-earnings-health", "S&P 500 earnings-health dashboard"),
         ("#tac-side-tools", "QUICK ACCESS toolbar"),
     ]
     for selector, context in stable_selectors:
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
         omit = selector == "#fed .fc-fomc-weekly-events"
-        if shape(left, omit_dynamic_fed_rows=omit) != shape(right, omit_dynamic_fed_rows=omit):
+        include_style = selector == "#sp500-earnings-health"
+        if shape(left, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right, omit_dynamic_fed_rows=omit, include_style=include_style):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
 
     # Verify the two tab radio controls and label wiring without diffing their dynamic panel contents.
