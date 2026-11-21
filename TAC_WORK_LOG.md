@@ -2354,3 +2354,11 @@
 - SIM-1.4 草案已同步更新上述條文處置範圍、財報引擎 1.4.0／Yahoo-first來源順位與最新測試證據；最新 SHA：f31f8f7cb0f22920b7b957601dbb2b9ceae22304。維持 DRAFT。
 - 財報引擎、來源順位、schema、單元測試與 Node 語法檢查已有 CI 成功證據（44897795972、44897956591、44898020239）。注意：最新草案及逐條台帳的最後更新晚於 run 44898020239，尚未對這兩個最新文件 commit 再跑 CI。
 - Build／QA-only、HTML build、DOM diff、Playwright 尚未執行；Builder renderer 仍 BLOCKED。不可把 deterministic tests 說成早報 HTML QA 通過。
+
+
+## 2026-11-21｜A／B／C Stage 1–4 逐條處置補齊
+
+- 逐條處置台帳新增 A1.1–A1.5、A1補充1各項、A1補充2.1–2.8、A2修改閉環各項、B1–B3、C Stage 1–4各項及 D1 對應；原文行號逐項列出。最新台帳 SHA：14eb2b9537b3bea1dae250f8c9bd5bdb3ce42d05。
+- SIM-1.4 草案已更新引用最新逐條台帳 SHA，最新草案 SHA：119b1c3ae559ef40d335f8ba878f3c60877559ef。
+- 最新已完成 CI run 44898651010（commit 3017841a34970f778a2b4912ac677f580788dd53）success；其後新增的 A／B／C 條文台帳與草案 SHA 尚未由新的 CI run 覆蓋。CI 只做 Python compile／deterministic tests，不含 HTML build／DOM diff／Playwright。
+- 下一步：對 SIM-1.3 版本紀錄 J 的每個有效補充逐項核對是否已整併或標為歷史；然後做 QA Contract selector／DOM 深度差異檢查，並決定是否有足夠權限啟動 build／QA-only。Builder compatibility 未通過前，不產生 11/23 審核版。
