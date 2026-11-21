@@ -297,7 +297,14 @@ def main():
     assert normalize_market_label("日經225") == normalize_market_label("日經 225")
     assert normalize_market_label("日經　225") == normalize_market_label("日經225")
     assert earnings_status_label({"eps_actual": 2.70, "eps_estimate": None}, "eps", "pending") == "比較資料尚未齊備"
-    assert earnings_status_label({"status": "pending_verification", "report_layer_status_source": {"url": "https://example.com/status"}}, "eps", "pending") == "公告已發布；實際值待核實"
+    pending_with_source = {
+        "status": "pending_verification",
+        "event_date": "2026-11-20T05:00:00+08:00",
+        "time_known": True,
+        "report_layer_status_source": {"url": "https://example.com/status"},
+    }
+    classify_calendar_group(pending_with_source, "2026-11-20", "2026-11-20 05:25")
+    assert earnings_status_label(pending_with_source, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公布狀態待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
