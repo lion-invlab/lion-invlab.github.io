@@ -202,7 +202,8 @@ def set_text_preserving_child_elements(node, value):
         if isinstance(child, NavigableString) and str(child).strip()
     ]
     if not text_nodes:
-        raise ValueError(f"no existing direct text slot in <{node.name}>")
+        node.insert(0, str(value))
+        return
     text_nodes[0].replace_with(str(value))
 
 
