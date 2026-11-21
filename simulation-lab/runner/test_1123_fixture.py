@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""[build-tac-report:2026-11-23] Monday fixture contract, source-identity, and compact display-name checks."""
+"""[build-tac-report:2026-11-23] Monday fixture contract plus three screenshot regression checks."""
+# [build-tac-report:2026-11-23] trigger full Monday rebuild after earnings/Fed mobile fixes.
 from datetime import datetime
 import json
 from pathlib import Path
