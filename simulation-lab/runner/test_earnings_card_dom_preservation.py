@@ -176,16 +176,17 @@ def main():
     assert "EPS 預估" in wd_details.get_text(" ", strip=True)
     assert "營收預估" in wd_details.get_text(" ", strip=True)
 
-    # Fed weekly agenda retains the mother wrappers and the approved date/content
-    # columns; the builder must not flatten the event into one full-width column.
+    # Fed weekly agenda retains mother wrappers while builder overrides the
+    # fixed date rail with a responsive single-column event layout.
     fed_soup = mother("monday-mother-template.html")
     fed_data = fixture
     populate_fed_weekly_agenda(fed_soup, fed_data)
     fed_rows = fed_soup.select("#fed .fc-fomc-weekly-events-list > .fc-fomc-weekly-event")
     assert fed_rows, "Fed weekly agenda fixture should render at least one verified event"
-    assert all("grid-template-columns:94px minmax(0,1fr)" in row.get("style", "") for row in fed_rows)
+    assert all("grid-template-columns:minmax(0,1fr)" in row.get("style", "") for row in fed_rows)
+    assert all("min-width:0" in row.get("style", "") and "width:100%" in row.get("style", "") for row in fed_rows)
     fed_template = fed_soup.select_one("#fed .fc-fomc-weekly-event-template")
-    assert "grid-template-columns:94px minmax(0,1fr)" in fed_template.get("style", "")
+    assert fed_template is not None
     mother_html = (ROOT / "simulation-lab" / "baseline" / "monday-mother-template.html").read_text(encoding="utf-8")
     assert "FIX v2: remove parent two-column grid constraint" not in mother_html
     assert "FIX v3: force the EPS/revenue grid" not in mother_html
