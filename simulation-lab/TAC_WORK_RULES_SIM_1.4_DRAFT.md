@@ -1,0 +1,395 @@
+# TAC 投資早報｜統一模擬工作規範 SIM-1.4（審核草案）
+
+> **狀態：DRAFT／尚未生效。** 本文件供逐條審核及 2026-11-23（一）回歸測試使用。SIM-1.3 保留為歷史基準，不覆寫、不刪除。只有使用者明確核准 SIM-1.4 定版後，才可將本文件改名／替換為唯一有效規則檔。本草案不授權修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
+
+- 專案：TAC 投資早報
+- Repository：`lion-invlab/lion-invlab.github.io`
+- 工作分支：`simulation/tac-process-lab-2026-11-06`
+- 草案日期：2026-11-21
+- 前版基準：`simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.3）
+- 時區：Asia/Taipei（UTC+8）
+
+---
+
+## 0. 核心原則、權限與狀態
+
+### 0.1 規則優先權
+1. 使用者當次明確指示優先；其次為經核准生效的 SIM-1.4；再其次為本文件明列的唯一技術契約及資料來源契約。
+2. 助理建議、聊天摘要、舊交接、歷史版本、程式註解及自動化 prompt 均不得創造或覆寫規則。
+3. SIM-1.3、SIM-1.2、v5.x 及補充條文在 SIM-1.4 生效後均為歷史資料，不再與 SIM-1.4 並列有效。
+4. 發生本文件內部衝突時，先依本文件的專門章節優先於一般原則；仍無法裁決時標記 BLOCKED，不得自行猜測。
+
+### 0.2 權限邊界
+- 本次規則重整及回歸測試只可修改 simulation branch 的明確指定工作檔、測試報告及審核版輸出。
+- main 原則唯讀。正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均不得由本工作修改。
+- main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者。早報流程 05:25 嚴格唯讀。
+- 審核版可依使用者對該次任務的明確授權，寫入指定日期的 simulation preview；GitHub 寫入不代表 Pages 已部署。
+- 正式首頁只有使用者對已唯一識別的審核版 SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
+- simulation workflow 不得 deploy Pages、寫 main、使用 production secrets 或自動發布首頁。
+
+### 0.3 保護與修改閉環
+每次修改前取得目標檔案最新內容與 SHA；確認授權範圍；採最小必要差異；執行相應測試；寫入後回讀並核對 SHA、內容及未授權檔案未變。不得平行寫入同一路徑。遇到 SHA 競爭或更新失敗，重新讀取最新版本並重新比對，不得強制覆蓋。
+
+### 0.4 狀態定義
+- **BLOCKED**：關鍵基準錯誤／不存在、母版或日期情境錯誤、資料來源版本無法確認、組裝器無法安全定位、核心行情身分錯誤，或權限不符；不得交付審核版。
+- **PARTIAL**：必要流程可繼續，部分非核心欄位待核實／暫缺／未測試；必須完整揭露，且不得標示 REVIEW_READY。
+- **REVIEW_READY**：六階段必要輸入、完整內容、HTML 組裝及所有適用強制 QA 均通過；允許交付審核版，仍不代表正式發布。
+- 資料狀態另使用 VERIFIED、BACKUP_VERIFIED、PENDING、MISSING、CLOSED、NOT_APPLICABLE、NOT_TESTED；不得把未測試或暫缺轉寫成通過。
+- 單一非核心欄位缺漏不得停止無依賴的其他工作；BLOCKED 項目不得偽裝為 PARTIAL。
+
+### 0.5 30 分鐘目標
+30 分鐘是流程效率目標，不是資料正確性豁免。已取得且符合標的、日期、欄位、口徑及證據的資料立即鎖定，不再重抓；後續只處理待辦項目。超時必須記錄真正耗時與阻塞原因，不得為達標跳過來源讀取、Gate 或 QA。
+
+---
+
+## 1. 唯一權威資產與資料基準
+
+### 1.1 唯一規則與技術附件
+- 本草案若經核准，唯一工作規範路徑為 `simulation-lab/TAC_WORK_RULES_SIM.md`；草案核准前，SIM-1.3 仍是目前有效規則。
+- 母版選擇唯一依據：`simulation-lab/baseline/mother-template-manifest.json`。
+- 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
+- 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
+- Builder：本版不預先指定任何程式為唯一正式 Builder。候選程式必須通過第 8 章驗收後，才可由使用者核准列入生效版唯一入口。
+- 執行狀態及證據：依第 10 章規定的兩份紀錄分工；若指定檔案不存在，先報告路徑缺失，未經核准不得宣稱已更新。
+
+### 1.2 開工鎖定資料
+記錄 SIM 規則版本／SHA、Manifest SHA、週一或平日母版路徑／SHA、QA Contract SHA、main HEAD、當週及上週 JSON SHA、報告日期、行情基準日、輸出路徑、Builder 候選版本／SHA、Fixture SHA。任一必要基準缺失或不一致，依 0.4 分類，不得 fallback。
+
+### 1.3 母版保護
+- 週一使用週一母版，週二至週五使用平日母版；週末不自動製作。
+- 每日只允許更新核准內容槽位及當日資料；不得重設 CSS、JS、DOM、互動、響應式結構、字體、色彩、間距或版面。
+- Manifest SHA 不符即停止。不得用舊 preview、首頁、歷史報告或手動重建頁面替代母版。
+- DOM 必須由真正 DOM parser 定位；不得用 regex、字串切片、標題搜尋或固定字元位置取代。
+- 每個核准母版 SHA 的完整結構解析只需一次；每日做 SHA 核對、定位錨點快速檢查及輸出 DOM 驗證。
+
+---
+
+## 2. 每日唯一製作流程（六階段）
+
+六階段是唯一生產流程。每階段必須保存輸入、執行、輸出、驗收及下一階段交接；不另建第二套流程。
+
+### Stage 1｜開工基準與母版鎖定
+**輸入：** 本版規則、Manifest、QA Contract、雙母版、報告日期、main 行事曆 JSON。
+**執行：** 確認台灣日期／星期、行情基準日、週一或平日情境、保護範圍、各基準 SHA；讀取當週 JSON，週一另讀上週 JSON。
+**輸出：** 基準清單、來源 SHA 收據、日期／母版情境。
+**驗收：** 必要路徑存在、SHA 相符、日期正確、main 保護範圍清楚。失敗為 BLOCKED。
+**交接：** Stage 2 使用固定報告日期、行情基準日、核准母版欄位清單與來源規格。
+
+### Stage 2｜44 項行情及獨立 FedWatch
+**輸入：** Stage 1 基準、核准母版固定欄位、附錄 A 來源契約。
+**執行：** 逐項直接讀取指定原始網頁；第一輪完整掃描。符合標的、交易日、報價欄位、口徑及證據的值立即鎖定。第二輪只刷新缺值／疑義項目；第三輪只改用同一來源系統歷史頁或日期查詢；其後才按該指標規定啟用備援。已鎖定值不得無理由重查或覆寫。
+**輸出：** 44 項逐項行情台帳；每項含標的身分、數值／狀態、資料日期／時區、報價欄位、來源 URL、查核時間、來源角色、口徑、實際輪次及備援原因。FedWatch 獨立紀錄，不計入 44 項。
+**驗收：** 44 項每項均有數值或明確狀態；任何已核實值均有足夠證據；未核實值不流入分析作為確定事實。
+**交接：** 完整行情台帳及鎖定值提供 Stage 3–5；待核實狀態一併傳遞。
+
+### Stage 3｜行事曆與財報事件
+**輸入：** Stage 1 的 main JSON SHA；Stage 2 行情；附錄 C、D。
+**執行：** 早報對 JSON 嚴格唯讀；逐筆核對事件 ID、日期／時區、公司／國家、狀態、實際值、預期值、來源、星等及分頁。財報共識由 Yahoo Finance Average Estimate 優先、Investing.com 第二順位，EPS／Revenue 各自選源。
+**輸出：** 經濟與財報事件顯示資料、已公布實際值、共識來源與判讀、股價反應及待核實項目。
+**驗收：** JSON SHA、事件 ID 唯一、日期／時區正確、已公布實際值有來源、EPS／Revenue 分開判讀、跨幣別比較有明確換算。
+**交接：** 供 Stage 4 分析及 Stage 5 組裝；不得將早報查核結果寫回 JSON。
+
+### Stage 4｜新聞與市場分析
+**輸入：** 已鎖定行情、Stage 3 事件、新聞時間窗及來源契約。
+**執行：** 讀取原始報導，核對發布時間／時區；撰寫總結、Market Sentiment、盤面觀察重點、區域與資產評論、今日觀察。
+**輸出：** 5 則全球焦點新聞目標、10 則市場熱門頭條目標、完整分析文稿及來源證據。
+**驗收：** 不灌水、不以報價冒充新聞、不重複新聞事件；事實、推論、策略分離；總結符合週一或平日格式。
+**交接：** Stage 5 接收可直接組裝的完整內容與每則新聞原文 URL、時間、查核證據。
+
+### Stage 5｜唯一 HTML Builder 組裝與 QA
+**輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、QA Contract。
+**執行：** 只能使用經核准的唯一 Builder；DOM 更新只作用於核准槽位；產出指定日期 preview。執行第 9 章 Gate 與四類 QA。
+**輸出：** 完整審核版 HTML、組裝收據、QA 報告、HTML SHA-256。
+**驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。未經 Builder 核准或 QA 未通過不得標示 REVIEW_READY。
+**交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
+
+### Stage 6｜審核版交付
+**輸入：** Stage 5 REVIEW_READY 證據與唯一 HTML SHA。
+**執行：** 寫入當次明確授權的審核版路徑；回讀檔案、核對 SHA、實際開啟預覽網址（若 Pages 發布通道已授權且可用）。
+**輸出：** 可預覽連結、回讀 SHA、部署狀態、QA 摘要及未結事項。
+**驗收：** GitHub 寫入、回讀內容及 SHA 一致；Pages 可開啟才可稱預覽已上線。否則明確標示尚未部署／未驗證。
+**權限：** 不修改 `index.html`；不做歷史封存；不視為使用者已核准正式發布。
+
+---
+
+## 3. 行情資料契約
+
+### 3.1 固定數量與欄位
+- 固定行情共 44 項，已包含 11 大產業 ETF；不得把 ETF 重複計數。
+- ETF：XLE、XLF、XLK、XLI、XLY、XLP、XLU、XLV、XLB、XLRE、XLC。只顯示漲跌幅，依當日漲跌幅排序，保留母版原欄位及互動。
+- FedWatch 為獨立政策機率資料，不計入 44 項。
+- 44 項逐項實際欄位名稱，以核准母版及 Manifest 對應版本為唯一依據；不得依本章摘要自行增刪或猜測。類別涵蓋全球主要股市、11 大產業 ETF、美國 2Y／10Y／30Y、公債／外匯／能源／貴金屬及風險情緒欄位。
+
+### 3.2 直接讀取與鎖定
+1. 正式行情由執行者直接開啟、刷新及讀取附錄 A 指定原始網頁；搜尋摘要不能代替網頁歷史數據讀值。
+2. Investing.com 香港站指定歷史數據頁為相應指標首選時，必須切換至歷史數據分頁，核對指定交易日期的 Close／收盤欄及漲跌幅；不得拿盤中 Last、搜尋摘要或其他日期代替。
+3. 頁面框架載入但表格未呈現，狀態是 TOOL_READ_FAILURE，不是 SOURCE_NO_DATA。記錄嘗試方式及結果，按來源契約繼續。
+4. 讀取成功且標的、日期、欄位、口徑、證據完整者立即鎖定。只有來源正式更正或新證據證明身分／日期／欄位錯誤才重開。
+5. 不使用 repo 內停用的行情 collector 輸出作為正式行情；既有程式只供歷史參考或 parser 測試，除非使用者另行核准重新啟用。
+
+### 3.3 日期、交易日與商品身分
+- 依各標的所屬交易所／主管機構官方交易日曆核對目標日期。只有官方確認休市才標示「休市｜原因」；來源延遲或工具讀取失敗不可推定休市。
+- 現貨、CFD、期貨、連續合約、結算價及平台 Close／Last 必須分開辨識。
+- **現貨指數正式收盤與漲跌幅不得由同名 CFD 取代。** 正常交易日亦不得將 CFD 當成現貨成交。CFD 只能作獨立參考欄位，明確標示 CFD、報價時間及來源；現貨市場官方休市時不得以 CFD 顯示當日現貨漲跌。
+- 期貨必須記錄交易所、商品代碼、交割月份、交易日期、報價類型。連續合約不得冒充單一月份官方結算。
+- WTI、Brent、GC、SI 依基準日最新完整交易日成交量為主，交叉核對未平倉量、到期／交割限制及換月訊號；四者可採不同月份。顯示名稱與連結必須指向同一具體合約。歷史報告保留當時月份，不因後續換月而回寫。
+- 官方 settlement 與平台 Close／Last 不同時，先確認差異及商品身分；不得混用不同月份或不同交易日。
+
+### 3.4 特殊指標
+- **SOX：** 優先 Investing.com HK 半導體指數歷史頁；Yahoo Finance `^SOX` 備援／交叉核對。採現貨指數指定日期正式收盤。
+- **VIX：** 優先 Investing.com HK；Cboe 歷史資料作官方交叉核對；Yahoo Finance `^VIX` 備援。採指定交易日正式收盤。
+- **MOVE：** Investing.com HK 歷史頁優先；若指定日期缺值，TradingView ICE BofA MOVE 報價頁第二；Yahoo Finance `^MOVE`、CNBC `.MOVE`、EODData `INDEX:MOVE` 依序備援。必須核對指定日期、Close、時間戳與精度。
+- **CNN Fear & Greed：** 優先 CNN Business 儀表板當前分數及 Last updated；Previous close 只作前收，不得冒充當前值。官方頁不可讀時依序嘗試 CNN graphdata 端點，再使用 FGScore 的 CNN Provider Index、Financial Context Tracker 的 CNN Tracker。不得使用第三方自估分數；GitHub 歷史資料只作歷史回查。
+- **FedWatch：** 當次製作時讀取 Investing.com Fed Rate Monitor，記錄查核時間、目標 FOMC 會議及各利率區間機率；CME FedWatch 僅作方法與交叉核對，不得把 Investing.com 數據稱為 CME 官方數據。機率合計及視覺呈現一致；無法讀取即標待核實，不使用舊快照自行推算。
+
+### 3.5 來源衝突及狀態
+- 來源差異先比對標的、交易日期、時區、欄位、合約及口徑；無法解釋則 PENDING，不取平均、不猜值、不以舊值覆蓋新值。
+- 狀態固定：VERIFIED、BACKUP_VERIFIED、PENDING、MISSING、CLOSED、NOT_APPLICABLE、NOT_TESTED。
+- 未核實數字不得作為確定分析依據；主畫面保留欄位並顯示適當狀態，不得留白造成零值誤解。
+
+---
+
+## 4. 行事曆資料契約
+
+1. 唯一正式路徑為 main `data/calendar/weeks/YYYY-Www.json`（ISO week）。週一讀取本週及上週；週二至週五讀取本週。
+2. 工作日 04:35 排程是唯一 JSON 寫入者；早報流程嚴格唯讀。05:25 發現 04:35 後的新實際值、事件異動、缺漏或矛盾，只記錄於 Work Log 及審核版的資料來源／審核區，交由下一輪 04:35 更新。
+3. 禁止 simulation 建立平行 JSON、複製資料庫、修補、merge/upsert、覆蓋或刪除正式事件。
+4. 讀取時記錄 main commit SHA、週 JSON blob SHA、ISO week、timezone、updated_at、wr_version、coverage 及事件數。讀取期間版本變更，重新讀取最新版本並記錄 SHA。
+5. 核對事件 ID 唯一、原始發布時間與台灣時間、國家／公司、事件類型、星等、狀態、actual、forecast、previous、來源及分頁。未到公布時間 actual=null 是正常狀態，不得預填。
+6. 經濟與財報均使用 TAC 自主五星制。當週只呈現四星、五星；週一上週回顧只呈現五星。外部星等不可機械換算；評級證據不足則待核實，不列入已確認精選。
+7. 經濟事件已公布時呈現實際、預期、前值（適用時）、結果及市場影響解讀；高於預期不必然利多，低於預期不必然利空。
+8. 財報事件必須區分財報發布時段與電話會議／webcast 時間。postponed 必須標示已延期／改期；不得將電話會議時間當作發布時間。
+9. 分頁狀態為已公布／已發布、今日公布、即將公布，並正確處理延期、取消及待核實。今日依台灣時間由早到晚；即將公布由近到遠；已公布由新到舊。事件搬移沿用穩定 ID，不得重複或遺失。
+10. 每日早報只讀取與呈現 JSON，不因 coverage=incomplete 就阻斷早報；需確認必要事件集合及 schema 可用。核心事件缺失或 JSON 損壞為 BLOCKED，非核心缺漏按 PARTIAL 處理。
+
+---
+
+## 5. 財報資料契約
+
+### 5.1 公司與發布資料
+- 美國公司依 TAC 重要性納入。非美國公司僅納入 NYSE、Nasdaq、NYSE American 等美國交易所正式掛牌普通股、ADR／ADS；OTC／OTCQX 或僅在海外掛牌者不納入。以公司 IR、交易所、SEC 或存託機構核實。
+- 發布時間優先公司 IR；分清美股盤前／盤後、台灣日期及美東日期。正式季度／年度財報、自結／初步數字、月營收不得混稱。
+- 公司正式公告是 actual 唯一依據；保存原文 URL、公告時間、期間、幣別、單位、EPS basis 及查核時間。
+
+### 5.2 共識來源與選用
+1. EPS 與 Revenue 分別選源，不要求兩者來自同一平台。
+2. Yahoo Finance Average Estimate 第一順位；Investing.com 第二順位。Yahoo 該指標缺值、未提供或無法讀取，才改採 Investing.com 同一期間平均預期。
+3. Yahoo 與 Investing.com 均有值但不同，仍以 Yahoo 為主判讀值；不得平均、擇高低或因數值偏好切換。保留第二來源作透明度交叉參考。
+4. LSEG、FactSet、Visible Alpha、Reuters 等歷史條文所列來源不再構成一般 Beat/Miss 必查階梯；可以作獨立研究佐證，但不得覆寫已選定的 Yahoo／Investing.com 基準，也不得恢復舊順位。
+5. 每一指標保存來源 URL、查核時間、資料／公告時間（若可得）、財報期間、estimate、幣別、單位、分析師數（若可得）、EPS methodology（若可得）、採用或跳過原因。
+6. Yahoo observed_at 只代表 TAC 觀測時間，不得冒充供應商 data_as_of。PIT 原始回應、時間戳及 SHA 可作證據保存，但不再是一般數值判讀的先決門檻。
+
+### 5.3 比較與狀態
+- actual 與 estimate 必須同公司、同財報期間、同指標；比較前確認幣別、單位及可比口徑。
+- EPS 保留 GAAP／Adjusted／Non-GAAP／Normalized、Basic／Diluted 等來源可得資訊。若來源未揭露完整細項，仍可做數值比較，但必須透明標註「來源未揭露口徑」，不得宣稱已完成嚴格同口徑比較。
+- Revenue 核對指標定義、幣別、單位及期間。不能確認指標定義時，保留數值及來源註記，不得把不同指標冒充同口徑。
+- 單位不同先作精確單位換算；幣別不同不得直接相減。只有取得可靠匯率、明確報價方向及換算時點後才可換算，並保存原始值、匯率、換算值與來源。無法可靠換算則不產生 Beat/Miss，標示「幣別不可比」。
+- EPS 與 Revenue 分別計算。基本狀態：優於預期、符合預期、低於預期、尚未公布／數值尚未齊備。差異在預期值絕對值 1% 以內視為符合預期；零預期值不得用百分比門檻，按數值差及精度規則判斷並註明。負 EPS 按有號數值比較。
+- 數值已齊備且可換算時必須輸出判讀，不得因缺少 PIT、分析師人數或部分方法論欄位阻斷。若實際指標定義確實不一致、幣別不可比或期間不一致，不能偽造 Beat/Miss，標示資料不可比原因。
+- EPS 與 Revenue 各自獨立；其中一項資料不足不影響另一項。
+- 卡片必須保留 EPS／Revenue 雙實績卡並列，顯示 actual、estimate、幣別／單位、狀態、來源；下方保留發布時段、兩項比較、財報判讀、股價反應及來源。手機仍維持兩欄並列。
+
+### 5.4 公告後股價反應
+- 僅對已發布、具美股上市代號且 session 明確為盤前／盤後的事件計算。
+- 盤前公告：公告日收盤相對前一交易日收盤；盤後公告：下一個美股交易日收盤相對公告日收盤。先轉 America/New_York 日期。
+- 缺少完整兩日 Close 不得計算；必須標示比較日期、百分比、來源與觀察區間。此為收盤至收盤變動，不可宣稱純粹由財報造成。
+- 價格反應不能由財報 Beat/Miss 推定，兩者分開呈現。
+
+---
+
+## 6. 新聞資料契約
+
+1. 新聞時間窗採台灣時間及原始發布時間：週一自前一個美股交易日台灣時間 12:00 起；週二至週五自前一日台灣時間 12:00 起；至本次實際截稿時間。
+2. 優先鉅亨網、Investing.com；重大國際事件可採 Reuters、AP 等可靠原始報導。
+3. 每則必須直接開啟原始報導，保存標題、原文 URL、原始發布時間、時區、最後更新時間（若有）、查核時間、摘要與使用區塊。
+4. 搜尋結果排序時間、爬取時間、更新時間不可代替原始發布時間。無法確認原始時間者待核實或剔除。
+5. 全球焦點新聞目標 5 則，以宏觀事件為主；市場熱門頭條目標 10 則，涵蓋總經、市場、企業、個股、財報、併購、AI、半導體等。兩區避免重複同一事件。
+6. 行情報價、殖利率、FedWatch 機率及數據儀表板不得包裝成新聞。
+7. 合格新聞不足時減少數量並說明，不杜撰、不灌水。摘要先寫事件事實、背景及影響，來源放卡片連結。
+
+---
+
+## 7. 市場分析與文字規格
+
+### 7.1 週一總結
+週一固定且只包含三大項，依序為「上週主軸」「風險觀察」「操作建議」。
+- **上週主軸：** 回顧上週最重要且解釋市場定價變化的政策、政治、地緣、央行或企業事件；說明賣壓傳導及上週最後交易日反彈性質。槓桿去化、margin call、程式交易等只有證據支持才能寫成事實，否則標示推論。
+- **風險觀察：** 聚焦本週尚未發生的數據、央行／政府政策、監管、重要財報及指引，盡可能列出核實日期、台灣時間、共識及影響資產。
+- **操作建議：** 提出明確偏多／偏空／中性及可執行的進攻、防守、等待或分批策略；指出產業理由、估值／籌碼風險、節奏、部位與判斷失效條件。不得因跌幅大就建議抄底，不保證報酬。
+- 週五美股行情可作週一亞洲市場的未來催化劑，但不可機械套用方向。
+
+### 7.2 週二至週五總結
+採精簡市場判斷，以當日主軸、風險及操作含意組成；不得強加週一三大項上週回顧格式。
+
+### 7.3 全週共通
+- 總結必須有市場主軸、明確立場、因果分析、市場溫度及操作方向；證據不足時說明分歧點、較可能情境及反轉條件。
+- 不複製行情卡片，不逐項列出指數漲跌；數字只有在論證不可替代時才出現，同一數字在總結最多一次。
+- 新聞事實、數據事實、分析推論及策略建議清楚區分。
+- 禁止把資料查核、待核實項目、備援過程及 QA 狀態寫進總結。
+- Market Sentiment 只判讀風險偏好、情緒指標一致性及轉折確認；不重複總結原因或策略。
+- 「盤面觀察重點」及各區 📌評論說明市場現象、已核實驅動、意義、驗證條件與風險；不重複報價、不解釋技術來源口徑。
+- 全球市場評論三區必須分別綁定美國、亞洲、歐洲面板，只引用該區指數與可靠區域消息；禁止跨區錯位。輸出需逐面板保存標題、評論、指數及語意檢查結果。
+- 資料變動後只核對受影響區塊：總結、情緒、盤面觀察、相關評論、今日觀察及相應分頁。逐項標示已更新／核對無須修改／待核實。
+- 不把相關性寫成因果；不得虛構市場敘事或精確價位。
+
+---
+
+## 8. HTML 組裝契約
+
+### 8.1 Builder 唯一入口核准程序
+1. 唯一 Builder 尚未核准前，任何程式不得被宣稱為正式唯一入口；SIM-1.4 草案不得假設 `build_review_html.py` 已通過。
+2. 候選 Builder 必須提交技術驗收報告，至少說明：CLI／API、必填輸入、Fixture schema、母版路徑與 SHA 驗證、行事曆唯讀及 Gate 0、財報判讀接線、DOM parser、可寫入 selector／槽位白名單、輸出路徑、錯誤處理、log／provenance、重跑冪等性。
+3. 必須以核准週一與平日母版各執行至少一次；核對輸出完整保留原始 CSS／JS、DOM、互動、響應式行為；不得新增未授權 style/script、重建非授權 DOM 或把資料內容硬編碼於程式。
+4. 必須測試缺少／錯誤 Fixture、Manifest SHA 不符、母版錨點缺失、main JSON 無效、JSON 版本變更、欄位缺漏、重複 ID、輸出路徑錯誤等負向案例。
+5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
+6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
+7. Builder 核准前，本次只能做靜態檢查與候選評估，不得以手工拼 HTML 冒充唯一組裝流程，不得宣稱回歸測試完整通過。
+
+### 8.2 組裝限制
+- 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
+- Builder 只能更新核准內容槽位；所有 selector 綁定母版 SHA。錨點缺失、重複或父子關係錯誤即停止該區塊，禁止 fallback。
+- 重複事件卡以核准母版原始節點 clone；保留 details/summary、tabs、radio、ID 規則、CSS、JS、字體、互動及響應式結構。
+- 不得在輸出後以 CSS／JS 追加修補來掩飾 DOM 組裝錯誤；新增任何樣式／腳本需使用者明確核准並同步母版基準。
+- 輸出 HTML 必須包含來源／版本 provenance：報告日期、規則 SHA、Manifest SHA、母版 SHA、QA Contract SHA、Fixture SHA、main HEAD、週 JSON SHA、Builder SHA。
+
+---
+
+## 9. QA、Gate 與交付狀態
+
+### 9.1 三道流程 Gate
+- **Gate 0｜輸入與權限：** 報告日期、星期情境、規則版本、Manifest、母版 SHA、QA Contract、main JSON 路徑／SHA、Fixture schema 及權限均正確。失敗為 BLOCKED。
+- **Gate 1｜資料與內容：** 44 項行情均有值或明確狀態；財報、行事曆、新聞及分析具來源與正確日期；關鍵商品身分錯誤不得放行。非核心資料缺漏可 PARTIAL，但不得 REVIEW_READY。
+- **Gate 2｜HTML 與 QA：** Builder 唯一入口已核准；HTML 結構、互動、視覺及資料呈現適用項目全部通過。強制項目未通過不得 REVIEW_READY。
+
+### 9.2 四類 QA（檢查範圍，不是四道 Gate）
+1. **資料與內容 QA：** 日期、行情基準日、44 項欄位、商品身分、來源、行事曆事件、財報實際／共識、新聞時間窗、數字與分析一致。
+2. **母版結構 QA：** 母版 SHA、DOM 錨點、ID 唯一、區塊／卡片數、欄位、連結、CSS／JS 完整、差異白名單。
+3. **互動功能 QA：** tabs、radio、導航、details／summary、經濟／財報展開控制、來源展開、連結與觸控行為。
+4. **視覺回歸 QA：** 360、390、412、768、1440px；檢查字級、間距、顏色、卡片、排序、對齊、溢位。未實際執行的尺寸標 NOT_TESTED，不可宣稱通過。
+
+### 9.3 QA 範圍與重跑
+- 完整早報首次交付前執行一次全範圍 QA。
+- QA 後新增單次專題，不要求無差別重跑整份早報 QA；必須對新增區塊及其影響的 DOM、樣式、互動、資料來源與手機版範圍執行定向 QA，並標示該區塊未納入原 QA。不得將未測試寫成通過。
+- 任何變更影響母版結構、共用 CSS／JS、全域導航、核心行情、行事曆事件分類或多區分析時，必須擴大重跑受影響 QA；重大結構變更重跑完整 QA。
+- QA 後任何 HTML 內容變更都使原 HTML SHA 定版失效。重新產出新 SHA，對受影響範圍重新 QA；不得沿用舊定版。
+
+### 9.4 定版、QA 豁免及發布
+- 「定版」只代表使用者核准一個明確 HTML SHA，不是一般的「看起來可以」或對某日期的概括同意。
+- 核准後 HTML 任何位元變更，原核准失效，必須重新識別 SHA 並取得新的明確授權。
+- QA 豁免須由使用者明確指定要豁免的 Gate／測試項目及目標 SHA；紀錄理由、風險及未測試／未通過狀態。不得把豁免標示成 QA 通過。
+- 不得豁免已知重大行情日期錯誤、商品身分冒用、正式行事曆 JSON 被早報寫入、未授權修改 main／母版／首頁等權限違規。
+- 審核版、正式首頁、歷史封存是三個獨立狀態：審核版不等於正式發布；Pages 部署成功不等於內容 QA 通過；正式首頁更新不自動代表歷史封存完成。
+- 正式首頁僅在使用者明確核准指定審核版 SHA 後更新；發布後回讀首頁 SHA／內容並確認部署。歷史封存另行執行，只在正式發布後新增／核對 history，並驗證首頁未被封存流程修改。
+
+---
+
+## 10. 狀態管理、恢復與計時
+
+### 10.1 Session State 與 Work Log 分工
+- `simulation-lab/TAC_SESSION_STATE.md`：當前活動任務的唯一狀態錨點。只保存目前報告日期、最後完成階段、輸入／輸出路徑及 SHA、各階段狀態、待處理項目、下一步及恢復位置。
+- `simulation-lab/TAC_WORK_LOG.md`：追加式重要證據紀錄。保存關鍵來源查核、重要裁決、修正、QA 結果、發布／交付回讀及時間紀錄；不複製整份 Session State。
+- 兩檔若不存在，狀態為 STATE_STORE_MISSING。先確認目錄及歷史檔案，於使用者已授權的 simulation 工作範圍內建立必要檔案；不得宣稱已讀取不存在的紀錄，也不得以其他檔案冒充。
+- 不另建 Snapshot、第二份台帳、第二個 session、流程協調器或平行資料庫。
+
+### 10.2 階段交接
+每階段完成後更新 Session State；重大來源裁決、修正、Gate／QA 結果同步追加 Work Log。下一階段必須確認必要輸入路徑及 SHA 存在且可讀；只接收完整可用部分，未完成項目保留狀態，不得口頭跳關。
+中斷恢復時讀取最新規則、Session State、Work Log 及所指向來源，從最後有證據的交接點繼續；來源 SHA 未變且成果仍存在者不得重做。
+
+### 10.3 計時
+每階段記錄實際開始／結束時間（Asia/Taipei）、有效工作時間、等待時間、重試時間及阻塞原因。計時不能與完成狀態矛盾；若紀錄矛盾，以檔案、commit、輸出及原始來源證據重建，無證據不得認定完成。
+
+---
+
+## 11. 正式發布、封存與版本管理
+
+1. simulation 審核版僅依當次授權寫入指定 preview 路徑；寫入後 fetch 回讀，核對日期、內容、commit SHA、blob SHA 及 HTML SHA-256。
+2. Pages 實際開啟驗證另記錄網址、時間、部署狀態及頁面內容；若無法驗證，明確標示「GitHub 已寫入、Pages 未驗證」。
+3. 使用者核准指定 HTML SHA 後，才可進行正式首頁更新。首頁更新前讀取最新首頁與 SHA；更新後回讀並驗證只改授權範圍。
+4. 歷史封存只在正式發布後執行；獨立核對歷史路徑與內容，驗證 `index.html` 未被封存流程修改。
+5. 社群分享文案是發布後獨立產物，不得影響早報 QA 或發布授權。
+6. 本文件核准生效後，SIM-1.3 完整保留為歷史版；舊規則不得再被引用為有效規定。任何 SIM-1.4 修訂均直接修改唯一規則主文及變更紀錄，不得新增補充條文堆疊。
+
+---
+
+## 附錄 A｜44 項行情來源與欄位核對表
+
+### A1. 固定欄位基準
+44 項固定欄位以核准母版實際欄位為唯一計數依據；已知類別如下，不能將下列類別摘要誤當成完整 44 欄：
+- 全球主要市場：道瓊、S&P 500、Nasdaq Composite、Russell 2000、SOX、Nikkei 225、KOSPI、台灣加權、Singapore STI、S&P/ASX 200、上海綜合、深證成指、Hang Seng、FTSE 100、DAX、CAC 40、STOXX Europe 600。
+- 11 大產業 ETF：XLE、XLF、XLK、XLI、XLY、XLP、XLU、XLV、XLB、XLRE、XLC。
+- 美國公債：2Y、10Y、30Y。
+- 外匯：DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD、USD/JPY。
+- 能源及貴金屬：WTI、Brent、Gold GC、Silver SI。
+- 風險情緒：VIX、MOVE、CNN Fear & Greed；SOX 已列於全球市場清單。FedWatch 獨立列示。
+- 以上清單的欄位合計未必等於 44；任何差額不得自行補想像標的。每次 Stage 1 必須從 Manifest 核准母版實際列出 44 個欄位，產生逐欄清單；欄位對不上即 BLOCKED，待母版欄位盤點確認後才可繼續。
+
+### A2. 指定來源
+- SOX：Investing.com HK `https://hk.investing.com/indices/phlx-semiconductor-historical-data`；Yahoo `^SOX` 備援／交叉核對。
+- VIX：Investing.com HK `https://hk.investing.com/indices/volatility-s-p-500`；Cboe `https://www.cboe.com/tradable_products/vix/vix_historical_data` 官方交叉核對；Yahoo `^VIX` 備援。
+- MOVE：Investing.com HK `https://hk.investing.com/indices/ice-bofaml-move-historical-data`；TradingView ICE BofA MOVE 第二；Yahoo `^MOVE`、CNBC `.MOVE`、EODData `INDEX:MOVE` 後續備援。
+- CNN：`https://edition.cnn.com/markets/fear-and-greed`；官方資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`；FGScore `https://fgscore.com/en/markets/sp500`；Financial Context `https://staging.fcontext.com/en/fear-and-greed`。
+- FedWatch：Investing.com `https://www.investing.com/central-banks/fed-rate-monitor`；CME `https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool` 只作方法及交叉核對。
+- 美國公債 2Y／10Y／30Y：美國財政部 Daily Treasury Par Yield Curve Rates `https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics`；FRED DGS2、DGS10、DGS30 備援。三期限同資料日期。
+- DXY：Investing.com `https://www.investing.com/indices/usdollar-historical-data`；不得誤用 DX 期貨。
+- USD/TWD：台灣央行銀行間收盤匯率 `https://www.cbc.gov.tw/tw/lp-645-1-1-60.html`；Investing.com `https://hk.investing.com/currencies/usd-twd` 為市場報價備援，不得冒稱官方銀行間收盤。
+- EUR/USD、GBP/USD、AUD/USD、USD/JPY：Investing.com 各自歷史資料頁；核對報價方向及各市場日界線。
+- WTI：CME／NYMEX Daily Settlements `https://www.cmegroup.com/market-data/daily-settlements.html`；Investing.com 歷史頁備援。
+- Brent：ICE `https://www.ice.com/products/219`；Investing.com 歷史頁備援。
+- Gold GC、Silver SI：CME 指定交割月份歷史／結算資料；平台備援必須同交易所、同商品、同月份及同日期。
+- 其他全球指數及 11 ETF：依核准母版各欄連結及指定 Investing.com HK 歷史頁；第一優先讀取其歷史資料頁，不以 CFD 替代現貨。具體網址應由母版固定連結讀取，不得猜造。
+- 若母版 44 欄中的任何項目未被以上摘要列出，以母版實際欄位及其既有連結補齊來源登記；不得因此改變 44 項數量。
+
+---
+
+## 附錄 B｜財報比較與計算定義
+
+- EPS 差額 = actual EPS − selected consensus EPS；負 EPS 按有號數值。
+- Revenue 差額 = actual revenue − selected consensus revenue；先統一幣別與單位。
+- 符合預期容忍區：`abs(actual-estimate) / abs(estimate) <= 1%`；estimate=0 時不計算百分比，使用來源精度及絕對差規則。
+- 顯示狀態：優於預期、符合預期、低於預期、尚未公布／數值尚未齊備；資料不可比時標明原因，不虛構方向。
+- Yahoo 與 Investing.com 來源各自保存；EPS／Revenue 可分別採不同來源。
+- PIT snapshot 是可追溯證據，不是一般數值比較必要門檻。公告前聲明必須有 TAC 實際觀測時間及原始內容證據；不得把 observed_at 冒充 provider data_as_of。
+
+---
+
+## 附錄 C｜行事曆欄位及狀態
+必須保存穩定 event_id、事件類型、國家／公司、原始日期時間、時區、台灣時間、發布時段、電話會議時間（如適用）、actual、forecast、previous、幣別／單位、來源 URL、發布狀態、TAC 星等、資料更新時間及 coverage。05:25 早報只讀取；不得回寫 JSON。
+
+---
+
+## 附錄 D｜DOM 與技術驗收
+以 `simulation-lab/baseline/mother-template-qa-contract.md` 的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+
+---
+
+## 附錄 E｜SIM-1.3 → SIM-1.4 條文處置摘要
+
+| SIM-1.3 區段／規則 | SIM-1.4 去向 | 裁決 |
+|---|---|---|
+| 0、0.1、0.2、A、A1、A2 | 0、1、10、11 | 合併；權限、單一權威、修改閉環集中 |
+| 0.5、0.6、C 第三步、H | 4、9 | 合併；04:35 唯一寫入、早報嚴格唯讀 |
+| 0.7、F2、F3、F4 | 4、5 | 重寫；保留顯示與事件規則 |
+| 0.8 | 5.4 | 保留並集中 |
+| 0.9、D2、D3、D2-補充、D4、D5 | 3、附錄 A | 合併；現貨與 CFD 矛盾裁決為 CFD 不得取代現貨 |
+| C 六階段 | 2 | 重寫為單一流程，每階段有 I/O／驗收／交接 |
+| D1 44 項與 ETF | 3、附錄 A | 保留；以核准母版實際欄位鎖定，不臆測差額 |
+| E 新聞 | 6 | 保留並集中 |
+| F1–F4 | 4、5 | 合併；行事曆與財報分開資料契約 |
+| F3-補充2、4–10 | 5、附錄 B | 衝突清理；Yahoo → Investing.com 生效，舊 LSEG 優先及 PIT 判讀門檻撤銷 |
+| G1–G4、11/17、11/19 補充 | 7 | 合併；週一／平日總結分流、三區評論綁定 |
+| H | 0、2、4、11 | 重寫；只保留 04:35 JSON 更新、05:25 唯讀、preview／首頁／封存分離 |
+| I | 0、9、10 | 合併；狀態、恢復、計時及 QA 重跑規則集中 |
+| 第五步 QA、A1 QA 指定 | 1、8、9、附錄 D | 重寫；三道流程 Gate 與四類 QA 分開定義 |
+| 第六步發布 | 0、9、11 | 重寫；定版綁定 SHA，QA 豁免不得偽裝通過 |
+| J 與所有歷史補充條文 | 本附錄 E／版本紀錄 | 移至歷史，不再當有效規則 |
+
+### 尚待實證，不得假裝已解決
+1. 44 項母版欄位完整逐項名稱及其固定連結，須由實際核准母版抽取並附表；本草案不以類別摘要猜補。
+2. Builder 唯一入口尚未核准；`build_review_html.py` 必須通過第 8 章測試，未通過不得作唯一入口。
+3. QA Contract 與母版 SHA 的相容性需由現有契約、Manifest 及實際母版做回歸驗收。
+4. 2026-11-23 Fixture、行情稽核及時間紀錄必須重建真實完成狀態；不得引用前次不一致的「完成」標記。
+
+---
+
+## 版本紀錄
+- SIM-1.4 DRAFT（2026-11-21）：首次整併草案；不生效、不覆寫 SIM-1.3。完成條文對照、實證及使用者核准後，才轉為唯一有效規範。
