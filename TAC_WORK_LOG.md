@@ -1734,3 +1734,10 @@
 - 影響：消除週一G1與05:25截稿時間的內部矛盾；不再要求05:25前取得尚未開盤的日本／台灣現貨市場資料。其餘週一三大項、證據責任及操作建議規範不變。
 - 11/23早報從已記錄的第四步完成錨點接續。第五步開始前重新讀取最新WR及第五步完整規定；禁止動main index、正式母版、Manifest、QA契約、W47/W48 JSON。第五步只在simulation branch產製與驗收，main preview例外僅依第六步明確授權執行。
 - 最新網路增量來源：Reuters 11/20全球市場拋售；AP 11/20美股修正；Federal Register 2026-11-19 BIS臨時最終規則。Federal Register為官方政策文件，生效日11/19/2026；需與特朗普課稅構想區分。是否作新聞卡依E節及焦點／頭條來源規則裁定。
+
+
+## 2026-11-21｜11/23早報第五步基準鎖定與DOM執行環境阻塞
+- 最新 SIM-1.3 SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；第五步完整規定及唯一 QA 契約已重新讀取。
+- Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；週一 simulation 母版 `simulation-lab/baseline/monday-mother-template.html` SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8` 與 Manifest／QA契約一致；QA契約 SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- 母版完整內容已由 GitHub 連接器取得（354,764字元），但目前工具環境無真正 DOM parser／瀏覽器可用。GitHub connector僅提供文字讀寫，無DOM執行；raw下載及web raw fetch均失敗。不得以regex／字串切片違反QA契約A2.5。
+- 依第五步規定，無法安全進行 DOM 更新，故不產生審核HTML、不執行或虛報QA、不寫入main preview。此為明確技術阻塞，不代表資料內容階段失敗。待取得DOM parser執行能力後恢復第五步。
