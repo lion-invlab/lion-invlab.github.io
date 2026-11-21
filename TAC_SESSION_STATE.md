@@ -3259,3 +3259,7 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Regression test commit：`b583fda68a6724d75514b9677e37302d4e5e128a`；測試檔 blob SHA：`7d2479a73dfbd7fa2e436fbc00fa685ee6dc0a33`。
 - CI：run `44913120411` 首次失敗僅因測試對 BeautifulSoup `rel` 屬性的型別假設；Builder compile 通過。修正測試後 run `44913183956` 的 deterministic self-tests 已通過；該 run 尚待 workflow 完整結束。
 - 下一步：重新讀取 SIM-1.3 的修正／QA 條款與 QA Contract，執行 11/23 完整 build、DOM／視覺 QA，確認能源列不重疊且合約月份仍在來源說明；再更新 main/preview（不動 main/index.html）。
+
+
+- 2026-11-21 22:18 台灣時間：SIM-1.3 全部分支 deterministic self-tests run `44913183956` 已完成 success；新增商品合約月份標籤回歸測試通過。首次 run `44913120411` 的測試斷言錯誤已修正，不影響 Builder 功能。
+- 已重新 fetch 最新 SIM-1.3（blob `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）及 QA Contract（blob `f6848d21286f63c4eef11682eedd8825b5fd3aad`）；依 A2 修改閉環、B3 版面規範、C／第五步與第六步交付規定進入完整 build／DOM／視覺 QA。
