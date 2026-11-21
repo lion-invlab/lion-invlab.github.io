@@ -614,7 +614,7 @@
       "text": "暫以降低高Beta曝險、控制槓桿及保留流動性為主，不追逐單一IPO，也不因急跌直接攤平。只有在主要市場止跌、產業參與度回升、VIX降溫且CNN Fear & Greed脫離極度恐懼區後，才分批提高風險承擔；若賣壓續擴散或升息定價未鬆動，維持防守。"
     }
   ],
-  "warning_note": "MOVE數值依使用者06:40台灣時間提供的Investing.com截圖，畫面顯示11/19 16:17 EST；此為使用者提供證據，非助理獨立刷新。CNN官方頁本輪受robots限制，依SIM-1.3第一順位第三方備援採FGScore CNN Provider Index 19（Extreme Fear），時間戳Nov 19 16:24 EST，符合05:25截稿。美債殖利率改採Investing.com各期限11/19歷史收盤，非Treasury CMT par yield。WTI、Brent、GCZ6、SIZ6的11/19價格為指定月份合約平台收盤/Last，非CME/ICE官方結算。ROST實際值採公司SEC 8-K官方附件；公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應待後續。W47正式行事曆JSON coverage仍為incomplete，本報只讀main正式JSON。",
+  "warning_note": "MOVE數值依使用者06:40台灣時間提供的Investing.com截圖，畫面顯示11/19 16:17 EST；此為使用者提供證據，非助理獨立刷新。CNN官方頁本輪受robots限制，依SIM-1.3第一順位第三方備援採FGScore CNN Provider Index 19（Extreme Fear），時間戳Nov 19 16:24 EST，符合05:25截稿。美債殖利率改採Investing.com各期限11/19歷史收盤，非Treasury CMT par yield。WTI、Brent、GCZ6、SIZ6的11/19價格均採Investing.com HK指定月份合約歷史收市列，不採即時或盤後Last；完整合約代碼與月份只列在收折來源說明。ROST實際值採公司SEC 8-K官方附件；公告前EPS／營收共識缺少必要PIT欄位，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應待後續。W47正式行事曆JSON coverage仍為incomplete，本報只讀main正式JSON。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com｜XLE歷史資料",
@@ -878,7 +878,7 @@
   },
   "qa_run_revision": "2026-11-20-SIM1.3-final-full-rebuild",
   "market_sentiment": "風險趨避升溫｜股票市場恐慌升高、債券波動率反而回落，顯示壓力主要集中於股票風險定價，股債訊號並未同步惡化。",
-  "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。更新後44項均以11/19為行情基準；美債2Y／10Y／30Y採Investing.com 11/19歷史收盤列，MOVE採使用者提供之Investing.com 11/19畫面證據並保留截圖時間。Dow、RUT、Nikkei、FTSE、DAX均採非CFD現貨收盤來源；11大產業ETF全數核實。",
+  "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。更新後44項均以11/19為行情基準；美債2Y／10Y／30Y採Investing.com 11/19歷史收盤列，MOVE採使用者提供之Investing.com 11/19畫面證據並保留截圖時間。Dow、RUT、Nikkei、FTSE、DAX均採非CFD現貨收盤來源；11大產業ETF全數核實。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
   "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
   "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）",
   "key_levels_overrides": {
@@ -898,7 +898,7 @@
     "MOVE：已採使用者於2026-11-20 06:40（Asia/Taipei）提供的Investing.com截圖，畫面時間11/19 16:17 EST，報價96.04（-2.16%）；未宣稱助理獨立刷新，後續若取得TradingView同日Close再依SIM-1.3來源順位補充核對。",
     "CNN Fear & Greed：CNN官方頁受robots限制無法直接讀取；依SIM-1.3採FGScore明確標示的CNN Provider Index 19（Extreme Fear），as of Nov 19 UTC，CNN market timestamp 16:24 EST。Financial Context 06:19台灣時間更新晚於05:25截稿，不納入本次快照。",
     "美債2Y／10Y／30Y：依使用者指定採Investing.com 11/19歷史收盤，分別4.770%、5.048%、5.405%；此為Investing.com債券殖利率歷史序列，與Treasury CMT par yield口徑不同，不混用。",
-    "WTI、Brent、GCZ6與SIZ6：採指定月份合約的Investing.com平台收盤/Last，非CME/ICE官方結算；CME 11/19 final Daily Bulletin於截稿時尚未發布，來源註記保留合約月、成交量／OI選擇依據。",
+    "WTI、Brent、GCZ6與SIZ6：報價採指定月份合約的Investing.com HK歷史收市列，非即時或盤後Last；CME／ICE官方結算不作本欄價格來源，完整合約月份及代碼留在來源說明。",
     "W47正式行事曆JSON coverage仍為incomplete；本報只讀main正式JSON，不直接修補資料庫。",
     "ROST：Q3 FY2026實際GAAP EPS 1.91美元、營收約63億美元，採Ross Stores官方SEC 8-K Exhibit 99.1；公告前共識快照缺少data_as_of與EPS／營收口徑，不作Beat/Miss判斷；盤後公告的下一交易日收盤反應仍待後續。",
     "FactSet S&P 500盈餘健康度最新可核實統計日為2026-11-13，不標示為11/19資料。",
