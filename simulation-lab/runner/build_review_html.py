@@ -259,6 +259,57 @@ def apply_report_layer_earnings_status(data):
         applied += 1
     return applied
 
+def apply_last_week_earnings_actuals(data):
+    """Apply verified late-reported earnings to Monday's prior-week projection only."""
+    overlays = data.get("last_week_earnings_actuals", [])
+    if not overlays:
+        return 0
+    events = data.get("last_week_earnings", {}).get("events", [])
+    by_id = {str(item.get("id")): item for item in events}
+    cutoff_text = str(data.get("report_cutoff_taipei") or "")[:16]
+    try:
+        cutoff = datetime.strptime(cutoff_text, "%Y-%m-%d %H:%M")
+    except ValueError as exc:
+        raise ValueError("last-week earnings overlays require an explicit Taipei report cutoff") from exc
+    applied = 0
+    allowed = (
+        "eps_actual", "eps_actual_display", "eps_actual_basis", "eps_actual_basis_code",
+        "eps_actual_currency", "eps_actual_period", "revenue_actual", "revenue_actual_display",
+        "revenue_actual_basis", "revenue_actual_basis_code", "revenue_actual_currency",
+        "revenue_actual_unit", "revenue_actual_period", "judgment", "price_reaction",
+    )
+    for row in overlays:
+        event_id = str(row.get("event_id") or "").strip()
+        target = by_id.get(event_id)
+        if target is None:
+            raise ValueError(f"last-week earnings overlay event not found: {event_id}")
+        if target.get("ticker") != row.get("ticker") or target.get("event_date") != row.get("event_date"):
+            raise ValueError(f"last-week earnings overlay identity mismatch: {event_id}")
+        event_dt = datetime.fromisoformat(str(target.get("event_date") or target.get("date") or ""))
+        event_local = event_dt.astimezone(timezone(timedelta(hours=8))).replace(tzinfo=None) if event_dt.tzinfo else event_dt
+        if event_local > cutoff:
+            raise ValueError(f"last-week earnings overlay is later than report cutoff: {event_id}")
+        if target.get("status") in ("released", "published", "completed") or any(
+            target.get(k) not in (None, "") for k in ("eps_actual", "revenue_actual")
+        ):
+            raise ValueError(f"refusing to overwrite authoritative prior-week earnings actuals: {event_id}")
+        source = row.get("actual_source")
+        if not isinstance(source, dict) or not str(source.get("url") or "").startswith("https://"):
+            raise ValueError(f"last-week earnings overlay lacks a verifiable issuer source: {event_id}")
+        for key in allowed:
+            if key in row:
+                target[key] = row[key]
+        target["status"] = "released"
+        target["report_layer_only"] = True
+        target["actual_source"] = source
+        target["source"] = source
+        target["source_url"] = source["url"]
+        target["source_name"] = source.get("name") or "發行公司官方公告"
+        applied += 1
+    print(f"PASS: applied {applied} prior-week earnings actuals in report layer; main JSON remains read-only")
+    return applied
+
+
 def apply_last_week_economic_overrides(data):
     """Apply verified late-reported economic actuals to Monday's report projection only."""
     overrides = data.get("last_week_economic_overrides", [])
@@ -524,6 +575,7 @@ def main():
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
     apply_last_week_economic_overrides(data)
+    apply_last_week_earnings_actuals(data)
     apply_calendar_impact_overrides(data)
     # Recalculate released cards in both the current week and Monday's prior-week section.
     # Numeric consensus/actual pairs are sufficient; PIT and basis metadata remain disclosures.
