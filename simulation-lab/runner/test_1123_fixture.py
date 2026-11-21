@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """[build-tac-report:2026-11-23] Monday fixture contract plus three screenshot regression checks."""
+# [build-tac-report:2026-11-23] rebuild after dated mother earnings note and HPE block-row fix.
 # [build-tac-report:2026-11-23] trigger full Monday rebuild after earnings/Fed mobile fixes.
 from datetime import datetime
 import json
