@@ -593,6 +593,14 @@
 - 再次檢查兩份實際母版後，確認舊 Builder 曾對 `#sp500-earnings-health` 執行 `health.clear()`，再以六張固定卡及 inline style 重建；這違反 QA Contract F 的母版 Dashboard 保留要求。現已改為只更新母版既有文字槽位，週一保留 4 張卡、平日保留 3 張卡，並保留原有容器、卡片、排列、欄數及 inline style。
 - 舊 Builder 對市場情緒最後一張核心解讀卡執行 `interpretation.clear()`，會移除原有 body wrapper 與 inline style。現改為只更新既有 body text node，保留 label／body wrapper。
 - `validate_mother_dom_contract.py` 現已將 `#sp500-earnings-health` 與 `#sentiment .sent > .sbox:last-child` 納入穩定 DOM 比對，並比較兩區 inline style；新增雙母版回歸測試 `test_earnings_health_dom_preservation.py`，已接入 workflow。
-- 最新候選 Builder SHA：`7a996d3287e3ddcc06a9bdfad44c2d159a1dbcf6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；雙母版 regression test SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
+- 最新候選 Builder SHA：`28f814db1f4d1eaecf1387f012558709784b13e6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；雙母版 regression test SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
 - 以上為程式修改已提交，尚未有這一版 Builder／validator／test 的完整 CI 結果。下一次完整 build 必須同時驗證 Monday 4 卡、Weekday 3 卡、兩區 DOM／inline style 不變、來源連結與日期更新，並通過 provenance validator、互動及六視窗視覺 QA。
 - 此修正不代表 Builder 已取得唯一入口核准；SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效。
+
+
+## 2026-11-21｜Dashboard 資料欄位回歸修正（待重跑）
+
+- 首次執行新 DOM 保留版本的 run 44905304475：雙母版 Dashboard／市場情緒 DOM-preservation deterministic tests 均通過；真正 Monday build 在最後 FactSet 資料 Gate 失敗，因新 renderer 未將 fixture 的 Mag 7／Other 493 成長值寫入現有分析文字槽位。
+- 同一 Gate 原先要求 `.factset-source-link` class，但 Weekday 核准母版的來源連結沒有該 class；此要求會迫使 Builder 改寫母版 class，與零退化原則衝突。
+- 已修正：Monday 既有「正面」文字槽位加入 Mag 7／其他 493 數值；FactSet 來源驗收改檢查母版既有 `details a` 連結及其 href，不要求新增 class。
+- 最新候選 Builder SHA：`28f814db1f4d1eaecf1387f012558709784b13e6`。以上修正尚未經新一輪完整 build 驗證；run 44905304475 保留為失敗歷史證據，不可改稱通過。
