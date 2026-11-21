@@ -2123,3 +2123,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 完整workflow run `44633497700` completed/success；`QA_PASSED`、`review_ready=true`、blockers=[]。互動測試、核准母版比較、provenance、44項行情／新聞結構Gate均通過；視窗1440／768／412／390／360px。最終HTML blob SHA `0e5f0fee88e11aaf0b98dd6aa6929c1a94e94c0e`，SHA-256 `4b4bfa310635b9cd6c8724929f26668a291a73cb1adac8db715e93a930c36d76`；QA sidecar blob SHA `4a9e1281d9b6a6611d52ba63a286be3f5f94faaa`。
 - 已同步main日期審核預覽 `preview/2026-11-20-simulation.html`及QA sidecar；main preview HTML SHA與simulation QA輸出一致。main `index.html` SHA仍為`da06da5bb1e6c6244197eb79358f97bf8f9d7545`，W47 JSON SHA仍為`727ea2be1c04688d3c4f98d36c452561bbab6821`，均未修改。main預覽更新commit `0296cb03ab1ec6a0544be1ccaa25d4fc7692b0fa`；GitHub Pages deploy run `44633728053` completed/success。
 - 正式首頁未發布；本輪只更新日期審核預覽及simulation規則／測試，沒有修改main `index.html`、正式母版或正式行事曆資料庫。
+
+
+## 2026-11-21｜啟動 2026-11-23（一）早報｜階段①完成
+
+- 報告日期：2026-11-23（一）；行情基準：2026-11-20（五）最近一個已完成美股交易日；時區 Asia/Taipei；預覽目標 `preview/2026-11-23-simulation.html`。
+- 唯一工作規則：SIM-1.3；`simulation-lab/TAC_WORK_RULES_SIM.md` blob SHA `ead554bf1c42c6376ab9eed73763e0544b180e63`。已讀取 A1、A1-補充2、C 六步驟及第二步行情規則；階段交接必須先更新本狀態，再重新 fetch 最新 WR 並完整讀取下一階段規則。
+- main HEAD：`6f9672fc826aba7e680e7d8f0072acadd6a7d6a2`（2026-11-21T01:01:50Z）。simulation branch：`simulation/tac-process-lab-2026-11-06`。
+- Manifest：`simulation-lab/baseline/mother-template-manifest.json` SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`。依星期一選用 `simulation-lab/baseline/monday-mother-template.html`，實際 blob SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與 Manifest 登記一致。
+- QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md` blob SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`，版本 1.4。週一母版需保留上週經濟及財報收折區塊，預設收折。
+- 正式行事曆唯讀：W48 `data/calendar/weeks/2026-W48.json` SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，狀態 incomplete，更新時間 2026-11-21 09:00 +08:00，27 筆經濟、11 筆財報；W47 `data/calendar/weeks/2026-W47.json` SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，狀態 incomplete，25 筆經濟、23 筆財報，其中 11/16–11/20 日期範圍 23 筆經濟、23 筆財報。W47 透過 blob SHA 讀取完整內容。兩份 JSON 僅讀，不得由早報流程修改。
+- 輸出與保護：只允許本次 simulation branch 審核版及規則明定的日期 preview 例外；main `index.html`、雙母版、Manifest、QA 契約、行事曆 JSON 及其他正式資產均保護。未獲核准不發布首頁。
+- 階段①狀態：完成。階段②待開始：44 項行情逐項掃描，另獨立讀取 FedWatch；先重讀最新 SIM-1.3 第二步完整規則及 D 節來源優先序。
