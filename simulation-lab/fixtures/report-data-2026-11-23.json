@@ -2000,7 +2000,7 @@
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48財報共識資料不足時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。",
     "FactSet 11/20快照需在HTML中顯示統計日；Mag7與其他493家公司EPS成長比較需保留FactSet研究檔來源與口徑。",
-    "FedWatch 13.6%／86.4%為12:55台灣時間快照，不標示為16:35即時值。",
+    "FedWatch 13.6%／86.4%為11/21 13:35台灣時間快照，不標示為16:35即時值。",
     "南韓出口與台股週跌17.5%仍保留在頭條／亞洲市場評論；另加入Reuters 11/21 16:16台灣時間Intesa／MPS正式收購要約，並已排除未獲正式確認的CrowdStrike／Zscaler傳聞。",
     "CNN Fear & Greed目前採FGScore第三方CNN Provider Index（11/20 18:59 EST／台灣11/21 07:59，10分）；FedWatch為Investing.com 11/21 13:35快照。兩者均須於2026/11/23 05:25報告截稿前刷新，不得冒稱目前即時值。",
     "新增AI伺服器供應鏈營運資金與現金流頭條（緯穎、廣達案例）；摘要區已納入訂單、營運資金與自由現金流的差異，避免將接單成長直接等同現金流改善。"
@@ -2008,7 +2008,7 @@
   "review_ready_blockers": [
     "新聞窗口尚未封口（等待2026-11-23 05:25台灣時間；包含週末及週一清晨消息）",
     "CNN Fear & Greed 與 FedWatch 動態快照尚待報告截稿前刷新",
-    "審核版 HTML 尚未產出；須依 SIM-1.3 由 ChatGPT 直接更新核准母版，並完成結構、功能及視覺 QA"
+    "審核版 HTML 尚未產出；須依 SIM-1.3 使用核准 build_review_html.py 組裝器填入母版五個內容區，並完成結構、功能及視覺 QA"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
