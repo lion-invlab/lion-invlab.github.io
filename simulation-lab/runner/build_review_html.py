@@ -2113,10 +2113,8 @@ def main():
             old_card.decompose()
         for x in last_econ.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
-            card = BeautifulSoup(template_html, "html.parser").find("details", class_="econ-event")
-            if card is None:
-                raise ValueError("Frozen approved five-zone economic prototype could not be parsed for Monday retrospective")
-            summary_clone = BeautifulSoup(str(lw_summary_template), "html.parser").find("summary")
+            card = copy.deepcopy(template)
+            summary_clone = copy.deepcopy(lw_summary_template)
             card_summary = card.find("summary", recursive=False)
             if summary_clone is None or card_summary is None:
                 raise ValueError("Monday retrospective economic summary prototype is incomplete")
