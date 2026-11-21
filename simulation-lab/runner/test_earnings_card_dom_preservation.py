@@ -109,6 +109,8 @@ def main():
     assert [row.select_one("strong").get_text(strip=True) for row in monday_rows] == [
         "發布資訊", "EPS 預估", "營收預估", "共識時間", "資料判讀"
     ]
+    assert all(row.parent is mon_details.select_one(".earnings-detail-value") for row in monday_rows)
+    assert not mon_details.select(".earnings-detail-value > br"), "Monday HPE rows must not have injected br separators"
 
     mon_published = mon.select_one("#last-week-earnings .earnings-accordion-list details.earnings-accordion")
     mon_details = mon_published.select_one(".earnings-accordion-details")
