@@ -430,7 +430,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.11 DRAFT，blob SHA `f7c1d065c20d1d6fbc187525dbe98a58295b070f`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品合約連結、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.12 DRAFT，blob SHA `814c6a247074277703edb95fb6e1dcbd8868fda3`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
