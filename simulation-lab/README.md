@@ -61,3 +61,10 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - Monday 同版回歸已以 candidate SIM-1.4 SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e` 完成（run 44907807730，QA_PASSED；資料型 review_ready=false，僅待四項風險／情緒／FedWatch 截稿刷新）。
 - 現觸發 2026-11-20 Weekday fixture 回歸；本次不修改 Builder、Manifest、QA Contract 或 candidate rules，確保 Weekday 使用與 Monday 相同的規則／技術資產 SHA。
 - 僅供 simulation branch 測試，不授權 SIM-1.4 生效或正式資產修改。
+
+
+## 2026-11-22｜SIM-1.4 同版 Weekday 母版實證觸發
+
+- 11/23 Monday build run `44954756293` 已以固定版本組合通過：Builder `60d778c39ffe48140e99e0dad3579ce9f0b33945`、Manifest `5080858c6720847086b7df815432d305d6231b3a`、QA Contract v1.14 `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。
+- 依 SIM-1.4 §8.1，現觸發 2026-11-20（週五）Weekday fixture `simulation-lab/fixtures/report-data-2026-11-20.json` 完整 build，使用完全相同的 Builder／Manifest／QA Contract／active rules／candidate rules SHA，驗證雙母版是否可重現。
+- 此次仍為 simulation-only candidate validation；不代表 SIM-1.4 生效、不核准 Builder、不寫 main、不部署 Pages。
