@@ -2814,3 +2814,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 影響判讀只在HTML顯示層撰寫：Fed官員談話不等於政策決議；初領需觀察連續趨勢而非單週波動；德國消費者信心仍低迷，重點看購買意願；法國CPI需區分法國CPI與HICP口徑；德國失業變化用於判斷勞動市場與消費韌性。正式W48 JSON維持唯讀。
 - W48仍有1筆交易日曆事件 `current-us-thanksgiving-market-20261126` 的 `time_known=false`，此為日期型休市事件，卡片標示時間未定即可；不補造時刻。
 - 本項來源查核完成；尚未把五筆影響判讀寫入完整11/23 HTML，亦未完成行事曆卡片映射或整份QA。
+
+
+## 2026-11-21｜W48 HPE／DE 財報發布與法說時間分離核實
+- HPE官方11/02公告確認Q4 FY2026法說會為11/23 16:00 CT／17:00 ET，換算台灣時間11/24 06:00。官方來源：https://www.hpe.com/us/en/newsroom/press-release/2026/11/hpe-to-present-live-audio-webcast-of-fiscal-2026-fourth-quarter-earnings-conference-call.html；Nasdaq轉載時間戳與內容交叉核對：https://www.nasdaq.com/press-release/hpe-present-live-audio-webcast-fiscal-2026-fourth-quarter-earnings-conference-call。
+- Deere官方11/11公告確認Q4 FY2026法說會為11/25 09:00 CT，換算台灣時間11/25 23:00。官方來源：https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement；投資人關係活動頁亦列11/25：https://investor.deere.com/home/。
+- 兩家公司官方公告均只確認法說會時間，未在該公告提供財報實際發布時刻。HTML需分欄呈現「財報發布時間：待公司確認」及「法說會：HPE 11/24 06:00；DE 11/25 23:00（台灣時間）」。不得把法說會時間誤標成財報發布時間；正式W48 JSON唯讀，不回寫。
+- 原先 `time_known=false` 保留其對「財報發布時間」的語意；報告顯示層補充官方已確認的法說時間。本項核實完成，HTML卡片尚待更新。
