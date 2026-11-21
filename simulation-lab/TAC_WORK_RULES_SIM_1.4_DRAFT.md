@@ -524,3 +524,6 @@
 
 
 - 2026-11-21 第二輪 build 修正：run `44901183828` 發現 FOMC 活頁中尚有一段舊程式會把母版原有 `.fc-fomc-observation` 清空、改名並重建成第二個 `.fc-fomc-weekly-events`，導致固定槽位檢查出現不完整／重複結構。已移除該舊重建分支，保留母版原有 observation 節點；Fed 官員行程只在固定母版槽位呈現。新增測試確認 observation 節點前後不變。另將槽位缺漏檢查改為明確 None 檢查並回報缺漏名稱。重新觸發 11/23 Monday build。
+
+
+- 2026-11-21 新聞來源 Gate 修正：上一輪 HTML 組裝成功，但 Playwright interaction smoke 因 Global Focus News 來源網域不符規範而停止。原 fixture 混有 Reuters 直連及 www.investing.com 美站網址，與既定 HK Investing.com／鉅亨網來源契約不符。已以可核對的 HK Investing.com 與鉅亨網文章替換五則新聞，保留 11/20 12:00 之後的時間窗、更新發佈時間與摘要，並按時間排序；此為 simulation fixture 修正，尚待完整 build／互動／視覺驗收。
