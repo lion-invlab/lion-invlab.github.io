@@ -134,6 +134,8 @@ jobs:
         run: |
           set -euo pipefail
           python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py
+node --check simulation-lab/runner/visual_regression.mjs
+node --check simulation-lab/runner/interaction_smoke.mjs
 
       - name: Run deterministic self-tests
         shell: bash
