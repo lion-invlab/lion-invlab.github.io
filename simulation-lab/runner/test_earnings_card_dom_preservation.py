@@ -63,12 +63,12 @@ def test_earnings_star_style_matches_each_card_rating():
 
 def test_calendar_grouping_respects_publication_status_and_report_cutoff():
     cutoff = "2026-11-23T05:25:00+08:00"
-    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-23T06:00:00+08:00"}, "2026-11-23", cutoff) == "today"
-    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
-    assert classify_calendar_group({"status": "released", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "published"
-    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
-    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-23T04:00:00+08:00"}, "2026-11-23", cutoff) == "published"
-    assert classify_calendar_group({"status": "postponed", "event_date": "2026-11-22T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
+    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-23T06:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "today"
+    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-24T10:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "upcoming"
+    assert classify_calendar_group({"status": "released", "event_date": "2026-11-24T10:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "published"
+    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-24T10:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "upcoming"
+    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-23T04:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "published"
+    assert classify_calendar_group({"status": "postponed", "event_date": "2026-11-22T10:00:00+08:00", "time_known": True}, "2026-11-23", cutoff) == "upcoming"
 
 
 def test_calendar_listing_removes_stale_copy_and_prototypes():
