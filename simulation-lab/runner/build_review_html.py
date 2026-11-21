@@ -462,9 +462,15 @@ def apply_consensus_projection(data, projection, calendar_source):
             "revenue_analyst_count": row.get("revenue_analyst_count"),
             "revenue_evidence_label": row.get("revenue_evidence_label"),
             "revenue_basis_display": row.get("revenue_basis_display"),
-            "consensus_source_url": row.get("source_url"),
-            "consensus_source_name": row.get("source_name"),
+            "consensus_source_url": row.get("eps_source_url") or row.get("source_url"),
+            "consensus_source_name": row.get("eps_source_name") or row.get("source_name"),
+            "eps_consensus_source_url": row.get("eps_source_url") or row.get("source_url"),
+            "eps_consensus_source_name": row.get("eps_source_name") or row.get("source_name"),
+            "revenue_consensus_source_url": row.get("revenue_source_url") or row.get("source_url"),
+            "revenue_consensus_source_name": row.get("revenue_source_name") or row.get("source_name"),
             "consensus_observed_at": row.get("eps_snapshot", {}).get("observed_at"),
+            "eps_consensus_observed_at": row.get("eps_snapshot", {}).get("observed_at"),
+            "revenue_consensus_observed_at": row.get("revenue_snapshot", {}).get("observed_at"),
         })
         if target.get("eps_estimate") != row.get("eps_estimate") or target.get("revenue_estimate") != row.get("revenue_estimate"):
             raise ValueError(f"consensus projection assignment failed for {row.get('ticker')}")
@@ -675,18 +681,23 @@ def fill_earnings_source_slot(value_node, item):
     status_source = item.get("report_layer_status_source") or {}
     if status_source.get("url"):
         parts.extend(["公告狀態參考：", source_link(status_source["url"], status_source.get("name") or "第三方發布報導")])
-    consensus_url = item.get("consensus_source_url")
-    if consensus_url and consensus_url != actual_url:
-        parts.extend(["公告前共識：", source_link(consensus_url, item.get("consensus_source_name") or "共識來源")])
-        observed = item.get("consensus_observed_at")
+    metric_sources = (
+        ("EPS 共識：", item.get("eps_consensus_source_url") or item.get("consensus_source_url"),
+         item.get("eps_consensus_source_name") or item.get("consensus_source_name"),
+         item.get("eps_consensus_observed_at") or item.get("consensus_observed_at")),
+        ("營收共識：", item.get("revenue_consensus_source_url") or item.get("consensus_source_url"),
+         item.get("revenue_consensus_source_name") or item.get("consensus_source_name"),
+         item.get("revenue_consensus_observed_at") or item.get("consensus_observed_at")),
+    )
+    seen_sources = set()
+    for label, consensus_url, consensus_name, observed in metric_sources:
+        if not consensus_url or consensus_url == actual_url or consensus_url in seen_sources:
+            continue
+        seen_sources.add(consensus_url)
+        parts.extend([label, source_link(consensus_url, consensus_name or "共識來源")])
         if observed:
             observed_tw = datetime.fromisoformat(str(observed).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%m/%d %H:%M")
-            counts = []
-            if item.get("eps_analyst_count") is not None:
-                counts.append(f"EPS {item['eps_analyst_count']}位")
-            if item.get("revenue_analyst_count") is not None:
-                counts.append(f"營收 {item['revenue_analyst_count']}位")
-            parts.append(f"（公告前快照 {observed_tw} 台灣時間{'；' + '／'.join(counts) if counts else ''}）")
+            parts.append(f"（公告前快照 {observed_tw} 台灣時間）")
     set_value_slot(value_node, parts)
 
 
