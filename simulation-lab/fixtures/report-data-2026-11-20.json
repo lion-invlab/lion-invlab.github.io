@@ -826,7 +826,10 @@
     "forward_pe_avg_10y": "19.1 倍",
     "prior_blended_eps_yoy": "+31.4%",
     "prior_blended_revenue_yoy": "+14.3%",
-    "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。"
+    "interpretation": "Q3獲利與營收年增強勁，但EPS beat比例與聚合surprise仍低於長期平均；市場應檢驗獲利成長能否持續超越預期。 FactSet 11/13 版本未提供可追溯的 Mag 7／Other 493 分組增長數值，因此兩欄標示待核實，不沿用 11/20 更新值。",
+    "mag7_eps_growth": "待核實",
+    "other_493_eps_growth": "待核實",
+    "source_url": "https://advantage.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_111326.pdf?mod=article_inline"
   },
   "market_comments_revision": "2026-11-20 SIM-1.3 second pass: remove residual VIX/MOVE percentage recitation from sentiment and observation copy; regenerate and manually read back; third pass: separate summary thesis from actionable observation and earnings-quality core observation",
   "summary_source_note": "總結與判讀依2026/11/20 05:25台灣截稿前可取得的行情、新聞、FedWatch及情緒資料推導。MOVE另採使用者06:40提供之Investing.com截圖（畫面標示11/19 16:17 EST），明確保留證據來源與時間，不冒稱獨立刷新。",
