@@ -2398,3 +2398,28 @@
 - 兩個審核 HTML 均已持久化到 simulation branch，並通過遠端 SHA read-back；沒有部署 main。
 - 11/21 20:33台灣時間重讀四項來源：VIX 35.89、MOVE 106.31（兩者最新交易日仍為11/20）；FGScore CNN Provider Index 10（as of 11/20 UTC）；FedWatch 12/09會議 hold 13.6%、升息25bp 86.4%，頁面更新Nov 21 00:35 EST（台灣13:35）。沒有找到更新的來源讀值／時間。
 - 週一仍不可標記 REVIEW_READY：必須於11/23 05:25截稿前再次刷新；若來源屆時未更新，保留真實時間戳與註記。SIM-1.4維持DRAFT，待規則文件一致性與最終截稿資料 Gate 完成後再請使用者核准。
+
+
+## 2026-11-21｜HTML Builder 母版 DOM 稽核與修復
+
+### 問題發現
+- Builder 的 Today Focus 核心觀察曾清空整個 `.callout`，重建標題／文字並移除一個母版細節區；原 DOM Gate 未涵蓋這個區塊。
+- 關鍵價位區曾注入新的卡片包裝層，與「只填既有母版槽位」的原則不一致。
+- 財報卡已公布／即將公布分支曾清空 `.earnings-accordion-details` 或 `.earnings-results-grid`，再重建 EPS／營收卡及 detail-field。這是 Builder 最大的母版結構風險之一。
+- 原本的測試只驗收日曆三個 status group，沒有驗收 Today Focus 和財報卡內層的母版槽位數。
+
+### 已完成修復
+1. 核心觀察改成更新原有粗體標題、文字節點和既有收折區；保留兩個母版細節容器。
+2. 關鍵價位改為單欄文字＋換行，保留原 `.key` wrapper 和 disclosure；不再建立 `key-level-index`／`key-level-row` 新卡片。
+3. 財報卡新增原位填值 helper：
+   - EPS／營收兩張卡、兩列實際／預期、狀態、證據註記皆更新原節點。
+   - 週一已公布卡採用上週母版財報卡原型；平日已公布卡採用平日母版既有結果卡原型。
+   - 週一即將公布卡保留母版單一欄位；平日保留母版五欄位。資料合併至既有欄位，不增加 wrapper。
+4. 新增 `test_earnings_card_dom_preservation.py`，測試週一／平日四種卡片路徑；workflow 已納入。
+5. DOM validator 新增 Today Focus 和財報卡母版結構檢查。
+
+### 驗收
+- CI run `44910833366`：<https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44910833366>，success。新增財報卡原位更新回歸測試及既有 deterministic tests 通過。
+- CI run `44910900283`：<https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44910900283>，當時仍在執行；待確認新增 validator。
+- 此階段尚未執行新的 11/23 full build；舊 preview 不代表新 Builder 已驗收。
+- 所有程式變更僅在 simulation branch；main／正式首頁未變更。SIM-1.3 繼續生效，SIM-1.4 未核准。
