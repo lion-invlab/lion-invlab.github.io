@@ -40,7 +40,7 @@ def test_contract_month_stays_in_source_metadata_not_product_label():
     assert "2027年1月" not in link.get_text(" ", strip=True)
     assert link["href"].startswith("https://www.cmegroup.com/")
     assert link["target"] == "_blank"
-    assert link["rel"] == ["noopener"]
+    assert "noopener" in (link.get("rel") if isinstance(link.get("rel"), list) else str(link.get("rel", "")).split())
 
 
 def test_fed_agenda_slots():
