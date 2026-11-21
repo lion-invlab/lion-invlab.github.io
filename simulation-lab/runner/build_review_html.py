@@ -222,6 +222,19 @@ def set_text_preserving_child_elements(node, value):
     return False
 
 
+def set_calendar_status_heading(heading, text, status_key):
+    """Update the existing badge text slot while preserving its mother-owned wrapper."""
+    if heading is None:
+        raise ValueError("calendar status heading missing")
+    badge = heading.select_one(".earnings-badge")
+    if badge is not None:
+        set_text(badge, text)
+        badge["class"] = ["earnings-badge", status_key]
+    else:
+        set_text(heading, text)
+    heading["class"] = ["calendar-status-heading", status_key]
+
+
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
 
 def apply_consensus_projection(data, projection, calendar_source):
@@ -1822,8 +1835,7 @@ def main():
         group=BeautifulSoup(str(group_template),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
         if heading:
-            set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
-            heading["class"]=["calendar-status-heading",key]
+            set_calendar_status_heading(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）",key)
         listing=group.select_one(".econ-event-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
@@ -1866,8 +1878,7 @@ def main():
         heading=group.select_one(".calendar-status-heading")
         if heading:
             display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
-            set_text(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）")
-            heading["class"]=["calendar-status-heading",key]
+            set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
         listing=group.select_one(".earnings-accordion-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
