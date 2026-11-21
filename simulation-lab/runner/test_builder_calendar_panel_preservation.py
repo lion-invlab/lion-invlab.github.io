@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+"""Regression guard: Builder must preserve mother calendar panel shells."""
+from pathlib import Path
+
+SOURCE = Path(__file__).with_name("build_review_html.py").read_text(encoding="utf-8")
+
+def require(fragment: str) -> None:
+    if fragment not in SOURCE:
+        raise AssertionError(f"Builder is missing required preservation behavior: {fragment}")
+
+def forbid(fragment: str) -> None:
+    if fragment in SOURCE:
+        raise AssertionError(f"Builder still contains forbidden destructive panel operation: {fragment}")
+
+# The three mother-owned status groups and their headings must survive the render.
+require('econ_groups=panels.select(":scope > .calendar-status-group")')
+require('if len(econ_groups)!=3:')
+require('earnings_groups=ep.select(":scope > .calendar-status-group")')
+require('if len(earnings_groups)!=3:')
+
+# Only direct event-card instances inside the approved list slots may be removed.
+require('listing.find_all("details",class_="econ-event",recursive=False)')
+require('listing.find_all("details",class_="earnings-accordion",recursive=False)')
+require('old_card.decompose()')
+
+# Missing list/empty-state slots fail closed; no replacement wrapper is fabricated.
+require('economic calendar {key} group has events but no mother event-list slot')
+require('earnings calendar {key} group has events but no mother accordion-list slot')
+require('economic calendar {key} group has neither event-list nor empty-state slot')
+require('earnings calendar {key} group has neither accordion-list nor empty-state slot')
+
+# Whole-panel clears are prohibited. Clearing a list's direct event cards is allowed.
+forbidden("panels.clear()")
+forbidden("ep.clear()")
+
+print("PASS: economic and earnings mother panel shells are preserved; only direct event cards are replaced")
