@@ -221,7 +221,7 @@ def test_text_update_preserves_source_link_elements():
     set_text_preserving_child_elements(node, "新說明")
     after = [(child.name, child.get("href")) if getattr(child, "name", None) else "#text" for child in node.contents]
     assert before == after
-    assert node.get_text(" ", strip=True) == "新說明 原始來源"
+    assert node.get_text(" ", strip=True) == "新說明 原始來源 trailing text"
     assert node.select_one("a").get("href") == "https://example.com"
 
 def main():
