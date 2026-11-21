@@ -548,3 +548,10 @@
 
 
 - 2026-11-21 Weekday visual QA 修正：2026-11-20 舊 fixture 原本 `key_levels.items=[]`，因此今日觀察第三活頁沒有五檔現金指數 OHLC、支撐／壓力及來源日期，六視窗視覺驗收合理地失敗。已按該報告基準日 2026-11-19 逐筆核對 Yahoo Finance 現金指數歷史頁，補入 Dow／S&P 500／Nasdaq Composite／SOX／Russell 2000 五檔 OHLC，並按同一公式重算 S2/S1/P/R1/R2；新增測試驗證日期一致、來源 URL 與公式結果。沒有沿用 11/20 週一 fixture 的 11/20 OHLC。重新執行 weekday full build。
+
+## 2026-11-21｜完整 build／QA 實證更新（SIM-1.4 仍為 DRAFT）
+- 週一 2026-11-23 fixture 已由 run 44904316843 完成真實 HTML build；母版結構比較、獨立 artifact／provenance、44項／行事曆／新聞契約、Playwright 互動與六視窗視覺 QA 全部通過。QA_PASSED，但 review_ready=false，唯一 blocker 為 VIX／MOVE／CNN Fear & Greed／FedWatch須在報告截稿前刷新。審核 HTML blob SHA e6ea8ca01e38e68cc34fe4d74874f1b915e994d6，QA sidecar SHA f7ccad8ea44c578f3a620bf17b79e2c8be347c92。
+- 平日 2026-11-20 fixture 已由 run 44902986319 完成真實 HTML build；母版結構比較、artifact／provenance、44項／行事曆／新聞契約、Playwright 互動與六視窗視覺 QA 全部通過；QA_PASSED 且 review_ready=true。審核 HTML blob SHA 0597447d59563d459fc4c913639a07d7ecfcdbbf，QA sidecar SHA 0d18025b4a2a197b1c6c6877ff93b9d6bd8d4bf6。
+- 因兩個完整 build 均通過，前文「尚未完成 build／DOM diff／Playwright／六 viewport」僅是當時歷史狀態，不再代表最新狀態。Builder 已具備兩種母版的實際組裝與 QA 證據；但尚未完成報告截稿前情緒／FedWatch刷新，因此不可把週一審核版標為 REVIEW_READY。
+- 2026-11-21 20:33 Asia/Taipei 重新讀取 VIX／MOVE／FGScore CNN Provider Index／Investing.com Fed Rate Monitor，數值與來源時間未見更新：VIX 35.89、MOVE 106.31（均為11/20收盤）；FGScore CNN Provider Index 10（as of 11/20 UTC）；FedWatch 12/09/2026 hold 13.6%、升息25bp 86.4%，Updated Nov 21 00:35 EST（台灣13:35）。最後截稿刷新仍待11/23 05:25前執行。
+- main首頁、正式母版及正式行事曆JSON保持唯讀；SIM-1.4仍是DRAFT，未生效。
