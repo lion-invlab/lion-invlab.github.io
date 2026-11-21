@@ -235,7 +235,7 @@ def set_calendar_status_heading(heading, text, status_key):
     heading["class"] = ["calendar-status-heading", status_key]
 
 def update_contract_link_label(label_link, contract_label, source_meta, instrument_url=None):
-    """Keep product labels compact and link the instrument name to its Investing.com instrument page."""
+    """Keep the approved short product label; full contract/month belongs in source details only."""
     if label_link is None:
         return False
     base_label = label_link.get_text(" ", strip=True).split("（", 1)[0].strip()
@@ -243,6 +243,16 @@ def update_contract_link_label(label_link, contract_label, source_meta, instrume
     target_url = instrument_url or source_meta.get("url", "")
     if not str(target_url).startswith("https://hk.investing.com/"):
         raise ValueError("commodity instrument link must target the corresponding Investing.com HK page")
+    expected_paths = {
+        "WTI原油期貨": "crude-oil-historical-data",
+        "Brent原油期貨": "brent-oil-historical-data",
+        "黃金期貨GC": "gold-historical-data",
+        "白銀期貨SI": "silver-historical-data",
+    }
+    normalized_label = "".join(base_label.split())
+    expected_path = expected_paths.get(normalized_label)
+    if expected_path and expected_path not in str(target_url):
+        raise ValueError(f"{base_label}: Investing.com link does not match the instrument history page")
     label_link["href"] = target_url
     label_link["target"] = "_blank"
     label_link["rel"] = "noopener"
@@ -2043,14 +2053,17 @@ def main():
         for instrument, record in records.items():
             source = record.get("source") if isinstance(record, dict) else None
             if isinstance(source, dict) and source.get("name") and source.get("url") and source.get("data_date"):
-                summary.append((instrument, source))
+                summary.append((instrument, source, record.get("contract_label")))
         for details_node in group.select("details.source-details"):
             source_node = details_node.select_one(".source")
             if source_node:
                 source_node.clear()
                 if summary:
-                    for instrument, source in summary:
-                        source_node.append(f"{instrument}｜{source['name']}｜{source['data_date']}｜")
+                    for instrument, source, contract_label in summary:
+                        source_node.append(f"{instrument}｜{source['name']}｜")
+                        if contract_label:
+                            source_node.append(f"合約：{contract_label}｜")
+                        source_node.append(f"{source['data_date']}｜")
                         source_node.append(source_link(source["url"], "原始資料"))
                         source_node.append("；")
                 else:
@@ -2058,13 +2071,6 @@ def main():
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
-        contract_items = [(label, record.get("contract_label")) for label, record in records.items() if record.get("contract_label")]
-        if contract_items:
-            meta = container.select_one(".tab-panel-meta")
-            if meta:
-                contract_text = "；".join(f"{label} {contract}" for label, contract in contract_items)
-                rollover_note = "；WTI近月成交量仍領先，但未平倉量已轉向次月，需留意轉倉與到期" if container_id == "tac-assets-panel-3" else "；依同日成交量並以未平倉量交叉確認合約月"
-                set_text(meta, f"{previous_trade} 期貨收盤｜{contract_text}；非現貨報價{rollover_note}。")
         for label,record in records.items():
             # Display labels may add Latin/Chinese spacing (e.g. "WTI 原油期貨").
             # Match the stable semantic label independent of presentation whitespace.
@@ -2803,6 +2809,20 @@ def main():
     factset_source = final_health.select_one("details a")
     if not factset_source or factset_source.get("href") != expected_health.get("source_url"):
         raise ValueError("FactSet source link is missing or does not match the dated fixture URL")
+    # Commodity month/code belongs in collapsed source details, never in the visible meta or observation copy.
+    for panel_id, records in (("tac-assets-panel-3", data.get("energy", {})), ("tac-assets-panel-4", data.get("metals", {}))):
+        panel = unique(soup, f"#{panel_id}", panel_id)
+        meta_text = (panel.select_one(".tab-panel-meta") or soup.new_tag("div")).get_text(" ", strip=True)
+        reason_text = (panel.select_one(".market-reason") or soup.new_tag("div")).get_text(" ", strip=True)
+        source_text = " ".join(node.get_text(" ", strip=True) for node in panel.select("details.source-details .source"))
+        for instrument, record in records.items():
+            contract_label = str(record.get("contract_label") or "").strip()
+            if not contract_label:
+                continue
+            if contract_label in meta_text or contract_label in reason_text:
+                raise ValueError(f"{panel_id}/{instrument}: full contract label leaked outside source details")
+            if contract_label not in source_text:
+                raise ValueError(f"{panel_id}/{instrument}: contract label missing from source details")
     # Commodity commentary must match the settlement values actually displayed.
     energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
