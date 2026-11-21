@@ -237,3 +237,14 @@
 - 母版結構差異檢查不得由 Builder 以追加 CSS、重建既有 Fed 區塊、清空並重組母版 summary 子節點等方式自行「修復」；除非使用者另行核准明確的母版／技術契約變更。
 - 320px viewport 加入必要測試，保留 360／390／412／768／1440px。
 - 每一個執行結果需明確區分 PASS、FAIL、NOT_TESTED；無實際瀏覽器證據不得填 PASS。
+
+
+## M. SIM-1.4 候選財報狀態與共識來源驗收（2026-11-21）
+
+- 財報公開狀態只有四種：beat、miss、inline、pending，對應「優於預期／低於預期／符合預期／尚未公布或資料尚未齊備」。不得輸出 incomparable、consensus_divergent 或其他第五種狀態。
+- EPS 與 Revenue 分開比較。Yahoo Finance Average Estimate 為第一順位、Investing.com 為第二順位；LSEG I/B/E/S、FactSet 僅作後順位備援，不能覆蓋已取得的較高順位來源。來源衝突保留 conflict flag／說明，但不得以「共識來源分歧」取代數值比較結果。
+- PIT 快照是來源證據層，不是一般數值比較的必要條件。只要實際值與所選共識值可按同一期間、幣別及單位比較，且沒有明確相反的發行公司口徑聲明，就應進行數值比較；GAAP／Adjusted 細節未揭露本身不得阻止比較。
+- 若幣別、單位、期間明確不相容，或發行公司明確聲明不可比較，公開狀態仍只能使用 pending，並在財報判讀文字標示「比較資料尚未齊備」及原因；不得建立 incomparable 第五狀態，也不得偽造 Beat／Miss。
+- SIM-1.4 財報判讀引擎版本候選為 1.4.0；schema 的 judgment_engine_version、引擎 VALID_STATUSES、render_status、render_summary、Builder renderer、visual regression 與所有測試必須一致。
+- visual regression 必須拒絕 incomparable／consensus_divergent class；若明確不可比較的財報仍顯示「尚未公布」或方向性結果，亦應 FAIL。數值存在但口徑不相容時應顯示「比較資料尚未齊備」。
+- 目前 Builder 的 earnings_status_label／earnings_commentary 仍含 legacy incomparable／consensus_divergent 顯示分支，且無法為「數值存在但不可比」顯示「比較資料尚未齊備」；此為已知 BLOCKER，Builder 未修正前本契約不得判定財報 renderer Gate PASS。
