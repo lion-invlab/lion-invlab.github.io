@@ -1,5 +1,12 @@
 ## 2026-11-21 22:xx｜SIM-1.4 通盤整併與 11/23 審核版最新狀態（最新狀態錨點）
 
+- **2026-11-21 財報共識順位最新修正：** 使用者最新指示為 Yahoo Finance 第一順位，其餘依序遞補。有效 SIM-1.3 與 SIM-1.4 DRAFT 均已同步為 Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com；EPS／Revenue 各自選源，取得第一個可用平均預期後停止該指標主來源搜尋。
+- **最新 SIM-1.3：** blob SHA 6f8739b77678a3cfd7e296f6059288e0f7ee74f8，commit dd4b28a82fc10b61a939e89fc592cbde311cb54a。
+- **最新 SIM-1.4 DRAFT：** blob SHA 48adcdb587836bf48adf00b02479194eabfaa602，commit 5344f3f34169d35da38b0f9b92c611138f4ee95b；仍為 DRAFT，未生效。
+- **前一筆錯誤順位修正已撤銷：** Yahoo 第四順位的前次修改紀錄保留作追溯，不再代表有效規則。
+- **待辦：** Builder／財報共識擷取程式是否實際遵循 Yahoo 第一順位尚未驗收；需檢查來源選擇邏輯、EPS／Revenue 獨立遞補、原始回應保存與小卡來源標示，再補 regression tests。規則同步不等於程式接線完成。
+
+
 - **工作範圍：** 僅在 `simulation/tac-process-lab-2026-11-06`；目前正式有效規則仍是 SIM-1.3（`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`）。SIM-1.4 仍為 DRAFT，未獲使用者核准前不得取代 SIM-1.3。
 - **本次最新 SIM-1.4 草案：** `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`，blob SHA `f585c0e08e1075d760c91a5f0eab79a408ca9e45`；最新草案已補入商品名稱／href、行事曆截稿分類、財報雙卡母版版型，以及 SIM-1.3 B3 視覺／互動不變規則。
 - **最新草案修改 commit：** `34791786dc0fd24706f970a5d3a035a1ce1acd5b`（補回 SIM-1.3 B3 視覺／互動規則）；前一筆規則整理 commit `8be16b8195c9bbe23082a79cd522f9e4e7cbfa79`。
