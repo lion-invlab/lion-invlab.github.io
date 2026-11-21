@@ -2687,3 +2687,19 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 歐洲4項：FTSE 100 10,346.34 (-1.02%)；DAX 24,802.78 (-2.60%)；CAC 40 7,927.75 (-1.89%)；STOXX Europe 600 625.66 (-2.00%)。均採Investing HK歷史列；STOXX另由Börse Stuttgart 625.65獨立交叉核對，0.01點為來源精度差。
 - 17項均鎖定日期2026-11-20；關鍵來源頁：Dow https://hk.investing.com/indices/us-30-historical-data；Nasdaq https://hk.investing.com/indices/nasdaq-composite-historical-data；SOX https://hk.investing.com/indices/phlx-semiconductor-historical-data；Shanghai https://hk.investing.com/indices/shanghai-composite-historical-data；Shenzhen https://hk.investing.com/indices/szse-component-historical-data；KOSPI https://hk.investing.com/indices/kospi-historical-data；TWSE https://hk.investing.com/indices/taiwan-weighted-historical-data；STI https://hk.investing.com/indices/singapore-straits-time-historical-data；ASX https://hk.investing.com/indices/aus-200-historical-data；FTSE https://hk.investing.com/indices/uk-100-historical-data；DAX https://hk.investing.com/indices/germany-30-historical-data；CAC https://hk.investing.com/indices/france-40-historical-data；STOXX https://hk.investing.com/indices/stoxx-600-historical-data；AP https://apnews.com/article/c10b797a17c2acf37924d834efebe135。
 - 44項總盤點：17項指數、11項ETF、3項美債殖利率、6項FX、4項商品、3項風險情緒。按現有紀錄已核實43項，CNN Fear & Greed仍待核實；FedWatch為獨立政策指標，另因先前判讀錯誤暫停使用，不能計入44項。
+
+
+## 2026-11-21｜G1／Market Sentiment 主稿修正版（覆蓋舊 FedWatch 敘述）
+**上週主軸｜AI需求未消失，市場改用現金流與融資風險重新定價**
+- 11/20美股收盤：S&P 500現金指數6,910.39（-3.70%）、Nasdaq Composite 22,617.73（-5.28%）、SOX 8,408.6（-10.73%）；台灣加權36,033.29（-6.23%）、KOSPI 4,869.96（-5.21%）。賣壓集中於高估值AI／半導體，但不代表所有公司獲利同步反轉。
+- FactSet 11/20快照顯示Q3 blended EPS growth 32.9%、84%公司EPS優於預期，但aggregate EPS surprise僅+3.5%，低於5年+7.5%及10年+8.0%均值；營收成長14.6%、74%營收優於預期、aggregate revenue surprise +2.2%，高於5年+1.8%及10年+1.6%均值。故應區分「盈餘成長仍強」與「EPS超預期幅度偏弱」，不能以beat比例宣稱獲利品質全面強勁。
+- Fed 10/27–28會議紀要指出AI建置債務、表外租賃承諾、循環融資、資料中心高收益債利差及非銀行槓桿風險；Cook 11/20鷹派談話進一步提高市場對資金成本的敏感度。Reuters 11/20指出資金由高估值科技股轉向價值股；S&P 500成分股中位數年初至今約+5%，指數約+1%，顯示權值股集中度與市場內部輪動並存。
+- 台灣10月外銷訂單US$123.82bn、年增78.3%，ICT產品年增107.2%，SpaceX GPU融資超額認購，均顯示AI需求及優質融資未消失；但股價重估、資金成本與高槓桿AI基建信用風險正在提高市場對訂單轉現金流的要求。
+
+**風險觀察**：11/23歐元區Flash PMI 17:00、美國Flash PMI 22:45；11/24德國ifo 17:30、美國Conference Board信心23:00；11/25美國GDP第二次估值、10月PCE及耐久財訂單21:30，新屋銷售23:00；11/26 03:00 Fed Beige Book。企業端聚焦Dell Q3 FY2027，觀察AI伺服器營收、訂單／backlog、毛利率、交付及自由現金流。W48財報共識未達採用條件，不填虛構EPS／營收預期。
+
+**操作建議**：維持中性偏防禦，降低槓桿與高Beta集中曝險，保留流動性；不因跌幅大就全面抄底。優先研究訂單可驗證、自由現金流為正、資產負債表穩健且能把AI需求轉為利潤的半導體、網通、電力設備與雲端服務商；對高槓桿資料中心營運商提高信用風險折價。只有在市場廣度改善、VIX回落、AI基建信用利差停止擴大，且Dell等企業未下修指引時才分批提高風險承擔；若核心PCE高於預期、VIX重新站上40或信用利差續擴，維持防守。
+
+**Market Sentiment修正版**：VIX 35.89（+26.20%）、MOVE 106.3（+10.69%）顯示股債波動同步升高；美國10年期CMT殖利率4.92%，Reuters亦指出週五美債殖利率下行。黃金GCZ6 3,539.00（-3.98%）、白銀SIZ6 41.080（-7.39%）同步下跌，反映現金需求、美元與利率預期壓力可能壓過傳統避險買盤。CNN Fear & Greed因官方頁／端點無法讀取且第三方讀值不一致，主畫面標示待核實，不使用10或15。FedWatch因先前解讀錯誤，撤回86.4%／89.6%等舊敘述；在完成正確目標利率區間映射前，不放機率值、不寫升息機率結論。
+
+- 本段為新的有效G1／Market Sentiment草稿，明確覆蓋同一Session State前文含FedWatch 86.4%／89.6%的舊版草稿；舊紀錄保留作錯誤稽核，不得被HTML或下游摘要引用。
