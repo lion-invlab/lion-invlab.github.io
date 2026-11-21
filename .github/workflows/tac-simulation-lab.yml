@@ -340,8 +340,8 @@ jobs:
           tc_family="$(fc-match -f '%{family}' 'Noto Sans CJK TC')"
           echo "Traditional Chinese font package resolved to: ${tc_family}"
           echo "${tc_family}" | grep -Eqi 'Noto Sans CJK TC'
-          mkdir -p "${HOME}/.config/fontconfig/conf.d"
-          cat > "${HOME}/.config/fontconfig/conf.d/99-noto-sans-tc-alias.conf" <<'EOF'
+          mkdir -p "${HOME}/.config/fontconfig"
+          cat > "${HOME}/.config/fontconfig/fonts.conf" <<'EOF'
           <?xml version="1.0"?>
           <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
           <fontconfig>
