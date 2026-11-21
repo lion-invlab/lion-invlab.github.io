@@ -213,7 +213,10 @@ def main():
     workflow = (ROOT / ".github" / "workflows" / "tac-simulation-lab.yml").read_text(encoding="utf-8")
     assert "key-level-row" not in builder
     assert "key-level-index" not in builder
-    assert "levels_box.append(soup.new_tag(\"br\"))" in builder
+    assert "def populate_key_levels_preserving_dom(" in builder
+    assert "populate_key_levels_preserving_dom(levels_box, level_items, disclosure)" in builder
+    assert "disclosure.extract()" not in builder
+    assert "for child in list(levels_box.contents)" not in builder
     for label in ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力"):
         assert label in builder
     assert "if: false # Do not use repo collector" in workflow
