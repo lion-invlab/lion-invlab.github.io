@@ -35,3 +35,27 @@
 - Expected report date: `2026-11-23`.
 - Required: verify Investing.com direct history-page hrefs; full contract code/month only in collapsed source details; no full contract label in product rows, tab meta or market-reason; source details show exact contract label.
 - Required: report `QA_PASSED`, `review_ready`, `data_review_ready`, and SIM-1.4 Builder approval as separate states; simulation branch only.
+
+
+## Final candidate｜2026-11-23 Monday + 2026-11-20 Weekday historical-close validation
+
+- Builder SHA: b232c8d8546e81292a2a182dde6365badc0abbdc.
+- Monday fixture SHA: 86659926304a477dd99be705cf6d343f6a788b65.
+- Weekday fixture SHA: ccbe0b5251aaf250610bb551dc5b1f83851b25ae.
+- SIM-1.4 DRAFT SHA: b6291aa790e28e5eb307cd7155921d697c831d0b.
+- QA Contract v1.13 DRAFT SHA: 86c798ae22577c82b292748a864ffe10054ddc18.
+- Manifest SHA: 1496a510d144d340c41b642592675233d5bd2917.
+- Monday mother SHA: 36f29bcb37816348756f9233b60f0429d675a76e.
+- Weekday mother SHA: 19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96.
+
+### Expected source rows
+- 2026-11-20 close: WTI 82.40 (-0.05%); Brent 92.57 (+0.64%); Gold 3,515.40 (-4.62%); Silver 41.070 (-7.41%).
+- 2026-11-19 close: WTI 82.44 (+0.16%); Brent 91.98 (+0.03%); Gold 3,685.50 (-1.51%); Silver 44.359 (-1.55%).
+
+### Mandatory validation
+- quote_type=investing_historical_close for all four commodity rows.
+- source.url == instrument_url; both must be Investing.com HK historical-data pages for the same contract.
+- history_close == display and history_change == change_display.
+- Full contract code/month appears only in collapsed source details, not row label, panel meta or market-reason.
+- Run 2026-11-23 Monday fixture first; after it passes, run 2026-11-20 Weekday fixture with the same frozen Builder/rules/QA/Manifest and weekday mother.
+- QA status, data readiness, review readiness and SIM-1.4 approval must be reported separately. Simulation branch only; no main write or production deploy.
