@@ -1810,3 +1810,10 @@
 ## 2026-11-21｜更正：缺少 report-data fixture 並非 SIM-1.3 阻塞
 - 前筆把 report-data-2026-11-23.json 缺檔列為下一阻塞，判斷不正確。SIM-1.3 第0節／每日製作責任及第五步要求 ChatGPT 直接以核准母版 DOM 更新內容，不依賴 Snapshot／Collector／Assembler／Renderer，也不要求 report-data fixture。舊 workflow build_review_html.py 的 fixture 需求不得擴張成正式流程前置條件。
 - 後續以已交付並驗證 SHA 的母版原始 HTML，在本機以 BeautifulSoup/lxml 直接更新 DOM；不使用舊 Builder，不補造11/23 fixture。新聞時間窗尚未封口，先做可用內容的 DOM 預備稿，最終版待11/23 05:25前增量核實後完成。
+
+
+## 2026-11-21｜Phase 4 新增原文核實：海外資料中心政策及台灣外銷訂單
+- Reuters原文 11/20 18:08 UTC（11/21 02:08 Taipei）記錄Trump擬對美企海外建置資料中心課徵「tremendous tax」，但無法案、稅率、範圍、生效日；定位為政策表態，不是已生效法規。
+- Federal Register IFR 91 FR 74970（2026-11-19生效）已核對：規範特定先進SI晶片出口及向Macau／Country Group D:5企業提供大量遠端算力的許可要求，並對特定第三國先進晶片出口設許可；與Trump課稅表態不可混為一談。
+- Focus Taiwan／CNA 11/20 20:26 Taipei：10月外銷訂單US$123.82bn、年增78.3%，ICT +107.2%、電子+89.8%、機械+36.3%。可作AI需求仍強的基本面對照，不可推論股價風險解除。
+- 原文：Reuters https://www.reuters.com/technology/trump-says-us-penalize-firms-building-data-centers-abroad-2026-11-20/；Federal Register https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm；Focus Taiwan https://focustaiwan.tw/business/202611200021 。新聞窗未封口，以上僅為已核實增量，不代表Phase 4結案。
