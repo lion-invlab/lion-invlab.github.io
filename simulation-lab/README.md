@@ -120,3 +120,8 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 ## SIM-1.4 consensus tests rerun 2
 
 - Corrected the two remaining legacy status expectations: Yahoo capture without provider as-of uses TAC-observed status; a source with provider data-as-of but missing optional EPS basis remains provider-as-of eligible. No W48 files read or changed.
+
+
+## SIM-1.4 regression rerun 3
+
+- Fixed a test-fixture KeyError in the new selected-consensus evidence test; production logic unchanged. W48 remains untouched.
