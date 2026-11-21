@@ -1,0 +1,49 @@
+{
+  "status": "QA_PASSED",
+  "review_ready": false,
+  "review_ready_blockers": [
+    "六項現貨指數目前使用 Investing.com CFD 參考序列（標普500、日經225、香港恆生、英國FTSE 100、德國DAX、STOXX Europe 600）；依 SIM-1.3 0.9 不得冒充現貨收盤，須改以現貨／官方指數來源核實後才可解除。",
+    "VIX、MOVE、CNN Fear & Greed 與 FedWatch 必須於報告截稿前重新讀取並更新資料時間；目前仍是 2026-11-21 17:57:31 前的快照。",
+    "審核版 HTML 尚未產出；須先解除行情與情緒資料阻塞，再完成母版組裝與必要 QA。"
+  ],
+  "data_audit": {
+    "quality_note": "本輪重新啟動，行情audit與新聞窗口已重新建立；六項明確標示CFD的全球指數已從可呈現行情中剔除並改列待核實，原始參考值僅保留於rejected_reference供稽核；須補入現貨／官方指數來源後才可解除阻塞。行事曆資料必須由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不得採用fixture內嵌calendar/earnings欄位作來源。",
+    "warning_note": "行情基準日2026-11-20。六項明確標示CFD的全球指數已改列待核實，不得以CFD參考序列代替現貨收盤。其他平台參考序列仍須保留來源註記。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 13:35台灣時間快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
+    "pending_items": [
+      "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
+      "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均為四星，不出現在週一五星回顧。週一回顧只呈現2筆五星經濟事件與1筆五星NVDA財報。",
+      "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
+      "W48財報共識缺乏可驗證PIT快照時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。電話會議時間不得冒充財報發布時間。",
+      "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
+      "FedWatch於17:57重新讀取，頁面最新更新時間仍為11/21 13:35台灣；FGScore於17:57重新讀取，Provider最新市場時間仍為11/21 07:59台灣。兩者均以實際資料時間戳顯示，不冒稱即時值。",
+      "NVDA Q3 FY2027 GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；共識PIT不足，不判Beat/Miss。公告後股價反應需由SIM規定的price-reaction資料或明確歷史收盤證據補入。",
+      "HTML尚未產出；須從核准週一母版複製，依SIM-1.3更新五個既有內容區並完成結構、功能及桌機／手機視覺QA。"
+    ],
+    "report_cutoff_taipei": "2026-11-23 05:25",
+    "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）"
+  },
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "report_path": "preview/2026-11-23-simulation.html",
+  "report_date": "2026-11-23",
+  "report_git_blob_sha": "bb97a24a4be558ca4faa970bf4196a6ecddaa399",
+  "report_sha256": "e717158fe4a09a85796db085e51c8c8c0a4328fad3cacd22e0a2a65131dafd4f",
+  "build_commit_sha": "550f14f5c4823751719822f2a6ef75abcba8256e",
+  "builder_blob_sha": "a424b880b9e9deaee8e2e475d7e24e8dcd3d3be8",
+  "fixture_blob_sha": "efd905da52383f247207f356914cce9c7841761b",
+  "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
+  "calendar_main_commit_sha": "21c9b392878050643c4eaa7111db401cc9ab2c5c",
+  "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
+  "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+  "interaction_evidence_sha256": "e240827601f4d1fa566eb97ba51b4e05df7dc99c3d6941e30309019c0e1089cc",
+  "visual_evidence_sha256": "cc359d6eee4c92bbe3ecdfda4974e5648275f579656d3ce37dcd3c30d05f06b0",
+  "viewports": [
+    1440,
+    768,
+    412,
+    390,
+    360,
+    320
+  ],
+  "workflow_run_id": "44901996545",
+  "workflow_run_attempt": "1"
+}
