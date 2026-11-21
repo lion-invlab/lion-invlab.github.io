@@ -7,7 +7,7 @@
 - 工作分支：`simulation/tac-process-lab-2026-11-06`
 - 生效日期：2026-11-22
 - 核准方式：使用者於 2026-11-22 明確授權將 SIM-1.4 Draft 修訂後升格為正式規範
-- 前版基準：`simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.3）
+- 前版基準：`simulation-lab/archive/TAC_WORK_RULES_SIM_1.3_ARCHIVE.md`（SIM-1.3 歷史封存版）
 - 時區：Asia/Taipei（UTC+8）
 
 ---
@@ -546,3 +546,5 @@
 - 財報共識採用順位統一為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 各自獨立選源，首筆同公司、同期間有效值即鎖定並停止該指標後續搜尋。舊 Session State 的相反順位屬過期紀錄，不構成規則。
 - 本次生效不等於 Builder 已獲核准。候選 Builder 必須依第 8 章完成技術驗收，並由使用者明確核准指定路徑與 SHA 後，才可成為唯一正式生產入口。雙母版既有候選測試證據不得冒充 SIM-1.4 生效後的完整端到端驗收。
 - 生效範圍僅限 `simulation/tac-process-lab-2026-11-06`；main、正式首頁、正式母版、正式 Manifest 及正式行事曆 JSON 均未授權修改。
+
+- SIM-1.4 首次正式生效後端到端驗收目標：2026-11-23；本次以隔離 simulation workflow 執行，不得將既有 SIM-1.3 preview／QA sidecar 沿用為新規則驗收證據。
