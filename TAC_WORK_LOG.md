@@ -2532,3 +2532,14 @@
 - 已同步更新 simulation 的 `preview/2026-11-23-simulation.qa.json`：移除四項指標「截稿前必須刷新」的 blocker，保留既有資料時間戳及其他尚未解除的審核狀態。此決策不代表整份早報 REVIEW_READY，也不代表 SIM-1.4 Builder 已獲核准。
 - QA sidecar 更新 commit：`10ac53de09c423ebe776bac79d06004609fc8c44`；新 blob：`a11337d77920b9ff683affb052df4afcb248d58d`。
 - 僅修改 simulation branch；main、正式首頁、正式母版及正式行事曆 JSON 均未修改。
+
+
+## 2026-11-21｜SIM-1.3 財報共識來源順位修正：Yahoo Finance 納入第四順位
+
+- 依使用者指示將 Yahoo Finance 納入財報共識來源，定位為第四順位備援；固定來源順序為 LSEG I/B/E/S → FactSet Estimates → Investing.com → Yahoo Finance。
+- 回讀 SIM-1.3 發現舊 F3-補充5 已列 Yahoo 第四順位，但較後面的 F3-補充7／8 又把 Yahoo 改列第一順位，造成規則衝突。已修正 F3-補充7 第3點並重寫 F3-補充8，統一為四級來源階梯。
+- EPS 與 Revenue 分別逐級選源；取得第一個可用的同一財報期間平均預期後，該指標停止主來源搜尋。低順位來源僅供交叉參考，不得混合、平均或因數字差異任意換源。
+- Yahoo 使用規則：僅在前三順位均無可用共識時啟用；保存來源 URL、ticker、財報期間、指標、平均預期、high／low、分析師數（如有）、幣別／單位／統計類型、TAC observed_at、原始回應及 SHA-256。observed_at 不得冒充 data_as_of；未揭露的 EPS methodology、Basic／Diluted 或 Revenue 定義必須如實註記。
+- 保留 SIM-1.3 實用型數值比較政策；PIT 是來源證據標籤，不可把公告後擷取資料冒稱公告前觀測。
+- SIM-1.3 更新 commit：`f6f57bd888802e61186182c4106013850d3ac34a`；新 blob SHA：`de009a096f01392af2b33e52fc62f276348c80a0`。
+- 僅修改 simulation branch 的 SIM-1.3 與本工作紀錄；未修改 main、正式首頁、母版、Manifest、行事曆 JSON 或 SIM-1.4 DRAFT。規則更新尚未代表 Builder、共識擷取程式或財報小卡已完成接線與回歸測試。
