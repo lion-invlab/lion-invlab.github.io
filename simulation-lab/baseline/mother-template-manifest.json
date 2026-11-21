@@ -15,8 +15,8 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed.",
-      "simulation_blob_sha": "3abf38e66a582089a5d16527507d39c2edbeee75",
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged.",
+      "simulation_blob_sha": "b89c76dd37afdc0cf8b406bfd6f06258896c829d",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -101,6 +101,10 @@
     {
       "date": "2026-11-22",
       "change": "Simulation-only Monday mother mobile earnings value wrap correction; preserved official main mother SHA and updated only simulation_blob_sha to the exact simulation baseline blob. Main mother and homepage remain unchanged."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "依使用者明確授權，僅修正 simulation Monday mother 的手機版已公布財報 EPS／營收雙卡：移除 max-width:700px 單欄覆蓋，保留 repeat(2,minmax(0,1fr)) 雙欄；同步 simulation_blob_sha。main 正式母版、首頁與正式 Manifest 未修改。"
     }
   ]
 }
