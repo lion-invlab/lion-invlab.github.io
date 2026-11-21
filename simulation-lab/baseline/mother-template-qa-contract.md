@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.5 DRAFT（2026-11-21｜對齊 SIM-1.4 草案；尚未生效）
+版本：1.6 DRAFT（2026-11-21｜同步最新雙母版 SHA；尚未生效）
 定位：SIM-1.4 DRAFT 的候選唯一詳細 QA 附件；只有 SIM-1.4 經使用者明確核准生效後，本契約才作為其執行附件。此檔不獨立生效、不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -23,8 +23,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `1ac39d50b138e59f4aabf55fc68560ee277ba6f8` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183；ID 無重複 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `f010ff118d7a5a2c1f6e834aa24f832766383c2b` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `36f29bcb37816348756f9233b60f0429d675a76e` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183；ID 無重複 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
 
@@ -258,3 +258,10 @@
 - SIM-1.4 財報判讀引擎版本候選為 1.4.0；schema 的 judgment_engine_version、引擎 VALID_STATUSES、render_status、render_summary、Builder renderer、visual regression 與所有測試必須一致。
 - visual regression 必須拒絕 incomparable／consensus_divergent class；若明確不可比較的財報仍顯示「尚未公布」或方向性結果，亦應 FAIL。數值存在但口徑不相容時應顯示「比較資料尚未齊備」。
 - 目前 Builder 的 earnings_status_label／earnings_commentary 仍含 legacy incomparable／consensus_divergent 顯示分支，且無法為「數值存在但不可比」顯示「比較資料尚未齊備」；此為已知 BLOCKER，Builder 未修正前本契約不得判定財報 renderer Gate PASS。
+
+
+## 2026-11-21｜版本 1.6 基準同步紀錄
+
+- 依 simulation Manifest SHA `1496a510d144d340c41b642592675233d5bd2917`，更新 A2.1 中週一與平日 simulation baseline SHA：Monday `36f29bcb37816348756f9233b60f0429d675a76e`；Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 本次只同步已由 Manifest 登記的實際母版 SHA，不修改正式母版路徑／SHA，也不改動 DOM selector 或視覺規格。
+- 本契約仍為 DRAFT；SIM-1.4 未經使用者核准前不生效。
