@@ -189,6 +189,20 @@ def test_builder_preserves_mother_owned_fed_agenda_and_css():
     ):
         assert forbidden_id not in builder, forbidden_id
 
+
+def test_market_observation_supports_existing_text_slot_shapes():
+    plain = BeautifulSoup('<div class="plain">舊文字</div>', "html.parser").div
+    set_market_observation(plain, "盤面觀察", "新文字")
+    assert plain.get_text(" ", strip=True) == "盤面觀察｜新文字"
+    assert len(plain.find_all(recursive=False)) == 0
+
+    wrapped = BeautifulSoup('<div class="wrapped"><b>舊標題</b><br/><span>舊文字</span></div>', "html.parser").div
+    before = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in wrapped.contents]
+    set_market_observation(wrapped, "新標題", "新文字")
+    after = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in wrapped.contents]
+    assert before == after
+    assert wrapped.get_text(" ", strip=True) == "新標題 新文字"
+
 def main():
     data = {
         "global_markets": {
@@ -216,6 +230,7 @@ def main():
     test_fed_agenda_slots()
     test_builder_preserves_mother_owned_fed_agenda_and_css()
     test_summary_content_fills_existing_mother_slots()
+    test_market_observation_supports_existing_text_slot_shapes()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
