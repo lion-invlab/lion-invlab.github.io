@@ -14,6 +14,7 @@ from build_review_html import (
     set_market_observation,
     set_leaf_text_preserving_dom,
     set_text,
+    set_text_preserving_child_elements,
 )
 
 
@@ -47,6 +48,11 @@ def run(template_key: str, fixture_date: str, monday: bool, expected_cards: int)
     set_leaf_text_preserving_dom(score_main, "42", f"{template_key} CNN score")
     if score_before != shape(score_wrapper) or score_wrapper.select_one(".fg6-outof").get_text(strip=True) != "/100":
         raise AssertionError(f"{template_key}: CNN score wrapper or /100 suffix was destroyed")
+    source_box = BeautifulSoup('<div class="source">old source note <a href="https://example.com">FactSet</a> trailing text</div>', "html.parser").div
+    source_shape = shape(source_box)
+    set_text_preserving_child_elements(source_box, "new source note")
+    if source_shape != shape(source_box) or source_box.select_one("a").get("href") != "https://example.com":
+        raise AssertionError("source note update destroyed the existing source link DOM")
     guard = BeautifulSoup("<div><span>mother child</span></div>", "html.parser").div
     try:
         set_text(guard, "unsafe")
