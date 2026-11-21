@@ -468,7 +468,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.13 DRAFT，blob SHA `86c798ae22577c82b292748a864ffe10054ddc18`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo／Investing 共識來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.15 DRAFT，blob SHA `220866dd60c700ebceb8e1c63c349a083c1b512a`）作為唯一詳細 DOM／互動／視覺 QA 契約；此附件與 SIM-1.4 均為候選草案，尚未生效。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -501,6 +501,8 @@
 完整逐條來源、條文對照及裁決依據見 `simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md`。目前實作狀態、最新 SHA 與未完成 Gate 以 Session State、Work Log 及 Builder 相容性稽核為準；本附錄不重複維護每日進度。
 
 ## 版本紀錄
+
+- 2026-11-22：依使用者指示，落實財報共識「首筆有效值即採用、停止該指標後續來源搜尋」：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 獨立選源。PIT、分析師人數、完整方法論、raw archive 等可選欄位不再阻擋數值採用；QA Contract 更新為 v1.15 DRAFT。SIM-1.4 仍在 simulation 候選驗收階段。
 
 - 2026-11-22：依使用者明確指示，財報共識來源採用順序統一為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 獨立選源，取得第一個符合期間的有效預估值即停止該指標搜尋。PIT、分析師人數及未揭露口徑不得阻擋已取得的有效數字；不做低順位來源交叉核對。
 
