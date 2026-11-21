@@ -424,7 +424,8 @@
       "volume": "286.96K",
       "data_date": "2026-11-19",
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
-      "change_points": "-0.05"
+      "change_points": "-0.05",
+      "display_name": "WTI 原油期貨"
     },
     "Brent原油期貨": {
       "display": "91.98",
@@ -445,7 +446,8 @@
       "contract_month": "2027-01",
       "volume": "252.75K",
       "data_date": "2026-11-19",
-      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+      "display_name": "Brent 原油期貨"
     }
   },
   "metals": {
