@@ -1061,11 +1061,11 @@ def earnings_status_label(item, metric, state):
         "miss": "低於預期",
         "inline": "符合預期",
     }
+    if item.get("_calendar_publication_state") == "cancelled":
+        return "已取消"
+    if item.get("_calendar_publication_state") == "postponed":
+        return "已延期／改期後續公布"
     if state == "pending":
-        if item.get("_calendar_publication_state") == "cancelled":
-            return "已取消"
-        if item.get("_calendar_publication_state") == "postponed":
-            return "已延期／改期後續公布"
         if item.get("_calendar_publication_state") == "pending_verification":
             return (
                 "公告已發布；實際值待核實"
@@ -1100,10 +1100,14 @@ def earnings_commentary(item):
         "inline": "符合預期",
         "pending": "尚未公布",
     }
-    raw = str(item.get("judgment") or "").strip()
-    kept = []
     render_state = item.get("_calendar_publication_state")
-    if render_state == "pending_verification" or (render_state is None and item.get("status") == "pending_verification"):
+    raw = "" if render_state in ("cancelled", "postponed") else str(item.get("judgment") or "").strip()
+    kept = []
+    if render_state == "cancelled":
+        kept.append("財報已取消；不作實際值或優於／低於預期判讀。")
+    elif render_state == "postponed":
+        kept.append("財報已延期；以最新改期資訊為準，不作原定日期的公布判讀。")
+    elif render_state == "pending_verification" or (render_state is None and item.get("status") == "pending_verification"):
         if has_release_status_evidence(item):
             note = item.get("report_layer_status_note") or (
                 "公告已發布；發行公司官方實際值尚待核實，因此不填入實際 EPS／營收，也不作優於／低於預期判斷。"
