@@ -1823,3 +1823,12 @@
 - 實際交付母版於本機 lxml 解析成功：2040 elements、183 IDs、25 scripts、124 styles；Git blob SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。
 - Playwright Chromium page.set_content 載入母版成功、0 pageerror；360/390/412/768/1440五種viewport均無水平溢位；亞洲tab切換與經濟行事曆details展開成功。file:// protocol被執行環境管理政策阻擋（ERR_BLOCKED_BY_ADMINISTRATOR），使用set_content替代並完成載入／互動驗證。
 - 此為母版環境能力測試，不代表11/23審核版QA通過；完整輸出尚未組裝，新聞窗尚未封口。
+
+
+## 2026-11-21 11:22 Asia/Taipei｜11/23 早報接手續查
+- 完成：SIM-1.3 重新讀取；恢復既有週一母版 artifact；Chromium + Playwright 可啟動。
+- 母版 smoke test（非報告 QA）：360/390/412/768/1440；183 IDs、0 duplicate IDs、0 horizontal overflow、0 JS/page errors。details 展開/收合通過（先關閉預設 fund notice modal）。
+- 阻塞：本輪容器缺少交接文件所列 preview-2026-11-23-draft.html，無法重算其 SHA 或執行報告級 QA。不得用母版測試冒充報告測試。
+- 行情：11 大產業 ETF 11/11 已核對；外匯六項與美債 2Y/10Y/30Y 已按 11/20 歷史/官方資料更新；MOVE 106.3；VIX 35.89。S&P 500 改採現金指數 6910.39，拒絕 6910.79 CFD；Russell 2000 採 AP 現金指數 2581.79。
+- 待核實：STOXX Europe 600、CNN Fear & Greed、Gold Dec 2026、Silver Dec 2026 有來源差異；不得填為確定值。
+- 本輪未修改 main/index.html、正式母版、Manifest、W48 JSON；未發布首頁。
