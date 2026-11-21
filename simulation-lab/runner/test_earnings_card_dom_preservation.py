@@ -192,7 +192,7 @@ def main():
     assert mother_html.count('id="earnings-card-preview-v1-applied"') == 1
     assert "grid-template-columns:repeat(2,minmax(0,1fr))!important" in mother_html
     assert "#last-week-earnings .earnings-actual-line strong{display:block!important" in mother_html
-    assert "white-space:nowrap!important;overflow-wrap:normal!important;word-break:keep-all!important" in mother_html
+    assert "white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important" in mother_html
     assert ".fc-fomc>.fc-fomc-weekly-events{grid-column:1/-1!important" in mother_html
     assert ".fc-fomc-weekly-event{display:grid!important;grid-template-columns:94px minmax(0,1fr)!important" in mother_html
     assert all(row.select_one(".fc-fomc-weekly-event-date") and row.select_one(".fc-fomc-weekly-event-name") and row.select_one(".fc-fomc-weekly-event-impact") for row in fed_rows)
