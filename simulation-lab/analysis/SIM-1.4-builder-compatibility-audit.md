@@ -181,4 +181,36 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - QA sidecar：`status=QA_PASSED`，但 `review_ready=false`；唯一資料 blocker 為 VIX、MOVE、CNN Fear & Greed、FedWatch 必須在 2026-11-23 05:25 截稿前刷新。不得把 QA_PASSED 誤稱為資料已可發布。
 - `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效。
 - 本 run 僅寫入 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式 W47/W48 JSON 未修改。
-- **尚未結案**：須以相同 Builder／QA Contract／Manifest／candidate rules SHA 完成 2026-11-20 Weekday full build；雙母版都通過後才可提交 SIM-1.4 核准審查。
+## 2026-11-21｜Weekday 母版完整實證（與 Monday 雙母版對照）
+
+### Run 證據
+- GitHub Actions run：`44907253127`；commit：`06f09ada48f92c1092160a94422c26c15dac250f`；conclusion：`success`。
+- HTML：`preview/2026-11-20-simulation.html`；Git blob SHA：`a638ee6a15a919e86b11313b404cc363f85d1763`；SHA-256：`8cfb603aae5abebfb12fb50610cce8ceab63ca68e64a8ddfc55d7f84a803159b`。
+- QA sidecar：`preview/2026-11-20-simulation.qa.json`；blob SHA：`8a60cf7da0f161967fb2e124b9748400c4c449a1`。
+- Builder SHA：`c4c24c03625b3532f48362d7235755a8fa55850f`；Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`；QA Contract v1.8 DRAFT SHA：`f6848d21286f63c4eef11682eedd8825b5fd3aad`；candidate SIM-1.4 rules SHA：`1b808c093bfd6186febdca58021589026ef23700`；weekday template SHA：`19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- QA sidecar provenance 已綁定本次 build commit；HTML 與 sidecar 均已寫回 simulation branch 並 read-back 核對。
+
+### 驗收結果
+- deterministic self-tests：PASS。
+- HTML assemble：PASS。
+- Playwright navigation／tabs／accordions／source links：PASS。
+- 六視窗視覺 QA：PASS（1440／768／412／390／360／320 px）。
+- Noto Sans CJK TC 已安裝、fontconfig alias 已驗證；Playwright 字型檢查及視覺比較通過。
+- 母版 DOM／inline style contract：PASS。
+- artifact／provenance、日期、行事曆／財報權威資料筆數、44 項行情及新聞結構 Gate：PASS。
+- Weekday sidecar：`status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、無 review blockers。
+
+### Weekday 資料證據邊界（不得把 QA 通過誤寫成無保留）
+- 44 項行情以 2026-11-19 為基準日；MOVE 使用使用者 11/20 06:40 提供之 Investing.com 截圖（畫面時間 11/19 16:17 EST），不是助理獨立刷新。
+- CNN 官方頁本輪受 robots 限制，採 FGScore CNN Provider Index 19，並明示時間戳；Financial Context 更新晚於 05:25 截稿，未納入。
+- 美債殖利率為 Investing.com 歷史序列，不是 Treasury CMT par yield；WTI／Brent／GCZ6／SIZ6 是指定月份合約平台收盤／Last，不是 CME／ICE 官方結算。
+- ROST 官方實際值已採 SEC 8-K，但公告前共識缺少必要 PIT 欄位，因此不作 Beat／Miss 判斷；下一交易日價格反應待後續。
+- W47 正式行事曆 JSON coverage 仍 incomplete；本報唯讀正式 JSON，未自行修補。
+- 上述限制已記錄在 sidecar 的 warning／pending_items；sidecar 的 `review_ready=true` 代表依當時 SIM-1.3 截稿與來源規則，沒有阻止審核的未結案項目，不代表每項都沒有來源註記或限制。
+
+### 雙母版實證結論
+- Monday（2026-11-23）與 Weekday（2026-11-20）均已用相同 Builder SHA、Manifest SHA、QA Contract v1.8 DRAFT 及候選規則完成真實 HTML build、母版 DOM、互動、來源連結、provenance、資料結構及六視窗視覺 Gate。
+- Monday：`QA_PASSED`，但 `review_ready=false`，僅因 VIX／MOVE／CNN Fear & Greed／FedWatch 尚待 11/23 05:25 截稿前最後刷新。
+- Weekday：`QA_PASSED` 且 `review_ready=true`。
+- 這證明候選 Builder 已具備雙母版組裝與 QA 實證；**尚不等於 SIM-1.4 已可生效**。仍須完成規則／程式／Manifest／QA Contract 的一致性審核、SIM-1.4 renderer 舊狀態分支盤點與負向測試，並取得使用者明確核准。
+- SIM-1.3 仍是現行有效規則；SIM-1.4 仍為 DRAFT。main、正式首頁、正式母版、正式 Manifest、正式 W47/W48 JSON 未修改。
