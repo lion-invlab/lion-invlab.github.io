@@ -2000,3 +2000,15 @@
 - Farmbucks NYMEX CLF27 合約頁（https://farmbucks.com/futures/energy/wti-crude?contract=CLF27）列出Jan-27、NYMEX、成交量275.34K、前一結算82.44、當日報價83.41（+0.97）。該頁資料能確認合約身分及最新成交價，但頁面未明確把83.41標為正式結算價；Investing.com合約清單亦標示Last，而非Settlement。因此尚不足以將83.41鎖定為SIM要求的正式結算價。
 - FT歷史頁（https://markets.ft.markitdigital.com/data/commodities/tearsheet/historical?c=WTI+Crude+Oil）搜尋結果列11/20 close 83.41，但頁面直接開啟回傳403，且連續代碼CL.1本身不能單獨證明合約月份及結算口徑。Reuters報導11/20 WTI 83.98是Dec-26 CLZ26報價，亦非CLF27結算值。
 - 結論：WTI維持「待核實」，不得填入82.40 CFD、83.98 CLZ26或把83.41 Last冒充Settlement。下一次只需補此欄位的CLF27正式11/20 settlement證據；其餘已鎖定行情不重抓。此為第二步單項補漏，未宣稱44項行情整體結案。
+
+
+## 2026-11-21｜2026-11-23（一）審核版製作與QA紀錄
+1. **規則與母版**：重新fetch SIM-1.3（`679eae7ba7a40dbad64d15bb448fe53db7d67e09`），讀取第六步與相關QA條款；週一母版採 `simulation-lab/baseline/monday-mother-template.html`（SHA `1ac39d50b138e59f4a4abf55fc68560ee277ba6f8`）。未使用舊審核版當母版；使用lxml HTML parser載入核准母版並只更新內容槽位。
+2. **行情資料更正**：依指定歷史頁及最新台帳，S&P 500採Investing.com HK指定歷史頁6,910.39（-3.70%），不得使用另一cid序列6,910.79；Russell 2000採Yahoo Finance ^RUT／AP一致值2,581.79（-2.76%），Investing.com主站歷史頁未證明有香港站等價頁。MOVE採106.31（+10.69%）。WTI採成交量較高的CLF27 Jan-2027 Last 83.41，因缺正式Settlement證據不填日漲跌；Brent LCOF7 92.49（+0.55%）標示Last／合約口徑待核實；GCZ26、SIZ26保留平台Last及活躍月份／Settlement限制。XLRE標示待核實，不以其他ETF值代填。
+3. **產業ETF**：依Investing.com HK歷史頁更新11檔ETF，XLP +0.67%、XLV -0.12%、XLI -0.33%、XLE -0.62%、XLB -0.73%、XLU -0.74%、XLF -1.82%、XLC -2.67%、XLY -2.79%、XLK -7.27%、XLRE待核實；按漲跌幅排序，保留母版rank欄與僅顯示百分比的欄位。
+4. **新聞**：依使用者指示以2026/11/21為新聞截點，窗口2026/11/20 12:00–2026/11/21 23:59（台灣時間）；全球焦點5則、熱門頭條10則。修正密大消費者信心與通膨預期敘述；移除窗口外AMD前置新聞，改用窗口內AP／Reuters／Investing.com／鉅亨網來源。每則保留原文連結與發布時間。
+5. **行事曆**：讀取main W47/W48 JSON（W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`），唯讀映射W47經濟2筆、財報1筆；W48經濟27筆、財報11筆。未採用無合格PIT共識的EPS／Revenue預期，不判Beat／Miss。未修改JSON。
+6. **分析**：更新總結、市場情緒、盤面觀察重點、FactSet盈餘健康度及關鍵價位。FactSet 11/20快照：93%公司已公布、EPS beat 84%、Revenue beat 74%、混合EPS成長32.9%、營收成長14.6%、EPS surprise +3.5%、Forward P/E 17.1x、Mag7 EPS成長27.0%低於其餘493家34.7%。未取得同日OHLC的價位不推算。
+7. **QA證據**：style 124、script 25、ID 183且唯一；固定行情欄位44項全部有數值或待核實狀態；新聞5+10；行事曆27+11與2+1；瀏覽器在360／390／412／768／1440px無水平溢位；所有分頁可切換、來源details可展開、經濟卡＋收折可操作、上週區塊預設收合、無JS錯誤。CNN分數區間邊界測試0/24/25/44/45/55/56/74/75/100通過。iPhone實機未測試。
+8. **交付**：只新增／更新main `preview/2026-11-23-simulation.html`，commit `0d979bd07b46799f16840b8f6c1f6723703187bf`，blob `fa2fc94f01715e0922747ae052464a3d412952d4`；回讀確認內容。main `index.html` SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；母版、Manifest、QA契約、行事曆JSON均未修改。
+9. **Pages部署狀態**：部署workflow run `44875660337`（head SHA `0d979bd07b46799f16840b8f6c1f6723703187bf`）在本紀錄建立時仍in_progress；待run完成後再確認Pages URL載入最新HTML。
