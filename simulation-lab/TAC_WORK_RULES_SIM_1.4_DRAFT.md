@@ -515,3 +515,6 @@
 - Fed 官員行程固定槽位已納入週一／平日 simulation 母版；Builder 以母版事件原型填資料。FedWatch 保留母版兩卡結構，多情境不符合時 fail closed 並在既有快照說明列出完整機率。
 - 移除每日 CSS 注入與週一收折 summary 重建；保留 2026-11-11 已核准的單次 `special_focus` 條件式功能作為明確例外。
 - CI run `44900780456`（母版 SHA／Fed agenda slot）及 `44900949612`（FedWatch 雙卡與 Builder CSS 清理）success；以上僅為 smoke／deterministic self-tests，不代表 HTML build、DOM diff、Playwright 或視覺 QA 通過。
+
+
+- 2026-11-21 build request: 使用當前 2026-11-23 Monday fixture，以最新 simulation Builder／母版／Manifest／QA Contract 執行完整 build mode；此為測試請求，不代表 QA 通過或 SIM-1.4 生效。
