@@ -42,7 +42,7 @@ def main():
         "revenue_estimate_period": "2026 Q3",
         "eps_consensus_snapshots": [{
             "snapshot_id": "a" * 64, "event_id": "earn-test-1", "ticker": "EX",
-            "metric": "EPS", "event_date": x["event_date"], "value": 2.50,
+            "metric": "EPS", "event_date": "2026-11-24T21:00:00+08:00", "value": 2.50,
             "period": "2026 Q3", "source_level": 1, "provider": "Yahoo Finance",
             "source_url": x["consensus_source"]["url"], "observed_at": None,
             "data_as_of": None, "basis_code": None, "raw_response_ref": None,
