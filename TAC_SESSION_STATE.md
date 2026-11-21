@@ -3334,3 +3334,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 目前最新對應重跑：Monday run `44946465633`、weekday run `44946505385`；截至本錨點仍在執行中。舊 run 的失敗不得當作最新修復結果；舊 preview／QA sidecar 也不得當作新版本通過證據。
 - 只在 simulation branch 修改 workflow 與 11/20 Fixture；main、正式首頁、正式母版、Manifest、正式行事曆 JSON 均未修改。
 - 下一步：讀取兩個最新 run 的完成狀態及失敗日誌；成功後回讀新 preview／QA sidecar，核對 active_rules、Builder、Manifest、QA Contract SHA 及輸出 SHA。未取得雙母版有效 QA 前，不得交付「完成」或發布 main。
+
+
+## 最新狀態錨點｜2026-11-22｜週一通過、平日母版 QA 修正中
+
+- 11/23 Monday 最新 run `44946465633` completed／success；QA sidecar `preview/2026-11-23-simulation.qa.json` blob `92574e9c14d4c316d977a276c6b03438b3b1843a`，HTML blob `d03603e367d9a57d6870d48971b9c17ab2b7da78`。active_rules 為 SIM-1.3 blob `116ebb0a6401321148a878fe20c9504df7ce37f7`；content_analysis_gate PASS、data_review_ready=true、sim14_review_ready=false。六個 viewport 1440／768／412／390／360／320 已通過。僅 simulation branch，未發布 main。
+- 11/20 weekday Fixture 已恢復 5 個原生摘要點，並把 `report_cutoff_taipei` 從 `2026-11-20 05:25（台灣時間）` 正規化為 Builder 可解析的 `2026-11-20 05:25`；commit `b26472e3a1d0ccb0927702151fbdb2e67fccfdf7`，blob `eabc45c0894cd79a06ab6fca7a0a51f95e7904af`。
+- 11/20 run `44946578765` 已完成但視覺 QA 失敗。根因不是財報卡缺內容：Weekday mother 的已公布卡欄位是「公布時段／EPS 預估／實際／營收預估／實際／財報判讀與股價反應／資料來源」；visual regression 卻硬套 Monday mother 的「財報判讀／股價當日表現／來源」標籤，造成 21 張卡全部 false negative。回讀生成 HTML 與 weekday mother，兩者實際五個欄位標籤一致，EPS／營收雙卡結構亦存在。
+- 已修正 `simulation-lab/runner/visual_regression.mjs`：依 Monday／weekday 母版分別比對正確的已公布財報明細標籤，不再跨母版共用錯誤標籤。commit `1f4b692a4a5eaef90bda4bf68ad5bbe5cfb9d0c8`，blob `63d95034922a97847556a70e8b00a7b5420ed69e`。新 weekday run `44946901354` 已觸發，當時狀態 queued，尚未驗收。
+- SIM-1.4 DRAFT 已修正週一／平日摘要規格衝突、Builder 核准前只能靜態檢查的矛盾，以及操作建議過度僵化問題；commit `08b6c632a861ae79c7aaa08484b2a98a80704554`，blob `a4254b7b2c18eb521e9c8edfaca8c38db56f82b8`。平日保留母版五個槽位；候選 Builder 可在 simulation branch 完整隔離測試，僅能標示 CANDIDATE_VALIDATED；使用者核准路徑及 SHA 後才可升格唯一生產入口。SIM-1.4 仍是 DRAFT，未生效。
+- 下一步：檢查 run `44946901354`；若通過，回讀 11/20 新 HTML／QA sidecar 並核對 provenance；若失敗，按 log 修正。接著確認雙母版在相同 Builder／Manifest／QA Contract／active rules SHA 下可重現；不得將不同版本測試拼接成同版雙母版 PASS。
