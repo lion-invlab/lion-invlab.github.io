@@ -6,7 +6,7 @@ import argparse, copy, hashlib, json, sys
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from consensus_snapshot_store import build_consensus_snapshot
+from consensus_snapshot_store import build_consensus_snapshot, select_first_available_estimate
 from earnings_judgment import consensus_evidence_label, evaluate_metric
 
 def main():
@@ -66,7 +66,7 @@ def main():
                 "unit":m["unit"] if metric=="REVENUE" else None,
                 "basis_code":None,"statistic":m["statistic"],"analyst_count":m["analyst_count"],
             }
-            snap=build_consensus_snapshot(event,metric,attempt,item["raw_response"],item["raw_response_ref"])
+            candidates=[attempt]+item.get("provider_attempts",{}).get(metric,[])\n            selected=select_first_available_estimate(candidates,event["reporting_period"])\n            if selected is not None:\n                attempt=selected\n            snap=build_consensus_snapshot(event,metric,attempt,item["raw_response"],item["raw_response_ref"])
             snapshots[metric]=snap
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
