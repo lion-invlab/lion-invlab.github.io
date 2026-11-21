@@ -25,7 +25,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             "reporting_period": "2026 Q3",
         }
         self.attempt = {
-            "source_level": 3,
+            "source_level": 2,
             "provider": "LSEG I/B/E/S",
             "url": "https://provider.example/consensus/ABC",
             "observed_at": "2026-11-10T04:00:00+08:00",
@@ -226,7 +226,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
                 )
                 revenue_attempt = dict(
                     self.attempt,
-                    source_level=4,
+                    source_level=3,
                     provider="FactSet Estimates",
                     observed_at=poll_time,
                     data_as_of=f"2026-11-{day}",
