@@ -18,7 +18,78 @@ def sha_blob(text: str) -> str:
 
 def normalize_market_label(value):
     """Normalize insignificant whitespace while preserving the original label for display."""
-    return re.sub(r"\\s+", "", str(value or "")).casefold()
+    return re.sub(r"\s+", "", str(value or "")).casefold()
+
+
+def populate_fed_weekly_agenda(soup, data):
+    """Fill only the pre-existing Fed agenda slots; never rebuild its outer DOM."""
+    box = soup.select_one("#fed .fc-fomc-weekly-events")
+    if box is None:
+        raise ValueError("Approved mother template missing #fed .fc-fomc-weekly-events")
+    title = box.select_one(".fc-fomc-weekly-events-title")
+    listing = box.select_one(".fc-fomc-weekly-events-list")
+    prototype = box.select_one(".fc-fomc-weekly-event-template")
+    empty = box.select_one(".fc-fomc-weekly-events-empty")
+    if not all((title, listing, prototype, empty)):
+        raise ValueError("Fed weekly agenda template slots are incomplete")
+    if title.get_text(" ", strip=True) != "本週聯準會官員行程":
+        raise ValueError("Fed weekly agenda title slot changed unexpectedly")
+    week_start = str(data.get("calendar", {}).get("week_start", ""))[:10]
+    week_end = str(data.get("calendar", {}).get("week_end", ""))[:10]
+    speaker_pattern = re.compile(
+        r"Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams",
+        re.I,
+    )
+    records = [
+        event for event in data.get("calendar", {}).get("events", [])
+        if speaker_pattern.search(str(event.get("name", "")))
+        and week_start <= str(event.get("date", ""))[:10] <= week_end
+        and str(event.get("status", "upcoming")).lower() not in {"cancelled"}
+    ]
+    records.sort(key=lambda event: str(event.get("date", "")))
+    # The list is a dedicated dynamic slot. Keep the list wrapper and fixed
+    # prototype intact; remove only previously rendered event instances.
+    for old in list(listing.select(":scope > .fc-fomc-weekly-event")):
+        old.decompose()
+    rendered_names = []
+    for event in records:
+        event_date = datetime.fromisoformat(str(event["date"]).replace("Z", "+00:00"))
+        status = str(event.get("status", "upcoming")).lower()
+        status_label = "已發表" if status in {"released", "published", "completed"} else "預定"
+        date_label = f"{status_label}｜{event_date.month}/{event_date.day} {['一','二','三','四','五','六','日'][event_date.weekday()]} {event_date:%H:%M}"
+        row = prototype.__copy__()
+        row.attrs = {key: list(value) if isinstance(value, list) else value for key, value in prototype.attrs.items()}
+        row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
+        row["class"].append("fc-fomc-weekly-event")
+        row.attrs.pop("hidden", None)
+        row.attrs.pop("data-fed-event-template", None)
+        date_slot = row.select_one(".fc-fomc-weekly-event-date")
+        name_slot = row.select_one(".fc-fomc-weekly-event-name")
+        impact_slot = row.select_one(".fc-fomc-weekly-event-impact")
+        link_slot = row.select_one(".fc-fomc-weekly-event-source")
+        if not all((date_slot, name_slot, impact_slot, link_slot)):
+            raise ValueError("Fed weekly agenda event prototype slots are incomplete")
+        date_slot.string = date_label
+        name_slot.string = str(event.get("name", ""))
+        impact_slot.string = str(event.get("impact", ""))
+        source_url = str(event.get("source_url", ""))
+        if source_url.startswith("https://"):
+            link_slot["href"] = source_url
+            link_slot.attrs.pop("hidden", None)
+        else:
+            link_slot.attrs["hidden"] = "hidden"
+            link_slot.attrs.pop("href", None)
+        listing.append(row)
+        rendered_names.append(str(event.get("name", "")))
+    if records:
+        empty.attrs["hidden"] = "hidden"
+    else:
+        empty.attrs.pop("hidden", None)
+    rendered_text = listing.get_text(" ", strip=True)
+    missing = [name for name in rendered_names if name and name not in rendered_text]
+    if missing:
+        raise ValueError("Fed weekly agenda omitted verified events: " + "; ".join(missing))
+    return len(records)
 
 
 def reject_cfd_cash_index_quotes(data):
@@ -857,60 +928,6 @@ def main():
 
     fed_title = soup.select_one(".fed-live-title")
     if fed_title: set_text(fed_title, "Fed 限時動態")
-    # Rebuild the Fed/FOMC weekly-events card from verified calendar records.
-    # The prior version left the mother's stale CPI-only static card untouched.
-    fed_events_box = soup.select_one(".fc-fomc-weekly-events")
-    if fed_events_box:
-        fed_events_box.clear()
-        heading = soup.new_tag("div")
-        heading["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
-        heading.string = "本週聯準會官員行程"
-        fed_events_box.append(heading)
-        fed_week_start = str(data.get("calendar", {}).get("week_start", ""))[:10]
-        fed_week_end = str(data.get("calendar", {}).get("week_end", ""))[:10]
-        # Keep completed as well as upcoming speakers in the current report week.
-        fed_records = [e for e in data.get("calendar", {}).get("events", [])
-                       if re.search(r"Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
-                       and fed_week_start <= str(e.get("date", ""))[:10] <= fed_week_end
-                       and str(e.get("status", "upcoming")).lower() not in {"cancelled"}]
-        for event in sorted(fed_records, key=lambda x: x.get("date", "")):
-            dt = datetime.fromisoformat(event["date"])
-            event_status = str(event.get("status", "upcoming")).lower()
-            status_label = "已發表" if event_status in {"released", "published", "completed"} else "預定"
-            date_label = f"{status_label}｜{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
-            row = soup.new_tag("div")
-            row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
-            when = soup.new_tag("div")
-            when["style"] = "font-size:12px;line-height:1.5;font-weight:850;color:#a92a32;"
-            when.string = date_label
-            detail = soup.new_tag("div")
-            name = soup.new_tag("div")
-            name["style"] = "font-size:13px;line-height:1.45;font-weight:800;color:#273746;"
-            name.string = event.get("name", "")
-            note = soup.new_tag("div")
-            note["style"] = "font-size:12px;line-height:1.55;color:#687583;margin-top:3px;"
-            note.string = event.get("impact", "")
-            detail.append(name)
-            detail.append(note)
-            if event.get("source_url", "").startswith("http"):
-                link = source_link(event["source_url"], "官方行程")
-                link["style"] = "display:inline-block;font-size:11px;margin-top:4px;color:#315d7b;text-decoration:underline;"
-                detail.append(link)
-            row.append(when); row.append(detail); fed_events_box.append(row)
-        if not fed_records:
-            empty = soup.new_tag("div")
-            empty.string = "本週尚無已核實的聯準會官員公開行程。"
-            fed_events_box.append(empty)
-    # Fail the build if the authoritative Fed calendar events are present in the input
-    # but absent from the visible Fed panel. Prevents "data exists but UI omitted it".
-    if fed_events_box:
-        rendered_fed_text = fed_events_box.get_text(" ", strip=True)
-        expected_fed_names = [e.get("name", "") for e in data.get("calendar", {}).get("events", [])
-                              if re.search(r"Waller|Bowman", str(e.get("name", "")), re.I)
-                              and str(e.get("status", "upcoming")).lower() not in {"released", "published", "completed", "cancelled"}]
-        missing_fed = [name for name in expected_fed_names if name and name not in rendered_fed_text]
-        if missing_fed:
-            raise ValueError("Fed live panel omitted calendar records: " + "; ".join(missing_fed))
     for anchor in soup.select("#tac-assets-panel-3 .energy-card .row > b a"):
         label = anchor.get_text(" ", strip=True)
         if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
@@ -2574,57 +2591,8 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
             unique(soup, selector, "Monday-only section")
     elif any(soup.select(selector) for selector in monday_only_ids):
         raise ValueError("weekday mother/output must not contain Monday-only previous-week sections")
-    # FINAL Fed panel render, after every template mutation. This is deliberately
-    # placed immediately before serialization so no later step can overwrite it.
-    final_fed_box = soup.select_one("#fed .fc-fomc-weekly-events")
-    if final_fed_box is None:
-        raise ValueError("Fed live panel container #fed .fc-fomc-weekly-events missing")
-    final_fed_box.clear()
-    fed_heading = soup.new_tag("div")
-    fed_heading["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
-    fed_heading.string = "本週聯準會官員行程"
-    final_fed_box.append(fed_heading)
-    fed_week_start = str(data.get("calendar", {}).get("week_start", ""))[:10]
-    fed_week_end = str(data.get("calendar", {}).get("week_end", ""))[:10]
-    # The panel is a weekly agenda, not only a future-event queue. Keep verified
-    # speeches that already occurred during this report week as completed items;
-    # otherwise a Thursday report can incorrectly fail after Monday/Tuesday
-    # speakers have already delivered their remarks.
-    fed_final_events = [e for e in data.get("calendar", {}).get("events", [])
-                        if re.search(r"Waller|Bowman|Jefferson|Barr|Goolsbee|Barkin|Logan|Schmid|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
-                        and fed_week_start <= str(e.get("date", ""))[:10] <= fed_week_end
-                        and str(e.get("status", "upcoming")).lower() not in {"cancelled"}]
-    fed_final_events.sort(key=lambda e: e.get("date", ""))
-    for event in fed_final_events:
-        dt = datetime.fromisoformat(event["date"])
-        status = str(event.get("status", "upcoming")).lower()
-        status_label = "已發表" if status in {"released", "published", "completed"} else "預定"
-        date_label = f"{status_label}｜{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
-        row = soup.new_tag("div")
-        row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
-        when = soup.new_tag("div")
-        when["style"] = "font-size:12px;line-height:1.5;font-weight:850;color:#a92a32;"
-        when.string = date_label
-        detail = soup.new_tag("div")
-        title = soup.new_tag("div")
-        title["style"] = "font-size:13px;line-height:1.45;font-weight:800;color:#273746;"
-        title.string = event.get("name", "")
-        note = soup.new_tag("div")
-        note["style"] = "font-size:12px;line-height:1.55;color:#687583;margin-top:3px;"
-        note.string = event.get("impact", "")
-        detail.append(title); detail.append(note)
-        url = event.get("source_url", "")
-        if url.startswith("http"):
-            link = source_link(url, "Fed 官方行程")
-            detail.append(link)
-        row.append(when); row.append(detail); final_fed_box.append(row)
-    rendered_fed = final_fed_box.get_text(" ", strip=True)
-    required_speakers = ["Waller", "Bowman"]
-    missing_speakers = [n for n in required_speakers if any(n.lower() in str(e.get("name", "")).lower() for e in fed_final_events) and n not in rendered_fed]
-    if missing_speakers:
-        raise ValueError("Fed live panel missing required speakers: " + ", ".join(missing_speakers))
-    if not fed_final_events:
-        raise ValueError("No verified Fed speaking events found for Fed live panel")
+    # Populate the fixed, mother-template-owned Fed weekly agenda slots.
+    populate_fed_weekly_agenda(soup, data)
     # Final FactSet freshness gate: prevent a stale hard-coded earnings panel from passing QA.
     final_health = unique(soup, "#sp500-earnings-health", "S&P 500 earnings health")
     health_text = final_health.get_text(" ", strip=True)
