@@ -1689,3 +1689,12 @@
 - 五大指數11/20 OHLC已由ChatGPT直接查閱Yahoo Finance歷史列並計算經典Pivot（P/S1/S2/R1/R2）；明細見Session State上一節。未使用GitHub Actions或Collector。
 - SOX主行情採Investing.com HK收盤8,408.6；Yahoo ^SOX OHLC收盤8,408.59，差異僅0.01，屬顯示精度差。
 - 階段②行情與關鍵價位完成；所有44項均有11/20資料日及可追溯來源，MOVE採最後順位EODData備援，未採TradingView未標明日期的摘要。
+
+
+## 2026-11-21｜2026-11-23（一）早報階段③行事曆核實
+- 唯讀讀取main W48 `data/calendar/weeks/2026-W48.json` SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，updated_at 11/21 09:00:28 +08:00，WR5.17，27經濟（22四星、5五星）及11財報（10四星、1五星），全數為未來事件；coverage incomplete屬正常進行中。
+- 唯讀讀取main W47 `data/calendar/weeks/2026-W47.json` SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，updated_at 11/20 04:39:41 +08:00，WR5.17；25經濟（2五星已發布、6四星未發布）、23財報（1五星已發布、3四星未發布）。
+- W47五星回顧：Warsh生產力與就業致詞、FOMC 10/27–28會議紀要、NVDA Q3 FY2027。NVDA GAAP EPS2.70、Revenue115.8B、Data Center107.6B、Q4指引130B±3%；PIT共識不採用，Yahoo首個交易日股價-2.89%。
+- W48 11筆財報預期欄均null；不採用缺data_as_of／period_end／basis的Investing.com Forecast。
+- W48五筆impact_judgment欄誤存URL，已記錄五個event ID；只在預覽HTML修正顯示，來源連結保留，main JSON絕不回寫。
+- 11/26美股休市、11/27提前收市已列入W48。階段③完成，交接階段④新聞及市場判讀。
