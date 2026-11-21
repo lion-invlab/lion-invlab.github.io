@@ -2670,3 +2670,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 已依核准週一母版原有DOM結構更新 #sp500-earnings-health，產出獨立模組預覽 /mnt/data/TAC_FactSet_盈餘健康度_2026-11-20_模組預覽.html，166,948 bytes，SHA-256 acafda7599e2529b8354c78882a143aae711ea01d9f6a16b4cdd6f96a4677ad6。Playwright Chromium以page.set_content測試360/390/412/768/1440px，區塊存在、無水平溢位、0 pageerror。這是模組級測試，不是11/23完整報告QA。
 - 詳細來源與數值核對另存 simulation-lab/analysis/factset-earnings-health-2026-11-20.md，commit 08f9fb20610333e12c6e32301aff4c561b1d7ae3。11/27 FactSet不發布，下一版為12/04。
 - 目前完整11/23 HTML審核版仍未產出；本模組尚未合併到完整報告。不得把模組預覽宣稱為整份早報完成；main首頁、正式母版及W48 JSON未修改。
+
+
+## 2026-11-21｜11/20 行情待核實項目增量裁決
+- STOXX Europe 600：直接開啟 Investing.com Historical Data，Nov 20, 2026 row 為 625.66，日變動 -2.00%，前收 638.41；獨立交叉來源 Börse Stuttgart 同日 17:50 顯示 625.65、-2.00%，差異 0.01 點屬來源精度差。採指定第一來源 Investing.com 625.66 (-2.00%)，原先 635.77 是錯置／非同日數值，撤銷。來源：https://www.investing.com/indices/stoxx-600-historical-data；交叉：https://www.boerse-stuttgart.de/en/products/indices/965820-stoxx-europe-600 。
+- Gold Dec 2026（GCZ6）：直接開啟 Investing.com Gold Historical Data，Nov 20 row 3,539.00，-3.98%，成交量 323.90K；採主來源，不沿用舊待核實值 3,515.4。來源：https://www.investing.com/commodities/gold-historical-data 。
+- Silver Dec 2026（SIZ6）：直接開啟 Investing.com Silver Historical Data，Nov 20 row 41.080，-7.39%，成交量 110.38K；採主來源，不沿用舊待核實值 41.07。來源：https://www.investing.com/commodities/silver-historical-data 。
+- CNN Fear & Greed：CNN 官方頁直接開啟仍受限制；第三方 10 與媒體轉述 15 不一致，維持「待核實」，不填值。
+- FedWatch：撤回先前 86.4%／89.6% 等方向性結論；使用者已指出先前解讀錯誤，在未重新核對使用者既定利率區間映射前，禁止將該數字或「升息機率」敘述帶入 11/23 早報。保留獨立欄位為待重新判讀，不將錯誤數值沿用。
+- 本輪只修正上述行情狀態與來源記錄；其餘已鎖定行情不重抓。
