@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare stable mother-owned DOM contracts between a locked mother and a built review."""
+"""[build-tac-report:2026-11-20] Validate Monday/weekday mother-owned DOM contracts without altering either mother."""
 from __future__ import annotations
 import argparse
 from collections import Counter
