@@ -259,6 +259,32 @@ def apply_report_layer_earnings_status(data):
         applied += 1
     return applied
 
+def apply_calendar_impact_overrides(data):
+    """Repair known URL-corrupted impact text in the report layer only."""
+    overrides = data.get("calendar_impact_overrides", [])
+    if not overrides:
+        return 0
+    events = data.get("calendar", {}).get("events", [])
+    by_id = {str(item.get("id")): item for item in events}
+    applied = 0
+    for row in overrides:
+        event_id = str(row.get("event_id") or "").strip()
+        target = by_id.get(event_id)
+        if target is None:
+            raise ValueError(f"calendar impact override event not found: {event_id}")
+        current = str(target.get("impact") or "").strip()
+        if not re.match(r"^https?://", current, re.I):
+            raise ValueError(f"calendar impact override refused: source field is not a URL for {event_id}")
+        replacement = str(row.get("impact") or "").strip()
+        if len(replacement) < 20 or re.match(r"^https?://", replacement, re.I):
+            raise ValueError(f"calendar impact override must be explanatory text, not a URL: {event_id}")
+        target["impact"] = replacement
+        target["impact_override_note"] = str(row.get("note") or "simulation report-layer correction; authoritative main JSON unchanged")
+        applied += 1
+    print(f"PASS: applied {applied} report-layer calendar impact corrections; main JSON remains read-only")
+    return applied
+
+
 def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
@@ -456,6 +482,7 @@ def main():
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
+    apply_calendar_impact_overrides(data)
     # Recalculate released cards in both the current week and Monday's prior-week section.
     # Numeric consensus/actual pairs are sufficient; PIT and basis metadata remain disclosures.
     recalculate_released_earnings(
