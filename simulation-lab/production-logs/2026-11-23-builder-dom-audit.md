@@ -86,3 +86,6 @@
 3. **行事曆分頁順序／空白文案：** 原 Builder 在逐組處理時將 group append 回 panels，空組 continue 留在原位，導致 DOM 次序錯亂；且只刪除 details 卡，未清除舊 empty-state 文字。現改為保留母版原始三組順序、清除 list 內舊文字／舊卡片，空組保留正確 empty-state。分類統一依明確發布狀態及 Asia/Taipei 報告截點判斷；未到截點的 pending_verification 不得提前歸入已公布。
 4. 新增 regression tests：商品連結與報價來源分離、4／5 星 class、日期／狀態分類、清除過期空白文案；並加入輸出 DOM 三分頁順序驗證。
 5. 所有修改只在 simulation branch，未修改母版、main 行事曆 JSON 或 main/index.html。待完整 Builder／DOM／視覺 QA 通過後，再更新 main 同日 preview。
+
+
+- 2026-11-21 22:38：第一輪 CI 發現舊 `test_quote_type_guard.py` 仍假設商品連結沿用 CME quote source URL；這與新要求「商品名稱連結 → Investing.com、資料來源 → 實際報價證據」相衝突。已同步更新舊測試，確認兩種 URL 分離，不放寬來源證據檢查。
