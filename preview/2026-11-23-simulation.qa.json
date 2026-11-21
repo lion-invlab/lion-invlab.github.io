@@ -19,10 +19,10 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "4ffbbf2a534b660c641d0cdd0d0bf8182f1030e7",
-  "report_sha256": "b65f9277b2c1c34685d1db91c0b8efbbfc8082222208e13707203736a0017ca1",
-  "build_commit_sha": "2edf3bf97d8997ab9c78be5770065902e313aa51",
-  "builder_blob_sha": "3e010dfdbec077ae217e55d8979b305eaa11d4cb",
+  "report_git_blob_sha": "04d8c924c1f288f8be825527540c253ed9c6ceca",
+  "report_sha256": "de98b41f3351909b8d248f0e46e9daa3e389d234315fa0415a6bd68f3080ba8b",
+  "build_commit_sha": "c0f585005cf4014302097de4413c21a851606ccb",
+  "builder_blob_sha": "9a2b970d136c129591fbc068873825153b18c727",
   "fixture_blob_sha": "948b504a0fba8ba45653cacc0a43cff5377e91a7",
   "template_blob_sha": "36f29bcb37816348756f9233b60f0429d675a76e",
   "manifest_blob_sha": "1496a510d144d340c41b642592675233d5bd2917",
@@ -30,7 +30,7 @@
   "active_rules_blob_sha": "116ebb0a6401321148a878fe20c9504df7ce37f7",
   "candidate_rules_blob_sha": "371554033cd33efb76062827bc6b340e16f28bc2",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "3e010dfdbec077ae217e55d8979b305eaa11d4cb",
+  "candidate_builder_blob_sha": "9a2b970d136c129591fbc068873825153b18c727",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -58,7 +58,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "1140ce083b15b4b2e6461831a96657c0fb0f783bcd272b1ec2d44ff5b4408c0f",
+  "visual_evidence_sha256": "e2d24f48d3cbd2adfada382497bc6082f9d517a8adfae2b4d11f0876222a5679",
   "viewports": [
     1440,
     768,
@@ -67,6 +67,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44950855555",
+  "workflow_run_id": "44951910011",
   "workflow_run_attempt": "1"
 }
