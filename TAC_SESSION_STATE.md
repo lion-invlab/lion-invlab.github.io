@@ -21,7 +21,7 @@
 - **商品連結回讀：** WTI／Brent／GC／SI 的預覽名稱不附合約月份，合約資料留在來源補充說明；四個 href 指向 Investing.com 對應商品歷史頁。當次直接開頁核對頁面標題／合約：WTI 2027年1月、Brent 2027年1月 LCOF7、黃金 2026年12月 GCZ6、白銀 2026年12月 SIZ6。連結驗收須同時核對網域、商品、交易所及合約，不可只檢查 URL 字串。
 - **財報小卡：** Builder 已修正複製母版五星 prototype 後未同步星等 class 的問題；四星公司不再帶五星 class。輸出保留 EPS／Revenue 雙卡及下方詳細區；CSS 124 個 style block 與母版逐塊相同，25 個 script block 數量相同，DOM validator 與 browser smoke 通過。
 - **行事曆分頁：** 經濟 today／upcoming／published = 6／21／0；財報 = 1／10／0。Builder 已修正原先移動 group 造成 nth-child 分頁順序錯置、空組 continue 留在原位、舊 empty-state 未清除等問題；目前分頁按 today → upcoming → published，並依台灣報告截點分類。W47 上週回顧仍保留。
-- **其他資料狀態：** 報告基準日 2026-11-20；新聞窗口已封口於 2026-11-21 17:57:31 台灣時間。六筆全球指數已改用 Investing.com 全球指數歷史頁／DAX Xetra 現貨序列，不再把香港站 CFD 當現貨。WTI／GC／SI 為 CME 11/20 preliminary settlement；Brent 為 Investing.com LCOF7 歷史報價。USD/TWD 採 CBC 銀行間收盤 32.936。這些內容仍須遵守來源註記及當次報告時間限制。
+- **其他資料狀態（2026-11-21 修訂）：** 報告基準日 2026-11-20；新聞窗口已封口於 2026-11-21 17:57:31 台灣時間。六筆全球指數已改用 Investing.com 全球指數歷史頁／DAX Xetra 現貨序列，不再把香港站 CFD 當現貨。WTI／GC／SI 為 CME 11/20 preliminary settlement；Brent 為 Investing.com LCOF7 歷史報價。**USD/TWD 一律採 Investing.com 歷史資料，禁止使用 CBC／央行銀行間收盤或銀行牌告匯率**；11/20 USD/TWD 採用值 32.971（-0.18%），來源為 Investing.com HK USD/TWD 歷史資料頁。
 - **Pages：** workflow deploy run `44915207046` success；但 Web 讀取預覽網址回傳 Internal Error，線上 HTTP 實際載入狀態仍未驗證。不得將部署 workflow success 說成已人工開啟確認。
 - **正式資產保護：** 本輪 SIM-1.4 草案修改僅在 simulation branch。不得修改 main/index.html、正式雙母版、正式 Manifest 或 main 行事曆 JSON；審核版 preview 與正式首頁發布仍是分離授權。
 - **下一步：** ①核對最新草案內所有舊條文衝突與引用編號；②用最新 DRAFT SHA `f585c0e...` 重新執行 Monday build；③以同一 Builder／Manifest／QA Contract／DRAFT SHA 重跑 Weekday fixture；④完成 selector/write inventory、動態容器白名單及負向測試矩陣；⑤等待 11/23 05:25 更新 VIX、MOVE、CNN Fear & Greed、FedWatch 後重新評估 data_review_ready。Builder 仍未獲唯一入口核准，SIM-1.3 仍有效。
