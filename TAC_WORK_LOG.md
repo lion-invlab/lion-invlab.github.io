@@ -1859,3 +1859,9 @@
 - S&P500採AP現金指數6,910.39 (-3.70%)，Russell2000採AP現金指數2,581.79 (-2.76%)；不使用Investing同名CFD。Hang Seng採FT現貨歷史22,410.80 (-1.89%)；Nikkei225採Nikkei Indexes官方56,436.65 (-5.06%)。17項均已登記來源與口徑。
 - STOXX 625.66另由Börse Stuttgart同日625.65獨立交叉核對；差0.01點為來源精度差。此前635.77為日期錯置，撤銷。
 - 44項進度目前43/44已核實，唯一未結為CNN Fear & Greed；FedWatch屬獨立指標，先前86.4%／89.6%判讀撤回，暫不寫入報告。
+
+
+## 2026-11-21｜G1／Market Sentiment 主稿修正
+- 更新主稿，納入FactSet 11/20 EPS與Revenue成長／surprise幅度的分層判讀、11/20主要市場收盤、Fed會議紀要揭示的AI基建融資風險、台灣外銷訂單及Reuters價值股輪動分析。
+- 撤回先前FedWatch 86.4%／89.6%方向性解讀；在重新核對使用者既定目標利率區間映射前，不於總結、情緒或Fed卡片使用任何機率值或升息結論。CNN Fear & Greed仍待核實，不沿用10或15。
+- 新版Market Sentiment只採可核實VIX 35.89、MOVE 106.3、Treasury CMT 10Y 4.92%、GCZ6 3,539.00及SIZ6 41.080；清楚標示CNN與FedWatch限制。
