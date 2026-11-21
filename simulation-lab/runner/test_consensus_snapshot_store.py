@@ -120,7 +120,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         validator = jsonschema.Draft202012Validator(schema["$defs"]["consensusSnapshot"])
         validator.validate(self.build())
 
-    def test_yahoo_finance_first_tier_capture_is_stored_but_basis_gap_blocks_eligibility(self):
+    def test_yahoo_finance_first_tier_capture_is_usable_without_basis_or_provider_asof(self):
         attempt = dict(self.attempt, source_level=1, provider="Yahoo Finance",
                        data_as_of=None, basis_code=None,
                        observed_at="2026-11-09T13:00:00+08:00",
