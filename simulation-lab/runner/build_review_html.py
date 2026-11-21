@@ -254,8 +254,12 @@ def validate_summary_title(value):
     return title
 
 def set_market_observation(node, title, value):
-    """Render every observation block with the same heading + paragraph DOM."""
-    raw = str(value or "").strip()
+    """Render legacy string or structured {heading, text} observation records."""
+    if isinstance(value, dict):
+        title = str(value.get("heading") or title)
+        raw = str(value.get("text") or "").strip()
+    else:
+        raw = str(value or "").strip()
     if "｜" in raw and raw.startswith("📌"):
         raw = raw.split("｜", 1)[1].strip()
     node.clear()
@@ -2218,7 +2222,8 @@ def main():
     }
     if len(view.select(".focus-tab-labels label")) != 3 or len(view.select(".focus-panels > .focus-panel")) != 3:
         raise ValueError("Today Focus must retain exactly three approved tabs and panels")
-    if data["observation"] not in focus_tabs["market"].get_text(" ", strip=True):
+    observation_text = data["observation"].get("text", "") if isinstance(data["observation"], dict) else str(data["observation"])
+    if observation_text not in focus_tabs["market"].get_text(" ", strip=True):
         raise ValueError("market observation text did not assemble")
     levels_text = focus_tabs["levels"].get_text(" ", strip=True)
     level_items = (data.get("key_levels") or {}).get("items", [])
