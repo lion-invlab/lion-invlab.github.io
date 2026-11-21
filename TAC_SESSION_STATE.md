@@ -3248,3 +3248,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - QA JSON 的 `builder_blob_sha` 與分支最新 Builder blob SHA 完全一致；報告日期 2026-11-23，六個 viewport 1440／768／412／390／360／320 全部通過。Fed 官員行程、FedWatch、週一上週經濟行事曆與財報行事曆均保留。
 - 最終狀態：`QA_PASSED`；`review_ready=false`、`data_review_ready=false`。唯一 review-ready blocker 仍為 VIX、MOVE、CNN Fear & Greed、FedWatch 須於 2026-11-23 05:25 台灣時間截稿前重新讀取並更新時間戳。
 - 審核版僅存於 simulation branch；main／正式首頁未修改。SIM-1.3 仍有效；SIM-1.4 未核准。
+
+
+## 2026-11-21｜能源／商品合約月份標籤擠壓修正（進行中）
+
+- 使用者依 11/23 審核版手機截圖指出：WTI／Brent 商品名稱後面附加合約月份，造成名稱欄與報價欄重疊、擠壓。
+- 依指示：商品列只顯示「WTI 原油期貨」「Brent 原油期貨」等簡潔名稱；合約代碼及月份移至既有來源說明（`.tab-panel-meta`），不新增欄位、不改母版 CSS／DOM。
+- 修改範圍：僅 simulation branch 的 `simulation-lab/runner/build_review_html.py` 與 `test_quote_type_guard.py`；不修改母版、main 首頁、正式資料庫。
+- Builder commit：`168c389873dc91a67212237446cfc6b8320ee809`；Builder blob SHA：`f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`。
+- Regression test commit：`b583fda68a6724d75514b9677e37302d4e5e128a`；測試檔 blob SHA：`7d2479a73dfbd7fa2e436fbc00fa685ee6dc0a33`。
+- CI：run `44913120411` 首次失敗僅因測試對 BeautifulSoup `rel` 屬性的型別假設；Builder compile 通過。修正測試後 run `44913183956` 的 deterministic self-tests 已通過；該 run 尚待 workflow 完整結束。
+- 下一步：重新讀取 SIM-1.3 的修正／QA 條款與 QA Contract，執行 11/23 完整 build、DOM／視覺 QA，確認能源列不重疊且合約月份仍在來源說明；再更新 main/preview（不動 main/index.html）。
