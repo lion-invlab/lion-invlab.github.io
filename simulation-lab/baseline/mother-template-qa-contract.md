@@ -359,3 +359,8 @@
 - 新 simulation Monday mother blob SHA：`b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Manifest、A2.1 與本節同步此 SHA。原本 DOM／ID／style/script 節點數不變，仍以自動化 DOM 與瀏覽器視覺驗收確認。
 - 此變更只作用於 simulation branch。main 正式母版及正式 Manifest 完全未修改。
 - D2 財報雙卡規格不變：EPS／營收兩張實績卡於手機仍須並列兩欄；不可堆疊。
+
+
+## 2026-11-22｜SIM-1.4 完整端到端驗收啟動
+
+- 依使用者授權的 simulation Monday mother 手機版雙欄基準（SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`）及同步後 Manifest／本契約／Regression test，啟動 2026-11-23 完整 build 與所有 Gate。必須使用本次 run 新產生的 HTML 與 sidecar；舊預覽不可沿用。
