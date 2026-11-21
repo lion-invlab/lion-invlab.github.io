@@ -120,3 +120,10 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
 - Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
 - 仍未通過 CI 前，不宣稱測試成功；仍須跑真正 Monday／weekday HTML build、DOM 零退化、artifact validation、Playwright 桌面／手機與六 viewport 視覺 QA。SIM-1.4 維持 DRAFT，main／正式首頁未修改。
+
+
+## 2026-11-21｜Builder 母版相容性修正追加
+
+- 移除每日 Builder 的 summary heading、週一 disclosure、側欄 layout、能源報價、財報卡片及市場名稱字體 CSS 注入；保留既有母版 CSS／JS。單次突發專題 `special_focus` 為使用者 2026-11-11 明確核准的條件式例外，不作一般每日版位。
+- 移除週一收折 summary 清空重建；Fed 官員行程使用雙母版固定槽位；FedWatch 維持兩卡，不再 clone 第三卡或寫死三情境。多情境資料不符合兩卡版型時 fail closed，完整情境保留在既有快照收折區。
+- QA Contract 更新 SHA：`26bb1dc456185069753d1c6b9cfa038e97875913`。實際 build／DOM diff／Playwright 尚待驗收，不得標示 SIM-1.4 完成。
