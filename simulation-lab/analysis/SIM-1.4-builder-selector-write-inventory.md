@@ -78,3 +78,28 @@ Manifest 對兩份母版均明載「Summary and Market Sentiment section heading
 - SIM-1.4：DRAFT，未生效。
 - SIM-1.3：仍為唯一有效規範。
 - main、正式首頁、正式母版：未修改。
+
+
+## 7. 與 QA Contract v1.8 DRAFT 逐條交叉比對：已確認的明確違規
+
+QA Contract SHA f6848d21286f63c4eef11682eedd8825b5fd3aad。以下不是「可能風險」，而是 Builder 寫入方式與契約明文不一致：
+
+| QA Contract | 契約要求 | Builder 實際程式 | 判定 |
+|---:|---|---|---|
+| 101 | 只更新已授權目標；重複事件卡 clone 母版原卡；保留外層容器、details/summary、tabs、CSS、JS、互動 | 1832 panels.clear() 清除 .week-econ-panels 全部子節點後才重建三個 status groups | BLOCK |
+| 101 | 保留母版既有外層與控制結構 | 1866 ep.clear() 清除 .week-earnings-panels 全部子節點後才重建 status groups | BLOCK |
+| 85 | 已公布 EPS／營收雙卡結構必須保留，不得改成其他結構 | 1924／2005 對 .earnings-accordion-details.clear() 後建立新 results grid／detail fields；必須證明這些節點完全符合母版原始子樹，而非 Builder 自行重建 | BLOCK，需先做母版與輸出逐節點 diff |
+| 119–120 | 一般 build 的 style 節點數／內容須與母版一致；Builder 不得追加其他 CSS。僅使用者核准的單次 special_focus 可例外 | special_focus 分支會建立新 section 與 style；此例外只能在 fixture 有明確核准授權時啟用，否則須 fail closed | CONDITIONAL BLOCK |
+| 125 | Market Sentiment 最後一張卡保留 label/body 兩子節點及 inline style，只更新 body 文字 | 需將 sentiment helper 的每個寫入點與 125 逐一核對；不得僅以函式名稱含 preserving 判定通過 | OPEN |
+| 126 | S&P 500 earnings health 保留完整子樹、卡片數、inline style、欄數，只更新既有文字槽與來源 href | helper 與相關直接 clear 操作需再逐點核對；不能只依視覺 QA 判定 | OPEN |
+| 203–206 | Fed 官員行程保留固定四槽位；只 clone 原型，不清外層 | 目前 89–151 的程式保留 wrapper/title/list/prototype/empty state，只移除 list 直屬已渲染 event instances | PASS（維持負向測試） |
+| 198 | FedWatch 2 卡／2 段／2 legend，不得 clone 第三張或追加 CSS | 29–80 對數量做 fail-closed 檢查並更新原 slot | PASS（維持負向測試） |
+| 57 | market-reason 固定子節點順序，不得 clear() 重建 | 程式多處以 set_market_observation 更新；仍須確認沒有其他直接操作破壞其子節點順序 | OPEN |
+
+### 7.1 核心判定
+
+現有 QA Contract 已明確寫出容器／子樹保護條款，並非規則沒有定義。Builder 的 .week-econ-panels 與 .week-earnings-panels 全容器清空，是當前最明確的核心問題；不能因兩份 fixture 的視覺及互動 QA 通過，就將它視為可接受的實作。
+
+下一步應優先修正這兩個容器：保留原有三個 status groups、tab/radio 對應與 panel wrapper，只清理各自明確核准的 list slot 中舊資料卡，再以原型 clone 補入新卡。財報卡內的 details 子樹則需先逐節點比對兩母版，確認母版已有 EPS／營收兩卡及必要 detail slots，才決定是填槽還是修正母版／契約；不得直接假設可重建。
+
+任何 Builder 變更都會改變 Builder SHA，必須重新凍結候選版本，並重跑 Monday + Weekday 同 SHA 雙母版 build、六視窗字型／互動／DOM／provenance／44項結構 Gate。SIM-1.3 在使用者核准 SIM-1.4 前仍為唯一有效規範。
