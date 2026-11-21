@@ -89,7 +89,7 @@ def main():
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
             source_key="consensus_source" if metric=="EPS" else "revenue_consensus_source"
-            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，依SIM-1.4以同期間實際值與平均預期值作數值比較；僅在幣別、單位或期間明確不相容時標記資料尚未齊備，來源口徑保留註記。"}
+            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":attempt.get("url"),"observed_at":attempt.get("observed_at"),"notes":f'{attempt.get("provider")} 公告前觀測；來源未揭露的口徑細節保留註記，不阻擋同期間數值採用。'}
         method_row=methodology_by_ticker.get(item["ticker"],{})
         method_raw=method_row.get("raw_response") if isinstance(method_row,dict) else None
         method_digest=hashlib.sha256(json.dumps(method_raw,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest() if isinstance(method_raw,dict) else None
@@ -104,16 +104,16 @@ def main():
             and method_row.get("eps_matches_captured_value") is True
             and method_row.get("revenue_matches_captured_value") is True
             and method_row.get("raw_response_sha256")==method_digest
-            and method_row.get("source_url")==item["source_url"]
+            and method_row.get("source_url")==selected_attempts["EPS"].get("url")\n            and selected_attempts["EPS"].get("provider")=="Yahoo Finance"
             and method_pre_release
             and eps_method in ("gaap","normalized")
         )
         eps_basis_display=(
             ("GAAP" if eps_method=="gaap" else "Normalized（非 GAAP）")+
             "；Basic／Diluted 細節未完整揭露"
-            if eps_method_verified else "Yahoo 平台 EPS 預期（GAAP／Normalized 細節未完整揭露）"
+            if eps_method_verified else f'{selected_attempts["EPS"].get("provider")} EPS 預期（來源未揭露口徑細節）'
         )
-        revenue_basis_display="Yahoo 平台 Revenue 預期（營收細項定義未完整揭露）"
+        revenue_basis_display=f'{selected_attempts["REVENUE"].get("provider")} Revenue 預期（來源未揭露指標細項定義）'
         labels={k.lower():consensus_evidence_label(projected,k.lower()) for k in ("EPS","REVENUE")}
         statuses={k.lower():evaluate_metric(projected,k.lower())["status"] for k in ("EPS","REVENUE")}
         if any(v not in (None,"TAC 公告前觀測共識") for v in labels.values()):
