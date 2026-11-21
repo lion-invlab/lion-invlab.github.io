@@ -12,6 +12,10 @@ from build_review_html import (
     update_actual_results_grid,
     update_published_earnings_detail_fields,
     update_upcoming_earnings_detail_fields,
+    apply_earnings_star_style,
+    classify_calendar_group,
+    reset_calendar_listing,
+    update_contract_link_label,
 )
 
 
@@ -35,10 +39,55 @@ def counts(details):
     }
 
 
+def test_commodity_link_uses_investing_instrument_url_not_quote_source():
+    link = BeautifulSoup('<a href="https://www.cmegroup.com/bulletin.pdf">WTI 原油期貨（CLF27）</a>', "html.parser").a
+    source = {"url": "https://www.cmegroup.com/bulletin.pdf"}
+    instrument = "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
+    update_contract_link_label(link, "CLF27（2027年1月）", source, instrument)
+    assert link.get_text(" ", strip=True) == "WTI 原油期貨"
+    assert link["href"] == instrument
+    assert source["url"].startswith("https://www.cmegroup.com/")
+
+
+def test_earnings_star_style_matches_each_card_rating():
+    soup = mother("monday-mother-template.html")
+    card = next(x for x in soup.select("#earnings details.earnings-accordion") if "five-star-earnings" in x.get("class", []))
+    four_star = {"stars": 4}
+    apply_earnings_star_style(card, four_star)
+    assert "five-star-earnings" not in card.get("class", [])
+    assert "five-star-company" not in card.select_one(".earnings-company-name").get("class", [])
+    apply_earnings_star_style(card, {"stars": 5})
+    assert "five-star-earnings" in card.get("class", [])
+    assert "five-star-company" in card.select_one(".earnings-company-name").get("class", [])
+
+
+def test_calendar_grouping_respects_publication_status_and_report_cutoff():
+    cutoff = "2026-11-23T05:25:00+08:00"
+    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-23T06:00:00+08:00"}, "2026-11-23", cutoff) == "today"
+    assert classify_calendar_group({"status": "upcoming", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
+    assert classify_calendar_group({"status": "released", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "published"
+    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-24T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
+    assert classify_calendar_group({"status": "pending_verification", "event_date": "2026-11-23T04:00:00+08:00"}, "2026-11-23", cutoff) == "published"
+    assert classify_calendar_group({"status": "postponed", "event_date": "2026-11-22T10:00:00+08:00"}, "2026-11-23", cutoff) == "upcoming"
+
+
+def test_calendar_listing_removes_stale_copy_and_prototypes():
+    soup = BeautifulSoup('<div class="earnings-accordion-list">舊版今日無事件<details class="earnings-accordion"></details></div>', "html.parser")
+    listing = soup.div
+    reset_calendar_listing(listing, "earnings-accordion", "目前沒有事件", False)
+    assert listing.get_text(" ", strip=True) == "目前沒有事件"
+    assert not listing.select("details.earnings-accordion")
+
+
 def main():
     fixture = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-23.json").read_text(encoding="utf-8"))
     upcoming = fixture["earnings"]["events"][0]
     published = fixture["last_week_earnings"]["events"][0]
+
+    test_commodity_link_uses_investing_instrument_url_not_quote_source()
+    test_earnings_star_style_matches_each_card_rating()
+    test_calendar_grouping_respects_publication_status_and_report_cutoff()
+    test_calendar_listing_removes_stale_copy_and_prototypes()
 
     # Monday mother: one approved upcoming detail field and a three-field
     # retrospective published card prototype.
