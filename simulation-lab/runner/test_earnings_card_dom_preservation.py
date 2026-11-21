@@ -54,9 +54,10 @@ def test_monday_earnings_source_note_matches_approved_mother_dom():
     soup = mother("monday-mother-template.html")
     earnings = soup.select_one("#earnings")
     assert earnings is not None
-    source_note = earnings.find("div", class_="source", recursive=False)
-    assert source_note is not None, "Monday earnings source note must remain a direct child of #earnings"
-    assert source_note.find("a") is not None, "mother source note link must remain available for stale-link suppression"
+    calendar_card = earnings.select_one(":scope > article.calendar-card")
+    source_notes = calendar_card.find_all("div", class_="source", recursive=False) if calendar_card else []
+    assert len(source_notes) >= 2, "Monday calendar card must retain its two mother-owned source notes"
+    assert source_notes[-1].find("a") is not None, "dated mother source note must remain available for stale-link suppression"
 
 
 def test_earnings_star_style_matches_each_card_rating():
