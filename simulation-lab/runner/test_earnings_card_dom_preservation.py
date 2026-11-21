@@ -17,6 +17,7 @@ from build_review_html import (
     reset_calendar_listing,
     update_contract_link_label,
     populate_fed_weekly_agenda,
+    update_earnings_calendar_source_note,
 )
 
 
@@ -59,6 +60,27 @@ def test_monday_earnings_source_note_matches_approved_mother_dom():
     assert len(source_notes) >= 2, "Monday calendar card must retain its two mother-owned source notes"
     assert source_notes[-1].find("a") is not None, "dated mother source note must remain available for stale-link suppression"
 
+def test_earnings_calendar_source_note_is_mother_specific():
+    fixture = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-23.json").read_text(encoding="utf-8"))
+    monday = mother("monday-mother-template.html")
+    monday_earnings = monday.select_one("#earnings")
+    monday_card = monday_earnings.select_one(":scope > article.calendar-card")
+    monday_notes = monday_card.find_all("div", class_="source", recursive=False)
+    assert len(monday_notes) >= 2
+    original_anchor = monday_notes[-1].find("a")
+    assert original_anchor is not None
+    update_earnings_calendar_source_note(monday_earnings, fixture, True)
+    assert "本週財報期間：" in monday_notes[-1].get_text(" ", strip=True)
+    assert original_anchor.has_attr("hidden") and not original_anchor.has_attr("href")
+
+    weekday = mother("weekday-mother-template.html")
+    weekday_earnings = weekday.select_one("#earnings")
+    weekday_card = weekday_earnings.select_one(":scope > article.calendar-card")
+    assert weekday_card.find_all("div", class_="source", recursive=False) == []
+    before = str(weekday_earnings)
+    update_earnings_calendar_source_note(weekday_earnings, fixture, False)
+    assert str(weekday_earnings) == before, "weekday mother source-note handling must be a no-op"
+
 
 def test_earnings_star_style_matches_each_card_rating():
     soup = mother("monday-mother-template.html")
@@ -97,6 +119,7 @@ def main():
 
     test_commodity_link_uses_investing_instrument_url_not_quote_source()
     test_monday_earnings_source_note_matches_approved_mother_dom()
+    test_earnings_calendar_source_note_is_mother_specific()
     test_earnings_star_style_matches_each_card_rating()
     test_calendar_grouping_respects_publication_status_and_report_cutoff()
     test_calendar_listing_removes_stale_copy_and_prototypes()
