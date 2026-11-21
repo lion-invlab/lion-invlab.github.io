@@ -204,8 +204,6 @@ def set_text_preserving_child_elements(node, value):
     if not text_nodes:
         raise ValueError(f"no existing direct text slot in <{node.name}>")
     text_nodes[0].replace_with(str(value))
-    for extra in text_nodes[1:]:
-        extra.replace_with("")
 
 
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
