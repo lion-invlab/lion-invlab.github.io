@@ -2573,3 +2573,19 @@
 - 最終回讀：USD/TWD 32.971、-0.18%，名稱連結為 Investing.com HK 歷史資料頁；HTML 不含 CBC／央行來源字串。WTI／Brent／GC／SI 名稱連結為各自 Investing.com 歷史資料頁。行事曆經濟分組 6／21／0、財報分組 1／10／0；NVDA -2.89% 反應與 Fed 官員行程均保留。
 - SIM-1.3 最新 blob SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`；SIM-1.4 DRAFT 最新 blob SHA `9163c299522cfb1e177565b2cccd873ba19850f1`。SIM-1.4 仍是 DRAFT，`sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`，未核准前不得生效。
 - 最新預覽與 QA sidecar 僅寫入 simulation branch；main、正式首頁、正式母版、正式行事曆 JSON 未修改。正式首頁仍須等待使用者明確批准。
+
+## 2026-11-22｜11/23 審核版市場分析重寫與內容 Gate 通過
+
+- 依使用者要求，重新改寫 11/23（一）審核版總結、盤面觀察、市場情緒及市場評論；不再以漲跌幅重述代替分析。
+- 總結卡實際使用欄位為 `summary_title` 與 `summary_points`。前一輪只改 `summary` 未改總結卡欄位，經回讀發現未完整呈現；已改正為三段「市場主軸／基本面分歧／操作建議」。
+- 操作建議明確採「中性偏防禦」：維持現金流穩健、負債可控的核心持倉；降低高槓桿、自由現金流不足及資本回收期過長的 AI 題材曝險；不追價、不融資抄底；列明市場廣度、VIX／債市波動、企業指引的分批加碼條件，以及信用利差／獲利預期惡化時的減碼條件。
+- 重寫美股、亞洲、歐洲、產業、債券、匯率、原油、貴金屬評論；對無法證實的單一跌市成因明確保留不確定性。債券評論更正為殖利率上行並非公債避險買盤證據。各評論不再重複行情卡百分比。
+- 修正 Monday Builder 的兩個舊區域摘要槽位：`#asia` 必須使用亞洲評論索引 1；`#tac-region-panel-2` 必須使用歐洲評論索引 3，並在最終 DOM 寫入後再次驗證，避免隱藏／舊摘要區仍殘留跨區錯置內容。
+- SIM-1.4 DRAFT 新增第 7.4 節「分析內容品質 Gate」：總結投資判斷、評論因果鏈、Market Sentiment 分工、盤面觀察重點及 Stage 4／5 強制驗收。SIM-1.4 仍為 DRAFT，未經使用者核准不得視為正式生效。
+- QA workflow 新增 `content_analysis_gate`，驗證總結三段、操作方向與條件、三區評論正確槽位、資產評論是否呈現投資應對、盤面觀察及市場情緒是否確實寫入最終 HTML；sidecar 記錄分析區塊、無證據因果、重複報價與可執行性檢查結果。
+- 最終 build run `44924450638` completed／success。Deterministic self-tests、HTML assembly、browser interaction、母版視覺比較、母版 DOM contract、獨立 provenance、44 項行情／行事曆／新聞結構、六種 viewport（1440／768／412／390／360／320）及分析內容 Gate 全部通過。
+- 最終 HTML blob SHA：`e73e8b6d40378bdb6d441b2c323b54715ff0c9ad`；QA sidecar blob SHA：`e2562e8433ef977a4de0ff7e4389bd88c33d5d16`；SIM-1.4 DRAFT blob SHA：`4e695837d9d9eaed161e70e11c127725c8fa25f1`。
+- QA sidecar：`status=QA_PASSED`、`content_analysis_gate=PASS`、`unsupported_causal_claims=[]`、`duplicate_quote_restatements=[]`、`actionability_findings=[]`；六個 viewport 全數列入驗收。SIM-1.4 仍未核准，`sim14_review_ready=false`，不可將技術／內容 QA 通過誤稱為 SIM-1.4 正式批准。
+- 預覽與 sidecar 僅寫入 simulation branch 的 `preview/`；main、正式首頁、正式母版及正式行事曆 JSON 未修改。正式發布仍須等待使用者明確批准。
+- 本輪修正 workflow 中曾出現的內容比對誤判（評論標題前綴、空白正規化、產業評論槽位），均依實際生成 HTML artifact 回查後修正；最終 run 已重新完整通過，不以先前失敗 run 作為完成證據。
+
