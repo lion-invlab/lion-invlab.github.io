@@ -343,3 +343,11 @@ Current Builder blob SHA verified from branch: c4c24c03625b3532f48362d7235755a8f
 - 現行 mother-owned DOM validator 是穩定結構驗證，不等同全節點 byte-for-byte DOM diff；不得以 style/script 數量相同宣稱所有 DOM mutation 已獲授權。
 - 必須補齊負向測試矩陣，並以最新 Builder SHA `fe8da8e...` 重跑 Weekday fixture。
 - **結論：** 最新 Monday build／QA PASS；最新 Builder 的 Weekday 同 SHA 實證待補；完整 selector/write whitelist 待完成；Builder 唯一入口仍 NOT_APPROVED；SIM-1.4 DRAFT、SIM-1.3 active。
+
+
+## 2026-11-21｜候選規則 SHA 與既有 build provenance 不一致（重要限制）
+
+- 11/23 run `44914993653` 的 QA sidecar `candidate_rules_blob_sha` 是 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前 SIM-1.4 DRAFT SHA `0d390cc7de7945e1d9af247dbf004f45319d5e99`。
+- 最新三項規則補正是在 run `44914993653` 之後提交，因此現有 HTML／QA PASS 只能證明舊 candidate rules SHA 下的 build；不能宣稱已按最新草案完成驗收。
+- 必須用目前 DRAFT SHA `0d390cc7...` 重新執行 Monday build，並以同一最新 Builder SHA `fe8da8e...` 重新執行 Weekday build。兩次 sidecar 都必須記錄同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA，才可稱為最新版本的雙母版實證。
+- 在重跑前，現有 preview 可供缺陷修復成果參考，但不是最新 SIM-1.4 草案的最終驗收件；不得把舊 PASS 移植到新 SHA。
