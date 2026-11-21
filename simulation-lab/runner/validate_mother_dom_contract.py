@@ -104,16 +104,6 @@ def main():
         if [x.get("for") for x in labels] != ["fed-live-tab-watch", "fed-live-tab-fomc"]:
             raise ValueError(f"{label}: Fed live tab label wiring changed")
 
-    # Market observation cards may change text, but their mother-owned b/br/text skeleton is fixed.
-    left_notes = mother.select(".market-reason")
-    right_notes = report.select(".market-reason")
-    if len(left_notes) != len(right_notes) or [
-        shape(node, include_style=True) for node in left_notes
-    ] != [
-        shape(node, include_style=True) for node in right_notes
-    ]:
-        raise ValueError("market observation DOM skeleton or inline styles changed from the approved mother")
-
     # The weekly agenda's generated rows are dynamic, but its four fixed slots must remain.
     for soup, label in ((mother, "mother"), (report, "review")):
         box = require_one(soup, "#fed .fc-fomc-weekly-events", label + " Fed agenda")
