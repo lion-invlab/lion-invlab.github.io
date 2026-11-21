@@ -143,3 +143,11 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 
 - Browser regression passed through mobile card layout, nav/accordion/source-link checks and mother-owned DOM preservation. Exact artifact validation then failed because QA Contract A2 still pinned the pre-fix Monday simulation mother SHA.
 - Updated QA Contract to v1.16 DRAFT with Monday simulation SHA `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0`; official main mother SHA remains unchanged. Updated SIM-1.4 pinned contract blob SHA accordingly. Re-running full artifact validation and persistence; W48 untouched.
+
+
+## SIM-1.4 source selection integration checkpoint
+
+- `project_w47_yahoo_consensus.py` now invokes the canonical `select_first_available_estimate` independently for EPS and REVENUE and accepts optional lower-priority provider attempts in each capture entry's `provider_attempts` object. A selected provider's source level, URL, observation time, value, currency, units, and analyst count are carried into its snapshot.
+- `build_review_html.py` now preserves separate EPS and Revenue consensus source URLs/names/timestamps and renders the two sources independently on earnings cards rather than using one shared provider link.
+- This is simulation-only integration. It does not fetch missing lower-tier providers by itself; an actual fallback requires the collector to supply a validated provider attempt in `provider_attempts`. Current W47 Yahoo captures have both metric values, so the correct first-source stop rule should select Yahoo and not query lower tiers.
+- Run full SIM-1.4 regression/build now; no main writes and no W48 JSON changes.
