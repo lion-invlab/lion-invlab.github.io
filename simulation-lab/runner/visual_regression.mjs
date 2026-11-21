@@ -344,8 +344,11 @@ try {
             }
           }
           const labels = [...(details?.querySelectorAll(":scope > .earnings-detail-field label") || [])].map(node => node.textContent.trim());
-          if (!["財報判讀", "股價當日表現", "來源"].every(label => labels.includes(label))) {
-            invalid.push("card " + (i+1) + ": published analysis/reaction/source sections missing");
+          const expectedDetailLabels = mondayRetrospective
+            ? ["財報判讀", "股價當日表現", "來源"]
+            : ["公布時段", "EPS 預估／實際", "營收預估／實際", "財報判讀與股價反應", "資料來源"];
+          if (JSON.stringify(labels) !== JSON.stringify(expectedDetailLabels)) {
+            invalid.push("card " + (i+1) + ": published detail labels differ from the selected approved mother template");
           }
         }
       }
