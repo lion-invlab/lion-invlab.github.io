@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from build_review_html import (
     populate_earnings_health_dashboard_preserving_dom,
     update_market_sentiment_interpretation_preserving_dom,
+    set_market_observation,
 )
 
 
