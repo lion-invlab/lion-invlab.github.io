@@ -420,7 +420,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `bc070c8b90c2fd99290abbee578c73b1cce5c578`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `a1d5bebaff59f635700c20aeb843b9b6a37be77c`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -569,7 +569,7 @@
 - SIM-1.3（目前有效規則）blob SHA：`679eae7ba7a40dbad64d15bb448fe53db7d67e09`。
 - 本草案 SIM-1.4 blob SHA：以本次 commit 回讀值為準。
 - Simulation Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`。
-- QA Contract v1.6 DRAFT SHA：`bc070c8b90c2fd99290abbee578c73b1cce5c578`。
+- QA Contract v1.6 DRAFT SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`。
 - Monday simulation mother SHA：`36f29bcb37816348756f9233b60f0429d675a76e`；Weekday：`19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。附錄 A1.1 與 QA Contract A2.1 已同步這兩個目前 SHA；正式母版 SHA 仍各自獨立，不得混用。
 
 ### 仍未通過的 SIM-1.4 規則／技術 Gate
@@ -593,7 +593,7 @@
 - 再次檢查兩份實際母版後，確認舊 Builder 曾對 `#sp500-earnings-health` 執行 `health.clear()`，再以六張固定卡及 inline style 重建；這違反 QA Contract F 的母版 Dashboard 保留要求。現已改為只更新母版既有文字槽位，週一保留 4 張卡、平日保留 3 張卡，並保留原有容器、卡片、排列、欄數及 inline style。
 - 舊 Builder 對市場情緒最後一張核心解讀卡執行 `interpretation.clear()`，會移除原有 body wrapper 與 inline style。現改為只更新既有 body text node，保留 label／body wrapper。
 - `validate_mother_dom_contract.py` 現已將 `#sp500-earnings-health` 與 `#sentiment .sent > .sbox:last-child` 納入穩定 DOM 比對，並比較兩區 inline style；新增雙母版回歸測試 `test_earnings_health_dom_preservation.py`，已接入 workflow。
-- 最新候選 Builder SHA：`28f814db1f4d1eaecf1387f012558709784b13e6`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；雙母版 regression test SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
+- 最新候選 Builder SHA：`d6f57d5d7a91526d31747abebc6a228b933402a9`；DOM validator SHA：`8757c7dc3f218908a8d314156d2d6f06406e12ca`；雙母版 regression test SHA：`d66f50ef5ce3fd3ab3c8edecdecb23be9e3843aa`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
 - 以上為程式修改已提交，尚未有這一版 Builder／validator／test 的完整 CI 結果。下一次完整 build 必須同時驗證 Monday 4 卡、Weekday 3 卡、兩區 DOM／inline style 不變、來源連結與日期更新，並通過 provenance validator、互動及六視窗視覺 QA。
 - 此修正不代表 Builder 已取得唯一入口核准；SIM-1.4 仍是 DRAFT，SIM-1.3 仍有效。
 
@@ -603,4 +603,14 @@
 - 首次執行新 DOM 保留版本的 run 44905304475：雙母版 Dashboard／市場情緒 DOM-preservation deterministic tests 均通過；真正 Monday build 在最後 FactSet 資料 Gate 失敗，因新 renderer 未將 fixture 的 Mag 7／Other 493 成長值寫入現有分析文字槽位。
 - 同一 Gate 原先要求 `.factset-source-link` class，但 Weekday 核准母版的來源連結沒有該 class；此要求會迫使 Builder 改寫母版 class，與零退化原則衝突。
 - 已修正：Monday 既有「正面」文字槽位加入 Mag 7／其他 493 數值；FactSet 來源驗收改檢查母版既有 `details a` 連結及其 href，不要求新增 class。
-- 最新候選 Builder SHA：`28f814db1f4d1eaecf1387f012558709784b13e6`。以上修正尚未經新一輪完整 build 驗證；run 44905304475 保留為失敗歷史證據，不可改稱通過。
+- 最新候選 Builder SHA：`d6f57d5d7a91526d31747abebc6a228b933402a9`。以上修正尚未經新一輪完整 build 驗證；run 44905304475 保留為失敗歷史證據，不可改稱通過。
+
+
+## 2026-11-21｜市場評論與 FactSet 欄位保留修正（待完整重跑）
+
+- run 44905304475 在新 Dashboard DOM-preservation deterministic tests 通過後，於最後 FactSet Gate 失敗：Mag 7／Other 493 數值尚未寫入保留的母版文字槽位。後續已在既有 Monday／Weekday「正面／保留」文字槽位補入 Mag 7、Other 493 及 Forward 12M P/E，不增加卡片、不改變欄位排列。
+- FactSet 來源連結 Gate 改為驗證母版既有 `details a` 的 href；不再要求平日母版原本不存在的 `.factset-source-link` class，避免為通過 Gate 而改寫母版屬性。
+- `set_market_observation` 已由清空重建改為只更新母版既有直接子節點 `b／br／text`；移除前置的冗餘 destructive `set_text(reason,...)`。DOM validator 現比對所有 `.market-reason` 子樹及 inline style；雙母版回歸測試亦涵蓋市場評論槽位。
+- QA Contract 已更新為 v1.7 DRAFT，新增市場評論、Market Sentiment 核心解讀及 S&P 500 盈餘 Dashboard 的 DOM／inline style 保護條款。QA Contract SHA：`a1d5bebaff59f635700c20aeb843b9b6a37be77c`；Manifest SHA 仍為 `1496a510d144d340c41b642592675233d5bd2917`；雙母版 SHA 仍為 Monday `36f29bcb37816348756f9233b60f0429d675a76e`／Weekday `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 最新候選 Builder SHA：`d6f57d5d7a91526d31747abebc6a228b933402a9`；DOM validator SHA：`52404ce2dc6881566ea998cc84e7af030dff43ba`；artifact validator SHA：`5490906264518c740f39779784fb6883e5b2a120`；雙母版 DOM regression test SHA：`6ab733532893a17faf8814d677e11d81fa08e6fe`；workflow SHA：`12eeeff5edbfac2486785f159bb95eb6b934420d`。
+- 上述修改仍須在同一個最新 build commit 重新跑 Monday 與 Weekday；不得引用早一版 run 的成功作為本版通過證據。SIM-1.4 仍為 DRAFT，候選 Builder 尚未取得唯一入口核准。
