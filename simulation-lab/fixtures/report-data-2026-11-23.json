@@ -459,36 +459,37 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "83.41",
-      "change_display": "+1.18%",
-      "contract_label": "CLF27（2027年1月）",
+      "display": "82.40",
+      "change_display": "-0.05%",
+      "contract_label": "OIL／CLF27（2027年1月）",
       "source": {
-        "name": "CME Group Daily Information Bulletin #225｜NYMEX CL Futures（Preliminary）",
-        "url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
+        "name": "Investing.com HK｜WTI原油期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "CME_preliminary_settlement",
-        "volume": 294626,
-        "open_interest": 267254,
-        "note": "CME Daily Bulletin #225（Preliminary）：NYMEX CLF27 Jan27 settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Jan27成交量高於Feb27，故採Jan27活躍合約。Preliminary非Final settlement。",
-        "change_points": "+0.97"
+        "quote_type": "investing_historical_close",
+        "history_close": "82.40",
+        "history_change": "-0.05%",
+        "volume": 90190,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 歷史列收市 82.40、升跌 -0.05%、成交量 90.19K；採歷史收市，不採收市後 Last。頁面標示 WTI 原油期貨 2027年1月（OIL），對應 NYMEX CLF27。"
       },
-      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+      "change_points": "-0.04"
     },
     "Brent原油期貨": {
       "display": "92.57",
       "change_display": "+0.64%",
       "contract_label": "LCOF7（2027年1月）",
       "source": {
-        "name": "Investing.com HK｜Brent Oil Futures LCOF7（ICE）歷史資料",
+        "name": "Investing.com HK｜Brent期貨歷史數據",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
         "data_date": "2026-11-20",
-        "quote_type": "specific_futures_contract_platform_close",
+        "quote_type": "investing_historical_close",
+        "history_close": "92.57",
+        "history_change": "+0.64%",
         "volume": 278240,
-        "note": "Investing.com精確ICE Jan27合約LCOF7歷史列：11/20 close 92.57、點數變動+0.59（+0.64%）、成交量278.24K，高於Feb27的252.75K。ICE官方產品頁同日Last 92.49；Last與Investing歷史close／settlement口徑不同，報告採具體合約歷史列，不冒稱ICE官方結算。",
-        "change_points": "+0.59",
-        "ice_official_last": "92.49",
-        "comparison_contract": "LCOG7（2027年2月）",
-        "comparison_volume": 252750
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。"
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095"
     }
@@ -499,13 +500,15 @@
       "change_display": "-4.62%",
       "contract_label": "GCZ6（2026年12月）",
       "source": {
-        "name": "CME Group Daily Information Bulletin #225｜COMEX GC Futures（Preliminary）",
-        "url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
+        "name": "Investing.com HK｜黃金期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
         "data_date": "2026-11-20",
-        "quote_type": "CME_preliminary_settlement",
-        "volume": 328143,
-        "open_interest": 150028,
-        "note": "CME 11/20 Preliminary Daily Bulletin：GC Dec26（GCZ6）settlement 3,515.40、點數變動-170.10、成交量328,143、未平倉150,028；Feb27成交量77,998，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
+        "quote_type": "investing_historical_close",
+        "history_close": "3,515.40",
+        "history_change": "-4.62%",
+        "volume": 323900,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 3,515.40、升跌 -4.62%、成交量 323.90K。"
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
     },
@@ -514,13 +517,15 @@
       "change_display": "-7.41%",
       "contract_label": "SIZ6（2026年12月）",
       "source": {
-        "name": "CME Group Daily Information Bulletin #225｜COMEX SI Futures（Preliminary）",
-        "url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
+        "name": "Investing.com HK｜白銀期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
         "data_date": "2026-11-20",
-        "quote_type": "CME_preliminary_settlement",
-        "volume": 110979,
-        "open_interest": 41582,
-        "note": "CME 11/20 Preliminary Daily Bulletin：SI Dec26（SIZ6）settlement 41.070、點數變動-3.289、成交量110,979、未平倉41,582；Mar27成交量41,028，Dec26為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
+        "quote_type": "investing_historical_close",
+        "history_close": "41.070",
+        "history_change": "-7.41%",
+        "volume": 110380,
+        "link_label": "Investing.com 歷史數據",
+        "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 41.070、升跌 -7.41%、成交量 110.38K。"
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
     }
@@ -1675,7 +1680,7 @@
     "sectors": "📌 產業輪動｜必需消費品是唯一收紅板塊（XLP +0.67%），醫療保健接近平盤；科技跌幅最深（XLK -7.27%），工業與非必需消費品亦明顯承壓。防禦型現金流相對抗跌，科技股同時承受估值與資本支出回報檢驗。",
     "bonds": "📌 債券｜美國2年、10年、30年期公債殖利率分別為4.63%、4.92%、5.31%；主要市場公債殖利率回落反映避險需求，但殖利率水準仍高。短端仍受Fed升息定價影響，長端須觀察通膨、期限溢酬與財政供給。",
     "fx": "📌 匯率｜DXY 103.81小幅回落；USD/TWD採CBC官方銀行間收盤32.936。EUR/USD 1.0968、GBP/USD 1.3083；AUD/USD 0.6621走弱，USD/JPY 158.49回落，顯示美元未全面走強，需區分官方銀行間收盤與平台市場報價。",
-    "energy": "📌 原油｜WTI 原油期貨 83.41、+1.18%；Brent 原油期貨 92.57、+0.64%。兩者均為指定月份期貨合約而非現貨；WTI 來源為 CME Preliminary，Brent 採 Investing.com 對應期貨歷史資料。觀察重點在供需預期與期限結構變化，並留意轉倉及到期風險。",
+    "energy": "📌 原油｜WTI 原油期貨 82.40、-0.05%；Brent 原油期貨 92.57、+0.64%。兩者均為指定月份期貨合約而非現貨；WTI 小幅回落、Brent 上漲，顯示區域供需與期限結構仍有差異。觀察重點在供需預期變化，並留意轉倉及到期風險。",
     "metals": "📌 貴金屬｜黃金期貨 3,515.40、-4.62%；白銀期貨 41.070、-7.41%。兩項均採 CME Preliminary 期貨報價，非現貨；升息預期與流動性需求可能壓過傳統避險買盤，去槓桿階段多類資產可能同步承壓。"
   },
   "last_week_calendar": {
