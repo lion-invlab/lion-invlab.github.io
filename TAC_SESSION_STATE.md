@@ -2221,3 +2221,58 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - FactSet Earnings Insight最新版本為2026-11-20：Q3 93%公司已公布；84% EPS beat、74% revenue beat；EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%低於5年平均+7.5%；forward P/E 17.1低於5年19.8及10年19.1；Mag7 EPS成長27.0%低於其他493家34.7%。
 - 階段②完成。注意：W47、W48正式行事曆仍標記incomplete，唯讀未修改；W47仍有6筆經濟事件、3筆財報未完成狀態更新；W48有5筆經濟事件的impact_judgment欄誤存URL，將在下一階段以報告層修正，不修改main行事曆JSON。
 - 下一階段③：重新讀取最新SIM-1.3第三步與HTML／QA規則；建立11/23週一報告資料、新聞及判讀；對W48 5筆URL-as-impact以report-layer文字覆蓋，保留原始行事曆唯讀。
+
+
+## 2026-11-21｜2026-11-23（一）早報｜階段④新聞與分析預備稿（尚未結案）
+
+### 行情階段②補充更正
+- S&P 500 Investing.com 歷史頁明確標示「即時差價合約」，11/20 close 6,910.79，OHLC：Open 7,150.39／High 7,198.67／Low 6,882.66／Close 6,910.79。AP 報導現貨收盤 6,910.39，差異屬 CFD 與現貨口徑；保留 Investing 主來源 6,910.79，來源區標明 CFD，不冒稱現貨成交。Russell 2000 同樣採 Investing CFD 2,582.93，AP 現貨 2,581.79；標示 CFD 參考值，不作為交易所現貨正式收盤。兩項不再列為未解釋數值衝突。
+- VIX 歷史頁明確顯示 2026-11-20 row：35.89（Open 28.63／High 40.03／Low 26.94／+26.20%），頁面標示即時 CFD，保留 CFD 口徑。來源：https://hk.investing.com/indices/volatility-s-p-500-historical-data
+- MOVE Investing.com 香港歷史頁最新標頭明確顯示 Close 20/11：106.31，+10.27（+10.69%）；改判「主要來源已核實」，先前暫列 EODData 備援紀錄作廢，不作正式採用來源。來源：https://hk.investing.com/indices/ice-bofaml-move-historical-data
+- FedWatch 解讀更正：目前政策區間為 3.75%–4.00%；12/09/2026 會議機率 89.6% 落在 4.00%–4.25%，代表升息 25bp；10.4% 為維持 3.75%–4.00%。不得寫成 89.6% 維持利率。
+- S&P 500（Investing CFD）11/20 Pivot OHLC 計算：P=6,997.37；第二支撐 6,681.36；第一支撐 6,796.08；第一壓力 7,112.09；第二壓力 7,313.38。計算式 (H+L+C)/3，S1=2P-H，S2=P-(H-L)，R1=2P-L，R2=P+(H-L)。只作同一 CFD 序列技術參考，不冒稱現貨價位。
+
+### 新聞選稿｜暫定截稿 2026-11-21 08:55 Asia/Taipei
+- 本次預定新聞窗：2026-11-20 12:00 +08 起；目前只可覆蓋至 2026-11-21 08:55 +08。週末 11/21 後段、11/22 及 11/23 05:25 前的新聞尚未發生／尚未可查，故以下僅為預備稿，不是最終 11/23 版。
+
+**Global Focus News（5則）**
+1. Reuters｜The snowballing selloff in global markets｜2026-11-20 15:12 UTC（11/20 23:12 Taipei）｜https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/。Reuters估計8月高點以來全球股市市值蒸發近9兆美元，本週台灣股市跌幅達17%；AI估值疑慮與美國利率預期升高，賣壓由科技股擴及銅、黃金等資產。報導亦指出美債受避險買盤支持、MOVE仍低於上月高點，故目前是股市波動急升，尚不能直接判定債市已出現系統性失序。
+2. Reuters｜Fed's Cook says rate hikes needed to lower high inflation｜2026-11-20 17:18 UTC（11/21 01:18 Taipei）｜https://www.reuters.com/business/feds-cook-says-rate-hikes-needed-lower-high-inflation-2026-11-20/。Fed理事Lisa Cook認為現行利率不足以壓低通膨，並指出9月升息後通膨仍未顯示可持續降溫；她是10月主張升息的兩位異議者之一。這是個別官員立場，不代表FOMC已決議升息，但加深市場對12月緊縮的定價。
+3. 鉅亨網／優分析｜美參院通過能源許可改革法案，擬加快電廠與輸電線審批｜2026-11-20 13:00 Taipei｜https://news.cnyes.com/news/id/6668880。參議院以62比33通過法案，涵蓋電廠、輸電線、礦場與資料中心等大型專案審批；下一步仍須眾議院審議，尚未成為法律。若後續立法完成，可能降低美國AI資料中心電力建置的行政瓶頸，但不能視為短期新增供電已到位。
+4. 鉅亨網／優分析｜台灣10月外銷訂單年增78.3%創紀錄，資通訊接單翻倍｜2026-11-20 20:00 Taipei｜https://news.cnyes.com/news/id/6669365。10月外銷訂單1,238.2億美元、年增78.3%，資訊通信產品訂單年增107.2%、電子產品年增89.8%，反映AI/HPC與雲端需求仍強。外銷訂單是企業接單而非當月實際出口或獲利，仍須觀察後續出貨、毛利及現金流。
+5. 鉅亨網／優分析｜美國11月消費者信心升至51.5，未來一年通膨預期降至3.7%｜2026-11-21 03:30 Taipei｜https://news.cnyes.com/news/id/6669628。密西根大學終值高於初值，短期與長期通膨預期同步下降；但信心仍較2月低約9%，只能解讀為邊際改善，尚不足以抵銷金融市場的避險情緒。
+
+**Market Hot Headlines（10則）**
+1. Reuters｜Nvidia's accounting is a focus of US SEC investigation｜2026-11-20 19:13 UTC｜https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/。SEC執法人員正檢視Nvidia可能的會計問題，調查焦點與地理營收揭露、客戶所在地及AI循環融資相關；SEC與Nvidia未就調查細節公開確認。調查不等於違法認定，亦可能不產生執法結果，但會提高市場對收入品質、客戶融資與資料中心風險曝險的要求。
+2. Reuters｜Anthropic retail traders face losses as shares dive 13% the day after debut｜2026-11-20 18:09 UTC｜https://www.reuters.com/business/finance/anthropic-retail-traders-face-losses-shares-dive-13-day-after-debut-2026-11-20/。Anthropic IPO次日早盤跌13%，股價由首日開盤112美元回落至85美元附近；首日零售交易額超過7.5億美元。這顯示熱門AI IPO的首日溢價與短線追價資金可能迅速反轉，不能把上市熱度當成持續需求。
+3. Reuters｜Trump says US to penalize firms building data centers abroad｜2026-11-20 18:08 UTC｜https://www.reuters.com/technology/trump-says-us-penalize-firms-building-data-centers-abroad-2026-11-20/。Trump表示將對把資料中心建在海外的美企課徵高額稅負，尚未提出具體法案或執行細節。政策若落地，可能改變資料中心選址、跨境算力部署與企業資本支出效率；目前應視為政策訊號，不是已生效規則。
+4. 鉅亨網｜貝森特：川習會談未提黃仁勳，重申輝達H200為晶片出口上限｜2026-11-21 04:00 Taipei｜https://news.cnyes.com/news/id/6669308。貝森特表示美方不預期調整對中AI晶片出口政策，H200仍是取得許可後可出口的最高規格；這不代表可免審自由銷售，也不代表中國已下單或輝達已恢復出貨。政策許可與實際訂單／營收必須分開判讀。
+5. Reuters｜Apollo, Goldman lead $44 billion SpaceX GPU debt financing｜2026-11-20 17:45 UTC｜https://www.reuters.com/business/media-telecom/apollo-goldman-lead-44-billion-spacex-gpu-debt-financing-2026-11-20/。Apollo與Goldman安排約440億美元債務融資，支應SpaceX取得Nvidia GPU及設備；部分優先／次順位債券收益率約7.66%至8.36%。融資需求龐大且資金成本不低，凸顯AI算力建置已進入資本結構與債務承擔能力的檢驗階段。
+6. Reuters｜SpaceX's Cursor weighs phasing out Chinese AI models over geopolitical risk｜2026-11-20 14:49 UTC｜https://www.reuters.com/business/media-telecom/spacexs-cursor-weighs-phasing-out-chinese-ai-models-over-geopolitical-risk-cnbc-2026-11-20/。Reuters引述CNBC及美國國會調查報告稱，Cursor正考慮降低對中國AI模型依賴，Airbnb與DoorDash亦被調查其使用情況；相關公司未即時回應。此事反映美國AI供應鏈正把模型來源與國安合規納入企業採購風險。
+7. Reuters｜Ross Stores falls after muted holiday-quarter outlook｜2026-11-20 14:01 UTC｜https://www.reuters.com/business/retail-consumer/ross-stores-falls-after-muted-holiday-quarter-outlook-2026-11-20/。Ross維持第四季同店銷售成長4%至5%的預測，低於去年同期9%的成長，並指出國內運輸成本壓縮毛利；股價盤前下跌約5%。折扣零售仍受惠於消費者尋求低價，但成本上升與競爭促銷使獲利彈性受限。
+8. Reuters｜Nvidia's share slide knocks it below Alphabet in valuation｜2026-11-20 15:31 UTC｜https://www.reuters.com/business/retail-consumer/nvidias-share-slide-knocks-it-below-alphabet-valuation-2026-11-20/。Nvidia市值排名降至美國第四，並面臨連續第七週下跌，為2008年以來最長連跌。市場開始偏好能把AI投入轉成雲端與軟體營收的企業，而非只看硬體需求成長。
+9. Reuters｜Bitcoin falls below $60,000 level｜2026-11-20 15:51 UTC｜https://www.reuters.com/technology/bitcoin-falls-below-60000-level-2026-11-20/。比特幣自7月以來首次跌破6萬美元，Ether亦下跌；Reuters指出市場對AI基建投資獲利能力、融資成本及監管風險的疑慮擴及其他高風險資產。此為風險偏好同步降溫的旁證，不應單獨當作股市方向指標。
+10. Reuters｜Alphabet raises $4.19 billion in Canadian bond offering｜2026-11-20 11:45 UTC｜https://www.reuters.com/business/alphabet-aims-raise-419-billion-canadian-debt-offering-2026-11-20/。Alphabet透過四批加拿大債券募資約42億美元，資金用途列為一般公司用途，可能包括償債；Reuters指出大型科技公司正更頻繁使用債務市場支應AI基礎設施。不得把該筆募資直接說成全數投入AI，也須留意Alphabet第三季自由現金流轉負的背景。
+
+### 分析草稿（須在 11/23 05:25 後補入亞股實際開盤反應並更新新聞窗）
+
+**週一總結固定三大項**
+- 上週主軸：上週市場定價重估已從AI高估值擴散至融資品質、資本支出回收與政策風險。Nvidia財報營收與獲利強勁，仍未能解除投資人對領導層、SEC會計調查、循環融資與AI支出回收期的疑慮；Anthropic IPO次日急跌，也反映市場不再願意無條件承接高估值AI資產。政治面，11/3中期選舉民主黨奪回眾議院與參議院，特朗普政府將面對分立國會，AI監管、資料中心與能源政策的立法不確定性升高；特朗普提出海外資料中心課稅構想，參議院則通過能源許可改革案，政策方向仍待國會後續整合。貨幣政策面，Cook主張進一步升息，市場對12月會議的緊縮定價升高。週五美股賣壓再擴大，並非止跌反彈；週一亞洲市場開盤及盤中反應尚未發生，必須於11/23截稿前補查，不能提前寫成已反映或未來催化。
+- 風險觀察：本週核心是美國第三季GDP第二次估值、10月PCE／核心PCE及初領失業金，這些數據將檢驗通膨是否仍足以支持升息定價；週初全球Flash PMI與美國消費者信心則反映成長韌性。企業端聚焦Dell、HPE、ADI、HP、Workday、Autodesk、Deere等，檢查AI伺服器訂單、資料中心建置、毛利率、自由現金流與管理層展望。美股11/26感恩節休市、11/27提前至美東13:00收市，假期縮短交易週可能放大流動性與隔夜跳空風險。
+- 操作建議：目前採偏防禦、中性偏保守；先降槓桿、保留現金，不因單日跌幅大就攤平。優先研究現金流穩定、資產負債表健康的防禦型公司，以及具長約／訂單可見度的電力與資料中心基礎建設；半導體與高估值AI股先等市場廣度、波動率與融資條件穩定，再以小部位分批評估。若市場仍持續創低、信用風險擴散或AI資本支出指引下修，原本逢低研究假設即失效；避免槓桿及一次性押注。
+
+**Market Sentiment**：股市波動、債券波動與CNN恐懼讀數方向一致，呈現極端避險；黃金亦未發揮傳統避險效果，較像投資人提高現金部位而非單純轉向避險資產。情緒雖已極度悲觀，但尚無價格廣度、波動率或信用條件同步改善的轉折證據；不可把超賣直接視為底部。
+
+**盤面觀察重點**
+1. AI需求與AI股價脫鉤：台灣外銷訂單仍由AI/HPC帶動，但半導體及科技股遭重估；市場焦點由訂單成長轉向資本支出回收、融資成本與自由現金流。
+2. 防禦輪動明確：已核實的產業ETF中，必需消費相對抗跌，科技、非必需消費、工業及金融等承壓；XLRE資料仍待核實，不把它計入確定廣度。
+3. 政策與利率雙向拉扯：Cook的鷹派立場與FedWatch升息定價形成壓力；消費者通膨預期回落則提供反向訊號，後續須以PCE與就業數據裁決。
+4. 區域跌勢不均：台灣、韓國、日本跌幅較大，反映半導體權重與AI供應鏈集中度；歐洲跌幅相對較小，但仍受全球風險偏好拖累。
+5. 跨資產風險：債券波動上升但MOVE仍低於上月高點；黃金與銅同步承壓，顯示現階段資金需求可能偏向現金，而非全面轉入傳統避險資產。
+
+**S&P 500 關鍵價位**：以 11/20 Investing.com CFD 同一序列 OHLC 計算；第二支撐 6,681.36、第一支撐 6,796.08、中樞 6,997.37、第一壓力 7,112.09、第二壓力 7,313.38。所有可見標籤須中文，不顯示 S1／S2／Pivot 等縮寫。
+
+### 階段④狀態
+- 新聞及分析已完成截至 2026-11-21 08:55 +08 的預備稿；新聞窗仍缺週末及 11/23 05:25 前內容。
+- G1 週一版硬性要求核對 11/23 亞股實際開盤及盤中反應；目前為 11/21（週六），尚無法完成。故階段④標記「進行中／待週一更新」，不可宣稱已完成，不可進入最終 HTML 審核交付。
+- W48/W47 JSON仍唯讀；上述內容只記錄於 simulation Session State／Work Log，未改正式資料庫或首頁。
