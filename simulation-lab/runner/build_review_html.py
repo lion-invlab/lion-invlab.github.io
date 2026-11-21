@@ -2113,7 +2113,7 @@ def main():
             old_card.decompose()
         for x in last_econ.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
-            card = copy.deepcopy(template)
+            card = BeautifulSoup(template_html, "html.parser").find("details", class_="econ-event")
             summary_clone = copy.deepcopy(lw_summary_template)
             card_summary = card.find("summary", recursive=False)
             if summary_clone is None or card_summary is None:
