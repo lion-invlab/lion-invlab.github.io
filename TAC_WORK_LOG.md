@@ -2236,3 +2236,12 @@
 - 已搜尋simulation branch與main完整Git tree，均沒有2026-11-23既有preview/review檔案；沒有舊檔可刪，這次將從核准週一母版重新產生。main index.html、正式母版、Manifest、W47/W48正式JSON仍未修改。
 - Intesa／MPS Reuters正式收購要約已納入第10則市場頭條（Reuters原文發布8:16 UTC＝台灣16:16）；先前Session State所記「暫不納入」已被最新fixture取代。新聞窗口仍為11/20 12:00至11/23 05:25，尚未封口。
 - 六步驟狀態：Step 3 行事曆投影17:00:33–17:12:12完成；Step 4 新聞整理自17:12:12起進行中（17:21:21仍未封口）；Step 5正式組裝未開始；Step 6 main preview寫入與Pages驗證未開始。
+
+
+## 2026-11-21 17:54:47｜重新啟動 Run 2：由母版重新製作（使用者要求全流程30分鐘）
+- 本輪重新計時起點：17:51:43 Asia/Taipei。目標：從母版核對起，完成44項行情、行事曆、新聞與市場分析、HTML組裝、QA及可開啟審核版；新聞窗口依使用者最新指示封口於本輪當下，不等到11/23。
+- **Step 1 母版核對：17:51:43–17:52:12，00:29，完成。** 本輪WR SIM-1.3 SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；週一母版 `simulation-lab/baseline/monday-mother-template.html` SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與Manifest一致；QA契約SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。報告日2026-11-23為週一，選擇週一母版。main首頁、正式母版、Manifest、QA契約均未修改。
+- **Step 2 行情重新擷取：17:52:12–17:53:52，01:40，完成。** 44項：17指數、11產業ETF、3美債殖利率、6外匯、4商品、3風險／情緒。重建 `simulation-lab/production-logs/2026-11-23-market-data-audit.md`，blob SHA `a6fce40821c58fbbb6c21076ba6915a6eb4cc4cd`，commit `c9cb686467240060aa3d0568475c2081e96aa6a2`。已更正舊底稿錯誤：XLB 49.06/-0.73%；AUD/USD 0.6621/-0.57%；USD/JPY 158.49/-0.76%；FTSE canonical頁10,367.10/-0.82%；CAC canonical頁7,975.42/-1.30%。WTI/Gold/Silver採指定月份合約表，排除同頁CFD代理序列；USD/TWD採CBC 32.936。CNN F&G依指定FGScore備援10，另註明MarketWatch報導15的來源衝突，未冒稱CNN官方直讀。下游只讀此新audit，不重抓已鎖定行情。
+- **Step 3 行事曆唯讀核對：17:53:52–17:54:47，00:55，完成。** main HEAD固定為 `21c9b392878050643c4eaa7111db401cc9ab2c5c`；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，同一main commit讀取。W47：25經濟／23財報，48個事件ID全唯一；五星回顧僅2筆經濟（Warsh開幕致詞、FOMC會議紀要）及1筆財報（NVDA）。W48：27經濟（22四星、5五星）、11財報（10四星、1五星），38個事件ID全唯一。兩週timezone均Asia/Taipei，wr_version 5.17；status=incomplete屬SIM允許的動態狀態，不單憑此判定故障。W48財報有6筆time_type=call_time，必須顯示為電話會議時間而非財報發布時間；HPE與DE時刻未確認，維持待核實。main週JSON嚴格唯讀，未修改。
+- **目前進度：** Step 1–3完成；Step 4新聞／分析尚未開始；Step 5 HTML尚未組裝；Step 6 preview尚未交付。此前17:21舊Run紀錄與本Run分開保留；本Run狀態優先。下一步先重新fetch本WR，讀取Step 4及E節新聞規則，再開始新聞蒐集；新聞截止時間採本輪啟動時的今天（2026-11-21），不是11/23 05:25。
+- **重要更正：** 不得沿用舊Session State尾段「不得使用HTML組裝器」等過時敘述；本Run將依最新SIM-1.3第五步、核准母版與QA契約實際要求執行，不先假定外部workflow/smoke成功等於早報完成。
