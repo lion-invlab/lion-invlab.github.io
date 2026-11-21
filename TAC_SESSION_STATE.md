@@ -2333,3 +2333,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - PHLX Semiconductor (^SOX)：O 9,160.80 / H 9,204.42 / L 8,342.21 / C 8,408.59；P 8,651.74；S1 8,099.06；S2 7,789.53；R1 8,961.27；R2 9,513.95。來源：https://finance.yahoo.com/quote/%5ESOX/history/；Investing.com HK主要行情收盤顯示8,408.6，僅有0.01四捨五入差。
 - Russell 2000 (^RUT)：O 2,641.16 / H 2,665.14 / L 2,577.09 / C 2,581.79；P 2,608.01；S1 2,550.87；S2 2,519.96；R1 2,638.92；R2 2,696.06。來源：https://finance.yahoo.com/quote/%5ERUT/history/
 - 以上OHLC均為11/20同日現貨指數歷史資料；Pivot僅為技術參考，不代表保證支撐／壓力。
+
+
+## 2026-11-21｜階段③ 行事曆唯讀核實完成｜報告日期2026-11-23（一）
+
+- 本週唯一資料：main `data/calendar/weeks/2026-W48.json`，讀取時間2026-11-21 09:03 Asia/Taipei；blob SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；updated_at `2026-11-21T09:00:28+08:00`；wr_version `5.17`；schema_version 1；status `incomplete`（正常進行中狀態）。經濟27筆（22筆四星、5筆五星，全部upcoming）；財報11筆（10筆四星、1筆五星，全部upcoming）。
+- 上週必要資料：main `data/calendar/weeks/2026-W47.json`；blob SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`；updated_at `2026-11-20T04:39:41+08:00`；wr_version `5.17`；schema_version 1；status `incomplete`。經濟25筆（2筆五星、23筆四星；19筆已發布、6筆未發布）；財報23筆（1筆五星、22筆四星；20筆已發布、3筆未發布）。
+- 依SIM-1.3星等規則：本週只呈現四／五星；上週兩個回顧區只呈現五星。W47上週五星經濟事件為11/17 Warsh「生產力與就業」開幕致詞、11/19 FOMC 10/27–28會議紀要；五星財報為NVDA Q3 FY2027。W47剩餘6筆經濟與3筆財報未發布均為四星，不納入上週五星回顧卡；保留資料庫狀態，不補寫、不回寫。
+- NVDA實際值：GAAP diluted EPS USD2.70；Revenue USD115.8bn；Data Center USD107.6bn、YoY +110%；Q4 FY2027 revenue guidance USD130bn ±3%。W47 PIT共識欄位為null，先前Investing.com公告後Forecast缺data_as_of／period／basis，故不採用，不作Beat/Miss。Yahoo Finance歷史收盤：11/17 USD155.46，11/18 USD150.96，財報後首個交易日-2.89%；來源 `https://finance.yahoo.com/quote/NVDA/history/`。
+- W48 11筆財報EPS與Revenue estimates均null；只呈現發行人已確認日期／時刻，預期值標「待核實」，不採用缺data_as_of／period_end／basis的第三方Forecast。
+- W48有5筆經濟事件的 `impact_judgment` 欄誤存來源URL，事件ID：`current-fed-williams-20261123`、`current-us-initial-claims-20261125`、`current-de-gfk-confidence-202612`、`current-fr-hicp-flash-202611`、`current-de-unemployment-202611`。報告HTML僅將這些URL移至來源連結，並以明確的事件影響分析覆蓋顯示文字；main JSON保持唯讀。
+- 本週27筆經濟事件按台灣時間排序；感恩節11/26美股休市、11/27提前收市，已保留於本週行事曆。
+- 階段③完成；本次未對W47/W48 JSON作任何增刪改、merge、upsert或回寫，未建立平行資料庫。
