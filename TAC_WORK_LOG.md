@@ -2062,3 +2062,17 @@
   - XLK -7.27%（turn713428view2）https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data
 - 11/11項均讀到2026/11/20歷史列，已鎖定。注意：XLI、XLY、XLB、XLC等值與舊工作稿不同，以本輪實際歷史列為準；舊值不得沿用。
 - 第二步仍未結案；債券3項、FX6項、商品4項、風險／情緒3項及獨立FedWatch尚待查核。
+
+
+### 2026-11-21｜重製第二步第一輪：債券、FX、風險情緒及FedWatch鎖定
+- **美債 CMT（美國財政部官方 Daily Treasury Par Yield Curve，資料日2026/11/20）：** 2Y 4.63%、10Y 4.92%、30Y 5.31%。官方 Treasury Data Center首頁當日表列，來源 https://home.treasury.gov/（web ref turn248908search3）。同一資料日期／同一CMT曲線；不沿用舊工作稿4.76／5.04／5.40。
+- **FX六項：**
+  - DXY 103.81（-0.08%），Investing.com USD Dollar Index歷史頁2026-11-20列（turn859932view0），https://www.investing.com/indices/usdollar-historical-data；為美元指數derived序列，非DX期貨。
+  - USD/TWD 32.936，台灣央行銀行間收盤官方數據2026/11/20列（turn248908view0），https://www.cbc.gov.tw/tw/lp-645-1-1-60.html；原始欄位NTD/USD，即每美元兌新臺幣32.936元。較11/19 32.942約-0.02%（按官方兩日值計算，非來源直接提供漲跌幅）。
+  - EUR/USD 1.0968（+0.01%），Investing.com歷史列（turn925765view6），https://www.investing.com/currencies/eur-usd-historical-data。
+  - GBP/USD 1.3083（-0.04%），Investing.com歷史列（turn925765view7），https://www.investing.com/currencies/gbp-usd-historical-data；以歷史列為準，不採頁首四捨五入／即時值1.3087。
+  - AUD/USD 0.6617（-0.63%），Investing.com歷史列（turn925765view8），https://www.investing.com/currencies/aud-usd-historical-data。
+  - USD/JPY 158.54（-0.73%），Investing.com歷史列（turn925765view9），https://www.investing.com/currencies/usd-jpy-historical-data。
+- **風險情緒：** VIX 35.89（+26.20%），Investing.com香港站VIX歷史列2026/11/20（turn473660view0），頁面標示CFD參考序列；MOVE 106.31（+10.69%），Investing.com香港站MOVE歷史列2026/11/20（turn555791view8，該頁第48列）。CNN官方頁面本次無法讀取，CNN資料端點亦未能由工具呈現資料；依D3既定順序使用FGScore「US stocks · CNN / Provider index」10/100 Extreme Fear，As of Nov 20, 2026 UTC（turn473660view1），明確標示第三方CNN Provider Index備援，不稱CNN官方頁直讀。
+- **FedWatch（獨立於44項）：** Investing.com Fed Rate Monitor本次讀取；目標會議2026/12/09 14:00 ET，Future Price 95.960；利率區間3.75–4.00%機率13.6%，4.00–4.25%機率86.4%，合計100%；頁面Updated Nov 21, 2026 12:35AM EST（台灣時間2026/11/21 13:35），來源https://www.investing.com/central-banks/fed-rate-monitor（turn473660view2/turn473660view3）。不稱CME官方數據。
+- **第二步進度：** 44項中40項已取得本輪第一優先歷史列／官方同日資料並鎖定（17指數＋11 ETF＋3 CMT＋6 FX＋3風險情緒）；僅4項期貨商品尚待完成合約月份、成交量／OI及同月報價。FedWatch已獨立鎖定。40項不因商品未完成而重抓。
