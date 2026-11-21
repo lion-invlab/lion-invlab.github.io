@@ -2211,3 +2211,17 @@
 - 新聞卡片metadata顯示已避免Asia/Taipei來源重複顯示兩次相同時間；EST來源則顯示原始時間及台灣換算。Builder commit `c58e5ca90498d48a6080d25467699620ae66777d`。
 - 新增候選Intesa Sanpaolo對Monte dei Paschi提出收購要約（Reuters 11/21 16:16台灣時間）；頁面顯示更新時間17:01台灣時間，晚於本輪16:51檢查時刻，暫不直接納入，封口前再回查是否更新及其交易條件。
 - 目前fixture最新新聞更新commit `bfc7f8d470f93f832666fc339e441e373be11992`；新聞窗口仍開放至23:59。尚未產生HTML審核版，未修改main首頁、正式母版或W47/W48 JSON。
+
+
+## 2026-11-21 17:10｜44項來源校正、關鍵價位、行事曆投影與新聞分析更新
+- **重要截稿時間更正（取代16:47／16:52紀錄）：** 週一報告新聞窗口不是11/21 23:59，而是 **2026/11/20 12:00至2026/11/23 05:25（台灣時間）**，與報告實際截稿時間一致，必須涵蓋週末及週一清晨消息。fixture與contract test已同步改正；不可在週六23:59提前封口。
+- 11/23 fixture最新commit `6582d66201753c40ac8599efb5364c2e4e0cd882`，blob SHA `ea750c4ce9320be6718d1222422309fa48e9852d`。結構：17全球指數、11 ETF、3美債、6 FX、2能源、2貴金屬、3風險情緒，共44項，全部具2026-11-20來源日期與HTTPS來源；5焦點新聞＋10頭條共15則，原始發布時間、來源時區、台灣換算、更新狀態及原文連結齊全且URL不重複。
+- 行情來源修正：DXY改為103.84（-0.05%）；USD/TWD採Investing.com市場報價32.971（-0.18%），明確註明不是央行銀行間官方收盤；S&P 500、Nikkei、Hang Seng、FTSE、DAX、STOXX來源明確標為Investing.com CFD參考序列；Russell 2000改用Yahoo Finance ^RUT現金指數；XLRE歷史資料連結修正。11大ETF依11/20漲跌幅排序，XLP領先、XLK跌幅最大。
+- 商品合約鎖定：WTI標準代碼CLF7（2027年1月；部分平台長代碼CLF27），CME 11/20 preliminary settlement 83.41、成交量294,626、OI267,254；GCZ6（2026年12月）settlement 3,515.40、成交量328,143、OI150,028；SIZ6（2026年12月）settlement 41.070、成交量110,979、OI41,582。CME bulletin同時比較鄰近月份，已確認選用合約成交量最高。Brent採ICE Jan27 LCOF7具體合約Investing.com歷史列92.57、+0.64%、volume278.24K，不冒稱ICE官方結算。
+- VIX 35.89、+26.20%，Investing.com歷史列與CBOE／Yahoo ^VIX交叉確認；MOVE 106.31、+10.69%，Investing.com與EODData方向／幅度一致。CNN官方頁遭robots阻擋、graphdata endpoint無可讀回傳，依D3第三順位採FGScore CNN Provider Index 10分（11/20 18:59 EST／台灣11/21 07:59）；明確標示第三方來源，報告截稿前仍須刷新。FedWatch目前為Investing.com 11/21 12:55快照（hold 13.6%、升息25bp 86.4%），同樣須於05:25刷新。
+- 五項關鍵價位由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依P=(H+L+C)/3及S2/S1/P/R1/R2公式計算；SOX收盤另與Investing.com HK交叉核對。**未使用OHLC collector或GitHub Actions產生價位。**
+- 行事曆投影：W48本週27項經濟事件、11家財報時程；W47週一回顧僅顯示2項五星經濟事件及1項五星NVDA財報。NVDA GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；公告前可比PIT共識不足，不判Beat/Miss；首個完整交易日11/18股價下跌2.89%，11/19再跌3.30%，未將後續大盤賣壓歸因於財報單一因素。W48資料庫狀態仍為incomplete，原因為EPS／Revenue公告前PIT共識缺少必要欄位，未填入不可靠預估。
+- W47六筆經濟與三筆財報實際值仍保留report-layer overlays；全部為四星，不會出現在週一五星回顧。W48五筆impact_judgment誤置URL已修正為市場影響文字，並在report layer保留原URL為source_url；main W47/W48 JSON唯讀。Preflight原先因source_url未從錯置欄位保留而失敗，已修正helper及新增回歸測試。
+- 新聞頭條更新：加入AI伺服器備料／應收帳款／營運現金流的營運資金案例（緯穎、廣達），並納入台灣外銷訂單、南韓出口量價差、台股單週跌17.5%及Reuters Bitcoin報導（發布時間已由原頁UTC 04:10正確換算台灣12:10）。CrowdStrike／Zscaler未確認傳聞已移除。新聞仍是候選稿，窗口未封口。
+- 最新Smoke run `44888410672`，commit `6582d66201753c40ac8599efb5364c2e4e0cd882`，conclusion=success；Python compile、deterministic self-tests、fixture contract、calendar override及preflight測試成功。HTML組裝、Playwright、視覺QA步驟全部skipped，**尚未產生HTML預覽**。此run不是完整報告驗收。
+- main首頁、正式母版、W47/W48正式JSON均未修改。下一步：繼續新聞窗口補查至11/23 05:25；截稿時刷新Fear & Greed及FedWatch；再依SIM-1.3由ChatGPT直接更新核准週一母版DOM，產生審核HTML並完成結構、互動、桌機／手機視覺QA。不得使用HTML組裝器／Renderer，也不得提前上架main。
