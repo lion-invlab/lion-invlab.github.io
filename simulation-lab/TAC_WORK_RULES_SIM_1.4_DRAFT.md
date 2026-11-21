@@ -539,3 +539,6 @@
 
 
 - 2026-11-21 Fixture Gate 測試同步：舊 `test_1123_fixture.py` 仍把「六項 CFD／三個 blocker／HTML未產出」當成預期，與已修正 fixture 衝突。已改為驗證六項均為 `cash_index_close`、六組數字與歷史頁來源正確、沒有 CFD rejected_reference，且只剩 VIX／MOVE／CNN Fear & Greed／FedWatch 一項截稿前刷新阻塞。現再次觸發 Monday build。
+
+
+- 2026-11-21 Weekday full-build regression request: workflow push trigger now accepts `[build-tac-report:YYYY-MM-DD]` to select an exact dated fixture without changing or moving any fixture. Request `[build-tac-report:2026-11-20]` will exercise the 2026-11-20 weekday mother using its date-matched fixture; this is a regression test only, not a new production report.
