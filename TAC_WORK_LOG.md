@@ -2714,3 +2714,16 @@
 - QA sidecar 的資料說明仍須如實保留：行情基準日 2026-11-20；使用者確認週末不刷新 VIX／MOVE／CNN Fear & Greed／FedWatch，沿用既有快照並顯示實際時間；新聞窗口於 2026-11-21 17:57:31（台灣時間）封口；W47 已公布值與 W48 impact_judgment 以審核版 report-layer overlay 修正，不回寫 main JSON；缺乏有效 PIT 共識的 W48 財報不得判定 Beat／Miss，維持待核實。
 - 本輪所有輸出限於 `simulation/tac-process-lab-2026-11-06`。workflow 明確 checkout simulation branch only、main_write_scope=read-only、production_deploy=forbidden；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
 - 狀態：11/23 Monday 審核版可標示 REVIEW_READY；Builder SHA 尚未獲使用者核准。依 SIM-1.4 §8.1，仍須以同一 Builder／Manifest／QA Contract／SIM-1.4 SHA 完成 Weekday 情境回歸，才可宣稱雙母版技術驗證完成。正式首頁發布仍需使用者另行明確授權。
+
+
+## 2026-11-22｜SIM-1.4 §8.1：輸出寫入防護與最新同版雙母版回歸完成
+
+- Builder `simulation-lab/runner/build_review_html.py` 加入 `resolve_allowed_output_path(report_iso, output_arg)`，只接受標準 `preview/YYYY-MM-DD-simulation.html` 輸出；拒絕正式首頁、母版、Manifest、正式行事曆 JSON、錯誤檔名、路徑穿越及 preview 目錄／目標檔 symlink escape。最新 Builder blob SHA：`42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
+- 新增 `simulation-lab/runner/test_builder_output_guard.py`（blob `a6c3ff9107ab912ea01e694aac6f7d87047f94c8`），覆蓋允許的標準路徑、受保護路徑、路徑穿越／錯誤檔名、目錄 symlink escape、輸出檔 symlink escape；已整合至 deterministic self-tests。
+- Monday run `44963378227` completed/success；HTML blob `586766c7e44c126406b22aefcf8e3342365d5f7f`，SHA-256 `211fa41449f83734206858e01222ad1b27339d95b597f0dbecf0e5661c9b7317`；QA sidecar blob `66a4a819e6e4be2fa38f1b2a3a916668b869d94b`。
+- Weekday run `44963530736` completed/success；HTML blob `aafa41c07ac5d490412a35f296e8169375aaa74a`，SHA-256 `7a72460622dfb65720e21a013ace79a486d85db950eae4ee9401098d3a5b2f38`；QA sidecar blob `e8232c1f68daec6bf3b05a5e5446abfabf726257`。
+- 兩份 sidecar 均為 `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`、`data_review_ready=true`、`content_analysis_gate=PASS`；各自 report blob SHA 與實際 HTML 一致；六個 viewport 1440／768／412／390／360／320 均通過。兩次均通過母版 DOM、互動、視覺、獨立 provenance、44 項行情／行事曆／新聞結構及 simulation-only persistence。
+- 兩次共同 provenance：Builder `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`；SIM-1.4 `e18865fc31a88f98e44cb1f411817e61406a34c1`；Manifest `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Weekday mother `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 驗收報告已更新為最新 Builder SHA：`simulation-lab/validation/SIM14_DUAL_MOTHER_BUILDER_ACCEPTANCE_2026-11-22.md` blob `29d574536485bf98324fb3fd83cf83c9195994f7`。
+- 保留事項：兩份 QA sidecar 均明確標記 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。雙母版技術驗證完成不等於使用者核准候選 Builder。正式入口升格須等待使用者對精確路徑及 SHA 的明確核准。
+- 僅 simulation branch 寫入；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
