@@ -2649,3 +2649,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 1. 找回或重建 11/23 draft；未取得 draft 前不可做報告級瀏覽器 QA，也不可宣稱 DOM/互動 Gate 完成。
 2. 44 項仍有 STOXX、CNN Fear & Greed、Gold、Silver 等待核實；其他指數與商品仍須按 Manifest 完整清單逐項核對並記錄來源。
 3. 重新讀取 SIM-1.3 後再進行下一階段；本輪未修改 main、正式母版、Manifest 或 W48 JSON。
+
+
+## 2026-11-21 11:35 Asia/Taipei｜W48 唯讀驗核
+- 重新讀取 main 的 data/calendar/weeks/2026-W48.json；SHA：807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa。未修改 JSON（SIM-1.3 規定唯讀）。
+- 範圍 2026-11-23 至 2026-11-29；updated_at 2026-11-21T09:00:28+08:00；WR provenance 5.17；status=incomplete。
+- 經濟事件 27 筆，全部 upcoming；5 筆缺 source URL、1 筆 time_known=false。未來事件 actual=null 為正常，並非漏填實際值。
+- 財報事件 11 筆，全部 upcoming；2 筆 time_known=false。EPS 與 Revenue 的 LSEG、FactSet、Investing.com 三層嘗試均無可採用的同口徑 PIT 共識（Investing 缺 data_as_of、period_end_date 及比較口徑），adopted=0、snapshots=0；不得產生 Beat/Miss 或虛構預期。
+- W48 目前應維持 incomplete；缺少共識或時刻的事件須保留待核實，待後續 04:35 工作日更新。不得由 11/23 早報製作流程直接修改 W48 JSON。
