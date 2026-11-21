@@ -187,14 +187,17 @@ jobs:
           python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json --migration-csv simulation-lab/output/earnings-migration-preview.csv
 
       - name: Resolve report date, fixture, weekday mother and SHA
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         env:
           INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
+          INPUT_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
           if [[ -n "${INPUT_REPORT_DATE}" ]]; then
             REPORT_DATE="${INPUT_REPORT_DATE}"
+          elif [[ "${INPUT_COMMIT_MESSAGE}" =~ \\[build-tac-report:([0-9]{4}-[0-9]{2}-[0-9]{2})\\] ]]; then
+            REPORT_DATE="${BASH_REMATCH[1]}"
           else
             REPORT_DATE="$(python - <<'PY'
           from pathlib import Path
@@ -305,12 +308,12 @@ jobs:
           echo "Key levels are manually verified by ChatGPT from same-day cash-index OHLC in the report fixture."
 
       - name: Capture released earnings price reactions for the selected report date
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           python simulation-lab/runner/collect_earnings_price_reactions.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-price-reactions.json
 
       - name: Assemble date-driven review from the matching fixture and approved mother
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
@@ -321,32 +324,32 @@ jobs:
           python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
 
       - name: Set up Node for browser QA
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install Playwright Chromium for browser QA
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           npm install --no-save playwright
           # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
           npx playwright install chromium
       - name: Test navigation tabs accordions and source links
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
 
       # Includes the summary section-heading font-size parity audit at desktop, tablet and mobile widths.
       - name: Compare review against the date-selected approved mother
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
       - name: Independently validate exact review artifact and provenance
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
 
       - name: Validate date, authoritative calendar counts, 44 indicators and news shape
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
           import json, sys
@@ -391,7 +394,7 @@ jobs:
           PY
 
       - name: Seal QA evidence to the exact review HTML blob
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
@@ -449,11 +452,11 @@ jobs:
           PY
 
       - name: Keep review output isolated to simulation branch artifact
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: test -s "${REPORT_OUTPUT}"
 
       - name: Persist QA-passed review HTML on simulation branch
-        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]')))
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         run: |
           set -euo pipefail
