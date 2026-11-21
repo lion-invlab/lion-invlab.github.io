@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots
 
 
 def record(value, change, quote_type):
@@ -68,6 +68,43 @@ def test_fed_agenda_slots():
         assert len(box.select(".fc-fomc-weekly-events")) == 0
 
 
+def test_fedwatch_two_card_contract():
+    for filename in ("monday-mother-template.html", "weekday-mother-template.html"):
+        html = (ROOT / "simulation-lab" / "baseline" / filename).read_text(encoding="utf-8")
+        soup = BeautifulSoup(html, "html.parser")
+        panel = soup.select_one("#fed .fed-live-watch")
+        assert panel is not None
+        before = (len(panel.select(".fc-prob")), len(panel.select(".fc-split-bar > span")), len(panel.select(".fc-split-legend > span")))
+        note = populate_fedwatch_two_slots(panel, {
+            "fedwatch": {
+                "current_target_range": "3.75-4.00%",
+                "probabilities": [
+                    {"outcome": "hold", "rate_range": "3.75-4.00%", "probability": 13.6},
+                    {"outcome": "hike", "rate_range": "4.00-4.25%", "probability": 86.4},
+                ],
+            }
+        })
+        assert note is None
+        assert before == (2, 2, 2)
+        assert (len(panel.select(".fc-prob")), len(panel.select(".fc-split-bar > span")), len(panel.select(".fc-split-legend > span"))) == before
+        assert panel.select(".fc-prob strong")[0].get_text(strip=True) == "13.6%"
+        assert panel.select(".fc-prob strong")[1].get_text(strip=True) == "86.4%"
+        note = populate_fedwatch_two_slots(panel, {
+            "fedwatch": {
+                "current_target_range": "3.75-4.00%",
+                "probabilities": [
+                    {"outcome": "cut", "rate_range": "3.50-3.75%", "probability": 8.0},
+                    {"outcome": "hold", "rate_range": "3.75-4.00%", "probability": 70.0},
+                    {"outcome": "hike", "rate_range": "4.00-4.25%", "probability": 22.0},
+                ],
+            }
+        })
+        assert "cut" in note and "hike" in note
+        assert len(panel.select(".fc-prob")) == 2
+        assert panel.select_one(".fc-split-bar").has_attr("hidden")
+        assert "待核實" in panel.get_text(" ", strip=True)
+
+
 def main():
     data = {
         "global_markets": {
@@ -93,6 +130,7 @@ def main():
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
+    test_fedwatch_two_card_contract()
     print("PASS: CFD guard, label normalization, earnings labels, and fixed Fed agenda slots")
 
 
