@@ -2081,10 +2081,15 @@ def main():
                   if normalized_label in "".join(r.get_text(" ",strip=True).split())]
             if len(rows)!=1: raise ValueError(f"{container_id}/{label}: rows={len(rows)}")
             contract_label = record.get("contract_label")
+            source_meta = record.get("source") or {}
+            label_link = rows[0].select_one("b a")
             if contract_label:
-                label_link = rows[0].select_one("b a")
-                source_meta = record.get("source") or {}
                 update_contract_link_label(label_link, contract_label, source_meta, record.get("instrument_url"))
+            elif label_link and str(source_meta.get("url") or "").startswith("https://"):
+                # The visible instrument link must open the exact source page used for its quote.
+                label_link["href"] = source_meta["url"]
+                label_link["target"] = "_blank"
+                label_link["rel"] = "noopener"
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
