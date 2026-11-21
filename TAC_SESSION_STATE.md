@@ -2,7 +2,7 @@
 
 - **目前任務：** 在 simulation/tac-process-lab-2026-11-06 分支整併 SIM-1.3 為 SIM-1.4。SIM-1.4 仍是 DRAFT，SIM-1.3 仍是目前有效規範；不得覆寫 SIM-1.3，不得修改 main、正式首頁、正式母版或正式行事曆 JSON。
 - **SIM-1.4 草案：** simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md，blob SHA afb715047f825e1f3766d2b411a6e4224cbce6e4。
-- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA 9063340330c3c4960d68654b0ff46ea94962b3b0；已補 SIM-1.3 全文 845 行的條文／附錄行號索引。
+- **逐條處置台帳：** simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md，blob SHA c7fbb2b6ee6a765297b75266456e8275cef24662；已補 SIM-1.3 全文 845 行的條文／附錄行號索引。
 - **Builder 稽核：** simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md，blob SHA ee1ef0fc852a631f86dcb4f3a058806e6003e8ed。build_review_html.py 仍為候選且 BLOCKED：會追加 CSS、改寫 summary／收折 DOM、重建 Fed 區塊，且行情 source guard 未檢查 quote_type，不能核准為唯一 Builder。
 - **QA Contract：** simulation-lab/baseline/mother-template-qa-contract.md 已更新為 v1.5 DRAFT，SHA 2d8082159186618f0af9ddb2e799da58884b7ac4；尚未生效。main 母版結構驗收清單 v1.3 只作歷史／交叉參考，不是第二份 simulation 每日 QA。
 - **QA 相容性報告：** simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md，blob SHA 8127a6205bafb87af2ebdb47c8f9332ab3dea47d。
