@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression tests for the practical TAC earnings comparison engine."""
-from earnings_judgment import ENGINE_VERSION, evaluate_metric, apply_judgment, render_status, render_summary
+from earnings_judgment import ENGINE_VERSION, VALID_STATUSES, evaluate_metric, apply_judgment, render_status, render_summary
 
 def record(eps_actual, eps_estimate, revenue_actual, revenue_estimate):
     return {
@@ -15,6 +15,7 @@ def record(eps_actual, eps_estimate, revenue_actual, revenue_estimate):
 
 def main():
     assert ENGINE_VERSION == "1.4.0"
+    assert VALID_STATUSES == {"beat", "miss", "inline", "pending"}
     x=record(1.20,1.00,9.2,8.7)
     assert evaluate_metric(x,"eps")["status"] == "beat"
     assert evaluate_metric(x,"revenue")["status"] == "beat"
