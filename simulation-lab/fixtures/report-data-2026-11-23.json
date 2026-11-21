@@ -510,7 +510,8 @@
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 3,515.40、升跌 -4.62%、成交量 323.90K。"
       },
-      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341"
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+      "display_name": "黃金期貨"
     },
     "白銀期貨 SI": {
       "display": "41.070",
@@ -527,7 +528,8 @@
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 41.070、升跌 -7.41%、成交量 110.38K。"
       },
-      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344"
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+      "display_name": "白銀期貨"
     }
   },
   "risk": {
