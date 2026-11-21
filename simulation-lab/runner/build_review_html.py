@@ -956,7 +956,8 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
             meta.clear()
             host=urlparse(item["url"]).hostname or "原始來源"
             source=soup.new_tag("a",href=item["url"],target="_blank",rel="noopener")
-            source.string=f"{host}｜發布 {item['published_at_tw']}（台灣時間）｜閱讀原文 ↗"
+            updated_at = str(item.get("updated_at_tw") or "原文未標示")
+            source.string=f"{host}｜發布 {item['published_at_tw']}（台灣時間）｜最後更新 {updated_at}｜閱讀原文 ↗"
             meta.append(source)
         # Keep the report date and window visible in both news section headers.
         panel_meta=box.select_one(".tab-panel-meta")
