@@ -14,8 +14,10 @@ def main():
     assert data["report_date"] == "2026-11-23"
     assert data["trading_date"] == "2026-11-20"
     assert data["report_cutoff_taipei"] == "2026-11-23 05:25"
-    assert data["news_cutoff_taipei"] == "2026-11-23 05:25"
-    assert data["report_cutoff_taipei"] == data["news_cutoff_taipei"]
+    assert data["news_cutoff_taipei"] == "2026-11-21 17:57:31"
+    assert data["report_cutoff_taipei"] != data["news_cutoff_taipei"]
+    assert "2026/11/20 12:00" in data["news_window_taipei"]
+    assert "2026/11/21 17:57:31" in data["news_window_taipei"]
 
     counts = {
         "global_indices": len(data["global_markets"]),
@@ -52,7 +54,7 @@ def main():
     assert len(news) == 15
     assert len({item["url"] for item in news}) == 15
     start = datetime.strptime("2026/11/20 12:00", "%Y/%m/%d %H:%M")
-    end = datetime.strptime("2026/11/23 05:25", "%Y/%m/%d %H:%M")
+    end = datetime.strptime(data["news_cutoff_taipei"], "%Y-%m-%d %H:%M:%S")
     for item in news:
         assert item.get("url", "").startswith("https://"), item.get("title")
         assert item.get("published_at_source"), item.get("title")
