@@ -879,7 +879,7 @@
   "qa_run_revision": "2026-11-20-SIM1.3-final-full-rebuild",
   "market_sentiment": "風險趨避升溫｜股票市場恐慌升高、債券波動率反而回落，顯示壓力主要集中於股票風險定價，股債訊號並未同步惡化。",
   "quality_note": "44個固定行情欄位均已取得可顯示報價並逐項檢查來源：17項全球市場、11項產業ETF、3項美債殖利率、6項FX、2項能源、2項貴金屬、3項風險／情緒指標。更新後44項均以11/19為行情基準；美債2Y／10Y／30Y採Investing.com 11/19歷史收盤列，MOVE採使用者提供之Investing.com 11/19畫面證據並保留截圖時間。Dow、RUT、Nikkei、FTSE、DAX均採非CFD現貨收盤來源；11大產業ETF全數核實。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
-  "report_cutoff_taipei": "2026-11-20 05:25（台灣時間）",
+  "report_cutoff_taipei": "2026-11-20 05:25",
   "news_window_taipei": "2026-11-19 12:00–2026-11-20 05:25（台灣時間）",
   "key_levels_overrides": {
     "sp500": {
