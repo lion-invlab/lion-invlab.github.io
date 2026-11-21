@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, set_market_observation
 
 
 def record(value, change, quote_type):
@@ -66,6 +66,14 @@ def test_fed_agenda_slots():
         assert count == 0
         assert box.select_one(".fc-fomc-weekly-events-empty").has_attr("hidden") is False
         assert len(box.select(".fc-fomc-weekly-events")) == 0
+
+
+def test_structured_market_observation():
+    soup = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser")
+    node = soup.select_one(".key")
+    set_market_observation(node, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
+    assert node.select_one("b").get_text(strip=True) == "盤面觀察重點"
+    assert "測試觀察內容" in node.get_text(" ", strip=True)
 
 
 def test_fedwatch_two_card_contract():
@@ -131,6 +139,7 @@ def main():
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
     test_fed_agenda_slots()
     test_fedwatch_two_card_contract()
+    test_structured_market_observation()
     print("PASS: CFD guard, label normalization, earnings labels, and fixed Fed agenda slots")
 
 
