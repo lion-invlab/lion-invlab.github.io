@@ -2805,3 +2805,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - **當前流程位置：** 第三步W48資料已重新回讀；W47本輪原始JSON取值受API空內容阻塞。第四步新聞新增來源已補查，但窗口尚未封口、完整5+10逐篇時間與摘要尚未最終鎖定。第五步尚未完成；未產生可審核HTML，review_ready=false。
 - **精確組裝阻塞：** simulation branch不存在 `simulation-lab/fixtures/report-data-2026-11-23.json`；可用GitHub工具沒有workflow_dispatch操作，容器無法連線GitHub；本機舊母版副本SHA為正式main母版SHA而非simulation baseline SHA，不能取代核准模擬母版。未執行DOM builder、未生成預覽、未宣稱QA通過。
 - 本輪只更新simulation branch根目錄 `TAC_WORK_LOG.md`（commit `f5c52d00c121f9041c1e2d69473d5a72d1c5c2ed`，blob `f4d26fd2fec649d25fc17e233b90c43a6fd23f2d`）及本Session State；未修改main、index.html、母版、Manifest、W47/W48 JSON或其他正式資產。
+
+
+## 2026-11-21｜W48 經濟事件來源欄位錯置查核（顯示層修正依據）
+- 重新唯讀讀取 main `data/calendar/weeks/2026-W48.json`，blob SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`。確認5筆經濟事件的 `impact_judgment` 欄位實際存放URL，而非市場影響文字；事件ID：`current-fed-williams-20261123`、`current-us-initial-claims-20261125`、`current-de-gfk-confidence-202612`、`current-fr-hicp-flash-202611`、`current-de-unemployment-202611`。不得將URL原樣呈現為影響判讀，也不得回寫正式JSON。
+- 官方／原始來源補核：Williams 11/23 16:00 EST（台灣11/24 05:00），New York Fed Media Advisory；初領失業金11/25 08:30 EST（台灣21:30），TD Economics 11/20週曆；NIM/GfK 11/26 08:00 CET（台灣15:00），NIM官方公布日曆；法國11月CPI初值11/27 08:45 CET（台灣15:45），INSEE官方公布日曆；德國11月失業統計11/27 10:00 CET（台灣17:00），Federal Employment Agency 2026發布日曆。
+- 來源URL：New York Fed https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026；TD Economics https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm；NIM https://www.nim.org/en/consumer-climate/type/nim-research-report；INSEE https://www.insee.fr/en/statistiques/9107975；Federal Employment Agency https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html。
+- 影響判讀只在HTML顯示層撰寫：Fed官員談話不等於政策決議；初領需觀察連續趨勢而非單週波動；德國消費者信心仍低迷，重點看購買意願；法國CPI需區分法國CPI與HICP口徑；德國失業變化用於判斷勞動市場與消費韌性。正式W48 JSON維持唯讀。
+- W48仍有1筆交易日曆事件 `current-us-thanksgiving-market-20261126` 的 `time_known=false`，此為日期型休市事件，卡片標示時間未定即可；不補造時刻。
+- 本項來源查核完成；尚未把五筆影響判讀寫入完整11/23 HTML，亦未完成行事曆卡片映射或整份QA。
