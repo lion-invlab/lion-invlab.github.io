@@ -9,14 +9,14 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0",
+      "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
-      "simulation_blob_sha": "e16cc6df649dcee7e09126b4c044479661e399e9",
+      "simulation_blob_sha": "dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -97,6 +97,10 @@
     {
       "date": "2026-11-22",
       "change": "Mobile review corrections: existing Monday mother CSS now prevents EPS/revenue values from breaking across lines; FOMC weekly speaker agenda spans both columns of the compact mobile FOMC grid so the date/content columns regain normal width. No DOM rebuild, no added style blocks, no formal main mother or homepage changes."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "Simulation-only Monday mother mobile earnings value wrap correction; preserved official main mother SHA and updated only simulation_blob_sha to the exact simulation baseline blob. Main mother and homepage remain unchanged."
     }
   ]
 }
