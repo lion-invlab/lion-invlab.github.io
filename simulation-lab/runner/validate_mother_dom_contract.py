@@ -110,6 +110,65 @@ def main():
         for selector in (".fc-fomc-weekly-events-title", ".fc-fomc-weekly-events-list",
                          ".fc-fomc-weekly-event-template", ".fc-fomc-weekly-events-empty"):
             require_one(box, selector, label + " Fed agenda slot")
+    # Today Focus is a mother-owned three-tab component. Its data text may
+    # change, but tab wiring, panel shells, the core callout tree, and the
+    # key-level disclosure controls must remain the approved mother structure.
+    expected_focus_panels = [
+        ["focus-panel", "focus-market"],
+        ["focus-panel", "focus-levels"],
+        ["focus-panel", "focus-core"],
+    ]
+    for soup, label in ((mother, "mother"), (report, "review")):
+        view = require_one(soup, "#view", label + " Today Focus")
+        tabs = require_one(view, ".focus-tabs", label + " Today Focus tabs")
+        radios = tabs.select(":scope > input[type=radio]")
+        labels = tabs.select(":scope > .focus-tab-labels > label")
+        panels = tabs.select(":scope > .focus-panels > .focus-panel")
+        if len(radios) != 3 or len(labels) != 3 or len(panels) != 3:
+            raise ValueError(f"{label}: Today Focus must retain exactly three radios, labels and panels")
+        if [(x.get("id"), x.get("name"), x.get("type")) for x in radios] != [
+            ("focus-tab-market", "focus-tab", "radio"),
+            ("focus-tab-levels", "focus-tab", "radio"),
+            ("focus-tab-core", "focus-tab", "radio"),
+        ]:
+            raise ValueError(f"{label}: Today Focus radio IDs/order changed")
+        if [x.get("for") for x in labels] != [
+            "focus-tab-market", "focus-tab-levels", "focus-tab-core"
+        ]:
+            raise ValueError(f"{label}: Today Focus label wiring changed")
+        if [x.get("class") for x in panels] != expected_focus_panels:
+            raise ValueError(f"{label}: Today Focus panel order/classes changed")
+        levels_key = require_one(view, ".focus-panel.focus-levels > .key", label + " key levels slot")
+        levels_disclosure = require_one(
+            levels_key, "details.compact-disclosure", label + " key levels disclosure"
+        )
+        require_one(levels_disclosure, "summary", label + " key levels disclosure summary")
+        if len(levels_disclosure.find_all("div", recursive=False)) != 1:
+            raise ValueError(f"{label}: key levels disclosure body wrapper changed")
+        core_callout = require_one(
+            view, ".focus-panel.focus-core > .callout", label + " core observation callout"
+        )
+        if len(core_callout.find_all("b", recursive=False)) != 1:
+            raise ValueError(f"{label}: core observation heading slot missing or duplicated")
+        if args.template == "monday":
+            core_disclosure = require_one(
+                core_callout, "details.compact-disclosure", label + " core observation disclosure"
+            )
+            if len(core_disclosure.find_all("div", recursive=False)) != 2:
+                raise ValueError(f"{label}: core observation disclosure must retain two mother detail slots")
+    left_core = require_one(mother, "#view .focus-panel.focus-core > .callout", "mother core callout")
+    right_core = require_one(report, "#view .focus-panel.focus-core > .callout", "review core callout")
+    if shape(left_core) != shape(right_core):
+        raise ValueError("Today Focus core callout DOM skeleton changed from the approved mother")
+    left_levels = require_one(mother, "#view .focus-panel.focus-levels > .key", "mother key levels slot")
+    right_levels = require_one(report, "#view .focus-panel.focus-levels > .key", "review key levels slot")
+    if (left_levels.name, tuple(sorted((k, tuple(v) if isinstance(v, list) else str(v))
+                                      for k, v in left_levels.attrs.items()))) != (
+        right_levels.name, tuple(sorted((k, tuple(v) if isinstance(v, list) else str(v))
+                                        for k, v in right_levels.attrs.items()))
+    ):
+        raise ValueError("Today Focus key levels content-slot wrapper changed")
+
     if args.template == "monday":
         for selector in ("#last-week-calendar details.last-week-calendar-collapse > summary",
                          "#last-week-earnings details.last-week-earnings-collapse > summary"):
