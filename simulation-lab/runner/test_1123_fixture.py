@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pre-build contract, source-identity, and compact commodity-label checks for both report fixtures."""
+"""Pre-build contract, source-identity, and compact display-name checks for all commodity fixtures."""
 from datetime import datetime
 import json
 from pathlib import Path
