@@ -165,6 +165,7 @@ jobs:
           python simulation-lab/runner/test_calendar_impact_overrides.py
           python simulation-lab/runner/test_1123_fixture.py
           python simulation-lab/runner/test_quote_type_guard.py
+          python simulation-lab/runner/test_builder_calendar_panel_preservation.py
           python simulation-lab/runner/preflight_1123_overrides.py
           python simulation-lab/runner/validate_earnings_v2.py --self-test
 
