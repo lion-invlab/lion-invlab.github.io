@@ -63,34 +63,40 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
 
-      - name: Materialize exact approved Monday mother for local handoff
+      - name: Materialize SHA-locked simulation Monday and weekday mothers
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p simulation-lab/output
-          cp simulation-lab/baseline/monday-mother-template.html simulation-lab/output/monday-mother-template.html
           python - <<'PY'
-          import hashlib, json
+          import hashlib, json, subprocess
           from pathlib import Path
           from bs4 import BeautifulSoup
-          p=Path('simulation-lab/output/monday-mother-template.html')
-          raw=p.read_bytes()
-          soup=BeautifulSoup(raw, 'lxml')
-          evidence={
-            'path': str(p),
-            'bytes': len(raw),
-            'sha256': hashlib.sha256(raw).hexdigest(),
-            'git_blob_sha': __import__('subprocess').check_output(['git','hash-object',str(p)],text=True).strip(),
-            'parser': 'lxml',
-            'html_elements': len(soup.find_all(True)),
-            'ids': len([x for x in soup.find_all(id=True)]),
-            'scripts': len(soup.find_all('script')),
-            'styles': len(soup.find_all('style')),
-            'title': soup.title.get_text(' ',strip=True) if soup.title else None,
-          }
-          Path('simulation-lab/output/mother-transfer-evidence.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
-          print(json.dumps(evidence,ensure_ascii=False,indent=2))
-          assert evidence['git_blob_sha']=='1ac39d50b138e59f4aabf55fc68560ee277ba6f8', 'approved mother blob SHA mismatch'
+          manifest=json.loads(Path('simulation-lab/baseline/mother-template-manifest.json').read_text(encoding='utf-8'))
+          for key, filename in [('monday','monday-mother-template.html'),('weekdays','weekday-mother-template.html')]:
+              source=Path('simulation-lab/baseline')/filename
+              target=Path('simulation-lab/output')/filename
+              target.write_bytes(source.read_bytes())
+              raw=target.read_bytes()
+              actual=subprocess.check_output(['git','hash-object',str(source)],text=True).strip()
+              expected=manifest['templates'][key]['simulation_blob_sha']
+              assert actual==expected, f'{key} simulation mother SHA mismatch: {actual} != {expected}'
+              soup=BeautifulSoup(raw,'lxml')
+              fed=soup.select('#fed .fc-fomc-weekly-events')
+              assert len(fed)==1, f'{key} Fed weekly agenda slot missing or duplicated'
+              assert len(fed[0].select('.fc-fomc-weekly-events-title'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-events-list'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-event-template'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-events-empty'))==1
+              evidence={'path':str(target),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+                        'git_blob_sha':actual,'expected_simulation_blob_sha':expected,
+                        'official_mother_blob_sha':manifest['templates'][key]['blob_sha'],
+                        'parser':'lxml','html_elements':len(soup.find_all(True)),
+                        'ids':len([x for x in soup.find_all(id=True)]),
+                        'scripts':len(soup.find_all('script')),'styles':len(soup.find_all('style')),
+                        'fed_agenda_slot_count':len(fed)}
+              print(json.dumps(evidence,ensure_ascii=False))
+              Path(f'simulation-lab/output/{key}-mother-transfer-evidence.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
           PY
 
       - name: Probe Equibles analyst estimates API (read-only, simulation only)
