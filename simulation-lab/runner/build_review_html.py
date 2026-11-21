@@ -2362,20 +2362,19 @@ def main():
     disclosure = levels_box.select_one(disclosure_selector)
     if disclosure is None:
         raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
+    # The .key element is the approved dynamic content slot. Preserve its
+    # mother-owned disclosure node and wrapper; render the five pivot labels
+    # as simple vertical text/line-break content, without injecting new cards.
     disclosure.extract()
-    levels_box.clear()
+    for child in list(levels_box.contents):
+        child.extract()
     levels_data = data.get("key_levels") or {}
     level_items = levels_data.get("items", [])
     if len(level_items) == 5:
-        # SIM-1.3 D4: show each cash-index pivot level as its own vertical row,
-        # with Chinese labels only; preserve the approved outer mother-template DOM.
         for item in level_items:
-            group = soup.new_tag("div", attrs={"class": "key-level-index"})
-            title = soup.new_tag("div", attrs={"class": "key-level-index-title"})
-            title_label = soup.new_tag("b")
-            title_label.string = item["name"] + "｜"
-            title.append(title_label)
-            group.append(title)
+            title = soup.new_tag("b")
+            title.string = str(item["name"]) + "："
+            levels_box.append(title)
             for zh_label, field in (
                 ("第二支撐", "s2"),
                 ("第一支撐", "s1"),
@@ -2383,18 +2382,12 @@ def main():
                 ("第一壓力", "r1"),
                 ("第二壓力", "r2"),
             ):
-                row = soup.new_tag("div", attrs={"class": "key-level-row"})
-                label = soup.new_tag("b")
-                label.string = zh_label + "："
-                row.append(label)
-                row.append(str(item[field]))
-                group.append(row)
-            levels_box.append(group)
+                levels_box.append(soup.new_tag("br"))
+                levels_box.append(f"{zh_label}：{item[field]}")
+            levels_box.append(soup.new_tag("br"))
             levels_box.append(soup.new_tag("br"))
     else:
-        pending = soup.new_tag("div")
-        pending.string = "五項關鍵價位 OHLC 尚未完成同日現金指數核實，暫不提供支撐／中樞／壓力數值。"
-        levels_box.append(pending)
+        levels_box.append("五項關鍵價位 OHLC 尚未完成同日現金指數核實，暫不提供支撐／中樞／壓力數值。")
         levels_box.append(soup.new_tag("br"))
     levels_box.append(disclosure)
     detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
