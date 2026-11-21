@@ -224,6 +224,16 @@ def test_text_update_preserves_source_link_elements():
     assert node.get_text(" ", strip=True) == "新說明 原始來源 舊尾註"
     assert node.select_one("a").get("href") == "https://example.com"
 
+
+def test_link_only_source_container_is_left_intact():
+    node = BeautifulSoup('<div class="source"><a href="https://example.com">原始來源</a></div>', "html.parser").div
+    before = [(child.name, child.get("href")) if getattr(child, "name", None) else "#text" for child in node.contents]
+    changed = set_text_preserving_child_elements(node, "不應覆蓋連結")
+    after = [(child.name, child.get("href")) if getattr(child, "name", None) else "#text" for child in node.contents]
+    assert changed is False
+    assert before == after
+    assert node.select_one("a").get_text(strip=True) == "原始來源"
+
 def main():
     data = {
         "global_markets": {
@@ -253,6 +263,7 @@ def main():
     test_summary_content_fills_existing_mother_slots()
     test_market_observation_supports_existing_text_slot_shapes()
     test_text_update_preserves_source_link_elements()
+    test_link_only_source_container_is_left_intact()
     test_fedwatch_two_card_contract()
     test_structured_market_observation()
     test_1123_fixture_uses_cash_index_historical_sources()
