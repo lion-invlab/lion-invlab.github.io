@@ -97,3 +97,6 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 
 - GitHub Actions run 44897795972 success；consensus snapshot store 23 tests、earnings comparison status、earnings judgment engine 1.4.0、schema audit、report-layer status、11/23 fixture contract 均通過。
 - 此 run 仍未執行 HTML build／Playwright；Builder renderer 的舊狀態標籤未修正，仍為 BLOCKED。
+
+
+- 最新 GitHub Actions run 44897956591（commit 384dab2fdfd498248f6911746db82f968bb8daf7）conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）及 deterministic self-tests 均通過。此 run 未執行 HTML build、DOM diff 或 Playwright。
