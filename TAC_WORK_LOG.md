@@ -2391,3 +2391,10 @@
 - Builder 已移除每日追加 summary、週一 disclosure、側欄、能源、財報卡及市場字體 CSS，並移除週一 summary DOM 清空重建；保留 11/11 使用者核准的單次突發專題 `special_focus` 條件式例外。
 - CI run `44900780456`、`44900949612` success，僅代表 deterministic tests／smoke 通過。尚未完成 build mode、HTML artifact、DOM 零退化、Playwright、六 viewport 視覺驗收。
 - **下一步：** 觸發 2026/11/23 Monday fixture 真正 build，逐項修正 build／DOM／browser QA 失敗，再執行 weekday fixture；全部通過前 SIM-1.4 維持 DRAFT，Builder 不核准為唯一入口。
+
+## 2026-11-21 20:33｜兩種母版完整 build／QA 通過（取代先前「尚未組裝」紀錄）
+- 週一 2026-11-23：run 44904316843 success；HTML build、DOM 母版比較、artifact provenance、44項行情／日曆新聞契約、Playwright互動及六視窗視覺 QA 全通過。calendar 27/27、earnings 11/11、44 indicators、5 focus news、10 headlines。HTML blob e6ea8ca01e38e68cc34fe4d74874f1b915e994d6；QA sidecar f7ccad8ea44c578f3a620bf17b79e2c8be347c92。QA_PASSED，但 review_ready=false，僅剩VIX／MOVE／CNN Fear & Greed／FedWatch於11/23 05:25前最後刷新。
+- 平日 2026-11-20：run 44902986319 success；HTML build、DOM母版比較、artifact provenance、Playwright互動及六視窗視覺 QA 全通過。calendar 25/25、earnings 23/23、44 indicators、5+10 news。QA_PASSED 且 review_ready=true。HTML blob 0597447d59563d459fc4c913639a07d7ecfcdbbf；QA sidecar 0d18025b4a2a197b1c6c6877ff93b9d6bd8d4bf6。
+- 兩個審核 HTML 均已持久化到 simulation branch，並通過遠端 SHA read-back；沒有部署 main。
+- 11/21 20:33台灣時間重讀四項來源：VIX 35.89、MOVE 106.31（兩者最新交易日仍為11/20）；FGScore CNN Provider Index 10（as of 11/20 UTC）；FedWatch 12/09會議 hold 13.6%、升息25bp 86.4%，頁面更新Nov 21 00:35 EST（台灣13:35）。沒有找到更新的來源讀值／時間。
+- 週一仍不可標記 REVIEW_READY：必須於11/23 05:25截稿前再次刷新；若來源屆時未更新，保留真實時間戳與註記。SIM-1.4維持DRAFT，待規則文件一致性與最終截稿資料 Gate 完成後再請使用者核准。
