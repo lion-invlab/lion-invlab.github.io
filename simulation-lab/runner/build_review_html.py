@@ -2351,8 +2351,7 @@ def main():
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
         market_tab_label = unique(view, 'label[for="focus-tab-market"]', "market observation tab label")
-        market_tab_label.clear()
-        market_tab_label.append("盤面觀察重點")
+        set_text(market_tab_label, "盤面觀察重點")
         panel=unique(view,".focus-panel.focus-market","market observation text")
         set_market_observation(panel.select_one(".key") or panel, "盤面觀察重點", data["observation"])
 
@@ -2414,31 +2413,58 @@ def main():
     if data.get("core_observation"):
         core_panel = unique(view, ".focus-panel.focus-core", "core observation tab")
         callout = unique(core_panel, ".callout", "core observation content")
+        # Update the mother-owned heading and direct text slot in place. Do not
+        # clear/rebuild the callout or move/remove its disclosure subtree.
+        title_node = callout.find("b", recursive=False)
+        if title_node is None:
+            raise ValueError("core observation mother heading slot missing")
+        title_node.string = data["core_observation"].get("heading", "今日核心觀察") + "："
+        main_text = next(
+            (child for child in callout.children
+             if isinstance(child, NavigableString) and str(child).strip()),
+            None,
+        )
+        if main_text is None:
+            raise ValueError("core observation mother text slot missing")
+        core_text = str(data["core_observation"].get("text", "")).strip()
         disclosure = callout.select_one("details.compact-disclosure")
         if monday and disclosure is None:
             raise ValueError("Monday core-observation disclosure missing from approved mother template")
-        if disclosure is not None:
-            disclosure.extract()
-        callout.clear()
-        title = soup.new_tag("b")
-        title.string = data["core_observation"].get("heading", "今日核心觀察") + "："
-        callout.append(title)
-        callout.append(data["core_observation"]["text"])
-        if disclosure is not None:
-            callout.append(soup.new_tag("br"))
-            callout.append(disclosure)
-            detail_nodes = disclosure.select("div")
-            if not detail_nodes:
-                raise ValueError("core observation disclosure detail body missing")
-            detail_nodes[0].clear()
-            detail_nodes[0].append(data["core_observation"].get("details", ""))
-            for stale_detail in detail_nodes[1:]:
-                stale_detail.decompose()
-        elif data["core_observation"].get("details"):
-            # The approved Tue-Fri mother has no core-observation disclosure slot.
-            # Keep its native callout structure and append the supplied detail as text.
-            callout.append(soup.new_tag("br"))
-            callout.append(data["core_observation"]["details"])
+        if disclosure is None:
+            # Weekday mother has no disclosure; keep its native child structure
+            # and place optional detail in the existing text node.
+            extra = str(data["core_observation"].get("details", "")).strip()
+            main_text.replace_with(core_text + (("；補充：" + extra) if extra else ""))
+        else:
+            main_text.replace_with(core_text)
+            detail_nodes = disclosure.find_all("div", recursive=False)
+            if len(detail_nodes) != 2:
+                raise ValueError(
+                    f"core observation disclosure must retain its two mother-owned detail slots; found {len(detail_nodes)}"
+                )
+            first_heading = detail_nodes[0].find("b", recursive=False)
+            if first_heading is None:
+                raise ValueError("core observation disclosure heading slot missing")
+            first_heading.string = "本次核心觀察依據："
+            first_texts = [
+                child for child in detail_nodes[0].contents
+                if isinstance(child, NavigableString) and str(child).strip()
+            ]
+            if not first_texts:
+                raise ValueError("core observation disclosure primary text slot missing")
+            detail_text = str(data["core_observation"].get("details", "")).strip()
+            first_texts[0].replace_with(detail_text or "本次未提供額外補充內容。")
+            for extra_text in first_texts[1:]:
+                extra_text.replace_with("")
+            second_texts = [
+                child for child in detail_nodes[1].contents
+                if isinstance(child, NavigableString) and str(child).strip()
+            ]
+            if not second_texts:
+                raise ValueError("core observation disclosure secondary text slot missing")
+            second_texts[0].replace_with("本次未提供其他獨立補充；請以本報告資料日期與來源註記為準。")
+            for extra_text in second_texts[1:]:
+                extra_text.replace_with("")
     else:
         raise ValueError("core_observation data missing; refusing to retain stale mother-template core text")
     # Fail closed if any Today Focus tab is stale, missing, or only partially assembled.
