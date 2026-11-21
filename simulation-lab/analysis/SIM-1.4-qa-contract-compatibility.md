@@ -45,13 +45,19 @@ Contract 自身另一份舊清單 v1.3 列 Monday ID 184、Weekdays ID 175，與
 
 ## 5. 尚未完成的實證
 
-- 本次確認 Manifest SHA 與兩組母版 SHA 登記一致；但尚未執行 DOM parser 全量驗證、style/script 內容 hash 比對、所有 anchor uniqueness 自動測試。
+- 已完成正式母版與 simulation baseline 的靜態結構比對：Monday 正式／simulation 均 124 style、25 script、183 IDs；Weekday 均 120 style、24 script、174 IDs；兩組 ID 集合完全一致且無重複。兩組母版的 style/script 數量相同；正式／simulation 母版 blob SHA 不同，CSS 內容的完整 parsed diff／逐節點 DOM diff 尚未執行。
 - 已完成兩份母版 11 ETF 固定 href 比對：各有 11 個唯一 href，ticker／連結集合一致；但母版示範排序不同，故不得把靜態 DOM 順序當每日排名。每日依當日漲跌幅重新排序。
 - visual_regression.mjs 與 Workflow evidence expected_widths 已加入 320px；本次只確認程式碼與 workflow 一致，尚未在瀏覽器完成新 320px build 的 responsive／interaction 測試。
 - QA Contract v1.5 DRAFT 的結構規格可作唯一詳細清單候選，但在 Builder 不相容問題解決前，不可宣稱 SIM-1.4 的完整每日組裝流程已通過。
 
-## 6. 結論
+## 6. 最新測試狀態
+
+- GitHub Actions run 44896495817（commit 87ec7dea36ed6465b4bf0386bbf2dc098055ba07）deterministic self-tests 全部通過；包括雙母版 SHA／結構驗收及 11/23 fixture contract。
+- 該 run 未執行 HTML build／Playwright；320px 目前只確認已加入 visual_regression.mjs 及 QA evidence expected_widths，尚無 320px 實際瀏覽器結果。
+- 11/23 fixture 的六筆 CFD index rows 已被改成待核實並保留 rejected_reference；仍有現貨來源與情緒／FedWatch刷新 blocker，因此不應產生或核准審核版。
+
+## 7. 結論
 
 **QA Contract：可作唯一詳細 QA 規格的候選，但目前需更正過時版本引用並完成實際 DOM／視覺驗證。**  
-**正式母版及 simulation baseline：SHA 登記一致，選版機制正確。**  
+**正式母版及 simulation baseline：Manifest SHA 登記一致；兩組 ID 集合與 style/script 統計一致，選版機制正確。**  
 **SIM-1.4 全流程：尚未通過；Builder compatibility 為目前主要阻擋。QA Contract v1.5 仍是 DRAFT，須待 SIM-1.4 核准後才可生效。**
