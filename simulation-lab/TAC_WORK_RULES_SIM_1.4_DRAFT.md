@@ -183,9 +183,9 @@
 
 ### 5.2 共識來源與選用
 1. EPS 與 Revenue 分別選源，不要求兩者來自同一平台。
-2. **固定順位：Yahoo Finance Average Estimate → LSEG I/B/E/S → FactSet Estimates → Investing.com。** Yahoo Finance 是第一順位，其餘依序遞補。
+2. **固定順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。** Yahoo Finance 是第一順位，Investing.com 是第二順位，其餘依序遞補。
 3. 每個指標先查 Yahoo Finance 同一財報期間的 Average Estimate；只有該指標缺值、未提供、無法讀取、財報期間不符或無法取得可用平均預期時，才依序嘗試 LSEG I/B/E/S、FactSet Estimates、Investing.com。取得第一個可用平均預期後，該指標停止主來源搜尋。
-4. 低順位來源可作透明度交叉參考，但不得覆蓋已選定的高順位主來源，不得混合、平均或因數字較高／較低而任意切換。EPS 與 Revenue 可分別採不同來源；每一項卡片均須清楚標示實際採用來源及可取得的分析師人數。
+4. 每一指標一旦取得符合同公司、同財報期間的有效預估值，立即鎖定並停止該指標的後續來源搜尋；不得為了交叉核對而繼續抓取低順位來源。不得混合、平均或因數字較高／較低而任意切換。EPS 與 Revenue 可分別採不同來源；卡片標示實際採用來源及可取得的分析師人數。
 5. 每一指標保存來源 URL、查核時間、資料／公告時間（若可得）、財報期間、estimate、幣別、單位、分析師數（若可得）、EPS methodology（若可得）、採用或跳過原因。
 6. Yahoo observed_at 只代表 TAC 觀測時間，不得冒充供應商 data_as_of。PIT 原始回應、時間戳及 SHA 可作證據保存，但不再是一般數值判讀的先決門檻。
 7. Yahoo EPS／Revenue 欄位未揭露的 methodology、Basic／Diluted 或 Revenue 指標定義，必須如實註記；不得自行推估或把未揭露口徑描述成已確認。此類註記依 5.3 的實用型數值比較規則處理，不得單獨阻斷數值判讀。
@@ -502,6 +502,8 @@
 
 ## 版本紀錄
 
+- 2026-11-22：依使用者明確指示，財報共識來源採用順序統一為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 獨立選源，取得第一個符合期間的有效預估值即停止該指標搜尋。PIT、分析師人數及未揭露口徑不得阻擋已取得的有效數字；不做低順位來源交叉核對。
+
 - 2026-11-21：SIM-1.4 首次整併草案；不生效、不覆寫 SIM-1.3。
 - 2026-11-21：補入商品名稱／歷史頁連結、台灣截稿行事曆分類、財報母版雙卡及 B3 視覺／互動規則。
 - 2026-11-21：歷史實證與過期 SHA 快照移至 `simulation-lab/analysis/SIM-1.4_DRAFT_HISTORY.md`；本檔只保留現行候選規則與簡要處置摘要。
@@ -520,6 +522,12 @@
 - 將操作建議驗收收斂為立場、可執行動作、條件／失效訊號；避免要求每篇總結機械列齊所有資產及所有操作條件。
 - 本次僅修訂 SIM-1.4 DRAFT；SIM-1.3 仍是唯一有效規則，未修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
 
+
+## 2026-11-22 補充修訂｜財報來源採用簡化與停止搜尋原則（仍為 DRAFT）
+
+- Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。
+- EPS 與 Revenue 各自獨立查找；第一個符合公司及財報期間的有效數值即採用，停止該指標其餘來源搜尋。
+- 不要求 PIT 快照、分析師人數、完整 GAAP／Adjusted 或其他來源交叉核對作為數值採用門檻；缺少資訊僅作註記。
 
 ## 2026-11-22 補充修訂｜商品可見名稱與內部合約識別分離（仍為 DRAFT）
 
