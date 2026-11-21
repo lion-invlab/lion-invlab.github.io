@@ -253,3 +253,66 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 - 本輪 SIM-1.4 DRAFT 已完成雙母版實證後的規則一致性修訂；目前候選規則 SHA：`3d5f067ff08df3ba82409620c3d3afc4265c7792`。
 - Monday 既有成功 run 使用前一版 candidate rules SHA，故需以本次凍結版重新執行 2026-11-23 Monday build；Weekday 亦將在 Monday 完成後，以同一 candidate rules SHA 重跑。
 - 本次只觸發 simulation branch QA；不修改 main、正式母版、正式 Manifest、正式首頁或正式行事曆 JSON。
+
+---
+
+## 2026-11-21 補充：同一凍結 SHA 雙母版實際 build 證據與重新裁定
+
+本節更新前文「尚未執行新的成功 Python build、未產生新 HTML、未完成 Playwright／視覺回歸」的歷史狀態；前文保留作歷史稽核紀錄，不再代表最新 run 狀態。
+
+### A. 同一組候選版本的兩份實際 build
+
+| 項目 | Monday 2026-11-23 | Weekday 2026-11-20 |
+|---|---|---|
+| Workflow run | 44907807730 | 44907973204 |
+| HTML | preview/2026-11-23-simulation.html | preview/2026-11-20-simulation.html |
+| QA sidecar blob SHA | aa61f29a0808b36b15421dd139e7a1d5758b156f | 185b0f0843440307c6688f0c1325dcfac607132b |
+| HTML SHA-256 | 142c60016a04b0706b263198ebd58002c0bebe75732d680c37b576f24cdf0dfa | db5321af09200ca3c0ea8a66a91bb7f211374e34572a905043ab176e6bbc0a13 |
+| QA | QA_PASSED | QA_PASSED |
+| review_ready | false | true |
+| Builder SHA | c4c24c03625b3532f48362d7235755a8fa55850f | c4c24c03625b3532f48362d7235755a8fa55850f |
+| Manifest SHA | 1496a510d144d340c41b642592675233d5bd2917 | 1496a510d144d340c41b642592675233d5bd2917 |
+| QA Contract SHA | f6848d21286f63c4eef11682eedd8825b5fd3aad | f6848d21286f63c4eef11682eedd8825b5fd3aad |
+| Candidate SIM-1.4 SHA | c5d992b71bb4359b22c266cab00b05d527bdfb0e | c5d992b71bb4359b22c266cab00b05d527bdfb0e |
+| Active SIM-1.3 SHA | 679eae7ba7a40dbad64d15bb448fe53db7d67e09 | 679eae7ba7a40dbad64d15bb448fe53db7d67e09 |
+
+Weekday run job 136857517375 completed successfully. Its steps show success for HTML assembly, Traditional Chinese font verification, Playwright interaction/source-link tests, comparison against the selected mother, mother-owned DOM structure validation, independent artifact/provenance validation, 44-indicator/news/calendar shape validation, evidence sealing, and simulation-branch persistence. Thus, the two templates now have successful real build and browser-QA evidence under the same frozen candidate/Builder/Manifest/QA Contract SHAs.
+
+This does not mean the two reports have the same data readiness. Monday still has four pre-cutoff refresh blockers (VIX, MOVE, CNN Fear & Greed, FedWatch); Weekday's sidecar has review_ready=true but carries explicit data-source caveats and pending notes. It also does not approve SIM-1.4: both sidecars explicitly record sim14_builder_approval=NOT_APPROVED and sim14_review_ready=false.
+
+### B. Builder source re-read: selector/write inventory first-pass findings
+
+Current Builder blob SHA verified from branch: c4c24c03625b3532f48362d7235755a8fa55850f (2,567 lines). A first-pass source scan found 451 selector/find/mutation-related lines. This is a preliminary inventory, not yet a complete selector-by-selector whitelist.
+
+**Confirmed protective changes in current source**
+- set_text() refuses to clear a node that contains child elements; it is restricted to leaf-text targets.
+- Fed weekly agenda checks its outer wrapper, title, list, prototype and empty-state nodes; it removes only direct rendered event instances, clones the fixed prototype, and retains the wrapper/prototype/empty-state nodes.
+- FedWatch requires exactly two probability rows, two bar segments and two legend entries; it updates existing slots rather than reconstructing the cards.
+- CFD reference series are explicitly rejected by the market guard and marked cfd_index_reference_rejected rather than rendered as cash-index closes.
+- Summary title is updated in its existing heading slot; summary points and sentiment interpretation use dedicated preservation helpers.
+
+**Remaining structural mutation risks found in the current source**
+1. head_node.append(Comment(...)) adds calendar provenance comments; a later soup.head.append(provenance_comment) adds build provenance. These are intentional metadata additions but mean the output head is not byte-identical to the mother.
+2. The optional special_focus branch constructs a new section, many new elements and inline styles, inserts it before the summary, and appends a responsive style element to head. It is conditional and absent from the ordinary 11/20 and 11/23 fixtures, but it is still a non-mother DOM/CSS mutation path requiring explicit opt-in authorization and negative tests.
+3. Economic calendar assembly uses panels.clear(), then rebuilds status groups and cards from copied prototypes. Earnings assembly similarly uses ep.clear() and reconstructs groups/cards. These are broad clears of container children, not leaf-slot updates. They may be allowed only if the exact containers are explicitly designated dynamic collections by the mother/Manifest/QA Contract and all fixed wrappers, disclosures, controls, IDs and interaction structure are reconstituted and tested. Current QA_PASSED alone does not prove this is authorized by the no-structure-change rule.
+4. Several source-disclosure bodies, sector-source containers, key-level disclosure bodies and core-observation callouts are cleared/repopulated. Each must be mapped to its exact mother-owned slot and tested for preservation of required anchors, details/summary, labels and controls. set_text() protection does not cover direct .clear() calls.
+5. meta[name=report-date] content, approved status classes, event link href/hidden attributes, and selected labels are changed in place. These are attribute-level writes and must be separately listed in the allowlist.
+6. The current browser QA's "mother-owned DOM structure unchanged" check is a stable-structure validator, not a complete byte-for-byte or all-node DOM diff. Passing it cannot be used to claim all mutations are harmless.
+
+### C. Updated disposition
+
+- Dual-mother real builds under one frozen SHA: PASS.
+- Browser interaction and six viewport/font QA for both runs: PASS.
+- Sidecar/provenance and 44-indicator structural validation for both runs: PASS.
+- Monday data review readiness: NOT READY (four named freshness blockers).
+- Weekday data review readiness: READY WITH EXPLICIT SOURCE CAVEATS as recorded in its sidecar.
+- Builder's complete selector/write whitelist and negative mutation matrix: NOT COMPLETE.
+- Builder approval as SIM-1.4 unique entry point: NOT APPROVED.
+- SIM-1.4 status: DRAFT; SIM-1.3 remains active.
+
+### D. Next required audit work
+
+1. Enumerate every destructive operation (clear, decompose, extract, replace_with, append, insert, attrs writes) by function and exact selector; classify as fixed shell, approved dynamic collection, text leaf, attribute slot, or unauthorized/conditional extension.
+2. Cross-reference each target selector against both mother-template DOMs and Manifest; record count, parent path, required child structure, and whether it is an approved dynamic slot.
+3. Add negative tests proving that missing/duplicate targets, missing wrappers/prototypes, altered details/summary controls, absent source links, extra/missing FedWatch rows, missing Fed agenda slots, and unapproved special_focus/CSS injection fail closed.
+4. Re-run both mother fixtures after any Builder or QA Contract change; a changed frozen SHA invalidates the current same-version dual-build evidence.
