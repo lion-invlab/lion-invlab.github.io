@@ -1786,3 +1786,10 @@
 - 直接核讀Warsh 11/16演講：AI可能推升長期生產力，但尚未有結構性突破；若AI投資回報令人失望，可能出現估值下跌與經濟放緩情境。此為長期情境，不是短期利率訊號。URL https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm 。
 - G1主因果鏈：AI需求／訂單仍強，但市場重新定價資本支出回報、融資結構與槓桿；高利率抬高資金成本，資料中心高收益債利差擴大，AI估值與信用風險互相放大，可能引發去槓桿及被迫賣出。SpaceX融資超額認購與CoreWeave CDS飆升代表信用市場分層，不等於AI需求全面消失。Warsh長期情境、FOMC金融穩定／通膨風險、Cook近期鷹派發言須分開解讀。
 - Phase 4仍未封口，原文核讀截至11/21 10:12:34+08:00。
+## 2026-11-21 10:14｜Phase 4 Global Focus／Hot Headlines內容草稿
+- Global Focus五則原文：Reuters全球市場賣壓（11/20 15:12 UTC）、Reuters Cook鷹派發言（11/20 17:18 UTC）、CNYES密大信心（11/21 02:00）、Focus Taiwan台灣10月外銷訂單（11/20 20:26）、CNYES美參院能源許可改革（11/21 07:30）。
+- Hot Headlines十則候選：AMD做空指控／公司否認（24/7 Wall St 11/20 09:52 ET）；NVIDIA SEC會計審查與連7週下跌（CNYES 08:40／06:16）；黃金白銀下跌（Investing 02:41更新04:44）；Anthropic IPO第二日回落（CNYES 06:35）；SpaceX 440億美元GPU融資（CNYES 03:38、Apollo官方稿）；半導體指數25年最差週（MarketWatch 17:44 ET）；Reuters價值股輪動（20:13 UTC）；Trump海外資料中心構想（CNYES 08:30）；Bessent H200上限／Trump舊晶片表態（CNYES 04:00／04:40）；Intuit出售Mailchimp並下修FY2027營收預測（Investing 18:26）。
+- CoreWeave CNYES 6669543與The Private Banker同日報導原文無法開啟，雖搜尋摘要出現CDS 1,232.6bp，依規則不採用；不用搜尋摘要替代原文。CoreWeave可在G1作背景時只引用已讀取的FOMC紀要及Reuters 11/17信用背景，不引用該未核實數值。
+- 排除NVIDIA偽造員工聯署報導、CNYES 09:00行情摘要、時區未確認的Citi 08:42文章及原文未讀的CTA 80.6bn模型。
+- G1因果鏈：AI需求／出口訂單仍強，但FOMC已警示AI建置債務、表外租賃、循環融資、資料中心高收益債利差及槓桿；高利率與資金成本、政策限制、估值過高共同推動市場重新定價AI投資回報。SpaceX融資超額認購顯示頂級資產仍有資金，不能推論AI需求全面消失。
+- Phase 4新聞窗口截至11/21 10:14:48+08:00仍未封口，所有候選均非最終稿。
