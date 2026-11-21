@@ -3274,3 +3274,19 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - main 寫入 commit：HTML `62affdf42147fc6940c3af1b93cb4d415c571547`；QA `8a7a8a24f6811259d760a558d1266c1c3f54c229`。兩個 commit 各只變更其對應 preview 檔；`main/index.html` 未修改。
 - GitHub Pages deploy run `44913480651`：success，部署 head SHA `8a7a8a24f6811259d760a558d1266c1c3f54c229`。但本執行環境無法直接取得 Pages 線上 HTTP 回應（web fetch Internal Error／執行環境 DNS 不可用），故只能確認部署工作成功，不能宣稱已實際開啟線上頁面驗證。預覽網址附新版本識別參數供使用者直接驗收。
 - QA 狀態仍是 `QA_PASSED`，不是 `REVIEW_READY`；VIX、MOVE、CNN Fear & Greed、FedWatch 仍需於 11/23 05:25 截稿前刷新。
+
+
+## 2026-11-21｜11/23 審核版三項缺陷修正完成
+
+- 使用者回報：①WTI／黃金／白銀商品連結非 Investing.com 對應頁；②財報小卡樣式偏離母版；③行事曆未依日期正確分入今日／即將／已公布。
+- 根因及修正：
+  1. 商品名稱連結原本錯誤共用 `source.url`（實際報價證據可能是 CME PDF）。現分離 `instrument_url` 與 `source.url`：WTI `https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037`；Brent `https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095`；GCZ6 `https://hk.investing.com/commodities/gold-historical-data?cid=1178341`；SIZ6 `https://hk.investing.com/commodities/silver-historical-data?cid=1178344`。原 CME quote evidence links remain in source disclosures.
+  2. 財報 Builder 複製五星卡原型後只更新星號文字，未同步卡片／公司名稱的五星 CSS class，導致四星公司沿用五星外觀。新增 `apply_earnings_star_style` 依實際星等移除／套用 class。
+  3. 行事曆 Builder 原本移動 DOM groups 造成 nth-child 活頁順序錯亂；空白分頁 continue 留在原位置；list 中舊空白提示未清除。現保留母版三組原始 DOM 順序、清除 list 中舊文字及卡片，並新增輸出分頁順序 Gate。分類統一依明確發布狀態及台灣報告截點；未到截點的 pending_verification 不再提前列入已公布。
+- 新增 regression tests：商品 instrument link／quote source 分離、四星五星卡片樣式、日期／狀態分頁分類、過期空白文案清理；calendar panel preservation test 改為驗證新 helper 與原母版分頁順序。
+- 最終 full build run `44914993653`：success；HTML assembly、deterministic tests、navigation／accordion／source link browser smoke、mother comparison、DOM structure、artifact/provenance、44 indicators／calendar counts／news shape 均通過。
+- 最終 simulation HTML SHA `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA JSON SHA `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`；Builder blob SHA `fe8da8e131a314897deb68ae608fda9d7647ac16`。
+- 輸出回讀：商品連結皆為 Investing.com HK 對應頁，報價來源證據仍保留；經濟行事曆三組為 today 6、upcoming 21、published 0；財報三組為 today 1、upcoming 10、published 0；無舊 10/26 空白文案；四星卡不再帶五星 class，五星卡保留五星 class。
+- 已更新 main 同日 preview HTML／QA sidecar 並回讀 SHA。HTML commit `1239a74ff67f273bf4fd984271f8a829b9be110c`，HTML blob `d83893d0b4be9960b6642253e51a9ef5cfe4fd9e`；QA commit `6213580efcf745a9670dcf296c05ddedc5fbf4ea`，QA blob `e2ca2b8af44b88329b88c0e7fadec51b612f4d32`。main/index.html SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f` 未變。
+- Pages deploy run `44915207046` success。web open 仍回 Internal Error，故部署工作成功可證，但線上 HTTP 頁面實際載入未能由本環境確認。
+- QA sidecar `QA_PASSED`，但 `review_ready=false)：VIX、MOVE、CNN Fear & Greed、FedWatch 仍待 11/23 05:25 截稿前刷新；不可宣稱整份早報已 ready。
