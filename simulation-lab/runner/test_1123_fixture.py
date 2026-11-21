@@ -99,6 +99,8 @@ def main():
     assert data["energy"]["WTI原油期貨"]["contract_label"].startswith("CLF27")
     assert data["energy"]["WTI原油期貨"]["display"] == "83.98"
     assert data["energy"]["WTI原油期貨"]["change_display"] == "+0.93%"
+    assert data["energy"]["WTI原油期貨"]["volume"] == "275.34K"
+    assert data["energy"]["WTI原油期貨"]["source"]["volume"] == 275340
     assert data["energy"]["WTI原油期貨"]["source"]["url"] == "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
     assert data["energy"]["WTI原油期貨"]["display_name"] == "WTI 原油期貨"
     assert data["energy"]["Brent原油期貨"]["display_name"] == "Brent 原油期貨"
