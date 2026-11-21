@@ -1984,7 +1984,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度恐懼、風險承擔意願快速下降；市場正在同時折價AI資本回報、利率維持高檔、信用融資及政策不確定性。",
-  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口，需於11/21 23:59後最後增補。 五項關鍵價位已由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依經典樞紐點公式計算S2/S1/P/R1/R2；SOX收盤另與Investing.com HK交叉核對。",
+  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口；週一版窗口為11/20 12:00至11/23 05:25，需於報告截稿時最後補查週末與週一清晨消息。 五項關鍵價位已由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依經典樞紐點公式計算S2/S1/P/R1/R2；SOX收盤另與Investing.com HK交叉核對。 W48 行事曆目前27項經濟事件及11家財報時程均已投影；資料庫標示incomplete，主要是EPS／Revenue公告前PIT共識缺少必要欄位，故未採用預期、不判Beat/Miss。上週回顧依SIM-1.3僅顯示W47兩項五星經濟事件及一項五星NVDA財報。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/23 05:25（台灣時間；週一實際截稿時封口）",
   "key_levels_overrides": {},
