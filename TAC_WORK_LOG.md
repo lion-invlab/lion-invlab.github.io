@@ -2637,3 +2637,13 @@
 - 修正 11/23 Fixture：WTI 83.98／+0.93%／275.34K；修正 11/20 Fixture：WTI 83.21／-0.06%／92.36K。兩份 source.url、instrument_url 同指向 cid=1178037；更新 history_close／history_change／volume／change_points／來源說明及原油評論。
 - Brent（LCOF7）、黃金（GCZ6）、白銀（SIZ6）指定合約歷史頁抽查均與 Fixture 11/20 數值一致。來源依據：Investing.com HK 各商品歷史頁。
 - 修正後 run `44947008781`（11/20）及 `44947014615`（11/23）已觸發，當時均 in_progress。不得以舊 WTI Fixture 的 run 作最終 QA。
+
+
+## 2026-11-22｜11/23 Monday 審核版完整 build 通過
+
+- 先前 workflow run `44954646324` 已完成 HTML 組裝、互動、視覺及 DOM QA，但獨立 provenance validator 失敗：`QA Contract does not bind the selected simulation mother SHA`。根因為 QA Contract A2.1 的 Monday simulation SHA 仍為舊值 `36f29bcb37816348756f9233b60f0429d675a76e`，與 Manifest／實際母版 `72cd41e63f57f17b5b797af6043e839bf5f3b069` 不符；同一列 style 數量亦過期（124 vs 實際 121）。
+- 已將 `simulation-lab/baseline/mother-template-qa-contract.md` 更新為 v1.14 DRAFT，blob SHA `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`；同步 Monday SHA 及 style count。Commit `ea7940f6308389cbef68cc263fd963e47e5c2f49`。
+- 以最新契約重跑完整 Monday build：run `44954756293` completed／success。HTML blob SHA `bf165da826aa3209422dc2c1787cd17c05d9016a`，SHA-256 `b98950ccf6d8446f91e3b20740ce6e799f2a5fd6565a8f9058531acb7a8382e4`；QA sidecar blob SHA `ab5e91131b09c869551e7fa4ba969dfa2bfb4518`。
+- Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`review_ready_blockers=[]`；六種 viewport 1440／768／412／390／360／320、browser interaction、母版視覺、母版 DOM、獨立 provenance、44 項行情及行事曆／新聞結構驗收均通過。
+- 本次同版 provenance：Builder `60d778c39ffe48140e99e0dad3579ce9f0b33945`；Manifest `5080858c6720847086b7df815432d305d6231b3a`；QA Contract `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`；active SIM-1.3 `116ebb0a6401321148a878fe20c9504df7ce37f7`；candidate SIM-1.4 `371554033cd33efb76062827bc6b340e16f28bc2`。
+- SIM-1.4 仍為 DRAFT；sidecar 明確記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。目前只完成 Monday 同版技術驗證；尚須以完全相同版本 SHA 完成 Weekday 母版回歸，才能標記雙母版候選驗證完成。未修改 main、正式首頁、正式母版或正式行事曆 JSON，亦未部署 Pages。
