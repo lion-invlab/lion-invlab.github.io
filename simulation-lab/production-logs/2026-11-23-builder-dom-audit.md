@@ -46,3 +46,13 @@
 - 根因：核心觀察收折區原有第二個文字節點在更新時被替換成空字串，序列化後該文字節點消失，導致 callout DOM skeleton 不一致。這不是母版本身錯誤，也不是放寬 Gate 的理由。
 - 修正 commit：`e994f60`。現在保留原有第二個文字節點並填入「其餘補充資料已整併於上方。」；不刪節點、不放寬 DOM Gate。
 - 本次提交會重新觸發完整 11/23 build。前一 run 未通過 DOM Gate，不輸出 QA-passed preview。
+
+
+## 第二輪 Full Build 驗收結果
+
+- DOM validator deterministic run `44910900283`：success。
+- Full build `44910974273`：因核心觀察 disclosure 第二個文字節點消失而未通過 DOM Gate；已由 `e994f60` 修復，未放寬 Gate。
+- Full build `44911112651`：success。HTML assembly、瀏覽器互動、母版對照、DOM contract、artifact/provenance、44 項行情、行事曆及新聞結構全部通過。
+- 輸出 HTML blob：`3bf2c6659b7b388cdbc6eb492daf2e31a9693a3f`；QA JSON blob：`cadcd11bf7efd330228eef80256b782f531b042f`；HTML SHA-256：`c8b27bcd1a13f148c7ab0846cad90033d8459a96be6f03f1202f1521366cade4`。
+- QA JSON：`QA_PASSED`，但 `review_ready=false`，因 VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新。
+- 後續 `45e8879` 只將原有 disclosure 第二個粗體標題更新為「其他補充：」，不改變 DOM。現在以本次提交觸發 final full build，確保最終 QA JSON 的 Builder SHA 對應最新程式碼。
