@@ -130,3 +130,10 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 ## SIM-1.4 visual QA correction
 
 - Browser QA identified published earnings values clipped on narrow screens because the Monday mother CSS forced `white-space:nowrap` and `overflow-wrap:normal`. Updated only the simulation Monday mother to allow wrapping while retaining the existing two-column card structure; synchronized its simulation manifest SHA and regression assertion. Next full build reruns 1440/768/412/390/360/320 browser checks. W48 remains untouched.
+
+
+## SIM-1.4 QA correction｜Manifest SHA field separation
+
+- 前次驗收指出 Monday simulation baseline SHA 與 Manifest 欄位未對齊。已保留正式 main mother SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`，只更新 simulation_blob_sha 為 `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0`；不得將 simulation SHA 寫入正式 blob_sha。
+- 同步修正 SIM-1.4 §5.2 舊順位殘留：Investing.com 必須在 LSEG I/B/E/S、FactSet Estimates 之前。
+- 觸發重新跑母版 SHA 鎖、全套測試與 browser QA；W48 不處理。
