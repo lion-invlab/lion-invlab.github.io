@@ -1798,3 +1798,10 @@
 - main index.html只讀SHA 85ef90b60788e25973a5bbe39e23b76c7081a53f；main preview/2026-11-23-simulation.html為404；未修改首頁或建立預覽。
 - workflow artifact 43985585239亦無simulation母版原始檔。Phase 1–3已稽核；Phase 4新聞草稿截至11/21 10:14:48但窗口未封口；Phase 5未組裝、四類QA未執行；Phase 6未開始。
 - 唯一Phase5阻塞為精確simulation母版1ac39尚未能materialize到Python DOM runtime；BeautifulSoup/lxml/Playwright/Chromium均可用。不得以main母版或舊preview替代。
+
+## 2026-11-21｜P0 母版原始 HTML 到本機容器交付成功
+- 根因邊界已用實際證據解除：Connector fetch 本身能取回母版，但原先沒有落地容器的橋接；改用隔離 simulation workflow 將 Manifest 指定母版複製進 workflow workspace、以 lxml 解析、打包 artifact，再由 GitHub artifact download 交付本機。
+- workflow commit b84f48c47f4e980c1ac8aed72df90f463822ab43；workflow blob ee44265a59b094023a00495b9fcc7f7fe3096eae；run 44856388322 / job 136699485761 success；artifact 14687264191，ZIP digest sha256:c1d299c1dfe5f2b81888306e9ac75d83596d6bdd1d323ba020da15ffa9c69d44。
+- 本機檔案 /mnt/data/tac-mother-transfer/monday-mother-template.html：386622 bytes；SHA-256 d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931；Git blob SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8（與 Manifest 一致）；lxml解析 2040 elements／183 IDs／25 scripts／124 styles。P0正式解除。
+- workflow 修改僅限 simulation branch .github/workflows/tac-simulation-lab.yml；未改母版、Manifest、QA Contract、main index、main preview或W48 JSON。
+- 下一阻塞為缺少 report-data-2026-11-23.json；fixtures目前最新日期為11/20，不能重用舊日期冒充。Phase 5未開始、QA未執行、預覽未建立。下一步應從已核實行情／新聞／分析資料產生11/23日期匹配fixture，補足缺項後再DOM組裝。
