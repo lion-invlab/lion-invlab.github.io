@@ -56,3 +56,15 @@
 - 輸出 HTML blob：`3bf2c6659b7b388cdbc6eb492daf2e31a9693a3f`；QA JSON blob：`cadcd11bf7efd330228eef80256b782f531b042f`；HTML SHA-256：`c8b27bcd1a13f148c7ab0846cad90033d8459a96be6f03f1202f1521366cade4`。
 - QA JSON：`QA_PASSED`，但 `review_ready=false`，因 VIX、MOVE、CNN Fear & Greed、FedWatch 尚待 11/23 05:25 前刷新。
 - 後續 `45e8879` 只將原有 disclosure 第二個粗體標題更新為「其他補充：」，不改變 DOM。現在以本次提交觸發 final full build，確保最終 QA JSON 的 Builder SHA 對應最新程式碼。
+
+
+## Final Build（最新 Builder SHA 對齊）
+
+- Final full build run `44911272905`：success。最新 Builder commit `45e8879` 已完成全流程驗收。
+- QA JSON `builder_blob_sha=ffc2b319c6bc0e31d97b60197b96564b35394681`，與分支最新 Builder blob SHA 完全一致。
+- 最終 HTML blob SHA：`505de1d6df7c2258244ff9b727d6fa0b832b9e59`。
+- 最終 QA JSON blob SHA：`4c908c28830c6bdc9b502d11dd9eb672756de56b`。
+- 最終 HTML SHA-256：`9f751c4f6762105ceac5db804f9133fa420f7c1b956f55cbd145a6b923d594e0`。
+- 狀態：`QA_PASSED`，但 `review_ready=false`。VIX、MOVE、CNN Fear & Greed、FedWatch 仍待 2026-11-23 05:25 台灣時間截稿前刷新；不把 QA_PASSED 說成 REVIEW_READY。
+- 六 viewport 1440／768／412／390／360／320 通過；Fed 官員行程、FedWatch、上週經濟及財報行事曆均保留。
+- 本檔、程式、審核版及證據均留在 simulation branch；main／正式首頁未修改。
