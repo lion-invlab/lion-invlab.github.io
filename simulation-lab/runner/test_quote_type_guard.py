@@ -104,6 +104,10 @@ def test_structured_market_observation():
     assert before == after
     assert node.select_one("b").get_text(strip=True) == "盤面觀察重點"
     assert "測試觀察內容" in node.get_text(" ", strip=True)
+    original_heading = node.select_one("b").get_text(strip=True)
+    set_market_observation(node, "", "第二次更新")
+    assert node.select_one("b").get_text(strip=True) == original_heading
+    assert "第二次更新" in node.get_text(" ", strip=True)
     wrapped = BeautifulSoup('<div class="key"><span>old</span></div>', "html.parser").select_one(".key")
     wrapped_before = [child.name for child in wrapped.contents]
     set_market_observation(wrapped, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
