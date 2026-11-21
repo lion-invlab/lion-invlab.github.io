@@ -508,3 +508,10 @@ SHA：679eae7ba7a40dbad64d15bb448fe53db7d67e09
 - 回讀 SIM-1.3 B3.2–B3.6 原文後，發現先前處置台帳雖已列為保留，但 SIM-1.4 主文 1.3／9.2 尚未完整承接。現已在 SIM-1.4 DRAFT 1.3 明確加入：上漲紅／下跌綠；中文名稱上、英文代碼小字下且不加括號；連結只包名稱／代碼；五星標題 TAC 紅、四星沿用母版；不重加已刪除的「關鍵重點」膠囊；工具泡泡與呼吸燈分開驗收。
 - QA Contract 對應落點：SIM-1.4 9.2 的互動 QA 與視覺 QA，並保留母版 CSS／DOM 零退化規則。
 - 最新 SIM-1.4 DRAFT SHA：`f585c0e08e1075d760c91a5f0eab79a408ca9e45`。這是 build `44914993653` 之後的新規則版本；既有 build 不得作為此 SHA 的驗收證據，需重新 build。
+
+
+## 2026-11-21｜QA Contract v1.9 DRAFT 與 build provenance 邊界
+
+- QA Contract 已更新為 1.9 DRAFT，blob SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`；補入 WTI／Brent／GC／SI 名稱不帶合約月份、Investing.com 頁面合約直接開啟核對、上漲紅／下跌綠、中文名稱／英文代碼層級、五星／四星色彩、禁止恢復已刪除膠囊、工具泡泡／呼吸燈分開驗收，以及已公布財報雙卡 DOM／CSS 一致性。
+- 11/23 build run `44914993653` 的 QA sidecar 使用 QA Contract SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`（v1.8 DRAFT），不是目前 v1.9 SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`；candidate rules SHA 亦為舊版 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不是目前 SIM-1.4 DRAFT `f585c0e08e1075d760c91a5f0eab79a408ca9e45`。
+- 因此最新 HTML／QA PASS 不可宣稱符合最新 DRAFT＋QA Contract 組合。必須在兩份候選文件 SHA 凍結後，以同一 Builder SHA、Manifest SHA 分別重跑 Monday 與 Weekday；兩份 sidecar 必須同時記錄最新 candidate rules SHA 與 QA Contract SHA。
