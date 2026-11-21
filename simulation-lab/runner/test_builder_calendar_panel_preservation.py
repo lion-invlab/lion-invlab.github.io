@@ -32,9 +32,11 @@ forbid("details.clear()")
 forbid("grid.clear()")
 
 # Only direct event-card instances inside the approved list slots may be removed.
-require('listing.find_all("details",class_="econ-event",recursive=False)')
-require('listing.find_all("details",class_="earnings-accordion",recursive=False)')
-require('old_card.decompose()')
+require('reset_calendar_listing(listing,"econ-event"')
+require('reset_calendar_listing(listing,"earnings-accordion"')
+require('child.extract()')
+require('validate_calendar_group_order(panels,"economic calendar")')
+require('validate_calendar_group_order(ep,"earnings calendar")')
 
 # Reuse the existing empty-state element in place when the mother has no list slot; never fabricate a wrapper.
 require('economic calendar {key} group has neither event-list nor empty-state slot')
