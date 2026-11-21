@@ -162,6 +162,26 @@ def main():
         assert str(weekday_health.get(field, "")).strip(), ("weekday FactSet field missing", field)
     assert weekday_health["mag7_eps_growth"] == "待核實"
     assert weekday_health["other_493_eps_growth"] == "待核實"
+    levels = weekday["key_levels"]
+    assert levels["baseline_date"] == levels["trading_date"] == "2026-11-19"
+    assert len(levels["items"]) == 5
+    for item in levels["items"]:
+        assert item["trading_date"] == "2026-11-19"
+        assert item["quote_type"] == "cash_index"
+        assert item["url"].startswith("https://finance.yahoo.com/quote/")
+        ohlc = [float(part.split(" ")[1].replace(",", "")) for part in item["ohlc"].split("｜")]
+        open_, high, low, close = ohlc
+        pivot = (high + low + close) / 3
+        expected = {
+            "s2": f"{pivot - (high - low):,.2f}",
+            "s1": f"{2 * pivot - high:,.2f}",
+            "p": f"{pivot:,.2f}",
+            "r1": f"{2 * pivot - low:,.2f}",
+            "r2": f"{pivot + (high - low):,.2f}",
+        }
+        for field, value in expected.items():
+            assert item[field] == value, (item["key"], field, item[field], value)
+
     assert "111326.pdf" in weekday_health["source_url"]
     print("PASS: 11/23 fixture contract")
     print(f"PASS: 44 market indicators = {counts}")
