@@ -96,3 +96,16 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - QA Contract 更新為 v1.15 DRAFT，blob `729a4de1f4d7f7dafa0ced7fe3ae95b329f98095`，新增 320/360/390/412px 真實視覺檢查要求。
 - W48 財報資料另行查核：main W48 JSON 11 家，EPS／Revenue estimate 欄位全為 null，且 11 家都沒有 Yahoo Finance 查核紀錄；Investing.com Forecast 觀測值雖有，但全部被記為 missing_required_fields，未採用。這違反 SIM-1.4 §5.2 所定 Yahoo Finance Average Estimate 第一順位，且未能證明該流程已執行。不可把缺少 GAAP／Adjusted 欄位本身當作拒絕可比較平均預期的理由。已查得 Yahoo Finance analysis pages 存在多家公司 Current Qtr (Oct 2026) EPS／Revenue Average Estimate，但必須逐一確認該季度與各財報事件 reporting_period 對應後才可寫入；未核實者不得補猜。
 - 下一步先跑 11/23 Monday 完整 build／六視窗 QA，核對兩個 mobile 問題實際截圖；W48 另做 11 家 Yahoo 優先、EPS／Revenue 分開選源的來源稽核與 report-layer overlay，不修改 main W48 JSON。
+
+
+## 2026-11-22｜SIM-1.4 財報共識首筆採用規則落實（不處理 W48）
+
+- 使用者確認工作順序：先落實 SIM-1.4，再處理 W48；本輪不讀取、不修改、不回填 W48 財報資料。
+- 統一來源順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。EPS／Revenue 各自獨立選源；同公司、同財報期間的第一筆有效數值立即採用並停止該指標後續來源搜尋，不做低順位交叉核對。
+- SIM-1.4 主文更新：Stage 3、§5.2、附錄處置與版本紀錄已統一順位及停止條件；主文 blob SHA `1f28d2cdffabaa1de933a1432fa473acaf7bfe08`。
+- QA Contract 更新為 v1.15 DRAFT，blob SHA `220866dd60c700ebceb8e1c63c349a083c1b512a`，加入首筆採用、獨立 fallback、PIT／分析師人數／完整口徑／raw archive 非阻擋條件。
+- 實作更新：`consensus_snapshot_store.py` source level 改為 Yahoo=1、Investing=2、LSEG=3、FactSet=4，新增 `select_first_available_estimate()`；快照必要欄位收斂為來源 URL、期間、數值，其他 metadata optional。blob SHA `fc615a127200b02d935f7b3d16d5454a40daafcd`（後續 selector 修訂以最新 HEAD 為準）。
+- `earnings_judgment.py` 的來源層級與證據標籤改為接受已選來源，不以 PIT、分析師數、basis、raw archive、statistic 或 period_end_date 阻擋；blob SHA `47a8ba3fdbd9f0a2cc61975d9a814adeaa5570f9`。
+- `investing_earnings_probe.py` 已改為第二順位 source level 2；blob SHA `120eee8e41e8be288da4ba9500028268f2ef0bdd`。
+- 新增首筆採用／EPS Revenue 分開 fallback／財報期間不符才遞補測試；新增無 PIT／缺方法論欄位仍可採用的判讀測試。測試執行結果待本次 CI build。
+- 本次只做 SIM-1.4 simulation 候選規則與程式驗收，不修改 W48 JSON／Fixture／財報小卡；不修改 main 正式首頁或正式資料。
