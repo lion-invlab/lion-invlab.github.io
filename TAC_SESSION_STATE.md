@@ -1,3 +1,16 @@
+# 2026-11-22｜SIM-1.4 現行狀態｜等待母版基準變更授權
+
+- **正式規則：** SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob `e18865fc31a88f98e44cb1f411817e61406a34c1`。
+- **QA Contract：** v1.16，現行 blob `9d6c7443339af39fc5eb677dee11ea02a24deeca`。已更正舊版 earnings renderer BLOCKER：目前 Builder＋判讀引擎的四狀態及「比較資料尚未齊備」顯示已有測試覆蓋；run `44961417262` deterministic self-tests PASS，舊 blocker 關閉。
+- **Builder：** `simulation-lab/runner/build_review_html.py` blob `b6082923a88ab2b592f2d2765f68d4f4214caca8`。Fed 官員行程已移除單欄 inline grid 與子欄 style 覆蓋，只保留母版 prototype 的 94px 日期欄／內容欄樣式。Regression test `test_earnings_card_dom_preservation.py` blob `e5ea8856da5b205d711612d55b9c75267f381350` 已在 run `44961417262` deterministic self-tests PASS。
+- **首輪完整 build：** run `44961158565` completed/failure。失敗僅在視覺比較 step 27：11/23 上週已公布財報 EPS／Revenue 雙卡於 412／390／360／320px 被母版 CSS 強制為單欄，與 QA Contract D2 的兩欄要求衝突。前置測試、資料準備、HTML 組裝、字型及互動 smoke 通過；因視覺 Gate FAIL，DOM／provenance／資料驗收及審核版封存未完成。新 HTML 未寫回 branch；舊 preview／sidecar 不可當成本次證據。
+- **唯一未解決的基準衝突：** simulation Monday mother 的 `@media(max-width:700px)` 規則將 `#last-week-earnings .earnings-results-grid` 設為 `minmax(0,1fr)` 單欄；QA Contract D2 明定 640px 以下仍兩欄。使用者既有要求亦為手機 EPS／Revenue 兩卡並列。正確修復須只改 simulation branch 的 Monday mother copy，改為 `repeat(2,minmax(0,1fr))`，再同步 simulation Manifest Monday SHA、QA Contract A2.1／A3 與 regression assertions。不得用 Builder inline style 偷改母版；不得改 main 正式母版。
+- **待授權：** 尚未獲使用者明確授權修改 simulation Monday mother copy 與其 Manifest／QA SHA；依 SIM-1.4 母版保護規定，先停在此處，不擅自寫入。
+- **Builder 核准：** 目前 Builder SHA 尚未取得使用者對此精確路徑／SHA 的明確核准；即使後續技術 QA 通過，也只能標示 CANDIDATE_VALIDATED，不能自行標示 SIM-1.4 REVIEW_READY。
+- **下一步：** 取得 simulation-only mother baseline 更新授權後，完成兩欄 CSS 與 SHA 同步，再以正式 SIM-1.4 執行一次完整 11/23 build；通過後提交精確 Builder SHA 供使用者核准。
+
+---
+
 # 2026-11-22｜SIM-1.4 首輪完整驗收結果與修正進度
 
 - **正式規則：** SIM-1.4 `simulation-lab/TAC_WORK_RULES_SIM.md`，blob `e18865fc31a88f98e44cb1f411817e61406a34c1`；QA Contract v1.16 blob `eca3bbdde7838303a0f11b3d03ee2d07ad93c5ef`。SIM-1.3 已封存，不再執行。
