@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading, update_contract_link_label
+from build_review_html import reject_cfd_cash_index_quotes, classify_calendar_group, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading, update_contract_link_label
 
 
 def record(value, change, quote_type):
