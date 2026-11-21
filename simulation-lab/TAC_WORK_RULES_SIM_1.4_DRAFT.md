@@ -671,3 +671,9 @@
 - run 44905957224 在來源連結 regression test 失敗：當時版本雖保留 anchor，但將來源容器內其他直接文字節點改成空字串，仍改變 DOM text-node 結構。
 - 最新 helper 已改為只更新第一個核准文字槽位，保留後續所有文字節點及所有 child elements；不再移除或清空其餘文字節點。回歸測試同時比對 DOM skeleton 與來源 anchor href。
 - 本次為 fail-closed／DOM-preservation 原則的修正，不可只因 anchor 仍存在就判定結構完整。必須在最新 commit 重新執行 regression tests 與完整 HTML build。
+
+
+## 2026-11-21｜來源尾端文字節點測試口徑修正（待重跑）
+
+- run 44906001227 的來源 helper 回歸測試失敗，原因是測試仍期待舊尾端文字被刪除；最新規則是保留全部既有文字節點與 anchor，故實際輸出應保留「舊尾註」尾端文字。已修正測試預期值，不再要求移除尾端節點。
+- 最新 quote-type regression test SHA：`bf13d2b86dd1119132bcf214daf4bc57e0b5e415`；候選 Builder SHA：`e03e4af65007a6cfdd3c241a1219ea28d42cbabf`。本次修正仍需重新跑 deterministic tests 及完整 build。
