@@ -16,7 +16,7 @@
       ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
-      "simulation_blob_sha": "72cd41e63f57f17b5b797af6043e839bf5f3b069",
+      "simulation_blob_sha": "e16cc6df649dcee7e09126b4c044479661e399e9",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -93,6 +93,10 @@
     {
       "date": "2026-11-21",
       "change": "Corrected simulation summary heading selector to the actual nested card title (#overview > section > article.card.bluf > .title) in the existing final mother style block; Builder remains free of heading CSS injection. Formal main mothers unchanged."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "Mobile review corrections: existing Monday mother CSS now prevents EPS/revenue values from breaking across lines; FOMC weekly speaker agenda spans both columns of the compact mobile FOMC grid so the date/content columns regain normal width. No DOM rebuild, no added style blocks, no formal main mother or homepage changes."
     }
   ]
 }
