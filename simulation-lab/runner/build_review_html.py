@@ -249,6 +249,41 @@ def update_contract_link_label(label_link, contract_label, source_meta, instrume
     return True
 
 
+def classify_calendar_group(item, report_iso, report_cutoff):
+    """Classify an event by explicit publication state and Taiwan-local report cutoff."""
+    status = str(item.get("status") or item.get("status_in_db") or "").lower()
+    event_text = str(item.get("event_date") or item.get("date") or "")
+    event_day = event_text[:10]
+    if status in ("released", "published", "completed"):
+        return "published"
+    if status == "postponed":
+        return "upcoming"
+    if status == "pending_verification":
+        try:
+            event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
+            cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
+            if event_dt <= cutoff_dt or item.get("report_layer_status_only"):
+                return "published"
+        except ValueError:
+            pass
+    return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
+
+
+def validate_calendar_group_order(panel, label):
+    groups = panel.select(":scope > .calendar-status-group")
+    if len(groups) != 3:
+        raise ValueError(f"{label}: expected exactly three mother status groups, got {len(groups)}")
+    actual = []
+    for group in groups:
+        heading = group.select_one(".calendar-status-heading")
+        classes = set(heading.get("class", [])) if heading else set()
+        key = next((name for name in ("today", "upcoming", "published") if name in classes), None)
+        actual.append(key)
+    if actual != ["today", "upcoming", "published"]:
+        raise ValueError(f"{label}: mother tab order changed or duplicated: {actual}")
+    return True
+
+
 def reset_calendar_listing(listing, card_class, empty_text, has_items):
     """Remove stale prototype cards and stale empty-state copy while preserving the mother list wrapper."""
     if listing is None:
@@ -2068,22 +2103,7 @@ def main():
             z=datetime.fromisoformat(v); return z.strftime("%m/%d"), z.strftime("%H:%M") if z.hour or z.minute else "時間未確認"
         except Exception: return "日期待核實","時間未確認"
     def groupkey(x):
-        status = str(x.get("status") or x.get("status_in_db") or "").lower()
-        event_day = str(x.get("event_date") or x.get("date") or "")[:10]
-        if status in ("released", "published", "completed"):
-            return "published"
-        if status == "postponed":
-            return "upcoming"
-        if status == "pending_verification":
-            event_text = str(x.get("event_date") or x.get("date") or "")
-            try:
-                event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
-                cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
-                if event_dt <= cutoff_dt or x.get("report_layer_status_only"):
-                    return "published"
-            except ValueError:
-                pass
-        return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
+        return classify_calendar_group(x, report_iso, report_cutoff)
     def startext(x):
         n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
     def putfield(card,label,value):
@@ -2106,6 +2126,7 @@ def main():
     title=cal.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["calendar"]["week_start"],data["calendar"]["week_end"],data["calendar"]["week_id"],report_cutoff))
     panels=unique(cal,".week-econ-panels","economic panels")
+    validate_calendar_group_order(panels,"economic calendar")
     econ_templates=panels.select("details.econ-event")
     template=next((c for c in econ_templates if len(c.select(".econ-field"))>=5 and any(
         f.select_one("label") and f.select_one("label").get_text(strip=True) in {"市場影響","觀察重點"}
@@ -2157,6 +2178,7 @@ def main():
     title=earn.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["earnings"]["week_start"],data["earnings"]["week_end"],data["earnings"]["week_id"],report_cutoff))
     ep=unique(earn,".week-earnings-panels","earnings panels")
+    validate_calendar_group_order(ep,"earnings calendar")
     earnings_mother_cards=ep.select("details.earnings-accordion")
     et=next((c for c in earnings_mother_cards if c.select_one(".earnings-results-grid") is None),None)
     eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
@@ -2174,23 +2196,7 @@ def main():
         if group.select_one(".calendar-status-heading") is None:
             raise ValueError("earnings calendar mother status heading missing")
     def earnings_groupkey(x):
-        # A pending-verification flag is not proof that a future event has already occurred.
-        status = str(x.get("status") or x.get("status_in_db") or "").lower()
-        event_text = str(x.get("event_date") or x.get("date") or "")
-        event_day = event_text[:10]
-        if status in ("released", "published", "completed"):
-            return "published"
-        if status == "postponed":
-            return "upcoming"
-        if status == "pending_verification":
-            try:
-                event_dt = datetime.fromisoformat(event_text.replace("Z", "+00:00"))
-                cutoff_dt = datetime.fromisoformat(str(report_cutoff).replace("Z", "+00:00"))
-                if event_dt <= cutoff_dt or x.get("report_layer_status_only"):
-                    return "published"
-            except ValueError:
-                pass
-        return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
+        return classify_calendar_group(x, report_iso, report_cutoff)
     for group,(key,label) in zip(earnings_groups,[("today","今日事件"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in earnings if earnings_groupkey(x)==key]
         heading=group.select_one(".calendar-status-heading")
