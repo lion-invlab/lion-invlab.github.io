@@ -147,7 +147,9 @@ def main():
 
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")
     workflow = (ROOT / ".github" / "workflows" / "tac-simulation-lab.yml").read_text(encoding="utf-8")
-    assert "key-level-row" in builder
+    assert "key-level-row" not in builder
+    assert "key-level-index" not in builder
+    assert "levels_box.append(soup.new_tag(\"br\"))" in builder
     for label in ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力"):
         assert label in builder
     assert "if: false # Do not use repo collector" in workflow
