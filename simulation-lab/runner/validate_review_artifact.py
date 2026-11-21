@@ -13,6 +13,9 @@ from bs4 import BeautifulSoup, Comment
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
 BUILDER_PATH = ROOT / "simulation-lab/runner/build_review_html.py"
+QA_CONTRACT_PATH = ROOT / "simulation-lab/baseline/mother-template-qa-contract.md"
+ACTIVE_RULES_PATH = ROOT / "simulation-lab/TAC_WORK_RULES_SIM.md"
+CANDIDATE_RULES_PATH = ROOT / "simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md"
 
 
 def git_blob_sha(raw: bytes) -> str:
@@ -129,6 +132,28 @@ def main():
     if not re.fullmatch(r"[0-9a-f]{40}", build_commit):
         raise SystemExit("immutable build commit SHA missing from provenance")
     subprocess.run(["git", "merge-base", "--is-ancestor", build_commit, "HEAD"], check=True)
+    # Verify the exact rules and QA assets used by the immutable build commit.
+    asset_specs = {
+        "manifest": ("manifest_path", "manifest_blob_sha", "simulation-lab/baseline/mother-template-manifest.json"),
+        "qa_contract": ("qa_contract_path", "qa_contract_blob_sha", "simulation-lab/baseline/mother-template-qa-contract.md"),
+        "active_rules": ("active_rules_path", "active_rules_blob_sha", "simulation-lab/TAC_WORK_RULES_SIM.md"),
+        "candidate_rules": ("candidate_rules_path", "candidate_rules_blob_sha", "simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md"),
+    }
+    asset_bytes = {}
+    for label, (path_key, sha_key, expected_path) in asset_specs.items():
+        if provenance.get(path_key) != expected_path:
+            raise SystemExit(f"{label} provenance path missing or outside the approved path: {provenance.get(path_key)!r}")
+        payload = git_show(build_commit, expected_path)
+        actual_sha = git_blob_sha(payload)
+        if actual_sha != provenance.get(sha_key):
+            raise SystemExit(f"{label} provenance SHA mismatch: {actual_sha} != {provenance.get(sha_key)!r}")
+        asset_bytes[label] = payload
+    if template["simulation_blob_sha"].encode("ascii") not in asset_bytes["qa_contract"]:
+        raise SystemExit("QA Contract does not bind the selected simulation mother SHA")
+    active_rules_text = asset_bytes["active_rules"].decode("utf-8")
+    candidate_rules_text = asset_bytes["candidate_rules"].decode("utf-8")
+    if "SIM-1.3" not in active_rules_text[:500] or "SIM-1.4" not in candidate_rules_text[:500] or "DRAFT" not in candidate_rules_text[:500]:
+        raise SystemExit("active/candidate rules version identity is inconsistent")
     fixture_path = provenance.get("fixture_path", "")
     if not fixture_path.startswith("simulation-lab/fixtures/report-data-"):
         raise SystemExit("fixture provenance path outside approved simulation fixtures")
@@ -190,6 +215,10 @@ def main():
         "report_date": report_date.isoformat(),
         "template": template_key,
         "template_sha": template_sha,
+        "manifest_blob_sha": provenance["manifest_blob_sha"],
+        "qa_contract_blob_sha": provenance["qa_contract_blob_sha"],
+        "active_rules_blob_sha": provenance["active_rules_blob_sha"],
+        "candidate_rules_blob_sha": provenance["candidate_rules_blob_sha"],
         "build_commit_sha": build_commit,
         "builder_sha": provenance["builder_blob_sha"],
         "fixture_sha": provenance["fixture_blob_sha"],
