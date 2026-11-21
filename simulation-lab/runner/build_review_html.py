@@ -902,6 +902,7 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
             "正面": (
                 f"{earnings_health['eps_beat_pct']} EPS、{earnings_health['revenue_beat_pct']} 營收優於預期；"
                 f"混合 EPS 年增 {earnings_health['blended_eps_yoy']}、營收年增 {earnings_health['blended_revenue_yoy']}。"
+                f"Mag 7 EPS 成長 {earnings_health.get('mag7_eps_growth', '待核實')}、其他 493 家 {earnings_health.get('other_493_eps_growth', '待核實')}。"
             ),
             "保留": (
                 f"EPS 平均超預期 {earnings_health['eps_surprise']}，5 年均值 {surprise_avg}；"
@@ -2400,7 +2401,7 @@ def main():
             "S&P 500 earnings-health panel does not match the dated fixture values: "
             + ", ".join(mismatched_health_values)
         )
-    factset_source = final_health.select_one("a.factset-source-link")
+    factset_source = final_health.select_one("details a")
     if not factset_source or factset_source.get("href") != expected_health.get("source_url"):
         raise ValueError("FactSet source link is missing or does not match the dated fixture URL")
     # Commodity commentary must match the settlement values actually displayed.
