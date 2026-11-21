@@ -128,7 +128,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["source_level"], 1)
         self.assertEqual(snap["provider"], "Yahoo Finance")
-        self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
+        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
         self.assertIsNone(snap["basis_code"])
         self.assertIsNone(snap["data_as_of"])
 
@@ -189,7 +189,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
     def test_missing_basis_does_not_block_estimate_adoption(self):
         attempt = dict(self.attempt, basis_code=None)
         snap = self.build(attempt=attempt)
-        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
         self.assertIsNone(snap["basis_code"])
 
     def test_observed_at_date_only_is_rejected(self):
