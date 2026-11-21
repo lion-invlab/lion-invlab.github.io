@@ -2702,3 +2702,15 @@
 - Manifest Monday simulation SHA 更新為同一 blob，Manifest SHA `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 SHA `70121d7798cb899cbe58d9edd5e8e5ede54f137c`；Regression test SHA `f2396aed59272d197eedcc7049dfeb1bdfdcc1ac`。
 - 回讀驗證 Manifest Monday SHA 與母版實際 Git blob 完全一致；QA Contract 僅含新 SHA；test 明確斷言兩欄及禁止舊單欄覆蓋。
 - 此變更未觸及 main／正式母版／正式首頁／正式 Manifest／正式行事曆 JSON。
+
+
+## 2026-11-22｜SIM-1.4 11/23 Monday 完整端到端驗收通過
+
+- 完整 workflow run `44962000593` completed／success，head commit `a8661b6e0698134da5413e35f8b0210a7e0578b0`。第二輪驗收採正式 SIM-1.4，並以更新後獨立驗證器完整重跑；不引用前輪失敗 run 作通過依據。
+- 根因修正：`validate_review_artifact.py` 原本仍要求 Active 規則前 500 字包含 SIM-1.3、Candidate 規則包含 SIM-1.4 DRAFT，與 SIM-1.4 已升格、舊 Draft 已 SUPERSEDED 的真實生命週期相反。已改為驗證 Active=SIM-1.4 正式生效版，Candidate=SIM-1.4 SUPERSEDED 且明確不可執行。驗證器 blob SHA `2cf1ccdeaaa1254386bfb32a4050960c5b8ac828`。
+- 11/23 Monday 審核版 HTML `preview/2026-11-23-simulation.html` blob SHA `fcc58f8bfd82427405160c110519db4629318dc7`；QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `4b626fc85651c0840f4d69eb4706c24c63282dc7`。Sidecar 狀態 `QA_PASSED`、`review_ready=true`、無 blockers，且 `report_git_blob_sha` 精確綁定上述 HTML blob。
+- Gate 全數 PASS：deterministic self-tests、Investing.com earnings parser、PIT consensus snapshot store、Playwright navigation／accordion／source links、六視窗視覺比較（1440／768／412／390／360／320）、mother DOM preservation、independent provenance、report date／authoritative calendar counts／44 indicators／news shape。手機已公布財報 EPS／Revenue 雙卡在四個手機寬度均通過視覺比對。
+- 本次 provenance：Builder `simulation-lab/runner/build_review_html.py` SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`；Validator `2cf1ccdeaaa1254386bfb32a4050960c5b8ac828`；SIM-1.4 `e18865fc31a88f98e44cb1f411817e61406a34c1`；封存 Draft `0d64eb9b16202d3e9e6d86a1aa87b7105843d571`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Manifest `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；Fixture `948b504a0fba8ba45653cacc0a43cff5377e91a7`。
+- QA sidecar 的資料說明仍須如實保留：行情基準日 2026-11-20；使用者確認週末不刷新 VIX／MOVE／CNN Fear & Greed／FedWatch，沿用既有快照並顯示實際時間；新聞窗口於 2026-11-21 17:57:31（台灣時間）封口；W47 已公布值與 W48 impact_judgment 以審核版 report-layer overlay 修正，不回寫 main JSON；缺乏有效 PIT 共識的 W48 財報不得判定 Beat／Miss，維持待核實。
+- 本輪所有輸出限於 `simulation/tac-process-lab-2026-11-06`。workflow 明確 checkout simulation branch only、main_write_scope=read-only、production_deploy=forbidden；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
+- 狀態：11/23 Monday 審核版可標示 REVIEW_READY；Builder SHA 尚未獲使用者核准。依 SIM-1.4 §8.1，仍須以同一 Builder／Manifest／QA Contract／SIM-1.4 SHA 完成 Weekday 情境回歸，才可宣稱雙母版技術驗證完成。正式首頁發布仍需使用者另行明確授權。
