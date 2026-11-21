@@ -283,6 +283,10 @@ def calendar_actual_display(item, report_cutoff):
     state = item.get("_calendar_publication_state", "scheduled")
     if state == "released":
         return item.get("actual") or "已公布；實際值待核實"
+    if state == "cancelled":
+        return "已取消"
+    if state == "postponed":
+        return "已延期；改期資訊待核實"
     if state == "pending_verification":
         return (
             "公告已發布；實際值待核實"
@@ -306,6 +310,8 @@ def classify_calendar_group(item, report_iso, report_cutoff):
         state = "released"
     elif status == "postponed":
         state = "postponed"
+    elif status in ("cancelled", "canceled"):
+        state = "cancelled"
     elif status == "pending_verification":
         state = "pending_verification"
     elif event_day < report_day or (event_day == report_day and time_known and event_dt <= cutoff_dt):
@@ -317,7 +323,7 @@ def classify_calendar_group(item, report_iso, report_cutoff):
 
     if state == "released":
         return "published"
-    if state == "postponed":
+    if state in ("postponed", "cancelled"):
         return "upcoming"
     if event_day < report_day:
         return "published"
@@ -694,13 +700,18 @@ def update_upcoming_earnings_detail_fields(details, item, day, clock, session_la
     fields = details.find_all("div", class_="earnings-detail-field", recursive=False)
     if not fields:
         raise ValueError("upcoming earnings detail-field prototypes missing")
+    raw_status = str(item.get("status") or item.get("status_in_db") or "").lower()
     schedule = (
-        f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
-        if (item.get("status") or item.get("status_in_db")) == "postponed"
+        "已取消；不再列為預定發布"
+        if raw_status in ("cancelled", "canceled")
         else (
-            f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
-            if item.get("time_type") == "call_time"
-            else f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
+            f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
+            if raw_status == "postponed"
+            else (
+                f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
+                if item.get("time_type") == "call_time"
+                else f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
+            )
         )
     )
     eps_est = item.get("eps_estimate_display") or (str(item.get("eps_estimate")) if item.get("eps_estimate") is not None else "預期資料尚未取得")
@@ -1045,6 +1056,10 @@ def earnings_status_label(item, metric, state):
         "inline": "符合預期",
     }
     if state == "pending":
+        if item.get("_calendar_publication_state") == "cancelled":
+            return "已取消"
+        if item.get("_calendar_publication_state") == "postponed":
+            return "已延期／改期後續公布"
         if item.get("_calendar_publication_state") == "pending_verification" or item.get("status") == "pending_verification":
             return (
                 "公告已發布；實際值待核實"
@@ -2208,7 +2223,7 @@ def main():
     for group,(key,label) in zip(econ_groups,[("today","今日公布"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in econ if groupkey(x)==key]
         heading=group.select_one(".calendar-status-heading")
-        display_label = ("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else label)
+        display_label = ("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else ("即將公布／含已延期、已取消" if key=="upcoming" and any(x.get("_calendar_publication_state") in ("postponed","cancelled") for x in items) else label))
         set_calendar_status_heading(heading,f"{display_label}｜重要性★★★★☆以上（{len(items)}項）",key)
         listing=group.select_one(".econ-event-list")
         if listing is None:
@@ -2266,7 +2281,7 @@ def main():
     for group,(key,label) in zip(earnings_groups,[("today","今日公布"),("upcoming","即將公布"),("published","已公布")]):
         items=[x for x in earnings if earnings_groupkey(x)==key]
         heading=group.select_one(".calendar-status-heading")
-        display_label=("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
+        display_label=("已公布／待核實" if key=="published" and any(x.get("_calendar_publication_state")!="released" for x in items) else ("後續公布／含已延期、已取消" if key=="upcoming" and any(x.get("_calendar_publication_state") in ("postponed","cancelled") for x in items) else label))
         set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
         listing=group.select_one(".earnings-accordion-list")
         if listing is None:
