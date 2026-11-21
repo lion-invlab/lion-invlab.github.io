@@ -56,6 +56,7 @@ def main():
         projected["revenue_estimate_unit"]="B"
         projected["revenue_estimate_basis_code"]=None
         snapshots={}
+        selected_attempts={}
         for metric,key in (("EPS","eps"),("REVENUE","revenue")):
             m=item[key]
             attempt={
@@ -70,7 +71,20 @@ def main():
             selected=select_first_available_estimate(candidates,event["reporting_period"])
             if selected is not None:
                 attempt=selected
-            snap=build_consensus_snapshot(event,metric,attempt,item["raw_response"],item["raw_response_ref"])
+            selected_attempts[metric]=attempt
+            raw_selected=attempt.get("raw_response",item["raw_response"])
+            ref_selected=attempt.get("raw_response_ref",item["raw_response_ref"])
+            snap=build_consensus_snapshot(event,metric,attempt,raw_selected,ref_selected)
+            if metric=="EPS":
+                projected["eps_estimate"]=attempt.get("value")
+                projected["eps_estimate_currency"]=attempt.get("currency")
+                projected["eps_analyst_count"]=attempt.get("analyst_count")
+            else:
+                val=attempt.get("value")
+                unit=str(attempt.get("unit") or "").upper()
+                projected["revenue_estimate"]=(float(val) if val is not None and (unit.endswith("_BILLION") or unit in {"B","BILLION"}) else float(val)/1000 if val is not None and (unit.endswith("_MILLION") or unit in {"M","MILLION"}) else float(val)/1_000_000_000 if val is not None else None)
+                projected["revenue_estimate_currency"]=attempt.get("currency")
+                projected["revenue_analyst_count"]=attempt.get("analyst_count")
             snapshots[metric]=snap
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
@@ -111,7 +125,7 @@ def main():
             "reporting_period":event["reporting_period"],
             "eps_estimate":projected["eps_estimate"],"eps_currency":projected["eps_estimate_currency"],
             "eps_estimate_display":f'{projected["eps_estimate_currency"]} {projected["eps_estimate"]:.2f}',
-            "eps_analyst_count":item["eps"]["analyst_count"],"eps_snapshot":snapshots["EPS"],
+            "eps_analyst_count":selected_attempts["EPS"].get("analyst_count"),"eps_snapshot":snapshots["EPS"],
             "eps_evidence_label":labels["eps"],"eps_status":statuses["eps"],
             "eps_methodology":eps_method if eps_method_verified else None,
             "eps_basis_display":eps_basis_display,"eps_methodology_matches_capture":eps_method_verified,
@@ -120,8 +134,10 @@ def main():
             "revenue_estimate":projected["revenue_estimate"],"revenue_currency":projected["revenue_estimate_currency"],
             "revenue_unit":projected["revenue_estimate_unit"],
             "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]:.2f}B',
-            "revenue_analyst_count":item["revenue"]["analyst_count"],
-            "source_url":item["source_url"],"source_name":"Yahoo Finance",
+            "revenue_analyst_count":selected_attempts["REVENUE"].get("analyst_count"),
+            "source_url":selected_attempts["EPS"].get("url"),"source_name":selected_attempts["EPS"].get("provider"),
+            "eps_source_url":selected_attempts["EPS"].get("url"),"eps_source_name":selected_attempts["EPS"].get("provider"),
+            "revenue_source_url":selected_attempts["REVENUE"].get("url"),"revenue_source_name":selected_attempts["REVENUE"].get("provider"),
             "revenue_basis_display":revenue_basis_display,
             "revenue_snapshot":snapshots["REVENUE"],"revenue_evidence_label":labels["revenue"],"revenue_status":statuses["revenue"],
         })
