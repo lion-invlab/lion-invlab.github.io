@@ -1961,3 +1961,11 @@
 - 重新讀取 main W47 的 Git blob SHA 為 `727ea2be1c04688d3c4f98d36c452561bbab6821`，但 GitHub fetch_file 回傳空內容（UTF-8及base64均為0 bytes）；因此本輪不能以原始 JSON 逐筆重驗 W47，僅保留前次 Work Log 已記錄的篩選結果，不宣稱本輪重新驗收完成。
 - 新聞增量查核：Reuters《The snowballing selloff in global markets》原文／Investing.com Reuters 鏡像確認全球股市自8月高點蒸發近US$9T、台股單週跌17%，並指出AI估值與美國升息預期造成跨資產賣壓；AP 11/20美股收盤確認S&P 500 6,910.39（-3.7%）、Nasdaq 22,617.73（-5.3%）、Dow 48,147.33（-1.9%）、Russell 2000 2,581.79（-2.8%）。Reuters《Take Five》補充下週黑五消費、韓國央行、日本／澳洲通膨與ECB人事觀察。來源URL：Reuters https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/；Investing鏡像 https://ca.investing.com/news/economy-news/the-snowballing-selloff-in-global-markets-4972730；AP https://apnews.com/article/c10b797a17c2acf37924d834efebe135；Reuters Take Five https://www.investing.com/news/economy-news/take-five-shopping-chips-and-central-banks-5041291 。
 - 目前仍未產生11/23審核版。已確認 simulation branch 尚無 `simulation-lab/fixtures/report-data-2026-11-23.json`；GitHub連線可讀寫檔案但可用工具未提供 workflow_dispatch，容器亦無法連線GitHub；本機舊母版副本SHA與核准simulation baseline SHA不同，不可冒用。故不能安全執行既有DOM builder或宣稱已完成母版組裝／QA。未以舊工作稿或字串替換方式造出假預覽。
+
+
+## 2026-11-21｜W48 五筆經濟事件來源欄位錯置查核
+- main W48 JSON（SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`）唯讀檢查發現5筆 `impact_judgment` 欄誤存來源URL：Williams、US Initial Claims、Germany GfK/NIM、France November CPI/HICP、Germany November unemployment。不得把URL當市場影響文字；修正僅限11/23審核HTML顯示層，正式JSON不回寫。
+- 已核對官方時間：Williams 11/23 16:00 EST；NIM 11/26 08:00 CET；INSEE CPI 11/27 08:45 CET；German Federal Employment Agency 11/27 10:00 CET。US Initial Claims 11/25 08:30 EST 由TD Economics 11/20週曆交叉確認。台灣時間依時區換算分別為11/24 05:00、11/26 15:00、11/27 15:45、11/27 17:00、11/25 21:30。
+- 來源：New York Fed https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026；TD Economics https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm；NIM https://www.nim.org/en/consumer-climate/type/nim-research-report；INSEE https://www.insee.fr/en/statistiques/9107975；Federal Employment Agency https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html。
+- 影響判讀待寫入HTML：官員談話非政策決議；初領看連續趨勢；德國消費者信心關注購買意願；法國CPI須區分CPI/HICP；德國失業數據觀察勞動市場及消費韌性。W48感恩節休市事件 `time_known=false` 屬日期型事件，維持時間未定。
+- 此項來源查核完成；未修改main JSON、母版、Manifest、QA契約或首頁；HTML卡片映射與整體QA仍未完成。
