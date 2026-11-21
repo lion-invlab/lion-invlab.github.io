@@ -23,7 +23,7 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `72cd41e63f57f17b5b797af6043e839bf5f3b069` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `e16cc6df649dcee7e09126b4c044479661e399e9` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
 | 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
@@ -207,6 +207,8 @@
 - [ ] 機率卡與分布長條百分比相加一致；來源與快照時間明確，歷史快照不得標示為即時。
 - [ ] FOMC 活頁保留母版原有會議日期、政策聲明時間、記者會時間、目前目標利率、核心觀察及官方來源。
 - [ ] FOMC 活頁保留「本週聯準會官員行程」固定區塊；母版需有唯一的 `#fed .fc-fomc-weekly-events`，內含 title、list、event prototype、empty-state 四個固定槽位。
+- [ ] 手機版 FOMC 官員行程容器必須跨越 `.fc-fomc` 兩欄，事件列固定 `94px minmax(0,1fr)`，日期不拆字、內容欄可伸展；視覺驗收需確認不是只看 inline style。
+- [ ] 週一上週財報 EPS／營收小卡在 640px 以下仍保持兩卡並列；數值不得任意拆行，需在 320px、360px、390px、412px 實際瀏覽器寬度驗收。
 - [ ] Builder 只可 clone `.fc-fomc-weekly-event-template` 原型並填入日期、官員行程、影響說明與官方來源；不得清空／重建外層容器、標題或清單 wrapper。
 - [ ] 有已核實行程時逐筆顯示已發表／預定狀態、台灣時間、官員／活動名稱、影響說明及官方來源；無已核實行程時顯示固定空狀態，不得因此捏造行程或使整份早報無條件失敗。
 - [ ] 週一與平日母版均須存在同一固定槽位契約；組裝前後外層節點與原型結構保持一致。
