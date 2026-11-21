@@ -1778,3 +1778,6 @@
 - VIX 35.89（+26.20%）由Cboe官方頁核實，主來源改為Cboe；撤銷Investing CFD標記。
 - 撤銷舊Session State「必須納入11/23亞洲現貨實際開盤／盤中反應」及05:25時間衝突。當前SIM-1.3 G1只允許把週五美股行情當成週一亞股未來催化，並未要求等亞洲現貨開盤；05:25可如期交付，不虛構亞洲開盤。
 - G1暫定稿已加入期中選舉／資料中心政策背景、AI需求與股價脫鉤、SpaceX與CoreWeave融資分化、Fed鷹派與PCE風險，並列出W48五星事件及Dell五星財報。新聞窗口仍待11/23 05:25封口，未標示Phase 4最終完成。
+## 2026-11-21｜AMD頭條原文備援查核
+- Investing.com HK 11/21 00:41頁面本輪讀取失敗，不以搜尋摘要代替。改讀24/7 Wall St 11/20 09:52 ET（11/20 22:52 Taipei，符合新聞窗）後續文章；內容為Hunterbrook對AMD中國伺服器商IEIT韌體關係提出指控、AMD否認，且未證明出口法規違規。Reuters 11/19原始報導只作交叉核對，因時間早於11/20 12:00 Taipei，不列為本輪頭條來源。24/7 URL https://247wallst.com/investing/2026/11/20/amd-slides-6-despite-jim-cramer-calling-hunterbrook-short-report-a-hitjob-nvidia-falls-3-near-damodaran-140-buy-price-intel-declines-2/ 。
+- 10則Hot Headlines候選目前涵蓋AMD、NVIDIA SEC、黃金白銀、Anthropic、CoreWeave、SpaceX、NVIDIA連7週下跌、價值股輪動、Trump海外資料中心構想、Bessent H200出口上限／Trump舊晶片表態；最終仍待11/23 05:25前更新。
