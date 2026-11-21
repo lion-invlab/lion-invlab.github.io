@@ -3044,3 +3044,20 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - FactSet builder 修正 commit `e03cf36a04d5c2a8e29a21aebc46a2af16f5a724` 的 GitHub Actions push workflow 已完成：run ID `44884922063`，job `isolated-smoke`，conclusion=success。成功步驟包含安裝依賴、Monday母版SHA複核、Investing earnings parser self-test、PIT snapshot store self-test、Python compile、deterministic self-tests、main earnings schema audit。日期解析、fixture build、DOM組裝、Playwright、視覺回歸、完整審核版驗證均為skipped（本commit未使用[build-tac-report]且尚無11/23 fixture），因此這是程式自我測試成功，不是11/23組裝或QA成功。
 - 新聞補充候選（不與現有AI恐慌摘要完全重複）：Reuters「AI tech rout prompts US investors to rush into value stocks」，原始發布Nov 20, 2026 8:13 PM UTC（台灣11/21 04:13），頁面更新欄顯示Updated ago；內容指出市場由AI科技股轉向美債與低估值價值股，S&P 500中位數股票年初至今+5%、指數約+1%，價值指數+7%、成長指數-4%。來源：https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/。可作市場熱門頭條候選，待窗口封口時確認保留與否；不以同一AI大跌新聞重複湊數。
 - 本輪時間窗口仍未封口；第四步狀態仍為「初選完成、待封口」，尚未進入正式HTML組裝。
+
+
+## 2026-11-21 16:33｜第四步新聞增補與分析深化（窗口仍開放）
+- 重新接收SIM-1.3 SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`、Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；新聞原文時間、時區、連結及去重規則再次核對。第五步必須以核准Monday母版只替換授權槽位，執行一次整體QA Gate。
+- 查核時間16:33 Asia/Taipei；新聞窗口2026/11/20 12:00–2026/11/21 23:59仍未封口。新增原文候選：
+  1. Reuters〈The snowballing selloff in global markets〉，11/20 15:12 UTC＝23:12台北。全球股票自8月高點市值減少近9兆美元、台灣單週跌17%；10年美債殖利率週跌17bp，黃金未能發揮避險作用。URL https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/。市場頭條候選，避免與既有AI selloff新聞重複。
+  2. Reuters〈AI tech rout prompts US investors to rush into value stocks〉，11/20 20:13 UTC＝11/21 04:13台北。Nasdaq當日跌逾5%、S&P 500跌3.7%並較10/6高點回落12%進入修正；S&P 500中位數股票YTD +5%，市值加權指數+1%；價值+7%、成長-4%。顯示權值集中與AI高估值重新定價。URL https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/。適合市場熱門頭條。
+  3. Reuters〈Global equity funds attract inflows for a ninth straight week〉，11/20 12:43 UTC＝20:43台北。LSEG Lipper截至11/18一週全球股票基金淨流入592.3億美元、美股基金457.1億、科技基金123億；亞洲股票基金淨流出27.8億。屬崩跌前週資料，不能描述為11/20當日資金流入。URL https://www.reuters.com/world/china/global-markets-flows-graphic-2026-11-20/。
+  4. Reuters〈Taiwan stock exchange says it will ensure stable operation of capital markets〉，11/20 09:06 UTC＝17:06台北。台股當週跌17%為三十多年最大，交易所主席表示確保市場穩定，金管會已祭放空限制，行政院召集會議。URL https://www.reuters.com/markets/europe/global-markets-taiwan-urgent-2026-11-20/。
+  5. Reuters〈US AI chip curbs hit China tech stocks, spur self-sufficiency push〉，11/20 08:21 UTC＝16:21台北。美國規則延伸至服務中國AI公司的海外資料中心；阿里雲預期明年雲端成長由53%降至30–45%，騰訊稱推論可用國產晶片但新一代模型進度受限。URL https://www.reuters.com/business/retail-consumer/us-ai-chip-curbs-hit-china-tech-stocks-spur-self-sufficiency-push-2026-11-20/。與既有資料中心限制及H200新聞重疊，暫列候補。
+  6. 鉅亨網轉載優分析〈台灣10月外銷訂單年增78.3%創紀錄資通訊接單翻倍〉，頁面時間11/20 20:00台北。接單1,238.2億美元、年增78.3%，資通訊年增107.2%、電子產品89.8%；接單不等於當月出口或營收。URL https://news.cnyes.com/news/id/6669365。適合替換重複性較高的AI行情頭條，作AI實體需求仍強的反證。
+  7. Reuters〈Bitcoin falls to its lowest in two years〉，11/21 04:10 UTC＝12:10台北；BTC跌5.10%至55,830美元，為2024年9月以來最低。URL https://www.reuters.com/business/bitcoin-falls-357-56814-2026-11-21/。與既有頭條Bitcoin候選相同，只補核原文時間，不重複加入。
+- 分析草稿深化：市場主軸是AI資本支出回報、估值與政策風險重新定價，不等同AI需求崩塌。台灣10月外銷訂單創紀錄、資通訊接單+107.2%、電子+89.8%，支持訂單需求仍強，但訂單不等於已認列營收、利潤或自由現金流。美股中位數股票+5%而S&P 500僅+1%、價值+7%而成長-4%，顯示權值AI股下跌遮蔽市場內部表現，投資需從追逐高估值成長股轉向估值、獲利兌現及現金流。
+- 跨資產：美債週漲、黃金下跌、Bitcoin創兩年低位，不是所有避險資產同步受惠的典型輪動，可能包含槓桿縮減與現金需求，但屬推論而非已證實資金流向。全球股票基金截至11/18仍連續第九週淨流入，具時間落後性，只作崩跌前背景。
+- 策略草稿：維持防守，不因單一財報beat或AI長期需求敘事立即抄底；降低單一AI權值與高槓桿曝險，優先現金流、資產負債表與估值緩衝。重新提高風險部位須等待市場廣度止跌、債券波動及利率預期穩定、資本支出回報／自由現金流有更多證據。沒有核實技術支撐位，不杜撰價位。
+- 舊Session State的「無法使用DOM parser」阻塞已由既有GitHub Actions runner路徑取代，現已過時。自我測試run 44884922063成功，但fixture build、DOM組裝及瀏覽器QA仍未執行。
+- 第四步仍為「初選完成、候選增補中、待窗口封口」；未建立11/23 fixture，未執行HTML組裝；main首頁、正式母版及W47/W48 JSON未修改。
