@@ -3236,3 +3236,15 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - `review_ready` 唯一明確 blocker：VIX、MOVE、CNN Fear & Greed、FedWatch 仍須在 2026-11-23 05:25 台灣時間截稿前重新讀取並更新時間戳。其餘數據品質注意事項保留在 QA JSON 的 data_audit.pending_items。
 - SIM-1.4 仍是 DRAFT／NOT_APPROVED；main 與正式首頁未修改。
 - 後續 Builder commit `45e8879` 僅更新核心觀察收折區第二個既有粗體標題為「其他補充：」，不改變 DOM。因 QA JSON 記錄的 Builder SHA 仍是 `e994f60` 版本，必須再跑一次 full build 才能讓最終 preview 與最新 Builder SHA 一致。
+
+
+### 2026-11-21 最終 Builder SHA 對齊驗收
+
+- 最新 Builder commit `45e8879`（blob SHA `ffc2b319c6bc0e31d97b60197b96564b35394681`）已由 full build run `44911272905` 驗收成功。
+- Full build：<https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44911272905>
+- 最終 HTML blob SHA：`505de1d6df7c2258244ff9b727d6fa0b832b9e59`
+- 最終 QA JSON blob SHA：`4c908c28830c6bdc9b502d11dd9eb672756de56b`
+- 最終 HTML SHA-256：`9f751c4f6762105ceac5db804f9133fa420f7c1b956f55cbd145a6b923d594e0`
+- QA JSON 的 `builder_blob_sha` 與分支最新 Builder blob SHA 完全一致；報告日期 2026-11-23，六個 viewport 1440／768／412／390／360／320 全部通過。Fed 官員行程、FedWatch、週一上週經濟行事曆與財報行事曆均保留。
+- 最終狀態：`QA_PASSED`；`review_ready=false`、`data_review_ready=false`。唯一 review-ready blocker 仍為 VIX、MOVE、CNN Fear & Greed、FedWatch 須於 2026-11-23 05:25 台灣時間截稿前重新讀取並更新時間戳。
+- 審核版僅存於 simulation branch；main／正式首頁未修改。SIM-1.3 仍有效；SIM-1.4 未核准。
