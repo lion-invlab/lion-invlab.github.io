@@ -1838,11 +1838,16 @@ def main():
         set_calendar_status_heading(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）",key)
         listing=group.select_one(".econ-event-list")
         if listing is None:
-            if items: raise ValueError(f"economic calendar {key} group has events but no mother event-list slot")
             empty=group.select_one(".calendar-status-empty")
             if empty is None: raise ValueError(f"economic calendar {key} group has neither event-list nor empty-state slot")
-            set_text(empty,"目前沒有符合本分頁條件的已核實重要經濟事件。")
-            continue
+            if not items:
+                set_text(empty,"目前沒有符合本分頁條件的已核實重要經濟事件。")
+                continue
+            # Monday's approved mother uses an empty-state div for the initially empty
+            # Today group. Reuse that exact node as the dynamic list slot; do not add a wrapper.
+            classes=[c for c in empty.get("class",[]) if c!="calendar-status-empty"]
+            empty["class"]=classes+["econ-event-list"]
+            listing=empty
         for old_card in listing.find_all("details",class_="econ-event",recursive=False):
             old_card.decompose()
         for x in items:
@@ -1891,11 +1896,15 @@ def main():
         set_calendar_status_heading(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）",key)
         listing=group.select_one(".earnings-accordion-list")
         if listing is None:
-            if items: raise ValueError(f"earnings calendar {key} group has events but no mother accordion-list slot")
             empty=group.select_one(".calendar-status-empty")
             if empty is None: raise ValueError(f"earnings calendar {key} group has neither accordion-list nor empty-state slot")
-            set_text(empty,"目前沒有符合本分頁條件的已核實重要財報事件。")
-            continue
+            if not items:
+                set_text(empty,"目前沒有符合本分頁條件的已核實重要財報事件。")
+                continue
+            # Reuse the mother's existing empty-state node as the dynamic list slot.
+            classes=[c for c in empty.get("class",[]) if c!="calendar-status-empty"]
+            empty["class"]=classes+["earnings-accordion-list"]
+            listing=empty
         for old_card in listing.find_all("details",class_="earnings-accordion",recursive=False):
             old_card.decompose()
         for x in items:
