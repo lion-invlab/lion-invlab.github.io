@@ -394,25 +394,25 @@
   },
   "fx": {
     "美元指數": {
-      "display": "103.84",
-      "change_display": "-0.05%",
+      "display": "103.81",
+      "change_display": "-0.08%",
       "source": {
-        "name": "Investing.com HK｜US Dollar Index 歷史資料（CFD參考序列）",
+        "name": "Investing.com HK｜US Dollar Index 歷史資料",
         "url": "https://hk.investing.com/indices/usdollar-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "cfd_index_reference_series",
-        "note": "11/20歷史資料列103.84、-0.05%；修正原fixture誤植103.81／-0.08%。頁面標示即時差價合約，採歷史列，不使用頁面盤中即時數字。"
+        "quote_type": "spot_index_cfd_reference",
+        "note": "11/20歷史收盤103.81、日變動-0.08%；美元指數現貨／CFD參考序列，不是DX美元指數期貨。"
       }
     },
     "美元／新台幣": {
-      "display": "32.971",
-      "change_display": "-0.18%",
+      "display": "32.936",
+      "change_display": "—",
       "source": {
-        "name": "Investing.com HK｜USD/TWD 歷史資料",
-        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "name": "中央銀行｜新臺幣／美元銀行間收盤匯率",
+        "url": "https://www.cbc.gov.tw/tw/lp-645-1-1-60.html",
         "data_date": "2026-11-20",
-        "quote_type": "spot_daily_close",
-        "note": "11/20歷史資料頁收市32.971、-0.18%；修正原fixture誤植32.936及缺漏日變動。此為平台匯率序列，不冒稱央行銀行間官方收盤。"
+        "quote_type": "official_interbank_close",
+        "note": "中央銀行官方表列NTD/USD 32.936；報告以等值USD/TWD 32.936呈現。Investing.com 32.971為市場報價，不取代官方銀行間收盤。"
       }
     },
     "歐元／美元": {
@@ -464,7 +464,7 @@
     "WTI原油期貨": {
       "display": "83.41",
       "change_display": "+1.18%",
-      "contract_label": "CLF7（2027年1月）",
+      "contract_label": "CLF27（2027年1月）",
       "source": {
         "name": "CME Group Daily Information Bulletin #225｜NYMEX CL Futures（Preliminary）",
         "url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
@@ -472,7 +472,8 @@
         "quote_type": "CME_preliminary_settlement",
         "volume": 294626,
         "open_interest": 267254,
-        "note": "CME 11/20 Preliminary Daily Bulletin：CL Jan27（標準代碼CLF7；部分平台長代碼CLF27）settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Dec26成交量24,186、未平倉3,368，Jan27為最近可交割且成交量最高合約。頁面為 preliminary，非 final bulletin。"
+        "note": "CME Daily Bulletin #225（Preliminary）：NYMEX CLF27 Jan27 settlement 83.41、點數變動+0.97、成交量294,626、未平倉267,254；Jan27成交量高於Feb27，故採Jan27活躍合約。Preliminary非Final settlement。",
+        "change_points": "+0.97"
       }
     },
     "Brent原油期貨": {
@@ -485,7 +486,11 @@
         "data_date": "2026-11-20",
         "quote_type": "specific_futures_contract_platform_close",
         "volume": 278240,
-        "note": "具體合約LCOF7（ICE Jan27）；11/20歷史列close 92.57、+0.64%、volume 278.24K。ICE官方合約表同日早段快照顯示Jan27為所列可交易月份中成交量最高；官方頁快照非日終結算，故主畫面採Investing.com具體合約日歷史close，不冒稱ICE official settlement。"
+        "note": "Investing.com精確ICE Jan27合約LCOF7歷史列：11/20 close 92.57、點數變動+0.59（+0.64%）、成交量278.24K，高於Feb27的252.75K。ICE官方產品頁同日Last 92.49；Last與Investing歷史close／settlement口徑不同，報告採具體合約歷史列，不冒稱ICE官方結算。",
+        "change_points": "+0.59",
+        "ice_official_last": "92.49",
+        "comparison_contract": "LCOG7（2027年2月）",
+        "comparison_volume": 252750
       }
     }
   },
@@ -506,7 +511,7 @@
     },
     "白銀期貨 SI": {
       "display": "41.070",
-      "change_display": "-7.41%",
+      "change_display": "-7.42%",
       "contract_label": "SIZ6（2026年12月）",
       "source": {
         "name": "CME Group Daily Information Bulletin #225｜COMEX SI Futures（Preliminary）",
@@ -560,7 +565,7 @@
     }
   },
   "fedwatch": {
-    "updated_at_tw": "2026/11/21 12:55",
+    "updated_at_tw": "2026/11/21 13:35",
     "read_at_taipei": "2026/11/21 16:35",
     "target_meeting": "2026-12-09",
     "current_target_range": "3.75-4.00%",
@@ -578,7 +583,7 @@
     ],
     "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "Investing.com 頁面最近更新時間 2026/11/21 12:55 台灣時間；12/9 會議維持3.75–4.00%機率13.6%，升息25bp至4.00–4.25%機率86.4%。機率由CME 30-Day Fed Funds futures推算，非Fed決策；屬時間戳快照，不代表16:35即時值。"
+    "note": "Investing.com Fed Rate Monitor頁面更新時間Nov 21, 2026 12:35 AM EST（台灣時間13:35），本輪讀取時間16:35台灣時間。12/9會議：維持3.75–4.00%機率13.6%，升息25bp至4.00–4.25%機率86.4%；前一日機率0.4%／99.6%，前一週4.00–4.25%機率91.3%。機率依CME 30-Day Fed Funds futures推算，為時間戳快照，報告截稿前仍須刷新。"
   },
   "observation": {
     "heading": "盤面觀察重點",
@@ -1668,7 +1673,7 @@
     ],
     "sectors": "📌 產業輪動｜必需消費品是唯一明顯收紅板塊，醫療保健接近平盤；科技、工業與非必需消費品跌幅較大。防禦型現金流相對抗跌，科技股則承受估值與資本支出回報雙重檢驗。",
     "bonds": "📌 債券｜美債殖利率維持高位，但11/20主要市場殖利率回落，顯示避險需求上升。短端仍受Fed升息定價影響，長端則須觀察通膨、期限溢酬與財政供給。",
-    "fx": "📌 匯率｜美元指數小幅回落，日圓相對走強；澳幣走弱反映風險偏好與商品敏感度。美元兌台幣仍在32.9附近，台灣資金流與出口商換匯需求值得追蹤。",
+    "fx": "📌 匯率｜美元指數103.81小幅回落；USD/TWD採CBC官方銀行間收盤32.936（Investing.com 32.971僅市場報價，不混用）。EUR/USD、GBP/USD小幅走升，澳幣偏弱，日圓相對走強；需區分官方銀行間收盤與平台市場報價。",
     "energy": "📌 原油｜WTI與Brent小幅上漲，地緣風險提供支撐；但應區分短期風險溢價與實際供應缺口，避免將單日反彈解讀為供需趨勢反轉。",
     "metals": "📌 貴金屬｜黃金與白銀大幅下跌，說明升息預期與流動性需求可壓過傳統避險買盤；去槓桿階段現金需求可能使多類資產同時承壓。"
   },
@@ -1795,7 +1800,7 @@
       "text": "不因單一財報beat或AI長期敘事追價，也不把全面回檔直接當買點。降低單一高估值與高槓桿曝險，優先現金流、資產負債表與估值緩衝；待市場廣度、信用條件與利率波動同步穩定再逐步提高風險部位。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。部分全球指數採Investing.com平台參考序列／CFD口徑，來源註記不得省略。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 12:55台灣時間暫存快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。",
+  "warning_note": "行情基準日2026-11-20。部分全球指數採Investing.com平台參考序列／CFD口徑，來源註記不得省略。WTI、GC、SI為CME 11/20 preliminary settlement；Brent為Investing.com LCOF7歷史報價，不是ICE官方結算。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；報告截稿前須刷新。FedWatch為Investing.com 11/21 12:55台灣時間暫存快照，報告截稿前須刷新。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。 USD/TWD採CBC官方銀行間收盤32.936；Investing.com 32.971僅為市場報價，不採用。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1984,7 +1989,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度恐懼、風險承擔意願快速下降；市場正在同時折價AI資本回報、利率維持高檔、信用融資及政策不確定性。",
-  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口；週一版窗口為11/20 12:00至11/23 05:25，需於報告截稿時最後補查週末與週一清晨消息。 五項關鍵價位已由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依經典樞紐點公式計算S2/S1/P/R1/R2；SOX收盤另與Investing.com HK交叉核對。 W48 行事曆目前27項經濟事件及11家財報時程均已投影；資料庫標示incomplete，主要是EPS／Revenue公告前PIT共識缺少必要欄位，故未採用預期、不判Beat/Miss。上週回顧依SIM-1.3僅顯示W47兩項五星經濟事件及一項五星NVDA財報。",
+  "quality_note": "44項行情均以11/20為基準日並沿用已鎖定查核成果；11大產業ETF只呈現單日漲跌幅並排序。部分Investing.com指數為平台CFD／參考序列，不冒稱官方現貨。美債殖利率採U.S. Treasury官方CMT；商品合約代碼與結算來源分別註明。FactSet Q3 2026快照截至11/20，93%公司已公布；EPS beat 84%、營收beat 74%、混合EPS年增32.9%、營收年增14.6%、Forward P/E 17.1倍。新聞窗口尚未封口；週一版窗口為11/20 12:00至11/23 05:25，需於報告截稿時最後補查週末與週一清晨消息。 五項關鍵價位已由ChatGPT直接讀取Yahoo Finance ^DJI、^GSPC、^IXIC、^SOX、^RUT 11/20同日現金指數OHLC，依經典樞紐點公式計算S2/S1/P/R1/R2；SOX收盤另與Investing.com HK交叉核對。 W48 行事曆目前27項經濟事件及11家財報時程均已投影；資料庫標示incomplete，主要是EPS／Revenue公告前PIT共識缺少必要欄位，故未採用預期、不判Beat/Miss。上週回顧依SIM-1.3僅顯示W47兩項五星經濟事件及一項五星NVDA財報。 市場資料核對以production-logs/2026-11-23-market-data-audit.md為準：DXY 103.81（-0.08%）、USD/TWD 32.936（CBC官方銀行間收盤）、白銀-7.42%、FedWatch頁面更新12:35 AM EST（台灣13:35）。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/23 05:25（台灣時間；週一實際截稿時封口）",
   "key_levels_overrides": {},
@@ -1997,7 +2002,7 @@
     "FactSet 11/20快照需在HTML中顯示統計日；Mag7與其他493家公司EPS成長比較需保留FactSet研究檔來源與口徑。",
     "FedWatch 13.6%／86.4%為12:55台灣時間快照，不標示為16:35即時值。",
     "南韓出口與台股週跌17.5%仍保留在頭條／亞洲市場評論；另加入Reuters 11/21 16:16台灣時間Intesa／MPS正式收購要約，並已排除未獲正式確認的CrowdStrike／Zscaler傳聞。",
-    "CNN Fear & Greed目前採FGScore第三方CNN Provider Index（11/20 18:59 EST／台灣11/21 07:59，10分）；FedWatch為Investing.com 11/21 12:55快照。兩者均須於2026/11/23 05:25報告截稿前刷新，不得冒稱目前即時值。",
+    "CNN Fear & Greed目前採FGScore第三方CNN Provider Index（11/20 18:59 EST／台灣11/21 07:59，10分）；FedWatch為Investing.com 11/21 13:35快照。兩者均須於2026/11/23 05:25報告截稿前刷新，不得冒稱目前即時值。",
     "新增AI伺服器供應鏈營運資金與現金流頭條（緯穎、廣達案例）；摘要區已納入訂單、營運資金與自由現金流的差異，避免將接單成長直接等同現金流改善。"
   ],
   "review_ready_blockers": [
