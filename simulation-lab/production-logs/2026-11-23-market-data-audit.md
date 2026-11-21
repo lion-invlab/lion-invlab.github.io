@@ -75,12 +75,12 @@
 
 | 商品 | 指定合約 | 2026-11-20 收盤／結算 | 日變動 | 合約證據 |
 |---|---|---:|---:|---|
-| WTI | NYMEX CLF27（Jan 2027） | 83.41 | +0.97（+1.18%） | [Investing.com WTI 合約表](https://hk.investing.com/commodities/crude-oil-contracts)：Jan 27 11/20/26，成交量 275,335，高於 Feb27 90,192；不可用一般 WTI CFD 歷史列 82.40 |
+| WTI | NYMEX CLF27（Jan 2027） | 83.41 | +0.97（+1.18%） | [CME Daily Bulletin #225 Preliminary｜NYMEX CL Futures](https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf)：CLF27 settlement 83.41、成交量294,626、未平倉267,254；Investing.com 合約表作交叉核對。排除一般 WTI CFD 歷史列 82.40 |
 | Brent | ICE LCOF7（Jan 2027） | 92.57 | +0.59（+0.64%） | [Investing.com Jan27 歷史資料](https://hk.investing.com/commodities/brent-oil-historical-data)：Jan27 合約列成交量 278.24K，高於 Feb27 252.75K；ICE 官方 Last 92.49 是不同報價口徑 |
-| Gold | COMEX GCZ6（Dec 2026） | 3,515.40 | -170.10（-4.62%） | [Investing.com Gold 合約表](https://hk.investing.com/commodities/gold-contracts)：Dec26 CME delayed futures 11/20/26，成交量 323,896；不採頁面 CFD close 3,539.00 |
-| Silver | COMEX SIZ6（Dec 2026） | 41.070 | -3.289（-7.41%） | [Investing.com Silver 歷史資料](https://hk.investing.com/commodities/silver-historical-data)：指定 SIZ6，11/20 close 41.070；百分比按 44.359 前收計算 |
+| Gold | COMEX GCZ6（Dec 2026） | 3,515.40 | -170.10（-4.62%） | [CME Daily Bulletin #225 Preliminary｜COMEX GC Futures](https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf)：GCZ6 settlement 3,515.40、成交量328,143、未平倉150,028；Investing.com 合約表交叉核對。排除頁面 CFD close 3,539.00 |
+| Silver | COMEX SIZ6（Dec 2026） | 41.070 | -3.289（-7.41%） | [CME Daily Bulletin #225 Preliminary｜COMEX SI Futures](https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf)：SIZ6 settlement 41.070、成交量110,979、未平倉41,582；以44.359前收計算-7.41%。Investing.com 歷史頁的代理報價不取代CME結算 |
 
-註：WTI／Gold／Silver 的 Investing 歷史主頁顯示 CFD 代理序列，故不採其主頁收盤列；依合約表指定月份與交易所延遲期貨列。CME Daily Bulletin #225 為 preliminary，正式報告保留 preliminary 註記。
+註：WTI／Gold／Silver 均以 CME Daily Bulletin #225 preliminary 指定月份合約結算為主，Investing.com 合約表作交叉核對；一般商品頁的 CFD 代理列不得替代交易所合約結算。CME Bulletin 為 preliminary，正式報告保留 preliminary 註記。
 
 ## F. 風險／情緒（3）
 
