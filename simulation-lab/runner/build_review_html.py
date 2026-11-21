@@ -388,6 +388,240 @@ def source_link(url, label):
     return a
 
 
+def set_value_slot(node, value):
+    """Replace content inside an approved value slot while retaining its wrapper."""
+    if node is None:
+        raise ValueError("approved value slot missing")
+    node.clear()
+    if isinstance(value, (list, tuple)):
+        for index, part in enumerate(value):
+            if index:
+                node.append(BeautifulSoup("", "html.parser").new_tag("br"))
+            if hasattr(part, "name"):
+                node.append(part)
+            else:
+                node.append(str(part))
+    else:
+        node.append(str(value))
+
+
+def earnings_metric_display(item, metric):
+    actual_key, estimate_key = (
+        ("eps_actual", "eps_estimate") if metric == "eps"
+        else ("revenue_actual", "revenue_estimate")
+    )
+    actual_display = item.get(f"{metric}_actual_display") or (
+        str(item.get(actual_key)) if item.get(actual_key) is not None else "未取得"
+    )
+    estimate_display = item.get(f"{metric}_estimate_display") or (
+        str(item.get(estimate_key)) if item.get(estimate_key) is not None else "未取得"
+    )
+    state = earnings_comparison_status(item, metric)
+    status = earnings_status_label(item, metric, state)
+    basis = item.get("eps_basis") if metric == "eps" else item.get("revenue_actual_basis")
+    parts = [f"實際：{actual_display}", f"預期：{estimate_display}", f"比較：{status}"]
+    if basis:
+        parts.append(f"口徑：{basis}")
+    reason = item.get(f"{metric}_comparison_reason")
+    if state == "pending" and reason:
+        parts.append(f"原因：{reason}")
+    return "；".join(parts)
+
+
+def update_actual_results_grid(grid, item):
+    """Fill the two existing EPS/revenue cards; never clear or recreate card DOM."""
+    if grid is None:
+        raise ValueError("published earnings results grid missing from approved prototype")
+    cards = grid.find_all("div", class_="earnings-actual-card", recursive=False)
+    if len(cards) != 2:
+        raise ValueError(f"published earnings grid must retain two mother cards; found {len(cards)}")
+    for card, metric, label in zip(cards, ("eps", "revenue"), ("EPS", "營收")):
+        state = earnings_comparison_status(item, metric)
+        if state not in ("beat", "miss", "inline", "pending"):
+            state = "pending"
+        card["class"] = ["earnings-actual-card", state]
+        title = card.select_one(".earnings-actual-card-title")
+        set_text(title, label)
+        lines = card.select(".earnings-actual-line")
+        if len(lines) != 2:
+            raise ValueError(f"{label} actual card must retain two comparison lines")
+        actual_key, estimate_key = (
+            ("eps_actual", "eps_estimate") if metric == "eps"
+            else ("revenue_actual", "revenue_estimate")
+        )
+        actual_display = item.get(f"{metric}_actual_display") or (
+            str(item.get(actual_key)) if item.get(actual_key) is not None else "未取得"
+        )
+        estimate_display = item.get(f"{metric}_estimate_display") or (
+            str(item.get(estimate_key)) if item.get(estimate_key) is not None else "未取得"
+        )
+        for line, caption, value in zip(
+            lines, ("實際", "預期"), (actual_display, estimate_display)
+        ):
+            caption_node = line.select_one("span")
+            value_node = line.select_one("strong")
+            set_text(caption_node, caption)
+            set_text(value_node, value)
+        status_node = card.select_one(".earnings-actual-status")
+        if status_node is None:
+            raise ValueError(f"{label} actual card status slot missing")
+        status_node["class"] = ["earnings-actual-status", state]
+        set_text(status_node, earnings_status_label(item, metric, state))
+        notes = card.select(".earnings-actual-note")
+        if not notes:
+            raise ValueError(f"{label} actual card evidence note slot missing")
+        evidence = consensus_evidence_label(item, metric)
+        if metric == "eps" and state == "pending" and item.get("eps_basis"):
+            evidence = (evidence + "；" if evidence else "") + "EPS口徑：" + str(item["eps_basis"])
+        note_text = evidence or "比較口徑／額外說明待核實"
+        set_text(notes[0], note_text)
+        for extra in notes[1:]:
+            set_text(extra, "")
+
+
+def fill_earnings_source_slot(value_node, item):
+    parts = []
+    actual_url = item.get("actual_source_url") or item.get("source_url")
+    actual_name = item.get("actual_source_name") or item.get("source_name") or "實際財報來源"
+    if actual_url:
+        parts.append(source_link(actual_url, actual_name))
+    else:
+        parts.append("實際財報來源待核實")
+    status_source = item.get("report_layer_status_source") or {}
+    if status_source.get("url"):
+        parts.extend(["公告狀態參考：", source_link(status_source["url"], status_source.get("name") or "第三方發布報導")])
+    consensus_url = item.get("consensus_source_url")
+    if consensus_url and consensus_url != actual_url:
+        parts.extend(["公告前共識：", source_link(consensus_url, item.get("consensus_source_name") or "共識來源")])
+        observed = item.get("consensus_observed_at")
+        if observed:
+            observed_tw = datetime.fromisoformat(str(observed).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%m/%d %H:%M")
+            counts = []
+            if item.get("eps_analyst_count") is not None:
+                counts.append(f"EPS {item['eps_analyst_count']}位")
+            if item.get("revenue_analyst_count") is not None:
+                counts.append(f"營收 {item['revenue_analyst_count']}位")
+            parts.append(f"（公告前快照 {observed_tw} 台灣時間{'；' + '／'.join(counts) if counts else ''}）")
+    set_value_slot(value_node, parts)
+
+
+def update_published_earnings_detail_fields(details, item, clock):
+    fields = details.find_all("div", class_="earnings-detail-field", recursive=False)
+    if not fields:
+        raise ValueError("published earnings detail-field prototypes missing")
+    seen = set()
+    for field in fields:
+        label_node = field.select_one("label")
+        value_node = field.select_one(".earnings-detail-value")
+        if label_node is None or value_node is None:
+            raise ValueError("published earnings detail-field mother slots incomplete")
+        name = label_node.get_text(" ", strip=True)
+        if "公布時段" in name:
+            session = {"before_market": "盤前", "after_market": "盤後"}.get(item.get("session"), "時段待核實")
+            text_value = (
+                f"財報發布：{session}（發布時間待核實）；電話會議：{clock}"
+                if item.get("time_type") == "call_time"
+                else f"財報發布：{session}；時間：{clock if item.get('time_known') else '時間待核實'}"
+            )
+            set_text(value_node, text_value)
+            seen.add("timing")
+        elif "EPS" in name and "營收" not in name:
+            set_text(value_node, earnings_metric_display(item, "eps"))
+            seen.add("eps")
+        elif "營收" in name:
+            set_text(value_node, earnings_metric_display(item, "revenue"))
+            seen.add("revenue")
+        elif "財報判讀" in name:
+            reaction = item.get("price_reaction") or "股價反應待核實"
+            set_text(value_node, earnings_commentary(item) + "；股價反應：" + str(reaction))
+            seen.add("commentary")
+        elif "股價" in name:
+            reaction = item.get("price_reaction") or "股價反應待核實"
+            reaction_url = item.get("price_reaction_source_url")
+            if reaction_url:
+                set_value_slot(value_node, [str(reaction), "｜", source_link(reaction_url, item.get("price_reaction_source") or "股價來源")])
+            else:
+                set_text(value_node, reaction)
+            seen.add("reaction")
+        elif "來源" in name:
+            fill_earnings_source_slot(value_node, item)
+            seen.add("source")
+        else:
+            raise ValueError(f"unsupported published earnings mother field: {name}")
+    if not ({"commentary", "reaction"} & seen) or "source" not in seen:
+        raise ValueError(f"published earnings card missing commentary/reaction or source slot: {sorted(seen)}")
+
+
+def update_upcoming_earnings_detail_fields(details, item, day, clock, session_label, timing_value):
+    fields = details.find_all("div", class_="earnings-detail-field", recursive=False)
+    if not fields:
+        raise ValueError("upcoming earnings detail-field prototypes missing")
+    schedule = (
+        f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
+        if (item.get("status") or item.get("status_in_db")) == "postponed"
+        else (
+            f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
+            if item.get("time_type") == "call_time"
+            else f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
+        )
+    )
+    eps_est = item.get("eps_estimate_display") or (str(item.get("eps_estimate")) if item.get("eps_estimate") is not None else "預期資料尚未取得")
+    rev_est = item.get("revenue_estimate_display") or (str(item.get("revenue_estimate")) if item.get("revenue_estimate") is not None else "預期資料尚未取得")
+    eps_count = f"（{item['eps_analyst_count']} 位分析師）" if item.get("eps_analyst_count") is not None else "（分析師數未提供）"
+    rev_count = f"（{item['revenue_analyst_count']} 位分析師）" if item.get("revenue_analyst_count") is not None else "（分析師數未提供）"
+    eps_basis = item.get("eps_basis_display") or item.get("eps_basis") or "平台 EPS 預期口徑（細項未完整揭露）"
+    rev_basis = item.get("revenue_basis_display") or "平台 Revenue 預期口徑（細項未完整揭露）"
+    eps_line = f"EPS 預估：{eps_est}{eps_count}；口徑：{eps_basis}；共識證據：{item.get('eps_evidence_label') or '平台共識參考'}"
+    rev_line = f"營收預估：{rev_est}{rev_count}；口徑：{rev_basis}；共識證據：{item.get('revenue_evidence_label') or '平台共識參考'}"
+    observed = item.get("consensus_observed_at")
+    if observed:
+        observed_tw = datetime.fromisoformat(str(observed).replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M")
+        observed_line = f"共識觀測時間：{observed_tw} 台灣時間"
+    else:
+        observed_line = "共識觀測時間：未提供"
+    if len(fields) == 1:
+        label_node = fields[0].select_one("label")
+        value_node = fields[0].select_one(".earnings-detail-value")
+        if label_node is None or value_node is None:
+            raise ValueError("single-slot Monday earnings prototype is incomplete")
+        set_text(label_node, "財報預估、共識與發布資訊")
+        set_value_slot(value_node, [schedule, eps_line, rev_line, observed_line, item.get("judgment") or item.get("source_notes") or "觀察重點待核實"])
+    elif len(fields) == 5:
+        mapped = {
+            "公布時段": schedule,
+            "EPS": eps_line,
+            "營收": rev_line,
+            "財報判讀": item.get("judgment") or item.get("source_notes") or "觀察重點待核實",
+        }
+        seen = set()
+        for field in fields:
+            label_node = field.select_one("label")
+            value_node = field.select_one(".earnings-detail-value")
+            if label_node is None or value_node is None:
+                raise ValueError("weekday earnings prototype is incomplete")
+            name = label_node.get_text(" ", strip=True)
+            if "公布時段" in name:
+                key = "公布時段"
+            elif "EPS" in name and "營收" not in name:
+                key = "EPS"
+            elif "營收" in name:
+                key = "營收"
+            elif "財報判讀" in name or "觀察重點" in name:
+                key = "財報判讀"
+            elif "來源" in name:
+                fill_earnings_source_slot(value_node, item)
+                seen.add("來源")
+                continue
+            else:
+                raise ValueError(f"unsupported upcoming earnings mother field: {name}")
+            set_text(value_node, mapped[key])
+            seen.add(key)
+        if seen != set(mapped) | {"來源"}:
+            raise ValueError(f"weekday upcoming earnings fields incomplete: {sorted(seen)}")
+    else:
+        raise ValueError(f"unsupported upcoming earnings mother field count: {len(fields)}")
+
+
 def validate_economic_card(card, context, expected_toggle):
     """Enforce the approved five-zone DOM contract on every rendered economic card."""
     details = card.find("div", class_="econ-details", recursive=False)
