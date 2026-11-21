@@ -961,7 +961,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
     news_start_dt = datetime.strptime(news_window_start + " 12:00", "%Y/%m/%d %H:%M")
     if news_cutoff_dt < news_start_dt:
         raise ValueError("news cutoff precedes the Monday/weekday news-window start")
-    news_window_end_label = news_cutoff
+    news_window_end_label = news_cutoff_dt.strftime("%Y/%m/%d %H:%M")
     news_window_label = f"{news_window_start_label}–{news_window_end_label}（台灣時間）"
     for section_id, items_key, expected, section_label in [
         ("global-focus","focus_news",5,"全球焦點"),
