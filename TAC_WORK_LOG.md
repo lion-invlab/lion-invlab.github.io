@@ -2685,3 +2685,11 @@
 - 根因不是單份 HTML 的資料填值：Monday simulation mother CSS 在 max-width:700px 將 `#last-week-earnings .earnings-results-grid` 強制設為單欄，與 QA Contract D2「640px 以下仍兩欄」矛盾。依 SIM-1.4 母版保護，不得自行注入 Builder CSS；需使用者明確授權更新 simulation mother copy 及 Manifest／QA SHA，main mother 不動。
 - 同時查明 Fed 官員行程 Builder 會把母版 prototype 的 94px date rail 改為單欄 inline style。已修正 `build_review_html.py` 只 clone 原型、保留 row 與子節點 style；Builder blob `b6082923a88ab2b592f2d2765f68d4f4214caca8`。Regression test 改為驗證原型樣式完全保留，blob `e5ea8856da5b205d711612d55b9c75267f381350`；workflow run `44961417262` 排隊中，待結果。
 - 本輪未將失敗 HTML／舊 sidecar 當成新審核版封存；未修改 main、正式首頁、正式母版或正式行事曆 JSON。
+
+
+## 2026-11-22｜Fed 官員行程修正通過；財報雙卡母版衝突待授權
+
+- Fed agenda Builder 已修正為保留母版 prototype 原始 row／date／content style，Builder SHA `b6082923a88ab2b592f2d2765f68d4f4214caca8`；回歸測試改為逐項比較 prototype 與 clone style，test SHA `e5ea8856da5b205d711612d55b9c75267f381350`。run `44961417262` completed/success，deterministic self-tests PASS。
+- 同一測試 run 也通過財報比較狀態測試。QA Contract 中「Builder 仍含 legacy incomparable／consensus_divergent 且無法顯示比較資料尚未齊備」的舊 blocker 已證實過期並修正；QA Contract blob 更新為 `9d6c7443339af39fc5eb677dee11ea02a24deeca`。
+- 完整 11/23 build run `44961158565` 仍為 failure：visual regression 在 412／390／360／320px 均發現已公布財報 EPS／Revenue 雙卡為單欄。根因為 Monday simulation mother 的 mobile CSS 強制一欄，與 QA Contract D2 兩欄要求及使用者既有版面要求衝突。
+- 此衝突需更新 simulation Monday mother copy、simulation Manifest SHA、QA Contract A2.1／A3 及測試；SIM-1.4 要求母版／Manifest 更新須使用者明確授權，因此目前沒有擅自修改。main 正式母版、正式首頁與正式行事曆 JSON均未動。
