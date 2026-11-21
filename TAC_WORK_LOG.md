@@ -1901,3 +1901,10 @@
 - 判定：DOM內容結構遭大幅刪減，雖CSS/JS數量相同仍不符合母版完整複製與零退化。先前以overflow、pageerror、tab切換通過推定母版視覺驗收屬錯誤驗收。CNN更新稿SHA 8e2723c47022ddf7de50494c82d9718451c738e3e5b4242e4100a0cb6dab7ad3撤銷，不得作為審核版或修補基底。
 - 母版本機原檔SHA d38e821205bcf0b1fb60b243434be8bad1dcc2738e9a409a6731d0e4fd833931與Manifest simulation SHA一致；Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b1；QA Contract SHA 331b4bdfe318462e15cae8ae4cd31c32815960d7；SIM-1.3 SHA 679eae7ba7a40dbad64d15bb448fe53db7d67e09。
 - 下一步：由完整核准母版重新開始，僅用QA契約既有DOM selectors更新核准內容槽位；完整保留所有DOM、CSS、JS及互動；執行母版差異及同尺寸視覺回歸。不修改main及正式母版。
+
+
+## 2026-11-21｜母版直更重建版與初步瀏覽器檢查
+- 以核准Monday mother完整DOM為底稿，使用lxml DOM parser更新現有槽位，產出母版直更版SHA a2d326a7cf2c81fcd0b94acb5421d3baf5fe8f8690b2037220b96395ac1cb703，387,240 bytes；2040 elements、183 unique IDs、124 style、25 script。
+- 更新總結、CNN 10/100、全球17指數與三區評論、11大產業ETF及部分觀察文字；DOM/CSS/JS基礎結構統計保留。
+- Playwright Chromium 390/1440：無水平溢位、pageerror 0、IDs 183。視覺diff、全互動及完整內容QA尚未完成。
+- 行事曆尚未逐筆更新：W47 25經濟/23財報、W48 27經濟/11財報仍未映射至母版卡片；現有卡片保留舊示範資料，僅日期標題更新，故不得交付。FedWatch舊靜態機率尚待安全處理；新聞候選尚待窗口封口與逐篇更新。
