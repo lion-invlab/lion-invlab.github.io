@@ -2677,34 +2677,37 @@ def main():
     disclosure = levels_box.select_one(disclosure_selector)
     if disclosure is None:
         raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
-    # The .key element is the approved dynamic content slot. Preserve its
-    # mother-owned disclosure node and wrapper; render the five pivot labels
-    # as simple vertical text/line-break content, without injecting new cards.
-    disclosure.extract()
-    for child in list(levels_box.contents):
-        child.extract()
-    levels_data = data.get("key_levels") or {}
-    level_items = levels_data.get("items", [])
+    # Update the five existing mother text slots in place. Keep every <b>, <br>,
+    # the .key wrapper and its original <details>/<summary> disclosure node.
+    level_labels = levels_box.find_all("b", recursive=False)
+    if len(level_labels) != 5:
+        raise ValueError(f"approved key-level mother must retain five existing label slots; got {len(level_labels)}")
+    if disclosure.parent is not levels_box:
+        raise ValueError("key-level disclosure must remain a direct child of the approved .key wrapper")
     if len(level_items) == 5:
-        for item in level_items:
-            title = soup.new_tag("b")
-            title.string = str(item["name"]) + "："
-            levels_box.append(title)
-            for zh_label, field in (
-                ("第二支撐", "s2"),
-                ("第一支撐", "s1"),
-                ("中樞", "p"),
-                ("第一壓力", "r1"),
-                ("第二壓力", "r2"),
-            ):
-                levels_box.append(soup.new_tag("br"))
-                levels_box.append(f"{zh_label}：{item[field]}")
-            levels_box.append(soup.new_tag("br"))
-            levels_box.append(soup.new_tag("br"))
+        for item, label_node in zip(level_items, level_labels):
+            text_slot = label_node.next_sibling
+            while text_slot is not None and getattr(text_slot, "name", None) != "br":
+                if isinstance(text_slot, NavigableString) and str(text_slot).strip():
+                    break
+                text_slot = text_slot.next_sibling
+            if not isinstance(text_slot, NavigableString):
+                raise ValueError("key-level mother label is missing its original text slot")
+            label_node.string = str(item["name"]) + "："
+            text_slot.replace_with(
+                f"第二支撐：{item['s2']}｜第一支撐：{item['s1']}｜中樞：{item['p']}｜"
+                f"第一壓力：{item['r1']}｜第二壓力：{item['r2']}"
+            )
     else:
-        levels_box.append("五項關鍵價位 OHLC 尚未完成同日現金指數核實，暫不提供支撐／中樞／壓力數值。")
-        levels_box.append(soup.new_tag("br"))
-    levels_box.append(disclosure)
+        for label_node in level_labels:
+            text_slot = label_node.next_sibling
+            while text_slot is not None and getattr(text_slot, "name", None) != "br":
+                if isinstance(text_slot, NavigableString) and str(text_slot).strip():
+                    break
+                text_slot = text_slot.next_sibling
+            if not isinstance(text_slot, NavigableString):
+                raise ValueError("key-level mother label is missing its original text slot")
+            text_slot.replace_with("數值待核實；本次不提供支撐／中樞／壓力數值")
     detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
     if detail_body is None:
         raise ValueError("key levels source/method disclosure body missing from selected mother template")
