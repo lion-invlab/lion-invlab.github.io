@@ -2445,3 +2445,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - **阻塞：** 當前可用 GitHub 連接器能讀取完整母版文字（354,764字元）及寫入檔案，但本對話可用工具中沒有可執行真正 DOM parser／瀏覽器的執行環境。已嘗試尋找 browser/computer/DOM parser/Playwright/Puppeteer 工具，未找到可用執行工具；容器直接下載 raw GitHub 檔案亦受限，web raw URL fetch 回報 DisabledError。依 QA 契約 A2.5，不得使用 regex、字串切片或固定字元範圍替換，也不得宣稱 DOM 修復或 QA 通過。
 - 因此尚未複製並更新每日 HTML、尚未執行四大 QA、尚未寫入 main preview；不以程式碼片段或 GitHub 原始碼頁冒充可預覽審核版。保護檔案與 W47/W48 JSON均未修改。
 - 下一個可恢復動作：在具備可用 DOM parser 的執行環境後，從核准週一母版完整複製，依既有已核實內容槽位批次更新，再執行一次完整四類 QA；在此之前第五步維持「阻塞／未完成」。
+
+
+## 2026-11-21｜接手更正與第五步恢復核查
+- 路徑更正：SIM-1.3 A1-補充2 所稱既有狀態檔實際位於 simulation branch 根目錄 `TAC_SESSION_STATE.md` 與 `TAC_WORK_LOG.md`，不是 `simulation-lab/` 子目錄。此前以錯誤路徑讀取而回報404，該回報撤銷；本次已成功讀取兩檔。接手前 blob SHA：Session State `68ea92d9194065fc6132bd5d4a3940d21e5b2ca6`；Work Log `8bef79fae891e2df50062ebed2c8c99fe6293f42`。
+- 本次分支 HEAD：`892e89abe58965b99f1e4f78839e9f50238b52cf`。SIM-1.3 SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；週一 simulation 母版 SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`；QA Contract SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。均已回讀，未變更。
+- DOM 執行能力更正：目前 Python runtime 可 import BeautifulSoup 4.14.3 與 lxml 6.1.1；此前「沒有 DOM parser」判斷錯誤，撤銷。仍需解決將 GitHub connector 取得的母版完整內容安全送入本地 DOM 執行環境的資料傳遞方式；不可因此改用 regex／字串切片或舊 assembler。
+- 進度證據接收：既有 Session State 記錄 Phase 1 基準鎖定、Phase 2 44/44 登記與第二輪補漏、Phase 3 W47/W48 唯讀核實、Phase 4 暫定新聞／分析內容；Phase 5 尚未產生 HTML、未執行 QA，Phase 6 未交付。Phase 2 的 44/44 是欄位均有值／狀態及來源紀錄，不等於所有項目皆同等主要來源已核實；MOVE、情緒指標、商品合約及 CFD 口徑必須依逐項證據呈現其實際狀態。
+- W47/W48 正式 main JSON 維持唯讀；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`，W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`。本次未寫入任何行事曆資料。
+- 本次接手未修改母版、Manifest、QA Contract、main index 或 preview；第五步仍未完成。下一步：依 QA Contract A2.5 既有 SHA 綁定定位契約，完成母版完整內容的 DOM 工作副本建立及 selector 唯一性檢查；只有成功 DOM 更新並完成四類 QA 後才可交付。
