@@ -1765,3 +1765,9 @@
 - VIX 35.89（+26.20%）已由Cboe官方頁直接核實（11/20 9:15 PM資料），撤銷先前將其標成Investing CFD參考的錯誤註記；主來源為 https://www.cboe.com/tradable-products/vix/ 。
 - Phase 4截至2026-11-21 10:03:28+08:00仍未封口；Global Focus及Hot Headlines僅暫存，不得宣稱最終完成。G1暫定主軸：AI需求／頂級融資仍強，但信用風險、NVIDIA治理與估值重估、價值股輪動及Fed鷹派令市場提高對AI投資回報與槓桿的要求。
 - 本次未修改母版、Manifest、QA Contract、W47/W48 JSON、main index或main preview。
+## 2026-11-21｜Phase 5 母版資料傳遞路徑調查
+- Python runtime具BeautifulSoup/lxml/Playwright/Chromium；DOM parser可用。
+- Library唯一週一母版副本SHA a568e594e55909041d51d8eae7e6fe5f7986c096，為main正式母版；其經濟卡不是SIM-1.3五區結構，不能代替simulation baseline SHA 1ac39d50b138e59f4aabf55fc68560ee277ba6f8。
+- Library 11/16 SIM preview雖在provenance標記母版SHA 1ac39，但它是舊builder輸出，解析為190 IDs／131 styles／25 scripts（母版契約基準183／124／25），禁止當作11/23底稿。
+- workflow artifact 43664951343已檢視，僅含舊報告、QA與視覺證據，沒有母版原始檔。GitHub connector沒有將fetch_file內容直接materialize至本地DOM runtime的路徑；raw GitHub下載DNS失敗。
+- 未使用regex／字串切片／舊builder或main母版替代；Phase 5尚未組裝，四類QA未執行，main preview未寫入。
