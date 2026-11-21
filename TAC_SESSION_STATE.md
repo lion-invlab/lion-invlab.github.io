@@ -2211,7 +2211,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ## 2026-11-21｜2026-11-23（一）早報｜階段②行情鎖定完成
 
 - 市場資料基準：2026-11-20（五）正式收盤；快照擷取時間：2026-11-21 09:03 Asia/Taipei。
-- 44/44 行情資料已逐項鎖定，快照檔：`simulation-lab/analysis/market-snapshot-2026-11-20.json`，blob SHA `7480259c12cba3ce841458d508a94b7a5466c765`；commit `f48ee7f430a62b5898f2cb3751c3e12fa6597b43`。項目數：17全球指數＋11產業ETF＋3美債殖利率＋6匯率＋4商品＋3情緒指標。
+- 44/44 行情資料已逐項核實；依 SIM-1.3 A1 不保留獨立日快照，逐項數值及來源摘要直接記錄於本 Session State／Work Log。項目數：17全球指數＋11產業ETF＋3美債殖利率＋6匯率＋4商品＋3情緒指標。
 - 現貨／CFD身分核對：S&P 500、Russell 2000、Nikkei 225、Hang Seng、FTSE 100、DAX均未以同名CFD替代現貨；S&P/Russell採AP現貨收盤，Nikkei/HSI/DAX採Yahoo現貨歷史，FTSE採FT歷史資料。
 - 產業ETF：11項均有11/20收盤與漲跌幅；XLRE因Investing HK歷史列未提供，改採Yahoo Finance歷史收盤。早報只呈現11項漲跌幅。
 - 債券：2Y 4.705%、10Y 4.941%、30Y 5.336%；30Y因HK歷史頁未更新，改採Investing.com主站11/20歷史列。DXY採Investing.com歷史列103.76（-0.13%），非週末即時報價。
@@ -2276,3 +2276,26 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新聞及分析已完成截至 2026-11-21 08:55 +08 的預備稿；新聞窗仍缺週末及 11/23 05:25 前內容。
 - G1 週一版硬性要求核對 11/23 亞股實際開盤及盤中反應；目前為 11/21（週六），尚無法完成。故階段④標記「進行中／待週一更新」，不可宣稱已完成，不可進入最終 HTML 審核交付。
 - W48/W47 JSON仍唯讀；上述內容只記錄於 simulation Session State／Work Log，未改正式資料庫或首頁。
+
+
+### 2026-11-20 行情核實值（Session State唯一當次行情索引；44項）
+
+**全球指數 17 項（收盤／日變動）：**
+- 道瓊 48,147.33（-1.93%）；S&P 500 6,910.39（-3.70%）；Nasdaq Composite 22,617.73（-5.28%）；Russell 2000 2,581.79（-2.76%）；SOX 8,408.60（-10.73%）。
+- Nikkei 225 56,436.65（-5.06%）；KOSPI 4,869.96（-5.21%）；台灣加權 36,033.29（-6.23%）；新加坡 STI 4,975.17（-2.05%）；S&P/ASX 200 8,592.60（-1.58%）。
+- 上海綜合 3,533.79（-1.22%）；深圳成份 10,256.39（-3.09%）；恒生 22,410.80（-1.89%）；FTSE 100 10,346.34（-1.02%）；DAX 24,802.78（-2.60%）；CAC 40 7,927.75（-1.89%）；STOXX Europe 600 625.66（-2.00%）。
+- 現貨來源裁決：S&P/Russell採AP現貨收盤（Russell跌幅依AP點數與前收換算）；Nikkei／Hang Seng／DAX採Yahoo現貨歷史；FTSE採FT歷史；其他按核准Investing.com HK對應頁。S&P、Russell、Nikkei、Hang Seng、FTSE、DAX未以同名CFD冒充現貨。
+
+**S&P 500 11大產業ETF 11 項（收盤／日變動；早報只呈現漲跌幅）：**
+- XLE 60.51（-0.62%）；XLF 54.57（-1.82%）；XLK 149.01（-7.27%）；XLI 156.37（-3.09%）；XLY 112.46（-2.95%）；XLP 90.46（+0.67%）；XLU 42.69（-0.74%）；XLV 177.24（-0.12%）；XLB 48.34（-2.19%）；XLRE 42.46（-0.98%）；XLC 100.03（-2.66%）。
+- 來源：Investing.com HK各ETF歷史頁；XLRE因HK歷史頁未提供可核對的11/20列，採Yahoo Finance歷史收盤。
+
+**美國公債殖利率 3 項（Treasury CMT，11/20）：** 2Y 4.63%（日變動-13bp）；10Y 4.92%（-12bp）；30Y 5.31%（-9bp）。來源：美國財政部 Daily Treasury Par Yield Curve Rates，同一日期同一CMT口徑。
+
+**外匯 6 項：** DXY 103.76（-0.13%）；USD/TWD 32.936（約-0.02%，CBC銀行間收盤，前日32.942）；EUR/USD 1.0968（+0.01%）；GBP/USD 1.3087（-0.01%）；AUD/USD 0.6621（-0.57%）；USD/JPY 158.54（-0.73%）。EUR/GBP/AUD/JPY採Investing.com歷史頁；DXY採Investing.com歷史頁。
+
+**能源與貴金屬 4 項（按最新完整交易日成交量最高的具體合約；平台last/settlement標記，不冒稱官方結算）：** WTI Jan-27 CLF7 83.41（+1.18%，vol 275,335）；Brent Jan-27 LCOF7 92.57（+0.64%，vol 278,237）；Gold Dec-26 GCZ6 3,515.4（-4.62%，vol 323,896）；Silver Dec-26 SIZ6 41.070（-7.41%，vol 110,375）。來源：Investing.com具體商品合約清單；CME／ICE官方結算頁本次未能讀取到具體合約當日數值，故按D3「具體合約可靠平台歷史報價」備援，名稱與連結須保留合約月份。
+
+**風險情緒 3 項：** VIX 35.89（+26.20%，Investing.com HK 11/20歷史收盤）；MOVE 106.31（+6.80%，TradingView最新可見報價，頁面未明示指定日期／收盤時間，暫列「待核實」，週一需重新核對）；CNN Fear & Greed 10/100（Extreme Fear，FGScore CNN Provider Index，更新時間11/21 05:30台北時間；CNN官方頁及其graphdata端點本次不可讀，依D3第三方備援順序採用）。
+
+**政策／盈利背景（不計入44項）：** FedWatch 12/9會議：目前目標區間3.75%–4.00%；升息25bp至4.00%–4.25%機率89.6%，維持機率10.4%；更新時間11/21 05:55台北時間。FactSet Earnings Insight 11/20：Q3 93%公司已公布；EPS beat 84%、Revenue beat 74%；混合EPS成長32.9%、營收成長14.6%；整體EPS surprise +3.5%（低於5年平均+7.5%）；forward P/E 17.1（低於5年19.8、10年19.1）；Mag7 EPS成長27.0%，低於其他493家34.7%。
