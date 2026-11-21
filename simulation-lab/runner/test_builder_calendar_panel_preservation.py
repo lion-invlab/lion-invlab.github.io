@@ -25,7 +25,7 @@ require('BeautifulSoup(template_html,"html.parser").select_one("details.econ-eve
 require('published_template_html=str(published_template) if published_template is not None else None')
 require('card=BeautifulSoup(earnings_template_html,"html.parser").select_one("details.earnings-accordion")')
 require('card=BeautifulSoup(published_template_html,"html.parser").select_one("details.earnings-accordion")')
-require('update_actual_results_grid(grid,x)')
+require('update_actual_results_grid(details.select_one(".earnings-results-grid"),x)')
 require('update_published_earnings_detail_fields(details,x,clock)')
 require('update_upcoming_earnings_detail_fields(')
 forbid("details.clear()")
