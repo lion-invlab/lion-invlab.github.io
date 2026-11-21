@@ -2551,8 +2551,11 @@ def main():
                 raise ValueError("core observation disclosure primary text slot missing")
             detail_text = str(data["core_observation"].get("details", "")).strip()
             first_texts[0].replace_with(detail_text or "本次未提供額外補充內容。")
-            for extra_text in first_texts[1:]:
-                extra_text.replace_with("")
+            for extra_index, extra_text in enumerate(first_texts[1:]):
+                extra_text.replace_with(
+                    "其餘補充資料已整併於上方。" if extra_index == 0
+                    else "本段其他說明已整併於上方。"
+                )
             second_texts = [
                 child for child in detail_nodes[1].contents
                 if isinstance(child, NavigableString) and str(child).strip()
