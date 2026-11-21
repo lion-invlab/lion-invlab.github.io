@@ -2544,3 +2544,7 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 **Market Sentiment暫定**：股票波動、債券波動與恐懼指標大致同向偏向避險；但美債殖利率下行與近端升息機率偏高並存，黃金白銀也未能全面承接避險資金，顯示市場同時在降低風險曝險與提高現金需求。極端悲觀尚未伴隨市場廣度、信用條件及波動率同步改善，不能單憑情緒低點判定底部。
 **盤面觀察重點暫定**：①AI需求與AI股價脫鉤，市場焦點由訂單成長轉向資本支出回報、毛利與自由現金流；②價值股相對成長股走強，需觀察輪動是否擴散而非只靠少數權值股；③SpaceX融資需求強與CoreWeave信用壓力並存，顯示AI資本市場分層；④Fed鷹派與消費者通膨預期下降形成拉扯，核心PCE將決定利率定價；⑤資料中心政策由地方限制、能源成本與聯邦許可改革三線交錯，影響建置成本與投資時程。
 - 上述為分析草稿，不是最終稿；新聞窗口仍待11/23 05:25前更新，且需核對受影響區塊及W48資料最新SHA。
+## 2026-11-21｜Phase 4 AMD新聞來源補核
+- Investing.com HK AMD短報導頁（11/21 00:41）本輪開啟失敗，不以搜尋摘要代替原文。已改讀可直接開啟的24/7 Wall St後續文章，發布時間2026-11-20 09:52 ET（換算11/20 22:52 Taipei，落在本次新聞窗口），說明Hunterbrook短倉報告指稱AMD對中國伺服器商IEIT的韌體供應關係可能引來出口管制審查；AMD明確否認，且報導指出該報告本身未證明違反出口法規。Reuters 11/19原始報導作交叉核對，但其原始發布時間早於11/20 12:00 Taipei，只作事實核對，不列為本輪頭條來源。24/7 URL：https://247wallst.com/investing/2026/11/20/amd-slides-6-despite-jim-cramer-calling-hunterbrook-short-report-a-hitjob-nvidia-falls-3-near-damodaran-140-buy-price-intel-declines-2/；Reuters cross-check：https://www.reuters.com/world/china/amd-shares-slide-report-says-china-links-could-invite-us-scrutiny-2026-11-19/ 。
+- AMD頭條可採用，但必須寫成「做空機構提出未經獨立證實的指控、AMD否認」，不得寫成已違反出口法規；不沿用盤中-6%作為週五收盤跌幅。
+- 截至11/21 10:03暫定Hot Headlines候選共10個不同事件：AMD中國韌體指控／否認、NVIDIA SEC會計調查、黃金白銀急跌、Anthropic上市第二日回落、CoreWeave CDS飆升、SpaceX 440億美元GPU融資、NVIDIA連7週下跌、Reuters價值股輪動、Trump海外資料中心構想、Bessent H200出口上限／Trump舊晶片表態。最終仍待11/23 05:25前檢查是否有更新、時間窗與去重。
