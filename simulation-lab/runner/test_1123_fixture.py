@@ -94,7 +94,7 @@ def main():
     assert data["energy"]["WTI原油期貨"]["source"]["url"] == "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
     assert data["energy"]["WTI原油期貨"]["display_name"] == "WTI 原油期貨"
     assert data["energy"]["Brent原油期貨"]["display_name"] == "Brent 原油期貨"
-    assert "CME／NYMEX CLF27" in data["energy"]["WTI原油期貨"]["source"]["note"]
+    assert "Investing.com WTI 期貨合約歷史數據頁所列 CLF27" in data["energy"]["WTI原油期貨"]["source"]["note"]
     assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
     assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
     assert "WTI、Brent、GC、SI四項均採Investing.com HK" in data["warning_note"]
