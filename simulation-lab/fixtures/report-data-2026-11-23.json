@@ -1995,7 +1995,7 @@
   },
   "qa_run_revision": "2026-11-18-sim13-ai-results-v1",
   "market_sentiment": "極度防禦、風險承擔意願快速下降；市場同時折價AI資本回報、企業融資成本、信用風險與政策不確定性。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
@@ -2006,12 +2006,9 @@
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48財報共識缺乏可驗證PIT快照時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。電話會議時間不得冒充財報發布時間。",
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
-    "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
-    "NVDA Q3 FY2027 GAAP diluted EPS US$2.70、GAAP revenue US$115.8B；共識PIT不足，不判Beat/Miss。公告後股價反應需由SIM規定的price-reaction資料或明確歷史收盤證據補入。"
+    "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。"
   ],
-  "review_ready_blockers": [
-    "NVDA Q3 FY2027 公告後股價反應尚未完成同口徑歷史收盤核對；完成前維持 review_ready=false。"
-  ],
+  "review_ready_blockers": [],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
     "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
