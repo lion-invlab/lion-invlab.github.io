@@ -2711,6 +2711,8 @@ def main():
     disclosure = levels_box.select_one(disclosure_selector)
     if disclosure is None:
         raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
+    levels_data = data.get("key_levels") or {}
+    level_items = levels_data.get("items", [])
     populate_key_levels_preserving_dom(levels_box, level_items, disclosure)
     detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
     if detail_body is None:
