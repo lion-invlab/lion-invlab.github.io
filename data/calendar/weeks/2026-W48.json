@@ -5,7 +5,7 @@
   "week_start": "2026-11-23",
   "week_end": "2026-11-29",
   "created_at": "2026-11-21T08:57:28+08:00",
-  "updated_at": "2026-11-21T08:57:28+08:00",
+  "updated_at": "2026-11-21T09:00:28+08:00",
   "source_report_date": "2026-11-21",
   "wr_version": "5.17",
   "status": "incomplete",
@@ -48,7 +48,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：法國 PMI 是歐元區主要經濟體景氣先行指標，可反映內需與企業訂單變化。",
         "previous": "10月綜合 PMI 46.6",
-        "forecast": null,
+        "forecast": "MUFG 預估 47.0",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若服務業疲弱延續，將加重歐元區成長動能不足的疑慮；需與德國及歐元區整體 PMI 交叉觀察。",
@@ -78,7 +78,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：德國是歐洲製造業核心，PMI 對工業訂單、出口及歐元區成長判讀具代表性。",
         "previous": "10月綜合 PMI 53.4",
-        "forecast": "綜合 PMI 52.8",
+        "forecast": "市場共識 52.8；MUFG 預估 53.0",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若製造業仍收縮而服務業維持擴張，將顯示德國復甦結構不均；需留意新訂單與出口訂單。",
@@ -109,7 +109,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：歐元區綜合 PMI 是歐洲成長動能的重要即時指標，可能影響 ECB 利率預期、歐元與歐洲股市定價。",
         "previous": "10月綜合 PMI 51.7",
-        "forecast": "綜合 PMI 51.6",
+        "forecast": "市場共識 51.6；MUFG 預估 51.5",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若 PMI 持續高於 50，代表私部門仍在擴張；若明顯下滑，可能削弱歐元區成長預期並改變 ECB 政策定價。",
@@ -140,7 +140,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：英國 PMI 是英國央行政策與服務業景氣的重要先行訊號。",
         "previous": "10月綜合 PMI 52.9",
-        "forecast": "綜合 PMI 53.1",
+        "forecast": "市場共識 53.1；MUFG 預估 53.2",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若服務業價格與就業分項偏強，可能維持英國通膨黏著及利率偏高預期；若新訂單放緩則偏向成長降溫。",
@@ -202,7 +202,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：ifo 企業景氣調查涵蓋德國企業現況與預期，是歐洲最大經濟體景氣判讀的重要調查。",
         "previous": "10月 91.6",
-        "forecast": "92.0",
+        "forecast": "市場共識 92.0；MUFG 預估 92.2",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若預期分項回升，可能支持德國景氣築底；若現況與預期再度走弱，將壓抑歐洲週期股及歐元。",
@@ -284,7 +284,7 @@
       },
       {
         "id": "current-de-gdp-detail-2026q3",
-        "event_date": "2026-11-25T00:00:00+08:00",
+        "event_date": "2026-11-25T15:00:00+08:00",
         "region": "德國",
         "event_name": "德國第 3 季 GDP 詳細結果（第二次估算／支出與產業拆分）",
         "importance_stars": 4,
@@ -303,14 +303,17 @@
           "publisher": "Federal Statistical Office of Germany",
           "notes": "Destatis 已確認詳細結果於 11/25 發布；官方頁面未列精確時刻，故不推定。市場預期參考 MUFG 11/20。",
           "secondary_refs": [
-            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/",
+            "https://www.presseportal.de/pm/32102/6394495"
           ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "% q/q",
         "data_reference": "2026年第3季",
-        "time_known": false
+        "time_known": true,
+        "time_type": "release_time",
+        "event_time": "08:00 CET／台灣時間 15:00（MUFG release schedule）"
       },
       {
         "id": "current-us-gdp-q3-2026-second",
@@ -321,7 +324,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：GDP 第二次估值是美國需求、投資與企業獲利的重要總體檢驗，可能改變利率與風險資產定價。",
         "previous": "第3季初值年化季增 3.4%",
-        "forecast": "年化季增 3.4%",
+        "forecast": "TD 預估 3.4%；U.S. Bank 市場共識 3.5%、自行預估 3.4%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若 GDP 維持強勁且企業獲利上修，可能支持美股獲利預期，但亦可能推升利率；若下修則需檢視消費與投資動能。",
@@ -350,8 +353,8 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：PCE 是聯準會最重視的通膨衡量指標，核心 PCE 對利率路徑及美債殖利率定價具直接影響。",
-        "previous": "9月 PCE 月增 0.5%；核心 PCE 月增 0.3%（U.S. Bank彙整）",
-        "forecast": "PCE 月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%",
+        "previous": "個人所得 +0.3%；個人支出 +0.5%；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%",
+        "forecast": "個人所得 +0.3%；個人支出 +0.4%；PCE 月增 +0.3%、年增 3.8%；核心 PCE 月增 +0.3%、年增 3.2%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若核心 PCE 月增高於預期，將強化通膨黏著與利率高檔預期；若降溫則可能緩解實質利率壓力。",
@@ -380,8 +383,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：耐久財訂單與核心資本財訂單反映企業設備投資意願，是判讀 AI 資本支出以外廣泛投資動能的重要指標。",
-        "previous": "9月總訂單月增 1.9%；核心資本財訂單月增 0.6%",
-        "forecast": "總訂單月增 0.5%；核心資本財訂單月增 0.8%",
+        "previous": "總訂單 +1.9%；核心資本財訂單 +0.6%；非運輸訂單 +0.5%",
+        "forecast": "總訂單 +0.5%；核心資本財訂單 +0.8%；非運輸訂單 +0.5%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若核心資本財訂單維持成長，支持企業投資韌性；若排除飛機後訂單轉弱，可能顯示投資動能集中於少數 AI 相關產業。",
@@ -411,7 +414,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：新屋銷售對房貸利率敏感，可反映住宅需求、房價與建築業景氣。",
         "previous": "9月 676 千戶",
-        "forecast": "648 千戶",
+        "forecast": "市場共識 645 千戶；TD 預估 648 千戶；U.S. Bank 預估 640 千戶",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若銷售低於預期，將反映高房貸利率對住宅需求的壓抑；若回升則有助降低房市硬著陸疑慮。",
@@ -462,7 +465,7 @@
       },
       {
         "id": "current-canada-seph-202609",
-        "event_date": "2026-11-26T00:00:00+08:00",
+        "event_date": "2026-11-26T21:30:00+08:00",
         "region": "加拿大",
         "event_name": "加拿大 9 月 Payroll Employment、Earnings and Hours 與 Job Vacancies（SEPH）",
         "importance_stars": 4,
@@ -479,16 +482,18 @@
           "published_at": null,
           "observed_at": "2026-11-21T08:57:28+08:00",
           "publisher": "Statistics Canada",
-          "notes": "官方發布日程確認 11/26 發布 9 月 SEPH；官方日程未列精確時間，故不推定。",
+          "notes": "官方發布日程確認 11/26 發布 9 月 SEPH；Statistics Canada 說明所有工作日資料均於 08:30 Eastern 發布，換算台灣時間 21:30。前值 -49.6 千人參考 TD Economics。",
           "secondary_refs": [
-            "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf"
+            "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
           ]
         },
         "previous_applicable": true,
         "forecast_applicable": false,
         "data_unit": "人數／薪資",
         "data_reference": "2026年9月",
-        "time_known": false
+        "time_known": true,
+        "time_type": "release_time",
+        "event_time": "08:30 EST／台灣時間 21:30"
       },
       {
         "id": "current-ecb-account-20261028",
@@ -541,8 +546,8 @@
           "publisher": "Statistics Bureau of Japan",
           "notes": "日本官方發布表確認東京區部 11 月 CPI 於 11/27 發布；官方月曆未在該頁列出時刻，08:30 JST 依官方 CPI 發布慣例換算台灣時間 07:30。市場預期參考 MUFG。",
           "secondary_refs": [
-            "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html",
-            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+            "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
+            "https://www.stat.go.jp/english/data/cpi/1585.htm"
           ]
         },
         "previous_applicable": true,
@@ -560,7 +565,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：消費者通膨預期與支出意向可補充 ECB 對中期通膨及家庭需求的判斷。",
         "previous": null,
-        "forecast": null,
+        "forecast": "1年期通膨預期 3.2%（MUFG）；前值 3.1%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若家庭通膨預期回升，可能使 ECB 更審慎；若回落則有助緩和中期通膨疑慮。",
@@ -571,7 +576,9 @@
           "observed_at": "2026-11-21T08:57:28+08:00",
           "publisher": "European Central Bank",
           "notes": "ECB 官方週行程確認 11/27 10:00 CET 發布；換算台灣時間 17:00。",
-          "secondary_refs": []
+          "secondary_refs": [
+            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+          ]
         },
         "previous_applicable": false,
         "forecast_applicable": false,
@@ -588,17 +595,17 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：歐盟執委會經濟信心調查涵蓋企業與消費者，是歐元區景氣循環的重要綜合指標。",
         "previous": "10月 96.9",
-        "forecast": "97.2",
+        "forecast": "市場共識 97.2；MUFG 預估 96.4",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若信心回升幅度擴大，可能支持歐洲週期股；若仍低於長期平均 100，則復甦基礎仍偏脆弱。",
         "source": {
-          "name": "European Commission｜Publication Dates 2026",
-          "url": "https://ec.europa.eu/economy_finance/db_indicators/surveys/documents/calendar/Publication%20dates%202026.pdf",
+          "name": "Eurostat｜Release calendar for Euro indicators",
+          "url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar?type=listMonth",
           "published_at": null,
           "observed_at": "2026-11-21T08:57:28+08:00",
           "publisher": "European Commission",
-          "notes": "官方發布表確認 11/27 11:00 CET 發布 11 月調查；換算台灣時間 18:00。MUFG 共識 97.2、前值 96.9。",
+          "notes": "Eurostat 官方發布日曆確認 11/27 發布 11 月 Economic Sentiment Indicator；MUFG 11/20 報告列 10:00 GMT（台灣時間 18:00）、共識 97.2、預估 96.4、前值 96.9。",
           "secondary_refs": [
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
@@ -618,7 +625,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：商品貿易與庫存先行估計可影響 GDP nowcast，並反映進出口與企業補庫存狀況。",
         "previous": "9月商品貿易逆差 1,351 億美元",
-        "forecast": "商品貿易逆差 1,308 億美元",
+        "forecast": "市場共識 -133.0 十億美元；TD 預估 -130.8；U.S. Bank 預估 -134.0",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若逆差收窄，可能對淨出口及 GDP nowcast 有正面影響；但需同時觀察進口變化是否反映內需降溫。",
@@ -660,7 +667,8 @@
           "publisher": "Nasdaq",
           "notes": "Nasdaq 官方交易日曆確認 11/26 感恩節休市，11/27 美股 13:00 ET 提前收市（台灣時間 11/28 02:00）；SIFMA 建議美國固定收益市場 11/27 14:00 ET 提前收市。",
           "secondary_refs": [
-            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026"
+            "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+            "https://www.federalreserve.gov/newsevents/calendar.htm"
           ]
         },
         "previous_applicable": false,
@@ -668,6 +676,106 @@
         "data_unit": null,
         "data_reference": "2026年11月26–27日",
         "time_known": false
+      },
+      {
+        "id": "current-fed-williams-20261123",
+        "event_date": "2026-11-24T05:00:00+08:00",
+        "region": "美國／聯準會",
+        "event_name": "紐約聯準銀行總裁 John Williams 談經濟展望與貨幣政策",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：紐約聯準銀行總裁為 FOMC 重要投票成員，公開談話可能影響市場對 12 月利率路徑的解讀。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026",
+        "source": "New York Fed｜Media Advisory",
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月23日",
+        "time_known": true
+      },
+      {
+        "id": "current-us-initial-claims-20261125",
+        "event_date": "2026-11-25T21:30:00+08:00",
+        "region": "美國",
+        "event_name": "美國初領失業救濟金人數（Initial Jobless Claims）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：週度初領失業救濟金是即時勞動市場指標，感恩節假期使本週發布日提前，需留意季節性與假期扭曲。",
+        "previous": "203 千人",
+        "forecast": "市場共識 200 千人；U.S. Bank 預估 201 千人",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
+        "source": "TD Economics｜Upcoming Economic Releases",
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "千人",
+        "data_reference": "截至2026年11月21日當週",
+        "time_known": true
+      },
+      {
+        "id": "current-de-gfk-confidence-202612",
+        "event_date": "2026-11-26T15:00:00+08:00",
+        "region": "德國",
+        "event_name": "德國 12 月 GfK／NIM 消費者景氣指數",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：德國消費者景氣調查可觀察家庭收入預期、購買意願與儲蓄傾向，是歐洲內需的重要補充指標。",
+        "previous": "11月 -30.8",
+        "forecast": "MUFG 預估 -29.9；其他市場日曆共識約 -29.0",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+        "source": "NIM｜Consumer Climate Publication Dates",
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "指數",
+        "data_reference": "2026年12月展望",
+        "time_known": true
+      },
+      {
+        "id": "current-fr-hicp-flash-202611",
+        "event_date": "2026-11-27T15:45:00+08:00",
+        "region": "法國",
+        "event_name": "法國 11 月 CPI／HICP 初值",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：法國是歐元區主要經濟體，初值通膨可先行反映能源與服務價格變化，影響 ECB 利率預期。",
+        "previous": "HICP 年增 3.7%（10月初值）",
+        "forecast": "市場共識 3.7%；MUFG 預估 3.5%",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "https://www.insee.fr/en/statistiques/9107975",
+        "source": "INSEE｜November 2026 provisional CPI release schedule",
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y",
+        "data_reference": "2026年11月初值",
+        "time_known": true
+      },
+      {
+        "id": "current-de-unemployment-202611",
+        "event_date": "2026-11-27T16:55:00+08:00",
+        "region": "德國",
+        "event_name": "德國 11 月失業人數變化與失業率",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：德國勞動市場是歐洲最大經濟體內需與薪資壓力的重要觀察點。",
+        "previous": "失業人數增加 4 千人",
+        "forecast": "市場共識增加 6 千人；MUFG 預估增加 2 千人",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+        "source": "Federal Employment Agency｜Publication Calendar",
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "千人",
+        "data_reference": "2026年11月",
+        "time_known": true
       }
     ],
     "earnings": [
@@ -707,7 +815,7 @@
           "publisher": "HPE",
           "notes": "公司官方投資人關係頁確認 11/23 舉行 Q4 FY2026 財報電話會議，但未提供精確時間；因此不推定時段。",
           "secondary_refs": [
-            "https://www.investing.com/equities/hewlett-pack-enterprise-co-earnings"
+            "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings"
           ]
         },
         "consensus_source": null,
@@ -782,7 +890,7 @@
             "source_level": 3,
             "provider": "Investing.com",
             "metric": "EPS",
-            "url": "https://www.investing.com/equities/hewlett-pack-enterprise-co-earnings",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
             "observed_at": "2026-11-21T08:57:28+08:00",
             "data_as_of": null,
             "period": "10/2026",
@@ -835,7 +943,7 @@
             "source_level": 3,
             "provider": "Investing.com",
             "metric": "REVENUE",
-            "url": "https://www.investing.com/equities/hewlett-pack-enterprise-co-earnings",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
             "observed_at": "2026-11-21T08:57:28+08:00",
             "data_as_of": null,
             "period": "10/2026",
@@ -1052,7 +1160,7 @@
         "release_status": "upcoming"
       },
       {
-        "id": "current-dell-20261124",
+        "id": "current-dell-20261125",
         "company": "Dell Technologies Inc.",
         "ticker": "DELL",
         "event_date": "2026-11-25T05:30:00+08:00",
@@ -1432,7 +1540,7 @@
         "release_status": "upcoming"
       },
       {
-        "id": "current-adsk-20261124",
+        "id": "current-adsk-20261125",
         "company": "Autodesk, Inc.",
         "ticker": "ADSK",
         "event_date": "2026-11-25T06:00:00+08:00",
@@ -1622,7 +1730,7 @@
         "release_status": "upcoming"
       },
       {
-        "id": "current-wday-20261124",
+        "id": "current-wday-20261125",
         "company": "Workday, Inc.",
         "ticker": "WDAY",
         "event_date": "2026-11-25T05:30:00+08:00",
@@ -1812,7 +1920,7 @@
         "release_status": "upcoming"
       },
       {
-        "id": "current-hpq-20261124",
+        "id": "current-hpq-20261125",
         "company": "HP Inc.",
         "ticker": "HPQ",
         "event_date": "2026-11-25T06:00:00+08:00",
@@ -2774,27 +2882,29 @@
         "https://www.ifo.de/en/survey/ifo-business-climate-index-germany",
         "https://www.conference-board.org/data/calendar.cfm",
         "https://www.destatis.de/EN/Press/2026/10/PE26_381_811.html",
+        "https://www.presseportal.de/pm/32102/6394495",
         "https://www.bea.gov/news/schedule?output=1",
         "https://www.census.gov/manufacturing/m3/release_schedule.html",
         "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
         "https://www.federalreserve.gov/newsevents/2026-November.htm",
         "https://www150.statcan.gc.ca/n1/dai-quo/cal2-eng.htm",
-        "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf",
         "https://www.ecb.europa.eu/press/accounts/html/index.en.html",
         "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
         "https://www.stat.go.jp/english/data/cpi/1582.htm",
-        "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html",
-        "https://ec.europa.eu/economy_finance/db_indicators/surveys/documents/calendar/Publication%20dates%202026.pdf",
+        "https://www.stat.go.jp/english/data/cpi/1585.htm",
+        "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar?type=listMonth",
         "https://www.nasdaqtrader.com/Trader.aspx?id=Calendar",
-        "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026"
+        "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+        "https://www.federalreserve.gov/newsevents/calendar.htm",
+        null
       ],
-      "notes": "W48 初始建立。依官方發布日程及官方機構行程核對 2026-11-23 至 11-29 事件；納入 TAC 四／五星主要事件。部分市場共識引用 TD Economics、MUFG 與 U.S. Bank 的 11/20 前瞻資料，未取得可靠預期者保持 null。所有未來事件 actual=null 屬正常；待 04:35 工作日更新時補核實際值與新增公告。美國感恩節休市及 11/27 提前收市依 Nasdaq 官方日曆列示。"
+      "notes": "W48 初始建立並完成第一輪來源核對。官方發布日程／機構行程確認重要事件日期與可確認時刻，包含全球 Flash PMI、德國 Ifo/GDP/勞動市場、法國 CPI、ECB 會議紀要與消費者預期調查、歐元區信心、美國 GDP/PCE/耐久財/新屋銷售/初領失業金/Beige Book、加拿大 SEPH、日本東京 CPI，以及美國感恩節休市與隔日提前收市。市場預期若不同來源有差異，保留來源差異，不平均、不混成單一共識；未能確認者保持 null 或標示時間待核實。未來事件 actual=null 屬正常，後續 04:35 工作日更新再補核實際值及新增公告。"
     },
     "earnings": {
       "status": "incomplete",
       "source_refs": [
         "https://investors.hpe.com/news-and-events",
-        "https://www.investing.com/equities/hewlett-pack-enterprise-co-earnings",
+        "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
         "https://investor.analog.com/news-releases/news-release-details/analog-devices-report-fourth-quarter-fiscal-year-2026-financial/",
         "https://www.investing.com/equities/analog-devices-earnings",
         "https://investors.delltechnologies.com/news-events/press-releases/detail/1661/dell-technologies-to-hold-conference-call-nov-24-to-discuss-third-quarter-fiscal-2027-financial-results",
@@ -2816,20 +2926,20 @@
         "https://investor.deere.com/home/default.aspx",
         "https://www.investing.com/equities/deere---co-earnings"
       ],
-      "notes": "W48 初始建立。11 家主要公司財報日期以發行人／投資人關係官方公告確認；精確時刻未由官方確認者保留 time_known=false，不以第三方估計補值。EPS 與營收分別依 SIM-1.3 F3-補充2 執行 LSEG I/B/E/S → FactSet Estimates → Investing.com。前兩級本輪環境無授權連線；第三級頁面雖顯示 Forecast，但缺 data_as_of、period_end_date 及 EPS／Revenue 比較口徑，故只記錄 pending attempt，不採用估值、不產生方向性判讀、不建立未封存 snapshot。"
+      "notes": "W48 初始建立。11 家主要公司財報日期以發行人／投資人關係官方公告確認；精確時刻未由官方確認者保留 time_known=false，不以第三方估計補值。EPS 與營收分別依 SIM-1.3 F3-補充2 執行 LSEG I/B/E/S → FactSet Estimates → Investing.com。前兩級本輪環境無授權連線；第三級頁面雖顯示 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS／Revenue 比較口徑，故只記錄 pending attempt，不採用估值、不產生方向性判讀、不建立未封存 snapshot。"
     }
   },
   "audit": [],
   "last_update_audit": {
-    "at": "2026-11-21T08:57:28+08:00",
-    "action": "建立 W48 初始週資料庫（使用者明確要求加入 W48）",
+    "at": "2026-11-21T09:00:28+08:00",
+    "action": "建立 W48 並完成第一輪官方行事曆補核／預期差異註記",
     "week": "2026-W48",
     "before": {
       "exists": false,
       "path": "data/calendar/weeks/2026-W48.json"
     },
     "after": {
-      "economic_events": 22,
+      "economic_events": 27,
       "earnings_events": 11,
       "economic_status": "incomplete",
       "earnings_status": "incomplete"
@@ -2952,13 +3062,12 @@
     "files_modified": [
       "data/calendar/weeks/2026-W48.json"
     ],
-    "run_status": "created_W48_initial_events_official_dates_and_sources; earnings_consensus_pending_required_fields",
-    "postwrite_readback": {
-      "verified_at": null,
-      "blob_sha": null,
-      "checks": {
-        "pending": true
-      }
-    }
+    "run_status": "created_W48_and_completed_first_pass_source_reconciliation; earnings_consensus_pending_required_fields",
+    "economic_sources_added": [
+      "https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026",
+      "https://www.insee.fr/en/statistiques/9107975",
+      "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+      "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html"
+    ]
   }
 }
