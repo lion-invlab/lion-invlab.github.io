@@ -2657,3 +2657,16 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 經濟事件 27 筆，全部 upcoming；5 筆缺 source URL、1 筆 time_known=false。未來事件 actual=null 為正常，並非漏填實際值。
 - 財報事件 11 筆，全部 upcoming；2 筆 time_known=false。EPS 與 Revenue 的 LSEG、FactSet、Investing.com 三層嘗試均無可採用的同口徑 PIT 共識（Investing 缺 data_as_of、period_end_date 及比較口徑），adopted=0、snapshots=0；不得產生 Beat/Miss 或虛構預期。
 - W48 目前應維持 incomplete；缺少共識或時刻的事件須保留待核實，待後續 04:35 工作日更新。不得由 11/23 早報製作流程直接修改 W48 JSON。
+
+
+## 2026-11-21｜FactSet Q3 2026 盈餘健康度更新（11/20 最新報告）
+- 重新核對 FactSet 官方《Earnings Insight》2026-11-20 PDF：https://advantage.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf 。截至報告日 Q3 2026 有 93% S&P 500 成分企業已公布實績。
+- Q3 blended earnings growth 32.9%（前週32.0%；9/30為29.1%）；EPS positive surprise 84%（in-line 5%、below 11%）；aggregate EPS surprise magnitude +3.5%，低於5年均值+7.5%及10年均值+8.0%，若季末維持將是Q4 2022以來最低。
+- Q3 blended revenue growth 14.6%（前週14.2%；9/30為12.2%）；revenue positive surprise 74%（in-line 0%、below 26%）；aggregate revenue surprise +2.2%，高於5年均值+1.8%及10年均值+1.6%。
+- Forward 12M P/E 17.1x（5年均值19.8x、10年均值19.1x）；自9/30起指數價格-6.2%，forward 12M EPS估計+4.4%。Q4 2026預估盈餘成長28.9%；CY2026預估33.7%。Q4已有82家發布EPS guidance，其中36家負面、46家正面。
+- 11大產業均呈盈餘年增，7個產業雙位數；Energy 151.2%、Information Technology 72.7%、Materials 29.8%；Communication Services由9/30的51.5%降至18.3%。
+- Mag 7 Q3實際盈餘成長27.0%（9/30預估33.6%），僅4/7家EPS正向驚喜，aggregate EPS低於預期4.9%；Other 493 blended earnings growth 34.7%。PDF第3頁同一段落另有一句寫32.6%的內文不一致；圖表／表格及FactSet 11/20專題文章支持34.7%，已在稽核檔註明差異。Alphabet、Amazon、Meta使用GAAP EPS，含重大非營業投資損益或訴訟費用，解讀須保留會計註記。
+- 核心判讀：EPS beat比例高不等於EPS超預期幅度高。84% beat比例高於歷史均值，但+3.5% surprise magnitude遠低於5年／10年均值；營收beat 74%及surprise +2.2%則高於5年／10年均值。避免只以單一beat比例宣稱獲利品質全面強勁。
+- 已依核准週一母版原有DOM結構更新 #sp500-earnings-health，產出獨立模組預覽 /mnt/data/TAC_FactSet_盈餘健康度_2026-11-20_模組預覽.html，166,948 bytes，SHA-256 acafda7599e2529b8354c78882a143aae711ea01d9f6a16b4cdd6f96a4677ad6。Playwright Chromium以page.set_content測試360/390/412/768/1440px，區塊存在、無水平溢位、0 pageerror。這是模組級測試，不是11/23完整報告QA。
+- 詳細來源與數值核對另存 simulation-lab/analysis/factset-earnings-health-2026-11-20.md，commit 08f9fb20610333e12c6e32301aff4c561b1d7ae3。11/27 FactSet不發布，下一版為12/04。
+- 目前完整11/23 HTML審核版仍未產出；本模組尚未合併到完整報告。不得把模組預覽宣稱為整份早報完成；main首頁、正式母版及W48 JSON未修改。
