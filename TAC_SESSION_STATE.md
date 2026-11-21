@@ -2765,3 +2765,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - W48 本週經濟 27 筆均為四／五星；財報 11 筆均為四／五星。W48 有 HPE、DE 兩筆 time_known=false，必須在卡片標示時間待核實；不得猜測時刻。資料庫沒有合格 PIT EPS／Revenue 共識，故不得填預期或Beat/Miss。
 - 母版 DOM 結構已實際檢查：上週經濟使用 `#last-week-calendar .econ-event-list > details.econ-event` 並保留 `.econ-event-toggle`；上週財報使用 `#last-week-earnings .earnings-accordion-list > details.earnings-accordion`；本週經濟／財報需分別填入原有 `.week-econ-panels`／`.week-earnings-panels` 的三個狀態分頁，經濟事件保留 `.econ-toggle`，財報保留EPS／Revenue雙實際卡結構。
 - 本次只完成 JSON 逐筆篩選及模板槽位辨識；尚未將完整事件卡片寫入 HTML，第三步尚未交接完成。不得宣稱已產出審核版。
+
+
+## 2026-11-21｜第四步新聞窗口增量候選（尚未封口）
+- 鉅亨網 11/21 09:00「AI疑慮引爆美股重挫！標普、道瓊雙雙陷入修正區間 那斯達克抹去全年漲幅」：https://news.cnyes.com/news/id/6669685。適合熱門頭條候選；需與同一美股收盤事件的其他報導去重。
+- Investing.com刊載Reuters 11/21 02:12（更新02:19）「The snowballing selloff in global markets」：https://au.investing.com/news/economy-news/the-snowballing-selloff-in-global-markets-4787059。全球股市自8月高點市值減少近US$9T、台股單週跌17%、AI與利率疑慮蔓延至銅及黃金，可作全球宏觀焦點候選。
+- Reuters 11/20「Tech stocks tumble, Treasury yields fall as traders seek refuge」轉載：https://www.lse.co.uk/news/global-markets-tech-stocks-tumble-treasury-yields-fall-as-traders-seek-refuge-5wy60vlz4ves1pd.html；AP收盤報導：https://apnews.com/article/c4c3f4878b12989347f8a930ed813dad。作為跨市場與美股收盤交叉來源候選。
+- 鉅亨網11/21 05:49美股盤後報導：https://anuenews.cnyes.com/news/id/6669311。與09:00同屬美股收盤主題，新聞區僅選一篇，避免重複。
+- 重要限制：Nvidia SEC會計探查仍屬媒體引述消息，必須寫成「據報／Reuters引述知情人士」，不可寫成SEC已確認違規。新聞窗口至11/23 05:25才封口；目前只是增量候選，第四步未完成。
