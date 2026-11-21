@@ -1714,3 +1714,14 @@
 - 風險日曆聚焦11/23 Flash PMI、11/24德國ifo及美國消費者信心、11/25美國GDP第二次估值與PCE／核心PCE、耐久財、新屋銷售及Fed Beige Book；企業端聚焦HPE、ADI、Dell、Autodesk、Workday、HP、Deere，所有共識缺值保持待核實。
 - 發現並記錄排程衝突：05:25截稿早於日本現貨08:00及台灣現貨09:00開盤，無法同時滿足「05:25交付」與「納入亞洲現貨實際開盤／盤中反應」。不自行修改SIM-1.3或排程，待明確決策；不得預寫或用期貨冒充現貨開盤。
 - 階段④仍未完成；週末新聞、11/23實際亞洲盤及截稿時間需最後補查後才能交接第五步。
+
+
+## 2026-11-21｜2026-11-23（一）早報階段④新聞與判讀
+- 新聞窗11/20 12:00–11/21 09:03。Focus 5則宏觀與Hot Headlines 10則來源／時間／連結已記入Session State；來源限定鉅亨網與Investing.com。
+- 市場判讀：AI估值與資本回報疑慮擴散；VIX 35.89（盤中40）、MOVE 106.3（+10.69%）、FGScore 10/100；Treasury CMT下行與FedWatch升息預期並存；XLP唯一上漲產業ETF。
+- FedWatch更正：最新可讀Investing.com Fed Rate Monitor 11/21 07:05，12/9升息25bp 86.4%、維持13.6%；前一日升息機率99.6%。早先89.6%為較早更新，報告改用最新值。CME官方動態頁未取得可獨立核對表格，不宣稱已交叉確認。
+- FactSet 11/20 Earnings Insight已更新：93%已公布、84% EPS beat、74% Revenue beat、混合EPS成長32.9%、營收14.6%、EPS surprise3.5%、forward PE17.1、Mag7 EPS成長27.0%低於其他493家34.7%。
+- NVDA W47五星卡：GAAP EPS2.70、Revenue115.8B、Data Center107.6B、Q4指引130B±3%；Yahoo 11/18首個交易日收盤150.96 vs 11/17 155.46，-2.89%。共識缺少F3-補充6方法證據，不判Beat/Miss。
+- W48 11家財報：嘗試Yahoo Finance Average Estimate與Investing.com第二順位，但Yahoo搜尋摘要缺GAAP/Normalized methodology與raw response SHA，Investing Forecast缺充分方法證據，故不採用。畫面標示「預期資料未達採用條件」，要求下次04:35更新補證；不寫入main JSON。
+- 11/26美股休市、11/27提前收市；已納入週一摘要及風險提醒。
+- 階段④完成；進入第五步前重讀最新SIM-1.3與QA契約。
