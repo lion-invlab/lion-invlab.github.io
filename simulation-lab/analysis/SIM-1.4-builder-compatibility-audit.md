@@ -351,3 +351,11 @@ Current Builder blob SHA verified from branch: c4c24c03625b3532f48362d7235755a8f
 - 最新三項規則補正是在 run `44914993653` 之後提交，因此現有 HTML／QA PASS 只能證明舊 candidate rules SHA 下的 build；不能宣稱已按最新草案完成驗收。
 - 必須用目前 DRAFT SHA `0d390cc7...` 重新執行 Monday build，並以同一最新 Builder SHA `fe8da8e...` 重新執行 Weekday build。兩次 sidecar 都必須記錄同一 candidate rules SHA、Builder SHA、Manifest SHA、QA Contract SHA，才可稱為最新版本的雙母版實證。
 - 在重跑前，現有 preview 可供缺陷修復成果參考，但不是最新 SIM-1.4 草案的最終驗收件；不得把舊 PASS 移植到新 SHA。
+
+
+## 2026-11-21｜最新 SIM-1.4 DRAFT SHA 與母版視覺規則補正
+
+- 最新候選規則已更新為 blob SHA `f585c0e08e1075d760c91a5f0eab79a408ca9e45`，補回 SIM-1.3 B3.2–B3.6 的母版視覺／互動不變條款：上漲紅／下跌綠、中文名稱與英文代碼層級、行情連結範圍、五星／四星標題色彩、禁止恢復已刪除膠囊、工具泡泡與呼吸燈分別驗收。
+- 11/23 build run `44914993653` 的 sidecar candidate rules SHA 仍為 `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，與目前 `f585c0e...` 不同。該 build 的 PASS 只能證明舊規則 SHA，不得宣稱最新草案已完成 build QA。
+- 需在最新候選規則 SHA 凍結後，重新跑 Monday 2026-11-23 與 Weekday 2026-11-20；兩者須使用同一 Builder SHA、Manifest SHA、QA Contract SHA 及 candidate rules SHA。現有 Weekday run `44907253127` 使用 Builder SHA `c4c24c03625b3532f48362d7235755a8fa55850f`，也不能代替最新 Builder `fe8da8e...` 的 weekday 實證。
+- Builder 唯一入口核准仍 NOT_APPROVED；完整 selector/write inventory、動態容器白名單及負向測試矩陣仍待完成。
