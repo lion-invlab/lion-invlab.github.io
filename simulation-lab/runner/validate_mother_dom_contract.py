@@ -145,6 +145,12 @@ def main():
         require_one(levels_disclosure, "summary", label + " key levels disclosure summary")
         if len(levels_disclosure.find_all("div", recursive=False)) != 1:
             raise ValueError(f"{label}: key levels disclosure body wrapper changed")
+        if any(getattr(child, "name", None) == "div" for child in levels_key.children):
+            raise ValueError(f"{label}: key levels content slot contains injected card wrappers")
+        mother_levels = require_one(mother, "#view .focus-panel.focus-levels .key details.compact-disclosure > summary", "mother key levels summary")
+        report_levels = require_one(report, "#view .focus-panel.focus-levels .key details.compact-disclosure > summary", "review key levels summary")
+        if shape(mother_levels) != shape(report_levels):
+            raise ValueError(f"{label}: key levels disclosure summary changed")
         core_callout = require_one(
             view, ".focus-panel.focus-core > .callout", label + " core observation callout"
         )
