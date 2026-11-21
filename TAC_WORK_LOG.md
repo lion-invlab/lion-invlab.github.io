@@ -1969,3 +1969,10 @@
 - 來源：New York Fed https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026；TD Economics https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm；NIM https://www.nim.org/en/consumer-climate/type/nim-research-report；INSEE https://www.insee.fr/en/statistiques/9107975；Federal Employment Agency https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html。
 - 影響判讀待寫入HTML：官員談話非政策決議；初領看連續趨勢；德國消費者信心關注購買意願；法國CPI須區分CPI/HICP；德國失業數據觀察勞動市場及消費韌性。W48感恩節休市事件 `time_known=false` 屬日期型事件，維持時間未定。
 - 此項來源查核完成；未修改main JSON、母版、Manifest、QA契約或首頁；HTML卡片映射與整體QA仍未完成。
+
+
+## 2026-11-21｜HPE／DE 法說時間補核（不等同財報發布）
+- HPE官方公告：11/23 16:00 CT／17:00 ET法說，台灣11/24 06:00；財報實際發布時間仍未由該公告確認。官方：https://www.hpe.com/us/en/newsroom/press-release/2026/11/hpe-to-present-live-audio-webcast-of-fiscal-2026-fourth-quarter-earnings-conference-call.html；Nasdaq轉載：https://www.nasdaq.com/press-release/hpe-present-live-audio-webcast-fiscal-2026-fourth-quarter-earnings-conference-call。
+- Deere官方公告：11/25 09:00 CT法說，台灣11/25 23:00；財報實際發布時間仍未由該公告確認。官方：https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement；IR：https://investor.deere.com/home/。
+- HTML卡片須分開呈現財報發布時間（待公司確認）與法說會時間；W48 JSON保持唯讀，不因法說時間已知而覆寫 `time_known=false`。
+- 未修改main、正式母版、Manifest、QA契約、W48 JSON或首頁；HTML卡片映射與QA仍未完成。
