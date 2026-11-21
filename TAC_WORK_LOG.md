@@ -2346,3 +2346,11 @@
 
 
 - 逐條處置台帳進一步擴充至 E1–E7、F1.1–F1.4、F2、F3公司範圍／雙卡規格、F3補充1.1–1.8、補充2.1–2.9、補充3.1–3.9、F4.1–F4.4；最新 SHA c7fbb2b6ee6a765297b75266456e8275cef24662。
+
+
+## 2026-11-21｜SIM-1.4 條文台帳完整度更新
+
+- 逐條處置台帳新增 F3-補充4–10（Provider PIT／TAC Observed PIT、Yahoo／Investing順位、實用型四狀態判讀、歷史回歸、最終畫面驗收）、11/17 MOVE／FactSet／分析規則、G1–G4、H.1–H.7、I.1–I.6、C 第五步 QA 及第六步發布條款。每項均列原文行號、處置、SIM-1.4 去向及理由。最新 SHA：77584cdce393bb3bf9b3fcedb3234d908e355743。
+- SIM-1.4 草案已同步更新上述條文處置範圍、財報引擎 1.4.0／Yahoo-first來源順位與最新測試證據；最新 SHA：f31f8f7cb0f22920b7b957601dbb2b9ceae22304。維持 DRAFT。
+- 財報引擎、來源順位、schema、單元測試與 Node 語法檢查已有 CI 成功證據（44897795972、44897956591、44898020239）。注意：最新草案及逐條台帳的最後更新晚於 run 44898020239，尚未對這兩個最新文件 commit 再跑 CI。
+- Build／QA-only、HTML build、DOM diff、Playwright 尚未執行；Builder renderer 仍 BLOCKED。不可把 deterministic tests 說成早報 HTML QA 通過。
