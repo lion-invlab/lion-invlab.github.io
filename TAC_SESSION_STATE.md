@@ -2555,3 +2555,34 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - G1因果鏈更新：AI需求與出口訂單仍強（台灣10月外銷訂單年增78.3%），但AI建置融資、表外租賃／循環融資、資料中心高收益債利差與槓桿風險已被Fed紀要明確點出；若AI資本支出回報／現金流無法跟上，利差擴大與高利率會壓低專案IRR，觸發估值下修、風險曝險降低與被迫賣出。SpaceX大型融資超額認購與CoreWeave CDS急升呈現信用市場分層，不可把兩者簡化成AI需求全面消失或融資全面關閉。
 - Warsh偏長期生產力情境、FOMC紀要偏金融穩定／通膨風險、Cook 11/20鷹派談話偏當前利率反應，三者不可混為同一政策訊號；在G1中需分層說明。
 - 本次原文核讀截至2026-11-21 10:12:34+08:00；Phase 4新聞窗口仍未封口。
+## 2026-11-21 10:14｜Phase 4 五則Global Focus與十則熱門頭條內容草稿
+
+### Global Focus News｜5則（宏觀／政策，已讀原文）
+1. 全球風險資產同步遭遇去風險：Reuters 11/20 15:12 UTC（11/20 23:12 Taipei）指出8月高點以來全球股票市值蒸發近9兆美元，台灣股市單週下跌17%，美元走強、美債殖利率週跌、VIX升高，顯示賣壓已跨越單一科技板塊。文章中的VIX 30是報導當時快照；最終收盤採Cboe官方35.89，不混用不同時間點。URL https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。
+2. Fed官員Cook釋出鷹派訊號：Reuters 11/20 17:18 UTC（11/21 01:18 Taipei）報導Cook認為通膨尚未充分降溫、若延後行動可能需要更大幅升息；此為官員個人政策看法，不是FOMC決議。URL https://www.reuters.com/business/feds-cook-says-rate-hikes-needed-lower-high-inflation-2026-11-20/ 。
+3. 美國消費者信心回升、短期通膨預期下降：CNYES 11/21 02:00 Taipei，密大終值51.5（10月48.0、預期51.6）；一年期通膨預期由4.7%降至3.7%，5–10年由3.5%降至3.3%。調查期間10/20–11/16，不能視為反映11/20美股重挫後的即時情緒。URL https://news.cnyes.com/news/id/6669541 。
+4. 台灣10月外銷訂單創高：Focus Taiwan/CNA 11/20 20:26 Taipei，123.82bn美元、年增78.3%、連續第21個月成長；ICT +107.2%、電子產品+89.8%、機械+36.3%。這顯示AI/HPC供應鏈訂單仍強，但不能直接推論股價估值合理。URL https://focustaiwan.tw/business/202611200021 。
+5. 美國能源許可改革推進：CNYES 11/21 07:30 Taipei，參院以62–33通過法案並送眾院，擬加快電廠／輸電線許可審查，並要求大型資料中心承擔更多電網升級成本；仍未完成立法。URL https://news.cnyes.com/news/id/6669677 。
+
+### Market Hot Headlines｜10則（暫定順序與3–4行摘要）
+1. AMD遭做空機構質疑中國伺服器供應鏈合規：24/7 Wall St 11/20 09:52 ET（11/20 22:52 Taipei）報導Hunterbrook質疑AMD對中國伺服器商IEIT的韌體支援可能涉及出口管制風險；AMD否認，現無監管機關違規認定。必須寫成未經獨立證實的做空指控，不得寫成已違法。URL https://247wallst.com/investing/2026/11/20/amd-slides-6-despite-jim-cramer-calling-hunterbrook-short-report-a-hitjob-nvidia-falls-3-near-damodaran-140-buy-price-intel-declines-2/ 。
+2. NVIDIA會計揭露遭SEC審查、股價連七週下跌：CNYES 11/21 08:40更新，SEC執法人員審查潛在會計問題，新加坡地區營收揭露方式受到關注；DOJ另審查129億美元收購Hugging Face及更廣泛反托拉斯議題。SEC調查不等於違規認定；週五股價收125.53美元、跌14.01%，連七日／七週收黑，七週跌幅約46%，市值降至約3.03兆美元並低於Alphabet。URLs https://news.cnyes.com/news/id/6669680 and https://news.cnyes.com/news/id/6668153 。
+3. 黃金與白銀同步急跌、避險功能受考驗：Investing.com HK/FX168 11/21 02:41發布、04:44更新，金價接近2025年9月以來低位、白銀跌勢更急，顯示美元走強、利率預期與部位平倉可壓過傳統避險需求。文章內FedWatch 93.9%為較早快照，不能沿用；早報採11/21 07:05更新的86.4%。URL https://hk.investing.com/news/commodities-news/article-1770540 。
+4. Anthropic上市蜜月行情迅速退潮：CNYES 11/21 06:35，ANT週五收88.91美元、跌8.5%，距83美元IPO發行價僅高約7.1%；摩根士丹利穩價部位已平倉，後續需由營收成長、現金流與被動資金承接驗證估值。URL https://news.cnyes.com/news/id/6669673 。
+5. SpaceX完成440億美元GPU融資、投資人超額認購：CNYES 11/21 03:38及Apollo 11/20官方公告確認，Apollo與Goldman為採購NVIDIA Vera Rubin及相關設備籌資，因需求強勁而擴大規模；設備預計2027上半年交付後租賃起算。這是融資定價完成，不代表GPU已交付或租金已開始。URLs https://news.cnyes.com/news/id/6669644 and https://www.apollo.com/insights-news/pressreleases/2026/11/apollo-and-goldman-sachs-announce-pricing-of-44-billion-spacex-gpu-financing-3407671 。
+6. 半導體遭遇25年來最差單週表現：MarketWatch 11/20 17:44 ET（11/21 06:44 Taipei）指出PHLX半導體指數週五跌10.7%、全週跌17.1%，單週市值蒸發約2.3兆美元，為2001年9月以來最差一週。摘要聚焦產業估值與資本支出疑慮，不重複早報指數表。URL https://www.marketwatch.com/story/chip-stocks-see-2-3-trillion-weekly-wipeout-as-panic-grips-the-ai-trade-371f2f03 。
+7. AI賣壓促使資金由成長股轉向價值股：Reuters 11/20 20:13 UTC（11/21 04:13 Taipei）指出S&P 500成分股中位數年初至今約+5%，指數約+1%；Value約+7%、Growth約-4%。這顯示大型AI權值股修正與市場內部輪動並存，不能簡化為全市場同步崩跌。URL https://www.reuters.com/business/finance/ai-tech-rout-prompts-us-investors-rush-into-value-stocks-2026-11-20/ 。
+8. Trump提出限制美企海外興建資料中心：CNYES 11/21 08:30，Trump稱不允許美企海外建資料中心並揚言課重稅，但坦言尚未與幕僚討論；是否涵蓋台灣既有工程、擴建、設備供應或租用機房均未明。這是政策表態，不是已生效法規。URL https://news.cnyes.com/news/id/6669651 。
+9. 對中AI晶片出口政策維持H200許可上限：CNYES 11/21 04:00報導Bessent稱不預期政策改變，H200仍是取得許可後最高出口規格；04:40 Trump另稱只想向中國出售較舊晶片。兩者訊號需並列，不能寫成H200可免審自由出口。URLs https://news.cnyes.com/news/id/6669308 and https://news.cnyes.com/news/id/6669309 。
+10. Intuit出售Mailchimp並下調FY2027營收預測：Investing.com HK 11/20 18:26發布，出售價約36.8億美元（33.1億現金及3.68億Bending Spoons股票），預計2027年初完成並待監管批准；FY2027營收預測下修至230.8–233.7億美元，低於原先232.8–235.1億美元區間。URL https://hk.investing.com/news/stock-market-news/article-1769486 。
+
+### 不採用／待核實
+- CoreWeave 11/21 00:30 CNYES頁面（6669543）及同日The Private Banker報導均無法成功開啟原文，雖搜尋摘要提及CDS 1,232.6bp，但依SIM不得以搜尋摘要替代原文，暫不列入10則頭條；G1只可引用已讀取的FOMC紀要及Reuters 11/17信用背景，不引用未核實的1,232.6bp。
+- NVIDIA員工聯署／董事會開除CEO報導排除：Reuters Fact Check確認網傳要求董事會辭職的信件為偽造；不得混淆真正的Stand With Jensen公開信。
+- Citi罕見警訊文章顯示08:42 AM但未標時區，暫不納入；Investing CTA 80.6bn模型原文未能開啟，暫不納入。
+- CNYES 09:00美股盤後摘要不列為頭條，避免重複指數與行情表。
+
+### G1主軸與Market Sentiment整合
+- 11/19 FOMC紀要直接指出AI建置債務、表外租賃、循環融資、資料中心高收益債利差、避險基金槓桿與被迫賣出風險；11/20 Cook鷹派談話及FedWatch 86.4%升息定價提高資金成本風險。台灣外銷訂單仍強、SpaceX融資超額認購，代表需求與優質融資未消失；半導體市值重估、NVIDIA治理／監管風險與高槓桿AI基建信用壓力則說明市場正提高對回報、現金流及資產負債表的要求。
+- Market Sentiment：Cboe VIX官方35.89、MOVE 106.3、FGScore 10/100均偏向高壓／極度恐懼；美債殖利率下行但近端升息機率偏高，黃金白銀亦下跌，反映風險降低與現金需求，不是已確認的避險反轉。
+- 新聞核對截至2026-11-21 10:14:48+08:00；Phase 4仍未封口，11/23 05:25前須再檢查增量新聞、發布時間、原文、重複事件與數據更新。
