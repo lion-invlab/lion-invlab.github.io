@@ -3344,3 +3344,14 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 已修正 `simulation-lab/runner/visual_regression.mjs`：依 Monday／weekday 母版分別比對正確的已公布財報明細標籤，不再跨母版共用錯誤標籤。commit `1f4b692a4a5eaef90bda4bf68ad5bbe5cfb9d0c8`，blob `63d95034922a97847556a70e8b00a7b5420ed69e`。新 weekday run `44946901354` 已觸發，當時狀態 queued，尚未驗收。
 - SIM-1.4 DRAFT 已修正週一／平日摘要規格衝突、Builder 核准前只能靜態檢查的矛盾，以及操作建議過度僵化問題；commit `08b6c632a861ae79c7aaa08484b2a98a80704554`，blob `a4254b7b2c18eb521e9c8edfaca8c38db56f82b8`。平日保留母版五個槽位；候選 Builder 可在 simulation branch 完整隔離測試，僅能標示 CANDIDATE_VALIDATED；使用者核准路徑及 SHA 後才可升格唯一生產入口。SIM-1.4 仍是 DRAFT，未生效。
 - 下一步：檢查 run `44946901354`；若通過，回讀 11/20 新 HTML／QA sidecar 並核對 provenance；若失敗，按 log 修正。接著確認雙母版在相同 Builder／Manifest／QA Contract／active rules SHA 下可重現；不得將不同版本測試拼接成同版雙母版 PASS。
+
+
+## 最新狀態錨點｜2026-11-22｜WTI 合約身分更正與最新回歸
+
+- 直接開啟 Investing.com HK 歷史頁後確認：原 Fixture 的 WTI URL（無 cid）頁面標示「即時差價合約」，其 11/20 82.40、-0.05% 為 CFD 歷史列，不能當成 CLF27 期貨收盤。已開啟真正 CME／NYMEX WTI 2027年1月合約頁 `https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037`，頁首標題明確為 WTI原油期貨 - 2027年1月 (OIL)，且列出指定日歷史數據。
+- WTI 正確數據：11/19 收市 83.21、-0.06%、成交量 92.36K；11/20 收市 83.98、+0.93%、成交量 275.34K。已分別修正兩份 Fixture：
+  - 11/20 Fixture commit `58a730a9a8fbe027a9ccd668a933234e6599cec7`，blob `8209a73308f7650316a00faa8e2b4b1eb13f4b5c`。
+  - 11/23 Fixture commit `78af6068dff2a650af311692ed46241a1ee725e7`，blob `ba83e07b7a324f6f03e1662022af99a70a17886a`。
+- 兩份 Fixture 的 WTI `source.url` 與 `instrument_url` 均改為帶 `cid=1178037` 的指定合約歷史頁；更新 history_close、history_change、volume、change_points 及來源說明；11/23 原油評論改為同向走升但不過度推斷因果，11/20 改為漲跌分歧、待驗證供應風險。Brent／GC／SI 的指定合約歷史頁抽查與 Fixture 價格及漲跌幅一致。
+- 最新 WTI 修正後重跑：weekday run `44947008781`、Monday run `44947014615`；當時均 in_progress，尚未宣稱通過。另較早的 11/20 run `44946901354` 使用 WTI 舊 Fixture，結果不得作最終驗收依據。
+- 下一步：檢查兩個最新 run 的完整結果；成功後回讀兩份新 HTML／QA sidecar，確認商品名稱 href、來源說明合約、日期／價格／漲跌幅一致，並驗證財報卡明細標籤按母版分流。
