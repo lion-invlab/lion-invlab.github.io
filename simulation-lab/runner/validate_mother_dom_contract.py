@@ -69,15 +69,26 @@ def main():
         ("#sp500-earnings-health", "S&P 500 earnings-health dashboard"),
         ("#sentiment .sent > .sbox:last-child", "market sentiment interpretation card"),
         ("#sentiment .cnn-fg-preview .fg6-score", "CNN Fear & Greed score wrapper"),
+        ("#view .focus-panel.focus-market .key", "Today Focus market observation slot"),
         ("#tac-side-tools", "QUICK ACCESS toolbar"),
     ]
     for selector, context in stable_selectors:
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
         omit = selector == "#fed .fc-fomc-weekly-events"
-        include_style = selector in {"#sp500-earnings-health", "#sentiment .sent > .sbox:last-child", "#sentiment .cnn-fg-preview .fg6-score"}
+        include_style = selector in {"#sp500-earnings-health", "#sentiment .sent > .sbox:last-child", "#sentiment .cnn-fg-preview .fg6-score", "#view .focus-panel.focus-market .key"}
         if shape(left, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right, omit_dynamic_fed_rows=omit, include_style=include_style):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
+
+    # Market commentary is dynamic text only; preserve every mother-owned note skeleton and inline style.
+    left_notes = mother.select(".market-reason")
+    right_notes = report.select(".market-reason")
+    if len(left_notes) != len(right_notes) or [
+        shape(node, include_style=True) for node in left_notes
+    ] != [
+        shape(node, include_style=True) for node in right_notes
+    ]:
+        raise ValueError("market observation DOM skeleton or inline styles changed from the approved mother")
 
     # Verify the two tab radio controls and label wiring without diffing their dynamic panel contents.
     for soup, label in ((mother, "mother"), (report, "review")):
