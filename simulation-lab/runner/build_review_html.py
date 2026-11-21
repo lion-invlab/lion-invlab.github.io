@@ -2355,7 +2355,9 @@ def main():
     # Never carry that stale week into a new Monday report. Keep the existing
     # source wrapper and child anchor DOM, but hide the obsolete example link;
     # each current-week card already carries its own event-specific source.
-    earnings_source_note = earn.find("div", class_="source", recursive=False)
+    earnings_card = earn.select_one(":scope > article.calendar-card")
+    earnings_source_notes = earnings_card.find_all("div", class_="source", recursive=False) if earnings_card else []
+    earnings_source_note = earnings_source_notes[-1] if len(earnings_source_notes) >= 2 else None
     if earnings_source_note is None:
         raise ValueError("earnings calendar mother source note missing")
     stale_source_link = earnings_source_note.find("a")
