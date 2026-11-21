@@ -2513,3 +2513,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 新聞窗口起點11/20 12:00 Taipei；本次已更新至11/21 10:03:28 Taipei，尚未封口。以上Global Focus及Hot Headlines均為候選／暫存，11/23 05:25前必須再檢查增量新聞、發布時間、原文、重複事件及最新數值後才能標示最終完成。
 - G1分析主軸暫定：台灣AI出口訂單與SpaceX融資顯示算力需求／頂級融資仍在，但CoreWeave CDS、NVIDIA估值重估、AI成長股轉價值股顯示資本市場正在提高對回報、槓桿及治理的要求；Fed鷹派風險與VIX上升使短線不宜把AI需求韌性直接等同股價底部。
 - 本次未修改母版、Manifest、QA Contract、行事曆JSON、main index或main preview。
+## 2026-11-21｜Phase 5 母版資料傳遞路徑調查（未組裝）
+- Python runtime已確認可用BeautifulSoup 4.14.3、lxml 6.1.1、Playwright及/usr/bin/chromium；問題不是缺少DOM parser。
+- Library中找到的TAC_母版_週一_2026-10-28_最終定版.html.txt，計算Git blob SHA為a568e594e55909041d51d8eae7e6fe5f7986c096，正是main正式母版，不是simulation核准副本1ac39d50b138e59f4aabf55fc68560ee277ba6f8。以BeautifulSoup解析此main母版雖為183個唯一ID、124 style、25 script，但其經濟事件卡不是SIM-1.3／QA Contract要求的五區結構；因此不得拿它替代simulation母版。
+- Library中11/16 SIM preview含TAC_BUILD_PROVENANCE，標示來源母版SHA 1ac39，但它是既有審核輸出，不是母版。DOM解析結果為190 IDs、131 style、25 script，較核准母版基準多7 IDs及7 styles；其內容由舊builder生成，禁止作為11/23輸出底稿。
+- 11/16 workflow artifact 43664951343已下載並檢視ZIP內容（37項），僅含11/13、11/16輸出HTML、QA sidecar、互動／視覺證據及截圖，沒有simulation母版原始檔；因此不能作為母版檔案傳遞橋接。
+- 目前GitHub connector fetch_file/fetch_blob只將完整母版回傳為文字，未提供可直接materialize到Python共享/mnt/data的檔案參照；raw GitHub下載在container runtime DNS失敗。沒有使用字串切片、regex、舊builder或main正式母版作為替代。
+- 只讀結構參考：11/16 preview中的經濟卡確實呈現econ-primary-grid（prev/forecast/actual三欄）後接同層econ-impact.wide與econ-source.wide，與QA Contract五區定位一致；此僅作結構觀察，不能用作輸出底稿。
+- Phase 5目前阻塞在「精確simulation母版1ac39未能進入本地DOM runtime」；尚未產生11/23 HTML、未執行四類QA、未寫入main preview。不得宣稱完成。
