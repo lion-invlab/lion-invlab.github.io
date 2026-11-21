@@ -417,7 +417,7 @@
         "history_change": "-0.06%",
         "volume": 92360,
         "link_label": "Investing.com 歷史數據",
-        "note": "2026-11-19 指定 CME／NYMEX CLF27（2027年1月）歷史列收市 83.21、升跌 -0.06%、成交量 92.36K；使用該合約歷史數據，不採同名即時 CFD。"
+        "note": "2026-11-19 Investing.com WTI 期貨合約歷史數據頁所列 CLF27（2027年1月）歷史列收市 83.21、升跌 -0.06%、成交量 92.36K；使用該合約歷史數據，不採同名即時 CFD。"
       },
       "contract": "CLF27",
       "contract_month": "2027-01",
