@@ -2292,7 +2292,7 @@
 
 ### 根目錄狀態檔路徑更正
 - TAC_SESSION_STATE.md 與 TAC_WORK_LOG.md 均存在於 Repository 根目錄；本輪重新讀取並更新 Session State。先前查詢 simulation-lab/TAC_SESSION_STATE.md、simulation-lab/TAC_WORK_LOG.md 得到 404，不能推論根目錄檔案不存在。
-- Session State 最新 SHA：cf385081e9112547c7cc0319111f45cddf821e20。
+- Session State 最新 SHA：0c02209546bf3934beca6eebeed990daa4a55417。
 - main、正式首頁、正式母版、正式 Manifest、main calendar JSON 均未修改；SIM-1.3 原始檔未修改。
 
 
@@ -2339,7 +2339,7 @@
 - QA compatibility audit：712872f0effef1a475ca97c426a8fccef589401f
 - QA Contract v1.5 DRAFT：2d8082159186618f0af9ddb2e799da58884b7ac4
 - Clause disposition register：2c892231ce43ed75932b89833655c01ec904bbc2
-- Session State 最新 SHA：cf385081e9112547c7cc0319111f45cddf821e20
+- Session State 最新 SHA：0c02209546bf3934beca6eebeed990daa4a55417
 
 
 - Clause disposition register latest SHA 3fd6a08a9f6b737fb3266a862302299016d783f5；F3-補充8 已明確落地 Yahoo=1／Investing=2／LSEG=3／FactSet=4，F3-補充10 已明確落地四狀態及不可比映射 pending，不得新增第五狀態。
