@@ -128,7 +128,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["source_level"], 1)
         self.assertEqual(snap["provider"], "Yahoo Finance")
-        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
         self.assertIsNone(snap["basis_code"])
         self.assertIsNone(snap["data_as_of"])
 
@@ -181,12 +181,12 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         self.assertEqual(snap["snapshot_status"], "pending_cutoff_time")
         self.assertEqual(snap["reason"], "observed_at_same_day_time_not_proven")
 
-    def test_missing_raw_response_reference_is_not_eligible(self):
+    def test_missing_raw_response_reference_does_not_block_estimate_adoption(self):
         snap = self.build(ref=None)
-        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
         self.assertIsNone(snap["raw_response_ref"])
 
-    def test_missing_basis_is_preserved_but_not_eligible(self):
+    def test_missing_basis_does_not_block_estimate_adoption(self):
         attempt = dict(self.attempt, basis_code=None)
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
