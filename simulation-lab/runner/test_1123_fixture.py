@@ -159,7 +159,7 @@ def main():
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
-    assert len(data["review_ready_blockers"]) == 1
+    assert data["review_ready_blockers"] == []
     cfd_indices = {
         name for name, item in data["global_markets"].items()
         if item.get("source", {}).get("quote_type") in {"cfd_index_reference_series", "cfd_cash_index_proxy"}
