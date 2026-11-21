@@ -15,8 +15,8 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
-      "simulation_blob_sha": "dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0",
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed.",
+      "simulation_blob_sha": "3abf38e66a582089a5d16527507d39c2edbeee75",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
