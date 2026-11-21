@@ -179,8 +179,9 @@ def main():
         assert record["source"]["quote_type"] == "cash_index_close", name
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
-    assert any("NVDA" in x and "股價反應" in x for x in data["review_ready_blockers"])
-    assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch")) for x in data["review_ready_blockers"])
+    assert data["review_ready_blockers"] == []
+    assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA")) for x in data["review_ready_blockers"])
+    assert not any(x.startswith("NVDA Q3 FY2027") for x in data["pending_items"])
     assert "不要求週日刷新" in data["quality_note"]
     assert "不要求週日刷新" in data["warning_note"]
     assert not any("審核版 HTML 尚未產出" in x for x in data["review_ready_blockers"])
