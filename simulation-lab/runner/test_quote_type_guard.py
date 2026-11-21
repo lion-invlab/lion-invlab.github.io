@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Regression tests for the SIM-1.4 cash-index versus CFD render boundary."""
 from __future__ import annotations
+import json
 import sys
 from pathlib import Path
 
