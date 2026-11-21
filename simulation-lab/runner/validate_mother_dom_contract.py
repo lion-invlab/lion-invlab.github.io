@@ -156,7 +156,70 @@ def main():
         )
         if len(core_callout.find_all("b", recursive=False)) != 1:
             raise ValueError(f"{label}: core observation heading slot missing or duplicated")
+        # Earnings cards are repeated data rows, but each row must be cloned from
+    # the correct mother prototype and populated through its existing slots.
+    def earnings_prototypes(soup, template_label):
+        panel = require_one(soup, "#earnings .week-earnings-panels", template_label + " earnings panel")
+        cards = panel.select("details.earnings-accordion")
+        upcoming = next((card for card in cards if card.select_one(".earnings-results-grid") is None), None)
+        published = next((card for card in cards if card.select_one(".earnings-results-grid") is not None), None)
+        if template_label == "mother" and args.template == "monday":
+            retrospective = soup.select_one("#last-week-earnings .earnings-accordion-list details.earnings-accordion")
+            if retrospective is not None and retrospective.select_one(".earnings-results-grid") is not None:
+                published = retrospective
+        if upcoming is None:
+            raise ValueError(f"{template_label}: upcoming earnings mother prototype missing")
+        return upcoming, published
+
+    mother_upcoming, mother_published = earnings_prototypes(mother, "mother")
+    expected_upcoming_fields = len(mother_upcoming.select(".earnings-accordion-details > .earnings-detail-field"))
+    if mother_published is None:
         if args.template == "monday":
+            raise ValueError("Monday mother retrospective published earnings prototype missing")
+        raise ValueError("weekday mother published earnings prototype missing")
+    expected_published_fields = len(mother_published.select(".earnings-accordion-details > .earnings-detail-field"))
+    if expected_upcoming_fields not in (1, 5) or expected_published_fields not in (3, 5):
+        raise ValueError(
+            f"unexpected earnings mother slot counts: upcoming={expected_upcoming_fields}, published={expected_published_fields}"
+        )
+
+    def validate_earnings_card_shell(card, published, context):
+        details = card.select_one(".earnings-accordion-details")
+        if details is None:
+            raise ValueError(f"{context}: earnings detail wrapper missing")
+        fields = details.find_all("div", class_="earnings-detail-field", recursive=False)
+        expected = expected_published_fields if published else expected_upcoming_fields
+        if len(fields) != expected:
+            raise ValueError(f"{context}: detail-field count {len(fields)} != mother prototype {expected}")
+        grid = details.find("div", class_="earnings-results-grid", recursive=False)
+        if published:
+            if grid is None:
+                raise ValueError(f"{context}: published card lost its mother results grid")
+            actual_cards = grid.find_all("div", class_="earnings-actual-card", recursive=False)
+            if len(actual_cards) != 2:
+                raise ValueError(f"{context}: published card must retain two EPS/revenue mother cards")
+            for actual in actual_cards:
+                if len(actual.select(".earnings-actual-line")) != 2 or len(actual.select(".earnings-actual-status")) != 1:
+                    raise ValueError(f"{context}: actual result card slots changed")
+                if len(actual.select(".earnings-actual-note")) != 1:
+                    raise ValueError(f"{context}: actual result evidence-note slot changed")
+        elif grid is not None:
+            raise ValueError(f"{context}: upcoming card unexpectedly contains published result grid")
+
+    for soup, label in ((report, "review"),):
+        panel = require_one(soup, "#earnings .week-earnings-panels", label + " earnings panel")
+        for group in panel.select(":scope > .calendar-status-group"):
+            heading = group.select_one(".calendar-status-heading")
+            group_class = "published" if heading and "published" in heading.get("class", []) else (
+                "upcoming" if heading and "upcoming" in heading.get("class", []) else "today"
+            )
+            for index, card in enumerate(group.select(":scope > .earnings-accordion-list > details.earnings-accordion")):
+                validate_earnings_card_shell(card, group_class == "published", f"{label} {group_class} earnings card {index + 1}")
+    if args.template == "monday":
+        for index, card in enumerate(report.select("#last-week-earnings .earnings-accordion-list > details.earnings-accordion")):
+            validate_earnings_card_shell(card, True, f"review Monday retrospective earnings card {index + 1}")
+
+    if args.template == "monday":
             core_disclosure = require_one(
                 core_callout, "details.compact-disclosure", label + " core observation disclosure"
             )
