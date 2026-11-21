@@ -1,6 +1,6 @@
 # TAC 投資早報｜統一模擬工作規範 SIM-1.4（已升格封存草案）
 
-> **狀態：SUPERSEDED／已於 2026-11-22 升格。** 正式有效內容請讀取 `simulation-lab/TAC_WORK_RULES_SIM.md`；本檔保留升格前草案原貌作版本追溯，不得作為執行規則。 本文件供逐條審核及 2026-11-23（一）回歸測試使用。SIM-1.3 保留為歷史基準，不覆寫、不刪除。只有使用者明確核准 SIM-1.4 定版後，才可將本文件改名／替換為唯一有效規則檔。本草案不授權修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
+> **狀態：SUPERSEDED／已於 2026-11-22 升格。** 正式有效內容請讀取 `simulation-lab/TAC_WORK_RULES_SIM.md`；本檔僅保留升格前草案供版本追溯，不得作為執行規則。
 
 - 專案：TAC 投資早報
 - Repository：`lion-invlab/lion-invlab.github.io`
