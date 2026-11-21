@@ -2362,3 +2362,11 @@
 - SIM-1.4 草案已更新引用最新逐條台帳 SHA，最新草案 SHA：119b1c3ae559ef40d335f8ba878f3c60877559ef。
 - 最新已完成 CI run 44898651010（commit 3017841a34970f778a2b4912ac677f580788dd53）success；其後新增的 A／B／C 條文台帳與草案 SHA 尚未由新的 CI run 覆蓋。CI 只做 Python compile／deterministic tests，不含 HTML build／DOM diff／Playwright。
 - 下一步：對 SIM-1.3 版本紀錄 J 的每個有效補充逐項核對是否已整併或標為歷史；然後做 QA Contract selector／DOM 深度差異檢查，並決定是否有足夠權限啟動 build／QA-only。Builder compatibility 未通過前，不產生 11/23 審核版。
+
+
+## 2026-11-21｜J 版本紀錄逐項處置完成
+
+- 已將 SIM-1.3 J 章中 5.10、5.18、5.9、5.2、SIM-1.2、5.14、5.13、5.12、5.11、5.1、5.0、4.17、4.12、4.11、4.10、4.19、4.9、4.8、4.7、4.6、4.5、4.4、4.2、4.1、4.0、5.5、5.4、5.3、5.19、5.17 各版本逐項列入處置表，明確區分保留、更新順位、撤銷及歷史紀錄。最新逐條台帳 SHA：1ec0936a6640ffb70b0af94c08b85ca96e903d87。
+- SIM-1.4 DRAFT 已更新為引用完整 A–J 逐條台帳，最新 SHA：70a543d10c0351d257306b286e4f45cd4bc4f575。仍為 DRAFT，尚未生效。
+- 最新 CI run 44898651010 success 驗證的是前一個草案 commit；上述 J 條文台帳與其後草案 SHA 更新尚未有新 CI run。CI 為 Python compile／deterministic tests，並非 HTML build／Playwright。
+- 目前可稱「SIM-1.3 A–J 逐條處置台帳已建立完整初版」，不可稱「SIM-1.4 已定版」或「Builder／QA 相容性已通過」。
