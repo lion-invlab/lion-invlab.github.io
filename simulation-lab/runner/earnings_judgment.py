@@ -488,42 +488,30 @@ def render_status(record: dict, metric: str) -> str:
 
 
 def _valid_tac_observation_reference(record: dict, metric: str, snapshot: dict, source: dict) -> bool:
-    """Validate a pre-release captured reference even when comparison basis is unresolved."""
+    """Validate a selected estimate without imposing PIT or optional-metadata gates."""
     providers = {1: "Yahoo Finance", 2: "Investing.com", 3: "LSEG I/B/E/S", 4: "FactSet Estimates"}
     expected_metric = "EPS" if metric == "eps" else "REVENUE"
     value = record.get(f"{metric}_estimate")
     period = record.get(f"{metric}_estimate_period")
-    currency = record.get(f"{metric}_estimate_currency")
     if any(snapshot.get(k) != v for k, v in {
         "event_id": record.get("id"), "ticker": record.get("ticker"),
         "metric": expected_metric, "event_date": record.get("event_date"),
-        "value": value, "period": period, "currency": currency,
+        "value": value, "period": period,
     }.items()):
         return False
     level = snapshot.get("source_level")
-    if level not in providers or snapshot.get("provider") != providers[level]:
+    if isinstance(level, bool) or level not in providers or snapshot.get("provider") != providers[level]:
         return False
-    if snapshot.get("data_as_of") not in (None, ""):
+    url = snapshot.get("source_url")
+    if not isinstance(url, str) or not url.startswith("https://") or source.get("url") != url:
         return False
-    if not _precedes_event(snapshot.get("observed_at"), record.get("event_date")):
-        return False
-    if snapshot.get("published_at") and not _precedes_event(snapshot.get("published_at"), record.get("event_date")):
-        return False
-    if not isinstance(snapshot.get("raw_response_ref"), str) or not snapshot["raw_response_ref"].strip():
-        return False
-    if not isinstance(snapshot.get("raw_response_sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot["raw_response_sha256"]):
-        return False
-    if not isinstance(snapshot.get("source_url"), str) or not snapshot["source_url"].startswith("https://"):
-        return False
-    if source.get("url") != snapshot.get("source_url") or source.get("observed_at") != snapshot.get("observed_at"):
-        return False
-    if not isinstance(snapshot.get("period_end_date"), str) or not snapshot["period_end_date"].strip():
-        return False
-    if not isinstance(snapshot.get("statistic"), str) or not snapshot["statistic"].strip():
-        return False
+    # Missing currency/unit is retained as an unknown disclosure, not an
+    # estimate-adoption blocker. If both sides disclose them, mismatches remain
+    # a comparison limitation handled by evaluate_metric().
     if metric == "revenue":
-        unit = record.get("revenue_estimate_unit")
-        if snapshot.get("unit") != unit or not isinstance(unit, str) or not unit.strip():
+        snapshot_unit = snapshot.get("unit")
+        record_unit = record.get("revenue_estimate_unit")
+        if snapshot_unit and record_unit and snapshot_unit != record_unit:
             return False
     return True
 
@@ -542,13 +530,8 @@ def consensus_evidence_label(record: dict, metric: str) -> str | None:
     snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
     if not isinstance(snapshot, dict):
         return None
-    if _valid_consensus_snapshot(record, metric):
-        if snapshot.get("snapshot_status") == "pre_release_eligible":
-            return "Provider PIT 公告前共識"
-        if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
-            return "TAC 公告前觀測共識"
     if _valid_tac_observation_reference(record, metric, snapshot, source):
-        return "TAC 公告前觀測共識"
+        return "來源已記錄（PIT／補充欄位非採用門檻）"
     return None
 
 
