@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
-from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label
+from build_review_html import reject_cfd_cash_index_quotes, earnings_status_label, normalize_market_label
 
 
 def record(value, change, quote_type):
@@ -41,6 +41,7 @@ def main():
     # Idempotence: a second pass must not reintroduce the rejected numeric quote.
     assert reject_cfd_cash_index_quotes(data) == ["S&P 500 CFD"]
     assert cfd["display"] == "待核實"
+    assert normalize_market_label("日經225") == normalize_market_label("日經 225")
     assert earnings_status_label({"eps_actual": 2.70, "eps_estimate": None}, "eps", "pending") == "比較資料尚未齊備"
     assert earnings_status_label({"status": "pending_verification"}, "eps", "pending") == "公告已發布；實際值待核實"
     assert earnings_status_label({}, "eps", "pending") == "尚未公布"
