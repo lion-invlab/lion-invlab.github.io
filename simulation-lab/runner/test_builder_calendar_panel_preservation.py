@@ -18,6 +18,12 @@ require('if len(econ_groups)!=3:')
 require('earnings_groups=ep.select(":scope > .calendar-status-group")')
 require('if len(earnings_groups)!=3:')
 
+# Freeze the mother prototypes before removing any rendered event-card instances.
+require('template_html=str(template)')
+require('earnings_template_html=str(et)')
+require('BeautifulSoup(template_html,"html.parser").select_one("details.econ-event")')
+require('BeautifulSoup(earnings_template_html,"html.parser").select_one("details.earnings-accordion")')
+
 # Only direct event-card instances inside the approved list slots may be removed.
 require('listing.find_all("details",class_="econ-event",recursive=False)')
 require('listing.find_all("details",class_="earnings-accordion",recursive=False)')
