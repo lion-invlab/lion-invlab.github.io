@@ -1,3 +1,17 @@
+# 2026-11-22｜SIM-1.4 已正式生效｜首次完整驗收進行中
+
+- **唯一有效規則：** `simulation-lab/TAC_WORK_RULES_SIM.md`，SIM-1.4，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。使用者已於 2026-11-22 明確授權升格。
+- **歷史封存：** SIM-1.3 完整原文封存於 `simulation-lab/archive/TAC_WORK_RULES_SIM_1.3_ARCHIVE.md`；SIM-1.4 升格前草案保留於 `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md`（SUPERSEDED，不再執行）。
+- **唯一 QA 附件：** `simulation-lab/baseline/mother-template-qa-contract.md` v1.16，blob SHA `eaddf6ece82a5d835953336d892846b8c12f13d8`，隨 SIM-1.4 啟用。母版 Manifest blob SHA `d713c241f155318d1e9bae1fff4a6d44466c8d69`；Monday simulation mother SHA `3abf38e66a582089a5d16527507d39c2edbeee75`。
+- **候選 Builder：** `simulation-lab/runner/build_review_html.py`，目前 blob SHA `3ddbdd1137b99fe509c47f77aa86057dfefa04d2`。雙母版舊版候選測試證據不能自動套用至此 SHA；依 SIM-1.4 §8.1，候選 Builder 尚未取得使用者對此精確路徑／SHA 的明確核准，`sim14_builder_approval=NOT_APPROVED`。
+- **已知 QA 阻塞：** QA Contract 明列 earnings renderer 尚含 legacy `incomparable／consensus_divergent` 顯示分支，且缺少「比較資料尚未齊備」的必要呈現；修正並通過回歸前，財報 renderer Gate 不得 PASS。另需確認 Fed 官員行程列沒有以 inline style 覆蓋母版雙欄響應式結構。
+- **11/23 Fixture：** `simulation-lab/fixtures/report-data-2026-11-23.json`，blob SHA `948b504a0fba8ba45653cacc0a43cff5377e91a7`。44 項行情、W48 行事曆與新聞／財報資料需依 SIM-1.4 重新驗收；舊 preview／sidecar 不可當作本次正式規則驗收證據。
+- **最新 smoke run：** `44960571993` completed/success，但因 commit message 不含 build marker，完整 build、瀏覽器 QA、preview 組裝等步驟全部 skipped；只能證明前置 smoke tests 通過。SIM-1.4 activation trigger run 曾因後續 push 被 concurrency cancel，不能視為驗收。
+- **目前狀態：** SIM-1.4 規則已生效；完整端到端驗收尚未完成。候選 Builder 核准、財報 renderer Gate、Fed 官員行程版面及正式規則 provenance 均待本輪證據確認。不得宣稱 REVIEW_READY，不得修改 main。
+- **下一步：** 以唯一正式 SIM-1.4、最新 Builder／Manifest／QA Contract／11/23 Fixture 執行一次完整 build；依失敗 Gate 直接修復根因並只重跑受影響項目，最終提交完整證據。正式首頁仍需另行明確授權。
+
+---
+
 ## 2026-11-21 最新狀態｜11/23（一）審核版完成最新完整驗收
 
 - **工作分支：** `simulation/tac-process-lab-2026-11-06`。本次所有規則、fixture、測試、預覽與 QA sidecar 修改均限 simulation branch；main、正式首頁、正式母版、正式行事曆 JSON 均未修改。
