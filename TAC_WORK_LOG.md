@@ -2370,3 +2370,14 @@
 - SIM-1.4 DRAFT 已更新為引用完整 A–J 逐條台帳，最新 SHA：70a543d10c0351d257306b286e4f45cd4bc4f575。仍為 DRAFT，尚未生效。
 - 最新 CI run 44898651010 success 驗證的是前一個草案 commit；上述 J 條文台帳與其後草案 SHA 更新尚未有新 CI run。CI 為 Python compile／deterministic tests，並非 HTML build／Playwright。
 - 目前可稱「SIM-1.3 A–J 逐條處置台帳已建立完整初版」，不可稱「SIM-1.4 已定版」或「Builder／QA 相容性已通過」。
+
+
+## 2026-11-21｜Fed 官員週行程固定槽位修復（尚待 CI／Build QA）
+
+- 使用者明確要求保留 Fed 官員行程功能；因此不刪除功能，而是修復 Builder 與母版脫節問題。
+- 週一母版新增固定 `#fed .fc-fomc-weekly-events` 外層、標題、清單、事件原型及空狀態槽位；平日母版同步相同契約。事件原型固定含日期、名稱、影響說明、官方來源連結欄位。Builder 僅深複製母版原型並填入欄位，不再清空／重建外層容器或整張卡片。
+- Manifest 已更新 simulation 母版 SHA：Monday `52fa9949b82b0c86974b3cc4785d734321316b02`；Weekday `c91f96e121b6fb779c6775bd845e8eb29c7cc70b`。QA Contract 已新增 Fed 行程槽位及保留結構驗收條款。
+- Builder 修正 `normalize_market_label` 的 regex typo：原始 `r"\\s+"` 只會匹配反斜線與 s 字元，無法移除空白；已改為 `r"\\s+"` 的 Python 正確空白 regex（實際原始碼為單一反斜線），並補全形空白測試。
+- `test_quote_type_guard.py` 已擴充：兩份母版均需驗證 Fed 行程槽位存在且唯一、已發表／預定事件能顯示、空週顯示明確空狀態、外層節點與事件原型不被破壞。該測試已在 workflow 原有 deterministic self-test step 中執行。
+- Builder 修復 commit：`7e9a4fe524880a993f7a15988776627e96e4cc0a`；測試 commit：`1ca9b8da23ce9105c7cf2b04408ca50f0d008ef1`；雙母版與 Manifest／QA Contract 已分別提交。
+- 仍未通過 CI 前，不宣稱測試成功；仍須跑真正 Monday／weekday HTML build、DOM 零退化、artifact validation、Playwright 桌面／手機與六 viewport 視覺 QA。SIM-1.4 維持 DRAFT，main／正式首頁未修改。
