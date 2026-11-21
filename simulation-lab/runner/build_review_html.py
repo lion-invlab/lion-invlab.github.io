@@ -1827,6 +1827,7 @@ def main():
     )),None)
     if template is None: raise ValueError("five-zone economic calendar template missing from approved Monday mother")
     validate_economic_card(template, "approved current-week economic prototype", "econ-toggle")
+    template_html=str(template)  # freeze the approved prototype before replacing any list instances
     econ_groups=panels.select(":scope > .calendar-status-group")
     if len(econ_groups)!=3: raise ValueError(f"economic calendar must retain exactly three mother status groups; found {len(econ_groups)}")
     for group in econ_groups:
@@ -1851,7 +1852,7 @@ def main():
         for old_card in listing.find_all("details",class_="econ-event",recursive=False):
             old_card.decompose()
         for x in items:
-            card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
+            card=BeautifulSoup(template_html,"html.parser").select_one("details.econ-event")
             day,clock=dateparts(x.get("date",""))
             if not x.get("time_known",False): clock="時間未確認"
             for sel,val in [(".econ-date",day),(".econ-time",clock),(".econ-country",x.get("region","")),(".econ-name",x.get("name","")),(".econ-stars",startext(x))]:
@@ -1876,6 +1877,7 @@ def main():
     ep=unique(earn,".week-earnings-panels","earnings panels")
     et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
     if not et or not eg: raise ValueError("earnings calendar template missing")
+    earnings_template_html=str(et)  # freeze the approved card prototype before replacing list instances
     earnings_groups=ep.select(":scope > .calendar-status-group")
     if len(earnings_groups)!=3: raise ValueError(f"earnings calendar must retain exactly three mother status groups; found {len(earnings_groups)}")
     for group in earnings_groups:
@@ -1908,7 +1910,7 @@ def main():
         for old_card in listing.find_all("details",class_="earnings-accordion",recursive=False):
             old_card.decompose()
         for x in items:
-            card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
+            card=BeautifulSoup(earnings_template_html,"html.parser").select_one("details.earnings-accordion")
             day,clock=dateparts(x.get("date",""))
             if not x.get("time_known",False): clock="時間未確認"
             session_label=("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")
