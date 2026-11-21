@@ -2589,3 +2589,14 @@
 - 預覽與 sidecar 僅寫入 simulation branch 的 `preview/`；main、正式首頁、正式母版及正式行事曆 JSON 未修改。正式發布仍須等待使用者明確批准。
 - 本輪修正 workflow 中曾出現的內容比對誤判（評論標題前綴、空白正規化、產業評論槽位），均依實際生成 HTML artifact 回查後修正；最終 run 已重新完整通過，不以先前失敗 run 作為完成證據。
 
+
+
+## 2026-11-22｜雙母版內容 Gate 補正與回歸建置啟動
+
+- 依 SIM-1.4 DRAFT §7.4 及 §8.1，檢查發現原 `.github/workflows/tac-simulation-lab.yml` 的內容 Gate 將週一標籤硬編碼為「市場主軸／基本面分歧／操作建議」，並將操作條件固定為「中性偏防禦／加碼／減碼／不追價」；因此無法正確驗收週二至週五格式，亦與 §7.4 規定的週一「上週主軸／風險觀察／操作建議」、平日「當日主軸／風險觀察／操作建議」不一致。
+- 已修正 Workflow Gate：依報告日期星期選擇正確三段標籤；風險觀察必須包含可辨識日期及時間；操作建議必須明確表達投資立場、可執行動作及條件觸發。Workflow commit：`d845544dede9bf8503563973d05608478df27472`。
+- 已將 2026-11-20 平日 Fixture 五段摘要整併為 SIM-1.4 規定的三段，並補入 11/23 22:45 美國 Flash PMI、11/25 21:30 美國 GDP／PCE 等已由 W48 正式行事曆核實的觀察節點。Fixture commit：`05967a2ef818854befa46bc6654a9610ebb3c9da`。
+- 已將 2026-11-23 週一 Fixture 三段標籤修正為「上週主軸／風險觀察／操作建議」，風險觀察加入 W48 已核實的 11/23 22:45 美國 Flash PMI 及 11/25 21:30 美國 GDP／PCE；Fixture commit：`609353fc0842291187af1155466dd03bca25c40e`。
+- 以上均只修改 simulation branch；未修改 main、正式首頁、正式母版或正式行事曆 JSON。
+- 兩筆 fixture push commit message 均含日期 build tag，且路徑符合 `tac-simulation-lab.yml` push trigger；預期分別啟動 2026-11-20 weekday build 與 2026-11-23 Monday build。**目前尚未取得 workflow run 完成結果，兩次 build 狀態暫列 PENDING，不得宣稱通過。**
+- 下一步：讀取兩次 workflow run 的結果與 artifacts；修正任何 Gate／Builder 問題後重跑。兩種母版需在相同規則、Manifest、QA Contract、Builder SHA 下分別成功，才可完成 SIM-1.4 §8.1 雙母版實證。SIM-1.4 仍為 DRAFT，Builder 未獲使用者核准。
