@@ -477,7 +477,7 @@
 
 ## 逐條台帳與財報引擎實作同步（2026-11-21）
 
-- SIM-1.3 逐條處置台帳已補齊 E、F1–F4、F3-補充4–10、G1–G4、H、I，以及 C 第五／六步 Gate 的細項；最新台帳 SHA：14eb2b9537b3bea1dae250f8c9bd5bdb3ce42d05。逐條台帳另含 D2、D2-補充、D3.1–D3.17、D4、D5。
+- SIM-1.3 逐條處置台帳已補齊 E、F1–F4、F3-補充4–10、G1–G4、H、I，以及 C 第五／六步 Gate 的細項；最新台帳 SHA：1ec0936a6640ffb70b0af94c08b85ca96e903d87。逐條台帳另含 D2、D2-補充、D3.1–D3.17、D4、D5。
 - 財報判讀引擎 earnings_judgment.py 1.4.0 SHA：62148064ad08efe72bc5a107a4142d32dffc6c7c；公開狀態固定 beat／miss／inline／pending。共識來源層級 Yahoo Finance=1、Investing.com=2、LSEG=3、FactSet=4。schema 與 deterministic tests 已同步。
 - 最新財報引擎 deterministic regression：run 44897795972 success，四狀態判讀、snapshot store 23 tests、schema audit、report-layer status 及 11/23 fixture contract 通過。
 - 最新 Node／Python 語法及 deterministic regression：run 44897956591 success。workflow YAML 縮排問題曾造成 run 44897899979 failure，已修正並由 44897956591 驗證成功。
