@@ -764,6 +764,200 @@ def apply_fear_greed_marker(marker, value):
     marker.attrs.pop("aria-hidden", None)
     return numeric_score
 
+
+def set_leaf_text_preserving_dom(node, value, context):
+    """Replace only a leaf text slot; refuse to delete or flatten child elements."""
+    if node is None:
+        raise ValueError(f"{context}: required mother text slot missing")
+    if any(getattr(child, "name", None) for child in node.contents):
+        raise ValueError(f"{context}: target contains child elements; refusing destructive text replacement")
+    text_nodes = [child for child in node.contents if isinstance(child, NavigableString)]
+    if text_nodes:
+        text_nodes[0].replace_with(str(value))
+        for extra in text_nodes[1:]:
+            extra.extract()
+    else:
+        node.append(str(value))
+
+
+def replace_text_after_bold_preserving_dom(container, replacements, context):
+    """Update existing text nodes after fixed bold labels; keep every b/br wrapper intact."""
+    found = set()
+    for label in container.find_all(["b", "strong"]):
+        key = label.get_text(" ", strip=True).rstrip("：: ")
+        if key not in replacements:
+            continue
+        sibling = label.next_sibling
+        while sibling is not None and isinstance(sibling, NavigableString) and not str(sibling).strip():
+            sibling = sibling.next_sibling
+        if not isinstance(sibling, NavigableString):
+            raise ValueError(f"{context}: text slot after label {key!r} is missing or not a text node")
+        sibling.replace_with(" " + str(replacements[key]))
+        found.add(key)
+    missing = sorted(set(replacements) - found)
+    if missing:
+        raise ValueError(f"{context}: approved bold labels missing: {missing}")
+
+
+def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, monday):
+    """Populate the approved dashboard's existing text slots without rebuilding its cards or layout."""
+    if health is None:
+        raise ValueError("S&P 500 earnings-health dashboard missing from approved mother")
+    required = (
+        "as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct",
+        "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise",
+        "forward_pe", "interpretation", "source_url",
+    )
+    missing = [key for key in required if not str(earnings_health.get(key, "")).strip()]
+    if missing:
+        raise ValueError("FactSet earnings-health snapshot missing fields: " + ", ".join(missing))
+    if not str(earnings_health["source_url"]).startswith("https://"):
+        raise ValueError("FactSet earnings-health snapshot must include an HTTPS source URL")
+
+    direct_divs = health.find_all("div", recursive=False)
+    if len(direct_divs) != 5 or "title" not in direct_divs[0].get("class", []):
+        raise ValueError("S&P 500 earnings-health mother structure changed; expected title/core/grid/interpretation/next-step")
+    title, core, grid, interpretation, next_steps = direct_divs
+    title_small = title.find("small", recursive=False)
+    set_leaf_text_preserving_dom(
+        title_small,
+        f"{earnings_health.get('source', 'FactSet')}｜{earnings_health['as_of_date']}（{earnings_health.get('period', 'Q3 2026')}；{earnings_health['reported_pct']} 成份股已公布）",
+        "earnings-health snapshot title",
+    )
+
+    core_parts = core.find_all("div", recursive=False)
+    if len(core_parts) != 3:
+        raise ValueError("earnings-health core interpretation must retain its three mother text slots")
+    surprise_avg = earnings_health.get("eps_surprise_avg_5y", "待核實")
+    headline = (
+        f"{earnings_health.get('period', '本季')}獲利與營收年增仍強；"
+        f"EPS 平均超預期 {earnings_health['eps_surprise']}，需與歷史均值比較。"
+    )
+    description = (
+        f"截至 {earnings_health['as_of_date']}，{earnings_health['reported_pct']} 的 S&P 500 成份股已公布財報；"
+        f"混合 EPS 年增 {earnings_health['blended_eps_yoy']}、混合營收年增 {earnings_health['blended_revenue_yoy']}。"
+        f"{earnings_health['interpretation']}"
+    )
+    set_leaf_text_preserving_dom(core_parts[1], headline, "earnings-health core headline")
+    set_leaf_text_preserving_dom(core_parts[2], description, "earnings-health core explanation")
+
+    cards = grid.find_all("div", recursive=False)
+    expected_card_count = 4 if monday else 3
+    if len(cards) != expected_card_count:
+        raise ValueError(
+            f"earnings-health mother card count changed: expected {expected_card_count}, got {len(cards)}"
+        )
+    seen = set()
+    for index, card in enumerate(cards, 1):
+        parts = card.find_all("div", recursive=False)
+        if len(parts) != 3:
+            raise ValueError(f"earnings-health card #{index} must retain label/value/note slots")
+        label = parts[0].get_text(" ", strip=True)
+        if "混合盈餘年增率" in label:
+            key = "mixed_eps"
+            value = earnings_health["blended_eps_yoy"]
+            prior = earnings_health.get("prior_blended_eps_yoy")
+            note = f"前期 {prior}；{earnings_health['as_of_date']} FactSet 快照" if prior else f"FactSet 快照｜{earnings_health['as_of_date']}"
+        elif "EPS 優於預期" in label:
+            key = "eps_beat"
+            value = earnings_health["eps_beat_pct"]
+            note = (
+                f"高於 5 年均值 {earnings_health.get('eps_beat_avg_5y', '待核實')}／"
+                f"10 年均值 {earnings_health.get('eps_beat_avg_10y', '待核實')}"
+            )
+        elif "EPS 平均超預期幅度" in label or "平均 EPS 超預期幅度" in label:
+            key = "eps_surprise"
+            value = earnings_health["eps_surprise"]
+            note = (
+                f"5 年均值 {earnings_health.get('eps_surprise_avg_5y', '待核實')}／"
+                f"10 年均值 {earnings_health.get('eps_surprise_avg_10y', '待核實')}"
+            )
+        elif "混合營收年增率" in label:
+            key = "mixed_revenue"
+            value = earnings_health["blended_revenue_yoy"]
+            prior = earnings_health.get("prior_blended_revenue_yoy")
+            note = f"前期 {prior}；{earnings_health['as_of_date']} FactSet 快照" if prior else f"FactSet 快照｜{earnings_health['as_of_date']}"
+        else:
+            raise ValueError(f"unmapped earnings-health mother card label: {label!r}")
+        if key in seen:
+            raise ValueError(f"duplicate earnings-health mother card: {key}")
+        seen.add(key)
+        if "｜" in label:
+            label = label.split("｜", 1)[0] + "｜" + earnings_health["as_of_date"]
+            set_leaf_text_preserving_dom(parts[0], label, f"earnings-health card #{index} label")
+        set_leaf_text_preserving_dom(parts[1], value, f"earnings-health card #{index} value")
+        set_leaf_text_preserving_dom(parts[2], note, f"earnings-health card #{index} note")
+    expected_keys = {"mixed_eps", "eps_beat", "eps_surprise"}
+    if monday:
+        expected_keys.add("mixed_revenue")
+    if seen != expected_keys:
+        raise ValueError(f"earnings-health mother card mapping mismatch: {sorted(seen)}")
+
+    interpretation_parts = interpretation.find_all("div", recursive=False)
+    if len(interpretation_parts) != 2:
+        raise ValueError("earnings-health interpretation block must retain its title and body")
+    body = interpretation_parts[1]
+    if monday:
+        replacements = {
+            "正面": (
+                f"{earnings_health['eps_beat_pct']} EPS、{earnings_health['revenue_beat_pct']} 營收優於預期；"
+                f"混合 EPS 年增 {earnings_health['blended_eps_yoy']}、營收年增 {earnings_health['blended_revenue_yoy']}。"
+            ),
+            "保留": (
+                f"EPS 平均超預期 {earnings_health['eps_surprise']}，5 年均值 {surprise_avg}；"
+                f"營收平均超預期 {earnings_health.get('revenue_surprise', '待核實')}。"
+            ),
+            "估值": (
+                f"Forward 12M P/E {earnings_health['forward_pe']}；"
+                f"5 年均值 {earnings_health.get('forward_pe_avg_5y', '待核實')}／"
+                f"10 年均值 {earnings_health.get('forward_pe_avg_10y', '待核實')}。"
+            ),
+        }
+    else:
+        replacements = {
+            "混合營收年增率": f"{earnings_health['blended_revenue_yoy']}（{earnings_health['as_of_date']} FactSet 快照）",
+            "營收優於預期公司比率": (
+                f"{earnings_health['revenue_beat_pct']}；5 年均值 "
+                f"{earnings_health.get('revenue_beat_avg_5y', '待核實')}／10 年均值 "
+                f"{earnings_health.get('revenue_beat_avg_10y', '待核實')}"
+            ),
+            "保留": (
+                f"EPS 平均超預期 {earnings_health['eps_surprise']}，5 年均值 {surprise_avg}；"
+                f"{earnings_health['interpretation']}"
+            ),
+        }
+    replace_text_after_bold_preserving_dom(body, replacements, "earnings-health interpretation")
+
+    replace_text_after_bold_preserving_dom(
+        next_steps,
+        {"接下來看三件事": (
+            "EPS 超預期幅度能否回升、營收成長能否延續，以及獲利成長是否持續擴散至更多產業。"
+        )},
+        "earnings-health next steps",
+    )
+
+    source_details = health.find("details", recursive=False)
+    source_body = source_details.find("div", recursive=False) if source_details else None
+    if source_body is None:
+        raise ValueError("earnings-health source disclosure body missing")
+    source_text = next(
+        (node for node in source_body.contents if isinstance(node, NavigableString) and str(node).strip()),
+        None,
+    )
+    if source_text is None:
+        raise ValueError("earnings-health source disclosure text slot missing")
+    source_text.replace_with(
+        f"{earnings_health.get('source', 'FactSet')}；統計截點 {earnings_health['as_of_date']}。"
+        "混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估。"
+    )
+    source_link_node = source_body.find("a")
+    if source_link_node is None:
+        raise ValueError("earnings-health source link slot missing from approved mother")
+    source_link_node["href"] = earnings_health["source_url"]
+    source_link_node.string = "FactSet 官方報告"
+    return {"cards": len(cards), "card_keys": sorted(seen), "source_date": earnings_health["as_of_date"]}
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
@@ -1906,51 +2100,7 @@ def main():
         set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。每則新聞均核對原始發布時間、來源時區、台灣換算時間、最後更新狀態及原文連結；未符合時間窗的資料不納入。")
     health = soup.select_one("#sp500-earnings-health")
     if health:
-        # The panel must be driven by the dated fixture snapshot, never a hard-coded mother-template fallback.
-        from bs4 import BeautifulSoup as _BS
-        from html import escape as _esc
-        eh = data.get("earnings_health") or {}
-        required_health = ["as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct",
-                           "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise", "forward_pe",
-                           "mag7_eps_growth", "other_493_eps_growth", "source_url"]
-        missing_health = [key for key in required_health if not str(eh.get(key, "")).strip()]
-        if missing_health:
-            raise ValueError("FactSet earnings-health snapshot missing fields: " + ", ".join(missing_health))
-        if eh["as_of_date"] < "2026-11-13":
-            report_label = data.get("report_date", "selected")
-            raise ValueError(f"FactSet earnings-health snapshot is stale for {report_label} report")
-        if not str(eh.get("source_url", "")).startswith("https://"):
-            raise ValueError("FactSet earnings-health snapshot must include an HTTPS source URL")
-        e = {k: _esc(str(v)) for k, v in eh.items()}
-        cards = [
-            ("混合盈餘年增率", e["blended_eps_yoy"], f"前週 {e.get('prior_blended_eps_yoy','')}"),
-            ("EPS 優於預期公司比例", e["eps_beat_pct"], f"高於5年均值 {e.get('eps_beat_avg_5y','')}／10年均值 {e.get('eps_beat_avg_10y','')}"),
-            ("EPS 聚合超預期幅度", e["eps_surprise"], f"低於5年均值 {e.get('eps_surprise_avg_5y','')}／10年均值 {e.get('eps_surprise_avg_10y','')}"),
-            ("混合營收年增率", e["blended_revenue_yoy"], f"前週 {e.get('prior_blended_revenue_yoy','')}；維持雙位數成長"),
-            ("營收優於預期公司比例", e["revenue_beat_pct"], f"高於5年均值 {e.get('revenue_beat_avg_5y','')}／10年均值 {e.get('revenue_beat_avg_10y','')}"),
-            ("Forward 12M P/E", e["forward_pe"], f"低於5年均值 {e.get('forward_pe_avg_5y','')}／10年均值 {e.get('forward_pe_avg_10y','')}"),
-        ]
-        card_html = "".join(
-            f'<div style="padding:11px 12px;background:#f5f7fa;border:1px solid #dce3e9;border-radius:10px;color:#202124">'
-            f'<div style="font-size:11px;font-weight:800;color:#626a73">{label}</div>'
-            f'<div style="font-size:25px;font-weight:950;color:#202124;margin:3px 0">{value}</div>'
-            f'<div style="font-size:11px;line-height:1.45;color:#30343a">{note}</div></div>'
-            for label, value, note in cards
-        )
-        health.clear()
-        _health_fragment = _BS(f"""
-<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜{e['as_of_date']}（Q3 2026，{e['reported_pct']} 成份股已公布）</small></div>
-<div style="margin-top:10px;padding:14px 15px;background:#f1f6fb;border:1px solid #d6e3ee;border-left:5px solid #c62828;border-radius:11px;color:#202124">
-<div style="font-size:11px;font-weight:850;color:#626a73;margin-bottom:5px">TAC 核心判讀</div>
-<div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px;color:#202124">盈餘與營收成長維持強勁，但聚合 EPS 驚喜幅度低於歷史均值；市場開始更重視成長品質。</div>
-<div style="font-size:13px;line-height:1.7;color:#30343a">截至 {e['as_of_date']}，標普 500 有 {e['reported_pct']} 成份股公布 Q3 財報；{e['eps_beat_pct']} EPS、{e['revenue_beat_pct']} 營收優於預期。混合 EPS 年增 {e['blended_eps_yoy']}、營收年增 {e['blended_revenue_yoy']}，但聚合 EPS 僅高於預估 {e['eps_surprise']}，低於五年均值 {e.get('eps_surprise_avg_5y','')} 與十年均值 {e.get('eps_surprise_avg_10y','')}。</div></div>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px">{card_html}</div>
-<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>Q3 混合 EPS 與營收均維持雙位數成長，且多數公司優於市場預期。<br><b style="color:#2563a6">成長廣度：</b>Mag 7 EPS 成長 {e['mag7_eps_growth']}，低於其他493家公司的 {e['other_493_eps_growth']}，獲利成長來源正擴散至大型科技以外。<br><b style="color:#ad7427">保留：</b>聚合 EPS 超預期幅度僅 {e['eps_surprise']}，低於五年與十年均值；優於預期的公司比例高，不代表驚喜幅度同樣強。<br><b style="color:#202124">估值：</b>Forward 12M P/E 為 {e['forward_pe']}，低於五年與十年均值，仍須搭配利率與獲利預估觀察。</div></div>
-<div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度能否回升、Q4 獲利成長預估是否下修，以及大型科技公司能否把 AI 資本支出轉化為營收、利潤與現金流。</div>
-<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">來源：<a class="factset-source-link" href="{e['source_url']}" target="_blank" rel="noopener noreferrer">FactSet Q3 2026 Earnings Insight</a>；統計截點 {e['as_of_date']}。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估，不代表全部成份股均已公布。</div></details>
-""", "html.parser")
-        for _node in list(_health_fragment.contents):
-            health.append(_node)
+        populate_earnings_health_dashboard_preserving_dom(health, data.get("earnings_health") or {}, monday)
     fed = soup.select_one("#fed")
     if fed:
         meeting = fed.select_one(".fc-fomc-meeting b")
