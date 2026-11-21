@@ -2721,3 +2721,11 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 瀏覽器QA：Playwright Chromium以 `page.set_content` 載入HTML；關閉母版原有基金提醒modal後測試360/390/412/768/1440px，水平溢位皆0；0 pageerror；重複ID 0；三個全球市場tab、產業資產tab及新聞tab可正常切換；三區market-reason各1。這是工作稿的DOM／瀏覽器 smoke QA，尚未完成全部互動、內容、來源及行事曆Gate。
 - 明確阻塞：CNN Fear & Greed尚待官方讀值；FedWatch目標利率區間映射尚待重新依使用者既定規則核對；W47已公布事件及W48 27筆經濟事件／11筆財報事件未逐筆載入及驗收；新聞窗口須持續至11/23 05:25。W48 DB仍唯讀且incomplete，不修改。
 - 狀態：首版工作稿已建立，但不得標記 `review_ready`，不得發布至main；等待新聞時間窗封口、行事曆驗收、CNN及FedWatch處理後再產出下一版。
+
+
+## 2026-11-21｜11/23 HTML 工作稿新聞來源修訂與最新雜湊
+- 重新依規則優先採用鉅亨網／Investing.com，更新全球焦點5則：鉅亨網美債連5漲及AI估值重估（11/20 15:50）；Investing.com亞太股市單週跌8.5%（16:59）；全球公債殖利率下滑（15:30）；美元近19個月高位、亞洲貨幣承壓（13:03）；歐洲AI概念股下跌（16:46）。均在11/20 12:00之後，時間窗內。候選新聞仍待11/23 05:25封口。
+- 熱門頭條10則候選補入Barclays對Fed put的風險提醒、Intuit出售Mailchimp及下調展望、Anthropic IPO後股價回落、AMD做空報告（明確標為未證實指控）、金價跌破3600美元與銀行風險提示、英國零售銷售、Yardeni觀點、美元／澳幣走勢等；均保留原文連結及事實／觀點區分。
+- 最新工作稿重新產出：`/mnt/data/TAC_投資早報_2026-11-23_審核工作稿.html`，296,440 bytes，SHA-256 `aac66d182f2f9d0af84de01c0a88b0d712ad93beee2eebf0350f9f471eecd71d`。這是本輪最新檔，取代上一版SHA 38fb81...。
+- SIM-1.3 三區評論 Gate 再驗：#global-markets #tac-global-panel-0/1/2 各有且僅有一個 .market-reason；標題依序「📌 美股觀察」「📌 亞股觀察」「📌 歐股觀察」。美股評論只提美股指數，亞股評論只提亞洲市場，歐股評論只提歐洲市場；三區無跨區指數錯置。
+- 最新瀏覽器QA再次完成：Playwright Chromium關閉Q4基金提醒modal後，360/390/412/768/1440px水平溢位皆0；pageerror 0；重複ID 0；全球市場／產業資產／新聞tabs可切換。工作稿尚非review_ready；新聞窗口、W47/W48行事曆、CNN、FedWatch仍有未結Gate。
