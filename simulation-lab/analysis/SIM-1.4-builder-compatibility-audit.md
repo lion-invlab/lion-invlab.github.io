@@ -100,3 +100,12 @@ Builder 的 market_groups 檢查僅驗 source name／URL／data_date，不驗 qu
 
 
 - 最新 GitHub Actions run 44897956591（commit 384dab2fdfd498248f6911746db82f968bb8daf7）conclusion success；Python compile、Node --check（visual_regression.mjs／interaction_smoke.mjs）及 deterministic self-tests 均通過。此 run 未執行 HTML build、DOM diff 或 Playwright。
+
+## 2026-11-21 實作修正與回歸驗證（持續中）
+
+- Builder commit `cb2027f23c38bf0e0a415c413bb69e2538609013`：新增 `reject_cfd_cash_index_quotes`，在渲染邊界拒絕 `cfd_index_reference_series`／`cfd_cash_index_proxy`，保留 rejected_reference 證據並強制顯示「待核實」。
+- Builder commit `57226d48fcf4a7c2402e36e365667b64ae056c9c`：財報 renderer 改為只接受 beat／miss／inline／pending 四種狀態；已公告但比較資料缺漏改顯示「比較資料尚未齊備」，不再輸出 incomparable／consensus_divergent 狀態 class。
+- 新增 `simulation-lab/runner/test_quote_type_guard.py`，測試 CFD 數字不得渲染、有效現貨／provider 序列不受影響、重複執行冪等，以及財報 pending 標籤。已加入 workflow deterministic self-tests。
+- Workflow push build run `44899645332`（commit `c8f4bc4fadb7c4daec9220752d8ca4e9eef68724`）已觸發，目的為真正執行 11/23 Monday fixture build、artifact validator、Playwright interaction smoke 及 1440/768/412/390/360/320 視覺回歸；本次記錄時狀態仍 pending，尚無測試結論。
+- 本輪尚未解除原稽核列出的母版 DOM/CSS 注入、週一收折 summary 重建、Fed 區塊重建及完整雙母版 DOM diff blocker；在 run 完成並逐項修正前，Builder 不可核定為 SIM-1.4 唯一入口。
+- main、正式母版、Manifest、正式首頁及正式行事曆 JSON 均未修改。
