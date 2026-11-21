@@ -2153,13 +2153,36 @@ def main():
             old_card.decompose()
         for x in items:
             if earnings_groupkey(x) == "published":
-                grid=details.select_one(".earnings-results-grid")
-                update_actual_results_grid(grid,x)
+                if not published_template_html:
+                    raise ValueError("published earnings require an approved mother results-card prototype")
+                card=BeautifulSoup(published_template_html,"html.parser").select_one("details.earnings-accordion")
+            else:
+                card=BeautifulSoup(earnings_template_html,"html.parser").select_one("details.earnings-accordion")
+            if card is None:
+                raise ValueError("Frozen earnings mother prototype could not be parsed")
+            day,clock=dateparts(x.get("date",""))
+            if not x.get("time_known",False):
+                clock="時間未確認"
+            session_label=("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")
+            clock_label=("電話會議 "+clock if x.get("time_type")=="call_time" else clock)
+            fields=[
+                (".earnings-us-date",day),
+                (".earnings-tw-date",session_label+"；"+clock_label),
+                (".earnings-company-name",x.get("company","")),
+                (".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),
+                (".earnings-stars",startext(x)),
+            ]
+            for sel,val in fields:
+                node=card.select_one(sel)
+                if node:
+                    set_text(node,val)
+            details=card.select_one(".earnings-accordion-details")
+            if details is None:
+                raise ValueError("earnings card detail container missing")
+            if earnings_groupkey(x) == "published":
+                update_actual_results_grid(details.select_one(".earnings-results-grid"),x)
                 update_published_earnings_detail_fields(details,x,clock)
             else:
-                # Keep the selected mother prototype's existing detail-field
-                # wrappers; the Monday shell has one slot and the weekday shell
-                # has five. All forecast/source content is written into those slots.
                 timing_value=("時間待核實" if not x.get("time_known",False) else clock)
                 update_upcoming_earnings_detail_fields(
                     details,x,day,clock,session_label,timing_value
@@ -2201,8 +2224,10 @@ def main():
                 raise ValueError(f"published earnings value rows must be exactly 實際/預期 once each: {ticker}; {row_labels}")
         direct_fields=published_details.find_all("div", class_="earnings-detail-field", recursive=False)
         required_labels={label.get_text(" ",strip=True) for field in direct_fields for label in field.find_all("label", recursive=False)}
-        if not {"財報判讀","股價當日表現","來源"}.issubset(required_labels):
-            raise ValueError(f"published earnings card missing required sections: {ticker}; {sorted(required_labels)}")
+        monday_labels={"財報判讀","股價當日表現","來源"}
+        weekday_labels={"公布時段","EPS 預估／實際","營收預估／實際","財報判讀與股價反應","資料來源"}
+        if not (monday_labels.issubset(required_labels) or weekday_labels.issubset(required_labels)):
+            raise ValueError(f"published earnings card missing required mother sections: {ticker}; {sorted(required_labels)}")
     published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                        for n in published_group.select(".earnings-company-sub")}
     if published_expected_tickers != published_tickers:
