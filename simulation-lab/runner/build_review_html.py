@@ -424,8 +424,6 @@ def earnings_status_label(item, metric, state):
         "beat": "優於預期",
         "miss": "低於預期",
         "inline": "符合預期",
-        "incomparable": "比較口徑不相容",
-        "consensus_divergent": "市場共識來源分歧",
     }
     if state == "pending":
         if item.get("status") == "pending_verification":
@@ -436,10 +434,8 @@ def earnings_status_label(item, metric, state):
         )
         actual, estimate = item.get(actual_key), item.get(estimate_key)
         if actual not in (None, "") and estimate in (None, ""):
-            return "預期資料尚未取得"
+            return "比較資料尚未齊備"
         return "尚未公布"
-    if state == "incomparable" and item.get(f"{metric}_estimate_basis_code") in (None, ""):
-        return "預期口徑未揭露，暫不判定"
     return labels.get(state, "尚未公布")
 
 
@@ -454,8 +450,6 @@ def earnings_commentary(item):
         "miss": "低於預期",
         "inline": "符合預期",
         "pending": "尚未公布",
-        "incomparable": "比較口徑不相容",
-        "consensus_divergent": "市場共識來源分歧",
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
@@ -1759,7 +1753,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
-                    state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                    state = comparison if comparison in ("beat","miss","inline","pending") else "pending"
                     metric_key = "eps" if label == "EPS" else "revenue"
                     status_text = earnings_status_label(x, metric_key, state)
                     # The single TAC engine has already persisted the numerical comparison; render its result only.
@@ -1990,7 +1984,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
                         ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                         ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
-                        state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                        state = comparison if comparison in ("beat","miss","inline","pending") else "pending"
                         metric_key = "eps" if label == "EPS" else "revenue"
                         status_text = earnings_status_label(x, metric_key, state)
                         # The single TAC engine has already persisted the numerical comparison; render its result only.
