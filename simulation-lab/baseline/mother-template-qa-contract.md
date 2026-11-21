@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.14 DRAFT（2026-11-22｜同步最新母版 SHA／結構統計及商品歷史收市價契約；尚未生效）
+版本：1.15 DRAFT（2026-11-22｜同步財報共識來源順位與首筆採用原則；尚未生效）
 定位：SIM-1.4 DRAFT 的候選唯一詳細 QA 附件；只有 SIM-1.4 經使用者明確核准生效後，本契約才作為其執行附件。此檔不獨立生效、不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -320,3 +320,14 @@
 - CI 需安裝 Noto CJK 字型並驗證 Noto Sans TC 的 fontconfig 解析結果。
 - Playwright 需確認繁體中文字型可用後才截圖；方框缺字截圖不得列為有效視覺驗收證據。
 - 本版本仍為 simulation QA Contract DRAFT；SIM-1.4 未經使用者核准前不生效。
+
+
+## D.3 財報共識來源選用 Gate（SIM-1.4 v1.15 DRAFT）
+
+- [ ] 固定順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。
+- [ ] EPS 與 Revenue 分別選源；每一指標只要取得同公司、同財報期間的第一筆有效數值，即採用並停止該指標後續來源搜尋。
+- [ ] 不得為已採用的數值繼續查低順位來源交叉核對；低順位來源不得覆蓋或改寫已採用值。
+- [ ] PIT 快照、供應商 data-as-of、分析師人數、完整 GAAP／Adjusted／Basic／Diluted 揭露、raw archive ref、統計名稱等屬可選證據欄位，不是預估值採用 Gate。
+- [ ] 同公司、同財報期間是採用必要條件；來源未揭露部分欄位時保留數值並註記未揭露，不得因此改標「未取得」。
+- [ ] EPS 與 Revenue 獨立 fallback；例如 Yahoo 有 EPS、無 Revenue 時，EPS 鎖定 Yahoo，Revenue 才繼續查 Investing.com。
+- [ ] 來源查詢紀錄只保留實際查過的來源與停止原因；不得虛構未查詢來源的查核結果。
