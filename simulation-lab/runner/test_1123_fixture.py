@@ -154,6 +154,15 @@ def main():
     assert "--key-levels-live" not in workflow
 
 
+    weekday = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
+    weekday_health = weekday["earnings_health"]
+    for field in ("as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct", "blended_eps_yoy",
+                  "blended_revenue_yoy", "eps_surprise", "forward_pe", "mag7_eps_growth",
+                  "other_493_eps_growth", "source_url"):
+        assert str(weekday_health.get(field, "")).strip(), ("weekday FactSet field missing", field)
+    assert weekday_health["mag7_eps_growth"] == "待核實"
+    assert weekday_health["other_493_eps_growth"] == "待核實"
+    assert "111326.pdf" in weekday_health["source_url"]
     print("PASS: 11/23 fixture contract")
     print(f"PASS: 44 market indicators = {counts}")
     print("PASS: 5 focus news + 10 headlines; source timezones, updates and links complete")
