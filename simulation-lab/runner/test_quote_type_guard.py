@@ -29,16 +29,20 @@ def test_contract_month_stays_in_source_metadata_not_product_label():
         '<b><a href="https://old.example">WTI 原油期貨（CLF27（2027年1月））</a></b>',
         "html.parser",
     ).a
+    quote_source = {"url": "https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html"}
+    instrument_url = "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
     changed = update_contract_link_label(
         link,
         "CLF27（2027年1月）",
-        {"url": "https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.html"},
+        quote_source,
+        instrument_url,
     )
     assert changed is True
     assert link.get_text(" ", strip=True) == "WTI 原油期貨"
     assert "CLF27" not in link.get_text(" ", strip=True)
     assert "2027年1月" not in link.get_text(" ", strip=True)
-    assert link["href"].startswith("https://www.cmegroup.com/")
+    assert link["href"] == instrument_url
+    assert quote_source["url"].startswith("https://www.cmegroup.com/")
     assert link["target"] == "_blank"
     assert "noopener" in (link.get("rel") if isinstance(link.get("rel"), list) else str(link.get("rel", "")).split())
 
