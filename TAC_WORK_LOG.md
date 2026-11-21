@@ -2516,3 +2516,10 @@
 - Clause disposition 最新 SHA：`53f227f6cdb3d0e94443593b6067ab5fb1b4b09f`；Builder audit 最新 SHA：`2c385694fa8d4b76d7ef5c3d1bc4d126121ddb62`。
 - 既有 build `44914993653` 使用更早 candidate rules SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e`，不能作為目前 `f585c0e...` 規則版本的 build QA 證據；需在最新規則凍結後重跑 Monday／Weekday 同 SHA。
 - SIM-1.3 仍有效；SIM-1.4 DRAFT 未核准；main、正式首頁、正式母版及 main 行事曆 JSON 未修改。
+
+
+## 2026-11-21｜QA Contract v1.9 DRAFT 同步與雙版本 provenance 更正
+
+- 將 simulation 候選 QA Contract 從 v1.8 DRAFT 更新為 v1.9 DRAFT，blob SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`。新增商品合約連結直接開頁核對、商品顯示名稱不帶月份、上漲紅／下跌綠、中文名稱／代碼層級、五星／四星標題色彩、禁止恢復已刪除膠囊、工具泡泡與呼吸燈獨立驗收，以及已公布財報雙卡 DOM／CSS 一致性。
+- 舊 build run `44914993653` 使用 candidate rules SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e` 及 QA Contract SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`；目前候選文件已更新為 SIM-1.4 DRAFT `f585c0e08e1075d760c91a5f0eab79a408ca9e45`、QA Contract v1.9 `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`。
+- 因此既有 PASS 不可視為最新候選文件組合的驗收。需在最新 rules／QA Contract 凍結後，以同一 Builder SHA／Manifest SHA 重跑 Monday 與 Weekday，並核對兩份 sidecar provenance。
