@@ -1741,3 +1741,11 @@
 - Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；週一 simulation 母版 `simulation-lab/baseline/monday-mother-template.html` SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8` 與 Manifest／QA契約一致；QA契約 SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
 - 母版完整內容已由 GitHub 連接器取得（354,764字元），但目前工具環境無真正 DOM parser／瀏覽器可用。GitHub connector僅提供文字讀寫，無DOM執行；raw下載及web raw fetch均失敗。不得以regex／字串切片違反QA契約A2.5。
 - 依第五步規定，無法安全進行 DOM 更新，故不產生審核HTML、不執行或虛報QA、不寫入main preview。此為明確技術阻塞，不代表資料內容階段失敗。待取得DOM parser執行能力後恢復第五步。
+
+
+## 2026-11-21｜接手路徑與DOM能力更正
+- 撤銷先前「simulation-lab/TAC_SESSION_STATE.md、TAC_WORK_LOG.md 不存在」的錯誤結論。兩份檔案實際位於 simulation branch 根目錄，原 blob SHA 分別為 Session State `68ea92d9194065fc6132bd5d4a3940d21e5b2ca6`、Work Log `8bef79fae891e2df50062ebed2c8c99fe6293f42`；已成功讀取。
+- 撤銷先前「目前環境無 DOM parser」的錯誤結論：Python runtime 可載入 BeautifulSoup 4.14.3、lxml 6.1.1。當前剩餘問題是 GitHub connector 取得的完整母版如何進入本地 DOM runtime；尚未用 regex／字串切片替代，也未使用舊 assembler。
+- 接手時 branch HEAD `892e89abe58965b99f1e4f78839e9f50238b52cf`。SIM-1.3／Manifest／Monday mother／QA Contract SHA 維持 `679eae7ba7a40dbad64d15bb448fe53db7d67e09`／`dc6090c895e2abc17bb16225f4a581ddee5821b1`／`1ac39d50b138e59f4aabf55fc68560ee277ba6f8`／`331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- 階段狀態依既有證據：Phase 1–4 有工作紀錄；Phase 2 的 44/44 為全部欄位均有登記，並非全部主要來源已核實；Phase 5 未產生 HTML、未執行 QA；Phase 6 未交付。W47/W48 main JSON 僅讀未寫。
+- 本次未修改母版、Manifest、QA Contract、main index、main preview 或行事曆 JSON。
