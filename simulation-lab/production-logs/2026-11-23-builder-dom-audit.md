@@ -77,3 +77,12 @@
 - Builder commit `168c389873dc91a67212237446cfc6b8320ee809`；Builder blob `f96d5d7cdcc1029b3bcd99ed3979303627d36d9b`。
 - Regression test commit `b583fda68a6724d75514b9677e37302d4e5e128a`；CI run `44913183956` success（compile + deterministic tests）。
 - 現在重新執行 2026-11-23 Monday full build，以驗收實際 HTML、DOM、互動及桌面／手機視覺；未完成前不宣稱畫面修正已交付。
+
+
+## 2026-11-21｜三項審核版缺陷修正（第二輪）
+
+1. **商品名稱連結與報價來源拆分：** 新增 `instrument_url`，WTI／Brent／黃金 GC／白銀 SI 名稱連結指向對應 Investing.com HK 合約歷史頁；`source.url` 保留實際報價證據來源（CME／Investing），避免把行情來源冒充商品頁。
+2. **財報卡星等樣式：** 原 Builder 複製第一張五星彩卡後，只更新星號文字，未同步移除 `five-star-earnings`／`five-star-company` class，造成四星公司仍套用五星外觀。新增依實際 TAC 星等同步 class。
+3. **行事曆分頁順序／空白文案：** 原 Builder 在逐組處理時將 group append 回 panels，空組 continue 留在原位，導致 DOM 次序錯亂；且只刪除 details 卡，未清除舊 empty-state 文字。現改為保留母版原始三組順序、清除 list 內舊文字／舊卡片，空組保留正確 empty-state。分類統一依明確發布狀態及 Asia/Taipei 報告截點判斷；未到截點的 pending_verification 不得提前歸入已公布。
+4. 新增 regression tests：商品連結與報價來源分離、4／5 星 class、日期／狀態分類、清除過期空白文案；並加入輸出 DOM 三分頁順序驗證。
+5. 所有修改只在 simulation branch，未修改母版、main 行事曆 JSON 或 main/index.html。待完整 Builder／DOM／視覺 QA 通過後，再更新 main 同日 preview。
