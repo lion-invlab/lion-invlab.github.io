@@ -95,7 +95,7 @@ def main():
     nvda = previous_earnings["events"][0]
     assert nvda["ticker"] == "NVDA"
     assert nvda["eps_actual"] == 2.7 and nvda["revenue_actual"] == 115.8
-    assert "-2.89%" in nvda["price_reaction"]
+    assert "2.89%" in nvda["price_reaction"] and "下跌" in nvda["price_reaction"]
     assert nvda["price_reaction_source"].startswith("https://")
 
     assert len(data["last_week_economic_overrides"]) == 6
