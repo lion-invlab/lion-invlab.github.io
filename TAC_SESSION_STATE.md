@@ -3383,3 +3383,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - SIM-1.4 尚未 REVIEW_READY：兩份 sidecar 均記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`，唯一剩餘項目是使用者明確核准候選 Builder 路徑與 SHA，並核准 SIM-1.4 草案生效。不得代替使用者批准。
 - 兩份審核版及 QA sidecar 僅存在 simulation branch；main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改，Pages 未部署。
 - 下一步：向使用者交付 11/23 審核版檔案與 QA 證據，並提供 SIM-1.4 主文／Builder 的核准摘要。若要取得 Pages 可直接預覽的網址，需依有效規則另行取得 main/preview 寫入授權；不得把 simulation branch 的 HTML 誤稱為已部署的線上預覽。
+
+
+## 最新狀態錨點｜2026-11-22｜11/23 審核版已寫入 main/preview，Pages workflow 成功
+
+- 11/23 同版雙母版驗證已完成：Monday run `44955333627`、Weekday run `44955117611` 均 completed／success；兩份 QA sidecar 均 QA_PASSED、review_ready=true、data_review_ready=true、content_analysis_gate=PASS、review_ready_blockers=[]。
+- 兩個日期使用完全相同的 Builder SHA `036d9ab838a1b4e461de52cadf6c33a8d6236758`、Manifest SHA `5080858c6720847086b7df815432d305d6231b3a`、QA Contract SHA `86e13a2a3ee9a186fa7d4f2c29209e4b41d0bfbd`、active SIM-1.3 SHA `116ebb0a6401321148a878fe20c9504df7ce37f7`、candidate SIM-1.4 SHA `371554033cd33efb76062827bc6b340e16f28bc2`。候選 Builder 依 SIM-1.4 §8.1 標記 CANDIDATE_VALIDATED。
+- 依 active SIM-1.3 第 0 節及第六步審核版例外通道，使用者本次明確要求完成審核版，故已將唯一 11/23 QA-passed HTML 寫入 main `preview/2026-11-23-simulation.html`。Commit `8654fde50761404ec63a56178f224c4dbf41eff5`，blob SHA `7b04a02edb35a3f90298394faeeb73c204f326a8`；來源為 simulation branch 同 blob。Commit API 確認只改此一個 preview HTML，沒有修改 `index.html`、母版、Manifest 或正式行事曆。
+- Pages workflow run `44955528272`（Deploy site and TAC previews）completed／success。預定 Pages URL：`https://lion-invlab.github.io/preview/2026-11-23-simulation.html`。本輪 web 讀取工具對網站回應兩次均回 Internal Error，無法獨立實測頁面實際載入；因此記錄為「GitHub Pages 部署 workflow 成功；Pages 實際頁面載入未能由本工具驗證」，不得宣稱已目視確認線上畫面。
+- SIM-1.4 仍為 DRAFT；兩份 sidecar 均記錄 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。雙母版候選 Builder 技術驗證已完成，尚待使用者明確核准 SIM-1.4 主文及 Builder 唯一路徑／SHA。正式首頁 `index.html` 未修改。
