@@ -2,7 +2,7 @@
 #!/usr/bin/env python3
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
-import argparse, hashlib, json, re, sys, subprocess
+import argparse, copy, hashlib, json, re, sys, subprocess
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
@@ -57,7 +57,7 @@ def populate_fed_weekly_agenda(soup, data):
         status = str(event.get("status", "upcoming")).lower()
         status_label = "已發表" if status in {"released", "published", "completed"} else "預定"
         date_label = f"{status_label}｜{event_date.month}/{event_date.day} {['一','二','三','四','五','六','日'][event_date.weekday()]} {event_date:%H:%M}"
-        row = prototype.__copy__()
+        row = copy.deepcopy(prototype)
         row.attrs = {key: list(value) if isinstance(value, list) else value for key, value in prototype.attrs.items()}
         row["class"] = [name for name in row.get("class", []) if name != "fc-fomc-weekly-event-template"]
         row["class"].append("fc-fomc-weekly-event")
