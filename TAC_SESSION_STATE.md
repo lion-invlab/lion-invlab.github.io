@@ -2615,3 +2615,10 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 已直接核對 Federal Register 2026-11-19 IFR（91 FR 74970，FR Doc 2026-23529），生效日為11/19。其實際規則是針對特定先進SI半導體出口／再出口／境內轉移，以及向Macau／Country Group D:5總部企業提供重大算力的海外資料中心遠端存取許可要求；另對印尼、馬來西亞、新加坡、泰國、巴西等目的地設有特定先進晶片許可要求。這與Trump所稱對海外資料中心建設課「tremendous tax」是兩件事，不可混為一談。來源 https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm 。
 - Focus Taiwan／CNA 10月外銷訂單原文已開啟，11/20 20:26 Taipei發布：總額US$123.82bn、年增78.3%、連續第21個月成長；ICT產品+107.2%至US$46.77bn、電子產品+89.8%至US$53.91bn、機械+36.3%；11月預估US$115–118.7bn。這是AI供應鏈需求的正面基本面證據，但不抵銷估值、融資與股價風險。URL https://focustaiwan.tw/business/202611200021 。
 - Phase 4內容調整：Global Focus第4則台灣外銷訂單候選保留；Trump海外資料中心議題改用Reuters原文為首要來源，並以Federal Register IFR補充區分「已生效的先進晶片／遠端算力出口管制」與「尚未具體化的海外建置課稅表態」。新聞時間窗仍未封口，待11/23 05:25前最後增量更新。
+
+
+## 2026-11-21｜母版本機 DOM／Chromium 執行環境驗證
+- 以實際交付檔 /mnt/data/tac-mother-transfer/monday-mother-template.html 執行 lxml 解析：2040 HTML elements、183 IDs、25 scripts、124 styles；Git blob SHA仍與Manifest 1ac39d50b138e59f4aabf55fc68560ee277ba6f8完全一致。
+- Playwright + /usr/bin/chromium 對原始母版使用 page.set_content 載入成功，document title正確，pageerror=0；360、390、412、768、1440五種寬度均無水平溢位（documentElement.scrollWidth等於viewport width）。實際操作亞洲市場tab可切換，經濟行事曆details可展開。
+- 直接 file:// 導航遭執行環境 ERR_BLOCKED_BY_ADMINISTRATOR；改用 Playwright set_content 將原始HTML載入同一Chromium context，已成功完成上述測試。此結果僅證明母版可在本機DOM／瀏覽器環境載入及互動，不等於11/23輸出QA通過。
+- 目前可進入母版DOM更新工作；最終四類QA仍須對完整11/23輸出執行。Phase 4新聞時間窗未封口，不得提前交付最終審核版。
