@@ -161,8 +161,13 @@ def main():
         core_callout = require_one(
             view, ".focus-panel.focus-core > .callout", label + " core observation callout"
         )
-        if len(core_callout.find_all("b", recursive=False)) != 1:
-            raise ValueError(f"{label}: core observation heading slot missing or duplicated")
+        expected_core_headings = 1 if args.template == "monday" else 5
+        actual_core_headings = len(core_callout.find_all("b", recursive=False))
+        if actual_core_headings != expected_core_headings:
+            raise ValueError(
+                f"{label}: core observation heading slots {actual_core_headings} != "
+                f"the {args.template} mother contract ({expected_core_headings})"
+            )
         # Earnings cards are repeated data rows, but each row must be cloned from
     # the correct mother prototype and populated through its existing slots.
     def earnings_prototypes(soup, template_label):
