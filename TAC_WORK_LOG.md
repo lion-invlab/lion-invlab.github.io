@@ -1932,3 +1932,13 @@
 - IMF《Global Markets Monitor — November 20, 2026》可作官方跨市場背景來源；本輪擷取摘要含中國人民銀行中間價、人民幣與中國股市／ETF資金流動資訊。PDF：https://www.imfconnect.org/content/dam/imf/News%20and%20Generic%20Content/GMM/archive/GMM%20November%2020%2C%202026.pdf。需逐頁定位後才可引用具體數值。
 - 11/21 MacroMicro日報指出AI賣壓拖累全球股市、債券上漲，並整理美國消費者信心、通膨預期、日本核心CPI等；屬二級彙整來源，不取代官方統計。來源：https://en.macromicro.me/quickie?id=67。
 - 新聞窗口仍未封口；上述屬候選與交叉查核，不直接視為已完成5則焦點／10則頭條。不得把未核時區或二級來源改寫成已核實原始事實。
+
+
+## 2026-11-21｜接手續作：SIM-1.3／母版與新聞增量覆核
+- 重新 fetch 模擬區唯一 WR：SIM-1.3，blob SHA `679eae7ba7a40dbad64d15bb448fe53db7d67e09`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA Contract SHA `331b4bdfe318462e15cae8ae4cd31c32815960d7`。
+- 重新核對 Manifest 登記的 Monday simulation baseline：`simulation-lab/baseline/monday-mother-template.html` 實際 Git blob SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`，與 Manifest 完全一致；後續不得使用舊工作稿或 Library 中 SHA 為 main 母版 `a568e594...` 的副本替代。
+- 重新讀取最新 Session State／Work Log；確認 CNN 官方截圖讀值已於本日更新為 10/100 Extreme Fear（頁面更新時間 2026-11-21 07:59:52 Asia/Taipei），覆蓋舊的 CNN 待核狀態。已撤銷的 DOM 破壞稿不得作為後續修補基底。
+- 新增原始新聞查核：Reuters 原文〈The snowballing selloff in global markets〉發布 2026-11-20 15:12 UTC，折合台灣時間 11/20 23:12；報導指出全球股票市值自8月高點蒸發近US$9T、台股單週跌約17%、VIX週五觸及30、MOVE仍低於前月高點、美10年債殖利率本週下跌17bp、美元指數升至19個月高位。原文：https://www.reuters.com/business/energy/global-markets-selloff-2026-11-20/ 。
+- IMF《Global Markets Monitor — November 20, 2026》已讀取：頁1明確指出全球股市連跌第七日、科技股下跌與AI估值憂慮、10年期美債殖利率跌破5%；頁2後續通膨與能源指標可供交叉背景，不將其混作本次11/20收盤值。來源：https://www.imfconnect.org/content/dam/imf/News%20and%20Generic%20Content/GMM/archive/GMM%20November%2020%2C%202026.pdf 。
+- CNA／Focus Taiwan 11/20 17:40報導：台股收36,033.29，當日-6.23%，全週-17.5%，為1990年代初以來最差週表現之一；可用於台灣市場熱門頭條。來源：https://focustaiwan.tw/business/202611200015 。
+- 狀態未變更：第三步事件篩選已完成但尚未映射完整HTML；第四步新聞窗口仍開放至2026-11-23 05:25 Asia/Taipei，不能提前標記封口；第五步尚未交付。此輪只完成來源覆核，未宣稱 HTML 已完成或 QA 通過；未修改 main、行事曆 JSON、正式母版或首頁。
