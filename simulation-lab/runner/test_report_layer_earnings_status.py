@@ -79,12 +79,15 @@ def main():
     postponed = dict(EVENT, event_date="2026-11-19T09:00:00+08:00", status="postponed", time_known=True)
     assert classify_calendar_group(postponed, "2026-11-20", "2026-11-20 05:25") == "upcoming"
     assert postponed["_calendar_publication_state"] == "postponed"
-    assert earnings_status_label(postponed, "eps", "pending") == "已延期／改期後續公布"
+    assert earnings_status_label(postponed, "eps", "beat") == "已延期／改期後續公布"
+    assert "財報已延期" in earnings_commentary(postponed)
 
     cancelled = dict(EVENT, event_date="2026-11-20T07:00:00+08:00", status="cancelled", time_known=True)
     assert classify_calendar_group(cancelled, "2026-11-20", "2026-11-20 05:25") == "upcoming"
     assert cancelled["_calendar_publication_state"] == "cancelled"
-    assert earnings_status_label(cancelled, "eps", "pending") == "已取消"
+    assert earnings_status_label(cancelled, "eps", "beat") == "已取消"
+    assert "已取消" in earnings_commentary(cancelled)
+    assert "優於預期" not in earnings_commentary(cancelled)
     assert calendar_actual_display(cancelled, "2026-11-20 05:25") == "已取消"
 
     late = fixture(event_date="2026-11-20T06:00:00+08:00")
