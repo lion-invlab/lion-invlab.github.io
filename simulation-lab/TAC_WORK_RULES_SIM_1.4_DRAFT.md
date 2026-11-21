@@ -329,8 +329,8 @@
 
 **抽取基準**
 - Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `1496a510d144d340c41b642592675233d5bd2917`。
-- Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。
-- Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `36f29bcb37816348756f9233b60f0429d675a76e`。
+- Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
 - 下表以兩份 SHA 鎖定 simulation baseline 的實際 HTML anchor／href 抽取。兩份母版使用相同的 44 欄位類型、名稱及固定連結；17 項全球指數順序一致。11 檔 ETF 的示範排名順序在兩份母版不同（母版內是不同日期的示範漲跌排序），每日必須按當日核實漲跌幅重新排序，不得沿用任一母版的示範排名。
 
@@ -420,7 +420,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `26bb1dc456185069753d1c6b9cfa038e97875913`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（SHA `bc070c8b90c2fd99290abbee578c73b1cce5c578`）的 SHA 綁定 selector 與巢狀契約為唯一詳細依據。該契約已在 simulation branch 更新為 v1.5 DRAFT，明確標示僅為 SIM-1.4 候選附件，尚未生效；新 SHA 已鎖定。該契約另明定四種財報狀態與 Yahoo／Investing 來源順位。main `母版專區/母版結構驗收清單.md` v1.3 僅作正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。每次組裝核對母版 SHA、主要區塊錨點唯一、週一專屬區塊存在／平日禁止存在、ID 唯一、CSS／JS 數量及內容、tabs／radio／details、事件卡結構、新聞與行情活頁、手機與桌面互動。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -445,7 +445,7 @@
 | 第六步發布 | 0、9、11 | 重寫；定版綁定 SHA，QA 豁免不得偽裝通過 |
 | J 與所有歷史補充條文 | 本附錄 E／版本紀錄 | 移至歷史，不再當有效規則 |
 
-### 尚待實證，不得假裝已解決
+### 歷史狀態紀錄（以下為後續實證前的歷史快照，不代表目前狀態）
 1. 44 項母版欄位已依兩份 SHA 鎖定母版抽取名稱、定位及固定 href，詳見 A1.1；尚未完成的是每日 44 筆實際行情核對及現貨／CFD來源驗證。
 2. Builder 唯一入口尚未核准；build_review_html.py 靜態稽核發現新增 CSS、重建 Fed 區塊、改寫週一收折 DOM，且行情來源檢查未拒絕 CFD quote_type 等不相容風險。GitHub Actions run 44897956591 的 Python compile、Node syntax checks 與 deterministic self-tests 已通過，但未執行 HTML build／DOM diff／Playwright；稽核報告：simulation-lab/analysis/SIM-1.4-builder-compatibility-audit.md。通過母版相容性測試及使用者核准前，不得作唯一入口。
 3. QA Contract 與母版 SHA 的相容性已完成靜態對照；Manifest 正式 SHA 與 simulation SHA 均登記一致，QA Contract 已更新為 v1.5 DRAFT 並修正舊 SIM-1.2 引用。兩組母版 ID 集合、style/script 數量一致；DOM／視覺測試尚未執行。報告：simulation-lab/analysis/SIM-1.4-qa-contract-compatibility.md。
@@ -555,3 +555,34 @@
 - 因兩個完整 build 均通過，前文「尚未完成 build／DOM diff／Playwright／六 viewport」僅是當時歷史狀態，不再代表最新狀態。Builder 已具備兩種母版的實際組裝與 QA 證據；但尚未完成報告截稿前情緒／FedWatch刷新，因此不可把週一審核版標為 REVIEW_READY。
 - 2026-11-21 20:33 Asia/Taipei 重新讀取 VIX／MOVE／FGScore CNN Provider Index／Investing.com Fed Rate Monitor，數值與來源時間未見更新：VIX 35.89、MOVE 106.31（均為11/20收盤）；FGScore CNN Provider Index 10（as of 11/20 UTC）；FedWatch 12/09/2026 hold 13.6%、升息25bp 86.4%，Updated Nov 21 00:35 EST（台灣13:35）。最後截稿刷新仍待11/23 05:25前執行。
 - main首頁、正式母版及正式行事曆JSON保持唯讀；SIM-1.4仍是DRAFT，未生效。
+
+
+## 2026-11-21｜完整雙母版 Build 後的規則一致性稽核（仍為 DRAFT）
+
+### 已由後續實證更新的歷史狀態
+- 本文前段及舊紀錄中「尚未執行 HTML build／DOM／Playwright／六視窗 QA」均是當時狀態，已由 2026-11-21 20:33 的兩次完整 build 更新，不得再當成目前狀態。
+- Monday 2026-11-23：Actions run 44904316843 success；HTML build、母版結構契約、artifact/provenance、44 項／行事曆／新聞契約、Playwright interaction smoke、1440／768／412／390／360／320 六視窗視覺 QA 通過。QA_PASSED；review_ready=false，僅剩 VIX／MOVE／CNN Fear & Greed／FedWatch 截稿前刷新。
+- Weekday 2026-11-20：Actions run 44902986319 success；相同類別 build／QA 通過。QA_PASSED；sidecar 的資料型 review_ready=true。
+- 上述 build 已證明候選 Builder 可在週一及平日 fixture 產生 HTML；不等於候選 Builder 已依本章 8.1 取得「唯一 Builder」核准，也不等於 SIM-1.4 已生效。
+
+### 最新規則／資產 SHA
+- SIM-1.3（目前有效規則）blob SHA：`679eae7ba7a40dbad64d15bb448fe53db7d67e09`。
+- 本草案 SIM-1.4 blob SHA：以本次 commit 回讀值為準。
+- Simulation Manifest SHA：`1496a510d144d340c41b642592675233d5bd2917`。
+- QA Contract v1.6 DRAFT SHA：`bc070c8b90c2fd99290abbee578c73b1cce5c578`。
+- Monday simulation mother SHA：`36f29bcb37816348756f9233b60f0429d675a76e`；Weekday：`19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。附錄 A1.1 與 QA Contract A2.1 已同步這兩個目前 SHA；正式母版 SHA 仍各自獨立，不得混用。
+
+### 仍未通過的 SIM-1.4 規則／技術 Gate
+1. **Builder 尚未取得唯一入口核准。** 目前候選檔為 `simulation-lab/runner/build_review_html.py`，blob SHA `b36ae1ba2b3fd3dfbde577fb6df6ea926333b3fc`。兩種母版 build 通過只是技術實證；依 8.1，仍須完整提交差異白名單、負向案例、CLI／副作用報告，並由使用者明確核准此路徑與 SHA。
+2. **Build provenance 尚未滿足 8.2。** 現行 `TAC_BUILD_PROVENANCE` 有 report date、build commit、template、fixture、builder、calendar SHA，但未記錄 Manifest SHA、QA Contract SHA、SIM-1.3 active rules SHA 及 SIM-1.4 candidate rules SHA；`validate_review_artifact.py` 亦未驗證這四項。現有 build 不可宣稱已通過完整規則／資產 provenance Gate。
+3. **Sidecar 的 review_ready 定義尚未與 SIM-1.4 對齊。** workflow 目前主要依 fixture 的 `review_ready_blockers` 計算布林值；它沒有納入 Builder 唯一入口核准狀態。因此 weekday sidecar 的資料型 `review_ready=true` 不可直接解讀為 SIM-1.4 Stage 5／Stage 6 的 REVIEW_READY。
+4. **DOM 比對範圍必須精確命名。** `validate_mother_dom_contract.py` 目前逐項比對 style／script 節點與內容、ID inventory，以及總結段落、FOMC observation、Fed agenda wrapper、工具欄、週一收折 summary 等指定穩定節點；它不是全頁逐節點完整 DOM diff。六視窗視覺與 Playwright 通過不會自動補足未比較的 DOM 範圍。
+5. **DOM 寫入白名單仍需補齊。** `scripts/tac_html_binding_map.json` 宣告 `mutate_only_text_nodes=true`、`preserve_element_tree=true`、`preserve_attributes=true`；候選 Builder 實際包含清空／重建部分內容節點、來源欄位子節點重建、事件原型 clone、排序與動態卡片產生。必須逐 selector 說明哪些是核准動態槽位、哪些操作合法，並裁決 binding map 是需同步更新的有效契約或已退役的舊附件；不可讓兩份契約互相矛盾。
+6. **Fed 官員行程必須保留。** 候選 Builder 現在使用母版既有 `.fc-fomc-weekly-event-template` clone，更新既有 list，保留外層 wrapper／title／empty-state；此項有兩種母版 build 與 DOM contract 測試證據。後續修正不得移除 Fed 官員週行程，也不得清空重建 Fed 外層區塊。
+7. **週一上週收折外層必須保留。** 動態事件清單可依核准槽位更新，但 `details.last-week-calendar-collapse`、`details.last-week-earnings-collapse` 及其 summary 必須保持母版結構與預設收折狀態。
+
+### 下一個實作順序
+1. 先補 Builder 的 provenance 欄位及獨立 validator：Manifest、QA Contract、active SIM-1.3、candidate SIM-1.4 的路徑／blob SHA 必須從 build commit 讀回核對。
+2. 再補完整 DOM write allowlist／契約一致性測試，明確界定動態卡片及來源連結槽位；擴充 DOM validator 的檢查範圍或明確限定其名稱與驗收聲明。
+3. 修正 sidecar 狀態欄位，分開 `QA_PASSED`、資料完整度、`SIM14_BUILDER_APPROVED`、`SIM14_REVIEW_READY`；Builder 未獲使用者核准前不得標示 SIM-1.4 REVIEW_READY。
+4. 兩種母版重新跑完整 build／artifact validation／Playwright／六視窗 QA；完成後提交候選 Builder SHA 與證據，等待使用者核准。SIM-1.3 持續有效，SIM-1.4 持續 DRAFT。
