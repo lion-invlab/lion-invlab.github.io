@@ -8,7 +8,8 @@
 # TAC Process Simulation Lab
 
 - Branch: `simulation/tac-process-lab-2026-11-06`
-- Unified simulation WR: `simulation-lab/TAC_WORK_RULES_SIM.md` (SIM-1.2)
+- Active simulation WR: `simulation-lab/TAC_WORK_RULES_SIM.md` (SIM-1.3; verified 2026-11-22)
+- Candidate rules: `simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md` (DRAFT only; not active until explicit user approval)
 - WR merge basis: SIM-1.1 plus the simulation-branch v5.19 rules; the root-level simulation copy `TAC_WORK_RULES.md` is retired after migration.
 - The unified simulation WR is the only authority for the 05:25 simulation report workflow. Do not read the main-branch WR as a second authority for that workflow.
 - Main calendar database: `data/calendar/weeks/YYYY-Www.json` is the single shared authoritative source. The independent 04:35 calendar automation is its only writer; the 05:25 simulation report is read-only.
@@ -17,7 +18,7 @@
 
 ## Lab layout
 
-- `simulation-lab/TAC_WORK_RULES_SIM.md`: the sole unified simulation Work Rules (SIM-1.2), including SIM-1.1 isolation/data gates and the v5.19 operational rules.
+- `simulation-lab/TAC_WORK_RULES_SIM.md`: the active simulation Work Rules (SIM-1.3); do not treat the SIM-1.4 draft as effective.
 - `simulation-lab/baseline/`: frozen simulation copies of the approved mother templates, Manifest and QA contract.
 - `simulation-lab/analysis/`: contradictions, failure taxonomy, and repair decisions.
 - `simulation-lab/fixtures/`: deterministic replay inputs and injected failures.
@@ -31,6 +32,13 @@
 3. Hybrid workflow: verified source evidence and reusable data ledger, then deterministic DOM-based template population and independent QA.
 
 Run the same fixed input set and injected failures against each candidate. Select a repair only after comparative evidence.
+
+## 2026-11-22｜11/23 審核版重建觸發
+
+- 依使用者指示，重新執行 2026-11-23（一）審核版完整 build；報告日期與 fixture 固定為 2026-11-23，行情基準日 2026-11-20。
+- 本次必須執行日期解析、main W48／W47 行事曆唯讀讀取、Builder 組裝、獨立 artifact/provenance、瀏覽器互動、雙母版結構與六種 viewport 視覺 QA；不得以 deterministic self-tests success 代替審核版完成。
+- 輸出僅限 simulation branch `preview/2026-11-23-simulation.html` 與對應 QA sidecar；不寫 main、不部署 Pages、不修改正式首頁。
+- SIM-1.3 仍是唯一有效規則；SIM-1.4 仍為 DRAFT，本次同時作為候選流程實證，不代表使用者已核准 SIM-1.4 或 Builder。
 
 ## Key-levels ownership and data contract (simulation)
 
