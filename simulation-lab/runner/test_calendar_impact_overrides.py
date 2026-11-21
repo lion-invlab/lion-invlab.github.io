@@ -5,7 +5,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_review_html import apply_calendar_impact_overrides, apply_last_week_economic_overrides
+from build_review_html import apply_calendar_impact_overrides, apply_last_week_economic_overrides, apply_last_week_earnings_actuals
 
 
 class CalendarImpactOverrideTests(unittest.TestCase):
@@ -125,6 +125,67 @@ class LastWeekEconomicOverrideTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(ValueError, "later than report cutoff"):
             apply_last_week_economic_overrides(data)
+
+
+class LastWeekEarningsActualOverrideTests(unittest.TestCase):
+    def test_applies_verified_actuals_and_keeps_comparison_pending(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_earnings": {"events": [{
+                "id": "current-rost-20261120",
+                "event_date": "2026-11-20T05:00:00+08:00",
+                "ticker": "ROST",
+                "status": "upcoming",
+                "eps_actual": None,
+                "revenue_actual": None,
+                "eps_estimate": 1.86,
+                "revenue_estimate": 6.23,
+            }]},
+            "last_week_earnings_actuals": [{
+                "event_id": "current-rost-20261120",
+                "event_date": "2026-11-20T05:00:00+08:00",
+                "ticker": "ROST",
+                "eps_actual": 1.91,
+                "eps_actual_display": "GAAP diluted EPS US$1.91",
+                "eps_actual_basis": "GAAP diluted EPS",
+                "eps_actual_basis_code": "GAAP_DILUTED_EPS",
+                "eps_actual_currency": "USD",
+                "eps_actual_period": "Q3 FY2026",
+                "revenue_actual": 6.255954,
+                "revenue_actual_display": "US$6.256B",
+                "revenue_actual_basis": "Total sales (USD billions)",
+                "revenue_actual_basis_code": "US_GAAP_TOTAL_REVENUE",
+                "revenue_actual_currency": "USD",
+                "revenue_actual_unit": "B",
+                "revenue_actual_period": "Q3 FY2026",
+                "judgment": "實際值已由公司公告核實；公告前共識缺乏有效PIT與口徑證據，不判定Beat/Miss。",
+                "actual_source": {"name": "Ross Stores official results", "url": "https://example.com/issuer-results"},
+            }],
+        }
+        applied = apply_last_week_earnings_actuals(data)
+        event = data["last_week_earnings"]["events"][0]
+        self.assertEqual(applied, 1)
+        self.assertEqual(event["status"], "released")
+        self.assertEqual(event["eps_actual"], 1.91)
+        self.assertEqual(event["revenue_actual"], 6.255954)
+        self.assertEqual(event["eps_estimate"], 1.86)
+        self.assertTrue(event["report_layer_only"])
+
+    def test_refuses_to_overwrite_authoritative_actuals(self):
+        data = {
+            "report_cutoff_taipei": "2026-11-23 05:25",
+            "last_week_earnings": {"events": [{
+                "id": "released", "event_date": "2026-11-20T05:00:00+08:00",
+                "ticker": "ROST", "status": "released", "eps_actual": 1.91,
+            }]},
+            "last_week_earnings_actuals": [{
+                "event_id": "released", "event_date": "2026-11-20T05:00:00+08:00",
+                "ticker": "ROST", "eps_actual": 1.92,
+                "actual_source": {"url": "https://example.com/issuer-results"},
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "refusing to overwrite authoritative"):
+            apply_last_week_earnings_actuals(data)
 
 
 if __name__ == "__main__":
