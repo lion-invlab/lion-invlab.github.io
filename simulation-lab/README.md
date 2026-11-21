@@ -125,3 +125,8 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 ## SIM-1.4 regression rerun 3
 
 - Fixed a test-fixture KeyError in the new selected-consensus evidence test; production logic unchanged. W48 remains untouched.
+
+
+## SIM-1.4 visual QA correction
+
+- Browser QA identified published earnings values clipped on narrow screens because the Monday mother CSS forced `white-space:nowrap` and `overflow-wrap:normal`. Updated only the simulation Monday mother to allow wrapping while retaining the existing two-column card structure; synchronized its simulation manifest SHA and regression assertion. Next full build reruns 1440/768/412/390/360/320 browser checks. W48 remains untouched.
