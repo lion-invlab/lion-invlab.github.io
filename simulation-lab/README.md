@@ -137,3 +137,9 @@ Workflow order: normalized OHLC input → `key_levels_builder.py` → `report-da
 - 前次驗收指出 Monday simulation baseline SHA 與 Manifest 欄位未對齊。已保留正式 main mother SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`，只更新 simulation_blob_sha 為 `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0`；不得將 simulation SHA 寫入正式 blob_sha。
 - 同步修正 SIM-1.4 §5.2 舊順位殘留：Investing.com 必須在 LSEG I/B/E/S、FactSet Estimates 之前。
 - 觸發重新跑母版 SHA 鎖、全套測試與 browser QA；W48 不處理。
+
+
+## SIM-1.4 QA Contract binding fix
+
+- Browser regression passed through mobile card layout, nav/accordion/source-link checks and mother-owned DOM preservation. Exact artifact validation then failed because QA Contract A2 still pinned the pre-fix Monday simulation mother SHA.
+- Updated QA Contract to v1.16 DRAFT with Monday simulation SHA `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0`; official main mother SHA remains unchanged. Updated SIM-1.4 pinned contract blob SHA accordingly. Re-running full artifact validation and persistence; W48 untouched.
