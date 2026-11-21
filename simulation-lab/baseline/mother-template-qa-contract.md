@@ -23,7 +23,7 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `3abf38e66a582089a5d16527507d39c2edbeee75` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `b89c76dd37afdc0cf8b406bfd6f06258896c829d` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
 | 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
@@ -113,7 +113,7 @@
 
 ## A3. 2026-11-22 基準同步紀錄
 
-- 已回讀 simulation Manifest：週一母版 SHA `3abf38e66a582089a5d16527507d39c2edbeee75`、週二至週五母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- 已回讀 simulation Manifest：週一母版 SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`、週二至週五母版 SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
 - 本契約 A2.1 週一 SHA 已由過期的 `36f29bcb37816348756f9233b60f0429d675a76e` 更正為 Manifest 當前值；樣式標籤數由 124 更正為實際 121。其餘結構統計維持既有基準，仍須由 `validate_mother_dom_contract.py` 及 browser QA 驗證，不以文字統計取代自動化驗收。
 
 ## B. 共用結構完整性（兩份母版均適用）
@@ -335,7 +335,7 @@
 
 ## A3.1 2026-11-22 simulation 基準漂移修復
 
-- 最新實際週一母版 blob SHA：`3abf38e66a582089a5d16527507d39c2edbeee75`。原 Manifest `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0` 與實際檔案不符，導致母版物化 Gate 正確停止。
+- 最新實際週一母版 blob SHA：`b89c76dd37afdc0cf8b406bfd6f06258896c829d`。原 Manifest `dea505a3e1c9e69c3fee2f85f214d3da0ecad3a0` 與實際檔案不符，導致母版物化 Gate 正確停止。
 - 已在 simulation branch 將 Manifest 與本契約 A2.1／A3 同步至實際週一母版 SHA；正式母版及 main Manifest 均未修改。
 - 結構統計沿用既有契約值，仍須由下一次完整 `validate_mother_dom_contract.py`、DOM contract 及 browser QA 實測確認；本次同步不代表視覺驗收通過。
 
@@ -351,3 +351,11 @@
 - 本次驗收依唯一有效主規則 `simulation-lab/TAC_WORK_RULES_SIM.md` 執行；報告日期固定為 2026-11-23，使用週一母版與對應 Fixture。
 - 本次 build 必須重新產生同一規則版本下的 HTML 與 QA sidecar；不得沿用 SIM-1.3 或升格前 Draft 的 QA 證據。
 - Builder 尚未獲使用者核准的精確 SHA 前，測試結果最高標示 CANDIDATE_VALIDATED；任何既有 renderer blocker 仍按 FAIL／BLOCKED 處理。
+
+
+## A3.2 2026-11-22｜依使用者授權修正手機版財報雙卡
+
+- 僅修改 simulation branch 的 `simulation-lab/baseline/monday-mother-template.html`，將 `@media(max-width:700px)` 中已公布財報 `.earnings-results-grid` 的單欄 `minmax(0,1fr)` 改為 `repeat(2,minmax(0,1fr))`，gap 設為 8px。
+- 新 simulation Monday mother blob SHA：`b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Manifest、A2.1 與本節同步此 SHA。原本 DOM／ID／style/script 節點數不變，仍以自動化 DOM 與瀏覽器視覺驗收確認。
+- 此變更只作用於 simulation branch。main 正式母版及正式 Manifest 完全未修改。
+- D2 財報雙卡規格不變：EPS／營收兩張實績卡於手機仍須並列兩欄；不可堆疊。
