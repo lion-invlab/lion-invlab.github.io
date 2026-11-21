@@ -2896,3 +2896,25 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 行事曆來源：main W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 fetch 回傳相同既有 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，但本次工具回傳 content 為空字串（0 bytes），尚未能解析事件內容；第三步須再確認可讀性，不沿用舊版宣稱的卡片數量。
 - 行情紀律：所有先前審核版數值均視為未繼承；只可在本次直接讀取指定來源及日期列後逐項鎖定。頁面即時摘要不等於歷史資料列；無法讀到列時記錄工具限制並依 SIM-1.3 D2-補充輪次處理。
 - 當前狀態：第一步完成；第二步進行中；第三至六步尚未完成。舊審核版、舊 QA 及舊 Pages 部署紀錄不得視為本次成果。
+
+
+### 2026-11-21｜重製第二步第一輪：全球17項歷史資料列鎖定
+- 查核目標：2026-11-20；第一輪直接開啟 SIM-1.3 D3 指定 Investing.com 香港站歷史頁，再讀取頁面內「2026年11月20日」歷史列（日期、收市、開市、高、低、漲跌幅）。下列均以歷史列為證據，不採用頁首即時摘要代替：
+  - Dow 48,147.33（-1.93%），https://hk.investing.com/indices/us-30-historical-data（Web ref turn180479view0）。
+  - S&P 500 6,910.39（-3.70%），https://hk.investing.com/indices/us-spx-500-historical-data（turn180479view1；頁面標示即時CFD序列，按SIM-1.3正常交易日大盤CFD參考規則使用，非交易所現貨成交）。
+  - Nasdaq Composite 22,617.73（-5.28%），https://hk.investing.com/indices/nasdaq-composite-historical-data（turn180479view2）。
+  - Russell 2000 2,581.79（-2.76%），https://hk.investing.com/indices/smallcap-2000-historical-data（turn148286view3/turn180479view?該頁列已讀；Investing頁標示即時CFD，需依母版欄位口徑與SIM規則註記，不冒稱現貨）。
+  - SOX 8,408.6（-10.73%），https://hk.investing.com/indices/phlx-semiconductor-historical-data（turn180479view3）。
+  - Nikkei 225 56,436.65（-5.06%），https://hk.investing.com/indices/japan-ni225-historical-data（turn180479view4；頁面標示CFD）。
+  - KOSPI 4,869.96（-5.21%），https://hk.investing.com/indices/kospi-historical-data（turn180479view5）。
+  - Taiwan Weighted 36,033.29（-6.23%），https://hk.investing.com/indices/taiwan-weighted-historical-data（turn180479view6）。
+  - STI 4,975.17（-2.05%），https://hk.investing.com/indices/singapore-straits-time-historical-data（turn485588view8）。
+  - ASX 200 8,592.60（-1.58%），https://hk.investing.com/indices/aus-200-historical-data（turn180479view7）。
+  - Shanghai Composite 3,533.79（-1.22%），https://hk.investing.com/indices/shanghai-composite-historical-data（turn485588view10）。
+  - Shenzhen Component 10,256.39（-3.09%），https://hk.investing.com/indices/szse-component-historical-data（turn485588view11）。
+  - Hang Seng 22,410.80（-1.89%），https://hk.investing.com/indices/hang-sen-40-historical-data（turn180479view8；頁面標示CFD）。
+  - FTSE 100 10,346.34（-1.02%），https://hk.investing.com/indices/uk-100-historical-data（turn180479view9；頁面標示CFD）。
+  - DAX 24,802.78（-2.60%），https://hk.investing.com/indices/germany-30-historical-data（turn180479view10；頁面標示CFD）。
+  - CAC 40 7,927.75（-1.89%），https://hk.investing.com/indices/france-40-historical-data（turn180479view11）。
+  - STOXX Europe 600 625.65（-2.00%），https://hk.investing.com/indices/stoxx-600-historical-data（turn180479view12；頁面標示CFD）。
+- 上述17項均已讀到指定日期歷史列，第一輪鎖定；不再重抓，除非後續出現具體身分／日期／口徑錯誤證據。第二步尚未結案，ETF、債券、外匯、商品及風險情緒仍待逐項處理。
