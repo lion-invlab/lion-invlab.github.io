@@ -2523,3 +2523,12 @@
 - 將 simulation 候選 QA Contract 從 v1.8 DRAFT 更新為 v1.9 DRAFT，blob SHA `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`。新增商品合約連結直接開頁核對、商品顯示名稱不帶月份、上漲紅／下跌綠、中文名稱／代碼層級、五星／四星標題色彩、禁止恢復已刪除膠囊、工具泡泡與呼吸燈獨立驗收，以及已公布財報雙卡 DOM／CSS 一致性。
 - 舊 build run `44914993653` 使用 candidate rules SHA `c5d992b71bb4359b22c266cab00b05d527bdfb0e` 及 QA Contract SHA `f6848d21286f63c4eef11682eedd8825b5fd3aad`；目前候選文件已更新為 SIM-1.4 DRAFT `f585c0e08e1075d760c91a5f0eab79a408ca9e45`、QA Contract v1.9 `28e4aa81cb795f6a82ed219375b9a2d85b822ce9`。
 - 因此既有 PASS 不可視為最新候選文件組合的驗收。需在最新 rules／QA Contract 凍結後，以同一 Builder SHA／Manifest SHA 重跑 Monday 與 Weekday，並核對兩份 sidecar provenance。
+
+
+## 2026-11-21｜使用者確認週日不刷新四項市場指標
+
+- 使用者明確指示：11/23（一）早報的 VIX、MOVE、CNN Fear & Greed、FedWatch 沿用 11/20（五）既有基準資料；週日市場未開盤，不必等待刷新。
+- 保留每項資料原始來源、資料日期及實際更新／查核時間；不得將 11/20 數值標示為 11/23 即時值。
+- 已同步更新 simulation 的 `preview/2026-11-23-simulation.qa.json`：移除四項指標「截稿前必須刷新」的 blocker，保留既有資料時間戳及其他尚未解除的審核狀態。此決策不代表整份早報 REVIEW_READY，也不代表 SIM-1.4 Builder 已獲核准。
+- QA sidecar 更新 commit：`10ac53de09c423ebe776bac79d06004609fc8c44`；新 blob：`a11337d77920b9ff683affb052df4afcb248d58d`。
+- 僅修改 simulation branch；main、正式首頁、正式母版及正式行事曆 JSON 均未修改。
