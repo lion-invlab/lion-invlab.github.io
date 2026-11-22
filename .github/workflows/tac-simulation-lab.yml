@@ -731,8 +731,21 @@ jobs:
           git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
           REVIEW_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
           EVIDENCE_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
+          AUDIT_SOURCE="simulation-lab/output/market-snapshot-audit.json"
+          AUDIT_ARCHIVE="simulation-lab/runs/market-snapshot-audit-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          if [[ -s "${AUDIT_SOURCE}" ]]; then
+            mkdir -p simulation-lab/runs
+            cp "${AUDIT_SOURCE}" "${AUDIT_ARCHIVE}"
+            git add -f "${AUDIT_ARCHIVE}"
+            AUDIT_BLOB_SHA="$(git hash-object "${AUDIT_ARCHIVE}")"
+            echo "Market snapshot audit staged for durable simulation-branch archive; sha=${AUDIT_BLOB_SHA}"
+          else
+            echo "Market snapshot audit missing; continuing only with QA artifact, data evidence remains incomplete"
+            AUDIT_ARCHIVE=""
+            AUDIT_BLOB_SHA=""
+          fi
           if git diff --cached --quiet; then
-            echo "No review HTML changes to persist"
+            echo "No review HTML or audit evidence changes to persist"
             exit 0
           fi
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
