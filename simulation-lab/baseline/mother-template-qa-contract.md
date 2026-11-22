@@ -254,7 +254,7 @@
 - [ ] 機率卡與分布長條百分比相加一致；來源與快照時間明確，歷史快照不得標示為即時。
 - [ ] FOMC 活頁保留母版原有會議日期、政策聲明時間、記者會時間、目前目標利率、核心觀察及官方來源。
 - [ ] FOMC 活頁保留「本週聯準會官員行程」固定區塊；母版需有唯一的 `#fed .fc-fomc-weekly-events`，內含 title、list、event prototype、empty-state 四個固定槽位。
-- [ ] FOMC 官員行程容器必須跨越 `.fc-fomc` 兩欄；361px 以上事件列維持 `94px minmax(0,1fr)`，日期不拆字、內容欄可伸展；360px 以下事件列改為單欄直向排列（日期在上、行程內容在下），確保內容取得完整寬度。視覺驗收需實際切換 FOMC 活頁並檢查 1440px／320px 截圖及 DOM 尺寸，不得只看 inline style。
+- [ ] FOMC 官員行程容器必須跨越 `.fc-fomc` 兩欄；413px 以上事件列維持 `94px minmax(0,1fr)`，日期不拆字、內容欄可伸展；412px 以下事件列改為單欄直向排列（日期在上、行程內容在下），確保內容取得完整寬度。視覺驗收必須實際切換 FOMC 活頁，並在 320px、360px、390px、412px、1440px 檢查日期／內容相對位置、欄寬及 DOM 尺寸，不得只看 inline style。
 - [ ] 週一上週財報 EPS／營收小卡在 640px 以下仍保持兩卡並列；數值不得任意拆行，需在 320px、360px、390px、412px 實際瀏覽器寬度驗收。
 - [ ] Builder 只可 clone `.fc-fomc-weekly-event-template` 原型並填入日期、官員行程、影響說明與官方來源；不得清空／重建外層容器、標題或清單 wrapper。
 - [ ] 有已核實行程時逐筆顯示已發表／預定狀態、台灣時間、官員／活動名稱、影響說明及官方來源；無已核實行程時顯示固定空狀態，不得因此捏造行程或使整份早報無條件失敗。
@@ -419,3 +419,9 @@
 - 最新 simulation Monday mother blob SHA：`efcc712c627d6b26205be340102bba33c4a570d8`；Weekday mother blob SHA：`7027fedb4c5843b1a97fb77f7ef19173e1a98564`。Manifest simulation slots 已同步；main 正式母版 SHA 不變。
 - `interaction_smoke.mjs` 已新增實際點選 FOMC radio、核對官員／日期／來源，並在 1440px 與 320px 量測日期／內容順序、欄寬及橫向溢位；另輸出 `desktop-1440-fed-fomc.png`、`mobile-320-fed-fomc.png`。
 - 本項視覺／互動 Gate 以完整 11/23 E2E run 實測為準；新增 CSS 不代表 QA 自動通過。正式 main 母版、首頁及正式 Manifest 均未修改。
+
+
+### A3.4 2026-11-22｜FOMC 官員行程 412px 響應式修正（simulation only）
+- 依 320／360／390／412px 四種手機寬度統一採日期在上、行程內容在下；413px 以上維持原 94px 日期欄＋內容欄桌面排列。
+- Monday／weekday simulation mother 同步修改；Manifest 的 simulation blob SHA 必須同步更新。正式 main 母版及首頁未修改。
+- `interaction_smoke.mjs` 必須逐一實測 320／360／390／412／1440px，確認日期先於內容、內容欄寬至少 150px、無水平溢位。
