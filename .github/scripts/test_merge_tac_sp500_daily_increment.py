@@ -105,7 +105,7 @@ class MergeIncrementTests(unittest.TestCase):
             }
             row["record_sha256"] = hashlib.sha256(canonical(row)).hexdigest()
             ledger.write_text(json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "does not match the compact baseline"):
+            with self.assertRaisesRegex(ValueError, "does not match compact baseline"):
                 merge_recent(recent, ledger)
 
     def test_rejects_corrupted_increment_hash(self):
