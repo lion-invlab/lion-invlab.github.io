@@ -256,6 +256,7 @@ try {
     await page.screenshot({ path: `${visualDir}/${width === 320 ? "mobile-320" : "desktop-1440"}-fed-fomc.png`, fullPage: true });
     fedAgendaLayouts.push(metrics);
   }
+  if (fedAgendaLayouts.length !== 2) throw new Error("Fed official agenda was not checked at both required viewports");
 
   if (pageErrors.length) throw new Error(`uncaught page errors: ${pageErrors.join(" | ")}`);
 
