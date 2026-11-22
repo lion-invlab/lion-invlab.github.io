@@ -222,9 +222,9 @@ def main():
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 4, blockers
+    assert len(blockers) == 3, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert any("31項未保存逐項查核時間" in item for item in blockers), blockers
+    assert not any("44項行情來源證據" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA")) for x in data["review_ready_blockers"])
     assert not any(x.startswith("NVDA Q3 FY2027") for x in data["pending_items"])
     assert "不要求週日刷新" in data["quality_note"]
