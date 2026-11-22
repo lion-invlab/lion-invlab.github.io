@@ -519,7 +519,7 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "待核實",
+      "display": "4.613%",
       "source": {
         "name": "Investing.com｜2年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
@@ -536,21 +536,22 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "歷史列數值仍保留於稽核欄位，但目前只有批次更新時間，缺少可追溯的逐筆來源觀察時間；因此本報告不顯示為已核實行情。",
+        "note": "Investing.com Historical Data 日資料列已於 2026-11-22T17:48:21+08:00 直接讀取：2026-11-20 Price/Close=4.613；2026-11-19=4.779；同一序列差額=-16.6 bp；頁面日漲跌幅=-3.47%。",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
         "close_value": "4.613",
         "previous_close": "2026-11-19 4.779",
         "daily_change_bp": "-16.6",
         "daily_change_percent": "-3.47%",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "source_role": "PRIMARY",
-        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
-        "raw_response_sha256": null
+        "evidence_method": "Investing.com historical data table; directly opened and read Nov 20, 2026 Price and Change % row at 2026-11-22T17:48:21+08:00; basis-point change calculated from same-series Nov 19 close",
+        "raw_response_sha256": null,
+        "verified_at_tw": "2026-11-22T17:48:21+08:00"
       },
-      "change_display": "待核實"
+      "change_display": "-16.6 bp"
     },
     "10年期美債殖利率": {
-      "display": "待核實",
+      "display": "4.912%",
       "source": {
         "name": "Investing.com｜10年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
@@ -567,21 +568,22 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "歷史列數值仍保留於稽核欄位，但目前只有批次更新時間，缺少可追溯的逐筆來源觀察時間；因此本報告不顯示為已核實行情。",
+        "note": "Investing.com Historical Data 日資料列已於 2026-11-22T17:48:21+08:00 直接讀取：2026-11-20 Price/Close=4.912；2026-11-19=5.052；同一序列差額=-14.0 bp；頁面日漲跌幅=-2.77%。",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
         "close_value": "4.912",
         "previous_close": "2026-11-19 5.052",
         "daily_change_bp": "-14.0",
         "daily_change_percent": "-2.77%",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "source_role": "PRIMARY",
-        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
-        "raw_response_sha256": null
+        "evidence_method": "Investing.com historical data table; directly opened and read Nov 20, 2026 Price and Change % row at 2026-11-22T17:48:21+08:00; basis-point change calculated from same-series Nov 19 close",
+        "raw_response_sha256": null,
+        "verified_at_tw": "2026-11-22T17:48:21+08:00"
       },
-      "change_display": "待核實"
+      "change_display": "-14.0 bp"
     },
     "30年期美債殖利率": {
-      "display": "待核實",
+      "display": "5.302%",
       "source": {
         "name": "Investing.com｜30年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
@@ -598,18 +600,19 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "歷史列數值仍保留於稽核欄位，但目前只有批次更新時間，缺少可追溯的逐筆來源觀察時間；因此本報告不顯示為已核實行情。",
+        "note": "Investing.com Historical Data 日資料列已於 2026-11-22T17:48:21+08:00 直接讀取：2026-11-20 Price/Close=5.302；2026-11-19=5.401；同一序列差額=-9.9 bp；頁面日漲跌幅=-1.83%。",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
         "close_value": "5.302",
         "previous_close": "2026-11-19 5.401",
         "daily_change_bp": "-9.9",
         "daily_change_percent": "-1.83%",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "source_role": "PRIMARY",
-        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
-        "raw_response_sha256": null
+        "evidence_method": "Investing.com historical data table; directly opened and read Nov 20, 2026 Price and Change % row at 2026-11-22T17:48:21+08:00; basis-point change calculated from same-series Nov 19 close",
+        "raw_response_sha256": null,
+        "verified_at_tw": "2026-11-22T17:48:21+08:00"
       },
-      "change_display": "待核實"
+      "change_display": "-9.9 bp"
     }
   },
   "fx": {
@@ -2135,7 +2138,7 @@
       "text": "立場中性偏防禦，保留現金流穩健、負債可控的核心持倉，降低高槓桿、自由現金流不足及中國政策曝險集中的AI供應鏈。待市場廣度改善、VIX與MOVE回落、半導體相對強度止跌且企業指引未下修，再分批加碼；若能源通行量下降或信用壓力擴大，進一步防禦。"
     }
   ],
-  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。 美債2Y／10Y／30Y目前缺少逐筆來源觀察時間，顯示待核實；原始數值僅保留於稽核欄位，不作為已核實行情。",
+  "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2412,7 +2415,7 @@
   },
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
   "market_sentiment": "風險偏好急速下降，股票與債券波動同步升高；市場對尾端政策及地緣風險要求更高風險補償。VIX與MOVE均處高檔，顯示壓力不只在股票估值，也延伸至利率市場；單一恐慌指標不能視為落底訊號，須等波動回落與市場廣度改善共同確認。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；此為TAC查核時間，不是供應商資料時間。美債三筆僅保留批次更新時間17:15:52，不能視為逐筆觀察時間。 Fixture目前保留41項既有逐筆觀察紀錄（40項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；美債2Y／10Y／30Y三筆僅有批次更新時間，沒有可追溯的逐筆來源觀察時間，已改為待核實。本輪Pipeline的來源擷取步驟未執行，metadata audit也明確不核對來源數值，因此不得宣稱本輪重新讀取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。舊版HTML／視覺QA結果不適用於本輪更新後Fixture，必須重新執行Builder及完整回歸。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。舊版HTML／視覺QA結果不適用於本輪更新後Fixture，必須重新執行Builder及完整回歸。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
@@ -2428,13 +2431,12 @@
     "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
     "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。",
     "Stage 2 證據分類：44項歷史資料列均已完成數值核對（43項主來源、1項FGScore備援）；以來源URL、標的／合約、資料日期、Close／Change欄位和值、TAC查核時間及讀取方法保存瀏覽器觀察紀錄。原始HTTP response body未封存（raw_response_sha256為null）屬可選證據，不構成數值核驗缺口；不得將觀察紀錄SHA-256冒充原始HTTP回應SHA-256。",
-    "Stage 2 證據修正：目前41/44項保留既有逐筆觀察紀錄（40項主來源、1項FGScore備援）；美債2Y／10Y／30Y三筆僅有批次更新時間，缺少逐筆來源觀察時間，已改為待核實，不得將17:15:52批次時間冒充實際讀取時間。本輪Pipeline未重新擷取來源頁或獨立重核44項數值。"
+    "Stage 2 證據紀錄：44/44項現均有逐筆觀察時間及 observation record；其中41項沿用既有紀錄，2Y／10Y／30Y美債歷史列於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁。原始HTTP response body未封存（raw_response_sha256=null）仍屬可選證據，不構成缺口。本輪Pipeline的metadata audit只驗證日期與來源中繼資料，不代表Pipeline本身重新擷取或獨立重核44項。"
   ],
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
     "PARTIAL｜本週W48經濟行事曆27筆中7筆沒有可採用的數值市場預期：澳洲／日本Flash PMI的Investing.com upcoming row未提供forecast；加拿大SEPH未找到可採用公告前共識；Beige Book、ECB會議紀要、感恩節休市及官員談話屬非數值事件。forecast維持null並在卡片說明原因，不得補造。",
-    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。",
-    "PARTIAL｜美國公債2Y／10Y／30Y三筆歷史列缺少可追溯的逐筆來源查核時間；目前17:15:52僅為批次資料更新時間，不能冒充實際讀取時間。三筆殖利率與日變動暫顯示待核實，需補回逐筆觀察時間或重新讀取 Investing.com 歷史資料列。"
+    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
