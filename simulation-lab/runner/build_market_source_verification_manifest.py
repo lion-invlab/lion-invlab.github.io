@@ -15,9 +15,9 @@ from pathlib import Path
 from validate_market_snapshot import validate_market_snapshot
 
 BOND_PRIMARY_URLS = {
-    "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
-    "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
-    "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+    "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+    "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+    "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
 }
 
 
