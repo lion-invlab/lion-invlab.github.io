@@ -1,3 +1,21 @@
+# 2026-11-22｜SIM-1.4 雙母版候選 Builder 技術回歸完成｜等待精確 SHA 核准
+
+- **有效規則：** SIM-1.4，`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。
+- **工作分支：** `simulation/tac-process-lab-2026-11-06`。所有本次變更限 simulation branch。
+- **雙母版技術回歸：已完成。** Monday 2026-11-23 workflow run `44964279548` completed/success；Weekday 2026-11-20 workflow run `44964439803` completed/success。
+- **同版 Builder：** `simulation-lab/runner/build_review_html.py`，兩份最新 QA sidecar 均綁定同一 blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- **共同鎖定資產：** Manifest `8cab2a945b19ffeea5a922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Weekday mother `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- **Monday 產物：** `preview/2026-11-23-simulation.html` blob `7cf64495ff19395d9c68ea156f627e139fa4be32`；QA sidecar `preview/2026-11-23-simulation.qa.json` blob `2b2824e99415b383b6468a1109b646b523ff46fa`。
+- **Weekday 產物：** `preview/2026-11-20-simulation.html` blob `0a701740468d8bba3394a000200d2d03e0e26ffb`；QA sidecar `preview/2026-11-20-simulation.qa.json` blob `60dc44fe413aa83ebedeee8e8db3abe1fff79619`。
+- **QA 結果：** 兩份 sidecar 均 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`review_ready_blockers=[]`；視覺 viewport 均涵蓋 1440／768／412／390／360／320。
+- **核准狀態：** 兩份 sidecar 均明確保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。唯一 blocker 是尚未取得使用者對候選 Builder 唯一路徑及精確 SHA 的明確核准。
+- **紀錄校正：** `simulation-lab/validation/SIM14_DUAL_MOTHER_BUILDER_ACCEPTANCE_2026-11-22.md` 已更新，將舊版引用的 Builder SHA `42eebdfe...` 與舊 run ID 校正為最新 sidecar 真正綁定的 Builder SHA `40a3bc70...`、Monday run `44964279548`、Weekday run `44964439803`。
+- **目前階段：** SIM-1.4 §8.1 候選 Builder 技術驗收已完成；待使用者核准 Builder 唯一入口。核准前不得標示 SIM-1.4 REVIEW_READY、不得進入正式每日生產入口。
+- **安全邊界：** main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改；未部署 Pages。
+- **下一步：** 向使用者提交精確 Builder 路徑與 SHA 供核准。核准後才可更新 sidecar 核准狀態、完成 SIM-1.4 REVIEW_READY 閉環；正式首頁發布仍須另一筆對指定 HTML SHA 的明確授權。
+
+---
+
 # 2026-11-22｜SIM-1.4｜手機版財報雙卡母版基準已修正，完整驗收啟動
 
 - **正式規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.4，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。
