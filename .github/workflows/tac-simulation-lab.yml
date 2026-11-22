@@ -731,8 +731,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
-          SOURCE_WORKLIST="simulation-lab/output/market-source-verification-manifest.json"\n          SOURCE_WORKLIST_ARCHIVE="simulation-lab/runs/market-source-verification-manifest-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
-          if [[ ! -s "${SOURCE_WORKLIST}" ]]; then\n            echo "Market source verification worklist missing; refusing to persist report without the 44-row verification register" >&2
+          SOURCE_WORKLIST="simulation-lab/output/market-source-verification-manifest.json"
+          SOURCE_WORKLIST_ARCHIVE="simulation-lab/runs/market-source-verification-manifest-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          if [[ ! -s "${SOURCE_WORKLIST}" ]]; then
+            echo "Market source verification worklist missing; refusing to persist report without the 44-row verification register" >&2
             exit 1
           fi
           mkdir -p simulation-lab/runs
