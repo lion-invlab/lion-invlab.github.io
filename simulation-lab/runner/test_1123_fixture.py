@@ -194,6 +194,20 @@ def main():
     assert "僅兩位成員主張升息25個基點" in macro["paragraphs"][0]
     assert "不是Fed已承諾的決策" in macro["paragraphs"][0]
     assert macro["sources"][1]["url"] == "https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm"
+
+    scan = data["political_scan"]
+    assert scan["domains_checked"] == ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"]
+    assert scan["findings"][0]["classification"] == "formally_effective"
+    assert scan["findings"][0]["source_url"] == "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm"
+    assert scan["findings"][0]["published_at"] == "2026-11-19"
+    assert "D:5" in scan["findings"][0]["transmission"]["policy"] and "90日" in scan["findings"][0]["transmission"]["policy"]
+    assert scan["findings"][1]["published_at"] == "2026-11-21T16:40:00+08:00"
+    no_forecast = [event for event in data["calendar"]["events"] if event["forecast"] is None]
+    assert len(no_forecast) == 7
+    assert all(event["source_notes"] for event in no_forecast)
+    assert "Investing.com" in next(x for x in no_forecast if x["id"] == "current-au-flash-pmi-20261123")["source_notes"]
+    assert "Investing.com" in next(x for x in no_forecast if x["id"] == "current-jp-flash-pmi-20261124")["source_notes"]
+    assert "不適用" in next(x for x in no_forecast if x["id"] == "current-fed-beige-book-20261125")["source_notes"]
     assert all(x["stars"] == 5 for x in previous_calendar["events"])
     assert all(x["stars"] == 5 for x in previous_earnings["events"])
     for event in current_calendar["events"] + current_earnings["events"] + previous_calendar["events"] + previous_earnings["events"]:
