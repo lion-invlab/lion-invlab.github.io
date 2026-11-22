@@ -35,7 +35,7 @@ def run_patch(section: str, mother_name: str) -> tuple[dict, BeautifulSoup]:
                 ])
         fixture_path = tmp_path / "fixture.json"
         fixture_path.write_text(json.dumps(fixture, ensure_ascii=False), encoding="utf-8")
-        result = patch_section(html_in, fixture_path, MANIFEST, section, html_out, receipt_path)
+        result = patch_section(html_in, fixture_path, MANIFEST, section, html_out, receipt_path, test_only=True)
         assert result["status"] == "PASS"
         assert result["non_target_dom_unchanged"] is True
         assert result["full_report_rebuild"] is False
