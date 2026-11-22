@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Patch only the summary or five-layer analysis slots in an existing review HTML."""
+"""Patch one approved report section in an existing review HTML without rebuilding unrelated modules."""
 from __future__ import annotations
 
 import argparse
