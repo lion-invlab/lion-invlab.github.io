@@ -26,7 +26,7 @@ class MergeIncrementTests(unittest.TestCase):
                 "close": 7619.38,
                 "source_name": "Yahoo Finance S&P 500 (^GSPC) Historical Data",
                 "source_url": "https://finance.yahoo.com/quote/%5EGSPC/history/",
-                "source_note": "S&P 500現金指數；非CFD；quote_type=daily_close",
+                "source_note": "S&P 500現金指數；非CFD；quote_type=daily_close；instrument=S&P 500 cash index",
                 "observed_at": "2026-11-19T09:18:19+08:00",
                 "retrieved_at": "2026-11-19T01:18:19+00:00",
                 "retrieval_method": "tac_daily_report_direct_source_check",
