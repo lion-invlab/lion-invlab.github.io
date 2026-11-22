@@ -67,6 +67,41 @@ class BuilderOutputGuardTests(unittest.TestCase):
             expected,
         )
 
+    def test_candidate_validation_output_is_confined_to_output_only_directory(self):
+        expected = (self.root / "simulation-lab/output/candidate-validation/2026-11-23-candidate.html").resolve()
+        self.assertEqual(
+            builder.resolve_allowed_output_path(
+                "2026-11-23",
+                "simulation-lab/output/candidate-validation/2026-11-23-candidate.html",
+                candidate_test_output=True,
+            ),
+            expected,
+        )
+        with self.assertRaises(SystemExit):
+            builder.resolve_allowed_output_path(
+                "2026-11-23",
+                "preview/2026-11-23-simulation.html",
+                candidate_test_output=True,
+            )
+        with self.assertRaises(SystemExit):
+            builder.resolve_allowed_output_path(
+                "2026-11-23",
+                "simulation-lab/output/candidate-validation/2026-11-23-candidate.html",
+            )
+
+    def test_rejects_candidate_validation_directory_symlink_escape(self):
+        output = self.root / "simulation-lab/output"
+        output.mkdir(parents=True)
+        outside = self.root / "outside"
+        outside.mkdir()
+        (output / "candidate-validation").symlink_to(outside, target_is_directory=True)
+        with self.assertRaises(SystemExit):
+            builder.resolve_allowed_output_path(
+                "2026-11-23",
+                "simulation-lab/output/candidate-validation/2026-11-23-candidate.html",
+                candidate_test_output=True,
+            )
+
     def test_rejects_homepage_and_protected_paths(self):
         for target in ("index.html", "母版專區/master.html", "data/calendar/weeks/2026-W48.json", "simulation-lab/baseline/mother-template-manifest.json"):
             with self.subTest(target=target), self.assertRaises(SystemExit):
