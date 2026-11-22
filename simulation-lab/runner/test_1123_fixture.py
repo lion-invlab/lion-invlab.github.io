@@ -206,17 +206,21 @@ def main():
     # AI financing-chain analysis must be evidence-based and distinguish credit repricing from default.
     policy = analysis["policy_industry"]
     policy_text = " ".join(policy["paragraphs"])
-    assert "360億美元" in policy_text and "六年" in policy_text
-    assert "5,000億美元" in policy_text and "未必轉成正式協議" in policy_text
-    assert "Microsoft" in policy_text and "67%" in policy_text
+    assert "3,900億美元" in policy_text and "多年度記憶體採購" in policy_text
+    assert "1,020億美元" in policy_text and "自身研發" in policy_text
+    assert "320億美元" in policy_text and "取得融資" in policy_text
+    assert "超過其資產負債表與長期信用狀況可支持的程度" in policy_text
+    assert "1,180億美元" in policy_text and "尚未支付任何保證款" in policy_text
+    assert "1,050億美元" in policy_text and "4.25GW" in policy_text and "20年租約" in policy_text
+    assert "810億美元" in policy_text and "64天" in policy_text and "60天" in policy_text
     assert "合計約70%" in policy_text and "90天至一年" in policy_text
     assert "33億美元" in policy_text and "47億美元" in policy_text
-    assert "1,050億美元" in policy_text and "4.25GW" in policy_text and "20年租約" in policy_text
-    assert "2,790億美元" in policy_text and "OpenAI" in policy_text
-    assert "投資級融資能力" in policy_text and "延後GPU採購" in policy_text
-    assert "1,190億美元升至2,790億美元" in policy_text
+    assert "Microsoft" in policy_text and "67%" in policy_text
     assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
-    assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" for x in policy["sources"])
+    assert any(x["url"] == "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q327/Q3FY27-CFO-Commentary.pdf" for x in policy["sources"])
+    assert any(x["label"] == "NVIDIA｜FY2027 Q3 CFO Commentary（2026/11/17）" for x in policy["sources"])
+    assert any(x["url"] == "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/" for x in policy["sources"])
+    assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000088/nvda-20261117.htm" for x in policy["sources"])
     assert any(x["label"] == "NVIDIA｜FY2027 Q2 Form 10-Q（SEC）" for x in policy["sources"])
     assert any(x["url"] == "https://www.reuters.com/business/nvidia-turmoil-marks-end-easy-money-ai-trade-2026-11-17/" for x in policy["sources"])
     market_text = " ".join(analysis["markets"]["paragraphs"])
