@@ -102,8 +102,8 @@ class Sp500IncrementTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Asia/Taipei"):
             extract_handoff(payload)
         payload = handoff()
-        payload["sp500"]["source"]["observed_at"] = "2026-11-17T23:59:00+08:00"
-        with self.assertRaisesRegex(ValueError, "match report_date"):
+        payload["sp500"]["source"]["observed_at"] = "2026-11-19T00:01:00+08:00"
+        with self.assertRaisesRegex(ValueError, "later than report_date"):
             extract_handoff(payload)
 
     def test_rejects_unverified_or_cfd_or_non_sp500(self):
