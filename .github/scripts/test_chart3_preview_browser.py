@@ -49,7 +49,7 @@ def validate_chart(page, label):
     check(label + "_daily_defensive_action_specific", page.locator("#defensive-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
-    check(label + "_no_unverified_sp500_return_claim", "價格序列待接入" in page.locator("#sp500-return").inner_text() and "不虛報近 13 週報酬" in page.locator("#sp500-detail").inner_text())
+    check(label + "_real_sp500_daily_series_loaded", "近 13 週" in page.locator("#sp500-return").inner_text() and "24,841 筆真實每日收盤價" in page.locator("#sp500-detail").inner_text() and "1927-12-30 至 2026-11-20" in page.locator("#sp500-detail").inner_text())
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
@@ -168,9 +168,9 @@ def validate_chart(page, label):
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
-    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-20'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
+    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-20"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
     if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
