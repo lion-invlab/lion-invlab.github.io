@@ -31,5 +31,5 @@ def main():
         assert bond_rows[name]["source_role"] == "PRIMARY"
         assert "home.treasury.gov" in bond_rows[name]["cross_check_url"]
         assert bond_rows[name]["cross_check_role"] == "CROSS_CHECK_ONLY"
-    print("PASS: 44 unique source tasks; no row falsely marked source-verified")
+    print("PASS: 44 unique source tasks; 43 primary and 1 fallback value verified; SHA evidence gap reported")
 if __name__=="__main__": main()
