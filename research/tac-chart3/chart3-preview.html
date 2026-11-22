@@ -159,6 +159,10 @@ async function decodeSp500Compact(compact){
  for(let i=0;i<compact.rows;i++){ordinal+=readVarint();const z=readVarint();closeCents+=z%2===0?z/2:-(Math.floor(z/2))-1;const ts=ordinal*86400000;rows.push({date:new Date(ts).toISOString().slice(0,10),ts,close:closeCents/100});}
  if(offset!==raw.length||rows.length!==compact.rows||rows[0]?.date!==compact.start||rows.at(-1)?.date!==compact.end)throw new Error('S&P 500 compact 日期／筆數／payload 驗證失敗');
  for(let i=0;i<rows.length;i++)if(!Number.isFinite(rows[i].close)||rows[i].close<=0||(i&&rows[i-1].date>=rows[i].date))throw new Error('S&P 500 每日價格無效或日期未遞增');
+ const canonical='Date,Close\\n'+rows.map(p=>p.date+','+p.close.toFixed(2)+'\\n').join('');
+ const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonical));
+ const sha=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+ if(sha!==compact.source_dataset_sha256)throw new Error('S&P 500 每日資料集 SHA-256 不符');
  return rows;
 }
 let SP500_DAILY=[];
@@ -314,7 +318,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  let spD='';
  for(let i=i0;i<=i1;i++){const row=SP500_DAILY[i],xx=x(row.ts),yy=priceY(row.close);spD+=(i===i0?'M':' L')+xx.toFixed(2)+' '+yy.toFixed(2);}
  parts.push('<defs><clipPath id="plot-clip" clipPathUnits="userSpaceOnUse"><rect x="'+L+'" y="'+T+'" width="'+iw+'" height="'+ih+'"/></clipPath></defs>');
- if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" data-visible-points="'+(i1-i0+1)+'" data-first-date="'+SP500_DAILY[0].date+'" data-last-date="'+SP500_DAILY[nPath-1].date+'" data-total-points="'+nPath+'" data-frequency="daily" clip-path="url(#plot-clip)" d="'+spD+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 daily cash-index close｜actual observation dates｜dynamic right axis</title></path>');
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" data-visible-points="'+(i1-i0+1)+'" data-first-date="'+SP500_DAILY[0].date+'" data-last-date="'+SP500_DAILY[nPath-1].date+'" data-total-points="'+nPath+'" data-frequency="daily" data-last-close="'+SP500_DAILY[nPath-1].close.toFixed(2)+'" data-dataset-sha256="'+sp500CompactSha+'" clip-path="url(#plot-clip)" d="'+spD+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 daily cash-index close｜actual observation dates｜dynamic right axis</title></path>');
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const pts=data[id];let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
   const cfg=SERIES_CONFIG.find(s=>s.id===id),first=pts.find(p=>Number.isFinite(p.value)),valid=pts.filter(p=>Number.isFinite(p.value)).length;
