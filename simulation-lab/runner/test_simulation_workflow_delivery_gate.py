@@ -49,6 +49,7 @@ receipt_recheck = section_after(WORKFLOW, "Recheck pre-build receipt SHA after B
 assert WORKFLOW.index("Recheck pre-build receipt SHA after Builder") < WORKFLOW.index("Seal QA evidence to the exact review HTML blob")
 assert "ACTUAL_PREBUILD_RECEIPT_SHA256" in receipt_recheck
 assert 'if [[ "${ACTUAL_PREBUILD_RECEIPT_SHA256}" != "${PREBUILD_RECEIPT_SHA256}" ]]; then' in receipt_recheck
+assert 'if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; then' in receipt_recheck
 assert "Pre-build receipt SHA changed after Builder execution" in receipt_recheck
 assert "import hashlib, json, re, subprocess, sys" in seal
 assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
