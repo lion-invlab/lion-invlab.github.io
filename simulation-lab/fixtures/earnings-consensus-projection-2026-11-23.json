@@ -3,8 +3,8 @@
   "report_date": "2026-11-23",
   "week_id": "2026-W48",
   "branch_scope": "simulation/tac-process-lab-2026-11-06",
-  "calendar_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
-  "calendar_main_commit_sha": "2b542a1180f7bb1c39cde7352c8e79c621d894a9",
+  "calendar_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
+  "calendar_main_commit_sha": "f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb",
   "created_at": "2026-11-22T11:12:02+08:00",
   "status": "FORECASTS_CAPTURED_WITH_BASIS_DISCLOSURES",
   "source_priority": [
@@ -17,7 +17,7 @@
   "records": [
     {
       "event_id": "current-hpe-20261123",
-      "event_date": "2026-11-23T00:00:00+08:00",
+      "event_date": "2026-11-24T06:00:00+08:00",
       "ticker": "HPE",
       "reporting_period": "Q4 FY2026",
       "eps_estimate": 1.27,
@@ -92,7 +92,9 @@
             "disposition": "採用 Release Date 2026-11-23／Period End 10/2026 同列 Revenue Forecast 14.35 USD billions；Revenue 精確定義未揭露"
           }
         ]
-      }
+      },
+      "source_release_date": "2026-11-23",
+      "event_date_alignment_note": "Investing.com source release date 2026-11-23; HPE official 17:00 ET call is 2026-11-24 06:00 Taiwan time, matching authoritative main W48 event timestamp."
     },
     {
       "event_id": "current-adi-20261124",
@@ -807,7 +809,7 @@
     },
     {
       "event_id": "current-de-20261125",
-      "event_date": "2026-11-25T00:00:00+08:00",
+      "event_date": "2026-11-25T23:00:00+08:00",
       "ticker": "DE",
       "reporting_period": "Q4 FY2026",
       "eps_estimate": 4.03,
@@ -882,7 +884,10 @@
             "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 10.4 USD billions；Revenue 精確定義未揭露"
           }
         ]
-      }
+      },
+      "source_release_date": "2026-11-25",
+      "event_date_alignment_note": "Investing.com source release date 2026-11-25; Deere official 09:00 CT call is 2026-11-25 23:00 Taiwan time, matching authoritative main W48 event timestamp."
     }
-  ]
+  ],
+  "calendar_alignment_note": "Projection event_date values are aligned to the exact Taiwan-local event timestamps in authoritative main 2026-W48. The original Investing.com release-date evidence is preserved in source_attempts and source_page_observation; event-date alignment does not alter forecast values or reporting periods."
 }
