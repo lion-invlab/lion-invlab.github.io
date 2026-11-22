@@ -2498,7 +2498,7 @@
     "baseline_date": "2026-11-20",
     "trading_date": "2026-11-20",
     "captured_at_taipei": "2026-11-21 17:00:33",
-    "source": "ChatGPT direct manual verification of Yahoo Finance cash-index historical OHLC; not a collector, GitHub Action or external artifact.",
+    "source": "ChatGPT direct manual verification of same-day cash-index OHLC; SOX primary source Investing.com HK, Dow/S&P500/Nasdaq/Russell use previously locked Yahoo Finance cash-index historical observations.",
     "formula": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；S2=P−(H−L)；R1=2P−L；R2=P+(H−L)。所有輸入均為同一交易日現金指數 OHLC。",
     "items": [
       {
@@ -2548,16 +2548,19 @@
         "name": "費城半導體指數（SOX）",
         "trading_date": "2026-11-20",
         "quote_type": "cash_index",
-        "ohlc": "O 9,160.80｜H 9,204.42｜L 8,342.21｜C 8,408.59",
+        "ohlc": "O 9,160.8｜H 9,204.4｜L 8,342.2｜C 8,408.6",
         "s2": "7,789.53",
-        "s1": "8,099.06",
-        "p": "8,651.74",
+        "s1": "8,099.07",
+        "p": "8,651.73",
         "r1": "8,961.27",
-        "r2": "9,513.95",
-        "source_name": "Yahoo Finance ^SOX Historical Data｜Nov 20, 2026 5:15:59 PM EST",
-        "url": "https://finance.yahoo.com/quote/%5ESOX/history/",
-        "secondary_source_name": "Investing.com HK｜PHLX Semiconductor historical data",
-        "secondary_source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data"
+        "r2": "9,513.93",
+        "source_name": "Investing.com HK｜PHLX Semiconductor historical data",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "secondary_source_name": "Yahoo Finance ^SOX Historical Data｜Nov 20, 2026",
+        "secondary_source_url": "https://finance.yahoo.com/quote/%5ESOX/history/",
+        "checked_at_taipei": "2026-11-23T06:38:04+08:00",
+        "read_method": "direct_browser_open",
+        "observation_note": "Investing.com HK歷史頁2026-11-20列：收市8,408.6、開市9,160.8、高9,204.4、低8,342.2、升跌-10.73%；與Yahoo Finance ^SOX同日OHLC一致至顯示精度。五層樞紐點依Investing.com頁面顯示精度計算。"
       },
       {
         "key": "russell2000",
@@ -2573,7 +2576,8 @@
         "source_name": "Yahoo Finance ^RUT Historical Data｜Nov 20, 2026 4:30:11 PM EST",
         "url": "https://finance.yahoo.com/quote/%5ERUT/history/"
       }
-    ]
+    ],
+    "last_verified_at_taipei": "2026-11-23T06:38:04+08:00"
   },
   "core_observation": {
     "heading": "本週三大觀察焦點",
@@ -3619,6 +3623,9 @@
     "stage4_reused_verified_news_count": 13,
     "stage4_political_scan_checked_at_taipei": "2026-11-23T06:17:33+08:00",
     "main_publish_authorized": false,
-    "stage3_calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098"
+    "stage3_calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098",
+    "key_level_source_pages_fetched_this_run": 1,
+    "key_level_source_pages_reconciled_this_run": 1,
+    "key_level_sox_source": "Investing.com HK historical cash-index page; direct-open verified at 2026-11-23T06:38:04+08:00"
   }
 }
