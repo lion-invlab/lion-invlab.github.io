@@ -233,7 +233,7 @@ def main():
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 3, blockers
+    assert len(blockers) == 2, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
@@ -330,7 +330,7 @@ def main():
         assert item["display"] == close and item["change_display"] == change
         assert item["source"]["verification_status"] == "VERIFIED"
         assert item["source"]["verified_at_tw"] == "2026-11-22T17:48:21+08:00"
-    print("PARTIAL as expected: three calendar/earnings blockers remain; all 44 market observations have per-item evidence; raw HTTP body hash is optional")
+    print("PARTIAL as expected: two genuine Stage 3 data gaps remain; all 44 market observations have per-item evidence; raw HTTP body hash is optional")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
