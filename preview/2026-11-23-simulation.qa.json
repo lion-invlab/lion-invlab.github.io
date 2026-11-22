@@ -19,9 +19,9 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "7cf64495ff19395d9c68ea156f627e139fa4be32",
-  "report_sha256": "264fe60cba165719631b74fec5e7994e15cfcf3001f01e4864dc01a99d04b4ab",
-  "build_commit_sha": "42cd32b2bbf4d35c509e95ec8aa0b1d60f2a4d38",
+  "report_git_blob_sha": "5b3f4464237d4d0d8f0b3a0fba352f2ea2774833",
+  "report_sha256": "8ac4cb076721832b916b4238b6adbc55dd8f1a9287dccdea053334b2f1783a42",
+  "build_commit_sha": "aa95c7750bfb68b651bea336a8c6095510f709a1",
   "builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
   "fixture_blob_sha": "948b504a0fba8ba45653cacc0a43cff5377e91a7",
   "template_blob_sha": "b89c76dd37afdc0cf8b406bfd6f06258896c829d",
@@ -52,11 +52,20 @@
   "sim14_builder_approval": "APPROVED",
   "sim14_review_ready": true,
   "sim14_blockers": [],
+  "builder_approval_record": {
+    "decision": "APPROVED",
+    "approved_builder_path": "simulation-lab/runner/build_review_html.py",
+    "approved_builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
+    "actual_builder_path": "simulation-lab/runner/build_review_html.py",
+    "actual_builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
+    "active_rules_blob_sha": "db31aedbf9325183dc4115e147939d524c9acec5",
+    "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
+  },
   "calendar_main_commit_sha": "8654fde50761404ec63a56178f224c4dbf41eff5",
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "ce4e89a810771af654bd71d5c48e59afec9d510200c595eb794cd5daa84d1ddd",
+  "visual_evidence_sha256": "0c769528f71c5d5b722a7d0e636df17311be3be96a529ac5544ff73f371bca0f",
   "viewports": [
     1440,
     768,
@@ -65,15 +74,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44964279548",
-  "workflow_run_attempt": "1",
-  "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-  "approved_builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
-  "builder_approval_record": {
-    "decision": "APPROVED",
-    "approved_at_taipei": "2026-11-22 09:07",
-    "approval_basis": "Explicit user approval in conversation after same-SHA Monday and Weekday full regression passed",
-    "monday_workflow_run_id": "44964279548",
-    "weekday_workflow_run_id": "44964439803"
-  }
+  "workflow_run_id": "44970349131",
+  "workflow_run_attempt": "1"
 }
