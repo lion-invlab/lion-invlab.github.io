@@ -2,6 +2,7 @@
 """[build-tac-report:2026-11-20] Validate Monday/weekday mother-owned DOM contracts without altering either mother."""
 from __future__ import annotations
 import argparse
+import copy
 from collections import Counter
 from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString
@@ -67,6 +68,7 @@ def main():
         ("#fed .fc-split-wrap", "FedWatch distribution bar and legend"),
         ("#fed .fc-fomc-weekly-events", "Fed weekly agenda wrapper"),
         ("#sp500-earnings-health", "S&P 500 earnings-health dashboard"),
+        ("#market-analysis", "five-layer market analysis container"),
         ("#sentiment .sent > .sbox:last-child", "market sentiment interpretation card"),
         ("#sentiment .cnn-fg-preview .fg6-score", "CNN Fear & Greed score wrapper"),
         ("#view .focus-panel.focus-market .key", "Today Focus market observation slot"),
@@ -76,9 +78,39 @@ def main():
         left = require_one(mother, selector, "mother " + context)
         right = require_one(report, selector, "review " + context)
         omit = selector == "#fed .fc-fomc-weekly-events"
-        include_style = selector in {"#sp500-earnings-health", "#sentiment .sent > .sbox:last-child", "#sentiment .cnn-fg-preview .fg6-score", "#view .focus-panel.focus-market .key"}
-        if shape(left, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right, omit_dynamic_fed_rows=omit, include_style=include_style):
+        include_style = selector in {"#market-analysis", "#sp500-earnings-health", "#sentiment .sent > .sbox:last-child", "#sentiment .cnn-fg-preview .fg6-score", "#view .focus-panel.focus-market .key"}
+        left_compare, right_compare = left, right
+        if selector == "#market-analysis":
+            # The five content nodes are dynamic; all surrounding mother-owned wrappers,
+            # headings, IDs, classes, attributes and styles must remain identical.
+            left_compare, right_compare = copy.deepcopy(left), copy.deepcopy(right)
+            for dynamic in left_compare.select(".market-analysis-content") + right_compare.select(".market-analysis-content"):
+                dynamic.clear()
+        if shape(left_compare, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right_compare, omit_dynamic_fed_rows=omit, include_style=include_style):
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
+
+    # Five-layer article content is dynamic, but its five mother-owned sections and evidence links are mandatory.
+    expected_analysis = [
+        ("political", "一、政治與地緣政治局勢"),
+        ("policy-industry", "二、政策傳導與企業／產業鏈影響"),
+        ("macro", "三、宏觀經濟傳導"),
+        ("markets", "四、金融市場定價、情緒與風險"),
+        ("strategy", "五、機構資金動向與投資策略"),
+    ]
+    for soup, label in ((mother, "mother"), (report, "review")):
+        analysis = require_one(soup, "#market-analysis", label + " five-layer analysis")
+        sections = analysis.select(":scope > .market-analysis-layer")
+        actual = [(x.get("data-analysis-layer"), x.find(["h2", "h3", "h4"], recursive=False).get_text(" ", strip=True) if x.find(["h2", "h3", "h4"], recursive=False) else "") for x in sections]
+        if actual != expected_analysis:
+            raise ValueError(f"{label}: five-layer analysis headings/order mismatch: {actual}")
+        if label == "review":
+            for key, _ in expected_analysis:
+                content = require_one(analysis, f'[data-analysis-content="{key}"]', label + " analysis content " + key)
+                if not content.find("p", recursive=False):
+                    raise ValueError(f"{label}: analysis layer {key} has no rendered paragraph")
+                source_line = content.select_one("p.market-analysis-sources")
+                if source_line is None or not source_line.select("a[href^='https://']"):
+                    raise ValueError(f"{label}: analysis layer {key} has no HTTPS evidence links")
 
     # Market commentary is dynamic text only; preserve every mother-owned note skeleton and inline style.
     left_notes = mother.select(".market-reason")
