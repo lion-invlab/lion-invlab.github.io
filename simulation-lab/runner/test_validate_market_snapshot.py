@@ -25,6 +25,10 @@ def main():
     base = json.loads(FIXTURE.read_text(encoding="utf-8"))
     result = validate_market_snapshot(base, "2026-11-23")
     assert result["status"] == "PASS"
+    assert result["verification_scope"] == "METADATA_AND_DATE_ONLY"
+    assert result["source_pages_fetched"] is False
+    assert result["displayed_values_independently_reconciled"] is False
+    assert "not evidence of live source-value verification" in " ".join(result["limitations"])
     assert result["indicator_count"] == 44
     assert result["common_data_dates"] == ["2026-11-20"]
     assert result["per_item_timestamp_count"] == 44
