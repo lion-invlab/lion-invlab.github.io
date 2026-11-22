@@ -16,7 +16,7 @@
       ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22.",
-      "simulation_blob_sha": "63e904aa17ccec741cf972f8c9333423623dd779",
+      "simulation_blob_sha": "ce15c803cc778be35302eec96f6a5d123bf49624",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -28,7 +28,7 @@
         "上週財報行事曆"
       ],
       "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22.",
-      "simulation_blob_sha": "ad06eaa64bd9e081ba67dd3e409d7bf69bcbfb94",
+      "simulation_blob_sha": "940761077a3f3ad1b47b325a8d2a1a6800e3a679",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -113,6 +113,10 @@
     {
       "date": "2026-11-22",
       "change": "修正五層分析第二層的 data key 命名，統一以 policy_industry 對應 Fixture、Manifest、母版與 QA；同步更新雙母版 simulation SHA。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "五層文章來源列改用較小灰階字級與獨立連結樣式，改善正文與來源證據層級；同步更新雙母版 SHA。"
     }
   ],
   "analysis_slots": {
