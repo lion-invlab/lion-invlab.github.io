@@ -2268,81 +2268,95 @@
   "market_analysis": {
     "political": {
       "paragraphs": [
-        "本週市場不能只用AI估值修正解釋，政策與地緣風險已同時進入定價。美國對先進AI晶片轉運及海外資料中心算力服務的出口許可限制已公布並生效，涵蓋新加坡、馬來西亞、泰國、印尼及巴西等轉運風險地區；對向中國企業提供大量算力的海外資料中心，另設90日取得許可要求。這是正式政策，不是單純政治談話。",
+        "美國商務部BIS於11月19日發布並生效《Addressing Remote Access to Advanced Semiconductors》臨時最終規則。規則要求對向澳門或美國出口管制D:5國家／地區總部企業提供達規定門檻算力的海外資料中心進行終端用途盡職調查；在規則生效前已提供相關算力的既有資料中心，須於90日內取得許可，否則面臨後續出口限制。另對印尼、馬來西亞、新加坡、泰國、巴西等高轉運風險目的地的先進半導體出口新增許可要求。這是已生效正式規則，不是單純政治談話。",
         "川習會釋出的公開訊息則仍以政治表態及框架性承諾為主：雙方談及AI、貿易與荷姆茲海峽能源運輸，但中方公開說明未提出稀土、農產品採購、晶片管制等具體履約時程；習近平再次把台灣議題列為雙邊關係核心。不能把峰會氣氛解讀為貿易休戰已獲實質延長。美國SEC對Nvidia會計作法的調查由Reuters引述知情人士報導，SEC未公開評論；調查不等於違法已證實。",
         "地緣風險方面，英國海事貿易行動辦公室於11月21日通報荷姆茲海峽入口附近兩起油輪受襲事件；兩起通報是否涉及同一艘船、攻擊工具與責任歸屬仍未完全確認。此事件可能提高航運保險、運費及原油風險溢價，但截至新聞截稿點，尚無證據證明荷姆茲主要通道已全面中斷或全球原油供應已實際減少。日本、歐洲其他主要經濟體及重要新興市場，本輪未發現足以改變全球配置的新增正式政策；不將截稿後消息倒灌進本期報告。"
       ],
       "sources": [
         {
-          "label": "Reuters｜美國先進AI晶片出口限制",
-          "url": "https://www.reuters.com/legal/litigation/us-issues-rule-protect-advanced-ai-chips-being-accessed-remotely-2026-11-16/",
-          "published_at": "2026-11-16T21:46:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "label": "Federal Register｜BIS：Addressing Remote Access to Advanced Semiconductors（91 FR 74970）",
+          "url": "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm",
+          "published_at": "2026-11-19",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "正式規則全文已核實；11/19生效，既有提供達規定門檻算力的資料中心須於90日內取得許可；另列印尼、馬來西亞、新加坡、泰國、巴西等目的地許可要求。"
         },
         {
-          "label": "Reuters｜川習會與美中政策分歧",
+          "label": "Reuters｜川習會：中方未提出具體履約時程，台灣仍為雙邊關係核心",
           "url": "https://www.reuters.com/world/china/trump-basks-summit-pomp-chinas-xi-strengthens-his-hand-2026-11-21/",
-          "published_at": "2026-11-21",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "發布日期已核實；原始頁面未提供可確認的精確發布時間，僅作政治背景，不作截稿窗口新聞計數。"
+          "published_at": "2026-11-21T16:40:00+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；Reuters頁面標示11/21 08:40 UTC（台灣16:40），位於本期新聞截稿前。"
         },
         {
-          "label": "Reuters｜荷姆茲海峽附近油輪事件",
+          "label": "UKMTO｜Warning 215-26：荷姆茲海峽Khasab附近油輪遇不明投射物",
+          "url": "https://www.ukmto.org/-/media/ukmto/products/20261121-ukmto_warning_215-26.pdf",
+          "published_at": "2026-11-21",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "官方警示已核實：11/21 05:00 UTC，Khasab以北11海里；油輪船尾遭不明投射物擊中，無人傷亡，環境影響未確認。"
+        },
+        {
+          "label": "Reuters｜UKMTO通報阿曼Khasab附近兩起油輪事件",
           "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
           "published_at": "2026-11-21T15:57:07+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；兩起事件是否涉及同一艘船尚不清楚，責任歸屬未確認。"
         },
         {
-          "label": "Reuters｜Nvidia會計調查",
+          "label": "Reuters｜美國SEC調查Nvidia會計問題",
           "url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
           "published_at": "2026-11-21T03:13:43+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；SEC未公開評論，Reuters明確指出調查不等於違法已證實。"
         }
       ]
     },
     "policy_industry": {
       "paragraphs": [
-        "AI供應鏈的風險焦點由需求量轉向算力取得、資本支出回收及收入品質。出口許可新規將提高跨境資料中心服務中國客戶的合規成本，並可能延長晶片交付、雲端算力採購與區域資料中心擴建決策；受影響的不只GPU供應商，也包括伺服器、網通、電力設備、資料中心營運商及相關融資方。若許可範圍擴大，企業可能加速區域化部署與中國本土替代，但短期成本及折舊負擔亦會上升。",
+        "AI供應鏈的風險焦點由需求量轉向算力取得、資本支出回收及收入品質。BIS新規提高跨境資料中心向D:5／澳門總部企業提供達規定門檻算力的合規成本，並可能延長晶片交付、雲端算力採購與區域資料中心擴建決策；受影響的不只GPU供應商，也包括伺服器、網通、電力設備、資料中心營運商及相關融資方。若許可範圍擴大，企業可能加速區域化部署與中國本土替代，但短期成本及折舊負擔亦會上升。",
         "Nvidia遭SEC調查的報導，使市場進一步檢視地理營收揭露、客戶融資安排、資料中心專案保證及AI投資循環。Reuters明確指出調查尚未證明違法，不能將會計問題寫成已確認舞弊；但投資人可能提高對應收款、客戶集中、融資承諾及自由現金流的折價。晶片、雲端與AI新創的估值因而更依賴可驗證的訂單轉收入、毛利及現金回收。",
         "需求端仍有反證：台灣10月外銷訂單年增78.3%，達1,238.2億美元並創單月新高，資訊通信與電子產品訂單為主要推力。這證明接單動能強，不代表所有訂單都已轉成台灣海關出口、出貨毛利或現金流；經濟部統計口徑包含國內及海外生產。能源端若荷姆茲航運風險升高，油輪保險、運費及原油供應風險溢價可能傳至航空、化工、運輸與能源密集產業。"
       ],
       "sources": [
         {
-          "label": "Reuters｜出口管制與海外資料中心許可",
-          "url": "https://www.reuters.com/legal/litigation/us-issues-rule-protect-advanced-ai-chips-being-accessed-remotely-2026-11-16/",
-          "published_at": "2026-11-16T21:46:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "label": "Federal Register｜BIS：Addressing Remote Access to Advanced Semiconductors（91 FR 74970）",
+          "url": "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm",
+          "published_at": "2026-11-19",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "正式規則全文已核實；11/19生效，既有提供達規定門檻算力的資料中心須於90日內取得許可；另列印尼、馬來西亞、新加坡、泰國、巴西等目的地許可要求。"
         },
         {
-          "label": "Reuters｜Nvidia會計與AI融資風險",
+          "label": "Reuters｜美國SEC調查Nvidia會計問題",
           "url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
           "published_at": "2026-11-21T03:13:43+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；SEC未公開評論，Reuters明確指出調查不等於違法已證實。"
         },
         {
           "label": "中央社｜台灣10月外銷訂單創新高",
           "url": "https://focustaiwan.tw/business/202611200021",
           "published_at": "2026-11-20T20:26:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實報導"
         },
         {
-          "label": "Reuters｜荷姆茲油輪事件",
+          "label": "UKMTO｜Warning 215-26：荷姆茲海峽Khasab附近油輪遇不明投射物",
+          "url": "https://www.ukmto.org/-/media/ukmto/products/20261121-ukmto_warning_215-26.pdf",
+          "published_at": "2026-11-21",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "官方警示已核實：11/21 05:00 UTC，Khasab以北11海里；油輪船尾遭不明投射物擊中，無人傷亡，環境影響未確認。"
+        },
+        {
+          "label": "Reuters｜UKMTO通報阿曼Khasab附近兩起油輪事件",
           "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
           "published_at": "2026-11-21T15:57:07+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；兩起事件是否涉及同一艘船尚不清楚，責任歸屬未確認。"
         }
       ]
     },
     "macro": {
       "paragraphs": [
-        "美國景氣訊號呈現需求尚有韌性、通膨與利率壓力仍高的組合。TD Economics指出，10月零售銷售表面增速放緩，但核心／控制組銷售仍有支撐；住宅許可下降，讓房市復甦的持續性受到質疑。Fed 10月會議紀錄顯示，幾乎所有官員都預期12月仍需升息，部分官員甚至曾主張更早升息，通膨持續性仍是政策核心風險。",
+        "美國景氣訊號呈現需求尚有韌性、通膨與利率壓力仍高的組合。TD Economics指出，10月零售銷售表面增速放緩，但核心／控制組銷售仍有支撐；住宅許可下降，讓房市復甦的持續性受到質疑。Fed 10月會議紀錄顯示，當次會議多數官員支持維持利率，僅兩位成員主張升息25個基點；幾乎所有與會者認為基準情境下未來仍可能需要進一步升息。TD Economics指出市場仍高度定價12月升息25個基點，這是市場定價，不是Fed已承諾的決策；通膨持續性仍是政策核心風險。",
         "11月20日美債殖利率並非上升，而是明顯回落：美國財政部官方日終資料顯示2年期4.63%（較前一交易日低13個基點）、10年期4.92%（低12個基點）、30年期5.31%（低9個基點）。這反映股市急跌時的避險需求及短端利率預期下修；但殖利率仍處高位，不能直接推論融資條件已寬鬆，也不能把單日債券上漲等同Fed政策轉向。",
         "台灣10月外銷訂單大幅成長，支持AI伺服器與電子供應鏈需求仍強；但訂單、出口、產值與企業現金流是不同統計概念。若中東航運風險推高油價，可能抵銷部分通膨降溫並壓縮能源進口國實質所得；若油輪通行持續受阻，則可能形成成長下修與成本通膨並存的滯脹風險。"
       ],
@@ -2351,28 +2365,28 @@
           "label": "TD Economics｜美國每週經濟摘要",
           "url": "https://economics.td.com/us-weekly-bottom-line",
           "published_at": "2026-11-20",
-          "checked_at": "2026-11-22T11:01:49+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "發布日期已核實；頁面未提供可確認的精確發布時間。"
         },
         {
-          "label": "AP｜Fed會議紀錄與12月利率預期",
-          "url": "https://apnews.com/article/9e72f3b6e3484173471cc382d6918de0",
-          "published_at": "2026-11-19",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "發布日期已核實；頁面未提供可確認的精確發布時間。"
+          "label": "Federal Reserve｜2026/10/27–28 FOMC會議紀錄",
+          "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm",
+          "published_at": "2026-11-18",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "官方會議紀錄已核實：當次會議多數支持維持利率，兩名成員主張升息25bp；幾乎所有與會者認為基準情境下未來仍可能需要進一步升息，未明確承諾12月必升。"
         },
         {
           "label": "美國財政部｜2026年11月每日公債殖利率",
           "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
           "published_at": "2026-11-20",
-          "checked_at": "2026-11-22T11:01:49+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實報導"
         },
         {
-          "label": "中央社｜台灣10月外銷訂單",
+          "label": "中央社｜台灣10月外銷訂單創新高",
           "url": "https://focustaiwan.tw/business/202611200021",
           "published_at": "2026-11-20T20:26:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實報導"
         }
       ]
@@ -2385,24 +2399,17 @@
       ],
       "sources": [
         {
-          "label": "Reuters｜11月20日全球市場收盤",
-          "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-20/",
-          "published_at": "2026-11-21T09:46:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
-        },
-        {
-          "label": "AP｜美股11月20日收盤與修正區間",
+          "label": "AP｜美股11/20收盤與標普500修正區間",
           "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
           "published_at": "2026-11-21",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "發布日期已核實；頁面未提供可確認的精確發布時間，僅作市場背景來源。"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "AP原文已核實：標普500跌3.7%至6,910.39並進入修正區間；那斯達克跌5.3%、道瓊跌1.9%、羅素2000跌2.8%。"
         },
         {
-          "label": "美國財政部｜每日公債殖利率",
+          "label": "美國財政部｜2026年11月每日公債殖利率",
           "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
           "published_at": "2026-11-20",
-          "checked_at": "2026-11-22T11:01:49+08:00",
+          "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實報導"
         }
       ]
@@ -2415,25 +2422,25 @@
       ],
       "sources": [
         {
-          "label": "Reuters｜全球市場風險重估",
-          "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-20/",
-          "published_at": "2026-11-20T09:46:00+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "label": "AP｜美股11/20收盤與標普500修正區間",
+          "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
+          "published_at": "2026-11-21",
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "AP原文已核實：標普500跌3.7%至6,910.39並進入修正區間；那斯達克跌5.3%、道瓊跌1.9%、羅素2000跌2.8%。"
         },
         {
-          "label": "TD Economics｜美國經濟與Fed政策判讀",
+          "label": "TD Economics｜美國每週經濟摘要",
           "url": "https://economics.td.com/us-weekly-bottom-line",
           "published_at": "2026-11-20",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "發布日期已核實；頁面未提供可確認的精確發布時間。"
         },
         {
-          "label": "Reuters｜荷姆茲海峽油輪安全風險",
+          "label": "Reuters｜UKMTO通報阿曼Khasab附近兩起油輪事件",
           "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
           "published_at": "2026-11-21T15:57:07+08:00",
-          "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "checked_at": "2026-11-22T11:45:05+08:00",
+          "status": "已核實原文；兩起事件是否涉及同一艘船尚不清楚，責任歸屬未確認。"
         }
       ]
     }
