@@ -7,6 +7,8 @@ from build_market_source_verification_manifest import build_manifest
 def main():
     data=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-23.json").read_text(encoding="utf-8"))
     result=build_manifest(data,"2026-11-23")
+    print("DEBUG manifest counts:", {k: result.get(k) for k in ("row_count", "pending_count", "verified_count", "observation_record_hash_missing_count", "status")})
+    print("DEBUG pending rows:", [(r["group"], r["name"], r["verification_status"]) for r in result["rows"] if r["verification_status"] not in ("VERIFIED", "BACKUP_VERIFIED")])
     assert result["row_count"]==44 and result["pending_count"]==0 and result["verified_count"]==44
     assert result["status"]=="PASS"
     assert result["source_pages_fetched"] is True
