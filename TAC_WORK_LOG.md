@@ -2994,3 +2994,14 @@
 - Stage 6 main delivery SKIPPED，因 review_ready 未成立；main index、W47／W48 JSON SHA 均與本輪 receipt／sidecar 所記錄值一致，未修改 main、正式首頁、正式母版、Manifest 或正式行事曆 JSON，未部署 Pages。
 - 本次流程中曾發現 QA seal 將 Bash 變數當字串比較的錯誤，已改為獨立 post-Builder shell recheck；最新完整 E2E 證明 recheck、sidecar seal 及歸檔均成功。此前失敗 run 保留為歷史，不覆寫、不宣稱成功。
 
+
+## 2026-11-22｜FOMC 官員行程 320px 欄位修正及第二輪真實 E2E
+
+- 由 45014529578 的實際 320px FOMC 分頁截圖發現：原日期 94px＋內容剩餘欄雖無橫向溢位，但內容仍過窄；因此在雙 simulation mother 的既有最終 CSS style block 中加入 `@media(max-width:360px)`，將日期／內容改為上下排列，361px 以上維持原雙欄。
+- Monday simulation mother SHA：`efcc712c627d6b26205be340102bba33c4a570d8`；Weekday SHA：`7027fedb4c5843b1a97fb77f7ef19173e1a98564`；simulation Manifest SHA：`c5e3e810442cdae416a1c70039ffead895b13bb4`。QA Contract 更新為 v1.18，blob SHA `38fb974cfa591b5ea64d2b342cba68102cf959e6`，同步兩母版 SHA 與 320px 垂直排列規格。正式 main 母版與正式 Manifest 未修改。
+- `interaction_smoke.mjs` 已新增 FOMC tab 真正點選、官員／台灣時間／HTTPS 來源核對，以及 1440px／320px 實際 DOM 尺寸驗收與專用截圖。
+- Run `45015824741` completed／success。1440px：agenda width 1122px、row width 1096px、date/content 保持並列，content width 992px。320px：agenda width 232px、row width 206px，date 在上、content 在下，content width 206px，row scrollWidth=clientWidth=206，documentWidth=viewportWidth=320，無水平溢位。FOMC panel source、tab、page errors 均 PASS。
+- 11/23 HTML blob SHA `2ee15a9dbfb226807b588f545184cde563bb2ca5`；SHA-256 `f8f76846c203882b9d0b6e4dc6593daa8132e07e57712a5f9d97616707feed29`。QA sidecar blob SHA `4089f85252782cefb341f7652e11aac092df2247`；receipt SHA-256 `c06cae4304930cb165ad9ca4e1fc6d34a97932d86f107aafd4467a6252faf808`，歸檔 blob SHA `574e0465bcf4e0849b27f970390b8f4575e9946b`，archive 與 sidecar 內嵌 receipt bytes 完全一致。
+- QA_PASSED、內容 Gate PASS、政治掃描 PASS、六 viewport PASS；但 review_ready／data_review_ready／sim14_review_ready 均 false，兩項真實 PARTIAL blockers 維持，不交付 main。
+- 本輪 main index 與 W47／W48 正式 JSON SHA 均與先前一致；無 main 寫入或 Pages 部署。
+
