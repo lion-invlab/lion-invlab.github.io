@@ -39,6 +39,18 @@ def main():
             assert result["capture_failure_count"] == 44
             assert all(r["verification_status"] == "TOOL_READ_FAILURE" for r in result["rows"])
             assert all(r["display_value_reconciled"] is False for r in result["rows"])
+        module.capture_one = lambda url, timeout=25: {
+            "http_status": 200, "final_url": url, "content_type": "text/html",
+            "content_length_bytes": 64, "raw_response_sha256": hashlib.sha256(b"Just a moment... Cloudflare").hexdigest(),
+            "raw_body_base64": "SnVzdCBhIG1vbWVudC4uLiBDbG91ZGZsYXJl", "captured_at_utc": "2026-11-22T00:00:00+00:00", "error": None
+        }
+        with tempfile.TemporaryDirectory() as temp:
+            result = capture_manifest(fake_manifest(), Path(temp), 0)
+            assert result["capture_success_count"] == 44
+            assert result["tool_read_failure_count"] == 44
+            assert all(r["source_page_fetched"] is True for r in result["rows"])
+            assert all(r["page_readable"] is False for r in result["rows"])
+            assert all(r["verification_status"] == "TOOL_READ_FAILURE" for r in result["rows"])
     finally:
         module.capture_one = original
     print("PASS: raw capture never implies numeric reconciliation")
