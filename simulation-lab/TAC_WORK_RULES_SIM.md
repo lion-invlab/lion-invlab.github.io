@@ -668,13 +668,15 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 局部更新器新增 `simulation-lab/runner/patch_review_sections.py`；測試新增 `simulation-lab/runner/test_patch_review_sections.py`。測試尚待 CI 執行，不得先行標示 PASS。
 - 11/23 Fixture 已加入 NVIDIA SEC 10-Q 與 Reuters 11/17、10/15 報導支持的 AI 融資鏈分析；具體區分 360 億美元 AI cloud agreements、初步第三方融資平台 MOU、NVIDIA 五大客戶約70%應收帳款集中、付款期限90天至一年、基礎設施融資商33億美元投資／47億美元最大損失曝險，以及 CoreWeave／Nebius 信用重新定價；不把信用重新定價寫成違約。
 - Fed 官員行程 simulation 雙母版已將手機直向排列門檻由 360px 擴大至 412px；QA Contract v1.20 與 Manifest 同步更新。413px 以上維持桌面雙欄。
-- 本輪最新候選 Builder SHA：`aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；最新 Fixture SHA：`9c06cd72360c6e1f2b0bae26a4415de2fc7e835a`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+- 本輪最新候選 Builder SHA：`aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；最新 Fixture SHA：`73d3fe84bb4485bf12271b2718d2feae72f2bc1c`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 - Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
 - 本輪候選版本尚未完成 CI／瀏覽器 QA，亦未取得 Builder SHA 核准；完整 E2E 與審核版產出暫停於核准 Gate。
 - QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 
 - QA Contract v1.20 A3.5 再補入 summary_source_receipt 與正式 CLI 路徑防護要求；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 
-- 11/23 summary risk observation 已補入已核實的台灣時間催化點：11/23 17:00 歐元區 Flash PMI、22:45 美國 Flash PMI；11/25 21:30 美國 GDP 第二次估值與 10 月 PCE。Fixture SHA：`9c06cd72360c6e1f2b0bae26a4415de2fc7e835a`。
+- 11/23 summary risk observation 已補入已核實的台灣時間催化點：11/23 17:00 歐元區 Flash PMI、22:45 美國 Flash PMI；11/25 21:30 美國 GDP 第二次估值與 10 月 PCE。Fixture SHA：`73d3fe84bb4485bf12271b2718d2feae72f2bc1c`。
 
-- 11/23 policy_industry 已恢復獨立 CoreWeave 融資結構段落，保留 Microsoft 約67%客戶集中、GPU／合約擔保貸款、私募信貸、銀行聯貸、公司債及可轉債；Fixture 最新 SHA：`9c06cd72360c6e1f2b0bae26a4415de2fc7e835a`。
+- 11/23 policy_industry 已恢復獨立 CoreWeave 融資結構段落，保留 Microsoft 約67%客戶集中、GPU／合約擔保貸款、私募信貸、銀行聯貸、公司債及可轉債；Fixture 最新 SHA：`73d3fe84bb4485bf12271b2718d2feae72f2bc1c`。
+
+- NVIDIA SEC 文件期間已更正為 2027 會計年度第二季（截至 2026/07/26），避免誤寫成日曆年第二季；Fixture SHA：`73d3fe84bb4485bf12271b2718d2feae72f2bc1c`。
