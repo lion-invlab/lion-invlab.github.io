@@ -262,7 +262,7 @@ def main():
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 3, blockers
+    assert len(blockers) == 4, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA", "raw_response_sha256")) for x in data["review_ready_blockers"])
