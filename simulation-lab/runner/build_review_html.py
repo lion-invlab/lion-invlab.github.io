@@ -1600,6 +1600,72 @@ ANALYSIS_LAYER_KEYS = (
     ("markets", "四、金融市場定價、情緒與風險"),
     ("strategy", "五、機構資金動向與投資策略"),
 )
+POLITICAL_DOMAINS = (
+    "us_policy", "us_china", "geopolitics", "trade_sanctions",
+    "major_economies", "energy_resources",
+)
+POLITICAL_CLASSIFICATIONS = {
+    "formally_effective", "announced_not_implemented", "political_statement",
+    "market_expectation", "unverified",
+}
+
+
+def validate_political_scan(data):
+    """Fail closed unless all six political domains and any material-event chain are evidenced."""
+    scan = data.get("political_scan")
+    if not isinstance(scan, dict):
+        raise ValueError("Fixture is missing required political_scan evidence object")
+    if not str(scan.get("checked_at") or "").strip():
+        raise ValueError("political_scan.checked_at is required")
+    domains = scan.get("domains_checked")
+    if not isinstance(domains, list) or len(domains) != len(POLITICAL_DOMAINS) or set(domains) != set(POLITICAL_DOMAINS):
+        raise ValueError("political_scan.domains_checked must contain all six unique scan domains")
+    findings = scan.get("findings")
+    if not isinstance(findings, list):
+        raise ValueError("political_scan.findings must be a list")
+    classifications = []
+    transmission_complete = 0
+    scenario_complete = 0
+    required_transmission = ("policy", "industry", "macro", "markets", "strategy")
+    required_scenarios = ("baseline", "risk", "severe")
+    required_scenario_fields = ("triggers", "affected_assets", "leading_indicators", "strategy", "invalidation")
+    for index, finding in enumerate(findings):
+        if not isinstance(finding, dict) or not str(finding.get("title") or "").strip():
+            raise ValueError(f"political_scan.findings[{index}] requires a title")
+        if finding.get("domain") not in POLITICAL_DOMAINS:
+            raise ValueError(f"political_scan.findings[{index}] has an unknown domain")
+        classification = finding.get("classification")
+        if classification not in POLITICAL_CLASSIFICATIONS:
+            raise ValueError(f"political_scan.findings[{index}] has an invalid policy/event classification")
+        classifications.append(classification)
+        if not str(finding.get("source_url") or "").startswith(("https://", "http://")):
+            raise ValueError(f"political_scan.findings[{index}] requires a source URL")
+        if not str(finding.get("published_at") or "").strip() or not str(finding.get("checked_at") or "").strip():
+            raise ValueError(f"political_scan.findings[{index}] requires publication and check timestamps")
+        transmission = finding.get("transmission")
+        if not isinstance(transmission, dict) or any(not str(transmission.get(k) or "").strip() for k in required_transmission):
+            raise ValueError(f"political_scan.findings[{index}] requires all five transmission links; use 未知 when unverified")
+        transmission_complete += 1
+        scenarios = finding.get("scenarios")
+        if not isinstance(scenarios, dict) or any(not isinstance(scenarios.get(k), dict) for k in required_scenarios):
+            raise ValueError(f"political_scan.findings[{index}] requires baseline/risk/severe scenarios")
+        for scenario_key in required_scenarios:
+            scenario = scenarios[scenario_key]
+            if any(not str(scenario.get(field) or "").strip() for field in required_scenario_fields):
+                raise ValueError(f"political_scan.findings[{index}].scenarios.{scenario_key} is incomplete")
+        scenario_complete += 1
+    if not findings and not str(scan.get("no_material_change_note") or "").strip():
+        raise ValueError("empty political_scan.findings requires no_material_change_note")
+    return {
+        "status": "PASS",
+        "checked_at": scan["checked_at"],
+        "domains_checked": list(domains),
+        "finding_count": len(findings),
+        "event_status_classifications": classifications,
+        "policy_transmission_completeness": transmission_complete,
+        "scenario_analysis_coverage": scenario_complete,
+        "no_material_change_note": str(scan.get("no_material_change_note") or ""),
+    }
 
 
 def populate_market_analysis_preserving_dom(soup, data, manifest):
@@ -1627,6 +1693,7 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
     if actual_keys != expected_keys:
         raise ValueError(f"market analysis mother layer order mismatch: {actual_keys}")
 
+    political_scan_receipt = validate_political_scan(data)
     analysis = data.get("market_analysis")
     if not isinstance(analysis, dict):
         raise ValueError("Fixture is missing required market_analysis five-layer object")
@@ -1711,6 +1778,7 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
         "container_selector": contract["container_selector"],
         "layer_order": expected_keys,
         "layers": receipt,
+        "political_scan": political_scan_receipt,
     }
 
 
