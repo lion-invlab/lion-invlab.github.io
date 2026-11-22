@@ -1,3 +1,11 @@
+## 2026-11-22｜四層分析文章槽位盤點與 SIM-1.4 QA 契約補強
+
+- SIM-1.4 規則更新後 blob SHA：`d8564cdbf808abb2042cf877453077d5b2776469`；Stage 4 明定總結小卡、四層深度解析、盤面觀察重點三層架構，Gate 1／內容 QA 加入檢查。
+- QA Contract `simulation-lab/baseline/mother-template-qa-contract.md` 更新後 blob SHA：`6deb5f2f89f9fb351cd059276616149edffeee38`；新增 A2.2c，明列文章槽位目前缺失及未來雙母版驗收條件。
+- 實際讀取 Monday／Weekday simulation mother 與 Manifest：兩份母版均無獨立四層文章槽位；Manifest 亦無 selector／slot contract。核准 Builder 尚無專用槽位支援。
+- 因此本次只完成規則與 QA 契約修訂，沒有宣稱 Builder 可自動產出四層文章。若要完成自動組裝，下一步需明確授權正式雙母版新增一個位於總結卡下方、情緒區塊之前的文章槽位，並同步 Manifest、Builder、測試與 SHA 核准。
+- 本次未修改正式雙母版、simulation baseline、Manifest、Builder、Workflow、首頁或行事曆 JSON。
+
 ## 2026-11-22｜11/23 審核版總結與四層分析修訂、SIM-1.4 寫作規範更新
 
 ### 使用者確認
