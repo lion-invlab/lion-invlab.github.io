@@ -37,7 +37,7 @@ def run_patch(section: str, mother_name: str) -> tuple[dict, BeautifulSoup]:
             details.append(summary_tag)
             details.append(source_box)
             card.append(details)
-            standalone_source = mother_soup.new_tag("p", attrs={"class": "source"})
+            standalone_source = mother_soup.new_tag("div", attrs={"class": "source"})
             standalone_source.string = "舊版總結來源文字"
             card.append(standalone_source)
             html_in.write_text(str(mother_soup), encoding="utf-8")
