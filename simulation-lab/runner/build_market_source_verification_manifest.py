@@ -24,7 +24,8 @@ BOND_PRIMARY_URLS = {
 def verification_fields(source: dict, display, change_display) -> dict:
     """Carry forward only source observations already reconciled against fixture values."""
     evidence_method = source.get("evidence_method")
-    verified = source.get("verification_status") == "VERIFIED" and bool(evidence_method)
+    source_status = source.get("verification_status")
+    verified = source_status in ("VERIFIED", "BACKUP_VERIFIED") and bool(evidence_method)
     if verified and source.get("close_value") is not None:
         verified = str(display).removesuffix("%") == str(source.get("close_value"))
         if source.get("daily_change_bp") is not None:
@@ -33,10 +34,12 @@ def verification_fields(source: dict, display, change_display) -> dict:
             verified = verified and str(change_display) == str(source.get("daily_change_percent"))
     elif verified and source.get("history_close") is not None:
         verified = str(change_display) == str(source.get("history_change"))
+    elif verified and source.get("score_value") is not None:
+        verified = str(display) == str(source.get("score_value")) and str(change_display) == str(source.get("band"))
     else:
         verified = False
     return {
-        "verification_status": "VERIFIED" if verified else "PENDING_SOURCE_PAGE_CAPTURE",
+        "verification_status": source_status if verified else "PENDING_SOURCE_PAGE_CAPTURE",
         "source_page_fetched": bool(verified),
         "display_value_reconciled": bool(verified),
         "raw_response_sha256": source.get("raw_response_sha256"),
@@ -95,20 +98,25 @@ def build_manifest(data: dict, report_date: str) -> dict:
     rows.sort(key=lambda row: (row["group"], row["name"]))
     if len(rows) != 44:
         raise ValueError(f"expected 44 source-verification rows, got {len(rows)}")
-    verified_count = sum(1 for row in rows if row["verification_status"] == "VERIFIED")
+    verified_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED"))
     pending_count = len(rows) - verified_count
+    evidence_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["raw_response_sha256"])
+    status = "PASS" if pending_count == 0 and evidence_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
     return {
         "schema_version": "1.0",
+        "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "PARTIAL_SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
+        "verification_scope": "SOURCE_VALUE_RECONCILIATION_COMPLETE_HASH_EVIDENCE_INCOMPLETE" if pending_count == 0 and evidence_hash_missing_count else "COMPLETE" if status == "PASS" else "PARTIAL_SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
         "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
         "displayed_values_independently_reconciled": all(row["display_value_reconciled"] for row in rows),
         "row_count": len(rows),
         "pending_count": pending_count,
         "verified_count": verified_count,
+        "raw_response_sha256_complete": evidence_hash_missing_count == 0,
+        "evidence_hash_missing_count": evidence_hash_missing_count,
         "rows": rows,
-        "warning": f"目前已核驗 {verified_count}/44 項；其餘 {pending_count} 項仍待核驗。局部核驗不得視為全部完成。",
+        "warning": f"目前已核驗 {verified_count}/44 項；待核驗 {pending_count} 項；缺少原始回應 SHA-256 證據 {evidence_hash_missing_count} 項。未補齊證據雜湊前 Stage 2 不得標記 PASS。",
     }
 
 
