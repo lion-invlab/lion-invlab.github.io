@@ -549,6 +549,9 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 版本紀錄
 
+**文件狀態澄清：** 本文件標題及下方「SIM-1.4 正式生效紀錄」為現行狀態依據。版本紀錄中標示「當時 DRAFT／未生效」的段落，只記錄該次修訂提出時的歷史狀態；下方仍保留的三段 DRAFT 草案內容不構成獨立有效條文。其後已採納的規則以第 0–11 節現行主文及正式生效紀錄為準；未納入主文者不生效。不得將歷史 DRAFT 標籤解讀為目前 SIM-1.4 尚未生效。
+
+- 2026-11-22｜文件狀態澄清：明確區分歷史草案狀態與 SIM-1.4 現行正式生效狀態；不變更任何操作條文或 Gate。
 - 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。雙母版、Manifest、QA Contract 與 Builder 已完成同步；候選 Builder 的 deterministic、雙母版完整組裝（TEST_ONLY 合成文章）、DOM preservation 及六視窗瀏覽器回歸通過。後續真實市場分析內容的每日 Stage 1–6 生產 E2E 仍須獨立驗收。
 
 - 2026-11-22｜Stage 6 審核版交付修訂：simulation 完整 QA 通過後，以同一 HTML／QA sidecar bytes 原樣交付 main `preview/YYYY-MM-DD-review.*`；main 僅做 SHA／綁定／收據完整性檢查，不重跑完整 QA。main 寫入白名單限 HTML、QA sidecar、delivery receipt 三檔；`index.html`、母版、Manifest、正式行事曆及歷史報告仍禁止修改。
@@ -564,12 +567,12 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 
 
-- 2026-11-21：依使用者最新指示，統一財報共識來源順位為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；同步 Stage 3、5.2 及條文處置摘要。SIM-1.4 仍為 DRAFT，未生效。
+- 2026-11-21：依使用者最新指示，統一財報共識來源順位為 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；同步 Stage 3、5.2 及條文處置摘要。該次提交時為 DRAFT；其後已由下方正式生效紀錄升格並納入現行主文。
 
 - 2026-11-22：依使用者指示新增第 7.4 節「分析內容品質 Gate」；明定總結操作建議、評論因果鏈、區域正確性、避免行情重述、情緒分工及內容 QA sidecar。SIM-1.4 仍為 DRAFT，未生效。
 
 
-## 2026-11-22 修訂紀錄（仍為 DRAFT，未生效）
+## 2026-11-22 歷史修訂草案（當時未生效；後續採納內容以現行主文為準）
 
 - 修正週二至週五摘要規格與核准平日母版的結構衝突：平日母版為五個原生摘要槽位，Fixture 必須提供五筆；不再強制套用週一三段標籤，也不得縮減成三筆或改造母版。
 - 修正 Builder 核准流程的內部矛盾：核准前可在 simulation branch 進行完整候選 Builder 隔離測試，測試通過標示 CANDIDATE_VALIDATED；使用者核准指定路徑及 SHA 後，才可升格唯一生產 Builder 並標示 SIM-1.4 REVIEW_READY。
@@ -577,13 +580,13 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 本次僅修訂 SIM-1.4 DRAFT；SIM-1.3 仍是唯一有效規則，未修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
 
 
-## 2026-11-22 補充修訂｜財報來源採用簡化與停止搜尋原則（仍為 DRAFT）
+## 2026-11-22 歷史補充草案｜財報來源採用簡化與停止搜尋原則（不獨立生效；採納條文以 §5.2 現行主文為準）
 
 - Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。
 - EPS 與 Revenue 各自獨立查找；第一個符合公司及財報期間的有效數值即採用，停止該指標其餘來源搜尋。
 - 不要求 PIT 快照、分析師人數、完整 GAAP／Adjusted 或其他來源交叉核對作為數值採用門檻；缺少資訊僅作註記。
 
-## 2026-11-22 補充修訂｜商品可見名稱與內部合約識別分離（仍為 DRAFT）
+## 2026-11-22 歷史補充草案｜商品可見名稱與內部合約識別分離（不獨立生效；採納條文以 §3.3 現行主文為準）
 
 - 商品行情列固定短名稱：WTI 原油期貨、Brent 原油期貨、黃金期貨、白銀期貨；不顯示 GC／SI 根代碼，也不顯示月份或月份合約代碼。
 - 為兼容 SHA 鎖定母版的既有 anchor，黃金／白銀可保留內部 Fixture key「黃金期貨 GC」「白銀期貨 SI」，另以 `display_name` 輸出短名稱；Builder 僅替換既有 anchor 文字節點，保留 href、class、DOM 層級及互動。
