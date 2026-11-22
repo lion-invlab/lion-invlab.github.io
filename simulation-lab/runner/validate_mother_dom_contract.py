@@ -92,7 +92,7 @@ def main():
     # Five-layer article content is dynamic, but its five mother-owned sections and evidence links are mandatory.
     expected_analysis = [
         ("political", "一、政治與地緣政治局勢"),
-        ("policy-industry", "二、政策傳導與企業／產業鏈影響"),
+        ("policy_industry", "二、政策傳導與企業／產業鏈影響"),
         ("macro", "三、宏觀經濟傳導"),
         ("markets", "四、金融市場定價、情緒與風險"),
         ("strategy", "五、機構資金動向與投資策略"),
