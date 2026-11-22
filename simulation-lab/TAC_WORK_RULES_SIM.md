@@ -539,7 +539,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `ddaf719d22db66b7894a02683fc92d25d87da3af`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `6af0a6cd9d9e37f19f7df70956f3bff54199cf99`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。另明確規定總結與五層分析不得顯示來源文字／連結／收折區，內部來源證據與 receipt 必須保留；其他報告區域來源標示不變。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -671,9 +671,9 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-22 候選驗收起始紀錄：Builder SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；Fixture SHA `bb7ab311a05d8ac3860f94fc6ecf10423e499bef`；Manifest SHA `d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA `ddaf719d22db66b7894a02683fc92d25d87da3af`。此處為當時基準，不覆蓋後續核准紀錄。
 - Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
 - 上述候選驗收起始紀錄當時尚未完成 CI／瀏覽器 QA；其後已於 2026-11-22 完成同一 SHA 的 run `45043061827`，並於 2026-11-23 取得使用者明確核准。
-- QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+- QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；原 SHA `ddaf719d22db66b7894a02683fc92d25d87da3af` 為修訂前歷史值。
 
-- QA Contract v1.20 A3.5 再補入 summary_source_receipt 與正式 CLI 路徑防護要求；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+- QA Contract v1.20 A3.5 再補入 summary_source_receipt 與正式 CLI 路徑防護要求；本次同步後最新 SHA：`6af0a6cd9d9e37f19f7df70956f3bff54199cf99`。
 
 - 11/23 summary risk observation 已補入已核實的台灣時間催化點：11/23 17:00 歐元區 Flash PMI、22:45 美國 Flash PMI；11/25 21:30 美國 GDP 第二次估值與 10 月 PCE。Fixture SHA：`bb7ab311a05d8ac3860f94fc6ecf10423e499bef`。
 
@@ -710,3 +710,6 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-23 W48 財報預估投影已依同一 main commit `f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb` 與 W48 blob `9bb842ab475fa38ca6407304990d1cd3fae42c63` 更新；11筆估值紀錄均與 authoritative W48 的 event_id、台灣時間 event_date 及 reporting_period 完全吻合。HPE 來源發布日期 11/23 轉為台灣電話會議時間 11/24 06:00；Deere 11/25 轉為台灣時間 11/25 23:00，原來源發布日期保留。Projection SHA：`8ddf96ab3c333d65e8e21386bcf052884efbb2d3`；新增 preflight 對 main commit／calendar SHA／event timestamp／reporting period 的逐筆核對。
 
 - W48 consensus projection preflight 已改用標準 Python `assert` 執行 SHA／event_id／台灣時間 event_date／reporting_period 四項核對，避免引用未定義 helper；最新 preflight script SHA：`787cd06d05b3a93835a4d771092389baa8dffcbf`。
+
+
+- 2026-11-23｜QA Contract v1.20 同步 A2.1 兩份 simulation mother SHA（Monday `0a7d5095aaa99c470e00e67f33567ff9f359d6ae`、Weekday `3f4e65c1385532b0f0969fdc76caf2883a39e798`），並明確加入總結／五層來源可見性與內部 evidence receipt 分離驗收；最新 QA Contract SHA：`6af0a6cd9d9e37f19f7df70956f3bff54199cf99`。main 正式母版與首頁未修改。
