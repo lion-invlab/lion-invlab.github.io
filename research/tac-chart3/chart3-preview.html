@@ -344,8 +344,13 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
  const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
- // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
- const last=null,ret13=null,dd13=null,above13=null;
+ // 使用 loadSp500() 載入的真實每日收盤價計算 13 週報酬、均線與區間回檔。
+ const n=SP500_PRICES.length,last=n?SP500_PRICES[n-1]:null,prev13=n>65?SP500_PRICES[n-66]:null;
+ const ret13=last!==null&&prev13!==null?(last/prev13-1)*100:null;
+ const sma13=n>=65?SP500_PRICES.slice(-65).reduce((a,b)=>a+b,0)/65:null;
+ const peak13=n>=65?Math.max(...SP500_PRICES.slice(-65)):null;
+ const dd13=last!==null&&peak13!==null?(last/peak13-1)*100:null;
+ const above13=last!==null&&sma13!==null?last>=sma13:null;
  const val=id=>m[id].value;
  const delta=id=>m[id].delta??0;
  const enough=Object.values(m).every(x=>x.value!==null);
@@ -374,8 +379,12 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const trend='S&P 500 已接入可重算的真實每日收盤價序列。';
  const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
  document.getElementById('risk-thesis').textContent=thesis;
- document.getElementById('sp500-return').textContent='價格序列待接入';
- document.getElementById('sp500-detail').textContent=trend+' 今日買賣建議不會使用未核實的價格觸發條件。';
+ const sp500Status=ret13===null?'歷史資料不足':('近 13 週報酬 '+(ret13>=0?'+':'')+ret13.toFixed(2)+'%');
+ document.getElementById('sp500-return').textContent=sp500Status;
+ const sp500Condition=above13===null?'13 週均線資料不足':(above13?'收盤價位於 13 週均線之上':'收盤價位於 13 週均線之下');
+ const sp500Detail=document.getElementById('sp500-detail');
+ const dataProvenance=sp500Detail.textContent;
+ sp500Detail.textContent=dataProvenance+'｜最新收盤 '+fmt(last)+'｜'+sp500Condition+'｜距近 13 週高點 '+(dd13===null?'資料不足':dd13.toFixed(2)+'%');
  let eqTitle,eqDetail,defTitle,defDetail,triggers=[];
  if(systemic){
   eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
@@ -399,7 +408,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
   defDetail='債券以投資級及符合期限需求的部位為主；保留約 10–20% 可動用現金，避免在低波動時把資金一次投入。';
  }else{
   eqTitle='核心持股續抱；新資金先不追價';
-  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若跌破 13 週均線，延後加碼，等重新站回後再執行。由於目前頁面未嵌入可重算的收盤價序列，本日不宣稱上述價位條件已觸發。';
+  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若收盤低於 13 週均線，延後加碼，等重新站回後再執行。最新價格與均線狀態以本頁真實每日收盤價序列計算。';
   defTitle='維持防禦配置與 10–20% 機動現金';
   defDetail='保留高品質債券作為組合穩定器；現金用於回檔時分批投入，不因單一指標變化全面轉為現金。';
  }
