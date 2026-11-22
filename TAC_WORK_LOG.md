@@ -3005,3 +3005,12 @@
 - QA_PASSED、內容 Gate PASS、政治掃描 PASS、六 viewport PASS；但 review_ready／data_review_ready／sim14_review_ready 均 false，兩項真實 PARTIAL blockers 維持，不交付 main。
 - 本輪 main index 與 W47／W48 正式 JSON SHA 均與先前一致；無 main 寫入或 Pages 部署。
 
+
+## 2026-11-22｜W48 經濟預期缺漏交叉來源複核
+
+- **澳洲 Flash PMI（11/23）：** Investing.com upcoming row 無 forecast；MihanInvest 的 2026-11-23 AUD Flash Services PMI 頁亦顯示 Forecast 為「—」、Previous 48.5（來源：https://mihaninvest.com/en/calendar/event/flash-services-pmi/）。不得把前值當成市場預期。
+- **日本 Flash PMI（11/24）：** Investing.com upcoming row 無 forecast；Broker Radar 的 11/24 Flash Manufacturing PMI 顯示 Forecast 空白（來源：https://broker-radar.com/en/tools/economic-calendar/economic/150931-jpy-flash-manufacturing-pmi）；Cibo 的 11/24 Jibun Bank Services PMI 顯示 Forecast「--」（來源：https://cibo.hk/en/market-calendar.html?anchor=2026-11-22&market=JP&tab=macrodata&view=week）。不同 PMI 分項不得互相代填。
+- **加拿大 SEPH（2026/09）：** Statistics Canada 官方公告確認 9 月 SEPH 與 JVWS 於 2026-11-26 發布（來源：https://www150.statcan.gc.ca/n1/daily-quotidien/261029/dq261029a-eng.htm）；Baystreet 加拿大經濟日曆列出 Payroll Employment, Earnings and Hours（Sept），未列市場 forecast（來源：https://www.baystreet.ca/articles/econ_calendar.aspx）。Canada Employment Change consensus 對應 Labour Force Survey，並非 SEPH，不可代用。
+- **判定：** 三筆 W48 具數值預期的經濟事件經交叉來源複核後仍無可採用公告前共識，維持 `forecast=null`／待核實；不得使用前值、不同指標或模型預測填補。W47 23 筆財報事件缺少 PIT 公告前共識，歷史資料無法事後重建，維持 PARTIAL，不產生 Beat/Miss。
+- **影響：** 不修改 main W48 JSON、不修改 11/23 Fixture 數值、不改寫 QA blocker；`review_ready=false` 維持。此為資料證據不足，不是 Pipeline 技術故障。
+
