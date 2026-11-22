@@ -51,6 +51,14 @@ def main():
             assert all(r["source_page_fetched"] is True for r in result["rows"])
             assert all(r["page_readable"] is False for r in result["rows"])
             assert all(r["verification_status"] == "TOOL_READ_FAILURE" for r in result["rows"])
+        verified_manifest = fake_manifest()
+        verified_manifest["rows"][0]["verification_status"] = "VERIFIED"
+        verified_manifest["rows"][0]["display_value_reconciled"] = True
+        with tempfile.TemporaryDirectory() as temp:
+            result = capture_manifest(verified_manifest, Path(temp), 0)
+            assert result["already_verified_skip_count"] == 1
+            assert result["capture_attempted_count"] == 43
+            assert result["rows"][0]["capture"]["status"] == "SKIPPED_ALREADY_VERIFIED"
     finally:
         module.capture_one = original
     print("PASS: raw capture never implies numeric reconciliation")
