@@ -2903,3 +2903,14 @@
 - 依最新 Fixture SHA `6640d4362bf9332368bf61d1e7eb261ab88bed58` 與目前核准 Builder `16254bfa249814ac75e62cf8acbad2828f366fe6`，觸發 workflow 的 `build` 路徑，報告日 2026-11-23，額外探測關閉。
 - 本次目標是產出 simulation review HTML 與 QA sidecar，驗證五層文章、政治掃描、44行情、W48/W47行事曆、財報小卡、DOM、互動及六視窗視覺；若三項 PARTIAL blockers 阻止 REVIEW_READY，必須 fail-closed，不交付 main。
 - main、正式首頁、正式母版、正式 Manifest、calendar JSON 均不在本次寫入範圍。
+
+
+## 2026-11-22｜11/23 真實內容 E2E 最終驗收結果（SIM-1.4）
+
+- **最新生產 E2E run：** `44983783412`。報告日 `2026-11-23`，Monday 母版，核准 Builder `simulation-lab/runner/build_review_html.py` blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。
+- **simulation preview 已保存：** `preview/2026-11-23-simulation.html`，Git blob SHA `9ef73226bfc4f1889c4e25fc3b71ffce21fd2f57`，SHA-256 `cf14bae515e45704c5d74d7110b73573cbec546540e2e08667a497f16896dd4d`；QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `184ec4d924f117615299b9bbf35b30920bb6c463`。HTML／sidecar 綁定一致。
+- **技術／內容 QA：** sidecar `status=QA_PASSED`；Builder approval `APPROVED`；五層內容 Gate PASS；六領域政治／地緣政治掃描 PASS；DOM preservation、導覽／收折／來源連結、44項行情及行事曆結構檢查通過；六個 viewport 1440／768／412／390／360／320 全 PASS。
+- **修正項目：** 週一風險觀察加入11/23 17:00歐元區、22:45美國Flash PMI及11/25 21:30美國GDP／PCE台灣時間；債券評論移除重複百分比報價；盤面觀察明確寫出配置含意；區域評論陣列修正為美國／亞洲／中國／歐洲；2年／10年／30年美債殖利率日變動補為 -13／-12／-9 bp，依美國財政部11/19與11/20官方日終列計算；TAC查核時間註記已更正，43項記錄11:40:25、Russell 2000記錄11:41:20（台灣時間），不冒充供應商timestamp。
+- **REVIEW_READY 仍未成立：** sidecar `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`。三項 PARTIAL blockers：① W47 23筆已公布財報缺少可採用公告前 EPS／Revenue 共識，不能事後推定 Beat/Miss；② W48 27筆經濟事件中7筆沒有可採用數值市場預期，保持 null／待核實；③ main W47／W48 行事曆 coverage 均為 incomplete，早報唯讀呈現。
+- **Stage 6 fail-closed 正常運作：** main preview delivery step 因 `review_ready != True` 明確拒絕交付；未寫入 `main:preview/2026-11-23-review.html`，未修改 `main:index.html`，未改正式母版／Manifest／calendar JSON，未部署 Pages。main index SHA 維持 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；main W48 JSON SHA 維持 `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`。
+- **結論：** SIM-1.4 Builder 已完成真實內容組裝及技術／內容 QA，產物只存在 simulation preview；目前屬「QA_PASSED／PARTIAL／不可交付」，不是 REVIEW_READY。下一步只處理三項真實資料 blockers；不得為了交付而移除或隱藏 blocker。
