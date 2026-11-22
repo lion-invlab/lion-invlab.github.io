@@ -131,8 +131,9 @@ def load_increment_ledger(path: Path):
         stamp = dt.datetime.fromisoformat(row["observed_at"])
         if stamp.utcoffset() != dt.timedelta(hours=8):
             raise ValueError(f"Invalid Taipei observation timestamp at line {line_no}")
-        if stamp.date().isoformat() != row.get("report_date"):
-            raise ValueError(f"Report date does not match observed_at at line {line_no}")
+        report_day = dt.date.fromisoformat(row["report_date"])
+        if stamp.date() > report_day:
+            raise ValueError(f"Observation timestamp is later than report date at line {line_no}")
         rows.append((day, int(round(float(row["close"]) * 100))))
     if not rows or any(rows[i][0] >= rows[i+1][0] for i in range(len(rows)-1)):
         raise ValueError("Increment ledger must be nonempty and strictly ascending")
