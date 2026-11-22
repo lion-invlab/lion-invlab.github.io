@@ -15,11 +15,11 @@
 ### Builder 與 QA 實作
 - Builder 候選 `simulation-lab/runner/build_review_html.py` SHA：`16254bfa249814ac75e62cf8acbad2828f366fe6`。
 - Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。另新增 output-only candidate validation mode，只允許輸出至 simulation-lab/output/candidate-validation，不可寫入 preview 或 main；已使用 11/23 Monday 與 11/20 Weekday 既有 Fixture 加 TEST_ONLY 合成文章內容，完成雙情境完整 Builder 組裝及 DOM preservation。
-- 新增 `test_market_analysis_slots.py`、`render_market_analysis_test_pages.py`、`test_market_analysis_browser.mjs`；同步更新雙母版驗證器、DOM preservation validator、獨立 artifact validator 與 GitHub Actions workflow。
+- 新增 `test_market_analysis_slots.py`、`test_full_candidate_builder.py`、`render_market_analysis_test_pages.py`、`test_market_analysis_browser.mjs`；同步更新雙母版驗證器、DOM preservation validator、獨立 artifact validator 與 GitHub Actions workflow。
 - Workflow 新增五層內容 Gate、政治掃描 sidecar 欄位、Stage 6 交付檢查；未完成政治掃描或未具備完整證據，不得默認 PASS。
 
 ### 驗收證據
-- GitHub Actions run `44978042935`：completed／success。
+- GitHub Actions run `44978042935` 與最終回歸 run `44978265956` 均 completed／success；後者以加長合成段落再次驗證完整 Builder 與瀏覽器測試。
 - Deterministic self-tests PASS；五層母版槽位／來源證據／fail-closed 測試 PASS；政治事件分類、傳導鏈、baseline／risk／severe 情境測試 PASS；歷史 Builder 核准不得沿用新 SHA 及候選輸出路徑防護測試 PASS。
 - 兩套 Builder 分別以 11/23 Monday、11/20 Weekday Fixture 加 TEST_ONLY 合成文章完整組裝；兩份輸出均通過母版 DOM preservation。候選輸出只位於 simulation-lab/output/candidate-validation，並帶有 candidate-validation-only provenance 及合成測試 blocker。
 - 週一與平日完整候選 Builder HTML 在 1440／768／412／390／360／320px 六種 viewport 全 PASS；文章容器與各層文字無水平溢位。
