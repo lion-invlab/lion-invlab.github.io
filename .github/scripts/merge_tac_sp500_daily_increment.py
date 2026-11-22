@@ -129,14 +129,18 @@ def merge_recent(recent_path: Path, ledger_path: Path):
     base_rows, compact = decode_compact(recent_path)
     increments, ledger_raw = load_increment_ledger(ledger_path)
     last_day = base_rows[-1][0]
-    if any(day <= last_day for day, _ in increments):
-        raise ValueError("Increment ledger contains dates already present in the recent compact baseline")
-    if len({d for d, _ in base_rows + increments}) != len(base_rows) + len(increments):
-        raise ValueError("Duplicate dates between baseline and increment ledger")
-    merged = base_rows + increments
+    baseline_by_date = dict(base_rows)
+    historical = [(day, cents) for day, cents in increments if day <= last_day]
+    for day, cents in historical:
+        if baseline_by_date.get(day) != cents:
+            raise ValueError(f"Historical increment does not match compact baseline: {day}")
+    pending = [(day, cents) for day, cents in increments if day > last_day]
+    if len({d for d, _ in base_rows + pending}) != len(base_rows) + len(pending):
+        raise ValueError("Duplicate dates between baseline and pending increment ledger")
+    merged = base_rows + pending
     result = encode_compact(merged, compact)
     recent_path.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return result, ledger_raw, increments
+    return result, ledger_raw, pending
 
 def git_blob_sha1(path: Path):
     data = path.read_bytes()
@@ -168,13 +172,14 @@ def main():
         "rows": full_compact["rows"],
         "encoding": full_compact["encoding"],
         "recent_snapshot_source": f"Validated FJA/FRED compact baseline plus verified daily cash-index Close increments through {result['end']}; latest source: {last_record['source_name']}.",
-        "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
+        "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; previously merged ledger rows must match the compact baseline exactly; no interpolation or forward-fill.",
         "increment_ledger": {
             "path": str(ledger),
             "sha256": hashlib.sha256(ledger_raw).hexdigest(),
-            "first": increments[0][0],
-            "last": increments[-1][0],
-            "rows": len(increments),
+            "first": ledger_records[0]["observation_date"],
+            "last": ledger_records[-1]["observation_date"],
+            "rows": len(ledger_records),
+            "pending_rows_merged_this_run": len(increments),
             "source_name": last_record["source_name"],
             "source_url": last_record["source_url"],
             "observed_at": last_record["observed_at"],
@@ -183,7 +188,8 @@ def main():
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"recent_end": result["end"], "recent_rows": result["rows"],
                       "full_end": full_compact["end"], "full_rows": full_compact["rows"],
-                      "increment_rows": len(increments), "ledger_sha256": hashlib.sha256(ledger_raw).hexdigest()},
+                      "ledger_rows": len(ledger_records), "pending_rows_merged": len(increments),
+                      "ledger_sha256": hashlib.sha256(ledger_raw).hexdigest()},
                      ensure_ascii=False, indent=2))
 
 if __name__ == "__main__":
