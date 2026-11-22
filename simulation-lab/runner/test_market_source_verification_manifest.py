@@ -13,5 +13,17 @@ def main():
     assert all(r["verification_status"]=="PENDING_SOURCE_PAGE_CAPTURE" for r in result["rows"])
     assert all(r["source_url"].startswith("https://") for r in result["rows"])
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
+    bond_rows = {r["name"]: r for r in result["rows"] if r["group"] == "bonds"}
+    expected = {
+        "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+        "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+        "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+    }
+    assert set(bond_rows) == set(expected)
+    for name, url in expected.items():
+        assert bond_rows[name]["source_url"] == url
+        assert bond_rows[name]["source_role"] == "PRIMARY"
+        assert "home.treasury.gov" in bond_rows[name]["cross_check_url"]
+        assert bond_rows[name]["cross_check_role"] == "CROSS_CHECK_ONLY"
     print("PASS: 44 unique source tasks; no row falsely marked source-verified")
 if __name__=="__main__": main()
