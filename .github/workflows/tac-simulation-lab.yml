@@ -920,7 +920,7 @@ jobs:
           fi
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
           git fetch origin simulation/tac-process-lab-2026-11-06
-          git rebase origin/simulation/tac-process-lab-2026-11-06
+          # Builder/QA creates local generated files after the review commit.\n          # Auto-stash those workspace changes before rebasing onto a concurrent SIM push.\n          git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06
           # Revalidate after rebase so a concurrent mother/manifest change cannot
           # leave a QA-passed HTML artifact attached to a different approved baseline.
           python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
