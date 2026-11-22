@@ -3,7 +3,7 @@
 report_date: 2026-11-23
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-active_rules_blob_sha: 9493e85d5c2a...
+active_rules_blob_sha: 9493e85b424eb1b48d4df8c328d5850d6fcef0c8
 fixture: simulation-lab/fixtures/report-data-2026-11-23.json
 builder: simulation-lab/runner/build_review_html.py
 main_delivery: disabled
