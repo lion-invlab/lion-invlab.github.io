@@ -351,7 +351,6 @@ function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Daily){
  const dd13=last&&peak13?((last.close/peak13)-1)*100:null;
  const sma13=window65.length?window65.reduce((sum,p)=>sum+p.close,0)/window65.length:null;
  const above13=last&&sma13!==null?last.close>=sma13:null;
- const priceWeak=above13===false;
  const pullbackStatus=dd13===null?'回檔資料不足':dd13<=-5?'已達 5% 以上回檔':dd13<=-3?'已進入 3–5% 回檔區':'尚未達 3% 回檔區';
  const trendStatus=above13===null?'均線資料不足':above13?'位於 65 個交易日均線之上':'位於 65 個交易日均線之下';
  const val=id=>m[id].value;
@@ -385,7 +384,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Daily){
   eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
   eqDetail='分 2–3 次執行，不一次清倉；優先減少高波動、槓桿與單一產業集中部位。若 S&P 500 位於 65 個交易日均線之下，暫停新增股票資金；目前'+trendStatus+'。';
   defTitle='提高防禦，保留現金';
-  defDetail='債券以高品質、投資級為主；減少高收益債與長久期集中風險。減碼所得先留現金，待 NFCI 與 STLFSI4 回落且價格重新站回 13 週均線，再分批部署。';
+  defDetail='債券以高品質、投資級為主；減少高收益債與長久期集中風險。減碼所得先留現金，待 NFCI 與 STLFSI4 回落且價格重新站回 65 個交易日均線，再分批部署。';
  }else if(vixSpike){
   eqTitle='核心持股續抱；新增資金等回檔分批進場';
   eqDetail='不追高、不因 VIX 單獨急升而全面出場。新增資金分 3 批：目前'+pullbackStatus+'；自近期高點回落 3–5% 時投入第一批、回落 5–8% 時投入第二批；第三批待價格止跌並重新站回 65 個交易日均線。';
@@ -403,7 +402,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Daily){
   defDetail='債券以投資級及符合期限需求的部位為主；保留約 10–20% 可動用現金，避免在低波動時把資金一次投入。';
  }else{
   eqTitle='核心持股續抱；新資金先不追價';
-  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若跌破 13 週均線，延後加碼，等重新站回後再執行。目前狀態：'+pullbackStatus+'、'+trendStatus+'；以實際收盤序列判斷，不以視覺估值代替。';
+  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若跌破 65 個交易日均線，延後加碼，等重新站回後再執行。目前狀態：'+pullbackStatus+'、'+trendStatus+'；以實際收盤序列判斷，不以視覺估值代替。';
   defTitle='維持防禦配置與 10–20% 機動現金';
   defDetail='保留高品質債券作為組合穩定器；現金用於回檔時分批投入，不因單一指標變化全面轉為現金。';
  }
