@@ -2742,3 +2742,17 @@
 - **Session State：** 已將最新狀態置頂；更新後 blob SHA `4b0ef64f291a251c4c012593928da76657ab0275`。
 - **保護範圍：** main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 未修改；未部署 Pages。每日 live acquisition／production schedule 仍非本次雙母版技術回歸的驗證範圍。
 - **下一步：** 提交候選 Builder 精確路徑與 SHA 供使用者明確核准；核准前不得修改 sidecar 核准欄位或宣稱 SIM-1.4 REVIEW_READY。
+
+
+## 2026-11-22 09:07｜使用者核准 SIM-1.4 唯一 Builder
+
+- **明確決策：** 使用者核准精確 Builder `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`，成為 SIM-1.4 唯一正式生產組裝入口。
+- **核准前技術證據：** Monday 2026-11-23 workflow run `44964279548` completed/success；Weekday 2026-11-20 workflow run `44964439803` completed/success。兩份 QA sidecar 綁定相同 Builder SHA，兩種母版六 viewport QA 均通過。
+- **規則更新：** `simulation-lab/TAC_WORK_RULES_SIM.md` §8.1 新增唯一 Builder 精確路徑／SHA、核准依據及禁止 fallback 條款；版本紀錄追加使用者核准決議。更新後 active rules blob SHA：`db31aedbf9325183dc4115e147939d524c9acec5`。
+- **Monday sidecar：** `preview/2026-11-23-simulation.qa.json` 更新後 blob SHA `38051d094dd71489ed41d7c2091ce1368b3cf61f`；`sim14_builder_approval=APPROVED`、`sim14_review_ready=true)、`sim14_blockers=[]`。
+- **Weekday sidecar：** `preview/2026-11-20-simulation.qa.json` 更新後 blob SHA `574971356af1d4531d1b2f25bcf0004e9f687d92`；`sim14_builder_approval=APPROVED`、`sim14_review_ready=true)、`sim14_blockers=[]`。
+- **核准 provenance：** 兩份 sidecar 均記錄核准時間 `2026-11-22 09:07`（台灣時間）、精確 Builder 路徑／SHA、Monday／Weekday workflow run ID，並更新 active rules blob SHA。
+- **驗收報告：** `simulation-lab/validation/SIM14_DUAL_MOTHER_BUILDER_ACCEPTANCE_2026-11-22.md` 已同步核准結果，更新後 blob SHA：`697093605603c723b246abfdea151f2ec6f39363`。
+- **Session State：** 已置頂核准完成狀態，更新後 blob SHA：`8934c4006d0bc0e7a4f21828a4a5b485d26f3d11`。
+- **權限邊界：** 本次只修改 simulation branch 規則、兩份 sidecar、驗收報告、Session State、Work Log。main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 未修改，未部署 Pages。
+- **後續：** 雙母版驗收與 Builder 核准 Gate 已閉環。下一步以此唯一 Builder 推進 SIM-1.4 live data acquisition／production schedule 端到端整合；正式首頁更新仍須另行核准指定 HTML SHA。
