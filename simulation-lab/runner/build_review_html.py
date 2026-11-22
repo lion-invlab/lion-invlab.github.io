@@ -491,7 +491,7 @@ SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market
 def apply_consensus_projection(data, projection, calendar_source):
     """Attach SHA-pinned TAC-observed consensus references to upcoming cards only."""
     if projection.get("calendar_blob_sha") != calendar_source["current"]["blob_sha"]:
-        raise ValueError("earnings consensus projection does not match the authoritative main calendar blob SHA")
+        raise ValueError("W47 consensus projection does not match the authoritative main calendar blob SHA")
     if projection.get("branch_scope") != "simulation/tac-process-lab-2026-11-06":
         raise ValueError("consensus projection is not from the isolated simulation branch")
     if data.get("earnings", {}).get("week_id") != projection.get("week_id", "2026-W47"):
@@ -545,7 +545,7 @@ def apply_consensus_projection(data, projection, calendar_source):
         applied += 1
     if applied != len(projection.get("records", [])):
         raise ValueError("consensus projection did not apply every record")
-    print(f"PASS: applied TAC-observed consensus projection to {applied} {projection.get('week_id')} earnings cards")
+    print(f"PASS: applied TAC-observed consensus projection to {applied} W47 earnings cards")
     return data
 
 
