@@ -207,6 +207,8 @@ def main():
     policy = analysis["policy_industry"]
     policy_text = " ".join(policy["paragraphs"])
     assert "3,900億美元" in policy_text and "多年度記憶體採購" in policy_text
+    assert "1,158億美元" in policy_text and "1,076億美元" in policy_text
+    assert "475億美元" in policy_text and "年增195%" in policy_text
     assert "1,020億美元" in policy_text and "自身研發" in policy_text
     assert "320億美元" in policy_text and "取得融資" in policy_text
     assert "超過其資產負債表與長期信用狀況可支持的程度" in policy_text
