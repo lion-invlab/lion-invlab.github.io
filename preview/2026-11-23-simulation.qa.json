@@ -42,7 +42,7 @@
     "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "c06cae4304930cb165ad9ca4e1fc6d34a97932d86f107aafd4467a6252faf808",
+  "prebuild_input_receipt_sha256": "03a4de393321cdc3fd30be9209510237ecd3fbf84a8c251efdcf8365e85e8262",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -50,7 +50,7 @@
     "report_date": "2026-11-23",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45015824741",
+    "workflow_run_id": "45016383014",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
@@ -127,7 +127,7 @@
       "political_findings_count": 4,
       "report_cutoff_taipei": "2026-11-23 05:25"
     },
-    "created_at_utc": "2026-11-22T11:08:52Z",
+    "created_at_utc": "2026-11-22T11:15:36Z",
     "limitations": [
       "Stage 2 uses 44 prior fixture-carried browser observations; this run did not fetch source pages or independently reconcile displayed values.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -138,15 +138,15 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "2ee15a9dbfb226807b588f545184cde563bb2ca5",
-  "report_sha256": "f8f76846c203882b9d0b6e4dc6593daa8132e07e57712a5f9d97616707feed29",
-  "build_commit_sha": "f8fa119424554603ff9fbedf000a8a226ec5f9d5",
+  "report_git_blob_sha": "191115b3b35d460701abf737e0073b5a5a8a532c",
+  "report_sha256": "bdc8632dcd5482bdff12ed4d149069bc9fce3ccbacf12f2706a6387a5b56b475",
+  "build_commit_sha": "e2aa7e1ef6fc6cf96203f95e43118fbb529a8e55",
   "builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
   "fixture_blob_sha": "d6ba74599df22a6d5c47ed02c0a5594f1b9de519",
   "template_blob_sha": "efcc712c627d6b26205be340102bba33c4a570d8",
   "manifest_blob_sha": "c5e3e810442cdae416a1c70039ffead895b13bb4",
   "qa_contract_blob_sha": "38fb974cfa591b5ea64d2b342cba68102cf959e6",
-  "active_rules_blob_sha": "dba9c540f11d05836fb4587fc158ff2f7628e79a",
+  "active_rules_blob_sha": "dc56c35acdd7a05a31402fbe949972150c45ffee",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
@@ -203,14 +203,14 @@
     "approved_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
     "actual_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
-    "active_rules_blob_sha": "dba9c540f11d05836fb4587fc158ff2f7628e79a",
+    "active_rules_blob_sha": "dc56c35acdd7a05a31402fbe949972150c45ffee",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
   "calendar_main_commit_sha": "62055b79adcdc70c1f27c77c5576cdba5fee177a",
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "e92f0bbb360eceae1cabd6dcd295f495392d681a01f2ca9a81caf4046b3bd3ba",
-  "visual_evidence_sha256": "3a2490a9b8c19cb346766e1511e817dc1c5f28721782f40d7d855d45082e7cfc",
+  "visual_evidence_sha256": "4aeba8c43d336c9fba7d102e1c869de7345b839eec6fd7c17be94d48a06392f8",
   "viewports": [
     1440,
     768,
@@ -219,6 +219,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45015824741",
+  "workflow_run_id": "45016383014",
   "workflow_run_attempt": "1"
 }
