@@ -1,37 +1,50 @@
-# 最新狀態錨點｜2026-11-22｜SIM-1.4 規則／QA Contract SHA 對齊與最終回歸
+# 最新權威狀態｜2026-11-22｜SIM-1.4 最終 SHA 鎖定與 E2E 完成
 
-**本節為唯一最新狀態；下方較早紀錄保留作歷史，不得覆蓋本節。**
-- **工作範圍：** 僅 `simulation/tac-process-lab-2026-11-06`。main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均維持唯讀。
-- **SIM-1.4 主規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` SHA `d744d2338189c38e883816f7eb10f820782409e7`；已將 Appendix D 更新至 QA Contract v1.19 的精確 blob SHA。
-- **QA Contract：** `simulation-lab/baseline/mother-template-qa-contract.md` v1.19 SHA `d266e2074134824931561972709fc189869df98e`。已修正 A2.1 六欄表格分隔線、週一 simulation mother SHA 與 changelog 換行。
-- **Manifest：** `simulation-lab/baseline/mother-template-manifest.json` SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`；Monday mother `efcc712c627d6b26205be340102bba33c4a570d8`；Weekday mother `7027fedb4c5843b1a97fb77f7ef19173e1a98564`。
-- **唯一 Builder：** `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`，已由使用者核准；Workflow SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`。
-- **前一輪真實內容 E2E：** Run `45016383014` completed／success；44 項行情觀察紀錄、同一 main commit W47／W48、5+10 新聞、五層分析、政治掃描、Builder、雙母版 synthetic candidate integration、六視窗 QA、sidecar seal、Simulation archive/read-back 全部通過。此 run 使用 QA Contract v1.18／舊 rules SHA；本輪只做規則附件版本與 SHA 文件一致性修正，故正在以 v1.19／新 rules SHA 重新執行最終回歸，尚未宣稱新 SHA 已通過。
-- **11/23 審核版資料狀態：** QA_PASSED，但 `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`。W47 23 筆歷史財報缺公告前 EPS／Revenue 共識；W48 澳洲／日本 Flash PMI、加拿大 SEPH 共 3 筆經濟事件缺可採用公告前預期。已完成交叉來源複核，forecast 維持 null，不補造、不推定 Beat／Miss。
-- **Stage 2 證據邊界：** 44／44 既有瀏覽器觀察紀錄完整並有 observation hash；本輪 pipeline 使用已封存紀錄，未重新抓取來源頁或獨立重核數值。raw HTTP body SHA 為可選證據，不構成 blocker。
-- **Stage 6：** 因資料 Gate 未達 REVIEW_READY，main delivery 正確 SKIPPED。不得把 QA_PASSED 說成可交付；不修改 main、不部署 Pages。
-- **本輪唯一待辦：** 以目前 SIM-1.4 rules SHA `d744d2338189c38e883816f7eb10f820782409e7`、QA Contract v1.19 SHA `d266e2074134824931561972709fc189869df98e` 執行一次完整最終 E2E；確認最新 sidecar 精確綁定所有 SHA、review_ready 仍正確為 false、歸檔與回讀一致。成功後整理最終條文／實作對照，不再重整已通過模組。
+**本節是目前唯一最新狀態；下方保留歷史紀錄，不得以舊 SHA 或舊狀態覆蓋本節。**
+
+## 一、結論
+- **SIM-1.4 規則與唯一 Builder 已定版於 Simulation 分支；最終 SHA 鎖定 E2E 通過。** 最新 run `45017229150` completed／success，所有執行步驟無 failure。
+- **11/23 審核版技術 QA 通過，但資料 Gate 為 PARTIAL。** `QA_PASSED` 不等於 `REVIEW_READY`；不得交付 main。
+- **Stage 7 排程實跑仍待 11/23（週一）驗證。** 排程存在且 enabled，但前次 05:25 早報啟動延遲並失敗，不能宣稱排程整合已 PASS。
+
+## 二、最終版本鎖定
+- Repository：`lion-invlab/lion-invlab.github.io`
+- 唯一工作分支：`simulation/tac-process-lab-2026-11-06`
+- SIM-1.4 主規則：`simulation-lab/TAC_WORK_RULES_SIM.md` SHA `f0beb47e588e3df8e1f41250dc5bfbb286a2601f`
+- QA Contract v1.19：`simulation-lab/baseline/mother-template-qa-contract.md` SHA `d266e2074134824931561972709fc189869df98e`
+- Simulation Manifest：`simulation-lab/baseline/mother-template-manifest.json` SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`
+- Monday mother：`efcc712c627d6b26205be340102bba33c4a570d8`
+- Weekday mother：`7027fedb4c5843b1a97fb77f7ef19173e1a98564`
+- 唯一核准 Builder：`simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`
+- Simulation Workflow：`.github/workflows/tac-simulation-lab.yml` SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`
+- Build Trigger：`simulation-lab/runner/BUILD_TRIGGER.md` SHA `0726425c15ecfc60e00692602f4fc9c6551591bc`；已同步最終 rules／QA Contract／Manifest／雙母版／Fixture／Builder pins，main delivery disabled。
+
+## 三、最終 E2E 與審核版
+- 最新完整驗收 Run：`45017229150` completed／success。
+- 最新 HTML：`preview/2026-11-23-simulation.html` Git blob SHA `c5aa8e76d5b03bc6328dc3f70b8a040c2ca97e78`；SHA-256 `76633ed0814c37d063c1d8d60c6fb57d1768bcca6c68822d9c948c8e2d654808`。
+- QA sidecar：`preview/2026-11-23-simulation.qa.json` blob SHA `090345efa204c060c27d377a2f3e93373d55fb95`。
+- QA：`QA_PASSED`；內容分析 Gate PASS、政治／地緣政治掃描 PASS；六 viewport 1440／768／412／390／360／320 全 PASS；Builder APPROVED；導航、分頁、收折、來源連結、母版 DOM preservation、雙母版 synthetic candidate integration 均 PASS。
+- Stage 2–4 receipt：status PASS；SHA-256 `55335754c88bcf639c6d9b2aca71d573077172a54a7b5a15882f70a651e55565`；archive `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45017229150.json` blob SHA `edfee6f0831e93ebd591172bd0b36233e870f436`；archive bytes 與 QA sidecar 內嵌 receipt 完全一致。
+- Stage 2：44／44 觀察紀錄完整、每筆 observation hash 完整，交易日 2026-11-20；本輪沿用已封存瀏覽器觀察，`source_pages_fetched_this_run=false`、`numeric_values_reconciled_this_run=false`。raw HTTP body SHA 可選，不是 blocker。
+- Stage 3：W47／W48 由 main commit `62055b79adcdc70c1f27c77c5576cdba5fee177a` 唯讀載入；W48 27 經濟／11 財報，W47 25 經濟／23 財報。
+- Stage 4：焦點新聞 5 則、熱門頭條 10 則、15 個唯一 URL；五層分析及六個政治／地緣政治掃描領域完整，4 筆政治／地緣事件 findings。
+- **資料 Gate 仍 PARTIAL：** W47 23 筆歷史財報缺公告前 EPS／Revenue 共識；W48 澳洲／日本 Flash PMI、加拿大 SEPH 共 3 筆經濟事件缺可採用公告前預期。已完成交叉來源複核，forecast 維持 null，不補造、不推定 Beat／Miss。故 `data_review_ready=false`、`review_ready=false`、`sim14_review_ready=false`。
+- Stage 6 main delivery 正確 SKIPPED；未修改 main、首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
+
+## 四、排程整合（Stage 7）
+- 三項 Automation 均 enabled，下一次排程為 2026-11-23（Asia/Taipei）：行事曆 04:35、早報 05:25、Chart 3 備援檢查 05:30。
+- 前次行事曆任務 11/20 04:54:53 完成；前次早報任務 11/20 06:30:42 才啟動（晚於 05:25），且 run 記錄 failed；前次 Chart 3 11/20 05:37:19 完成。
+- 排程設定已確認，實際準時喚醒／完整串接尚未 PASS。須於 11/23 核對三項當日執行紀錄及 Fixture commit → Workflow → Simulation QA → 05:30 備援檢查的先後與 SHA。
+
+## 五、正式環境唯讀基準
+- main `index.html` SHA：`4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`
+- main W48 JSON SHA：`807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`
+- main W47 JSON SHA：`727ea2be1c04688d3c4f98d36c452561bbab6821`
+- 三者均未修改；不得因 E2E SUCCESS 或 QA_PASSED 自動交付／部署。
 
 ---
 
-# 最新狀態錨點｜2026-11-22｜SIM-1.4 Stage 2–4 收據與 FOMC 320px 版面修正
 
-**本節優先於下方較早的狀態錨點及歷史紀錄。**
-- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。本輪僅修改 simulation baseline／Manifest／QA Contract／驗收程式；main 正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改。
-- **正式規則與驗收附件：** SIM-1.4 主規則 blob SHA `dba9c540f11d05836fb4587fc158ff2f7628e79a`；QA Contract v1.18 blob SHA `38fb974cfa591b5ea64d2b342cba68102cf959e6`；simulation mother Manifest SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`。
-- **雙母版最新 SHA：** Monday `efcc712c627d6b26205be340102bba33c4a570d8`；Weekday `7027fedb4c5843b1a97fb77f7ef19173e1a98564`。兩份母版只在 360px 以下將 Fed 官員行程列改為日期在上、內容在下；361px 以上維持日期／內容雙欄。
-- **FOMC 實際互動與響應式驗收：** Run `45015824741` completed／success。interaction smoke 真正點選 FOMC radio，驗證 John Williams 行程日期、官員名稱及 HTTPS 官方來源；桌機 1440px 與手機 320px 均 PASS，`page_errors=[]`。桌機行程內容寬 992px；320px 日期與內容垂直排列，內容寬 206px，row scrollWidth=clientWidth=206，documentWidth=viewportWidth=320，無水平溢位。截圖已封存：`desktop-1440-fed-fomc.png`、`mobile-320-fed-fomc.png`。
-- **完整 11/23 E2E：** Run `45015824741` completed／success；雙母版 SHA materialization、deterministic self-tests、唯一 Builder、Stage 2–4 pre-build receipt、FOMC tabs／官員行程、母版比較、DOM、日期／行事曆／44 行情／新聞 Gate、Builder 後 receipt SHA recheck、QA sidecar seal、Simulation archive 與 remote read-back 全部成功。Stage 6 main delivery 未執行。
-- **最新審核版：** `preview/2026-11-23-simulation.html` blob SHA `2ee15a9dbfb226807b588f545184cde563bb2ca5`；SHA-256 `f8f76846c203882b9d0b6e4dc6593daa8132e07e57712a5f9d97616707feed29`。QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `4089f85252782cefb341f7652e11aac092df2247`。
-- **Stage 2–4 receipt：** status PASS；SHA-256 `c06cae4304930cb165ad9ca4e1fc6d34a97932d86f107aafd4467a6252faf808`；archive `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45015824741.json` Git blob SHA `574e0465bcf4e0849b27f970390b8f4575e9946b`。已確認歸檔 bytes 與 QA sidecar 內嵌收據逐位元組一致。
-- **QA 狀態：** `QA_PASSED`、`content_analysis_gate=PASS`、政治掃描 PASS、六 viewport（1440／768／412／390／360／320）PASS；Builder `16254bfa249814ac75e62cf8acbad2828f366fe6` APPROVED。惟 `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`，不得交付 main。
-- **仍有兩項 PARTIAL blocker：** W47 23 筆歷史財報缺公告前 EPS／Revenue 共識，無法事後重建；W48 澳洲／日本 Flash PMI 與加拿大 SEPH 共 3 筆經濟預期缺可採用公告前共識，forecast 維持 null。不得補造或推定 Beat／Miss。
-- **main 唯讀確認：** `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，均與本輪前一致。
-- **資料 PARTIAL blocker 交叉來源複核（2026-11-22）：** 澳洲 Flash PMI：Investing.com upcoming row 無 forecast，MihanInvest 11/23 release 亦顯示 Forecast —；日本 Flash PMI：Investing.com upcoming row 無 forecast，Broker Radar 11/24 Flash Manufacturing PMI forecast 空白，Cibo 11/24 Jibun Bank Services PMI forecast 為 --；加拿大 SEPH：Investing.com 未找到公告前共識，Statistics Canada 確認 9 月 SEPH 於 11/26 發布，Baystreet 加拿大經濟日曆該項未列 forecast。Canada Employment Change 的 consensus 是 Labour Force Survey，不是 SEPH，不得替代。三筆仍維持 null。
-- **下一步：** FOMC 320px 擠壓問題已修正並實測通過。兩項 PARTIAL blocker 已完成交叉來源複核，現有證據不支持補入 forecast；W47 23 筆 PIT 財報共識亦不可事後重建。保留 PARTIAL，SIM-1.4 E2E 技術流程已通過。不得為了 REVIEW_READY 放寬規則；未經明確核准不修改 main／正式首頁。
-
-
----
 
 # 最新狀態補充｜2026-11-22 18:29（台灣時間）｜11/23 Stage 2–4 Fixture 交接修正
 
