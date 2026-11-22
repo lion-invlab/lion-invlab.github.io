@@ -549,6 +549,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 版本紀錄
 
+- 2026-11-22｜QA Contract v1.19 最終 SHA 鎖定：A2.1 六欄表格分隔線、週一／平日 simulation mother SHA、FOMC 320px 行程欄位與版本紀錄格式均已回讀確認；QA Contract blob SHA `d266e2074134824931561972709fc189869df98e`，Appendix D 精確指向此 SHA。
 - 2026-11-22｜SIM-1.4 首次真實內容雙母版 E2E 驗收完成：GitHub Actions run `45016383014` completed／success；同一 active rules、核准 Builder `16254bfa249814ac75e62cf8acbad2828f366fe6`、Manifest、QA Contract v1.19 及雙 simulation mother SHA 綁定。真實 11/23 Monday Fixture 完成 Stage 2–5 組裝、輸入收據、Builder、內容／政治掃描、DOM／互動／來源連結、雙母版 synthetic candidate integration、六視窗 QA、QA sidecar seal、Simulation 封存及遠端回讀。44 項使用 Fixture 內既有完整瀏覽器觀察紀錄，本輪未重抓來源頁或獨立重核數值；此限制已在 receipt／sidecar 明示。QA_PASSED，但 W47 23 筆歷史財報共識及 W48 3 筆經濟預期缺少可採用公告前證據，`data_review_ready=false`、`review_ready=false`、`sim14_review_ready=false`；Stage 6 main delivery 正確 SKIPPED。此記錄證明 SIM-1.4 真實內容生產 E2E 技術路徑完成，不代表該份報告可交付，也不授權修改 main／正式首頁。
 
 **文件狀態澄清：** 本文件標題及下方「SIM-1.4 正式生效紀錄」為現行狀態依據。版本紀錄中標示「當時 DRAFT／未生效」的段落，只記錄該次修訂提出時的歷史狀態；下方仍保留的三段 DRAFT 草案內容不構成獨立有效條文。其後已採納的規則以第 0–11 節現行主文及正式生效紀錄為準；未納入主文者不生效。不得將歷史 DRAFT 標籤解讀為目前 SIM-1.4 尚未生效。
