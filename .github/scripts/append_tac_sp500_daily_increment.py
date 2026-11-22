@@ -105,6 +105,7 @@ def extract_handoff(payload: dict) -> dict:
         "close": round(close, 2),
         "source_name": source_name,
         "source_url": source_url,
+        "quote_type": quote_type,
         "source_note": f"S&P 500現金指數；非CFD；quote_type={quote_type}；instrument={instrument}；{note}",
         "observed_at": observed_at.isoformat(),
         "retrieved_at": observed_at.astimezone(dt.timezone.utc).isoformat(),
