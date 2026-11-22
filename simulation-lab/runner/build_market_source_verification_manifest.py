@@ -33,7 +33,9 @@ def verification_fields(source: dict, display, change_display) -> dict:
         else:
             verified = verified and str(change_display) == str(source.get("daily_change_percent"))
     elif verified and source.get("history_close") is not None:
-        verified = str(change_display) == str(source.get("history_change"))
+        source_close = source.get("close")
+        verified = (source_close is None or str(source_close) == str(source.get("history_close")))
+        verified = verified and str(change_display) == str(source.get("history_change"))
     elif verified and source.get("score_value") is not None:
         verified = str(display) == str(source.get("score_value")) and str(change_display) == str(source.get("band"))
     else:
