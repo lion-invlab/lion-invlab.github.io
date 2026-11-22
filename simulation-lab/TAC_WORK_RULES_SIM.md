@@ -320,7 +320,8 @@
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
-8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。此核准依據為 2026-11-22 使用者明確核准，以及同一 Builder SHA 的 Monday run `44964279548`、Weekday run `44964439803` 雙母版完整驗收。SIM-1.4 每日生產組裝只准使用此路徑及精確 SHA；任何其他 Builder、手工 HTML 組裝或 SHA 不符均停止，不得 fallback。
+8. **此前已核准的 Builder（歷史核准基準）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。此核准依據為 2026-11-22 使用者明確核准，以及同一 Builder SHA 的 Monday run `44964279548`、Weekday run `44964439803` 雙母版完整驗收；該核准只適用於當時的母版／Manifest，不能自動延伸至本次新增五層文章槽位後的結構。
+9. **五層文章槽位更新後的 Builder 狀態：** 舊 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備五層文章填槽及政治掃描驗證能力，不得用於更新後的雙母版。候選 Builder 仍為 `simulation-lab/runner/build_review_html.py`，目前 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342`；已加入 Manifest 綁定的五層內容槽位填入、來源連結／時間／狀態驗證，以及六領域政治掃描、事件傳導與三情境驗證。此候選 SHA 尚待 CI deterministic tests、雙母版完整回歸及使用者對精確 SHA 的明確核准。完成前 Gate 0／Stage 5 必須阻止正式組裝，不得將舊 SHA 或候選 SHA 標示為目前已核准 Builder。
 
 ### 8.2 組裝限制
 - 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
@@ -531,7 +532,7 @@
 
 ## 版本紀錄
 
-- 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。此修訂只更新 simulation branch 規範；雙母版、Manifest、Builder 與 QA Contract 尚待依本規範後續同步，完成前 Stage 5 仍須 BLOCKED，不得將未實作槽位視為可用。
+- 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。規範修訂後，依同日母版變更授權已同步修改 simulation 雙母版、Manifest、QA Contract 與 Builder 候選實作；候選 Builder 尚待完整回歸及精確 SHA 核准，完成前 Stage 5 仍須 BLOCKED。
 
 - 2026-11-22｜Stage 6 審核版交付修訂：simulation 完整 QA 通過後，以同一 HTML／QA sidecar bytes 原樣交付 main `preview/YYYY-MM-DD-review.*`；main 僅做 SHA／綁定／收據完整性檢查，不重跑完整 QA。main 寫入白名單限 HTML、QA sidecar、delivery receipt 三檔；`index.html`、母版、Manifest、正式行事曆及歷史報告仍禁止修改。
 
