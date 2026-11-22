@@ -23,7 +23,10 @@ def sample_data():
     return {
         "market_analysis": {
             key: {
-                "paragraphs": [f"{title}｜測試分析內容。", f"{title}｜條件與風險。"],
+                "paragraphs": [
+                    f"{title}｜這是一段用來驗證桌面與手機排版的合成測試文字，包含政策變化、產業傳導、經濟影響與市場定價等較長中文內容，必須在窄螢幕自然換行，不得產生水平溢位。",
+                    f"{title}｜若後續條件與來源證據出現變化，應重新評估傳導方向、受影響資產、領先指標及策略失效條件；這段文字刻意拉長以測試 320px 到桌面寬度的閱讀版面。",
+                ],
                 "sources": [{
                     "label": "官方來源測試",
                     "url": "https://example.com/source",
