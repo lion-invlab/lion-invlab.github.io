@@ -150,7 +150,7 @@ def merge_recent(recent_path: Path, ledger_path: Path):
     merged = base_rows + pending
     result = encode_compact(merged, compact)
     recent_path.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return result, ledger_raw, pending
+    return result, ledger_raw, increments, pending
 
 def git_blob_sha1(path: Path):
     data = path.read_bytes()
@@ -165,7 +165,7 @@ def main():
     full = args.data_dir / "sp500_daily_close_1927-2026.compact.json"
     ledger = args.data_dir / "sp500_daily_increment.jsonl"
     manifest_path = args.data_dir / "manifest.json"
-    result, ledger_raw, increments = merge_recent(recent, ledger)
+    result, ledger_raw, increments, pending = merge_recent(recent, ledger)
     subprocess.run(["python", str(args.builder), "--recent-compact", str(recent),
                     "--output", str(full)], check=True)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -196,7 +196,8 @@ def main():
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"recent_end": result["end"], "recent_rows": result["rows"],
                       "full_end": full_compact["end"], "full_rows": full_compact["rows"],
-                      "increment_rows": len(increments), "ledger_sha256": hashlib.sha256(ledger_raw).hexdigest()},
+                      "ledger_rows": len(increments), "new_rows_appended": len(pending),
+                      "ledger_sha256": hashlib.sha256(ledger_raw).hexdigest()},
                      ensure_ascii=False, indent=2))
 
 if __name__ == "__main__":
