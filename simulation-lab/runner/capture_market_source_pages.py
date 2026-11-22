@@ -66,12 +66,32 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
         body64 = result.pop("raw_body_base64", None)
         item["capture"] = result
         item["source_page_fetched"] = bool(result.get("http_status") == 200 and result.get("raw_response_sha256"))
+        challenge_page = False
+        if body64 is not None:
+            import base64
+            body = base64.b64decode(body64)
+            body_text = body[:MAX_BYTES].decode("utf-8", errors="ignore").lower()
+            challenge_markers = (
+                "just a moment",
+                "cf-chl-",
+                "challenge-platform",
+                "enable javascript and cookies",
+                "verify you are human",
+                "cloudflare",
+            )
+            challenge_page = any(marker in body_text for marker in challenge_markers)
+            safe_name = str(len(rows) + 1).zfill(2) + "-" + hashlib.sha256(item["source_url"].encode()).hexdigest()[:12] + ".bin"
+            (output_dir / safe_name).write_bytes(body)
+            item["capture"]["raw_file"] = safe_name
+        item["page_readable"] = bool(item["source_page_fetched"] and not challenge_page)
         item["display_value_reconciled"] = False
-        if item["source_page_fetched"]:
+        if item["page_readable"]:
             item["verification_status"] = "CAPTURED_PENDING_VALUE_RECONCILIATION"
         else:
-            # A denied/unreadable page is a tool failure, not proof of no data.
+            # Access denials and anti-bot/challenge HTML are tool failures,
+            # not proof that the source has no observation for the requested date.
             item["verification_status"] = "TOOL_READ_FAILURE"
+        item["capture"]["challenge_page_detected"] = challenge_page
         if body64 is not None:
             import base64
             body = base64.b64decode(body64)
@@ -88,6 +108,7 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
         "displayed_values_independently_reconciled": False,
         "capture_success_count": captured,
         "capture_failure_count": len(rows) - captured,
+        "tool_read_failure_count": sum(1 for row in rows if row.get("verification_status") == "TOOL_READ_FAILURE"),
         "rows": rows,
         "warning": "HTTP 200/raw-body capture is not numeric verification; each displayed value remains pending independent reconciliation.",
     })
