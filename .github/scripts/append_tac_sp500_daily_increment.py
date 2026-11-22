@@ -69,8 +69,8 @@ def extract_handoff(payload: dict) -> dict:
         raise ValueError("source.data_date must match trading_date")
 
     observed_at = parse_timestamp(source.get("observed_at"))
-    if observed_at.date() != report_day:
-        raise ValueError("source.observed_at local date must match report_date")
+    if observed_at.date() > report_day:
+        raise ValueError("source.observed_at local date cannot be later than report_date")
     close = market.get("value", market.get("close"))
     try:
         close = float(close)
