@@ -233,8 +233,10 @@ def main():
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 2, blockers
+    assert len(blockers) == 1, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
+    assert "W47回顧" in blockers[0] and "23筆財報事件" in blockers[0], blockers
+    assert not any("W48" in item for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
     assert rut["display"] == "2,581.79" and rut["change_display"] == "-2.76%"
@@ -262,8 +264,10 @@ def main():
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 2, blockers
+    assert len(blockers) == 1, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
+    assert "W47回顧" in blockers[0] and "23筆財報事件" in blockers[0], blockers
+    assert not any("W48" in item for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA", "raw_response_sha256")) for x in data["review_ready_blockers"])
     assert any("原始HTTP response body未封存" in x and "可選證據" in x for x in data["pending_items"])
