@@ -29,6 +29,16 @@ def main():
             assert all(r["verification_status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION" for r in result["rows"])
             assert all(r["display_value_reconciled"] is False for r in result["rows"])
             assert len(list(Path(temp).glob("*.bin"))) == 44
+        module.capture_one = lambda url, timeout=25: {
+            "http_status": 403, "final_url": url, "content_type": "text/html",
+            "content_length_bytes": 128, "raw_response_sha256": hashlib.sha256(b"challenge").hexdigest(),
+            "raw_body_base64": "Y2hhbGxlbmdl", "captured_at_utc": "2026-11-22T00:00:00+00:00", "error": "HTTP_ERROR"
+        }
+        with tempfile.TemporaryDirectory() as temp:
+            result = capture_manifest(fake_manifest(), Path(temp), 0)
+            assert result["capture_failure_count"] == 44
+            assert all(r["verification_status"] == "TOOL_READ_FAILURE" for r in result["rows"])
+            assert all(r["display_value_reconciled"] is False for r in result["rows"])
     finally:
         module.capture_one = original
     print("PASS: raw capture never implies numeric reconciliation")
