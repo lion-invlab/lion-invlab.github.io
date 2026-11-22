@@ -539,7 +539,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `6af0a6cd9d9e37f19f7df70956f3bff54199cf99`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。另明確規定總結與五層分析不得顯示來源文字／連結／收折區，內部來源證據與 receipt 必須保留；其他報告區域來源標示不變。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.21，SIM-1.4 執行附件；目前 blob SHA `e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。另明確規定總結與五層分析不得顯示來源文字／連結／收折區，內部來源證據與 receipt 必須保留；其他報告區域來源標示不變。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -716,3 +716,9 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-23 W47唯一五星NVDA財報卡已採用既有2026-11-15 Yahoo Finance公告前原始capture：EPS平均預估2.47121（43位分析師）、Revenue平均預估USD108.7319039B（45位分析師），觀測時間2026-11-15 13:50:45台灣時間，早於11/18公告；原始response SHA `5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a`、capture file blob SHA `46f9a7cc59b5fb6714219f053ce48b0da7dc9e52`。依現行來源順位Yahoo為第1順位；原始capture的source_level=4保留為歷史順位，報告投影記錄source_priority_at_report=1。TAC 1.4判讀：GAAP EPS 2.70較平台估值高9.26%；GAAP營收115.8B較平台估值高6.50%；因Yahoo未揭露EPS會計細項與Revenue完整定義，明確註記非嚴格同口徑比較。Main W47 JSON唯讀，僅更新report Fixture。最新 Fixture SHA：`c4f4a51e423b844bf799bbe488b74c8d678b6199`；Regression test SHA：`b55c6b016bddde98ccd61121aaa1320b5957343b`；W47 NVDA缺少共識之唯一review_ready blocker已解除。
 
 - 2026-11-23 Chart 3 ALFRED incremental maintenance已完成並更新main HEAD至`09e0e5fe64a781373464858fb70c800e4ffbf098`；W47／W48行事曆blob仍分別為`727ea2be1c04688d3c4f98d36c452561bbab6821`及`9bb842ab475fa38ca6407304990d1cd3fae42c63`，內容未變。W48 consensus projection main commit pin同步更新；最新 Projection SHA：`256c86a424b76e0b9cb4a85f915ea3ddac62f4b1`。Main全程唯讀，僅更新simulation投影的來源commit metadata。
+
+- 2026-11-23｜QA Contract v1.21 已加入 W47 NVDA公告前共識局部overlay與receipt-to-final-HTML SHA gate；最新 SHA：`e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`。
+- 2026-11-23｜E2E run `45072970310` 雖技術 QA_PASSED，但實際 HTML 的 W47 NVDA 卡仍顯示「預期未取得」，未呈現Fixture已準備的Yahoo共識；該run及其review_ready sidecar正式標記為不可交付／失效，不得引用為完成。根因：Builder從main W47重新載入已公布事件，既有actuals overlay不套用Fixture共識欄位。
+- 2026-11-23｜不修改已核准 Builder `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；擴充 `patch_review_sections.py --section last_week_earnings`，於Builder之後只更新W47 NVDA五星卡，使用TAC 1.4判讀引擎、核對Yahoo原始capture與官方實績來源，保留-2.89%首個交易日價格反應，並產生獨立receipt。Patcher SHA：`e27901ce47f46a7f67b3b43065bc96162377ce15`；測試 SHA：`4229a82d1f414d84b8c6b85969b08916c695123b`。
+- 2026-11-23｜11/23 Fixture補入NVIDIA官方Q3實績新聞稿來源，並移除歐洲市場判讀及Fed官員行程影響文字中的空泛「後續觀察」句型；Fixture SHA：`90d689feb5559f08c8de0e0837c1e4403a025645`；Fixture regression test SHA：`9ae4936f824c8c9e4c8911b741ec8ee0ea901a01`。
+- 2026-11-23｜Simulation workflow新增Builder後W47 NVDA局部overlay步驟；QA sidecar必須核對overlay receipt SHA與最終HTML SHA，並檢查EPS／Revenue預估、優於預期狀態、非嚴格同口徑註記、官方實績及Yahoo共識連結。Workflow SHA：`97547723228ce44ca335ccdfd431fe6b38180961`。Main W47 JSON、main正式母版及首頁均未由本工作修改；未執行Stage 6 handoff。
