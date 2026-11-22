@@ -15,9 +15,9 @@ def main():
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
     bond_rows = {r["name"]: r for r in result["rows"] if r["group"] == "bonds"}
     expected = {
-        "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
-        "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
-        "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+        "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+        "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+        "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
     }
     assert set(bond_rows) == set(expected)
     for name, url in expected.items():
