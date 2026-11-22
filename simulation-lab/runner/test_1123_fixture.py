@@ -178,6 +178,21 @@ def main():
     assert len(current_earnings["events"]) == 11
     assert len(previous_calendar["events"]) == 2
     assert len(previous_earnings["events"]) == 1
+
+    # Five-layer analysis must distinguish enacted policy, market pricing and official Fed guidance.
+    analysis = data["market_analysis"]
+    assert set(analysis) == {"political", "policy_industry", "macro", "markets", "strategy"}
+    political = analysis["political"]
+    assert "11月19日發布並生效" in political["paragraphs"][0]
+    assert "既有資料中心" in political["paragraphs"][0] and "90日" in political["paragraphs"][0]
+    assert political["sources"][0]["url"] == "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm"
+    assert political["sources"][1]["published_at"] == "2026-11-21T16:40:00+08:00"
+    assert "ukmto_warning_215-26.pdf" in political["sources"][2]["url"]
+    assert "Reuters" in political["sources"][3]["label"]
+    macro = analysis["macro"]
+    assert "僅兩位成員主張升息25個基點" in macro["paragraphs"][0]
+    assert "不是Fed已承諾的決策" in macro["paragraphs"][0]
+    assert macro["sources"][1]["url"] == "https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm"
     assert all(x["stars"] == 5 for x in previous_calendar["events"])
     assert all(x["stars"] == 5 for x in previous_earnings["events"])
     for event in current_calendar["events"] + current_earnings["events"] + previous_calendar["events"] + previous_earnings["events"]:
