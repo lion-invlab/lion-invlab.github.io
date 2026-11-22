@@ -1618,7 +1618,7 @@ def validate_political_scan(data):
     if not str(scan.get("checked_at") or "").strip():
         raise ValueError("political_scan.checked_at is required")
     domains = scan.get("domains_checked")
-    if not isinstance(domains, list) or len(domains) != len(POLITICAL_DOMAINS) or set(domains) != set(POLITICAL_DOMAINS):
+    if not isinstance(domains, list) or domains != list(POLITICAL_DOMAINS):
         raise ValueError("political_scan.domains_checked must contain all six unique scan domains")
     findings = scan.get("findings")
     if not isinstance(findings, list):
