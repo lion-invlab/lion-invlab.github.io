@@ -2,9 +2,9 @@
 
 ### 使用者授權與規範修訂
 - 使用者明確授權先修訂 SIM-1.4，再同步 QA Contract、simulation 雙母版、Manifest、Builder 與測試；全程只在 `simulation/tac-process-lab-2026-11-06` 操作。
-- SIM-1.4 更新後 SHA：`28ac13f8a3ee2cae5da0f0928d6eedc30fc1fc4d`。市場深度解析由四層改為五層：政治／地緣政治 → 政策與產業鏈 → 宏觀經濟 → 金融市場定價 → 機構資金與投資策略。
+- SIM-1.4 更新後 SHA：`c83c499451769287ce59d7a56b709562ce363c61`。市場深度解析由四層改為五層：政治／地緣政治 → 政策與產業鏈 → 宏觀經濟 → 金融市場定價 → 機構資金與投資策略。
 - 新增政治與地緣政治每日六領域掃描、五種事件／政策狀態分類、事件傳導鏈、基準／風險／嚴重情境、觸發條件、受影響資產、領先指標、策略及失效條件。
-- QA Contract v1.17 SHA：`47a7a8a686227ced356bb69702e8621d60415e99`；新增五層文章、政治掃描、來源證據及情境分析驗收。
+- QA Contract v1.17 SHA：`ba29f7a3b04c424a53ecdbbcd6b0c995b9b7eed5`；新增五層文章、政治掃描、來源證據及情境分析驗收。
 
 ### Simulation 雙母版與 Manifest
 - 週一母版 `simulation-lab/baseline/monday-mother-template.html` SHA：`ce15c803cc778be35302eec96f6a5d123bf49624`。
@@ -14,15 +14,16 @@
 
 ### Builder 與 QA 實作
 - Builder 候選 `simulation-lab/runner/build_review_html.py` SHA：`16254bfa249814ac75e62cf8acbad2828f366fe6`。
-- Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。另新增 output-only candidate validation mode，只允許輸出至 simulation-lab/output/candidate-validation，不可寫入 preview 或 main；正準備以 11/23 Monday 與 11/20 Weekday 既有 Fixture 加合成文章內容，進行完整 Builder 雙情境測試。
+- Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。另新增 output-only candidate validation mode，只允許輸出至 simulation-lab/output/candidate-validation，不可寫入 preview 或 main；已使用 11/23 Monday 與 11/20 Weekday 既有 Fixture 加 TEST_ONLY 合成文章內容，完成雙情境完整 Builder 組裝及 DOM preservation。
 - 新增 `test_market_analysis_slots.py`、`render_market_analysis_test_pages.py`、`test_market_analysis_browser.mjs`；同步更新雙母版驗證器、DOM preservation validator、獨立 artifact validator 與 GitHub Actions workflow。
 - Workflow 新增五層內容 Gate、政治掃描 sidecar 欄位、Stage 6 交付檢查；未完成政治掃描或未具備完整證據，不得默認 PASS。
 
 ### 驗收證據
 - GitHub Actions run `44978042935`：completed／success。
-- Deterministic self-tests PASS；五層母版槽位／來源證據／fail-closed 測試 PASS；政治事件分類、傳導鏈、baseline／risk／severe 情境測試 PASS；歷史 Builder 核准不得沿用新 SHA 的測試 PASS。
-- 週一與平日兩套合成內容瀏覽器測試，在 1440／768／412／390／360／320px 六種 viewport 全 PASS；文章容器與各層文字無水平溢位。
-- 此為母版槽位、Builder helper 與合成內容的結構／響應式回歸，不等於真實日期 Fixture 的完整 Stage 1–6 生產 E2E。
+- Deterministic self-tests PASS；五層母版槽位／來源證據／fail-closed 測試 PASS；政治事件分類、傳導鏈、baseline／risk／severe 情境測試 PASS；歷史 Builder 核准不得沿用新 SHA 及候選輸出路徑防護測試 PASS。
+- 兩套 Builder 分別以 11/23 Monday、11/20 Weekday Fixture 加 TEST_ONLY 合成文章完整組裝；兩份輸出均通過母版 DOM preservation。候選輸出只位於 simulation-lab/output/candidate-validation，並帶有 candidate-validation-only provenance 及合成測試 blocker。
+- 週一與平日完整候選 Builder HTML 在 1440／768／412／390／360／320px 六種 viewport 全 PASS；文章容器與各層文字無水平溢位。
+- 此為雙母版完整 Builder 組裝與合成內容響應式回歸，不等於真實市場分析內容的每日 Stage 1–6 生產 E2E。
 
 ### Builder 核准與後續限制
 - 原核准 Builder SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備五層填槽能力，已在 SIM-1.4 降為歷史核准基準，不得用於新母版。
