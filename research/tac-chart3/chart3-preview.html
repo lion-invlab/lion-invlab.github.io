@@ -326,7 +326,8 @@ function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==n
 
 function renderDailyRiskBrief(byId,weekly,generatedAt){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
- const NEXT_RELEASE={VIXCLS:'2026-11-23',NFCI:'2026-11-25',NFCICREDIT:'2026-11-25',STLFSI4:'2026-11-25'};\n const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null,nextUpdate:NEXT_RELEASE[id]||''};};
+ const NEXT_RELEASE={VIXCLS:'2026-11-23',NFCI:'2026-11-25',NFCICREDIT:'2026-11-25',STLFSI4:'2026-11-25'};
+ const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null,nextUpdate:NEXT_RELEASE[id]||''};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
  // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
  const last=null,ret13=null,dd13=null,above13=null;
