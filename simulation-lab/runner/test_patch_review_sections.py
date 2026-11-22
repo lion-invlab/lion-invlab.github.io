@@ -55,6 +55,9 @@ def test_summary_patch_is_local_on_both_mothers():
         assert soup.select_one("#market-analysis")
         assert soup.select_one("#sentiment")
         assert soup.select_one("#fed .fc-fomc-weekly-events")
+        summary_card = soup.select_one("#overview > section.grid.two > article.card.bluf")
+        assert summary_card.select("a, details.source-details, details.market-analysis-source-details") == []
+        assert "資料來源" not in summary_card.get_text(" ", strip=True)
 
 
 def test_production_paths_are_confined_to_simulation_output():
