@@ -2885,3 +2885,10 @@
 - 11/23 五層市場分析已填入 Fixture；政治／地緣風險包含正式BIS規則、美中峰會、SEC調查及UKMTO荷姆茲事件，並保留未確認事項的狀態；機構資金流缺少可追溯資料，明確標示未核實。
 - 剩餘三項 PARTIAL blockers：W47 23筆歷史財報缺公告前共識；W48 27筆經濟事件中7筆缺市場預期；main W47／W48 coverage incomplete。下一步執行 11/23 真實內容 Builder E2E；Stage 4／5／6 未完成前不得標示 REVIEW_READY 或交付 main。
 - 本次更新只在 simulation branch；main、正式首頁、正式母版、Manifest、calendar JSON 均唯讀。
+
+
+## 2026-11-22｜啟動 2026-11-23 SIM-1.4 真實內容 Builder E2E
+
+- 依最新 Fixture SHA `6640d4362bf9332368bf61d1e7eb261ab88bed58` 與目前核准 Builder `16254bfa249814ac75e62cf8acbad2828f366fe6`，觸發 workflow 的 `build` 路徑，報告日 2026-11-23，額外探測關閉。
+- 本次目標是產出 simulation review HTML 與 QA sidecar，驗證五層文章、政治掃描、44行情、W48/W47行事曆、財報小卡、DOM、互動及六視窗視覺；若三項 PARTIAL blockers 阻止 REVIEW_READY，必須 fail-closed，不交付 main。
+- main、正式首頁、正式母版、正式 Manifest、calendar JSON 均不在本次寫入範圍。
