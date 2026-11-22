@@ -3014,3 +3014,12 @@
 - **判定：** 三筆 W48 具數值預期的經濟事件經交叉來源複核後仍無可採用公告前共識，維持 `forecast=null`／待核實；不得使用前值、不同指標或模型預測填補。W47 23 筆財報事件缺少 PIT 公告前共識，歷史資料無法事後重建，維持 PARTIAL，不產生 Beat/Miss。
 - **影響：** 不修改 main W48 JSON、不修改 11/23 Fixture 數值、不改寫 QA blocker；`review_ready=false` 維持。此為資料證據不足，不是 Pipeline 技術故障。
 
+
+## 2026-11-22｜SIM-1.4 最終文件一致性修正與回歸
+
+- 回讀 SIM-1.4 主規則、QA Contract、Manifest、雙母版及 Builder 實際 Git blob SHA，發現 QA Contract 已升為 v1.18 但 SIM-1.4 Appendix D 仍引用 v1.17 與舊 SHA；另 QA Contract A2.1 的週一 simulation mother SHA 未同步，表格分隔線欄數錯誤，版本紀錄換行被寫成字面 `\n`。
+- 已修正 QA Contract 至 v1.19：A2.1 Monday simulation SHA 更新為 `efcc712c627d6b26205be340102bba33c4a570d8`；Weekday SHA 維持 `7027fedb4c5843b1a97fb77f7ef19173e1a98564`；六欄 Markdown 表格、版本紀錄換行均已修正。最新 QA Contract SHA `d266e2074134824931561972709fc189869df98e`。
+- 已修正 SIM-1.4 Appendix D 精確指向 QA Contract v1.19／SHA `d266e2074134824931561972709fc189869df98e`；SIM-1.4 主規則 SHA `d744d2338189c38e883816f7eb10f820782409e7`。Manifest SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`；Builder SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`；Workflow SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`。
+- 前一輪 Run `45016383014` completed／success，使用 v1.18／前一版 rules SHA。文件 SHA 修正後，已觸發新完整回歸 Run `45016751259`，要求重新綁定 v1.19／新 rules SHA；該輪完成前不宣稱新 SHA 已驗收。
+- 資料品質判定不變：W47 23 筆歷史財報共識及 W48 3 筆經濟預期仍缺可採用公告前證據，QA_PASSED 但 review_ready=false；Stage 6 main delivery 應維持 SKIPPED。main／正式首頁／正式母版／正式 Manifest／正式行事曆 JSON 均未修改。
+
