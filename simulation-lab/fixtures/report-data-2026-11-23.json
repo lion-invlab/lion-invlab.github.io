@@ -2003,7 +2003,7 @@
       "📌 美國｜科技與半導體成為賣壓核心，市場焦點已從AI需求規模轉向投資回收品質。同期可確認的催化包括大型GPU融資安排、Nvidia會計調查及美國晶片出口限制；但目前不能證明其中任何一項單獨造成全面下跌。第三季企業獲利仍有成長，與股價急跌形成基本面／估值落差。投資含意：先避開高槓桿、自由現金流不足且估值依賴遠期成長的標的；等大型雲端業者資本支出指引、半導體訂單轉換及自由現金流得到驗證，再分批恢復曝險。",
       "📌 亞洲（含中國）｜台灣與韓國科技權重市場同步承壓，但出口與訂單數據仍強，顯示問題不只是需求消失，而是市場開始檢查訂單能否轉成出貨、毛利與現金。美國對海外資料中心及中國企業遠端使用先進AI晶片的限制，可能收緊部分算力取得途徑並加速本土替代；目前應視為政策風險，而非已證實的當日跌市唯一原因。投資含意：優先持有現金轉換能力佳、庫存與應收帳款可控的供應鏈；對營運資金需求高、客戶集中或需持續融資的公司降低部位，並追蹤許可範圍、替代進度、實際出貨與獲利兌現。",
       "📌 中國｜上海與深圳市場同步走弱，成長型及科技權重較高的深圳市場承壓更明顯。美國BIS新規提高部分高轉運風險目的地的先進晶片出口許可要求，可能增加中國企業透過海外資料中心取得先進算力的合規成本；但目前不能據此認定政策是當日中國股市下跌的唯一原因。配置上不因單一政策支持預期追價，優先觀察國內需求、企業訂單、算力取得渠道及獲利轉化是否改善。",
-      "📌 歐洲｜區域指數呈現修正，但目前可確認的MPS／Intesa收購要約屬個別公司事件，不能拿來解釋整體歐股走勢。應把區域市場表現與併購個案分開判讀，後續觀察歐元區PMI、企業獲利指引及銀行信用條件是否同步惡化。投資含意：暫不因單一併購消息調整歐洲整體配置；維持對景氣敏感、融資依賴高企業的審慎態度，待PMI與獲利預期止跌再提高週期股曝險。"
+      "📌 歐洲｜區域指數呈現修正，但目前可確認的MPS／Intesa收購要約屬個別公司事件，不能拿來解釋整體歐股走勢。應把區域市場表現與併購個案分開判讀。若歐元區PMI轉弱、企業獲利指引下修及銀行放款條件收緊同時出現，才將個別併購風險上修為區域景氣／信用風險；若三項訊號未同時惡化，不因單一併購消息調整歐洲整體配置。"
     ],
     "sectors": "📌 產業輪動｜資金明顯轉向現金流較穩定的防禦型產業，科技與非必需消費等高估值／景氣敏感板塊承受較大壓力。這反映投資人降低對遠期成長的估值容忍度，而非已證明AI終端需求反轉。操作上先降低高估值且資本支出回收期長的曝險，防禦配置以獲利穩定、負債可控為條件；只有在市場廣度改善、企業指引未下修時才分批回補成長股。",
     "bonds": "📌 債券｜11/20 美國公債殖利率全面回落：2年、10年及30年期殖利率分別較前一交易日下降13、12及9個基點，債券價格同步上漲，符合股市急跌時的避險需求。惟Fed會議紀錄仍顯示多數官員認為通膨風險未解除，市場亦持續定價12月升息，因此這是風險趨避帶動的短期債券反彈，不代表政策轉向。配置上不機械追買長天期債，觀察PCE、Fed利率定價及後續殖利率能否延續回落。",
@@ -2031,7 +2031,7 @@
         "previous": null,
         "forecast": null,
         "actual": "已發表開幕致詞。Warsh 將 AI／超級智慧視為可能改變經濟與社會的通用技術，強調創新、知識累積與生產力對長期生活水準的重要性，並指出近期生產力雖有改善，尚未形成明確且結構性的突破。",
-        "impact": "演講偏向長期生產力與就業結構觀點，沒有提供短期利率或政策承諾；不應解讀為升息／降息訊號。後續觀察 AI 投資是否轉化為可持續的生產力增長。",
+        "impact": "演講偏向長期生產力與就業結構觀點，沒有提供短期利率或政策承諾；不應解讀為升息／降息訊號。若企業生產力指標改善、單位勞動成本增速下降且資本報酬率同步提高，才支持AI投資已轉化為可持續生產力；若只有資本支出增加，仍不足以確認生產力紅利。",
         "source_url": "https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm",
         "source_name": "Federal Reserve｜Opening Remarks by Chairman Warsh at the Productivity and Jobs Task Force Conference",
         "source_notes": "Warsh 於 Federal Reserve Productivity and Jobs Task Force Conference 發表開幕致詞。",
@@ -2111,7 +2111,7 @@
         "source_name": "NVIDIA Corporation｜Q3 FY2027 official financial results",
         "source_notes": "發行人正式財報：Q3 FY2027 Revenue USD115.8bn；GAAP diluted EPS USD2.70；Non-GAAP diluted EPS USD2.68 另列，不混用。Data Center Revenue USD107.6bn。",
         "actual_source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
-        "actual_source_name": "NVIDIA Corporation｜NVIDIA Announces Financial Results for Third Quarter Fiscal 2027",
+        "actual_source_name": "NVIDIA｜FY2027 Q3 Financial Results（2026/11/17）",
         "judgment": "公告前Yahoo Finance Average Estimate（2026-11-15 13:50:45台灣時間觀測；EPS 43位分析師、營收45位）。GAAP diluted EPS US$2.70對平台平均預估US$2.47121，數值高出約9.26%；GAAP Revenue US$115.8B對平台平均預估US$108.7319B，數值高出約6.50%。Yahoo未揭露EPS GAAP／Adjusted、Basic／Diluted細項與營收指標完整定義，因此屬平台數值比較，非嚴格同口徑比較。",
         "price_reaction": "財報公布後第一個完整交易日（2026-11-19）下跌 3.30%",
         "price_reaction_source": "https://hk.investing.com/equities/nvidia-corp-historical-data",
@@ -2238,7 +2238,16 @@
         "eps_surprise_pct": 9.258217634276328,
         "revenue_surprise": 7.0680961,
         "revenue_surprise_pct": 6.500480398559443,
-        "earnings_comparison_summary": "EPS：優於預期；營收：優於預期"
+        "earnings_comparison_summary": "EPS：優於預期；營收：優於預期",
+        "actual_source_published_at": "2026-11-17",
+        "actual_source_checked_at": "2026-11-23T05:25:00+08:00",
+        "actual_source": {
+          "name": "NVIDIA｜FY2027 Q3 Financial Results（2026/11/17）",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
+          "published_at": "2026-11-17",
+          "checked_at": "2026-11-23T05:25:00+08:00",
+          "status": "官方FY2027 Q3財報新聞稿，確認營收1158億美元、資料中心營收1076億美元、GAAP diluted EPS 2.70美元。"
+        }
       }
     ],
     "quality_note": "Monday retrospective只呈現W47一筆五星財報：NVDA Q3 FY2027。實際GAAP EPS／Revenue及發行人來源已核實；公告前PIT共識不足，不判Beat/Miss；補入首個完整交易日股價反應及Investing.com歷史報價來源。"
@@ -2534,7 +2543,7 @@
   },
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
   "market_sentiment": "風險偏好急速下降，股票與債券波動同步升高；市場對尾端政策及地緣風險要求更高風險補償。VIX與MOVE均處高檔，顯示壓力不只在股票估值，也延伸至利率市場；單一恐慌指標不能視為落底訊號，須等波動回落與市場廣度改善共同確認。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器依SIM-1.4 Stage 3唯讀規則直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。本輪已使用最新Fixture重新執行唯一核准Builder、資料／內容Gate、DOM、互動及六視窗視覺回歸；本次QA證據只適用於本輪HTML與Fixture SHA。 W47唯一五星NVDA財報已補入11/15公告前Yahoo Finance Average Estimate原始快照：EPS US$2.47121（43位分析師）、Revenue US$108.7319B（45位）；與公司GAAP實績數值比較分別高出9.26%及6.50%。Yahoo未揭露EPS會計細項與Revenue完整定義，已標註非嚴格同口徑比較；原始capture及raw response SHA保留，main W47 JSON未修改。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器依SIM-1.4 Stage 3唯讀規則直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。本輪已使用最新Fixture重新執行唯一核准Builder、資料／內容Gate、DOM、互動及六視窗視覺回歸；本次QA證據只適用於本輪HTML與Fixture SHA。 W47唯一五星NVDA財報已補入11/15公告前Yahoo Finance Average Estimate原始快照，並由獨立局部DOM overlay寫入實際HTML卡片：EPS US$2.47121（43位分析師）、Revenue US$108.7319B（45位）；與公司GAAP實績數值比較分別高出9.26%及6.50%。Yahoo未揭露EPS會計細項與Revenue完整定義，已標註非嚴格同口徑比較；原始capture及raw response SHA保留，main W47 JSON未修改。 NVDA上週財報卡的EPS／營收預估、TAC 1.4判讀、官方實際財報來源及Yahoo公告前共識來源，須由last_week_earnings局部overlay執行並產生receipt；QA只在receipt SHA與最終HTML SHA吻合時標示review_ready。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
