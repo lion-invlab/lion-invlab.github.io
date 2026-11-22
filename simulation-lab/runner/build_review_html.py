@@ -1780,7 +1780,18 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
             if checked_at:
                 metadata.append("查核 " + checked_at)
             source_line.append("（" + "；".join(metadata) + "）")
-        content.append(source_line)
+        # Keep the evidence available without letting long citations dominate the
+        # five-layer analysis. The details disclosure is closed by default.
+        source_details = BeautifulSoup("", "html.parser").new_tag("details")
+        source_details["class"] = ["source-details", "market-analysis-source-details"]
+        source_summary = BeautifulSoup("", "html.parser").new_tag("summary")
+        source_summary.string = f"資料來源（{len(sources)}）"
+        source_details.append(source_summary)
+        source_body = BeautifulSoup("", "html.parser").new_tag("div")
+        source_body["class"] = ["source"]
+        source_body.append(source_line)
+        source_details.append(source_body)
+        content.append(source_details)
         receipt.append({
             "key": key,
             "title": expected_title,
