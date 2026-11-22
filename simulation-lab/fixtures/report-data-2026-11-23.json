@@ -400,67 +400,91 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "4.63%",
+      "display": "4.613%",
       "source": {
         "name": "Investing.com｜2年期美債殖利率歷史資料",
-        "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+        "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "investing_com_bond_yield_historical_close",
-        "page_label": "Historical Data｜Close",
-        "checked_at_tw": "2026-11-22T11:40:25+08:00",
+        "page_label": "Historical Data｜Price/Close",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
         "cross_check": {
           "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
           "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
           "quote_type": "official_daily_par_yield",
           "data_date": "2026-11-20",
           "note": "11/20 官方日終 par yield 4.63%；與 11/19 官方日終 4.76% 相減，單日變動 -13 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY"
+          "role": "CROSS_CHECK_ONLY",
+          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "第一優先來源為 Investing.com 對應歷史資料頁，必須讀取指定日期 Close 欄；美國財政部資料僅供交叉核對。原 Fixture 數值仍須獨立核驗。"
+        "note": "Investing.com Historical Data 日資料列：2026-11-20 Price/Close=4.613；2026-11-19=4.779；同一序列差額=-16.6 bp；頁面日漲跌幅=-3.47%。已直接讀取歷史資料表，不以首頁即時報價替代。",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+        "close_value": "4.613",
+        "previous_close": "2026-11-19 4.779",
+        "daily_change_bp": "-16.6",
+        "daily_change_percent": "-3.47%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY"
       },
-      "change_display": "-13 bp"
+      "change_display": "-16.6 bp"
     },
     "10年期美債殖利率": {
-      "display": "4.92%",
+      "display": "4.912%",
       "source": {
         "name": "Investing.com｜10年期美債殖利率歷史資料",
-        "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+        "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "investing_com_bond_yield_historical_close",
-        "page_label": "Historical Data｜Close",
-        "checked_at_tw": "2026-11-22T11:40:25+08:00",
+        "page_label": "Historical Data｜Price/Close",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
         "cross_check": {
           "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
           "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
           "quote_type": "official_daily_par_yield",
           "data_date": "2026-11-20",
           "note": "11/20 官方日終 par yield 4.92%；與 11/19 官方日終 5.04% 相減，單日變動 -12 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY"
+          "role": "CROSS_CHECK_ONLY",
+          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "第一優先來源為 Investing.com 對應歷史資料頁，必須讀取指定日期 Close 欄；美國財政部資料僅供交叉核對。原 Fixture 數值仍須獨立核驗。"
+        "note": "Investing.com Historical Data 日資料列：2026-11-20 Price/Close=4.912；2026-11-19=5.052；同一序列差額=-14.0 bp；頁面日漲跌幅=-2.77%。已直接讀取歷史資料表，不以首頁即時報價替代。",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+        "close_value": "4.912",
+        "previous_close": "2026-11-19 5.052",
+        "daily_change_bp": "-14.0",
+        "daily_change_percent": "-2.77%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY"
       },
-      "change_display": "-12 bp"
+      "change_display": "-14.0 bp"
     },
     "30年期美債殖利率": {
-      "display": "5.31%",
+      "display": "5.302%",
       "source": {
         "name": "Investing.com｜30年期美債殖利率歷史資料",
-        "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+        "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "investing_com_bond_yield_historical_close",
-        "page_label": "Historical Data｜Close",
-        "checked_at_tw": "2026-11-22T11:40:25+08:00",
+        "page_label": "Historical Data｜Price/Close",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
         "cross_check": {
           "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
           "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
           "quote_type": "official_daily_par_yield",
           "data_date": "2026-11-20",
           "note": "11/20 官方日終 par yield 5.31%；與 11/19 官方日終 5.40% 相減，單日變動 -9 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY"
+          "role": "CROSS_CHECK_ONLY",
+          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "第一優先來源為 Investing.com 對應歷史資料頁，必須讀取指定日期 Close 欄；美國財政部資料僅供交叉核對。原 Fixture 數值仍須獨立核驗。"
+        "note": "Investing.com Historical Data 日資料列：2026-11-20 Price/Close=5.302；2026-11-19=5.401；同一序列差額=-9.9 bp；頁面日漲跌幅=-1.83%。已直接讀取歷史資料表，不以首頁即時報價替代。",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+        "close_value": "5.302",
+        "previous_close": "2026-11-19 5.401",
+        "daily_change_bp": "-9.9",
+        "daily_change_percent": "-1.83%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY"
       },
-      "change_display": "-9 bp"
+      "change_display": "-9.9 bp"
     }
   },
   "fx": {
