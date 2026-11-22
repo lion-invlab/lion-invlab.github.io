@@ -1,3 +1,18 @@
+# 最新狀態補充｜2026-11-22 18:29（台灣時間）｜11/23 Stage 2–4 Fixture 交接修正
+
+**本節優先於下方所有歷史快照。**
+
+- **修正前一輪診斷：** 11/23 Fixture 並非未更新。重新讀取 simulation-lab/fixtures/report-data-2026-11-23.json（blob SHA d6ba74599df22a6d5c47ed02c0a5594f1b9de519）確認：44/44 行情均有逐筆瀏覽器觀察紀錄，資料日期全為 2026-11-20；40 筆查核時間為 11/22 11:40:25、Russell 2000 為 11:41:20、美債 2Y／10Y／30Y 為 17:48:21（Asia/Taipei）。43 筆 VERIFIED、1 筆 BACKUP_VERIFIED。此為 Workflow 啟動前已寫入 Fixture 的有效觀察，不可因 Workflow 本輪 source_pages_fetched=false 就否定；但也不可說成 Workflow 本輪重新擷取。
+- **Stage 4 亦已有更新證據：** 六領域政治掃描 checked_at=2026-11-22T11:48:13+08:00；五層文章來源查核時間為 11:45:05（台灣時間），各層均有段落與來源。故「本次完全沒有新研究」不是正確診斷。
+- **Pipeline 的真實責任邊界：** .github/workflows/tac-simulation-lab.yml 讀取日期匹配 Fixture、正式 main 行事曆唯讀投影、執行核准 Builder 及 QA；它不是 44 項行情、新聞或五層分析的研究／擷取引擎。Run 45010119942 的 source_pages_fetched=false 及 displayed_values_independently_reconciled=false 正確表示 Workflow 本輪沒有執行 HTTP 擷取／數值重核，不能單獨用來推論 Fixture 過期。
+- **真正發現的流程缺口：** 05:25 自動任務雖列出 Stage 2–4，卻未明確要求每階段成果先寫入日期 Fixture／投影檔、commit、遠端回讀核對 SHA，再觸發 Builder。這使「研究輸入交接」與「HTML 組裝 QA」的責任邊界不夠明確。
+- **已修正自動任務 Prompt：** Automation Automation_f4da15cd95c881918c7412cdd6f35bb2（TAC 早報｜自動製作與驗收）已新增「Stage 2–4 Fixture 交接硬性關卡」A–H：明定 Stage 2 行情、Stage 3 財報共識／經濟預期、Stage 4 新聞／五層分析必須寫入 Fixture／投影檔；遠端 commit 與 SHA 回讀完成後才可觸發 Workflow；允許沿用仍有效的已核對觀察，但必須說明沿用原因；禁止以 metadata audit 或 QA_PASSED 冒充當日研究完成。更新成功時間 2026-11-22T10:29:10Z（18:29 台灣時間）。排程仍為週一至週五 05:25 Asia/Taipei，未改時間。
+- **Stage 3 缺口仍如實保留：** W47 23 筆歷史財報缺公告前 EPS／Revenue 共識，無法事後重建；W48 澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH 仍無法從目前可採用來源確認一致的公告前預期，維持 null／待核實。外部日曆雖出現個別估計值，但與 Investing.com 對應事件列不一致或事件口徑尚未確認，不得直接填入 main JSON 或製造共識。
+- **最新狀態：** Run 45010119942 的 QA_PASSED 不等於 REVIEW_READY；review_ready=false、data_review_ready=false、sim14_review_ready=false。Stage 6 main preview 交付仍禁止。未修改 Builder、Workflow 程式、main、首頁、正式母版、Manifest 或正式行事曆 JSON。
+- **下一步：** 以修正後 05:25 Prompt 作為下次正式排程的輸入交接規格；另在 Simulation 分支補上對 Stage 2–4 Fixture SHA／report_date／trading_date 的可驗收收據與防呆測試，再以真實排程驗收一次完整 Stage 1–6。不得把本次 Prompt 更新說成已完成程式 Gate 或排程實跑驗證。
+
+---
+
 # 最新權威狀態｜2026-11-22 18:00（台灣時間）｜11/23 SIM-1.4 真實內容 E2E
 
 **本節優先於下方所有舊快照；舊紀錄保留作歷史，不得沿用其過時狀態。**
