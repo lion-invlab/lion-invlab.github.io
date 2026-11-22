@@ -93,6 +93,18 @@ def test_production_paths_are_confined_to_simulation_output():
         else:
             raise AssertionError("production local patcher accepted an HTML input outside simulation-lab/output")
 
+    output_root = ROOT / "simulation-lab" / "output" / "candidate-validation"
+    same_path = output_root / "same.html"
+    try:
+        patch_section(
+            same_path, FIXTURE, MANIFEST, "summary",
+            output_root / "result.html", same_path,
+        )
+    except ValueError as exc:
+        assert "three distinct paths" in str(exc)
+    else:
+        raise AssertionError("production local patcher accepted colliding input and receipt paths")
+
 
 def test_market_analysis_patch_hides_sources_but_keeps_internal_receipt():
     for mother in ("monday-mother-template.html", "weekday-mother-template.html"):
