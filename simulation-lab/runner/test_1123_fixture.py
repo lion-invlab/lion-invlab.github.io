@@ -207,6 +207,7 @@ def main():
     assert "33億美元" in policy_text and "47億美元" in policy_text
     assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
     assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" for x in policy["sources"])
+    assert any(x["label"] == "NVIDIA｜FY2027 Q2 Form 10-Q（SEC）" for x in policy["sources"])
     assert any(x["url"] == "https://www.reuters.com/business/nvidia-turmoil-marks-end-easy-money-ai-trade-2026-11-17/" for x in policy["sources"])
     market_text = " ".join(analysis["markets"]["paragraphs"])
     assert "近15%" in market_text and "超過12%" in market_text
