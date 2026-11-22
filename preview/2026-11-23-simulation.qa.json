@@ -1,11 +1,9 @@
 {
   "status": "QA_PASSED",
-  "review_ready": false,
-  "review_ready_blockers": [
-    "PARTIAL｜上週W47五星財報回顧：僅NVDA Q3 FY2027一筆顯示卡片缺少可採用的公告前EPS／Revenue共識；實績與股價反應已呈現，兩項比較均待核實，不得回填或推定Beat/Miss。"
-  ],
+  "review_ready": true,
+  "review_ready_blockers": [],
   "data_audit": {
-    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器依SIM-1.4 Stage 3唯讀規則直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。本輪已使用最新Fixture重新執行唯一核准Builder、資料／內容Gate、DOM、互動及六視窗視覺回歸；本次QA證據只適用於本輪HTML與Fixture SHA。",
+    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器依SIM-1.4 Stage 3唯讀規則直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。本輪已使用最新Fixture重新執行唯一核准Builder、資料／內容Gate、DOM、互動及六視窗視覺回歸；本次QA證據只適用於本輪HTML與Fixture SHA。 W47唯一五星NVDA財報已補入11/15公告前Yahoo Finance Average Estimate原始快照：EPS US$2.47121（43位分析師）、Revenue US$108.7319B（45位）；與公司GAAP實績數值比較分別高出9.26%及6.50%。Yahoo未揭露EPS會計細項與Revenue完整定義，已標註非嚴格同口徑比較；原始capture及raw response SHA保留，main W47 JSON未修改。",
     "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
     "pending_items": [
       "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
@@ -14,7 +12,7 @@
       "W48 11家財報共識已依SIM-1.4新順位處理：Yahoo Finance 11檔對應分析頁直接開啟均回傳HTTP 429，未採搜尋摘要；遞補Investing.com對應Earnings Date & Report頁，逐筆核對Release Date及Period End 10/2026後，採用EPS／Revenue Forecast。來源未揭露EPS GAAP／Adjusted與Basic／Diluted細分、Revenue精確定義、分析師人數及彙總算法，卡片必須透明標註；EPS保留數值供後續比較，Revenue保留來源數值但不得宣稱嚴格同口徑。未有actual前不產生Beat/Miss。",
       "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
       "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
-      "W47上週五星財報回顧僅呈現NVDA Q3 FY2027一筆；該卡已呈現經公司公告核實的GAAP EPS／Revenue實績及首個完整交易日股價反應，但公告前可採用的EPS／Revenue共識未取得，故兩項比較均待核實，不得回填或推定Beat/Miss。main W47其餘非五星事件不屬本區顯示項目，不計入本項審核阻塞數。",
+      "W47上週五星財報回顧僅呈現NVDA Q3 FY2027一筆；已採用2026-11-15公告前Yahoo Finance Average Estimate原始觀測（EPS 43位分析師、營收45位），原始回應SHA及事件期間均已核對。GAAP實績相較平台平均預估數值均較高；Yahoo未揭露EPS GAAP／Adjusted、Basic／Diluted細項與Revenue完整定義，卡片明確標註非嚴格同口徑比較。main W47 JSON保持唯讀。",
       "W48經濟行事曆27筆中，澳洲與日本Flash PMI、加拿大SEPH的main JSON均為forecast=null且forecast_applicable=false；經查公告前來源未提供可採用市場共識，依NOT_APPLICABLE處理，不列為review_ready blocker，不補造數值。另4筆非數值事件（Beige Book、ECB會議紀要、感恩節休市、Williams官員談話）之forecast亦屬不適用。main W47／W48 coverage仍標示incomplete，但必要事件集合與schema可讀，依SIM-1.4 Stage 3規則僅揭露狀態，不另列為獨立blocker；早報仍唯讀呈現，不回寫main。",
       "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。",
       "Stage 2 證據分類：44項歷史資料列均已完成數值核對（43項主來源、1項FGScore備援）；以來源URL、標的／合約、資料日期、Close／Change欄位和值、TAC查核時間及讀取方法保存瀏覽器觀察紀錄。原始HTTP response body未封存（raw_response_sha256為null）屬可選證據，不構成數值核驗缺口；不得將觀察紀錄SHA-256冒充原始HTTP回應SHA-256。",
@@ -41,7 +39,7 @@
     "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "dd47be4eb469c2917f0458c4046ac854772f057a4078d57e267e97cb71a9f27f",
+  "prebuild_input_receipt_sha256": "8c32249348c136dd343097bc7124c35f57e893a140154656fd4e289a9dbf0d71",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +47,11 @@
     "report_date": "2026-11-23",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45072154147",
+    "workflow_run_id": "45072970310",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
-      "sha256": "21ba5312cd1abb12b79270dd02edb099df96ec609f9a87051071076a68d13537"
+      "sha256": "efc5844cd62a8231d23fc731f1c8e6c68abe6d8cd67f40fadf1136206062826c"
     },
     "stage_2_market": {
       "trading_date": "2026-11-20",
@@ -81,7 +79,7 @@
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
       "branch": "main",
-      "main_commit_sha": "f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb",
+      "main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098",
       "current": {
         "path": "data/calendar/weeks/2026-W48.json",
         "blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
@@ -126,7 +124,7 @@
       "political_findings_count": 4,
       "report_cutoff_taipei": "2026-11-23 05:25"
     },
-    "created_at_utc": "2026-11-22T21:28:20Z",
+    "created_at_utc": "2026-11-22T21:37:14Z",
     "limitations": [
       "Stage 2 uses 44 prior fixture-carried browser observations; this run did not fetch source pages or independently reconcile displayed values.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -137,19 +135,19 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "1b67f966986352fd0e32af90794bfd7f1d79b4ec",
-  "report_sha256": "6465282cb2543700fdeb09d3aab0b3e0bc9dc47cff8a02fe40c4b4f6c6a9b9b2",
-  "build_commit_sha": "5873a3d9143e99902e844af3216b5c4197da2960",
+  "report_git_blob_sha": "ee442ecafa785fa2a04fe45532fe8b4b84a1ad7c",
+  "report_sha256": "dd3ac24bb4d0f347b6233b0a0b440448ffe70cd204244e4a577a1e542d37f731",
+  "build_commit_sha": "a5c50212a4bbc4db1dcb124573292916706410f1",
   "builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
-  "fixture_blob_sha": "58c2a0bd93d23af17b080ae0e3fcb4b162ecaa93",
+  "fixture_blob_sha": "c4f4a51e423b844bf799bbe488b74c8d678b6199",
   "template_blob_sha": "0a7d5095aaa99c470e00e67f33567ff9f359d6ae",
   "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
   "qa_contract_blob_sha": "6af0a6cd9d9e37f19f7df70956f3bff54199cf99",
-  "active_rules_blob_sha": "be9343fda03587d7ec9460607c429d4a4a5b107b",
+  "active_rules_blob_sha": "69d06ce11458e42eea5a768c222bfcf7e9347f4e",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
-  "data_review_ready": false,
+  "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
     "summary",
@@ -191,24 +189,22 @@
   "duplicate_quote_restatements": [],
   "actionability_findings": [],
   "sim14_builder_approval": "APPROVED",
-  "sim14_review_ready": false,
-  "sim14_blockers": [
-    "PARTIAL｜上週W47五星財報回顧：僅NVDA Q3 FY2027一筆顯示卡片缺少可採用的公告前EPS／Revenue共識；實績與股價反應已呈現，兩項比較均待核實，不得回填或推定Beat/Miss。"
-  ],
+  "sim14_review_ready": true,
+  "sim14_blockers": [],
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
     "approved_builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
     "actual_builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
-    "active_rules_blob_sha": "be9343fda03587d7ec9460607c429d4a4a5b107b",
+    "active_rules_blob_sha": "69d06ce11458e42eea5a768c222bfcf7e9347f4e",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
-  "calendar_main_commit_sha": "f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb",
+  "calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098",
   "calendar_current_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "fe6708028dc3b2d59378076d910452f39190b6b21381759f93e3d6a002241160",
-  "visual_evidence_sha256": "beabc7f73307a54aa0eecf9b8aecd62e31e7dae03c82858a890cd598a8f7766c",
+  "visual_evidence_sha256": "f20357a30ddf2a516531a191f995038cfa4e89c4eae2647b813914a844f4e72d",
   "viewports": [
     1440,
     768,
@@ -217,6 +213,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45072154147",
+  "workflow_run_id": "45072970310",
   "workflow_run_attempt": "1"
 }
