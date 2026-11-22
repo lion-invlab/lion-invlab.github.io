@@ -3104,3 +3104,10 @@
 - **W48 經濟預期缺漏：** 澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH 三筆數值型事件 forecast 仍為 null，main JSON 標示 forecast_applicable=true。不得猜值；Builder 應保留缺漏提示，若資料 Gate 判定 PARTIAL，不能提升 REVIEW_READY。
 - **分析與 FactSet：** 週一 summary_points 恰為三段（上週主軸／風險觀察／操作建議）；Builder 常數與 Manifest 均固定五層順序 political → policy_industry → macro → markets → strategy。政治掃描六領域、8 findings。FactSet Earnings Insight 最新可用 as_of_date=2026-11-20：reported 93%、EPS beat 84%、Revenue beat 74%、blended EPS growth +32.9%、Revenue growth +14.6%、EPS surprise +3.5%、Revenue surprise +2.2%、Forward P/E 17.1 倍。
 - **Lint 數量更正：** 獨立 lint Run `45080346377` 的 actionlint／shellcheck 失敗訊息實際包含四個 `if: false` constant-condition warnings（workflow lines 115／205／427／444）及兩個 SC2129 style warnings（lines 225／386），合計六項；先前紀錄所稱兩個 if:false 為數量誤記，以本節為準。這個 lint run 不是正式 Pipeline 的 Builder／QA job。
+
+
+## 2026-11-23 07:05｜排程暫停紀錄
+
+- 自動化 `TAC 早報｜自動製作與驗收`（Automation ID `Automation_f4da15cd95c881918c7412cdd6f35bb2`）已由 Automations 更新為 `is_enabled=false`，並以 peek 回讀確認停用。原因是本次正式 Simulation Pipeline push run `45080345516` 無任何 jobs／artifacts，且目前唯一 workflow 入口在 Simulation branch、未存在於 default branch main；在入口修復前繼續按日排程會重複產生無效 run。此停用不影響 04:35 行事曆資料庫排程及 Chart 3 排程。
+- 重新啟用條件：先由 repo 管理者／使用者決定並授權正式支援的 Simulation-only workflow 執行入口；確認不會寫入 main 正式首頁或行事曆 JSON，再重新啟用此自動化。未取得授權前不自行複製 workflow 到 main、不手動執行 Builder。
+- 通知狀態：notify_parent 初次啟動未取得可確認的 `status=notified`；完成／阻塞通知重試明確回傳 HTTP 404 `Action not found`，最終狀態 FAILED／未送達。
