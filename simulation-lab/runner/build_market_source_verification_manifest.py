@@ -21,6 +21,29 @@ BOND_PRIMARY_URLS = {
 }
 
 
+def verification_fields(source: dict, display, change_display) -> dict:
+    """Carry forward only source observations already reconciled against fixture values."""
+    evidence_method = source.get("evidence_method")
+    verified = source.get("verification_status") == "VERIFIED" and bool(evidence_method)
+    if verified and source.get("close_value") is not None:
+        verified = str(display).removesuffix("%") == str(source.get("close_value"))
+        verified = verified and str(change_display) == str(source.get("daily_change_bp")) + " bp"
+    elif verified and source.get("history_close") is not None:
+        verified = str(change_display) == str(source.get("history_change"))
+    else:
+        verified = False
+    return {
+        "verification_status": "VERIFIED" if verified else "PENDING_SOURCE_PAGE_CAPTURE",
+        "source_page_fetched": bool(verified),
+        "display_value_reconciled": bool(verified),
+        "raw_response_sha256": source.get("raw_response_sha256"),
+        "captured_at_tw": source.get("checked_at_tw") if verified else None,
+        "evidence_method": evidence_method if verified else None,
+        "verified_close": (source.get("close_value") or source.get("history_close")) if verified else None,
+        "verified_change": (source.get("daily_change_bp") or source.get("history_change")) if verified else None,
+    }
+
+
 def build_manifest(data: dict, report_date: str) -> dict:
     audit = validate_market_snapshot(data, report_date)
     rows = []
@@ -32,6 +55,7 @@ def build_manifest(data: dict, report_date: str) -> dict:
                 if expected_url is None or source.get("url") != expected_url:
                     raise ValueError(f"{name}: primary source must be the specified Investing.com historical-data URL")
             cross_check = source.get("cross_check") or {}
+            verification = verification_fields(source, item.get("display"), item.get("change_display"))
             rows.append({
                 "group": group,
                 "name": name,
@@ -46,15 +70,12 @@ def build_manifest(data: dict, report_date: str) -> dict:
                 "cross_check_url": cross_check.get("url"),
                 "cross_check_role": cross_check.get("role"),
                 "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
-                "verification_status": "PENDING_SOURCE_PAGE_CAPTURE",
-                "source_page_fetched": False,
-                "display_value_reconciled": False,
-                "raw_response_sha256": None,
-                "captured_at_tw": None,
-                "notes": "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
+                **verification,
+                "notes": source.get("note") if verification["verification_status"] == "VERIFIED" else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
             })
     for name, display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
+        verification = verification_fields(source, display, source.get("change_display"))
         rows.append({
             "group": "sectors",
             "name": name,
@@ -65,28 +86,26 @@ def build_manifest(data: dict, report_date: str) -> dict:
             "source_name": source.get("name"),
             "source_url": source.get("url"),
             "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
-            "verification_status": "PENDING_SOURCE_PAGE_CAPTURE",
-            "source_page_fetched": False,
-            "display_value_reconciled": False,
-            "raw_response_sha256": None,
-            "captured_at_tw": None,
-            "notes": "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
+            **verification,
+            "notes": source.get("note") if verification["verification_status"] == "VERIFIED" else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
         })
     rows.sort(key=lambda row: (row["group"], row["name"]))
     if len(rows) != 44:
         raise ValueError(f"expected 44 source-verification rows, got {len(rows)}")
+    verified_count = sum(1 for row in rows if row["verification_status"] == "VERIFIED")
+    pending_count = len(rows) - verified_count
     return {
         "schema_version": "1.0",
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
-        "source_pages_fetched": False,
-        "displayed_values_independently_reconciled": False,
+        "verification_scope": "PARTIAL_SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
+        "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
+        "displayed_values_independently_reconciled": all(row["display_value_reconciled"] for row in rows),
         "row_count": len(rows),
-        "pending_count": len(rows),
-        "verified_count": 0,
+        "pending_count": pending_count,
+        "verified_count": verified_count,
         "rows": rows,
-        "warning": "此清單是來源核驗工作台，不是來源核驗結果；不得據此標示行情數值已核實。",
+        "warning": f"目前已核驗 {verified_count}/44 項；其餘 {pending_count} 項仍待核驗。局部核驗不得視為全部完成。",
     }
 
 
