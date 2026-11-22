@@ -88,7 +88,11 @@ def test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers
         assert len(receipt["layers"]) == 5
         for node, (key, title) in zip(container.select(":scope > .market-analysis-layer"), EXPECTED):
             content = node.select_one(".market-analysis-content")
-            assert len(content.find_all("p", recursive=False)) == 3
+            assert len(content.find_all("p", recursive=False)) == 2
+            disclosure = content.select_one("details.market-analysis-source-details")
+            assert disclosure is not None and not disclosure.has_attr("open")
+            assert disclosure.select_one("summary").get_text(" ", strip=True) == "資料來源（1）"
+            assert len(disclosure.select(".source a")) == 1
             assert title in content.get_text(" ", strip=True)
             link = content.select_one("a")
             assert link and link["href"] == "https://example.com/source"
