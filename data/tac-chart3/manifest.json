@@ -3600,5 +3600,26 @@
       "changed": true
     }
   ],
-  "overall_status": "PASS"
+  "overall_status": "PASS",
+  "sp500_data": {
+    "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
+    "git_blob_sha1": "3c9517cfa8bf0eb413987f7e93338c9333c45f3f",
+    "dataset_sha256": "a1b5a202e5039a50270d9456eef1c2c99c3bf35dfd36fdc85dee5049c26523be",
+    "start": "1927-12-30",
+    "end": "2026-11-20",
+    "rows": 24840,
+    "encoding": "zlib+base64",
+    "recent_snapshot_source": "Validated FJA/FRED compact baseline plus verified daily cash-index Close increments through 2026-11-20; latest source: Investing.com｜S&P 500 歷史數據（Real-time derived）.",
+    "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
+    "increment_ledger": {
+      "path": "data/tac-chart3/sp500_daily_increment.jsonl",
+      "sha256": "305cf93620b2b27ce901e5cca9b9c642102798aea8b3139d108201eedb9aea7b",
+      "first": "2026-11-20",
+      "last": "2026-11-20",
+      "rows": 1,
+      "source_name": "Investing.com｜S&P 500 歷史數據（Real-time derived）",
+      "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
+      "observed_at": "2026-11-22T17:15:52+08:00"
+    }
+  }
 }
