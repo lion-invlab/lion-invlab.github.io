@@ -3094,3 +3094,13 @@
 - **舊預覽不得冒充本輪：** Simulation branch 已有 `preview/2026-11-23-simulation.html` blob SHA `ee442ecafa785fa2a04fe45532fe8b4b84a1ad7c` 與 QA sidecar blob SHA `f9a5421d54ae6835931a88daa3d85658d7757f6b`，但 sidecar 綁定舊 Fixture `c4f4a51e423b844bf799bbe488b74c8d678b6199`、舊 WR `69d06ce11458e42eea5a768c222bfcf7e9347f4e`、舊 QA Contract `6af0a6cd9d9e37f19f7df70956f3bff54199cf99`、舊 Run `45072970310`，與本輪最新輸入不一致。保留舊檔但不得使用／交付為本輪成果。
 - **QA／交付：** 本輪沒有 Builder、沒有新 HTML、沒有新 QA seal、沒有 Actions Artifact；不得宣稱 QA_PASSED 或 REVIEW_READY。當前唯一可用預覽路徑雖存在，但為舊產物；本輪 `review_ready=false`。main `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4` 未變；main W47/W48 JSON 未變；沒有任何 main 寫入。
 - **唯一下一步：** 必須先取得一個受正式支援、能在不修改 main 正式檔案的前提下啟動 Simulation-only workflow 的執行方式；若 GitHub 仍要求 workflow 檔存在 default branch，需由使用者另行授權調整 repo 工作流邊界。取得可用入口後，以本輪 Fixture／projection SHA 重新觸發，不能沿用舊 preview／sidecar。不得手動執行 Builder 或重建 HTML。
+
+
+## 2026-11-23 07:02｜補充查核與數量更正
+
+- **正式權限邊界 WR：** main `TAC_WORK_RULES.md` v5.17，blob SHA `0210e8e04f4f6b2374997b82a658e15781932e67`；僅用於正式 repo／資料庫／發布權限邊界，早報操作仍唯一依 SIM-1.4。
+- **W47 內容讀取補足：** 一般 contents API 對 938,294 字元的 W47 JSON 回傳空內容；改用 GitHub Git Blob API 讀取同一 blob `727ea2be1c04688d3c4f98d36c452561bbab6821`，成功解析 W47（2026-11-16 至 2026-11-22；updated_at 2026-11-20 04:39:41+08:00），25 筆經濟（19 released／6 upcoming）、23 筆財報（20 released／3 upcoming）。W48 仍為 main blob `9bb842ab475fa38ca6407304990d1cd3fae42c63`，27 筆經濟／11 筆財報；兩週皆屬同一 main commit `09e0e5fe64a781373464858fb70c800e4ffbf098`。
+- **財報共識投影：** SHA `256c86a424b76e0b9cb4a85f915ea3ddac62f4b1`，11 筆 W48 財報預估；EPS／Revenue 各自按 Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates 執行，Yahoo 直接頁讀回傳 HTTP 429 後，Investing.com 同期頁面取得第一筆有效 Forecast 即鎖定，兩項合計 22 個 metric-level estimates 均有來源與 basis 限制說明；未再查低順位來源。
+- **W48 經濟預期缺漏：** 澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH 三筆數值型事件 forecast 仍為 null，main JSON 標示 forecast_applicable=true。不得猜值；Builder 應保留缺漏提示，若資料 Gate 判定 PARTIAL，不能提升 REVIEW_READY。
+- **分析與 FactSet：** 週一 summary_points 恰為三段（上週主軸／風險觀察／操作建議）；Builder 常數與 Manifest 均固定五層順序 political → policy_industry → macro → markets → strategy。政治掃描六領域、8 findings。FactSet Earnings Insight 最新可用 as_of_date=2026-11-20：reported 93%、EPS beat 84%、Revenue beat 74%、blended EPS growth +32.9%、Revenue growth +14.6%、EPS surprise +3.5%、Revenue surprise +2.2%、Forward P/E 17.1 倍。
+- **Lint 數量更正：** 獨立 lint Run `45080346377` 的 actionlint／shellcheck 失敗訊息實際包含四個 `if: false` constant-condition warnings（workflow lines 115／205／427／444）及兩個 SC2129 style warnings（lines 225／386），合計六項；先前紀錄所稱兩個 if:false 為數量誤記，以本節為準。這個 lint run 不是正式 Pipeline 的 Builder／QA job。
