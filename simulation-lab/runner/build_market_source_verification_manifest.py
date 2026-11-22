@@ -115,7 +115,7 @@ def build_manifest(data: dict, report_date: str) -> dict:
             })
     for name, display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
-        verification = verification_fields(source, display, source.get("change_display"))
+        verification = verification_fields(source, source.get("history_close"), source.get("change_display"))
         rows.append({
             "group": "sectors",
             "name": name,
