@@ -207,6 +207,8 @@ def main():
     assert "33億美元" in policy_text and "47億美元" in policy_text
     assert "1,050億美元" in policy_text and "4.25GW" in policy_text and "20年租約" in policy_text
     assert "2790億美元" in policy_text and "OpenAI" in policy_text
+    assert "投資級融資能力" in policy_text and "延後GPU採購" in policy_text
+    assert "1,190億美元升至2,790億美元" in policy_text
     assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
     assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" for x in policy["sources"])
     assert any(x["label"] == "NVIDIA｜FY2027 Q2 Form 10-Q（SEC）" for x in policy["sources"])
