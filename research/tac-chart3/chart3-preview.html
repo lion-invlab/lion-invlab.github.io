@@ -326,7 +326,7 @@ function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==n
 
 function renderDailyRiskBrief(byId,weekly,generatedAt){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
- const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
+ const NEXT_RELEASE={VIXCLS:'2026-11-23',NFCI:'2026-11-25',NFCICREDIT:'2026-11-25',STLFSI4:'2026-11-25'};\n const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null,nextUpdate:NEXT_RELEASE[id]||''};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
  // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
  const last=null,ret13=null,dd13=null,above13=null;
@@ -346,7 +346,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const fmtP=x=>x===null?'資料不足':Math.round(x).toString()+'%';
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
- document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
+ document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'｜下次更新 '+(m[id].nextUpdate||'依來源排程')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
  const dateList=Object.values(m).map(x=>x.date).filter(Boolean).sort();
  document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
  document.getElementById('risk-state').textContent=state;
