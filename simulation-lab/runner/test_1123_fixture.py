@@ -219,7 +219,7 @@ def main():
     assert "合計約占應收帳款70%" in policy_text and "90天至一年" in policy_text
     assert "33億美元" in policy_text and "47億美元" in policy_text
     assert "Microsoft" in policy_text and "67%" in policy_text
-    assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
+    assert "不等於替其全部約500億美元債務提供擔保" in policy_text
     assert any(x["url"] == "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q327/Q3FY27-CFO-Commentary.pdf" for x in policy["sources"])
     assert any(x["label"] == "NVIDIA｜FY2027 Q3 CFO Commentary（2026/11/17）" for x in policy["sources"])
     assert any(x["url"] == "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/" for x in policy["sources"])
