@@ -624,7 +624,14 @@
         "note": "Investing.com Global US Dollar Index (DXY) 歷史資料頁；頁面標示 Real-time derived，2026-11-20 歷史列收盤 103.81、日變動 -0.08%；此為平台衍生美元指數參考序列，不是 DX 期貨，也不使用 HK 站顯示為 CFD 的同名頁。",
         "checked_at": "2026-11-22T11:12:02+08:00",
         "verified_at_tw": "2026-11-22T11:40:25+08:00",
-        "page_label": "Real-time derived"
+        "page_label": "Real-time derived",
+        "close_value": "103.81",
+        "daily_change_percent": "-0.08%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     },
     "美元／新台幣": {
@@ -636,7 +643,14 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "11/20 收市 32.971，開市 33.032、最高 33.058、最低 32.878，日跌 -0.18%；11/19 收市 33.032。採 USD/TWD 市場匯率歷史資料。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "32.971",
+        "daily_change_percent": "-0.18%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     },
     "歐元／美元": {
@@ -648,7 +662,14 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "1.0968",
+        "daily_change_percent": "+0.01%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     },
     "英鎊／美元": {
@@ -660,7 +681,14 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "1.3083",
+        "daily_change_percent": "-0.04%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     },
     "澳幣／美元": {
@@ -672,7 +700,14 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "Investing.com HK AUD/USD 歷史數據頁 2026-11-20 歷史列：收市 0.6617、跌幅 -0.63%；頁首 0.6621 為其他日期報價，不作本報告基準。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "0.6617",
+        "daily_change_percent": "-0.63%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     },
     "美元／日圓": {
@@ -684,7 +719,14 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "Investing.com HK USD/JPY 歷史數據頁 2026-11-20 歷史列：收市 158.54、跌幅 -0.73%；採指定日期歷史列。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "158.54",
+        "daily_change_percent": "-0.73%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row",
+        "raw_response_sha256": null
       }
     }
   },
