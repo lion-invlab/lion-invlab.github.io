@@ -1,0 +1,2 @@
+SIM-only build marker after Chart 3 persistence/read-back gate was added.
+Report date: 2026-11-23
