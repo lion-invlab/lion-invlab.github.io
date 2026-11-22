@@ -1,9 +1,13 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.16（2026-11-22｜SIM-1.4 正式執行附件；本契約不獨立於主規則生效）
+版本：1.17（2026-11-22｜SIM-1.4 五層分析修訂；本契約不獨立於主規則生效）
 定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
+
+## 版本紀錄
+
+- 2026-11-22｜v1.17：依使用者授權新增五層市場深度解析與政治／地緣政治六領域掃描 QA；更新 simulation 雙母版 SHA、Manifest slot contract、Builder 候選狀態及五層內容／來源證據驗收。正式 main 母版與首頁未修改。
 
 ## A. 開工前來源鎖定（未通過即停止）
 
@@ -23,8 +27,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `b89c76dd37afdc0cf8b406bfd6f06258896c829d` | DOCTYPE 1、html/head/body 各 1、style 121、script 25、ID 183；ID 無重複 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `327bc34d1472a1871769f1b877d3c3b729b1ca8e` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `b86c2f77eca417a141fda3eb4cf976e98d4c7d4c` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
 
@@ -50,11 +54,11 @@
 
 ### A2.2c 總結小卡、五層深度解析與政治／地緣政治分析（SIM-1.4）
 
-**目前基準狀態（2026-11-22，修訂前盤點）：**
-- 週一母版 `simulation-lab/baseline/monday-mother-template.html`（SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`）目前只有 `article.card.bluf` 總結小卡，未定義獨立五層文章槽位。
-- 週二至週五母版 `simulation-lab/baseline/weekday-mother-template.html`（SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`）亦未定義獨立五層文章槽位；既有 `market-analysis` 字串不構成已核准的文章 DOM 錨點。
-- Manifest 目前沒有五層文章槽位、selector 或 slot contract。
-- 因此，在雙母版、Manifest、Builder 及本契約同步更新並通過驗收前，Stage 5 不得將五層文章插入 HTML，必須回報 `BLOCKED_MISSING_APPROVED_ANALYSIS_SLOT`。不得將文章塞入 `article.card.bluf`，不得用 CSS／JS 臨時建立容器，也不得將單次人工審核版修改視為正式槽位核准。
+**變更前盤點（歷史狀態，非目前基準）：**
+- 以上是授權變更前的歷史盤點：當時週一／平日母版與 Manifest 均無五層文章槽位。
+- 本次已依使用者明確授權，在 simulation branch 完成雙母版槽位：週一 SHA `327bc34d1472a1871769f1b877d3c3b729b1ca8e`；平日 SHA `b86c2f77eca417a141fda3eb4cf976e98d4c7d4c`；Manifest SHA `55901a9842820fccff3dd0815e0f4d3dbce199a4`。兩者皆位於總結小卡之後、既有市場情緒之前，並有五個獨立內容節點。
+- Builder 已新增五層文章填槽與六領域政治掃描驗證，候選 SHA `a8c1ea41b99acf8177b74aacfa2c22a144b8f5b7`；此 SHA 尚未完成 CI／雙母版端到端驗收，也尚未取得 SIM-1.4 §8.1 對新 SHA 的明確核准。原已核准 SHA 不含五層填槽能力，不得用於新槽位生產。
+- 在候選 Builder 回歸通過並由使用者明確核准新 SHA 前，Stage 5 仍不得標示 REVIEW_READY 或交付；不得將技術上已存在的空槽位視為文章已完成。
 
 **文章內容固定分成三個互不取代的層級：**
 1. 總結小卡：讀者快速掌握市場主軸、核心風險及立場。
@@ -74,7 +78,7 @@
 - 沒有重大且已核實的新變化時，允許明確記錄當日未發現足以改變市場定價的重大政治／地緣政治變化；不得為湊篇幅硬寫政治敘事。掃描是否完成與當日是否有重大事件是兩個獨立狀態。
 - QA sidecar 必須記錄 `political_geopolitical_scan`、`political_domains_checked`、`political_event_status_classifications`、`policy_transmission_completeness`、`scenario_analysis_coverage`。未執行標 `NOT_TESTED`；來源或證據不足標 `PARTIAL`；不得默認 PASS。
 
-**取得母版變更授權後，雙母版與 Builder 的必要驗收：**
+**本次已獲母版變更授權；雙母版與 Builder 的必要驗收：**
 - [ ] 週一及週二至週五母版各有且只有一個獨立文章槽位，位於總結小卡之後、既有市場情緒區塊之前；不得改動其他區塊順序。
 - [ ] 兩份母版使用固定且唯一的文章容器 ID（建議共同使用 `#market-analysis`）；Manifest 記錄 selector、父層、順序、欄位、slot schema 及雙母版 SHA。
 - [ ] 文章五層標題固定且順序正確：政治與地緣政治局勢 → 政策傳導與企業／產業鏈影響 → 宏觀經濟傳導 → 金融市場定價、情緒與風險 → 機構資金動向與投資策略。
@@ -85,6 +89,8 @@
 - [ ] 桌機及 320／360／390／412px 手機版均檢查標題換行、段落寬度、行距、卡片間距及橫向溢位；五層文章不得擠壓行情、財報或 Fed 官員行程卡片。
 - [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、五層標題順序、總結卡與文章分離檢查、政治掃描六領域完成狀態、政策分類、傳導鏈、三種情境及各 viewport 測試結果。
 - [ ] 文章內容 QA 必須同時檢查 Fixture 與最終 HTML，確保五層文字一致、來源證據可追溯，且未以未核實政治消息作為確定事實。
+- [ ] 政治掃描六領域代碼完整：`us_policy`、`us_china`、`geopolitics`、`trade_sanctions`、`major_economies`、`energy_resources`；重大事件分類只允許 `formally_effective`、`announced_not_implemented`、`political_statement`、`market_expectation)、`unverified`。
+- [ ] 每項重大政治事件均具 policy／industry／macro／markets／strategy 五段傳導及 baseline／risk／severe 三情境；缺證環節必須標「未知」，未執行不得默認通過。
 
 ### A2.2a 全球主要股市三區評論綁定
 
