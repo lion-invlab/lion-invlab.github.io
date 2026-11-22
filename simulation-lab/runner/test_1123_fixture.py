@@ -195,6 +195,23 @@ def main():
     assert "不是Fed已承諾的決策" in macro["paragraphs"][0]
     assert macro["sources"][1]["url"] == "https://www.federalreserve.gov/monetarypolicy/fomcminutes20261028.htm"
 
+    # AI financing-chain analysis must be evidence-based and distinguish credit repricing from default.
+    policy = analysis["policy_industry"]
+    policy_text = " ".join(policy["paragraphs"])
+    assert "360億美元" in policy_text and "六年" in policy_text
+    assert "5,000億美元" in policy_text and "未必轉成正式協議" in policy_text
+    assert "Microsoft" in policy_text and "67%" in policy_text
+    assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
+    assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" for x in policy["sources"])
+    assert any(x["url"] == "https://www.reuters.com/business/nvidia-turmoil-marks-end-easy-money-ai-trade-2026-11-17/" for x in policy["sources"])
+    market_text = " ".join(analysis["markets"]["paragraphs"])
+    assert "近15%" in market_text and "超過12%" in market_text
+    assert "不等同違約" in market_text
+    strategy_text = " ".join(analysis["strategy"]["paragraphs"])
+    assert "融資展期失敗" in strategy_text and "契約違約" in strategy_text
+    assert "信用重新定價" in strategy_text and "整條融資鏈崩解" in strategy_text
+    assert any(x["url"] == "https://www.reuters.com/legal/transactional/coreweaves-ai-contracts-and-the-lenders-financing-its-build-out-2026-10-15/" for x in analysis["strategy"]["sources"])
+
     scan = data["political_scan"]
     assert scan["domains_checked"] == ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"]
     assert scan["findings"][0]["classification"] == "formally_effective"
