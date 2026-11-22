@@ -1,3 +1,16 @@
+# 2026-11-22｜SIM-1.4 核准 Builder Gate 與 QA sidecar 狀態同步已完成
+
+- **有效規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.4，blob `db31aedbf9325183dc4115e147939d524c9acec5`。
+- **唯一 Builder：** `simulation-lab/runner/build_review_html.py`，核准 blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- **修正完成：** QA sidecar 改為依 active SIM-1.4 §8.1 精確路徑／SHA 動態寫入 `sim14_builder_approval`、`sim14_review_ready`、`sim14_blockers` 及 `builder_approval_record`；Workflow build 前新增 fail-closed Gate 0。Helper blob `5e2dfd196f542d140de07ab6ee6e35d274e52df4`；test blob `9b3b00f6dd14240b4f62567affaaa61c83c61866`；Workflow blob `9b6e64adbaf743566e8062508e3c9019f69d214f`。
+- **完整回歸通過：** run `44970500242` completed／success；build 前 Builder 核准 Gate PASS；完整組裝、瀏覽器互動、母版視覺、DOM、資料／新聞／行事曆 QA 全部 PASS。
+- **最新審核版：** `preview/2026-11-23-simulation.html` blob `e2e9a984cb279fbc50d94b824ba56c4357e32047`；SHA-256 `c529e53b7fa1ae4e5702c79cb54b28320f77fe90026e5c858753f5df86d94471`；QA sidecar blob `d529c40f3c03578d633e05c882f3b5647e3d452a`。`QA_PASSED`、`data_review_ready=true`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`；1440／768／412／390／360／320 全 PASS。
+- **provenance：** Builder 實際與核准 SHA 均為 `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；active rules SHA `db31aedbf9325183dc4115e147939d524c9acec5`。HTML blob 與 sidecar report_git_blob_sha 一致。
+- **main 保護：** `main/index.html` 回讀 SHA `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；未修改正式母版／Manifest／行事曆 JSON，未部署 Pages。
+- **下一階段：** Stage 2 真實來源擷取與資料證據接線。現行 Workflow 是 Fixture 驅動，尚未自動擷取 44 項行情；需明確完成 acquisition receipt／來源逐項驗證及每日排程 E2E，不能把 Fixture build PASS 當成 live acquisition PASS。
+
+---
+
 # 2026-11-22｜SIM-1.4 Builder approval state sync repaired｜live-data integration next
 
 - **有效規則：** SIM-1.4 active，blob SHA `db31aedbf9325183dc4115e147939d524c9acec5`。
