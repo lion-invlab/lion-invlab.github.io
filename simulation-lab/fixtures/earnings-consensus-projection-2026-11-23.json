@@ -4,7 +4,7 @@
   "week_id": "2026-W48",
   "branch_scope": "simulation/tac-process-lab-2026-11-06",
   "calendar_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
-  "calendar_main_commit_sha": "f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb",
+  "calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098",
   "created_at": "2026-11-22T11:12:02+08:00",
   "status": "FORECASTS_CAPTURED_WITH_BASIS_DISCLOSURES",
   "source_priority": [
@@ -889,5 +889,5 @@
       "event_date_alignment_note": "Investing.com source release date 2026-11-25; Deere official 09:00 CT call is 2026-11-25 23:00 Taiwan time, matching authoritative main W48 event timestamp."
     }
   ],
-  "calendar_alignment_note": "Projection event_date values are aligned to the exact Taiwan-local event timestamps in authoritative main 2026-W48. The original Investing.com release-date evidence is preserved in source_attempts and source_page_observation; event-date alignment does not alter forecast values or reporting periods."
+  "calendar_alignment_note": "Projection event_date values are aligned to the exact Taiwan-local event timestamps in authoritative main 2026-W48. Current main HEAD is pinned for provenance after the 2026-11-23 Chart 3 ALFRED incremental maintenance; W47/W48 calendar blobs are unchanged. Original Investing.com release-date evidence is preserved in source_attempts and source_page_observation; event-date alignment does not alter forecast values or reporting periods."
 }
