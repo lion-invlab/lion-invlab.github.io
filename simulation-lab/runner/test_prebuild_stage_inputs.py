@@ -85,7 +85,7 @@ def main() -> None:
     missing_obs = copy.deepcopy(manifest)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "observation record hashes must be complete")
+                 "observation record hashes are invalid")
 
     mixed_dates = copy.deepcopy(manifest)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
