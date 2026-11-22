@@ -1,3 +1,25 @@
+## 2026-11-22 17:15（台灣時間）｜最新接手後狀態覆核（本節優先於下方舊快照）
+
+**目前結論：44/44 行情數值已重新直接核對；Stage 2 數值核對完成，但原始回應 SHA-256 證據未取得，因此整體仍為 PARTIAL。Stage 3／4 有可用資料與已完成內容；Stage 5／6 尚未重跑，Stage 7 尚未驗收。main 全程唯讀。**
+
+- **最新規範與基準：** SIM-1.4 active rules SHA `248b19b9ddaf05c79d7645f5b2c10798b3754970`；唯一核准 Builder `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`（已確認未改變）；Manifest SHA `c78338984192a9251adc247ae1b0044629de89db`；QA Contract v1.17 SHA `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`；Monday mother SHA `ce15c803cc778be35302eec96f6a5d123bf49624`；Weekday mother SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`；Simulation workflow SHA `371ac927be9a4dcb2c05ef07e35979d88a3797ef`。
+- **44 項行情：** Fixture SHA `026d7d50c5f08adf7adfa0e8a58a0a105aea378c`。全球指數17、產業ETF11、公債殖利率3、匯率6、能源／貴金屬4、風險指標3，合計44；資料日期全為2026-11-20。逐項直接讀取 Investing.com 歷史資料列；43項主來源 VERIFIED，CNN Fear & Greed 因 CNN Business／graphdata 無可讀回應，依順位採 FGScore 第一備援，1項 BACKUP_VERIFIED。0項待核對。已把逐項來源URL、報價口徑、查核時間與核對值寫入 Fixture。
+- **公債來源修正：** SIM-1.4 及 Fixture 已同步改為 Investing.com 2Y／10Y／30Y 歷史資料頁第一優先；美國財政部只作 CROSS_CHECK_ONLY。歷史 Close 修正為2Y 4.613%、10Y 4.912%、30Y 5.302%；同一 Investing.com 序列日變動分別 -16.6bp、-14.0bp、-9.9bp。原先財政部拋物線殖利率值不得覆蓋 Investing.com Close。
+- **Stage 2 證據缺口：** 本輪瀏覽器能讀取歷史資料表，但未取得原始HTTP回應本文；44項 `raw_response_sha256` 均為 null。不得以觀察值摘要、網址或HTTP 200冒充原始回應雜湊。Fixture 已新增第4項 PARTIAL blocker；Manifest Builder／測試已改為保留 VERIFIED／BACKUP_VERIFIED 狀態並明確回報 `raw_response_sha256_complete=false`、`evidence_hash_missing_count=44`、整體 `status=PARTIAL`。此處理尚未由本輪 CI 執行結果證實。
+- **44項清單／擷取程式：** Builder SHA `95faa8b0a844ca9476dbfa088d3b03f00d5c3c00`；Manifest test SHA `02f0b6f79476b10867278d3cbf50f77723ce3663`；capture SHA `ed8ecbcdd5f3eb2252600a56d450b08d5a82d24d`；capture test SHA `498854b6df32947eb01ceba89d8f1a61937f372a`。擷取程式會將403／Cloudflare challenge標記 TOOL_READ_FAILURE，並保留已核對值；已加入403、HTTP200 challenge及已核對列不重抓測試。程式與測試已提交，但尚未取得本輪 Actions 測試成功紀錄。使用者提供的技術實證 Run `45005520767` 仍是40筆403、4筆200；該Run不代表數值核驗。
+- **Stage 3｜PARTIAL：** main W47 blob SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`（透過 Git blob 讀取，938,294 bytes）；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`（126,386 bytes）。兩份 main JSON 均唯讀，coverage=incomplete。W47有25筆經濟事件、23筆財報事件（20已公布、3待公布）；23筆均無可採用公告前EPS／Revenue PIT共識，不得事後補造。週一五星財報回顧只有NVDA；已更正財報後股價反應：NVDA 11/18盤後公布，第一個完整交易日11/19收盤145.98、跌3.30%；11/20另跌14.01%不直接歸因於財報。
+- **W48 財報共識投影：** `simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json` SHA `92c4b8d2dcc5f4ef957546c1e7012dbd8522a815`，11筆，calendar_blob_sha精確對應main W48 SHA。Yahoo Finance 11檔對應頁HTTP429後，依SIM-1.4順位遞補Investing.com，逐筆核對Release Date與Period End 10/2026；未揭露EPS GAAP／Adjusted、Revenue精確定義及分析師數，卡片必須透明標註，不宣稱嚴格同口徑。核准Builder已接線此投影檔；不得直接改寫main W48 JSON。
+- **W48 行事曆／官員：** 27筆經濟、11筆財報均為upcoming；7筆經濟事件沒有可採用數值市場預期，維持null及逐筆原因。John Williams官方談話列於經濟事件：2026-11-24 05:00台灣時間；Builder既有 `populate_fed_weekly_agenda` 會從同週事件抽取Fed官員行程，無須改寫main JSON。
+- **Stage 4：** Fixture已有全球焦點新聞5則、熱門頭條10則、六領域政治掃描及五層市場分析（政治地緣、政策傳導、宏觀、金融市場、機構資金／策略）；新聞截稿時間固定2026-11-21 17:57:31（台灣時間）。本輪只修正NVDA第一完整交易日反應，不重做已完成的新聞與分析；最終內容Gate仍待新Builder輸出後驗收。
+- **目前 Fixture blockers 共4項：** W47公告前共識缺失；W48七筆無可採用數值預期；W47／W48 coverage incomplete；44項原始回應SHA-256缺失。不得標示REVIEW_READY。
+- **Stage 5／6：** 尚未以核准Builder重新產生2026-11-23完整審核版，也尚未完成本輪瀏覽器／視覺／互動／DOM／來源QA。未取得使用者對確切HTML SHA核准前，不交付main preview；本輪未修改main、index.html、正式母版、正式Manifest或行事曆JSON。
+- **Stage 7：** 尚未完成同一正式Simulation Pipeline端對端驗收，也未重新驗證04:35行事曆更新與05:25早報排程。不得以舊Run或舊QA結果替代本輪驗收。
+- **下一步：** 先取得本輪 deterministic tests 的實際CI結果；再以核准Builder產生simulation-only審核版及QA Sidecar，保持4項blockers、狀態PARTIAL；檢查Stage 5各Gate。只有使用者核准確切HTML SHA後，才可依Stage 6交付main preview。之後完成Stage 7端對端與排程驗收。
+
+---
+
+---
+
 ## 2026-11-22｜SIM-1.4 五層內容修訂與 Stage 2／回歸驗收更新
 
 - **有效基準：** SIM-1.4 active rules blob `28b9d1febc106012650fe0c6085d5405742eeea6`；唯一核准 Builder `simulation-lab/runner/build_review_html.py` blob `16254bfa249814ac75e62cf8acbad2828f366fe6`；QA Contract v1.17 blob `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`。
