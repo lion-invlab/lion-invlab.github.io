@@ -31,7 +31,27 @@ assert 're.fullmatch(r"[0-9a-f]{64}", approved_html_sha)' in delivery
 assert "approved_html_sha != actual_html_sha256" in delivery
 assert delivery.index("approved_html_sha != actual_html_sha256") < delivery.index("git fetch origin main")
 
-print("PASS: Simulation preview can be built without publishing; main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
+# Stage 2-4 input receipt is mandatory before Builder execution and remains bound through QA and handoff.
+receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
+market_step = section_after(WORKFLOW, "Validate 44 market-row metadata/date/identity only")
+capture_step = section_after(WORKFLOW, "Capture 44 raw market source pages")
+builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
+seal = section_after(WORKFLOW, "Seal QA evidence to the exact review HTML blob")
+persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
+assert WORKFLOW.index("Validate 44 market-row metadata/date/identity only") < WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Capture 44 raw market source pages") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
+assert "validate_prebuild_stage_inputs.py" in receipt_step
+assert "market-snapshot-audit.json" in receipt_step and "market-source-verification-manifest.json" in receipt_step
+assert "PREBUILD_RECEIPT_SHA256" in receipt_step
+assert "test -s simulation-lab/output/prebuild-stage-input-receipt.json" in builder_gate
+assert "ACTUAL_RECEIPT_SHA256" in builder_gate
+assert "prebuild_input_receipt_sha256" in seal and "calendar_main_commit_sha" in seal
+assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
+assert "prebuild_receipt.get(\"status\") != \"PASS\"" in delivery
+assert "prebuild_input_receipt_sha256" in delivery
+assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in WORKFLOW
+
+print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, read back, and required for explicit main handoff.")
+print("PASS: main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
 
 # The approval token is never interpolated into shell source; it is read from an environment variable.
 
