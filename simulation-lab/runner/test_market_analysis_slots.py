@@ -86,17 +86,21 @@ def test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers
         assert before == after, (name, "mother wrapper/headings/slot attributes changed")
         assert receipt["layer_order"] == [x[0] for x in EXPECTED]
         assert len(receipt["layers"]) == 5
-        for node, (key, title) in zip(container.select(":scope > .market-analysis-layer"), EXPECTED):
+        assert receipt["visible_sources"] is False
+        assert receipt["source_evidence_retained_in_receipt"] is True
+        for node, (key, title), layer_receipt in zip(
+            container.select(":scope > .market-analysis-layer"), EXPECTED, receipt["layers"]
+        ):
             content = node.select_one(".market-analysis-content")
             assert len(content.find_all("p", recursive=False)) == 2
-            disclosure = content.select_one("details.market-analysis-source-details")
-            assert disclosure is not None and not disclosure.has_attr("open")
-            assert disclosure.select_one("summary").get_text(" ", strip=True) == "資料來源（1）"
-            assert len(disclosure.select(".source a")) == 1
+            assert content.select_one("details.market-analysis-source-details") is None
+            assert content.select_one("a") is None
+            assert "資料來源" not in content.get_text(" ", strip=True)
             assert title in content.get_text(" ", strip=True)
-            link = content.select_one("a")
-            assert link and link["href"] == "https://example.com/source"
-            assert "noopener" in link.get("rel", [])
+            assert layer_receipt["source_count"] == 1
+            assert len(layer_receipt["sources"]) == 1
+            assert layer_receipt["sources"][0]["url"] == "https://example.com/source"
+            assert layer_receipt["sources"][0]["label"] == "官方來源測試"
 
 
 def test_builder_fails_closed_on_missing_layer_or_source_evidence():
