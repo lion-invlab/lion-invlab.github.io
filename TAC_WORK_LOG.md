@@ -2759,3 +2759,15 @@
 
 
 - 核准報告文字一致性複核：移除報告中殘留的核准前 `NOT_APPROVED` 敘述，統一為核准後狀態；最終驗收報告 blob SHA：`b9c6891a8d9070d59257faf679188f1172769bf6`。
+
+
+## 2026-11-22｜SIM-1.4 核准狀態回退修正與 Workflow Gate
+
+- **根因：** `.github/workflows/tac-simulation-lab.yml` 的 QA sidecar 產生區塊仍將 `sim14_builder_approval` 寫死為 `NOT_APPROVED`、`sim14_review_ready` 寫死為 `false`，會在下一次 build 把使用者已核准的 Builder 狀態回退。
+- **修正：** 新增 `simulation-lab/runner/sim14_builder_approval.py`（blob `5e2dfd196f542d140de07ab6ee6e35d274e52df4`），從 active SIM-1.4 §8.1 解析唯一 Builder 路徑／SHA，並以實際 Builder bytes 計算 Git blob SHA；新增 `test_sim14_builder_approval.py`（blob `9b3b00f6dd14240b4f62567affaaa61c83c61866`），覆蓋 APPROVED、NOT_APPROVED、路徑不符及 SHA 不符四種情境。
+- **Workflow：** `.github/workflows/tac-simulation-lab.yml` blob `a10d456cdb76c6424d026ce427a764c2a09c076a` 已改為從 active rules 動態產生 sidecar 核准狀態與 `builder_approval_record`；後續 blob `9b6e64adbaf743566e8062508e3c9019f69d214f` 再加入 build 前 Gate，若唯一 Builder 路徑／SHA 不符合 active SIM-1.4 核准即 fail closed。
+- **第一輪完整回歸：** run `44970349131` completed／success。11/23 HTML blob `5b3f4464237d4d0d8f0b3a0fba352f2ea2774833`、SHA-256 `8ac4cb076721832b916b4238b6adbc55dd8f1a9287dccdea053334b2f1783a42`；QA sidecar blob `3e1fe5278bead964f6a1726a22dcede72ca6493e`。Sidecar 回讀確認 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`；Builder 實際 SHA 與 active rules 核准 SHA 均為 `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；六視窗全 PASS。
+- **第二輪驗證：** run `44970500242` 由 commit `3d485a96c0f5406bf6306a9ee84c4c953f6aab5c` 觸發，包含最新 build 前 Gate；截至本紀錄更新時，Gate 0 已 completed／success，HTML build 已成功進入 QA 階段，視覺比較仍在執行，尚未宣稱全流程完成。
+- **資料產線界線：** 目前 Workflow 以日期匹配的 `report-data-YYYY-MM-DD.json` Fixture 作為行情／新聞／分析輸入；行事曆另由 `calendar_source_guard.py` 從 main 唯讀載入。Workflow 本身並未自動擷取 44 項即時行情。11/23 Fixture 結構盤點為 17 全球市場＋11 ETF＋3 債券＋6 外匯＋4 能源／貴金屬＋3 風險指標＝44；ETF 來源日期保存在 `sector_sources`，其他行情日期欄位及 ETF 日期均指向 2026-11-20。這是 Fixture 結構／來源欄位盤點，不等於本次重新開啟 44 個來源頁完成即時查核。
+- **安全邊界：** 以上均限 simulation branch；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
+- **後續：** 完成 run `44970500242`；通過後回讀新 HTML／sidecar SHA。之後另行完成 Stage 2 真實來源擷取及資料證據接線，不能把 Fixture build 誤報為 live data acquisition 已完成。
