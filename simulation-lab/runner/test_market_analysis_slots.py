@@ -93,7 +93,7 @@ def test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers
         ):
             content = node.select_one(".market-analysis-content")
             assert len(content.find_all("p", recursive=False)) == 2
-            assert content.select_one("details.market-analysis-source-details") is None
+            assert content.select_one("details.market-analysis-source-details, .source, .source-list, .market-analysis-sources") is None
             assert content.select_one("a") is None
             assert "資料來源" not in content.get_text(" ", strip=True)
             assert title in content.get_text(" ", strip=True)
