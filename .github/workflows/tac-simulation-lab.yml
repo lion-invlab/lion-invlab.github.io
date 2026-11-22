@@ -752,11 +752,17 @@ jobs:
           if qa.get("status") != "QA_PASSED": raise SystemExit("Delivery blocked: QA status is not QA_PASSED")
           required = {
               "review_ready": True, "data_review_ready": True,
-              "content_analysis_gate": "PASS", "sim14_builder_approval": "APPROVED",
+              "content_analysis_gate": "PASS", "political_geopolitical_scan": "PASS", "sim14_builder_approval": "APPROVED",
               "sim14_review_ready": True
           }
           for key, expected in required.items():
               if qa.get(key) != expected: raise SystemExit(f"Delivery blocked: {key} != {expected!r}")
+          expected_domains = ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"]
+          if qa.get("political_domains_checked") != expected_domains:
+              raise SystemExit("Delivery blocked: political scan did not verify all six required domains")
+          expected_layers = ["summary", "political_geopolitical", "policy_industry", "macro_transmission", "financial_market_pricing", "institutional_flows_strategy", "market_sentiment", "market_observation", "US", "Asia", "Europe", "sectors", "bonds", "FX", "energy", "metals"]
+          if qa.get("analysis_sections_checked") != expected_layers:
+              raise SystemExit("Delivery blocked: five-layer analysis QA coverage is incomplete")
           if qa.get("sim14_blockers") != []: raise SystemExit("Delivery blocked: SIM-1.4 blockers are not empty")
           if qa.get("report_git_blob_sha") != html_blob: raise SystemExit("Delivery blocked: QA sidecar is not bound to this exact HTML blob")
           if qa.get("report_sha256") != hashlib.sha256(html).hexdigest(): raise SystemExit("Delivery blocked: HTML SHA-256 differs from QA sidecar")
