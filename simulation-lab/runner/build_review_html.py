@@ -1684,7 +1684,7 @@ def validate_political_scan(data):
 
 
 def populate_market_analysis_preserving_dom(soup, data, manifest):
-    """Populate only the five mother-owned analysis content nodes; never rebuild wrappers."""
+    """Populate five mother-owned analysis nodes; validate evidence but never render citations."""
     contract = manifest.get("analysis_slots", {}).get("market_analysis")
     if not isinstance(contract, dict) or contract.get("required") is not True:
         raise ValueError("Manifest has no required market_analysis slot contract")
@@ -1719,7 +1719,8 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
             + f"; got {sorted(analysis)}"
         )
 
-    receipt = []
+    # Validate all paragraphs and source evidence before mutating any DOM node.
+    prepared = []
     for expected, (key, expected_title) in zip(layers, ANALYSIS_LAYER_KEYS):
         if expected.get("key") != key or expected.get("title") != expected_title:
             raise ValueError(f"Manifest market analysis layer contract mismatch for {key}")
@@ -1741,19 +1742,13 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
         if not isinstance(sources, list) or not sources:
             raise ValueError(f"market_analysis.{key}.sources must contain at least one evidence source")
 
-        # The editable scope is the existing content node only. Its parent, heading,
-        # wrapper, IDs, classes and mother-owned CSS are never modified.
-        content.clear()
+        clean_paragraphs = []
         for paragraph in paragraphs:
             if not isinstance(paragraph, str) or not paragraph.strip():
                 raise ValueError(f"market_analysis.{key} contains an empty/non-text paragraph")
-            p = BeautifulSoup("", "html.parser").new_tag("p")
-            p.string = paragraph.strip()
-            content.append(p)
+            clean_paragraphs.append(paragraph.strip())
 
-        source_line = BeautifulSoup("", "html.parser").new_tag("p")
-        source_line["class"] = ["market-analysis-sources"]
-        source_line.append("資料來源：")
+        evidence = []
         for index, source in enumerate(sources):
             if not isinstance(source, dict):
                 raise ValueError(f"market_analysis.{key}.sources[{index}] must be an object")
@@ -1763,40 +1758,34 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
             published_at = str(source.get("published_at") or "").strip()
             checked_at = str(source.get("checked_at") or "").strip()
             parsed = urlparse(url)
-            if not label or not status or not parsed.scheme in ("http", "https") or not parsed.netloc:
+            if not label or not status or parsed.scheme not in ("http", "https") or not parsed.netloc:
                 raise ValueError(f"market_analysis.{key}.sources[{index}] has invalid label, URL or status")
             if not published_at and not checked_at:
                 raise ValueError(f"market_analysis.{key}.sources[{index}] needs published_at or checked_at")
-            if index:
-                source_line.append("｜")
-            link = BeautifulSoup("", "html.parser").new_tag(
-                "a", href=url, target="_blank", rel="noopener"
-            )
-            link.string = label
-            source_line.append(link)
-            metadata = [status]
-            if published_at:
-                metadata.append("發布 " + published_at)
-            if checked_at:
-                metadata.append("查核 " + checked_at)
-            source_line.append("（" + "；".join(metadata) + "）")
-        # Keep the evidence available without letting long citations dominate the
-        # five-layer analysis. The details disclosure is closed by default.
-        source_details = BeautifulSoup("", "html.parser").new_tag("details")
-        source_details["class"] = ["source-details", "market-analysis-source-details"]
-        source_summary = BeautifulSoup("", "html.parser").new_tag("summary")
-        source_summary.string = f"資料來源（{len(sources)}）"
-        source_details.append(source_summary)
-        source_body = BeautifulSoup("", "html.parser").new_tag("div")
-        source_body["class"] = ["source"]
-        source_body.append(source_line)
-        source_details.append(source_body)
-        content.append(source_details)
+            evidence.append({
+                "label": label,
+                "url": url,
+                "status": status,
+                "published_at": published_at or None,
+                "checked_at": checked_at or None,
+            })
+        prepared.append((key, expected_title, content, clean_paragraphs, evidence))
+
+    receipt = []
+    for key, expected_title, content, paragraphs, evidence in prepared:
+        # Only the existing text-content node is cleared and repopulated. Sources
+        # remain in the internal receipt/provenance and are intentionally invisible.
+        content.clear()
+        for paragraph in paragraphs:
+            p = BeautifulSoup("", "html.parser").new_tag("p")
+            p.string = paragraph
+            content.append(p)
         receipt.append({
             "key": key,
             "title": expected_title,
             "paragraph_count": len(paragraphs),
-            "source_count": len(sources),
+            "source_count": len(evidence),
+            "sources": evidence,
             "text": content.get_text(" ", strip=True),
         })
 
@@ -1805,8 +1794,9 @@ def populate_market_analysis_preserving_dom(soup, data, manifest):
         "layer_order": expected_keys,
         "layers": receipt,
         "political_scan": political_scan_receipt,
+        "visible_sources": False,
+        "source_evidence_retained_in_receipt": True,
     }
-
 
 def update_market_sentiment_interpretation_preserving_dom(sentiment_section, sentiment_text):
     """Update the existing final sentiment card's text slot without rebuilding its wrapper."""
