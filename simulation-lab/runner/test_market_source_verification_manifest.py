@@ -8,22 +8,21 @@ def main():
     data=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-23.json").read_text(encoding="utf-8"))
     result=build_manifest(data,"2026-11-23")
     assert result["row_count"]==44
-    assert result["verified_count"]==41
-    assert result["pending_count"]==3
-    assert result["status"]=="PARTIAL"
+    assert result["verified_count"]==44
+    assert result["pending_count"]==0
+    assert result["status"]=="PASS"
     assert result["source_pages_fetched"] is False
     assert result["displayed_values_independently_reconciled"] is False
-    assert result["prior_observation_reused_count"]==41
-    assert result["prior_observation_missing_time_count"]==3
-    assert result["browser_observation_records_complete"] is False
+    assert result["prior_observation_reused_count"]==44
+    assert result["prior_observation_missing_time_count"]==0
+    assert result["browser_observation_records_complete"] is True
     assert result["observation_record_hash_missing_count"]==0
     assert result["raw_response_sha256_saved_count"]==0
     assert len({(r["group"],r["name"]) for r in result["rows"]})==44
-    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==40
+    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==43
     assert sum(r["verification_status"]=="BACKUP_VERIFIED" for r in result["rows"])==1
     pending=[r for r in result["rows"] if r["verification_status"]=="PENDING_OBSERVATION_TIMESTAMP"]
-    assert {r["name"] for r in pending}=={"2年期美債殖利率","10年期美債殖利率","30年期美債殖利率"}
-    assert all(r["checked_at_tw"] is None for r in pending)
+    assert pending==[]
     verified=[r for r in result["rows"] if r["verification_status"] in ("VERIFIED","BACKUP_VERIFIED")]
     assert all(r["source_page_fetched"] is False for r in result["rows"])
     assert all(r["display_value_reconciled"] is False for r in result["rows"])
@@ -55,7 +54,8 @@ def main():
         assert bond_rows[name]["cross_check_role"]=="CROSS_CHECK_ONLY"
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
     assert "本輪未重新擷取來源頁" in result["warning"]
-    print("PASS: 44 unique rows; 41 prior observations retained; 3 bond observations pending exact per-item time")
+    assert all(r["observed_at_tw"]=="2026-11-22T17:48:21+08:00" for r in result["rows"] if r["group"]=="bonds")
+    print("PASS: 44 unique rows; 44 fixture-carried observations complete; all three Treasury rows have explicit source observation time")
     print("PASS: no false claim of current-run source-page fetching or independent numeric reconciliation")
     print("PASS: observation-record SHA integrity; raw HTTP body hash remains optional")
 
