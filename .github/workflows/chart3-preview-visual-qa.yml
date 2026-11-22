@@ -6,6 +6,8 @@ on:
     paths:
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
+      - ".github/scripts/update_sp500_daily_incremental.py"
+      - ".github/scripts/build_sp500_daily_compact.py"
       - ".github/scripts/test_chart3_preview_browser.py"
       - ".github/workflows/chart3-preview-visual-qa.yml"
   push:
@@ -44,6 +46,20 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright
           python -m playwright install --with-deps chromium
+      - name: Build latest S&P 500 history on isolated PR checkout
+        run: |
+          python .github/scripts/update_sp500_daily_incremental.py --data-dir data/tac-chart3 --overlap-calendar-days 30
+          python .github/scripts/build_sp500_daily_compact.py --recent-compact data/tac-chart3/sp500_daily_close_1993-2026.compact.json --output data/tac-chart3/sp500_daily_close_1927-2026.compact.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/tac-chart3/sp500_daily_close_1927-2026.compact.json')
+          d=json.loads(p.read_text())
+          assert d['start'] == '1927-12-30'
+          assert d['end'] >= '2026-11-20'
+          assert d['rows'] >= 24000
+          print({'start':d['start'],'end':d['end'],'rows':d['rows'],'sha256':d['source_dataset_sha256']})
+          PY
       - name: Build standalone preview artifact
         if: always()
         run: |
