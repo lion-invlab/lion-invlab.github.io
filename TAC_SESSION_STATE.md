@@ -1,17 +1,17 @@
 # 2026-11-22｜SIM-1.4 五層市場分析與雙母版實作狀態
 
 - **目前工作分支：** `simulation/tac-process-lab-2026-11-06`。所有本次修改均限定 simulation branch。
-- **SIM-1.4 最新 SHA：** `28ac13f8a3ee2cae5da0f0928d6eedc30fc1fc4d`。市場深度解析已由四層改為五層：①政治與地緣政治局勢；②政策傳導與企業／產業鏈影響；③宏觀經濟傳導；④金融市場定價、情緒與風險；⑤機構資金動向與投資策略。
+- **SIM-1.4 最新 SHA：** `c83c499451769287ce59d7a56b709562ce363c61`。市場深度解析已由四層改為五層：①政治與地緣政治局勢；②政策傳導與企業／產業鏈影響；③宏觀經濟傳導；④金融市場定價、情緒與風險；⑤機構資金動向與投資策略。
 - **政治／地緣政治要求：** 每日六領域掃描（美國政策、美中競爭、中東／俄烏／台海／朝鮮半島、貿易制裁與出口管制、主要經濟體政治、能源與戰略資源）；事件狀態分類；事件→政策→產業→經濟→金融市場→策略傳導；基準／風險／嚴重三情境及觸發、資產影響、領先指標、策略、失效條件。
-- **QA Contract：** v1.17，最新 SHA `47a7a8a686227ced356bb69702e8621d60415e99`。已同步五層文章、政治掃描、來源證據、情境分析及 Builder Gate。
+- **QA Contract：** v1.17，最新 SHA `ba29f7a3b04c424a53ecdbbcd6b0c995b9b7eed5`。已同步五層文章、政治掃描、來源證據、情境分析及 Builder Gate。
 - **雙母版：**
   - 週一 simulation mother SHA：`ce15c803cc778be35302eec96f6a5d123bf49624`
   - 週二至週五 simulation mother SHA：`940761077a3f3ad1b47b325a8d2a1a6800e3a679`
-  - 兩份母版均在總結小卡之後、原市場情緒區塊之前新增 `#market-analysis)，並有五個獨立層級內容槽位；來源列採小字灰階樣式。
+  - 兩份母版均在總結小卡之後、原市場情緒區塊之前新增 `#market-analysis`，並有五個獨立層級內容槽位；來源列採小字灰階樣式。
 - **Manifest：** `simulation-lab/baseline/mother-template-manifest.json` SHA `c78338984192a9251adc247ae1b0044629de89db`；已登記雙母版 SHA、五層 selector、順序及唯一可編輯內容節點。
 - **Builder 候選：** `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。新增五層填槽、來源 URL／時間／狀態驗證、六領域政治掃描及重大事件傳導／三情境驗證；另新增僅寫入 simulation-lab/output/candidate-validation 的隔離候選測試模式。舊核准 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備新槽位能力，已明確降為歷史核准基準，不得再用於新母版。
 - **已通過的技術驗收：** GitHub Actions run `44978042935` completed／success。Deterministic self-tests、五層槽位與來源證據測試、政治事件分類／傳導／三情境測試、歷史 Builder 核准不得沿用及候選輸出路徑防護均 PASS；使用 11/23 Monday 與 11/20 Weekday Fixture 加 TEST_ONLY 合成文章完整執行兩套 Builder、DOM preservation 與六視窗瀏覽器測試（1440／768／412／390／360／320px）全 PASS。候選產物只寫入 simulation-lab/output/candidate-validation/ 並帶有測試 blocker。
-- **尚未完成：** 真實日期 Fixture 的完整報告組裝與 Stage 1–6 生產 E2E；候選 Builder 的完整 output-only synthetic fixture 組裝與六視窗瀏覽器回歸已通過；新 Builder SHA 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。因此 Stage 5 仍 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
+- **尚未完成：** 真實市場分析內容的每日 Stage 1–6 生產 E2E；新 Builder SHA 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。因此 Stage 5 仍 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
 - **main 保護查核：** `main:index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；正式週一母版 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；正式平日母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。本次均未修改；未修改 main Manifest／正式行事曆 JSON／歷史報告，未部署 Pages。
 - **下一步：** 提交候選 Builder 精確 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 供使用者核准。核准後再以真實 Fixture 完成完整報告 E2E；未核准前不得繞過 Gate 0。
 
