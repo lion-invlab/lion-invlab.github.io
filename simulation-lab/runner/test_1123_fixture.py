@@ -195,7 +195,10 @@ def main():
     blockers = data["review_ready_blockers"]
     assert len(blockers) == 4, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert any("31項未保存逐項查核時間" in item for item in blockers), blockers
+    assert any("1項未保存逐項查核時間" in item for item in blockers), blockers
+    assert "HTTP 429" in data["global_markets"]["羅素2000指數"]["source"]["note"]
+    assert "CFD" in data["global_markets"]["羅素2000指數"]["source"]["note"]
+    assert not data["global_markets"]["羅素2000指數"]["source"].get("verified_at_tw")
     cfd_indices = {
         name for name, item in data["global_markets"].items()
         if item.get("source", {}).get("quote_type") in {"cfd_index_reference_series", "cfd_cash_index_proxy"}
