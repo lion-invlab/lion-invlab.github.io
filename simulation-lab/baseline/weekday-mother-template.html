@@ -1523,6 +1523,19 @@ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-o
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:2!important;min-width:0!important;width:auto!important}
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:3!important}
 @media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{padding:11px 10px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{padding:17px 15px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate b{font-size:clamp(24px,6vw,32px)!important}}
+
+/* At narrow phones, stack the official agenda date above its text instead of squeezing two columns. */
+@media(max-width:360px){
+  html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-weekly-event{
+    grid-template-columns:minmax(0,1fr)!important;
+    row-gap:5px!important;
+  }
+  html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-weekly-event-date{
+    white-space:normal!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+  }
+}
 </style>
 <style>
 /* Alignment fix: equal top padding and matching label/value baselines */
