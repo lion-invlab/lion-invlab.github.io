@@ -48,23 +48,43 @@
 | Fed 限時動態 | `section#fed`；radio：`#fed-live-tab-watch`、`#fed-live-tab-fomc`；面板由 `.fed-live-panel.fed-live-watch` 與 `.fed-live-panel.fed-live-fomc` 承載 |
 | 今日觀察／盤面觀察 | `section#view` |
 
-### A2.2c 總結小卡與四層深度解析分層（SIM-1.4 新增）
+### A2.2c 總結小卡、五層深度解析與政治／地緣政治分析（SIM-1.4）
 
-**目前基準狀態（2026-11-22）：**
-- 週一母版 `simulation-lab/baseline/monday-mother-template.html`（SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`）目前只有 `article.card.bluf` 總結小卡，未定義獨立四層文章槽位。
-- 週二至週五母版 `simulation-lab/baseline/weekday-mother-template.html`（SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`）亦未定義獨立四層文章槽位；搜尋到的 `market-analysis` 字串屬其他內容，不是文章 DOM 錨點。
-- Manifest 目前沒有四層文章槽位、selector 或 slot contract。
-- 因此在正式母版、Manifest、Builder 未經核准同步新增該槽位前，四層文章雖可由 Stage 4 產出文稿，但 Stage 5 不得將其插入 HTML，必須回報 `BLOCKED_MISSING_APPROVED_ANALYSIS_SLOT`。不得將文章塞入 `article.card.bluf`，不得用 CSS／JS 臨時建立容器，也不得將單次人工審核版修改視為正式槽位核准。
+**目前基準狀態（2026-11-22，修訂前盤點）：**
+- 週一母版 `simulation-lab/baseline/monday-mother-template.html`（SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`）目前只有 `article.card.bluf` 總結小卡，未定義獨立五層文章槽位。
+- 週二至週五母版 `simulation-lab/baseline/weekday-mother-template.html`（SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`）亦未定義獨立五層文章槽位；既有 `market-analysis` 字串不構成已核准的文章 DOM 錨點。
+- Manifest 目前沒有五層文章槽位、selector 或 slot contract。
+- 因此，在雙母版、Manifest、Builder 及本契約同步更新並通過驗收前，Stage 5 不得將五層文章插入 HTML，必須回報 `BLOCKED_MISSING_APPROVED_ANALYSIS_SLOT`。不得將文章塞入 `article.card.bluf`，不得用 CSS／JS 臨時建立容器，也不得將單次人工審核版修改視為正式槽位核准。
 
-**取得明確授權並完成雙母版同步後，才啟用以下驗收：**
+**文章內容固定分成三個互不取代的層級：**
+1. 總結小卡：讀者快速掌握市場主軸、核心風險及立場。
+2. 五層市場深度解析：完整文章，固定依序為：
+   - 一、政治與地緣政治局勢。
+   - 二、政策傳導與企業／產業鏈影響。
+   - 三、宏觀經濟傳導。
+   - 四、金融市場定價、情緒與風險。
+   - 五、機構資金動向與投資策略。
+3. 盤面觀察重點／今日觀察：精簡的當日變數、確認條件及失效條件，不重貼文章。
+
+**政治／地緣政治掃描及分析驗收：**
+- 每日掃描六領域：美國政策與政治；美中競爭；中東／俄烏／台海／朝鮮半島；國際貿易、關稅、制裁與出口管制；日本／歐洲／中國及重要新興市場政治；能源與戰略資源。
+- 每項重大事件必須記錄原始來源、發布時間／時區、適用範圍及狀態分類：正式生效／執行、已宣布但尚未實施、政治人物立場或談話、市場預期、未核實消息。不得把表態當成政策、宣布當成生效或預期當成事實。
+- 對重大事件逐環節驗收「事件 → 政策／執行 → 產業／企業 → 宏觀經濟 → 金融市場 → 投資策略」傳導；證據不足的環節必須標示未知，不得自行補鏈。
+- 必須建立基準、風險、嚴重三種情境，逐項列出觸發條件、傳導路徑、受影響資產、領先指標、策略及失效條件。若證據不足以建立某情境，標示缺證與影響，不得虛構。
+- 沒有重大且已核實的新變化時，允許明確記錄當日未發現足以改變市場定價的重大政治／地緣政治變化；不得為湊篇幅硬寫政治敘事。掃描是否完成與當日是否有重大事件是兩個獨立狀態。
+- QA sidecar 必須記錄 `political_geopolitical_scan`、`political_domains_checked`、`political_event_status_classifications`、`policy_transmission_completeness`、`scenario_analysis_coverage`。未執行標 `NOT_TESTED`；來源或證據不足標 `PARTIAL`；不得默認 PASS。
+
+**取得母版變更授權後，雙母版與 Builder 的必要驗收：**
 - [ ] 週一及週二至週五母版各有且只有一個獨立文章槽位，位於總結小卡之後、既有市場情緒區塊之前；不得改動其他區塊順序。
-- [ ] 兩份母版各自使用固定唯一 ID（建議共同使用 `#market-analysis`），Manifest 記錄 selector、父層、順序、欄位及雙母版 SHA。
-- [ ] 文章內四層標題固定且順序正確：全球市場與行情結構 → 重點個股與產業鏈動態 → 市場情緒、技術面與風險展望 → 機構資金動向與投資策略。
-- [ ] 總結小卡仍維持單一 `article.card.bluf`；四層文章不得進入小卡 DOM，且小卡文字不得包含四層全文。
-- [ ] 盤面觀察重點仍留在原 `#view`，內容精簡，與四層文章不整段重複。
+- [ ] 兩份母版使用固定且唯一的文章容器 ID（建議共同使用 `#market-analysis`）；Manifest 記錄 selector、父層、順序、欄位、slot schema 及雙母版 SHA。
+- [ ] 文章五層標題固定且順序正確：政治與地緣政治局勢 → 政策傳導與企業／產業鏈影響 → 宏觀經濟傳導 → 金融市場定價、情緒與風險 → 機構資金動向與投資策略。
+- [ ] 每層有獨立標題及內容槽位；不得將五層合併成一個無法辨識層級的純文字欄位。
+- [ ] 總結小卡仍維持單一 `article.card.bluf`；五層文章不得進入小卡 DOM，小卡文字不得包含五層全文。
+- [ ] 盤面觀察重點仍留在原 `#view`，內容精簡，與五層文章不整段重複。
 - [ ] Builder 僅填入核准槽位既有節點；不得重建母版 DOM，不得自行追加 CSS／JS；缺錨點、重複錨點或父層／順序不符即 FAIL。
-- [ ] 桌機與 320／360／390／412px 手機版均檢查標題換行、段落寬度、行距、卡片間距及橫向溢位；文章四層不得擠壓行情、財報或官員行程卡片。
-- [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、四層標題順序、總結卡與文章分離檢查、視窗尺寸及測試結果。
+- [ ] 桌機及 320／360／390／412px 手機版均檢查標題換行、段落寬度、行距、卡片間距及橫向溢位；五層文章不得擠壓行情、財報或 Fed 官員行程卡片。
+- [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、五層標題順序、總結卡與文章分離檢查、政治掃描六領域完成狀態、政策分類、傳導鏈、三種情境及各 viewport 測試結果。
+- [ ] 文章內容 QA 必須同時檢查 Fixture 與最終 HTML，確保五層文字一致、來源證據可追溯，且未以未核實政治消息作為確定事實。
 
 ### A2.2a 全球主要股市三區評論綁定
 
