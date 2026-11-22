@@ -259,6 +259,22 @@ jobs:
           echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
+      - name: Enforce active SIM-1.4 Builder approval before production build
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "simulation-lab/runner")
+          from sim14_builder_approval import resolve_from_files
+          builder_path = "simulation-lab/runner/build_review_html.py"
+          approval = resolve_from_files("simulation-lab/TAC_WORK_RULES_SIM.md", builder_path)
+          if approval["decision"] != "APPROVED":
+              raise SystemExit("SIM-1.4 Gate 0: unique Builder has no exact active-rule approval")
+          print(approval)
+          PY
+
       - name: Resolve QA-only existing review target
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'qa-only'
         shell: bash
