@@ -57,6 +57,22 @@ def test_summary_patch_is_local_on_both_mothers():
         assert soup.select_one("#fed .fc-fomc-weekly-events")
 
 
+def test_production_paths_are_confined_to_simulation_output():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        html_in = tmp_path / "input.html"
+        html_in.write_text("<html><body></body></html>", encoding="utf-8")
+        try:
+            patch_section(
+                html_in, FIXTURE, MANIFEST, "summary",
+                tmp_path / "output.html", tmp_path / "receipt.json",
+            )
+        except ValueError as exc:
+            assert "input review HTML must remain inside" in str(exc)
+        else:
+            raise AssertionError("production local patcher accepted an HTML input outside simulation-lab/output")
+
+
 def test_market_analysis_patch_hides_sources_but_keeps_internal_receipt():
     for mother in ("monday-mother-template.html", "weekday-mother-template.html"):
         result, soup = run_patch("market_analysis", mother)
@@ -76,4 +92,5 @@ def test_market_analysis_patch_hides_sources_but_keeps_internal_receipt():
 if __name__ == "__main__":
     test_summary_patch_is_local_on_both_mothers()
     test_market_analysis_patch_hides_sources_but_keeps_internal_receipt()
-    print("PASS: local summary/analysis patching, unchanged non-target DOM, internal evidence retention")
+    test_production_paths_are_confined_to_simulation_output()
+    print("PASS: local summary/analysis patching, unchanged non-target DOM, internal evidence retention and simulation-only output guard")
