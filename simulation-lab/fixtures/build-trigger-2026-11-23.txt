@@ -1,0 +1,4 @@
+Simulation-only workflow trigger marker.
+Report date: 2026-11-23
+Purpose: execute the SIM build path, including verified S&P 500 to Chart 3 increment handoff and historical snapshot validation.
+No main-branch publication is authorized.
