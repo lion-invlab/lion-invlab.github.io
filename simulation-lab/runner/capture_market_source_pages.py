@@ -100,7 +100,7 @@ def main():
     result = capture_manifest(manifest, Path(args.raw_dir), args.sleep_seconds)
     target = Path(args.output)
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"rows": 44, "captured": result["capture_success_count"], "failed": result["capture_failure_count"], "value_reconciled": False, "output": str(target)}, ensure_ascii=False))
 
 if __name__ == "__main__":
