@@ -1,13 +1,11 @@
 name: TAC Chart 3 preview visual QA
-# Re-run browser QA after history overlay checkbox changes
+# Browser QA consumes the S&P 500 snapshot already written by the SIM-1.4 early-report handoff; never fetch quotes here.
 
 on:
   pull_request:
     paths:
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
-      - ".github/scripts/update_sp500_daily_incremental.py"
-      - ".github/scripts/build_sp500_daily_compact.py"
       - ".github/scripts/test_chart3_preview_browser.py"
       - ".github/workflows/chart3-preview-visual-qa.yml"
   push:
@@ -22,7 +20,7 @@ on:
       - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: tac-chart3-preview-visual-qa-${{ github.event_name }}
@@ -33,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout main branch
+      - name: Checkout committed Chart 3 snapshot
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -46,19 +44,39 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright
           python -m playwright install --with-deps chromium
-      - name: Build latest S&P 500 history on isolated PR checkout
+      - name: Verify committed S&P 500 snapshot (no quote fetch)
         run: |
-          python .github/scripts/update_sp500_daily_incremental.py --data-dir data/tac-chart3 --overlap-calendar-days 30
-          python .github/scripts/build_sp500_daily_compact.py --recent-compact data/tac-chart3/sp500_daily_close_1993-2026.compact.json --output data/tac-chart3/sp500_daily_close_1927-2026.compact.json
           python - <<'PY'
-          import json
+          import base64, datetime as dt, hashlib, json, zlib
           from pathlib import Path
-          p=Path('data/tac-chart3/sp500_daily_close_1927-2026.compact.json')
-          d=json.loads(p.read_text())
-          assert d['start'] == '1927-12-30'
-          assert d['end'] >= '2026-11-20'
-          assert d['rows'] >= 24000
-          print({'start':d['start'],'end':d['end'],'rows':d['rows'],'sha256':d['source_dataset_sha256']})
+          p=Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json")
+          obj=json.loads(p.read_text(encoding="utf-8"))
+          assert obj["schema_version"]=="1.0.0" and obj["encoding"]=="zlib+base64"
+          raw=zlib.decompress(base64.b64decode(obj["payload"],validate=True))
+          off=0; ordinal=dt.date.fromisoformat(obj["start"]).toordinal(); close=0
+          rows=[]; previous=None
+          def varint(buf, pos):
+              value=0; shift=0
+              while True:
+                  if pos>=len(buf) or shift>49: raise ValueError("truncated/overflow varint")
+                  b=buf[pos]; pos+=1; value+=(b&127)*(2**shift)
+                  if not b&128: return value,pos
+                  shift+=7
+          for _ in range(int(obj["rows"])):
+              gap,off=varint(raw,off); ordinal+=gap
+              zz,off=varint(raw,off); delta=zz//2 if zz%2==0 else -(zz//2)-1
+              close+=delta
+              day=dt.date.fromordinal(ordinal).isoformat()
+              if previous is not None: assert day>previous, (previous,day)
+              assert close>0, (day,close)
+              rows.append((day,close)); previous=day
+          assert off==len(raw) and len(rows)==int(obj["rows"])
+          assert rows[0][0]=="1927-12-30" and rows[-1][0]==obj["end"]
+          assert obj["end"]>="2026-11-20" and len(rows)>=24000
+          canonical=("Date,Close\\n"+"".join(f"{d},{c/100:.2f}\\n" for d,c in rows)).encode()
+          digest=hashlib.sha256(canonical).hexdigest()
+          assert digest==obj["source_dataset_sha256"], (digest,obj["source_dataset_sha256"])
+          print({"status":"PASS","mode":"committed_snapshot_only","start":rows[0][0],"end":rows[-1][0],"rows":len(rows),"dataset_sha256":digest})
           PY
       - name: Build standalone preview artifact
         if: always()
@@ -85,23 +103,6 @@ jobs:
           PY
       - name: Render and validate desktop and mobile previews
         run: python .github/scripts/test_chart3_preview_browser.py
-      - name: Persist QA-verified S&P 500 history to repair branch
-        if: success() && github.event_name == 'push'
-        run: |
-          DATA_FILE=data/tac-chart3/sp500_daily_close_1927-2026.compact.json
-          cp "$DATA_FILE" /tmp/sp500_daily_close_1927-2026.compact.json
-          git fetch origin fix/chart3-sp500-investing-source-20261123
-          git checkout -B fix/chart3-sp500-investing-source-20261123 origin/fix/chart3-sp500-investing-source-20261123
-          cp /tmp/sp500_daily_close_1927-2026.compact.json "$DATA_FILE"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$DATA_FILE"
-          if git diff --cached --quiet; then
-            echo "Verified history is already current; no commit needed."
-          else
-            git commit -m "Persist QA-verified S&P 500 daily history"
-            git push origin HEAD:fix/chart3-sp500-investing-source-20261123
-          fi
       - name: Upload screenshots and QA report
         if: always()
         uses: actions/upload-artifact@v4
