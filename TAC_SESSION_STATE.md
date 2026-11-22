@@ -1,3 +1,20 @@
+# 最新狀態錨點｜2026-11-22｜SIM-1.4 Stage 2–4 收據與 FOMC 320px 版面修正
+
+**本節優先於下方較早的狀態錨點及歷史紀錄。**
+- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。本輪僅修改 simulation baseline／Manifest／QA Contract／驗收程式；main 正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改。
+- **正式規則與驗收附件：** SIM-1.4 主規則 blob SHA `dba9c540f11d05836fb4587fc158ff2f7628e79a`；QA Contract v1.18 blob SHA `38fb974cfa591b5ea64d2b342cba68102cf959e6`；simulation mother Manifest SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`。
+- **雙母版最新 SHA：** Monday `efcc712c627d6b26205be340102bba33c4a570d8`；Weekday `7027fedb4c5843b1a97fb77f7ef19173e1a98564`。兩份母版只在 360px 以下將 Fed 官員行程列改為日期在上、內容在下；361px 以上維持日期／內容雙欄。
+- **FOMC 實際互動與響應式驗收：** Run `45015824741` completed／success。interaction smoke 真正點選 FOMC radio，驗證 John Williams 行程日期、官員名稱及 HTTPS 官方來源；桌機 1440px 與手機 320px 均 PASS，`page_errors=[]`。桌機行程內容寬 992px；320px 日期與內容垂直排列，內容寬 206px，row scrollWidth=clientWidth=206，documentWidth=viewportWidth=320，無水平溢位。截圖已封存：`desktop-1440-fed-fomc.png`、`mobile-320-fed-fomc.png`。
+- **完整 11/23 E2E：** Run `45015824741` completed／success；雙母版 SHA materialization、deterministic self-tests、唯一 Builder、Stage 2–4 pre-build receipt、FOMC tabs／官員行程、母版比較、DOM、日期／行事曆／44 行情／新聞 Gate、Builder 後 receipt SHA recheck、QA sidecar seal、Simulation archive 與 remote read-back 全部成功。Stage 6 main delivery 未執行。
+- **最新審核版：** `preview/2026-11-23-simulation.html` blob SHA `2ee15a9dbfb226807b588f545184cde563bb2ca5`；SHA-256 `f8f76846c203882b9d0b6e4dc6593daa8132e07e57712a5f9d97616707feed29`。QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `4089f85252782cefb341f7652e11aac092df2247`。
+- **Stage 2–4 receipt：** status PASS；SHA-256 `c06cae4304930cb165ad9ca4e1fc6d34a97932d86f107aafd4467a6252faf808`；archive `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45015824741.json` Git blob SHA `574e0465bcf4e0849b27f970390b8f4575e9946b`。已確認歸檔 bytes 與 QA sidecar 內嵌收據逐位元組一致。
+- **QA 狀態：** `QA_PASSED`、`content_analysis_gate=PASS`、政治掃描 PASS、六 viewport（1440／768／412／390／360／320）PASS；Builder `16254bfa249814ac75e62cf8acbad2828f366fe6` APPROVED。惟 `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`，不得交付 main。
+- **仍有兩項 PARTIAL blocker：** W47 23 筆歷史財報缺公告前 EPS／Revenue 共識，無法事後重建；W48 澳洲／日本 Flash PMI 與加拿大 SEPH 共 3 筆經濟預期缺可採用公告前共識，forecast 維持 null。不得補造或推定 Beat／Miss。
+- **main 唯讀確認：** `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，均與本輪前一致。
+- **下一步：** FOMC 320px 擠壓問題已修正並實測通過。接續只處理兩項資料 PARTIAL blocker 的合法證據確認及 11/23 審核版內容檢查；無新證據即保留 PARTIAL。不得為了 REVIEW_READY 放寬規則；未經明確核准不修改 main／正式首頁。
+
+---
+
 # 最新狀態錨點｜2026-11-22｜SIM-1.4 Stage 2–4 輸入收據及 11/23 E2E 驗收
 
 **本節優先於下方所有歷史快照。**
