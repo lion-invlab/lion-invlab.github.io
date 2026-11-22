@@ -530,7 +530,7 @@ jobs:
         run: |
           set -euo pipefail
           python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" <<'PY'
-          import hashlib, json, re, subprocess, sys
+          import hashlib, json, os, re, subprocess, sys
           from pathlib import Path
           from bs4 import BeautifulSoup, Comment
           sys.path.insert(0, 'simulation-lab/runner')
@@ -747,7 +747,10 @@ jobs:
               raise SystemExit("pre-build receipt main calendar commit differs from Builder provenance")
           if calendar_receipt.get("current", {}).get("blob_sha") != provenance.get("calendar_current_blob_sha") or calendar_receipt.get("previous", {}).get("blob_sha") != provenance.get("calendar_previous_blob_sha"):
               raise SystemExit("pre-build receipt calendar blob SHA differs from Builder provenance")
-          if prebuild_receipt_sha256 != "${PREBUILD_RECEIPT_SHA256}":
+          expected_prebuild_receipt_sha256 = os.environ.get("PREBUILD_RECEIPT_SHA256", "")
+          if not re.fullmatch(r"[0-9a-f]{64}", expected_prebuild_receipt_sha256):
+              raise SystemExit("pre-build receipt expected SHA is missing or malformed")
+          if prebuild_receipt_sha256 != expected_prebuild_receipt_sha256:
               raise SystemExit("pre-build receipt SHA changed after Builder execution")
           market_source_summary = {
               "status": market_source_manifest.get("status"),
