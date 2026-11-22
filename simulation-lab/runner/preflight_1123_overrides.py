@@ -75,7 +75,7 @@ def main():
     print("PASS: authoritative main W47/W48 blob SHA and event counts unchanged")
     print("PASS: 6 W47 economic actuals projected; main JSON untouched")
     print("PASS: 3 W47 earnings actuals projected; PIT Beat/Miss not inferred")
-    print("PASS: 5 W48 impact fields corrected in HTML projection only")
+    print("PASS: 4 remaining W48 impact fields corrected in HTML projection only")
     print(f"PASS: main commit {bundle['main_commit_sha']}")
 
 
