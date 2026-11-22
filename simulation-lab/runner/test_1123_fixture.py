@@ -287,6 +287,9 @@ def main():
     assert yahoo_nvda["eps"]["estimate"] == nvda["eps_estimate"]
     assert yahoo_nvda["revenue"]["estimate"] / 1_000_000_000 == nvda["revenue_estimate"]
     assert yahoo_nvda["observed_at_taipei"] == "2026-11-15T13:50:45+08:00"
+    assert nvda["consensus_source"]["capture_file_blob_sha"] == "46f9a7cc59b5fb6714219f053ce48b0da7dc9e52"
+    assert nvda["consensus_source"]["source_priority_at_capture"] == 4 and nvda["consensus_source"]["source_priority_at_report"] == 1
+    assert nvda["consensus_source"]["raw_response_ref"] == "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/NVDA/raw_response"
 
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
