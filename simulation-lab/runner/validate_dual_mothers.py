@@ -38,7 +38,7 @@ def validate(key: str) -> dict:
     # Validate the fixed structural anchors and weekday-specific sections
     # documented by mother-template-qa-contract.md.
     required_ids = [
-        "overview", "sentiment", "news-scan", "global-markets",
+        "overview", "market-analysis", "sentiment", "news-scan", "global-markets",
         "industry-bonds-fx-commodities", "calendar", "earnings",
         "sp500-earnings-health", "fed", "view",
         "tac-news-0", "tac-news-1", "tac-news-panel-0", "tac-news-panel-1",
@@ -54,6 +54,30 @@ def validate(key: str) -> dict:
     for element_id in required_ids:
         if len(soup.select(f"#{element_id}")) != 1:
             raise SystemExit(f"{key}: required anchor #{element_id} must exist exactly once")
+
+    analysis = soup.select("#market-analysis")
+    if len(analysis) != 1 or analysis[0].parent is not soup.select_one("#overview"):
+        raise SystemExit(f"{key}: five-layer market analysis must exist once as a direct child of #overview")
+    if analysis[0].find_next(id="sentiment") is not soup.select_one("#sentiment"):
+        raise SystemExit(f"{key}: five-layer market analysis must precede #sentiment")
+    expected_layers = [
+        ("political", "一、政治與地緣政治局勢"),
+        ("policy_industry", "二、政策傳導與企業／產業鏈影響"),
+        ("macro", "三、宏觀經濟傳導"),
+        ("markets", "四、金融市場定價、情緒與風險"),
+        ("strategy", "五、機構資金動向與投資策略"),
+    ]
+    actual_layers = [
+        (node.get("data-analysis-layer"), node.find(["h2", "h3", "h4"], recursive=False).get_text(" ", strip=True) if node.find(["h2", "h3", "h4"], recursive=False) else "")
+        for node in analysis[0].select(":scope > .market-analysis-layer")
+    ]
+    if actual_layers != expected_layers:
+        raise SystemExit(f"{key}: five-layer analysis order mismatch: {actual_layers}")
+    slot_contract = MANIFEST.get("analysis_slots", {}).get("market_analysis", {})
+    if not slot_contract.get("required") or [x.get("key") for x in slot_contract.get("layers", [])] != [x[0] for x in expected_layers]:
+        raise SystemExit(f"{key}: manifest five-layer analysis slot contract missing or out of order")
+    if len(analysis[0].select(".market-analysis-content")) != 5:
+        raise SystemExit(f"{key}: exactly five independent analysis content slots are required")
 
     monday_only = ["last-week-calendar", "last-week-earnings"]
     if key == "monday":
