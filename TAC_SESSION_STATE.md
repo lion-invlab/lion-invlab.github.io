@@ -3808,3 +3808,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Fixture 最終 blob SHA 更新為 `3975130e7765aa77a11fe5787f125997bf5eb095`，本次最後更新 commit `87c83649f3c6f86081ee3c50b87c08d65db63687`；已遠端回讀前一版本後再更新，下一步須重新回讀此最終版本。
 - SOX 五層關鍵價位原先以Yahoo OHLC為主，已直接開啟Investing.com HK SOX現金指數歷史頁，確認2026-11-20 O/H/L/C=9,160.8／9,204.4／8,342.2／8,408.6，與Yahoo同日資料一致至頁面顯示精度。已將SOX來源順位改為Investing.com HK，並依該頁顯示精度重算S2 7,789.53、S1 8,099.07、P 8,651.73、R1 8,961.27、R2 9,513.93；Yahoo保留為交叉核對。其他四項OHLC仍沿用同一交易日既有鎖定觀察。
 - 本輪額外擷取1個SOX關鍵價位來源頁；44項行情來源頁仍未全量重新擷取，故 `source_pages_fetched_this_run=false`、`displayed_values_independently_reconciled_this_run=false` 不變；另記 `key_level_source_pages_fetched_this_run=1`、`key_level_source_pages_reconciled_this_run=1`。
+
+
+## 2026-11-23 06:51–06:56｜SIM-1.4 pre-build 輸入收據格式修正
+
+- **原因：** 重新讀取最新 Fixture 後，發現 Stage 4 的兩個 legacy 欄位 `news_window_taipei`／`news_cutoff_taipei` 仍停留在 11/21 17:57:31；但 `news_window` 物件與 15 則新聞紀錄已按週一規則延伸至 11/23 05:25。另兩則新增 Reuters 新聞的 `published_at_tw` 使用 ISO 秒格式，與正式 pre-build validator 的 `YYYY/MM/DD HH:MM` 解析契約不一致。這會令合法的 11/23 01:52 Rabigh 報導被錯誤判定為超出舊窗口，並使 pre-build receipt BLOCKED。
+- **最小修正：** 只修正同一日期 Fixture：`news_window_taipei=2026/11/20 12:00–2026/11/23 05:25（台灣時間）`；`news_cutoff_taipei=2026-11-23 05:25:00`；兩則 Reuters 的台灣發布時間統一為 `2026/11/22 21:09` 與 `2026/11/23 01:52`。原始來源發布時間、來源時區、URL、查核時間與新聞摘要均未改動；pending_items 中的舊窗口說明同步更正。
+- **遠端回讀：** Fixture 路徑 `simulation-lab/fixtures/report-data-2026-11-23.json`；新 blob SHA `8f6664356fec46c0ddb8f0a46e12eeb0e45225bc`；更新 commit `eea3e5cf9c4abbbbef0d91018d320b33d61f744d`。回讀確認 report_date=2026-11-23、trading_date=2026-11-20、5+10 則新聞、15 個唯一 URL、15 筆時間格式合規。
+- **Stage 2–4 狀態：** 44 項行情／11 ETF、W47/W48 唯讀資料、財報共識投影、15 則新聞、五層分析及六領域政治掃描沿用已鎖定證據；本次沒有重抓已鎖定行情或改寫 main 行事曆 JSON。Pipeline metadata audit 仍只代表日期／身分檢查，不代表本輪重新擷取 44 個來源頁。
+- **下一步：** 更新 Build Trigger marker 使規則／Manifest／QA／Monday mother／Fixture／Projection／Builder SHA 全部對齊，再以 `[build-tac-report:2026-11-23]` 觸發唯一 Simulation Pipeline；push-trigger 的 publish_to_main=false，main delivery disabled。
