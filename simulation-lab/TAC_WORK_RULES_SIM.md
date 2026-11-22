@@ -25,7 +25,7 @@
 - main 原則唯讀；唯一例外是本規範 Stage 6 明定的「已通過 QA 審核版交付」：只可新增／更新指定日期的 `main:preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及交付收據。不得修改其他 main 路徑。
 - 正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；審核版交付不得觸及這些檔案。
 - main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者。早報流程 05:25 嚴格唯讀。
-- simulation QA 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，只代表可提供 Simulation 審核版，不構成 main preview 交付授權。必須先由使用者審核並明確核准該份 HTML 的確切 SHA-256；只有使用者另行觸發 `workflow_dispatch`、設定 `publish_to_main=true` 並傳入完全相同的 `approved_html_sha`，Workflow 才可將同一 HTML 與 sidecar 原樣交付 main preview。push tag、每日排程及一般 build 預設不得交付 main。交付時必須核對 Git blob SHA／SHA-256 不變；不得重新組裝、改寫內容或重跑完整 QA。
+- simulation QA 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，只代表可提供 Simulation 審核版，不構成 main preview 交付授權。必須先由使用者審核並明確核准該份 HTML 的確切 SHA-256；交付只能透過獨立、具 main 寫入能力的明確授權動作，並核對完全相同的 HTML SHA-256 後，將同一 HTML 與 sidecar 原樣交付 main preview。目前 `.github/workflows/tac-simulation-lab.yml` 僅存在 Simulation 分支，未安裝於 main/default branch，因此不可假設可由 `workflow_dispatch` 從預設分支觸發；不得為此擅自將該 Workflow 加入 main。push tag、每日排程及一般 build 一律只產生 Simulation 審核版，不得交付 main。交付時必須核對 Git blob SHA／SHA-256 不變；不得重新組裝、改寫內容或重跑完整 QA。
 - main preview 的交付檢查只驗證路徑、檔案存在、HTML／sidecar SHA 與 simulation QA 收據綁定一致、交付收據完整；不構成第二次內容／技術 QA。Pages 可開啟性另行如實標示。
 - 正式首頁只有使用者對 main preview 中已唯一識別的 HTML SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
 - simulation workflow 禁止 deploy Pages、修改 `main:index.html`、使用 production secrets 或自動發布正式首頁；main 寫入權限僅限 Stage 6 preview 交付白名單路徑。
@@ -134,7 +134,7 @@
 1. 先將 simulation HTML 與 QA sidecar commit 並 push 至 simulation branch；回讀遠端兩檔，確認與本次 QA 輸出完全一致。
 2. 只有 sidecar 同時滿足 `status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`，且 `report_git_blob_sha` 等於實際 HTML Git blob SHA，才具備交付資格；此資格不等於使用者已授權 main 寫入。
 3. 必須先提供 Simulation 審核版及 QA Sidecar 給使用者檢視。只有使用者明確核准該份 HTML 的確切 SHA-256 後，才可進入 main preview 交付；不得以「review_ready=true」、排程觸發、push tag、先前日期核准或概括口頭同意代替。
-4. main 交付只接受使用者另行觸發的 `workflow_dispatch`，且必須同時設定 `publish_to_main=true`、傳入64位小寫十六進位 `approved_html_sha`，並與本次 QA sidecar 的 `report_sha256` 及實際 HTML SHA-256 完全一致。任何缺漏或不一致均在讀取／寫入 main 前 BLOCKED。一般 build、push tag、每日 05:25 排程的 `publish_to_main` 必須為 false。
+4. main 交付必須由使用者在審核後另行明確授權，並傳入64位小寫十六進位的已核准 HTML SHA-256；該值必須與 QA sidecar 的 `report_sha256` 及實際 HTML SHA-256 完全一致。任何缺漏或不一致均在讀取／寫入 main 前 BLOCKED。目前 Simulation-only Workflow 不具備從 default branch 觸發 main 交付的條件；若要採用 `workflow_dispatch`，必須先取得使用者對將 main-capable delivery workflow 加入 main 的獨立授權。一般 build、push tag、每日 05:25 排程永遠只產生 Simulation 審核版。
 5. 將同一 HTML bytes 與同一 QA sidecar bytes 原樣複製至 main：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`。禁止重新呼叫 Builder、改寫 sidecar、修補 HTML 或改變任何內容。
 6. 在 main 同次 commit 新增 `preview/YYYY-MM-DD-review.delivery.json`，記錄來源 simulation branch／commit／workflow run、兩份來源路徑、HTML Git blob SHA 與 SHA-256、QA sidecar Git blob SHA、使用者核准的 SHA、交付時間及狀態。交付收據不得改寫 QA sidecar。
 7. push main 前先 fetch 最新 main，僅在獨立 worktree 套用三個白名單檔案；若遇衝突或目標路徑已有不同內容，停止並標示 BLOCKED，不得覆蓋或強制推送。
