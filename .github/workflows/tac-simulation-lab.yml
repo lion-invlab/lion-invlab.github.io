@@ -362,7 +362,9 @@ jobs:
         run: |
           set -euo pipefail
           CONSENSUS_ARGS=()
-          if [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
+          if [[ "${REPORT_DATE}" == "2026-11-23" && -s simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json ]]; then
+            CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json)
+          elif [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
             CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
           fi
           python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
