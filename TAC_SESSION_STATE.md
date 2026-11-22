@@ -1,3 +1,15 @@
+# 2026-11-22｜SIM-1.4 Stage 6 main preview 原樣交付規則已修訂（待 workflow 實跑驗證）
+
+- **使用者授權：** 依使用者明確授權，修訂 SIM-1.4 與 simulation workflow，建立「simulation QA 通過 → 原樣交付 main preview → 使用者審核 → 另行核准正式首頁」單一路徑。
+- **規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` 更新後 blob SHA `fbcc3c5f13af49fa357a83c9fd3934a457d9fa1a`。§0.2 明訂 main 僅有 Stage 6 preview 交付例外；Stage 5 先在 simulation 完成完整 QA；Stage 6 以同一 HTML／QA sidecar bytes 交付 main，不重跑完整 QA。
+- **Workflow：** `.github/workflows/tac-simulation-lab.yml` 更新後 blob SHA `1937df54e9867ffea6608d54c5cce8db35bb770f`。先將 QA 產物保存 simulation，再檢查 QA_PASSED、review_ready、data_review_ready、content_analysis_gate、Builder APPROVED、sim14_review_ready、無 blockers 及 HTML blob／SHA-256 綁定；通過後才寫 main `preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。
+- **交付完整性：** main 僅驗證原樣 Git blob SHA、SHA-256、QA sidecar 綁定及 delivery receipt；不重建 HTML、不修改 QA sidecar、不執行第二次完整 QA。main 寫入白名單只有三個 preview 檔案；明確阻止 `index.html`、母版、Manifest、行事曆 JSON、歷史報告及 Pages deploy。已有不同內容、路徑 symlink 或 push 衝突均 fail closed。
+- **唯一 Builder：** 仍為已核准 `simulation-lab/runner/build_review_html.py`，SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`，未修改 Builder 核心。
+- **尚未宣稱：** 此次規則／workflow 寫入已完成，但新的 main-preview delivery workflow 尚未實跑驗證；main 目前尚未因本次修改新增任何審核版，亦未修改 main/index.html 或部署 Pages。下一步須以完整 QA 通過的測試報告觸發 workflow，確認 main preview 三檔原樣 SHA 及 main index 保護。
+- **範圍：** 本次只修改 simulation branch 的 SIM-1.4、workflow、Session State、Work Log；main 尚未寫入。
+
+---
+
 # 2026-11-22｜SIM-1.4 核准 Builder Gate 與 QA sidecar 狀態同步已完成
 
 - **有效規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.4，blob `db31aedbf9325183dc4115e147939d524c9acec5`。
