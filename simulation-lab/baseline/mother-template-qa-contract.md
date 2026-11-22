@@ -27,8 +27,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `63e904aa17ccec741cf972f8c9333423623dd779` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `ad06eaa64bd9e081ba67dd3e409d7bf69bcbfb94` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `ce15c803cc778be35302eec96f6a5d123bf49624` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `940761077a3f3ad1b47b325a8d2a1a6800e3a679` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
 
@@ -56,7 +56,7 @@
 
 **變更前盤點（歷史狀態，非目前基準）：**
 - 以上是授權變更前的歷史盤點：當時週一／平日母版與 Manifest 均無五層文章槽位。
-- 本次已依使用者明確授權，在 simulation branch 完成雙母版槽位：週一 SHA `63e904aa17ccec741cf972f8c9333423623dd779`；平日 SHA `ad06eaa64bd9e081ba67dd3e409d7bf69bcbfb94`；Manifest SHA `55128d15afc563f34bec97bcb008a8d9eb0fd0c3`。兩者皆位於總結小卡之後、既有市場情緒之前，並有五個獨立內容節點。
+- 本次已依使用者明確授權，在 simulation branch 完成雙母版槽位：週一 SHA `ce15c803cc778be35302eec96f6a5d123bf49624`；平日 SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`；Manifest SHA `c78338984192a9251adc247ae1b0044629de89db`。兩者皆位於總結小卡之後、既有市場情緒之前，並有五個獨立內容節點。
 - Builder 已新增五層文章填槽與六領域政治掃描驗證，候選 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342`；此 SHA 尚未完成 CI／雙母版端到端驗收，也尚未取得 SIM-1.4 §8.1 對新 SHA 的明確核准。原已核准 SHA 不含五層填槽能力，不得用於新槽位生產。
 - 在候選 Builder 回歸通過並由使用者明確核准新 SHA 前，Stage 5 仍不得標示 REVIEW_READY 或交付；不得將技術上已存在的空槽位視為文章已完成。
 
