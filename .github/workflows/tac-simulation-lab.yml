@@ -883,6 +883,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
+          # Persist the exact Chart 3 merge outputs produced and validated in step 20.
+          # A successful in-run merge is not a database update until these files are committed.
+          CHART3_FILES=(
+            "data/tac-chart3/sp500_daily_increment.jsonl"
+            "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
+            "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
+            "data/tac-chart3/manifest.json"
+          )
+          declare -A CHART3_SHA_BEFORE
+          for file in "${CHART3_FILES[@]}"; do
+            test -s "${file}" || { echo "Chart 3 merge output missing; refusing persistence: ${file}" >&2; exit 1; }
+            git add -f "${file}"
+            CHART3_SHA_BEFORE["${file}"]="$(git hash-object "${file}")"
+          done
           PREBUILD_RECEIPT="simulation-lab/output/prebuild-stage-input-receipt.json"
           PREBUILD_RECEIPT_ARCHIVE="simulation-lab/runs/prebuild-stage-input-receipt-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
           test -s "${PREBUILD_RECEIPT}" || { echo "Pre-build receipt missing; refusing to persist QA artifact" >&2; exit 1; }
@@ -920,7 +934,13 @@ jobs:
           fi
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
           git fetch origin simulation/tac-process-lab-2026-11-06
-          # Builder/QA creates local generated files after the review commit.\n          # Auto-stash those workspace changes before rebasing onto a concurrent SIM push.\n          git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06
+          # Builder/QA creates local generated files after the review commit.
+          # Auto-stash those workspace changes before rebasing onto a concurrent SIM push.\n          git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06
+          # Recheck every Chart 3 data blob after rebase; never silently persist a different snapshot.
+          for file in "${CHART3_FILES[@]}"; do
+            RECHECK_CHART3_SHA="$(git show "HEAD:${file}" | git hash-object --stdin)"
+            test "${CHART3_SHA_BEFORE[${file}]}" = "${RECHECK_CHART3_SHA}" || { echo "Chart 3 data SHA changed during persistence: ${file}" >&2; exit 1; }
+          done
           # Revalidate after rebase so a concurrent mother/manifest change cannot
           # leave a QA-passed HTML artifact attached to a different approved baseline.
           python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
@@ -937,6 +957,11 @@ jobs:
           echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
           git fetch origin simulation/tac-process-lab-2026-11-06
+          for file in "${CHART3_FILES[@]}"; do
+            REMOTE_CHART3_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${file}" | git hash-object --stdin)"
+            test "${CHART3_SHA_BEFORE[${file}]}" = "${REMOTE_CHART3_SHA}" || { echo "Remote Chart 3 read-back SHA mismatch: ${file}" >&2; exit 1; }
+            echo "Remote Chart 3 read-back PASS: ${file} sha=${REMOTE_CHART3_SHA}"
+          done
           REMOTE_HTML_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_OUTPUT}" | git hash-object --stdin)"
           REMOTE_EVIDENCE_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_EVIDENCE}" | git hash-object --stdin)"
           test "${REVIEW_BLOB_SHA}" = "${REMOTE_HTML_SHA}" || { echo "Remote preview HTML read-back SHA mismatch"; exit 1; }
