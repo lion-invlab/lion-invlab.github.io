@@ -229,7 +229,7 @@ def validate_chart(page, label):
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("(end)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd===end}", arg=expected_sp500["end"], timeout=3000)
 
 try:
     with sync_playwright() as p:
