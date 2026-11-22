@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.19（2026-11-22｜修正週一 simulation mother SHA 與 A2.1 表格欄數；完成雙母版／真實內容 E2E 回歸綁定；本契約不獨立於主規則生效）
+版本：1.20（2026-11-23｜同步雙母版最新 simulation SHA；補入總結／五層來源隱藏與內部 evidence receipt 分離驗收；本契約不獨立於主規則生效）
 定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -29,8 +29,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `efcc712c627d6b26205be340102bba33c4a570d8` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `7027fedb4c5843b1a97fb77f7ef19173e1a98564` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `0a7d5095aaa99c470e00e67f33567ff9f359d6ae` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `3f4e65c1385532b0f0969fdc76caf2883a39e798` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
 
@@ -428,10 +428,19 @@
 
 
 ### A3.5 2026-11-22｜總結／深度分析來源隱藏與局部 DOM 更新
-- 總結小卡與五層深度解析不得顯示「資料來源」文字、來源連結、來源收折區或同義替代元件。
+- 總結小卡與五層深度解析不得顯示「資料來源」文字、來源連結、來源收折區或同義替代元件；HTML QA 必須同時檢查可見文字、a[href]、details 及 source 類容器。
 - 五層 Fixture 的 sources 必須逐筆完成 URL、label、status、published_at／checked_at 驗證；Builder receipt 必須保留每層 source_count 與來源證據，且與 Fixture 完全一致。只驗證 HTML 沒有來源顯示，不代表內部證據保留通過。
+- Summary receipt 必須記錄 `summary_source_receipt.visible_sources=false`；五層每一層 receipt 必須保留非零 source_count、來源 label／URL／status／published_at 或 checked_at；缺少 sources 仍須驗證失敗。
+- 來源顯示刪除僅限總結與五層分析；新聞、行情、商品、債券、匯率、行事曆及其他區塊原有來源標示全部維持。
 - 總結卡若清除來源元件，Builder／局部更新 receipt 必須記錄 `summary_source_receipt: {visible_sources: false}`；summary 卡及五層文章的來源顯示與內部 receipt 均須分開驗收。
 - 新聞、行情、商品、債券、匯率、行事曆及其他區塊原有來源顯示維持母版契約，不得因本條一併移除。
 - 局部更新器 `simulation-lab/runner/patch_review_sections.py` 必須分別支援 summary 與 market_analysis；只更新目標 selector，更新前後比較非目標 DOM 完全一致，並產生包含 Fixture SHA、輸入／輸出 HTML SHA-256、目標 selector、內部 evidence receipt 及局部測試狀態的收據。
 - summary 局部更新依母版原有槽位數量驗證；週一母版三槽、週二至週五母版五槽，不得以同一日期 Fixture 跨母版測試時忽略槽位差異。
 - 局部更新不得呼叫 44 項行情擷取、新聞模組、行事曆模組或完整 Builder；局部 QA 不得冒充整頁 E2E。 正式 CLI 的輸入 HTML、輸出 HTML、收據、Fixture 與 Manifest 必須受 simulation-lab/output、simulation-lab/fixtures、simulation-lab/baseline 路徑範圍限制；臨時目錄只允許測試函式明確 test_only 模式使用。
+
+
+## 2026-11-23｜版本 1.20 雙母版 SHA 與來源顯示邊界更新
+
+- Monday simulation mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；Weekday simulation mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。兩者均與 Manifest 實際 simulation_blob_sha 一致；main 正式母版 SHA 保持唯讀不變。
+- 總結與五層分析只移除可見來源元件，內部 Fixture sources、來源驗證與 QA receipt 完整保留；其他報告區域的來源標示不變。
+- 此版本更新的是 simulation QA 執行附件，不修改母版 DOM、CSS、Manifest、main 正式母版或首頁。
