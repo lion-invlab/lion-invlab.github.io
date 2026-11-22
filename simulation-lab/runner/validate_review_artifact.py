@@ -183,7 +183,7 @@ def main():
     summary_card = soup.select_one("#overview > section.grid.two > article.card.bluf")
     if summary_card is None:
         raise SystemExit("summary card missing from review")
-    if summary_card.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary_card.get_text(" ", strip=True):
+    if summary_card.select("a, details.source-details, details.market-analysis-source-details, .source, .source-list, .summary-source, .summary-sources, p.market-analysis-sources") or "資料來源" in summary_card.get_text(" ", strip=True):
         raise SystemExit("summary card exposes forbidden visible source disclosure")
     if provenance.get("summary_source_receipt") != {"visible_sources": False}:
         raise SystemExit("internal summary source-removal receipt missing or invalid")
@@ -209,7 +209,7 @@ def main():
         expected_paragraphs = [str(p).strip() for p in payload["paragraphs"]]
         if actual_paragraphs != expected_paragraphs:
             raise SystemExit(f"rendered market_analysis.{key} paragraphs differ from fixture")
-        if content.select("a, details.market-analysis-source-details") or "資料來源" in content.get_text(" ", strip=True):
+        if content.select("a, details.market-analysis-source-details, .source, .source-list, .market-analysis-sources") or "資料來源" in content.get_text(" ", strip=True):
             raise SystemExit(f"rendered market_analysis.{key} exposes forbidden visible source disclosure")
         receipt = provenance.get("market_analysis_slot_receipt", {})
         receipt_layers = {item.get("key"): item for item in receipt.get("layers", [])}
