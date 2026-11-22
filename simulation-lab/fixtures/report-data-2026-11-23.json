@@ -358,7 +358,7 @@
         "data_date": "2026-11-20",
         "quote_type": "provider_index_reference_series",
         "note": "Investing.com HK 歷史數據頁 2026-11-20 歷史列：收市 7,927.75、跌幅 -1.89%；採指定日期歷史列，不採頁首其他日期即時值。",
-        "checked_at_tw": "2026-11-22T11:35:30+08:00"
+        "verified_at_tw": "2026-11-22T11:36:20+08:00"
       }
     },
     "STOXX Europe 600": {
@@ -477,7 +477,7 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "Investing.com HK AUD/USD 歷史數據頁 2026-11-20 歷史列：收市 0.6617、跌幅 -0.63%；頁首 0.6621 為其他日期報價，不作本報告基準。",
-        "checked_at_tw": "2026-11-22T11:35:30+08:00"
+        "verified_at_tw": "2026-11-22T11:36:20+08:00"
       }
     },
     "美元／日圓": {
@@ -489,7 +489,7 @@
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
         "note": "Investing.com HK USD/JPY 歷史數據頁 2026-11-20 歷史列：收市 158.54、跌幅 -0.73%；採指定日期歷史列。",
-        "checked_at_tw": "2026-11-22T11:35:30+08:00"
+        "verified_at_tw": "2026-11-22T11:36:20+08:00"
       }
     }
   },
@@ -576,11 +576,12 @@
       "change_display": "+26.20%",
       "band": "極高",
       "source": {
-        "name": "Investing.com HK｜CBOE Volatility Index 歷史資料",
-        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "name": "Investing.com Global｜CBOE Volatility Index 歷史資料",
+        "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
         "data_date": "2026-11-20",
         "quote_type": "cash_index_close",
-        "note": "Investing.com HK 11/20歷史列35.89、+26.20%；CBOE官方VIX歷史資料頁與Yahoo Finance ^VIX同日OHLC／收盤交叉確認：O28.63、H40.03、L26.94、C35.89。此為CBOE VIX現金指數，不是VIX期貨或ETF。"
+        "note": "Investing.com Global CBOE VIX 歷史數據頁 2026-11-20 歷史列：收市 35.89、漲幅 +26.20%；標的明確為 CBOE Volatility Index，非無 cid 的即時差價合約頁。CBOE／Yahoo Finance ^VIX 同日 OHLC 交叉確認：O28.63、H40.03、L26.94、C35.89。",
+        "verified_at_tw": "2026-11-22T11:36:20+08:00"
       }
     },
     "move": {
@@ -1900,7 +1901,7 @@
       "data_date": "2026-11-20",
       "quote_type": "ETF_daily_close",
       "note": "Investing.com 2026-11-20 XLB 歷史列：收市 48.34、跌幅 -2.19%；更正原 Fixture 誤採的 49.06、-0.73%（該值非 11/20 指定歷史列）。",
-      "checked_at_tw": "2026-11-22T11:35:30+08:00"
+      "verified_at_tw": "2026-11-22T11:36:20+08:00"
     },
     "XLU": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2055,7 +2056,7 @@
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
     "PARTIAL｜本週W48經濟行事曆27筆中7筆無可採用市場預期；維持null／待核實，需完整揭露。",
     "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。",
-    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；目前2項保存精確查核時間、6項僅保存查核日期、36項未保存逐項查核時間。不得補造時間，該36項查核時間狀態維持待核實。"
+    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；目前7項保存精確查核時間、6項僅保存查核日期、31項未保存逐項查核時間。不得補造時間，該36項查核時間狀態維持待核實。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
