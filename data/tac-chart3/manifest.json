@@ -3669,7 +3669,7 @@
     "encoding": "zlib+base64",
     "long_history_source": "FJA pinned repository commit f50e4612d69cf14e4ac8a20b7a42d29f0f081825; repository README identifies SP500.csv source as Yahoo Finance.",
     "long_history_license": "Repository contains MIT LICENSE for repository contents; upstream Yahoo Finance data rights/terms are separate and remain unverified for redistribution.",
-    "recent_snapshot_source": "Validated FJA/FRED compact baseline through 2026-11-10 plus verified Yahoo Finance ^GSPC historical Close increments through 2026-11-18.",
+    "recent_snapshot_source": "Validated recent compact baseline through 2026-11-18; appended only verified TAC daily-report S&P 500 cash-index observations through 2026-11-18.",
     "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
     "boundary_overlap_date": "1993-12-31",
     "boundary_abs_difference_points": 0,
