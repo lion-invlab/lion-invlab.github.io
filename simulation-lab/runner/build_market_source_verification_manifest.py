@@ -14,6 +14,12 @@ from pathlib import Path
 
 from validate_market_snapshot import validate_market_snapshot
 
+BOND_PRIMARY_URLS = {
+    "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+    "10年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+    "30年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+}
+
 
 def build_manifest(data: dict, report_date: str) -> dict:
     audit = validate_market_snapshot(data, report_date)
@@ -21,6 +27,11 @@ def build_manifest(data: dict, report_date: str) -> dict:
     for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
         for name, item in (data.get(group) or {}).items():
             source = item.get("source") or {}
+            if group == "bonds":
+                expected_url = BOND_PRIMARY_URLS.get(name)
+                if expected_url is None or source.get("url") != expected_url:
+                    raise ValueError(f"{name}: primary source must be the specified Investing.com historical-data URL")
+            cross_check = source.get("cross_check") or {}
             rows.append({
                 "group": group,
                 "name": name,
@@ -30,6 +41,10 @@ def build_manifest(data: dict, report_date: str) -> dict:
                 "quote_type": source.get("quote_type"),
                 "source_name": source.get("name"),
                 "source_url": source.get("url"),
+                "source_role": "PRIMARY" if group == "bonds" else source.get("source_role", "PRIMARY_AS_CONFIGURED"),
+                "cross_check_name": cross_check.get("name"),
+                "cross_check_url": cross_check.get("url"),
+                "cross_check_role": cross_check.get("role"),
                 "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
                 "verification_status": "PENDING_SOURCE_PAGE_CAPTURE",
                 "source_page_fetched": False,
