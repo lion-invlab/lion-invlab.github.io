@@ -52,7 +52,7 @@
 - 母版選擇唯一依據：`simulation-lab/baseline/mother-template-manifest.json`。
 - 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
 - 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
-- Builder：唯一正式生產入口依第 8.1 節使用者精確核准紀錄；目前唯一核准為 `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。任何路徑或 SHA 不符均不得作為每日生產入口。
+- Builder：唯一正式生產入口必須符合第 8.1 節使用者核准的精確路徑與 SHA。**目前分支上的 Builder 候選版本尚未取得本輪核准**；未取得使用者核准前不得執行完整生產 E2E 或標示 REVIEW_READY。
 - 執行狀態及證據：依第 10 章規定的根目錄兩份既有紀錄分工；讀取時以實際路徑及 SHA 為準。
 
 ### 1.2 開工鎖定資料
@@ -361,7 +361,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
 8. **此前已核准的 Builder（歷史核准基準）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。此核准依據為 2026-11-22 使用者明確核准，以及同一 Builder SHA 的 Monday run `44964279548`、Weekday run `44964439803` 雙母版完整驗收；該核准只適用於當時的母版／Manifest，不能自動延伸至本次新增五層文章槽位後的結構。
-9. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。使用者於 2026-11-22 明確核准此精確路徑及 SHA。此版本包含 Manifest 綁定的五層內容槽位填入、來源連結／時間／狀態驗證、六領域政治掃描、事件傳導與三情境驗證，以及僅可寫入 `simulation-lab/output/candidate-validation/` 的隔離候選測試模式。此 SHA 已通過 deterministic self-tests、五層槽位／來源證據／政治傳導與三情境測試、候選輸出路徑防護，以及 11/23 Monday／11/20 Weekday Fixture 加 TEST_ONLY 合成文章的完整 Builder 組裝、母版 DOM preservation 與六視窗（1440／768／412／390／360／320px）瀏覽器回歸（GitHub Actions run `44978042935`、`44978265956` completed／success）。候選測試產物只寫入隔離目錄，帶有測試 blocker，不可交付。自本次核准起，該路徑及精確 SHA 為 SIM-1.4 唯一正式生產 Builder；任何其他 Builder、手工 HTML 組裝或 SHA 不符均不得作為每日生產入口。此核准不代表真實市場分析內容的每日 Stage 1–6 生產 E2E 已完成，也不構成 main preview、首頁、正式母版或 Pages 發布授權。
+9. **歷史 Builder 核准紀錄：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾於 2026-11-22 獲使用者核准，並完成當時版本的測試。該核准只適用於該精確 SHA，不會自動延伸至後續修改。分支後續版本曾變更為 `02f2d87e12e340cb377eb99dbda42cbb77d58129`，使用者明確指出該版未核准；本次修改後候選版本為 `e20aafcd9a062ab15e6826e7d8195d92d394ae6c`，同樣尚未取得核准。候選版本新增來源隱藏、內部 evidence receipt 保留等修改；必須完成局部測試、雙母版測試及必要瀏覽器 QA，提交確切 SHA 與證據，待使用者核准後才可執行完整 E2E。此前任何不同 SHA 的測試結果均不得合併宣稱本候選版通過。
 
 ### 8.2 組裝限制
 - 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
@@ -539,7 +539,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.19，SIM-1.4 執行附件；目前 blob SHA `d266e2074134824931561972709fc189869df98e`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `bee044ecf9317e58b26a76342c85fec1c52d387f`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -573,7 +573,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 版本紀錄
 
-- 2026-11-22｜QA Contract v1.19 最終 SHA 鎖定：A2.1 六欄表格分隔線、週一／平日 simulation mother SHA、FOMC 320px 行程欄位與版本紀錄格式均已回讀確認；QA Contract blob SHA `d266e2074134824931561972709fc189869df98e`，Appendix D 精確指向此 SHA。
+- 2026-11-22｜QA Contract v1.19 曾完成歷史鎖定，SHA `d266e2074134824931561972709fc189869df98e`；後續 v1.20 取代之。
 - 2026-11-22｜SIM-1.4 首次真實內容雙母版 E2E 驗收完成：GitHub Actions run `45016383014` completed／success；同一 active rules、核准 Builder `16254bfa249814ac75e62cf8acbad2828f366fe6`、Manifest、QA Contract v1.19 及雙 simulation mother SHA 綁定。真實 11/23 Monday Fixture 完成 Stage 2–5 組裝、輸入收據、Builder、內容／政治掃描、DOM／互動／來源連結、雙母版 synthetic candidate integration、六視窗 QA、QA sidecar seal、Simulation 封存及遠端回讀。44 項使用 Fixture 內既有完整瀏覽器觀察紀錄，本輪未重抓來源頁或獨立重核數值；此限制已在 receipt／sidecar 明示。QA_PASSED，但 W47 23 筆歷史財報共識及 W48 3 筆經濟預期缺少可採用公告前證據，`data_review_ready=false`、`review_ready=false`、`sim14_review_ready=false`；Stage 6 main delivery 正確 SKIPPED。此記錄證明 SIM-1.4 真實內容生產 E2E 技術路徑完成，不代表該份報告可交付，也不授權修改 main／正式首頁。
 
 **文件狀態澄清：** 本文件標題及下方「SIM-1.4 正式生效紀錄」為現行狀態依據。版本紀錄中標示「當時 DRAFT／未生效」的段落，只記錄該次修訂提出時的歷史狀態；下方仍保留的三段 DRAFT 草案內容不構成獨立有效條文。其後已採納的規則以第 0–11 節現行主文及正式生效紀錄為準；未納入主文者不生效。不得將歷史 DRAFT 標籤解讀為目前 SIM-1.4 尚未生效。
@@ -634,7 +634,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ## 2026-11-22｜SIM-1.4 Builder 歷史核准與新版唯一入口
 
 - **歷史核准（已被新版取代）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；原依 Monday run `44964279548` 與 Weekday run `44964439803` 通過當時雙母版驗收。該 SHA 不含五層文章槽位及政治掃描能力，自新版母版／Manifest 生效後不得再用於每日生產。
-- **目前唯一正式 Builder：** 使用者於 2026-11-22 明確核准 `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。此精確路徑與 SHA 依第 8.1 節及 GitHub Actions runs `44978042935`、`44978265956` 技術證據列為唯一生產入口。
+- **目前 Builder 狀態：候選版，尚未取得本輪核准。** 最新候選路徑為 `simulation-lab/runner/build_review_html.py`，blob SHA `e20aafcd9a062ab15e6826e7d8195d92d394ae6c`；不得作為正式生產入口，直到使用者核准該精確 SHA。
 - 新版 Builder 核准只解除 Builder approval Gate；真實市場分析內容的 Stage 1–6 生產 E2E、資料／內容 Gate、完整互動與視覺 QA 仍須逐項完成，未通過前不得標示 REVIEW_READY 或交付。
 - 本核准僅限 simulation branch 的 SIM-1.4 Builder 入口；不構成 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 或 Pages 部署授權。
 
@@ -659,3 +659,14 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - Builder 執行前必須取得 PASS 收據；QA sidecar 必須保存完整收據及 SHA，Simulation branch 封存與遠端回讀需驗證 SHA；明確 main preview 交付亦須驗證收據完整性。
 - 原始 HTTP response body／raw_response_sha256 仍屬可選證據；此修訂不要求重抓已鎖定的 44 項行情，也不改變 Stage 2 數值核驗標準。
 - 本次只更新 Simulation 分支 SIM-1.4 規範與對應驗收程式；不修改 main、正式首頁、正式母版或正式行事曆 JSON。
+
+
+### 2026-11-22 本輪候選修訂紀錄（未核准 Builder）
+- 規則已補入：分析品質與因果推論、AI 融資鏈信用傳導、總結／深度分析來源只保留內部證據而不顯示、總結／分析區塊局部更新原則。
+- 來源顯示規則只限總結與五層分析；新聞、行情、商品、債券、匯率及行事曆的來源顯示不變。
+- 局部更新器新增 `simulation-lab/runner/patch_review_sections.py`；測試新增 `simulation-lab/runner/test_patch_review_sections.py`。測試尚待 CI 執行，不得先行標示 PASS。
+- 11/23 Fixture 已加入 NVIDIA SEC 10-Q 與 Reuters 11/17、10/15 報導支持的 AI 融資鏈分析；具體區分 360 億美元 AI cloud agreements、初步第三方融資平台 MOU、CoreWeave／Nebius 信用重新定價及未發生違約的限制。
+- Fed 官員行程 simulation 雙母版已將手機直向排列門檻由 360px 擴大至 412px；QA Contract v1.20 與 Manifest 同步更新。413px 以上維持桌面雙欄。
+- 本輪最新候選 Builder SHA：`e20aafcd9a062ab15e6826e7d8195d92d394ae6c`；最新 Fixture SHA：`bd4ed32ca1eb7a8906f6711fdd9d25079d771e58`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`bee044ecf9317e58b26a76342c85fec1c52d387f`。
+- Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
+- 本輪候選版本尚未完成 CI／瀏覽器 QA，亦未取得 Builder SHA 核准；完整 E2E 與審核版產出暫停於核准 Gate。
