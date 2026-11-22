@@ -16,12 +16,14 @@
     "report_cutoff_taipei": "2026-11-23 05:25",
     "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）"
   },
+  "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
+  "market_snapshot_audit_sha256": "e9a5ccf8642894ca388c67af5014eeec37c898048e86c27fe30efe7b238e98bb",
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "e2e9a984cb279fbc50d94b824ba56c4357e32047",
-  "report_sha256": "c529e53b7fa1ae4e5702c79cb54b28320f77fe90026e5c858753f5df86d94471",
-  "build_commit_sha": "3d485a96c0f5406bf6306a9ee84c4c953f6aab5c",
+  "report_git_blob_sha": "9858381109f0e50302232b55865b5a20fd8ead20",
+  "report_sha256": "94a6fd412576fbb2c50cf2c7965f0cf66b79c368cb76ff0f2f6369a4fe5335fe",
+  "build_commit_sha": "17f9ca21af547f747f674a9a7e12d710fe7a69d7",
   "builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
   "fixture_blob_sha": "948b504a0fba8ba45653cacc0a43cff5377e91a7",
   "template_blob_sha": "b89c76dd37afdc0cf8b406bfd6f06258896c829d",
@@ -65,7 +67,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "6f2239c7caf2be7ebaf86601e1e1fc9bf794fc12f197d0be95b34f9e03e49a3d",
-  "visual_evidence_sha256": "329bfdaac5d6c80242df6b55ef5ac9eea56dcdd38ce5008ed0c99e3e576843c6",
+  "visual_evidence_sha256": "ebc3252f02de309878295e7321b9d619628ca46455dec0819b620733c5828d8c",
   "viewports": [
     1440,
     768,
@@ -74,6 +76,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44970500242",
+  "workflow_run_id": "44970913554",
   "workflow_run_attempt": "1"
 }
