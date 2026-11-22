@@ -7,7 +7,7 @@
     "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
   ],
   "data_audit": {
-    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。 44項行情逐項保存TAC查核時間欄位；43項記錄於2026-11-22 11:40:25、Russell 2000記錄於11:41:20（台灣時間）。此為TAC查核時間，不是供應商資料時間，亦不應冒充供應商timestamp。",
+    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 44項行情逐項保存TAC查核時間欄位；43項記錄於2026-11-22 11:40:25、Russell 2000記錄於11:41:20（台灣時間）。此為TAC查核時間，不是供應商資料時間，亦不應冒充供應商timestamp。 本輪重新以瀏覽器直接讀取44項指定歷史資料列，數值與日期核對完成；每項均保存來源URL、標的／合約、資料日期、實際讀取欄位和值、漲跌欄位和值、TAC查核時間及讀取方法，後續由Stage 2 manifest標準化並計算觀察紀錄SHA-256。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。舊版HTML／視覺QA結果不適用於本輪更新後Fixture，必須重新執行Builder及完整回歸。",
     "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
     "pending_items": [
       "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
@@ -18,25 +18,26 @@
       "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
       "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
       "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
-      "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。"
+      "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。",
+      "Stage 2 證據分類：44項歷史資料列均已完成數值核對（43項主來源、1項FGScore備援）；以來源URL、標的／合約、資料日期、Close／Change欄位和值、TAC查核時間及讀取方法保存瀏覽器觀察紀錄。原始HTTP response body未封存（raw_response_sha256為null）屬可選證據，不構成數值核驗缺口；不得將觀察紀錄SHA-256冒充原始HTTP回應SHA-256。"
     ],
     "report_cutoff_taipei": "2026-11-23 05:25",
     "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）"
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
-  "market_snapshot_audit_sha256": "928e7fe20dd5f8c607c630451d080c0e5833641d414fe8de5607961351371303",
+  "market_snapshot_audit_sha256": "a0e9edfe3615527032552b1ea7da8331ba9e08c360f6b1af8f99027e13f39d8c",
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "9ef73226bfc4f1889c4e25fc3b71ffce21fd2f57",
-  "report_sha256": "cf14bae515e45704c5d74d7110b73573cbec546540e2e08667a497f16896dd4d",
-  "build_commit_sha": "e90eafa65fee2b1040f07cfd9b03f8fb03e4482c",
+  "report_git_blob_sha": "eea6f93982dbff462a89b8145d04a7ee0a6ea3a1",
+  "report_sha256": "5c908a23c987481458a5017b33bb681d059dd717f60199173a04bb57626598e9",
+  "build_commit_sha": "948c6e68d4ac577cca5f0f9951c09b7955b7472d",
   "builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
-  "fixture_blob_sha": "ed1fb79d6ff6a997b504ace4a2a91a59cff563f3",
+  "fixture_blob_sha": "9ea6498195474db6e0fc0dba47b0acd33f50c4bd",
   "template_blob_sha": "ce15c803cc778be35302eec96f6a5d123bf49624",
   "manifest_blob_sha": "c78338984192a9251adc247ae1b0044629de89db",
   "qa_contract_blob_sha": "a626b7edc9b1c7e90fb6c43b43c68fe98cfec128",
-  "active_rules_blob_sha": "28b9d1febc106012650fe0c6085d5405742eeea6",
+  "active_rules_blob_sha": "9493e85b424eb1b48d4df8c328d5850d6fcef0c8",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
@@ -94,14 +95,14 @@
     "approved_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
     "actual_builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
-    "active_rules_blob_sha": "28b9d1febc106012650fe0c6085d5405742eeea6",
+    "active_rules_blob_sha": "9493e85b424eb1b48d4df8c328d5850d6fcef0c8",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
-  "calendar_main_commit_sha": "2b542a1180f7bb1c39cde7352c8e79c621d894a9",
+  "calendar_main_commit_sha": "0c808b50a389dd5399fabcb722c91b0349d07a36",
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
-  "interaction_evidence_sha256": "1cfbcbc7a57eeeb448797d44a748ab3678c85b6d9d16aebb361bf2750679723d",
-  "visual_evidence_sha256": "bd7eebbdd052ebb8972476bc6ceb19802fbd4037ba213abdc48915dae161006d",
+  "interaction_evidence_sha256": "4913e03301a781722b8dddeeb26bdd751c3d70f5aa91d7d6de1ca683ba3d1c1d",
+  "visual_evidence_sha256": "ea83beb02f7e5112f7a1c1a80a9aba85c6a05f03b7f2613e29dc5de6cc761fbe",
   "viewports": [
     1440,
     768,
@@ -110,6 +111,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44983783412",
+  "workflow_run_id": "45008618613",
   "workflow_run_attempt": "1"
 }
