@@ -1682,7 +1682,7 @@
       "資料口徑備註：各區評論只引用已核實的區域行情與消息；標的身分、來源及資料日期統一留在各行情卡收折來源說明，不以口徑備註取代市場評論。"
     ],
     "sectors": "📌 產業輪動｜資金明顯轉向現金流較穩定的防禦型產業，科技與非必需消費等高估值／景氣敏感板塊承受較大壓力。這反映投資人降低對遠期成長的估值容忍度，而非已證明AI終端需求反轉。操作上先降低高估值且資本支出回收期長的曝險，防禦配置以獲利穩定、負債可控為條件；只有在市場廣度改善、企業指引未下修時才分批回補成長股。",
-    "bonds": "📌 債券｜本次三個期限殖利率均上行，與「避險資金湧入公債、殖利率回落」的說法相反，因此不能把當日股市下跌解讀為公債已提供有效避險。長端殖利率仍高，市場需同時消化通膨、政策利率與財政供給。操作上不宜只因股市下跌就機械增加長天期公債；先觀察PCE、Fed利率定價及長債供給，待殖利率停止上行、債券價格與股市風險訊號重新呈現避險關係，再拉長存續期間。",
+    "bonds": "📌 債券｜11/20 美國公債殖利率全面回落：2年期收4.63%（日減13個基點）、10年期4.92%（日減12個基點）、30年期5.31%（日減9個基點），與前一日相比呈現債券價格上漲、殖利率下降，符合股市急跌時的避險需求。惟Fed會議紀錄仍顯示多數官員認為通膨風險未解除，市場亦持續定價12月升息，因此這是風險趨避帶動的短期債券反彈，不代表政策轉向。配置上不機械追買長天期債，觀察PCE、Fed利率定價及後續殖利率能否延續回落。",
     "fx": "📌 匯率｜美元指數小幅回落，主要貨幣並未呈現單一方向的美元全面走強；這表示本輪風險調整未必由美元流動性單一因素主導。操作上外幣配置以實際負債與資產幣別匹配為先，不因單日波動追逐美元；若美元與美債殖利率重新同步走高，再檢查新興市場及台幣資產的資金壓力。",
     "energy": "📌 原油｜WTI與Brent於11/20同向走升，但單日漲幅不足以單獨確認需求改善或地緣供應風險已轉為實際中斷。荷姆茲航運安全與美伊緊張可列為風險溢價觀察因素，仍須以官方航運、裝船、庫存及期限結構驗證。操作上不追逐單日油價，待供需證據與價格結構一致後再調整能源曝險。",
     "metals": "📌 貴金屬｜黃金與白銀未能在股市下跌時同步走強，顯示傳統避險需求可能被現金需求、槓桿部位調整或利率預期抵銷；但缺乏資金流證據，不能直接斷言是強制平倉。操作上暫不把貴金屬視為短線必然避險工具，待實質利率、美元與ETF／期貨資金流方向一致後，再判斷是否恢復避險配置。"
@@ -2188,5 +2188,427 @@
       "impact": "失業人數增加或失業率上升，反映德國就業市場疲弱，可能壓抑家庭消費並加深景氣下行風險；若持穩則支持內需韌性。",
       "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
     }
-  ]
+  ],
+  "market_analysis": {
+    "political": {
+      "paragraphs": [
+        "本週市場不能只用AI估值修正解釋，政策與地緣風險已同時進入定價。美國對先進AI晶片轉運及海外資料中心算力服務的出口許可限制已公布並生效，涵蓋新加坡、馬來西亞、泰國、印尼及巴西等轉運風險地區；對向中國企業提供大量算力的海外資料中心，另設90日取得許可要求。這是正式政策，不是單純政治談話。",
+        "川習會釋出的公開訊息則仍以政治表態及框架性承諾為主：雙方談及AI、貿易與荷姆茲海峽能源運輸，但中方公開說明未提出稀土、農產品採購、晶片管制等具體履約時程；習近平再次把台灣議題列為雙邊關係核心。不能把峰會氣氛解讀為貿易休戰已獲實質延長。美國SEC對Nvidia會計作法的調查由Reuters引述知情人士報導，SEC未公開評論；調查不等於違法已證實。",
+        "地緣風險方面，英國海事貿易行動辦公室通報荷姆茲海峽入口附近兩起油輪受襲事件，船舶是否為同一艘、攻擊工具與責任歸屬仍未完全確認；巴林另通報工業設施遭襲及防空攔截事件，伊朗革命衛隊宣稱攻擊美軍基地，美軍中央司令部尚未確認該說法。歐盟對俄羅斯大型電商Wildberries負責人實施的個人制裁已生效，但其直接系統性市場影響有限。日本、歐洲其他主要經濟體及重要新興市場本輪未發現足以改變全球配置的新正式政策。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜美國先進AI晶片出口限制",
+          "url": "https://www.reuters.com/legal/litigation/us-issues-rule-protect-advanced-ai-chips-being-accessed-remotely-2026-11-16/",
+          "published_at": "2026-11-16T21:46:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜川習會與美中政策分歧",
+          "url": "https://www.reuters.com/world/china/trump-basks-summit-pomp-chinas-xi-strengthens-his-hand-2026-11-21/",
+          "published_at": "2026-11-21",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜荷姆茲海峽附近油輪事件",
+          "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
+          "published_at": "2026-11-21T15:57:07+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜巴林通報伊朗攻擊事件",
+          "url": "https://www.reuters.com/world/middle-east/bahrain-warns-residents-potential-threat-iran-conflict-persists-2026-11-21/",
+          "published_at": "2026-11-22T03:15:13+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜Nvidia會計調查",
+          "url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
+          "published_at": "2026-11-21T03:13:43+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        }
+      ]
+    },
+    "policy_industry": {
+      "paragraphs": [
+        "AI供應鏈的風險焦點由需求量轉向算力取得、資本支出回收及收入品質。出口許可新規將提高跨境資料中心服務中國客戶的合規成本，並可能延長晶片交付、雲端算力採購與區域資料中心擴建決策；受影響的不只GPU供應商，也包括伺服器、網通、電力設備、資料中心營運商及相關融資方。若許可範圍擴大，企業可能加速區域化部署與中國本土替代，但短期成本及折舊負擔亦會上升。",
+        "Nvidia遭SEC調查的報導，使市場進一步檢視地理營收揭露、客戶融資安排、資料中心專案保證及AI投資循環。Reuters明確指出調查尚未證明違法，不能將會計問題寫成已確認舞弊；但投資人可能提高對應收款、客戶集中、融資承諾及自由現金流的折價。晶片、雲端與AI新創的估值因而更依賴可驗證的訂單轉收入、毛利及現金回收。",
+        "需求端仍有反證：台灣10月外銷訂單年增78.3%，達1,238.2億美元並創單月新高，資訊通信與電子產品訂單為主要推力。這證明接單動能強，不代表所有訂單都已轉成台灣海關出口、出貨毛利或現金流；經濟部統計口徑包含國內及海外生產。能源端若荷姆茲航運風險升高，油輪保險、運費及原油供應風險溢價可能傳至航空、化工、運輸與能源密集產業。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜出口管制與海外資料中心許可",
+          "url": "https://www.reuters.com/legal/litigation/us-issues-rule-protect-advanced-ai-chips-being-accessed-remotely-2026-11-16/",
+          "published_at": "2026-11-16T21:46:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜Nvidia會計與AI融資風險",
+          "url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
+          "published_at": "2026-11-21T03:13:43+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "中央社｜台灣10月外銷訂單創新高",
+          "url": "https://focustaiwan.tw/business/202611200021",
+          "published_at": "2026-11-20T20:26:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜荷姆茲油輪事件",
+          "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
+          "published_at": "2026-11-21T15:57:07+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        }
+      ]
+    },
+    "macro": {
+      "paragraphs": [
+        "美國景氣訊號呈現需求尚有韌性、通膨與利率壓力仍高的組合。TD Economics指出，10月零售銷售表面增速放緩，但核心／控制組銷售仍有支撐；住宅許可下降，讓房市復甦的持續性受到質疑。Fed 10月會議紀錄顯示，幾乎所有官員都預期12月仍需升息，部分官員甚至曾主張更早升息，通膨持續性仍是政策核心風險。",
+        "11月20日美債殖利率並非上升，而是明顯回落：美國財政部官方日終資料顯示2年期4.63%（較前一交易日低13個基點）、10年期4.92%（低12個基點）、30年期5.31%（低9個基點）。這反映股市急跌時的避險需求及短端利率預期下修；但殖利率仍處高位，不能直接推論融資條件已寬鬆，也不能把單日債券上漲等同Fed政策轉向。",
+        "台灣10月外銷訂單大幅成長，支持AI伺服器與電子供應鏈需求仍強；但訂單、出口、產值與企業現金流是不同統計概念。若中東航運風險推高油價，可能抵銷部分通膨降溫並壓縮能源進口國實質所得；若油輪通行持續受阻，則可能形成成長下修與成本通膨並存的滯脹風險。"
+      ],
+      "sources": [
+        {
+          "label": "TD Economics｜美國每週經濟摘要",
+          "url": "https://economics.td.com/us-weekly-bottom-line",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "AP｜Fed會議紀錄與12月利率預期",
+          "url": "https://apnews.com/article/9e72f3b6e3484173471cc382d6918de0",
+          "published_at": "2026-11-19",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "美國財政部｜2026年11月每日公債殖利率",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "中央社｜台灣10月外銷訂單",
+          "url": "https://focustaiwan.tw/business/202611200021",
+          "published_at": "2026-11-20T20:26:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        }
+      ]
+    },
+    "markets": {
+      "paragraphs": [
+        "11月20日全球風險資產同步急跌，賣壓集中在科技與半導體：標普500收6,910.39點、跌3.70%；那斯達克綜合指數收22,617.73點、跌5.28%；道瓊跌1.93%，費城半導體指數跌10.73%。標普500自10月6日高點回落超過10%進入修正區間，那斯達克年初至今轉負。亞洲日韓單日跌逾5%，台灣加權指數單週跌幅達17%，顯示賣壓已跨區域擴散。",
+        "市場廣度與波動同步惡化：VIX收35.89、單日上升26.20%；MOVE收106.31、上升10.69%。標普500十一大產業ETF僅必需消費類上漲，其餘多數下跌，科技類跌幅最大。這比較像估值、槓桿與獲利能見度重新定價，而不是已能確認AI終端需求全面反轉。市場仍需分辨個股治理風險、融資風險與產業需求風險。",
+        "跨資產訊號並非單純避險：美債殖利率下行、美元指數小跌，但WTI與Brent上漲；黃金與白銀則分別下跌4.62%及7.41%。當股票與貴金屬同跌時，可能存在現金需求或槓桿部位調整，但目前沒有足夠資金流證據證明強制平倉。中東航運風險為油價提供地緣溢價，應與需求及庫存因素分開判斷。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜11月20日全球市場收盤",
+          "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-20/",
+          "published_at": "2026-11-20T09:46:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "AP｜美股11月20日收盤與修正區間",
+          "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
+          "published_at": "2026-11-21",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "美國財政部｜每日公債殖利率",
+          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value_month=202611&type=daily_treasury_yield_curve",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        }
+      ]
+    },
+    "strategy": {
+      "paragraphs": [
+        "機構資金動向方面，本輪未取得可追溯的機構即時持倉、基金申贖或全市場淨流量資料，因此不把股價急跌、成交量或ETF價格變化推定為機構淨賣出。可確認的是價格、波動率及公債殖利率呈現廣泛去風險訊號；策略判斷以已觀察市場價格與企業公告為依據，資金流向維持「未核實」。",
+        "基準情境：AI需求與台灣出口訂單仍強，但估值及融資品質重新檢驗，市場進入高波動修正期。維持中性偏防禦，核心持倉優先選擇自由現金流、負債與客戶集中度可控的企業；不追跌、不以單一VIX高檔作為抄底訊號。當市場上漲家數擴大、VIX與MOVE連續回落、半導體相對強度止跌，且雲端業者資本支出指引未下修，再分批提高成長股配置。",
+        "風險情境：AI融資安排、出口許可或企業指引進一步惡化，半導體與資料中心資本支出鏈再度下修；降低高估值、高槓桿及自由現金流不足標的，監控訂單轉出貨、毛利率、應收帳款及庫存天數。嚴重情境：荷姆茲海峽航運中斷擴大或衝突升級，油價與運費急升並重新推高通膨，可能使股債避險關係失效；降低高Beta及能源成本敏感部位，保留流動性並檢查通膨連結資產。若官方航運通報恢復正常、能源供應未受實質中斷，且企業獲利與市場廣度同步改善，則需撤回過度防禦。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜全球市場風險重估",
+          "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-20/",
+          "published_at": "2026-11-20T09:46:00+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "TD Economics｜美國經濟與Fed政策判讀",
+          "url": "https://economics.td.com/us-weekly-bottom-line",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜荷姆茲海峽油輪安全風險",
+          "url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
+          "published_at": "2026-11-21T15:57:07+08:00",
+          "checked_at": "2026-11-22T11:01:49+08:00",
+          "status": "已核實報導"
+        }
+      ]
+    }
+  },
+  "political_scan": {
+    "checked_at": "2026-11-22T11:01:49+08:00",
+    "domains_checked": [
+      "us_policy",
+      "us_china",
+      "geopolitics",
+      "trade_sanctions",
+      "major_economies",
+      "energy_resources"
+    ],
+    "no_material_change_note": "六領域均已掃描。除下列可核實事件外，本輪未發現日本、歐洲其他主要經濟體及重要新興市場有足以立即改變全球資產配置的新增正式政策；不以未核實社群消息補足事件數量。市場與政策狀態依各事件分別標示。",
+    "findings": [
+      {
+        "title": "美國擴大先進AI晶片轉運與海外資料中心算力服務許可限制",
+        "domain": "trade_sanctions",
+        "classification": "formally_effective",
+        "source_url": "https://www.reuters.com/legal/litigation/us-issues-rule-protect-advanced-ai-chips-being-accessed-remotely-2026-11-16/",
+        "published_at": "2026-11-16T21:46:00+08:00",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "美國商務部新規要求向特定轉運風險國家運送受管制先進晶片須取得出口許可；向中國企業提供大量算力的海外資料中心須在90日內取得許可。Reuters報導該規則已公布並生效。",
+          "industry": "晶片供應商、海外雲端資料中心、伺服器與網通業者增加許可、客戶審查及合規成本；中國AI算力取得途徑可能收緊。",
+          "macro": "供應鏈區域化及替代投資可能增加資本支出與折舊成本；中國AI服務成本及部分企業投資時程可能受影響，幅度待實際許可執行情況確認。",
+          "markets": "先進晶片、資料中心與雲端業者的中國營收曝險及政策風險溢價上升；不得將當週整體科技股跌勢全部歸因於單一規則。",
+          "strategy": "優先檢查企業中國營收、轉運風險、資料中心客戶結構與許可合規能力；避免只憑政策標題追逐替代晶片題材。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "許可制度按公告範圍執行，90日合規期內未進一步擴大限制。",
+            "affected_assets": "先進晶片供應商、海外資料中心、伺服器及網通供應鏈。",
+            "leading_indicators": "美國商務部許可指引、許可核發速度、企業客戶地域揭露。",
+            "strategy": "維持核心供應鏈曝險，但降低單一中國客戶或單一轉運地區集中度。",
+            "invalidation": "官方豁免範圍擴大或許可要求被正式撤回。"
+          },
+          "risk": {
+            "triggers": "許可核發收緊、海外資料中心服務被要求停止或更多產品納入管制。",
+            "affected_assets": "高中國營收晶片商、雲端服務商、東南亞資料中心與設備供應商。",
+            "leading_indicators": "出口許可拒絕案例、商務部執法公告、企業營收指引及交付延遲。",
+            "strategy": "降低政策曝險高且估值昂貴的供應鏈部位，轉向合規透明與客戶分散企業。",
+            "invalidation": "許可流程明確且大量核准，企業指引證實供應鏈影響有限。"
+          },
+          "severe": {
+            "triggers": "中美互相擴大出口管制並延伸至稀土、關鍵材料或其他技術服務。",
+            "affected_assets": "半導體設備、先進晶片、關鍵礦物、亞洲製造供應鏈及相關匯率。",
+            "leading_indicators": "雙方正式法規、反制清單、海關出貨與稀土出口數據。",
+            "strategy": "降低跨境單點供應風險，增加現金與供應鏈分散，不追逐未驗證替代受惠股。",
+            "invalidation": "雙方正式簽署可執行協議並撤回新增限制。"
+          }
+        }
+      },
+      {
+        "title": "川習會未形成公開可驗證的貿易休戰延長安排，台灣議題仍是雙邊核心分歧",
+        "domain": "us_china",
+        "classification": "political_statement",
+        "source_url": "https://www.reuters.com/world/china/trump-basks-summit-pomp-chinas-xi-strengthens-his-hand-2026-11-21/",
+        "published_at": "2026-11-21",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "雙方領導人公開談及AI、貿易與荷姆茲能源運輸，但公開聲明未提供稀土、農產品採購、晶片管制及被拘留人士等議題的具體履約時程；習近平重申台灣議題的重要性，屬政治表態而非新政策條文。",
+          "industry": "稀土、半導體、農產品、雲端算力與跨境製造企業仍需面對政策不確定性；供應鏈不宜依峰會氣氛假設限制解除。",
+          "macro": "若貿易休戰延長可降低關稅與投入成本不確定性；若談判停滯，企業可能延後投資或增加庫存與替代供應鏈成本。",
+          "markets": "市場對中美關係短期穩定可能有期待，但缺少可執行協議，政策風險溢價尚不宜全面下修。",
+          "strategy": "把峰會表態與正式協議分開；追蹤G20後是否公布具體履約、關稅或稀土出口文件，避免提前交易未落地的政策利多。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "雙方維持對話，現有貿易休戰暫不惡化，但不新增實質讓步。",
+            "affected_assets": "中國稀土供應、美國農產品出口、半導體及跨境製造。",
+            "leading_indicators": "正式聯合聲明、海關出貨、稀土許可、G20會後文件。",
+            "strategy": "保留分散化供應鏈配置，不因峰會新聞快速提高單一市場曝險。",
+            "invalidation": "雙方公布具法律效力且可執行的延長協議。"
+          },
+          "risk": {
+            "triggers": "貿易休戰延長談判受阻，關稅或出口管制再度升級。",
+            "affected_assets": "中美出口商、晶片設備、稀土磁材、農產品及亞洲出口市場。",
+            "leading_indicators": "關稅公告、出口許可、企業供應鏈調整與雙邊會談取消。",
+            "strategy": "降低對單一跨境供應鏈的集中曝險，優先持有具替代產能企業。",
+            "invalidation": "雙方正式確認延長休戰並開始履行具體採購與許可承諾。"
+          },
+          "severe": {
+            "triggers": "台海相關政治與軍事緊張升級，導致金融制裁或海空運輸風險擴大。",
+            "affected_assets": "台灣股票與匯率、全球半導體供應、航運、保險及亞洲風險資產。",
+            "leading_indicators": "軍事活動官方通報、航運保險費、外交聲明、制裁法案及供應商交期。",
+            "strategy": "降低台海單一地理風險集中度、提高流動性並制定跨市場避險方案。",
+            "invalidation": "官方建立可驗證的危機溝通機制且軍事活動持續降溫。"
+          }
+        }
+      },
+      {
+        "title": "美國SEC調查Nvidia會計作法的報導尚未構成違法認定",
+        "domain": "us_policy",
+        "classification": "unverified",
+        "source_url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
+        "published_at": "2026-11-21T03:13:43+08:00",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "Reuters引述兩名知情人士稱SEC正在檢視Nvidia潛在會計問題；SEC未公開評論調查細節，調查不等於違法或執法結果已確立。",
+          "industry": "AI晶片商、雲端客戶與資料中心融資安排的收入揭露、客戶融資、保證承諾及應收帳款品質受到更嚴格檢視。",
+          "macro": "若AI基礎設施融資條件收緊，部分資料中心投資可能延後；目前無證據顯示整體AI需求已轉弱。",
+          "markets": "Nvidia及AI供應鏈治理與融資風險溢價升高，並可能放大高估值科技股波動；不得把調查直接視為財報造假。",
+          "strategy": "區分調查、指控與正式裁決；優先檢查自由現金流、應收帳款、客戶融資及資本承諾，等待公司或監管文件更新。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "調查未進一步公開擴大，Nvidia後續揭露能釐清收入與融資安排。",
+            "affected_assets": "Nvidia、AI伺服器、資料中心及主要雲端客戶。",
+            "leading_indicators": "SEC正式文件、公司10-Q／10-K、應收帳款與融資承諾揭露。",
+            "strategy": "只依基本面與正式揭露調整部位，不因傳聞追空或抄底。",
+            "invalidation": "SEC公開提出執法指控或公司更正重大財務揭露。"
+          },
+          "risk": {
+            "triggers": "SEC持續調查並要求補充揭露，客戶融資與收入品質疑慮擴大。",
+            "affected_assets": "Nvidia、AI融資方、雲端服務商及高資本支出供應鏈。",
+            "leading_indicators": "公司財報修訂、監管文件、客戶付款條件及自由現金流變化。",
+            "strategy": "降低治理資訊不透明與融資依賴高的AI曝險，偏向現金流穩健公司。",
+            "invalidation": "公司披露完整且監管程序結束，相關財務疑慮未獲支持。"
+          },
+          "severe": {
+            "triggers": "監管機構提出重大執法行動，或融資鏈出現違約／資金斷裂。",
+            "affected_assets": "AI晶片、雲端資料中心、設備供應商及相關信用市場。",
+            "leading_indicators": "SEC正式起訴、審計意見變化、融資違約、專案取消與信用利差。",
+            "strategy": "降低單一AI供應鏈曝險，優先保留現金並避免高槓桿部位。",
+            "invalidation": "監管機構正式結案且主要融資方確認資金安排正常。"
+          }
+        }
+      },
+      {
+        "title": "巴林通報工業設施受襲並攔截來襲目標，伊朗對美軍基地的說法未獲美方確認",
+        "domain": "geopolitics",
+        "classification": "political_statement",
+        "source_url": "https://www.reuters.com/world/middle-east/bahrain-warns-residents-potential-threat-iran-conflict-persists-2026-11-21/",
+        "published_at": "2026-11-22T03:15:13+08:00",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "巴林官方通報民用工業設施起火及防空攔截；伊朗革命衛隊宣稱攻擊美軍基地，但美國中央司令部尚未確認該說法，事件歸因仍需交叉核實。",
+          "industry": "海灣地區能源設施、港口、航空、航運與保險業的營運及安全成本可能上升。",
+          "macro": "若攻擊擴散至能源生產或出口設施，可能推高油價、運費與進口國通膨；目前未確認能源設施實際供應中斷。",
+          "markets": "油價地緣風險溢價與能源波動可能增加，股市風險偏好承壓；尚不能把油價單日變動完全歸因於該事件。",
+          "strategy": "以官方軍事通報、航運公告及實際裝船量確認風險；避免只憑單方軍事聲明交易。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "事件侷限於局部攻防，未波及油氣生產及主要港口。",
+            "affected_assets": "海灣航空、港口、航運保險及區域能源資產。",
+            "leading_indicators": "巴林與美國中央司令部公告、港口運作及油氣設施狀態。",
+            "strategy": "維持能源曝險但不追逐單日地緣溢價，設定風險限額。",
+            "invalidation": "確認能源出口設施受損或攻擊範圍擴大至多國。"
+          },
+          "risk": {
+            "triggers": "海灣國家遭遇持續攻擊，港口與航線安全成本提高。",
+            "affected_assets": "油輪、LNG運輸、煉油、航空與能源進口國資產。",
+            "leading_indicators": "官方安全警示、航運延誤、戰爭險保費及能源裝船資料。",
+            "strategy": "降低高度依賴海灣航線企業曝險，保留能源價格風險對沖空間。",
+            "invalidation": "攻擊停止且海灣國家恢復常態航運與安全通報。"
+          },
+          "severe": {
+            "triggers": "衝突擴大至主要能源出口設施或美伊直接軍事升級。",
+            "affected_assets": "原油與成品油、航運保險、航空、化工、全球通膨及利率敏感資產。",
+            "leading_indicators": "油氣設施停產公告、荷姆茲通行量、官方軍事行動及原油期限結構。",
+            "strategy": "提高流動性、降低高耗能與高槓桿部位，重新評估股債避險關係。",
+            "invalidation": "官方停火或衝突降級，能源生產與航運數據證實供應恢復。"
+          }
+        }
+      },
+      {
+        "title": "荷姆茲海峽入口附近兩起油輪受襲通報，攻擊來源與船舶是否相同尚未確認",
+        "domain": "energy_resources",
+        "classification": "unverified",
+        "source_url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
+        "published_at": "2026-11-21T15:57:07+08:00",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "UKMTO通報兩起油輪受襲事件；伊朗海軍另稱油輪觸雷，但Reuters無法確認是否指同一船舶，亦未獨立確認責任歸屬。",
+          "industry": "油輪船東、船舶保險、港口、能源貿易商與煉油廠可能面臨航線改道、保費與運費增加。",
+          "macro": "若荷姆茲通行受阻持續，全球原油供應與運輸成本上升，可能同時推高能源通膨並壓抑進口國消費。",
+          "markets": "WTI與Brent短線地緣風險溢價提高；若實際裝船與通行量未下降，溢價可能回吐。",
+          "strategy": "追蹤UKMTO通報、船舶AIS、保險費率、油輪運費及主要出口國裝船量，不把單一事件等同海峽全面封鎖。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "事件未持續擴大，船舶通行雖更謹慎但主要油流維持。",
+            "affected_assets": "原油期貨、油輪運費、海運保險與能源進口商。",
+            "leading_indicators": "UKMTO後續通報、荷姆茲船舶通行量、裝船量與現貨價差。",
+            "strategy": "不追高原油，僅保留與實際能源風險相稱的配置。",
+            "invalidation": "連續多日通行量下降或能源出口設施停產。"
+          },
+          "risk": {
+            "triggers": "油輪遭襲事件反覆發生，船東改道或保險商提高戰爭險費率。",
+            "affected_assets": "Brent、WTI、油輪運輸、航空、化工與能源密集產業。",
+            "leading_indicators": "戰爭險報價、運費指數、船舶AIS與原油期限結構。",
+            "strategy": "降低高能源成本企業曝險，檢查能源對沖與成本轉嫁能力。",
+            "invalidation": "航運安全恢復且保費、運費及期限結構回落。"
+          },
+          "severe": {
+            "triggers": "荷姆茲主要通道長期受阻，原油與LNG出口實質中斷。",
+            "affected_assets": "全球能源價格、通膨預期、能源進口國貨幣、航空及化工。",
+            "leading_indicators": "通行量、主要產油國出口、戰略儲備釋放及官方軍事升級。",
+            "strategy": "降低高Beta風險資產與高耗能產業曝險，保留流動性並防範通膨再加速。",
+            "invalidation": "主要航線恢復、出口與裝船數據回到常態，且官方確認安全安排。"
+          }
+        }
+      },
+      {
+        "title": "歐盟對Wildberries負責人個人制裁已生效，企業稱日常營運未受影響",
+        "domain": "major_economies",
+        "classification": "formally_effective",
+        "source_url": "https://www.reuters.com/business/retail-consumer/russias-wildberries-ceo-steps-down-days-after-eu-sanctions-media-report-2026-11-21/",
+        "published_at": "2026-11-21T19:09:10+08:00",
+        "checked_at": "2026-11-22T11:01:49+08:00",
+        "transmission": {
+          "policy": "歐盟於11月16日將Wildberries負責人列入制裁名單，措施包含資產凍結及旅行／交易限制；公司與克里姆林宮否認其向俄軍供應物資，相關指控需標示為歐盟制裁理由而非司法定罪。",
+          "industry": "俄羅斯電商及涉及軍民兩用物流的企業需檢視歐盟資產、交易對手及跨境支付合規；公司稱其無歐盟資產及業務，日常營運暫未受影響。",
+          "macro": "直接宏觀影響有限，但制裁擴大可能增加俄羅斯企業跨境支付、物流與融資摩擦。",
+          "markets": "對全球大型資產定價的直接影響有限，主要增加與俄羅斯交易相關企業的合規折價。",
+          "strategy": "僅對實際涉及歐盟交易、資產或供應鏈的公司提高制裁審查，不將單一企業制裁外推為全面產業衝擊。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "制裁維持個人層級，公司聲稱的營運安排未受明顯干擾。",
+            "affected_assets": "Wildberries、俄羅斯電商、物流與歐盟交易對手。",
+            "leading_indicators": "歐盟制裁名單、公司公告、支付及物流服務狀態。",
+            "strategy": "對俄羅斯相關企業維持交易對手盡職調查，不擴大推論。",
+            "invalidation": "歐盟新增對公司或關聯企業的正式制裁。"
+          },
+          "risk": {
+            "triggers": "制裁擴大至企業實體、支付服務商或關鍵物流供應商。",
+            "affected_assets": "俄羅斯電商、跨境支付、物流、倉儲與供應鏈服務商。",
+            "leading_indicators": "歐盟理事會新公告、銀行合規通知及公司營運披露。",
+            "strategy": "降低直接受制裁交易鏈曝險，確認交易對手及資金來源。",
+            "invalidation": "正式撤銷制裁或法院推翻相關措施。"
+          },
+          "severe": {
+            "triggers": "制裁範圍擴展至更多雙用途物流與金融機構，跨境交易大幅受阻。",
+            "affected_assets": "俄羅斯跨境貿易、區域銀行、物流及相關新興市場風險資產。",
+            "leading_indicators": "新增制裁清單、資產凍結、支付拒絕及物流中斷公告。",
+            "strategy": "避免違規交易與流動性風險，降低高制裁曝險資產配置。",
+            "invalidation": "歐盟正式縮小制裁範圍並確認金融與物流管道恢復。"
+          }
+        }
+      }
+    ]
+  }
 }
