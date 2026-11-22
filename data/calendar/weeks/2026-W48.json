@@ -66,7 +66,7 @@
           ]
         },
         "previous_applicable": true,
-        "forecast_applicable": false,
+        "forecast_applicable": true,
         "data_unit": "指數",
         "data_reference": "2026年11月初值",
         "time_known": true
@@ -568,8 +568,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：消費者通膨預期與支出意向可補充 ECB 對中期通膨及家庭需求的判斷。",
-        "previous": null,
-        "forecast": "1年期通膨預期 3.2%（MUFG）；前值 3.1%",
+        "previous": "1年期通膨預期 3.1%",
+        "forecast": "1年期通膨預期 3.2%（MUFG）",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若家庭通膨預期回升，可能使 ECB 更審慎；若回落則有助緩和中期通膨疑慮。",
@@ -584,8 +584,8 @@
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
         },
-        "previous_applicable": false,
-        "forecast_applicable": false,
+        "previous_applicable": true,
+        "forecast_applicable": true,
         "data_unit": null,
         "data_reference": "2026年10月調查",
         "time_known": true
@@ -3772,7 +3772,7 @@
         "https://www.investing.com/news/economic-indicators/japan-factory-activity-slows-in-oct-services-improve-pmi-shows-4967893",
         "https://www.newyorkfed.org/newsevents/mediaadvisory/2026/1113-2026"
       ],
-      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。"
+      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3979,7 +3979,7 @@
       "updated_at": "2026-11-23T04:41:38+08:00",
       "schema_version": 1,
       "new_events_added": 0,
-      "economic_events_updated": 4,
+      "economic_events_updated": 6,
       "earnings_events_updated": 11,
       "event_time_corrections": 2
     },
@@ -4369,7 +4369,8 @@
       "sim_14_source_order_applied": true,
       "no_snapshot_without_raw_response_sha256": true,
       "only_new_W48_file_modified": true,
-      "coverage_incomplete_not_treated_as_blocker": true
+      "coverage_incomplete_not_treated_as_blocker": true,
+      "numeric_forecast_events_explicitly_applicable": true
     },
     "wr_provenance": {
       "main_version": "5.17",
