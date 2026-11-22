@@ -568,7 +568,7 @@ def remove_visible_sources_from_summary(node):
     """Remove source-only disclosures/links from the summary card, never from other sections."""
     for element in node.select(
         "details.source-details, details.market-analysis-source-details, "
-        "p.market-analysis-sources, .summary-source, .summary-sources"
+        "p.market-analysis-sources, .summary-source, .summary-sources, .source, .source-list"
     ):
         element.decompose()
     for link in node.select("a"):
