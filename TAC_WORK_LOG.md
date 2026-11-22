@@ -2781,3 +2781,13 @@
 - 六個 viewport 1440／768／412／390／360／320 全 PASS；run 全部 steps completed／success，無 failure。輸出 HTML blob 與 sidecar `report_git_blob_sha` 均為 `e2e9a984cb279fbc50d94b824ba56c4357e32047`。
 - 回讀 Session State blob `a922bfd8cd2f86a51efbe9bb97183ae86334f684`、Work Log blob `c056cdc005fb2374930e721fc5e53f11027b399b`。main `index.html` blob 仍為 `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；無 Pages 部署。
 - **下一階段仍未完成：** Workflow 目前讀取日期匹配 Fixture，不會自動擷取 44 項行情。需獨立完成 Stage 2 真實來源讀取／acquisition receipt 與每日排程整合，再做完整 live-data E2E；不得把本輪 Fixture 驅動的 QA PASS 誤報為 live acquisition PASS。
+
+
+## 2026-11-22｜依使用者授權修訂 SIM-1.4 Stage 6：QA 後原樣交付 main preview
+
+- 使用者確認流程理解後明確授權修改 SIM-1.4。
+- 修訂 `simulation-lab/TAC_WORK_RULES_SIM.md`：§0.2 將 main 寫入權限收斂為 Stage 6 三檔白名單；Stage 5 在 simulation 完成完整 QA；Stage 6 原樣交付同一 HTML／QA sidecar，main 只做 SHA／綁定／收據檢查，不重跑完整 QA。新 blob SHA：`fbcc3c5f13af49fa357a83c9fd3934a457d9fa1a`。
+- 修訂 `.github/workflows/tac-simulation-lab.yml`：QA sidecar 全部 REVIEW_READY 條件及 HTML Git blob／SHA-256 綁定通過後，先保存 simulation，再以獨立 main worktree 交付 `preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。delivery receipt 記錄 simulation commit／run 與雙檔 SHA；main 回讀核對 SHA。新 workflow blob SHA：`1937df54e9867ffea6608d54c5cce8db35bb770f`。
+- 寫入採 fail-closed：僅三個 preview 檔案可進 main commit；拒絕既有不同內容、symlink、push race／衝突；驗證 `main:index.html` SHA 未變；不部署 Pages。
+- Builder 未修改，仍使用已核准精確 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- **驗證狀態：** 規則與 workflow 已更新並回報 SHA；尚未以新 workflow 執行完整 build／handoff，故尚不能宣稱 main preview 交付功能已通過實跑。此次沒有寫入 main，也沒有改動首頁。
