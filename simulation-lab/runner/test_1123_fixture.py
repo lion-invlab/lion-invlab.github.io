@@ -208,6 +208,16 @@ def main():
     assert "Investing.com" in next(x for x in no_forecast if x["id"] == "current-au-flash-pmi-20261123")["source_notes"]
     assert "Investing.com" in next(x for x in no_forecast if x["id"] == "current-jp-flash-pmi-20261124")["source_notes"]
     assert "不適用" in next(x for x in no_forecast if x["id"] == "current-fed-beige-book-20261125")["source_notes"]
+    assert "暫定" in next(x for x in no_forecast if x["id"] == "current-au-flash-pmi-20261123")["source_notes"]
+    assert "06:00" in next(x for x in no_forecast if x["id"] == "current-au-flash-pmi-20261123")["source_notes"]
+    assert "08:30" in next(x for x in no_forecast if x["id"] == "current-jp-flash-pmi-20261124")["source_notes"]
+    assert "03:00" in next(x for x in no_forecast if x["id"] == "current-fed-beige-book-20261125")["source_notes"]
+    assert "21:30" in next(x for x in no_forecast if x["id"] == "current-canada-seph-202609")["source_notes"]
+    ecb = next(x for x in no_forecast if x["id"] == "current-ecb-account-20261028")
+    assert ecb["source_url"] == "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html"
+    assert "20:30" in ecb["source_notes"]
+    assert "13:00 ET" in next(x for x in no_forecast if x["id"] == "current-us-thanksgiving-market-20261126")["source_notes"]
+    assert "05:00" in next(x for x in no_forecast if x["id"] == "current-fed-williams-20261123")["source_notes"]
     assert all(x["stars"] == 5 for x in previous_calendar["events"])
     assert all(x["stars"] == 5 for x in previous_earnings["events"])
     for event in current_calendar["events"] + current_earnings["events"] + previous_calendar["events"] + previous_earnings["events"]:
