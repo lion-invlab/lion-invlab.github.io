@@ -32,3 +32,14 @@ jobs:
           python -m py_compile .github/scripts/build_sp500_daily_compact.py
       - name: Run offline invariants
         run: python .github/scripts/test_sp500_daily_incremental.py
+
+  live-investing-endpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify live Investing.com S&P 500 historical endpoint
+        run: python .github/scripts/test_sp500_investing_live.py
