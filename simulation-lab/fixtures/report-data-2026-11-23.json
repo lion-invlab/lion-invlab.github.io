@@ -842,7 +842,14 @@
         "data_date": "2026-11-20",
         "quote_type": "cash_index_close",
         "note": "Investing.com Global CBOE VIX 歷史數據頁 2026-11-20 歷史列：收市 35.89、漲幅 +26.20%；標的明確為 CBOE Volatility Index，非無 cid 的即時差價合約頁。CBOE／Yahoo Finance ^VIX 同日 OHLC 交叉確認：O28.63、H40.03、L26.94、C35.89。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "35.89",
+        "daily_change_percent": "+26.20%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close/Price and Change % row",
+        "raw_response_sha256": null
       }
     },
     "move": {
@@ -855,7 +862,14 @@
         "data_date": "2026-11-20",
         "quote_type": "index_reference_quote",
         "note": "Investing.com HK 11/20歷史列106.31、+10.69%；EODData獨立歷史列以一位小數呈106.3、+10.69%，方向與幅度一致。MOVE為ICE BofA美債市場波動率指數，不是MOVE ETF。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "close_value": "106.31",
+        "daily_change_percent": "+10.69%",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close/Price and Change % row",
+        "raw_response_sha256": null
       }
     },
     "fear_greed": {
@@ -870,7 +884,15 @@
         "note": "CNN Business官方頁面讀取遭robots阻擋；CNN graphdata endpoint未回傳可讀資料。依D3指定備援採FGScore「US stocks · CNN / Provider index」。本輪17:57:31台灣時間重新讀取，頁面仍顯示As of Nov 20, 2026 UTC，Market timestamp Nov 20, 2026 06:59 PM EST（台灣11/21 07:59），分數10、Extreme Fear；截至本輪截稿未見較新Provider timestamp。MarketWatch當日報導曾提及15，與Provider index讀值有來源差異；依指定備援序列採10並明示第三方呈現，非CNN官方頁面直接讀值。",
         "source_timestamp": "2026-11-20 18:59 EST",
         "read_at_taipei": "2026-11-21 17:57:31",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "score_value": "10",
+        "band": "Extreme Fear",
+        "verification_status": "BACKUP_VERIFIED",
+        "source_role": "FALLBACK_1",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "provider_timestamp_taipei": "2026-11-21T07:59:00+08:00",
+        "evidence_method": "FGScore CNN Provider Index fallback; visible provider score 10 Extreme Fear, as of 2026-11-20 UTC, market timestamp 2026-11-20 18:59 EST / 2026-11-21 07:59 Taiwan; CNN Business robots denied and CNN graphdata response had no readable data",
+        "raw_response_sha256": null
       }
     }
   },
