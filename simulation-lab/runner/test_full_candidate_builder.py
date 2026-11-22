@@ -93,7 +93,7 @@ for report_date, template_key, source_name in cases:
     if not provenance_comment:
         raise SystemExit(f"{template_key}: candidate Builder provenance comment missing")
     import re
-    match = re.search(r"TAC_BUILD_PROVENANCE\\s+(\\{.*\\})", provenance_comment, re.S)
+    match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", provenance_comment, re.S)
     if not match:
         raise SystemExit(f"{template_key}: candidate Builder provenance JSON malformed")
     provenance = json.loads(match.group(1))
