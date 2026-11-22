@@ -1,3 +1,39 @@
+## 2026-11-22 18:00（台灣時間）｜SIM-1.4 E2E 收斂與證據修正
+
+### 本輪已完成
+- 修正 Stage 2 Manifest Builder：逐筆觀察時間只取 verified_at_tw／read_at_taipei／read_at；不再把批次 checked_at_tw 當成實際來源觀察時間。
+- 修正證據語義：source_pages_fetched 與 displayed_values_independently_reconciled 僅反映本輪實際執行；Fixture 既有 observation record 可以沿用，但不得冒稱本輪重新擷取或獨立重核來源頁。
+- 直接讀取 Investing.com 美國 2Y／10Y／30Y 歷史資料頁的 2026-11-20 列，於 2026-11-22 17:48:21（台灣時間）補上逐筆觀察時間、Price/Close、Change%、前一交易日 Close 及同序列 bp 變動。
+- 修正 Fixture 將三筆美債顯示為 VERIFIED；44/44 observation records 完整、0 pending、0 hash 缺漏；raw_response_sha256 仍為 optional。
+- 修正 Stage 3 分類：W48 只有 3 筆數值指標缺 forecast；4 筆非數值事件之 forecast 為 NOT_APPLICABLE。main coverage=incomplete 依 SIM-1.4 Stage 3 規則不再重複列為獨立 blocker。
+- 修正早報排程 Prompt 的 Stage 2 舊規則；raw_response_sha256 null 不得造成 PARTIAL，批次時間不得冒充逐筆時間。
+- 修正 04:35 行事曆排程 Prompt：下次更新需用 SIM-1.4 新順位，修正 W48 coverage notes 舊 SIM-1.3／舊順位描述，並正確區分 3 筆數值預期缺漏與 4 筆 N/A。
+- 修正 Simulation Workflow：QA Sidecar 現在綁定 market-source-verification-manifest 的路徑、SHA-256、44/44摘要，並明確綁定 market-snapshot-audit 的 METADATA_AND_DATE_ONLY scope。
+- deterministic self-tests 通過；最新完整 Pipeline Run 45010119942 completed/success，未有失敗步驟。44 行情、Builder、雙母版、五層分析、DOM preservation、導覽／互動／來源連結、六視窗瀏覽器 QA 均通過。
+- QA Sidecar 已保存最新 HTML 與 manifest 證據；HTML Git blob SHA 403aa0f1f80875f395e6706430f67e0392ae0471；HTML SHA-256 39e176655acf7a235ad1e2d03b4502ef06c842b51f7fe30deddf7747cb7452cb；QA Sidecar blob SHA 44b76b8e91ed2fdc43891ff6368cc08e98ebfd14。
+
+### 本輪 Gate 結果
+- QA_PASSED；content_analysis_gate=PASS；Builder APPROVED；political_geopolitical_scan=PASS；policy_transmission_completeness=4；scenario_analysis_coverage=4；viewport 1440／768／412／390／360／320 全 PASS。
+- data_review_ready=false、review_ready=false、sim14_review_ready=false；僅保留兩項 Stage 3 blockers：W47 23 筆財報缺公告前 EPS／Revenue 共識；W48 3 筆數值經濟指標缺可採用公告前預期。
+- Stage 6 main delivery step SKIPPED；main index、正式母版、Manifest、W47／W48 JSON 均未修改；未部署 Pages。
+- main index SHA 4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4；W47 SHA 727ea2be1c04688d3c4f98d36c452561bbab6821；W48 SHA 807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa。
+
+### Stage 7 尚待驗收
+- 04:35 行事曆資料庫、05:25 早報、05:30 Chart 3 三個工作日排程均啟用，下一次皆為 2026-11-23；不更改排程時間。
+- 05:25 最近一次 11/19 failed，chat_ref=null；Prompt 已修正但尚未以新排程實際驗證 notify_parent 與 Pipeline 喚醒。
+- 04:35 最近一次 11/19 completed，但當時使用 SIM-1.3；Prompt 已修正為 SIM-1.4，下次需驗證。
+- 05:30 Chart 3 最近一次 11/19 completed；其 main 資料維護範圍獨立，不得寫入早報或 Simulation 分支。
+- 本輪已證明 push-tag 手動觸發完整 Simulation Pipeline 成功；排程喚醒本身尚未證明。
+
+### 下一步
+1. 11/23 04:35 驗證行事曆更新實際讀取 SIM-1.4，更新 W48 並回讀 SHA。
+2. 11/23 05:25 驗證 notify_parent 與早報 Pipeline；若橋接失敗，依 Prompt 的 fallback 如實執行或回報。
+3. 11/23 05:30 驗證 Chart 3 獨立任務。
+4. W47／W48 兩項資料缺口未有來源證據前保持 PARTIAL，不補造。
+5. 不交付 main；必須待 REVIEW_READY 且使用者核准精確 HTML SHA。
+
+---
+
 ## 2026-11-22 17:15（台灣時間）｜最新接手後狀態覆核（本節優先於下方舊快照）
 
 **目前結論：44/44 行情數值已重新直接核對；Stage 2 數值核對完成，但原始回應 SHA-256 證據未取得，因此整體仍為 PARTIAL。Stage 3／4 有可用資料與已完成內容；Stage 5／6 尚未重跑，Stage 7 尚未驗收。main 全程唯讀。**
