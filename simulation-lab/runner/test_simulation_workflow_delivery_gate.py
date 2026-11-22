@@ -45,6 +45,8 @@ assert "PREBUILD_RECEIPT_SHA256" in receipt_step
 assert "test -s simulation-lab/output/prebuild-stage-input-receipt.json" in builder_gate
 assert "ACTUAL_RECEIPT_SHA256" in builder_gate
 assert "prebuild_input_receipt_sha256" in seal and "calendar_main_commit_sha" in seal
+assert 'os.environ.get("PREBUILD_RECEIPT_SHA256", "")' in seal
+assert "expected_prebuild_receipt_sha256" in seal
 assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
 assert "prebuild_receipt.get(\"status\") != \"PASS\"" in delivery
 assert "prebuild_input_receipt_sha256" in delivery
