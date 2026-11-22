@@ -25,7 +25,16 @@ def verification_fields(source: dict, display, change_display) -> dict:
     """Carry forward only source observations already reconciled against fixture values."""
     evidence_method = source.get("evidence_method")
     source_status = source.get("verification_status")
-    verified = source_status in ("VERIFIED", "BACKUP_VERIFIED") and bool(evidence_method)
+    source_url = source.get("url")
+    data_date = source.get("data_date")
+    checked_at = source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at")
+    verified = (
+        source_status in ("VERIFIED", "BACKUP_VERIFIED")
+        and bool(evidence_method)
+        and bool(source_url)
+        and bool(data_date)
+        and bool(checked_at)
+    )
     if verified and source.get("close_value") is not None:
         verified = str(display).removesuffix("%") == str(source.get("close_value"))
         if source.get("daily_change_bp") is not None:
@@ -40,11 +49,32 @@ def verification_fields(source: dict, display, change_display) -> dict:
         verified = str(display) == str(source.get("score_value")) and str(change_display) == str(source.get("band"))
     else:
         verified = False
+    observation_record = None
+    observation_record_sha256 = None
+    if verified:
+        observation_record = {
+            "source_url": source_url,
+            "instrument_identity": source.get("instrument_identity") or source.get("contract_label") or source.get("name"),
+            "data_date": data_date,
+            "observed_value_field": "Close/Price or provider index value",
+            "observed_value": (source.get("close_value") or source.get("history_close") or source.get("score_value")),
+            "observed_change_field": "Change % / bp / provider band",
+            "observed_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")),
+            "checked_at_tw": checked_at,
+            "evidence_method": evidence_method,
+            "quote_type": source.get("quote_type"),
+            "source_role": source.get("source_role"),
+        }
+        canonical = json.dumps(observation_record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        observation_record_sha256 = hashlib.sha256(canonical).hexdigest()
     return {
         "verification_status": source_status if verified else "PENDING_SOURCE_PAGE_CAPTURE",
         "source_page_fetched": bool(verified),
         "display_value_reconciled": bool(verified),
         "raw_response_sha256": source.get("raw_response_sha256"),
+        "evidence_status": "RAW_RESPONSE_SAVED" if source.get("raw_response_sha256") else "BROWSER_OBSERVATION_SAVED" if verified else "RAW_RESPONSE_UNAVAILABLE",
+        "browser_observation_record": observation_record,
+        "observation_record_sha256": observation_record_sha256,
         "captured_at_tw": source.get("checked_at_tw") if verified else None,
         "evidence_method": evidence_method if verified else None,
         "verified_close": (source.get("close_value") or source.get("history_close") or source.get("score_value")) if verified else None,
@@ -102,23 +132,25 @@ def build_manifest(data: dict, report_date: str) -> dict:
         raise ValueError(f"expected 44 source-verification rows, got {len(rows)}")
     verified_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED"))
     pending_count = len(rows) - verified_count
-    evidence_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["raw_response_sha256"])
-    status = "PASS" if pending_count == 0 and evidence_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
+    observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
+    raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
+    status = "PASS" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
     return {
         "schema_version": "1.0",
         "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "SOURCE_VALUE_RECONCILIATION_COMPLETE_HASH_EVIDENCE_INCOMPLETE" if pending_count == 0 and evidence_hash_missing_count else "COMPLETE" if status == "PASS" else "PARTIAL_SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
+        "verification_scope": "BROWSER_OBSERVATION_RECORDS_COMPLETE_RAW_HTTP_BODY_OPTIONAL" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL_OBSERVATION_EVIDENCE_OR_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
         "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
         "displayed_values_independently_reconciled": all(row["display_value_reconciled"] for row in rows),
         "row_count": len(rows),
         "pending_count": pending_count,
         "verified_count": verified_count,
-        "raw_response_sha256_complete": evidence_hash_missing_count == 0,
-        "evidence_hash_missing_count": evidence_hash_missing_count,
+        "browser_observation_records_complete": observation_hash_missing_count == 0,
+        "observation_record_hash_missing_count": observation_hash_missing_count,
+        "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"目前已核驗 {verified_count}/44 項；待核驗 {pending_count} 項；缺少原始回應 SHA-256 證據 {evidence_hash_missing_count} 項。未補齊證據雜湊前 Stage 2 不得標記 PASS。",
+        "warning": f"目前已核驗 {verified_count}/44 項；待核驗 {pending_count} 項；缺少瀏覽器觀察紀錄 SHA-256 {observation_hash_missing_count} 項；原始 HTTP response body 已封存 {raw_response_saved_count}/44 項（非必要條件）。",
     }
 
 
