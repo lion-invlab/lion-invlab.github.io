@@ -148,8 +148,11 @@ def merge_recent(recent_path: Path, ledger_path: Path):
     if len({d for d, _ in base_rows + pending}) != len(base_rows) + len(pending):
         raise ValueError("Duplicate dates between baseline and pending increment ledger")
     merged = base_rows + pending
-    result = encode_compact(merged, compact)
-    recent_path.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    if pending:
+        result = encode_compact(merged, compact)
+        recent_path.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    else:
+        result = compact
     return result, ledger_raw, increments
 
 def git_blob_sha1(path: Path):
