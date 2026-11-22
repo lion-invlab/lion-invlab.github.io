@@ -1,0 +1,7 @@
+SIM-1.4 approved-builder sidecar regression rebuild
+Report date: 2026-11-23
+Purpose: verify QA sidecar derives sim14_builder_approval and sim14_review_ready from the active SIM-1.4 §8.1 approval clause and exact Builder Git blob SHA.
+Input fixture: simulation-lab/fixtures/report-data-2026-11-23.json
+Builder: simulation-lab/runner/build_review_html.py
+Expected Builder blob SHA: 40a3bc70a22bfd1aa4798149599fbd63a1f25efa
+Simulation branch only. No main write, no Pages deployment, no homepage publication.
