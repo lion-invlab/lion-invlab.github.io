@@ -201,6 +201,8 @@ def main():
     assert "360億美元" in policy_text and "六年" in policy_text
     assert "5,000億美元" in policy_text and "未必轉成正式協議" in policy_text
     assert "Microsoft" in policy_text and "67%" in policy_text
+    assert "合計約70%" in policy_text and "90天至一年" in policy_text
+    assert "33億美元" in policy_text and "47億美元" in policy_text
     assert "不等於替CoreWeave全部約500億美元債務提供擔保" in policy_text
     assert any(x["url"] == "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" for x in policy["sources"])
     assert any(x["url"] == "https://www.reuters.com/business/nvidia-turmoil-marks-end-easy-money-ai-trade-2026-11-17/" for x in policy["sources"])
