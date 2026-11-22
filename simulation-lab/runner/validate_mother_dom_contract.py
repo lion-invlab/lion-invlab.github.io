@@ -100,7 +100,7 @@ def main():
     for soup, label in ((mother, "mother"), (report, "review")):
         if label == "review":
             summary_card = require_one(soup, "#overview > section.grid.two > article.card.bluf", label + " summary")
-            if summary_card.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary_card.get_text(" ", strip=True):
+            if summary_card.select("a, details.source-details, details.market-analysis-source-details, .source, .source-list, .summary-source, .summary-sources, p.market-analysis-sources") or "資料來源" in summary_card.get_text(" ", strip=True):
                 raise ValueError(f"{label}: summary card exposes forbidden visible source disclosure")
         analysis = require_one(soup, "#market-analysis", label + " five-layer analysis")
         sections = analysis.select(":scope > .market-analysis-layer")
@@ -112,7 +112,7 @@ def main():
                 content = require_one(analysis, f'[data-analysis-content="{key}"]', label + " analysis content " + key)
                 if not content.find("p", recursive=False):
                     raise ValueError(f"{label}: analysis layer {key} has no rendered paragraph")
-                if content.select("a, details.market-analysis-source-details") or "資料來源" in content.get_text(" ", strip=True):
+                if content.select("a, details.market-analysis-source-details, .source, .source-list, .market-analysis-sources") or "資料來源" in content.get_text(" ", strip=True):
                     raise ValueError(f"{label}: analysis layer {key} exposes forbidden visible source disclosure")
 
     # Market commentary is dynamic text only; preserve every mother-owned note skeleton and inline style.
