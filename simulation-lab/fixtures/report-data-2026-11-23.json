@@ -350,14 +350,15 @@
       }
     },
     "法國 CAC 40": {
-      "display": "7,975.42",
-      "change_display": "-1.30%",
+      "display": "7,927.75",
+      "change_display": "-1.89%",
       "source": {
         "name": "Investing.com HK｜CAC 40 歷史資料",
         "url": "https://hk.investing.com/indices/france-40-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "provider_index_reference_series",
-        "note": "採母版指定 canonical Investing.com HK 商品頁之11/20歷史列7,975.42、-1.30%；不混用其他商品頁或報價序列。"
+        "note": "Investing.com HK 歷史數據頁 2026-11-20 歷史列：收市 7,927.75、跌幅 -1.89%；採指定日期歷史列，不採頁首其他日期即時值。",
+        "checked_at_tw": "2026-11-22T11:35:30+08:00"
       }
     },
     "STOXX Europe 600": {
@@ -378,10 +379,10 @@
     "XLP": "+0.67%",
     "XLV": "-0.12%",
     "XLE": "-0.62%",
-    "XLB": "-0.73%",
     "XLU": "-0.74%",
     "XLRE": "-0.98%",
     "XLF": "-1.82%",
+    "XLB": "-2.19%",
     "XLC": "-2.66%",
     "XLY": "-2.95%",
     "XLI": "-3.09%",
@@ -468,25 +469,27 @@
       }
     },
     "澳幣／美元": {
-      "display": "0.6621",
-      "change_display": "-0.57%",
+      "display": "0.6617",
+      "change_display": "-0.63%",
       "source": {
         "name": "Investing.com HK｜AUD/USD 歷史資料",
         "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
-        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+        "note": "Investing.com HK AUD/USD 歷史數據頁 2026-11-20 歷史列：收市 0.6617、跌幅 -0.63%；頁首 0.6621 為其他日期報價，不作本報告基準。",
+        "checked_at_tw": "2026-11-22T11:35:30+08:00"
       }
     },
     "美元／日圓": {
-      "display": "158.49",
-      "change_display": "-0.76%",
+      "display": "158.54",
+      "change_display": "-0.73%",
       "source": {
         "name": "Investing.com HK｜USD/JPY 歷史資料",
         "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
         "data_date": "2026-11-20",
         "quote_type": "spot_daily_close",
-        "note": "11/20 歷史報價；保留原始商品／匯率標的口徑。"
+        "note": "Investing.com HK USD/JPY 歷史數據頁 2026-11-20 歷史列：收市 158.54、跌幅 -0.73%；採指定日期歷史列。",
+        "checked_at_tw": "2026-11-22T11:35:30+08:00"
       }
     }
   },
@@ -1896,7 +1899,8 @@
       "change_display": "-0.73%",
       "data_date": "2026-11-20",
       "quote_type": "ETF_daily_close",
-      "note": "Investing.com HK 11/20歷史列49.06、-0.73%；更正舊底稿48.34、-2.19%的錯置值。"
+      "note": "Investing.com 2026-11-20 XLB 歷史列：收市 48.34、跌幅 -2.19%；更正原 Fixture 誤採的 49.06、-0.73%（該值非 11/20 指定歷史列）。",
+      "checked_at_tw": "2026-11-22T11:35:30+08:00"
     },
     "XLU": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
