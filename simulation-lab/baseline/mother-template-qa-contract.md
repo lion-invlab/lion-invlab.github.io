@@ -430,7 +430,8 @@
 ### A3.5 2026-11-22｜總結／深度分析來源隱藏與局部 DOM 更新
 - 總結小卡與五層深度解析不得顯示「資料來源」文字、來源連結、來源收折區或同義替代元件。
 - 五層 Fixture 的 sources 必須逐筆完成 URL、label、status、published_at／checked_at 驗證；Builder receipt 必須保留每層 source_count 與來源證據，且與 Fixture 完全一致。只驗證 HTML 沒有來源顯示，不代表內部證據保留通過。
+- 總結卡若清除來源元件，Builder／局部更新 receipt 必須記錄 `summary_source_receipt: {visible_sources: false}`；summary 卡及五層文章的來源顯示與內部 receipt 均須分開驗收。
 - 新聞、行情、商品、債券、匯率、行事曆及其他區塊原有來源顯示維持母版契約，不得因本條一併移除。
 - 局部更新器 `simulation-lab/runner/patch_review_sections.py` 必須分別支援 summary 與 market_analysis；只更新目標 selector，更新前後比較非目標 DOM 完全一致，並產生包含 Fixture SHA、輸入／輸出 HTML SHA-256、目標 selector、內部 evidence receipt 及局部測試狀態的收據。
 - summary 局部更新依母版原有槽位數量驗證；週一母版三槽、週二至週五母版五槽，不得以同一日期 Fixture 跨母版測試時忽略槽位差異。
-- 局部更新不得呼叫 44 項行情擷取、新聞模組、行事曆模組或完整 Builder；局部 QA 不得冒充整頁 E2E。
+- 局部更新不得呼叫 44 項行情擷取、新聞模組、行事曆模組或完整 Builder；局部 QA 不得冒充整頁 E2E。 正式 CLI 的輸入 HTML、輸出 HTML、收據、Fixture 與 Manifest 必須受 simulation-lab/output、simulation-lab/fixtures、simulation-lab/baseline 路徑範圍限制；臨時目錄只允許測試函式明確 test_only 模式使用。
