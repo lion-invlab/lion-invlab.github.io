@@ -3598,3 +3598,15 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - **Stage 4：** 五層分析已填 Fixture，但尚未完成內容品質 Gate 及最終 HTML 一致性檢查。
 - **Stage 5／6：** 尚未執行真實內容 Builder 生產組裝及完整 QA。下一步觸發 2026-11-23 Monday build，驗證 HTML、DOM、行事曆、財報卡、互動、視覺及 QA sidecar；若 blockers 仍使 REVIEW_READY 不成立，應保存 PARTIAL 證據且不得交付 main preview。
 - **範圍：** 不修改 main、正式首頁、正式母版、Manifest 或行事曆 JSON；不部署 Pages。
+
+
+## 最新狀態錨點｜2026-11-22｜11/23 SIM-1.4 真實內容 E2E
+
+- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。main 唯讀。
+- **真實內容 Builder E2E：** run `44983783412` completed；核准 Builder `simulation-lab/runner/build_review_html.py` blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。
+- **simulation preview：** `preview/2026-11-23-simulation.html` blob SHA `9ef73226bfc4f1889c4e25fc3b71ffce21fd2f57`；SHA-256 `cf14bae515e45704c5d74d7110b73573cbec546540e2e08667a497f16896dd4d`。QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `184ec4d924f117615299b9bbf35b30920bb6c463`，HTML／sidecar SHA 綁定一致。
+- **QA 結果：** `QA_PASSED`；五層內容 Gate PASS；六領域政治／地緣政治掃描 PASS；Builder approval APPROVED；DOM preservation、互動、導覽、來源連結、44項行情與行事曆結構通過；1440／768／412／390／360／320 六個 viewport 全 PASS。
+- **重要修正：** 週一風險觀察加入明確台灣時間催化；債券評論不重複百分比；盤面觀察明列配置含意；區域評論資料槽位順序修正為美國／亞洲／中國／歐洲；美債殖利率日變動為 -13／-12／-9 bp，按 Treasury 11/19、11/20官方列計算；44項行情TAC查核時間欄位註記已更正，不冒充供應商timestamp。
+- **REVIEW_READY=false／PARTIAL：** 三項 blockers 仍存在：W47 23筆已公布財報缺公告前EPS／Revenue共識；W48 27筆經濟事件中7筆缺可採用數值市場預期；main W47／W48 calendar coverage incomplete。不得事後推定共識、補造預期或回寫 main JSON。
+- **Stage 6 結果：** delivery gate 因 `review_ready != True` 正確拒絕交付。main `preview/2026-11-23-review.html` 不存在；main `index.html` SHA 仍為 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；main W48 JSON SHA 仍為 `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`。未改首頁、正式母版、Manifest、calendar JSON，未部署 Pages。
+- **下一步：** 僅處理三項資料 blockers；未清除前維持 simulation preview，不得將 QA_PASSED 誤寫成 REVIEW_READY，也不得手動繞過 Stage 6。
