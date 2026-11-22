@@ -69,6 +69,7 @@ try {
               paragraphs: content?.querySelectorAll(":scope > p").length || 0,
               sourceLinks: content?.querySelectorAll("p.market-analysis-sources a[href^='https://']").length || 0,
               sourceDisclosures: content?.querySelectorAll("details.market-analysis-source-details").length || 0,
+              sourceContainers: content?.querySelectorAll(".source, .source-list, .market-analysis-sources").length || 0,
               visibleSourceLabel: content?.textContent?.includes("資料來源") || false,
             };
           }),
@@ -86,7 +87,7 @@ try {
         if (h.headingScrollWidth > h.headingWidth + 1 || h.contentScrollWidth > h.contentWidth + 1) {
           throw new Error(variant + "/" + width + ": layer " + (index + 1) + " has horizontal text overflow");
         }
-        if (!h.height || h.paragraphs < 2 || h.sourceLinks !== 0 || h.sourceDisclosures !== 0 || h.visibleSourceLabel) {
+        if (!h.height || h.paragraphs < 2 || h.sourceLinks !== 0 || h.sourceDisclosures !== 0 || h.sourceContainers !== 0 || h.visibleSourceLabel) {
           throw new Error(variant + "/" + width + ": layer " + (index + 1) + " has missing text or forbidden visible source disclosure");
         }
       });
