@@ -3170,6 +3170,7 @@ def main():
         "fixture_blob_sha": sha_blob(Path(args.data).read_text(encoding="utf-8")),
         "builder_path": str(Path(__file__).relative_to(ROOT)),
         "builder_blob_sha": sha_blob(Path(__file__).read_text(encoding="utf-8")),
+        "market_analysis_slot_receipt": market_analysis_receipt,
         # Repository and branch metadata live on each week record, not the
         # top-level calendar envelope returned by load_authoritative_calendar().
         "calendar_repository": calendar_source["current"]["repository"],
