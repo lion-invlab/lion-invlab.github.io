@@ -73,7 +73,7 @@ jobs:
           assert off==len(raw) and len(rows)==int(obj["rows"])
           assert rows[0][0]=="1927-12-30" and rows[-1][0]==obj["end"]
           assert obj["end"]>="2026-11-20" and len(rows)>=24000
-          canonical=("Date,Close\\n"+"".join(f"{d},{c/100:.2f}\\n" for d,c in rows)).encode()
+          canonical=("Date,Close\n"+"".join(f"{d},{c/100:.2f}\n" for d,c in rows)).encode()
           digest=hashlib.sha256(canonical).hexdigest()
           assert digest==obj["source_dataset_sha256"], (digest,obj["source_dataset_sha256"])
           print({"status":"PASS","mode":"committed_snapshot_only","start":rows[0][0],"end":rows[-1][0],"rows":len(rows),"dataset_sha256":digest})
