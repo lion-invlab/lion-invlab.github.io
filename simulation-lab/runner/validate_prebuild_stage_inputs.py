@@ -87,6 +87,11 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     keys = {(row.get("group"), row.get("name")) for row in rows}
     require(len(keys) == 44 and all(a and b for a, b in keys),
             "source manifest has duplicate or unnamed rows")
+    expected_keys = set()
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        expected_keys.update((group, name) for name in (data.get(group) or {}))
+    expected_keys.update(("sectors", name) for name in (data.get("sectors") or {}))
+    require(keys == expected_keys, "source manifest rows do not match the exact fixture indicator identities")
     observed_groups = {group: sum(1 for row in rows if row.get("group") == group)
                        for group in EXPECTED_GROUP_COUNTS}
     require(observed_groups == EXPECTED_GROUP_COUNTS,
@@ -158,6 +163,17 @@ def validate_stage4(data: dict, report_date: str) -> dict:
     analysis = data.get("market_analysis")
     require(isinstance(analysis, dict) and set(analysis) == EXPECTED_ANALYSIS_LAYERS,
             "five-layer market analysis is incomplete or has unexpected layers")
+    for layer, payload in analysis.items():
+        require(isinstance(payload, dict) and isinstance(payload.get("paragraphs"), list)
+                and len(payload["paragraphs"]) > 0 and all(str(x).strip() for x in payload["paragraphs"]),
+                f"analysis layer {layer} has missing paragraphs")
+        sources = payload.get("sources")
+        require(isinstance(sources, list) and len(sources) > 0,
+                f"analysis layer {layer} has no source records")
+        for source in sources:
+            parsed = urlparse(str(source.get("url", "")))
+            require(parsed.scheme == "https" and parsed.netloc and source.get("label"),
+                    f"analysis layer {layer} has an invalid source record")
     political_scan = data.get("political_scan") or {}
     domains = set(political_scan.get("domains_checked") or [])
     require(domains == EXPECTED_POLITICAL_DOMAINS,
@@ -205,6 +221,9 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                 f"{label} earnings event count mismatch")
     require(current.get("week_id") != previous.get("week_id"),
             "current and previous calendar week must be distinct")
+    for item in (current, previous):
+        require(item.get("path") == f"data/calendar/weeks/{item.get('week_id')}.json",
+                "calendar path is not the canonical ISO-week database path")
 
     require(re.fullmatch(r"[0-9a-f]{64}", fixture_sha256 or "") is not None,
             "fixture SHA-256 missing or malformed")
