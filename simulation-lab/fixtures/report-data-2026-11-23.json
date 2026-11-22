@@ -744,7 +744,7 @@
         "history_change": "+0.93%",
         "volume": 275340,
         "link_label": "Investing.com 歷史數據",
-        "note": "Investing.com 歷史頁商品標題顯示 WTI原油期貨 - 2027年1月 (OIL)；底層CME合約代碼為 CLF27，交易所 CME。2026-11-20 歷史列收市 83.98、升跌 +0.93%、成交量 275.34K。使用該合約歷史數據，不採同名即時 CFD。",
+        "note": "Investing.com WTI 期貨合約歷史數據頁所列 CLF27；商品標題顯示 WTI原油期貨 - 2027年1月 (OIL)，底層CME合約代碼為 CLF27，交易所 CME。2026-11-20 歷史列收市 83.98、升跌 +0.93%、成交量 275.34K。使用該合約歷史數據，不採同名即時 CFD。",
         "verified_at_tw": "2026-11-22T11:40:25+08:00",
         "verification_status": "VERIFIED",
         "source_role": "PRIMARY",
