@@ -1,3 +1,86 @@
+# 最新權威狀態｜2026-11-22 18:00（台灣時間）｜11/23 SIM-1.4 真實內容 E2E
+
+**本節優先於下方所有舊快照；舊紀錄保留作歷史，不得沿用其過時狀態。**
+
+## 一、目前結論
+
+- 11/23 真實內容 Pipeline Run 45010119942 completed / success；只在 Simulation 分支執行。
+- Stage 2 觀察紀錄核對 PASS：44/44 有逐筆觀察紀錄及 observation_record_sha256，pending=0，hash 缺漏=0。這代表 Fixture 內既有觀察紀錄完整，不代表本輪 Pipeline 重新擷取或獨立重核 44 個來源頁。
+- Stage 5 技術、結構、互動、DOM、內容及六視窗 QA PASS；Sidecar status=QA_PASSED。
+- 資料仍為 PARTIAL：data_review_ready=false、review_ready=false、sim14_review_ready=false。兩項 Stage 3 blockers 保留。
+- Stage 6 main preview 交付步驟正確 SKIPPED；不得交付 main。沒有更新正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，也沒有部署 Pages。
+- Stage 7 排程設定已核對，但下一次實際排程執行尚未驗收；下次檢查為 2026-11-23（一）04:35／05:25／05:30。
+
+## 二、精確版本與產物
+
+- Repository：lion-invlab/lion-invlab.github.io
+- 唯一工作分支：simulation/tac-process-lab-2026-11-06
+- 本輪 Workflow trigger commit：a42cc3d7862172c8598c51a8584bef78514ea7b5
+- Pipeline run：45010119942
+- Run URL：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45010119942
+- Pipeline 後分支 HEAD：fdf22e85fa4ce8f44c038ad48ab5ac582a881f1e
+- Active SIM-1.4 rules blob SHA：9493e85b424eb1b48d4df8c328d5850d6fcef0c8
+- Approved Builder：simulation-lab/runner/build_review_html.py；blob SHA 16254bfa249814ac75e62cf8acbad2828f366fe6
+- Mother Manifest blob SHA：c78338984192a9251adc247ae1b0044629de89db
+- QA Contract blob SHA：a626b7edc9b1c7e90fb6c43b43c68fe98cfec128
+- Monday mother blob SHA：ce15c803cc778be35302eec96f6a5d123bf49624
+- Weekday mother blob SHA：940761077a3f3ad1b47b325a8d2a1a6800e3a679
+- Simulation workflow blob SHA：7013331eb118c8cad870a3a0f29fbb889e5a33ef
+- 11/23 Fixture blob SHA：d6ba74599df22a6d5c47ed02c0a5594f1b9de519
+- Market verification builder blob SHA：abbf1a8aec69b8e8179543c55e7d943bd61237bf
+- Market verification test blob SHA：1e06d8361e3bcfe625403eda9c9778c55935e20c
+- Fixture test blob SHA：0f5c9ff2cbf9366eb153c0f0287d5841bc33397b
+
+## 三、HTML／QA 精確綁定
+
+- Simulation HTML：preview/2026-11-23-simulation.html
+- HTML Git blob SHA：403aa0f1f80875f395e6706430f67e0392ae0471
+- HTML SHA-256：39e176655acf7a235ad1e2d03b4502ef06c842b51f7fe30deddf7747cb7452cb
+- QA Sidecar：preview/2026-11-23-simulation.qa.json
+- QA Sidecar Git blob SHA：44b76b8e91ed2fdc43891ff6368cc08e98ebfd14
+- QA status=QA_PASSED；content_analysis_gate=PASS；sim14_builder_approval=APPROVED；sim14_review_ready=false。
+- analysis_sections_checked 覆蓋 summary、政治地緣政治、政策／產業、宏觀傳導、金融市場定價、機構資金策略、市場情緒、盤面觀察、美國／亞洲／歐洲、產業、債券、外匯、能源、金屬。
+- political_geopolitical_scan=PASS；policy_transmission_completeness=4；scenario_analysis_coverage=4。
+- 六個 viewport：1440、768、412、390、360、320 px，全數 PASS。
+- Stage 6 main delivery step 為 SKIPPED；這是正確的權限與 Gate 行為。
+
+## 四、Stage 2 行情證據真實狀態
+
+- Manifest：simulation-lab/runs/market-source-verification-manifest-2026-11-23-45010119942.json
+- Manifest Git blob SHA：6b6b0bfdf38fbddb8d22efaf962a999ef1d8e61f
+- Sidecar 綁定 manifest path，並保存檔案 SHA-256：ddcf04edc066a1007f51deff84be4aa88dd572cb7c6e50572f95c8cb337b6a15
+- Manifest：status=PASS、row_count=44、verified_count=44、pending_count=0、observation_record_hash_missing_count=0、raw_response_sha256_saved_count=0。
+- 本輪 Pipeline 的 source_pages_fetched=false、displayed_values_independently_reconciled=false；verification_scope 明確為 PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES。不得宣稱本輪 Pipeline 重新抓取 44 個來源頁。
+- 41 筆既有逐筆觀察時間：40 筆 2026-11-22 11:40:25、Russell 2000 1 筆 11:41:20（台灣時間）。
+- 美國 2Y／10Y／30Y 美債於 2026-11-22 17:48:21（台灣時間）直接讀取 Investing.com 11/20 歷史列，補齊逐筆觀察紀錄；值分別為 4.613%／-16.6 bp、4.912%／-14.0 bp、5.302%／-9.9 bp。
+- market-snapshot-audit 的 scope 是 METADATA_AND_DATE_ONLY；它只核對日期／來源中繼資料，不是行情數值重核。
+- raw_response_sha256 為 null 屬可選額外證據，不構成 blocker；不可將 observation_record_sha256 冒充原始 HTTP response body hash。
+
+## 五、Stage 3 目前只保留兩項真實缺口
+
+1. W47 上週回顧：23 筆已公布財報缺少可採用的公告前 EPS／Revenue 共識，歷史共識無法事後重建。actual 與股價反應照實呈現；不得推定 Beat／Miss。
+2. W48：3 筆數值指標缺可採用公告前市場預期（澳洲／日本 Flash PMI、加拿大 SEPH），維持 null／待核實。另 4 筆非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 官員談話）之數值 forecast 屬不適用，不計為缺漏。
+- main W47／W48 coverage=incomplete 仍如實揭露，但必要事件集合與 schema 可讀；依 SIM-1.4 Stage 3 規則不另列為獨立 blocker，也不得為消除 incomplete 字串而偽造完整度。
+- W47 SHA：727ea2be1c04688d3c4f98d36c452561bbab6821；W48 SHA：807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa。早報只讀取，不回寫。
+
+## 六、Stage 7 排程／自動化狀態
+
+三個排程均啟用，時間及週一下一次執行時間正確，未更改時間：
+- 04:35 行事曆資料庫更新：Automation 6af6d10c62448191819f04b976c64cf4；下一次 2026-11-23 04:35 Asia/Taipei。Prompt 已補充 SIM-1.4 新來源順位、W48 舊 SIM-1.3 註記修正、3 筆數值預期缺漏與 4 筆非數值事件 N/A 分類，以及 coverage incomplete 不得重複列 blocker。最近一次 11/19 成功，但當時結果使用 SIM-1.3；下一輪須驗證實際讀取 SIM-1.4。
+- 05:25 早報自動製作：Automation Automation_f4da15cd95c881918c7412cdd6f35bb2；下一次 2026-11-23 05:25 Asia/Taipei。Prompt 已修正 Stage 2：raw_response_sha256 optional、不得用批次時間冒充逐筆時間、source_pages_fetched／displayed_values_independently_reconciled 必須反映本輪真實執行。最近一次 11/19 任務 failed，結果只有通用錯誤訊息，chat_ref=null；不得宣稱排程喚醒橋接已成功。下一輪必須確認 notify_parent 回傳與實際 Pipeline run。
+- 05:30 Chart 3：Automation Automation_d59409d2de44819191030af1122bc0ec；下一次 2026-11-23 05:30 Asia/Taipei。獨立維護 main 的 Chart 3，並有 05:25 早報備援檢查；不得與早報 Pipeline 混成同一 writer。
+- 排程的實際喚醒、執行與失敗恢復尚未完成週一驗收；目前只證明手動 push-tag 可以成功觸發完整 Simulation Pipeline。
+
+## 七、權限邊界與下一步
+
+- main index.html SHA 仍為 4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4。
+- main W47／W48 JSON SHA 仍分別為 727ea2be1c04688d3c4f98d36c452561bbab6821、807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa。
+- 未修改 main 首頁、正式母版、正式 Manifest、正式行事曆 JSON；未部署 Pages。
+- 目前 HTML 不具 REVIEW_READY 資格，不得交付 main。即使未來 blockers 清除，仍須使用者審核並明確核准該份 HTML 的確切 SHA-256，才可進 Stage 6。
+- 下一步：驗收 11/23 04:35 行事曆任務是否以 SIM-1.4 更新 W48；05:25 早報排程是否成功喚醒並觸發本 Pipeline；05:30 Chart 3 任務是否依獨立範圍執行。再依兩項真實 Stage 3 缺口更新資料狀態，不得補造。
+
+---
+
 # 2026-11-22｜2026-11-23（一）早報｜SIM-1.4 真實內容 E2E
 
 ## 2026-11-22 17:15（台灣時間）｜最新接手後狀態覆核（本節優先於下方舊快照）
