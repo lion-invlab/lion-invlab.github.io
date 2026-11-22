@@ -67,7 +67,11 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
         item["capture"] = result
         item["source_page_fetched"] = bool(result.get("http_status") == 200 and result.get("raw_response_sha256"))
         item["display_value_reconciled"] = False
-        item["verification_status"] = "CAPTURED_PENDING_VALUE_RECONCILIATION" if item["source_page_fetched"] else "SOURCE_PAGE_CAPTURE_FAILED"
+        if item["source_page_fetched"]:
+            item["verification_status"] = "CAPTURED_PENDING_VALUE_RECONCILIATION"
+        else:
+            # A denied/unreadable page is a tool failure, not proof of no data.
+            item["verification_status"] = "TOOL_READ_FAILURE"
         if body64 is not None:
             import base64
             body = base64.b64decode(body64)
