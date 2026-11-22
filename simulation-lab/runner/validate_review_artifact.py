@@ -6,11 +6,14 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 from datetime import date
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
+from build_review_html import validate_political_scan
 MANIFEST_PATH = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
 BUILDER_PATH = ROOT / "simulation-lab/runner/build_review_html.py"
 QA_CONTRACT_PATH = ROOT / "simulation-lab/baseline/mother-template-qa-contract.md"
@@ -169,6 +172,7 @@ def main():
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
         raise SystemExit("fixture provenance SHA does not match immutable build commit")
     fixture = json.loads(fixture_bytes)
+    political_scan_receipt = validate_political_scan(fixture)
     expected_layers = [
         ("political", "一、政治與地緣政治局勢"),
         ("policy_industry", "二、政策傳導與企業／產業鏈影響"),
@@ -267,6 +271,11 @@ def main():
         "build_commit_sha": build_commit,
         "builder_sha": provenance["builder_blob_sha"],
         "fixture_sha": provenance["fixture_blob_sha"],
+        "political_geopolitical_scan": political_scan_receipt["status"],
+        "political_domains_checked": political_scan_receipt["domains_checked"],
+        "political_event_status_classifications": political_scan_receipt["event_status_classifications"],
+        "policy_transmission_completeness": political_scan_receipt["policy_transmission_completeness"],
+        "scenario_analysis_coverage": political_scan_receipt["scenario_analysis_coverage"],
         "calendar_main_commit_sha": main_commit,
         "calendar_current_blob_sha": provenance["calendar_current_blob_sha"],
         "calendar_previous_blob_sha": provenance["calendar_previous_blob_sha"],
