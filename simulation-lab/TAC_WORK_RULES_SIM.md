@@ -515,7 +515,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.17，SIM-1.4 執行附件；目前 blob SHA `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.19，SIM-1.4 執行附件；目前 blob SHA `e06d813fe9099a4e326df4c8d3cae5d44efa7323`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -549,7 +549,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 版本紀錄
 
-**文件狀態澄清：** 本文件標題及下方「SIM-1.4 正式生效紀錄」為現行狀態依據。版本紀錄中標示「當時 DRAFT／未生效」的段落，只記錄該次修訂提出時的歷史狀態；下方仍保留的三段 DRAFT 草案內容不構成獨立有效條文。其後已採納的規則以第 0–11 節現行主文及正式生效紀錄為準；未納入主文者不生效。不得將歷史 DRAFT 標籤解讀為目前 SIM-1.4 尚未生效。
+- 2026-11-22｜SIM-1.4 首次真實內容雙母版 E2E 驗收完成：GitHub Actions run `45016383014` completed／success；同一 active rules、核准 Builder `16254bfa249814ac75e62cf8acbad2828f366fe6`、Manifest、QA Contract v1.19 及雙 simulation mother SHA 綁定。真實 11/23 Monday Fixture 完成 Stage 2–5 組裝、輸入收據、Builder、內容／政治掃描、DOM／互動／來源連結、雙母版 synthetic candidate integration、六視窗 QA、QA sidecar seal、Simulation 封存及遠端回讀。44 項使用 Fixture 內既有完整瀏覽器觀察紀錄，本輪未重抓來源頁或獨立重核數值；此限制已在 receipt／sidecar 明示。QA_PASSED，但 W47 23 筆歷史財報共識及 W48 3 筆經濟預期缺少可採用公告前證據，`data_review_ready=false`、`review_ready=false`、`sim14_review_ready=false`；Stage 6 main delivery 正確 SKIPPED。此記錄證明 SIM-1.4 真實內容生產 E2E 技術路徑完成，不代表該份報告可交付，也不授權修改 main／正式首頁。\n**文件狀態澄清：** 本文件標題及下方「SIM-1.4 正式生效紀錄」為現行狀態依據。版本紀錄中標示「當時 DRAFT／未生效」的段落，只記錄該次修訂提出時的歷史狀態；下方仍保留的三段 DRAFT 草案內容不構成獨立有效條文。其後已採納的規則以第 0–11 節現行主文及正式生效紀錄為準；未納入主文者不生效。不得將歷史 DRAFT 標籤解讀為目前 SIM-1.4 尚未生效。
 
 - 2026-11-22｜文件狀態澄清：明確區分歷史草案狀態與 SIM-1.4 現行正式生效狀態；不變更任何操作條文或 Gate。
 - 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。雙母版、Manifest、QA Contract 與 Builder 已完成同步；候選 Builder 的 deterministic、雙母版完整組裝（TEST_ONLY 合成文章）、DOM preservation 及六視窗瀏覽器回歸通過。後續真實市場分析內容的每日 Stage 1–6 生產 E2E 仍須獨立驗收。
