@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-20",
   "summary": "上週主軸：市場不只重新評價AI資本支出的回報，也開始把政策與地緣風險納入估值。美國先進AI晶片出口限制已生效，美中峰會尚未形成可驗證的具體履約安排，荷姆茲附近油輪受襲則提高能源運輸不確定性；這些因素與大型GPU融資、Nvidia會計調查報導交疊，使投資人更重視現金流、融資成本及供應鏈風險。企業獲利與台灣外銷訂單仍有韌性，現階段不能直接判定AI需求崩塌。\n\n風險觀察：本週第一個景氣驗證點為11/23（一）17:00歐元區Flash PMI、22:45美國11月Flash PMI（均為台灣時間）；接著觀察11/25（三）21:30美國第三季GDP第二次估值與10月PCE／核心PCE。政策面追蹤美中晶片許可執行，地緣面追蹤荷姆茲航運通報與實際通行量。若需求仍強而通膨黏著，利率可能維持高檔；若能源運輸受阻，需防範成本通膨與成長放緩並存。\n\n操作建議：立場中性偏防禦。保留現金流穩健、負債可控的核心持倉，降低高槓桿、自由現金流不足及中國政策曝險集中的AI供應鏈，不追跌、不融資抄底。待市場上漲家數擴大、VIX與MOVE連續回落、半導體相對強度止跌，且企業資本支出指引未下修，再分批加碼；若荷姆茲通行量實際下降、油價推升通膨或企業信用壓力擴大，則進一步降低高Beta曝險。",
-  "sentiment": "市場處於高壓防禦狀態：股票波動與債券波動同步升高，CNN Provider Index落在極度恐懼區；但黃金、白銀也下跌，代表跨資產避險並未完全發揮，市場可能更重視流動性與現金部位。各指標資料時間並不完全相同，不能視為同一時點的同步報價。情緒改善至少要看到股票波動回落、債市波動停止擴大、信用市場未進一步惡化及市場上漲家數擴大；單一恐慌指標下降不足以構成買進訊號。",
+  "sentiment": "市場情緒維持極度恐慌：VIX 35.89、MOVE 106.31、CNN Fear & Greed 10。中國下調融資保證金是潛在流動性支持，但11/30才生效；Rabigh攻擊仍是未經沙方確認的聲稱，尚不足以改變能源供給基準。整體維持高風險、低追價意願。",
   "focus_news": [
     {
       "title": "密西根大學11月消費者信心終值升至51.5，一年通膨預期降至3.7%",
@@ -28,14 +28,14 @@
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     },
     {
-      "title": "花旗：市場正向聯儲局發出利率「高得難以為繼」的信號",
-      "published_at_tw": "2026/11/20 21:45",
+      "title": "中國三大交易所下調融資買入最低保證金比例，11月30日起由100%降至80%",
+      "published_at_tw": "2026-11-22 21:09:00",
       "updated_at_tw": "原文未標示更新時間",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1770042",
-      "source_timezone": "Asia/Hong_Kong",
-      "published_at_source": "2026年11月20日 下午09:45",
-      "summary": "花旗指出，股市估值下滑與AI投資放緩風險，可能限制Fed進一步升息空間；通膨仍高，但金融條件收緊也增加成長壓力。市場正在重新衡量政策利率與風險資產估值的平衡。",
-      "checked_at_tw": "2026/11/22 11:15:10",
+      "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+      "source_timezone": "UTC",
+      "published_at_source": "2026-11-22 13:09 UTC",
+      "summary": "上海、深圳與北京證券交易所宣布，11月30日起將新開融資買入的最低保證金比例由100%降至80%，並配合交易費減免等市場支持措施。Reuters指出兩融餘額較6月高點回落逾20%至約人民幣2.2兆元；措施可增加交易槓桿與短期流動性，但尚未生效，也不等於企業獲利或實體需求改善。",
+      "checked_at_tw": "2026-11-23 06:17:33",
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     },
     {
@@ -162,14 +162,14 @@
       "summary": "英國海事貿易行動辦公室通報荷姆茲海峽出口附近兩起油輪受襲，兩起通報是否涉及同一艘船尚不清楚，未傳出人員傷亡，環境影響仍待評估。伊朗海軍稱油輪觸雷，但Reuters無法獨立核實該說法或確認是否指同一事件。航運安全與保險成本風險升高，但尚不能推論主要通道已全面中斷。"
     },
     {
-      "title": "MPS董事會認為Intesa 345億歐元收購要約價格公平，但未反映全部潛在價值",
-      "published_at_tw": "2026/11/21 16:16",
-      "updated_at_tw": "原文未標示絕對更新時間",
-      "url": "https://www.reuters.com/business/finance/intesa-launches-cash-share-offer-monte-dei-paschi-mps-says-2026-11-21/",
+      "title": "胡塞武裝聲稱攻擊沙烏地Rabigh煉油廠，沙方尚未確認損害",
+      "published_at_tw": "2026-11-23 01:52:00",
+      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
       "source_timezone": "UTC",
-      "published_at_source": "November 21, 2026 8:16 AM UTC",
-      "summary": "MPS董事會一致通過正式意見，認為Intesa提高後的345億歐元要約價格在11月18日基準下屬公平，但未完整反映收購Mediobanca後的未來價值；一名董事因分歧辭任。股東投標期將於11/24開始，交易仍待後續程序。",
-      "checked_at_tw": "2026/11/22 11:15:10",
+      "published_at_source": "2026-11-22 17:52 UTC",
+      "summary": "胡塞武裝聲稱對沙烏地紅海沿岸Rabigh煉油與石化綜合設施發動攻擊並稱直接命中；沙烏地官方當時未即時回應，實際損害與停產情況尚未確認。若後續證實設施受損，可能沿煉油、石化原料、出口設施與紅海航運保險傳導；目前只能列為地緣尾部風險，不可寫成已確認供應中斷。",
+      "checked_at_tw": "2026-11-23 06:17:33",
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     }
   ],
@@ -753,7 +753,18 @@
         "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
-        "raw_response_sha256": null
+        "raw_response_sha256": null,
+        "official_settlement_cross_check": {
+          "provider": "CME Group",
+          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
+          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
+          "contract": "CLF27 / WTI January 2027",
+          "settlement_price": 83.41,
+          "settlement_point_change": 0.97,
+          "calculated_settlement_percent_change": 1.18,
+          "checked_at_tw": "2026-11-23T06:17:33+08:00",
+          "interpretation": "CME settlement differs from the Investing.com HK historical platform close (83.98, +0.93%). The report keeps the same-page Investing.com close and percentage change together; it does not mix CME settlement price with Investing.com percentage change."
+        }
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
       "change_points": "+0.77",
@@ -772,13 +783,20 @@
         "history_change": "+0.64%",
         "volume": 278240,
         "link_label": "Investing.com 歷史數據",
-        "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。",
+        "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。 ICE public historical settlement row was not exposed in this session; this Investing.com HK historical row is explicitly treated as BACKUP_1 / BACKUP_VERIFIED.",
         "verified_at_tw": "2026-11-22T11:40:25+08:00",
-        "verification_status": "VERIFIED",
-        "source_role": "PRIMARY",
+        "verification_status": "BACKUP_VERIFIED",
+        "source_role": "BACKUP_1",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
-        "raw_response_sha256": null
+        "raw_response_sha256": null,
+        "primary_source_attempt": {
+          "provider": "ICE Futures Europe",
+          "source_url": "https://www.ice.com/products/219",
+          "checked_at_tw": "2026-11-23T06:17:33+08:00",
+          "outcome": "TOOL_READ_FAILURE",
+          "detail": "Public product page was readable but did not expose the 2026-11-20 historical settlement row; the saved Investing.com HK same-contract historical observation is retained as backup."
+        }
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
       "display_name": "Brent 原油期貨"
@@ -804,7 +822,17 @@
         "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
-        "raw_response_sha256": null
+        "raw_response_sha256": null,
+        "official_settlement_cross_check": {
+          "provider": "CME Group",
+          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
+          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
+          "contract": "GCZ6 / COMEX Gold December 2026",
+          "settlement_price": 3515.4,
+          "settlement_point_change": -170.1,
+          "checked_at_tw": "2026-11-23T06:17:33+08:00",
+          "interpretation": "CME official settlement matches the Investing.com HK historical close for the same contract and date; the report retains the Investing.com same-page percentage change."
+        }
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
       "display_name": "黃金期貨"
@@ -828,7 +856,17 @@
         "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
-        "raw_response_sha256": null
+        "raw_response_sha256": null,
+        "official_settlement_cross_check": {
+          "provider": "CME Group",
+          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
+          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
+          "contract": "SIZ6 / COMEX Silver December 2026",
+          "settlement_price": 41.07,
+          "settlement_point_change": -3.289,
+          "checked_at_tw": "2026-11-23T06:17:33+08:00",
+          "interpretation": "CME official settlement matches the Investing.com HK historical close for the same contract and date; the report retains the Investing.com same-page percentage change."
+        }
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
       "display_name": "白銀期貨"
@@ -2259,11 +2297,11 @@
     },
     {
       "label": "風險觀察",
-      "text": "本週關鍵時點：11/23 17:00 歐元區 Flash PMI、22:45 美國 Flash PMI；11/25 21:30 美國第三季 GDP 第二次估值與10月 PCE。AI鏈追蹤CoreWeave、Nebius債券殖利率與再融資、GPU容量利用率、主要客戶長約及NVIDIA未售容量承諾；政策面追蹤美國晶片許可執行與荷姆茲航運通行量。"
+      "text": "全球風險仍高，VIX與MOVE處於高檔、Fear & Greed落在極度恐慌；週末中國宣布11/30起降低融資保證金比例，屬尚未生效的流動性支持。胡塞聲稱攻擊Rabigh煉油設施但沙方未確認，不能提前當成供應中斷；美國EO 14438則提高聯邦承包商的政策與合約遵循風險。"
     },
     {
       "label": "操作建議",
-      "text": "立場中性偏防禦。優先降低高槓桿、依賴外部融資及客戶集中的AI雲端／資料中心曝險，半導體供應鏈則檢查訂單轉出貨、應收帳款與現金流。待信用利差回落、再融資完成、容量利用率與企業資本支出指引穩定，且市場廣度改善，再分批加碼；若融資展期失敗或主要客戶削減長約，進一步防禦。"
+      "text": "本週策略以確認政策傳導與事件證據為主：觀察中國兩融餘額、成交額與市場廣度是否回升；追蹤Rabigh設施官方確認、紅海船舶與保險變化；對政府承包商依聯邦合約曝險分層，不追逐未確認的地緣消息。"
     }
   ],
   "warning_note": "行情基準日2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指CFD，不再作為行情來源。FTSE 100 現貨收盤為10,346.34、跌1.02%，取代香港站CFD參考值10,367.10、跌0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI四項均採Investing.com HK同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後Last。Fear & Greed採FGScore第三方CNN Provider Index（As of 11/20 UTC；Market timestamp 11/20 18:59 EST），官方CNN頁與endpoint未能讀取；依使用者確認的週末基準決策沿用既有快照，不要求週日刷新，並保留Provider資料時間。FedWatch為Investing.com 11/21 13:35台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式JSON；W48五筆impact_judgment錯置網址僅在HTML層修正。USD/TWD採Investing.com HK歷史資料頁11/20收市32.971、日跌0.18%；11/19收市33.032，與同一平台歷史列一致。",
@@ -2539,7 +2577,7 @@
   },
   "core_observation": {
     "heading": "本週三大觀察焦點",
-    "text": "① 11/23歐元區與美國Flash PMI，檢驗服務業景氣與企業定價能力。② 11/25美國第三季GDP第二次估值與10月PCE／核心PCE，決定利率預期是否再度上修；同日關注Dell財報對AI伺服器需求與毛利率的說明。③ 11/26美國感恩節休市、11/27提前收市，流動性降低時需留意波動放大；另追蹤德國GfK、法國CPI與德國失業數據。"
+    "text": "① 本週先看歐美PMI與美國成長／通膨資料，確認高利率下需求是否降溫。② 觀察中國11/30融資保證金比例下調後，兩融餘額、成交額與上漲家數是否同步改善；政策公告本身不等於資金回流。③ 中東能源設施風險只在沙方確認Rabigh損害、停產或航運受阻後才上修；未確認前維持事件監控，不把聲稱命中當成供應中斷。"
   },
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
   "market_sentiment": "風險偏好急速下降，股票與債券波動同步升高；市場對尾端政策及地緣風險要求更高風險補償。VIX與MOVE均處高檔，顯示壓力不只在股票估值，也延伸至利率市場；單一恐慌指標不能視為落底訊號，須等波動回落與市場廣度改善共同確認。",
@@ -2559,7 +2597,13 @@
     "W48經濟行事曆27筆中，澳洲與日本Flash PMI、加拿大SEPH的main JSON均為forecast=null且forecast_applicable=false；經查公告前來源未提供可採用市場共識，依NOT_APPLICABLE處理，不列為review_ready blocker，不補造數值。另4筆非數值事件（Beige Book、ECB會議紀要、感恩節休市、Williams官員談話）之forecast亦屬不適用。main W47／W48 coverage仍標示incomplete，但必要事件集合與schema可讀，依SIM-1.4 Stage 3規則僅揭露狀態，不另列為獨立blocker；早報仍唯讀呈現，不回寫main。",
     "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。",
     "Stage 2 證據分類：44項歷史資料列均已完成數值核對（43項主來源、1項FGScore備援）；以來源URL、標的／合約、資料日期、Close／Change欄位和值、TAC查核時間及讀取方法保存瀏覽器觀察紀錄。原始HTTP response body未封存（raw_response_sha256為null）屬可選證據，不構成數值核驗缺口；不得將觀察紀錄SHA-256冒充原始HTTP回應SHA-256。",
-    "Stage 2 證據紀錄：44/44項現均有逐筆觀察時間及 observation record；其中41項沿用既有紀錄，2Y／10Y／30Y美債歷史列於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁。原始HTTP response body未封存（raw_response_sha256=null）仍屬可選證據，不構成缺口。本輪Pipeline的metadata audit只驗證日期與來源中繼資料，不代表Pipeline本身重新擷取或獨立重核44項。"
+    "Stage 2 證據紀錄：44/44項現均有逐筆觀察時間及 observation record；其中41項沿用既有紀錄，2Y／10Y／30Y美債歷史列於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁。原始HTTP response body未封存（raw_response_sha256=null）仍屬可選證據，不構成缺口。本輪Pipeline的metadata audit只驗證日期與來源中繼資料，不代表Pipeline本身重新擷取或獨立重核44項。",
+    "本次將週一新聞窗口由原先11/21 17:57延伸至11/23 05:25；13筆既有直接開啟紀錄仍在窗口內沿用，另新增2筆Reuters文章並核對精確發布時間。",
+    "Reuters荷姆茲海峽航運量報導發布於11/23 05:57台灣時間，晚於05:25截稿32分鐘，排除於本期，留待下一期。",
+    "AP班加西俄艦疑似無人機攻擊與白宮EO 14438相關AP報導未提供可確認的絕對發布時間；只納入政治掃描，不列入5則焦點或10則熱門頭條。",
+    "FT AI伺服器價格上漲報導受付費牆限制且無法確認精確發布時間，未納入新聞卡與定量分析。",
+    "WTI CME Daily Bulletin #225確認CLF27 11/20 settlement為83.41、變動+0.97點；Investing.com HK同合約歷史close為83.98、+0.93%。本報保留同一Investing.com頁面的close與百分比，並明示與CME settlement口徑差異，不混用。",
+    "Brent ICE公開產品頁未提供11/20歷史settlement列，Investing.com HK同合約歷史觀察保留為BACKUP_1 / BACKUP_VERIFIED。"
   ],
   "review_ready_blockers": [],
   "earnings_health": {
@@ -2738,7 +2782,8 @@
       "paragraphs": [
         "美國商務部BIS於11月19日發布並生效《Addressing Remote Access to Advanced Semiconductors》臨時最終規則。規則要求對向澳門或美國出口管制D:5國家／地區總部企業提供達規定門檻算力的海外資料中心進行終端用途盡職調查；在規則生效前已提供相關算力的既有資料中心，須於90日內取得許可，否則面臨後續出口限制。另對印尼、馬來西亞、新加坡、泰國、巴西等高轉運風險目的地的先進半導體出口新增許可要求。這是已生效正式規則，不是單純政治談話。",
         "川習會釋出的公開訊息則仍以政治表態及框架性承諾為主：雙方談及AI、貿易與荷姆茲海峽能源運輸，但中方公開說明未提出稀土、農產品採購、晶片管制等具體履約時程；習近平再次把台灣議題列為雙邊關係核心。不能把峰會氣氛解讀為貿易休戰已獲實質延長。美國SEC對Nvidia會計作法的調查由Reuters引述知情人士報導，SEC未公開評論；調查不等於違法已證實。",
-        "地緣風險方面，英國海事貿易行動辦公室於11月21日通報荷姆茲海峽入口附近兩起油輪受襲事件；兩起通報是否涉及同一艘船、攻擊工具與責任歸屬仍未完全確認。此事件可能提高航運保險、運費及原油風險溢價，但截至新聞截稿點，尚無證據證明荷姆茲主要通道已全面中斷或全球原油供應已實際減少。日本、歐洲其他主要經濟體及重要新興市場，本輪未發現足以改變全球配置的新增正式政策；不將截稿後消息倒灌進本期報告。"
+        "地緣風險方面，英國海事貿易行動辦公室於11月21日通報荷姆茲海峽入口附近兩起油輪受襲事件；兩起通報是否涉及同一艘船、攻擊工具與責任歸屬仍未完全確認。此事件可能提高航運保險、運費及原油風險溢價，但截至新聞截稿點，尚無證據證明荷姆茲主要通道已全面中斷或全球原油供應已實際減少。日本、歐洲其他主要經濟體及重要新興市場，本輪未發現足以改變全球配置的新增正式政策；不將截稿後消息倒灌進本期報告。",
+        "週末新增的政策與地緣訊號需分開定性：中國三大交易所宣布11/30起將融資買入最低保證金比例由100%降至80%，屬已宣布、尚未生效的市場流動性支持；白宮11/20發布EO 14438，要求聯邦承包商與分包商就涉及政府工作的國會資訊請求先通知並協調，直接影響集中於政府合約治理；AP另報導班加西港俄羅斯護衛艦疑似遭無人機攻擊，責任歸屬與損害未明。胡塞武裝聲稱攻擊Rabigh設施，但沙方尚未確認，均不得寫成已確認供應中斷或國家歸責。"
       ],
       "sources": [
         {
@@ -2775,6 +2820,36 @@
           "published_at": "2026-11-21T03:13:43+08:00",
           "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實原文；SEC未公開評論，Reuters明確指出調查不等於違法已證實。"
+        },
+        {
+          "label": "Reuters｜中國三大交易所下調融資保證金比例",
+          "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+          "published_at": "2026-11-22T13:09:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "White House｜Executive Order 14438",
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
+          "published_at": "2026-11-20",
+          "published_time_status": "DATE_ONLY_NOT_PROVIDED",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "OFFICIAL_DOCUMENT_DIRECT_OPEN"
+        },
+        {
+          "label": "AP｜疑似無人機攻擊班加西俄艦",
+          "url": "https://apnews.com/article/libya-russia-vessel-drone-benghazi-59f6f304f3053c69c8cc890138a94d1b",
+          "published_at": "2026-11-22",
+          "published_time_status": "NOT_DISPLAYED",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_TIME_UNAVAILABLE"
+        },
+        {
+          "label": "Reuters｜胡塞聲稱攻擊Rabigh煉油設施",
+          "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+          "published_at": "2026-11-22T17:52:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
         }
       ]
     },
@@ -2786,7 +2861,8 @@
         "NVIDIA最新FY2027 Q3 CFO Commentary（截至2026/10/25）顯示，需求端仍有實際營收支撐：季度營收1,158億美元、資料中心營收1,076億美元，AI Clouds、Industrial & Enterprise平台營收475億美元、年增195%。但供應鏈採購承諾已由前一季2,790億美元升至3,900億美元，主要是多年度記憶體採購；NVIDIA自身研發所需的雲端服務與資料中心租賃承諾合計1,020億美元，前季為740億美元；與neocloud業者的協議則為320億美元。三者性質不同，不能混稱為AI雲端業者融資：neocloud協議只有在業者取得融資、採購設備、容量完成部署並投入營運且經NVIDIA驗收後才生效；若條件未及時滿足，承諾金額與時程可下修或取消。NVIDIA管理層並指出，部分neocloud與前沿模型業者的成長速度已超過其資產負債表與長期信用狀況可支持的程度。",
         "同一份Q3 CFO Commentary揭露，NVIDIA保證最大總曝險達1,180億美元，其中SB Energy園區信用支持1,050億美元、neocloud相關保證35億美元、電力與系統信用支持95億美元；截至報告時尚未支付任何保證款。SB Energy／OpenAI PORTS-Pike專案規劃約4.25GW、20年租約，保證按各棟建物就緒交付後分階段生效，首棟預計FY2029啟用，最高曝險隨園區啟用增加，再隨OpenAI租金支付而下降；NVIDIA另保留對園區擴建約3.8GW提供分階段信用支持的選項，這是未來可能擴大的或有曝險，不是目前已生效的保證額。這不是NVIDIA已發生1,180億美元現金流出，也不是替OpenAI所有債務背書，但代表NVIDIA承擔了合作方違約時對第三方付款的或有信用風險。",
         "NVIDIA Q3應收帳款為810億美元、銷售應收天數（DSO）64天，較前季60天上升，管理層歸因於Rubin出貨節奏及大型多季合約的延長付款條件。較早的FY2027 Q2 10-Q曾披露五大直接客戶合計約占應收帳款70%，部分投資級客戶付款期限可延至90天至一年；這是7月26日的歷史集中度資料，不應誤寫成10月25日的最新客戶占比。Q2 10-Q亦披露對基礎設施融資商權益法投資33億美元、最大損失曝險47億美元，應視為補充風險揭露而非Q3最新餘額。",
-        "NVIDIA管理層指出，neocloud與前沿模型業者的算力需求強勁，但部分業者的成長速度已超過其資產負債表與長期信用狀況可支持的程度；這與Q3承諾需先取得融資、完成部署及驗收的條件相互呼應。CoreWeave的融資結構包括GPU晶片與客戶合約擔保貸款、私募信貸、銀行聯貸、公司債及可轉債；Microsoft約占其2025年營收67%。NVIDIA對CoreWeave未售出算力的63億美元採購承諾提供特定容量需求支撐，但不等於替其全部約500億美元債務提供擔保。"
+        "NVIDIA管理層指出，neocloud與前沿模型業者的算力需求強勁，但部分業者的成長速度已超過其資產負債表與長期信用狀況可支持的程度；這與Q3承諾需先取得融資、完成部署及驗收的條件相互呼應。CoreWeave的融資結構包括GPU晶片與客戶合約擔保貸款、私募信貸、銀行聯貸、公司債及可轉債；Microsoft約占其2025年營收67%。NVIDIA對CoreWeave未售出算力的63億美元採購承諾提供特定容量需求支撐，但不等於替其全部約500億美元債務提供擔保。",
+        "中國降低融資買入保證金比例，傳導順序是交易所規則→券商融資授信→投資者槓桿與成交額→A股風險偏好；它不是直接增加企業訂單或資本支出。EO 14438則把資訊回覆與行政特權協調要求延伸至聯邦承包商及分包商，國防、科技、顧問與政府服務供應商的法務成本及合約風險較直接。若Rabigh設施受損獲證實，才會進一步影響煉油、石化原料、出口物流與紅海保險成本。"
       ],
       "sources": [
         {
@@ -2865,6 +2941,28 @@
           "published_at": "2026-11-17",
           "checked_at": "2026-11-22T23:52:00+08:00",
           "status": "SEC 8-K確認NVIDIA於2026/11/17發布截至2026/10/25之FY2027 Q3業績及CFO Commentary；公司表示Q3 10-Q將於其後數週提交，因此本次以官方Q3 CFO Commentary作最新承諾／保證數據，Q2 10-Q只作歷史補充。"
+        },
+        {
+          "label": "Reuters｜中國融資保證金政策",
+          "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+          "published_at": "2026-11-22T13:09:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "White House｜EO 14438",
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
+          "published_at": "2026-11-20",
+          "published_time_status": "DATE_ONLY_NOT_PROVIDED",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "OFFICIAL_DOCUMENT_DIRECT_OPEN"
+        },
+        {
+          "label": "Reuters｜Rabigh設施攻擊聲稱",
+          "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+          "published_at": "2026-11-22T17:52:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
         }
       ]
     },
@@ -2872,7 +2970,8 @@
       "paragraphs": [
         "美國景氣訊號呈現需求尚有韌性、通膨與利率壓力仍高的組合。TD Economics指出，10月零售銷售表面增速放緩，但核心／控制組銷售仍有支撐；住宅許可下降，讓房市復甦的持續性受到質疑。Fed 10月會議紀錄顯示，當次會議多數官員支持維持利率，僅兩位成員主張升息25個基點；幾乎所有與會者認為基準情境下未來仍可能需要進一步升息。TD Economics指出市場仍高度定價12月升息25個基點，這是市場定價，不是Fed已承諾的決策；通膨持續性仍是政策核心風險。",
         "11月20日美債殖利率並非上升，而是明顯回落：美國財政部官方日終資料顯示2年期4.63%（較前一交易日低13個基點）、10年期4.92%（低12個基點）、30年期5.31%（低9個基點）。這反映股市急跌時的避險需求及短端利率預期下修；但殖利率仍處高位，不能直接推論融資條件已寬鬆，也不能把單日債券上漲等同Fed政策轉向。",
-        "台灣10月外銷訂單大幅成長，支持AI伺服器與電子供應鏈需求仍強；但訂單、出口、產值與企業現金流是不同統計概念。若中東航運風險推高油價，可能抵銷部分通膨降溫並壓縮能源進口國實質所得；若油輪通行持續受阻，則可能形成成長下修與成本通膨並存的滯脹風險。"
+        "台灣10月外銷訂單大幅成長，支持AI伺服器與電子供應鏈需求仍強；但訂單、出口、產值與企業現金流是不同統計概念。若中東航運風險推高油價，可能抵銷部分通膨降溫並壓縮能源進口國實質所得；若油輪通行持續受阻，則可能形成成長下修與成本通膨並存的滯脹風險。",
+        "中國融資保證金下調屬金融條件支持，短期可改善交易流動性，但若內需、企業盈利與信用需求未同步回升，效果可能停留在資產價格。Rabigh攻擊目前僅有胡塞方面聲稱，沙方尚未確認損害；只有在設施停運、出口受阻或航運保險上升後，才可能透過能源與石化成本傳回通膨，現階段不能把地緣風險直接等同供給缺口。"
       ],
       "sources": [
         {
@@ -2902,6 +3001,20 @@
           "published_at": "2026-11-20T20:26:00+08:00",
           "checked_at": "2026-11-22T11:45:05+08:00",
           "status": "已核實報導"
+        },
+        {
+          "label": "Reuters｜中國融資保證金政策",
+          "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+          "published_at": "2026-11-22T13:09:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "Reuters｜Rabigh設施攻擊聲稱",
+          "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+          "published_at": "2026-11-22T17:52:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
         }
       ]
     },
@@ -2910,7 +3023,8 @@
         "11月20日全球風險資產同步急跌，賣壓集中在科技與半導體：標普500收6,910.39點、跌3.70%；那斯達克綜合指數收22,617.73點、跌5.28%；道瓊跌1.93%，費城半導體指數跌10.73%。標普500自10月6日高點回落超過10%進入修正區間，那斯達克年初至今轉負。亞洲日韓單日跌逾5%，台灣加權指數單週跌幅達17%，顯示賣壓已跨區域擴散。",
         "市場廣度與波動同步惡化：VIX收35.89、單日上升26.20%；MOVE收106.31、上升10.69%。標普500十一大產業ETF僅必需消費類上漲，其餘多數下跌，科技類跌幅最大。這比較像估值、槓桿與獲利能見度重新定價，而不是已能確認AI終端需求全面反轉。下一個驗證點是AI雲端業者融資成本與GPU容量利用率是否同步惡化：若信用利差收斂、利用率穩定，較接近估值去槓桿；若融資利差續擴且主要客戶下修容量合約，才需要下修設備與GPU訂單假設。",
         "跨資產訊號並非單純避險：美債殖利率下行、美元指數小跌，但WTI與Brent上漲；黃金與白銀則分別下跌4.62%及7.41%。當股票與貴金屬同跌時，可能存在現金需求或槓桿部位調整，但目前沒有足夠資金流證據證明強制平倉。中東航運風險為油價提供地緣溢價，應與需求及庫存因素分開判斷。",
-        "信用市場已先於公開違約訊號反映融資壓力：Reuters於11月17日報導，CoreWeave原票息9.625%債券殖利率升至近15%；Nebius可轉債價格降至面額約70美分、殖利率超過12%。同時，NVIDIA Q3 CFO Commentary披露neocloud協議需先取得融資並完成部署驗收，若條件未滿足，承諾可下修或取消。這代表融資成本上升不只提高再融資成本，也可能直接延後或縮減GPU採購；目前屬融資條件收緊與信用重新定價，不能據此推論相關業者已違約或整條AI融資鏈瓦解。"
+        "信用市場已先於公開違約訊號反映融資壓力：Reuters於11月17日報導，CoreWeave原票息9.625%債券殖利率升至近15%；Nebius可轉債價格降至面額約70美分、殖利率超過12%。同時，NVIDIA Q3 CFO Commentary披露neocloud協議需先取得融資並完成部署驗收，若條件未滿足，承諾可下修或取消。這代表融資成本上升不只提高再融資成本，也可能直接延後或縮減GPU採購；目前屬融資條件收緊與信用重新定價，不能據此推論相關業者已違約或整條AI融資鏈瓦解。",
+        "週末中國政策支持可能改善11/23亞洲市場對流動性的預期，但11/20全球股市跌幅、VIX 35.89、MOVE 106.31與Fear & Greed 10仍顯示風險定價脆弱。胡塞攻擊Rabigh的聲稱尚未獲沙方確認，市場應先觀察風險溢價與官方證據，不應提前把它計入已發生的供應損失。"
       ],
       "sources": [
         {
@@ -2961,6 +3075,20 @@
           "published_at": "2026-11-17",
           "checked_at": "2026-11-22T23:52:00+08:00",
           "status": "SEC 8-K確認NVIDIA於2026/11/17發布截至2026/10/25之FY2027 Q3業績及CFO Commentary；公司表示Q3 10-Q將於其後數週提交，因此本次以官方Q3 CFO Commentary作最新承諾／保證數據，Q2 10-Q只作歷史補充。"
+        },
+        {
+          "label": "Reuters｜中國融資保證金政策",
+          "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+          "published_at": "2026-11-22T13:09:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "Reuters｜Rabigh設施攻擊聲稱",
+          "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+          "published_at": "2026-11-22T17:52:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
         }
       ]
     },
@@ -2969,7 +3097,8 @@
         "機構即時持倉與全市場淨流量仍未取得可追溯資料，不把股價急跌或成交量推定為機構淨賣出；但信用市場已有可驗證的風險重新定價。CoreWeave債券殖利率接近15%、Nebius可轉債殖利率逾12%；NVIDIA Q3供應鏈採購承諾3,900億美元（主要為多年度記憶體採購）、自身研發所需雲端與資料中心租賃承諾1,020億美元、neocloud協議320億美元、保證最大總曝險1,180億美元，應收帳款810億美元且DSO升至64天。這些數字性質不同：有的是多年採購承諾，有的是未開始租約，有的是需滿足融資／驗收條件才生效的承諾或或有保證，不能全部加總當成當期負債。",
         "基準情境：AI需求與台灣出口訂單仍強，但估值及融資品質重新檢驗，市場進入高波動修正期。維持中性偏防禦，核心持倉優先選擇自由現金流、負債與客戶集中度可控的企業；不追跌、不以單一VIX高檔作為抄底訊號。當市場上漲家數擴大、VIX與MOVE連續回落、半導體相對強度止跌，且雲端業者資本支出指引未下修，再分批提高成長股配置。",
         "風險情境：AI融資安排、出口許可或企業指引進一步惡化，半導體與資料中心資本支出鏈再度下修；降低高估值、高槓桿及自由現金流不足標的，監控訂單轉出貨、毛利率、應收帳款及庫存天數。嚴重情境：荷姆茲海峽航運事件反覆發生、通行量實際下降或衝突升級，油價與運費急升並重新推高通膨，可能使股債避險關係失效；降低高Beta及能源成本敏感部位，保留流動性並檢查通膨連結資產。若官方航運通報恢復正常、能源供應未受實質中斷，且企業獲利與市場廣度同步改善，則需撤回過度防禦。",
-        "操作上，先降低對高槓桿、依賴持續發債或私募信貸、客戶高度集中的AI雲端及資料中心曝險；半導體與設備供應鏈則檢查訂單是否有實際出貨、NVIDIA應收帳款與DSO、3,900億美元供應鏈採購承諾（主要為多年度記憶體採購）的交付節奏、NVIDIA自身研發所需1,020億美元雲端與資料中心租賃承諾、neocloud取得融資及容量驗收條件、1,180億美元保證的觸發條件與SB Energy園區首棟預計FY2029的就緒交付進度，以及額外3.8GW信用支持選項是否啟動。只有在高收益債殖利率／信用違約交換成本回落、neocloud融資完成且容量如期營運、應收帳款DSO回落、主要客戶長約未下修時，才分批提高相關曝險；若融資展期失敗、專案未能就緒、保證條款被觸發或主要客戶削減長約，則進一步降低高Beta及融資依賴型標的。"
+        "操作上，先降低對高槓桿、依賴持續發債或私募信貸、客戶高度集中的AI雲端及資料中心曝險；半導體與設備供應鏈則檢查訂單是否有實際出貨、NVIDIA應收帳款與DSO、3,900億美元供應鏈採購承諾（主要為多年度記憶體採購）的交付節奏、NVIDIA自身研發所需1,020億美元雲端與資料中心租賃承諾、neocloud取得融資及容量驗收條件、1,180億美元保證的觸發條件與SB Energy園區首棟預計FY2029的就緒交付進度，以及額外3.8GW信用支持選項是否啟動。只有在高收益債殖利率／信用違約交換成本回落、neocloud融資完成且容量如期營運、應收帳款DSO回落、主要客戶長約未下修時，才分批提高相關曝險；若融資展期失敗、專案未能就緒、保證條款被觸發或主要客戶削減長約，則進一步降低高Beta及融資依賴型標的。",
+        "策略上，將中國融資保證金調降視為11/30起的政策催化，觀察兩融餘額、成交額與上漲家數是否同步改善；若只有政策公告而廣度未回升，不追逐反彈。中東風險採事件驅動管理，等待沙方或Petro Rabigh公告、設施運轉與船舶流量證據；未確認前不提前加碼油氣。EO 14438則按政府合約營收曝險分層，不把承包商法規風險外推至整體市場。"
       ],
       "sources": [
         {
@@ -3034,12 +3163,34 @@
           "published_at": "2026-11-17",
           "checked_at": "2026-11-22T23:52:00+08:00",
           "status": "SEC 8-K確認NVIDIA於2026/11/17發布截至2026/10/25之FY2027 Q3業績及CFO Commentary；公司表示Q3 10-Q將於其後數週提交，因此本次以官方Q3 CFO Commentary作最新承諾／保證數據，Q2 10-Q只作歷史補充。"
+        },
+        {
+          "label": "Reuters｜中國融資保證金政策",
+          "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+          "published_at": "2026-11-22T13:09:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "Reuters｜Rabigh設施攻擊聲稱",
+          "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+          "published_at": "2026-11-22T17:52:00Z",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "DIRECT_OPEN_CONFIRMED"
+        },
+        {
+          "label": "White House｜EO 14438",
+          "url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
+          "published_at": "2026-11-20",
+          "published_time_status": "DATE_ONLY_NOT_PROVIDED",
+          "checked_at": "2026-11-23T06:17:33+08:00",
+          "status": "OFFICIAL_DOCUMENT_DIRECT_OPEN"
         }
       ]
     }
   },
   "political_scan": {
-    "checked_at": "2026-11-22T11:48:13+08:00",
+    "checked_at": "2026-11-23T06:17:33+08:00",
     "domains_checked": [
       "us_policy",
       "us_china",
@@ -3048,7 +3199,7 @@
       "major_economies",
       "energy_resources"
     ],
-    "no_material_change_note": "六領域均已掃描；本報告新聞資料截稿時間依使用者指示固定為 2026-11-21 17:57:31（台灣時間）。美中出口管制、峰會政治表態、美國監管調查及荷姆茲油輪事件列於 findings；截至截稿點，未發現日本、歐洲其他主要經濟體及重要新興市場另有足以改變全球配置的新增正式政策，也未確認荷姆茲主要通道全面中斷或能源出口實際停產。截稿後發布的消息不納入本期分析。",
+    "no_material_change_note": "截至05:25台灣時間完成六領域掃描。新增：中國三大交易所宣布11/30起降低融資買入最低保證金比例（已宣布、尚未生效）；胡塞武裝聲稱攻擊Rabigh煉油設施（沙方未確認）；白宮EO 14438於11/20正式發布（官方頁僅列日期、未列精確時刻）；AP報導班加西俄艦疑似遭無人機攻擊（歸責未明）。日本、歐洲、韓國及台灣未核實到足以改變全球資產配置的新增正式政策。Reuters荷姆茲航運量報導於05:57台灣時間發布，晚於截稿，未納入本期。",
     "findings": [
       {
         "title": "美國BIS正式發布並生效先進AI晶片遠端算力服務許可規則",
@@ -3202,16 +3353,271 @@
             "invalidation": "主要航線恢復、出口與裝船數據回到常態，且官方確認安全安排。"
           }
         }
+      },
+      {
+        "domain": "major_economies",
+        "title": "中國三大交易所宣布下調融資買入最低保證金比例",
+        "classification": "announced_not_implemented",
+        "source_url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
+        "published_at": "2026-11-22T13:09:00Z",
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "transmission": {
+          "policy": "上交所、深交所與北交所宣布自11/30起將新開融資買入最低保證金比例由100%降至80%，並配合費率支持；公告已發布但尚未生效。",
+          "industry": "直接傳導至券商融資業務、交易所與A股投資者槓桿能力；較低保證金比例提高同額抵押品可支持的融資規模。",
+          "macro": "先影響金融市場流動性與資產價格，不是直接增加消費、固定資本形成或企業營收；若實體需求未改善，刺激效果可能停留在市場端。",
+          "markets": "短期有利A股風險偏好，但兩融餘額較6月高點下降逾20%至約人民幣2.2兆元，顯示槓桿需求仍弱；政策宣布不代表資金已回流。",
+          "strategy": "11/30生效後追蹤兩融餘額、成交額、上漲家數與券商融資風險；若成交與廣度未同步改善，不將政策公告解讀為趨勢反轉。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "11/30按公告實施，融資餘額止跌但成交廣度改善有限。",
+            "affected_assets": "A股券商、寬基指數及高流動性大型股。",
+            "leading_indicators": "兩融餘額、融資買入額、成交額、上漲家數。",
+            "strategy": "觀察流動性是否實際回升，不因公告追價。",
+            "invalidation": "兩融餘額持續下降且市場廣度未改善。"
+          },
+          "risk": {
+            "triggers": "融資槓桿快速回升但盈利與成交廣度未改善。",
+            "affected_assets": "高波動成長股、券商及槓桿敏感資產。",
+            "leading_indicators": "融資餘額增速、融資買入集中度、波動率。",
+            "strategy": "控制槓桿與集中度，避免將政策支持當作基本面改善。",
+            "invalidation": "企業盈利與內需數據同步轉強。"
+          },
+          "severe": {
+            "triggers": "政策支持未能止跌，融資餘額續降且信用需求疲弱。",
+            "affected_assets": "A股中小型股、券商及高估值資產。",
+            "leading_indicators": "成交額、融資餘額、信用脈衝、企業盈利預期。",
+            "strategy": "降低高槓桿曝險，等待政策傳導至盈利與需求的證據。",
+            "invalidation": "成交與盈利預期持續同步改善。"
+          }
+        }
+      },
+      {
+        "domain": "us_policy",
+        "title": "白宮發布EO 14438，要求聯邦承包商協調國會資訊請求",
+        "classification": "formally_effective",
+        "source_url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
+        "published_at": "2026-11-20",
+        "published_time_status": "DATE_ONLY_NOT_PROVIDED",
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "transmission": {
+          "policy": "EO 14438要求聯邦承包商及分包商立即通知白宮與採購機關涉及其政府工作／通訊的國會請求，並遵循對行政特權資訊的處理指示；OMB須提出執行指引，違規可能導致合約終止或停權。",
+          "industry": "直接適用聯邦承包商與分包商，國防、科技、顧問、資料及政府服務供應商需評估法務、合規、揭露與合約風險。",
+          "macro": "不是廣泛企業監管或直接宏觀刺激；影響集中於政府採購治理、承包商成本及國會監督程序。",
+          "markets": "可能提高政府合約曝險較高企業的政策與法律風險溢價，不應外推為整體股市風險。",
+          "strategy": "追蹤OMB與各機關執行指引、法院訴訟及企業政府合約曝險；未見實際合約終止前，不預設營收衝擊。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "OMB與機關指引限縮適用範圍，合約履行未受明顯影響。",
+            "affected_assets": "政府承包商、國防與政府IT服務商。",
+            "leading_indicators": "OMB指引、機關通知、公司合約揭露。",
+            "strategy": "依政府合約營收占比分層追蹤。",
+            "invalidation": "法院暫停或撤銷命令。"
+          },
+          "risk": {
+            "triggers": "機關廣泛要求承包商延後或限制對國會的回覆。",
+            "affected_assets": "國防、科技、諮詢與資料服務承包商。",
+            "leading_indicators": "合約變更、法律訴訟、國會監督反應。",
+            "strategy": "提高法律與政策風險折價，避免單一合約集中。",
+            "invalidation": "執行指引明確縮限且訴訟未擴大。"
+          },
+          "severe": {
+            "triggers": "命令引發廣泛法律衝突或政府合約終止／停權。",
+            "affected_assets": "高度依賴聯邦採購的企業與其供應鏈。",
+            "leading_indicators": "法院禁制令、合約取消、政府採購公告。",
+            "strategy": "按政府收入曝險與現金流敏感度調降風險。",
+            "invalidation": "命令被法院暫停或執行範圍顯著縮小。"
+          }
+        }
+      },
+      {
+        "domain": "geopolitics",
+        "title": "AP報導班加西港俄羅斯護衛艦疑似遭無人機攻擊",
+        "classification": "reported_unverified",
+        "source_url": "https://apnews.com/article/libya-russia-vessel-drone-benghazi-59f6f304f3053c69c8cc890138a94d1b",
+        "published_at": "2026-11-22",
+        "published_time_status": "NOT_DISPLAYED",
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "transmission": {
+          "policy": "利比亞官員稱俄羅斯護衛艦在班加西港遭兩架無人機攻擊；聯合調查進行中，無組織承認責任，俄烏雙方未提供可核實歸責。",
+          "industry": "若確認，可能提高地中海軍事活動、港口安全與船舶保險風險；目前沒有證據顯示商業航道或能源設施受損。",
+          "macro": "事件尚未證實且無可量化供應衝擊，不能直接推導能源供給缺口或通膨變化。",
+          "markets": "短期僅屬地緣尾部風險，除非出現重複攻擊或國家歸責，否則不宜加上廣泛市場風險溢價。",
+          "strategy": "追蹤利比亞調查、俄方正式聲明、船舶狀態及是否出現第二起事件；不推定北約參與。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "調查未確認攻擊或損害有限，未出現後續事件。",
+            "affected_assets": "地中海航運與防務情緒。",
+            "leading_indicators": "利比亞調查結果、俄方聲明、港口活動。",
+            "strategy": "僅列風險觀察，不調整廣泛資產配置。",
+            "invalidation": "確認有組織的持續攻擊。"
+          },
+          "risk": {
+            "triggers": "確認俄艦受損並出現後續地中海軍事事件。",
+            "affected_assets": "區域航運、保險與防務股。",
+            "leading_indicators": "船舶活動、港口限制、官方歸責。",
+            "strategy": "檢查航運與保險曝險，避免過度外推。",
+            "invalidation": "調查排除軍事攻擊或確認無後續風險。"
+          },
+          "severe": {
+            "triggers": "事件導致俄羅斯與其他國家直接升高軍事對抗。",
+            "affected_assets": "地中海航運、能源運輸與區域防務資產。",
+            "leading_indicators": "軍事部署、港口封鎖、航線改道。",
+            "strategy": "依實際航運與保險資料調整風險，而非只依未證實消息。",
+            "invalidation": "各方降溫並恢復正常港口活動。"
+          }
+        }
+      },
+      {
+        "domain": "energy_resources",
+        "title": "胡塞武裝聲稱攻擊沙烏地Rabigh煉油與石化設施",
+        "classification": "reported_unverified",
+        "source_url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
+        "published_at": "2026-11-22T17:52:00Z",
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "transmission": {
+          "policy": "胡塞武裝聲稱攻擊Rabigh設施並稱直接命中；沙烏地官方未即時確認，設施損害與停產狀況未知。",
+          "industry": "若證實受損，可能影響煉油、石化原料、出口設施與紅海沿岸物流；目前無法確認供應中斷。",
+          "macro": "只有在設施停運、出口受阻或航運保險上升後，才可能經能源成本與運費傳導至通膨；現階段不應預設供給衝擊。",
+          "markets": "短期增加中東能源風險溢價，但價格反應需與官方確認、船舶流量及保險費同步驗證。",
+          "strategy": "追蹤沙烏地政府、Petro Rabigh／股東公告、設施運轉與紅海船舶流量；未確認前不追逐油價。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "沙方未確認損害或確認設施正常運作，未出現後續攻擊。",
+            "affected_assets": "原油、成品油與石化風險溢價。",
+            "leading_indicators": "沙方聲明、公司公告、設施運轉率。",
+            "strategy": "維持觀察，不把聲稱命中視為停產。",
+            "invalidation": "官方確認重大設施損害。"
+          },
+          "risk": {
+            "triggers": "確認局部損害或短暫停運，航運保險與運費上升。",
+            "affected_assets": "原油、成品油、石化品及紅海航運。",
+            "leading_indicators": "裝置停工、出口量、保險費、船舶改道。",
+            "strategy": "重新評估能源與運輸成本敏感產業。",
+            "invalidation": "設施迅速恢復且航運正常。"
+          },
+          "severe": {
+            "triggers": "能源設施遭連續攻擊並造成持續停產或航運受阻。",
+            "affected_assets": "全球能源價格、化工、航空、運輸與通膨敏感資產。",
+            "leading_indicators": "多次攻擊、產能損失、出口中斷、運費與油價期限結構。",
+            "strategy": "按實際供應損失與期限結構管理風險，不以單一聲稱交易。",
+            "invalidation": "停產未發生或供應快速恢復。"
+          }
+        }
       }
-    ]
+    ],
+    "cutoff_at_taipei": "2026-11-23T05:25:00+08:00",
+    "domain_scan_results": {
+      "us_policy": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "白宮EO 14438於2026-11-20發布並立即要求聯邦承包商與分包商遵循；官方頁未提供精確發布時刻。"
+        ],
+        "status": "MATERIAL_POLICY_FOUND"
+      },
+      "us_china": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "既有BIS半導體出口管制規則仍為正式生效狀態；未核實到窗口內新增正式放寬。"
+        ],
+        "status": "NO_NEW_FORMAL_CHANGE_VERIFIED"
+      },
+      "geopolitics": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "AP報導利比亞官員稱班加西港俄羅斯護衛艦疑似遭無人機攻擊，責任歸屬與損害未明。"
+        ],
+        "status": "REPORTED_UNVERIFIED"
+      },
+      "trade_sanctions": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "既有BIS規則及制裁框架仍需按正式文件適用範圍解讀；未核實到新的全面性制裁公告。"
+        ],
+        "status": "NO_NEW_FORMAL_CHANGE_VERIFIED"
+      },
+      "major_economies": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "中國三大交易所宣布11/30起融資買入最低保證金比例由100%降至80%；措施尚未生效。"
+        ],
+        "status": "MATERIAL_POLICY_FOUND"
+      },
+      "energy_resources": {
+        "checked_at": "2026-11-23T06:17:33+08:00",
+        "findings": [
+          "11/21阿曼外海油輪受襲事件仍在調查；胡塞聲稱攻擊Rabigh煉油設施但未獲沙方確認。05:57台灣時間的荷姆茲航運量更新晚於本期截稿。"
+        ],
+        "status": "REPORTED_UNVERIFIED"
+      }
+    }
   },
   "news_window": {
     "start_taipei": "2026-11-20T12:00:00+08:00",
-    "sealed_at_taipei": "2026-11-21T17:57:31+08:00",
-    "checked_at_taipei": "2026-11-22T11:15:10+08:00",
+    "sealed_at_taipei": "2026-11-23T05:25:00+08:00",
+    "checked_at_taipei": "2026-11-23T06:17:33+08:00",
     "status": "SEALED_NO_POST_CUTOFF_ITEMS",
     "source_count": 15,
     "verified_direct_open": 15,
-    "note": "15則新聞逐篇直接開啟原始來源；所有發布時間均在封口窗口內。原文未提供絕對更新時間者明確標示，不推定更新時間。"
+    "note": "依週一窗口延伸至2026-11-23 05:25台灣時間。13筆既有直接開啟紀錄仍在本窗口內沿用；新增Reuters中國融資保證金措施與胡塞聲稱攻擊Rabigh兩則，均逐篇開啟並核對原始發布時間。所有15則焦點／頭條URL唯一，兩區沒有重複事件。截稿後及無法確認精確發布時間的候選稿均不納入。",
+    "focus_count": 5,
+    "headline_count": 10,
+    "reused_record_count": 13,
+    "new_record_count": 2,
+    "unique_url_count": 15,
+    "post_cutoff_exclusions": [
+      {
+        "title": "荷姆茲海峽週末航運量進一步放緩",
+        "url": "https://www.gulf-times.com/article/716914/business/energy/shipping-slows-through-strait-of-hormuz-after-tanker-attacks",
+        "published_at_source": "2026-11-23 00:57 Qatar time (UTC+3)",
+        "published_at_taipei": "2026-11-23T05:57:00+08:00",
+        "reason": "晚於05:25截稿32分鐘，不納入本期。"
+      },
+      {
+        "title": "北卡州眾院席次重計結果",
+        "published_at_source": "2026-11-22 21:28 UTC",
+        "published_at_taipei": "2026-11-23T05:28:00+08:00",
+        "reason": "晚於05:25截稿3分鐘，不納入本期。"
+      }
+    ],
+    "time_unverified_exclusions": [
+      {
+        "title": "AP班加西俄羅斯護衛艦疑似遭無人機攻擊",
+        "url": "https://apnews.com/article/libya-russia-vessel-drone-benghazi-59f6f304f3053c69c8cc890138a94d1b",
+        "reason": "AP原文頁未顯示可確認的絕對發布時間；僅列政治地緣掃描，不列入5+10新聞卡。"
+      },
+      {
+        "title": "美國聯邦承包商行政命令相關AP報導",
+        "reason": "原文頁未顯示可確認的絕對發布時間；以白宮正式命令納入政治掃描，不列入新聞卡。"
+      },
+      {
+        "title": "AI伺服器價格上漲25%至45%的FT報導",
+        "reason": "頁面付費牆且無法確認精確發布時間，不納入新聞卡或定量分析。"
+      }
+    ]
+  },
+  "run_metadata": {
+    "current_run_started_at_taipei": "2026-11-23T06:17:32+08:00",
+    "report_cutoff_taipei": "2026-11-23T05:25:00+08:00",
+    "trading_date": "2026-11-20",
+    "stage2_market_observations_reused_count": 44,
+    "stage2_observation_record_hash_expected_count": 44,
+    "source_pages_fetched_this_run": false,
+    "displayed_values_independently_reconciled_this_run": false,
+    "raw_response_sha256_optional": true,
+    "stage3_calendar_json_read_only": true,
+    "stage3_current_week_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
+    "stage3_previous_week_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+    "stage3_earnings_projection_blob_sha": "256c86ad8b88dd88f8207a30bdb4a57e8d273d2a",
+    "stage4_news_count": 15,
+    "stage4_focus_count": 5,
+    "stage4_headline_count": 10,
+    "stage4_newly_opened_news_count": 2,
+    "stage4_reused_verified_news_count": 13,
+    "stage4_political_scan_checked_at_taipei": "2026-11-23T06:17:33+08:00",
+    "main_publish_authorized": false
   }
 }
