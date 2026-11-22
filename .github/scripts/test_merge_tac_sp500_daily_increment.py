@@ -64,7 +64,7 @@ class MergeIncrementTests(unittest.TestCase):
                 "retrieval_timestamp_semantics": "source.observed_at records the actual Taipei-local time the daily report producer checked the source page",
             }
             row["record_sha256"] = hashlib.sha256(canonical(row)).hexdigest()
-            ledger.write_text(json.dumps(row, ensure_ascii=False) + "\\n", encoding="utf-8")
+            ledger.write_text(json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
             before = recent.read_text(encoding="utf-8")
             merged, _, increments = merge_recent(recent, ledger)
             self.assertEqual(merged["end"], "2026-11-11")
