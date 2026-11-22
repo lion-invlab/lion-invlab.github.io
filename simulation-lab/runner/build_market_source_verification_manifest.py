@@ -27,13 +27,13 @@ def verification_fields(source: dict, display, change_display) -> dict:
     source_status = source.get("verification_status")
     source_url = source.get("url")
     data_date = source.get("data_date")
-    checked_at = source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at")
+    observed_at = source.get("verified_at_tw") or source.get("read_at_taipei") or source.get("read_at")
     verified = (
         source_status in ("VERIFIED", "BACKUP_VERIFIED")
         and bool(evidence_method)
         and bool(source_url)
         and bool(data_date)
-        and bool(checked_at)
+        and bool(observed_at)
     )
     if verified and source.get("close_value") is not None:
         verified = str(display).removesuffix("%") == str(source.get("close_value"))
@@ -62,7 +62,7 @@ def verification_fields(source: dict, display, change_display) -> dict:
             "observed_value": (source.get("close_value") or source.get("history_close") or source.get("score_value")),
             "observed_change_field": "Change % / bp / provider band",
             "observed_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")),
-            "checked_at_tw": checked_at,
+            "checked_at_tw": observed_at,
             "evidence_method": evidence_method,
             "quote_type": source.get("quote_type"),
             "source_role": source.get("source_role"),
@@ -71,13 +71,19 @@ def verification_fields(source: dict, display, change_display) -> dict:
         observation_record_sha256 = hashlib.sha256(canonical).hexdigest()
     return {
         "verification_status": source_status if verified else "PENDING_SOURCE_PAGE_CAPTURE",
-        "source_page_fetched": bool(verified),
-        "display_value_reconciled": bool(verified),
+        # This builder reuses fixture-carried prior observations; it does not
+        # fetch pages or independently reconcile values during this workflow run.
+        "source_page_fetched": False,
+        "display_value_reconciled": False,
+        "display_value_matches_saved_observation": bool(verified),
+        "observation_provenance": "FIXTURE_PRIOR_VERIFICATION_RECORD" if verified else "MISSING_PER_ITEM_OBSERVATION_TIME",
         "raw_response_sha256": source.get("raw_response_sha256"),
         "evidence_status": "RAW_RESPONSE_SAVED" if source.get("raw_response_sha256") else "BROWSER_OBSERVATION_SAVED" if verified else "RAW_RESPONSE_UNAVAILABLE",
         "browser_observation_record": observation_record,
         "observation_record_sha256": observation_record_sha256,
-        "captured_at_tw": source.get("checked_at_tw") if verified else None,
+        "captured_at_tw": None,
+        "observed_at_tw": observed_at if verified else None,
+        "source_record_updated_at_tw": source.get("checked_at_tw"),
         "evidence_method": evidence_method if verified else None,
         "verified_close": (source.get("close_value") or source.get("history_close") or source.get("score_value")) if verified else None,
         "verified_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")) if verified else None,
@@ -109,7 +115,8 @@ def build_manifest(data: dict, report_date: str) -> dict:
                 "cross_check_name": cross_check.get("name"),
                 "cross_check_url": cross_check.get("url"),
                 "cross_check_role": cross_check.get("role"),
-                "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
+                "checked_at_tw": source.get("verified_at_tw") or source.get("read_at_taipei") or source.get("read_at"),
+                "source_record_updated_at_tw": source.get("checked_at_tw"),
                 **verification,
                 "notes": source.get("note") if verification["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
             })
@@ -125,7 +132,8 @@ def build_manifest(data: dict, report_date: str) -> dict:
             "quote_type": source.get("quote_type"),
             "source_name": source.get("name"),
             "source_url": source.get("url"),
-            "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
+            "checked_at_tw": source.get("verified_at_tw") or source.get("read_at_taipei") or source.get("read_at"),
+            "source_record_updated_at_tw": source.get("checked_at_tw"),
             **verification,
             "notes": source.get("note") if verification["verification_status"] == "VERIFIED" else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
         })
@@ -142,17 +150,19 @@ def build_manifest(data: dict, report_date: str) -> dict:
         "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "BROWSER_OBSERVATION_RECORDS_COMPLETE_RAW_HTTP_BODY_OPTIONAL" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL_OBSERVATION_EVIDENCE_OR_VALUE_RECONCILIATION" if verified_count else "SOURCE_PAGE_CAPTURE_AND_VALUE_RECONCILIATION_PENDING",
-        "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
-        "displayed_values_independently_reconciled": all(row["display_value_reconciled"] for row in rows),
+        "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES",
+        "source_pages_fetched": False,
+        "displayed_values_independently_reconciled": False,
+        "prior_observation_reused_count": verified_count,
+        "prior_observation_missing_time_count": pending_count,
         "row_count": len(rows),
         "pending_count": pending_count,
         "verified_count": verified_count,
-        "browser_observation_records_complete": observation_hash_missing_count == 0,
+        "browser_observation_records_complete": pending_count == 0 and observation_hash_missing_count == 0,
         "observation_record_hash_missing_count": observation_hash_missing_count,
         "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"目前已核驗 {verified_count}/44 項；待核驗 {pending_count} 項；缺少瀏覽器觀察紀錄 SHA-256 {observation_hash_missing_count} 項；原始 HTTP response body 已封存 {raw_response_saved_count}/44 項（非必要條件）。",
+        "warning": f"沿用 Fixture 既有逐筆觀察紀錄 {verified_count}/44 項；缺少可追溯逐筆觀察時間 {pending_count} 項；觀察紀錄 SHA-256 缺漏 {observation_hash_missing_count} 項。本輪未重新擷取來源頁或獨立重核數值；原始 HTTP response body 已封存 {raw_response_saved_count}/44 項（非必要條件）。",
     }
 
 
