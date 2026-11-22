@@ -1,0 +1,62 @@
+name: TAC 44 market source capture (simulation only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: "Fixture report date"
+        required: true
+        default: "2026-11-23"
+        type: string
+      sleep_seconds:
+        description: "Delay between requests to the same host"
+        required: true
+        default: "1.0"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-market-source-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout simulation branch only
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build 44-row source worklist
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/build_market_source_verification_manifest.py --data "simulation-lab/fixtures/report-data-${{ inputs.report_date }}.json" --report-date "${{ inputs.report_date }}" --output simulation-lab/output/market-source-verification-manifest.json
+
+      - name: Capture source pages and raw responses
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/capture_market_source_pages.py --manifest simulation-lab/output/market-source-verification-manifest.json --output simulation-lab/output/market-source-page-captures.json --raw-dir simulation-lab/output/market-source-pages-raw --sleep-seconds "${{ inputs.sleep_seconds }}"
+
+      - name: Upload raw source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-44-market-source-capture-${{ inputs.report_date }}-${{ github.run_id }}
+          path: |
+            simulation-lab/output/market-source-verification-manifest.json
+            simulation-lab/output/market-source-page-captures.json
+            simulation-lab/output/market-source-pages-raw/
+          if-no-files-found: error
+          retention-days: 30
