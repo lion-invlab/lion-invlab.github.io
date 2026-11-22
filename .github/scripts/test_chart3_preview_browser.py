@@ -244,7 +244,7 @@ try:
             validate_chart(page, label)
             chart_box = page.locator("#combined-chart").evaluate("(e)=>({client:e.clientWidth,scroll:e.scrollWidth})")
             check(label + "_no_chart_horizontal_overflow", chart_box["scroll"] <= chart_box["client"] + 2, chart_box)
-            svg_layout = page.locator("#combined-chart svg").evaluate("(e)=>({width:e.getBoundingClientRect().width,container:e.parentElement.clientWidth,viewWidth:Number(e.viewBox.baseVal.width)})")
+            svg_layout = page.locator("#combined-chart svg").evaluate("(e)=>{const c=e.closest('#combined-chart');return {width:e.getBoundingClientRect().width,container:c?.clientWidth??e.getBoundingClientRect().width,viewWidth:Number(e.viewBox.baseVal.width)}}")
             check(label + "_responsive_svg_fits_container", abs(svg_layout["width"]-svg_layout["container"]) <= 2 and svg_layout["viewWidth"] <= 1100, svg_layout)
             axis_layout = page.locator("#combined-chart svg").evaluate("(e)=>{const w=e.viewBox.baseVal.width,ticks=[...e.querySelectorAll('text[data-axis=right]')].map(t=>t.getBBox());return {viewWidth:w,minLeft:Math.min(...ticks.map(t=>t.x)),maxRight:Math.max(...ticks.map(t=>t.x+t.width)),tickCount:ticks.length}}")
             check(label + "_right_price_axis_visible_without_horizontal_scroll", axis_layout["minLeft"] >= 0 and axis_layout["maxRight"] <= axis_layout["viewWidth"] and axis_layout["tickCount"] == 6, axis_layout)
