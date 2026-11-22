@@ -225,10 +225,10 @@ def main():
     assert any(x["url"] == "https://www.reuters.com/business/nvidia-turmoil-marks-end-easy-money-ai-trade-2026-11-17/" for x in policy["sources"])
     market_text = " ".join(analysis["markets"]["paragraphs"])
     assert "近15%" in market_text and "超過12%" in market_text
-    assert "不能據此推論CoreWeave或整條AI融資鏈已違約" in market_text
+    assert "不能據此推論相關業者已違約或整條AI融資鏈瓦解" in market_text
     strategy_text = " ".join(analysis["strategy"]["paragraphs"])
-    assert "融資展期失敗" in strategy_text and "契約違約" in strategy_text
-    assert "信用重新定價" in strategy_text and "整條融資鏈崩解" in strategy_text
+    assert "融資展期失敗" in strategy_text and "保證條款被觸發" in strategy_text
+    assert "信用重新定價" in strategy_text and "主要客戶削減長約" in strategy_text
     assert any(x["url"] == "https://www.reuters.com/legal/transactional/coreweaves-ai-contracts-lenders-financing-its-build-out-2026-10-15/" for x in analysis["strategy"]["sources"])
 
     scan = data["political_scan"]
