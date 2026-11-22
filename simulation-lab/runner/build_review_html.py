@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse, copy, hashlib, json, re, sys, subprocess
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup, Comment, NavigableString
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
 from earnings_judgment import render_status, consensus_evidence_label, apply_judgment
@@ -1592,6 +1593,127 @@ def populate_earnings_health_dashboard_preserving_dom(health, earnings_health, m
 
 
 
+ANALYSIS_LAYER_KEYS = (
+    ("political", "一、政治與地緣政治局勢"),
+    ("policy_industry", "二、政策傳導與企業／產業鏈影響"),
+    ("macro", "三、宏觀經濟傳導"),
+    ("markets", "四、金融市場定價、情緒與風險"),
+    ("strategy", "五、機構資金動向與投資策略"),
+)
+
+
+def populate_market_analysis_preserving_dom(soup, data, manifest):
+    """Populate only the five mother-owned analysis content nodes; never rebuild wrappers."""
+    contract = manifest.get("analysis_slots", {}).get("market_analysis")
+    if not isinstance(contract, dict) or contract.get("required") is not True:
+        raise ValueError("Manifest has no required market_analysis slot contract")
+    container = unique(soup, contract.get("container_selector", ""), "five-layer market analysis container")
+    parent = unique(soup, contract.get("parent_selector", ""), "market analysis parent")
+    if container.parent is not parent:
+        raise ValueError("market analysis container is not a direct child of its approved parent")
+    sentiment = unique(soup, "#sentiment", "market sentiment")
+    if container.find_next(id="sentiment") is not sentiment:
+        raise ValueError("market analysis must appear before the existing sentiment section")
+    title = unique(container, contract.get("title_selector", ""), "market analysis title")
+    if title.get_text(" ", strip=True) != "市場深度解析":
+        raise ValueError("market analysis mother title changed unexpectedly")
+
+    layers = contract.get("layers")
+    if not isinstance(layers, list) or len(layers) != len(ANALYSIS_LAYER_KEYS):
+        raise ValueError("Manifest must define exactly five ordered market analysis layers")
+    actual_layer_nodes = container.select(":scope > .market-analysis-layer")
+    expected_keys = [key for key, _ in ANALYSIS_LAYER_KEYS]
+    actual_keys = [node.get("data-analysis-layer") for node in actual_layer_nodes]
+    if actual_keys != expected_keys:
+        raise ValueError(f"market analysis mother layer order mismatch: {actual_keys}")
+
+    analysis = data.get("market_analysis")
+    if not isinstance(analysis, dict):
+        raise ValueError("Fixture is missing required market_analysis five-layer object")
+    if set(analysis) != set(expected_keys):
+        raise ValueError(
+            "market_analysis keys must be exactly "
+            + ", ".join(expected_keys)
+            + f"; got {sorted(analysis)}"
+        )
+
+    receipt = []
+    for expected, (key, expected_title) in zip(layers, ANALYSIS_LAYER_KEYS):
+        if expected.get("key") != key or expected.get("title") != expected_title:
+            raise ValueError(f"Manifest market analysis layer contract mismatch for {key}")
+        section = unique(container, expected.get("section_selector", ""), f"market analysis section {key}")
+        content = unique(section, expected.get("content_selector", ""), f"market analysis content {key}")
+        if section.parent is not container:
+            raise ValueError(f"market analysis section {key} is not a direct child of its container")
+        heading = section.find(["h2", "h3", "h4"], recursive=False)
+        if heading is None or heading.get_text(" ", strip=True) != expected_title:
+            raise ValueError(f"market analysis heading changed unexpectedly for {key}")
+
+        payload = analysis[key]
+        if not isinstance(payload, dict):
+            raise ValueError(f"market_analysis.{key} must be an object")
+        paragraphs = payload.get("paragraphs")
+        sources = payload.get("sources")
+        if not isinstance(paragraphs, list) or not paragraphs:
+            raise ValueError(f"market_analysis.{key}.paragraphs must be a non-empty list")
+        if not isinstance(sources, list) or not sources:
+            raise ValueError(f"market_analysis.{key}.sources must contain at least one evidence source")
+
+        # The editable scope is the existing content node only. Its parent, heading,
+        # wrapper, IDs, classes and mother-owned CSS are never modified.
+        content.clear()
+        for paragraph in paragraphs:
+            if not isinstance(paragraph, str) or not paragraph.strip():
+                raise ValueError(f"market_analysis.{key} contains an empty/non-text paragraph")
+            p = BeautifulSoup("", "html.parser").new_tag("p")
+            p.string = paragraph.strip()
+            content.append(p)
+
+        source_line = BeautifulSoup("", "html.parser").new_tag("p")
+        source_line["class"] = ["market-analysis-sources"]
+        source_line.append("資料來源：")
+        for index, source in enumerate(sources):
+            if not isinstance(source, dict):
+                raise ValueError(f"market_analysis.{key}.sources[{index}] must be an object")
+            label = str(source.get("label") or "").strip()
+            url = str(source.get("url") or "").strip()
+            status = str(source.get("status") or "").strip()
+            published_at = str(source.get("published_at") or "").strip()
+            checked_at = str(source.get("checked_at") or "").strip()
+            parsed = urlparse(url)
+            if not label or not status or not parsed.scheme in ("http", "https") or not parsed.netloc:
+                raise ValueError(f"market_analysis.{key}.sources[{index}] has invalid label, URL or status")
+            if not published_at and not checked_at:
+                raise ValueError(f"market_analysis.{key}.sources[{index}] needs published_at or checked_at")
+            if index:
+                source_line.append("｜")
+            link = BeautifulSoup("", "html.parser").new_tag(
+                "a", href=url, target="_blank", rel="noopener"
+            )
+            link.string = label
+            source_line.append(link)
+            metadata = [status]
+            if published_at:
+                metadata.append("發布 " + published_at)
+            if checked_at:
+                metadata.append("查核 " + checked_at)
+            source_line.append("（" + "；".join(metadata) + "）")
+        content.append(source_line)
+        receipt.append({
+            "key": key,
+            "title": expected_title,
+            "paragraph_count": len(paragraphs),
+            "source_count": len(sources),
+            "text": content.get_text(" ", strip=True),
+        })
+
+    return {
+        "container_selector": contract["container_selector"],
+        "layer_order": expected_keys,
+        "layers": receipt,
+    }
+
+
 def update_market_sentiment_interpretation_preserving_dom(sentiment_section, sentiment_text):
     """Update the existing final sentiment card's text slot without rebuilding its wrapper."""
     if sentiment_section is None:
@@ -1790,6 +1912,8 @@ def main():
     summary_title = validate_summary_title(data.get("summary_title"))
     set_text(unique(bluf, "h1", "summary headline"), summary_title)
     populate_summary_points_preserving_dom(summary, data.get("summary_points"))
+    # Fill the five independent article layers only through Manifest-approved mother slots.
+    market_analysis_receipt = populate_market_analysis_preserving_dom(soup, data, manifest)
     # Market sentiment narrative: replace the dedicated final interpretation card,
     # not metric source/disclosure blocks (the mother template has no paragraph slot).
     sent=unique(soup,"#sentiment","sentiment")
@@ -3004,7 +3128,7 @@ def main():
     out = resolve_allowed_output_path(report_iso, args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(str(soup), encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()
