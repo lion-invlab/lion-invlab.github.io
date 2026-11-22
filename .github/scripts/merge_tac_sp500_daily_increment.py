@@ -112,7 +112,7 @@ def load_increment_ledger(path: Path):
         if not quote_type:
             marker = "quote_type="
             if marker in source_note:
-                quote_type = source_note.split(marker, 1)[1].split(";", 1)[0].strip()
+                quote_type = source_note.split(marker, 1)[1].split(";", 1)[0].split("；", 1)[0].strip()
         is_investing = (
             source_name == "Investing.com 香港站歷史數據"
             and source_url == "https://hk.investing.com/indices/us-spx-500-historical-data"
