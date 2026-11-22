@@ -2876,3 +2876,12 @@
 - 寫入採 fail-closed：僅三個 preview 檔案可進 main commit；拒絕既有不同內容、symlink、push race／衝突；驗證 `main:index.html` SHA 未變；不部署 Pages。
 - Builder 未修改，仍使用已核准精確 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
 - **驗證狀態：** 規則與 workflow 已更新並回報 SHA；尚未以新 workflow 執行完整 build／handoff，故尚不能宣稱 main preview 交付功能已通過實跑。此次沒有寫入 main，也沒有改動首頁。
+
+
+## 2026-11-22｜SIM-1.4 11/23 真實內容 E2E 接續
+
+- 回讀最新 Fixture SHA `6640d4362bf9332368bf61d1e7eb261ab88bed58`，確認 44/44 行情來源資料日期為 2026-11-20，44/44 有含時分查核欄位；四項行情值與 VIX／DXY／RUT／XLRE 來源修正均已納入現行 Fixture。
+- 更新 Validator，將含時分的查核時間與純日期分開辨識；測試檔目前要求 44 項均有精確時間。最新隔離 run `44981920251` completed／success，包含 deterministic tests 及 synthetic five-layer browser checks；**不可將其誤稱真實報告 build 通過**。
+- 11/23 五層市場分析已填入 Fixture；政治／地緣風險包含正式BIS規則、美中峰會、SEC調查及UKMTO荷姆茲事件，並保留未確認事項的狀態；機構資金流缺少可追溯資料，明確標示未核實。
+- 剩餘三項 PARTIAL blockers：W47 23筆歷史財報缺公告前共識；W48 27筆經濟事件中7筆缺市場預期；main W47／W48 coverage incomplete。下一步執行 11/23 真實內容 Builder E2E；Stage 4／5／6 未完成前不得標示 REVIEW_READY 或交付 main。
+- 本次更新只在 simulation branch；main、正式首頁、正式母版、Manifest、calendar JSON 均唯讀。
