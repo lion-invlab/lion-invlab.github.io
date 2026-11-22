@@ -734,7 +734,7 @@
     "WTI原油期貨": {
       "display": "83.98",
       "change_display": "+0.93%",
-      "contract_label": "CLF27（2027年1月；Investing.com頁面標示 OIL）",
+      "contract_label": "OIL（2027年1月；CME）",
       "source": {
         "name": "Investing.com HK｜WTI原油期貨歷史數據",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
@@ -744,8 +744,13 @@
         "history_change": "+0.93%",
         "volume": 275340,
         "link_label": "Investing.com 歷史數據",
-        "note": "2026-11-20 Investing.com WTI 期貨合約歷史數據頁所列 CLF27（2027年1月）歷史列收市 83.98、升跌 +0.93%、成交量 275.34K；使用該合約歷史數據，不採同名即時 CFD。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "note": "Investing.com 歷史頁商品標題明確標示 WTI原油期貨 - 2027年1月 (OIL)，交易所 CME；2026-11-20 歷史列收市 83.98、升跌 +0.93%、成交量 275.34K。使用該合約歷史數據，不採同名即時 CFD。",
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
+        "raw_response_sha256": null
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
       "change_points": "+0.77",
@@ -765,7 +770,12 @@
         "volume": 278240,
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 ICE Jan27 合約歷史列收市 92.57、升跌 +0.64%、成交量 278.24K。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
+        "raw_response_sha256": null
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
       "display_name": "Brent 原油期貨"
@@ -786,7 +796,12 @@
         "volume": 323900,
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 3,515.40、升跌 -4.62%、成交量 323.90K。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
+        "raw_response_sha256": null
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
       "display_name": "黃金期貨"
@@ -805,7 +820,12 @@
         "volume": 110380,
         "link_label": "Investing.com 歷史數據",
         "note": "2026-11-20 指定 COMEX Dec26 合約歷史列收市 41.070、升跌 -7.41%、成交量 110.38K。",
-        "verified_at_tw": "2026-11-22T11:40:25+08:00"
+        "verified_at_tw": "2026-11-22T11:40:25+08:00",
+        "verification_status": "VERIFIED",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-22T17:09:00+08:00",
+        "evidence_method": "Investing.com historical data table; directly read 2026-11-20 Close and Change % row; contract and exchange read from instrument header",
+        "raw_response_sha256": null
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
       "display_name": "白銀期貨"
