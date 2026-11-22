@@ -26,8 +26,11 @@ def main():
     assert all(r["browser_observation_record"]["observed_value"] is not None for r in result["rows"])
     assert all(r["browser_observation_record"]["observed_change"] is not None for r in result["rows"])
     for row in result["rows"]:
-        if row["group"] in ("sectors", "energy", "metals"):
+        if row["group"] in ("energy", "metals"):
             assert str(row["display"]).removesuffix("%") == str(row["browser_observation_record"]["observed_value"]), row["name"]
+        if row["group"] == "sectors":
+            assert str(row["change_display"]) == str(row["browser_observation_record"]["observed_change"]), row["name"]
+            assert row["browser_observation_record"]["observed_value"] is not None, row["name"]
     bond_rows = {r["name"]: r for r in result["rows"] if r["group"] == "bonds"}
     expected = {
         "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
