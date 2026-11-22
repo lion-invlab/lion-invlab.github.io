@@ -239,7 +239,9 @@ try {
         row_client_width: row.clientWidth,
         row_scroll_width: row.scrollWidth,
         date_right: dateRect.right,
+        date_bottom: dateRect.bottom,
         content_left: contentRect.left,
+        content_top: contentRect.top,
         content_width: contentRect.width,
         content_client_width: content.clientWidth,
         content_scroll_width: content.scrollWidth
@@ -248,9 +250,13 @@ try {
     if (metrics.document_width > width + 1 || metrics.agenda_right > width + 1) {
       throw new Error(`Fed agenda overflows viewport ${width}px: ${JSON.stringify(metrics)}`);
     }
+    const stackedAtNarrowWidth = width <= 360;
+    const dateContentOrderValid = stackedAtNarrowWidth
+      ? metrics.date_bottom <= metrics.content_top + 1 && metrics.content_width >= 150
+      : metrics.date_right <= metrics.content_left + 1;
     if (metrics.row_scroll_width > metrics.row_client_width + 1 ||
         metrics.content_scroll_width > metrics.content_client_width + 1 ||
-        metrics.date_right > metrics.content_left + 1 || metrics.content_width < 50) {
+        !dateContentOrderValid || metrics.content_width < 50) {
       throw new Error(`Fed agenda columns are squeezed or overflow at ${width}px: ${JSON.stringify(metrics)}`);
     }
     await page.screenshot({ path: `${visualDir}/${width === 320 ? "mobile-320" : "desktop-1440"}-fed-fomc.png`, fullPage: true });
