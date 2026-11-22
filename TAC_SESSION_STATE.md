@@ -1,3 +1,23 @@
+# 最新狀態錨點｜2026-11-22｜SIM-1.4 Stage 2–4 輸入收據及 11/23 E2E 驗收
+
+**本節優先於下方所有歷史快照。**
+- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`；main 僅作行事曆唯讀來源。未修改 main、正式首頁、正式母版、Manifest 或正式行事曆 JSON。
+- **SIM-1.4 規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` blob SHA `dba9c540f11d05836fb4587fc158ff2f7628e79a`。新增「Stage 2–4 組裝前輸入收據」規範，要求同報告日期、同 Workflow run／attempt、44 項觀察證據、同一 main commit 的 W47／W48 JSON、新聞時間窗及五層分析完整綁定。
+- **Workflow：** `.github/workflows/tac-simulation-lab.yml` blob SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`。已新增 pre-build receipt、Builder 前 SHA gate、Builder 後 SHA recheck、QA sidecar 完整收據綁定、Simulation 歸檔與遠端回讀、Stage 6 交付收據檢查。
+- **唯一收據驗證器：** `simulation-lab/runner/validate_prebuild_stage_inputs.py` SHA `34c46d872079ceb62312f8bbae66e776d3489374`；正負向測試 `test_prebuild_stage_inputs.py` SHA `a87da4dad5e1fd8ffe381a7d8ab0d71ae38d88b6`；Workflow wiring 測試 `test_simulation_workflow_delivery_gate.py` SHA `aa69f534fd6a7344a36efb9e41e6119ba3bc9897`。
+- **真實內容 E2E：** Run `45014529578` completed／success。deterministic tests、Builder、日期與資料 Gate、DOM／互動／來源連結、雙母版 synthetic integration、六視窗 QA、QA sidecar 封存及 Simulation 遠端回讀均成功。
+- **Pre-build receipt：** `simulation-lab/output/prebuild-stage-input-receipt.json`；status PASS；SHA-256 `3440d112f1c8f10ffc5865d3b6cc512d7c0810944249b5cd866d5f0ab5cdecc6`。歸檔檔案 `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45014529578.json`，Git blob SHA `43b2eaaaa4194b2cefe30d729deb1345b5e0fc8c`；已逐位元組確認歸檔內容與 QA sidecar 內嵌收據完全一致。
+- **Stage 2：** 44／44 項觀察紀錄完整；行情基準日 2026-11-20；17 全球指數、11 ETF、3 債券、6 外匯、4 能源／貴金屬、3 風險指標。沿用 44 筆先前已完成的瀏覽器觀察紀錄；本輪未重新抓取來源頁、未獨立重核數值；raw HTTP response SHA 為 0 筆，依 SIM-1.4 不構成缺口。
+- **Stage 3：** W47／W48 由同一 main commit `62055b79adcdc70c1f27c77c5576cdba5fee177a` 唯讀載入。W48：27 經濟／11 財報；W47：25 經濟／23 財報。兩週 blob SHA 分別為 W48 `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`、W47 `727ea2be1c04688d3c4f98d36c452561bbab6821`。Builder provenance 與 receipt 完全一致。
+- **Stage 4：** 5 則焦點新聞、10 則熱門頭條、15 個唯一來源 URL；新聞時間窗 2026-11-20 12:00 至 2026-11-21 17:57:31（台灣時間）；五層分析及六個政治／地緣政治掃描領域完整，4 筆政治／地緣事件 findings。
+- **最新審核版：** `preview/2026-11-23-simulation.html` Git blob SHA `f948f93a15cb5af94525d59dd78e53f3ba511c4b`，SHA-256 `ee3f4bbc1f8a36ee5d44eb908219889a9f037666b3f452d316cf2db517171df6`；QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `7bcf9aae3c557c3eee8afd49b9959844b72a3404`。
+- **QA 狀態：** `QA_PASSED`、`content_analysis_gate=PASS`、政治掃描 PASS、六個 viewport（1440／768／412／390／360／320）PASS；Builder `16254bfa249814ac75e62cf8acbad2828f366fe6` 已核准。惟 `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`，不得交付 main。
+- **僅餘兩項資料 PARTIAL blockers：**（1）W47 23 筆歷史財報沒有可採用的公告前 EPS／Revenue 共識，無法事後重建；（2）W48 澳洲／日本 Flash PMI 及加拿大 SEPH 共 3 筆具數值預期的經濟事件沒有可採用公告前共識，forecast 維持 null。不得補造或推定 Beat／Miss。
+- **Stage 6：** main 交付步驟依條件 SKIPPED；未寫入 main。main `index.html` SHA 仍為 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48／W47 JSON SHA 仍分別為 `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`／`727ea2be1c04688d3c4f98d36c452561bbab6821`。
+- **下一步：** 不再修改已通過的 Stage 2–4 收據機制。接續檢查 11/23 審核版實際內容與既有版面問題，並評估兩項 PARTIAL blocker 是否有合法、可追溯的新證據；無證據則維持 PARTIAL，不得為了 REVIEW_READY 而放寬規則。main、正式首頁及正式 JSON 持續唯讀。
+
+---
+
 # 最新狀態補充｜2026-11-22 18:29（台灣時間）｜11/23 Stage 2–4 Fixture 交接修正
 
 **本節優先於下方所有歷史快照。**
