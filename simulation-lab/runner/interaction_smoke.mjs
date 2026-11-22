@@ -218,7 +218,7 @@ try {
   const fedAgendaLayouts = [];
   const visualDir = "simulation-lab/output/visual";
   fs.mkdirSync(visualDir, { recursive: true });
-  for (const width of [1440, 320]) {
+  for (const width of [1440, 412, 390, 360, 320]) {
     await page.setViewportSize({ width, height: 900 });
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const metrics = await agenda.evaluate(node => {
@@ -250,7 +250,7 @@ try {
     if (metrics.document_width > width + 1 || metrics.agenda_right > width + 1) {
       throw new Error(`Fed agenda overflows viewport ${width}px: ${JSON.stringify(metrics)}`);
     }
-    const stackedAtNarrowWidth = width <= 360;
+    const stackedAtNarrowWidth = width <= 412;
     const dateContentOrderValid = stackedAtNarrowWidth
       ? metrics.date_bottom <= metrics.content_top + 1 && metrics.content_width >= 150
       : metrics.date_right <= metrics.content_left + 1;
@@ -259,10 +259,10 @@ try {
         !dateContentOrderValid || metrics.content_width < 50) {
       throw new Error(`Fed agenda columns are squeezed or overflow at ${width}px: ${JSON.stringify(metrics)}`);
     }
-    await page.screenshot({ path: `${visualDir}/${width === 320 ? "mobile-320" : "desktop-1440"}-fed-fomc.png`, fullPage: true });
+    await page.screenshot({ path: `${visualDir}/fed-fomc-${width}.png`, fullPage: true });
     fedAgendaLayouts.push(metrics);
   }
-  if (fedAgendaLayouts.length !== 2) throw new Error("Fed official agenda was not checked at both required viewports");
+  if (fedAgendaLayouts.length !== 5) throw new Error("Fed official agenda was not checked at all five required viewports");
 
   if (pageErrors.length) throw new Error(`uncaught page errors: ${pageErrors.join(" | ")}`);
 
