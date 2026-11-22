@@ -4,8 +4,10 @@
 # Trigger final 11/23 true-content build after official Treasury bond deltas and TAC timestamp provenance were corrected.
 # [build-tac-report:2026-11-23] trigger full Monday rebuild after earnings/Fed mobile fixes.
 from datetime import datetime
+import copy
 import json
 from pathlib import Path
+from earnings_judgment import apply_judgment, audit_record, consensus_evidence_label
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -267,15 +269,30 @@ def main():
     assert nvda["eps_actual"] == 2.7 and nvda["revenue_actual"] == 115.8
     assert "3.30%" in nvda["price_reaction"] and "下跌" in nvda["price_reaction"]
     assert nvda["price_reaction_source"].startswith("https://")
+    assert nvda["eps_estimate"] == 2.47121 and nvda["revenue_estimate"] == 108.7319039
+    assert nvda["eps_analyst_count"] == 43 and nvda["revenue_analyst_count"] == 45
+    assert nvda["eps_comparison_status"] == "beat" and nvda["revenue_comparison_status"] == "beat"
+    assert "非嚴格同口徑比較" in nvda["judgment"]
+    assert nvda["eps_estimate_basis_code"] is None and nvda["revenue_estimate_basis_code"] is None
+    assert consensus_evidence_label(nvda, "eps") is not None
+    assert consensus_evidence_label(nvda, "revenue") is not None
+    assert audit_record(nvda) == []
+    recalculated = copy.deepcopy(nvda)
+    apply_judgment(recalculated, "2026-11-23T05:25:00+08:00")
+    assert recalculated["eps_comparison_status"] == nvda["eps_comparison_status"]
+    assert recalculated["revenue_comparison_status"] == nvda["revenue_comparison_status"]
+    yahoo_capture = json.loads((ROOT / "simulation-lab" / "output" / "yahoo-finance-pre-release-capture-20261115.json").read_text(encoding="utf-8"))
+    yahoo_nvda = next(x for x in yahoo_capture["entries"] if x["ticker"] == "NVDA")
+    assert yahoo_nvda["raw_response_sha256"] == nvda["consensus_source"]["raw_response_sha256"]
+    assert yahoo_nvda["eps"]["estimate"] == nvda["eps_estimate"]
+    assert yahoo_nvda["revenue"]["estimate"] / 1_000_000_000 == nvda["revenue_estimate"]
+    assert yahoo_nvda["observed_at_taipei"] == "2026-11-15T13:50:45+08:00"
 
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 4
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 1, blockers
-    assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert "W47五星財報回顧" in blockers[0] and "NVDA Q3 FY2027一筆" in blockers[0], blockers
-    assert not any("W48" in item for item in blockers), blockers
+    assert blockers == [], blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
     assert rut["display"] == "2,581.79" and rut["change_display"] == "-2.76%"
@@ -303,10 +320,7 @@ def main():
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 1, blockers
-    assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert "W47五星財報回顧" in blockers[0] and "NVDA Q3 FY2027一筆" in blockers[0], blockers
-    assert not any("W48" in item for item in blockers), blockers
+    assert blockers == [], blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "raw_response_sha256")) for x in data["review_ready_blockers"])
     assert any("原始HTTP response body未封存" in x and "可選證據" in x for x in data["pending_items"])
@@ -376,7 +390,7 @@ def main():
     print("PARTIAL as expected: two genuine Stage 3 data gaps remain; all 44 market observations have per-item evidence; raw HTTP body hash is optional")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
-    print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
+    print("PASS: NVDA W47 Yahoo pre-release consensus, raw SHA, engine 1.4 comparison and disclosed basis caveat")
 
 
 if __name__ == "__main__":
