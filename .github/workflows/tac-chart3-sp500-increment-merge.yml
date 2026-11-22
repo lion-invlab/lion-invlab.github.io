@@ -49,8 +49,11 @@ jobs:
           full = json.loads((data / "sp500_daily_close_1927-2026.compact.json").read_text())
           manifest = json.loads((data / "manifest.json").read_text())
           sp = manifest["sp500_data"]
-          assert recent["end"] == "2026-11-18", recent["end"]
-          assert full["end"] == "2026-11-18", full["end"]
+          assert recent["start"] == "1993-12-31", recent["start"]
+          assert full["start"] == "1927-12-30", full["start"]
+          assert recent["end"] == full["end"], (recent["end"], full["end"])
+          assert recent["rows"] <= full["rows"], (recent["rows"], full["rows"])
+          assert full["rows"] >= 24000, full["rows"]
           assert sp["end"] == full["end"]
           assert sp["rows"] == full["rows"]
           assert sp["dataset_sha256"] == full["source_dataset_sha256"]
