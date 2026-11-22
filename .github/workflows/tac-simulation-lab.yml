@@ -142,7 +142,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
 
@@ -165,6 +165,7 @@ jobs:
           python simulation-lab/runner/test_earnings_card_dom_preservation.py
           python simulation-lab/runner/test_builder_output_guard.py
           python simulation-lab/runner/test_sim14_builder_approval.py
+          python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
           python simulation-lab/runner/test_1123_fixture.py
@@ -258,6 +259,13 @@ jobs:
           echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html" >> "$GITHUB_ENV"
           echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
+
+      - name: Validate all 44 market rows source metadata and common trading date
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
 
       - name: Enforce active SIM-1.4 Builder approval before production build
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
@@ -604,11 +612,17 @@ jobs:
               sim14_blockers.append("Builder path/SHA has no explicit approval in active SIM-1.4 §8.1")
           sim14_review_ready = approval["decision"] == "APPROVED" and data_review_ready and not blockers
           data_audit = provenance.get("data_audit", {})
+          market_snapshot_audit_path = Path("simulation-lab/output/market-snapshot-audit.json")
+          if not market_snapshot_audit_path.is_file():
+              raise SystemExit("44-row market snapshot audit receipt missing")
+          market_snapshot_audit_sha256 = hashlib.sha256(market_snapshot_audit_path.read_bytes()).hexdigest()
           evidence = {
               "status": "QA_PASSED",
               "review_ready": bool(provenance.get("review_ready", not blockers)),
               "review_ready_blockers": blockers,
               "data_audit": data_audit,
+              "market_snapshot_audit_path": str(market_snapshot_audit_path),
+              "market_snapshot_audit_sha256": market_snapshot_audit_sha256,
               "branch": "simulation/tac-process-lab-2026-11-06",
               "report_path": report_path,
               "report_date": report_date,
