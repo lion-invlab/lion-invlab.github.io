@@ -98,6 +98,10 @@ def main():
         ("strategy", "五、機構資金動向與投資策略"),
     ]
     for soup, label in ((mother, "mother"), (report, "review")):
+        if label == "review":
+            summary_card = require_one(soup, "#overview > section.grid.two > article.card.bluf", label + " summary")
+            if summary_card.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary_card.get_text(" ", strip=True):
+                raise ValueError(f"{label}: summary card exposes forbidden visible source disclosure")
         analysis = require_one(soup, "#market-analysis", label + " five-layer analysis")
         sections = analysis.select(":scope > .market-analysis-layer")
         actual = [(x.get("data-analysis-layer"), x.find(["h2", "h3", "h4"], recursive=False).get_text(" ", strip=True) if x.find(["h2", "h3", "h4"], recursive=False) else "") for x in sections]
