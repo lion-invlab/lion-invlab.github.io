@@ -397,8 +397,11 @@
         "name": "Investing.com HK｜US Dollar Index 歷史資料",
         "url": "https://hk.investing.com/indices/usdollar-historical-data",
         "data_date": "2026-11-20",
-        "quote_type": "spot_index_cfd_reference",
-        "note": "11/20歷史收盤103.81、日變動-0.08%；美元指數現貨／CFD參考序列，不是DX美元指數期貨。"
+        "quote_type": "provider_index_reference_series",
+        "note": "Investing.com US Dollar Index (DXY) 歷史資料頁；頁面標示 Real-time derived，11/20/2026 歷史列收盤 103.81、日變動 -0.08%；此為平台衍生美元指數參考序列，不是 DX 美元指數期貨，也不宣稱為交易所逐筆現貨成交。",
+        "checked_at": "2026-11-22T11:12:02+08:00",
+        "verified_at_tw": "2026-11-22",
+        "page_label": "Real-time derived"
       }
     },
     "美元／新台幣": {
@@ -2013,13 +2016,13 @@
     "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
     "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
     "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
-    "44項行情來源證據已核對共用資料日期為2026-11-20，並逐項具備來源URL、quote_type及說明；現有Fixture僅1項保存精確查核時間、6項保存查核日期、37項未保存逐項查核時間。依規範不補造時間，相關項目標示待核實；本輪不重抓已鎖定行情值。"
+    "44項行情來源證據已核對共用資料日期為2026-11-20，並逐項具備來源URL、quote_type及說明；目前2項保存精確查核時間、6項保存查核日期、36項未保存逐項查核時間。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。依規範不補造其餘查核時間，相關項目標示待核實；本輪不重抓已鎖定行情值。"
   ],
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
     "PARTIAL｜本週W48經濟行事曆27筆中7筆無可採用市場預期；維持null／待核實，需完整揭露。",
     "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。",
-    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；但僅1項保存精確查核時間、6項僅保存查核日期、37項未保存逐項查核時間。不得補造時間，該37項查核時間狀態維持待核實。"
+    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；目前2項保存精確查核時間、6項僅保存查核日期、36項未保存逐項查核時間。不得補造時間，該36項查核時間狀態維持待核實。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
