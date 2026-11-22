@@ -27,7 +27,10 @@ def verification_fields(source: dict, display, change_display) -> dict:
     verified = source.get("verification_status") == "VERIFIED" and bool(evidence_method)
     if verified and source.get("close_value") is not None:
         verified = str(display).removesuffix("%") == str(source.get("close_value"))
-        verified = verified and str(change_display) == str(source.get("daily_change_bp")) + " bp"
+        if source.get("daily_change_bp") is not None:
+            verified = verified and str(change_display) == str(source.get("daily_change_bp")) + " bp"
+        else:
+            verified = verified and str(change_display) == str(source.get("daily_change_percent"))
     elif verified and source.get("history_close") is not None:
         verified = str(change_display) == str(source.get("history_change"))
     else:
