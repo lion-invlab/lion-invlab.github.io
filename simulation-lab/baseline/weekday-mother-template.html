@@ -649,6 +649,15 @@ main.wrap details.calendar-口徑-collapse p{
 #sentiment details.source-details[open]>summary:before{content:"－"!important;transform:none!important}
 #fed details.fedwatch-time>summary{display:block!important;width:auto!important;padding:2px 0!important}
 #fed details.fedwatch-time>summary:before{content:none!important;display:none!important}
+
+/* SIM-1.4 approved five-layer market analysis slot; shared by both simulation mothers */
+#market-analysis{min-width:0;}
+#market-analysis .market-analysis-layer{min-width:0;padding:12px 0;border-top:1px solid var(--line);}
+#market-analysis .market-analysis-layer h3{margin:0 0 7px;font-size:16px;line-height:1.5;font-weight:900;color:#17365d;overflow-wrap:anywhere;}
+#market-analysis .market-analysis-content{min-width:0;font-size:14px;line-height:1.8;color:#3f464d;overflow-wrap:anywhere;word-break:normal;}
+#market-analysis .market-analysis-content p{margin:0 0 9px;}
+#market-analysis .market-analysis-content p:last-child{margin-bottom:0;}
+@media(max-width:700px){#market-analysis{padding:14px 13px;}#market-analysis .market-analysis-layer{padding:10px 0;}#market-analysis .market-analysis-layer h3{font-size:15px;}#market-analysis .market-analysis-content{font-size:14px;line-height:1.75;}}
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
@@ -2199,7 +2208,14 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 <article class="card bluf">
 <div class="title" style="color:#b42332!important">總結</div>
 <h1>AI 與半導體帶動反彈，市場廣度仍待確認</h1><p><b>市場主軸｜</b>AI 與大型科技股支撐美股，但上漲集中於少數權值股，尚非全面性行情。<br/><b>跨市場｜</b>日韓偏強、港中偏弱，歐洲分歧，區域走勢未同步。<br/><b>風險訊號｜</b>科技領先、產業輪動分化；債市短長端走勢不一，油價回落暫緩通膨壓力，仍須留意地緣供應風險。<br/><b>政策與財報｜</b>FedWatch 顯示市場目前高度押注利率維持不變，但這不是官方決策；今日聚焦 FOMC 溝通及大型科技財報，檢視 AI 投資能否轉化為實際獲利。<br/><b>操作結論｜</b>不追逐單日反彈；等待財報指引、Fed 訊號與市場廣度共同確認，再調整風險曝險。</p>
-</article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
+</article></section><section class="card market-analysis" id="market-analysis" aria-label="市場深度解析">
+<div class="title">市場深度解析</div>
+<section class="market-analysis-layer" data-analysis-layer="political" aria-labelledby="analysis-political-title"><h3 id="analysis-political-title">一、政治與地緣政治局勢</h3><div class="market-analysis-content" data-analysis-content="political"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="policy-industry" aria-labelledby="analysis-policy-industry-title"><h3 id="analysis-policy-industry-title">二、政策傳導與企業／產業鏈影響</h3><div class="market-analysis-content" data-analysis-content="policy-industry"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="macro" aria-labelledby="analysis-macro-title"><h3 id="analysis-macro-title">三、宏觀經濟傳導</h3><div class="market-analysis-content" data-analysis-content="macro"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="markets" aria-labelledby="analysis-markets-title"><h3 id="analysis-markets-title">四、金融市場定價、情緒與風險</h3><div class="market-analysis-content" data-analysis-content="markets"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="strategy" aria-labelledby="analysis-strategy-title"><h3 id="analysis-strategy-title">五、機構資金動向與投資策略</h3><div class="market-analysis-content" data-analysis-content="strategy"></div></section>
+</section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><a class="tac-market-link" href="https://hk.investing.com/indices/volatility-s-p-500" target="_blank" rel="noopener"><span class="label-en">VIX</span></a> <span class="label-zh">｜恐慌指數</span></div><strong>17.52</strong><span class="down">−4.73%</span><details class="source-details"><summary>資料來源</summary><div class="source">依使用者提供之 10/27 VIX 截圖：收盤讀值 17.52，日跌 0.87（4.73%）。</div></details></div>
