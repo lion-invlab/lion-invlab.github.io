@@ -270,7 +270,7 @@ def main():
 
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
-    assert len(data["calendar_impact_overrides"]) == 5
+    assert len(data["calendar_impact_overrides"]) == 4
     blockers = data["review_ready_blockers"]
     assert len(blockers) == 1, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
