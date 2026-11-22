@@ -7,6 +7,7 @@ on:
       - ".github/scripts/build_sp500_daily_compact.py"
       - ".github/scripts/test_sp500_daily_incremental.py"
       - ".github/workflows/tac-chart3-incremental.yml"
+      - ".github/workflows/chart3-sp500-incremental-tests.yml"
   push:
     branches:
       - feat/chart3-sp500-incremental-20261114
