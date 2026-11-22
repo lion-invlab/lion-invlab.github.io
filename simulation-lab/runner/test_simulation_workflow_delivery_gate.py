@@ -34,3 +34,5 @@ assert delivery.index("approved_html_sha != actual_html_sha256") < delivery.inde
 print("PASS: Simulation preview can be built without publishing; main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
 
 # The approval token is never interpolated into shell source; it is read from an environment variable.
+
+# Trigger the 2026-11-23 simulation-only Builder and QA run; main publication remains disabled on push.
