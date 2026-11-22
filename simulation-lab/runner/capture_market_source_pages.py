@@ -61,7 +61,7 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
     skipped_verified = 0
     for row in manifest["rows"]:
         item = dict(row)
-        if item.get("verification_status") == "VERIFIED" and item.get("display_value_reconciled") is True:
+        if item.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED") and item.get("display_value_reconciled") is True:
             item["capture"] = {"status": "SKIPPED_ALREADY_VERIFIED", "note": "SIM-1.4：已核實並鎖定的數值不重抓。"}
             rows.append(item)
             skipped_verified += 1
@@ -105,9 +105,9 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
     captured = sum(1 for r in rows if r["source_page_fetched"])
     result = dict(manifest)
     result.update({
-        "verification_scope": "RAW_SOURCE_PAGE_CAPTURE_ONLY",
+        "verification_scope": "PRESERVED_VERIFIED_ROWS_AND_CAPTURED_PENDING_ROWS",
         "source_pages_fetched": captured == len(rows),
-        "displayed_values_independently_reconciled": False,
+        "displayed_values_independently_reconciled": all(row.get("display_value_reconciled") is True for row in rows),
         "capture_attempted_count": attempted,
         "already_verified_skip_count": skipped_verified,
         "capture_success_count": sum(1 for row in rows if row.get("capture", {}).get("http_status") == 200 and row.get("capture", {}).get("raw_response_sha256")),
