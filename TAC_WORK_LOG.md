@@ -2981,3 +2981,16 @@
 - 已更新 Automation Automation_f4da15cd95c881918c7412cdd6f35bb2 Prompt，新增 Stage 2–4 Fixture 交接硬性關卡 A–H，明確列出行情、財報共識／經濟預期、新聞／五層分析的持久化及 SHA 回讀要求；不改排程時間。Automations update 回傳 success，updated_at 2026-11-22T10:29:10.534484+00:00。
 - W47 23 筆歷史財報缺公告前共識不可事後重建；W48 澳洲／日本 Flash PMI、加拿大 SEPH 預期仍無可採用且口徑可確認的來源，維持 null。外部日曆個別估計不得未經口徑核對直接採用。
 - 本次只更新 Automation Prompt 與 Simulation 分支 Session State／Work Log；未修改 Builder、Workflow 程式、main、首頁、正式母版、Manifest、正式行事曆 JSON，未交付或部署。
+
+## 2026-11-22｜SIM-1.4 Stage 2–4 組裝前輸入收據及 11/23 E2E 驗收
+
+- 新增 `simulation-lab/runner/validate_prebuild_stage_inputs.py`，以 fail-closed 方式驗收 Stage 2–4 輸入；44 項行情觀察證據、同一 main commit 的 W47／W48、15 則新聞及五層分析／六領域政治掃描，全部綁定 report date、Simulation branch、workflow run／attempt。
+- SIM-1.4 主文新增組裝前輸入收據條款；active rules blob SHA `dba9c540f11d05836fb4587fc158ff2f7628e79a`。Workflow blob SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`；新增 Builder 前 receipt SHA gate、Builder 後 SHA recheck、QA sidecar 完整收據、歸檔與遠端 read-back、Stage 6 receipt check。
+- 正向／負向測試：`test_prebuild_stage_inputs.py` SHA `a87da4dad5e1fd8ffe381a7d8ab0d71ae38d88b6`；Workflow wiring test SHA `aa69f534fd6a7344a36efb9e41e6119ba3bc9897`。最新 deterministic／synthetic regression run `45014476539` completed／success。
+- 真實內容 E2E run `45014529578` completed／success。Stage 2 metadata/date audit PASS；pre-build Stage 2–4 receipt PASS；Builder assemble PASS；Builder 後 receipt SHA recheck PASS；母版比較、日期／行事曆／44 行情／新聞結構驗收 PASS；QA sidecar seal PASS；Simulation artifact／sidecar／receipt archive commit 及遠端 read-back PASS。
+- 收據 SHA-256 `3440d112f1c8f10ffc5865d3b6cc512d7c0810944249b5cd866d5f0ab5cdecc6`；歸檔 `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45014529578.json`，Git blob SHA `43b2eaaaa4194b2cefe30d729deb1345b5e0fc8c`。已逐位元組比對歸檔與 QA sidecar 內嵌 receipt，相同。
+- QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `7bcf9aae3c557c3eee8afd49b9959844b72a3404`；HTML blob SHA `f948f93a15cb5af94525d59dd78e53f3ba511c4b`，HTML SHA-256 `ee3f4bbc1f8a36ee5d44eb908219889a9f037666b3f452d316cf2db517171df6`。狀態 `QA_PASSED`、內容 Gate PASS、政治掃描 PASS、六個 viewport PASS；`review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`。
+- 保留兩項真實 PARTIAL blockers：W47 23 筆歷史財報缺公告前 EPS／Revenue 共識；W48 澳洲／日本 Flash PMI 與加拿大 SEPH 3 筆經濟預期缺可採用公告前共識。不得事後重建、補造或推定 Beat／Miss。
+- Stage 6 main delivery SKIPPED，因 review_ready 未成立；main index、W47／W48 JSON SHA 均與本輪 receipt／sidecar 所記錄值一致，未修改 main、正式首頁、正式母版、Manifest 或正式行事曆 JSON，未部署 Pages。
+- 本次流程中曾發現 QA seal 將 Bash 變數當字串比較的錯誤，已改為獨立 post-Builder shell recheck；最新完整 E2E 證明 recheck、sidecar seal 及歸檔均成功。此前失敗 run 保留為歷史，不覆寫、不宣稱成功。
+
