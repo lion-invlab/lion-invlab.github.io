@@ -49,7 +49,9 @@ def validate_chart(page, label):
     check(label + "_daily_defensive_action_specific", page.locator("#defensive-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
-    check(label + "_real_sp500_daily_series_loaded", "近 13 週" in page.locator("#sp500-return").inner_text() and "24,841 筆真實每日收盤價" in page.locator("#sp500-detail").inner_text() and "1927-12-30 至 2026-11-20" in page.locator("#sp500-detail").inner_text())
+    expected_sp500 = json.loads((ROOT / "data/tac-chart3/sp500_daily_close_1927-2026.compact.json").read_text(encoding="utf-8"))
+    expected_detail = f"{expected_sp500['rows']:,} 筆真實每日收盤價｜{expected_sp500['start']} 至 {expected_sp500['end']}"
+    check(label + "_real_sp500_daily_series_loaded", "近 13 週" in page.locator("#sp500-return").inner_text() and expected_detail in page.locator("#sp500-detail").inner_text())
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
