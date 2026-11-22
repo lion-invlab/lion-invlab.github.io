@@ -140,7 +140,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -371,6 +371,10 @@ jobs:
         shell: bash
         run: python simulation-lab/runner/render_market_analysis_test_pages.py
 
+      - name: Full candidate Builder integration with synthetic fixtures only
+        shell: bash
+        run: python simulation-lab/runner/test_full_candidate_builder.py
+
       - name: Set up Node for browser QA
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         uses: actions/setup-node@v4
@@ -412,6 +416,10 @@ jobs:
       - name: Verify five-layer analysis responsive layout in both mothers
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs
+
+      - name: Verify full candidate Builder outputs in both mother scenarios
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
+        run: node simulation-lab/runner/test_market_analysis_browser.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/candidate-validation/2026-11-20-candidate.html
       - name: Test navigation tabs accordions and source links
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
