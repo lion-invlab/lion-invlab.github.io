@@ -3039,3 +3039,19 @@
 - **Stage 7 排程設定檢查：** 三項既有 Automation 均 enabled，下一次為 2026-11-23（台灣時間）04:35 行事曆更新、05:25 早報、05:30 Chart 3 備援檢查。前次早報任務於 11/20 06:30:42 才啟動，晚於 05:25 且 run 記錄 failed；行事曆前次 04:54:53 完成，Chart 3 前次 05:37:19 完成。故排程設定存在且 enabled，但 Stage 7 實際準時喚醒／完整串接尚未 PASS；須以 11/23 真實執行紀錄驗證。不得將排程設定當成實跑成功。
 - **main 唯讀基準：** `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，均維持不變。
 
+
+
+## 最新執行狀態｜2026-11-23｜SIM-1.4 早報 Stage 2–4 已更新，等待正式 Simulation Pipeline
+
+- **排程與啟動：** 本次由早報排程喚醒；排程預定 05:25（Asia/Taipei），目前可查到的最新 run 記錄實際啟動時間為 06:17:32，延遲 52 分 32 秒。啟動時 notify_parent 回傳 HTTP 404「Action not found」，未送達；本執行緒繼續 fallback。
+- **報告基準：** report_date 2026-11-23（一），trading_date 2026-11-20（前一週五收盤），ISO week 2026-W48；新聞截稿 2026-11-23 05:25 Asia/Taipei。
+- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。main 僅作正式權限邊界與行事曆唯讀來源。
+- **規則／母版：** SIM-1.4 `6ab8852582b81f9da0bca7e974fbf39847067aed`；main 正式邊界 WR v5.17 `0210e8e04f4f6b2374997b82a658e15781932e67`（僅權限邊界）；Manifest `d47d8`（完整 SHA 於 Work Log）；QA Contract v1.21 `e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`；Monday simulation mother `0a7d5095`；Weekday simulation mother `3f4e65`；現行核准 Builder `simulation-lab/runner/build_review_html.py` SHA `2cb0a90`；NVDA Monday card patcher `e7677f0d39c438481f0ad534607fff2bbbc1301d`；正式 Simulation Workflow SHA `dd03a0`。
+- **正式行事曆（main 唯讀）：** W47 `727ea2be1c04688d3c4f98d36c452561bbab6821`；W48 `9bb842ab475fa38ca6407304990d1cd3fae42c63`；共同 main calendar commit `09e0e5fe64a781373464858fb70c800e4ffbf098`。W47 25 經濟／23 財報；W48 27 經濟／11 財報。W48 預估投影 `simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json` SHA `256c86a424b76e0b9cb4a85f915ea3ddac62f4b1`，11 筆 EPS 與 11 筆 Revenue Forecast 均依 Yahoo Finance 429 後遞補 Investing.com；EPS／Revenue 口徑未揭露部分均透明註記，不推定嚴格同口徑。三筆非數值／不適用事件維持 NOT_APPLICABLE。
+- **Stage 2 Fixture：** `simulation-lab/fixtures/report-data-2026-11-23.json` 最終 blob SHA `d01c03b0fa4034c49c86b2f31693eff780072779`，更新 commit `c3df7f277f42f516a8e73aa53e1f9c4c4dc92bd6`。44/44 行情均為 2026-11-20；42 VERIFIED、2 BACKUP_VERIFIED；11 ETF 全數有值並依漲跌幅排序。44 筆既有逐筆瀏覽器觀察紀錄沿用，預期 44/44 observation hashes；本輪未重新抓取 44 個來源頁，`source_pages_fetched_this_run=false`、`displayed_values_independently_reconciled_this_run=false`。WTI／Gold／Silver 加入 CME Daily Bulletin 同合約交叉核對；WTI 明示 Investing.com platform close 與 CME settlement 差異，未混用；Brent 因 ICE 公開頁未提供歷史 settlement 列，明確降為 Investing.com BACKUP_1／BACKUP_VERIFIED。
+- **Stage 3：** W47／W48 JSON 僅讀取，未修改。W47 週一區塊只呈現五星 NVDA；公告前 Yahoo PIT 共識及實際 GAAP 值已保留，來源未揭露 EPS／Revenue 細分口徑時依 SIM-1.4 允許平台數值比較，但標註非嚴格同口徑。ROST／INTU／KEYS 缺可驗證 PIT 共識，不判 Beat／Miss。
+- **Stage 4：** 新聞 5 則焦點＋10 則熱門頭條，共 15 個唯一 URL；13 筆既有窗口內紀錄沿用，新增 Reuters 中國融資保證金政策及胡塞聲稱攻擊 Rabigh 兩則並核對精確發布時間。新聞窗口 2026-11-20 12:00 至 2026-11-23 05:25。截稿後 05:57 的荷姆茲航運更新及 05:28 的美國眾院消息排除；AP 班加西俄艦與白宮 EO 相關報導因缺精確發布時間只列政治掃描。六領域政治掃描 8 findings；五層 market_analysis 均有段落與來源；summary／sentiment／盤面觀察已更新。
+- **Stage 2–4 遠端回讀：** Fixture 與 W48 projection 的 report_date、trading_date、內容及 blob SHA 已回讀核對。Fixture SHA 與 projection SHA 已在 `run_metadata` 完全對齊。main W47／W48 JSON 嚴格唯讀。
+- **尚未完成：** Stage 5 Builder、Stage 6 Simulation preview／QA sidecar、Stage 7 全端到端驗收均待本次正式 Pipeline 執行。不得沿用舊 preview／sidecar（舊 run 450729 的 QA seal 不綁定本次 Fixture／現行規則）。
+- **main 保護：** main `index.html` 基準 SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；本次尚未修改 main。publish_to_main=false，main_delivery=disabled。
+- **下一步：** 先更新 `simulation-lab/runner/BUILD_TRIGGER.md` 鎖定本次所有 SHA，再以 commit message `[build-tac-report:2026-11-23]` 觸發唯一正式 Simulation Pipeline；確認 workflow 僅寫 simulation branch，取得本輪 Run ID、HTML SHA-256、同 SHA QA sidecar 與 Actions Artifact 後再判定 review_ready。
