@@ -185,6 +185,8 @@ def main():
         raise SystemExit("summary card missing from review")
     if summary_card.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary_card.get_text(" ", strip=True):
         raise SystemExit("summary card exposes forbidden visible source disclosure")
+    if provenance.get("summary_source_receipt") != {"visible_sources": False}:
+        raise SystemExit("internal summary source-removal receipt missing or invalid")
     analysis_payload = fixture.get("market_analysis")
     if not isinstance(analysis_payload, dict) or set(analysis_payload) != {key for key, _ in expected_layers}:
         raise SystemExit("fixture market_analysis must contain exactly the five required layers")
