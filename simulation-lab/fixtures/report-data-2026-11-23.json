@@ -2008,11 +2008,17 @@
     "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
     "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均為四星，不出現在週一五星回顧。週一回顧只呈現2筆五星經濟事件與1筆五星NVDA財報。",
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
-    "W48財報共識缺乏可驗證PIT快照時不得判定Beat/Miss；沒有有效PIT快照就顯示待核實。電話會議時間不得冒充財報發布時間。",
+    "W48 11家財報共識已依SIM-1.4新順位處理：Yahoo Finance 11檔對應分析頁直接開啟均回傳HTTP 429，未採搜尋摘要；遞補Investing.com對應Earnings Date & Report頁，逐筆核對Release Date及Period End 10/2026後，採用EPS／Revenue Forecast。來源未揭露EPS GAAP／Adjusted與Basic／Diluted細分、Revenue精確定義、分析師人數及彙總算法，卡片必須透明標註；EPS保留數值供後續比較，Revenue保留來源數值但不得宣稱嚴格同口徑。未有actual前不產生Beat/Miss。",
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
-    "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。"
+    "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
+    "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
+    "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。"
   ],
-  "review_ready_blockers": [],
+  "review_ready_blockers": [
+    "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
+    "PARTIAL｜本週W48經濟行事曆27筆中7筆無可採用市場預期；維持null／待核實，需完整揭露。",
+    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
+  ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
     "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
