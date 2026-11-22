@@ -1,19 +1,18 @@
-# 2026-11-22｜SIM-1.4 五層市場分析與雙母版實作狀態
+# 2026-11-22｜2026-11-23（一）早報｜SIM-1.4 真實內容 E2E
 
-- **目前工作分支：** `simulation/tac-process-lab-2026-11-06`。所有本次修改均限定 simulation branch。
-- **SIM-1.4 最新 SHA：** `c83c499451769287ce59d7a56b709562ce363c61`。市場深度解析已由四層改為五層：①政治與地緣政治局勢；②政策傳導與企業／產業鏈影響；③宏觀經濟傳導；④金融市場定價、情緒與風險；⑤機構資金動向與投資策略。
-- **政治／地緣政治要求：** 每日六領域掃描（美國政策、美中競爭、中東／俄烏／台海／朝鮮半島、貿易制裁與出口管制、主要經濟體政治、能源與戰略資源）；事件狀態分類；事件→政策→產業→經濟→金融市場→策略傳導；基準／風險／嚴重三情境及觸發、資產影響、領先指標、策略、失效條件。
-- **QA Contract：** v1.17，最新 SHA `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`。已同步五層文章、政治掃描、來源證據、情境分析及 Builder 核准狀態。
-- **雙母版：**
-  - 週一 simulation mother SHA：`ce15c803cc778be35302eec96f6a5d123bf49624`
-  - 週二至週五 simulation mother SHA：`940761077a3f3ad1b47b325a8d2a1a6800e3a679`
-  - 兩份母版均在總結小卡之後、原市場情緒區塊之前新增 `#market-analysis`，並有五個獨立層級內容槽位；來源列採小字灰階樣式。
-- **Manifest：** `simulation-lab/baseline/mother-template-manifest.json` SHA `c78338984192a9251adc247ae1b0044629de89db`；已登記雙母版 SHA、五層 selector、順序及唯一可編輯內容節點。
-- **Builder 唯一正式核准：** `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。新增五層填槽、來源 URL／時間／狀態驗證、六領域政治掃描及重大事件傳導／三情境驗證；另新增僅寫入 simulation-lab/output/candidate-validation 的隔離候選測試模式。舊核准 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備新槽位能力，已明確降為歷史核准基準，不得再用於新母版。
-- **已通過的技術驗收：** GitHub Actions run `44978042935` completed／success。Deterministic self-tests、五層槽位與來源證據測試、政治事件分類／傳導／三情境測試、歷史 Builder 核准不得沿用及候選輸出路徑防護均 PASS；使用 11/23 Monday 與 11/20 Weekday Fixture 加 TEST_ONLY 合成文章完整執行兩套 Builder、DOM preservation 與六視窗瀏覽器測試（1440／768／412／390／360／320px）全 PASS。候選產物只寫入 simulation-lab/output/candidate-validation/ 並帶有測試 blocker。
-- **尚未完成：** 真實市場分析內容的每日 Stage 1–6 生產 E2E；新 Builder SHA 已獲使用者於 2026-11-22 明確核准，並已寫入 SIM-1.4 §8.1。Builder 核准 Gate 已解除；但真實市場分析內容的每日 Stage 1–6 生產 E2E、資料內容 Gate 及完整互動／視覺 QA 尚未完成，因此目前仍不得標示 REVIEW_READY 或交付 main preview。
-- **main 保護查核：** `main:index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；正式週一母版 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；正式平日母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。本次均未修改；未修改 main Manifest／正式行事曆 JSON／歷史報告，未部署 Pages。
-- **下一步：** 已核准 Builder 精確 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。下一步以真實市場分析內容完成 Stage 1–6 生產 E2E，逐項驗收資料、政治分析、新聞、行事曆、財報、FedWatch、Fed 官員行程、Builder、互動與視覺 Gate；只在 simulation branch 產出審核版，不改 main。
+- **目前工作分支：** `simulation/tac-process-lab-2026-11-06`。本輪所有規則、Fixture、投影資料及 workflow 變更均限定 simulation branch；main 唯讀。
+- **報告基準：** 報告日期 `2026-11-23`（週一）；行情基準日 `2026-11-20`（上週五美股收盤）；使用 Monday simulation mother。
+- **Stage 1｜PASS（基準鎖定）：** SIM-1.4 SHA `28b9d1febc106012650fe0c6085d5405742eeea6`；Manifest SHA `c78338984192a9251adc247ae1b0044629de89db`；QA Contract v1.17 SHA `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`；Monday mother SHA `ce15c803cc778be35302eec96f6a5d123bf49624`；Weekday mother SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`；Builder 唯一核准 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。
+- **main 唯讀基準：** main HEAD `2b542a1180f7bb1c39cde7352c8e79c621d894a9`；`index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`。兩份週 JSON 均標示 coverage incomplete；依 SIM-1.4 只讀呈現，不回寫 main。
+- **Fixture：** `simulation-lab/fixtures/report-data-2026-11-23.json` SHA `545a33b6f87e05c01adee122fecab9ef61cc5a97`。已新增五層文章、六領域政治掃描與傳導／情境分析；債券評論已修正為殖利率下降、債券價格上漲；政治新聞嚴格遵守使用者封口時間 `2026-11-21 17:57:31 Asia/Taipei`，截稿後事件已排除。
+- **Stage 2｜IN_PROGRESS／PARTIAL：** 44項行情皆有值或狀態，資料日期一致為 `2026-11-20`；11檔產業ETF僅保留漲跌幅；商品來源／合約欄位及連結一致性已做 Fixture 結構核對。DXY 已直接讀取 Investing.com 歷史頁，頁面標示 `Real-time derived`，不是 DX 期貨或 CFD；Fixture quote_type 已更正為 `provider_index_reference_series`。來源查核時間證據：2項精確時間、6項僅日期、36項未保存逐項時間；不補造，維持 PARTIAL。FedWatch 獨立快照：2026-11-21 17:57（台灣），目標 2026-12-09，升息25bp機率86.4%、維持機率13.6%。
+- **Stage 3｜IN_PROGRESS／PARTIAL：** W47／W48 JSON 均唯讀；W47 23筆上週財報事件缺少可採用的公告前共識，actual 及股價反應可呈現，但共識比較不得事後推定。W48 11家 upcoming earnings：Yahoo Finance 11個對應分析頁直接開啟均 HTTP 429，未採搜尋摘要；依順位遞補 Investing.com，逐頁確認 Release Date 與 Period End 10/2026 後，EPS／Revenue Forecast 已形成投影檔 `simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json` SHA `de59b4fa9cc7dabd29b0c28d8150307c086d8b79`。來源未揭露 EPS 細分口徑、Revenue 精確定義、分析師數及彙總算法，必須透明標註；不得假稱嚴格同口徑。
+- **Stage 4｜DRAFT／待內容 Gate：** 五層文章與六領域掃描已寫入 Fixture；政治 finding 4項，含正式生效出口管制、峰會政治表態、SEC調查未核實狀態、荷姆茲油輪事件未核實歸因。每項含事件傳導及 baseline／risk／severe 情境。尚待 Fixture 與最終 HTML 一致性及 Stage 4 內容品質 Gate 驗收。
+- **Stage 5／6：** 尚未執行真實內容 Builder 生產組裝及完整 QA；目前不可標示 REVIEW_READY，不得交付 main preview。Builder approval Gate 已解除。
+- **待處理 blockers：** (1) 36項行情缺少逐項查核時間；(2) W47歷史財報共識缺漏；(3) W48 27筆經濟事件中7筆缺乏市場預期；(4) W47／W48 coverage incomplete。以上已列入 Fixture `review_ready_blockers`，整體狀態 PARTIAL。
+- **Workflow：** `.github/workflows/tac-simulation-lab.yml` SHA `e0e3a416711e2455b4516384c3b76a2414ea42b9`；已接線 2026-11-23 W48 Investing.com earnings projection，Builder 會比對 main W48 blob SHA。
+- **main 保護：** 本輪未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 或歷史報告；未部署 Pages。
+- **下一步：** 完成 Stage 2／3 證據核對與 Stage 4 內容 Gate；再由已核准 Builder 組裝 `preview/2026-11-23-simulation.html`，執行資料、DOM、互動、六視窗繁中字型與視覺 QA。只在 simulation branch 工作；若任何強制 Gate 未通過，輸出 PARTIAL 並明列 blocker，不交付 main。
 
 
 ---
