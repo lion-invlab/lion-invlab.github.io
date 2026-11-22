@@ -77,6 +77,10 @@ jobs:
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
+          compact = Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json")
+          if compact.exists():
+              import shutil
+              shutil.copy2(compact, out.parent / compact.name)
           print(f"Standalone preview generated: {out} ({out.stat().st_size} bytes)")
           PY
       - name: Render and validate desktop and mobile previews
