@@ -48,6 +48,24 @@
 | Fed 限時動態 | `section#fed`；radio：`#fed-live-tab-watch`、`#fed-live-tab-fomc`；面板由 `.fed-live-panel.fed-live-watch` 與 `.fed-live-panel.fed-live-fomc` 承載 |
 | 今日觀察／盤面觀察 | `section#view` |
 
+### A2.2c 總結小卡與四層深度解析分層（SIM-1.4 新增）
+
+**目前基準狀態（2026-11-22）：**
+- 週一母版 `simulation-lab/baseline/monday-mother-template.html`（SHA `b89c76dd37afdc0cf8b406bfd6f06258896c829d`）目前只有 `article.card.bluf` 總結小卡，未定義獨立四層文章槽位。
+- 週二至週五母版 `simulation-lab/baseline/weekday-mother-template.html`（SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`）亦未定義獨立四層文章槽位；搜尋到的 `market-analysis` 字串屬其他內容，不是文章 DOM 錨點。
+- Manifest 目前沒有四層文章槽位、selector 或 slot contract。
+- 因此在正式母版、Manifest、Builder 未經核准同步新增該槽位前，四層文章雖可由 Stage 4 產出文稿，但 Stage 5 不得將其插入 HTML，必須回報 `BLOCKED_MISSING_APPROVED_ANALYSIS_SLOT`。不得將文章塞入 `article.card.bluf`，不得用 CSS／JS 臨時建立容器，也不得將單次人工審核版修改視為正式槽位核准。
+
+**取得明確授權並完成雙母版同步後，才啟用以下驗收：**
+- [ ] 週一及週二至週五母版各有且只有一個獨立文章槽位，位於總結小卡之後、既有市場情緒區塊之前；不得改動其他區塊順序。
+- [ ] 兩份母版各自使用固定唯一 ID（建議共同使用 `#market-analysis`），Manifest 記錄 selector、父層、順序、欄位及雙母版 SHA。
+- [ ] 文章內四層標題固定且順序正確：全球市場與行情結構 → 重點個股與產業鏈動態 → 市場情緒、技術面與風險展望 → 機構資金動向與投資策略。
+- [ ] 總結小卡仍維持單一 `article.card.bluf`；四層文章不得進入小卡 DOM，且小卡文字不得包含四層全文。
+- [ ] 盤面觀察重點仍留在原 `#view`，內容精簡，與四層文章不整段重複。
+- [ ] Builder 僅填入核准槽位既有節點；不得重建母版 DOM，不得自行追加 CSS／JS；缺錨點、重複錨點或父層／順序不符即 FAIL。
+- [ ] 桌機與 320／360／390／412px 手機版均檢查標題換行、段落寬度、行距、卡片間距及橫向溢位；文章四層不得擠壓行情、財報或官員行程卡片。
+- [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、四層標題順序、總結卡與文章分離檢查、視窗尺寸及測試結果。
+
 ### A2.2a 全球主要股市三區評論綁定
 
 - `#global-markets #tac-global-panel-0`：美國面板，唯一評論節點標題必須為「📌 美股觀察」。
