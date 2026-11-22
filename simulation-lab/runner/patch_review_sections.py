@@ -46,8 +46,9 @@ def patch_section(html_path: Path, fixture_path: Path, manifest_path: Path,
         require_within(receipt_path, output_root, "local patch receipt")
         require_within(fixture_path, ROOT / "simulation-lab" / "fixtures", "Fixture")
         require_within(manifest_path, ROOT / "simulation-lab" / "baseline", "Manifest")
-        if html_path.resolve() == output_path.resolve():
-            raise ValueError("local patch output must be a new path; never overwrite the input artifact")
+        resolved_paths = [html_path.resolve(), output_path.resolve(), receipt_path.resolve()]
+        if len(set(resolved_paths)) != 3:
+            raise ValueError("input HTML, output HTML and patch receipt must use three distinct paths")
     source_bytes = html_path.read_bytes()
     fixture_bytes = fixture_path.read_bytes()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
