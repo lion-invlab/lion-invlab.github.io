@@ -539,7 +539,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `84feac32a5bf6cd8d9bbd1fe8d43b1cd8cf9b826`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.20，SIM-1.4 執行附件；目前 blob SHA `ddaf719d22db66b7894a02683fc92d25d87da3af`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -668,7 +668,9 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 局部更新器新增 `simulation-lab/runner/patch_review_sections.py`；測試新增 `simulation-lab/runner/test_patch_review_sections.py`。測試尚待 CI 執行，不得先行標示 PASS。
 - 11/23 Fixture 已加入 NVIDIA SEC 10-Q 與 Reuters 11/17、10/15 報導支持的 AI 融資鏈分析；具體區分 360 億美元 AI cloud agreements、初步第三方融資平台 MOU、CoreWeave／Nebius 信用重新定價及未發生違約的限制。
 - Fed 官員行程 simulation 雙母版已將手機直向排列門檻由 360px 擴大至 412px；QA Contract v1.20 與 Manifest 同步更新。413px 以上維持桌面雙欄。
-- 本輪最新候選 Builder SHA：`aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；最新 Fixture SHA：`bd4ed32ca1eb7a8906f6711fdd9d25079d771e58`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`84feac32a5bf6cd8d9bbd1fe8d43b1cd8cf9b826`。
+- 本輪最新候選 Builder SHA：`aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；最新 Fixture SHA：`bd4ed32ca1eb7a8906f6711fdd9d25079d771e58`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 - Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
 - 本輪候選版本尚未完成 CI／瀏覽器 QA，亦未取得 Builder SHA 核准；完整 E2E 與審核版產出暫停於核准 Gate。
-- QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`84feac32a5bf6cd8d9bbd1fe8d43b1cd8cf9b826`。
+- QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+
+- QA Contract v1.20 A3.5 再補入 summary_source_receipt 與正式 CLI 路徑防護要求；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
