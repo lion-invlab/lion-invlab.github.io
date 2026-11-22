@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - feat/chart3-sp500-incremental-20261114
+      - fix/chart3-sp500-investing-source-20261123
     paths:
       - ".github/scripts/update_sp500_daily_incremental.py"
       - ".github/scripts/build_sp500_daily_compact.py"
