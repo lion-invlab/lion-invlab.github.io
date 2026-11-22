@@ -45,8 +45,8 @@ def verification_fields(source: dict, display, change_display) -> dict:
         "raw_response_sha256": source.get("raw_response_sha256"),
         "captured_at_tw": source.get("checked_at_tw") if verified else None,
         "evidence_method": evidence_method if verified else None,
-        "verified_close": (source.get("close_value") or source.get("history_close")) if verified else None,
-        "verified_change": (source.get("daily_change_bp") or source.get("history_change")) if verified else None,
+        "verified_close": (source.get("close_value") or source.get("history_close") or source.get("score_value")) if verified else None,
+        "verified_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")) if verified else None,
     }
 
 
@@ -77,7 +77,7 @@ def build_manifest(data: dict, report_date: str) -> dict:
                 "cross_check_role": cross_check.get("role"),
                 "checked_at_tw": source.get("checked_at_tw") or source.get("verified_at_tw") or source.get("checked_at"),
                 **verification,
-                "notes": source.get("note") if verification["verification_status"] == "VERIFIED" else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
+                "notes": source.get("note") if verification["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
             })
     for name, display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
