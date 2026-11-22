@@ -239,6 +239,13 @@ try:
             response = page.goto("http://127.0.0.1:8765/research/tac-chart3/chart3-preview.html", wait_until="networkidle", timeout=60000)
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
             validate_chart(page, label)
+            if label == "desktop":
+                report["percentile_snapshot"] = page.locator("#risk-metrics .risk-metric").evaluate_all("""els => els.map(el => ({
+                    indicator: el.querySelector(".risk-metric-name")?.innerText || "",
+                    percentile: el.querySelector(".risk-metric-value")?.innerText || "",
+                    four_week_change: el.querySelector(".risk-metric-delta")?.innerText || ""
+                }))""")
+                report["percentile_snapshot_asof"] = page.locator("#decision-asof").inner_text()
             chart_box = page.locator("#combined-chart").evaluate("(e)=>({client:e.clientWidth,scroll:e.scrollWidth})")
             check(label + "_no_chart_horizontal_overflow", chart_box["scroll"] <= chart_box["client"] + 2, chart_box)
             svg_layout = page.locator("#combined-chart svg").evaluate("(e)=>({width:e.getBoundingClientRect().width,container:e.parentElement.clientWidth,viewWidth:Number(e.viewBox.baseVal.width)})")
