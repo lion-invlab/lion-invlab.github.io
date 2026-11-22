@@ -913,6 +913,19 @@ jobs:
           qa = json.loads(qa_bytes)
           html_blob = subprocess.check_output(["git","hash-object",html_path],text=True).strip()
           actual_html_sha256 = hashlib.sha256(html).hexdigest()
+          prebuild_receipt = qa.get("prebuild_input_receipt")
+          if not isinstance(prebuild_receipt, dict) or prebuild_receipt.get("status") != "PASS":
+              raise SystemExit("Delivery blocked: pre-build Stage 2-4 receipt is missing or not PASS")
+          receipt_bytes = (json.dumps(prebuild_receipt, ensure_ascii=False, indent=2) + "\\n").encode("utf-8")
+          receipt_sha256 = hashlib.sha256(receipt_bytes).hexdigest()
+          if qa.get("prebuild_input_receipt_sha256") != receipt_sha256:
+              raise SystemExit("Delivery blocked: pre-build receipt SHA-256 does not match QA sidecar")
+          if prebuild_receipt.get("report_date") != report_date or prebuild_receipt.get("workflow_run_id") != qa.get("workflow_run_id"):
+              raise SystemExit("Delivery blocked: pre-build receipt report date/run identity mismatch")
+          if prebuild_receipt.get("stage_2_market", {}).get("indicator_count") != 44:
+              raise SystemExit("Delivery blocked: pre-build receipt does not bind all 44 market indicators")
+          if prebuild_receipt.get("stage_3_calendar", {}).get("main_commit_sha") != qa.get("calendar_main_commit_sha"):
+              raise SystemExit("Delivery blocked: pre-build receipt calendar commit differs from QA provenance")
           if not re.fullmatch(r"[0-9a-f]{64}", approved_html_sha):
               raise SystemExit("Delivery blocked: explicit approved_html_sha must be a 64-character lowercase SHA-256")
           if approved_html_sha != actual_html_sha256:
