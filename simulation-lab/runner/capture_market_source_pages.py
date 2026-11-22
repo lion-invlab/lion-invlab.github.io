@@ -40,6 +40,7 @@ def capture_one(url: str, timeout: int = 25) -> dict:
             }
     except HTTPError as exc:
         body = exc.read(MAX_BYTES + 1)
+        captured = datetime.now(timezone.utc).isoformat()
         return {
             "http_status": exc.code, "final_url": exc.geturl(),
             "content_type": exc.headers.get("Content-Type"),
@@ -49,6 +50,7 @@ def capture_one(url: str, timeout: int = 25) -> dict:
             "captured_at_utc": captured, "error": "HTTP_ERROR",
         }
     except (URLError, TimeoutError, OSError) as exc:
+        captured = datetime.now(timezone.utc).isoformat()
         return {"http_status": None, "captured_at_utc": captured, "error": type(exc).__name__ + ": " + str(exc)}
 
 def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.0) -> dict:
