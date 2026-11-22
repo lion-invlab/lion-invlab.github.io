@@ -49,7 +49,11 @@ def validate_chart(page, label):
     check(label + "_daily_defensive_action_specific", page.locator("#defensive-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
-    check(label + "_no_unverified_sp500_return_claim", "價格序列待接入" in page.locator("#sp500-return").inner_text() and "不虛報近 13 週報酬" in page.locator("#sp500-detail").inner_text())
+    check(label + "_real_sp500_close_displayed", "收盤" in page.locator("#sp500-return").inner_text() and "價格資料不足" not in page.locator("#sp500-return").inner_text())
+    check(label + "_real_sp500_metrics_displayed", "近約 13 週報酬" in page.locator("#sp500-detail").inner_text() and "65 個交易日均線" in page.locator("#sp500-detail").inner_text())
+    sp_path = page.locator("#combined-chart svg path[data-series='SP500']")
+    check(label + "_sp500_actual_daily_observation_span", sp_path.get_attribute("data-first-date") == "1993-12-31" and sp_path.get_attribute("data-last-date") == "2026-11-20", {"first":sp_path.get_attribute("data-first-date"),"last":sp_path.get_attribute("data-last-date")})
+    check(label + "_sp500_daily_rows_are_real_observations", sp_path.get_attribute("data-total-points") == "8278" and sp_path.get_attribute("data-frequency") == "daily")
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
@@ -168,9 +172,9 @@ def validate_chart(page, label):
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
-    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-19'}", timeout=3000)
+    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-20'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-19"], reset)
+    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-20"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
     if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
@@ -208,7 +212,7 @@ def validate_chart(page, label):
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
         check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-19'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-20'}", timeout=3000)
         page.locator("#timeline-zoom-in").click()
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
         before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
@@ -226,7 +230,7 @@ def validate_chart(page, label):
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-19'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-20'}", timeout=3000)
 
 try:
     with sync_playwright() as p:
