@@ -668,9 +668,9 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 局部更新器新增 `simulation-lab/runner/patch_review_sections.py`；測試新增 `simulation-lab/runner/test_patch_review_sections.py`。測試尚待 CI 執行，不得先行標示 PASS。
 - 11/23 Fixture 已加入 NVIDIA SEC 10-Q 與 Reuters 11/17、10/15 報導支持的 AI 融資鏈分析；具體區分 360 億美元 AI cloud agreements、初步第三方融資平台 MOU、NVIDIA 五大客戶約70%應收帳款集中、付款期限90天至一年、基礎設施融資商33億美元投資／47億美元最大損失曝險，以及 CoreWeave／Nebius 信用重新定價；不把信用重新定價寫成違約。
 - Fed 官員行程 simulation 雙母版已將手機直向排列門檻由 360px 擴大至 412px；QA Contract v1.20 與 Manifest 同步更新。413px 以上維持桌面雙欄。
-- 本輪最新候選 Builder SHA：`2cb0a90e53b10c31aca20503f93a5b324091c0a7`；最新 Fixture SHA：`bb7ab311a05d8ac3860f94fc6ecf10423e499bef`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+- 2026-11-22 候選驗收起始紀錄：Builder SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；Fixture SHA `bb7ab311a05d8ac3860f94fc6ecf10423e499bef`；Manifest SHA `d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA `ddaf719d22db66b7894a02683fc92d25d87da3af`。此處為當時基準，不覆蓋後續核准紀錄。
 - Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
-- 本輪候選版本尚未完成 CI／瀏覽器 QA，亦未取得 Builder SHA 核准；完整 E2E 與審核版產出暫停於核准 Gate。
+- 上述候選驗收起始紀錄當時尚未完成 CI／瀏覽器 QA；其後已於 2026-11-22 完成同一 SHA 的 run `45043061827`，並於 2026-11-23 取得使用者明確核准。
 - QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 
 - QA Contract v1.20 A3.5 再補入 summary_source_receipt 與正式 CLI 路徑防護要求；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
