@@ -29,7 +29,7 @@
     },
     {
       "title": "中國三大交易所下調融資買入最低保證金比例，11月30日起由100%降至80%",
-      "published_at_tw": "2026-11-22 21:09:00",
+      "published_at_tw": "2026/11/22 21:09",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
       "source_timezone": "UTC",
@@ -163,7 +163,7 @@
     },
     {
       "title": "胡塞武裝聲稱攻擊沙烏地Rabigh煉油廠，沙方尚未確認損害",
-      "published_at_tw": "2026-11-23 01:52:00",
+      "published_at_tw": "2026/11/23 01:52",
       "updated_at_tw": "原文未標示更新時間",
       "url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
       "source_timezone": "UTC",
@@ -2587,11 +2587,11 @@
   "market_sentiment": "風險偏好急速下降，股票與債券波動同步升高；市場對尾端政策及地緣風險要求更高風險補償。VIX與MOVE均處高檔，顯示壓力不只在股票估值，也延伸至利率市場；單一恐慌指標不能視為落底訊號，須等波動回落與市場廣度改善共同確認。",
   "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器依SIM-1.4 Stage 3唯讀規則直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA於11/18盤後公布財報；第一個完整交易日為11/19，Investing.com歷史列收盤145.98、日跌3.30%，已更新財報卡。11/20再跌14.01%屬後續市場拋售，不直接歸因於財報。 41項既有觀察紀錄的逐筆查核時間為2026-11-22 11:40:25（40項）及11:41:20（Russell 2000，1項）；美債三筆新增逐筆查核時間為2026-11-22 17:48:21。以上均為TAC查核時間，不是供應商資料時間。 Fixture目前保留44項逐筆觀察紀錄（43項主來源、1項FGScore備援），含來源URL、標的／合約、資料日期、讀取欄位和值、漲跌欄位和值、逐筆查核時間及讀取方法；其中41項沿用既有紀錄，2Y／10Y／30Y美債三筆於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁並補足逐筆觀察時間。本輪Pipeline的來源擷取步驟未執行，metadata audit仍只核對日期與來源中繼資料；不得宣稱Pipeline本身重新擷取或獨立重核44項。44項 raw_response_sha256 為null，代表未封存原始HTTP response body；此為可選額外證據，不影響已完成的數值核驗。本輪已使用最新Fixture重新執行唯一核准Builder、資料／內容Gate、DOM、互動及六視窗視覺回歸；本次QA證據只適用於本輪HTML與Fixture SHA。 W47唯一五星NVDA財報已補入11/15公告前Yahoo Finance Average Estimate原始快照，並由獨立局部DOM overlay寫入實際HTML卡片：EPS US$2.47121（43位分析師）、Revenue US$108.7319B（45位）；與公司GAAP實績數值比較分別高出9.26%及6.50%。Yahoo未揭露EPS會計細項與Revenue完整定義，已標註非嚴格同口徑比較；原始capture及raw response SHA保留，main W47 JSON未修改。 NVDA上週財報卡的EPS／營收預估、TAC 1.4判讀、官方實際財報來源及Yahoo公告前共識來源，須由last_week_earnings局部overlay執行並產生receipt；QA只在receipt SHA與最終HTML SHA吻合時標示review_ready。",
   "report_cutoff_taipei": "2026-11-23 05:25",
-  "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
+  "news_window_taipei": "2026/11/20 12:00–2026/11/23 05:25（台灣時間）",
   "key_levels_overrides": {},
   "review_notice": "2026/11/23（一）審核版｜行情基準日2026/11/20；報告截稿2026/11/23 05:25台灣時間；新聞窗口2026/11/20 12:00至2026/11/21 17:57:31台灣時間。僅供審核，不上架正式首頁。",
   "pending_items": [
-    "新聞窗口已依使用者指示於2026-11-21 17:57:31（台灣時間）封口；不得再等待11/23清晨。所有新聞均需保留原始發布時間與時區，未提供絕對更新時間者明確標示。",
+    "本期新聞窗口依週一規則自2026-11-20 12:00延伸至2026-11-23 05:25（台灣時間）；15則新聞已封口，截稿後消息排除。所有新聞保留原始發布時間與時區；原文未提供更新時間者明確標示。",
     "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均為四星，不出現在週一五星回顧。週一回顧只呈現2筆五星經濟事件與1筆五星NVDA財報。",
     "W48五筆impact_judgment原值為網址；以fixture report-layer override修復，main W48 JSON保持唯讀。",
     "W48 11家財報共識已依SIM-1.4新順位處理：Yahoo Finance 11檔對應分析頁直接開啟均回傳HTTP 429，未採搜尋摘要；遞補Investing.com對應Earnings Date & Report頁，逐筆核對Release Date及Period End 10/2026後，採用EPS／Revenue Forecast。來源未揭露EPS GAAP／Adjusted與Basic／Diluted細分、Revenue精確定義、分析師人數及彙總算法，卡片必須透明標註；EPS保留數值供後續比較，Revenue保留來源數值但不得宣稱嚴格同口徑。未有actual前不產生Beat/Miss。",
@@ -2639,7 +2639,7 @@
     "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
   },
   "report_layer_earnings_actuals": [],
-  "news_cutoff_taipei": "2026-11-21 17:57:31",
+  "news_cutoff_taipei": "2026-11-23 05:25:00",
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [
     {
