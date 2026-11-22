@@ -57,9 +57,9 @@
 **變更前盤點（歷史狀態，非目前基準）：**
 - 以上是授權變更前的歷史盤點：當時週一／平日母版與 Manifest 均無五層文章槽位。
 - 本次已依使用者明確授權，在 simulation branch 完成雙母版槽位：週一 SHA `ce15c803cc778be35302eec96f6a5d123bf49624`；平日 SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`；Manifest SHA `c78338984192a9251adc247ae1b0044629de89db`。兩者皆位於總結小卡之後、既有市場情緒之前，並有五個獨立內容節點。
-- Builder 已新增五層文章填槽、六領域政治掃描驗證及 output-only 候選驗證模式，候選 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。GitHub Actions run `44978042935` completed／success：deterministic self-tests、五層槽位／來源證據／政治傳導與三情境測試、候選輸出路徑防護均 PASS；以既有 11/23 Monday 與 11/20 Weekday Fixture 加上明確標示 TEST_ONLY 的合成五層內容，完整執行兩套 Builder 組裝及母版 DOM preservation，均 PASS；兩份完整候選 HTML 在 1440／768／412／390／360／320px 六種 viewport 瀏覽器測試均 PASS，無文章區塊水平溢位。
-- 候選輸出僅寫入 `simulation-lab/output/candidate-validation/`，帶有 `candidate-validation-only` provenance 及 `CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS` blocker；未覆蓋正式 preview，亦不可交付 main。此為完整 Builder 組裝與雙母版瀏覽器回歸，但文章內容為合成測試，不等於真實市場分析內容的每日 Stage 1–6 生產 E2E。候選 SHA 尚未取得 SIM-1.4 §8.1 對新 SHA 的明確核准；原已核准 SHA 不含五層填槽能力，不得用於新槽位生產。
-- 在使用者明確核准新 Builder SHA、並以真實日期 Fixture 完成完整報告組裝與 QA 前，Stage 5 仍不得標示 REVIEW_READY 或交付；不得將技術上已存在的空槽位視為文章已完成。
+- Builder `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`，已於 2026-11-22 獲使用者明確核准，並登記為 SIM-1.4 唯一正式生產 Builder。核准依據包含 GitHub Actions runs `44978042935`、`44978265956`：deterministic self-tests、五層槽位／來源證據／政治傳導與三情境測試、候選輸出路徑防護均 PASS；以既有 11/23 Monday 與 11/20 Weekday Fixture 加 TEST_ONLY 合成五層內容，完整執行兩套 Builder 組裝及母版 DOM preservation；兩份完整候選 HTML 在 1440／768／412／390／360／320px 六種 viewport 瀏覽器測試均 PASS，無文章區塊水平溢位。
+- 候選測試輸出僅寫入 `simulation-lab/output/candidate-validation/`，帶有 `candidate-validation-only` provenance 及 `CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS` blocker；未覆蓋正式 preview，亦不可交付 main。上述測試使用合成文章內容，不等於真實市場分析內容的每日 Stage 1–6 生產 E2E。
+- Builder 核准 Gate 已解除；Stage 5／6 仍須等待真實市場分析內容的每日 Stage 1–6 生產 E2E、資料與內容 Gate、完整互動／視覺 QA 全部通過，才可標示 REVIEW_READY 或交付。不得將合成測試內容視為真實市場評論。
 
 **文章內容固定分成三個互不取代的層級：**
 1. 總結小卡：讀者快速掌握市場主軸、核心風險及立場。
