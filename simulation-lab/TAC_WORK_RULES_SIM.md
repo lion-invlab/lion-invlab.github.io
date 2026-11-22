@@ -121,10 +121,24 @@
 **驗收：** 不灌水、不以報價冒充新聞、不重複新聞事件；事實、推論、情境與策略分離；總結小卡與完整文章明確分層；五層標題及順序正確；操作建議具備執行動作、觸發條件與失效條件；總結符合週一或平日格式。
 **交接：** Stage 5 接收可直接組裝的各層內容、層級／順序識別，以及每則新聞原文 URL、時間、查核證據。
 
+### Stage 2–4｜組裝前輸入收據（進入 Stage 5 前的強制交接）
+Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar 口頭宣稱完成；在呼叫唯一 Builder 前，必須產生本次 Workflow 專屬的輸入收據，將三階段輸入鎖定為同一份報告日期、同一分支及同一執行批次。
+
+**收據必須記錄及驗收：**
+1. **執行身分：** repository、固定 Simulation branch、report_date、GitHub workflow_run_id、run_attempt；不接受 main 或其他分支產物混入。
+2. **Stage 2 行情：** Fixture SHA-256、44 項行情 metadata/date audit SHA-256、44 項 source-observation manifest SHA-256；逐筆檢查 44 項身份、分組數量、共同交易日、來源 URL、既有瀏覽器觀察紀錄、觀察值／漲跌欄位、查核時間及 observation_record_sha256。既有觀察紀錄可沿用；本次未重新擷取來源頁或未獨立重核數值時，必須如實記錄 false，不得宣稱本次重新抓取或重新核驗。raw_response_sha256 為可選證據，不得列為必要 Gate。
+3. **Stage 3 行事曆：** 以單次 fetch 得到的 main commit SHA 為唯讀基準，當週與上週 JSON 均須由同一 commit 讀取；記錄兩份 canonical ISO-week 路徑、blob SHA、week_id、日期範圍及經濟／財報事件數。不得混用不同 main commit、Fixture 舊版行事曆或不同日期 JSON。Builder provenance 的 main commit／兩週 blob SHA 必須與輸入收據完全一致；若 main 在收據與 Builder 讀取之間更新，應停止並重跑整個輸入收據及組裝，不得拼接兩版資料。
+4. **Stage 4 新聞與分析：** 核對 5 則 Global Focus News、10 則 Market Hot Headlines、每則新聞 HTTPS URL、發布時間／時區／台灣時間、更新時間狀態、摘要及封口時間窗；核對五層分析鍵、每層非空段落及來源、六個政治／地緣政治掃描領域及 findings。不得把截稿時間外消息混入本期。
+5. **收據本身：** 產生 `simulation-lab/output/prebuild-stage-input-receipt.json`，狀態必須為 PASS，並計算該檔 SHA-256。Builder 執行前必須確認收據存在且 SHA 未變；任何輸入缺漏、日期／身份／SHA 不一致、main commit 不一致或執行批次不一致，均為 BLOCKED，不得呼叫 Builder。
+6. **QA 綁定與封存：** QA sidecar 必須記錄收據路徑、SHA-256 及完整收據內容；核對 Fixture、行情 audit／manifest、main commit 與兩週 blob SHA 均與 Builder provenance 相符，並核對 workflow_run_id／attempt。Simulation branch 封存時，將同一收據另存至 `simulation-lab/runs/prebuild-stage-input-receipt-YYYY-MM-DD-RUN_ID.json`；commit／rebase 後及遠端回讀時都必須驗證相同 Git blob SHA。明確 main preview 交付 Gate 亦必須驗證 sidecar 內收據存在、PASS、SHA 正確及同批次；缺漏不得交付。
+7. **責任邊界：** 此收據只證明 Stage 2–4 輸入完整性、來源識別與批次一致性，不等於 HTML、DOM、互動、視覺或內容 QA 通過；Stage 5 仍須獨立完成所有適用 Gate。不得把 pre-build receipt PASS 單獨標示為 REVIEW_READY。
+
+**唯一實作入口：** `simulation-lab/runner/validate_prebuild_stage_inputs.py`；其正向／負向測試由 `simulation-lab/runner/test_prebuild_stage_inputs.py` 覆蓋，Workflow wiring 由 `test_simulation_workflow_delivery_gate.py` 驗收。不得另建平行收據或第二套 Stage 2–4 流程。
+
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
-**輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、QA Contract。
+**輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、PASS 的組裝前輸入收據及其 SHA-256、QA Contract。
 **執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 的 main preview 交付。
-**輸出：** simulation branch 完整審核版 HTML、組裝收據、QA 報告、HTML SHA-256。
+**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256。
 **驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
 **交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
 
@@ -338,10 +352,10 @@
 ## 9. QA、Gate 與交付狀態
 
 ### 9.1 三道流程 Gate
-- **Gate 0｜輸入與權限：** 報告日期、星期情境、規則版本、Manifest、母版 SHA、QA Contract、main JSON 路徑／SHA、Fixture schema 及權限均正確。失敗為 BLOCKED。
+- **Gate 0｜輸入與權限：** 報告日期、星期情境、規則版本、Manifest、母版 SHA、QA Contract、main JSON 路徑／SHA、Fixture schema、Stage 2–4 組裝前輸入收據（PASS 且執行批次／SHA 一致）及權限均正確。失敗為 BLOCKED。
 - **Gate 1｜資料與內容：** 44 項行情均有值或明確狀態；財報、行事曆、新聞及分析具來源與正確日期；關鍵商品身分錯誤不得放行。分析內容另須通過 Stage 4 的三層架構檢查（總結小卡／五層深度解析／盤面觀察重點），並通過政治／地緣政治掃描與傳導分析 Gate，否則不得 REVIEW_READY。非核心資料缺漏可 PARTIAL，但不得 REVIEW_READY。
 - **Gate 2｜HTML 與 QA：** 候選 Builder 的隔離測試、HTML 結構、互動、視覺及資料呈現適用項目全部通過，才可標示 CANDIDATE_VALIDATED；只有使用者明確核准該 Builder 路徑及 SHA 後，才可將它升格為唯一生產入口並標示 SIM-1.4 REVIEW_READY。強制項目未通過不得 REVIEW_READY。
-- QA sidecar 必須分開記錄 `QA_PASSED`（技術／結構／互動／視覺測試結果）、`data_review_ready`（資料與內容是否達截稿標準）、`sim14_builder_approval`（使用者是否核准指定 Builder 路徑及 SHA）及 `sim14_review_ready`（是否符合本版 Stage 5／6 的完整 REVIEW_READY）。`review_ready` 舊欄位只表示資料層狀態，不得單獨代表 SIM-1.4 REVIEW_READY；Builder 未核准時 `sim14_review_ready` 必須為 false。
+- QA sidecar 必須保存 `prebuild_input_receipt_path`、`prebuild_input_receipt_sha256` 及完整 `prebuild_input_receipt` 物件；收據中的 Fixture、行情 audit／manifest、main commit 與兩週 calendar blob SHA 必須與實際 Builder provenance 一致，並綁定同一 workflow run／attempt。QA sidecar 必須分開記錄 `QA_PASSED`（技術／結構／互動／視覺測試結果）、`data_review_ready`（資料與內容是否達截稿標準）、`sim14_builder_approval`（使用者是否核准指定 Builder 路徑及 SHA）及 `sim14_review_ready`（是否符合本版 Stage 5／6 的完整 REVIEW_READY）。`review_ready` 舊欄位只表示資料層狀態，不得單獨代表 SIM-1.4 REVIEW_READY；Builder 未核准時 `sim14_review_ready` 必須為 false。
 
 ### 9.2 四類 QA（檢查範圍，不是四道 Gate）
 1. **資料與內容 QA：** 日期、行情基準日、44 項欄位、商品身分、來源、行事曆事件、財報實際／共識、新聞時間窗、數字與分析一致；另核對總結小卡是否精簡、五層分析是否完整且順序正確、政治事件分類與傳導鏈是否有證據、基準／風險／嚴重情境是否完整、盤面觀察是否精簡不重複、操作建議是否包含具體動作／觸發條件／失效條件。
@@ -607,3 +621,11 @@
 - `raw_response_sha256` 可以為 null；其缺漏不得增加 Stage 2 blocker、不得將已核驗數值降級、不得令整體行情驗證由 PASS 變成 PARTIAL。
 - 每筆 `BROWSER_OBSERVATION_SAVED` 必須保存 URL、標的／合約、交易日期、實際讀取欄位和值、漲跌欄位和值、查核時間、讀取方法；將這些欄位按固定鍵序標準化後計算 `observation_record_sha256`。此雜湊只證明保存的觀察紀錄未被改動，不代表供應商 HTTP response body 的雜湊。
 - 只有缺少／不一致的觀察紀錄、來源標的／日期／報價口徑不符，或數值無法對應 Fixture，才可列入 Stage 2 blocker。已完整保存的瀏覽器歷史頁觀察足以支持數值核驗，不得為了取得 HTTP body 重抓已鎖定數值。
+
+
+## 2026-11-22｜Stage 2–4 組裝前輸入收據修訂
+
+- 新增唯一 pre-build input receipt，將 44 項行情觀察證據、同一 main commit 的當週／上週行事曆、新聞時間窗及五層／政治掃描輸入，綁定同一報告日期與 Workflow run／attempt。
+- Builder 執行前必須取得 PASS 收據；QA sidecar 必須保存完整收據及 SHA，Simulation branch 封存與遠端回讀需驗證 SHA；明確 main preview 交付亦須驗證收據完整性。
+- 原始 HTTP response body／raw_response_sha256 仍屬可選證據；此修訂不要求重抓已鎖定的 44 項行情，也不改變 Stage 2 數值核驗標準。
+- 本次只更新 Simulation 分支 SIM-1.4 規範與對應驗收程式；不修改 main、正式首頁、正式母版或正式行事曆 JSON。
