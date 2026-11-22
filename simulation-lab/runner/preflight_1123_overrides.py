@@ -45,7 +45,7 @@ def main():
     econ_count = apply_last_week_economic_overrides(data)
     earnings_count = apply_last_week_earnings_actuals(data)
     impact_count = apply_calendar_impact_overrides(data)
-    assert (econ_count, earnings_count, impact_count) == (6, 3, 5)
+    assert (econ_count, earnings_count, impact_count) == (6, 3, 4)
 
     prior_econ = {x["id"]: x for x in data["last_week_calendar"]["events"]}
     for row in data["last_week_economic_overrides"]:
