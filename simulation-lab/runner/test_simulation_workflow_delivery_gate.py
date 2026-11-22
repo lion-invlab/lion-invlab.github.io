@@ -48,7 +48,7 @@ assert "prebuild_input_receipt_sha256" in seal and "calendar_main_commit_sha" in
 assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
 assert "prebuild_receipt.get(\"status\") != \"PASS\"" in delivery
 assert "prebuild_input_receipt_sha256" in delivery
-assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in WORKFLOW
+assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in Path("simulation-lab/runner/validate_prebuild_stage_inputs.py").read_text(encoding="utf-8")
 
 print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, read back, and required for explicit main handoff.")
 print("PASS: main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
