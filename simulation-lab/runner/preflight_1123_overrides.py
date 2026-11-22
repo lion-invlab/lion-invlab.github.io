@@ -22,7 +22,7 @@ EXPECTED = {
         "earnings_count": 23,
     },
     "2026-W48": {
-        "blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
+        "blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
         "economic_count": 27,
         "earnings_count": 11,
     },
