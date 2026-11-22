@@ -144,9 +144,9 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
     old_judgment = judgment_value.get_text(" ", strip=True)
     price_reaction = old_judgment.split("股價反應：", 1)[1].strip() if "股價反應：" in old_judgment else "價格反應資料未提供"
     detail_text = (
-        f"EPS：{earnings_status_label(record['eps_comparison_status'])}，實際USD 2.70對平台平均預估USD {record['eps_estimate']:.5f}，"
+        f"EPS：{earnings_status_label(record['eps_comparison_status'])}，實際2.70美元對平台平均預估{record['eps_estimate']:.5f}美元，"
         f"數值差異{record['eps_surprise_pct']:+.2f}%；營收：{earnings_status_label(record['revenue_comparison_status'])}，"
-        f"實際USD 115.800B對平台平均預估USD {record['revenue_estimate']:.4f}B，數值差異{record['revenue_surprise_pct']:+.2f}%。"
+        f"實際1,158億美元對平台平均預估{record['revenue_estimate'] * 10:.4f}億美元，數值差異{record['revenue_surprise_pct']:+.2f}%。"
         f"Yahoo未揭露EPS GAAP／Adjusted、Basic／Diluted細項與Revenue完整定義，以上為平台數值比較，非嚴格同口徑比較。"
         f"股價反應：{price_reaction}"
     )
