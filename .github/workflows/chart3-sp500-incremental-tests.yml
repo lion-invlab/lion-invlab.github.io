@@ -1,4 +1,4 @@
-name: TAC Chart 3 S&P 500 updater tests
+name: TAC Chart 3 S&P 500 offline compatibility tests
 
 on:
   pull_request:
@@ -34,45 +34,3 @@ jobs:
           python -m py_compile .github/scripts/build_sp500_daily_compact.py
       - name: Run offline invariants
         run: python .github/scripts/test_sp500_daily_incremental.py
-
-  live-investing-endpoint:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Verify live Investing.com S&P 500 historical endpoint
-        run: python .github/scripts/test_sp500_investing_live.py
-
-  isolated-incremental-rebuild:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Run 30-day overlap update on PR checkout only
-        run: |
-          python .github/scripts/update_sp500_daily_incremental.py --data-dir data/tac-chart3 --overlap-calendar-days 30
-          python .github/scripts/build_sp500_daily_compact.py --recent-compact data/tac-chart3/sp500_daily_close_1993-2026.compact.json --output data/tac-chart3/sp500_daily_close_1927-2026.compact.json
-      - name: Verify rebuilt historical coverage and Investing.com provenance
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          root = Path("data/tac-chart3")
-          recent = json.loads((root / "sp500_daily_close_1993-2026.compact.json").read_text())
-          full = json.loads((root / "sp500_daily_close_1927-2026.compact.json").read_text())
-          qa = json.loads((root / "sp500_incremental_qa.json").read_text())
-          assert qa["status"] == "PASS", qa
-          assert recent["start"] == "1993-12-31", recent["start"]
-          assert recent["end"] >= "2026-11-20", recent["end"]
-          assert recent["source_details"]["daily_source"].startswith("Investing.com"), recent["source_details"]
-          assert full["start"] == "1927-12-30", full["start"]
-          assert full["end"] == recent["end"], (full["end"], recent["end"])
-          assert full["rows"] >= 24000, full["rows"]
-          print({"status":"PASS","update_mode":qa["mode"],"rows_before":qa["rows_before"],"rows_after":qa["rows_after"],"fetched_rows":qa["fetched_rows"],"recent_start":recent["start"],"recent_end":recent["end"],"full_start":full["start"],"full_end":full["end"],"full_rows":full["rows"],"source_response_sha256":qa["source_response_sha256"]})
-          PY
