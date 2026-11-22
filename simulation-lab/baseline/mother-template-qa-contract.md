@@ -8,7 +8,8 @@
 ## 版本紀錄
 
 - 2026-11-22｜v1.19：修正 A2.1 週一 simulation baseline SHA，與 Manifest／實際 Git blob 完全一致；修正六欄表格分隔線；綁定雙母版及真實內容 E2E／合成候選 Builder 回歸證據。正式 main 母版與首頁未修改。
-- 2026-11-22｜v1.18：依 320px 真實 FOMC 分頁截圖，修正官員行程日期／內容欄位擠壓；<=360px 改為日期在上、行程內容在下，更新雙母版 simulation SHA、Manifest 及 browser regression。正式 main 母版與首頁未修改。\n- 2026-11-22｜v1.17：依使用者授權新增五層市場深度解析與政治／地緣政治六領域掃描 QA；更新 simulation 雙母版 SHA、Manifest slot contract、Builder 候選狀態及五層內容／來源證據驗收。正式 main 母版與首頁未修改。
+- 2026-11-22｜v1.18：依 320px 真實 FOMC 分頁截圖，修正官員行程日期／內容欄位擠壓；<=360px 改為日期在上、行程內容在下，更新雙母版 simulation SHA、Manifest 及 browser regression。正式 main 母版與首頁未修改。
+- 2026-11-22｜v1.17：依使用者授權新增五層市場深度解析與政治／地緣政治六領域掃描 QA；更新 simulation 雙母版 SHA、Manifest slot contract、Builder 候選狀態及五層內容／來源證據驗收。正式 main 母版與首頁未修改。
 
 ## A. 開工前來源鎖定（未通過即停止）
 
@@ -27,7 +28,7 @@
 本節是兩份模擬母版的固定結構定位契約。官方母版 SHA 是 main Manifest 的唯讀正式基準；本次依使用者授權，僅更新 simulation branch 的隔離基準副本，故兩者 SHA 可不同。每日模擬只使用下列 simulation blob SHA；不得把模擬副本 SHA 冒充 main 正式母版 SHA。
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
-|---|---|---|---|
+|---|---|---|---|---|---|
 | 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `efcc712c627d6b26205be340102bba33c4a570d8` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
 | 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `7027fedb4c5843b1a97fb77f7ef19173e1a98564` | DOCTYPE 1、html/head/body 各 1、style 120、script 24；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
 
