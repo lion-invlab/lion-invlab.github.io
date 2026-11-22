@@ -150,7 +150,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -178,6 +178,7 @@ jobs:
           python simulation-lab/runner/test_simulation_workflow_delivery_gate.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
+          python simulation-lab/runner/test_prebuild_stage_inputs.py
           python simulation-lab/runner/test_capture_market_source_pages.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
@@ -281,6 +282,21 @@ jobs:
           python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
           python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
 
+      - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/validate_prebuild_stage_inputs.py \
+            --report-date "${REPORT_DATE}" \
+            --data "${REPORT_DATA}" \
+            --audit simulation-lab/output/market-snapshot-audit.json \
+            --manifest simulation-lab/output/market-source-verification-manifest.json \
+            --output simulation-lab/output/prebuild-stage-input-receipt.json
+          RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          echo "PREBUILD_RECEIPT_SHA256=${RECEIPT_SHA256}" >> "$GITHUB_ENV"
+          echo "Pre-build Stage 2-4 receipt sealed: ${RECEIPT_SHA256}"
+
       - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes
         shell: bash
@@ -293,6 +309,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -s simulation-lab/output/prebuild-stage-input-receipt.json || { echo "Pre-build Stage 2-4 input receipt missing; refusing Builder execution" >&2; exit 1; }
+          ACTUAL_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          test "${ACTUAL_RECEIPT_SHA256}" = "${PREBUILD_RECEIPT_SHA256}" || { echo "Pre-build receipt SHA changed before Builder execution" >&2; exit 1; }
           python - <<'PY'
           import sys
           sys.path.insert(0, "simulation-lab/runner")
@@ -706,6 +725,30 @@ jobs:
           if len(market_source_rows) != 44 or any(not row.get("observation_record_sha256") or row.get("source_page_fetched") is not False for row in market_source_rows):
               raise SystemExit("market source manifest row-level observation provenance is incomplete or overstated")
           market_source_manifest_sha256 = hashlib.sha256(market_source_manifest_path.read_bytes()).hexdigest()
+          prebuild_receipt_path = Path("simulation-lab/output/prebuild-stage-input-receipt.json")
+          if not prebuild_receipt_path.is_file():
+              raise SystemExit("pre-build Stage 2-4 input receipt missing")
+          prebuild_receipt = json.loads(prebuild_receipt_path.read_text(encoding="utf-8"))
+          prebuild_receipt_sha256 = hashlib.sha256(prebuild_receipt_path.read_bytes()).hexdigest()
+          if prebuild_receipt.get("status") != "PASS" or prebuild_receipt.get("gate") != "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT":
+              raise SystemExit("pre-build Stage 2-4 input receipt did not PASS")
+          if prebuild_receipt.get("report_date") != report_date or prebuild_receipt.get("branch") != "simulation/tac-process-lab-2026-11-06":
+              raise SystemExit("pre-build receipt report date or branch mismatch")
+          if prebuild_receipt.get("workflow_run_id") != "${{ github.run_id }}" or prebuild_receipt.get("workflow_run_attempt") != "${{ github.run_attempt }}":
+              raise SystemExit("pre-build receipt belongs to a different workflow run/attempt")
+          if prebuild_receipt.get("fixture", {}).get("sha256") != hashlib.sha256(fixture_path.read_bytes()).hexdigest():
+              raise SystemExit("pre-build receipt fixture SHA differs from Builder input")
+          if prebuild_receipt.get("stage_2_market", {}).get("audit_sha256") != market_snapshot_audit_sha256:
+              raise SystemExit("pre-build receipt market audit SHA differs from QA input")
+          if prebuild_receipt.get("stage_2_market", {}).get("manifest_sha256") != market_source_manifest_sha256:
+              raise SystemExit("pre-build receipt source manifest SHA differs from QA input")
+          calendar_receipt = prebuild_receipt.get("stage_3_calendar", {})
+          if calendar_receipt.get("main_commit_sha") != provenance.get("calendar_main_commit_sha"):
+              raise SystemExit("pre-build receipt main calendar commit differs from Builder provenance")
+          if calendar_receipt.get("current", {}).get("blob_sha") != provenance.get("calendar_current_blob_sha") or calendar_receipt.get("previous", {}).get("blob_sha") != provenance.get("calendar_previous_blob_sha"):
+              raise SystemExit("pre-build receipt calendar blob SHA differs from Builder provenance")
+          if prebuild_receipt_sha256 != "${PREBUILD_RECEIPT_SHA256}":
+              raise SystemExit("pre-build receipt SHA changed after Builder execution")
           market_source_summary = {
               "status": market_source_manifest.get("status"),
               "row_count": market_source_manifest.get("row_count"),
@@ -729,6 +772,9 @@ jobs:
               "market_source_verification_manifest_path": str(market_source_manifest_path),
               "market_source_verification_manifest_sha256": market_source_manifest_sha256,
               "market_source_verification_summary": market_source_summary,
+              "prebuild_input_receipt_path": str(prebuild_receipt_path),
+              "prebuild_input_receipt_sha256": prebuild_receipt_sha256,
+              "prebuild_input_receipt": prebuild_receipt,
               "branch": "simulation/tac-process-lab-2026-11-06",
               "report_path": report_path,
               "report_date": report_date,
@@ -785,6 +831,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
+          PREBUILD_RECEIPT="simulation-lab/output/prebuild-stage-input-receipt.json"
+          PREBUILD_RECEIPT_ARCHIVE="simulation-lab/runs/prebuild-stage-input-receipt-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          test -s "${PREBUILD_RECEIPT}" || { echo "Pre-build receipt missing; refusing to persist QA artifact" >&2; exit 1; }
+          cp "${PREBUILD_RECEIPT}" "${PREBUILD_RECEIPT_ARCHIVE}"
+          git add -f "${PREBUILD_RECEIPT_ARCHIVE}"
+          PREBUILD_RECEIPT_SHA="$(git hash-object "${PREBUILD_RECEIPT_ARCHIVE}")"
           SOURCE_WORKLIST="simulation-lab/output/market-source-verification-manifest.json"
           SOURCE_WORKLIST_ARCHIVE="simulation-lab/runs/market-source-verification-manifest-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
           if [[ ! -s "${SOURCE_WORKLIST}" ]]; then
@@ -827,7 +879,9 @@ jobs:
             RECHECK_AUDIT_SHA="$(git show "HEAD:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
             test "${AUDIT_BLOB_SHA}" = "${RECHECK_AUDIT_SHA}" || { echo "Market audit SHA changed during persistence"; exit 1; }
           fi
-          echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}"
+          RECHECK_PREBUILD_SHA="$(git show "HEAD:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence"; exit 1; }
+          echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
           git fetch origin simulation/tac-process-lab-2026-11-06
           REMOTE_HTML_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_OUTPUT}" | git hash-object --stdin)"
@@ -838,7 +892,9 @@ jobs:
             REMOTE_AUDIT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
             test "${AUDIT_BLOB_SHA}" = "${REMOTE_AUDIT_SHA}" || { echo "Remote market audit SHA read-back mismatch"; exit 1; }
           fi
-          echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}"
+          REMOTE_PREBUILD_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${PREBUILD_RECEIPT_SHA}" = "${REMOTE_PREBUILD_SHA}" || { echo "Remote pre-build receipt SHA read-back mismatch"; exit 1; }
+          echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
 
       - name: Deliver the exact QA-passed artifact to main preview only after explicit user approval
         if: success() && github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.publish_to_main == true
