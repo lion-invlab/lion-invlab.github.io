@@ -808,12 +808,15 @@ jobs:
       - name: Deliver the exact QA-passed artifact to main preview only after explicit user approval
         if: success() && github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.publish_to_main == true
         shell: bash
+        env:
+          APPROVED_HTML_SHA: ${{ inputs.approved_html_sha }}
         run: |
           set -euo pipefail
-          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" "${{ inputs.approved_html_sha }}" <<'PY'
-          import hashlib, json, re, subprocess, sys
+          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" <<'PY'
+          import hashlib, json, os, re, subprocess, sys
           from pathlib import Path
-          html_path, qa_path, report_date, approved_html_sha = sys.argv[1:]
+          html_path, qa_path, report_date = sys.argv[1:]
+          approved_html_sha = os.environ.get("APPROVED_HTML_SHA", "")
           html = Path(html_path).read_bytes()
           qa_bytes = Path(qa_path).read_bytes()
           qa = json.loads(qa_bytes)
