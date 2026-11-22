@@ -529,14 +529,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" "${PREBUILD_RECEIPT_SHA256}" <<'PY'
+          test -s simulation-lab/output/prebuild-stage-input-receipt.json || { echo "Pre-build receipt missing before QA seal" >&2; exit 1; }
+          ACTUAL_PREBUILD_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          test "${ACTUAL_PREBUILD_RECEIPT_SHA256}" = "${PREBUILD_RECEIPT_SHA256}" || { echo "Pre-build receipt SHA changed after Builder execution" >&2; exit 1; }
+          python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" <<'PY'
           import hashlib, json, re, subprocess, sys
           from pathlib import Path
           from bs4 import BeautifulSoup, Comment
           sys.path.insert(0, 'simulation-lab/runner')
           from sim14_builder_approval import resolve_from_files
           from build_review_html import validate_political_scan
-          report_path, report_date, evidence_path, expected_prebuild_receipt_sha256 = sys.argv[1:]
+          report_path, report_date, evidence_path = sys.argv[1:]
           raw = Path(report_path).read_bytes()
           soup = BeautifulSoup(raw, "html.parser")
           comment = next((str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))), None)
@@ -747,10 +750,6 @@ jobs:
               raise SystemExit("pre-build receipt main calendar commit differs from Builder provenance")
           if calendar_receipt.get("current", {}).get("blob_sha") != provenance.get("calendar_current_blob_sha") or calendar_receipt.get("previous", {}).get("blob_sha") != provenance.get("calendar_previous_blob_sha"):
               raise SystemExit("pre-build receipt calendar blob SHA differs from Builder provenance")
-          if not re.fullmatch(r"[0-9a-f]{64}", expected_prebuild_receipt_sha256):
-              raise SystemExit("pre-build receipt expected SHA is missing or malformed")
-          if prebuild_receipt_sha256 != expected_prebuild_receipt_sha256:
-              raise SystemExit("pre-build receipt SHA changed after Builder execution")
           market_source_summary = {
               "status": market_source_manifest.get("status"),
               "row_count": market_source_manifest.get("row_count"),
