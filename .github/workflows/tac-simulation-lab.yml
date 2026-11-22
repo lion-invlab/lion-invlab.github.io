@@ -1,4 +1,5 @@
 name: TAC isolated simulation lab
+# Rebuild 2026-11-23 preview with collapsed five-layer source disclosures.
 # Full-build push trigger: include [build-tac-report:YYYY-MM-DD] in the commit message.
 
 on:
