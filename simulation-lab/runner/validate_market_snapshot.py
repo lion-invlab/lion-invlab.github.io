@@ -41,7 +41,7 @@ def _validate_source(group: str, name: str, source: dict, trading_date: str) -> 
     )
     has_clock_time = bool(
         isinstance(raw_verification_time, str)
-        and re.search(r"\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}", raw_verification_time)
+        and re.search(r"\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}", raw_verification_time)
     )
     timestamp_status = (
         "EXACT_TIME" if has_clock_time
