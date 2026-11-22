@@ -2288,7 +2288,7 @@
         }
       }
     ],
-    "quality_note": "Monday retrospective只呈現W47一筆五星財報：NVDA Q3 FY2027。實際GAAP EPS／Revenue及發行人來源已核實；公告前PIT共識不足，不判Beat/Miss；補入首個完整交易日股價反應及Investing.com歷史報價來源。"
+    "quality_note": "Monday retrospective只呈現W47一筆五星財報：NVDA Q3 FY2027。實際GAAP EPS／Revenue及發行人來源已核實；公告前Yahoo Finance Average Estimate PIT快照亦已保存（EPS 43位、Revenue 45位）。Yahoo未揭露EPS GAAP／Adjusted、Basic／Diluted細項與Revenue完整定義；依SIM-1.4仍可作平台數值比較，但必須標示「來源未揭露口徑」，不得宣稱嚴格同口徑比較。EPS與營收的數值差異分別為+9.26%及+6.50%；股價反應另列，不歸因為財報單一因素。"
   },
   "summary_points": [
     {
@@ -3611,13 +3611,14 @@
     "stage3_calendar_json_read_only": true,
     "stage3_current_week_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
     "stage3_previous_week_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
-    "stage3_earnings_projection_blob_sha": "256c86ad8b88dd88f8207a30bdb4a57e8d273d2a",
+    "stage3_earnings_projection_blob_sha": "256c86a424b76e0b9cb4a85f915ea3ddac62f4b1",
     "stage4_news_count": 15,
     "stage4_focus_count": 5,
     "stage4_headline_count": 10,
     "stage4_newly_opened_news_count": 2,
     "stage4_reused_verified_news_count": 13,
     "stage4_political_scan_checked_at_taipei": "2026-11-23T06:17:33+08:00",
-    "main_publish_authorized": false
+    "main_publish_authorized": false,
+    "stage3_calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098"
   }
 }
