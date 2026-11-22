@@ -101,6 +101,9 @@ def test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers
             assert len(layer_receipt["sources"]) == 1
             assert layer_receipt["sources"][0]["url"] == "https://example.com/source"
             assert layer_receipt["sources"][0]["label"] == "官方來源測試"
+            assert layer_receipt["sources"][0]["status"] == "VERIFIED"
+            assert layer_receipt["sources"][0]["published_at"] == "2026-11-22T08:00:00+08:00"
+            assert layer_receipt["sources"][0]["checked_at"] == "2026-11-22T08:10:00+08:00"
 
 
 def test_builder_fails_closed_on_missing_layer_or_source_evidence():
