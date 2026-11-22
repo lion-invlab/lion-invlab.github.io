@@ -1,3 +1,14 @@
+## 2026-11-22｜SIM-1.4 五層內容修訂與 Stage 2／回歸驗收更新
+
+- **有效基準：** SIM-1.4 active rules blob `28b9d1febc106012650fe0c6085d5405742eeea6`；唯一核准 Builder `simulation-lab/runner/build_review_html.py` blob `16254bfa249814ac75e62cf8acbad2828f366fe6`；QA Contract v1.17 blob `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`。
+- **最新 Fixture：** `simulation-lab/fixtures/report-data-2026-11-23.json` blob `b1db8b43e7433429a55884330a56a9743684b987`。44/44行情逐項直接讀取指定日期歷史列，44/44精確查核時間；更正CAC 40、AUD/USD、USD/JPY、XLB四項錯值；VIX、DXY、XLRE、RUT來源連結與非CFD口徑已修正。
+- **Stage 4內容：** BIS出口管制改用Federal Register正式規則，精確描述D:5／澳門、既有資料中心90日許可與目的地限制；川習會Reuters發布時間換算為台灣16:40；荷姆茲油輪事件加入UKMTO官方Warning 215-26；Nvidia SEC調查保留Reuters報導且明示未證實違法；Fed 10月會議紀錄改用Federal Reserve官方來源，區分兩名成員主張升息與市場對12月升息定價。
+- **W48經濟行事曆：** 七筆無數值forecast事件逐筆補上來源與原因；澳洲／日本Flash PMI的Investing.com upcoming row未提供forecast，S&P Global時間為暫定；Beige Book、ECB Accounts、感恩節休市、Williams談話屬非數值事件；加拿大SEPH未找到可採用公告前共識。所有forecast維持null，不補造；各事件時間已按官方時區換算台灣時間。
+- **Regression：** `test_1123_fixture.py` blob `05ef540bd031e1a7d46404c5724ec86b62179d89`；`test_validate_market_snapshot.py` blob `fe1f29f3bc89e9f3ca803dc51d2500adc1750cc8`；`validate_market_snapshot.py` blob `d251d8c0e4e2bed5029696c92e119504a7c1cb6c`。run `44982486495` completed／success，deterministic tests、繁中字型、Chromium、雙母版瀏覽器 QA 均通過。
+- **剩餘 blockers（3項）：** W47歷史財報23筆缺少公告前EPS／Revenue共識；W48七筆事件無可採用數值市場預期（已逐筆說明）；main W47／W48 coverage incomplete。整體維持 PARTIAL，尚非 REVIEW_READY。
+- **下一步：** 以 `[build-tac-report:2026-11-23]` 觸發已核准 Builder，產生 simulation preview 並檢查完整 HTML。由於三項 blockers 仍存在，QA handoff gate 必須在 main fetch／write 前 fail closed；只允許將預覽與 QA sidecar 保存於 simulation branch。不得修改 main、首頁、正式母版、Manifest、行事曆 JSON或部署 Pages。
+
+---
 ## 2026-11-22｜SIM-1.4 Stage 2 真實來源逐項核對完成（44/44）｜最終回歸待確認
 
 - **範圍：** 僅修改 `simulation/tac-process-lab-2026-11-06`；main、正式首頁、正式母版、Manifest、行事曆 JSON 均唯讀，未部署 Pages。
