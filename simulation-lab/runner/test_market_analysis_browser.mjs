@@ -33,7 +33,7 @@ try {
       return route.continue();
     });
     await page.goto(pathToFileURL(file).href, { waitUntil: "domcontentloaded" });
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(async () => { await document.fonts.ready; return true; });
     for (const width of widths) {
       await page.setViewportSize({ width, height: 1000 });
       const metrics = await page.evaluate(() => {
