@@ -85,7 +85,7 @@ def main() -> None:
     result = build_manifest(data, args.report_date)
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     raw = path.read_bytes()
     print(json.dumps({
         "output": str(path),
