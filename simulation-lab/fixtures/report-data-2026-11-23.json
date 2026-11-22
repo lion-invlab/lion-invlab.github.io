@@ -424,7 +424,9 @@
         "daily_change_bp": "-16.6",
         "daily_change_percent": "-3.47%",
         "verification_status": "VERIFIED",
-        "source_role": "PRIMARY"
+        "source_role": "PRIMARY",
+        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
+        "raw_response_sha256": null
       },
       "change_display": "-16.6 bp"
     },
@@ -453,7 +455,9 @@
         "daily_change_bp": "-14.0",
         "daily_change_percent": "-2.77%",
         "verification_status": "VERIFIED",
-        "source_role": "PRIMARY"
+        "source_role": "PRIMARY",
+        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
+        "raw_response_sha256": null
       },
       "change_display": "-14.0 bp"
     },
@@ -482,7 +486,9 @@
         "daily_change_bp": "-9.9",
         "daily_change_percent": "-1.83%",
         "verification_status": "VERIFIED",
-        "source_role": "PRIMARY"
+        "source_role": "PRIMARY",
+        "evidence_method": "Investing.com historical data table; 2026-11-20 row Price/Close and 2026-11-19 previous row Price; basis-point change calculated from same series",
+        "raw_response_sha256": null
       },
       "change_display": "-9.9 bp"
     }
