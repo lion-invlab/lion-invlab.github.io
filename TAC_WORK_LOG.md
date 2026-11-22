@@ -13,8 +13,8 @@
 - Manifest SHA：`c78338984192a9251adc247ae1b0044629de89db`；已同步雙母版 SHA、五層鍵值、selector、父層、順序及 Builder 可編輯範圍。
 
 ### Builder 與 QA 實作
-- Builder 候選 `simulation-lab/runner/build_review_html.py` SHA：`96eccd541a4787f4b5f9e3baab7a63f9fd993342`。
-- Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。
+- Builder 候選 `simulation-lab/runner/build_review_html.py` SHA：`16254bfa249814ac75e62cf8acbad2828f366fe6`。
+- Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。另新增 output-only candidate validation mode，只允許輸出至 simulation-lab/output/candidate-validation，不可寫入 preview 或 main；正準備以 11/23 Monday 與 11/20 Weekday 既有 Fixture 加合成文章內容，進行完整 Builder 雙情境測試。
 - 新增 `test_market_analysis_slots.py`、`render_market_analysis_test_pages.py`、`test_market_analysis_browser.mjs`；同步更新雙母版驗證器、DOM preservation validator、獨立 artifact validator 與 GitHub Actions workflow。
 - Workflow 新增五層內容 Gate、政治掃描 sidecar 欄位、Stage 6 交付檢查；未完成政治掃描或未具備完整證據，不得默認 PASS。
 
@@ -26,7 +26,7 @@
 
 ### Builder 核准與後續限制
 - 原核准 Builder SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備五層填槽能力，已在 SIM-1.4 降為歷史核准基準，不得用於新母版。
-- 新候選 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342` 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。未核准前 Gate 0／Stage 5 必須 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
+- 新候選 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。未核准前 Gate 0／Stage 5 必須 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
 - main 保護查核：`index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；正式週一母版 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；正式平日母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。本輪未修改 main、正式母版、正式 Manifest、正式行事曆 JSON 或歷史報告，未部署 Pages。
 
 ---
