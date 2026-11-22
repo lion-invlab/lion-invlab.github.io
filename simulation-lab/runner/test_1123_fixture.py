@@ -214,6 +214,7 @@ def main():
     assert "超過其資產負債表與長期信用狀況可支持的程度" in policy_text
     assert "1,180億美元" in policy_text and "尚未支付任何保證款" in policy_text
     assert "1,050億美元" in policy_text and "4.25GW" in policy_text and "20年租約" in policy_text
+    assert "FY2029" in policy_text and "3.8GW" in policy_text
     assert "810億美元" in policy_text and "64天" in policy_text and "60天" in policy_text
     assert "合計約占應收帳款70%" in policy_text and "90天至一年" in policy_text
     assert "33億美元" in policy_text and "47億美元" in policy_text
