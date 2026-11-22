@@ -724,6 +724,7 @@ jobs:
           print("QA handoff gate PASS; exact HTML blob:", html_blob)
           PY
           HTML_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
+          SOURCE_SIM_COMMIT="$(git rev-parse HEAD)"
           HTML_SHA256="$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
           QA_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
           MAIN_DIR="${RUNNER_TEMP}/tac-main-preview"
@@ -732,7 +733,11 @@ jobs:
           MAIN_HTML="preview/${REPORT_DATE}-review.html"
           MAIN_QA="preview/${REPORT_DATE}-review.qa.json"
           MAIN_RECEIPT="preview/${REPORT_DATE}-review.delivery.json"
+          [[ ! -L "${MAIN_DIR}/preview" ]] || { echo "Main preview directory is a symlink; refusing delivery"; exit 1; }
           mkdir -p "${MAIN_DIR}/preview"
+          for target in "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}"; do
+            [[ ! -L "${MAIN_DIR}/${target}" ]] || { echo "Main preview target is a symlink: ${target}"; exit 1; }
+          done
           if [[ -e "${MAIN_DIR}/${MAIN_HTML}" || -e "${MAIN_DIR}/${MAIN_QA}" || -e "${MAIN_DIR}/${MAIN_RECEIPT}" ]]; then
             test -f "${MAIN_DIR}/${MAIN_HTML}" && test -f "${MAIN_DIR}/${MAIN_QA}" && test -f "${MAIN_DIR}/${MAIN_RECEIPT}" || { echo "Existing main preview is incomplete; refusing overwrite"; exit 1; }
             test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_HTML}")" = "${HTML_BLOB_SHA}" || { echo "Existing main HTML differs; refusing overwrite"; exit 1; }
@@ -742,7 +747,7 @@ jobs:
           fi
           cp "${REPORT_OUTPUT}" "${MAIN_DIR}/${MAIN_HTML}"
           cp "${REPORT_EVIDENCE}" "${MAIN_DIR}/${MAIN_QA}"
-          python - "${MAIN_DIR}/${MAIN_RECEIPT}" "${REPORT_DATE}" "${HTML_BLOB_SHA}" "${HTML_SHA256}" "${QA_BLOB_SHA}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}" <<'PY'
+          python - "${MAIN_DIR}/${MAIN_RECEIPT}" "${REPORT_DATE}" "${HTML_BLOB_SHA}" "${HTML_SHA256}" "${QA_BLOB_SHA}" "${SOURCE_SIM_COMMIT}" "${GITHUB_RUN_ID}" <<'PY'
           import json, sys
           from datetime import datetime, timezone
           from pathlib import Path
