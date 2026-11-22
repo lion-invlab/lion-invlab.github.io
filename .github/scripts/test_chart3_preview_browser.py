@@ -54,6 +54,8 @@ def validate_chart(page, label):
     sp_path = page.locator("#combined-chart svg path[data-series='SP500']")
     check(label + "_sp500_actual_daily_observation_span", sp_path.get_attribute("data-first-date") == "1993-12-31" and sp_path.get_attribute("data-last-date") == "2026-11-20", {"first":sp_path.get_attribute("data-first-date"),"last":sp_path.get_attribute("data-last-date")})
     check(label + "_sp500_daily_rows_are_real_observations", sp_path.get_attribute("data-total-points") == "8278" and sp_path.get_attribute("data-frequency") == "daily")
+    check(label + "_sp500_daily_dataset_sha256", sp_path.get_attribute("data-dataset-sha256") == "03f9ede6bd2232def38face6b84b86d4911923c0394db9257fce8e7424c5897a")
+    check(label + "_sp500_latest_close_matches_verified_ledger", sp_path.get_attribute("data-last-close") == "6910.39")
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
