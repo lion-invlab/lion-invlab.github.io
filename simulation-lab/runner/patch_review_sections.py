@@ -68,10 +68,12 @@ def patch_section(html_path: Path, fixture_path: Path, manifest_path: Path,
         title = builder.validate_summary_title(data.get("summary_title"))
         builder.set_text(builder.unique(card, "h1", "summary local patch headline"), title)
         count = builder.populate_summary_points_preserving_dom(content, data.get("summary_points"))
+        summary_source_receipt = builder.remove_visible_sources_from_summary(card)
         internal_receipt = {
             "section": "summary",
             "summary_title": title,
             "summary_point_count": count,
+            "summary_source_receipt": summary_source_receipt,
             "fixture_source_fields_retained": True,
         }
     else:
