@@ -23,6 +23,11 @@ def main():
     assert all(r["evidence_status"]=="BROWSER_OBSERVATION_SAVED" for r in result["rows"])
     assert all(len(r["observation_record_sha256"])==64 for r in result["rows"])
     assert all(r["browser_observation_record"]["data_date"]=="2026-11-20" for r in result["rows"])
+    assert all(r["browser_observation_record"]["observed_value"] is not None for r in result["rows"])
+    assert all(r["browser_observation_record"]["observed_change"] is not None for r in result["rows"])
+    for row in result["rows"]:
+        if row["group"] in ("sectors", "energy", "metals"):
+            assert str(row["display"]).removesuffix("%") == str(row["browser_observation_record"]["observed_value"]), row["name"]
     bond_rows = {r["name"]: r for r in result["rows"] if r["group"] == "bonds"}
     expected = {
         "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
