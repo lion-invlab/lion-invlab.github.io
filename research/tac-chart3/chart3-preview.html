@@ -159,7 +159,7 @@ async function decodeSp500Compact(compact){
  for(let i=0;i<compact.rows;i++){ordinal+=readVarint();const z=readVarint();closeCents+=z%2===0?z/2:-(Math.floor(z/2))-1;const ts=ordinal*86400000;rows.push({date:new Date(ts).toISOString().slice(0,10),ts,close:closeCents/100});}
  if(offset!==raw.length||rows.length!==compact.rows||rows[0]?.date!==compact.start||rows.at(-1)?.date!==compact.end)throw new Error('S&P 500 compact 日期／筆數／payload 驗證失敗');
  for(let i=0;i<rows.length;i++)if(!Number.isFinite(rows[i].close)||rows[i].close<=0||(i&&rows[i-1].date>=rows[i].date))throw new Error('S&P 500 每日價格無效或日期未遞增');
- const canonical='Date,Close\\n'+rows.map(p=>p.date+','+p.close.toFixed(2)+'\\n').join('');
+ const canonical='Date,Close\n'+rows.map(p=>p.date+','+p.close.toFixed(2)+'\n').join('');
  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonical));
  const sha=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
  if(sha!==compact.source_dataset_sha256)throw new Error('S&P 500 每日資料集 SHA-256 不符');
