@@ -2,14 +2,22 @@ name: TAC Chart 3 preview visual QA
 # Re-run browser QA after history overlay checkbox changes
 
 on:
+  pull_request:
+    paths:
+      - "research/tac-chart3/chart3-preview.html"
+      - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
+      - ".github/scripts/test_chart3_preview_browser.py"
+      - ".github/workflows/chart3-preview-visual-qa.yml"
   push:
     branches:
-      - main
+      - fix/chart3-sp500-investing-source-20261123
+      - feat/chart3-sp500-incremental-20261114
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
+      - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
 
 permissions:
   contents: read
@@ -26,7 +34,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
