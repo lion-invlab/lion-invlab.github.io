@@ -1004,6 +1004,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
+          OVERLAY_RECEIPT_ARCHIVE="simulation-lab/runs/last-week-consensus-overlay-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          test -s "${PATCH_RECEIPT}" || { echo "W47 consensus overlay receipt missing; refusing QA persistence" >&2; exit 1; }
+          mkdir -p simulation-lab/runs
+          cp "${PATCH_RECEIPT}" "${OVERLAY_RECEIPT_ARCHIVE}"
+          git add -f "${OVERLAY_RECEIPT_ARCHIVE}"
+          OVERLAY_RECEIPT_BLOB_SHA="$(git hash-object "${OVERLAY_RECEIPT_ARCHIVE}")"
+
           # Persist the exact Chart 3 merge outputs produced and validated in step 20.
           # A successful in-run merge is not a database update until these files are committed.
           CHART3_FILES=(
@@ -1075,6 +1082,8 @@ jobs:
           fi
           RECHECK_PREBUILD_SHA="$(git show "HEAD:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
           test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence"; exit 1; }
+          RECHECK_OVERLAY_RECEIPT_SHA="$(git show "HEAD:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${RECHECK_OVERLAY_RECEIPT_SHA}" || { echo "W47 overlay receipt SHA changed during persistence"; exit 1; }
           echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
           git fetch origin simulation/tac-process-lab-2026-11-06
@@ -1093,6 +1102,8 @@ jobs:
           fi
           REMOTE_PREBUILD_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
           test "${PREBUILD_RECEIPT_SHA}" = "${REMOTE_PREBUILD_SHA}" || { echo "Remote pre-build receipt SHA read-back mismatch"; exit 1; }
+          REMOTE_OVERLAY_RECEIPT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${REMOTE_OVERLAY_RECEIPT_SHA}" || { echo "Remote W47 overlay receipt read-back SHA mismatch"; exit 1; }
           echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
 
       - name: Deliver the exact QA-passed artifact to main preview only after explicit user approval
