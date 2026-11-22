@@ -161,6 +161,7 @@ def main():
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     sp = manifest.setdefault("sp500_data", {})
     full_compact = json.loads(full.read_text(encoding="utf-8"))
+    last_record = json.loads(ledger_raw.decode("utf-8").splitlines()[-1])
     sp.update({
         "path": str(full),
         "git_blob_sha1": git_blob_sha1(full),
@@ -169,7 +170,7 @@ def main():
         "end": full_compact["end"],
         "rows": full_compact["rows"],
         "encoding": full_compact["encoding"],
-        "recent_snapshot_source": f"Validated recent compact baseline through {result[\"end\"]}; appended only verified TAC daily-report S&P 500 cash-index observations through {result[\"end\"]}.",
+        "recent_snapshot_source": f"Validated recent compact baseline through {result['end']}; appended only verified TAC daily-report S&P 500 cash-index observations through {result['end']}.",
         "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
         "increment_ledger": {
             "path": str(ledger),
@@ -177,9 +178,9 @@ def main():
             "first": increments[0][0],
             "last": increments[-1][0],
             "rows": len(increments),
-            "source_name": "Yahoo Finance S&P 500 (^GSPC) Historical Data",
-            "source_url": "https://finance.yahoo.com/quote/%5EGSPC/history/",
-            "observed_at": json.loads(ledger_raw.decode("utf-8").splitlines()[-1])["observed_at"],
+            "source_name": last_record["source_name"],
+            "source_url": last_record["source_url"],
+            "observed_at": last_record["observed_at"],
         },
     })
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
