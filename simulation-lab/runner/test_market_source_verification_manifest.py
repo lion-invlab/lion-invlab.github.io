@@ -6,12 +6,16 @@ from build_market_source_verification_manifest import build_manifest
 def main():
     data=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-23.json").read_text(encoding="utf-8"))
     result=build_manifest(data,"2026-11-23")
-    assert result["row_count"]==44 and result["pending_count"]==13 and result["verified_count"]==31
-    assert result["source_pages_fetched"] is False
-    assert result["displayed_values_independently_reconciled"] is False
+    assert result["row_count"]==44 and result["pending_count"]==0 and result["verified_count"]==44
+    assert result["status"]=="PARTIAL"
+    assert result["source_pages_fetched"] is True
+    assert result["displayed_values_independently_reconciled"] is True
+    assert result["raw_response_sha256_complete"] is False
+    assert result["evidence_hash_missing_count"]==44
     assert len({(r["group"],r["name"]) for r in result["rows"]})==44
-    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==31
-    assert sum(r["verification_status"]=="PENDING_SOURCE_PAGE_CAPTURE" for r in result["rows"])==13
+    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==43
+    assert sum(r["verification_status"]=="BACKUP_VERIFIED" for r in result["rows"])==1
+    assert sum(r["verification_status"]=="PENDING_SOURCE_PAGE_CAPTURE" for r in result["rows"])==0
     assert all(r["display_value_reconciled"] for r in result["rows"] if r["verification_status"]=="VERIFIED")
     assert all(r["source_url"].startswith("https://") for r in result["rows"])
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
