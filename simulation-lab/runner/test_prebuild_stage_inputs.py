@@ -112,6 +112,16 @@ def main() -> None:
         workflow_run_id="45010119942", workflow_run_attempt="1"),
         "not the pinned main commit")
 
+    wrong_calendar_path = copy.deepcopy(bundle)
+    wrong_calendar_path["current"]["path"] = "data/calendar/weeks/2026-W47.json"
+    expect_error(lambda: build_receipt(
+        data=data, fixture_sha256="1" * 64, audit=audit, audit_sha256="2" * 64,
+        manifest=manifest, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_path,
+        repository="lion-invlab/lion-invlab.github.io",
+        branch="simulation/tac-process-lab-2026-11-06",
+        workflow_run_id="45010119942", workflow_run_attempt="1"),
+        "canonical ISO-week database path")
+
     print("PASS: valid receipt binds 44 observations, two pinned main calendar weeks, 15 news items and five-layer analysis")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
     print("PASS: zero raw HTTP response hashes is accepted when browser observations are complete")
