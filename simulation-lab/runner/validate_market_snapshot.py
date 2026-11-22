@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 from urllib.parse import urlparse
+import re
 
 
 EXPECTED_COUNTS = {
@@ -32,6 +33,21 @@ def _validate_source(group: str, name: str, source: dict, trading_date: str) -> 
     _require(parsed.scheme == "https" and bool(parsed.netloc), f"{group}/{name}: source URL must be HTTPS")
     _require(source["data_date"] == trading_date,
              f"{group}/{name}: source date {source['data_date']} != trading_date {trading_date}")
+    raw_verification_time = (
+        source.get("checked_at_tw")
+        or source.get("checked_at")
+        or source.get("read_at_taipei")
+        or source.get("verified_at_tw")
+    )
+    has_clock_time = bool(
+        isinstance(raw_verification_time, str)
+        and re.search(r"\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}", raw_verification_time)
+    )
+    timestamp_status = (
+        "EXACT_TIME" if has_clock_time
+        else "DATE_ONLY" if raw_verification_time
+        else "MISSING"
+    )
     return {
         "group": group,
         "name": name,
@@ -39,7 +55,8 @@ def _validate_source(group: str, name: str, source: dict, trading_date: str) -> 
         "quote_type": source["quote_type"],
         "source_name": source["name"],
         "source_url": source["url"],
-        "verified_at_tw": source.get("verified_at_tw") or source.get("read_at_taipei"),
+        "verified_at_tw": raw_verification_time,
+        "timestamp_status": timestamp_status,
     }
 
 
@@ -107,7 +124,9 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
     dates = sorted({row["data_date"] for row in rows})
     _require(dates == [trading_date], f"44-row common-date mismatch: {dates} != {[trading_date]}")
 
-    timestamped = sum(1 for row in rows if row.get("verified_at_tw"))
+    timestamped = sum(1 for row in rows if row["timestamp_status"] == "EXACT_TIME")
+    date_only = sum(1 for row in rows if row["timestamp_status"] == "DATE_ONLY")
+    timestamp_missing = sum(1 for row in rows if row["timestamp_status"] == "MISSING")
     quote_types = {}
     for row in rows:
         quote_types[row["quote_type"]] = quote_types.get(row["quote_type"], 0) + 1
@@ -120,12 +139,15 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
         "common_data_dates": dates,
         "source_metadata_complete_count": len(rows),
         "per_item_timestamp_count": timestamped,
+        "per_item_date_only_count": date_only,
         "per_item_timestamp_gap": len(rows) - timestamped,
+        "per_item_timestamp_missing_count": timestamp_missing,
         "quote_type_counts": quote_types,
         "rows": rows,
         "timestamp_note": (
-            "Per-item verified_at_tw/read_at_taipei is present only where supplied; "
-            "the batch acquisition window must remain documented separately and must not be inferred."
+            "Only source records carrying a clock time count as exact per-item timestamps; "
+            "date-only verification markers are reported separately. The batch acquisition window "
+            "must remain documented separately and must not be inferred."
         ),
     }
 
