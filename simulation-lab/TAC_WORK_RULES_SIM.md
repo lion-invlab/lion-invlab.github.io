@@ -294,6 +294,7 @@
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
+8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。此核准依據為 2026-11-22 使用者明確核准，以及同一 Builder SHA 的 Monday run `44964279548`、Weekday run `44964439803` 雙母版完整驗收。SIM-1.4 每日生產組裝只准使用此路徑及精確 SHA；任何其他 Builder、手工 HTML 組裝或 SHA 不符均停止，不得 fallback。
 
 ### 8.2 組裝限制
 - 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
@@ -548,3 +549,11 @@
 - 生效範圍僅限 `simulation/tac-process-lab-2026-11-06`；main、正式首頁、正式母版、正式 Manifest 及正式行事曆 JSON 均未授權修改。
 
 - SIM-1.4 首次正式生效後端到端驗收目標：2026-11-23；本次以隔離 simulation workflow 執行，不得將既有 SIM-1.3 preview／QA sidecar 沿用為新規則驗收證據。
+
+
+## 2026-11-22｜SIM-1.4 唯一 Builder 核准紀錄
+
+- 使用者於 2026-11-22 明確核准 `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- 此 SHA 已分別通過 Monday 2026-11-23 run `44964279548` 與 Weekday 2026-11-20 run `44964439803` 的完整雙母版驗收；兩份 QA sidecar 的 Builder SHA 完全一致。
+- 自本次核准起，此路徑及 SHA 為 SIM-1.4 唯一正式生產 Builder。任何其他 Builder、手工組裝或 SHA 不符均不得作為每日生產入口。
+- 本核准僅限 simulation branch 的 SIM-1.4 Builder 入口；不構成 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 或 Pages 部署授權。
