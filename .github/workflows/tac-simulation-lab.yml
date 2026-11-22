@@ -1,4 +1,5 @@
 name: TAC isolated simulation lab
+# Full-build push trigger: include [build-tac-report:YYYY-MM-DD] in the commit message.
 
 on:
   push:
