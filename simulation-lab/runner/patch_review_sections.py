@@ -26,8 +26,28 @@ def outside_target_dom(soup: BeautifulSoup, selector: str) -> str:
     return str(clone)
 
 
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def require_within(path: Path, root: Path, label: str) -> None:
+    try:
+        path.resolve().relative_to(root.resolve())
+    except ValueError as exc:
+        raise ValueError(f"{label} must remain inside {root}") from exc
+
+
 def patch_section(html_path: Path, fixture_path: Path, manifest_path: Path,
-                  section: str, output_path: Path, receipt_path: Path) -> dict:
+                  section: str, output_path: Path, receipt_path: Path,
+                  test_only: bool = False) -> dict:
+    if not test_only:
+        output_root = ROOT / "simulation-lab" / "output"
+        require_within(html_path, output_root, "input review HTML")
+        require_within(output_path, output_root, "output review HTML")
+        require_within(receipt_path, output_root, "local patch receipt")
+        require_within(fixture_path, ROOT / "simulation-lab" / "fixtures", "Fixture")
+        require_within(manifest_path, ROOT / "simulation-lab" / "baseline", "Manifest")
+        if html_path.resolve() == output_path.resolve():
+            raise ValueError("local patch output must be a new path; never overwrite the input artifact")
     source_bytes = html_path.read_bytes()
     fixture_bytes = fixture_path.read_bytes()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
