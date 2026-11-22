@@ -54,10 +54,12 @@ def main():
         verified_manifest = fake_manifest()
         verified_manifest["rows"][0]["verification_status"] = "VERIFIED"
         verified_manifest["rows"][0]["display_value_reconciled"] = True
+        verified_manifest["rows"][1]["verification_status"] = "BACKUP_VERIFIED"
+        verified_manifest["rows"][1]["display_value_reconciled"] = True
         with tempfile.TemporaryDirectory() as temp:
             result = capture_manifest(verified_manifest, Path(temp), 0)
-            assert result["already_verified_skip_count"] == 1
-            assert result["capture_attempted_count"] == 43
+            assert result["already_verified_skip_count"] == 2
+            assert result["capture_attempted_count"] == 42
             assert result["rows"][0]["capture"]["status"] == "SKIPPED_ALREADY_VERIFIED"
     finally:
         module.capture_one = original
