@@ -1,3 +1,14 @@
+## 2026-11-22｜使用者核准 SIM-1.4 唯一 Builder 精確 SHA
+
+- 使用者明確核准唯一 Builder：`simulation-lab/runner/build_review_html.py`。
+- 核准 Git blob SHA：`16254bfa249814ac75e62cf8acbad2828f366fe6`。
+- 已將精確核准條款寫入 `simulation-lab/TAC_WORK_RULES_SIM.md` §8.1；更新後 active rules blob SHA：`f19f63c7b1feca44c227f4b49db9002fcabca987`。Builder approval resolver 以 active rules 中精確路徑及 Git blob SHA 比對，不接受歷史 SHA 或其他程式。
+- QA Contract v1.17 更新後 SHA：`a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`；明確記錄 Builder 核准 Gate 已解除，但真實市場分析內容的每日 Stage 1–6 生產 E2E、資料內容 Gate、完整互動／視覺 QA 尚未完成。
+- 前置驗收依據：GitHub Actions runs `44978042935`、`44978265956` completed／success；包含 deterministic tests、政治事件分類／傳導／三情境、完整雙母版 Builder 組裝、DOM preservation、輸出路徑保護及六視窗瀏覽器回歸。文章內容為 TEST_ONLY 合成內容，不冒充真實市場評論。
+- Session State 已更新。下一步使用已核准 Builder 進行真實市場分析內容的 Stage 1–6 生產 E2E；所有產物仍限 simulation branch，未獲另行授權不得改 main、首頁或正式母版。
+
+---
+
 ## 2026-11-22｜SIM-1.4 五層市場分析、政治風險與雙母版槽位完成第一輪驗收
 
 ### 使用者授權與規範修訂
