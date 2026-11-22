@@ -52,7 +52,7 @@
 - 母版選擇唯一依據：`simulation-lab/baseline/mother-template-manifest.json`。
 - 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
 - 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
-- Builder：本版不預先指定任何程式為唯一正式 Builder。候選程式必須通過第 8 章驗收後，才可由使用者核准列入生效版唯一入口。
+- Builder：唯一正式生產入口依第 8.1 節使用者精確核准紀錄；目前唯一核准為 `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。任何路徑或 SHA 不符均不得作為每日生產入口。
 - 執行狀態及證據：依第 10 章規定的根目錄兩份既有紀錄分工；讀取時以實際路徑及 SHA 為準。
 
 ### 1.2 開工鎖定資料
@@ -406,9 +406,10 @@
 ### A1.1 核准母版實際 44 欄位／DOM 定位表（已抽取）
 
 **抽取基準**
-- Simulation Manifest：simulation-lab/baseline/mother-template-manifest.json，SHA `1496a510d144d340c41b642592675233d5bd2917`。
-- Monday baseline：simulation-lab/baseline/monday-mother-template.html，SHA `36f29bcb37816348756f9233b60f0429d675a76e`。
-- Weekday baseline：simulation-lab/baseline/weekday-mother-template.html，SHA `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- Simulation Manifest：`simulation-lab/baseline/mother-template-manifest.json`，SHA `c78338984192a9251adc247ae1b0044629de89db`。
+- Monday baseline：`simulation-lab/baseline/monday-mother-template.html`，SHA `ce15c803cc778be35302eec96f6a5d123bf49624`。
+- Weekday baseline：`simulation-lab/baseline/weekday-mother-template.html`，SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`。
+- 44 欄位定位已在更新後雙母版回歸中確認未因新增五層文章槽位而改變；每日仍以 Manifest 與 SHA 鎖定母版為準。
 - 對應正式母版 SHA：Monday `a568e594e55909041d51d8eae7e6fe5f7986c096`；Weekday `3785405e331b10ec6189002e480be2a1edbe20ef`。
 - 下表以兩份 SHA 鎖定 simulation baseline 的實際 HTML anchor／href 抽取。兩份母版使用相同的 44 欄位類型、名稱及固定連結；17 項全球指數順序一致。11 檔 ETF 的示範排名順序在兩份母版不同（母版內是不同日期的示範漲跌排序），每日必須按當日核實漲跌幅重新排序，不得沿用任一母版的示範排名。
 
@@ -498,7 +499,7 @@
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.16，SIM-1.4 執行附件；以開工時實際讀取的 blob SHA 為準）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.17，SIM-1.4 執行附件；目前 blob SHA `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
@@ -532,7 +533,7 @@
 
 ## 版本紀錄
 
-- 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。規範修訂後，依同日母版變更授權已同步修改 simulation 雙母版、Manifest、QA Contract 與 Builder 候選實作；候選 Builder 的 deterministic、雙母版完整組裝（TEST_ONLY 合成文章）、DOM preservation 及六視窗瀏覽器回歸已於 run `44978042935` PASS；仍待真實市場分析內容的每日 Stage 1–6 生產 E2E 及使用者精確 SHA 核准，完成前 Stage 5 仍須 BLOCKED。
+- 2026-11-22｜SIM-1.4 五層市場深度解析與政治／地緣政治分析修訂（依使用者明確授權）：將市場深度解析由四層改為五層，新增政治與地緣政治局勢、政策與產業鏈傳導、宏觀經濟傳導、金融市場定價、機構資金與投資策略的固定順序；新增六領域每日掃描、政策狀態分類、事件傳導鏈、情境分析及 QA sidecar 驗收欄位。雙母版、Manifest、QA Contract 與 Builder 已完成同步；候選 Builder 的 deterministic、雙母版完整組裝（TEST_ONLY 合成文章）、DOM preservation 及六視窗瀏覽器回歸通過。後續真實市場分析內容的每日 Stage 1–6 生產 E2E 仍須獨立驗收。
 
 - 2026-11-22｜Stage 6 審核版交付修訂：simulation 完整 QA 通過後，以同一 HTML／QA sidecar bytes 原樣交付 main `preview/YYYY-MM-DD-review.*`；main 僅做 SHA／綁定／收據完整性檢查，不重跑完整 QA。main 寫入白名單限 HTML、QA sidecar、delivery receipt 三檔；`index.html`、母版、Manifest、正式行事曆及歷史報告仍禁止修改。
 
@@ -584,9 +585,16 @@
 - SIM-1.4 首次正式生效後端到端驗收目標：2026-11-23；本次以隔離 simulation workflow 執行，不得將既有 SIM-1.3 preview／QA sidecar 沿用為新規則驗收證據。
 
 
-## 2026-11-22｜SIM-1.4 唯一 Builder 核准紀錄
+## 2026-11-22｜SIM-1.4 Builder 歷史核准與新版唯一入口
 
-- 使用者於 2026-11-22 明確核准 `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
-- 此 SHA 已分別通過 Monday 2026-11-23 run `44964279548` 與 Weekday 2026-11-20 run `44964439803` 的完整雙母版驗收；兩份 QA sidecar 的 Builder SHA 完全一致。
-- 自本次核准起，此路徑及 SHA 為 SIM-1.4 唯一正式生產 Builder。任何其他 Builder、手工組裝或 SHA 不符均不得作為每日生產入口。
+- **歷史核准（已被新版取代）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；原依 Monday run `44964279548` 與 Weekday run `44964439803` 通過當時雙母版驗收。該 SHA 不含五層文章槽位及政治掃描能力，自新版母版／Manifest 生效後不得再用於每日生產。
+- **目前唯一正式 Builder：** 使用者於 2026-11-22 明確核准 `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。此精確路徑與 SHA 依第 8.1 節及 GitHub Actions runs `44978042935`、`44978265956` 技術證據列為唯一生產入口。
+- 新版 Builder 核准只解除 Builder approval Gate；真實市場分析內容的 Stage 1–6 生產 E2E、資料／內容 Gate、完整互動與視覺 QA 仍須逐項完成，未通過前不得標示 REVIEW_READY 或交付。
 - 本核准僅限 simulation branch 的 SIM-1.4 Builder 入口；不構成 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 或 Pages 部署授權。
+
+
+## 2026-11-22｜Stage 1 基準重鎖與規範附件 SHA 修正
+
+- 更新 Appendix A1.1 的 Manifest／週一母版／平日母版 SHA，與本分支目前實際 Blob SHA 一致；44 欄位定位仍由更新後雙母版回歸確認。
+- 更新 Appendix D QA Contract 版本為 v1.17，記錄目前實際 Blob SHA。
+- 更新 §1.1 唯一 Builder 文字及舊核准紀錄，避免歷史 SHA 被誤認為目前生產入口；目前唯一核准 SHA 為 `16254bfa249814ac75e62cf8acbad2828f366fe6`。
