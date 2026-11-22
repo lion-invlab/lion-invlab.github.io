@@ -9,9 +9,9 @@ from append_tac_sp500_daily_increment import append_handoff, extract_handoff, lo
 
 def handoff(day="2026-11-17", close=7340.53, observed_at="2026-11-18T05:12:44+08:00",
             quote_type="daily_close", instrument="美國標準普爾500指數 (SPX)",
-            source_name="Investing.com 香港站歷史數據"):
+            source_name="Investing.com 香港站歷史數據", report_date="2026-11-18"):
     return {
-        "report_date": "2026-11-18",
+        "report_date": report_date,
         "trading_date": day,
         "sp500": {
             "value": close,
@@ -45,6 +45,20 @@ class Sp500IncrementTests(unittest.TestCase):
             self.assertIn("非CFD", row["source_note"])
             self.assertEqual(len(row["record_sha256"]), 64)
             self.assertEqual(len(load_existing(path)[0]), 1)
+
+    def test_appends_multiple_trading_dates_without_replacing_prior_history(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "sp500.jsonl"
+            first = append_handoff(handoff(), path)
+            second = append_handoff(handoff(
+                day="2026-11-18", close=7401.25,
+                observed_at="2026-11-19T05:12:44+08:00",
+                report_date="2026-11-19"
+            ), path)
+            rows, _ = load_existing(path)
+            self.assertEqual((first["status"], second["status"]), ("APPENDED", "APPENDED"))
+            self.assertEqual([row["observation_date"] for row in rows], ["2026-11-17", "2026-11-18"])
+            self.assertEqual([row["close"] for row in rows], [7340.53, 7401.25])
 
     def test_accepts_existing_normalized_snapshot_shape(self):
         payload = {
