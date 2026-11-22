@@ -1500,7 +1500,7 @@
         "actual_observed_at": null
       }
     ],
-    "quality_note": "W48共27項經濟事件；來源資料庫標示incomplete。五筆impact_judgment原欄誤置URL，已在本報表層以明確市場影響文字覆寫，並保留原URL作source_url；main W48 JSON唯讀。未來事件actual=null屬正常。"
+    "quality_note": "W48 共27筆經濟事件；目前3筆具數值預期的指標尚無可採用公告前市場共識，另4筆非數值事件之市場預期不適用。未取得的數值forecast維持null並於審核版揭露，不以搜尋摘要或推測補值。main W48 JSON維持唯讀。"
   },
   "earnings": {
     "week_id": "2026-W48",
@@ -2428,15 +2428,14 @@
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
     "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
     "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
-    "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
+    "W48經濟行事曆27筆中，3筆具數值預期的指標（澳洲／日本Flash PMI、加拿大SEPH）尚無可採用公告前共識，維持null／待核實；另4筆非數值事件（Beige Book、ECB會議紀要、感恩節休市、Williams官員談話）之forecast屬不適用。main W47／W48 coverage狀態仍標示incomplete，但必要事件集合與schema可讀，依SIM-1.4 Stage 3規則僅揭露狀態，不另列為獨立blocker；早報仍唯讀呈現，不回寫main。",
     "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。",
     "Stage 2 證據分類：44項歷史資料列均已完成數值核對（43項主來源、1項FGScore備援）；以來源URL、標的／合約、資料日期、Close／Change欄位和值、TAC查核時間及讀取方法保存瀏覽器觀察紀錄。原始HTTP response body未封存（raw_response_sha256為null）屬可選證據，不構成數值核驗缺口；不得將觀察紀錄SHA-256冒充原始HTTP回應SHA-256。",
     "Stage 2 證據紀錄：44/44項現均有逐筆觀察時間及 observation record；其中41項沿用既有紀錄，2Y／10Y／30Y美債歷史列於2026-11-22 17:48:21（台灣時間）重新直接讀取Investing.com對應歷史頁。原始HTTP response body未封存（raw_response_sha256=null）仍屬可選證據，不構成缺口。本輪Pipeline的metadata audit只驗證日期與來源中繼資料，不代表Pipeline本身重新擷取或獨立重核44項。"
   ],
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
-    "PARTIAL｜本週W48經濟行事曆27筆中7筆沒有可採用的數值市場預期：澳洲／日本Flash PMI的Investing.com upcoming row未提供forecast；加拿大SEPH未找到可採用公告前共識；Beige Book、ECB會議紀要、感恩節休市及官員談話屬非數值事件。forecast維持null並在卡片說明原因，不得補造。",
-    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
+    "PARTIAL｜W48有3筆具數值預期的經濟指標尚無可採用的公告前市場共識：澳洲／日本Flash PMI的Investing.com upcoming row未提供forecast；加拿大SEPH未找到可採用公告前共識。forecast維持null，不得補造。另有4筆非數值事件（Beige Book、ECB會議紀要、感恩節休市、Williams官員談話），市場數值預期屬不適用，不計為缺漏。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
