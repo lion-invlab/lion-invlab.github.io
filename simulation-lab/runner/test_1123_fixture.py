@@ -235,7 +235,7 @@ def main():
     blockers = data["review_ready_blockers"]
     assert len(blockers) == 1, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert "W47回顧" in blockers[0] and "23筆財報事件" in blockers[0], blockers
+    assert "W47五星財報回顧" in blockers[0] and "NVDA Q3 FY2027一筆" in blockers[0], blockers
     assert not any("W48" in item for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
@@ -266,7 +266,7 @@ def main():
     blockers = data["review_ready_blockers"]
     assert len(blockers) == 1, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert "W47回顧" in blockers[0] and "23筆財報事件" in blockers[0], blockers
+    assert "W47五星財報回顧" in blockers[0] and "NVDA Q3 FY2027一筆" in blockers[0], blockers
     assert not any("W48" in item for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA", "raw_response_sha256")) for x in data["review_ready_blockers"])
