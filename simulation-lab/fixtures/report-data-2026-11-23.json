@@ -2110,13 +2110,13 @@
         "actual_source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
         "actual_source_name": "NVIDIA Corporation｜NVIDIA Announces Financial Results for Third Quarter Fiscal 2027",
         "judgment": "Q3 FY2027：GAAP diluted EPS US$2.70；GAAP revenue US$115.8B；Data Center revenue US$107.6B。公告前可比PIT共識缺乏data_as_of、basis及period證據，不判定Beat/Miss。11/18首個完整交易日股價-2.89%，11/19再跌3.30%；不將後續全面科技股拋售單獨歸因於NVDA財報。",
-        "price_reaction": "11/18首個完整交易日收盤US$150.96，較11/17收盤US$155.46下跌2.89%；11/19再跌3.30%。後續跌勢與整體科技股／市場去槓桿同步，不歸因於財報單一因素。",
+        "price_reaction": "財報公布後第一個完整交易日（2026-11-19）下跌 3.30%",
         "price_reaction_source": "https://hk.investing.com/equities/nvidia-corp-historical-data",
-        "price_reaction_window": "首個完整交易日2026-11-18；後續觀察至2026-11-19",
+        "price_reaction_window": "2026-11-19 close; first full session after 2026-11-18 after-close release",
         "stock_price_reaction": "-3.30%",
         "stock_price_reaction_window": "2026-11-19 收盤；11/18 盤後公布後第一個完整交易日",
         "price_reaction_observed_at": "2026-11-22T17:15:52+08:00",
-        "price_reaction_note": "Investing.com 歷史資料列：2026-11-19 收盤 145.98，日跌 3.30%；2026-11-18 收盤 150.96。此為財報公布後第一個完整交易日反應。11/20 另跌 14.01% 屬後續市場拋售，不直接歸因於財報。公告前 EPS／Revenue 共識仍缺少可採用的 PIT 證據，不計算 Beat/Miss。"
+        "price_reaction_note": "Investing.com historical row: 2026-11-19 close 145.98, -3.30%; 2026-11-18 close 150.96. 2026-11-20 -14.01% is subsequent broad market selling, not directly attributed to the earnings release."
       }
     ],
     "quality_note": "Monday retrospective只呈現W47一筆五星財報：NVDA Q3 FY2027。實際GAAP EPS／Revenue及發行人來源已核實；公告前PIT共識不足，不判Beat/Miss；補入首個完整交易日股價反應及Investing.com歷史報價來源。"
