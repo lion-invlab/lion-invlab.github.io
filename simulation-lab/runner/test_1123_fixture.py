@@ -193,12 +193,15 @@ def main():
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 4, blockers
+    assert len(blockers) == 3, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert any("1項未保存逐項查核時間" in item for item in blockers), blockers
-    assert "HTTP 429" in data["global_markets"]["羅素2000指數"]["source"]["note"]
-    assert "CFD" in data["global_markets"]["羅素2000指數"]["source"]["note"]
-    assert not data["global_markets"]["羅素2000指數"]["source"].get("verified_at_tw")
+    assert not any("44項行情來源證據" in item for item in blockers)
+    rut = data["global_markets"]["羅素2000指數"]
+    assert rut["display"] == "2,581.79" and rut["change_display"] == "-2.76%"
+    assert rut["source"]["quote_type"] == "cash_index_close"
+    assert rut["source"]["url"] == "https://ca.investing.com/indices/smallcap-2000-historical-data?cid=53095"
+    assert rut["source"]["verified_at_tw"]
+    assert "NYSE" in rut["source"]["note"] and "不使用 CFD" in rut["source"]["note"]
     cfd_indices = {
         name for name, item in data["global_markets"].items()
         if item.get("source", {}).get("quote_type") in {"cfd_index_reference_series", "cfd_cash_index_proxy"}
@@ -277,7 +280,7 @@ def main():
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
     print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
     print("PASS: 17 global index rows use non-CFD source contracts")
-    print("PARTIAL as expected: four explicitly disclosed evidence gaps remain; REVIEW_READY is withheld")
+    print("PARTIAL as expected: three calendar/earnings evidence gaps remain; REVIEW_READY is withheld")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
