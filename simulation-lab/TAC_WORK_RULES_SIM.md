@@ -708,3 +708,5 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-23 W48 最新主分支資料已修正 Williams 行程事件的 impact_judgment；Fixture 移除該筆已不再需要的 override，只保留四筆仍有來源網址誤置的事件修復。未修改 main。同步更新 fixture 測試與 preflight 預期修復數為4；最新 Fixture SHA：`58c2a0bd93d23af17b080ae0e3fcb4b162ecaa93`。W48 主分支 SHA：`9bb842ab475fa38ca6407304990d1cd3fae42c63`。
 
 - 2026-11-23 W48 財報預估投影已依同一 main commit `f68b4d6d5ae3b5cf9dcf1c1cb49cc420f67176fb` 與 W48 blob `9bb842ab475fa38ca6407304990d1cd3fae42c63` 更新；11筆估值紀錄均與 authoritative W48 的 event_id、台灣時間 event_date 及 reporting_period 完全吻合。HPE 來源發布日期 11/23 轉為台灣電話會議時間 11/24 06:00；Deere 11/25 轉為台灣時間 11/25 23:00，原來源發布日期保留。Projection SHA：`8ddf96ab3c333d65e8e21386bcf052884efbb2d3`；新增 preflight 對 main commit／calendar SHA／event timestamp／reporting period 的逐筆核對。
+
+- W48 consensus projection preflight 已改用標準 Python `assert` 執行 SHA／event_id／台灣時間 event_date／reporting_period 四項核對，避免引用未定義 helper；最新 preflight script SHA：`787cd06d05b3a93835a4d771092389baa8dffcbf`。
