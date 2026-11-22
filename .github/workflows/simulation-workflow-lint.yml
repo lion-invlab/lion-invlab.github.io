@@ -32,3 +32,7 @@ jobs:
           assert "jobs" in doc and doc["jobs"]
           print("YAML parse PASS; jobs:", list(doc["jobs"]))
           PY
+      - name: Run actionlint against TAC simulation workflow
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@latest
+          "$(go env GOPATH)/bin/actionlint" -color .github/workflows/tac-simulation-lab.yml
