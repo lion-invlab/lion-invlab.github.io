@@ -24,15 +24,15 @@
     "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）"
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
-  "market_snapshot_audit_sha256": "8aa1dcd1fbf357026a995bc58d6a0932beef52d0126bad9abb1bd43f274af2f1",
+  "market_snapshot_audit_sha256": "928e7fe20dd5f8c607c630451d080c0e5833641d414fe8de5607961351371303",
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "4b014626aa418e94b4b3acfeff1eb2a2e09b14d0",
-  "report_sha256": "3482f96edab19236ea38f99f77cb679098b4558882b3e3b2a39dae35522528a1",
-  "build_commit_sha": "9c9e752bdad4356385d78e17f9aca90a44d48d2e",
+  "report_git_blob_sha": "5f77d5a7e40ad1cfa863067341c13787ff6015b0",
+  "report_sha256": "f7117057cf772278aea3f5412d75dea26af5d07e130b72fda82e9c5116776878",
+  "build_commit_sha": "de6da36359e5e7332a20ea85e78465d8264b362c",
   "builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
-  "fixture_blob_sha": "0420823ae12a05971d58e020f09e708c6230b2fe",
+  "fixture_blob_sha": "2a62b57b5ff598cd267bc8c0993ea981102a0f7f",
   "template_blob_sha": "ce15c803cc778be35302eec96f6a5d123bf49624",
   "manifest_blob_sha": "c78338984192a9251adc247ae1b0044629de89db",
   "qa_contract_blob_sha": "a626b7edc9b1c7e90fb6c43b43c68fe98cfec128",
@@ -101,7 +101,7 @@
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "1cfbcbc7a57eeeb448797d44a748ab3678c85b6d9d16aebb361bf2750679723d",
-  "visual_evidence_sha256": "2fb52cf45320b929571f8009babccee6d54c163eb00039932097a88de16a995e",
+  "visual_evidence_sha256": "920bcbfef46a520f1fc6b5390970106090395285369ab2a20b324e9f716a0070",
   "viewports": [
     1440,
     768,
@@ -110,6 +110,6 @@
     360,
     320
   ],
-  "workflow_run_id": "44983278198",
+  "workflow_run_id": "44983538084",
   "workflow_run_attempt": "1"
 }
