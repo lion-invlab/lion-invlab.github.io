@@ -127,7 +127,7 @@ def main():
         "source_dataset_sha256": source_sha256,
         "source_details": {
             "long_history_source": FJA_URL,
-            "recent_snapshot_source": "Daily Yahoo Finance chart API (^GSPC) unadjusted closes, incrementally reconciled with a 30-calendar-day overlap",
+            "recent_snapshot_source": "Investing.com historical data endpoint (instrument_id=166), incrementally reconciled with a 30-calendar-day overlap",
             "fja_rows": len(fja),
             "fja_used_rows_before_recent_snapshot": len(pre),
             "recent_snapshot_rows": len(recent_rows),
