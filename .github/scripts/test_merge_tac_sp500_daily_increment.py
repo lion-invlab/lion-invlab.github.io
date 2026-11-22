@@ -5,8 +5,8 @@ import json
 import tempfile
 import unittest
 import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from merge_tac_sp500_daily_increment import canonical, encode_compact, merge_recent
 
