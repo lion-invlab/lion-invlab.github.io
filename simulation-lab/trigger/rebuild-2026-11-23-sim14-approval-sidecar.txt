@@ -7,3 +7,5 @@ Expected Builder blob SHA: 40a3bc70a22bfd1aa4798149599fbd63a1f25efa
 Simulation branch only. No main write, no Pages deployment, no homepage publication.
 
 Revalidation: run the latest workflow including the pre-build exact-SHA approval Gate 0.
+
+Revalidation: enforce 44 per-row HTTPS source metadata, common trading date, ETF source map, CFD suppression, commodity instrument identity, and seal the audit receipt hash into the QA sidecar.
