@@ -315,6 +315,25 @@ jobs:
           assert rows[-1]["instrument"] == "S&P 500 cash price index"
           print(f"Chart 3 handoff ledger verified: rows={len(rows)} last={rows[-1]['observation_date']} close={rows[-1]['close']}")
           PY
+          mkdir -p data/tac-chart3
+          cp simulation-lab/output/chart3-handoff/sp500_daily_increment.jsonl data/tac-chart3/sp500_daily_increment.jsonl
+          python .github/scripts/merge_tac_sp500_daily_increment.py --data-dir data/tac-chart3
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path("data/tac-chart3/manifest.json").read_text(encoding="utf-8"))
+          sp=manifest["sp500_data"]
+          recent=json.loads(Path("data/tac-chart3/sp500_daily_close_1993-2026.compact.json").read_text(encoding="utf-8"))
+          full=json.loads(Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json").read_text(encoding="utf-8"))
+          ledger=[json.loads(x) for x in Path("data/tac-chart3/sp500_daily_increment.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
+          assert recent["end"] == "2026-11-20" and full["end"] == "2026-11-20"
+          assert sp["end"] == "2026-11-20" and sp["start"] == "1927-12-30"
+          assert sp["rows"] == full["rows"] and sp["rows"] >= 24000
+          assert sp["increment_ledger"]["rows"] == len(ledger) == 1
+          assert sp["increment_ledger"]["source_name"].startswith("Investing.com")
+          assert sp["increment_ledger"]["observed_at"] == ledger[-1]["observed_at"]
+          print(json.dumps({"status":"PASS","recent_end":recent["end"],"full_start":full["start"],"full_end":full["end"],"full_rows":full["rows"],"increment_close":ledger[-1]["close"],"source":sp["increment_ledger"]["source_name"],"observed_at":sp["increment_ledger"]["observed_at"]},ensure_ascii=False,indent=2))
+          PY
 
       - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes
