@@ -34,21 +34,17 @@ def main():
     bundle = load_authoritative_calendar(data["report_date"])
     projection_path = ROOT / "simulation-lab" / "fixtures" / "earnings-consensus-projection-2026-11-23.json"
     projection = json.loads(projection_path.read_text(encoding="utf-8"))
-    require(projection.get("calendar_blob_sha") == bundle["current"]["blob_sha"],
-            "W48 earnings consensus projection calendar blob SHA mismatch")
-    require(projection.get("calendar_main_commit_sha") == bundle["main_commit_sha"],
-            "W48 earnings consensus projection main commit SHA mismatch")
+    assert projection.get("calendar_blob_sha") == bundle["current"]["blob_sha"], "W48 earnings consensus projection calendar blob SHA mismatch"
+    assert projection.get("calendar_main_commit_sha") == bundle["main_commit_sha"], "W48 earnings consensus projection main commit SHA mismatch"
     main_earnings = {
         str(item.get("id")): item
         for item in bundle["current"]["payload"]["events"]["earnings"]
     }
     for row in projection.get("records", []):
         event = main_earnings.get(str(row.get("event_id")))
-        require(event is not None, f"consensus projection event missing from authoritative W48: {row.get('event_id')}")
-        require(row.get("event_date") == event.get("event_date"),
-                f"consensus projection event timestamp differs from authoritative W48: {row.get('event_id')}")
-        require(row.get("reporting_period") == event.get("reporting_period"),
-                f"consensus projection reporting period differs from authoritative W48: {row.get('event_id')}")
+        assert event is not None, f"consensus projection event missing from authoritative W48: {row.get('event_id')}"
+        assert row.get("event_date") == event.get("event_date"), f"consensus projection event timestamp differs from authoritative W48: {row.get('event_id')}"
+        assert row.get("reporting_period") == event.get("reporting_period"), f"consensus projection reporting period differs from authoritative W48: {row.get('event_id')}"
     for key in ("current", "previous"):
         item = bundle[key]
         expected = EXPECTED[item["week_id"]]
