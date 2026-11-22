@@ -189,6 +189,8 @@ def main():
     all_analysis_text = " ".join(
         [point["text"] for point in data["summary_points"]]
         + [paragraph for layer in analysis.values() for paragraph in layer["paragraphs"]]
+        + data["market_comments"]["global_markets"]
+        + [event.get("impact", "") for event in data["last_week_calendar"]["events"]]
     )
     for generic_phrase in ("後續觀察", "值得持續關注", "市場仍需觀察", "審慎觀望"):
         assert generic_phrase not in all_analysis_text, generic_phrase
@@ -273,6 +275,8 @@ def main():
     assert nvda["eps_analyst_count"] == 43 and nvda["revenue_analyst_count"] == 45
     assert nvda["eps_comparison_status"] == "beat" and nvda["revenue_comparison_status"] == "beat"
     assert "非嚴格同口徑比較" in nvda["judgment"]
+    assert nvda["actual_source_url"] == "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/"
+    assert nvda["actual_source"]["url"] == nvda["actual_source_url"]
     assert nvda["eps_estimate_basis_code"] is None and nvda["revenue_estimate_basis_code"] is None
     assert consensus_evidence_label(nvda, "eps") is not None
     assert consensus_evidence_label(nvda, "revenue") is not None
