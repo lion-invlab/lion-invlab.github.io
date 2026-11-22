@@ -95,6 +95,16 @@ def main():
     assert data["fx"]["美元／新台幣"]["change_display"] == "-0.18%"
     assert data["fx"]["美元／新台幣"]["source"]["quote_type"] == "spot_daily_close"
     assert data["fx"]["美元／新台幣"]["source"]["url"] == "https://hk.investing.com/currencies/usd-twd-historical-data"
+    assert data["global_markets"]["法國 CAC 40"]["display"] == "7,927.75"
+    assert data["global_markets"]["法國 CAC 40"]["change_display"] == "-1.89%"
+    assert data["fx"]["澳幣／美元"]["display"] == "0.6617"
+    assert data["fx"]["澳幣／美元"]["change_display"] == "-0.63%"
+    assert data["fx"]["美元／日圓"]["display"] == "158.54"
+    assert data["fx"]["美元／日圓"]["change_display"] == "-0.73%"
+    assert data["sectors"]["XLB"] == "-2.19%"
+    assert data["sector_sources"]["XLB"]["change_display"] == "-2.19%"
+    assert data["risk"]["vix"]["source"]["quote_type"] == "cash_index_close"
+    assert data["risk"]["vix"]["source"]["url"] == "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487"
     assert data["metals"]["白銀期貨 SI"]["change_display"] == "-7.41%"
     assert data["metals"]["黃金期貨 GC"]["display_name"] == "黃金期貨"
     assert data["metals"]["白銀期貨 SI"]["display_name"] == "白銀期貨"
@@ -182,7 +192,10 @@ def main():
     assert len(data["last_week_economic_overrides"]) == 6
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
-    assert data["review_ready_blockers"] == []
+    blockers = data["review_ready_blockers"]
+    assert len(blockers) == 4, blockers
+    assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
+    assert any("31項未保存逐項查核時間" in item for item in blockers), blockers
     cfd_indices = {
         name for name, item in data["global_markets"].items()
         if item.get("source", {}).get("quote_type") in {"cfd_index_reference_series", "cfd_cash_index_proxy"}
@@ -202,7 +215,10 @@ def main():
         assert record["source"]["quote_type"] == "cash_index_close", name
         assert "historical-data" in record["source"]["url"], name
         assert "rejected_reference" not in record, name
-    assert data["review_ready_blockers"] == []
+    blockers = data["review_ready_blockers"]
+    assert len(blockers) == 4, blockers
+    assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
+    assert any("31項未保存逐項查核時間" in item for item in blockers), blockers
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA")) for x in data["review_ready_blockers"])
     assert not any(x.startswith("NVDA Q3 FY2027") for x in data["pending_items"])
     assert "不要求週日刷新" in data["quality_note"]
@@ -257,8 +273,8 @@ def main():
     print("PASS: 5 focus news + 10 headlines; source timezones, updates and links complete")
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
     print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
-    print("BLOCKED as expected: six index records are CFD references; no cash-index substitution permitted")
-    print("BLOCKED as expected: sentiment/FedWatch refresh and HTML QA remain outstanding")
+    print("PASS: 17 global index rows use non-CFD source contracts")
+    print("PARTIAL as expected: four explicitly disclosed evidence gaps remain; REVIEW_READY is withheld")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
