@@ -30,7 +30,7 @@ on:
         required: false
         type: string
       run_optional_probes:
-        description: "額外研究來源探測（Equibles／ORTEX／Investing.com）；日常早報預設關閉"
+        description: "額外研究探測（含44項來源頁擷取，可能較慢）；日常早報預設關閉"
         required: false
         default: false
         type: boolean
@@ -268,7 +268,7 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
-${old}
+          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
 
       - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes
