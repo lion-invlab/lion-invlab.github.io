@@ -44,12 +44,16 @@ jobs:
           from pathlib import Path
           html_path = Path("research/tac-chart3/chart3-preview.html")
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
+          sp500_path = Path("data/tac-chart3/sp500_daily_close_1993-2026.compact.json")
           html = html_path.read_text(encoding="utf-8")
           data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
+          sp500 = json.dumps(json.loads(sp500_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
           fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
-          if fetch_call not in html:
-              raise SystemExit("Expected data fetch call not found; standalone preview not generated")
+          sp500_fetch_call = "fetch(SP500_DATA_URL).then(r=>{if(!r.ok)throw new Error('S&P 500 每日資料讀取失敗：HTTP '+r.status);return r.json()})"
+          if fetch_call not in html or sp500_fetch_call not in html:
+              raise SystemExit("Expected chart data fetch calls not found; standalone preview not generated")
           html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
+          html = html.replace(sp500_fetch_call, "Promise.resolve(" + sp500 + ")")
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
