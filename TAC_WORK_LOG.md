@@ -2756,3 +2756,6 @@
 - **Session State：** 已置頂核准完成狀態，更新後 blob SHA：`8934c4006d0bc0e7a4f21828a4a5b485d26f3d11`。
 - **權限邊界：** 本次只修改 simulation branch 規則、兩份 sidecar、驗收報告、Session State、Work Log。main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 未修改，未部署 Pages。
 - **後續：** 雙母版驗收與 Builder 核准 Gate 已閉環。下一步以此唯一 Builder 推進 SIM-1.4 live data acquisition／production schedule 端到端整合；正式首頁更新仍須另行核准指定 HTML SHA。
+
+
+- 核准報告文字一致性複核：移除報告中殘留的核准前 `NOT_APPROVED` 敘述，統一為核准後狀態；最終驗收報告 blob SHA：`b9c6891a8d9070d59257faf679188f1172769bf6`。
