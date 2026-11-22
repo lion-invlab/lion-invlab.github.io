@@ -36,6 +36,15 @@ def main():
     )
     assert pending["decision"] == "NOT_APPROVED"
 
+    historical_text = (
+        "此前已核准的 Builder（歷史核准基準）： "
+        f"`{builder_path}`，blob SHA `{builder_sha}`。"
+    )
+    historical = resolve_builder_approval(
+        historical_text, historical_text.encode("utf-8"), builder_path, builder_bytes
+    )
+    assert historical["decision"] == "NOT_APPROVED"
+
     expect_error(
         lambda: resolve_builder_approval(
             rules_text, rules_bytes, "simulation-lab/runner/other_builder.py", builder_bytes
