@@ -105,10 +105,20 @@ def load_increment_ledger(path: Path):
         note = (row.get("source_note") or "").lower()
         if "cfd" in note and "非cfd" not in note:
             raise ValueError(f"CFD observation is prohibited at line {line_no}")
-        if row.get("source_name") != "Yahoo Finance S&P 500 (^GSPC) Historical Data":
-            raise ValueError(f"Unexpected increment source at line {line_no}")
-        if row.get("source_url") != "https://finance.yahoo.com/quote/%5EGSPC/history/":
-            raise ValueError(f"Unexpected Yahoo Finance source URL at line {line_no}")
+        source_name = row.get("source_name", "")
+        source_url = row.get("source_url", "")
+        is_investing = (
+            source_name == "Investing.com 香港站歷史數據"
+            and source_url == "https://hk.investing.com/indices/us-spx-500-historical-data"
+            and row.get("quote_type") == "cash_index_close"
+        )
+        is_yahoo_fallback = (
+            source_name == "Yahoo Finance S&P 500 (^GSPC) Historical Data"
+            and source_url == "https://finance.yahoo.com/quote/%5EGSPC/history/"
+            and row.get("quote_type") == "daily_close"
+        )
+        if not (is_investing or is_yahoo_fallback):
+            raise ValueError(f"Unapproved S&P 500 source/quote type at line {line_no}")
         stamp = dt.datetime.fromisoformat(row["observed_at"])
         if stamp.utcoffset() != dt.timedelta(hours=8):
             raise ValueError(f"Invalid Taipei observation timestamp at line {line_no}")
@@ -159,7 +169,7 @@ def main():
         "end": full_compact["end"],
         "rows": full_compact["rows"],
         "encoding": full_compact["encoding"],
-        "recent_snapshot_source": "Validated FJA/FRED compact baseline through 2026-11-10 plus verified Yahoo Finance ^GSPC historical Close increments through 2026-11-18.",
+        "recent_snapshot_source": f"Validated recent compact baseline through {result[\"end\"]}; appended only verified TAC daily-report S&P 500 cash-index observations through {result[\"end\"]}.",
         "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
         "increment_ledger": {
             "path": str(ledger),
