@@ -2771,3 +2771,13 @@
 - **資料產線界線：** 目前 Workflow 以日期匹配的 `report-data-YYYY-MM-DD.json` Fixture 作為行情／新聞／分析輸入；行事曆另由 `calendar_source_guard.py` 從 main 唯讀載入。Workflow 本身並未自動擷取 44 項即時行情。11/23 Fixture 結構盤點為 17 全球市場＋11 ETF＋3 債券＋6 外匯＋4 能源／貴金屬＋3 風險指標＝44；ETF 來源日期保存在 `sector_sources`，其他行情日期欄位及 ETF 日期均指向 2026-11-20。這是 Fixture 結構／來源欄位盤點，不等於本次重新開啟 44 個來源頁完成即時查核。
 - **安全邊界：** 以上均限 simulation branch；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
 - **後續：** 完成 run `44970500242`；通過後回讀新 HTML／sidecar SHA。之後另行完成 Stage 2 真實來源擷取及資料證據接線，不能把 Fixture build 誤報為 live data acquisition 已完成。
+
+
+## 2026-11-22｜SIM-1.4 Builder 核准 Gate＋sidecar 狀態第二輪完整回歸通過
+
+- Workflow run `44970500242` completed／success；commit `3d485a96c0f5406bf6306a9ee84c4c953f6aab5c`。最新 build 前 Gate「Enforce active SIM-1.4 Builder approval before production build」completed／success，確認只有 active SIM-1.4 §8.1 精確核准的 Builder 可進入組裝。
+- 最新 11/23 HTML `preview/2026-11-23-simulation.html` blob SHA `e2e9a984cb279fbc50d94b824ba56c4357e32047`；SHA-256 `c529e53b7fa1ae4e5702c79cb54b28320f77fe90026e5c858753f5df86d94471`。QA sidecar `preview/2026-11-23-simulation.qa.json` blob SHA `d529c40f3c03578d633e05c882f3b5647e3d452a`。
+- Sidecar read-back：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`。核准紀錄的 Builder path／blob SHA、實際執行 Builder path／blob SHA 完全一致；active rules blob SHA `db31aedbf9325183dc4115e147939d524c9acec5`。
+- 六個 viewport 1440／768／412／390／360／320 全 PASS；run 全部 steps completed／success，無 failure。輸出 HTML blob 與 sidecar `report_git_blob_sha` 均為 `e2e9a984cb279fbc50d94b824ba56c4357e32047`。
+- 回讀 Session State blob `a922bfd8cd2f86a51efbe9bb97183ae86334f684`、Work Log blob `c056cdc005fb2374930e721fc5e53f11027b399b`。main `index.html` blob 仍為 `85ef90b60788e25973a5bbe39e23b76c7081a53f`，未修改；無 Pages 部署。
+- **下一階段仍未完成：** Workflow 目前讀取日期匹配 Fixture，不會自動擷取 44 項行情。需獨立完成 Stage 2 真實來源讀取／acquisition receipt 與每日排程整合，再做完整 live-data E2E；不得把本輪 Fixture 驅動的 QA PASS 誤報為 live acquisition PASS。
