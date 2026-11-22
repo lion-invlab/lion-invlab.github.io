@@ -1,4 +1,4 @@
-# SIM-1.4 §8.1｜雙母版候選 Builder 技術驗收紀錄
+# SIM-1.4 §8.1｜雙母版候選 Builder 技術驗收紀錄（最新證據校正版）
 
 **更新日期：** 2026-11-22  
 **分支：** `simulation/tac-process-lab-2026-11-06`  
@@ -6,76 +6,56 @@
 
 ## 驗收結論
 
-候選 Builder 已完成寫入路徑防護，並以同一個最新 Builder SHA 分別通過 Monday 與 Weekday 完整端到端回歸。兩次 workflow 均 completed／success；兩份 QA sidecar 均為 `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`，六個 viewport（1440、768、412、390、360、320）均完成視覺驗收。
+候選 Builder 已以**同一個實際 blob SHA**完成 Monday 與 Weekday 兩份母版完整端到端回歸。兩個 GitHub Actions workflow 均 completed／success；兩份 QA sidecar 均為 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`，`review_ready_blockers=[]`，六個 viewport（1440、768、412、390、360、320）均有視覺證據。
 
-此結果代表候選 Builder 的雙母版技術回歸及輸出路徑防護測試完成（CANDIDATE_VALIDATED）。**不代表使用者已核准此 Builder 作為唯一 SIM-1.4 生產入口。**兩份 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。
+此結果僅代表候選 Builder 技術驗證完成（`CANDIDATE_VALIDATED`）。兩份 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。**SIM-1.4 Builder 尚未獲使用者核准，不得作為正式唯一生產入口。**
 
-## 本輪精確 Builder 與寫入防護
+## 本次鎖定資產
 
-- Builder：`simulation-lab/runner/build_review_html.py`
-- Builder blob SHA：`42eebdfe18394aa7ff4aca6c226b901516ee6bb1`
-- 新增輸出路徑解析／限制：只允許標準化輸出至 `preview/YYYY-MM-DD-simulation.html`；解析實際路徑以防止 traversal 與 symlink escape；拒絕寫入正式首頁、母版、Manifest、正式行事曆 JSON、非標準檔名及 preview 目錄外路徑。
-- 新增負向測試：`simulation-lab/runner/test_builder_output_guard.py`，blob SHA `a6c3ff9107ab912ea01e694aac6f7d87047f94c8`。涵蓋標準輸出、受保護路徑、路徑穿越／錯誤檔名、preview 目錄 symlink escape、輸出檔 symlink escape。
-- 負向測試已納入 workflow deterministic self-tests；Monday 與 Weekday 最新 run 均通過該組測試。
-- 此防護是 Builder 層輸出路徑限制，搭配 workflow simulation-branch-only 隔離；不得解讀為對 GitHub 權限或所有其他程式寫入路徑的全面安全保證。
+| 資產 | 路徑 | 實際 blob SHA |
+|---|---|---|
+| Active SIM-1.4 | `simulation-lab/TAC_WORK_RULES_SIM.md` | `e18865fc31a88f98e44cb1f411817e61406a34c1` |
+| Candidate Builder | `simulation-lab/runner/build_review_html.py` | `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` |
+| Manifest | `simulation-lab/baseline/mother-template-manifest.json` | `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd` |
+| QA Contract v1.16 | `simulation-lab/baseline/mother-template-qa-contract.md` | `30faa8385e19e5bdca0a2fa5c21eda237c52339a` |
+| Monday mother | `simulation-lab/baseline/monday-mother-template.html` | `b89c76dd37afdc0cf8b406bfd6f06258896c829d` |
+| Weekday mother | `simulation-lab/baseline/weekday-mother-template.html` | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` |
 
-## 兩份最新同版完整回歸證據
+## Monday｜2026-11-23
 
-### Monday｜2026-11-23
+- Workflow run：[`44964279548`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44964279548) — completed／success。
+- Workflow head commit：`42cd32b2bbf4d35c509e95ec8aa0b1d60f2a4d38`。
+- Fixture：`simulation-lab/fixtures/report-data-2026-11-23.json`，SHA `948b504a0fba8ba45653cacc0a43cff5377e91a7`。
+- HTML：`preview/2026-11-23-simulation.html`，Git blob `7cf64495ff19395d9c68ea156f627e139fa4be32`，SHA-256 `264fe60cba165719631b74fec5e7994e15cfcf3001f01e4864dc01a99d04b4ab`。
+- QA sidecar：`preview/2026-11-23-simulation.qa.json`，Git blob `2b2824e99415b383b6468a1109b646b523ff46fa`。
+- Sidecar 綁定的 Builder／Candidate Builder SHA 均為 `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；HTML blob SHA 與 branch 上實際 HTML blob 一致。
+- QA：`QA_PASSED`；`review_ready=true`；`data_review_ready=true`；`content_analysis_gate=PASS`；blockers 空陣列；六個 viewport 全部列入證據。
+- Sidecar 的 SIM-1.4 核准欄位仍為 `NOT_APPROVED`／`false`，唯一 blocker 是尚未取得使用者對候選 Builder 唯一路徑與 SHA 的明確核准。
 
-- Workflow run：[`44963378227`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44963378227)
-- Trigger commit：`aee9976633237e2e902eeb385d10ca1012352b4a`
-- HTML：`preview/2026-11-23-simulation.html`
-- HTML Git blob：`586766c7e44c126406b22aefcf8e3342365d5f7f`
-- HTML SHA-256：`211fa41449f83734206858e01222ad1b27339d95b597f0dbecf0e5661c9b7317`
-- QA sidecar：`preview/2026-11-23-simulation.qa.json`
-- QA blob：`66a4a819e6e4be2fa38f1b2a3a916668b869d94b`
-- Sidecar 的 `report_git_blob_sha` 精確綁定上述 HTML；Builder 與 candidate Builder SHA 均為 `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
-- Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、review blockers 空陣列。
-- 六個 viewport：1440／768／412／390／360／320。
+## Weekday｜2026-11-20（週五）
 
-### Weekday｜2026-11-20（週五）
+- Workflow run：[`44964439803`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44964439803) — completed／success。
+- Workflow head commit：`a5adbd78cc6c6c027bc8a99afaa5308525da6397`。
+- Fixture：`simulation-lab/fixtures/report-data-2026-11-20.json`，SHA `7b2858217a0492dd84e24e56d3b93897380007e8`。
+- HTML：`preview/2026-11-20-simulation.html`，Git blob `0a701740468d8bba3394a000200d2d03e0e26ffb`，SHA-256 `fb552021d4007b47ebc4154e77de05e0c22742b4fe99df6e83a75d514cfeda01`。
+- QA sidecar：`preview/2026-11-20-simulation.qa.json`，Git blob `60dc44fe413aa83ebedeee8e8db3abe1fff79619`。
+- Sidecar 綁定的 Builder／Candidate Builder SHA 均為 `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；HTML blob SHA 與 branch 上實際 HTML blob 一致。
+- QA：`QA_PASSED`；`review_ready=true`；`data_review_ready=true`；`content_analysis_gate=PASS`；blockers 空陣列；六個 viewport 全部列入證據。
+- Sidecar 的 SIM-1.4 核准欄位仍為 `NOT_APPROVED`／`false`，唯一 blocker 是尚未取得使用者對候選 Builder 唯一路徑與 SHA 的明確核准。
 
-- Workflow run：[`44963530736`](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/44963530736)
-- Trigger commit：`7f7623d85224e3de02f8825b0bc68e878a4bbcde`
-- HTML：`preview/2026-11-20-simulation.html`
-- HTML Git blob：`aafa41c07ac5d490412a35f296e8169375aaa74a`
-- HTML SHA-256：`7a72460622dfb65720e21a013ace79a486d85db950eae4ee9401098d3a5b2f38`
-- QA sidecar：`preview/2026-11-20-simulation.qa.json`
-- QA blob：`e8232c1f68daec6bf3b05a5e5446abfabf726257`
-- Sidecar 的 `report_git_blob_sha` 精確綁定上述 HTML；Builder 與 candidate Builder SHA 均為 `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
-- Sidecar：`QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、review blockers 空陣列。
-- 六個 viewport：1440／768／412／390／360／320。
+## 驗收範圍
 
-## 共同 provenance（兩次 sidecar 完全一致）
+兩次 workflow 均執行並通過：deterministic self-tests（含輸出路徑負向測試）、財報 parser／PIT snapshot store 測試、HTML 組裝、Playwright 導覽／tabs／accordion／來源連結、母版視覺比較、DOM preservation、獨立 artifact／provenance 驗證、日期／行事曆數量／44 項行情／新聞結構驗證、QA sidecar seal 及 simulation-only artifact persistence。
 
-| 項目 | SHA |
-|---|---|
-| Candidate Builder | `42eebdfe18394aa7ff4aca6c226b901516ee6bb1` |
-| Active SIM-1.4 | `e18865fc31a88f98e44cb1f411817e61406a34c1` |
-| Superseded SIM-1.4 Draft | `0d64eb9b16202d3e9e6d86a1aa87b7105843d571` |
-| Manifest | `8cab2a945b19ffeea5a922353f4f4b8b9c71b9dd` |
-| QA Contract v1.16 | `30faa8385e19e5bdca0a2fa5c21eda237c52339a` |
-| Monday mother | `b89c76dd37afdc0cf8b406bfd6f06258896c829d` |
-| Weekday mother | `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96` |
+資料與內容限制依各自 sidecar 的 `data_audit`／`pending_items` 記錄；`review_ready=true` 是該份 HTML 的資料層旗標，不得解讀成 Builder 已核准或 SIM-1.4 `sim14_review_ready=true`。
 
-## Gate 與內容稽核
+## 舊紀錄校正
 
-- 兩次均通過 deterministic self-tests（包含 Builder output guard negative tests）、Investing.com earnings parser、PIT consensus snapshot store、HTML assemble、Playwright navigation／accordion／source links、母版視覺比對、母版 DOM preservation、獨立 artifact/provenance 驗證、日期／行事曆數量／44 項行情／新聞結構驗證、QA sidecar seal 與 simulation-only artifact persistence。
-- Monday 報告行情基準日為 2026-11-20；Weekday 報告行情基準日為 2026-11-19。各報告依其 fixture／日期規則驗證，不混用日期。
-- Monday 六項全球指數改用 Investing.com 全球指數歷史資料頁／DAX Xetra 現貨收盤口徑，不再以香港站股指 CFD 作為呈現或計算來源；WTI、Brent、GC、SI 採 Investing.com HK 指定合約、同日歷史收市列。
-- 週末 VIX、MOVE、CNN Fear & Greed、FedWatch 依使用者確認沿用最新基準快照並保留實際資料時間；不宣稱週日刷新。
-- W48 缺乏可驗證 PIT 共識快照者維持待核實，不判定 Beat／Miss；W47／W48 個別修正限審核版 report-layer overlay，不回寫 main 正式行事曆 JSON。
-- 財報 EPS／Revenue 依各自可驗證來源與 PIT 完整性判斷；不能因缺少有效共識而產生虛假的預估或 Beat／Miss。
-- Fed 官員行程保留母版 prototype 與原始 DOM／子節點樣式；Builder 不得重建母版結構或注入額外 CSS。
+本文件先前版本引用 Builder SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1` 及舊 workflow run `44963378227`／`44963530736`。這些不是目前兩份最新 sidecar 所綁定的候選 Builder／run。**本次以 branch 上兩份實際 QA sidecar 與其綁定的 HTML blob 為準，統一校正為 Builder SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`、Monday run `44964279548`、Weekday run `44964439803`。**
 
-## 尚未核准的事項與邊界
+## 尚待完成／權限邊界
 
-兩份最新 sidecar 均明確保留：
-- `sim14_builder_approval=NOT_APPROVED`
-- `sim14_review_ready=false`
-- 唯一 blocker：`Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point`
-
-**待使用者核准的精確對象：** `simulation-lab/runner/build_review_html.py`，blob SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。
-
-本輪只寫入 `simulation/tac-process-lab-2026-11-06`。未修改 main、正式首頁 `index.html`、正式母版、正式 Manifest、正式行事曆 JSON；未部署 Pages。QA sidecar 的 `review_ready=true` 僅代表該份審核 HTML 通過 QA，不等於 SIM-1.4 Builder 已獲核准或正式生產已開放。
+- 待使用者核准的精確對象：`simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- 在使用者核准前，`sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false` 必須維持。
+- 不修改 main、正式首頁 `index.html`、正式母版、正式 Manifest、正式行事曆 JSON；不部署 Pages。
+- 本次已完成候選 Builder 雙母版技術回歸，不代表每日 live data acquisition／正式生產排程已完成端到端驗收。
