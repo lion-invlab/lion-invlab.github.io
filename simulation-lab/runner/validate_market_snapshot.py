@@ -132,6 +132,23 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
         quote_types[row["quote_type"]] = quote_types.get(row["quote_type"], 0) + 1
     return {
         "status": "PASS",
+        "verification_scope": "METADATA_AND_DATE_ONLY",
+        "source_pages_fetched": False,
+        "displayed_values_independently_reconciled": False,
+        "checks_performed": [
+            "44-row group counts",
+            "per-row HTTPS source metadata",
+            "common trading date",
+            "quote-type constraints",
+            "sector display/source change identity",
+            "commodity history/display identity",
+            "CFD reference suppression",
+        ],
+        "limitations": [
+            "This validator does not fetch source pages.",
+            "This validator does not independently reconcile displayed numeric values against source-page observations.",
+            "PASS means metadata/date/identity checks passed; it is not evidence of live source-value verification.",
+        ],
         "report_date": report_date,
         "trading_date": trading_date,
         "indicator_count": len(rows),
