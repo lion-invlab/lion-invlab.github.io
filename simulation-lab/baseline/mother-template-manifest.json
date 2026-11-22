@@ -15,8 +15,8 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged.",
-      "simulation_blob_sha": "b89c76dd37afdc0cf8b406bfd6f06258896c829d",
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22.",
+      "simulation_blob_sha": "327bc34d1472a1871769f1b877d3c3b729b1ca8e",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -27,8 +27,8 @@
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
-      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection.",
-      "simulation_blob_sha": "19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96",
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22.",
+      "simulation_blob_sha": "b86c2f77eca417a141fda3eb4cf976e98d4c7d4c",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -105,6 +105,56 @@
     {
       "date": "2026-11-22",
       "change": "依使用者明確授權，僅修正 simulation Monday mother 的手機版已公布財報 EPS／營收雙卡：移除 max-width:700px 單欄覆蓋，保留 repeat(2,minmax(0,1fr)) 雙欄；同步 simulation_blob_sha。main 正式母版、首頁與正式 Manifest 未修改。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "依使用者明確授權，僅在 simulation 雙母版總結小卡之後、既有市場情緒之前新增五層市場深度解析槽位；各層使用固定標題及獨立內容節點。同步更新雙母版 simulation_blob_sha 與 Manifest slot contract；未修改 main 正式母版、正式 Manifest 或首頁。"
     }
-  ]
+  ],
+  "analysis_slots": {
+    "market_analysis": {
+      "required": true,
+      "fixture_key": "market_analysis",
+      "container_selector": "#market-analysis",
+      "parent_selector": "#overview",
+      "position": "after #overview > section.grid.two summary section; before #sentiment",
+      "title_selector": "#market-analysis > .title",
+      "editable_scope": "Only the five .market-analysis-content nodes; all wrapper, heading, class, ID, attributes and CSS are mother-owned and immutable.",
+      "layers": [
+        {
+          "key": "political",
+          "title": "一、政治與地緣政治局勢",
+          "section_selector": "#market-analysis [data-analysis-layer=\"political\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"political\"]"
+        },
+        {
+          "key": "policy_industry",
+          "title": "二、政策傳導與企業／產業鏈影響",
+          "section_selector": "#market-analysis [data-analysis-layer=\"policy-industry\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"policy-industry\"]"
+        },
+        {
+          "key": "macro",
+          "title": "三、宏觀經濟傳導",
+          "section_selector": "#market-analysis [data-analysis-layer=\"macro\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"macro\"]"
+        },
+        {
+          "key": "markets",
+          "title": "四、金融市場定價、情緒與風險",
+          "section_selector": "#market-analysis [data-analysis-layer=\"markets\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"markets\"]"
+        },
+        {
+          "key": "strategy",
+          "title": "五、機構資金動向與投資策略",
+          "section_selector": "#market-analysis [data-analysis-layer=\"strategy\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"strategy\"]"
+        }
+      ],
+      "mother_sha_required_for_both_scenarios": true,
+      "css_injection_allowed": false,
+      "dom_rebuild_allowed": false
+    }
+  }
 }
