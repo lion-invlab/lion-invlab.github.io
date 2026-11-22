@@ -107,15 +107,21 @@ def load_increment_ledger(path: Path):
             raise ValueError(f"CFD observation is prohibited at line {line_no}")
         source_name = row.get("source_name", "")
         source_url = row.get("source_url", "")
+        source_note = row.get("source_note", "")
+        quote_type = row.get("quote_type")
+        if not quote_type:
+            marker = "quote_type="
+            if marker in source_note:
+                quote_type = source_note.split(marker, 1)[1].split(";", 1)[0].strip()
         is_investing = (
             source_name == "Investing.com 香港站歷史數據"
             and source_url == "https://hk.investing.com/indices/us-spx-500-historical-data"
-            and row.get("quote_type") == "cash_index_close"
+            and quote_type == "cash_index_close"
         )
         is_yahoo_fallback = (
             source_name == "Yahoo Finance S&P 500 (^GSPC) Historical Data"
             and source_url == "https://finance.yahoo.com/quote/%5EGSPC/history/"
-            and row.get("quote_type") == "daily_close"
+            and quote_type == "daily_close"
         )
         if not (is_investing or is_yahoo_fallback):
             raise ValueError(f"Unapproved S&P 500 source/quote type at line {line_no}")
@@ -133,14 +139,18 @@ def merge_recent(recent_path: Path, ledger_path: Path):
     base_rows, compact = decode_compact(recent_path)
     increments, ledger_raw = load_increment_ledger(ledger_path)
     last_day = base_rows[-1][0]
-    if any(day <= last_day for day, _ in increments):
-        raise ValueError("Increment ledger contains dates already present in the recent compact baseline")
-    if len({d for d, _ in base_rows + increments}) != len(base_rows) + len(increments):
-        raise ValueError("Duplicate dates between baseline and increment ledger")
-    merged = base_rows + increments
+    baseline_by_date = dict(base_rows)
+    historical = [(day, cents) for day, cents in increments if day <= last_day]
+    for day, cents in historical:
+        if baseline_by_date.get(day) != cents:
+            raise ValueError(f"Historical increment does not match compact baseline: {day}")
+    pending = [(day, cents) for day, cents in increments if day > last_day]
+    if len({d for d, _ in base_rows + pending}) != len(base_rows) + len(pending):
+        raise ValueError("Duplicate dates between baseline and pending increment ledger")
+    merged = base_rows + pending
     result = encode_compact(merged, compact)
     recent_path.write_text(json.dumps(result, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return result, ledger_raw, increments
+    return result, ledger_raw, pending
 
 def git_blob_sha1(path: Path):
     data = path.read_bytes()
