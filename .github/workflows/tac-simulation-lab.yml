@@ -140,7 +140,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -167,6 +167,7 @@ jobs:
           python simulation-lab/runner/test_sim14_builder_approval.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
+          python simulation-lab/runner/test_capture_market_source_pages.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
           python simulation-lab/runner/test_1123_fixture.py
@@ -267,7 +268,14 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
-          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
+${old}
+
+      - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/capture_market_source_pages.py --manifest simulation-lab/output/market-source-verification-manifest.json --output simulation-lab/output/market-source-page-captures.json --raw-dir simulation-lab/output/market-source-pages-raw --sleep-seconds 1.0
 
       - name: Enforce active SIM-1.4 Builder approval before production build
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
@@ -950,4 +958,4 @@ jobs:
             ${{ env.REPORT_EVIDENCE }}
 
           if-no-files-found: warn
-          retention-days: 7
+          retention-days: 30
