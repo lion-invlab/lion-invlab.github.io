@@ -22,7 +22,7 @@ on:
       - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: tac-chart3-preview-visual-qa
@@ -85,6 +85,18 @@ jobs:
           PY
       - name: Render and validate desktop and mobile previews
         run: python .github/scripts/test_chart3_preview_browser.py
+      - name: Persist QA-verified S&P 500 history to repair branch
+        if: success() && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tac-chart3/sp500_daily_close_1927-2026.compact.json
+          if git diff --cached --quiet; then
+            echo "Verified history is already current; no commit needed."
+          else
+            git commit -m "Persist QA-verified S&P 500 daily history"
+            git push origin HEAD:fix/chart3-sp500-investing-source-20261123
+          fi
       - name: Upload screenshots and QA report
         if: always()
         uses: actions/upload-artifact@v4
