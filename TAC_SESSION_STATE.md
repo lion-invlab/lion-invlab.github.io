@@ -3585,3 +3585,16 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 狀態邊界：兩份 sidecar 仍為 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`；唯一待辦是使用者明確核准精確 Builder 路徑與 SHA `42eebdfe18394aa7ff4aca6c226b901516ee6bb1`。QA 的 `review_ready=true` 不等於 Builder 已核准。
 - 本輪僅 simulation branch；未修改 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON，未部署 Pages。
 - 下一步：核對驗收報告／Session State／Work Log 最新提交；待使用者明確核准上述 Builder SHA 後，才可依 SIM-1.4 規定啟動正式生產入口升格工作。正式首頁更新仍需獨立明確授權。
+
+
+## 2026-11-22｜SIM-1.4 11/23 真實內容 E2E 接續
+
+- **目前分支：** `simulation/tac-process-lab-2026-11-06`；main 唯讀。
+- **Fixture 最新 SHA：** `6640d4362bf9332368bf61d1e7eb261ab88bed58`。44/44 行情資料日期一致為 2026-11-20；44/44 均有 HTTPS 來源、報價口徑及含時分的查核時間欄位。CAC 40、AUD/USD、USD/JPY、XLB 數值已更正；VIX、DXY、RUT、XLRE 來源口徑已修正。這些欄位存在不等同本輪逐一重新抓取來源，需保留來源原始證據，不可把批次記錄時間誤稱逐項實際讀取時間。
+- **Validator：** `validate_market_snapshot.py` SHA `d251d8c0e4e2bed5029696c92e119504a7c1cb6c`；精確時間／僅日期／缺漏分類已修正。對應測試檔 SHA `fe1f29f3bc89e9f3ca803dc51d2500adc1750cc8`。
+- **最新隔離回歸：** run `44981920251` completed/success；這是 deterministic／synthetic browser regression，不是 11/23 真實內容 Builder 生產組裝。手機 320px 五層分析容器無水平溢位。
+- **內容：** Fixture 含五層分析（政治、政策產業鏈、宏觀、金融市場、機構資金與策略），六領域掃描已納入；機構資金流缺乏可追溯資料，已明確標示未核實。政治事件包含已生效BIS正式規則、峰會政治表態、SEC調查（未證實違法）、UKMTO荷姆茲油輪事件（責任未確認），各項須保留事實／推論／情境界線。
+- **Stage 3 blockers：** W47 23筆歷史財報缺少可採用公告前EPS／Revenue共識；W48 27筆經濟事件中7筆缺市場預期；main W47／W48 calendar coverage incomplete。保持 PARTIAL，不得事後重建共識、補造預期或回寫 main calendar。
+- **Stage 4：** 五層分析已填 Fixture，但尚未完成內容品質 Gate 及最終 HTML 一致性檢查。
+- **Stage 5／6：** 尚未執行真實內容 Builder 生產組裝及完整 QA。下一步觸發 2026-11-23 Monday build，驗證 HTML、DOM、行事曆、財報卡、互動、視覺及 QA sidecar；若 blockers 仍使 REVIEW_READY 不成立，應保存 PARTIAL 證據且不得交付 main preview。
+- **範圍：** 不修改 main、正式首頁、正式母版、Manifest 或行事曆 JSON；不部署 Pages。
