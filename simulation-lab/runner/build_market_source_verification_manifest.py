@@ -70,7 +70,7 @@ def verification_fields(source: dict, display, change_display) -> dict:
         canonical = json.dumps(observation_record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
         observation_record_sha256 = hashlib.sha256(canonical).hexdigest()
     return {
-        "verification_status": source_status if verified else "PENDING_SOURCE_PAGE_CAPTURE",
+        "verification_status": source_status if verified else "PENDING_OBSERVATION_TIMESTAMP",
         # This builder reuses fixture-carried prior observations; it does not
         # fetch pages or independently reconcile values during this workflow run.
         "source_page_fetched": False,
@@ -78,7 +78,7 @@ def verification_fields(source: dict, display, change_display) -> dict:
         "display_value_matches_saved_observation": bool(verified),
         "observation_provenance": "FIXTURE_PRIOR_VERIFICATION_RECORD" if verified else "MISSING_PER_ITEM_OBSERVATION_TIME",
         "raw_response_sha256": source.get("raw_response_sha256"),
-        "evidence_status": "RAW_RESPONSE_SAVED" if source.get("raw_response_sha256") else "BROWSER_OBSERVATION_SAVED" if verified else "RAW_RESPONSE_UNAVAILABLE",
+        "evidence_status": "RAW_RESPONSE_SAVED" if source.get("raw_response_sha256") else "BROWSER_OBSERVATION_SAVED" if verified else "NO_USABLE_OBSERVATION",
         "browser_observation_record": observation_record,
         "observation_record_sha256": observation_record_sha256,
         "captured_at_tw": None,
