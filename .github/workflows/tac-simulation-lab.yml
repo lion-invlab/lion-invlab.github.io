@@ -685,15 +685,50 @@ jobs:
           data_audit = provenance.get("data_audit", {})
           market_snapshot_audit_path = Path("simulation-lab/output/market-snapshot-audit.json")
           if not market_snapshot_audit_path.is_file():
-              raise SystemExit("44-row market snapshot audit receipt missing")
+              raise SystemExit("44-row market metadata/date audit receipt missing")
+          market_snapshot_audit = json.loads(market_snapshot_audit_path.read_text(encoding="utf-8"))
+          if market_snapshot_audit.get("status") != "PASS":
+              raise SystemExit("44-row market metadata/date audit did not PASS")
+          if market_snapshot_audit.get("source_pages_fetched") is not False or market_snapshot_audit.get("displayed_values_independently_reconciled") is not False:
+              raise SystemExit("metadata/date-only audit must not claim live source fetching or independent numeric reconciliation")
           market_snapshot_audit_sha256 = hashlib.sha256(market_snapshot_audit_path.read_bytes()).hexdigest()
+          market_source_manifest_path = Path("simulation-lab/output/market-source-verification-manifest.json")
+          if not market_source_manifest_path.is_file():
+              raise SystemExit("44-row prior-observation verification manifest missing")
+          market_source_manifest = json.loads(market_source_manifest_path.read_text(encoding="utf-8"))
+          market_source_rows = market_source_manifest.get("rows", [])
+          if market_source_manifest.get("status") != "PASS" or market_source_manifest.get("row_count") != 44 or market_source_manifest.get("verified_count") != 44 or market_source_manifest.get("pending_count") != 0:
+              raise SystemExit("44-row source-observation manifest is not complete")
+          if market_source_manifest.get("browser_observation_records_complete") is not True or market_source_manifest.get("observation_record_hash_missing_count") != 0:
+              raise SystemExit("44-row browser observation records or hashes are incomplete")
+          if market_source_manifest.get("source_pages_fetched") is not False or market_source_manifest.get("displayed_values_independently_reconciled") is not False:
+              raise SystemExit("fixture-carried prior observations must not be misreported as current-run source fetches")
+          if len(market_source_rows) != 44 or any(not row.get("observation_record_sha256") or row.get("source_page_fetched") is not False for row in market_source_rows):
+              raise SystemExit("market source manifest row-level observation provenance is incomplete or overstated")
+          market_source_manifest_sha256 = hashlib.sha256(market_source_manifest_path.read_bytes()).hexdigest()
+          market_source_summary = {
+              "status": market_source_manifest.get("status"),
+              "row_count": market_source_manifest.get("row_count"),
+              "verified_count": market_source_manifest.get("verified_count"),
+              "pending_count": market_source_manifest.get("pending_count"),
+              "prior_observation_reused_count": market_source_manifest.get("prior_observation_reused_count"),
+              "observation_record_hash_missing_count": market_source_manifest.get("observation_record_hash_missing_count"),
+              "raw_response_sha256_saved_count": market_source_manifest.get("raw_response_sha256_saved_count"),
+              "source_pages_fetched": market_source_manifest.get("source_pages_fetched"),
+              "displayed_values_independently_reconciled": market_source_manifest.get("displayed_values_independently_reconciled"),
+              "verification_scope": market_source_manifest.get("verification_scope"),
+          }
           evidence = {
               "status": "QA_PASSED",
               "review_ready": bool(provenance.get("review_ready", not blockers)),
               "review_ready_blockers": blockers,
               "data_audit": data_audit,
               "market_snapshot_audit_path": str(market_snapshot_audit_path),
+              "market_snapshot_audit_scope": market_snapshot_audit.get("verification_scope"),
               "market_snapshot_audit_sha256": market_snapshot_audit_sha256,
+              "market_source_verification_manifest_path": str(market_source_manifest_path),
+              "market_source_verification_manifest_sha256": market_source_manifest_sha256,
+              "market_source_verification_summary": market_source_summary,
               "branch": "simulation/tac-process-lab-2026-11-06",
               "report_path": report_path,
               "report_date": report_date,
