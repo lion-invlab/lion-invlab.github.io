@@ -39,10 +39,8 @@ permissions:
   contents: write
 
 concurrency:
-  # One writer at a time on the simulation branch. Builds persist date-specific
-  # review HTML/QA sidecars to the same branch; SHA-scoped concurrency allowed
-  # same-date runs to race and overwrite/conflict during persistence.
-  group: tac-simulation-lab-${{ github.ref }}
+  # Serialize the simulation commit and the subsequent narrow main/preview handoff.
+  group: tac-simulation-review-delivery
   cancel-in-progress: false
 
 jobs:
@@ -661,11 +659,11 @@ jobs:
           print(json.dumps(evidence, ensure_ascii=False, indent=2))
           PY
 
-      - name: Keep review output isolated to simulation branch artifact
+      - name: Keep the canonical QA artifact isolated on the simulation branch before the explicit Stage 6 handoff
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: test -s "${REPORT_OUTPUT}"
 
-      - name: Persist QA-passed review HTML on simulation branch
+      - name: Persist QA-passed source review HTML and QA sidecar on simulation branch
         if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         run: |
@@ -698,6 +696,100 @@ jobs:
           test "${EVIDENCE_BLOB_SHA}" = "${REMOTE_EVIDENCE_SHA}" || { echo "Remote QA sidecar read-back SHA mismatch"; exit 1; }
           echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}"
 
+      - name: Deliver the exact QA-passed artifact to main preview (no second QA)
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" <<'PY'
+          import hashlib, json, subprocess, sys
+          from pathlib import Path
+          html_path, qa_path, report_date = sys.argv[1:]
+          html = Path(html_path).read_bytes()
+          qa_bytes = Path(qa_path).read_bytes()
+          qa = json.loads(qa_bytes)
+          html_blob = subprocess.check_output(["git","hash-object",html_path],text=True).strip()
+          if qa.get("status") != "QA_PASSED": raise SystemExit("Delivery blocked: QA status is not QA_PASSED")
+          required = {
+              "review_ready": True, "data_review_ready": True,
+              "content_analysis_gate": "PASS", "sim14_builder_approval": "APPROVED",
+              "sim14_review_ready": True
+          }
+          for key, expected in required.items():
+              if qa.get(key) != expected: raise SystemExit(f"Delivery blocked: {key} != {expected!r}")
+          if qa.get("sim14_blockers") != []: raise SystemExit("Delivery blocked: SIM-1.4 blockers are not empty")
+          if qa.get("report_git_blob_sha") != html_blob: raise SystemExit("Delivery blocked: QA sidecar is not bound to this exact HTML blob")
+          if qa.get("report_sha256") != hashlib.sha256(html).hexdigest(): raise SystemExit("Delivery blocked: HTML SHA-256 differs from QA sidecar")
+          if qa.get("report_date") != report_date: raise SystemExit("Delivery blocked: report date mismatch")
+          print("QA handoff gate PASS; exact HTML blob:", html_blob)
+          PY
+          HTML_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
+          HTML_SHA256="$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
+          QA_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
+          MAIN_DIR="${RUNNER_TEMP}/tac-main-preview"
+          git fetch origin main
+          git worktree add --detach "${MAIN_DIR}" origin/main
+          MAIN_HTML="preview/${REPORT_DATE}-review.html"
+          MAIN_QA="preview/${REPORT_DATE}-review.qa.json"
+          MAIN_RECEIPT="preview/${REPORT_DATE}-review.delivery.json"
+          mkdir -p "${MAIN_DIR}/preview"
+          if [[ -e "${MAIN_DIR}/${MAIN_HTML}" || -e "${MAIN_DIR}/${MAIN_QA}" || -e "${MAIN_DIR}/${MAIN_RECEIPT}" ]]; then
+            test -f "${MAIN_DIR}/${MAIN_HTML}" && test -f "${MAIN_DIR}/${MAIN_QA}" && test -f "${MAIN_DIR}/${MAIN_RECEIPT}" || { echo "Existing main preview is incomplete; refusing overwrite"; exit 1; }
+            test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_HTML}")" = "${HTML_BLOB_SHA}" || { echo "Existing main HTML differs; refusing overwrite"; exit 1; }
+            test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_QA}")" = "${QA_BLOB_SHA}" || { echo "Existing main QA sidecar differs; refusing overwrite"; exit 1; }
+            echo "Identical main preview already exists; delivery is idempotent"
+            exit 0
+          fi
+          cp "${REPORT_OUTPUT}" "${MAIN_DIR}/${MAIN_HTML}"
+          cp "${REPORT_EVIDENCE}" "${MAIN_DIR}/${MAIN_QA}"
+          python - "${MAIN_DIR}/${MAIN_RECEIPT}" "${REPORT_DATE}" "${HTML_BLOB_SHA}" "${HTML_SHA256}" "${QA_BLOB_SHA}" "${GITHUB_SHA}" "${GITHUB_RUN_ID}" <<'PY'
+          import json, sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+          path, report_date, html_blob, html_sha, qa_blob, source_commit, run_id = sys.argv[1:]
+          record = {
+              "status": "DELIVERED_SHA_VERIFIED",
+              "report_date": report_date,
+              "source_branch": "simulation/tac-process-lab-2026-11-06",
+              "source_commit": source_commit,
+              "workflow_run_id": run_id,
+              "source_html_path": f"preview/{report_date}-simulation.html",
+              "source_qa_path": f"preview/{report_date}-simulation.qa.json",
+              "main_html_path": f"preview/{report_date}-review.html",
+              "main_qa_path": f"preview/{report_date}-review.qa.json",
+              "html_git_blob_sha": html_blob,
+              "html_sha256": html_sha,
+              "qa_sidecar_git_blob_sha": qa_blob,
+              "qa_reexecuted_on_main": False,
+              "html_rebuilt_on_main": False,
+              "delivered_at_utc": datetime.now(timezone.utc).isoformat()
+          }
+          Path(path).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+          test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_HTML}")" = "${HTML_BLOB_SHA}"
+          test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_QA}")" = "${QA_BLOB_SHA}"
+          INDEX_BEFORE="$(git -C "${MAIN_DIR}" rev-parse origin/main:index.html)"
+          git -C "${MAIN_DIR}" add "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}"
+          CHANGED="$(git -C "${MAIN_DIR}" diff --cached --name-only | sort)"
+          EXPECTED="$(printf '%s\n' "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}" | sort)"
+          test "${CHANGED}" = "${EXPECTED}" || { echo "Main write escaped preview allowlist"; exit 1; }
+          git -C "${MAIN_DIR}" config user.name "github-actions[bot]"
+          git -C "${MAIN_DIR}" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "${MAIN_DIR}" commit -m "Deliver QA-passed ${REPORT_DATE} TAC review preview"
+          test "$(git -C "${MAIN_DIR}" rev-parse HEAD:index.html)" = "${INDEX_BEFORE}" || { echo "Main index.html changed unexpectedly"; exit 1; }
+          git -C "${MAIN_DIR}" push origin HEAD:main
+          git fetch origin main
+          REMOTE_HTML_SHA="$(git show "origin/main:${MAIN_HTML}" | git hash-object --stdin)"
+          REMOTE_QA_SHA="$(git show "origin/main:${MAIN_QA}" | git hash-object --stdin)"
+          REMOTE_RECEIPT="$(git show "origin/main:${MAIN_RECEIPT}")"
+          test "${REMOTE_HTML_SHA}" = "${HTML_BLOB_SHA}" || { echo "Main preview HTML SHA mismatch"; exit 1; }
+          test "${REMOTE_QA_SHA}" = "${QA_BLOB_SHA}" || { echo "Main preview QA sidecar SHA mismatch"; exit 1; }
+          printf '%s' "${REMOTE_RECEIPT}" | python -c 'import json,sys; d=json.load(sys.stdin); assert d["status"]=="DELIVERED_SHA_VERIFIED" and d["qa_reexecuted_on_main"] is False and d["html_rebuilt_on_main"] is False'
+          echo "MAIN_PREVIEW_DELIVERED=true"
+          echo "MAIN_PREVIEW_HTML=preview/${REPORT_DATE}-review.html"
+          echo "MAIN_PREVIEW_HTML_BLOB_SHA=${REMOTE_HTML_SHA}"
+          echo "MAIN_PREVIEW_QA_BLOB_SHA=${REMOTE_QA_SHA}"
+
       - name: Record isolated run metadata
         if: always()
         shell: bash
@@ -709,8 +801,9 @@ jobs:
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
             echo "report_date=${REPORT_DATE:-self-test-only}"
-            echo "main_write_scope=read-only"
+            echo "main_write_scope=preview-delivery-only"
             echo "production_deploy=forbidden"
+            echo "main_index_html_write=forbidden"
           } > simulation-lab/output/runner-metadata.txt
 
       - name: Archive ORTEX TEST raw probe evidence on simulation branch
