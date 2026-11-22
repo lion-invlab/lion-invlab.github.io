@@ -21,12 +21,14 @@
 4. 發生本文件內部衝突時，先依本文件的專門章節優先於一般原則；仍無法裁決時標記 BLOCKED，不得自行猜測。
 
 ### 0.2 權限邊界
-- 本次規則重整及回歸測試只可修改 simulation branch 的明確指定工作檔、測試報告及審核版輸出。
-- main 原則唯讀。正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均不得由本工作修改。
+- SIM-1.4 的規則、程式、Fixture、測試、技術回歸及原始 QA 產物只在 `simulation/tac-process-lab-2026-11-06` 分支修改與保存。
+- main 原則唯讀；唯一例外是本規範 Stage 6 明定的「已通過 QA 審核版交付」：只可新增／更新指定日期的 `main:preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及交付收據。不得修改其他 main 路徑。
+- 正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；審核版交付不得觸及這些檔案。
 - main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者。早報流程 05:25 嚴格唯讀。
-- 審核版可依使用者對該次任務的明確授權，寫入指定日期的 simulation preview；GitHub 寫入不代表 Pages 已部署。
-- 正式首頁只有使用者對已唯一識別的審核版 SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
-- simulation workflow 不得 deploy Pages、寫 main、使用 production secrets 或自動發布首頁。
+- simulation QA 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，Workflow 才可將同一 HTML 與 sidecar 原樣交付 main preview。交付時必須核對 Git blob SHA／SHA-256 不變；不得重新組裝、改寫內容或重跑完整 QA。
+- main preview 的交付檢查只驗證路徑、檔案存在、HTML／sidecar SHA 與 simulation QA 收據綁定一致、交付收據完整；不構成第二次內容／技術 QA。Pages 可開啟性另行如實標示。
+- 正式首頁只有使用者對 main preview 中已唯一識別的 HTML SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
+- simulation workflow 禁止 deploy Pages、修改 `main:index.html`、使用 production secrets 或自動發布正式首頁；main 寫入權限僅限 Stage 6 preview 交付白名單路徑。
 
 ### 0.3 保護與修改閉環
 每次修改前取得目標檔案最新內容與 SHA；確認授權範圍；採最小必要差異；執行相應測試；寫入後回讀並核對 SHA、內容及未授權檔案未變。不得平行寫入同一路徑。遇到 SHA 競爭或更新失敗，重新讀取最新版本並重新比對，不得強制覆蓋。
@@ -104,17 +106,24 @@
 
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
 **輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、QA Contract。
-**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。
-**輸出：** 完整審核版 HTML、組裝收據、QA 報告、HTML SHA-256。
+**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 的 main preview 交付。
+**輸出：** simulation branch 完整審核版 HTML、組裝收據、QA 報告、HTML SHA-256。
 **驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
 **交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
 
 ### Stage 6｜審核版交付
-**輸入：** Stage 5 REVIEW_READY 證據與唯一 HTML SHA。
-**執行：** 寫入當次明確授權的審核版路徑；回讀檔案、核對 SHA、實際開啟預覽網址（若 Pages 發布通道已授權且可用）。
-**輸出：** 可預覽連結、回讀 SHA、部署狀態、QA 摘要及未結事項。
-**驗收：** GitHub 寫入、回讀內容及 SHA 一致；Pages 可開啟才可稱預覽已上線。否則明確標示尚未部署／未驗證。
-**權限：** 不修改 `index.html`；不做歷史封存；不視為使用者已核准正式發布。
+**輸入：** Stage 5 simulation branch 的 REVIEW_READY sidecar、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
+**執行：**
+1. 先將 simulation HTML 與 QA sidecar commit 並 push 至 simulation branch；回讀遠端兩檔，確認與本次 QA 輸出完全一致。
+2. 只有 sidecar 同時滿足 `status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`，且 `report_git_blob_sha` 等於實際 HTML Git blob SHA，才允許交付。
+3. 將同一 HTML bytes 與同一 QA sidecar bytes 原樣複製至 main：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`。禁止重新呼叫 Builder、改寫 sidecar、修補 HTML 或改變任何內容。
+4. 在 main 同次 commit 新增 `preview/YYYY-MM-DD-review.delivery.json`，記錄來源 simulation branch／commit／workflow run、兩份來源路徑、HTML Git blob SHA 與 SHA-256、QA sidecar Git blob SHA、交付時間及狀態。交付收據不得改寫 QA sidecar。
+5. push main 前先 fetch 最新 main，僅在獨立 worktree 套用三個白名單檔案；若遇衝突或目標路徑已有不同內容，停止並標示 BLOCKED，不得覆蓋或強制推送。
+6. push 後從遠端 main 回讀 HTML、sidecar、delivery receipt；驗證 HTML／sidecar Git blob SHA 與 simulation 完全相同，且收據記載值吻合。交付完整性檢查不重跑完整 QA。
+7. Pages URL 只有在實際開啟成功後才標示可預覽；否則明確標示尚未部署／未驗證。
+**輸出：** main preview 可預覽連結、simulation／main 雙端回讀 SHA、交付收據、原 QA 摘要及未結事項。
+**驗收：** 只驗證交付路徑、存在性、原樣 SHA、sidecar 綁定及收據完整；不再執行第二次完整內容／DOM／視覺 QA。
+**權限：** 僅可寫入上述 main `preview/` 三個指定檔案；絕不修改 `index.html`、正式母版、Manifest、正式行事曆 JSON 或歷史報告；不做歷史封存；不視為使用者已核准正式發布。
 
 ---
 
@@ -503,6 +512,9 @@
 完整逐條來源、條文對照及裁決依據見 `simulation-lab/analysis/SIM-1.3_to_SIM-1.4_clause_disposition.md`。目前實作狀態、最新 SHA 與未完成 Gate 以 Session State、Work Log 及 Builder 相容性稽核為準；本附錄不重複維護每日進度。
 
 ## 版本紀錄
+
+- 2026-11-22｜Stage 6 審核版交付修訂：simulation 完整 QA 通過後，以同一 HTML／QA sidecar bytes 原樣交付 main `preview/YYYY-MM-DD-review.*`；main 僅做 SHA／綁定／收據完整性檢查，不重跑完整 QA。main 寫入白名單限 HTML、QA sidecar、delivery receipt 三檔；`index.html`、母版、Manifest、正式行事曆及歷史報告仍禁止修改。
+
 
 - 2026-11-22：依使用者指示，落實財報共識「首筆有效值即採用、停止該指標後續來源搜尋」：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 獨立選源。PIT、分析師人數、完整方法論、raw archive 等可選欄位不再阻擋數值採用；QA Contract 更新為 v1.16 DRAFT。SIM-1.4 仍在 simulation 候選驗收階段。
 
