@@ -2587,11 +2587,6 @@
   ],
   "calendar_impact_overrides": [
     {
-      "event_id": "current-fed-williams-20261123",
-      "impact": "若Williams重申通膨仍具黏性、政策需維持限制性，將推升利率預期並壓抑高估值資產；若偏向等待數據，則可能緩和短端利率壓力。",
-      "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
-    },
-    {
       "event_id": "current-us-initial-claims-20261125",
       "impact": "初領失業金若維持低檔，代表就業市場仍具韌性，可能降低降息急迫性；若連續上升，則顯示勞動需求轉弱並緩和利率壓力。",
       "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
