@@ -3023,3 +3023,19 @@
 - 前一輪 Run `45016383014` completed／success，使用 v1.18／前一版 rules SHA。文件 SHA 修正後，已觸發新完整回歸 Run `45016751259`，要求重新綁定 v1.19／新 rules SHA；該輪完成前不宣稱新 SHA 已驗收。
 - 資料品質判定不變：W47 23 筆歷史財報共識及 W48 3 筆經濟預期仍缺可採用公告前證據，QA_PASSED 但 review_ready=false；Stage 6 main delivery 應維持 SKIPPED。main／正式首頁／正式母版／正式 Manifest／正式行事曆 JSON 均未修改。
 
+
+## 2026-11-22｜SIM-1.4 最終 SHA 鎖定、Trigger marker 修正及完整 E2E 完成
+
+- **最終 SIM-1.4 主規則：** `simulation-lab/TAC_WORK_RULES_SIM.md` blob SHA `f0beb47e588e3df8e1f41250dc5bfbb286a2601f`。Appendix D 已精確指向 QA Contract v1.19 SHA，版本紀錄與現行正式生效條款已清楚區分歷史 DRAFT 註記。
+- **QA Contract v1.19：** `simulation-lab/baseline/mother-template-qa-contract.md` SHA `d266e2074134824931561972709fc189869df98e`。A2.1 六欄表格分隔線、週一 simulation mother SHA、v1.17／v1.18／v1.19 changelog 換行均已回讀確認；週一 SHA `efcc712c627d6b26205be340102bba33c4a570d8`，平日 SHA `7027fedb4c5843b1a97fb77f7ef19173e1a98564`。
+- **Manifest／Builder／Workflow：** Manifest SHA `c5e3e810442cdae416a1c70039ffead895b13bb4`；核准 Builder `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`；Workflow SHA `09cb5cb79b50cac131c725d0a5e833738b9d7480`。
+- **Build Trigger marker：** `simulation-lab/runner/BUILD_TRIGGER.md` SHA `0726425c15ecfc60e00692602f4fc9c6551591bc`。原 marker 曾殘留舊 active rules SHA `9493e85b...`；已更新為本輪最終 rules、QA Contract、Manifest、雙母版、Fixture、Builder 的精確 SHA pins，且 main delivery／publish_to_main 維持 disabled／false。
+- **最終完整 E2E：** GitHub Actions run `45017229150` completed／success；全程在 Simulation branch。deterministic self-tests、44 行情 metadata/date/identity audit、Stage 2–4 pre-build receipt、Builder approval、date-driven build、五層分析、候選 Builder 雙母版 synthetic integration、導覽／tabs／accordions／來源連結、母版 DOM preservation、獨立 provenance、44／行事曆／新聞結構、receipt SHA recheck、QA sidecar seal、Simulation artifact／sidecar／receipt archive 與遠端回讀均成功。無 failed steps。
+- **最新 11/23 審核版：** `preview/2026-11-23-simulation.html` Git blob SHA `c5aa8e76d5b03bc6328dc3f70b8a040c2ca97e78`；SHA-256 `76633ed0814c37d063c1d8d60c6fb57d1768bcca6c68822d9c948c8e2d654808`。QA sidecar blob SHA `090345efa204c060c27d377a2f3e93373d55fb95`；六個 viewport 1440／768／412／390／360／320 全數 PASS。
+- **Stage 2–4 receipt：** `simulation-lab/output/prebuild-stage-input-receipt.json` status PASS；SHA-256 `55335754c88bcf639c6d9b2aca71d573077172a54a7b5a15882f70a651e55565`；run-specific archive `simulation-lab/runs/prebuild-stage-input-receipt-2026-11-23-45017229150.json` blob SHA `edfee6f0831e93ebd591172bd0b36233e870f436`。已確認 archive bytes 與 sidecar 內嵌 receipt 完全相同。
+- **輸入證據邊界：** 44／44 瀏覽器觀察紀錄及 observation hash 完整，資料日 2026-11-20；本輪重用既有 Fixture observations，`source_pages_fetched_this_run=false`、`numeric_values_reconciled_this_run=false`，raw HTTP response SHA 仍為可選。W47／W48 以 main commit `62055b79adcdc70c1f27c77c5576cdba5fee177a` 唯讀載入；W48 27 經濟／11 財報，W47 25 經濟／23 財報。新聞 5+10、15 個唯一 URL；五層分析及六領域政治掃描完整，4 筆政治／地緣 finding。
+- **資料 Gate：** QA_PASSED、content_analysis_gate PASS、政治掃描 PASS、六 viewport PASS、Builder APPROVED；但 `data_review_ready=false`、`review_ready=false`、`sim14_review_ready=false`。W47 23 筆歷史財報缺公告前 EPS／Revenue 共識；W48 澳洲／日本 Flash PMI 及加拿大 SEPH 共 3 筆缺可採用公告前 forecast。已交叉來源複核，維持 null／PARTIAL，不補造、不推定 Beat／Miss。
+- **Stage 6：** main preview delivery step SKIPPED，符合資料 Gate 與權限要求；未寫 main、未修改首頁、正式母版、Manifest、正式行事曆 JSON，未部署 Pages。
+- **Stage 7 排程設定檢查：** 三項既有 Automation 均 enabled，下一次為 2026-11-23（台灣時間）04:35 行事曆更新、05:25 早報、05:30 Chart 3 備援檢查。前次早報任務於 11/20 06:30:42 才啟動，晚於 05:25 且 run 記錄 failed；行事曆前次 04:54:53 完成，Chart 3 前次 05:37:19 完成。故排程設定存在且 enabled，但 Stage 7 實際準時喚醒／完整串接尚未 PASS；須以 11/23 真實執行紀錄驗證。不得將排程設定當成實跑成功。
+- **main 唯讀基準：** `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，均維持不變。
+
