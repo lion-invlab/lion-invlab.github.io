@@ -42,7 +42,7 @@
     "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "3440d112f1c8f10ffc5865d3b6cc512d7c0810944249b5cd866d5f0ab5cdecc6",
+  "prebuild_input_receipt_sha256": "3d294c813b28841ea8f9a7078f78196ccf4f74aac76326276ffe615a909f6eb7",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -50,7 +50,7 @@
     "report_date": "2026-11-23",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45014529578",
+    "workflow_run_id": "45014995424",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
@@ -127,7 +127,7 @@
       "political_findings_count": 4,
       "report_cutoff_taipei": "2026-11-23 05:25"
     },
-    "created_at_utc": "2026-11-22T10:53:36Z",
+    "created_at_utc": "2026-11-22T11:00:15Z",
     "limitations": [
       "Stage 2 uses 44 prior fixture-carried browser observations; this run did not fetch source pages or independently reconcile displayed values.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -138,9 +138,9 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "f948f93a15cb5af94525d59dd78e53f3ba511c4b",
-  "report_sha256": "ee3f4bbc1f8a36ee5d44eb908219889a9f037666b3f452d316cf2db517171df6",
-  "build_commit_sha": "28b0671780e1dab3d374557c8a16e47ffe0b28b2",
+  "report_git_blob_sha": "7374a652cb1a4e6f91a2f8ec6397f039b8a904fa",
+  "report_sha256": "293b6666601f47f90c9301ec31f0a9d40ff0c797863a607c2f0797424cdf6a38",
+  "build_commit_sha": "d2f69acd3fa7283d0fcc77776b4fa503f9f82d88",
   "builder_blob_sha": "16254bfa249814ac75e62cf8acbad2828f366fe6",
   "fixture_blob_sha": "d6ba74599df22a6d5c47ed02c0a5594f1b9de519",
   "template_blob_sha": "ce15c803cc778be35302eec96f6a5d123bf49624",
@@ -209,8 +209,8 @@
   "calendar_main_commit_sha": "62055b79adcdc70c1f27c77c5576cdba5fee177a",
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
-  "interaction_evidence_sha256": "4913e03301a781722b8dddeeb26bdd751c3d70f5aa91d7d6de1ca683ba3d1c1d",
-  "visual_evidence_sha256": "70087f7459617cbb0f59651a5ccad24d8ba99c519356aa9723caeee7729ff8c2",
+  "interaction_evidence_sha256": "431195785585a69d2eb2e1224fc3716670cca59ff6f8fa22ab53c7a2fe85559e",
+  "visual_evidence_sha256": "2d5a52845d6f24b53d2d34ea6e98bc482a3feebd5f7116ea2693ff6da2cd6a92",
   "viewports": [
     1440,
     768,
@@ -219,6 +219,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45014529578",
+  "workflow_run_id": "45014995424",
   "workflow_run_attempt": "1"
 }
