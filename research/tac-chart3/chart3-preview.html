@@ -285,10 +285,10 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
  const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?34:48,R=mobile?54:62,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
  const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
- const nPath=SP500_PRICES.length,fullSpan=CHART_END-CHART_START;
- const rawI0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
- const rawI1=clamp(Math.ceil((maxX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
- const i0=Math.max(0,rawI0-1),i1=Math.min(nPath-1,rawI1+1);
+ const nPath=SP500_PRICES.length;
+ const lowerBound=t=>{let lo=0,hi=nPath;while(lo<hi){const mid=(lo+hi)>>1;if(Date.parse(SP500_DATES[mid]+'T00:00:00Z')<t)lo=mid+1;else hi=mid;}return lo;};
+ const rawI0=clamp(lowerBound(minX),0,nPath-1),rawI1=clamp(lowerBound(maxX+86400000),0,nPath)-1;
+ const i0=Math.max(0,rawI0-1),i1=Math.max(i0,Math.min(nPath-1,rawI1+1));
  let visibleMin=Infinity,visibleMax=-Infinity;
  for(let i=rawI0;i<=Math.max(rawI0,rawI1);i++){const price=SP500_PRICES[i];if(Number.isFinite(price)){visibleMin=Math.min(visibleMin,price);visibleMax=Math.max(visibleMax,price);}}
  if(!Number.isFinite(visibleMin)||!Number.isFinite(visibleMax)){visibleMin=0;visibleMax=8000;}
