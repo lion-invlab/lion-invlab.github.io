@@ -1,0 +1,1 @@
+Full SIM-1.4 report build trigger after deterministic self-tests passed. Report date 2026-11-23. Simulation branch only; main delivery disabled.
