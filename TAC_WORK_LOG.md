@@ -2972,3 +2972,12 @@
 - **REVIEW_READY 仍未成立：** sidecar `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`。三項 PARTIAL blockers：① W47 23筆已公布財報缺少可採用公告前 EPS／Revenue 共識，不能事後推定 Beat/Miss；② W48 27筆經濟事件中7筆沒有可採用數值市場預期，保持 null／待核實；③ main W47／W48 行事曆 coverage 均為 incomplete，早報唯讀呈現。
 - **Stage 6 fail-closed 正常運作：** main preview delivery step 因 `review_ready != True` 明確拒絕交付；未寫入 `main:preview/2026-11-23-review.html`，未修改 `main:index.html`，未改正式母版／Manifest／calendar JSON，未部署 Pages。main index SHA 維持 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；main W48 JSON SHA 維持 `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`。
 - **結論：** SIM-1.4 Builder 已完成真實內容組裝及技術／內容 QA，產物只存在 simulation preview；目前屬「QA_PASSED／PARTIAL／不可交付」，不是 REVIEW_READY。下一步只處理三項真實資料 blockers；不得為了交付而移除或隱藏 blocker。
+
+## 2026-11-22 18:29（台灣時間）｜11/23 Stage 2–4 Fixture 交接根因校正
+
+- 重新回讀 11/23 Fixture blob SHA d6ba74599df22a6d5c47ed02c0a5594f1b9de519：44/44 行情已有逐筆觀察紀錄，資料日期全為 2026-11-20；40 筆查核於 11/22 11:40:25、Russell 2000 11:41:20、美債三期限 17:48:21（台灣時間）。43 VERIFIED、1 BACKUP_VERIFIED。Workflow Run 45010119942 未執行本輪 HTTP 擷取／數值重核，故 sidecar 的 source_pages_fetched=false、displayed_values_independently_reconciled=false 正確；不能把它解讀為先前瀏覽器觀察不存在。
+- 五層分析及政治掃描也有本次 Fixture 證據：政治掃描 11/22 11:48:13；五層來源查核 11:45:05（台灣時間）。前一輪將此概括為「沒有新研究」不夠準確，已在 Session State 校正。
+- 真正缺口為 05:25 自動任務沒有把 Stage 2–4 成果先寫入日期 Fixture／投影檔、遠端 commit／回讀 SHA，設為 Builder 觸發前的明確硬性關卡。
+- 已更新 Automation Automation_f4da15cd95c881918c7412cdd6f35bb2 Prompt，新增 Stage 2–4 Fixture 交接硬性關卡 A–H，明確列出行情、財報共識／經濟預期、新聞／五層分析的持久化及 SHA 回讀要求；不改排程時間。Automations update 回傳 success，updated_at 2026-11-22T10:29:10.534484+00:00。
+- W47 23 筆歷史財報缺公告前共識不可事後重建；W48 澳洲／日本 Flash PMI、加拿大 SEPH 預期仍無可採用且口徑可確認的來源，維持 null。外部日曆個別估計不得未經口徑核對直接採用。
+- 本次只更新 Automation Prompt 與 Simulation 分支 Session State／Work Log；未修改 Builder、Workflow 程式、main、首頁、正式母版、Manifest、正式行事曆 JSON，未交付或部署。
