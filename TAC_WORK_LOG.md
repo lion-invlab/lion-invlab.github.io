@@ -19,7 +19,7 @@
 - Workflow 新增五層內容 Gate、政治掃描 sidecar 欄位、Stage 6 交付檢查；未完成政治掃描或未具備完整證據，不得默認 PASS。
 
 ### 驗收證據
-- GitHub Actions run `44977718734`：completed／success。
+- GitHub Actions run `44978042935`：completed／success。
 - Deterministic self-tests PASS；五層母版槽位／來源證據／fail-closed 測試 PASS；政治事件分類、傳導鏈、baseline／risk／severe 情境測試 PASS；歷史 Builder 核准不得沿用新 SHA 的測試 PASS。
 - 週一與平日兩套合成內容瀏覽器測試，在 1440／768／412／390／360／320px 六種 viewport 全 PASS；文章容器與各層文字無水平溢位。
 - 此為母版槽位、Builder helper 與合成內容的結構／響應式回歸，不等於真實日期 Fixture 的完整 Stage 1–6 生產 E2E。
