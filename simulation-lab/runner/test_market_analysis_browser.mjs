@@ -8,10 +8,17 @@ import { chromium } from "playwright";
 const root = process.cwd();
 const outDir = path.join(root, "simulation-lab/output/market-analysis-browser");
 const widths = [1440, 768, 412, 390, 360, 320];
-const pages = [
-  ["monday", path.join(outDir, "monday.html")],
-  ["weekdays", path.join(outDir, "weekdays.html")],
-];
+const candidatePaths = process.argv.slice(2);
+if (candidatePaths.length !== 0 && candidatePaths.length !== 2) {
+  throw new Error("Pass either no paths for synthetic mother fixtures or exactly two paths for full Builder candidate reports");
+}
+const pages = candidatePaths.length === 2
+  ? [["monday", path.resolve(candidatePaths[0])], ["weekdays", path.resolve(candidatePaths[1])]]
+  : [
+      ["monday", path.join(outDir, "monday.html")],
+      ["weekdays", path.join(outDir, "weekdays.html")],
+    ];
+const evidenceFile = candidatePaths.length === 2 ? "browser-qa-candidate.json" : "browser-qa.json";
 const expected = [
   "一、政治與地緣政治局勢",
   "二、政策傳導與企業／產業鏈影響",
@@ -101,5 +108,5 @@ const result = {
   layers: expected,
   evidence,
 };
-fs.writeFileSync(path.join(outDir, "browser-qa.json"), JSON.stringify(result, null, 2) + "\n");
+fs.writeFileSync(path.join(outDir, evidenceFile), JSON.stringify(result, null, 2) + "\n");
 console.log(JSON.stringify(result, null, 2));
