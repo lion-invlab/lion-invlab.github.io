@@ -100,12 +100,6 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
             # not proof that the source has no observation for the requested date.
             item["verification_status"] = "TOOL_READ_FAILURE"
         item["capture"]["challenge_page_detected"] = challenge_page
-        if body64 is not None:
-            import base64
-            body = base64.b64decode(body64)
-            safe_name = str(len(rows) + 1).zfill(2) + "-" + hashlib.sha256(item["source_url"].encode()).hexdigest()[:12] + ".bin"
-            (output_dir / safe_name).write_bytes(body)
-            item["capture"]["raw_file"] = safe_name
         rows.append(item)
         last_host = host
     captured = sum(1 for r in rows if r["source_page_fetched"])
@@ -120,7 +114,7 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
         "capture_failure_count": attempted - sum(1 for row in rows if row.get("capture", {}).get("http_status") == 200 and row.get("capture", {}).get("raw_response_sha256")),
         "tool_read_failure_count": sum(1 for row in rows if row.get("verification_status") == "TOOL_READ_FAILURE"),
         "rows": rows,
-        "warning": "HTTP 200/raw-body capture is not numeric verification; each displayed value remains pending independent reconciliation.",
+        "warning": "HTTP 200/raw-body capture is not numeric verification. Previously verified rows remain locked; all remaining rows require independent reconciliation.",
     })
     return result
 
