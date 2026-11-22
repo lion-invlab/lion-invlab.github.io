@@ -406,9 +406,10 @@
         "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
         "data_date": "2026-11-20",
         "quote_type": "official_daily_par_yield",
-        "note": "11/20 官方日終 par yield；不補未提供的日變動。",
+        "note": "11/20 官方日終 par yield 4.63%；與 11/19 官方日終 4.76% 相減，單日變動 -13 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
         "verified_at_tw": "2026-11-22T11:40:25+08:00"
-      }
+      },
+      "change_display": "-13 bp"
     },
     "10年期美債殖利率": {
       "display": "4.92%",
@@ -417,9 +418,10 @@
         "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
         "data_date": "2026-11-20",
         "quote_type": "official_daily_par_yield",
-        "note": "11/20 官方日終 par yield；不補未提供的日變動。",
+        "note": "11/20 官方日終 par yield 4.92%；與 11/19 官方日終 5.04% 相減，單日變動 -12 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
         "verified_at_tw": "2026-11-22T11:40:25+08:00"
-      }
+      },
+      "change_display": "-12 bp"
     },
     "30年期美債殖利率": {
       "display": "5.31%",
@@ -428,9 +430,10 @@
         "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
         "data_date": "2026-11-20",
         "quote_type": "official_daily_par_yield",
-        "note": "11/20 官方日終 par yield；不補未提供的日變動。",
+        "note": "11/20 官方日終 par yield 5.31%；與 11/19 官方日終 5.40% 相減，單日變動 -9 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
         "verified_at_tw": "2026-11-22T11:40:25+08:00"
-      }
+      },
+      "change_display": "-9 bp"
     }
   },
   "fx": {
