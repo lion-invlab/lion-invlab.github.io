@@ -88,7 +88,7 @@ for report_date, template_key, source_name in cases:
         if content is None or content.select("a, details.market-analysis-source-details, .source, .source-list, .market-analysis-sources") or "資料來源" in content.get_text(" ", strip=True):
             raise SystemExit(f"{template_key}: analysis layer {key} exposes forbidden visible source disclosure")
     summary = soup.select_one("#overview > section.grid.two > article.card.bluf")
-    if summary is None or summary.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary.get_text(" ", strip=True):
+    if summary is None or summary.select("a, details.source-details, details.market-analysis-source-details, .source, .source-list, .summary-source, .summary-sources, p.market-analysis-sources") or "資料來源" in summary.get_text(" ", strip=True):
         raise SystemExit(f"{template_key}: summary exposes forbidden visible source disclosure")
     provenance_comment = next(
         (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))),
