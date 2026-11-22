@@ -7,6 +7,7 @@
 
 ## 版本紀錄
 
+- 2026-11-22｜v1.19：修正 A2.1 週一 simulation baseline SHA，與 Manifest／實際 Git blob 完全一致；修正六欄表格分隔線；綁定雙母版及真實內容 E2E／合成候選 Builder 回歸證據。正式 main 母版與首頁未修改。
 - 2026-11-22｜v1.18：依 320px 真實 FOMC 分頁截圖，修正官員行程日期／內容欄位擠壓；<=360px 改為日期在上、行程內容在下，更新雙母版 simulation SHA、Manifest 及 browser regression。正式 main 母版與首頁未修改。\n- 2026-11-22｜v1.17：依使用者授權新增五層市場深度解析與政治／地緣政治六領域掃描 QA；更新 simulation 雙母版 SHA、Manifest slot contract、Builder 候選狀態及五層內容／來源證據驗收。正式 main 母版與首頁未修改。
 
 ## A. 開工前來源鎖定（未通過即停止）
