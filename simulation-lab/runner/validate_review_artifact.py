@@ -202,13 +202,25 @@ def main():
         expected_paragraphs = [str(p).strip() for p in payload["paragraphs"]]
         if actual_paragraphs != expected_paragraphs:
             raise SystemExit(f"rendered market_analysis.{key} paragraphs differ from fixture")
-        source_line = content.select_one("p.market-analysis-sources")
-        if source_line is None:
-            raise SystemExit(f"rendered market_analysis.{key} source list missing")
-        actual_sources = [(a.get_text(" ", strip=True), a.get("href")) for a in source_line.select("a[href]")]
-        expected_sources = [(str(src.get("label") or "").strip(), str(src.get("url") or "").strip()) for src in payload["sources"]]
-        if actual_sources != expected_sources:
-            raise SystemExit(f"rendered market_analysis.{key} source links differ from fixture")
+        if content.select("a, details.market-analysis-source-details") or "資料來源" in content.get_text(" ", strip=True):
+            raise SystemExit(f"rendered market_analysis.{key} exposes forbidden visible source disclosure")
+        receipt = provenance.get("market_analysis_slot_receipt", {})
+        receipt_layers = {item.get("key"): item for item in receipt.get("layers", [])}
+        layer_receipt = receipt_layers.get(key)
+        if not isinstance(layer_receipt, dict):
+            raise SystemExit(f"internal market_analysis.{key} evidence receipt missing")
+        expected_sources = [
+            {
+                "label": str(src.get("label") or "").strip(),
+                "url": str(src.get("url") or "").strip(),
+                "status": str(src.get("status") or "").strip(),
+                "published_at": str(src.get("published_at") or "").strip() or None,
+                "checked_at": str(src.get("checked_at") or "").strip() or None,
+            }
+            for src in payload["sources"]
+        ]
+        if layer_receipt.get("source_count") != len(expected_sources) or layer_receipt.get("sources") != expected_sources:
+            raise SystemExit(f"internal market_analysis.{key} source evidence receipt differs from fixture")
     builder_bytes = git_show(build_commit, provenance["builder_path"])
     if git_blob_sha(builder_bytes) != provenance.get("builder_blob_sha"):
         raise SystemExit("builder provenance SHA does not match immutable build commit")
