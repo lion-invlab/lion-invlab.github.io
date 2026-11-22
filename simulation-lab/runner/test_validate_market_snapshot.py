@@ -27,6 +27,8 @@ def main():
     assert result["status"] == "PASS"
     assert result["indicator_count"] == 44
     assert result["common_data_dates"] == ["2026-11-20"]
+    assert result["per_item_timestamp_count"] == 7
+    assert result["per_item_timestamp_gap"] == 37
     assert result["group_counts"] == {
         "global_markets": 17, "sectors": 11, "bonds": 3, "fx": 6,
         "energy": 2, "metals": 2, "risk": 3,
