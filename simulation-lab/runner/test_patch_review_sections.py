@@ -23,6 +23,21 @@ def run_patch(section: str, mother_name: str) -> tuple[dict, BeautifulSoup]:
         html_out = tmp_path / "output.html"
         receipt_path = tmp_path / "receipt.json"
         html_in.write_bytes((BASELINE / mother_name).read_bytes())
+        if section == "summary":
+            # Seed a legacy visible source disclosure to prove the local patch removes it.
+            mother_soup = BeautifulSoup(html_in.read_bytes(), "lxml")
+            card = mother_soup.select_one("#overview > section.grid.two > article.card.bluf")
+            details = mother_soup.new_tag("details", attrs={"class": "source-details"})
+            summary_tag = mother_soup.new_tag("summary")
+            summary_tag.string = "資料來源"
+            source_box = mother_soup.new_tag("div", attrs={"class": "source"})
+            source_link = mother_soup.new_tag("a", href="https://example.com/summary-source")
+            source_link.string = "舊版總結來源"
+            source_box.append(source_link)
+            details.append(summary_tag)
+            details.append(source_box)
+            card.append(details)
+            html_in.write_text(str(mother_soup), encoding="utf-8")
         fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
         if section == "summary":
             fixture["summary_title"] = "測試總結標題：市場風險重新定價"
