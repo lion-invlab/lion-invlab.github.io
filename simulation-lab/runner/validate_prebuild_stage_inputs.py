@@ -87,6 +87,21 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     keys = {(row.get("group"), row.get("name")) for row in rows}
     require(len(keys) == 44 and all(a and b for a, b in keys),
             "source manifest has duplicate or unnamed rows")
+    observed_groups = {group: sum(1 for row in rows if row.get("group") == group)
+                       for group in EXPECTED_GROUP_COUNTS}
+    require(observed_groups == EXPECTED_GROUP_COUNTS,
+            f"source manifest group distribution mismatch: {observed_groups}")
+    require(all(row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
+                and row.get("display_value_matches_saved_observation") is True
+                and row.get("observation_provenance") == "FIXTURE_PRIOR_VERIFICATION_RECORD"
+                for row in rows), "one or more source rows lack an accepted prior observation")
+    require(all(isinstance(row.get("browser_observation_record"), dict)
+                and row["browser_observation_record"].get("source_url")
+                and row["browser_observation_record"].get("data_date") == trading_date
+                and row["browser_observation_record"].get("observed_value") is not None
+                and row["browser_observation_record"].get("observed_change") is not None
+                and row["browser_observation_record"].get("checked_at_tw")
+                for row in rows), "one or more browser observation records are incomplete")
     require(all(row.get("source_page_fetched") is False for row in rows),
             "prior observations must not be labelled as fetched in this run")
     require(all(row.get("observation_record_sha256") and
@@ -251,6 +266,8 @@ def main() -> None:
     args = parser.parse_args()
 
     data, fixture_sha = load_json(args.data)
+    require(data.get("report_date") == args.report_date,
+            "CLI report_date does not match the selected fixture")
     audit, audit_sha = load_json(args.audit)
     manifest, manifest_sha = load_json(args.manifest)
 
