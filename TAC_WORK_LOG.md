@@ -1,3 +1,36 @@
+## 2026-11-22｜SIM-1.4 五層市場分析、政治風險與雙母版槽位完成第一輪驗收
+
+### 使用者授權與規範修訂
+- 使用者明確授權先修訂 SIM-1.4，再同步 QA Contract、simulation 雙母版、Manifest、Builder 與測試；全程只在 `simulation/tac-process-lab-2026-11-06` 操作。
+- SIM-1.4 更新後 SHA：`28ac13f8a3ee2cae5da0f0928d6eedc30fc1fc4d`。市場深度解析由四層改為五層：政治／地緣政治 → 政策與產業鏈 → 宏觀經濟 → 金融市場定價 → 機構資金與投資策略。
+- 新增政治與地緣政治每日六領域掃描、五種事件／政策狀態分類、事件傳導鏈、基準／風險／嚴重情境、觸發條件、受影響資產、領先指標、策略及失效條件。
+- QA Contract v1.17 SHA：`47a7a8a686227ced356bb69702e8621d60415e99`；新增五層文章、政治掃描、來源證據及情境分析驗收。
+
+### Simulation 雙母版與 Manifest
+- 週一母版 `simulation-lab/baseline/monday-mother-template.html` SHA：`ce15c803cc778be35302eec96f6a5d123bf49624`。
+- 週二至週五母版 `simulation-lab/baseline/weekday-mother-template.html` SHA：`940761077a3f3ad1b47b325a8d2a1a6800e3a679`。
+- 兩份母版皆在總結小卡後、原市場情緒區塊前新增 `#market-analysis`，包含五個固定標題與獨立內容節點；來源列採較小灰階字級。
+- Manifest SHA：`c78338984192a9251adc247ae1b0044629de89db`；已同步雙母版 SHA、五層鍵值、selector、父層、順序及 Builder 可編輯範圍。
+
+### Builder 與 QA 實作
+- Builder 候選 `simulation-lab/runner/build_review_html.py` SHA：`96eccd541a4787f4b5f9e3baab7a63f9fd993342`。
+- Builder 只填入母版既有五個內容節點，不重建外層 DOM；驗證每層段落、來源 URL／發布或查核時間／狀態，並檢查政治掃描六領域、事件分類、五段傳導與三情境。
+- 新增 `test_market_analysis_slots.py`、`render_market_analysis_test_pages.py`、`test_market_analysis_browser.mjs`；同步更新雙母版驗證器、DOM preservation validator、獨立 artifact validator 與 GitHub Actions workflow。
+- Workflow 新增五層內容 Gate、政治掃描 sidecar 欄位、Stage 6 交付檢查；未完成政治掃描或未具備完整證據，不得默認 PASS。
+
+### 驗收證據
+- GitHub Actions run `44977718734`：completed／success。
+- Deterministic self-tests PASS；五層母版槽位／來源證據／fail-closed 測試 PASS；政治事件分類、傳導鏈、baseline／risk／severe 情境測試 PASS；歷史 Builder 核准不得沿用新 SHA 的測試 PASS。
+- 週一與平日兩套合成內容瀏覽器測試，在 1440／768／412／390／360／320px 六種 viewport 全 PASS；文章容器與各層文字無水平溢位。
+- 此為母版槽位、Builder helper 與合成內容的結構／響應式回歸，不等於真實日期 Fixture 的完整 Stage 1–6 生產 E2E。
+
+### Builder 核准與後續限制
+- 原核准 Builder SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備五層填槽能力，已在 SIM-1.4 降為歷史核准基準，不得用於新母版。
+- 新候選 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342` 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。未核准前 Gate 0／Stage 5 必須 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
+- main 保護查核：`index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；正式週一母版 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；正式平日母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。本輪未修改 main、正式母版、正式 Manifest、正式行事曆 JSON 或歷史報告，未部署 Pages。
+
+---
+
 ## 2026-11-22｜四層分析文章槽位盤點與 SIM-1.4 QA 契約補強
 
 - SIM-1.4 規則更新後 blob SHA：`d8564cdbf808abb2042cf877453077d5b2776469`；Stage 4 明定總結小卡、四層深度解析、盤面觀察重點三層架構，Gate 1／內容 QA 加入檢查。
