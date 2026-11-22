@@ -108,9 +108,8 @@ def main():
                 content = require_one(analysis, f'[data-analysis-content="{key}"]', label + " analysis content " + key)
                 if not content.find("p", recursive=False):
                     raise ValueError(f"{label}: analysis layer {key} has no rendered paragraph")
-                source_line = content.select_one("p.market-analysis-sources")
-                if source_line is None or not source_line.select("a[href^='https://']"):
-                    raise ValueError(f"{label}: analysis layer {key} has no HTTPS evidence links")
+                if content.select("a, details.market-analysis-source-details") or "資料來源" in content.get_text(" ", strip=True):
+                    raise ValueError(f"{label}: analysis layer {key} exposes forbidden visible source disclosure")
 
     # Market commentary is dynamic text only; preserve every mother-owned note skeleton and inline style.
     left_notes = mother.select(".market-reason")
