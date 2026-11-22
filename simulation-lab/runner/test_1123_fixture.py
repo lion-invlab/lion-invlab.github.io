@@ -231,7 +231,7 @@ def main():
     assert "不能據此推論相關業者已違約或整條AI融資鏈瓦解" in market_text
     strategy_text = " ".join(analysis["strategy"]["paragraphs"])
     assert "融資展期失敗" in strategy_text and "保證條款被觸發" in strategy_text
-    assert "信用重新定價" in strategy_text and "主要客戶削減長約" in strategy_text
+    assert "風險重新定價" in strategy_text and "主要客戶削減長約" in strategy_text
     assert any(x["url"] == "https://www.reuters.com/legal/transactional/coreweaves-ai-contracts-lenders-financing-its-build-out-2026-10-15/" for x in analysis["strategy"]["sources"])
 
     scan = data["political_scan"]
