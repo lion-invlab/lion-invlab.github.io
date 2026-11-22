@@ -140,7 +140,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -165,7 +165,7 @@ jobs:
           python simulation-lab/runner/test_builder_output_guard.py
           python simulation-lab/runner/test_market_analysis_slots.py
           python simulation-lab/runner/test_sim14_builder_approval.py
-          python simulation-lab/runner/test_validate_market_snapshot.py
+          python simulation-lab/runner/test_validate_market_snapshot.py\n          python simulation-lab/runner/test_market_source_verification_manifest.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
           python simulation-lab/runner/test_1123_fixture.py
@@ -265,7 +265,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
+          python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json\n          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
 
       - name: Enforce active SIM-1.4 Builder approval before production build
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
@@ -728,7 +728,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
+          git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"\n          SOURCE_WORKLIST="simulation-lab/output/market-source-verification-manifest.json"\n          SOURCE_WORKLIST_ARCHIVE="simulation-lab/runs/market-source-verification-manifest-${REPORT_DATE}-${GITHUB_RUN_ID}.json"\n          if [[ ! -s "${SOURCE_WORKLIST}" ]]; then\n            echo "Market source verification worklist missing; refusing to persist report without the 44-row verification register" >&2\n            exit 1\n          fi\n          mkdir -p simulation-lab/runs\n          cp "${SOURCE_WORKLIST}" "${SOURCE_WORKLIST_ARCHIVE}"\n          git add -f "${SOURCE_WORKLIST_ARCHIVE}"
           REVIEW_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
           EVIDENCE_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
           AUDIT_SOURCE="simulation-lab/output/market-snapshot-audit.json"
