@@ -180,6 +180,11 @@ def main():
         ("markets", "四、金融市場定價、情緒與風險"),
         ("strategy", "五、機構資金動向與投資策略"),
     ]
+    summary_card = soup.select_one("#overview > section.grid.two > article.card.bluf")
+    if summary_card is None:
+        raise SystemExit("summary card missing from review")
+    if summary_card.select("a, details.source-details, details.market-analysis-source-details") or "資料來源" in summary_card.get_text(" ", strip=True):
+        raise SystemExit("summary card exposes forbidden visible source disclosure")
     analysis_payload = fixture.get("market_analysis")
     if not isinstance(analysis_payload, dict) or set(analysis_payload) != {key for key, _ in expected_layers}:
         raise SystemExit("fixture market_analysis must contain exactly the five required layers")
