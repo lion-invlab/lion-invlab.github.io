@@ -11,7 +11,8 @@
 - **QA 狀態：** `QA_PASSED`、`content_analysis_gate=PASS`、政治掃描 PASS、六 viewport（1440／768／412／390／360／320）PASS；Builder `16254bfa249814ac75e62cf8acbad2828f366fe6` APPROVED。惟 `review_ready=false`、`data_review_ready=false`、`sim14_review_ready=false`，不得交付 main。
 - **仍有兩項 PARTIAL blocker：** W47 23 筆歷史財報缺公告前 EPS／Revenue 共識，無法事後重建；W48 澳洲／日本 Flash PMI 與加拿大 SEPH 共 3 筆經濟預期缺可採用公告前共識，forecast 維持 null。不得補造或推定 Beat／Miss。
 - **main 唯讀確認：** `index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；W48 JSON SHA `807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa`；W47 JSON SHA `727ea2be1c04688d3c4f98d36c452561bbab6821`，均與本輪前一致。
-- **下一步：** FOMC 320px 擠壓問題已修正並實測通過。接續只處理兩項資料 PARTIAL blocker 的合法證據確認及 11/23 審核版內容檢查；無新證據即保留 PARTIAL。不得為了 REVIEW_READY 放寬規則；未經明確核准不修改 main／正式首頁。
+- **資料 PARTIAL blocker 交叉來源複核（2026-11-22）：** 澳洲 Flash PMI：Investing.com upcoming row 無 forecast，MihanInvest 11/23 release 亦顯示 Forecast —；日本 Flash PMI：Investing.com upcoming row 無 forecast，Broker Radar 11/24 Flash Manufacturing PMI forecast 空白，Cibo 11/24 Jibun Bank Services PMI forecast 為 --；加拿大 SEPH：Investing.com 未找到公告前共識，Statistics Canada 確認 9 月 SEPH 於 11/26 發布，Baystreet 加拿大經濟日曆該項未列 forecast。Canada Employment Change 的 consensus 是 Labour Force Survey，不是 SEPH，不得替代。三筆仍維持 null。
+- **下一步：** FOMC 320px 擠壓問題已修正並實測通過。兩項 PARTIAL blocker 已完成交叉來源複核，現有證據不支持補入 forecast；W47 23 筆 PIT 財報共識亦不可事後重建。保留 PARTIAL，SIM-1.4 E2E 技術流程已通過。不得為了 REVIEW_READY 放寬規則；未經明確核准不修改 main／正式首頁。
 
 ---
 
