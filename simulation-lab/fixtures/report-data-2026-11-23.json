@@ -2012,12 +2012,14 @@
     "FactSet Q3 2026快照as_of_date為2026-11-20，HTML須顯示統計日期；Mag7與其他493家公司EPS成長比較保留FactSet來源與口徑。",
     "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
     "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
-    "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。"
+    "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
+    "44項行情來源證據已核對共用資料日期為2026-11-20，並逐項具備來源URL、quote_type及說明；現有Fixture僅1項保存精確查核時間、6項保存查核日期、37項未保存逐項查核時間。依規範不補造時間，相關項目標示待核實；本輪不重抓已鎖定行情值。"
   ],
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
     "PARTIAL｜本週W48經濟行事曆27筆中7筆無可採用市場預期；維持null／待核實，需完整揭露。",
-    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
+    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。",
+    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；但僅1項保存精確查核時間、6項僅保存查核日期、37項未保存逐項查核時間。不得補造時間，該37項查核時間狀態維持待核實。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
@@ -2215,7 +2217,7 @@
           "url": "https://www.reuters.com/world/china/trump-basks-summit-pomp-chinas-xi-strengthens-his-hand-2026-11-21/",
           "published_at": "2026-11-21",
           "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "status": "發布日期已核實；原始頁面未提供可確認的精確發布時間，僅作政治背景，不作截稿窗口新聞計數。"
         },
         {
           "label": "Reuters｜荷姆茲海峽附近油輪事件",
@@ -2282,14 +2284,14 @@
           "url": "https://economics.td.com/us-weekly-bottom-line",
           "published_at": "2026-11-20",
           "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "status": "發布日期已核實；頁面未提供可確認的精確發布時間。"
         },
         {
           "label": "AP｜Fed會議紀錄與12月利率預期",
           "url": "https://apnews.com/article/9e72f3b6e3484173471cc382d6918de0",
           "published_at": "2026-11-19",
           "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "status": "發布日期已核實；頁面未提供可確認的精確發布時間。"
         },
         {
           "label": "美國財政部｜2026年11月每日公債殖利率",
@@ -2326,7 +2328,7 @@
           "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-c10b797a17c2acf37924d834efebe135",
           "published_at": "2026-11-21",
           "checked_at": "2026-11-22T11:01:49+08:00",
-          "status": "已核實報導"
+          "status": "發布日期已核實；頁面未提供可確認的精確發布時間，僅作市場背景來源。"
         },
         {
           "label": "美國財政部｜每日公債殖利率",
@@ -2454,7 +2456,8 @@
             "strategy": "降低台海單一地理風險集中度、提高流動性並制定跨市場避險方案。",
             "invalidation": "官方建立可驗證的危機溝通機制且軍事活動持續降溫。"
           }
-        }
+        },
+        "source_status": "日期已核實；原始頁面未提供精確發布時間，僅作政治背景，不列入截稿窗口新聞計數。"
       },
       {
         "title": "美國SEC調查Nvidia會計作法的報導尚未構成違法認定",
