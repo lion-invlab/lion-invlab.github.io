@@ -564,6 +564,20 @@ def validate_summary_title(value):
     return title
 
 
+def remove_visible_sources_from_summary(node):
+    """Remove source-only disclosures/links from the summary card, never from other sections."""
+    for element in node.select(
+        "details.source-details, details.market-analysis-source-details, "
+        "p.market-analysis-sources, .summary-source, .summary-sources"
+    ):
+        element.decompose()
+    for link in node.select("a"):
+        link.decompose()
+    if "資料來源" in node.get_text(" ", strip=True):
+        raise ValueError("summary card still contains visible source disclosure")
+    return {"visible_sources": False}
+
+
 def populate_summary_points_preserving_dom(node, points):
     """Update the mother-owned summary labels/text nodes without rebuilding its paragraph DOM."""
     if not isinstance(points, list) or not points:
@@ -1997,6 +2011,7 @@ def main():
     summary_title = validate_summary_title(data.get("summary_title"))
     set_text(unique(bluf, "h1", "summary headline"), summary_title)
     populate_summary_points_preserving_dom(summary, data.get("summary_points"))
+    summary_source_receipt = remove_visible_sources_from_summary(bluf)
     # Fill the five independent article layers only through Manifest-approved mother slots.
     market_analysis_receipt = populate_market_analysis_preserving_dom(soup, data, manifest)
     # Market sentiment narrative: replace the dedicated final interpretation card,
@@ -3188,6 +3203,7 @@ def main():
         "builder_path": str(Path(__file__).relative_to(ROOT)),
         "builder_blob_sha": sha_blob(Path(__file__).read_text(encoding="utf-8")),
         "market_analysis_slot_receipt": market_analysis_receipt,
+        "summary_source_receipt": summary_source_receipt,
         # Repository and branch metadata live on each week record, not the
         # top-level calendar envelope returned by load_authoritative_calendar().
         "calendar_repository": calendar_source["current"]["repository"],
