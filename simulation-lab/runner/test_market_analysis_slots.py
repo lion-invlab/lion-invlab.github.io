@@ -33,7 +33,13 @@ def sample_data():
                 }],
             }
             for key, title in EXPECTED
-        }
+        },
+        "political_scan": {
+            "checked_at": "2026-11-22T08:10:00+08:00",
+            "domains_checked": ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"],
+            "findings": [],
+            "no_material_change_note": "本測試日未發現足以改變市場定價的重大已核實政治／地緣政治變化。",
+        },
     }
 
 
