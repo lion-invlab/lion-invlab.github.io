@@ -210,7 +210,7 @@ def main():
     strategy_text = " ".join(analysis["strategy"]["paragraphs"])
     assert "融資展期失敗" in strategy_text and "契約違約" in strategy_text
     assert "信用重新定價" in strategy_text and "整條融資鏈崩解" in strategy_text
-    assert any(x["url"] == "https://www.reuters.com/legal/transactional/coreweaves-ai-contracts-and-the-lenders-financing-its-build-out-2026-10-15/" for x in analysis["strategy"]["sources"])
+    assert any(x["url"] == "https://www.reuters.com/legal/transactional/coreweaves-ai-contracts-lenders-financing-its-build-out-2026-10-15/" for x in analysis["strategy"]["sources"])
 
     scan = data["political_scan"]
     assert scan["domains_checked"] == ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"]
