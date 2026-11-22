@@ -477,6 +477,15 @@ main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!import
 /* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
 body.release-ready .data-sync-warning,
 body.release-ready .news-window-warning { display: none !important; }
+
+/* SIM-1.4 approved five-layer market analysis slot; shared by both simulation mothers */
+#market-analysis{min-width:0;}
+#market-analysis .market-analysis-layer{min-width:0;padding:12px 0;border-top:1px solid var(--line);}
+#market-analysis .market-analysis-layer h3{margin:0 0 7px;font-size:16px;line-height:1.5;font-weight:900;color:#17365d;overflow-wrap:anywhere;}
+#market-analysis .market-analysis-content{min-width:0;font-size:14px;line-height:1.8;color:#3f464d;overflow-wrap:anywhere;word-break:normal;}
+#market-analysis .market-analysis-content p{margin:0 0 9px;}
+#market-analysis .market-analysis-content p:last-child{margin-bottom:0;}
+@media(max-width:700px){#market-analysis{padding:14px 13px;}#market-analysis .market-analysis-layer{padding:10px 0;}#market-analysis .market-analysis-layer h3{font-size:15px;}#market-analysis .market-analysis-content{font-size:14px;line-height:1.75;}}
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
@@ -2054,7 +2063,14 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 <h1>上週修正後，本週市場迎來關鍵考驗</h1>
 <p><b>上週回顧｜高估值修正與風險升溫</b><br/>科技股在財報未完全滿足高預期、AI 投資回報疑慮升溫之際承壓；週五油價急升與美債殖利率走高又加重賣壓。惟全週並非所有板塊同步走弱，較像資金重新定價，尚不足以單憑一週走勢確認全面熊市。<br/><b>本週展望｜等待財報與利率給出方向</b><br/>不因跌深就假設必然反彈，也不在恐慌中一概看空。大型科技財報與聯準會決策將是重要驗證點，重點看 AI 支出能否轉化為營收、獲利與現金流，以及油價和長天期殖利率是否降溫。<br/><b>投資應對｜分批布局、避免押單邊</b><br/>若財報有力、利率壓力緩和，市場有機會止穩修復；若油價與殖利率續升、財測又不如預期，仍可能再測低點。建議控制槓桿、分批進出，避免追價或一次性抄底。</p>
 
-</article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
+</article></section><section class="card market-analysis" id="market-analysis" aria-label="市場深度解析">
+<div class="title">市場深度解析</div>
+<section class="market-analysis-layer" data-analysis-layer="political" aria-labelledby="analysis-political-title"><h3 id="analysis-political-title">一、政治與地緣政治局勢</h3><div class="market-analysis-content" data-analysis-content="political"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="policy-industry" aria-labelledby="analysis-policy-industry-title"><h3 id="analysis-policy-industry-title">二、政策傳導與企業／產業鏈影響</h3><div class="market-analysis-content" data-analysis-content="policy-industry"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="macro" aria-labelledby="analysis-macro-title"><h3 id="analysis-macro-title">三、宏觀經濟傳導</h3><div class="market-analysis-content" data-analysis-content="macro"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="markets" aria-labelledby="analysis-markets-title"><h3 id="analysis-markets-title">四、金融市場定價、情緒與風險</h3><div class="market-analysis-content" data-analysis-content="markets"></div></section>
+<section class="market-analysis-layer" data-analysis-layer="strategy" aria-labelledby="analysis-strategy-title"><h3 id="analysis-strategy-title">五、機構資金動向與投資策略</h3><div class="market-analysis-content" data-analysis-content="strategy"></div></section>
+</section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><a class="tac-market-link" href="https://hk.investing.com/indices/volatility-s-p-500" target="_blank" rel="noopener"><span class="label-en">VIX</span></a> <span class="label-zh">｜恐慌指數</span></div><strong>19.45</strong><span class="warn">+2.21%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/23 VIX 收盤採 19.45、當日 +0.42（+2.21%）；YCharts 歷史值與鉅亨網同日歷史資料一致。先前卡片的 19.65／+3.26% 與交叉核對來源不一致，已更正；已依既定核對流程確認，沿用本次核對值。</div></details></div>
