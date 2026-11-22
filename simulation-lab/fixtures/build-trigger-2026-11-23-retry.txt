@@ -1,0 +1,2 @@
+SIM-only retry marker after persistence rebase auto-stash fix.
+Report date: 2026-11-23
