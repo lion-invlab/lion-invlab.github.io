@@ -361,7 +361,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
 8. **此前已核准的 Builder（歷史核准基準）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。此核准依據為 2026-11-22 使用者明確核准，以及同一 Builder SHA 的 Monday run `44964279548`、Weekday run `44964439803` 雙母版完整驗收；該核准只適用於當時的母版／Manifest，不能自動延伸至本次新增五層文章槽位後的結構。
-9. **歷史 Builder 核准紀錄：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾於 2026-11-22 獲使用者核准，並完成當時版本的測試。該核准只適用於該精確 SHA，不會自動延伸至後續修改。分支後續版本曾變更為 `02f2d87e12e340cb377eb99dbda42cbb77d58129`，使用者明確指出該版未核准；本次修改後候選版本為 `aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`，同樣尚未取得核准。候選版本新增來源隱藏、內部 evidence receipt 保留等修改；必須完成局部測試、雙母版測試及必要瀏覽器 QA，提交確切 SHA 與證據，待使用者核准後才可執行完整 E2E。此前任何不同 SHA 的測試結果均不得合併宣稱本候選版通過。
+9. **歷史 Builder 核准紀錄：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾於 2026-11-22 獲使用者核准，並完成當時版本的測試。該核准只適用於該精確 SHA，不會自動延伸至後續修改。分支後續版本曾變更為 `02f2d87e12e340cb377eb99dbda42cbb77d58129`，使用者明確指出該版未核准；本次修改後候選版本為 `2cb0a90e53b10c31aca20503f93a5b324091c0a7`，同樣尚未取得核准。候選版本新增來源隱藏、內部 evidence receipt 保留等修改；必須完成局部測試、雙母版測試及必要瀏覽器 QA，提交確切 SHA 與證據，待使用者核准後才可執行完整 E2E。此前任何不同 SHA 的測試結果均不得合併宣稱本候選版通過。
 
 ### 8.2 組裝限制
 - 輸入必須包含核准母版、Manifest、Fixture、44 項行情、行事曆唯讀收據、財報判讀、新聞與分析內容。
@@ -634,7 +634,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ## 2026-11-22｜SIM-1.4 Builder 歷史核准與新版唯一入口
 
 - **歷史核准（已被新版取代）：** `simulation-lab/runner/build_review_html.py`，blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；原依 Monday run `44964279548` 與 Weekday run `44964439803` 通過當時雙母版驗收。該 SHA 不含五層文章槽位及政治掃描能力，自新版母版／Manifest 生效後不得再用於每日生產。
-- **目前 Builder 狀態：候選版，尚未取得本輪核准。** 最新候選路徑為 `simulation-lab/runner/build_review_html.py`，blob SHA `aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；不得作為正式生產入口，直到使用者核准該精確 SHA。
+- **目前 Builder 狀態：候選版，尚未取得本輪核准。** 最新候選路徑為 `simulation-lab/runner/build_review_html.py`，blob SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；不得作為正式生產入口，直到使用者核准該精確 SHA。
 - 新版 Builder 核准只解除 Builder approval Gate；真實市場分析內容的 Stage 1–6 生產 E2E、資料／內容 Gate、完整互動與視覺 QA 仍須逐項完成，未通過前不得標示 REVIEW_READY 或交付。
 - 本核准僅限 simulation branch 的 SIM-1.4 Builder 入口；不構成 main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 或 Pages 部署授權。
 
@@ -668,7 +668,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 局部更新器新增 `simulation-lab/runner/patch_review_sections.py`；測試新增 `simulation-lab/runner/test_patch_review_sections.py`。測試尚待 CI 執行，不得先行標示 PASS。
 - 11/23 Fixture 已加入 NVIDIA SEC 10-Q 與 Reuters 11/17、10/15 報導支持的 AI 融資鏈分析；具體區分 360 億美元 AI cloud agreements、初步第三方融資平台 MOU、NVIDIA 五大客戶約70%應收帳款集中、付款期限90天至一年、基礎設施融資商33億美元投資／47億美元最大損失曝險，以及 CoreWeave／Nebius 信用重新定價；不把信用重新定價寫成違約。
 - Fed 官員行程 simulation 雙母版已將手機直向排列門檻由 360px 擴大至 412px；QA Contract v1.20 與 Manifest 同步更新。413px 以上維持桌面雙欄。
-- 本輪最新候選 Builder SHA：`aa94b7dfd614ef0f9cb035b7c8cef5e60838155e`；最新 Fixture SHA：`f861bd454a6fea8866361d7d686b7b70247f7d7d`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
+- 本輪最新候選 Builder SHA：`2cb0a90e53b10c31aca20503f93a5b324091c0a7`；最新 Fixture SHA：`f861bd454a6fea8866361d7d686b7b70247f7d7d`；Manifest SHA：`d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.20 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
 - Monday mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；weekday mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。
 - 本輪候選版本尚未完成 CI／瀏覽器 QA，亦未取得 Builder SHA 核准；完整 E2E 與審核版產出暫停於核准 Gate。
 - QA Contract v1.20 已補入 A3.5 來源隱藏與局部 DOM 更新驗收條款；最新 SHA：`ddaf719d22db66b7894a02683fc92d25d87da3af`。
@@ -682,3 +682,5 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - NVIDIA SEC 文件期間已更正為 2027 會計年度第二季（截至 2026/07/26），避免誤寫成日曆年第二季；Fixture SHA：`f861bd454a6fea8866361d7d686b7b70247f7d7d`。
 
 - 11/23 markets 段落已將制式「市場仍需分辨」改成可驗證條件：信用利差與GPU容量利用率是否同步惡化，以及主要客戶是否下修容量合約；Fixture SHA：`f861bd454a6fea8866361d7d686b7b70247f7d7d`。
+
+- Builder summary cleanup 已擴大涵蓋 `.source`／`.source-list` 獨立來源容器，局部更新測試加入獨立來源文字案例；最新 Builder 候選 SHA：`2cb0a90e53b10c31aca20503f93a5b324091c0a7`，尚未核准。
