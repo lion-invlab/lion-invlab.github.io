@@ -9,11 +9,11 @@
   - 週二至週五 simulation mother SHA：`940761077a3f3ad1b47b325a8d2a1a6800e3a679`
   - 兩份母版均在總結小卡之後、原市場情緒區塊之前新增 `#market-analysis)，並有五個獨立層級內容槽位；來源列採小字灰階樣式。
 - **Manifest：** `simulation-lab/baseline/mother-template-manifest.json` SHA `c78338984192a9251adc247ae1b0044629de89db`；已登記雙母版 SHA、五層 selector、順序及唯一可編輯內容節點。
-- **Builder 候選：** `simulation-lab/runner/build_review_html.py` SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342`。新增五層填槽、來源 URL／時間／狀態驗證、六領域政治掃描及重大事件傳導／三情境驗證。舊核准 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備新槽位能力，已明確降為歷史核准基準，不得再用於新母版。
+- **Builder 候選：** `simulation-lab/runner/build_review_html.py` SHA `16254bfa249814ac75e62cf8acbad2828f366fe6`。新增五層填槽、來源 URL／時間／狀態驗證、六領域政治掃描及重大事件傳導／三情境驗證；另新增僅寫入 simulation-lab/output/candidate-validation 的隔離候選測試模式。舊核准 SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa` 不具備新槽位能力，已明確降為歷史核准基準，不得再用於新母版。
 - **已通過的技術驗收：** GitHub Actions run `44977718734` completed／success。Deterministic self-tests、五層槽位與來源證據測試、政治事件分類／傳導／三情境測試、歷史 Builder 核准不得沿用測試均 PASS；週一與平日合成文章瀏覽器測試在 1440／768／412／390／360／320px 六種寬度全 PASS，無文章區塊水平溢位。
-- **尚未完成：** 真實日期 Fixture 的完整報告組裝與 Stage 1–6 生產 E2E；新 Builder SHA 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。因此 Stage 5 仍 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
+- **尚未完成：** 真實日期 Fixture 的完整報告組裝與 Stage 1–6 生產 E2E；候選 Builder 的完整整合測試正在加入 output-only synthetic fixtures；新 Builder SHA 尚未取得使用者依 SIM-1.4 §8.1 的精確核准。因此 Stage 5 仍 BLOCKED，不得標示 REVIEW_READY，不得交付 main preview。
 - **main 保護查核：** `main:index.html` SHA `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`；正式週一母版 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；正式平日母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。本次均未修改；未修改 main Manifest／正式行事曆 JSON／歷史報告，未部署 Pages。
-- **下一步：** 提交候選 Builder 精確 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342` 供使用者核准。核准後再以真實 Fixture 完成完整報告 E2E；未核准前不得繞過 Gate 0。
+- **下一步：** 提交候選 Builder 精確 SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 供使用者核准。核准後再以真實 Fixture 完成完整報告 E2E；未核准前不得繞過 Gate 0。
 
 
 ---
