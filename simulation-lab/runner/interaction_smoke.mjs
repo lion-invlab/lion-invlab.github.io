@@ -190,6 +190,73 @@ try {
     throw new Error(`source links unexpectedly low: Investing.com=${investingLinks}, Cnyes=${cnyesLinks}`);
   }
 
+  // Explicitly open the FOMC tab and verify the official Fed-officials agenda
+  // at desktop and 320px mobile; the default screenshot only shows FedWatch.
+  const fomcTab = page.locator('label[for="fed-live-tab-fomc"]');
+  if (await fomcTab.count() !== 1) throw new Error("FOMC tab label missing");
+  await fomcTab.click();
+  if (!(await page.locator("#fed-live-tab-fomc").isChecked())) {
+    throw new Error("FOMC tab radio did not become checked");
+  }
+  const fomcPanel = page.locator(".fed-live-panel.fed-live-fomc");
+  if (!(await fomcPanel.isVisible())) throw new Error("FOMC panel did not become visible");
+  const agenda = fomcPanel.locator(".fc-fomc-weekly-events");
+  if (await agenda.count() !== 1 || !(await agenda.isVisible())) {
+    throw new Error("本週聯準會官員行程 block missing or hidden");
+  }
+  const agendaEvent = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])').first();
+  if (await agendaEvent.count() !== 1) throw new Error("verified Fed official agenda event missing");
+  const agendaText = (await agendaEvent.innerText()).replace(/\\s+/g, " ").trim();
+  if (!agendaText.includes("預定｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
+    throw new Error("Fed official agenda date/name content mismatch: " + agendaText);
+  }
+  const agendaSource = agendaEvent.locator("a.fc-fomc-weekly-event-source[href]");
+  if (await agendaSource.count() !== 1 || !(await agendaSource.getAttribute("href")).startsWith("https://")) {
+    throw new Error("Fed official agenda source link missing or invalid");
+  }
+
+  const fedAgendaLayouts = [];
+  const visualDir = "simulation-lab/output/visual";
+  fs.mkdirSync(visualDir, { recursive: true });
+  for (const width of [1440, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    const metrics = await agenda.evaluate(node => {
+      const rect = node.getBoundingClientRect();
+      const row = node.querySelector('.fc-fomc-weekly-event:not([data-fed-event-template="true"])');
+      const rowRect = row.getBoundingClientRect();
+      const date = row.querySelector(".fc-fomc-weekly-event-date");
+      const content = row.querySelector(":scope > div:last-child");
+      const dateRect = date.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+      return {
+        viewport_width: window.innerWidth,
+        document_width: document.documentElement.scrollWidth,
+        agenda_left: rect.left,
+        agenda_right: rect.right,
+        agenda_width: rect.width,
+        row_width: rowRect.width,
+        row_client_width: row.clientWidth,
+        row_scroll_width: row.scrollWidth,
+        date_right: dateRect.right,
+        content_left: contentRect.left,
+        content_width: contentRect.width,
+        content_client_width: content.clientWidth,
+        content_scroll_width: content.scrollWidth
+      };
+    });
+    if (metrics.document_width > width + 1 || metrics.agenda_right > width + 1) {
+      throw new Error(`Fed agenda overflows viewport ${width}px: ${JSON.stringify(metrics)}`);
+    }
+    if (metrics.row_scroll_width > metrics.row_client_width + 1 ||
+        metrics.content_scroll_width > metrics.content_client_width + 1 ||
+        metrics.date_right > metrics.content_left + 1 || metrics.content_width < 50) {
+      throw new Error(`Fed agenda columns are squeezed or overflow at ${width}px: ${JSON.stringify(metrics)}`);
+    }
+    await page.screenshot({ path: `${visualDir}/${width === 320 ? "mobile-320" : "desktop-1440"}-fed-fomc.png`, fullPage: true });
+    fedAgendaLayouts.push(metrics);
+  }
+
   if (pageErrors.length) throw new Error(`uncaught page errors: ${pageErrors.join(" | ")}`);
 
   const result = {
@@ -202,6 +269,7 @@ try {
     investing_links: investingLinks,
     cnyes_links: cnyesLinks,
     fear_greed_marker_test: fearGreedMarkerTest,
+    fed_official_agenda_layout: fedAgendaLayouts,
     page_errors: pageErrors
   };
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
