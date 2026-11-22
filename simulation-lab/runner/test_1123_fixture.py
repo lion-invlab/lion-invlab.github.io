@@ -233,7 +233,7 @@ def main():
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 4, blockers
+    assert len(blockers) == 3, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
@@ -321,12 +321,16 @@ def main():
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
     print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
     print("PASS: 17 global index rows use non-CFD source contracts")
-    for bond_name in ("2年期美債殖利率", "10年期美債殖利率", "30年期美債殖利率"):
-        assert data["bonds"][bond_name]["display"] == "待核實"
-        assert data["bonds"][bond_name]["change_display"] == "待核實"
-        assert data["bonds"][bond_name]["source"]["verification_status"] == "PENDING"
-    assert any("美國公債2Y／10Y／30Y三筆" in item for item in blockers)
-    print("PARTIAL as expected: three calendar/earnings blockers plus three Treasury rows lacking per-item observation time; raw HTTP body hash remains optional")
+    for bond_name, close, change in (
+        ("2年期美債殖利率", "4.613%", "-16.6 bp"),
+        ("10年期美債殖利率", "4.912%", "-14.0 bp"),
+        ("30年期美債殖利率", "5.302%", "-9.9 bp"),
+    ):
+        item = data["bonds"][bond_name]
+        assert item["display"] == close and item["change_display"] == change
+        assert item["source"]["verification_status"] == "VERIFIED"
+        assert item["source"]["verified_at_tw"] == "2026-11-22T17:48:21+08:00"
+    print("PARTIAL as expected: three calendar/earnings blockers remain; all 44 market observations have per-item evidence; raw HTTP body hash is optional")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
