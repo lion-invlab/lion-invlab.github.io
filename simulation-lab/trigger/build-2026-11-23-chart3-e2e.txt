@@ -1,0 +1,2 @@
+SIM-1.4 isolated end-to-end build trigger for 2026-11-23.
+Expected result follows the current fixture and active SIM-1.4 blockers; simulation branch only. No main preview delivery, no homepage publication, no Pages deployment.
