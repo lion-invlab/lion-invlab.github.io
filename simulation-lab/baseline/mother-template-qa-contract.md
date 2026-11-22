@@ -57,8 +57,9 @@
 **變更前盤點（歷史狀態，非目前基準）：**
 - 以上是授權變更前的歷史盤點：當時週一／平日母版與 Manifest 均無五層文章槽位。
 - 本次已依使用者明確授權，在 simulation branch 完成雙母版槽位：週一 SHA `ce15c803cc778be35302eec96f6a5d123bf49624`；平日 SHA `940761077a3f3ad1b47b325a8d2a1a6800e3a679`；Manifest SHA `c78338984192a9251adc247ae1b0044629de89db`。兩者皆位於總結小卡之後、既有市場情緒之前，並有五個獨立內容節點。
-- Builder 已新增五層文章填槽與六領域政治掃描驗證，候選 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342`；此 SHA 尚未完成 CI／雙母版端到端驗收，也尚未取得 SIM-1.4 §8.1 對新 SHA 的明確核准。原已核准 SHA 不含五層填槽能力，不得用於新槽位生產。
-- 在候選 Builder 回歸通過並由使用者明確核准新 SHA 前，Stage 5 仍不得標示 REVIEW_READY 或交付；不得將技術上已存在的空槽位視為文章已完成。
+- Builder 已新增五層文章填槽與六領域政治掃描驗證，候選 SHA `96eccd541a4787f4b5f9e3baab7a63f9fd993342`。GitHub Actions run `44977718734` completed／success：deterministic self-tests、五層槽位／來源證據／政治傳導與三情境測試、歷史 Builder 核准不得沿用測試均 PASS；週一與平日兩套母版的合成內容瀏覽器測試在 1440／768／412／390／360／320px 全數 PASS，無文章區塊水平溢位。
+- 上述屬於五層槽位及 Builder helper 的結構／響應式回歸，不等於真實每日 Fixture 的完整 Stage 1–6 生產 E2E。候選 SHA 尚未取得 SIM-1.4 §8.1 對新 SHA 的明確核准；原已核准 SHA 不含五層填槽能力，不得用於新槽位生產。
+- 在使用者明確核准新 Builder SHA、並以真實日期 Fixture 完成完整報告組裝與 QA 前，Stage 5 仍不得標示 REVIEW_READY 或交付；不得將技術上已存在的空槽位視為文章已完成。
 
 **文章內容固定分成三個互不取代的層級：**
 1. 總結小卡：讀者快速掌握市場主軸、核心風險及立場。
