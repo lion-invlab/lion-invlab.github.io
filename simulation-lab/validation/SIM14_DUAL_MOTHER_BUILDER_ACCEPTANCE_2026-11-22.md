@@ -8,7 +8,7 @@
 
 候選 Builder 已以**同一個實際 blob SHA**完成 Monday 與 Weekday 兩份母版完整端到端回歸。兩個 GitHub Actions workflow 均 completed／success；兩份 QA sidecar 均為 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`，`review_ready_blockers=[]`，六個 viewport（1440、768、412、390、360、320）均有視覺證據。
 
-此結果僅代表候選 Builder 技術驗證完成（`CANDIDATE_VALIDATED`）。兩份 sidecar 均保留 `sim14_builder_approval=NOT_APPROVED`、`sim14_review_ready=false`。**SIM-1.4 Builder 已於 2026-11-22 09:07（台灣時間）獲使用者明確核准，現為唯一正式生產入口。**
+此結果先完成候選 Builder 雙母版技術驗證；使用者隨後於 2026-11-22 09:07（台灣時間）明確核准精確路徑與 SHA。現已升格為 SIM-1.4 唯一正式生產入口，兩份 sidecar 均同步為 `sim14_builder_approval=APPROVED`、`sim14_review_ready=true`。
 
 ## 本次鎖定資產
 
@@ -41,13 +41,13 @@
 - QA sidecar：`preview/2026-11-20-simulation.qa.json`，Git blob `574971356af1d4531d1b2f25bcf0004e9f687d92`。
 - Sidecar 綁定的 Builder／Candidate Builder SHA 均為 `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`；HTML blob SHA 與 branch 上實際 HTML blob 一致。
 - QA：`QA_PASSED`；`review_ready=true`；`data_review_ready=true`；`content_analysis_gate=PASS`；blockers 空陣列；六個 viewport 全部列入證據。
-- Sidecar 的 SIM-1.4 核准欄位仍為 `NOT_APPROVED`／`false`，唯一 blocker 是尚未取得使用者對候選 Builder 唯一路徑與 SHA 的明確核准。
+- Sidecar 的 SIM-1.4 核准欄位已更新為 `APPROVED`／`true`，`sim14_blockers=[]`；核准 provenance 記錄精確路徑、SHA、時間及兩次回歸 run。
 
 ## 驗收範圍
 
 兩次 workflow 均執行並通過：deterministic self-tests（含輸出路徑負向測試）、財報 parser／PIT snapshot store 測試、HTML 組裝、Playwright 導覽／tabs／accordion／來源連結、母版視覺比較、DOM preservation、獨立 artifact／provenance 驗證、日期／行事曆數量／44 項行情／新聞結構驗證、QA sidecar seal 及 simulation-only artifact persistence。
 
-資料與內容限制依各自 sidecar 的 `data_audit`／`pending_items` 記錄；`review_ready=true` 是該份 HTML 的資料層旗標，不得解讀成 Builder 已核准或 SIM-1.4 `sim14_review_ready=true`。
+資料與內容限制依各自 sidecar 的 `data_audit`／`pending_items` 記錄。兩份 sidecar 的 `review_ready=true`、`data_review_ready=true`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true` 是分別記錄且均已核對的狀態；本次核准只關閉 Builder 核准 Gate，不代表 live data acquisition／production schedule 端到端驗收已完成。
 
 ## 舊紀錄校正
 
