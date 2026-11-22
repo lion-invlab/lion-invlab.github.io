@@ -184,6 +184,12 @@ def main():
 
     # Five-layer analysis must distinguish enacted policy, market pricing and official Fed guidance.
     analysis = data["market_analysis"]
+    all_analysis_text = " ".join(
+        [point["text"] for point in data["summary_points"]]
+        + [paragraph for layer in analysis.values() for paragraph in layer["paragraphs"]]
+    )
+    for generic_phrase in ("後續觀察", "值得持續關注", "市場仍需觀察", "審慎觀望"):
+        assert generic_phrase not in all_analysis_text, generic_phrase
     assert set(analysis) == {"political", "policy_industry", "macro", "markets", "strategy"}
     political = analysis["political"]
     assert "11月19日發布並生效" in political["paragraphs"][0]
