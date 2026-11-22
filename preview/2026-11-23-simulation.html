@@ -2027,6 +2027,42 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 }
 </style>
 
+<style id="tac-fed-events-grid-span-fix-20261122">
+/* 根因修正：官員行程是 .fc-fomc grid 的直接子項，必須跨滿兩欄 */
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc > .fc-fomc-weekly-events {
+  grid-column: 1 / -1 !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  justify-self: stretch !important;
+  box-sizing: border-box !important;
+}
+.fed-compact-preview .fc-fomc-weekly-events-list {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+.fed-compact-preview .fc-fomc-weekly-event {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: 5px !important;
+  box-sizing: border-box !important;
+}
+.fed-compact-preview .fc-fomc-weekly-event > div,
+.fed-compact-preview .fc-fomc-weekly-event-date,
+.fed-compact-preview .fc-fomc-weekly-event-name,
+.fed-compact-preview .fc-fomc-weekly-event-impact {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+}
+</style>
 </head>
 <body class="release-ready">
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">模擬審核版｜報告日期 2026-11-23｜本版使用固定資料快照，未宣稱即時全自動更新。2026/11/23（一）審核版｜行情基準日2026/11/20；報告截稿2026/11/23 05:25台灣時間；新聞窗口2026/11/20 12:00至2026/11/21 17:57:31台灣時間。僅供審核，不上架正式首頁。 來源或日期不足的行情不列入主畫面，並列入待補資料清單；本檔未發布至正式首頁。</div>
