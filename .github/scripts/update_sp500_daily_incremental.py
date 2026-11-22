@@ -11,7 +11,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 SYMBOL = "^GSPC"
-YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/" + urllib.parse.quote(SYMBOL, safe="")
+INVESTING_INSTRUMENT_ID = "166"
+INVESTING_URL = "https://api.investing.com/api/financialdata/historical/" + INVESTING_INSTRUMENT_ID
 BOOTSTRAP_START = dt.date(1993, 12, 31)
 OVERLAP_CALENDAR_DAYS = 30
 MIN_BOOTSTRAP_ROWS = 7000
@@ -59,8 +60,8 @@ def parse_chart(response: dict) -> dict[str, int]:
     out = {}
     for row in rows:
         if isinstance(row, dict):
-            raw_day = row.get("date") or row.get("datetime") or row.get("time")
-            close = row.get("close") or row.get("last")
+            raw_day = row.get("rowDate") or row.get("date") or row.get("datetime") or row.get("time")
+            close = row.get("last_close") or row.get("close") or row.get("last")
         elif isinstance(row, (list, tuple)) and len(row) >= 5:
             raw_day, close = row[0], row[4]
         else:
@@ -209,7 +210,7 @@ def main():
         "overlap_calendar_days": args.overlap_calendar_days,
         "latest_source_date": latest,
         "changed_existing_observations": changed,
-        "source_license_note": "Yahoo Finance terms and index-data redistribution rights must be reviewed before public redistribution; this workflow preserves provenance but does not grant a data licence."
+        "source_method": "Investing.com financialdata historical endpoint; instrument_id=166; daily unadjusted index close"
     }
     compact = encode_compact(merged, source_meta)
     tmp = recent_path.with_suffix(".json.tmp")
@@ -237,7 +238,7 @@ def main():
         "recent_file": "sp500_daily_close_1993-2026.compact.json",
         "recent_file_sha256": report["recent_file_sha256"],
         "full_history_file": "sp500_daily_close_1927-2026.compact.json",
-        "source": "Investing.com historical data endpoint (instrument ID configurable)",
+        "source": "Investing.com historical data endpoint; instrument_id=166 (S&P 500)",
         "long_history_source": "Pinned FJA historical CSV for dates before 1993-12-31",
         "latest_source_date": latest,
         "retrieved_at_utc": source_meta["retrieved_at_utc"],
@@ -245,7 +246,7 @@ def main():
         "update_log": "sp500_update_log.jsonl",
         "qa_report": "sp500_incremental_qa.json",
         "method": "30-calendar-day overlap; date-keyed upsert; changed closes recorded; no interpolation or forward-fill",
-        "licensing": "Public redistribution rights require separate review; source provenance is recorded but no licence is implied."
+        "source_policy": "Investing.com is the sole source for the recent daily S&P 500 observations; no Yahoo Finance or FRED substitution."
     }
     (root / "sp500_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))

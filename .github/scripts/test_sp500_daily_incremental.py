@@ -10,9 +10,11 @@ obj=m.encode_compact(rows,{"test":True})
 with tempfile.TemporaryDirectory() as td:
  p=Path(td)/"sample.json"; p.write_text(json.dumps(obj))
  assert m.decode_compact(p)==rows
-# Investing.com dictionary response, ISO dates and decimal close.
-parsed=m.parse_chart({"payload":{"data":[{"date":"2026-11-12","close":"6,832.15"}]}})
+# Investing.com historical endpoint rowDate/last_close response.
+parsed=m.parse_chart({"payload":[{"rowDate":"2026-11-12","last_close":"6,832.15"}]})
 assert parsed=={"2026-11-12":683215}
+assert m.INVESTING_INSTRUMENT_ID=="166"
+assert m.INVESTING_URL=="https://api.investing.com/api/financialdata/historical/166"
 # Investing.com legacy table-style array response.
 parsed=m.parse_chart({"payload":[["2026-11-12",6800,6840,6790,6832.15,0]]})
 assert parsed=={"2026-11-12":683215}
