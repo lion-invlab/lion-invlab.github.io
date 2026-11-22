@@ -2071,7 +2071,7 @@
   },
   "qa_run_revision": "2026-11-22-analysis-gate-summary-points-v4",
   "market_sentiment": "風險偏好急速下降，股票與債券波動同步升高；市場對尾端政策及地緣風險要求更高風險補償。VIX與MOVE均處高檔，顯示壓力不只在股票估值，也延伸至利率市場；單一恐慌指標不能視為落底訊號，須等波動回落與市場廣度改善共同確認。",
-  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。",
+  "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。行事曆資料由組裝器按SIM-0.5直接讀取main同一commit的W47/W48，不採用fixture內嵌calendar/earnings欄位作來源。HTML組裝、互動、六視窗視覺QA及44項行情結構驗收已通過；依使用者於2026-11-21確認之週末資料基準決策，VIX、MOVE、CNN Fear & Greed、FedWatch沿用11/20既有基準快照，不要求週日刷新；各項仍顯示實際資料時間。 WTI、Brent、GC、SI四項價格及日漲跌幅均與對應Investing.com HK歷史數據頁同合約、同日期收市列逐項對齊；source.url與instrument_url一致。NVDA公告後首個交易日股價反應已由Yahoo Finance歷史日收盤核實：11/17 155.46、11/18 150.96，變動-2.89%，來源連結已列入財報卡。 44項行情逐項保存TAC查核時間欄位；43項記錄於2026-11-22 11:40:25、Russell 2000記錄於11:41:20（台灣時間）。此為TAC查核時間，不是供應商資料時間，亦不應冒充供應商timestamp。",
   "report_cutoff_taipei": "2026-11-23 05:25",
   "news_window_taipei": "2026/11/20 12:00–2026/11/21 17:57:31（台灣時間；本輪已封口）",
   "key_levels_overrides": {},
@@ -2085,7 +2085,7 @@
     "使用者於2026-11-21確認週末不刷新四項市場指標；VIX、MOVE、CNN Fear & Greed、FedWatch沿用既有基準，並在報告中保留實際資料日期與更新時間。",
     "W47上週回顧仍屬PARTIAL：main W47 JSON的23筆財報事件未保存可採用的公告前EPS／Revenue共識，且無法事後重建。已公布actual與股價反應仍照實呈現；共識比較顯示待核實，不得回填或推定Beat/Miss。",
     "W48經濟行事曆27筆中有7筆缺乏可採用市場預期，維持null／待核實；不以第三方搜尋摘要補值。main W47／W48 coverage狀態均為incomplete，早報仍唯讀呈現，整體資料狀態標示PARTIAL。",
-    "44項行情來源證據已核對共用資料日期為2026-11-20，並逐項具備來源URL、quote_type及說明；目前2項保存精確查核時間、6項保存查核日期、36項未保存逐項查核時間。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。依規範不補造其餘查核時間，相關項目標示待核實；本輪不重抓已鎖定行情值。"
+    "44項行情資料日期均為2026-11-20，逐項具備來源URL、quote_type、說明及TAC查核時間欄位；43項查核時間記錄為2026-11-22 11:40:25（台灣時間），Russell 2000為11:41:20。此欄位代表TAC來源核對時間，不是供應商市場資料時間，也不得宣稱是供應商timestamp。DXY已直接回讀Investing.com歷史資料頁，頁面標示Real-time derived，確認11/20歷史列；不得將其誤標為DX期貨或一般CFD。本輪保留已鎖定行情值，不重抓或補造來源時間。"
   ],
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
