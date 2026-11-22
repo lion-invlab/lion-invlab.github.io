@@ -834,6 +834,7 @@ jobs:
           PREBUILD_RECEIPT="simulation-lab/output/prebuild-stage-input-receipt.json"
           PREBUILD_RECEIPT_ARCHIVE="simulation-lab/runs/prebuild-stage-input-receipt-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
           test -s "${PREBUILD_RECEIPT}" || { echo "Pre-build receipt missing; refusing to persist QA artifact" >&2; exit 1; }
+          mkdir -p simulation-lab/runs
           cp "${PREBUILD_RECEIPT}" "${PREBUILD_RECEIPT_ARCHIVE}"
           git add -f "${PREBUILD_RECEIPT_ARCHIVE}"
           PREBUILD_RECEIPT_SHA="$(git hash-object "${PREBUILD_RECEIPT_ARCHIVE}")"
