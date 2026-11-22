@@ -75,7 +75,7 @@ class MergeIncrementTests(unittest.TestCase):
                 sealed("2026-11-11", 7619.38, "2026-11-12T09:00:00+08:00"),
                 sealed("2026-11-12", 7700.00, "2026-11-13T09:00:00+08:00"),
             ]
-            ledger.write_text("".join(json.dumps(row, ensure_ascii=False) + "\\n" for row in rows), encoding="utf-8")
+            ledger.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
             merged, _, pending = merge_recent(recent, ledger)
             self.assertEqual(merged["end"], "2026-11-12")
             self.assertEqual(merged["rows"], 3)
@@ -104,7 +104,7 @@ class MergeIncrementTests(unittest.TestCase):
                 "retrieval_timestamp_semantics": "source.observed_at records the actual Taipei-local time the daily report producer checked the source page",
             }
             row["record_sha256"] = hashlib.sha256(canonical(row)).hexdigest()
-            ledger.write_text(json.dumps(row, ensure_ascii=False) + "\\n", encoding="utf-8")
+            ledger.write_text(json.dumps(row, ensure_ascii=False) + "\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "does not match the compact baseline"):
                 merge_recent(recent, ledger)
 
