@@ -215,11 +215,12 @@
       "display": "2,581.79",
       "change_display": "-2.76%",
       "source": {
-        "name": "Yahoo Finance｜Russell 2000 Index (^RUT) Historical Data",
-        "url": "https://finance.yahoo.com/quote/%5ERUT/history/",
+        "name": "Investing.com CA｜Russell 2000 Historical Data (RUT, NYSE)",
+        "url": "https://ca.investing.com/indices/smallcap-2000-historical-data?cid=53095",
         "data_date": "2026-11-20",
         "quote_type": "cash_index_close",
-        "note": "使用^RUT現金指數歷史日線；11/20收盤2,581.79、-2.76%。依SIM-1.3不得使用Investing.com RUT CFD冒充現貨指數。 2026-11-22 11:40 Asia/Taipei 本輪直接開啟 Yahoo Finance 歷史頁回傳 HTTP 429；Investing.com HK 對應頁明確標示即時差價合約，依 SIM-1.4 禁止以 CFD 代替現貨。保留先前已存數值但本輪未重新核實，逐項查核時間維持待核實。"
+        "note": "Investing.com HK 同名頁明確標示 CFD，依 SIM-1.4 拒絕作為現貨來源；改用 Investing.com CA 同標的歷史資料頁，頁面標示 NYSE，直接讀取 2026-11-20 歷史列：收盤 2,581.79、日跌 -2.76%。該列為 Russell 2000 現貨指數，不使用 CFD。",
+        "verified_at_tw": "2026-11-22T11:41:20+08:00"
       }
     },
     "費城半導體指數": {
@@ -2086,8 +2087,7 @@
   "review_ready_blockers": [
     "PARTIAL｜上週W47回顧：23筆財報事件缺少可採用的公告前EPS／Revenue共識；歷史共識無法事後重建。actual與股價反應可呈現，但比較狀態須待核實，不得產生Beat/Miss。",
     "PARTIAL｜本週W48經濟行事曆27筆中7筆無可採用市場預期；維持null／待核實，需完整揭露。",
-    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。",
-    "PARTIAL｜44項行情來源證據：44項資料日期均為2026-11-20且均具來源URL／報價口徑／說明；目前43項保存精確查核時間、0項僅保存查核日期、1項未保存逐項查核時間。不得補造時間，該1項查核時間狀態維持待核實（羅素2000 Yahoo Finance 原頁 429，Investing.com HK 對應頁為 CFD，拒絕採用）。"
+    "PARTIAL｜main W47與W48行事曆JSON coverage均標示incomplete；JSON schema及必要事件集合可讀，早報保持唯讀，不回寫main。"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
