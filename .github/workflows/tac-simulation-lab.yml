@@ -260,7 +260,7 @@ jobs:
           echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Validate all 44 market rows source metadata and common trading date
+      - name: Validate 44 market-row metadata/date/identity only (not live source values)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
