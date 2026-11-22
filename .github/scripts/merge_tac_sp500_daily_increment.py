@@ -114,8 +114,11 @@ def load_increment_ledger(path: Path):
             if marker in source_note:
                 quote_type = source_note.split(marker, 1)[1].split(";", 1)[0].split("；", 1)[0].strip()
         is_investing = (
-            source_name == "Investing.com 香港站歷史數據"
-            and source_url == "https://hk.investing.com/indices/us-spx-500-historical-data"
+            "investing.com" in source_name.lower()
+            and "s&p 500" in source_name.lower()
+            and source_url.startswith("https://")
+            and "investing.com/" in source_url
+            and source_url.rstrip("/").endswith("/indices/us-spx-500-historical-data")
             and quote_type == "cash_index_close"
         )
         is_yahoo_fallback = (
