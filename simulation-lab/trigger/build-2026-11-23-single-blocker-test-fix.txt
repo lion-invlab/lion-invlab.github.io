@@ -1,0 +1,1 @@
+Re-run SIM-1.4 full fixture self-tests after aligning W48 forecast-not-applicable classification. Simulation branch only; no main writes.
