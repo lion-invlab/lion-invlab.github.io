@@ -153,7 +153,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -177,6 +177,7 @@ jobs:
           python simulation-lab/runner/test_earnings_card_dom_preservation.py
           python simulation-lab/runner/test_builder_output_guard.py
           python simulation-lab/runner/test_market_analysis_slots.py
+          python simulation-lab/runner/test_patch_review_sections.py
           python simulation-lab/runner/test_sim14_builder_approval.py
           python simulation-lab/runner/test_simulation_workflow_delivery_gate.py
           python simulation-lab/runner/test_validate_market_snapshot.py
