@@ -9,6 +9,7 @@ builder: simulation-lab/runner/build_review_html.py
 main_delivery: disabled
 publish_to_main: false
 rebuild_after_evidence_provenance_fix: true
+market_manifest_sidecar_binding: enabled
 
 This file is a date-scoped trigger marker only. It contains no market data.
 A commit message containing [build-tac-report:2026-11-23] triggers the formal
