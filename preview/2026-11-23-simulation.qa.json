@@ -27,7 +27,7 @@
   "template_blob_sha": "b89c76dd37afdc0cf8b406bfd6f06258896c829d",
   "manifest_blob_sha": "8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd",
   "qa_contract_blob_sha": "30faa8385e19e5bdca0a2fa5c21eda237c52339a",
-  "active_rules_blob_sha": "e18865fc31a88f98e44cb1f411817e61406a34c1",
+  "active_rules_blob_sha": "db31aedbf9325183dc4115e147939d524c9acec5",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
@@ -49,11 +49,9 @@
   "unsupported_causal_claims": [],
   "duplicate_quote_restatements": [],
   "actionability_findings": [],
-  "sim14_builder_approval": "NOT_APPROVED",
-  "sim14_review_ready": false,
-  "sim14_blockers": [
-    "Candidate Builder has not been explicitly approved as the unique SIM-1.4 production entry point"
-  ],
+  "sim14_builder_approval": "APPROVED",
+  "sim14_review_ready": true,
+  "sim14_blockers": [],
   "calendar_main_commit_sha": "8654fde50761404ec63a56178f224c4dbf41eff5",
   "calendar_current_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
@@ -68,5 +66,14 @@
     320
   ],
   "workflow_run_id": "44964279548",
-  "workflow_run_attempt": "1"
+  "workflow_run_attempt": "1",
+  "approved_builder_path": "simulation-lab/runner/build_review_html.py",
+  "approved_builder_blob_sha": "40a3bc70a22bfd1aa4798149599fbd63a1f25efa",
+  "builder_approval_record": {
+    "decision": "APPROVED",
+    "approved_at_taipei": "2026-11-22 09:07",
+    "approval_basis": "Explicit user approval in conversation after same-SHA Monday and Weekday full regression passed",
+    "monday_workflow_run_id": "44964279548",
+    "weekday_workflow_run_id": "44964439803"
+  }
 }
