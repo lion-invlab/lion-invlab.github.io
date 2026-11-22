@@ -524,14 +524,27 @@ jobs:
           print(f"PASS: report_date={report_date}; calendar={actual_econ}/{expected_econ}; earnings={actual_earnings}/{expected_earnings}; indicators=44; focus=5; headlines=10")
           PY
 
+      - name: Recheck pre-build receipt SHA after Builder
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; then
+            echo "Pre-build receipt missing after Builder execution" >&2
+            exit 1
+          fi
+          ACTUAL_PREBUILD_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          if [[ "${ACTUAL_PREBUILD_RECEIPT_SHA256}" != "${PREBUILD_RECEIPT_SHA256}" ]]; then
+            echo "Pre-build receipt SHA changed after Builder execution" >&2
+            exit 1
+          fi
+          echo "Pre-build receipt SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
+
       - name: Seal QA evidence to the exact review HTML blob
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
-          test -s simulation-lab/output/prebuild-stage-input-receipt.json || { echo "Pre-build receipt missing before QA seal" >&2; exit 1; }
-          ACTUAL_PREBUILD_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
-          test "${ACTUAL_PREBUILD_RECEIPT_SHA256}" = "${PREBUILD_RECEIPT_SHA256}" || { echo "Pre-build receipt SHA changed after Builder execution" >&2; exit 1; }
           python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" <<'PY'
           import hashlib, json, re, subprocess, sys
           from pathlib import Path
