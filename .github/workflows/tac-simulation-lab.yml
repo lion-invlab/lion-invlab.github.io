@@ -623,7 +623,7 @@ jobs:
         run: |
           set -euo pipefail
           python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" "${PATCH_RECEIPT}" "${PATCHED_OUTPUT}" <<'PY'
-          import hashlib, json, re, subprocess, sys
+          import hashlib, json, os, re, subprocess, sys
           from pathlib import Path
           from bs4 import BeautifulSoup, Comment
           sys.path.insert(0, 'simulation-lab/runner')
@@ -632,6 +632,7 @@ jobs:
           report_path, report_date, evidence_path, patch_receipt_path, patched_output_path = sys.argv[1:]
           raw = Path(report_path).read_bytes()
           patch_receipt_file = Path(patch_receipt_path)
+          overlay_receipt_archive_path = f"simulation-lab/runs/last-week-consensus-overlay-{report_date}-{os.environ['GITHUB_RUN_ID']}.json"
           patched_output_file = Path(patched_output_path)
           if not patch_receipt_file.is_file() or not patched_output_file.is_file():
               raise SystemExit("W47 NVDA consensus overlay receipt or patched output is missing")
@@ -922,6 +923,7 @@ jobs:
               "review_ready": bool(provenance.get("review_ready", not blockers)) and patch_receipt.get("status") == "PASS",
               "review_ready_blockers": blockers,
               "last_week_earnings_overlay_receipt_path": str(patch_receipt_file),
+              "last_week_earnings_overlay_receipt_archive_path": overlay_receipt_archive_path,
               "last_week_earnings_overlay_receipt_sha256": hashlib.sha256(patch_receipt_bytes).hexdigest(),
               "last_week_earnings_overlay_receipt_git_blob_sha": subprocess.check_output(["git", "hash-object", str(patch_receipt_file)], text=True).strip(),
               "last_week_earnings_overlay": {
