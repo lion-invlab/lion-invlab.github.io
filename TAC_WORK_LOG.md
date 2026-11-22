@@ -1,8 +1,21 @@
+## 2026-11-22｜SIM-1.4 Stage 2 真實來源逐項核對完成（44/44）｜最終回歸待確認
+
+- **範圍：** 僅修改 `simulation/tac-process-lab-2026-11-06`；main、正式首頁、正式母版、Manifest、行事曆 JSON 均唯讀，未部署 Pages。
+- **有效基準：** SIM-1.4 active rules blob `28b9d1febc106012650fe0c6085d5405742eeea6`；唯一核准 Builder `simulation-lab/runner/build_review_html.py` blob `16254bfa249814ac75e62cf8acbad2828f366fe6`；QA Contract v1.17 blob `a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`。
+- **Fixture：** `simulation-lab/fixtures/report-data-2026-11-23.json` blob `e43353cc4a67b3a8b69f55a83ccee62620051747`。44項行情資料日期統一為 2026-11-20，44/44 均直接讀取指定歷史資料列，44/44 具有來源 URL、報價口徑及精確 `verified_at_tw`；0項僅日期、0項缺時間。
+- **四項錯值更正：** CAC 40 `7,927.75 / -1.89%`；AUD/USD `0.6617 / -0.63%`；USD/JPY `158.54 / -0.73%`；XLB `-2.19%`。XLB 依更正值重新排序 11 大產業 ETF。
+- **來源口徑修正：** VIX 改用 Investing.com CBOE VIX 指數歷史頁（`cid=1096487`），不使用 CFD 頁；DXY 改用規則指定 Investing.com Global `Real-time derived` 歷史頁；XLRE 改用 Investing.com Global 同標的歷史頁；RUT 改用 Investing.com CA `cid=53095`、頁面標示 NYSE 的非 CFD 現貨指數歷史頁，拒絕 HK 同名 CFD。
+- **Validator 修正：** `validate_market_snapshot.py` blob `d251d8c0e4e2bed5029696c92e119504a7c1cb6c` 現在只把含時分的 ISO／日期時間字串計為精確查核時間，另行區分 DATE_ONLY 與 MISSING，避免將純日期誤算為查核時間。測試檔：`test_1123_fixture.py` blob `e1e721ea14ed10654825777ab4733094a8ce8fe6`；`test_validate_market_snapshot.py` blob `fe1f29f3bc89e9f3ca803dc51d2500adc1750cc8`。
+- **剩餘 blockers（3項）：** W47 23筆歷史財報缺少可採用的公告前 EPS／Revenue 共識；W48 27筆經濟事件中7筆無可採用市場預期；main W47／W48 行事曆 JSON coverage 均 incomplete。不得事後重建共識或補造預期；早報維持唯讀。
+- **回歸狀態：** run `44981517860` completed／success（前一輪 44 項最終登記前的 deterministic tests、browser QA 通過）；最終 44/44 timestamp、RUT 非 CFD 來源與三項剩餘 blocker 測試 run `44981791581` 當時為 in_progress，尚未宣稱通過。
+- **後續：** 待 `44981791581` completed／success 後，完成 Stage 3／4 內容 Gate，再以核准 Builder 組裝 simulation preview，執行完整 DOM／互動／六視窗視覺 QA。不得因 Stage 2 PASS 或 Builder 已核准而標示 REVIEW_READY；不得寫入 main。
+
+---
 ## 2026-11-22｜使用者核准 SIM-1.4 唯一 Builder 精確 SHA
 
 - 使用者明確核准唯一 Builder：`simulation-lab/runner/build_review_html.py`。
 - 核准 Git blob SHA：`16254bfa249814ac75e62cf8acbad2828f366fe6`。
-- 已將精確核准條款寫入 `simulation-lab/TAC_WORK_RULES_SIM.md` §8.1；更新後 active rules blob SHA：`f19f63c7b1feca44c227f4b49db9002fcabca987`。Builder approval resolver 以 active rules 中精確路徑及 Git blob SHA 比對，不接受歷史 SHA 或其他程式。
+- 已將精確核准條款寫入 `simulation-lab/TAC_WORK_RULES_SIM.md` §8.1；更新後 active rules blob SHA：`28b9d1febc106012650fe0c6085d5405742eeea6`。先前截圖／舊 Work Log 記錄的 `f19f63c7b1feca44c227f4b49db9002fcabca987` 已非目前分支檔案 blob；重新讀取 GitHub branch 後，以 `28b9d1febc106012650fe0c6085d5405742eeea6` 為現行值。Builder approval resolver 以 active rules 中精確路徑及 Git blob SHA 比對，不接受歷史 SHA 或其他程式。
 - QA Contract v1.17 更新後 SHA：`a626b7edc9b1c7e90fb6c43b43c68fe98cfec128`；明確記錄 Builder 核准 Gate 已解除，但真實市場分析內容的每日 Stage 1–6 生產 E2E、資料內容 Gate、完整互動／視覺 QA 尚未完成。
 - 前置驗收依據：GitHub Actions runs `44978042935`、`44978265956` completed／success；包含 deterministic tests、政治事件分類／傳導／三情境、完整雙母版 Builder 組裝、DOM preservation、輸出路徑保護及六視窗瀏覽器回歸。文章內容為 TEST_ONLY 合成內容，不冒充真實市場評論。
 - Session State 已更新。下一步使用已核准 Builder 進行真實市場分析內容的 Stage 1–6 生產 E2E；所有產物仍限 simulation branch，未獲另行授權不得改 main、首頁或正式母版。
