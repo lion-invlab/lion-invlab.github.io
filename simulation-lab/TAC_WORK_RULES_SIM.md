@@ -704,3 +704,5 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 核准前同一 SHA 的 GitHub Actions run `45043061827` completed／success；雙母版整合、五層分析來源隱藏、內部來源證據保留、局部更新及 320／360／390／412／768／1440px QA 均通過。
 - 核准範圍僅限 simulation 分支 Builder 唯一入口；不授權 main、正式母版、Manifest、行事曆 JSON、首頁或 Pages 部署。
 - 核准後下一步為 2026-11-23 真實 Fixture 完整 E2E；報告是否 REVIEW_READY 由實際資料／內容 Gate 與 QA 決定，不得由 Builder 核准推定。
+
+- 2026-11-23 W48 最新主分支資料已修正 Williams 行程事件的 impact_judgment；Fixture 移除該筆已不再需要的 override，只保留四筆仍有來源網址誤置的事件修復。未修改 main。同步更新 fixture 測試與 preflight 預期修復數為4；最新 Fixture SHA：`58c2a0bd93d23af17b080ae0e3fcb4b162ecaa93`。W48 主分支 SHA：`9bb842ab475fa38ca6407304990d1cd3fae42c63`。
