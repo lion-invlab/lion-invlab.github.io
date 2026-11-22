@@ -1,0 +1,47 @@
+{
+  "dataset_id": "TAC_CHART3_PERCENTILE_SNAPSHOT",
+  "snapshot_date": "2026-11-22",
+  "source": "Browser-rendered #risk-metrics values from Chart 3 preview",
+  "source_run_id": 45024206919,
+  "source_run_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45024206919",
+  "source_commit": "002e8981c6a5445a7bbd3bd9c8245c0304bb44aa",
+  "calculation": "Existing page logic: weeklyLast() then expandingPercentile() using trailing 520 valid weekly observations; displayed value rounded to integer percent.",
+  "status": "SNAPSHOT_CAPTURED_BROWSER_QA_PARTIAL_FAILURE",
+  "data_version_date": "2026-11-22",
+  "observation_span": "2026-11-13 through 2026-11-19",
+  "indicators": [
+    {
+      "series_id": "VIXCLS",
+      "name": "VIX",
+      "latest_observation_date": "2026-11-19",
+      "percentile_display": "93%",
+      "four_week_change_display": "▲ +26.0 百分點",
+      "next_update_date": "2026-11-23"
+    },
+    {
+      "series_id": "NFCI",
+      "name": "芝加哥聯準會金融狀況指數",
+      "latest_observation_date": "2026-11-13",
+      "percentile_display": "61%",
+      "four_week_change_display": "▼ 0.2 百分點",
+      "next_update_date": "2026-11-25"
+    },
+    {
+      "series_id": "NFCICREDIT",
+      "name": "NFCI Credit",
+      "latest_observation_date": "2026-11-13",
+      "percentile_display": "57%",
+      "four_week_change_display": "▼ 1.5 百分點",
+      "next_update_date": "2026-11-25"
+    },
+    {
+      "series_id": "STLFSI4",
+      "name": "聖路易聯準銀行金融壓力指數",
+      "latest_observation_date": "2026-11-13",
+      "percentile_display": "3%",
+      "four_week_change_display": "▼ 28.8 百分點",
+      "next_update_date": "2026-11-25"
+    }
+  ],
+  "note": "Values are the browser's rendered rounded display values, not unrounded internal percentile values. The browser run captured the snapshot but later failed in a subsequent layout assertion; do not label the entire browser QA run PASS."
+}
