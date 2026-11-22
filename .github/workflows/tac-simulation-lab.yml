@@ -34,6 +34,16 @@ on:
         required: false
         default: false
         type: boolean
+      publish_to_main:
+        description: "明確授權將本次審核通過的同一份 HTML 交付 main/preview；預設關閉"
+        required: true
+        default: false
+        type: boolean
+      approved_html_sha:
+        description: "使用者已審核核准的 HTML SHA-256（64位小寫十六進位）；只有 publish_to_main=true 才必填"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: write
@@ -794,19 +804,24 @@ jobs:
           fi
           echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}"
 
-      - name: Deliver the exact QA-passed artifact to main preview (no second QA)
-        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+      - name: Deliver the exact QA-passed artifact to main preview only after explicit user approval
+        if: success() && github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.publish_to_main == true
         shell: bash
         run: |
           set -euo pipefail
-          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" <<'PY'
-          import hashlib, json, subprocess, sys
+          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" "${{ inputs.approved_html_sha }}" <<'PY'
+          import hashlib, json, re, subprocess, sys
           from pathlib import Path
-          html_path, qa_path, report_date = sys.argv[1:]
+          html_path, qa_path, report_date, approved_html_sha = sys.argv[1:]
           html = Path(html_path).read_bytes()
           qa_bytes = Path(qa_path).read_bytes()
           qa = json.loads(qa_bytes)
           html_blob = subprocess.check_output(["git","hash-object",html_path],text=True).strip()
+          actual_html_sha256 = hashlib.sha256(html).hexdigest()
+          if not re.fullmatch(r"[0-9a-f]{64}", approved_html_sha):
+              raise SystemExit("Delivery blocked: explicit approved_html_sha must be a 64-character lowercase SHA-256")
+          if approved_html_sha != actual_html_sha256:
+              raise SystemExit("Delivery blocked: approved HTML SHA-256 does not match this exact review artifact")
           if qa.get("status") != "QA_PASSED": raise SystemExit("Delivery blocked: QA status is not QA_PASSED")
           required = {
               "review_ready": True, "data_review_ready": True,
@@ -823,9 +838,9 @@ jobs:
               raise SystemExit("Delivery blocked: five-layer analysis QA coverage is incomplete")
           if qa.get("sim14_blockers") != []: raise SystemExit("Delivery blocked: SIM-1.4 blockers are not empty")
           if qa.get("report_git_blob_sha") != html_blob: raise SystemExit("Delivery blocked: QA sidecar is not bound to this exact HTML blob")
-          if qa.get("report_sha256") != hashlib.sha256(html).hexdigest(): raise SystemExit("Delivery blocked: HTML SHA-256 differs from QA sidecar")
+          if qa.get("report_sha256") != actual_html_sha256: raise SystemExit("Delivery blocked: HTML SHA-256 differs from QA sidecar")
           if qa.get("report_date") != report_date: raise SystemExit("Delivery blocked: report date mismatch")
-          print("QA handoff gate PASS; exact HTML blob:", html_blob)
+          print("Explicit user approval and QA handoff gate PASS; exact HTML SHA-256:", actual_html_sha256, "blob:", html_blob)
           PY
           HTML_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
           SOURCE_SIM_COMMIT="$(git rev-parse HEAD)"
