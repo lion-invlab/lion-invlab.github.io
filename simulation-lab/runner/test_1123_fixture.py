@@ -233,9 +233,9 @@ def main():
     assert len(data["last_week_earnings_actuals"]) == 3
     assert len(data["calendar_impact_overrides"]) == 5
     blockers = data["review_ready_blockers"]
-    assert len(blockers) == 4, blockers
+    assert len(blockers) == 3, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
-    assert any("raw_response_sha256" in item for item in blockers)
+    assert not any("raw_response_sha256" in item for item in blockers)
     rut = data["global_markets"]["羅素2000指數"]
     assert rut["display"] == "2,581.79" and rut["change_display"] == "-2.76%"
     assert rut["source"]["quote_type"] == "cash_index_close"
@@ -265,7 +265,8 @@ def main():
     assert len(blockers) == 4, blockers
     assert all(item.startswith("PARTIAL｜") for item in blockers), blockers
     assert any("raw_response_sha256" in item for item in blockers)
-    assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA")) for x in data["review_ready_blockers"])
+    assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "NVDA", "raw_response_sha256")) for x in data["review_ready_blockers"])
+    assert any("原始HTTP response body未封存" in x and "可選證據" in x for x in data["pending_items"])
     assert not any(x.startswith("NVDA Q3 FY2027") for x in data["pending_items"])
     assert "不要求週日刷新" in data["quality_note"]
     assert "不要求週日刷新" in data["warning_note"]
@@ -320,7 +321,7 @@ def main():
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
     print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
     print("PASS: 17 global index rows use non-CFD source contracts")
-    print("PARTIAL as expected: three calendar/earnings evidence gaps remain; REVIEW_READY is withheld")
+    print("PARTIAL as expected: three calendar/earnings evidence gaps remain; 44 browser observation records pass; raw HTTP body hash is optional")
     print("PASS: five same-day cash-index OHLC key-level sets and source links")
     print("PASS: W48 27 economic + 11 earnings; W47 five-star retrospective 2 + 1")
     print("PASS: NVDA actuals and first-session price reaction; no unsupported PIT Beat/Miss")
