@@ -20,14 +20,29 @@ def sha_blob(text: str) -> str:
     b=text.encode("utf-8")
     return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
 
-def resolve_allowed_output_path(report_iso: str, output_arg: str) -> Path:
-    """Return the sole permitted dated preview path; reject protected writes and symlink escapes."""
-    expected = (ROOT / "preview" / f"{report_iso}-simulation.html").resolve()
+def resolve_allowed_output_path(report_iso: str, output_arg: str, candidate_test_output: bool = False) -> Path:
+    """Allow either the canonical simulation preview or an isolated output-only candidate test file."""
     requested = Path(output_arg)
     if not requested.is_absolute():
         requested = ROOT / requested
-    requested = requested.resolve()
-    if requested != expected:
+    if candidate_test_output:
+        test_root = ROOT / "simulation-lab" / "output" / "candidate-validation"
+        test_root.mkdir(parents=True, exist_ok=True)
+        test_root_resolved = test_root.resolve()
+        if test_root_resolved != test_root.absolute():
+            raise SystemExit("candidate-test output guard rejected output directory symlink escape")
+        requested_resolved = requested.resolve()
+        if requested_resolved.parent != test_root_resolved:
+            raise SystemExit("candidate-test output guard permits only a direct child of simulation-lab/output/candidate-validation")
+        if requested_resolved.name != f"{report_iso}-candidate.html":
+            raise SystemExit("candidate-test output guard rejected non-canonical dated test filename")
+        if requested.is_symlink():
+            raise SystemExit("candidate-test output guard rejected symlink target")
+        return requested_resolved
+
+    expected = (ROOT / "preview" / f"{report_iso}-simulation.html").resolve()
+    requested_resolved = requested.resolve()
+    if requested_resolved != expected:
         raise SystemExit(
             "protected-write guard rejected --output; only "
             f"preview/{report_iso}-simulation.html is permitted"
@@ -1803,6 +1818,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
     ap.add_argument("--output", required=True)
+    ap.add_argument("--candidate-test-output", action="store_true", help="allow output only under simulation-lab/output/candidate-validation; never a production preview")
     ap.add_argument("--expected-master-sha", required=True)
     ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
     ap.add_argument("--price-reactions", help="optional Yahoo Finance earnings reaction capture JSON")
@@ -3180,7 +3196,7 @@ def main():
         "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
         "calendar_previous_path": calendar_source["previous"]["path"],
         "calendar_previous_blob_sha": calendar_source["previous"]["blob_sha"],
-        "mode": "simulation-only",
+        "mode": "candidate-validation-only" if args.candidate_test_output else "simulation-only",
         "review_ready": not bool(data.get("review_ready_blockers", [])),
         "review_ready_blockers": data.get("review_ready_blockers", []),
         "data_audit": {
@@ -3194,7 +3210,7 @@ def main():
     provenance_comment = Comment(" TAC_BUILD_PROVENANCE " + json.dumps(build_provenance, ensure_ascii=False, separators=(",", ":")) + " ")
     soup.head.append(provenance_comment)
     # Enforce the only permitted write target, even outside GitHub Actions.
-    out = resolve_allowed_output_path(report_iso, args.output)
+    out = resolve_allowed_output_path(report_iso, args.output, candidate_test_output=args.candidate_test_output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(str(soup), encoding="utf-8")
     print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
