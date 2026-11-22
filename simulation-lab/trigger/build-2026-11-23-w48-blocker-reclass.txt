@@ -1,0 +1,1 @@
+Rebuild 2026-11-23 simulation preview after correcting W48 forecast_applicable=false classification. Preserve W47 consensus blocker. Simulation branch only; do not deploy or modify main.
