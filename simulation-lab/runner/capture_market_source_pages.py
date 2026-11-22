@@ -22,10 +22,10 @@ def capture_one(url: str, timeout: int = 25) -> dict:
     if parsed.scheme != "https" or not parsed.netloc:
         return {"http_status": None, "error": "REJECTED_NON_HTTPS_URL"}
     req = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.5"})
-    captured = datetime.now(timezone.utc).isoformat()
     try:
         with urlopen(req, timeout=timeout) as response:
             body = response.read(MAX_BYTES + 1)
+            captured = datetime.now(timezone.utc).isoformat()
             if len(body) > MAX_BYTES:
                 return {"http_status": response.status, "error": "RESPONSE_EXCEEDS_8MB", "captured_at_utc": captured}
             return {
