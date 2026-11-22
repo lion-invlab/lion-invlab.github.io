@@ -120,6 +120,7 @@ def test_market_analysis_patch_hides_sources_but_keeps_internal_receipt():
         assert len(layers) == 5
         assert all(layer["source_count"] > 0 for layer in layers)
         assert all(layer["sources"] for layer in layers)
+        assert all(all(src.get("label") and src.get("url") and src.get("status") and (src.get("published_at") or src.get("checked_at")) for src in layer["sources"]) for layer in layers)
 
 
 if __name__ == "__main__":
