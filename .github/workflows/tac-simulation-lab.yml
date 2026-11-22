@@ -520,7 +520,7 @@ jobs:
           set -euo pipefail
           if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
             # Use the isolated synthetic Monday candidate produced by test_full_candidate_builder.py.
-            node simulation-lab/runner/interaction_smoke.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/interaction-smoke.json
+            TEMPLATE_KEY=monday node simulation-lab/runner/interaction_smoke.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/interaction-smoke.json
           else
             node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
           fi
