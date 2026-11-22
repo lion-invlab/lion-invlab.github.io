@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-23",
+  "week_id": "2026-W48",
+  "branch_scope": "simulation/tac-process-lab-2026-11-06",
+  "calendar_blob_sha": "807b7bb2aceb2ad11e1aa5b7c3b54e0203a6e5fa",
+  "calendar_main_commit_sha": "2b542a1180f7bb1c39cde7352c8e79c621d894a9",
+  "created_at": "2026-11-22T11:08:24+08:00",
+  "status": "FORECASTS_CAPTURED_WITH_BASIS_DISCLOSURES",
+  "source_priority": [
+    "Yahoo Finance Average Estimate",
+    "Investing.com",
+    "LSEG I/B/E/S",
+    "FactSet Estimates"
+  ],
+  "source_disposition": "Yahoo Finance 11檔對應頁面直接開啟均回傳 HTTP 429，未採搜尋摘要。依SIM-1.4順位遞補至Investing.com，逐頁直接讀取對應公司Earnings Date & Report表格；每筆確認Release Date與Period End 10/2026，再採用EPS及Revenue Forecast。Investing.com未揭露EPS GAAP／Adjusted與Basic／Diluted細分、Revenue精確定義、分析師人數及Forecast彙總算法，均保留來源註記；EPS數值可供後續比較，Revenue先保留數值但不得假稱嚴格同口徑。第一個可用來源已鎖定，不再查LSEG／FactSet。",
+  "records": [
+    {
+      "event_id": "current-hpe-20261123",
+      "event_date": "2026-11-23T00:00:00+08:00",
+      "ticker": "HPE",
+      "reporting_period": "Q4 FY2026",
+      "eps_estimate": 1.27,
+      "eps_estimate_display": "US$1.27",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q4 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Hewlett Packard Enterprise Company Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+        "period_end": "10/2026",
+        "value": 1.27,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 14.35,
+      "revenue_estimate_display": "US$14.35B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q4 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Hewlett Packard Enterprise Company Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+        "period_end": "10/2026",
+        "value": 14.35,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/HPE/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-23／Period End 10/2026 同列 EPS Forecast 1.27 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/HPE/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-23／Period End 10/2026 同列 Revenue Forecast 14.35 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-adi-20261124",
+      "event_date": "2026-11-24T20:00:00+08:00",
+      "ticker": "ADI",
+      "reporting_period": "Q4 FY2026",
+      "eps_estimate": 3.89,
+      "eps_estimate_display": "US$3.89",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q4 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Analog Devices, Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/analog-devices-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/analog-devices-earnings",
+        "period_end": "10/2026",
+        "value": 3.89,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 4.32,
+      "revenue_estimate_display": "US$4.32B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q4 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Analog Devices, Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/analog-devices-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/analog-devices-earnings",
+        "period_end": "10/2026",
+        "value": 4.32,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ADI/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 EPS Forecast 3.89 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ADI/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 Revenue Forecast 4.32 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-dell-20261125",
+      "event_date": "2026-11-25T05:30:00+08:00",
+      "ticker": "DELL",
+      "reporting_period": "Q3 FY2027",
+      "eps_estimate": 6.56,
+      "eps_estimate_display": "US$6.56",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2027",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Dell Technologies Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/dell-inc-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/dell-inc-earnings",
+        "period_end": "10/2026",
+        "value": 6.56,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 49.24,
+      "revenue_estimate_display": "US$49.24B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2027",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Dell Technologies Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/dell-inc-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/dell-inc-earnings",
+        "period_end": "10/2026",
+        "value": 49.24,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DELL/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 EPS Forecast 6.56 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DELL/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 49.24 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-mdt-20261124",
+      "event_date": "2026-11-24T19:45:00+08:00",
+      "ticker": "MDT",
+      "reporting_period": "Q2 FY2027",
+      "eps_estimate": 1.33,
+      "eps_estimate_display": "US$1.33",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q2 FY2027",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Medtronic plc Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/medtronic-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/medtronic-earnings",
+        "period_end": "10/2026",
+        "value": 1.33,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 9.48,
+      "revenue_estimate_display": "US$9.48B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q2 FY2027",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Medtronic plc Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/medtronic-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/medtronic-earnings",
+        "period_end": "10/2026",
+        "value": 9.48,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/MDT/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 EPS Forecast 1.33 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/MDT/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 Revenue Forecast 9.48 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-adsk-20261125",
+      "event_date": "2026-11-25T06:00:00+08:00",
+      "ticker": "ADSK",
+      "reporting_period": "Q3 FY2027",
+      "eps_estimate": 3.07,
+      "eps_estimate_display": "US$3.07",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2027",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Autodesk, Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/autodesk-inc-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/autodesk-inc-earnings",
+        "period_end": "10/2026",
+        "value": 3.07,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 2.13,
+      "revenue_estimate_display": "US$2.13B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2027",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Autodesk, Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/autodesk-inc-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/autodesk-inc-earnings",
+        "period_end": "10/2026",
+        "value": 2.13,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ADSK/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 EPS Forecast 3.07 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ADSK/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 2.13 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-wday-20261125",
+      "event_date": "2026-11-25T05:30:00+08:00",
+      "ticker": "WDAY",
+      "reporting_period": "Q3 FY2027",
+      "eps_estimate": 2.75,
+      "eps_estimate_display": "US$2.75",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2027",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Workday, Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/workday-inc-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/workday-inc-earnings",
+        "period_end": "10/2026",
+        "value": 2.75,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 2.69,
+      "revenue_estimate_display": "US$2.69B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2027",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Workday, Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/workday-inc-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/workday-inc-earnings",
+        "period_end": "10/2026",
+        "value": 2.69,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/WDAY/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 EPS Forecast 2.75 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/WDAY/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 2.69 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-hpq-20261125",
+      "event_date": "2026-11-25T06:00:00+08:00",
+      "ticker": "HPQ",
+      "reporting_period": "Q4 FY2026",
+      "eps_estimate": 0.752,
+      "eps_estimate_display": "US$0.752",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q4 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜HP Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/hewlett-pack-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/hewlett-pack-earnings",
+        "period_end": "10/2026",
+        "value": 0.752,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 15.43,
+      "revenue_estimate_display": "US$15.43B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q4 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜HP Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/hewlett-pack-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/hewlett-pack-earnings",
+        "period_end": "10/2026",
+        "value": 15.43,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/HPQ/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 EPS Forecast 0.752 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/HPQ/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 15.43 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-dltr-20261124",
+      "event_date": "2026-11-24T21:00:00+08:00",
+      "ticker": "DLTR",
+      "reporting_period": "Q3 FY2026",
+      "eps_estimate": 0.912,
+      "eps_estimate_display": "US$0.912",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Dollar Tree, Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+        "period_end": "10/2026",
+        "value": 0.912,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 5.04,
+      "revenue_estimate_display": "US$5.04B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Dollar Tree, Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+        "period_end": "10/2026",
+        "value": 5.04,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DLTR/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 EPS Forecast 0.912 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DLTR/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 Revenue Forecast 5.04 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-bby-20261124",
+      "event_date": "2026-11-24T21:00:00+08:00",
+      "ticker": "BBY",
+      "reporting_period": "Q3 FY2027",
+      "eps_estimate": 1.49,
+      "eps_estimate_display": "US$1.49",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2027",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Best Buy Co., Inc. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/best-buy-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/best-buy-earnings",
+        "period_end": "10/2026",
+        "value": 1.49,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 9.88,
+      "revenue_estimate_display": "US$9.88B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2027",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Best Buy Co., Inc. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/best-buy-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/best-buy-earnings",
+        "period_end": "10/2026",
+        "value": 9.88,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/BBY/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 EPS Forecast 1.49 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/BBY/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 Revenue Forecast 9.88 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-anf-20261124",
+      "event_date": "2026-11-24T20:30:00+08:00",
+      "ticker": "ANF",
+      "reporting_period": "Q3 FY2026",
+      "eps_estimate": 3.09,
+      "eps_estimate_display": "US$3.09",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q3 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Abercrombie & Fitch Co. Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+        "period_end": "10/2026",
+        "value": 3.09,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 1.37,
+      "revenue_estimate_display": "US$1.37B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q3 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Abercrombie & Fitch Co. Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+        "period_end": "10/2026",
+        "value": 1.37,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ANF/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 EPS Forecast 3.09 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/ANF/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-24／Period End 10/2026 同列 Revenue Forecast 1.37 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "current-de-20261125",
+      "event_date": "2026-11-25T00:00:00+08:00",
+      "ticker": "DE",
+      "reporting_period": "Q4 FY2026",
+      "eps_estimate": 4.03,
+      "eps_estimate_display": "US$4.03",
+      "eps_currency": "USD",
+      "eps_estimate_period": "Q4 FY2026",
+      "eps_analyst_count": null,
+      "eps_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "eps_basis_display": "Investing.com 未揭露 GAAP／Adjusted、Basic／Diluted 細分口徑；依 SIM-1.4 透明註記，不自行推定。",
+      "eps_methodology": "來源未揭露 EPS Forecast 的 GAAP／Adjusted 與 Basic／Diluted 細分口徑；保留來源數值與限制。",
+      "eps_source_name": "Investing.com｜Deere & Company Earnings Date & Report",
+      "eps_source_url": "https://www.investing.com/equities/deere---co-earnings",
+      "eps_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/deere---co-earnings",
+        "period_end": "10/2026",
+        "value": 4.03,
+        "currency": "USD",
+        "display": "EPS /Forecast"
+      },
+      "revenue_estimate": 10.4,
+      "revenue_estimate_display": "US$10.40B",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "revenue_estimate_period": "Q4 FY2026",
+      "revenue_analyst_count": null,
+      "revenue_evidence_label": "Investing.com Forecast｜Period End 10/2026；未揭露分析師人數及彙總算法",
+      "revenue_basis_display": "來源僅標示 Revenue Forecast，未揭露是否為 total revenue／net revenue 等精確定義；保留數值，不冒充已完成嚴格同口徑比較。",
+      "revenue_source_name": "Investing.com｜Deere & Company Earnings Date & Report",
+      "revenue_source_url": "https://www.investing.com/equities/deere---co-earnings",
+      "revenue_snapshot": {
+        "observed_at": "2026-11-22T11:08:24+08:00",
+        "source_url": "https://www.investing.com/equities/deere---co-earnings",
+        "period_end": "10/2026",
+        "value": 10.4,
+        "currency": "USD",
+        "unit": "B",
+        "display": "Revenue /Forecast"
+      },
+      "source_period_end": "10/2026",
+      "source_page_observation": "頁面列示 Release Date 與 Period End 10/2026，EPS /Forecast 及 Revenue /Forecast；僅採該報告期列，不採搜尋摘要。",
+      "source_attempts": {
+        "EPS": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DE/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 EPS Forecast 4.03 USD"
+          }
+        ],
+        "REVENUE": [
+          {
+            "source": "Yahoo Finance Average Estimate",
+            "url": "https://finance.yahoo.com/quote/DE/analysis/",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "TOOL_READ_FAILURE_HTTP_429",
+            "disposition": "未採搜尋摘要，直接頁面回讀被限流"
+          },
+          {
+            "source": "Investing.com Earnings Date & Report",
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-22T11:08:24+08:00",
+            "outcome": "FORECAST_ADOPTED",
+            "disposition": "採用 Release Date 2026-11-25／Period End 10/2026 同列 Revenue Forecast 10.4 USD billions；Revenue 精確定義未揭露"
+          }
+        ]
+      }
+    }
+  ]
+}
