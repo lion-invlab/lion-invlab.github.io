@@ -1,3 +1,19 @@
+# 2026-11-22｜SIM-1.4 唯一 Builder 已核准｜雙母版驗收與核准閉環完成
+
+- **有效規則：** SIM-1.4，`simulation-lab/TAC_WORK_RULES_SIM.md`，最新 blob SHA `db31aedbf9325183dc4115e147939d524c9acec5`。
+- **使用者核准：** 2026-11-22 09:07（Asia/Taipei）明確核准唯一 Builder：`simulation-lab/runner/build_review_html.py`，精確 blob SHA `40a3bc70a22bfd1aa4798149599fbd63a1f25efa`。
+- **正式入口：** 此 Builder 路徑及 SHA 已寫入 SIM-1.4 §8.1 與版本紀錄，成為唯一正式生產組裝入口。任何其他 Builder、手工 HTML 組裝或 SHA 不符均不得 fallback。
+- **Monday 回歸：** run `44964279548` completed/success；HTML `preview/2026-11-23-simulation.html` blob `7cf64495ff19395d9c68ea156f627e139fa4be32`；QA sidecar 最新 blob `38051d094dd71489ed41d7c2091ce1368b3cf61f`。
+- **Weekday 回歸：** run `44964439803` completed/success；HTML `preview/2026-11-20-simulation.html` blob `0a701740468d8bba3394a000200d2d03e0e26ffb`；QA sidecar 最新 blob `574971356af1d4531d1b2f25bcf0004e9f687d92`。
+- **共同 provenance：** Manifest `8cab2a945b19ffeea5b922353f4f4b8b9c71b9dd`；QA Contract v1.16 `30faa8385e19e5bdca0a2fa5c21eda237c52339a`；Monday mother `b89c76dd37afdc0cf8b406bfd6f06258896c829d`；Weekday mother `19e77a2f34f06a0f1a53d1eeaf875ac5e1345b96`。
+- **QA 狀態：** 兩份 sidecar 均保留原始 `QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`；並已更新 `sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`，記錄核准時間、精確 Builder 路徑／SHA 及兩次回歸 run。
+- **紀錄文件：** 雙母版驗收報告已更新核准狀態；Work Log 追加核准決策及 sidecar 更新證據。
+- **安全邊界：** 僅修改 simulation branch 規則、驗收報告、Session State、Work Log、兩份 QA sidecar。main、正式首頁、正式母版、正式 Manifest、正式行事曆 JSON 均未修改；未部署 Pages。
+- **後續工作：** 以已核准 Builder 為唯一入口，進行 SIM-1.4 下一階段的正式流程整合／live data acquisition 與 production schedule 端到端驗收。正式首頁發布仍須使用者另行核准指定 HTML SHA。
+- **不得重做：** 雙母版技術回歸已完成；除非 Builder／母版／Manifest／QA Contract／規則或輸入發生影響驗收的變更，不得無差別重跑已通過測試。
+
+---
+
 # 2026-11-22｜SIM-1.4 雙母版候選 Builder 技術回歸完成｜等待精確 SHA 核准
 
 - **有效規則：** SIM-1.4，`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `e18865fc31a88f98e44cb1f411817e61406a34c1`。
