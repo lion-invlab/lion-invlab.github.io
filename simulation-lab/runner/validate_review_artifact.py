@@ -168,6 +168,43 @@ def main():
     fixture_bytes = git_show(build_commit, fixture_path)
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
         raise SystemExit("fixture provenance SHA does not match immutable build commit")
+    fixture = json.loads(fixture_bytes)
+    expected_layers = [
+        ("political", "一、政治與地緣政治局勢"),
+        ("policy_industry", "二、政策傳導與企業／產業鏈影響"),
+        ("macro", "三、宏觀經濟傳導"),
+        ("markets", "四、金融市場定價、情緒與風險"),
+        ("strategy", "五、機構資金動向與投資策略"),
+    ]
+    analysis_payload = fixture.get("market_analysis")
+    if not isinstance(analysis_payload, dict) or set(analysis_payload) != {key for key, _ in expected_layers}:
+        raise SystemExit("fixture market_analysis must contain exactly the five required layers")
+    analysis_container = soup.select_one("#market-analysis")
+    if analysis_container is None or analysis_container.parent is not soup.select_one("#overview"):
+        raise SystemExit("five-layer market analysis container missing or misplaced")
+    rendered_layers = analysis_container.select(":scope > .market-analysis-layer")
+    rendered_order = [(node.get("data-analysis-layer"), node.find(["h2", "h3", "h4"], recursive=False).get_text(" ", strip=True) if node.find(["h2", "h3", "h4"], recursive=False) else "") for node in rendered_layers]
+    if rendered_order != expected_layers:
+        raise SystemExit(f"five-layer market analysis order mismatch: {rendered_order}")
+    for key, title in expected_layers:
+        payload = analysis_payload[key]
+        if not isinstance(payload, dict) or not isinstance(payload.get("paragraphs"), list) or not payload["paragraphs"] or not isinstance(payload.get("sources"), list) or not payload["sources"]:
+            raise SystemExit(f"fixture market_analysis.{key} lacks paragraphs or source evidence")
+        section = analysis_container.select_one(f'[data-analysis-layer="{key}"]')
+        content = section.select_one(f'[data-analysis-content="{key}"]') if section else None
+        if content is None:
+            raise SystemExit(f"rendered market_analysis.{key} content slot missing")
+        actual_paragraphs = [p.get_text(" ", strip=True) for p in content.find_all("p", recursive=False) if "market-analysis-sources" not in p.get("class", [])]
+        expected_paragraphs = [str(p).strip() for p in payload["paragraphs"]]
+        if actual_paragraphs != expected_paragraphs:
+            raise SystemExit(f"rendered market_analysis.{key} paragraphs differ from fixture")
+        source_line = content.select_one("p.market-analysis-sources")
+        if source_line is None:
+            raise SystemExit(f"rendered market_analysis.{key} source list missing")
+        actual_sources = [(a.get_text(" ", strip=True), a.get("href")) for a in source_line.select("a[href]")]
+        expected_sources = [(str(src.get("label") or "").strip(), str(src.get("url") or "").strip()) for src in payload["sources"]]
+        if actual_sources != expected_sources:
+            raise SystemExit(f"rendered market_analysis.{key} source links differ from fixture")
     builder_bytes = git_show(build_commit, provenance["builder_path"])
     if git_blob_sha(builder_bytes) != provenance.get("builder_blob_sha"):
         raise SystemExit("builder provenance SHA does not match immutable build commit")
@@ -213,7 +250,7 @@ def main():
     normalized_css = re.sub(r"\s+", " ", css)
     if not re.search(r'grid-template-areas\s*:\s*["\']prev actual["\']\s*["\']forecast actual["\']', normalized_css):
         raise SystemExit("approved five-zone grid areas missing from report CSS")
-    required = ["#overview", "#sentiment", "#news-scan", "#global-markets", "#industry-bonds-fx-commodities", "#calendar", "#earnings", "#fed", "#view"]
+    required = ["#overview", "#market-analysis", "#sentiment", "#news-scan", "#global-markets", "#industry-bonds-fx-commodities", "#calendar", "#earnings", "#fed", "#view"]
     missing = [selector for selector in required if not soup.select_one(selector)]
     if missing:
         raise SystemExit("required mother sections missing: " + ", ".join(missing))
