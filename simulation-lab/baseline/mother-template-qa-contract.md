@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.20（2026-11-23｜同步雙母版最新 simulation SHA；補入總結／五層來源隱藏與內部 evidence receipt 分離驗收；本契約不獨立於主規則生效）
+版本：1.21（2026-11-23｜加入 W47 NVDA 公告前共識局部 DOM overlay、TAC 1.4 判讀引擎與 receipt-to-HTML SHA 綁定；本契約不獨立於主規則生效）
 定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -444,3 +444,18 @@
 - Monday simulation mother SHA：`0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；Weekday simulation mother SHA：`3f4e65c1385532b0f0969fdc76caf2883a39e798`。兩者均與 Manifest 實際 simulation_blob_sha 一致；main 正式母版 SHA 保持唯讀不變。
 - 總結與五層分析只移除可見來源元件，內部 Fixture sources、來源驗證與 QA receipt 完整保留；其他報告區域的來源標示不變。
 - 此版本更新的是 simulation QA 執行附件，不修改母版 DOM、CSS、Manifest、main 正式母版或首頁。
+
+ 
+## A3.6｜W47 已公布財報的公告前共識局部更新
+
+- 2026/11/23 星期一報告的 W47 五星財報回顧，NVDA Q3 FY2027 可採用 2026/11/15 公告前 Yahoo Finance Average Estimate 原始觀測；EPS 43 位分析師、Revenue 45 位分析師。原始 capture 與 raw response SHA 必須逐筆核對，不得從公告後頁面倒推預估值。
+- EPS／Revenue 數值必須交由 earnings_judgment.py TAC 1.4 引擎計算並通過 audit_record；Yahoo 未揭露 EPS GAAP／Adjusted、Basic／Diluted 細項及 Revenue 完整定義時，保留數值並在卡片及財報判讀明確標註「非嚴格同口徑比較」。
+- 局部更新使用 patch_review_sections.py --section last_week_earnings，只能更新 #last-week-earnings 中 NVDA 五星卡的 EPS／營收預估、比較狀態、口徑說明、財報判讀及來源連結；不得重建 44 項行情、新聞、行事曆或其他財報卡。
+- 局部更新必須產生獨立 receipt，記錄 input/output HTML SHA、raw response SHA、capture file Git blob SHA、TAC 判讀版本、EPS／Revenue 狀態及 non-target DOM unchanged。輸入 HTML、輸出 HTML、receipt 必須使用不同路徑。
+- QA sidecar 必須確認 overlay receipt output_html_sha256 與最終 review HTML SHA 完全一致，並確認實際 NVDA 卡片已顯示兩項預估、比較狀態、口徑 caveat、官方實績來源及 Yahoo 共識來源；未通過不得標示 review_ready。
+- Main W47 JSON 維持唯讀；此 overlay 僅屬 simulation report-layer patch，不修改已核准 Builder，也不得觸發 main 首頁發布。
+
+## 2026-11-23｜版本 1.21 W47 NVDA 共識局部 overlay
+
+- 新增 last_week_earnings 局部 DOM patch，採用公告前 Yahoo capture 與 TAC 1.4 判讀引擎；receipt 必須與最終 HTML SHA 綁定。
+- 不修改 Builder SHA、main W47 JSON、正式母版或首頁；只更新 simulation 版 W47 NVDA 財報卡。
