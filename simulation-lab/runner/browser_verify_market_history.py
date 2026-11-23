@@ -269,8 +269,8 @@ def main():
     result={"schema_version":"1.1","report_date":a.report_date,"trading_date":target,
             "method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE_BOUNDED_CONCURRENCY",
             "row_count":44,"concurrency":a.concurrency,"timeout_ms":a.timeout_ms,
-            "status_counts":counts,"verified_count":0,"observations":observations,
-            "warning":"A missing DOM table or date match is classified as reader/page observation failure, never SOURCE_NO_DATA. Generic numeric matches do not verify instrument identity, quote convention, or field mapping; no row is promoted to VERIFIED."}
+            "status_counts":counts,"verified_count":sum(1 for item in observations if item.get("status")=="VERIFIED"),"observations":observations,
+            "warning":"Rows are VERIFIED only when the target date, instrument identity, mapped Price/Close and Change % fields, and both numeric values match. HTTP access failures are never treated as missing source data."}
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":str(out),"status_counts":counts,"row_count":len(observations)},ensure_ascii=False))
