@@ -44,6 +44,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     if verified:
         record = {
             "source_url": source_url,
+            "data_endpoint_url": observation.get("data_endpoint_url"),
             "instrument_identity": observation.get("instrument_identity"),
             "data_date": data_date,
             "observed_value_field": observation.get("observed_value_field"),
