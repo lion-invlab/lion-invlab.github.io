@@ -12,7 +12,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 import build_review_html as builder
-from earnings_judgment import apply_judgment, audit_record, consensus_evidence_label, earnings_status_label
+from earnings_judgment import apply_judgment, audit_record, consensus_evidence_label
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -117,7 +117,7 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
         status_tag = builder.unique(metric_card, ".earnings-actual-status", f"W47 NVDA {metric_key} status")
         css_status = {"beat": "beat", "miss": "miss", "inline": "beat"}[status]
         status_tag["class"] = ["earnings-actual-status", css_status]
-        builder.set_text(status_tag, earnings_status_label(status))
+        builder.set_text(status_tag, builder.earnings_status_label(record, metric_key, status))
         note = builder.unique(metric_card, ".earnings-actual-note", f"W47 NVDA {metric_key} basis note")
         analyst_count = record.get("eps_analyst_count") if metric_key == "eps" else record.get("revenue_analyst_count")
         observation = str(source.get("observed_at_taipei") or "2026-11-15T13:50:45+08:00")
@@ -144,8 +144,8 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
     old_judgment = judgment_value.get_text(" ", strip=True)
     price_reaction = old_judgment.split("股價反應：", 1)[1].strip() if "股價反應：" in old_judgment else "價格反應資料未提供"
     detail_text = (
-        f"EPS：{earnings_status_label(record['eps_comparison_status'])}，實際2.70美元對平台平均預估{record['eps_estimate']:.5f}美元，"
-        f"數值差異{record['eps_surprise_pct']:+.2f}%；營收：{earnings_status_label(record['revenue_comparison_status'])}，"
+        f"EPS：{builder.earnings_status_label(record, 'eps', record['eps_comparison_status'])}，實際2.70美元對平台平均預估{record['eps_estimate']:.5f}美元，"
+        f"數值差異{record['eps_surprise_pct']:+.2f}%；營收：{builder.earnings_status_label(record, 'revenue', record['revenue_comparison_status'])}，"
         f"實際1,158億美元對平台平均預估{record['revenue_estimate'] * 10:.4f}億美元，數值差異{record['revenue_surprise_pct']:+.2f}%。"
         f"Yahoo未揭露EPS GAAP／Adjusted、Basic／Diluted細項與Revenue完整定義，以上為平台數值比較，非嚴格同口徑比較。"
         f"股價反應：{price_reaction}"
