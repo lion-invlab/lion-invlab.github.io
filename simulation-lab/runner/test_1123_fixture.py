@@ -65,7 +65,10 @@ def main():
     assert len(data["focus_news"]) == 5
     assert len(data["headlines"]) == 10
     monday_risk = data["summary_points"][1]["text"]
-    assert "11/23 17:00" in monday_risk and "22:45" in monday_risk and "11/25 21:30" in monday_risk
+    assert "VIX與MOVE處於高檔" in monday_risk
+    assert "11/30起降低融資保證金比例" in monday_risk
+    assert "胡塞聲稱攻擊Rabigh" in monday_risk
+    assert "EO 14438" in monday_risk
     assert len(news) == 15
     assert len({item["url"] for item in news}) == 15
     start = datetime.strptime("2026/11/20 12:00", "%Y/%m/%d %H:%M")
