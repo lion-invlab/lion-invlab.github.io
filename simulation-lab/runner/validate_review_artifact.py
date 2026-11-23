@@ -212,7 +212,7 @@ def main():
     core_interpretation = sentiment_cards[-1].get_text(" ", strip=True)
     if expected_fg_phrase not in core_interpretation:
         raise SystemExit("rendered sentiment core-interpretation card differs from canonical CNN Fear & Greed score")
-    if re.search(r"Fear\\s*&\\s*Greed\\s+(?!"+re.escape(fg_display)+r"(?:\\D|$))\\d+", core_interpretation):
+    if re.search(r"Fear\s*&\s*Greed\s+(?!"+re.escape(fg_display)+r"(?:\D|$))\d+", core_interpretation):
         raise SystemExit("rendered sentiment core-interpretation card contains a stale CNN Fear & Greed score")
     rendered_market_paragraphs = [
         node.get_text(" ", strip=True)
