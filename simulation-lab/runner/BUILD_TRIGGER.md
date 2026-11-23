@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: 39e905413ae969bfc90509b59413231a5c096ea0
+fixture_blob_sha: 434b856eed50a8974dd79c2195cdffe7d8fd10cf
 main_calendar_commit_sha: 77ab012bb027591631c704d976468cf4ea2e2046
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -34,7 +34,7 @@ stage2_displayed_values_independently_reconciled_this_run: false
 prebuild_stage_2_to_4_receipt_required: true
 
 This is a date-scoped trigger marker only; it contains no market data.
-The fixture is a 2026-11-24 report for the 2026-11-23 market session. All 44 fixed market rows are present; the workflow must rebuild current-session browser observations and preserve any unresolved rows as explicitly pending.
+The fixture is a 2026-11-24 report for the 2026-11-23 market session. All 44 fixed market rows are present; the 11 sector ETF closes and daily changes are pinned to 2026-11-23 Investing.com historical rows; the workflow must rebuild current-session browser observations and preserve any unresolved rows as explicitly pending.
 The authoritative main W48/W47 calendar JSON files are read-only inputs. The run can only create a Simulation review artifact and QA evidence; it cannot write main preview, main index, or deploy the production homepage.
 A push commit message containing [build-tac-report:2026-11-24] triggers the full report build and required artifact QA.
 Fixture correction log (2026-11-23): political_scan.findings[6] and [7] were normalized from the invalid classification `reported_unverified` to the SIM-1.4 fixed enum `unverified`. Original fixture blob SHA: 8f6664356fec46c0ddb8f0a46e12eeb0e45225bc. No source, event text, transmission, scenario, or market data was changed.
