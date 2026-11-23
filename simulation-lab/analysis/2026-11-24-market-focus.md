@@ -93,3 +93,24 @@ AI 資本支出若維持，將支持半導體設備、電力、冷卻、網通�
 - 羅素 2000 Investing.com CA 歷史頁目前僅顯示至 11/20；AP 11/23 報導提供 +3.4% 漲幅與收盤 2,669.66，需另作來源口徑核對。
 - 目前尚未完成其餘未列全球指數、11 個產業 ETF、CNN Fear & Greed、其餘資料完整性與 SIM-1.4 來源觀察 manifest。
 
+
+
+## 11/23 S&P 500 產業 ETF 當日漲跌核對
+
+Investing.com 歷史資料頁已直接讀取到以下 10 檔 11/23 收盤列；XLRE 頁面仍只顯示 11/20，暫列待核實。依 TAC 規則只呈現單日漲跌幅：
+
+| ETF | 11/23 漲跌 | 來源頁 |
+|---|---:|---|
+| XLE | -1.06% | https://www.investing.com/etfs/spdr-energy-select-sector-fund-historical-data |
+| XLF | +1.98% | https://www.investing.com/etfs/financial-select-sector-spdr-fund-historical-data |
+| XLK | +8.97% | https://www.investing.com/etfs/spdr-select-sector---technology-historical-data |
+| XLI | +3.90% | https://www.investing.com/etfs/industrial-sector-spdr-trust-historical-data |
+| XLC | +3.57% | https://www.investing.com/etfs/communication-services-select-spdr-historical-data |
+| XLB | +3.23% | https://www.investing.com/etfs/spdr-materials-select-sector-etf-historical-data |
+| XLU | +1.48% | https://www.investing.com/etfs/spdr-select-sector---utilities-historical-data |
+| XLRE | 待核實 | https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data（最新列停留 11/20） |
+| XLY | +3.97% | https://www.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data |
+| XLP | -0.09% | https://www.investing.com/etfs/spdr---consumer-staples-historical-data |
+| XLV | +1.23% | https://www.investing.com/etfs/spdr---health-care-historical-data |
+
+**產業解讀：** 科技 XLK +8.97% 明顯領先，通訊、非必需消費、工業、原物料同步上漲；能源與必需消費下跌。這反映反彈高度集中於 AI／成長股及風險偏好修復，並非所有產業全面轉強。XLRE 尚無 11/23 列，不能用 11/20 的 -0.98% 代替。
