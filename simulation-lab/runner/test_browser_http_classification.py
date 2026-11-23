@@ -26,7 +26,7 @@ def main():
     target = "2026-11-20"
     stamp = int(datetime.datetime(2026, 11, 20, 23, 59, 55, tzinfo=datetime.timezone.utc).timestamp() * 1000)
     cnn = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, target)
-    assert cnn == {"status":"PAGE_READ_OK","date":target,"score":10,"rating":"extreme fear"}
+    assert cnn["status"] == "PAGE_READ_OK" and cnn["date"] == target and cnn["score"] == 10 and cnn["rating"] == "extreme fear" and cnn["timestamp_utc"].startswith(target)
     assert cnn_score_matches_display(10.4133580705009, "10") is True
     assert cnn_score_matches_display(10.6133580705009, "10") is False
     missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, "2026-11-19")
