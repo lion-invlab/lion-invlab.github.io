@@ -137,6 +137,17 @@ def main() -> None:
     assert partial_result["indicator_count"] == 44
     assert partial_result["numeric_values_reconciled_count"] == 43
     assert partial_result["numeric_values_reconciled_this_run"] is False
+    partial_receipt = build_receipt(
+        data=data, fixture_sha256="1" * 64,
+        audit=audit, audit_sha256="2" * 64,
+        manifest=partial, manifest_sha256="3" * 64,
+        calendar_bundle=bundle,
+        repository="lion-invlab/lion-invlab.github.io",
+        branch="simulation/tac-process-lab-2026-11-06",
+        workflow_run_id="45010119942", workflow_run_attempt="1",
+    )
+    assert partial_receipt["status"] == "PASS"
+    assert partial_receipt["stage_2_market"]["pending_observation_count"] == 1
     expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
                  "refusing non-simulation branch")
 
