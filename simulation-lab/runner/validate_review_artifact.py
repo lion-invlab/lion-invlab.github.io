@@ -201,7 +201,19 @@ def main():
     sentiment_section = soup.select_one("#sentiment")
     sentiment_text = sentiment_section.get_text(" ", strip=True) if sentiment_section else ""
     if expected_fg_phrase not in sentiment_text:
-        raise SystemExit("rendered sentiment interpretation differs from canonical CNN Fear & Greed score")
+        raise SystemExit("rendered sentiment section does not contain the canonical CNN Fear & Greed score")
+    # The visible core-interpretation card is a separate reader-facing output.
+    # Checking the whole section alone is insufficient: a hidden source note or
+    # numeric indicator card can contain the correct value while this narrative
+    # card remains stale.
+    sentiment_cards = sentiment_section.select(".sbox") if sentiment_section else []
+    if not sentiment_cards:
+        raise SystemExit("rendered sentiment core-interpretation card is missing")
+    core_interpretation = sentiment_cards[-1].get_text(" ", strip=True)
+    if expected_fg_phrase not in core_interpretation:
+        raise SystemExit("rendered sentiment core-interpretation card differs from canonical CNN Fear & Greed score")
+    if re.search(r"Fear\\s*&\\s*Greed\\s+(?!"+re.escape(fg_display)+r"(?:\\D|$))\\d+", core_interpretation):
+        raise SystemExit("rendered sentiment core-interpretation card contains a stale CNN Fear & Greed score")
     rendered_market_paragraphs = [
         node.get_text(" ", strip=True)
         for node in soup.select('#market-analysis [data-analysis-layer="markets"] [data-analysis-content="markets"] > p')
