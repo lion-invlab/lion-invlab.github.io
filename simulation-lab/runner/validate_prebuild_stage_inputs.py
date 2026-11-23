@@ -71,13 +71,13 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(manifest.get("trading_date") == trading_date, "source manifest trading_date mismatch")
     require(manifest.get("row_count") == 44 and manifest.get("verified_count") == 44
             and manifest.get("pending_count") == 0, "44 source observation rows are incomplete")
-    require(manifest.get("prior_observation_reused_count") == 44,
-            "this run must accurately disclose reuse of all 44 prior observations")
-    require(manifest.get("source_pages_fetched") is False
-            and manifest.get("displayed_values_independently_reconciled") is False,
-            "source manifest overstates current-run retrieval or numeric reconciliation")
+    require(manifest.get("prior_observation_reused_count") == 0,
+            "current-run verification must not reuse prior fixture observations")
+    require(manifest.get("source_pages_fetched") is True
+            and manifest.get("displayed_values_independently_reconciled") is True,
+            "44 current-run source reads and numeric reconciliations are required")
     require(manifest.get("verification_scope") ==
-            "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES",
+            "CURRENT_RUN_BROWSER_OBSERVATIONS",
             "unexpected source manifest verification scope")
     require(manifest.get("browser_observation_records_complete") is True
             and manifest.get("observation_record_hash_missing_count") == 0,
@@ -98,7 +98,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
             f"source manifest group distribution mismatch: {observed_groups}")
     require(all(row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
                 and row.get("display_value_matches_saved_observation") is True
-                and row.get("observation_provenance") == "FIXTURE_PRIOR_VERIFICATION_RECORD"
+                and row.get("observation_provenance") == "CURRENT_RUN_BROWSER_OBSERVATION"
                 for row in rows), "one or more source rows lack an accepted prior observation")
     require(all(isinstance(row.get("browser_observation_record"), dict)
                 and row["browser_observation_record"].get("source_url")
@@ -107,8 +107,8 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                 and row["browser_observation_record"].get("observed_change") is not None
                 and row["browser_observation_record"].get("checked_at_tw")
                 for row in rows), "one or more browser observation records are incomplete")
-    require(all(row.get("source_page_fetched") is False for row in rows),
-            "prior observations must not be labelled as fetched in this run")
+    require(all(row.get("source_page_fetched") is True and row.get("display_value_reconciled") is True for row in rows),
+            "all 44 rows must be fetched and reconciled in this run")
     require(all(row.get("observation_record_sha256") and
                 re.fullmatch(r"[0-9a-f]{64}", row["observation_record_sha256"])
                 for row in rows), "one or more observation record hashes are invalid")
@@ -124,9 +124,9 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "group_counts": EXPECTED_GROUP_COUNTS,
         "observation_count": len(rows),
         "observation_record_hash_count": 44,
-        "prior_observations_reused": 44,
-        "source_pages_fetched_this_run": False,
-        "numeric_values_reconciled_this_run": False,
+        "prior_observations_reused": 0,
+        "source_pages_fetched_this_run": True,
+        "numeric_values_reconciled_this_run": True,
         "raw_response_sha256_saved_count": raw_hash_count,
     }
 
@@ -265,7 +265,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         "stage_4_news_and_analysis": stage4,
         "created_at_utc": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "limitations": [
-            "Stage 2 uses 44 prior fixture-carried browser observations; this run did not fetch source pages or independently reconcile displayed values.",
+            "Stage 2 requires 44 complete current-run browser observations with independently mapped values; prior fixture observations are ineligible.",
             "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
             "Stage 3 calendar records are read-only projections from one pinned main commit.",
             "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA.",
