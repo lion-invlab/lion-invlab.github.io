@@ -305,8 +305,17 @@ try {
               pending: "尚未公布"
             };
             for (const [metricIndex, resultCard] of resultCards.entries()) {
-              const state = Object.keys(expectedLabels).find(value => resultCard.classList.contains(value));
               const status = resultCard.querySelector(".earnings-actual-status");
+              // The approved Builder stores the canonical comparison state on
+              // data-comparison-status and the visible badge element. Do not
+              // require a duplicate state class on the outer card wrapper.
+              const state = resultCard.dataset.comparisonStatus
+                || Object.keys(expectedLabels).find(value => resultCard.classList.contains(value))
+                || Object.keys(expectedLabels).find(value => status?.classList.contains(value));
+              const declaredState = resultCard.dataset.comparisonStatus;
+              if (declaredState && status && !status.classList.contains(declaredState)) {
+                invalid.push("card " + (i+1) + ": comparison state attribute and visible badge class disagree at metric " + (metricIndex+1));
+              }
               const expectedTitle = metricIndex === 0 ? "EPS" : "營收";
               const title = resultCard.querySelector(":scope > .earnings-actual-card-title")?.textContent.trim() || "";
               if (title !== expectedTitle) invalid.push("card " + (i+1) + ": expected one " + expectedTitle + " card, found " + title);
