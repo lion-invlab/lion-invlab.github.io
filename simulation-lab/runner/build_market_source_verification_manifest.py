@@ -108,8 +108,8 @@ def verification_fields(source: dict, display, change_display, observation: dict
     change_field = str(observation.get("observed_change_field") or "")
     if group == "risk" and name == "fear_greed":
         field_ok = (
-            value_field == "fear_and_greed_historical.data[].y"
-            and change_field == "fear_and_greed_historical.data[].rating"
+            value_field == "fear_and_greed.previous_close"
+            and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
         )
     else:
         field_ok = (

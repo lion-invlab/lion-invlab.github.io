@@ -64,7 +64,7 @@ def main():
             value = source.get("history_close") or source.get("close_value") or source.get("score_value")
             change = source.get("history_change") or source.get("daily_change_percent") or source.get("band")
             if name == "fear_greed":
-                value = "11.2705009276438"
+                value = "9.67368421052632"
             from build_market_source_verification_manifest import IDENTITY_ALIASES
             identity = IDENTITY_ALIASES.get(name, [name])[0]
             is_cnn = group == "risk" and name == "fear_greed"
@@ -76,11 +76,13 @@ def main():
                 "field_mapping_status": "VERIFIED", "display_value_match": True,
                 "display_change_match": True, "observed_value": value, "observed_change": change,
                 "instrument_identity": identity,
-                "observed_value_field": "fear_and_greed_historical.data[].y" if is_cnn else "Price",
-                "observed_change_field": "fear_and_greed_historical.data[].rating" if is_cnn else "Change %",
+                "observed_value_field": "fear_and_greed.previous_close" if is_cnn else "Price",
+                "observed_change_field": "derived_from_fear_and_greed.previous_close_using_cnn_bands" if is_cnn else "Change %",
                 "finished_at_utc": "2026-11-23T11:00:00Z", "finished_at_tw": "2026-11-23T19:00:00+08:00",
                 "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
                 "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" if is_cnn else None,
+                "previous_close_target_date": source.get("data_date") if is_cnn else None,
+                "source_timestamp_utc": "2026-11-23T11:00:00+00:00" if is_cnn else None,
                 "raw_response_sha256": "b" * 64 if is_cnn else None,
             }
     for name, source_display in (data.get("sectors") or {}).items():
