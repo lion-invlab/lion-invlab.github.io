@@ -166,7 +166,7 @@ def main() -> None:
     missing_obs = copy.deepcopy(synthetic)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "one or more observation record hashes are invalid")
+                 "verified row observation hash invalid")
 
     mixed_dates = copy.deepcopy(synthetic)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
@@ -191,7 +191,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "market source observation manifest is neither PASS nor PARTIAL")
+        "previous calendar commit is not the pinned main commit")
 
     wrong_calendar_path = copy.deepcopy(bundle)
     wrong_calendar_path["current"]["path"] = "data/calendar/weeks/2026-W47.json"
@@ -201,7 +201,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "market source observation manifest is neither PASS nor PARTIAL")
+        "calendar path is not the canonical ISO-week database path")
 
     print("PASS: complete pending 44-row source register can build with every unverified quote rendered as 待核實")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
