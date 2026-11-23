@@ -92,6 +92,7 @@ def main():
                 value = "9.67368421052632"
             from build_market_source_verification_manifest import IDENTITY_ALIASES, _identity_matches
             assert _identity_matches("fx", "歐元／美元", "EUR USD")
+            assert _identity_matches("global_markets", "澳洲 S&P/ASX 200", "S&P/ASX200")
             identity = IDENTITY_ALIASES.get(name, [name])[0]
             is_cnn = group == "risk" and name == "fear_greed"
             synthetic_observations[(group, name)] = {
