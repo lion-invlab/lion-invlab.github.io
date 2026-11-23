@@ -3,9 +3,9 @@
   "review_ready": true,
   "review_ready_blockers": [],
   "last_week_earnings_overlay_receipt_path": "simulation-lab/output/candidate-validation/2026-11-23-last-week-consensus-overlay.json",
-  "last_week_earnings_overlay_receipt_archive_path": "simulation-lab/runs/last-week-consensus-overlay-2026-11-23-45198355507.json",
-  "last_week_earnings_overlay_receipt_sha256": "2d85b32455be2107a8f5b48623192cbe151c545d097c530416372988fd39c9f0",
-  "last_week_earnings_overlay_receipt_git_blob_sha": "18ea68e0efb6bb62ce1c1e32b13ca62cceeec156",
+  "last_week_earnings_overlay_receipt_archive_path": "simulation-lab/runs/last-week-consensus-overlay-2026-11-23-45198875781.json",
+  "last_week_earnings_overlay_receipt_sha256": "9da511846b86f56060558f831cbdb9494dc86b959e397dde44a69433bc890678",
+  "last_week_earnings_overlay_receipt_git_blob_sha": "d82027d4a9aeeadf36f7b94d653ad289d86a86b6",
   "last_week_earnings_overlay": {
     "status": "PASS",
     "event_id": "current-nvda-20261118",
@@ -30,7 +30,7 @@
   },
   "data_audit": {
     "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。Stage 3 行事曆由組裝器依 SIM-1.4 唯讀規則直接讀取 main 同一 commit 的 W47/W48，不採用 fixture 內嵌 calendar/earnings 欄位作來源。Stage 2 本次報告工作階段直接開啟 43 個 Investing.com 歷史資料頁，另讀取 1 個 CNN 官方 Fear & Greed 歷史 graphdata 端點；44/44 均核對來源網址、標的／合約、2026-11-20 資料日期、Close／Price 與 Change% 欄位和值，與 fixture 完全一致，prior_observation_reused_count=0。每筆保存 observation record SHA-256、讀取方法與本次查核時間；43 個 HTML 頁面未封存原始 HTTP response body，raw_response_sha256 為 null；CNN 官方 JSON response body 已保存 SHA-256；CNN API headline.previous_close=9.67368421052632 對應本期 11/20 前一完整交易日收盤，顯示為 10；同一回應歷史陣列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致，因此以明確標示 previous_close 的欄位為收盤值，歷史陣列僅保留為品質診斷，不混用。GitHub Actions 本身未直接開啟 Investing.com 頁面，而是消費並驗證本次 ChatGPT 直接開頁證據包，不得把兩種讀取方式混稱。VIX、MOVE、CNN 的市場資料日期仍依週末基準決策採 11/20，這次是重新直接讀取該歷史列作驗證，不是刷新成 11/23；FedWatch 沿用 11/21 13:35 台灣時間快照。WTI、Brent、GC、SI 四項價格及日漲跌幅均與對應 Investing.com HK 歷史數據頁同合約、同日期收市列逐項對齊；source.url 與 instrument_url 一致。NVDA 於 11/18 盤後公布財報；第一個完整交易日為 11/19，Investing.com 歷史列收盤 145.98、日跌 3.30%，已更新財報卡。11/20 再跌 14.01% 屬後續市場拋售，不直接歸因於財報。HTML 組裝、互動、六視窗視覺 QA 及 44 項行情結構驗收已通過。本次 QA 證據只適用於本輪 HTML 與 Fixture SHA。W47 唯一五星 NVDA 財報已補入 11/15 公告前 Yahoo Finance Average Estimate 原始快照，並由獨立局部 DOM overlay 寫入實際 HTML 卡片：EPS US$2.47121（43 位分析師）、Revenue US$108.7319B（45 位）；與公司 GAAP 實績數值比較分別高出 9.26% 及 6.50%。Yahoo 未揭露 EPS 會計細項與 Revenue 完整定義，已標註非嚴格同口徑比較；原始 capture 及 raw response SHA 保留，main W47 JSON 未修改。NVDA 上週財報卡的 EPS／營收預估、TAC 1.4 判讀、官方實際財報來源及 Yahoo 公告前共識來源，須由 last_week_earnings 局部 overlay 執行並產生 receipt；QA 只在 receipt SHA 與最終 HTML SHA 吻合時標示 review_ready。",
-    "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 9.67368421052632、評級 extreme fear；CNN 官方 graphdata 於 2026-11-23 21:38（台灣時間）重新讀取；早報依整數顯示規則四捨五入為 10。CNN 同一回應的歷史序列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致；本報以明確標示 previous_close 的欄位作為 11/20 前一完整交易日收盤，兩欄差異列為資料品質警示；CNN 官方 JSON response SHA-256 已保存。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
+    "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 9.67368421052632、評級 extreme fear；CNN 官方 graphdata JSON 於 2026-11-23 22:49（台灣時間）重新讀取；headline timestamp 為 22:45:36；早報依整數顯示規則四捨五入為 10。CNN 同一回應的歷史序列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致；本報以明確標示 previous_close 的欄位作為 11/20 前一完整交易日收盤，兩欄差異列為資料品質警示；CNN 官方 JSON response SHA-256 已保存。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
     "pending_items": [
       "本期新聞窗口依週一規則自2026-11-20 12:00延伸至2026-11-23 05:25（台灣時間）；15則新聞已封口，截稿後消息排除。所有新聞保留原始發布時間與時區；原文未提供更新時間者明確標示。",
       "W47六筆經濟事件與三筆財報實際值以report-layer overlay修正；均為四星，不出現在週一五星回顧。週一回顧只呈現2筆五星經濟事件與1筆五星NVDA財報。",
@@ -55,9 +55,9 @@
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
-  "market_snapshot_audit_sha256": "38e4819d6ba435ce0bb835ce46813c68f21a5e422bfeff234ca3e4c5bd5967cb",
+  "market_snapshot_audit_sha256": "2219430846c99b615484380de78295143845cdfbda029dc7e0d333415125fd30",
   "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-  "market_source_verification_manifest_sha256": "92479d1aeff25ff8b834d4c811b518872a52f6aa51343907a74ac20e94eb596f",
+  "market_source_verification_manifest_sha256": "fdc2fd9092d8b2b8f06b93674bc2ed16a842c8599a26983da181e67353232843",
   "market_source_verification_summary": {
     "status": "PASS",
     "row_count": 44,
@@ -71,7 +71,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "fb7631d166fc7d2898b502b7a7cd1f5f18eface994865260a6fd115d1c519175",
+  "prebuild_input_receipt_sha256": "e108e87ee3518b345a491b06ecb6e4232ef355da565ba6896df82d1678fb46dd",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -79,11 +79,11 @@
     "report_date": "2026-11-23",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45198355507",
+    "workflow_run_id": "45198875781",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
-      "sha256": "7ba9b3c847129ba862d664ff33aa7b0ee1bff7a13fe9a6c749d3733e8f60d9ec"
+      "sha256": "e59485b1e7166fc868cd11435da89d424a41af1c740f8a2cf63b3cea7d959e96"
     },
     "stage_2_market": {
       "trading_date": "2026-11-20",
@@ -104,9 +104,9 @@
       "numeric_values_reconciled_this_run": true,
       "raw_response_sha256_saved_count": 1,
       "audit_path": "simulation-lab/output/market-snapshot-audit.json",
-      "audit_sha256": "38e4819d6ba435ce0bb835ce46813c68f21a5e422bfeff234ca3e4c5bd5967cb",
+      "audit_sha256": "2219430846c99b615484380de78295143845cdfbda029dc7e0d333415125fd30",
       "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-      "manifest_sha256": "92479d1aeff25ff8b834d4c811b518872a52f6aa51343907a74ac20e94eb596f"
+      "manifest_sha256": "fdc2fd9092d8b2b8f06b93674bc2ed16a842c8599a26983da181e67353232843"
     },
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
@@ -156,7 +156,7 @@
       "political_findings_count": 8,
       "report_cutoff_taipei": "2026-11-23 05:25"
     },
-    "created_at_utc": "2026-11-23T14:51:51Z",
+    "created_at_utc": "2026-11-23T14:54:35Z",
     "limitations": [
       "Stage 2 requires 44 complete current-session source observations with independently mapped values; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -167,11 +167,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "d7977d0254e9cc84c034a150ce7a03379cd56ee1",
-  "report_sha256": "f88f131f1270630c0b47fe193d3cded5fde2a2af4cc87296b47c944ba732fe26",
-  "build_commit_sha": "6f71da54cd242e08f21c1f7e278d2780698edeb4",
+  "report_git_blob_sha": "5434dbc6ee4c4dd0258eb268503f1e6e71b17825",
+  "report_sha256": "7e0b2a3e9404f6ec1329793e5aa04339f5388d98a77e3237b6f65979084ee16c",
+  "build_commit_sha": "162debf8cd2d80ce859a5927ad8d3f66e5d3617c",
   "builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
-  "fixture_blob_sha": "8a13e6c9f1ff141a1cf37a8b540058439f7f1009",
+  "fixture_blob_sha": "fc56baf9d7971293d9d9e68cd7ba822994600343",
   "template_blob_sha": "0a7d5095aaa99c470e00e67f33567ff9f359d6ae",
   "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
   "qa_contract_blob_sha": "e4a11261fba37fbd9deee7c6b61c9dc29a1966d6",
@@ -240,7 +240,7 @@
   "calendar_current_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "5adc48c9ec5077275b66a0230f2fa615f4814251723281111c10240ee85ebd15",
-  "visual_evidence_sha256": "4c9e2586eb804d0e30a931a4137b00b781af0918e1e230df50dd662acb33eb46",
+  "visual_evidence_sha256": "5e1ba981fd077dac054d05f7547e2d4e44b13bf97270b7e3c853882d4202a6e2",
   "viewports": [
     1440,
     768,
@@ -249,6 +249,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45198355507",
+  "workflow_run_id": "45198875781",
   "workflow_run_attempt": "1"
 }
