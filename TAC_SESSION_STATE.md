@@ -2,9 +2,12 @@
 
 **最後更新：2026/11/23 15:40（Asia/Taipei）**  
 **Simulation Branch：** `simulation/tac-process-lab-2026-11-06`  
-**最新 Simulation HEAD（更新前）：** `742880adf06ed0396370a7e21ba9dc06ddf9733a`  
+**最新審核版／Artifact 遠端讀回時的 Branch HEAD：** `742880adf06ed0396370a7e21ba9dc06ddf9733a`  
 **main HEAD：** `facf43b93a96b96953cf0ee7eca5cd45181816aa`（本輪未修改）  
 **SIM 規範：** SIM-1.4
+**本次狀態更新前最新 Branch HEAD：** `b8c6bd51f589a402c7942e4aa4a69c26fa4b8b3f`（其後為文件／回歸測試提交，不改動已驗證 HTML／QA 產物）
+**後續提交：** Session State `afa26cc54f7501e6e128eb5b18803e6ccc38de7e`；Work Log `3ce0f712c9e53ab03a3e3a11c97a99f84dc78509`；Checkout／Trigger provenance regression tests `5f815568e3984094e262de1a2042bc5539bfd349`；Builder／Trigger mismatch rejection test `b8c6bd51f589a402c7942e4aa4a69c26fa4b8b3f`。
+**回歸測試註記：** 最後兩筆測試程式提交發生於 Run `45131652645` 完成後，新增的靜態 Workflow provenance assertions 及 mismatch 測試尚未在該 Run 中執行；下次 deterministic self-tests 需確認。
 
 ## 本輪最新結論
 
