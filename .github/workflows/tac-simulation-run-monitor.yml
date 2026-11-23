@@ -121,7 +121,7 @@ jobs:
           echo "Slack alert delivered for run #${RUN_ID}."
 
       - name: Record successful Slack notification to prevent duplicates
-        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && secrets.SLACK_WEBHOOK_URL != ''
+        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && env.SLACK_WEBHOOK_URL != ''
         uses: actions/cache/save@v4
         with:
           path: .tac-monitor-state
