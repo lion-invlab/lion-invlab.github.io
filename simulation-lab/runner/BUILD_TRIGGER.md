@@ -31,6 +31,7 @@ builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
 visual_regression_blob_sha: 2b9a7997ea5cda6e7bd85413c5584bbfe761ffbf
 w47_consensus_and_calendar_overlay_blob_sha: 5ac826916e5af7ab34aa4805a4f3af3b8b5d17d6
 patch_review_sections_test_blob_sha: 1c36f978beaef8e41827bb320e3ae964d65f9ef1
+seal_qa_evidence_blob_sha: bdeb33532f253cc89ad929f326b484fb537a5776
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
@@ -60,3 +61,5 @@ Builder approval integrity correction (2026-11-23): restored the exact SIM-1.4 Â
 Content QA scope correction (2026-11-23): non-actionable conclusion wording is checked in summary, five-layer analysis, market comments, market observation and sentiment; event-calendar impact descriptions are not treated as investment conclusions.
 
 Report-layer overlay correction (2026-11-23): retain the exact approved Builder SHA 2cb0a90e53b10c31aca20503f93a5b324091c0a7. The approved local patcher now applies the W47 NVDA consensus and the exact-source-guarded Kevin Warsh impact wording together, with a single final HTML/receipt SHA. No main files are modified.
+
+QA seal correction (2026-11-23): the evidence sealer now validates both nested W47 NVDA consensus and Warsh calendar-impact receipts, and binds the combined receipt to the exact final review HTML SHA. The exact approved Builder SHA remains unchanged.
