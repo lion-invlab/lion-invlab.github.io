@@ -45,7 +45,11 @@ def make_bundle(data):
                 "observed_value_field": value_field, "observed_change_field": change_field,
                 "observed_headers": headers,
                 "observed_row_text": "" if is_cnn else f"Nov 20, 2026 | {value} | {change}",
+                "web_reader_ref": "SYNTHETIC_TEST_ONLY" if not is_cnn else None,
+                "web_line_start": 50 if not is_cnn else None,
+                "web_line_end": 50 if not is_cnn else None,
                 "read_method": "CNN_OFFICIAL_HISTORICAL_JSON" if is_cnn else "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+                "status": "VERIFIED",
                 "read_status": "API_RESPONSE_READ_SUCCESS" if is_cnn else "PAGE_CONTENT_READ_SUCCESS",
                 "http_status": 200 if is_cnn else None,
                 "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" if is_cnn else None,
@@ -61,7 +65,8 @@ def make_bundle(data):
             "observed_value_field": "Price", "observed_change_field": "Change %",
             "observed_headers": ["Price", "Change %"],
             "observed_row_text": f"Nov 20, 2026 | {source.get('history_close')} | {source.get('history_change')}",
-            "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+            "web_reader_ref": "SYNTHETIC_TEST_ONLY", "web_line_start": 50, "web_line_end": 50,
+            "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE", "status": "VERIFIED",
             "read_status": "PAGE_CONTENT_READ_SUCCESS", "http_status": None,
         })
     return {
