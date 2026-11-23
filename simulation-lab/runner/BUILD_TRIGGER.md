@@ -28,6 +28,7 @@ main_calendar_previous_path: data/calendar/weeks/2026-W47.json
 main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
+visual_regression_blob_sha: 2b9a7997ea5cda6e7bd85413c5584bbfe761ffbf
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
@@ -50,3 +51,5 @@ Projection provenance correction (2026-11-23): calendar_main_commit_sha rebound 
 Workflow pin correction log (2026-11-23): aligned the W48 consensus projection to the current immutable main commit and its unchanged W48 calendar blob; created candidate-validation output directories before the isolated W47 overlay. No main files were modified.
 
 Focus-news source correction (2026-11-23): replaced the Reuters item and the non-macro market-selloff item in the five-item focus block with two directly opened Cnyes macro articles (Taiwan FX/central-bank stabilization and weekly global macro outlook). All five focus items now use Cnyes or Investing.com HK, remain inside the sealed Monday news window, and are URL-distinct from the ten hot headlines.
+
+Visual QA contract correction (2026-11-23): the published-earnings regression reads the Builder's canonical data-comparison-status attribute and checks it against the visible badge class. It no longer incorrectly requires the state to be duplicated on the outer card wrapper.
