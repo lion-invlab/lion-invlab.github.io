@@ -59,6 +59,21 @@ def main() -> None:
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "PASS", result["errors"]
         assert result["png_validated_count"] == 1
+        capture_rows = [
+            {"page_readable": False, "verification_status": "TOOL_READ_FAILURE",
+             "capture": {"http_status": 403, "raw_response_sha256": "a" * 64}}
+            for _ in range(44)
+        ]
+        capture_path = root / "simulation-lab/output/market-source-page-captures.json"
+        capture_path.write_text(json.dumps({
+            "status": "CAPTURE_FAILED", "row_count": 44, "page_readable_count": 0,
+            "tool_read_failure_count": 44, "http_capture_success_count": 0,
+            "displayed_values_independently_reconciled": False, "rows": capture_rows
+        }), encoding="utf-8")
+        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
+        assert result["status"] == "PASS", result["errors"]
+        assert any("readable: 0/44" in warning for warning in result["warnings"])
+        capture_path.unlink()
         metadata_path = root / "simulation-lab/output/runner-metadata.txt"
         metadata = metadata_path.read_text(encoding="utf-8")
         metadata_path.write_text(metadata.replace("commit=abc123", "commit=wrong"), encoding="utf-8")
