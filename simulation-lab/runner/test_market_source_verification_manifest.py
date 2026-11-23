@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Regression tests: distinguish prior observations from current source-page fetching."""
+import copy
 import json
 from pathlib import Path
 from build_market_source_verification_manifest import build_manifest
+from build_review_html import apply_market_source_verification_manifest
 
 def main():
     data=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-23.json").read_text(encoding="utf-8"))
@@ -55,6 +57,29 @@ def main():
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
     assert "舊 Fixture 觀察紀錄不納入驗證" in result["warning"]
     assert all(r["observed_at_tw"] is None for r in result["rows"])
+
+    # A directly observed exchange holiday is distinct from a missing quote.
+    closed_data = copy.deepcopy(data)
+    closed_data["global_markets"]["日經225"]["display"] = "休市"
+    closed_data["global_markets"]["日經225"]["change_display"] = "—"
+    closed_observations = {
+        ("global_markets", "日經225"): {
+            "read_status": "MARKET_CLOSED",
+            "finished_at_tw": "2026-11-23T18:00:00+08:00",
+        }
+    }
+    closed_manifest = build_manifest(closed_data, "2026-11-23", closed_observations)
+    nikkei_row = next(r for r in closed_manifest["rows"]
+                      if r["group"] == "global_markets" and r["name"] == "日經225")
+    assert nikkei_row["verification_status"] == "CLOSED"
+    assert nikkei_row["evidence_status"] == "MARKET_CLOSED"
+    closed_render = copy.deepcopy(closed_data)
+    closed_overlay = apply_market_source_verification_manifest(closed_render, closed_manifest)
+    assert closed_render["global_markets"]["日經225"]["display"] == "休市"
+    assert closed_render["global_markets"]["日經225"]["change_display"] == "—"
+    assert closed_render["global_markets"]["日經225"]["qa_status"] == "market_closed"
+    assert closed_overlay["closed_count"] == 1
+
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
     synthetic_observations = {}
