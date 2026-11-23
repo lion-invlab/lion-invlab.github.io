@@ -110,7 +110,7 @@ Run `45131652645` 已實際驗證通過。
 
 - `#tac-alerts` Channel ID：`C0CL6GF6KJ8`。
 - 早報 Automation prompt 已加入每次執行結束時的 Slack 狀態通知；早報目前停用，尚未產生自動送達證據。
-- Chart 3 備援監控 prompt 已改用 Slack connector，並區分「尚未啟動／失敗」、「獨立 Automation 正在執行但 parent thread 未確認」及「已完成但 parent thread 未連結」，避免把 chat_ref=null 一律誤報成整體失敗。
+- Chart 3 備援監控 prompt 已改用 Slack connector，並區分「尚未啟動／失敗」、「獨立 Automation 正在執行但 parent thread 未確認」及「已完成但 parent thread 未連結」，避免把 chat_ref=null 一律誤報成整體失敗。 並新增 is_enabled=false 的 DISABLED_BY_POLICY 判斷：目前 05:25 刻意停用時，不因缺少當日 run／chat_ref 而發送假性排程故障告警；仍繼續 Chart 3 維護。
 - 尚未實際執行自動 Slack 通知送達測試；不得宣稱 Gate 9 已通過。
 - 以上 ChatGPT Automation → Slack Connector 通知不等於 GitHub Actions Workflow 自身發送 Slack 訊息；目前沒有 GitHub Repository Secret 自動通知的送達證據。
 
