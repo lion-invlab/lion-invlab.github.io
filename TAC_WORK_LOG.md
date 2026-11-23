@@ -3270,3 +3270,90 @@ Automation_f4da15cd95c881918c7412cdd6f35bb2 排定 05:25（2026-11-22T21:25:00Z�
 以上只能證明 Slack 頻道可接收人工訊息及 integration 事件，不能證明 GitHub Actions 的自動通知已完成。現行 Workflow 沒有 Slack 發送步驟。
 
 先前曾提出 Secret 名稱 SLACK_WEBHOOK_URL 並稱已新增，但目前無法獨立讀取 GitHub Repository Secret 名稱，故列為待使用者確認；不得索取 Webhook URL、Token 或 Secret 值。向頻道發送新的測試訊息仍需明確授權。
+
+
+---
+
+## 2026/11/23｜Artifact post-upload audit、Safe Rebase／Push、Checkout／Trigger provenance 驗收
+
+### 最新完整驗收：Run 45131652645
+
+- Workflow：TAC isolated simulation lab
+- Branch：`simulation/tac-process-lab-2026-11-06`
+- Trigger SHA：`7b020d76f0f71e10ec53dcb20ba052bde205df51`
+- Checkout／Builder SHA：`3a4b0dec4e7e8a266cf7d2bc8ef52656c0569218`
+- 結果：Success；44 steps success，無 failed step。
+- Lint Run：`45131652726`，Success。
+- 最新 Workflow Blob SHA：`e90fc99f75a7448a486e5d9723e0650931e5a36d`。
+
+### Artifact 與獨立稽核
+
+主 Artifact：
+- ID：`14797189218`
+- Digest：`sha256:8f92f4871cca9b75318cf4a26735d728533197c314e0a48a4651f4b793406cf5`
+- 大小：31,354,424 bytes。
+
+Post-upload Audit Artifact：
+- ID：`14797523580`
+- Digest：`sha256:e63a4672d1ff1d43b46d87041b689658ff6543ec48f75891f24d1d8e8d7e6afc`
+- ZIP CRC 通過；內含 `artifact-postupload-verification.json`。
+- `status=PASS`、`errors=[]`。
+- 76 個檔案；16 份唯一 JSON 全部有效（8 份必要 JSON另做第二次指定檢查，故報表計數 24）；45 張 PNG 全部通過 PNG chunk／CRC 檢查；10/10 必要證據存在。
+- HTML、QA Sidecar、Receipt、Market Audit／Manifest、Visual Regression、Interaction Smoke、雙母版轉移證據存在及 SHA 驗證通過。
+- expected_run_id、expected_branch、expected_trigger_commit 均正確。
+
+最新 HTML：
+- Path：`preview/2026-11-23-simulation.html`
+- Git Blob SHA：`bf88e9adae14ea54057ec7227d67ac10b22d5d9d`
+- SHA-256：`fca3d77105dae8e0b9f26871e758a337dbb9b92f2e8ddc678f577321242903b3`
+
+QA Sidecar：
+- Path：`preview/2026-11-23-simulation.qa.json`
+- Git Blob SHA：`158165ebdcc054db3c78cd72a21e048cf959326a`
+- `QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`。
+- `build_commit_sha=3a4b0dec4e7e8a266cf7d2bc8ef52656c0569218`，與 Runner Metadata 的 checkout commit 一致。
+- Trigger commit 另記錄為 `7b020d76f0f71e10ec53dcb20ba052bde205df51`。
+
+遠端 Simulation Branch：
+- 最新 HEAD：`742880adf06ed0396370a7e21ba9dc06ddf9733a`
+- HTML 與 QA Sidecar 遠端讀回 SHA 與 Artifact 完全一致。
+- main HEAD：`facf43b93a96b96953cf0ee7eca5cd45181816aa`，本輪未修改。
+- 正式首頁、GitHub Pages 均未修改／發布。
+
+### 本輪根因修復
+
+1. **雙母版轉移證據 JSON**：修正尾端換行跳脫錯誤；加入 JSON parse regression test。
+2. **Builder branch persistence non-fast-forward**：發現 Rebase 指令實際接在含字面 `\\n` 的註解行後，整行被註解，導致原本預期的 Rebase 沒有執行。改成最多三次 safe fetch／rebase／push 迴圈；每次 rebase 後重驗 Chart 3、HTML、QA Sidecar、Market Audit、Prebuild Receipt、Overlay Receipt SHA。禁止 force push。Run 45131652645 實際執行 rebase、push、遠端讀回成功。
+3. **Builder Commit／Trigger Commit 混用**：Workflow 以 branch ref checkout，分支在觸發後可能前進，因此 GITHUB_SHA 可能不等於實際 Builder checkout SHA。新增 Capture simulation checkout provenance，分別記錄 `commit=$(git rev-parse HEAD)`（checkout/build commit）與 `trigger_commit=$GITHUB_SHA`。Artifact Audit 同時核對兩者。Run 45131652645 通過。
+4. **Artifact 上傳後獨立驗證**：先上傳主 Artifact，再用 actions/download-artifact@v4 下載同一 Artifact，驗證 76 個檔案、JSON、PNG、QA Sidecar 與 SHA；另將驗證報告上傳為第二份 Artifact。驗證失敗仍會保存 audit report；GitHub Step Summary 會呈現 JSON 報告。
+
+### 前次失敗紀錄及證據
+
+- Run 45130626796：Artifact Audit PASS，但持久化時因上述 Rebase 指令被註解而 non-fast-forward；不是 HTML／QA 失敗。
+- Run 45131214730、45131247254：Builder／QA／Artifact 保存成功，但 Artifact Audit 正確抓到 QA Sidecar build_commit_sha 與 Runner Metadata commit 不一致；因此整體 Run failure。兩次 Artifact 與 post-upload audit 均有保存。
+- 修正 checkout／trigger commit 欄位後，Run 45131652645 Artifact Audit PASS。
+- 以上歷史 Run 保留原始結果，不重寫為 Success。
+
+### 44 項行情證據界線
+
+最新 Run 仍未執行 44 個來源頁的完整重新擷取；44/44 既有觀察紀錄及 Metadata 驗證通過，不代表本輪全部重新抓取或獨立重新核價。raw HTTP response body SHA 未封存，不得宣稱已封存原始回應。
+
+### 排程與 Slack
+
+- 早報 Automation：05:25，`is_enabled=false`，保持停用。
+- 行事曆 Automation：04:35，啟用，保持原狀。
+- Chart 3 Automation：05:30，啟用，保持原狀。
+- 11/23 實際啟動時間：早報 06:51:21（延遲約 86 分 22 秒）；行事曆 04:36:07（延遲約 1 分 08 秒）；Chart 3 05:32:21（延遲約 2 分 21 秒）。早報延遲根因仍未查明，無 Scheduler queue telemetry 可供歸因。
+- 早報 Automation prompt 已加入執行結束時向 #tac-alerts 發送最終狀態通知；Chart 3 備援監控 prompt 已改用 Slack connector，並區分 in_progress、failed、completed 及 chat_ref 缺失，不再把所有 chat_ref=null 誤判成排程未啟動。
+- Slack Channel ID：`C0CL6GF6KJ8`。目前只有人工測試訊息證據；尚未有自動 Slack 發送工具回傳的 message permalink／delivery 證據。
+- Slack prompt 已更新不代表通知已送達；Gate 9 仍為部分通過。
+
+### 九大 Gate
+
+- Gate 1 排程準時喚醒：未通過。
+- Gate 2 Workflow／Job：修復後通過。
+- Gate 3–7：通過。
+- Gate 8 審核版可取得：部分通過（Simulation Branch／Artifact 可取得，未部署 Pages）。
+- Gate 9 失敗證據／通知：部分通過（失敗 Artifact 與 Audit 保存已驗證；自動 Slack 送達與完整失敗演練未通過）。
+
+**操作限制持續有效：** 不啟用 05:25 排程；不修改 main、index.html、正式母版；不部署 Pages；未取得使用者核准前不得 Stage 6。04:35 行事曆及 05:30 Chart 3 排程不得停用。
