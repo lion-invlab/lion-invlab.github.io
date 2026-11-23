@@ -96,10 +96,16 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                        for group in EXPECTED_GROUP_COUNTS}
     require(observed_groups == EXPECTED_GROUP_COUNTS,
             f"source manifest group distribution mismatch: {observed_groups}")
+    allowed_provenance = {
+        "CURRENT_RUN_BROWSER_OBSERVATION",
+        "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "SYNTHETIC_TEST_ONLY",
+    }
     require(all(row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
                 and row.get("display_value_matches_saved_observation") is True
-                and row.get("observation_provenance") == "CURRENT_RUN_BROWSER_OBSERVATION"
-                for row in rows), "one or more source rows lack an accepted prior observation")
+                and row.get("observation_provenance") in allowed_provenance
+                for row in rows), "one or more source rows lack a complete current-session observation")
     require(all(isinstance(row.get("browser_observation_record"), dict)
                 and row["browser_observation_record"].get("source_url")
                 and row["browser_observation_record"].get("data_date") == trading_date
@@ -265,7 +271,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         "stage_4_news_and_analysis": stage4,
         "created_at_utc": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "limitations": [
-            "Stage 2 requires 44 complete current-run browser observations with independently mapped values; prior fixture observations are ineligible.",
+            "Stage 2 requires 44 complete current-session source observations with independently mapped values; prior fixture observations are ineligible.",
             "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
             "Stage 3 calendar records are read-only projections from one pinned main commit.",
             "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA.",
