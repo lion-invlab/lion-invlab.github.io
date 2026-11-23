@@ -13,6 +13,15 @@ def number_token(value):
     m=re.search(r"-?\d+(?:\.\d+)?",s)
     return None if not m else f"{float(m.group()):.8f}".rstrip("0").rstrip(".")
 
+def classify_http_response(status):
+    """Distinguish transport/access failures from a successful page with no target row."""
+    if status is None:
+        return "TOOL_READ_FAILURE"
+    if int(status) < 200 or int(status) >= 400:
+        return "TOOL_READ_FAILURE"
+    return "PAGE_READ_OK"
+
+
 def date_in_row(text, target):
     from datetime import datetime as dt
     d=dt.strptime(target,"%Y-%m-%d")
@@ -39,6 +48,11 @@ async def observe(browser,row,target,timeout,sem):
             out["http_status"]=response.status if response else None
             out["page_title"]=await page.title()
             out["final_url"]=page.url
+            response_class=classify_http_response(out["http_status"])
+            if response_class == "TOOL_READ_FAILURE":
+                out["status"]="TOOL_READ_FAILURE"
+                out["error"]="SOURCE_PAGE_HTTP_" + str(out["http_status"] if out["http_status"] is not None else "NO_RESPONSE") + "; NOT EVIDENCE_OF_SOURCE_NO_DATA"
+                return out
             # Do not wait 30 seconds for a table that may never render.
             # Investing.com HK pages may use Chinese-localized dates; US pages use English.
             # Do not assume a semantic HTML table: inspect table rows, ARIA rows, then body text.
