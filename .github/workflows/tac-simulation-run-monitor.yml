@@ -36,6 +36,21 @@ jobs:
             echo "SLACK_WEBHOOK_URL=NOT_AVAILABLE_TO_WORKFLOW" >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: One-time Slack delivery test
+        if: github.event_name == 'push'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
+            echo "::error::SLACK_WEBHOOK_URL is not available to this workflow."
+            exit 1
+          fi
+          payload="$(jq -n --arg text ":white_check_mark: TAC 監控通知測試成功。GitHub Actions 已成功讀取 SLACK_WEBHOOK_URL 並完成 Webhook 發送測試。此為一次性驗收訊息，非故障告警。" '{text: $text}')"
+          curl --fail --silent --show-error -X POST -H "Content-Type: application/json" --data "$payload" "$SLACK_WEBHOOK_URL"
+          echo "Slack webhook returned success." >> "$GITHUB_STEP_SUMMARY"
+
       - name: Find latest completed Simulation run and inspect its jobs
         id: inspect
         uses: actions/github-script@v7
