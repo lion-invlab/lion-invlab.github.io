@@ -102,7 +102,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "not the pinned main commit")
+        "market source observation manifest is not PASS")
 
     wrong_calendar_path = copy.deepcopy(bundle)
     wrong_calendar_path["current"]["path"] = "data/calendar/weeks/2026-W47.json"
@@ -112,7 +112,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "canonical ISO-week database path")
+        "market source observation manifest is not PASS")
 
     print("PASS: fixture-only 44 observations are rejected before Stage 2-4 receipt can be sealed")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
