@@ -381,6 +381,7 @@ def main():
     ap.add_argument("--fixture",required=True); ap.add_argument("--report-date",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
     ap.add_argument("--concurrency",type=int,default=2)
+    ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
     data=json.loads(Path(a.fixture).read_text(encoding="utf-8")); target=data.get("trading_date")
@@ -408,11 +409,20 @@ def main():
                      "expected_change":src.get("history_change"),
                      "quote_type":src.get("quote_type"),
                      "instrument_ticker":name, "instrument_identity_expected":name})
-    if len(work)!=44 or any(not x["source_url"] for x in work): raise SystemExit(f"Expected 44 source rows, got {len(work)}")
+    if a.only:
+        group_name, sep, item_name = a.only.partition(":")
+        if not sep or not group_name or not item_name:
+            raise SystemExit("--only must use group:name")
+        work = [row for row in work if row["group"] == group_name and row["name"] == item_name]
+        if len(work) != 1:
+            raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")
+    elif len(work) != 44:
+        raise SystemExit(f"Expected 44 source rows, got {len(work)}")
+    if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
     observations,counts=asyncio.run(run(a,work,target))
     result={"schema_version":"1.1","report_date":a.report_date,"trading_date":target,
             "method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE_BOUNDED_CONCURRENCY",
-            "row_count":44,"concurrency":a.concurrency,"timeout_ms":a.timeout_ms,
+            "row_count":len(observations),"concurrency":a.concurrency,"timeout_ms":a.timeout_ms,
             "status_counts":counts,"verified_count":sum(1 for item in observations if item.get("status")=="VERIFIED"),"observations":observations,
             "warning":"Rows are VERIFIED only when the target date, instrument identity, mapped Price/Close and Change % fields, and both numeric values match. HTTP access failures are never treated as missing source data."}
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
