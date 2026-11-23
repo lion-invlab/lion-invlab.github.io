@@ -1,1 +1,3 @@
 Retest live historical-page reads using localized standard Chromium context. Simulation only; no main publication.
+
+Final retry: verify browser page identity and explicit Date/Close/Change% column mapping; simulation only.
