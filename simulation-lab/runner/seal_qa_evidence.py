@@ -51,10 +51,6 @@ if title_node is None or title_node.get_text(" ", strip=True) != fixture.get("su
 if summary_body is None:
     raise SystemExit("content analysis gate: summary body missing")
 summary_text = summary_body.get_text(" ", strip=True)
-visible_report_text = soup.get_text(" ", strip=True)
-for forbidden_phrase in ("後續觀察", "值得持續關注", "市場仍需觀察", "審慎觀望"):
-    if forbidden_phrase in visible_report_text:
-        raise SystemExit(f"content analysis gate: generic non-actionable ending remains visible: {forbidden_phrase}")
 summary_points = fixture.get("summary_points", [])
 from datetime import date
 is_monday = date.fromisoformat(report_date).weekday() == 0
@@ -142,6 +138,24 @@ expected_analysis_layers = [
     ("strategy", "五、機構資金動向與投資策略"),
 ]
 analysis_payload = fixture.get("market_analysis", {})
+def flatten_analysis_text(value):
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [part for item in value.values() for part in flatten_analysis_text(item)]
+    if isinstance(value, list):
+        return [part for item in value for part in flatten_analysis_text(item)]
+    return []
+analysis_text_parts = [summary_text]
+analysis_text_parts.extend(flatten_analysis_text(market_comments))
+analysis_text_parts.extend(flatten_analysis_text(observation_text))
+analysis_text_parts.extend(flatten_analysis_text(sentiment))
+analysis_text_parts.extend(flatten_analysis_text(analysis_payload))
+for forbidden_phrase in ("後續觀察", "值得持續關注", "市場仍需觀察", "審慎觀望"):
+    if any(forbidden_phrase in part for part in analysis_text_parts):
+        raise SystemExit(
+            f"content analysis gate: generic non-actionable conclusion remains in summary/deep-analysis sections: {forbidden_phrase}"
+        )
 analysis_container = soup.select_one("#market-analysis")
 nvda_card_matches = [
     card for card in soup.select("#last-week-earnings details.earnings-accordion.five-star-earnings")

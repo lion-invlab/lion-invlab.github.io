@@ -43,6 +43,8 @@ seal_step = section_after(WORKFLOW, "Seal QA evidence to the exact review HTML b
 seal = Path("simulation-lab/runner/seal_qa_evidence.py").read_text(encoding="utf-8")
 assert "seal_qa_evidence.py" in seal_step
 assert "GITHUB_RUN_ID" in seal and "GITHUB_RUN_ATTEMPT" in seal and "${{" not in seal
+assert "analysis_text_parts" in seal and "visible_report_text" not in seal
+assert "market_analysis" in seal and "market_comments" in seal
 persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
 assert WORKFLOW.index("Validate 44 market-row metadata/date/identity only") < WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Capture 44 raw market source pages") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 assert "validate_prebuild_stage_inputs.py" in receipt_step

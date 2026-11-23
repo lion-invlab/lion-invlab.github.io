@@ -3627,14 +3627,5 @@
     "key_level_source_pages_fetched_this_run": 1,
     "key_level_source_pages_reconciled_this_run": 1,
     "key_level_sox_source": "Investing.com HK historical cash-index page; direct-open verified at 2026-11-23T06:38:04+08:00"
-  },
-  "last_week_calendar_impact_overrides": [
-    {
-      "event_id": "current-fed-warsh-productivity-jobs-20261117",
-      "expected_impact": "演講偏向長期生產力與就業結構觀點，沒有提供短期利率或政策承諾；不應解讀為升息／降息訊號。後續觀察 AI 投資是否轉化為可持續的生產力增長。",
-      "impact": "此演講未提供短期利率或政策承諾，不構成升息／降息訊號。投資判讀應檢視企業生產力、單位勞動成本與 AI 資本支出回報：若生產力增幅持續擴大且成本壓力受控，AI 投資才有助於提高潛在成長；若資本支出增加但生產力未改善，則應下修對投資回報與長期成長的假設。",
-      "source_url": "https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm",
-      "note": "Warsh 11/16 官方開幕致詞；將籠統的後續觀察改為可驗證的生產力、單位勞動成本與 AI 資本回報條件。僅修正審核版投影，main W47 calendar JSON 保持唯讀。"
-    }
-  ]
+  }
 }

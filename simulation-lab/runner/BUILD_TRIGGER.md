@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-23.json
-fixture_blob_sha: bd681718919c458e75cb64769f8184c071647364
+fixture_blob_sha: d2d6fef0e69cce6991086f84559dd6c0b2b72b33
 earnings_consensus_projection: simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json
 earnings_consensus_projection_blob_sha: d683465166e02ef3d744fe0304ae95371d6cc292
 main_calendar_commit_sha: 0fa194ae20bb97a72420ad7104bdc4c226a8e65e
@@ -27,10 +27,8 @@ main_calendar_current_blob_sha: 9bb842ab475fa38ca6407304990d1cd3fae42c63
 main_calendar_previous_path: data/calendar/weeks/2026-W47.json
 main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 builder: simulation-lab/runner/build_review_html.py
-builder_blob_sha: 5597f47b94f3569000aca099b6fc9c0c9fd1afa4
+builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
 visual_regression_blob_sha: 2b9a7997ea5cda6e7bd85413c5584bbfe761ffbf
-last_week_calendar_impact_override_test_blob_sha: af4b84aa394a558aeca21190a60abb7f72c8104d
-w47_consensus_overlay_blob_sha: f8e5a06de659289c1d5e798cb1e1f4964f41e14d
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
@@ -56,6 +54,5 @@ Focus-news source correction (2026-11-23): replaced the Reuters item and the non
 
 Visual QA contract correction (2026-11-23): the published-earnings regression reads the Builder's canonical data-comparison-status attribute and checks it against the visible badge class. It no longer incorrectly requires the state to be duplicated on the outer card wrapper.
 
-Prior-week impact wording correction (2026-11-23): the W47 Kevin Warsh event's generic '後續觀察' sentence is replaced by a report-layer-only, exact-source-guarded impact statement tied to productivity, unit labor cost and AI capex returns. The main W47 calendar JSON remains read-only. Deterministic tests cover exact source-text matching and reject generic replacement wording.
-
-Validation-order correction (2026-11-23): generic '後續觀察' wording is rejected before minimum-length validation; the deterministic negative test now asserts the specific wording guard.
+Builder approval integrity correction (2026-11-23): restored the exact SIM-1.4 §8.1 approved Builder SHA 2cb0a90e53b10c31aca20503f93a5b324091c0a7. Unapproved candidate Builder changes are not used.
+Content QA scope correction (2026-11-23): non-actionable conclusion wording is checked in summary, five-layer analysis, market comments, market observation and sentiment; event-calendar impact descriptions are not treated as investment conclusions.

@@ -1167,42 +1167,6 @@ def apply_last_week_economic_overrides(data):
     return applied
 
 
-def apply_last_week_calendar_impact_overrides(data):
-    """Replace a known generic prior-week impact sentence in Monday's report layer only."""
-    overrides = data.get("last_week_calendar_impact_overrides", [])
-    if not overrides:
-        return 0
-    events = data.get("last_week_calendar", {}).get("events", [])
-    by_id = {str(item.get("id")): item for item in events}
-    applied = 0
-    for row in overrides:
-        event_id = str(row.get("event_id") or "").strip()
-        target = by_id.get(event_id)
-        if target is None:
-            raise ValueError(f"last-week calendar impact override event not found: {event_id}")
-        current = str(target.get("impact") or "").strip()
-        expected = str(row.get("expected_impact") or "").strip()
-        if not expected or current != expected:
-            raise ValueError(f"last-week calendar impact override source text changed: {event_id}")
-        replacement = str(row.get("impact") or "").strip()
-        if "後續觀察" in replacement:
-            raise ValueError(f"last-week calendar impact override retains generic 後續觀察 wording: {event_id}")
-        if len(replacement) < 40 or re.match(r"^https?://", replacement, re.I):
-            raise ValueError(f"last-week calendar impact override must be explanatory text: {event_id}")
-        source_url = str(row.get("source_url") or target.get("source_url") or "").strip()
-        if not source_url.startswith("https://"):
-            raise ValueError(f"last-week calendar impact override lacks a verifiable HTTPS source: {event_id}")
-        target["impact"] = replacement
-        target["source_url"] = source_url
-        target["impact_override_note"] = str(
-            row.get("note") or "simulation report-layer wording correction; authoritative main JSON unchanged"
-        )
-        target["report_layer_only"] = True
-        applied += 1
-    print(f"PASS: applied {applied} prior-week calendar impact wording corrections; main JSON remains read-only")
-    return applied
-
-
 def apply_calendar_impact_overrides(data):
     """Repair known URL-corrupted impact text in the report layer only."""
     overrides = data.get("calendar_impact_overrides", [])
@@ -1881,7 +1845,6 @@ def main():
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
     apply_last_week_economic_overrides(data)
-    apply_last_week_calendar_impact_overrides(data)
     apply_last_week_earnings_actuals(data)
     apply_calendar_impact_overrides(data)
     # Recalculate released cards in both the current week and Monday's prior-week section.
