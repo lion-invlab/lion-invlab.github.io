@@ -95,6 +95,19 @@ def verification_fields(source: dict, display, change_display, observation: dict
     """Accept only complete, fresh source observations from this report session."""
     observation = observation or {}
     source_url = source.get("url")
+    if observation.get("read_status") == "MARKET_CLOSED":
+        return {
+            "verification_status": "CLOSED",
+            "source_page_fetched": True,
+            "display_value_reconciled": False,
+            "display_value_matches_saved_observation": False,
+            "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+            "raw_response_sha256": None,
+            "evidence_status": "MARKET_CLOSED",
+            "browser_observation_record": None,
+            "observation_record_sha256": None,
+            "captured_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
+        }
     data_date = source.get("data_date")
     read_method = observation.get("read_method")
     provenance = observation.get("provenance")
