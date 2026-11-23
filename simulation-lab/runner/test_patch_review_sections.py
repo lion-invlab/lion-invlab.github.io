@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BASELINE = ROOT / "simulation-lab" / "baseline"
 FIXTURE = ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-23.json"
 MANIFEST = ROOT / "simulation-lab" / "baseline" / "mother-template-manifest.json"
-PREVIEW = ROOT / "preview" / "2026-11-23-simulation.html"
+PREVIEW = ROOT / "simulation-lab" / "fixtures" / "dom" / "2026-11-23-preview-dom-fixture.html"
 
 
 def run_patch(section: str, mother_name: str) -> tuple[dict, BeautifulSoup]:
