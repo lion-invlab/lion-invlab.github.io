@@ -82,7 +82,10 @@ IDENTITY_ALIASES = {
 }
 
 def split_cells(text):
-    return [part.strip() for part in re.split(r"\t+|\s*\|\s*", str(text or "")) if part.strip()]
+    raw = str(text or "")
+    if "\\t" in raw:
+        return [part.strip() for part in raw.split("\\t")]
+    return [part.strip() for part in re.split(r"\\s*\\|\\s*", raw) if part.strip()]
 
 def header_indexes(lines):
     for line in lines:
@@ -124,6 +127,14 @@ async def observe(context,row,target,timeout,sem):
                     rows.extend(x.strip() for x in found if x.strip())
                 except Exception:
                     pass
+            header_lines=[]
+            for selector in ("table thead tr", "th", "[role=columnheader]"):
+                try:
+                    found=await page.locator(selector).all_inner_texts()
+                    if found:
+                        header_lines.append("\\t".join(x.strip() for x in found if x.strip()))
+                except Exception:
+                    pass
             body_text=await page.locator("body").inner_text()
             body_lines=[x.strip() for x in body_text.splitlines() if x.strip()]
             matches=list(dict.fromkeys(x for x in rows+body_lines if date_in_row(x,target)))
@@ -141,7 +152,7 @@ async def observe(context,row,target,timeout,sem):
                 return out
             candidate=matches[0]
             cells=split_cells(candidate)
-            headers,date_i,value_i,change_i=header_indexes(rows+body_lines)
+            headers,date_i,value_i,change_i=header_indexes(header_lines+rows+body_lines)
             title_text=(out.get("page_title","")+" "+(await page.locator("h1").first.inner_text() if await page.locator("h1").count() else "")).lower()
             aliases=IDENTITY_ALIASES.get(row["name"],[row["name"]])
             matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
