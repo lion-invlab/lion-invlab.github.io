@@ -19,13 +19,18 @@ def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
 
-def outside_target_dom(soup: BeautifulSoup, selector: str) -> str:
+def outside_targets_dom(soup: BeautifulSoup, selectors: list[str]) -> str:
     clone = copy.deepcopy(soup)
-    targets = clone.select(selector)
-    if len(targets) != 1:
-        raise ValueError(f"expected exactly one target {selector!r}; found {len(targets)}")
-    targets[0].decompose()
+    for selector in selectors:
+        targets = clone.select(selector)
+        if len(targets) != 1:
+            raise ValueError(f"expected exactly one target {selector!r}; found {len(targets)}")
+        targets[0].decompose()
     return str(clone)
+
+
+def outside_target_dom(soup: BeautifulSoup, selector: str) -> str:
+    return outside_targets_dom(soup, [selector])
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -204,6 +209,72 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
     }
 
 
+def patch_last_week_calendar_impact(soup: BeautifulSoup, data: dict) -> dict:
+    """Replace one exact generic W47 impact sentence in the report layer only."""
+    if data.get("report_date") != "2026-11-23" or data.get("last_week_calendar", {}).get("week_id") != "2026-W47":
+        raise ValueError("prior-week calendar impact overlay is locked to the 2026-11-23 Monday W47 report")
+    overrides = data.get("last_week_calendar_impact_overrides", [])
+    if len(overrides) != 1:
+        raise ValueError(f"expected exactly one W47 calendar impact override; found {len(overrides)}")
+    events = {
+        str(item.get("id")): item
+        for item in data.get("last_week_calendar", {}).get("events", [])
+    }
+    row = overrides[0]
+    event_id = str(row.get("event_id") or "").strip()
+    event = events.get(event_id)
+    if event is None:
+        raise ValueError(f"W47 calendar impact override event not found in fixture: {event_id}")
+    event_name = str(event.get("name") or "").strip()
+    if not event_name:
+        raise ValueError(f"W47 calendar impact override event name missing: {event_id}")
+    expected = str(row.get("expected_impact") or "").strip()
+    replacement = str(row.get("impact") or "").strip()
+    if not expected or not replacement or replacement == expected:
+        raise ValueError(f"W47 calendar impact override source/replacement text invalid: {event_id}")
+    if "後續觀察" in replacement:
+        raise ValueError(f"W47 calendar impact override retains generic 後續觀察 wording: {event_id}")
+    if len(replacement) < 40 or replacement.startswith("http"):
+        raise ValueError(f"W47 calendar impact override must be actionable explanatory text: {event_id}")
+    source_url = str(row.get("source_url") or event.get("source_url") or "").strip()
+    if not source_url.startswith("https://"):
+        raise ValueError(f"W47 calendar impact override lacks an official HTTPS source: {event_id}")
+
+    candidates = []
+    for card in soup.select("#last-week-calendar details.econ-event"):
+        summary = card.select_one(":scope > summary")
+        if summary and event_name in summary.get_text(" ", strip=True):
+            candidates.append(card)
+    if len(candidates) != 1:
+        raise ValueError(f"expected exactly one rendered W47 calendar event {event_id}; found {len(candidates)}")
+    card = candidates[0]
+    impact = builder.unique(card, ".econ-field.econ-impact .econ-value", "W47 calendar impact value")
+    current = impact.get_text(" ", strip=True)
+    if current != expected:
+        raise ValueError(f"W47 calendar impact source text changed for {event_id}: {current!r}")
+    impact.clear()
+    impact.append(replacement)
+
+    source_value = builder.unique(card, ".econ-field.econ-source .econ-value", "W47 calendar source value")
+    source_link = source_value.select_one("a")
+    if source_link is None:
+        raise ValueError(f"W47 calendar source link missing for {event_id}")
+    source_link["href"] = source_url
+    source_name = str(row.get("source_name") or event.get("source_name") or source_link.get_text(" ", strip=True))
+    source_link.string = source_name
+
+    return {
+        "status": "PASS",
+        "event_id": event_id,
+        "event_name": event_name,
+        "expected_impact_matched_exactly": True,
+        "impact": replacement,
+        "source_url": source_url,
+        "report_layer_only": True,
+        "authoritative_main_calendar_modified": False,
+    }
+
+
 def require_within(path: Path, root: Path, label: str) -> None:
     try:
         path.resolve().relative_to(root.resolve())
@@ -236,10 +307,13 @@ def patch_section(html_path: Path, fixture_path: Path, manifest_path: Path,
         target_selector = "#market-analysis"
     elif section == "last_week_earnings":
         target_selector = "#last-week-earnings"
+    elif section == "last_week_earnings_and_calendar_impact":
+        target_selector = ["#last-week-earnings", "#last-week-calendar"]
     else:
-        raise ValueError("section must be summary, market_analysis or last_week_earnings")
+        raise ValueError("section must be summary, market_analysis, last_week_earnings or last_week_earnings_and_calendar_impact")
 
-    before_outside = outside_target_dom(soup, target_selector)
+    target_selectors = target_selector if isinstance(target_selector, list) else [target_selector]
+    before_outside = outside_targets_dom(soup, target_selectors)
     if section == "summary":
         card = builder.unique(soup, target_selector, "summary local patch target")
         content = builder.unique(card, ".key, .bluf-content, p", "summary local patch content")
@@ -258,12 +332,27 @@ def patch_section(html_path: Path, fixture_path: Path, manifest_path: Path,
         internal_receipt = builder.populate_market_analysis_preserving_dom(soup, data, manifest)
         if internal_receipt.get("visible_sources") is not False:
             raise ValueError("market analysis source visibility contract failed")
-    else:
+    elif section == "last_week_earnings":
         internal_receipt = patch_last_week_earnings_consensus(soup, data)
         if internal_receipt.get("status") != "PASS":
             raise ValueError("last-week earnings consensus overlay did not PASS")
+    else:
+        earnings_before = outside_target_dom(soup, "#last-week-earnings")
+        earnings_receipt = patch_last_week_earnings_consensus(soup, data)
+        if earnings_receipt.get("status") != "PASS":
+            raise ValueError("last-week earnings consensus overlay did not PASS")
+        if earnings_before != outside_target_dom(soup, "#last-week-earnings"):
+            raise ValueError("calendar section changed during W47 earnings overlay")
+        calendar_before = outside_target_dom(soup, "#last-week-calendar")
+        calendar_receipt = patch_last_week_calendar_impact(soup, data)
+        if calendar_before != outside_target_dom(soup, "#last-week-calendar"):
+            raise ValueError("earnings section changed during W47 calendar impact overlay")
+        internal_receipt = {
+            "last_week_earnings": earnings_receipt,
+            "last_week_calendar_impact": calendar_receipt,
+        }
 
-    after_outside = outside_target_dom(soup, target_selector)
+    after_outside = outside_targets_dom(soup, target_selectors)
     if before_outside != after_outside:
         raise ValueError("non-target DOM changed during local section patch")
 
@@ -299,7 +388,7 @@ def main() -> None:
     parser.add_argument("--html", required=True, type=Path)
     parser.add_argument("--fixture", required=True, type=Path)
     parser.add_argument("--manifest", required=True, type=Path)
-    parser.add_argument("--section", required=True, choices=("summary", "market_analysis", "last_week_earnings"))
+    parser.add_argument("--section", required=True, choices=("summary", "market_analysis", "last_week_earnings", "last_week_earnings_and_calendar_impact"))
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--receipt", required=True, type=Path)
     args = parser.parse_args()
