@@ -3210,3 +3210,38 @@
 **通知初查：** Slack 公開頻道 #tac-alerts 已找到，ID C0CL6GF6KJ8，使用者為成員；尚未發送測試訊息，Repository Secret 名稱未確認，通知送達尚未驗證。
 
 **九大 Gate：** Gate 3–7 通過；Gate 1、9 未通過；Gate 2、8 部分通過。舊 Run 45080345516 零 Job 根因仍未查明。05:25 排程保持停用；04:35 行事曆與 05:30 Chart 3 排程保持原狀。
+
+
+---
+
+## 2026/11/23｜P0-4 零 Job 根因確認、P0-5 排程喚醒查核、Slack 通道盤點
+
+### P0-4 根因確認
+
+針對 Run 45080345516（Commit 50e422fac52ce0c4d7834282f289ddfea904e6b2）讀取當時 Workflow Blob SHA dd03a0abb3c5a8b280191ade3b80802987c46a48，逐一計算 43 個 run command 長度。
+
+發現唯一超限項：
+- Workflow line 624，Seal QA evidence to the exact review HTML blob。
+- run command 長度 26,547 字元。
+- GitHub 官方限制為每個 run command 不得超過 21,000 字元。
+- 舊 Run Jobs API 回傳 total_count=0、jobs=[]。
+
+後續 Workflow 重構後，成功版本 7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7 的 39 個 run command 最大值 8,287 字元。現行 test_workflow_run_command_limits.py 逐一檢查所有 run command，最新 deterministic self-tests 通過。
+
+結論：舊 Run 零 Job 的直接根因為單一 inline run command 超過 21,000 字元限制。Branch／Path Filter、main 預設分支、Runner 均非本次已證實根因。歷史 Run 保留，不重寫。
+
+### P0-5 排程鏈路
+
+早報 Automation ID Automation_f4da15cd95c881918c7412cdd6f35bb2 目前 is_enabled=false。其最近一次排定 2026-11-23 05:25 Asia/Taipei，實際 06:51:21 才開始，延遲約 86 分鐘，07:00:40 完成。
+
+04:35 行事曆資料庫 Automation 及 05:30 Chart 3 Automation 均 is_enabled=true，維持原狀。
+
+最新 Run 45120083919 的 event 是 push，不是 Automation，因此只證明 Push→Workflow→Job→Artifact 成功，不證明定時喚醒鏈成功。Gate 1 未通過。
+
+### P0-3 Slack
+
+已確認 #tac-alerts 公開頻道存在，ID C0CL6GF6KJ8，使用者為成員。Workflow 目前沒有 Slack Secret 參照；GitHub 工具無法列出 Repository Secret 名稱。尚未發送測試訊息，通知送達仍未驗證。不得索取密鑰內容。
+
+### Gate 更新
+
+Gate 2 因零 Job 根因已確認且現行 21,000 字元測試及新 Workflow 完整 Run 通過，更新為通過（修復後）。Gate 3–7 通過；Gate 1 未通過；Gate 8、9 部分通過。05:25 早報排程保持停用。

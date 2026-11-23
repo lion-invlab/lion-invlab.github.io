@@ -1,3 +1,85 @@
+# TAC 投資早報｜2026/11/23 P0-4／P0-5 最新查核
+
+**最後更新：2026/11/23 14:05（Asia/Taipei）**  
+**Simulation Branch HEAD（更新前）：** \`97942e025f95492c4586f079dc6c956527bafcd5\`  
+**main HEAD：** \`facf43b93a96b96953cf0ee7eca5cd45181816aa\`（本輪未修改）
+
+## P0-4｜舊 Run 45080345516 零 Job 根因已確認
+
+舊 Run：
+- Run ID：\`45080345516\`
+- Trigger：push
+- Branch：\`simulation/tac-process-lab-2026-11-06\`
+- Commit：\`50e422fac52ce0c4d7834282f289ddfea904e6b2\`
+- Workflow Blob SHA：\`dd03a0abb3c5a8b280191ade3b80802987c46a48\`
+- Jobs API：\`total_count=0\`、\`jobs=[]\`
+
+根因證據：
+1. 對該 Commit 的完整 Workflow 逐一計算 43 個 \`run:\` 區塊長度。
+2. 發現第 624 行的 \`Seal QA evidence to the exact review HTML blob\` inline run command 長度為 **26,547 字元**。
+3. GitHub 官方 Workflow Syntax 明確規定每個 \`jobs.<job_id>.steps[*].run\` 命令不得超過 **21,000 字元**。
+4. 舊 Workflow 唯一超限區塊超出上限 5,547 字元，與「Run 已建立但 Job 未建立」現象相符。
+5. 後續重構將長 inline script 拆出；成功版本 7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7 的 39 個 run command 最大值為 8,287 字元。
+6. 現行 \`test_workflow_run_command_limits.py\` 以 PyYAML 讀取真實 Workflow，逐一檢查所有 Job 的 run command 不得超過 21,000 字元；本輪 deterministic self-tests 通過。
+7. 最新獨立 Lint Run \`45120083939\` Success；最新完整 Simulation Run \`45120083919\` 成功建立 Job 並完成。
+
+**結論：** 舊 Run 零 Job 的直接根因已確認為 Workflow 中單一 \`run:\` 區塊超過 GitHub 21,000 字元限制；不是 Branch Filter、Path Filter、main 預設分支或 Runner 故障。此限制已透過外部腳本化及 21,000 字元回歸測試修復。歷史 Run 保留為失敗紀錄，不重寫歷史結果。
+
+## P0-5｜排程喚醒鏈路查核
+
+### 早報自動製作 Automation
+
+- ID：\`Automation_f4da15cd95c881918c7412cdd6f35bb2\`
+- Schedule：星期一至星期五 05:25 Asia/Taipei
+- 目前：\`is_enabled=false\`（保持停用）
+- 最近一次記錄：
+  - scheduled_for：\`2026-11-22T21:25:00Z\`（台灣時間 11/23 05:25）
+  - started_at：\`2026-11-22T22:51:21.675200Z\`（台灣時間 06:51:21）
+  - completed_at：\`2026-11-22T23:00:40.256692Z\`（台灣時間 07:00:40）
+  - 喚醒延遲：約 86 分 22 秒。
+- 此紀錄證明曾發生明顯延遲，不能作為準時喚醒通過證據。
+
+### 另外兩個排程
+
+- 行事曆資料庫更新：\`6af6d10c62448191819f04b976c64cf4\`，04:35，\`is_enabled=true\`。
+- Chart 3 每日更新：\`Automation_d59409d2de44819191030af1122bc0ec\`，05:30，\`is_enabled=true\`。
+- 兩者均保持原狀。
+
+### 本輪 GitHub Run 的觸發類型
+
+Run \`45120083919\`：
+- Trigger：\`push\`，不是早報 Automation。
+- Job 建立成功。
+- Builder、QA、Artifact 保存成功。
+- 這證明手動 Push → Workflow → Job → Artifact 的鏈路成功；不證明 Automation → GitHub Workflow 的定時喚醒鏈路成功。
+
+## P0-3｜Slack 通知前置查核
+
+- Slack Connector 可讀取工作區。
+- 公開頻道 \`#tac-alerts\` 存在，Channel ID：\`C0CL6GF6KJ8\`。
+- 使用者目前是該頻道成員。
+- 現行 Workflow 只引用 \`secrets.EQUIBLES_API_KEY\`，沒有 Slack 通知或 Slack Secret 參照。
+- GitHub 工具無法讀取 Repository Secret 名稱；尚待使用者提供 Secret 名稱。
+- 尚未向頻道發送測試訊息，未有送達證據。
+- 不得要求使用者提供 Webhook URL、Token 或 Secret 內容。
+
+## 九大 Gate 更新
+
+| Gate | 最新狀態 | 依據 |
+|---|---|---|
+| 1 排程準時喚醒 | 未通過 | 11/23 05:25 預定、06:51 才啟動；目前停用 |
+| 2 Workflow／Job 啟動 | 通過（修復後） | 舊零 Job 根因確認為 26,547 字元超限；新版本長度測試及完整 Run 成功 |
+| 3 Fixture／雙母版 | 通過 | 本輪成功 |
+| 4 SIM-1.4 Builder | 通過 | 本輪成功 |
+| 5 HTML／內容檢查 | 通過 | 本輪成功 |
+| 6 Sidecar／HTML SHA | 通過 | 本輪精確綁定 |
+| 7 視覺／互動 QA | 通過 | 六尺寸、互動無錯誤 |
+| 8 審核版可取得 | 部分通過 | Simulation Branch／Artifact 已保存，未部署 Pages |
+| 9 失敗證據／通知 | 部分通過 | Job-step failure Artifact 曾成功保存；外部 Slack 通知尚未測試 |
+
+**操作限制：** 05:25 早報排程保持停用；04:35 行事曆與 05:30 Chart 3 排程不得停用；不得修改 main、index.html 或部署 Pages。
+
+
 # TAC 投資早報｜2026/11/23 最新工作狀態
 
 **最後更新：2026/11/23 13:52（Asia/Taipei）**  
