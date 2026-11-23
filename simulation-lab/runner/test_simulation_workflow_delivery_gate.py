@@ -21,6 +21,13 @@ assert "approved_html_sha:" in inputs
 persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
 assert "github.event_name == 'push'" in persist
 assert "build-tac-report" in persist
+assert "PUSHED=false" in persist and "PUSHED=true" in persist
+assert "for attempt in 1 2 3" in persist
+assert "git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06" in persist
+assert persist.index("git fetch origin simulation/tac-process-lab-2026-11-06") < persist.index("git -c rebase.autoStash=true rebase") < persist.index('if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"')
+assert "git push --force" not in persist
+assert "\\n          git -c rebase.autoStash=true rebase" not in persist
+assert "Simulation branch push failed after 3 safe attempts" in persist
 
 delivery = section_after(WORKFLOW, "Deliver the exact QA-passed artifact to main preview only after explicit user approval")
 condition = delivery.split("shell:", 1)[0]
