@@ -3,3 +3,5 @@ Retest live historical-page reads using localized standard Chromium context. Sim
 Final retry: verify browser page identity and explicit Date/Close/Change% column mapping; simulation only.
 
 Retry using concurrency=2 and explicit historical Date/Close/Change% header mapping.
+
+Verify rendered th/columnheader DOM mapping and target date cell before marking a row VERIFIED.
