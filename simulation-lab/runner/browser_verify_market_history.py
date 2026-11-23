@@ -133,7 +133,7 @@ def header_indexes(lines, cell_count=None):
                 return cells, 0, value_i, change_i
     return None, None, None, None
 
-async def observe(context,row,target,timeout,sem):
+async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
     out={"name":row["name"],"group":row["group"],"source_url":row["source_url"],
          "instrument_identity_status":"NOT_INDEPENDENTLY_VERIFIED",
          "target_date":target,"quote_type":row.get("quote_type"),
@@ -188,7 +188,9 @@ async def observe(context,row,target,timeout,sem):
                     "status":"VERIFIED" if score_match and band_match else "OBSERVED_PENDING_FIELD_MAPPING",
                 })
                 return out
-            response=await page.goto(row["source_url"],wait_until="domcontentloaded",timeout=timeout)
+            request_url=row.get("request_url") or row["source_url"]
+            out["attempt_url"]=request_url
+            response=await page.goto(request_url,wait_until="domcontentloaded",timeout=timeout)
             navigation_status=response.status if response else None
             out["navigation_http_status"]=navigation_status
             out["http_status"]=navigation_status
@@ -206,7 +208,7 @@ async def observe(context,row,target,timeout,sem):
                       const stillBlocked=challenge.some(x=>body.includes(x));
                       const rows=document.querySelectorAll('table tr, [role=row]').length;
                       return !stillBlocked && rows > 1;
-                    }""", timeout=9000)
+                    }""", timeout=challenge_wait_ms)
                     challenge_resolved=True
                     out["http_status"]=200
                     out["challenge_interstitial_resolved"]=True
@@ -298,6 +300,44 @@ async def observe(context,row,target,timeout,sem):
             out["finished_at_utc"]=datetime.now(timezone.utc).isoformat()
             await page.close()
             await asyncio.sleep(0.5)
+
+async def observe(context,row,target,timeout,sem):
+    """SIM-1.4 Stage 2: first read, refresh unresolved rows, then date-query same source system."""
+    if row["name"] == "fear_greed":
+        return await observe_once(context,row,target,timeout,sem)
+    attempts=[]
+    original_url=row["source_url"]
+    date_query_url=original_url + ("&" if "?" in original_url else "?") + f"end_date={target}&st_date={target}"
+    plans=[
+        (1, original_url, 9000, 0),
+        (2, original_url, 2500, 3),
+        (3, date_query_url, 2500, 3),
+    ]
+    final=None
+    for attempt_no,request_url,challenge_wait_ms,delay in plans:
+        if delay:
+            await asyncio.sleep(delay)
+        attempt_row=dict(row)
+        attempt_row["request_url"]=request_url
+        result=await observe_once(context,attempt_row,target,timeout,sem,challenge_wait_ms)
+        attempts.append({
+            "round":attempt_no,
+            "request_url":request_url,
+            "status":result.get("status"),
+            "http_status":result.get("http_status"),
+            "navigation_http_status":result.get("navigation_http_status"),
+            "error":result.get("error"),
+            "started_at_utc":result.get("started_at_utc"),
+            "finished_at_utc":result.get("finished_at_utc"),
+        })
+        final=result
+        if result.get("status")=="VERIFIED":
+            break
+    final["source_url"]=original_url
+    final["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
+    final["attempt_count"]=len(attempts)
+    final["attempt_history"]=attempts
+    return final
 
 async def run(a,work,target):
     sem=asyncio.Semaphore(a.concurrency)
