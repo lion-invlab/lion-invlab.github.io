@@ -97,15 +97,22 @@ def test_last_week_nvda_consensus_overlay_is_local_and_evidence_backed():
         target_list = mother_soup.select_one("#last-week-earnings .earnings-accordion-list")
         assert target_list is not None
         target_list.append(copy.deepcopy(nvda_card))
+        fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
         warsh_card = next(
             card for card in preview_soup.select("#last-week-calendar details.econ-event")
             if "Kevin Warsh" in (card.select_one(":scope > summary").get_text(" ", strip=True) if card.select_one(":scope > summary") else "")
         )
+        # The committed preview already contains the replacement impact. Reconstruct
+        # the original source text so this test exercises the overlay's precondition.
+        expected_impact = fixture["last_week_calendar_impact_overrides"][0]["expected_impact"]
+        impact_value = warsh_card.select_one(".econ-field.econ-impact .econ-value")
+        assert impact_value is not None
+        impact_value.clear()
+        impact_value.append(expected_impact)
         calendar_list = mother_soup.select_one("#last-week-calendar .econ-event-list")
         assert calendar_list is not None
         calendar_list.append(copy.deepcopy(warsh_card))
         html_in.write_text(str(mother_soup), encoding="utf-8")
-        fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
         fixture_path = tmp_path / "fixture.json"
         fixture_path.write_text(json.dumps(fixture, ensure_ascii=False), encoding="utf-8")
 
