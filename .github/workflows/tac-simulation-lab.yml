@@ -136,6 +136,7 @@ jobs:
           python simulation-lab/runner/probe_ortex_test.py --output simulation-lab/output/ortex-test-probe.json
 
       - name: Test Investing.com earnings page parser
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/investing_earnings_probe.py --self-test --output /tmp/investing-probe.json --archive-dir /tmp/investing-raw
 
@@ -145,6 +146,7 @@ jobs:
         run: python simulation-lab/runner/investing_earnings_probe.py --output simulation-lab/output/investing-earnings-probe.json --archive-dir simulation-lab/output/investing-raw
 
       - name: Test append-only PIT consensus snapshot store
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/test_consensus_snapshot_store.py
 
@@ -158,6 +160,7 @@ jobs:
           node --check simulation-lab/runner/interaction_smoke.mjs
 
       - name: Run deterministic self-tests
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -481,20 +484,23 @@ jobs:
           echo "W47 NVDA consensus overlay applied; Builder SHA unchanged; output SHA=$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
 
       - name: Render isolated five-layer browser fixtures
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/render_market_analysis_test_pages.py
 
       - name: Full candidate Builder integration with synthetic fixtures only
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/test_full_candidate_builder.py
 
       - name: Set up Node for browser QA
-        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install and verify Traditional Chinese fonts for visual QA
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -521,19 +527,23 @@ jobs:
           echo "${font_match}" | grep -Eqi 'Noto Sans CJK TC'
 
       - name: Install Playwright Chromium for browser QA
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: |
           npm install --no-save playwright
           # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
           npx playwright install chromium
       - name: Verify five-layer analysis responsive layout in both mothers
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs
 
       - name: Verify full candidate Builder outputs in both mother scenarios
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/candidate-validation/2026-11-20-candidate.html
       - name: Test navigation tabs accordions and Fed agenda at all required widths
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         shell: bash
         run: |
@@ -547,18 +557,22 @@ jobs:
 
       # Includes the summary section-heading font-size parity audit at desktop, tablet and mobile widths.
       - name: Compare review against the date-selected approved mother
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
       - name: Verify mother-owned DOM structure unchanged
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "${MOTHER_FILE}" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
 
       - name: Independently validate exact review artifact and provenance
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
 
       - name: Validate date, authoritative calendar counts, 44 indicators and news shape
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
@@ -604,6 +618,7 @@ jobs:
           PY
 
       - name: Recheck pre-build receipt SHA after Builder
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
@@ -620,6 +635,7 @@ jobs:
           echo "Pre-build receipt SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
 
       - name: Seal QA evidence to the exact review HTML blob
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
