@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression: HTTP access failures must never be reported as missing market dates."""
-from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells, parse_cnn_history
+from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells, parse_cnn_history, cnn_score_matches_display
 
 
 def main():
@@ -27,6 +27,8 @@ def main():
     stamp = int(datetime.datetime(2026, 11, 20, 23, 59, 55, tzinfo=datetime.timezone.utc).timestamp() * 1000)
     cnn = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, target)
     assert cnn == {"status":"PAGE_READ_OK","date":target,"score":10,"rating":"extreme fear"}
+    assert cnn_score_matches_display(10.4133580705009, "10") is True
+    assert cnn_score_matches_display(10.6133580705009, "10") is False
     missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, "2026-11-19")
     assert missing["status"] == "TARGET_DATE_NOT_FOUND"
     print("PASS: leading page headings and empty volume cells do not shift field mapping")
