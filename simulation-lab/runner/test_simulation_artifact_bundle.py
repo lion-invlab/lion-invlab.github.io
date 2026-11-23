@@ -10,10 +10,10 @@ from audit_simulation_artifact_bundle import audit_bundle, git_blob_sha, sha256
 
 
 def png_1x1() -> bytes:
-    signature = b"\\x89PNG\\r\\n\\x1a\\n"
+    signature = b"\x89PNG\r\n\x1a\n"
     def chunk(kind: bytes, data: bytes) -> bytes:
         return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xffffffff)
-    return signature + chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(b"\\x00\\x00\\x00\\x00")) + chunk(b"IEND", b"")
+    return signature + chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(b"\x00\x00\x00\x00")) + chunk(b"IEND", b"")
 
 
 def make_bundle(root: Path) -> None:
