@@ -1,4 +1,5 @@
 # TAC 2026-11-24 review build trigger; simulation branch only.
+# Explicit report build dispatch marker.
 name: TAC isolated simulation lab
 # TAC daily report workflow: every Simulation-branch push runs the single pipeline.
 # No path filters: source notes, fixtures, workflow fixes and report inputs must not silently miss execution.
