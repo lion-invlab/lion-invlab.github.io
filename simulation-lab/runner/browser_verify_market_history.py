@@ -66,13 +66,19 @@ async def observe(browser,row,target,timeout,sem):
                     pass
             body_text=await page.locator("body").inner_text()
             body_lines=[x.strip() for x in body_text.splitlines() if x.strip()]
+            challenge_markers=("cloudflare", "captcha", "access denied", "verify you are human",
+                               "checking your browser", "just a moment")
+            if any(marker in body_text.lower() for marker in challenge_markers):
+                out["status"]="TOOL_READ_FAILURE"
+                out["error"]="SOURCE_PAGE_CHALLENGE_OR_ACCESS_BLOCK; NOT EVIDENCE_OF_SOURCE_NO_DATA"
+                return out
             matches=list(dict.fromkeys(x for x in rows+body_lines if date_in_row(x,target)))
             out["rendered_row_candidate_count"]=len(rows)
             out["body_text_line_count"]=len(body_lines)
             out["target_date_rows"]=matches[:5]
             if not matches:
-                out["status"]="PAGE_READ_NO_MATCH"
-                out["error"]="TARGET_DATE_NOT_FOUND_IN_RENDERED_CONTENT; NOT EVIDENCE_OF_SOURCE_NO_DATA"
+                out["status"]="TARGET_DATE_NOT_FOUND"
+                out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
                 return out
             candidate=matches[0]
             tokens=re.findall(r"[+\-\u2212]?\d[\d,]*(?:\.\d+)?\s*(?:%|bp)?",candidate,re.I)
