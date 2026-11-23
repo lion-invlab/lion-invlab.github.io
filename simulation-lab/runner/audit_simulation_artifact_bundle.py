@@ -15,7 +15,7 @@ def sha256(data: bytes) -> str:
 
 
 def git_blob_sha(data: bytes) -> str:
-    header = b"blob " + str(len(data)).encode("ascii") + b"\\0"
+    header = b"blob " + str(len(data)).encode("ascii") + b"\0"
     return hashlib.sha1(header + data).hexdigest()
 
 
@@ -29,7 +29,7 @@ def parse_kv(path: Path) -> dict[str, str]:
 
 
 def validate_png(data: bytes) -> None:
-    if not data.startswith(b"\\x89PNG\\r\\n\\x1a\\n"):
+    if not data.startswith(b"\x89PNG\r\n\x1a\n"):
         raise ValueError("invalid PNG signature")
     offset = 8
     saw_ihdr = saw_iend = False
@@ -230,7 +230,7 @@ def main() -> int:
     result = audit_bundle(Path(args.root), args.report_path, args.expected_run_id, args.expected_branch)
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: result[k] for k in ("status", "file_count", "json_validated_count_including_required_rechecks", "png_validated_count", "errors")}, ensure_ascii=False, indent=2))
     return 0 if result["status"] == "PASS" else 1
 
