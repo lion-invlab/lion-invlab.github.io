@@ -19,13 +19,19 @@ patch_receipt = json.loads(patch_receipt_bytes.decode("utf-8"))
 patched_output_bytes = patched_output_file.read_bytes()
 report_sha256 = hashlib.sha256(raw).hexdigest()
 patched_output_sha256 = hashlib.sha256(patched_output_bytes).hexdigest()
-if patch_receipt.get("status") != "PASS" or patch_receipt.get("section") != "last_week_earnings":
-    raise SystemExit("W47 NVDA consensus overlay receipt did not PASS")
+if patch_receipt.get("status") != "PASS" or patch_receipt.get("section") != "last_week_earnings_and_calendar_impact":
+    raise SystemExit("W47 NVDA and calendar impact overlay receipt did not PASS")
 if patch_receipt.get("output_html_sha256") != patched_output_sha256 or patched_output_sha256 != report_sha256:
-    raise SystemExit("W47 NVDA consensus overlay receipt is not bound to the exact final review HTML")
-overlay = patch_receipt.get("internal_receipt", {})
+    raise SystemExit("combined W47 overlay receipt is not bound to the exact final review HTML")
+internal_receipt = patch_receipt.get("internal_receipt", {})
+overlay = internal_receipt.get("last_week_earnings", {})
+calendar_overlay = internal_receipt.get("last_week_calendar_impact", {})
 if overlay.get("status") != "PASS" or overlay.get("event_id") != "current-nvda-20261118" or overlay.get("judgment_audit") != "PASS":
     raise SystemExit("W47 NVDA consensus overlay evidence or TAC 1.4 judgment audit is incomplete")
+if calendar_overlay.get("status") != "PASS" or calendar_overlay.get("event_id") != "current-fed-warsh-productivity-jobs-20261117":
+    raise SystemExit("W47 Warsh calendar impact overlay evidence is incomplete")
+if calendar_overlay.get("expected_impact_matched_exactly") is not True or calendar_overlay.get("authoritative_main_calendar_modified") is not False:
+    raise SystemExit("W47 Warsh calendar impact overlay did not preserve exact-source/read-only guarantees")
 if overlay.get("raw_response_sha256") != "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a":
     raise SystemExit("W47 NVDA consensus overlay raw response SHA mismatch")
 if overlay.get("eps_estimate") != 2.47121 or overlay.get("revenue_estimate") != 108.7319039:
@@ -331,6 +337,14 @@ evidence = {
         "raw_response_sha256": overlay.get("raw_response_sha256"),
         "capture_file_blob_sha": overlay.get("capture_file_blob_sha"),
         "non_target_cards_unchanged": overlay.get("non_target_cards_unchanged")
+    },
+    "last_week_calendar_impact_overlay": {
+        "status": calendar_overlay.get("status"),
+        "event_id": calendar_overlay.get("event_id"),
+        "expected_impact_matched_exactly": calendar_overlay.get("expected_impact_matched_exactly"),
+        "source_url": calendar_overlay.get("source_url"),
+        "report_layer_only": calendar_overlay.get("report_layer_only"),
+        "authoritative_main_calendar_modified": calendar_overlay.get("authoritative_main_calendar_modified")
     },
     "data_audit": data_audit,
     "market_snapshot_audit_path": str(market_snapshot_audit_path),
