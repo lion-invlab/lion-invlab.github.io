@@ -9,6 +9,7 @@ from pathlib import Path
 from build_market_source_verification_manifest import build_manifest
 from validate_market_snapshot import validate_market_snapshot
 from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_stage4
+from build_review_html import apply_market_source_verification_manifest
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
 
@@ -56,7 +57,13 @@ def main() -> None:
         "current": calendar_item("2026-W48", "2026-11-23", "2026-11-29", 27, 11, commit),
         "previous": calendar_item("2026-W47", "2026-11-16", "2026-11-22", 2, 1, commit),
     }
-    expect_error(lambda: build_receipt(
+    # A complete 44-row register with zero verified observations is valid input:
+    # the report can build, but every unverified quote must render as 待核實.
+    pending_result = validate_market_inputs(data, audit, manifest, report_date)
+    assert pending_result["indicator_count"] == 44
+    assert pending_result["numeric_values_reconciled_count"] == 0
+    assert pending_result["pending_count"] == 44
+    pending_receipt = build_receipt(
         data=data, fixture_sha256="1" * 64,
         audit=audit, audit_sha256="2" * 64,
         manifest=manifest, manifest_sha256="3" * 64,
@@ -64,7 +71,22 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1",
-    ), "market source observation manifest is neither PASS nor PARTIAL")
+    )
+    assert pending_receipt["stage_2_market"]["source_verification_status"] == "PENDING"
+    assert pending_receipt["stage_2_market"]["pending_observation_count"] == 44
+
+    # Builder must not leak fixture-carried quote values when current-run source
+    # observations are unavailable.
+    pending_data = copy.deepcopy(data)
+    overlay = apply_market_source_verification_manifest(pending_data, manifest)
+    assert overlay == {"verified_count": 0, "pending_count": 44, "status": "PENDING"}
+    for row in manifest["rows"]:
+        group, name = row["group"], row["name"]
+        if group == "sectors":
+            assert pending_data["sectors"][name] == "待核實"
+        else:
+            assert pending_data[group][name]["display"] == "待核實"
+            assert pending_data[group][name]["change_display"] == "待核實"
 
     # Positive Gate contract: synthetic test-only observations prove that a
     # complete current-run 44-row evidence bundle can pass without fixture reuse.
@@ -126,12 +148,12 @@ def main() -> None:
     missing_obs = copy.deepcopy(manifest)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "market source observation manifest is neither PASS nor PARTIAL")
+                 "previous calendar commit is not the pinned main commit")
 
     mixed_dates = copy.deepcopy(manifest)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
     expect_error(lambda: validate_market_inputs(data, audit, mixed_dates, report_date),
-                 "market source observation manifest is neither PASS nor PARTIAL")
+                 "calendar path is not the canonical ISO-week database path")
 
     missing_domain = copy.deepcopy(data)
     missing_domain["political_scan"]["domains_checked"].remove("geopolitics")
@@ -163,9 +185,9 @@ def main() -> None:
         workflow_run_id="45010119942", workflow_run_attempt="1"),
         "market source observation manifest is neither PASS nor PARTIAL")
 
-    print("PASS: fixture-only 44 observations are rejected before Stage 2-4 receipt can be sealed")
+    print("PASS: complete pending 44-row source register can build with every unverified quote rendered as 待核實")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
-    print("PASS: synthetic current-run 44-row evidence can satisfy Gate; fixture evidence cannot")
+    print("PASS: synthetic current-run 44-row evidence can satisfy Gate; fixture values are never promoted to verified quotes")
 
 
 if __name__ == "__main__":
