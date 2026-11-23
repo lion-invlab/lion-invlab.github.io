@@ -157,7 +157,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             raw_score_match = False
             change_match = False
         raw["expected_display_value"] = expected_value
-        raw["expected_source_raw_value"] = expected_raw_value if is_cnn else None
+        raw["expected_source_raw_value"] = expected_raw_value if is_fear_greed else None
         raw["raw_source_value_match"] = raw_score_match
         raw["expected_change_display"] = expected_change
         raw["instrument_identity_status"] = "VERIFIED"
