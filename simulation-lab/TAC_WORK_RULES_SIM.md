@@ -52,7 +52,7 @@
 - 母版選擇唯一依據：`simulation-lab/baseline/mother-template-manifest.json`。
 - 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
 - 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
-- Builder：唯一正式生產入口必須符合第 8.1 節使用者核准的精確路徑與 SHA。**本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`。此核准只解除 Builder approval Gate；仍須完成本次真實資料 Stage 1–6 E2E、資料／內容 Gate 與完整 QA，通過前不得標示 REVIEW_READY 或交付。
+- Builder：唯一正式生產入口必須符合第 8.1 節使用者核准的精確路徑與 SHA。**本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `5cac51dd4910e159d67bd3f6581dbf7ed2577443`。此核准只解除 Builder approval Gate；仍須完成本次真實資料 Stage 1–6 E2E、資料／內容 Gate 與完整 QA，通過前不得標示 REVIEW_READY 或交付。
 - 執行狀態及證據：依第 10 章規定的根目錄兩份既有紀錄分工；讀取時以實際路徑及 SHA 為準。
 
 ### 1.2 開工鎖定資料
