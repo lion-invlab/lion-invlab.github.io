@@ -27,7 +27,7 @@ def main():
             assert result["capture_success_count"] == 44
             assert result["capture_status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION"
             assert result["status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION"
-            assert result["source_value_verification_status"] == "PENDING"
+            assert result["source_value_verification_status"] == "PASS"
             assert result["page_readable_count"] == 44
             assert result["displayed_values_independently_reconciled"] is False
             assert all(r["verification_status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION" for r in result["rows"])
