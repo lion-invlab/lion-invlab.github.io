@@ -77,12 +77,12 @@ def main() -> None:
     missing_obs = copy.deepcopy(manifest)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "observation record hashes are invalid")
+                 "market source observation manifest is not PASS")
 
     mixed_dates = copy.deepcopy(manifest)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
     expect_error(lambda: validate_market_inputs(data, audit, mixed_dates, report_date),
-                 "mixed trading dates")
+                 "market source observation manifest is not PASS")
 
     missing_domain = copy.deepcopy(data)
     missing_domain["political_scan"]["domains_checked"].remove("geopolitics")
