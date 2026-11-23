@@ -300,10 +300,18 @@ jobs:
           # If no fresh bundle exists, use the standard Playwright reader; never reuse fixture observations.
           WEB_OBSERVATIONS="simulation-lab/input/market-history-web-observations-${REPORT_DATE}.json"
           if [[ -f "${WEB_OBSERVATIONS}" ]]; then
+            python -m playwright install chromium
+            python simulation-lab/runner/browser_verify_market_history.py \
+              --fixture "${REPORT_DATA}" \
+              --report-date "${REPORT_DATE}" \
+              --only risk:fear_greed \
+              --concurrency 1 \
+              --output simulation-lab/output/cnn-official-history-observation.json
             python simulation-lab/runner/validate_chatgpt_web_observations.py \
               --data "${REPORT_DATA}" \
               --report-date "${REPORT_DATE}" \
               --input "${WEB_OBSERVATIONS}" \
+              --cnn-observation simulation-lab/output/cnn-official-history-observation.json \
               --output simulation-lab/output/market-history-browser-observations.json
           else
             python -m playwright install chromium
