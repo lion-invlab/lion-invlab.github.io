@@ -82,7 +82,8 @@ metadata = section_after(WORKFLOW, "Record isolated run metadata")
 artifact_audit = section_after(WORKFLOW, "Verify downloaded simulation evidence bundle")
 assert "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" in capture
 assert 'echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA"' in capture
-assert 'echo "commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in metadata
+assert 'echo "commit=$(git rev-parse HEAD)"' in metadata
+assert 'echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in metadata
 assert 'echo "trigger_commit=$GITHUB_SHA"' in metadata
 assert 'echo "commit=$GITHUB_SHA"' not in metadata
 assert '--expected-trigger-commit "${GITHUB_SHA}"' in artifact_audit
