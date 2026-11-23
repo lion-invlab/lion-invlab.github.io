@@ -7,6 +7,7 @@ from datetime import datetime
 import copy
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 from earnings_judgment import apply_judgment, audit_record, consensus_evidence_label
 
 
@@ -23,6 +24,13 @@ def main():
     assert datetime.strptime(data["report_cutoff_taipei"], "%Y-%m-%d %H:%M") == datetime.strptime(data["news_cutoff_taipei"], "%Y-%m-%d %H:%M:%S")
     assert "2026/11/20 12:00" in data["news_window_taipei"]
     assert "2026/11/23 05:25" in data["news_window_taipei"]
+    assert len(data["focus_news"]) == 5
+    focus_hosts = {urlparse(item["url"]).hostname for item in data["focus_news"]}
+    assert focus_hosts <= {"news.cnyes.com", "hk.investing.com"}
+    focus_titles = [item["title"] for item in data["focus_news"]]
+    assert any("央行強力穩盤" in title for title in focus_titles)
+    assert any("本週操盤筆記" in title for title in focus_titles)
+    assert {item["url"] for item in data["focus_news"]}.isdisjoint({item["url"] for item in data["headlines"]})
 
     weekday_data = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
     weekday_wti = weekday_data["energy"]["WTI原油期貨"]
