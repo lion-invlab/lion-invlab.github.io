@@ -27,7 +27,7 @@ main_calendar_current_blob_sha: 9bb842ab475fa38ca6407304990d1cd3fae42c63
 main_calendar_previous_path: data/calendar/weeks/2026-W47.json
 main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 builder: simulation-lab/runner/build_review_html.py
-builder_blob_sha: 95af52c5c4d749905a533b95edf24af40f9d3d46
+builder_blob_sha: 5597f47b94f3569000aca099b6fc9c0c9fd1afa4
 visual_regression_blob_sha: 2b9a7997ea5cda6e7bd85413c5584bbfe761ffbf
 last_week_calendar_impact_override_test_blob_sha: af4b84aa394a558aeca21190a60abb7f72c8104d
 w47_consensus_overlay_blob_sha: f8e5a06de659289c1d5e798cb1e1f4964f41e14d
@@ -57,3 +57,5 @@ Focus-news source correction (2026-11-23): replaced the Reuters item and the non
 Visual QA contract correction (2026-11-23): the published-earnings regression reads the Builder's canonical data-comparison-status attribute and checks it against the visible badge class. It no longer incorrectly requires the state to be duplicated on the outer card wrapper.
 
 Prior-week impact wording correction (2026-11-23): the W47 Kevin Warsh event's generic '後續觀察' sentence is replaced by a report-layer-only, exact-source-guarded impact statement tied to productivity, unit labor cost and AI capex returns. The main W47 calendar JSON remains read-only. Deterministic tests cover exact source-text matching and reject generic replacement wording.
+
+Validation-order correction (2026-11-23): generic '後續觀察' wording is rejected before minimum-length validation; the deterministic negative test now asserts the specific wording guard.
