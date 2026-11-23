@@ -45,6 +45,56 @@ def date_in_row(text, target):
     low=text.lower()
     return any(x.lower() in low for x in forms)
 
+IDENTITY_ALIASES = {
+    "道瓊工業指數": ["Dow Jones Industrial Average", "道瓊斯工業平均指數", "DJI"],
+    "標普500指數": ["S&P 500", "SPX"],
+    "那斯達克綜合指數": ["Nasdaq Composite", "Nasdaq綜合指數", "IXIC"],
+    "羅素2000指數": ["Russell 2000", "RUT"],
+    "費城半導體指數": ["Philadelphia Semiconductor", "費城半導體指數", "SOX"],
+    "日經225": ["Nikkei 225", "N225"],
+    "韓國 KOSPI": ["KOSPI", "KS11"],
+    "台灣加權指數": ["Taiwan Weighted", "臺灣加權指數", "TWII"],
+    "新加坡海峽時報指數 STI": ["FTSE Straits Times Singapore", "STI"],
+    "澳洲 S&P/ASX 200": ["S&P/ASX200", "ASX 200", "AXJO"],
+    "上海綜合指數": ["Shanghai Composite", "上證綜合指數", "SSEC"],
+    "深證成指": ["SZSE Component", "深證成份指數", "SZI"],
+    "香港恆生指數": ["Hang Seng", "HSI"],
+    "英國 FTSE 100": ["FTSE 100", "FTSE"],
+    "德國 DAX": ["DAX", "GDAXI"],
+    "法國 CAC 40": ["CAC40", "CAC 40", "FCHI"],
+    "STOXX Europe 600": ["STOXX 600", "STOXX"],
+    "2年期美債殖利率": ["United States 2-Year Bond Yield"],
+    "10年期美債殖利率": ["United States 10-Year Bond Yield"],
+    "30年期美債殖利率": ["United States 30-Year Bond Yield"],
+    "美元指數": ["US Dollar Index", "DXY"],
+    "美元／新台幣": ["USD TWD", "USD/TWD"],
+    "歐元／美元": ["EUR USD", "EUR/USD"],
+    "英鎊／美元": ["GBP USD", "GBP/USD"],
+    "澳幣／美元": ["AUD USD", "AUD/USD"],
+    "美元／日圓": ["USD JPY", "USD/JPY"],
+    "WTI原油期貨": ["WTI原油期貨", "WTI Crude Oil"],
+    "Brent原油期貨": ["Brent Oil", "布倫特原油期貨"],
+    "黃金期貨 GC": ["黃金期貨", "Gold Futures"],
+    "白銀期貨 SI": ["白銀期貨", "Silver Futures"],
+    "vix": ["CBOE Volatility Index", "VIX"],
+    "move": ["ICE BofAML MOVE", "MOVE Index"],
+    "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
+}
+
+def split_cells(text):
+    return [part.strip() for part in re.split(r"\\t+|\\s*\\|\\s*", str(text or "")) if part.strip()]
+
+def header_indexes(lines):
+    for line in lines:
+        cells = split_cells(line)
+        normalized = [re.sub(r"[^a-z0-9%\\u4e00-\\u9fff]", "", x.lower()) for x in cells]
+        date_i = next((i for i,x in enumerate(normalized) if "date" in x or "日期" in x), None)
+        value_i = next((i for i,x in enumerate(normalized) if any(k in x for k in ("price","close","收市","收盤","價格"))), None)
+        change_i = next((i for i,x in enumerate(normalized) if ("change" in x and "%" in x) or "升跌" in x or "漲跌" in x or "變動%" in x), None)
+        if date_i is not None and value_i is not None and change_i is not None:
+            return cells, date_i, value_i, change_i
+    return None, None, None, None
+
 async def observe(context,row,target,timeout,sem):
     out={"name":row["name"],"group":row["group"],"source_url":row["source_url"],
          "instrument_identity_status":"NOT_INDEPENDENTLY_VERIFIED",
@@ -90,21 +140,40 @@ async def observe(context,row,target,timeout,sem):
                 out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
                 return out
             candidate=matches[0]
-            tokens=re.findall(r"[+\-\u2212]?\d[\d,]*(?:\.\d+)?\s*(?:%|bp)?",candidate,re.I)
-            normalized=[number_token(x) for x in tokens]
-            v=number_token(row.get("expected_value")); c=number_token(row.get("expected_change"))
-            vm=bool(v and v in normalized); cm=bool(c and c in normalized)
-            if vm and cm:
-                vi=normalized.index(v)
-                ci=normalized.index(c,vi+1) if v==c and vi+1<len(normalized) else normalized.index(c)
-                if vi==ci: cm=False
-            out.update({"observed_row_text":candidate,"observed_numeric_tokens":tokens,
-                        "expected_display_value":row.get("expected_value"),
-                        "expected_change_display":row.get("expected_change"),
-                        "display_value_match":vm,"display_change_match":cm})
-            # Generic tokens are not sufficient to certify identity or quote convention.
-            out["status"]="OBSERVED_PENDING_FIELD_MAPPING"
-            out["numeric_token_match_only"]=bool(vm and cm)
+            cells=split_cells(candidate)
+            headers,date_i,value_i,change_i=header_indexes(rows+body_lines)
+            title_text=(out.get("page_title","")+" "+(await page.locator("h1").first.inner_text() if await page.locator("h1").count() else "")).lower()
+            aliases=IDENTITY_ALIASES.get(row["name"],[row["name"]])
+            matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
+            identity_ok=matched_identity is not None
+            field_ok=bool(headers and date_i is not None and value_i is not None and change_i is not None
+                          and max(date_i,value_i,change_i)<len(cells))
+            observed_value=cells[value_i] if field_ok else None
+            observed_change=cells[change_i] if field_ok else None
+            vm=bool(field_ok and number_token(observed_value)==number_token(row.get("expected_value")))
+            cm=bool(field_ok and number_token(observed_change)==number_token(row.get("expected_change")))
+            out.update({
+                "observed_row_text":candidate,
+                "observed_cells":cells,
+                "observed_headers":headers,
+                "expected_display_value":row.get("expected_value"),
+                "expected_change_display":row.get("expected_change"),
+                "observed_value":observed_value,
+                "observed_change":observed_change,
+                "observed_value_field":headers[value_i] if field_ok else None,
+                "observed_change_field":headers[change_i] if field_ok else None,
+                "display_value_match":vm,
+                "display_change_match":cm,
+                "instrument_identity":matched_identity,
+                "instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+                "field_mapping_status":"VERIFIED" if field_ok else "PENDING_FIELD_HEADER_MAPPING",
+            })
+            if identity_ok and field_ok and vm and cm:
+                out["status"]="VERIFIED"
+                out["numeric_token_match_only"]=False
+            else:
+                out["status"]="OBSERVED_PENDING_FIELD_MAPPING"
+                out["numeric_token_match_only"]=bool(vm and cm)
             return out
         except Exception as exc:
             out.update({"status":"TOOL_READ_FAILURE","error":f"{type(exc).__name__}: {exc}"})
