@@ -61,8 +61,10 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         if raw.get("source_url") != source.get("url"):
             raise ValueError(f"{group}/{name}: source URL does not match fixture primary URL")
         target_date = source.get("data_date")
-        if raw.get("target_date") != target_date or raw.get("observed_date") != target_date:
-            raise ValueError(f"{group}/{name}: target/observed date mismatch")
+        if raw.get("target_date") != target_date:
+            raise ValueError(f"{group}/{name}: target date mismatch")
+        if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED") and raw.get("observed_date") != target_date:
+            raise ValueError(f"{group}/{name}: observed date mismatch")
         if raw.get("page_title") is None or not str(raw.get("page_title")).strip():
             raise ValueError(f"{group}/{name}: page title missing")
         if not raw.get("instrument_identity") or not _identity_matches(group, name, raw.get("instrument_identity")):
