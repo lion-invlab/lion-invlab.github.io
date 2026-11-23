@@ -128,8 +128,10 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         raw["display_value_match"] = value_match
         raw["display_change_match"] = change_match
         raw["status"] = "VERIFIED" if value_match and change_match else "OBSERVED_PENDING_VALIDATION"
-        raw["finished_at_utc"] = captured.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
-        raw["finished_at_tw"] = captured.astimezone(timezone(timedelta(hours=8))).isoformat()
+        if not raw.get("finished_at_utc"):
+            raw["finished_at_utc"] = captured.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+        if not raw.get("finished_at_tw"):
+            raw["finished_at_tw"] = captured.astimezone(timezone(timedelta(hours=8))).isoformat()
         raw["capture_session"] = bundle.get("capture_session", "TAC-CHATGPT-WEB-READ")
         raw["prior_observation_reused"] = False
         raw["attempt_count"] = 1
