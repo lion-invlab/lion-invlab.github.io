@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-23.json
-fixture_blob_sha: d4702d552736b4e008a20939cceaed9f8f7d3ae2
+fixture_blob_sha: 867c423d624c7af5beb06d0cf62e15d1d7cb14bc
 earnings_consensus_projection: simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json
 earnings_consensus_projection_blob_sha: d683465166e02ef3d744fe0304ae95371d6cc292
 main_calendar_commit_sha: 0fa194ae20bb97a72420ad7104bdc4c226a8e65e
@@ -63,3 +63,5 @@ Content QA scope correction (2026-11-23): non-actionable conclusion wording is c
 Report-layer overlay correction (2026-11-23): retain the exact approved Builder SHA 2cb0a90e53b10c31aca20503f93a5b324091c0a7. The approved local patcher now applies the W47 NVDA consensus and the exact-source-guarded Kevin Warsh impact wording together, with a single final HTML/receipt SHA. No main files are modified.
 
 QA seal correction (2026-11-23): the evidence sealer now validates both nested W47 NVDA consensus and Warsh calendar-impact receipts, and binds the combined receipt to the exact final review HTML SHA. The exact approved Builder SHA remains unchanged.
+
+Monday content Gate correction (2026-11-23): the risk observation now names the next verified catalyst, US November Flash PMI at 11/23 22:45 Taipei time with the fixture's consensus values; the operation plan states a neutral-defensive stance and explicit conditional exposure actions.
