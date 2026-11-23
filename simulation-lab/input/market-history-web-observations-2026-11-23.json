@@ -2,10 +2,10 @@
   "schema_version": "1.0",
   "report_date": "2026-11-23",
   "trading_date": "2026-11-20",
-  "captured_at_utc": "2026-11-23T12:50:41.137Z",
+  "captured_at_utc": "2026-11-23T13:30:20.567Z",
   "captured_at_taipei": "2026-11-23T20:50:41.137+08:00",
-  "capture_session": "TAC-2026-11-23-CHATGPT-WEB-READ-44",
-  "capture_method": "CHATGPT_DIRECT_WEB_PAGE_READ",
+  "capture_session": "TAC-2026-11-23-WEB-OPEN-43-PLUS-CNN-API",
+  "capture_method": "CHATGPT_WEB_OPEN_WITH_SOURCE_LINE_CITATIONS_PLUS_CNN_OFFICIAL_API_CAPTURE",
   "observations": [
     {
       "group": "global_markets",
@@ -31,7 +31,14 @@
       "observed_row_text": "2026年11月20日 | 48,147.33 | -1.93%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn502303view0",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -57,7 +64,14 @@
       "observed_row_text": "Nov 20, 2026 | 6,910.39 | -3.70%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view0",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -83,7 +97,14 @@
       "observed_row_text": "2026年11月20日 | 22,617.73 | -5.28%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn502303view2",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -109,7 +130,14 @@
       "observed_row_text": "Nov 20, 2026 | 2,581.79 | -2.76%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view1",
+      "web_line_start": 59,
+      "web_line_end": 59,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -135,7 +163,14 @@
       "observed_row_text": "2026年11月20日 | 8,408.6 | -10.73%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn502303view4",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -161,7 +196,14 @@
       "observed_row_text": "Nov 20, 2026 | 56,436.65 | -5.06%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view2",
+      "web_line_start": 62,
+      "web_line_end": 62,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -187,7 +229,14 @@
       "observed_row_text": "2026年11月20日 | 4,869.96 | -5.21%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view3",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -213,7 +262,14 @@
       "observed_row_text": "2026年11月20日 | 36,033.29 | -6.23%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view4",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -239,7 +295,14 @@
       "observed_row_text": "2026年11月20日 | 4,975.17 | -2.05%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view5",
+      "web_line_start": 49,
+      "web_line_end": 49,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -265,7 +328,14 @@
       "observed_row_text": "2026年11月20日 | 8,592.60 | -1.58%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view6",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -291,7 +361,14 @@
       "observed_row_text": "2026年11月20日 | 3,533.79 | -1.22%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view0",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -317,7 +394,14 @@
       "observed_row_text": "2026年11月20日 | 10,256.39 | -3.09%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view1",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -343,7 +427,14 @@
       "observed_row_text": "Nov 20, 2026 | 22,410.80 | -1.89%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view7",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -369,7 +460,14 @@
       "observed_row_text": "Nov 20, 2026 | 10,346.34 | -1.02%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view8",
+      "web_line_start": 64,
+      "web_line_end": 64,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -395,7 +493,14 @@
       "observed_row_text": "Nov 20, 2026 | 24,802.78 | -2.60%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view9",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -421,7 +526,14 @@
       "observed_row_text": "2026年11月20日 | 7,927.75 | -1.89%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view5",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "global_markets",
@@ -447,7 +559,14 @@
       "observed_row_text": "Nov 20, 2026 | 625.65 | -2.00%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn347370view10",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "bonds",
@@ -473,7 +592,14 @@
       "observed_row_text": "Nov 20, 2026 | 4.613 | -3.47%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view7",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "bonds",
@@ -499,7 +625,14 @@
       "observed_row_text": "Nov 20, 2026 | 4.912 | -2.77%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view8",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "bonds",
@@ -525,7 +658,14 @@
       "observed_row_text": "Nov 20, 2026 | 5.302 | -1.83%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn420844view9",
+      "web_line_start": 50,
+      "web_line_end": 50,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -551,7 +691,14 @@
       "observed_row_text": "Nov 20, 2026 | 103.81 | -0.08%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view0",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -574,10 +721,17 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月20日 | 32.971 | -0.18%",
+      "observed_row_text": "Nov 20, 2026 | 32.971 | -0.18%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view1",
+      "web_line_start": 190,
+      "web_line_end": 190,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -600,10 +754,17 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月20日 | 1.0968 | +0.01%",
+      "observed_row_text": "Nov 20, 2026 | 1.0968 | +0.01%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view2",
+      "web_line_start": 187,
+      "web_line_end": 187,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -626,10 +787,17 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月20日 | 1.3083 | -0.04%",
+      "observed_row_text": "Nov 20, 2026 | 1.3083 | -0.04%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view3",
+      "web_line_start": 149,
+      "web_line_end": 149,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -652,10 +820,17 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月20日 | 0.6617 | -0.63%",
+      "observed_row_text": "Nov 20, 2026 | 0.6617 | -0.63%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view4",
+      "web_line_start": 122,
+      "web_line_end": 122,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "fx",
@@ -678,10 +853,17 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月20日 | 158.54 | -0.73%",
+      "observed_row_text": "Nov 20, 2026 | 158.54 | -0.73%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn991595view5",
+      "web_line_start": 193,
+      "web_line_end": 193,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "energy",
@@ -707,7 +889,14 @@
       "observed_row_text": "2026年11月20日 | 83.98 | +0.93%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn543812view6",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "energy",
@@ -733,7 +922,14 @@
       "observed_row_text": "2026年11月20日 | 92.57 | +0.64%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn543812view7",
+      "web_line_start": 52,
+      "web_line_end": 52,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "metals",
@@ -759,7 +955,14 @@
       "observed_row_text": "2026年11月20日 | 3,515.40 | -4.62%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn543812view8",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "metals",
@@ -785,7 +988,14 @@
       "observed_row_text": "2026年11月20日 | 41.070 | -7.41%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn543812view9",
+      "web_line_start": 51,
+      "web_line_end": 51,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "risk",
@@ -811,7 +1021,14 @@
       "observed_row_text": "2026年11月20日 | 35.89 | +26.20%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn339463view0",
+      "web_line_start": 49,
+      "web_line_end": 49,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "risk",
@@ -837,7 +1054,14 @@
       "observed_row_text": "2026年11月20日 | 106.31 | +10.69%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn339463view1",
+      "web_line_start": 48,
+      "web_line_end": 48,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -863,7 +1087,14 @@
       "observed_row_text": "Nov 20, 2026 | 60.51 | -0.62%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view0",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -889,7 +1120,14 @@
       "observed_row_text": "Nov 20, 2026 | 54.57 | -1.82%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view1",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -915,7 +1153,14 @@
       "observed_row_text": "Nov 20, 2026 | 149.01 | -7.27%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view2",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -941,7 +1186,14 @@
       "observed_row_text": "Nov 20, 2026 | 156.37 | -3.09%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view3",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -967,7 +1219,14 @@
       "observed_row_text": "Nov 20, 2026 | 100.03 | -2.66%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view4",
+      "web_line_start": 56,
+      "web_line_end": 56,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -993,7 +1252,14 @@
       "observed_row_text": "Nov 20, 2026 | 48.34 | -2.19%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view5",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -1019,7 +1285,14 @@
       "observed_row_text": "Nov 20, 2026 | 42.69 | -0.74%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view6",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -1045,7 +1318,14 @@
       "observed_row_text": "Nov 20, 2026 | 42.46 | -0.98%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn918504view7",
+      "web_line_start": 56,
+      "web_line_end": 56,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -1071,7 +1351,14 @@
       "observed_row_text": "Nov 20, 2026 | 112.46 | -2.95%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn430298view0",
+      "web_line_start": 62,
+      "web_line_end": 62,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -1097,7 +1384,14 @@
       "observed_row_text": "Nov 20, 2026 | 90.46 | +0.67%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn430298view1",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "sectors",
@@ -1123,7 +1417,14 @@
       "observed_row_text": "Nov 20, 2026 | 177.24 | -0.12%",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
-      "web_read_tool": "ChatGPT web open"
+      "web_read_tool": "ChatGPT web open",
+      "web_reader_ref": "turn430298view2",
+      "web_line_start": 63,
+      "web_line_end": 63,
+      "web_reader_tool": "ChatGPT web open/find",
+      "status": "VERIFIED",
+      "web_page_row_date": "2026-11-20",
+      "page_read_at_utc": "2026-11-23T13:30:20.567Z"
     },
     {
       "group": "risk",
@@ -1140,11 +1441,17 @@
       "observed_headers": [],
       "observed_row_text": "2026-11-20 | 10.4133580705009 | extreme fear",
       "read_method": "CNN_OFFICIAL_HISTORICAL_JSON",
-      "read_status": "API_RESPONSE_READ_SUCCESS",
-      "http_status": 200,
+      "read_status": "API_BODY_NOT_CAPTURED_BY_WEB_READER",
+      "http_status": null,
       "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
-      "raw_response_sha256": "77bf8467da2cb594bd28e8a59ed9127ce90f5f5b65f2cc59cc2db95ac7d74914",
-      "web_read_tool": "CNN official historical graphdata endpoint"
+      "raw_response_sha256": null,
+      "web_read_tool": "CNN official historical graphdata endpoint",
+      "status": "PENDING_OFFICIAL_API_BODY_CAPTURE",
+      "provenance": "PENDING_CNN_OFFICIAL_API_CAPTURE",
+      "web_reader_ref": "turn151218view0",
+      "web_line_start": 0,
+      "web_line_end": 0,
+      "web_reader_note": "Endpoint opened, but response body was not exposed by web reader; requires Playwright official API body capture."
     }
   ]
 }
