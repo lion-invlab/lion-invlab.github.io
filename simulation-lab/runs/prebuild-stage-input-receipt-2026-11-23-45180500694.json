@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "status": "PASS",
+  "gate": "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT",
+  "report_date": "2026-11-23",
+  "repository": "lion-invlab/lion-invlab.github.io",
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "workflow_run_id": "45180500694",
+  "workflow_run_attempt": "1",
+  "fixture": {
+    "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
+    "sha256": "ba9e0ac7da04bbeb5c9742f20b0113630af730715e4eee674b8a290055526642"
+  },
+  "stage_2_market": {
+    "trading_date": "2026-11-20",
+    "indicator_count": 44,
+    "group_counts": {
+      "global_markets": 17,
+      "sectors": 11,
+      "bonds": 3,
+      "fx": 6,
+      "energy": 2,
+      "metals": 2,
+      "risk": 3
+    },
+    "observation_count": 44,
+    "observation_record_hash_count": 44,
+    "prior_observations_reused": 0,
+    "source_pages_fetched_this_run": true,
+    "numeric_values_reconciled_this_run": true,
+    "raw_response_sha256_saved_count": 1,
+    "audit_path": "simulation-lab/output/market-snapshot-audit.json",
+    "audit_sha256": "4d298b0747470431f59056702e6b00af829bf29d69b6688b77053b99354f3355",
+    "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
+    "manifest_sha256": "2953b4c98032b3d2bebe33d44332b2929f61d0fb212360f00ea8e32283dae391"
+  },
+  "stage_3_calendar": {
+    "repository": "lion-invlab/lion-invlab.github.io",
+    "branch": "main",
+    "main_commit_sha": "9da1720204d1603efeb3ef419d75b2dfdcc384b8",
+    "current": {
+      "path": "data/calendar/weeks/2026-W48.json",
+      "blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
+      "week_id": "2026-W48",
+      "week_start": "2026-11-23",
+      "week_end": "2026-11-29",
+      "economic_count": 27,
+      "earnings_count": 11
+    },
+    "previous": {
+      "path": "data/calendar/weeks/2026-W47.json",
+      "blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+      "week_id": "2026-W47",
+      "week_start": "2026-11-16",
+      "week_end": "2026-11-22",
+      "economic_count": 25,
+      "earnings_count": 23
+    },
+    "mode": "READ_ONLY_PINNED_MAIN_COMMIT"
+  },
+  "stage_4_news_and_analysis": {
+    "focus_news_count": 5,
+    "headlines_count": 10,
+    "unique_news_urls": 15,
+    "news_window_taipei": "2026/11/20 12:00–2026/11/23 05:25（台灣時間）",
+    "news_cutoff_taipei": "2026-11-23 05:25:00",
+    "analysis_layers": [
+      "macro",
+      "markets",
+      "policy_industry",
+      "political",
+      "strategy"
+    ],
+    "political_domains": [
+      "energy_resources",
+      "geopolitics",
+      "major_economies",
+      "trade_sanctions",
+      "us_china",
+      "us_policy"
+    ],
+    "political_findings_count": 8,
+    "report_cutoff_taipei": "2026-11-23 05:25"
+  },
+  "created_at_utc": "2026-11-23T13:06:09Z",
+  "limitations": [
+    "Stage 2 requires 44 complete current-session source observations with independently mapped values; prior fixture observations are ineligible.",
+    "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
+    "Stage 3 calendar records are read-only projections from one pinned main commit.",
+    "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA."
+  ]
+}
