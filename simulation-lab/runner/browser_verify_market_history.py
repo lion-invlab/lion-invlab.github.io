@@ -5,6 +5,7 @@ Page-read success is deliberately separate from numeric/instrument verification.
 from __future__ import annotations
 import argparse, asyncio, hashlib, json, re
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from playwright.async_api import async_playwright
 
@@ -97,7 +98,10 @@ def parse_cnn_history(payload, target):
         if stamp is None:
             continue
         try:
-            observed_date = datetime.fromtimestamp(float(stamp) / 1000, timezone.utc).date().isoformat()
+            point_time = datetime.fromtimestamp(float(stamp) / 1000, timezone.utc)
+            # CNN graphdata timestamps are UTC, but rows represent US market sessions.
+            # At 00:00 UTC the New York market date is the prior calendar day.
+            observed_date = point_time.astimezone(ZoneInfo("America/New_York")).date().isoformat()
         except (TypeError, ValueError, OverflowError):
             continue
         if observed_date == target:
