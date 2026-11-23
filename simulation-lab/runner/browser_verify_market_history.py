@@ -18,8 +18,13 @@ def date_in_row(text, target):
     d=dt.strptime(target,"%Y-%m-%d")
     forms=[target,d.strftime("%b %d, %Y"),d.strftime("%B %d, %Y"),
            d.strftime("%d/%m/%Y"),d.strftime("%m/%d/%Y"),
-           d.strftime("%d %b %Y"),d.strftime("%b %d, %y")]
-    return any(x.lower() in text.lower() for x in forms)
+           d.strftime("%d %b %Y"),d.strftime("%b %d, %y"),
+           f"{d.year}年{d.month}月{d.day}日",
+           f"{d.year}/{d.month}/{d.day}",
+           f"{d.month}/{d.day}/{d.year}",
+           f"{d.day}/{d.month}/{d.year}"]
+    low=text.lower()
+    return any(x.lower() in low for x in forms)
 
 async def observe(browser,row,target,timeout,sem):
     out={"name":row["name"],"group":row["group"],"source_url":row["source_url"],
@@ -35,17 +40,25 @@ async def observe(browser,row,target,timeout,sem):
             out["page_title"]=await page.title()
             out["final_url"]=page.url
             # Do not wait 30 seconds for a table that may never render.
-            try:
-                await page.locator("table tbody tr").first.wait_for(state="visible",timeout=min(timeout,8000))
-            except Exception:
-                pass
-            rows=await page.locator("table tbody tr").all_inner_texts()
-            matches=[x.strip() for x in rows if date_in_row(x,target)]
-            out["rendered_table_row_count"]=len(rows)
-            out["target_date_rows"]=matches[:3]
+            # Investing.com HK pages may use Chinese-localized dates; US pages use English.
+            # Do not assume a semantic HTML table: inspect table rows, ARIA rows, then body text.
+            rows=[]
+            for selector in ("table tr", '[role="row"]'):
+                try:
+                    await page.locator(selector).first.wait_for(state="visible",timeout=min(timeout,5000))
+                    found=await page.locator(selector).all_inner_texts()
+                    rows.extend(x.strip() for x in found if x.strip())
+                except Exception:
+                    pass
+            body_text=await page.locator("body").inner_text()
+            body_lines=[x.strip() for x in body_text.splitlines() if x.strip()]
+            matches=list(dict.fromkeys(x for x in rows+body_lines if date_in_row(x,target)))
+            out["rendered_row_candidate_count"]=len(rows)
+            out["body_text_line_count"]=len(body_lines)
+            out["target_date_rows"]=matches[:5]
             if not matches:
-                out["status"]="SOURCE_NO_DATA" if rows else "TOOL_READ_FAILURE"
-                out["error"]="TARGET_DATE_ROW_NOT_FOUND" if rows else "NO_RENDERED_HISTORY_ROWS"
+                out["status"]="PAGE_READ_NO_MATCH"
+                out["error"]="TARGET_DATE_NOT_FOUND_IN_RENDERED_CONTENT; NOT EVIDENCE_OF_SOURCE_NO_DATA"
                 return out
             candidate=matches[0]
             tokens=re.findall(r"[+\-\u2212]?\d[\d,]*(?:\.\d+)?\s*(?:%|bp)?",candidate,re.I)
@@ -115,7 +128,7 @@ def main():
             "method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE_BOUNDED_CONCURRENCY",
             "row_count":44,"concurrency":a.concurrency,"timeout_ms":a.timeout_ms,
             "status_counts":counts,"verified_count":0,"observations":observations,
-            "warning":"This stage records rendered source observations only. Generic numeric matches do not verify instrument identity, quote convention, or field mapping; no row is promoted to VERIFIED."}
+            "warning":"A missing DOM table or date match is classified as reader/page observation failure, never SOURCE_NO_DATA. Generic numeric matches do not verify instrument identity, quote convention, or field mapping; no row is promoted to VERIFIED."}
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":str(out),"status_counts":counts,"row_count":len(observations)},ensure_ascii=False))
