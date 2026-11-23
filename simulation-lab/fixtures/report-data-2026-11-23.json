@@ -3438,7 +3438,7 @@
       {
         "domain": "geopolitics",
         "title": "AP報導班加西港俄羅斯護衛艦疑似遭無人機攻擊",
-        "classification": "reported_unverified",
+        "classification": "unverified",
         "source_url": "https://apnews.com/article/libya-russia-vessel-drone-benghazi-59f6f304f3053c69c8cc890138a94d1b",
         "published_at": "2026-11-22",
         "published_time_status": "NOT_DISPLAYED",
@@ -3477,7 +3477,7 @@
       {
         "domain": "energy_resources",
         "title": "胡塞武裝聲稱攻擊沙烏地Rabigh煉油與石化設施",
-        "classification": "reported_unverified",
+        "classification": "unverified",
         "source_url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
         "published_at": "2026-11-22T17:52:00Z",
         "checked_at": "2026-11-23T06:17:33+08:00",
