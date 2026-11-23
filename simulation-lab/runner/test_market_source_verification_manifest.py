@@ -27,8 +27,8 @@ def main():
     assert all(r["source_page_fetched"] is False for r in result["rows"])
     assert all(r["display_value_reconciled"] is False for r in result["rows"])
     assert verified==[]
-    assert all(r["observation_provenance"]=="NO_CURRENT_RUN_BROWSER_OBSERVATION" for r in result["rows"])
-    assert all(r["evidence_status"]=="NO_CURRENT_RUN_OBSERVATION" for r in result["rows"])
+    assert all(r["observation_provenance"]=="NO_COMPLETE_CURRENT_RUN_OBSERVATION" for r in result["rows"])
+    assert all(r["evidence_status"]=="BROWSER_OBSERVATION_PENDING" for r in result["rows"])
     assert all(r["observation_record_sha256"] is None for r in result["rows"])
     assert all(r["browser_observation_record"] is None for r in result["rows"])
     
@@ -53,7 +53,7 @@ def main():
         assert "home.treasury.gov" in bond_rows[name]["cross_check_url"]
         assert bond_rows[name]["cross_check_role"]=="CROSS_CHECK_ONLY"
     assert all(r["raw_response_sha256"] is None for r in result["rows"])
-    assert "不接受 Fixture 內的舊觀察紀錄" in result["warning"]
+    assert "舊 Fixture 觀察紀錄不納入驗證" in result["warning"]
     assert all(r["observed_at_tw"] is None for r in result["rows"])
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
