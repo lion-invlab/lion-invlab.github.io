@@ -21,3 +21,5 @@ Re-run after correcting obsolete regression assertion: weekend FedWatch freshnes
 [build-tac-report:2026-11-23] Re-run Stage 2 using 43 independently opened Investing.com historical pages with web citation line evidence, plus a fresh Playwright read of CNN official graphdata body; no fabricated CNN observation values or hashes. Continue full SIM-1.4 build only if all 44 pass.
 
 [build-tac-report:2026-11-23] Rebuild after correcting CNN 2026-11-20 official graphdata score to 11.1847866419295 (TAC display 11). The prior fixture value 10.4133580705009 was disproved by the official endpoint. Re-read the CNN API body this run, require 44/44, then rebuild and QA on Simulation only.
+
+[build-tac-report:2026-11-23] Full SIM-1.4 build after all deterministic tests pass with corrected CNN official graphdata score 11.1847866419295 and 43 cited historical source rows. Stage 2 must perform a fresh Playwright capture of CNN API body and verify 44/44 before assembly.
