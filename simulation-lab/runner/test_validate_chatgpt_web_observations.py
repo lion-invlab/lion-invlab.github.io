@@ -32,7 +32,7 @@ def make_bundle(data):
                 change = source.get("band")
             is_cnn = group == "risk" and name == "fear_greed"
             if is_cnn:
-                value = "10.4133580705009"
+                value = "11.1847866419295"
             value_field = "fear_and_greed_historical.data[].y" if is_cnn else "Price"
             change_field = "fear_and_greed_historical.data[].rating" if is_cnn else "Change %"
             headers = [value_field, change_field]
