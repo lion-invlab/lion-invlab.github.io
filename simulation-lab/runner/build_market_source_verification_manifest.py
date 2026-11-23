@@ -32,7 +32,7 @@ IDENTITY_ALIASES = {
     "韓國 KOSPI": ["KOSPI", "KS11"],
     "台灣加權指數": ["Taiwan Weighted", "TWII"],
     "新加坡海峽時報指數 STI": ["FTSE Straits Times", "STI"],
-    "澳洲 S&P/ASX 200": ["S&P/ASX 200", "ASX 200", "AXJO"],
+    "澳洲 S&P/ASX 200": ["S&P/ASX 200", "S&P/ASX200", "ASX 200", "AXJO"],
     "上海綜合指數": ["Shanghai Composite", "SSEC"],
     "深證成指": ["SZSE Component", "SZI"],
     "香港恆生指數": ["Hang Seng", "HSI"],
