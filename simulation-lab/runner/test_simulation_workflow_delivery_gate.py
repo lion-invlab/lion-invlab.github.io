@@ -77,6 +77,17 @@ assert "prebuild_receipt.get(\"status\") != \"PASS\"" in delivery
 assert "prebuild_input_receipt_sha256" in delivery
 assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in Path("simulation-lab/runner/validate_prebuild_stage_inputs.py").read_text(encoding="utf-8")
 
+capture = section_after(WORKFLOW, "Capture simulation checkout provenance")
+metadata = section_after(WORKFLOW, "Record isolated run metadata")
+artifact_audit = section_after(WORKFLOW, "Verify downloaded simulation evidence bundle")
+assert "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" in capture
+assert 'echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA"' in capture
+assert 'echo "commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in metadata
+assert 'echo "trigger_commit=$GITHUB_SHA"' in metadata
+assert 'echo "commit=$GITHUB_SHA"' not in metadata
+assert '--expected-trigger-commit "${GITHUB_SHA}"' in artifact_audit
+assert "expected_trigger_commit" in Path("simulation-lab/runner/audit_simulation_artifact_bundle.py").read_text(encoding="utf-8")
+
 print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, read back, and required for explicit main handoff.")
 print("PASS: main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
 
