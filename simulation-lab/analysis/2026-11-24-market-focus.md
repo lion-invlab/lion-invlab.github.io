@@ -173,3 +173,30 @@ Investing.com 歷史資料頁已直接讀取到以下 10 檔 11/23 收盤列；X
 - 證據：使用者於 2026-11-24 對話提供之截圖（檔案 ID：file_000000005aa882099c0d9b463450dc0f）。此為使用者直接提供的來源畫面，不冒稱為 TradingView／Yahoo／CNBC／EODData 的頁面觀察。
 - 本次使用者指示優先於先前對收盤口徑的疑慮；11/23 MOVE 顯示值核定為 100.91、-5.08%。後續 Fixture 與觀測紀錄應引用此證據並註明來源類型為 USER_SUPPLIED_SCREENSHOT。
 - 日經 225：11/23 日本市場休市，顯示「休市」，不顯示點位及漲跌幅。
+
+## 2026-11-23 close｜新取得之日期專屬來源觀察（2026-11-24）
+
+以下為本輪重新讀取到 2026-11-23 日期列的資料；僅列出有明確來源頁面／報導及日期列者，不以 11/20 舊值補位：
+
+| 項目 | 2026-11-23 觀察值 | 來源／證據 |
+|---|---:|---|
+| 道瓊工業指數 | 49,595.31；+3.01% | AP 11/23 收盤報導 |
+| 標普500 | 7,237.17；+4.73% | AP 11/23 收盤報導 |
+| Nasdaq Composite | 24,089.56；+6.51% | AP 11/23 收盤報導 |
+| Russell 2000 | 2,669.66；+3.40% | AP 11/23 收盤報導 |
+| VIX | 28.22；-21.37% | Investing.com CBOE VIX 歷史資料 11/23 row |
+| 美國10年期公債殖利率 | 4.920%；-0.61% | Investing.com 10-Year Bond Yield 歷史資料 11/23 row |
+| DXY | 104.29；+0.42% | Investing.com US Dollar Index 歷史資料 11/23 row |
+| WTI | 80.17；-3.88% | Reuters 11/23 原油收盤報導 |
+| Brent | 89.37；-3.46% | Reuters 11/23 原油收盤報導 |
+| MOVE | 100.91；-5.08% | 使用者提供之 11/23 截圖；畫面時間 16:17 GMT-5 |
+| 日經225 | 休市 | 使用者確認：只顯示「休市」，不顯示點位與漲跌幅 |
+
+來源連結：
+- AP：https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704
+- Investing.com VIX：https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487
+- Investing.com 10年期美債：https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data
+- Investing.com DXY：https://www.investing.com/indices/usdollar-historical-data
+- Reuters WTI／Brent：https://www.reuters.com/business/energy/oil-prices-fall-amid-equity-selloff-though-iran-war-attacks-limit-losses-2026-11-23/
+
+限制：上述 10 項並不等於 44 項完成。其他全球指數、11 個產業 ETF、其餘債券／匯率／貴金屬及 CNN Fear & Greed 尚須逐項取得同一日期的合格來源列；不得沿用 11/20 Fixture 值。當前 11/24 Fixture 仍未建立，故尚未執行當日 Builder／Browser QA。
