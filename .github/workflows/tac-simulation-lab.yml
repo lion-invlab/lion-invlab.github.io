@@ -296,6 +296,7 @@ jobs:
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
           # Stage 2 must attempt the live source read before any observation manifest or Gate is created.
+          python -m playwright install chromium
           python simulation-lab/runner/browser_verify_market_history.py \
             --fixture "${REPORT_DATA}" \
             --report-date "${REPORT_DATE}" \
