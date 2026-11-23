@@ -77,10 +77,17 @@ def main() -> None:
     # observations are unavailable.
     pending_data = copy.deepcopy(data)
     overlay = apply_market_source_verification_manifest(pending_data, manifest)
-    assert overlay == {"verified_count": 0, "pending_count": 44, "status": "PENDING"}
+    closed_rows = [row for row in manifest["rows"] if row.get("verification_status") == "CLOSED"]
+    assert overlay["verified_count"] == 0
+    assert overlay["pending_count"] == 44
+    assert overlay["closed_count"] == len(closed_rows)
+    assert overlay["status"] == "PENDING"
     for row in manifest["rows"]:
         group, name = row["group"], row["name"]
-        if group == "sectors":
+        if row.get("verification_status") == "CLOSED":
+            assert pending_data[group][name]["display"] == "休市"
+            assert pending_data[group][name]["change_display"] == "—"
+        elif group == "sectors":
             assert pending_data["sectors"][name] == "待核實"
         else:
             assert pending_data[group][name]["display"] == "待核實"
