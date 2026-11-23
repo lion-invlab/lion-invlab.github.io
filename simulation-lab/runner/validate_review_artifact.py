@@ -172,6 +172,43 @@ def main():
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
         raise SystemExit("fixture provenance SHA does not match immutable build commit")
     fixture = json.loads(fixture_bytes)
+    # Fail closed when the same CNN Fear & Greed observation is rendered with
+    # inconsistent values across the numeric card, sentiment interpretation,
+    # and five-layer market analysis.
+    fg_record = fixture.get("risk", {}).get("fear_greed", {})
+    fg_display = str(fg_record.get("display", "")).strip()
+    fg_source_value = fg_record.get("source", {}).get("source_score_value")
+    if not fg_display or fg_source_value is None:
+        raise SystemExit("CNN Fear & Greed canonical score evidence missing from fixture")
+    try:
+        canonical_fg = str(int(float(fg_source_value) + 0.5))
+    except (TypeError, ValueError):
+        raise SystemExit("CNN Fear & Greed source score is not numeric")
+    if canonical_fg != fg_display:
+        raise SystemExit(f"CNN Fear & Greed fixture display {fg_display!r} differs from rounded official source score {canonical_fg!r}")
+    expected_fg_phrase = f"Fear & Greed {fg_display}"
+    if expected_fg_phrase not in str(fixture.get("sentiment", "")):
+        raise SystemExit("fixture sentiment interpretation does not match canonical CNN Fear & Greed score")
+    market_paragraphs = fixture.get("market_analysis", {}).get("markets", {}).get("paragraphs", [])
+    if not market_paragraphs or any(("Fear & Greed" in str(p) and expected_fg_phrase not in str(p)) for p in market_paragraphs):
+        raise SystemExit("fixture market-analysis Fear & Greed reference differs from canonical CNN score")
+    fg_card = soup.select_one("#sentiment .cnn-fg-preview .fg6-score-main")
+    fg_marker = soup.select_one("#sentiment .cnn-fg-preview .fg6-marker")
+    if fg_card is None or fg_card.get_text(strip=True) != fg_display:
+        raise SystemExit("rendered CNN Fear & Greed numeric card differs from canonical fixture score")
+    if fg_marker is None or str(fg_marker.get("data-score", "")).strip() != fg_display:
+        raise SystemExit("rendered CNN Fear & Greed scale marker differs from canonical fixture score")
+    sentiment_section = soup.select_one("#sentiment")
+    sentiment_text = sentiment_section.get_text(" ", strip=True) if sentiment_section else ""
+    if expected_fg_phrase not in sentiment_text:
+        raise SystemExit("rendered sentiment interpretation differs from canonical CNN Fear & Greed score")
+    rendered_market_paragraphs = [
+        node.get_text(" ", strip=True)
+        for node in soup.select('#market-analysis [data-analysis-layer="markets"] [data-analysis-content="markets"] > p')
+        if "market-analysis-sources" not in node.get("class", [])
+    ]
+    if not rendered_market_paragraphs or any(("Fear & Greed" in p and expected_fg_phrase not in p) for p in rendered_market_paragraphs):
+        raise SystemExit("rendered market-analysis Fear & Greed reference differs from canonical CNN score")
     political_scan_receipt = validate_political_scan(fixture)
     expected_layers = [
         ("political", "一、政治與地緣政治局勢"),
