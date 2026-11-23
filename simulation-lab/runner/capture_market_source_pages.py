@@ -102,19 +102,59 @@ def capture_manifest(manifest: dict, output_dir: Path, sleep_seconds: float = 1.
         item["capture"]["challenge_page_detected"] = challenge_page
         rows.append(item)
         last_host = host
-    captured = sum(1 for r in rows if r["source_page_fetched"])
+    http_capture_successes = sum(
+        1 for row in rows
+        if row.get("capture", {}).get("http_status") == 200
+        and row.get("capture", {}).get("raw_response_sha256")
+    )
+    page_readable_count = sum(1 for row in rows if row.get("page_readable") is True)
+    tool_read_failure_count = sum(1 for row in rows if row.get("verification_status") == "TOOL_READ_FAILURE")
+    raw_response_saved_count = sum(
+        1 for row in rows if row.get("capture", {}).get("raw_response_sha256")
+    )
+    reconciled_count = sum(1 for row in rows if row.get("display_value_reconciled") is True)
     result = dict(manifest)
     result.update({
-        "verification_scope": "PRESERVED_VERIFIED_ROWS_AND_CAPTURED_PENDING_ROWS",
-        "source_pages_fetched": captured == len(rows),
-        "displayed_values_independently_reconciled": all(row.get("display_value_reconciled") is True for row in rows),
+        "source_value_verification_status": manifest.get("status"),
+        "source_value_verification_scope": manifest.get("verification_scope"),
+        "capture_status": (
+            "CAPTURE_FAILED" if page_readable_count == 0
+            else "CAPTURE_PARTIAL" if page_readable_count < len(rows)
+            else "CAPTURED_PENDING_VALUE_RECONCILIATION"
+        ),
+        "status": (
+            "CAPTURE_FAILED" if page_readable_count == 0
+            else "CAPTURE_PARTIAL" if page_readable_count < len(rows)
+            else "CAPTURED_PENDING_VALUE_RECONCILIATION"
+        ),
+        "verification_scope": "CURRENT_RUN_SOURCE_PAGE_CAPTURE_SEPARATE_FROM_PRIOR_OBSERVATIONS",
+        "source_pages_fetched": page_readable_count == len(rows),
+        "page_readable_count": page_readable_count,
+        "http_capture_success_count": http_capture_successes,
+        "displayed_values_independently_reconciled": reconciled_count == len(rows),
+        "current_run_reconciled_count": reconciled_count,
+        "prior_observation_reused_count": skipped_verified,
+        "prior_observation_missing_time_count": sum(
+            1 for row in rows
+            if row.get("observation_provenance") == "MISSING_PER_ITEM_OBSERVATION_TIME"
+        ),
+        "verified_count": sum(
+            1 for row in rows
+            if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
+        ),
+        "pending_count": sum(
+            1 for row in rows
+            if row.get("verification_status") not in ("VERIFIED", "BACKUP_VERIFIED")
+        ),
+        "row_count": len(rows),
         "capture_attempted_count": attempted,
         "already_verified_skip_count": skipped_verified,
-        "capture_success_count": sum(1 for row in rows if row.get("capture", {}).get("http_status") == 200 and row.get("capture", {}).get("raw_response_sha256")),
-        "capture_failure_count": attempted - sum(1 for row in rows if row.get("capture", {}).get("http_status") == 200 and row.get("capture", {}).get("raw_response_sha256")),
-        "tool_read_failure_count": sum(1 for row in rows if row.get("verification_status") == "TOOL_READ_FAILURE"),
+        "capture_success_count": http_capture_successes,
+        "capture_failure_count": attempted - http_capture_successes,
+        "tool_read_failure_count": tool_read_failure_count,
+        "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": "HTTP 200/raw-body capture is not numeric verification. Previously verified rows remain locked; all remaining rows require independent reconciliation.",
+        "warning": "HTTP 200/raw-body capture is not page readability or numeric verification. Prior observations and current-run capture outcomes are reported separately.",
     })
     return result
 
