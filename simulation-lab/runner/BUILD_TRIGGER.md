@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-23T05:25:00+08:00
 news_window_taipei: 2026-11-20T12:00:00+08:00/2026-11-23T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: 5d2fd538aae149866e5b70c54c490bf0ef05ada6
+workflow_blob_sha: 745cef00ae7de8c7d1e3a558fa18cce5b6bb337f
 active_rules_version: SIM-1.4
 active_rules_blob_sha: 6ab8852582b81f9da0bca7e974fbf39847067aed
 qa_contract_version: 1.21
@@ -46,3 +46,5 @@ the production homepage. Optional research probes remain disabled.
 Fixture correction log (2026-11-23): political_scan.findings[6] and [7] were normalized from the invalid classification `reported_unverified` to the SIM-1.4 fixed enum `unverified`. Original fixture blob SHA: 8f6664356fec46c0ddb8f0a46e12eeb0e45225bc. No source, event text, transmission, scenario, or market data was changed.
 
 Projection provenance correction (2026-11-23): calendar_main_commit_sha rebound from 09e0e5fe64a781373464858fb70c800e4ffbf098 to 0fa194ae20bb97a72420ad7104bdc4c226a8e65e after verifying the W48 calendar blob is identical (9bb842ab475fa38ca6407304990d1cd3fae42c63). No forecast values, source observations, or reporting periods changed. Original projection blob SHA: 256c86a424b76e0b9cb4a85f915ea3ddac62f4b1.
+
+Workflow pin correction log (2026-11-23): aligned the W48 consensus projection to the current immutable main commit and its unchanged W48 calendar blob; created candidate-validation output directories before the isolated W47 overlay. No main files were modified.
