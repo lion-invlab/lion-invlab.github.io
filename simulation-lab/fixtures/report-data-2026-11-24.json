@@ -2744,11 +2744,11 @@
           "status": "DIRECT_OPEN_CONFIRMED"
         },
         {
-          "label": "CNN Fear & Greed｜11/23官方指數",
-          "url": "https://edition.cnn.com/markets/fear-and-greed",
+          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
+          "url": "https://fgscore.com/en/markets/sp500",
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
         }
       ]
     },
@@ -2800,11 +2800,11 @@
           "status": "DIRECT_OPEN_CONFIRMED"
         },
         {
-          "label": "CNN Fear & Greed｜11/23官方指數",
-          "url": "https://edition.cnn.com/markets/fear-and-greed",
+          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
+          "url": "https://fgscore.com/en/markets/sp500",
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
         }
       ]
     },
@@ -2852,11 +2852,11 @@
           "status": "DIRECT_OPEN_CONFIRMED"
         },
         {
-          "label": "CNN Fear & Greed｜11/23官方指數",
-          "url": "https://edition.cnn.com/markets/fear-and-greed",
+          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
+          "url": "https://fgscore.com/en/markets/sp500",
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
         }
       ]
     },
@@ -2905,11 +2905,11 @@
           "status": "DIRECT_OPEN_CONFIRMED"
         },
         {
-          "label": "CNN Fear & Greed｜11/23官方指數",
-          "url": "https://edition.cnn.com/markets/fear-and-greed",
+          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
+          "url": "https://fgscore.com/en/markets/sp500",
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
         }
       ]
     },
@@ -2958,11 +2958,11 @@
           "status": "DIRECT_OPEN_CONFIRMED"
         },
         {
-          "label": "CNN Fear & Greed｜11/23官方指數",
-          "url": "https://edition.cnn.com/markets/fear-and-greed",
+          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
+          "url": "https://fgscore.com/en/markets/sp500",
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
         }
       ]
     }
