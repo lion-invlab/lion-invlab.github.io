@@ -440,7 +440,7 @@ jobs:
             --html "${BUILDER_OUTPUT}" \
             --fixture "${REPORT_DATA}" \
             --manifest simulation-lab/baseline/mother-template-manifest.json \
-            --section last_week_earnings \
+            --section last_week_earnings_and_calendar_impact \
             --output "${PATCHED_OUTPUT}" \
             --receipt "${PATCH_RECEIPT}"
           cp "${PATCHED_OUTPUT}" "${REPORT_OUTPUT}"
