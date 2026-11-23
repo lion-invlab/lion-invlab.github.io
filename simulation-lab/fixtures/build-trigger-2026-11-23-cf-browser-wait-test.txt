@@ -1,0 +1,1 @@
+SIM-1.4 Stage 2 retest after waiting for the browser's normal Cloudflare interstitial completion. No CAPTCHA bypass. No main publication.
