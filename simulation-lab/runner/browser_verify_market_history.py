@@ -144,8 +144,20 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
         page=await context.new_page()
         try:
             if row["name"] == "fear_greed":
-                # CNN's official page uses this JSON endpoint for its own chart.
-                # Read the provider's composite historical series, not its seven component rows.
+                # First open CNN Business dashboard; use its official graphdata endpoint
+                # for the exact historical composite row if the page itself is not date-specific.
+                official_page_status=None
+                try:
+                    official_response=await page.goto(row["source_url"],wait_until="domcontentloaded",timeout=min(timeout,8000))
+                    official_page_status=official_response.status if official_response else None
+                    out["official_page_title"]=await page.title()
+                    official_body=await page.locator("body").inner_text()
+                    out["official_page_last_updated"]=next((line.strip() for line in official_body.splitlines() if "last updated" in line.lower()),None)
+                except Exception as official_exc:
+                    out["official_page_error"]=f"{type(official_exc).__name__}: {official_exc}"
+                out["official_page_http_status"]=official_page_status
+                out["official_page_readable"]=official_page_status==200
+                # Read CNN's own composite historical series, never its seven component rows.
                 endpoint="https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
                 api_response=await context.request.get(endpoint,timeout=timeout,headers={
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
