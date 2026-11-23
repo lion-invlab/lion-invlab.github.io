@@ -22,6 +22,16 @@ def classify_http_response(status):
     return "PAGE_READ_OK"
 
 
+def classify_rendered_page(body_text, match_count):
+    """Separate access challenges from a successfully read page lacking the requested date."""
+    challenge_markers=("cloudflare", "captcha", "access denied", "verify you are human",
+                       "checking your browser", "just a moment")
+    if any(marker in str(body_text or "").lower() for marker in challenge_markers):
+        return "TOOL_READ_FAILURE"
+    if not match_count:
+        return "TARGET_DATE_NOT_FOUND"
+    return "PAGE_READ_OK"
+
 def date_in_row(text, target):
     from datetime import datetime as dt
     d=dt.strptime(target,"%Y-%m-%d")
@@ -66,17 +76,16 @@ async def observe(browser,row,target,timeout,sem):
                     pass
             body_text=await page.locator("body").inner_text()
             body_lines=[x.strip() for x in body_text.splitlines() if x.strip()]
-            challenge_markers=("cloudflare", "captcha", "access denied", "verify you are human",
-                               "checking your browser", "just a moment")
-            if any(marker in body_text.lower() for marker in challenge_markers):
-                out["status"]="TOOL_READ_FAILURE"
-                out["error"]="SOURCE_PAGE_CHALLENGE_OR_ACCESS_BLOCK; NOT EVIDENCE_OF_SOURCE_NO_DATA"
-                return out
             matches=list(dict.fromkeys(x for x in rows+body_lines if date_in_row(x,target)))
             out["rendered_row_candidate_count"]=len(rows)
             out["body_text_line_count"]=len(body_lines)
             out["target_date_rows"]=matches[:5]
-            if not matches:
+            page_status=classify_rendered_page(body_text,len(matches))
+            if page_status == "TOOL_READ_FAILURE":
+                out["status"]="TOOL_READ_FAILURE"
+                out["error"]="SOURCE_PAGE_CHALLENGE_OR_ACCESS_BLOCK; NOT EVIDENCE_OF_SOURCE_NO_DATA"
+                return out
+            if page_status == "TARGET_DATE_NOT_FOUND":
                 out["status"]="TARGET_DATE_NOT_FOUND"
                 out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
                 return out
