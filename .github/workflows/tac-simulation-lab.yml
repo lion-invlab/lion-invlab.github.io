@@ -191,6 +191,7 @@ jobs:
           python simulation-lab/runner/test_simulation_artifact_bundle.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
+          python simulation-lab/runner/test_validate_chatgpt_web_observations.py
           python simulation-lab/runner/test_browser_http_classification.py
           python simulation-lab/runner/test_prebuild_stage_inputs.py
           python simulation-lab/runner/test_capture_market_source_pages.py
