@@ -47,3 +47,49 @@ AI 資本支出若維持，將支持半導體設備、電力、冷卻、網通�
 - W48 行事曆與財報實際值／共識逐項核對。
 - 5 則 Global Focus News、10 則 Market Hot Headlines 的完整時間窗與來源核對。
 - 當日 fixture、來源觀察 manifest、Stage 1–6、SIM-1.4 Builder、Browser QA、artifact audit。
+
+
+## 11/23 行情來源頁當次讀取紀錄（研究核對，不等同 44 項 SIM Gate）
+
+以下為本次直接開啟 Investing.com 歷史頁後讀取的 2026-11-23 日期列；保留來源頁標的名稱、收盤值與漲跌幅。來源頁若未提供 11/23 日期列，明確列待核實，不以舊值替代。
+
+| 指標 | 11/23 收盤 | 漲跌 | 來源頁 |
+|---|---:|---:|---|
+| 那斯達克綜合指數 | 24,090.26 | +6.51% | https://hk.investing.com/indices/nasdaq-composite-historical-data |
+| 費城半導體指數 | 9,588.1 | +14.03% | https://hk.investing.com/indices/phlx-semiconductor-historical-data |
+| 台灣加權指數 | 36,811.89 | +2.16% | https://hk.investing.com/indices/taiwan-weighted-historical-data |
+| 韓國 KOSPI | 4,708.54 | -3.31% | https://hk.investing.com/indices/kospi-historical-data |
+| 新加坡 STI | 4,953.81 | -0.43% | https://hk.investing.com/indices/singapore-straits-time-historical-data |
+| 澳洲 ASX 200 | 8,570.60 | -0.26% | https://hk.investing.com/indices/aus-200-historical-data |
+| 上海綜合指數 | 3,538.95 | +0.15% | https://hk.investing.com/indices/shanghai-composite-historical-data |
+| 深證成指 | 10,454.37 | +1.93% | https://hk.investing.com/indices/szse-component-historical-data |
+| 道瓊工業指數 | 49,598.97 | +3.01% | https://hk.investing.com/indices/us-30-historical-data |
+| 恆生指數 | 22,383.74 | -0.12% | https://www.investing.com/indices/hang-sen-40-historical-data |
+| 英國 FTSE 100 | 10,485.36 | +1.34% | https://www.investing.com/indices/uk-100-historical-data |
+| 德國 DAX | 25,337.27 | +2.15% | https://www.investing.com/indices/germany-30-historical-data?cid=23657 |
+| 法國 CAC 40 | 8,044.84 | +1.48% | https://hk.investing.com/indices/france-40-historical-data |
+| STOXX Europe 600 | 636.96 | +1.81% | https://www.investing.com/indices/stoxx-600-historical-data |
+| 美國 2 年期公債殖利率 | 4.683% | +0.74% | https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data |
+| 美國 10 年期公債殖利率 | 4.935% | -0.30% | https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data |
+| 美國 30 年期公債殖利率 | 5.308% | -0.55% | https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data |
+| 美元指數 DXY | 104.32 | +0.45% | https://www.investing.com/indices/usdollar-historical-data |
+| 美元／新台幣 | 32.863 | -0.32% | https://hk.investing.com/currencies/usd-twd-historical-data |
+| 歐元／美元 | 1.0903 | -0.62% | https://hk.investing.com/currencies/eur-usd-historical-data |
+| 英鎊／美元 | 1.3030 | -0.49% | https://hk.investing.com/currencies/gbp-usd-historical-data |
+| 澳幣／美元 | 0.6627 | -0.21% | https://hk.investing.com/currencies/aud-usd-historical-data |
+| 美元／日圓 | 158.98 | +0.03% | https://hk.investing.com/currencies/usd-jpy-historical-data |
+| WTI 原油期貨（2027年1月） | 80.22 | -4.48% | https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037 |
+| Brent 原油期貨（2027年1月） | 89.38 | -2.68% | https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095 |
+| 黃金期貨（2026年12月） | 3,635.60 | +3.42% | https://hk.investing.com/commodities/gold-historical-data?cid=1178341 |
+| 白銀期貨（2026年12月） | 42.180 | +2.70% | https://hk.investing.com/commodities/silver-historical-data?cid=1178344 |
+| VIX | 26.62 | -25.83% | https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487 |
+
+### 必須保留的來源衝突與缺漏
+- Investing.com 道瓊歷史列為 49,598.97；AP 收盤報導為 49,595.31，差異 3.66 點。不得混合成單一無註記數字。
+- Investing.com Nasdaq 歷史列為 24,090.26；AP 報導為 24,089.56，差異 0.70 點。須依 SIM 來源口徑及官方收盤基準決定顯示值。
+- AP 報導標普 500 收 7,237.17；Investing.com 相關頁的即時／歷史顯示曾出現 7,211.16、7,237.90 等不同值。需以完整日期列及標的口徑再核對，不可直接沿用搜尋摘要。
+- MOVE 頁面最新歷史列仍停在 11/20，故 11/23 必須標示 SOURCE_NO_DATA／待核實，不能沿用 106.31。
+- 日經 225 11/23 日本休市；不得將 11/20 數值偽裝為 11/23 新收盤。
+- 羅素 2000 Investing.com CA 歷史頁目前僅顯示至 11/20；AP 11/23 報導提供 +3.4% 漲幅與收盤 2,669.66，需另作來源口徑核對。
+- 目前尚未完成其餘未列全球指數、11 個產業 ETF、CNN Fear & Greed、其餘資料完整性與 SIM-1.4 來源觀察 manifest。
+
