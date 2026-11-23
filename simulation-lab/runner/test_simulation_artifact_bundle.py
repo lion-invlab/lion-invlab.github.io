@@ -94,7 +94,8 @@ def main() -> None:
     assert "tac-simulation-postupload-audit-" in workflow
     assert 'echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)"' in workflow
     assert 'echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA"' in workflow
-    assert 'echo "commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in workflow
+    assert 'echo "commit=$(git rev-parse HEAD)"' in workflow
+    assert 'echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in workflow
     assert 'echo "trigger_commit=$GITHUB_SHA"' in workflow
     assert "--expected-trigger-commit" in workflow
     print("PASS: workflow uploads, downloads, verifies, and separately archives the post-upload audit.")
