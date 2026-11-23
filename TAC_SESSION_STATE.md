@@ -1,3 +1,27 @@
+# 最新權威狀態｜2026-11-23 09:42｜SIM-1.4 E2E／獨立 Lint 均通過；排程與通知仍待驗收
+
+**本節優先於下方歷史紀錄。**
+
+## 最新新增驗證
+- 對成功建置 commit `0b27040cf920d6d668a4cc5b1c9a98cf9e08469f` 查詢 GitHub Check Runs，確認兩個 checks 均 completed／success：
+  - `isolated-smoke` Run `45094356471`：Builder／QA 完整成功。
+  - `lint` Run `45094356565`：獨立 lint 完整成功。
+- Lint Run `45094356565` 的三個核心步驟均成功：PyYAML workflow parse（jobs=['isolated-smoke']）、39 個 GitHub run commands 長度檢查、actionlint v1.7.12。
+- 最新 TAC Workflow blob SHA `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7` 的獨立 actionlint 已 PASS。舊 lint Run `45080346377` 的四個 if:false 與兩個 SC2129 是舊 Workflow SHA 的歷史結果，不可再當作最新 lint 狀態。
+- 注意：最新 lint workflow 不執行 shellcheck；本輪已證實 actionlint PASS，未宣稱獨立 shellcheck PASS。
+- 舊 Run `45080345516` 的 run metadata 顯示 event=push、workflow_id=409477606、conclusion=failure；Jobs API 明確回傳 total_count=0、jobs=[]。同一 commit 的 check-runs 僅有獨立 lint Check Run（失敗），沒有主 Pipeline job。具體造成主 Workflow 未建立 Job 的原因仍未能由 API 證據確定；不得猜測為 default branch 限制或 actionlint 問題。
+- 早報自動化 `Automation_f4da15cd95c881918c7412cdd6f35bb2` 目前仍 `is_enabled=false`；本輪未恢復。通知工具先前 404，尚未取得 `status=notified`。
+- 其餘最新 HTML、QA sidecar、SHA、Builder／Fixture／母版及九項 E2E 狀態，依本文件下方 09:27 權威狀態。
+
+## 下一步
+1. 獨立 actionlint 已 PASS，不再重做。
+2. 查明 Run 45080345516 0 Jobs 的具體觸發／GitHub Actions 執行原因；在證據不足前保持未解。
+3. 完成隔離失敗演練及通知送達驗收；notify_parent 未回傳 notified 不算 PASS。
+4. 九項 E2E 完成前維持 05:25 早報自動化停用。
+5. 使用者核准精確 HTML SHA 前不執行 Stage 6 main/preview handoff。
+
+---
+
 # 最新權威狀態｜2026-11-23 09:27｜SIM-1.4 E2E 建置與 QA 通過、Stage 6 待使用者核准
 
 **本節優先於下方歷史紀錄；不得再以 07:05 的 0 Jobs 阻塞狀態覆蓋本節。**
