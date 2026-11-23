@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: 8882d4c9abe356a61e95f7031dc1eb8fca945d9a
+fixture_blob_sha: 50c584a3a491efa6742fa37a5ba42009b78c7253
 main_calendar_commit_sha: 77ab012bb027591631c704d976468cf4ea2e2046
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
