@@ -61,6 +61,11 @@ def main() -> None:
         assert result["png_validated_count"] == 1
         metadata_path = root / "simulation-lab/output/runner-metadata.txt"
         metadata = metadata_path.read_text(encoding="utf-8")
+        metadata_path.write_text(metadata.replace("commit=abc123", "commit=wrong"), encoding="utf-8")
+        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
+        assert result["status"] == "FAIL"
+        assert any("build_commit_sha does not match runner metadata" in error for error in result["errors"])
+        metadata_path.write_text(metadata, encoding="utf-8")
         metadata_path.write_text(metadata.replace("trigger_commit=trigger456", "trigger_commit=wrong"), encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "FAIL"
