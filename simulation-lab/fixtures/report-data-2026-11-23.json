@@ -922,16 +922,16 @@
         "url": "https://edition.cnn.com/markets/fear-and-greed",
         "data_date": "2026-11-20",
         "quote_type": "third_party_provider_index",
-        "note": "CNN Business 官方頁面的 Fear & Greed Index；歷史分數以 CNN 官方 graphdata 歷史序列核對。2026-11-20 原始分數 10.4133580705009、評級 extreme fear；早報依整數顯示規則四捨五入為 10。",
-        "source_timestamp": "2026-11-20 18:59 EST",
+        "note": "CNN Business 官方頁面的 Fear & Greed Index；歷史分數以 CNN 官方 graphdata 歷史序列核對。2026-11-20 原始分數 11.1847866419295、評級 extreme fear；早報依整數顯示規則四捨五入為 11。",
+        "source_timestamp": "2026-11-20T00:00:00Z (CNN official graphdata point timestamp)",
         "read_at_taipei": "2026-11-21 17:57:31",
         "verified_at_tw": "2026-11-22T11:40:25+08:00",
-        "score_value": "10",
+        "score_value": "11",
         "band": "Extreme Fear",
         "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
         "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
-        "provider_timestamp_taipei": "2026-11-21T07:59:00+08:00",
+        "provider_timestamp_taipei": "2026-11-20T08:00:00+08:00 (CNN graphdata point timestamp)",
         "evidence_method": "CNN Business official dashboard + official graphdata historical series",
         "raw_response_sha256": null
       }
@@ -2304,7 +2304,7 @@
       "text": "整體採中性偏防禦，不追價高估值科技股；若11/23 22:45美國Flash PMI同步高於預估且美債殖利率續升，降低成長股曝險並保留現金；若PMI降溫且殖利率回落，再分批加碼現金流穩健、AI營收可驗證的企業。另追蹤中國兩融餘額、成交額與市場廣度；紅海事件須以官方確認與航運保險變化為準；美國EO 14438按聯邦合約曝險分層管理。"
     }
   ],
-  "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 10.4133580705009、評級 extreme fear；早報依整數顯示規則四捨五入為 10，並保存 CNN 官方 JSON response SHA-256。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
+  "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 11.1847866419295、評級 extreme fear；早報依整數顯示規則四捨五入為 11，並保存 CNN 官方 JSON response SHA-256。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
