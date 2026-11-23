@@ -99,7 +99,12 @@ def main():
             "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
         }
     positive = build_manifest(data, "2026-11-23", synthetic_observations)
-    assert positive["status"] == "PASS"
+    if positive["status"] != "PASS":
+        pending_rows = [
+            {key: row.get(key) for key in ("group", "name", "verification_status", "source_page_fetched", "display_value_reconciled", "observation_provenance", "raw_response_sha256", "observed_at_tw")}
+            for row in positive["rows"] if row.get("verification_status") not in ("VERIFIED", "BACKUP_VERIFIED")
+        ]
+        raise AssertionError("synthetic positive manifest did not pass: " + json.dumps(pending_rows, ensure_ascii=False))
     assert positive["verified_count"] == 44 and positive["pending_count"] == 0
     assert positive["prior_observation_reused_count"] == 0
     assert positive["source_pages_fetched"] is True
