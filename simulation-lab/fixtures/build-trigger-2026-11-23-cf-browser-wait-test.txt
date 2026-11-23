@@ -1,3 +1,5 @@
 SIM-1.4 Stage 2 retest after waiting for the browser's normal Cloudflare interstitial completion. No CAPTCHA bypass. No main publication.
 
 Retest after 3-pass same-source retry, CNN official decimal score rounding, and direct provider endpoint provenance.
+
+Stage 2 must consume simulation-lab/input/market-history-web-observations-2026-11-23.json, validate all 44 direct page reads, then continue SIM-1.4 only if Gate passes.
