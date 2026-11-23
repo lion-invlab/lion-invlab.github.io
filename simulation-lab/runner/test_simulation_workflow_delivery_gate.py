@@ -7,6 +7,11 @@ def section_after(text: str, marker: str) -> str:
     end = text.find("\n      - name:", start + len(marker))
     return text[start:] if end < 0 else text[start:end]
 
+transfer_evidence_step = section_after(WORKFLOW, "Materialize SHA-locked simulation Monday and weekday mothers")
+assert "indent=2)+'\\\\n'" not in transfer_evidence_step
+assert "indent=2)+'\\n'" in transfer_evidence_step
+assert "json.loads" in transfer_evidence_step
+
 inputs = section_after(WORKFLOW, "workflow_dispatch:")
 assert "publish_to_main:" in inputs
 publish_input = inputs.split("publish_to_main:", 1)[1].split("approved_html_sha:", 1)[0]
