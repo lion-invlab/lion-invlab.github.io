@@ -933,7 +933,8 @@
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "provider_timestamp_taipei": "2026-11-20T08:00:00+08:00 (CNN graphdata point timestamp)",
         "evidence_method": "CNN Business official dashboard + official graphdata historical series",
-        "raw_response_sha256": null
+        "raw_response_sha256": null,
+        "source_score_value": "11.2705009276438"
       }
     }
   },
