@@ -24,7 +24,7 @@ def classify_http_response(status):
 
 def classify_rendered_page(body_text, match_count):
     """Separate access challenges from a successfully read page lacking the requested date."""
-    challenge_markers=("cloudflare", "captcha", "access denied", "verify you are human",
+    challenge_markers=("captcha", "access denied", "verify you are human",
                        "checking your browser", "just a moment")
     if any(marker in str(body_text or "").lower() for marker in challenge_markers):
         return "TOOL_READ_FAILURE"
@@ -195,7 +195,7 @@ async def observe(context,row,target,timeout,sem):
                 try:
                     await page.wait_for_function("""() => {
                       const body=(document.body?.innerText || '').toLowerCase();
-                      const challenge=['just a moment','checking your browser','verify you are human','cloudflare'];
+                      const challenge=['just a moment','checking your browser','verify you are human','access denied'];
                       const stillBlocked=challenge.some(x=>body.includes(x));
                       const rows=document.querySelectorAll('table tr, [role=row]').length;
                       return !stillBlocked && rows > 1;
