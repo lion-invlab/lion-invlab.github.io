@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "mode": "local_dom_patch",
+  "section": "last_week_earnings_and_calendar_impact",
+  "target_selector": [
+    "#last-week-earnings",
+    "#last-week-calendar"
+  ],
+  "input_html_path": "simulation-lab/output/candidate-validation/2026-11-23-builder-input.html",
+  "input_html_sha256": "aef2469258276443d1fb820d07b56906920510aa6a51eb3d4d632a3ffcf148f6",
+  "output_html_path": "simulation-lab/output/candidate-validation/2026-11-23-w47-consensus-patched.html",
+  "output_html_sha256": "54b1cd60a72413a3d4abd28cf84d82a2dfe97a0de2ec389e9110fdbf05be1bd9",
+  "fixture_path": "simulation-lab/fixtures/report-data-2026-11-23.json",
+  "fixture_sha256": "f5b4e8cb1fc99ef6b2def8e3f2c673ffebbc259b8582a45103c1a46507021a6a",
+  "manifest_path": "simulation-lab/baseline/mother-template-manifest.json",
+  "non_target_dom_unchanged": true,
+  "full_report_rebuild": false,
+  "market_data_refresh": false,
+  "news_refresh": false,
+  "calendar_refresh": false,
+  "internal_receipt": {
+    "last_week_earnings": {
+      "status": "PASS",
+      "event_id": "current-nvda-20261118",
+      "ticker": "NVDA",
+      "week_id": "2026-W47",
+      "eps_estimate": 2.47121,
+      "eps_status": "beat",
+      "revenue_estimate": 108.7319039,
+      "revenue_status": "beat",
+      "eps_analyst_count": 43,
+      "revenue_analyst_count": 45,
+      "eps_evidence_label": "來源已記錄（PIT／補充欄位非採用門檻）",
+      "revenue_evidence_label": "來源已記錄（PIT／補充欄位非採用門檻）",
+      "judgment_engine_version": "1.4.0",
+      "judgment_audit": "PASS",
+      "actual_source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/",
+      "consensus_source_url": "https://finance.yahoo.com/quote/NVDA/analysis/",
+      "observed_at": "2026-11-15T05:50:45.889Z",
+      "observed_at_taipei": "2026-11-15T13:50:45+08:00",
+      "raw_response_sha256": "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a",
+      "capture_file_blob_sha": "46f9a7cc59b5fb6714219f053ce48b0da7dc9e52",
+      "price_reaction_preserved": true,
+      "non_target_cards_unchanged": true,
+      "visible_sources_scope": "W47 NVDA earnings card only; summary and five-layer source display remains hidden"
+    },
+    "last_week_calendar_impact": {
+      "status": "PASS",
+      "event_id": "current-fed-warsh-productivity-jobs-20261117",
+      "event_name": "聯準會主席 Kevin Warsh 開幕致詞：生產力與就業（Productivity and Jobs）",
+      "expected_impact_matched_exactly": true,
+      "impact": "演講偏向長期生產力與就業結構觀點，沒有提供短期利率或政策承諾；不應解讀為升息／降息訊號。若企業生產力指標改善、單位勞動成本增速下降且資本報酬率同步提高，才支持AI投資已轉化為可持續生產力；若只有資本支出增加，仍不足以確認生產力紅利。",
+      "source_url": "https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm",
+      "report_layer_only": true,
+      "authoritative_main_calendar_modified": false
+    }
+  }
+}
