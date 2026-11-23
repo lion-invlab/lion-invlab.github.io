@@ -145,7 +145,8 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "observation_record_hash_count": verified_count,
         "prior_observations_reused": 0,
         "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
-        "numeric_values_reconciled_this_run": verified_count,
+        "numeric_values_reconciled_this_run": verified_count == 44,
+        "numeric_values_reconciled_count": verified_count,
         "raw_response_sha256_saved_count": raw_hash_count,
     }
 
