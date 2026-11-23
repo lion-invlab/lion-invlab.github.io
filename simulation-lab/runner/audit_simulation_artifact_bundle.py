@@ -64,7 +64,8 @@ def validate_png(data: bytes) -> None:
 
 def audit_bundle(root: Path, report_path: str | None = None,
                  expected_run_id: str | None = None,
-                 expected_branch: str | None = None) -> dict:
+                 expected_branch: str | None = None,
+                 expected_trigger_commit: str | None = None) -> dict:
     root = root.resolve()
     errors: list[str] = []
     warnings: list[str] = []
@@ -119,6 +120,8 @@ def audit_bundle(root: Path, report_path: str | None = None,
             errors.append(f"runner metadata run_id mismatch: {metadata.get('run_id')} != {expected_run_id}")
         if expected_branch and metadata.get("branch") != expected_branch:
             errors.append(f"runner metadata branch mismatch: {metadata.get('branch')} != {expected_branch}")
+        if expected_trigger_commit and metadata.get("trigger_commit") != expected_trigger_commit:
+            errors.append(f"runner metadata trigger_commit mismatch: {metadata.get('trigger_commit')} != {expected_trigger_commit}")
     else:
         metadata = {}
 
@@ -197,6 +200,7 @@ def audit_bundle(root: Path, report_path: str | None = None,
         "qa_sidecar_path": sidecar_rel,
         "expected_run_id": str(expected_run_id) if expected_run_id else None,
         "expected_branch": expected_branch,
+        "expected_trigger_commit": expected_trigger_commit,
         "file_count": len(files),
         "json_validated_count_including_required_rechecks": checked_json,
         "png_validated_count": checked_png,
@@ -225,9 +229,10 @@ def main() -> int:
     parser.add_argument("--report-path")
     parser.add_argument("--expected-run-id")
     parser.add_argument("--expected-branch")
+    parser.add_argument("--expected-trigger-commit")
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
-    result = audit_bundle(Path(args.root), args.report_path, args.expected_run_id, args.expected_branch)
+    result = audit_bundle(Path(args.root), args.report_path, args.expected_run_id, args.expected_branch, args.expected_trigger_commit)
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
