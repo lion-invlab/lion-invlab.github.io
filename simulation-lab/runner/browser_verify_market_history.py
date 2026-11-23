@@ -182,6 +182,7 @@ async def observe(context,row,target,timeout,sem):
             out["started_at_utc"]=started
             out["finished_at_utc"]=datetime.now(timezone.utc).isoformat()
             await page.close()
+            await asyncio.sleep(0.5)
 
 async def run(a,work,target):
     sem=asyncio.Semaphore(a.concurrency)
@@ -216,7 +217,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--fixture",required=True); ap.add_argument("--report-date",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
-    ap.add_argument("--concurrency",type=int,default=6)
+    ap.add_argument("--concurrency",type=int,default=2)
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
     data=json.loads(Path(a.fixture).read_text(encoding="utf-8")); target=data.get("trading_date")
