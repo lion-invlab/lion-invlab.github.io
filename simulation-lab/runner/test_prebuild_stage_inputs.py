@@ -56,7 +56,7 @@ def main() -> None:
         "current": calendar_item("2026-W48", "2026-11-23", "2026-11-29", 27, 11, commit),
         "previous": calendar_item("2026-W47", "2026-11-16", "2026-11-22", 2, 1, commit),
     }
-    receipt = build_receipt(
+    expect_error(lambda: build_receipt(
         data=data, fixture_sha256="1" * 64,
         audit=audit, audit_sha256="2" * 64,
         manifest=manifest, manifest_sha256="3" * 64,
@@ -64,15 +64,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1",
-    )
-    assert receipt["status"] == "PASS"
-    assert receipt["gate"] == "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT"
-    assert receipt["stage_2_market"]["indicator_count"] == 44
-    assert receipt["stage_2_market"]["raw_response_sha256_saved_count"] == 0
-    assert receipt["stage_2_market"]["source_pages_fetched_this_run"] is False
-    assert receipt["stage_3_calendar"]["main_commit_sha"] == commit
-    assert receipt["stage_3_calendar"]["current"]["economic_count"] == 27
-    assert receipt["stage_4_news_and_analysis"]["unique_news_urls"] == 15
+    ), "market source observation manifest is not PASS")
 
     expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
                  "refusing non-simulation branch")
@@ -122,9 +114,9 @@ def main() -> None:
         workflow_run_id="45010119942", workflow_run_attempt="1"),
         "canonical ISO-week database path")
 
-    print("PASS: valid receipt binds 44 observations, two pinned main calendar weeks, 15 news items and five-layer analysis")
+    print("PASS: fixture-only 44 observations are rejected before Stage 2-4 receipt can be sealed")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
-    print("PASS: zero raw HTTP response hashes is accepted when browser observations are complete")
+    print("PASS: old fixture observations cannot produce a pre-build PASS receipt")
 
 
 if __name__ == "__main__":
