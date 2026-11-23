@@ -333,7 +333,8 @@ async def observe(context,row,target,timeout,sem):
             await asyncio.sleep(delay)
         attempt_row=dict(row)
         attempt_row["request_url"]=request_url
-        result=await observe_once(context,attempt_row,target,timeout,sem,challenge_wait_ms)
+        attempt_timeout=timeout if attempt_no==1 else min(timeout,8000)
+        result=await observe_once(context,attempt_row,target,attempt_timeout,sem,challenge_wait_ms)
         attempts.append({
             "round":attempt_no,
             "request_url":request_url,
