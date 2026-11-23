@@ -1,6 +1,11 @@
 name: TAC Simulation run failure monitor
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/tac-simulation-run-monitor.yml"
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
