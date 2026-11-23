@@ -75,7 +75,7 @@ def main() -> None:
     positions = [workflow.index(f"- name: {name}") for name in names]
     assert positions == sorted(positions), "post-upload artifact audit steps are out of order"
     for name in names[1:]:
-        block = workflow.split(f"- name: {name}", 1)[1].split("\\n      - name:", 1)[0]
+        block = workflow.split(f"- name: {name}", 1)[1].split("\n      - name:", 1)[0]
         assert "if: always()" in block, f"{name} must run after earlier failures"
     assert "uses: actions/download-artifact@v4" in workflow
     assert "audit_simulation_artifact_bundle.py" in workflow
