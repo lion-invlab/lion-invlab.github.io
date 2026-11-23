@@ -870,7 +870,8 @@ jobs:
           mkdir -p simulation-lab/output
           {
             echo "branch=simulation/tac-process-lab-2026-11-06"
-            echo "commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
+            echo "commit=$(git rev-parse HEAD)"
+            echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
             echo "trigger_commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
