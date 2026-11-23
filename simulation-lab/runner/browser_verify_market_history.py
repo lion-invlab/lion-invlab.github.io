@@ -5,7 +5,6 @@ Page-read success is deliberately separate from numeric/instrument verification.
 from __future__ import annotations
 import argparse, asyncio, hashlib, json, re
 from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 from pathlib import Path
 from playwright.async_api import async_playwright
 
@@ -93,26 +92,45 @@ def parse_cnn_history(payload, target):
     """Return CNN's own composite daily score/rating for the exact UTC date."""
     block = payload.get("fear_and_greed_historical") or {}
     points = block.get("data") or []
-    for point in points:
+    matches = []
+    recent = []
+    for index, point in enumerate(points):
         stamp = point.get("x") or point.get("timestamp")
         if stamp is None:
             continue
         try:
             point_time = datetime.fromtimestamp(float(stamp) / 1000, timezone.utc)
-            # CNN graphdata timestamps are UTC, but rows represent US market sessions.
-            # At 00:00 UTC the New York market date is the prior calendar day.
-            observed_date = point_time.astimezone(ZoneInfo("America/New_York")).date().isoformat()
+            observed_date = point_time.date().isoformat()
         except (TypeError, ValueError, OverflowError):
             continue
+        item = {
+            "array_index": index,
+            "date_utc": observed_date,
+            "timestamp_utc": point_time.isoformat(),
+            "score": point.get("y", point.get("score")),
+            "rating": str(point.get("rating") or "").strip().lower(),
+        }
         if observed_date == target:
-            score = point.get("y", point.get("score"))
-            rating = point.get("rating")
-            if score is None or not rating:
-                return {"status": "OBSERVED_PENDING_FIELD_MAPPING", "date": observed_date}
-            return {"status": "PAGE_READ_OK", "date": observed_date,
-                    "timestamp_utc": datetime.fromtimestamp(float(stamp) / 1000, timezone.utc).isoformat(),
-                    "score": score, "rating": str(rating).strip().lower()}
-    return {"status": "TARGET_DATE_NOT_FOUND"}
+            matches.append(item)
+        if index >= max(0, len(points) - 8):
+            recent.append(item)
+    if not matches:
+        return {"status": "TARGET_DATE_NOT_FOUND", "recent_points": recent}
+    # Keep the latest timestamp if CNN exposes more than one point for a UTC date;
+    # when timestamps tie, preserve the last point in the provider's array.
+    selected = sorted(matches, key=lambda x: (x["timestamp_utc"], x["array_index"]))[-1]
+    if selected["score"] is None or not selected["rating"]:
+        return {"status": "OBSERVED_PENDING_FIELD_MAPPING", "date": target,
+                "target_date_points": matches, "recent_points": recent}
+    return {
+        "status": "PAGE_READ_OK",
+        "date": target,
+        "timestamp_utc": selected["timestamp_utc"],
+        "score": selected["score"],
+        "rating": selected["rating"],
+        "target_date_points": matches,
+        "recent_points": recent,
+    }
 
 def split_cells(text):
     raw = str(text or "")
@@ -177,6 +195,20 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 out["raw_response_sha256"]=hashlib.sha256(raw).hexdigest()
                 payload=json.loads(raw.decode("utf-8"))
                 parsed=parse_cnn_history(payload,target)
+                headline=payload.get("fear_and_greed") or {}
+                historical=payload.get("fear_and_greed_historical") or {}
+                out["cnn_current_headline"]={
+                    "score":headline.get("score"), "rating":headline.get("rating"),
+                    "timestamp":headline.get("timestamp"),
+                    "previous_close":headline.get("previous_close"),
+                }
+                out["cnn_historical_block_summary"]={
+                    "score":historical.get("score"), "rating":historical.get("rating"),
+                    "timestamp":historical.get("timestamp"),
+                    "point_count":len(historical.get("data") or []),
+                }
+                out["cnn_target_date_points"]=parsed.get("target_date_points",[])
+                out["cnn_recent_history_points"]=parsed.get("recent_points",[])
                 out["page_title"]="CNN Business Fear & Greed historical data"
                 if parsed["status"] == "TARGET_DATE_NOT_FOUND":
                     out.update({"status":"TARGET_DATE_NOT_FOUND","error":"CNN_HISTORICAL_SERIES_HAS_NO_TARGET_DATE"})

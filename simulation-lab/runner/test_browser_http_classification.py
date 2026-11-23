@@ -24,21 +24,22 @@ def main():
     print("PASS: localized historical-table headers map Date / Close / Change % to the correct cells")
     import datetime
     target = "2026-11-20"
-    # Daily CNN close timestamps at 00:00 UTC belong to the prior New York date.
-    stamp_nov19 = int(datetime.datetime(2026, 11, 20, 0, 0, tzinfo=datetime.timezone.utc).timestamp() * 1000)
-    nov19 = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp_nov19,"y":18.5016697588126,"rating":"extreme fear"}]}}, "2026-11-19")
-    assert nov19["status"] == "PAGE_READ_OK" and nov19["date"] == "2026-11-19" and nov19["score"] == 18.5016697588126
-    assert nov19["timestamp_utc"].startswith("2026-11-20T00:00:00")
-    stamp_nov20 = int(datetime.datetime(2026, 11, 21, 0, 0, tzinfo=datetime.timezone.utc).timestamp() * 1000)
-    cnn = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp_nov20,"y":11.2705009276438,"rating":"extreme fear"}]}}, target)
-    assert cnn["status"] == "PAGE_READ_OK" and cnn["date"] == target and cnn["score"] == 11.2705009276438 and cnn["rating"] == "extreme fear"
-    assert cnn["timestamp_utc"].startswith("2026-11-21T00:00:00")
-    assert cnn_score_matches_display(11.2705009276438, "11") is True
-    assert cnn_score_matches_display(11.7705009276438, "11") is False
-    missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp_nov20,"y":11.2705009276438,"rating":"extreme fear"}]}}, "2026-11-19")
-    assert missing["status"] == "TARGET_DATE_NOT_FOUND"
+    stamp = int(datetime.datetime(2026, 11, 20, 0, 0, tzinfo=datetime.timezone.utc).timestamp() * 1000)
+    cnn = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":18.5873840445269,"rating":"extreme fear"}]}}, target)
+    assert cnn["status"] == "PAGE_READ_OK" and cnn["date"] == target and cnn["score"] == 18.5873840445269 and cnn["rating"] == "extreme fear"
+    assert cnn["timestamp_utc"].startswith(target) and len(cnn["target_date_points"]) == 1
+    later = stamp + 23 * 60 * 60 * 1000
+    multi = parse_cnn_history({"fear_and_greed_historical":{"data":[
+        {"x":stamp,"y":18.5,"rating":"extreme fear"},
+        {"x":later,"y":19.0,"rating":"extreme fear"},
+    ]}}, target)
+    assert multi["score"] == 19.0 and len(multi["target_date_points"]) == 2
+    assert cnn_score_matches_display(18.5873840445269, "19") is True
+    assert cnn_score_matches_display(19.5873840445269, "19") is False
+    missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":18.5,"rating":"extreme fear"}]}}, "2026-11-19")
+    assert missing["status"] == "TARGET_DATE_NOT_FOUND" and missing["recent_points"]
     print("PASS: leading page headings and empty volume cells do not shift field mapping")
-    print("PASS: CNN composite historical score/rating is matched by New York market date across UTC midnight")
+    print("PASS: CNN composite historical score/rating is matched by UTC date and latest same-day observation")
 
 
 if __name__ == "__main__":
