@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-24T05:25:00+08:00
 news_window_taipei: 2026-11-23T12:00:00+08:00/2026-11-24T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: d625c0bd56c62b17846eba9c219cfe77f89d0dfe
+workflow_blob_sha: 2e215ff002e57ce886086a11bac03a41e3922696
 active_rules_version: SIM-1.4
 active_rules_blob_sha: 7a4dc383ccf86a7c7a89b60cafc3b91f5fdb5c3b
 qa_contract_version: 1.21
