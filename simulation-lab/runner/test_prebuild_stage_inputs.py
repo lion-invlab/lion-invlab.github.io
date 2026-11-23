@@ -63,7 +63,7 @@ def main() -> None:
     assert pending_result["indicator_count"] == 44
     assert pending_result["numeric_values_reconciled_count"] == 0
     assert manifest["pending_count"] == 44
-    expect_error(lambda: build_receipt(
+    pending_receipt = build_receipt(
         data=data, fixture_sha256="1" * 64,
         audit=audit, audit_sha256="2" * 64,
         manifest=manifest, manifest_sha256="3" * 64,
@@ -71,7 +71,9 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1",
-    ), "market source observation manifest is neither PASS nor PARTIAL")
+    )
+    assert pending_receipt["stage_2_market"]["source_verification_status"] == "PENDING"
+    assert pending_receipt["stage_2_market"]["pending_observation_count"] == 44
 
     # Builder must not leak fixture-carried quote values when current-run source
     # observations are unavailable.
