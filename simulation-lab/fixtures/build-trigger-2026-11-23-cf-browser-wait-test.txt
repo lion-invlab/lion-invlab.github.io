@@ -27,3 +27,5 @@ Re-run after correcting obsolete regression assertion: weekend FedWatch freshnes
 SIM-1.4 regression run: verify CNN official raw score 11.2705009276438 exactly, while separately checking the TAC rounded display score of 11; preserve the actual API capture timestamp in the observation record.
 
 [build-tac-report:2026-11-23] Rebuild with exact CNN raw score gate: official graphdata raw score 11.2705009276438, TAC display score 11. Require the latest API body capture to match the exact raw value as well as the rounded display value. Run all 44 market checks, then Monday builder and full QA. Simulation only; no main publish.
+
+[build-tac-report:2026-11-23] Rebuild after fixing the root CNN card display field from 10 to 11 to match the official 2026-11-20 raw score 11.2705009276438 and its verified rounded display. Re-run 44-row Gate, Monday Builder, full visual/interaction QA. No main publish.
