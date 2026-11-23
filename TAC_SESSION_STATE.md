@@ -1,3 +1,44 @@
+# TAC 投資早報｜2026/11/23 P0-5 排程追查與 Slack 通知現況
+
+**最後更新：2026/11/23 14:12（Asia/Taipei）**  
+**Simulation Branch HEAD（更新前）：** \`a9fcd7967498eea2d6267774c74dceb71577196c\`  
+**main HEAD：** \`facf43b93a96b96953cf0ee7eca5cd45181816aa\`（未修改）
+
+## 早報 Automation 最近一次實際執行
+
+Automation ID：\`Automation_f4da15cd95c881918c7412cdd6f35bb2\`
+
+- 排定時間：2026-11-23 05:25 Asia/Taipei（UTC 2026-11-22 21:25）
+- 實際啟動：2026-11-23 06:51:21 Asia/Taipei
+- 完成：2026-11-23 07:00:40 Asia/Taipei
+- 延遲：約 86 分鐘。
+- 執行內容：Stage 1–4 已完成／部分完成；讀取規則、Manifest、QA，整理 44 項行情觀察紀錄（42 VERIFIED、2 BACKUP_VERIFIED），整合行事曆／財報與五層新聞分析，並更新 Fixture、BUILD_TRIGGER、Session State、Work Log。
+- 接著觸發 GitHub Run \`45080345516\`，該 Run 零 Job；因此 Stage 5 Builder／HTML 與 Stage 6 QA／審核交付未執行。
+- 沒有證據顯示該次 Automation 直接產出 HTML。
+- 86 分鐘延遲的根因尚無紀錄，不能歸因於 Workflow 21,000 字元限制；兩者是不同故障。
+
+## Slack 現況核實
+
+- Slack Connector 可用；使用者是公開頻道 \`#tac-alerts\` 成員，Channel ID \`C0CL6GF6KJ8\`。
+- 2026-11-23 12:27:31：頻道中有一則 ChatGPT 手動發送的通知連線測試訊息；該訊息明確說明只驗證即時訊息發送，不代表 GitHub Actions 自動通知完成。
+- 2026-11-23 12:31:37：頻道中有一則 ChatGPT 手動發送的失敗警報格式演練；明確標示為人工測試、非真實故障，且不是 GitHub Actions 自動發送。
+- 2026-11-23 12:52:59：頻道中出現 \`TAC Report Alerts\` integration added 記錄。
+- 2026-11-23 12:55:35：另一個同名 integration added；12:57:33 有一個 integration removed 記錄。
+- 現有紀錄不足以確認保留中的 integration 已綁定 GitHub Repository Secret，也不足以證明 GitHub Actions 可成功呼叫它。
+- 先前對話曾提出 Secret 名稱 \`SLACK_WEBHOOK_URL\`，並曾稱已新增；但目前無法獨立讀取 Repository Secret 名稱，因此只列為待使用者確認，不得視為已核實存在。
+- 不得索取 Webhook URL、Token 或 Secret 值。
+- 現行 Workflow 尚無 Slack 發送步驟；本輪沒有自動通知送達證據。
+
+## Gate 1／Gate 9
+
+- Gate 1：未通過。05:25 預定執行，實際 06:51 才啟動；延遲根因尚未查明。
+- Gate 9：部分通過。已有人工 Slack 測試訊息與格式演練；也有 GitHub Job-step failure Artifact 保存證據，但尚未證明 GitHub Actions 自動通知送達。
+
+## 待使用者確認
+
+只需確認 GitHub Repository Actions Secret 的名稱是否為 \`SLACK_WEBHOOK_URL\`。不要提供 Secret 內容或 URL。確認名稱後才可在 Simulation Branch 加入通知引用；實際向頻道發送新的測試訊息仍需明確授權。
+
+
 # TAC 投資早報｜2026/11/23 P0-4／P0-5 最新查核
 
 **最後更新：2026/11/23 14:05（Asia/Taipei）**  

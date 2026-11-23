@@ -3245,3 +3245,28 @@
 ### Gate 更新
 
 Gate 2 因零 Job 根因已確認且現行 21,000 字元測試及新 Workflow 完整 Run 通過，更新為通過（修復後）。Gate 3–7 通過；Gate 1 未通過；Gate 8、9 部分通過。05:25 早報排程保持停用。
+
+
+---
+
+## 2026/11/23｜早報 Automation 實際執行內容與 Slack 人工測試紀錄核實
+
+### 早報 Automation
+
+Automation_f4da15cd95c881918c7412cdd6f35bb2 排定 05:25（2026-11-22T21:25:00Z），實際 06:51:21（台灣時間）啟動，07:00:40 完成，延遲約 86 分鐘。
+
+從先前執行紀錄確認 Stage 1–4 已完成／部分完成：讀取規則、Manifest、QA；整理 44 項行情觀察紀錄（42 VERIFIED、2 BACKUP_VERIFIED）；整合行事曆、財報、五層新聞分析；更新 Fixture、BUILD_TRIGGER、Session State、Work Log。其後觸發 Run 45080345516，但該 Run 零 Job，因此 Stage 5 Builder／HTML 與 Stage 6 QA／審核交付未執行。該次 Automation 沒有直接產出 HTML 的證據。
+
+86 分鐘延遲的原因沒有被查明；不可把它與 Workflow run command 超過 21,000 字元的零 Job 根因混為一談。
+
+### Slack 人工測試核實
+
+在 #tac-alerts（C0CL6GF6KJ8）搜尋 2026-11-23 訊息，找到：
+- 12:27:31 ChatGPT 手動發送的 Slack 連線測試，明確表示只驗證即時訊息發送。
+- 12:31:37 ChatGPT 手動發送的失敗警報格式演練，明確標示非真實故障、非 GitHub Actions 自動通知。
+- 12:52:59 出現 TAC Report Alerts integration added。
+- 12:55:35 另一個同名 integration added；12:57:33 有一個 integration removed。
+
+以上只能證明 Slack 頻道可接收人工訊息及 integration 事件，不能證明 GitHub Actions 的自動通知已完成。現行 Workflow 沒有 Slack 發送步驟。
+
+先前曾提出 Secret 名稱 SLACK_WEBHOOK_URL 並稱已新增，但目前無法獨立讀取 GitHub Repository Secret 名稱，故列為待使用者確認；不得索取 Webhook URL、Token 或 Secret 值。向頻道發送新的測試訊息仍需明確授權。
