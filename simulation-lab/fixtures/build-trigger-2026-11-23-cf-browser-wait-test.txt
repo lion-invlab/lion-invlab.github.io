@@ -9,3 +9,5 @@ Re-run after DOM-only fixture isolation and full SIM-1.4 direct-web observation 
 Retry Stage 2-4 Gate with explicit current-session provenance acceptance for the 44 verified direct ChatGPT web observations; proceed to Monday review Builder only after receipt PASS.
 
 Final Stage 2-4 direct-web provenance seal correction validated by isolated smoke; rerun the Monday review build and QA seal. Simulation branch only; no main publication.
+
+Rebuild final review after replacing inherited audit notes that incorrectly described old fixture reuse and FGScore fallback; current 44/44 direct observations and CNN official endpoint are now accurately documented.
