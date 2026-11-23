@@ -121,27 +121,30 @@ def collect(report_date: str, output: str):
         if window:
             candidates.append((event, window[0], window[1]))
     tickers = sorted({event["us_listing_ticker"] for event, _, _ in candidates})
-    if not tickers:
-        raise RuntimeError("no eligible released earnings with verified US listing and session")
-
-    event_dates = [d for _, d, _ in candidates]
-    start = min(event_dates) - timedelta(days=7)
-    end = max(event_dates) + timedelta(days=8)
-    frame = yf.download(
-        tickers=tickers,
-        start=start.isoformat(),
-        end=end.isoformat(),
-        auto_adjust=False,
-        actions=False,
-        group_by="ticker",
-        progress=False,
-        threads=True,
-    )
+    # No eligible released events is a valid report-day state (for example, when
+    # the selected prior session had no five-star earnings releases). Emit an
+    # empty, calendar-pinned snapshot rather than blocking the entire report.
+    if tickers:
+        event_dates = [d for _, d, _ in candidates]
+        start = min(event_dates) - timedelta(days=7)
+        end = max(event_dates) + timedelta(days=8)
+        frame = yf.download(
+            tickers=tickers,
+            start=start.isoformat(),
+            end=end.isoformat(),
+            auto_adjust=False,
+            actions=False,
+            group_by="ticker",
+            progress=False,
+            threads=True,
+        )
+    else:
+        frame = None
     reactions = {}
     unavailable = {}
     for event, release_date, session in candidates:
         ticker = event["us_listing_ticker"]
-        closes = extract_close_frame(frame, ticker)
+        closes = extract_close_frame(frame, ticker) if frame is not None else {}
         result = calculate_reaction(closes, release_date, session) if closes else None
         if not result:
             # Per-ticker fallback avoids losing valid closes when a batch response omits a symbol/date.
