@@ -3142,3 +3142,14 @@
 - 九項 E2E：#2–#7 PASS；#3 正確 Fixture／Monday mother PASS；#8 Simulation branch GitHub 檔案已可讀，但 Pages 正式預覽未發布；#1 排程觸發未 PASS；#9 真實失敗演練及通知送達未 PASS。單元測試 `test_simulation_workflow_delivery_gate.py` 已通過，但不能取代排程失敗演練。
 - 下一步：獨立 lint 最新 Workflow SHA；查明 45080345516 0 Jobs；完成隔離失敗演練與可用通知回報；完整 E2E 通過前不恢復 05:25 排程；使用者核准精確 HTML SHA 後才可執行 Stage 6。
 
+
+
+## 2026-11-23 09:42（台灣時間）｜最新獨立 Lint 通過與 0 Jobs 事件再查
+
+- 對 Builder 成功 commit `0b27040cf920d6d668a4cc5b1c9a98cf9e08469f` 查詢 GitHub Check Runs，確認 `isolated-smoke` Run `45094356471` 與獨立 `lint` Run `45094356565` 均 completed／success。
+- Lint Run `45094356565`：PyYAML workflow parse PASS（jobs=['isolated-smoke']）；39 個 GitHub run commands 長度檢查 PASS；actionlint v1.7.12 PASS。最新 TAC Workflow blob SHA `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7` 的 actionlint 已通過。
+- 最新 lint workflow 沒有執行 shellcheck；故只記錄 actionlint PASS，不延伸宣稱 shellcheck PASS。舊 Run `45080346377` 的四個 if:false 與兩個 SC2129 屬舊 Workflow SHA 的歷史結果。
+- 再查 Run `45080345516`：GitHub run metadata 為 event=push、workflow_id=409477606、conclusion=failure；Jobs API 明確回傳 `total_count=0`、`jobs=[]`。同一 trigger commit 的 check-runs 只有獨立 lint Check Run，沒有主 Pipeline Job。具體觸發／執行原因尚無充分 API 證據，保持 UNRESOLVED，不猜測為 default branch 限制或 actionlint 問題。
+- 早報自動化仍 `is_enabled=false`；本輪沒有恢復排程。notify_parent 尚未取得 `status=notified`。
+- 下一步：追查 45080345516 0 Jobs 事件；完成隔離失敗演練與通知送達驗收；九項 E2E 全通過前維持 05:25 排程停用；未核准確切 HTML SHA 前不執行 Stage 6。
+
