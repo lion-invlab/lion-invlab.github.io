@@ -20,7 +20,7 @@
 ## 三、QA 與交付邊界
 - 桌機／手機視覺 QA 六種寬度 1440、768、412、390、360、320px 全數通過；互動及 DOM 驗收證據已封存。
 - Workflow step「Deliver the exact QA-passed artifact to main preview only after explicit user approval」為 SKIPPED，因尚未取得使用者對上述 HTML SHA-256 的明確核准。
-- 本輪沒有寫入 main preview、沒有部署 Pages、沒有修改 main/index.html。main HEAD 為 `0fa194ae64a781373464858fb70c800e4ffbf098`；main index blob SHA 為 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`（需以最新遠端回讀為準）。
+- 本輪沒有寫入 main preview、沒有部署 Pages、沒有修改 main/index.html。main HEAD 為 `0fa194ae20bb97a72420ad7104bdc4c226a8e65e`；main index blob SHA 為 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`（需以最新遠端回讀為準）。
 - 可供使用者審核的 GitHub 檔案網址：
   - HTML：`https://github.com/lion-invlab/lion-invlab.github.io/blob/simulation/tac-process-lab-2026-11-06/preview/2026-11-23-simulation.html`
   - QA sidecar：`https://github.com/lion-invlab/lion-invlab.github.io/blob/simulation/tac-process-lab-2026-11-06/preview/2026-11-23-simulation.qa.json`
