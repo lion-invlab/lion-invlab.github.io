@@ -13,6 +13,8 @@
 - 早報自動化 `Automation_f4da15cd95c881918c7412cdd6f35bb2` 目前仍 `is_enabled=false`；本輪未恢復。通知工具先前 404，尚未取得 `status=notified`。
 - 其餘最新 HTML、QA sidecar、SHA、Builder／Fixture／母版及九項 E2E 狀態，依本文件下方 09:27 權威狀態。
 
+- 最新 Workflow 結尾（lines 835–890）有 `if: always()` 的 runner metadata 與 evidence artifact 保存，但沒有 notify／alert step；失敗證據保留不等於通知送達。外層 `notify_parent` 本輪重試仍 HTTP 404 Action not found，通知 Gate NOT_PASS。
+
 ## 下一步
 1. 獨立 actionlint 已 PASS，不再重做。
 2. 查明 Run 45080345516 0 Jobs 的具體觸發／GitHub Actions 執行原因；在證據不足前保持未解。
