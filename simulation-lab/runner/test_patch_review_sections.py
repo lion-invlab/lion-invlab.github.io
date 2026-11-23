@@ -165,7 +165,7 @@ def test_last_week_nvda_consensus_overlay_is_local_and_evidence_backed():
         )
         warsh_impact = warsh.select_one(".econ-field.econ-impact .econ-value").get_text(" ", strip=True)
         assert "後續觀察" not in warsh_impact
-        assert "單位勞動成本" in warsh_impact and "AI 資本支出回報" in warsh_impact
+        assert "單位勞動成本" in warsh_impact and "資本報酬率" in warsh_impact
         assert warsh.select_one('.econ-field.econ-source .econ-value a[href="https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm"]')
         assert receipt["output_html_sha256"] == result["output_html_sha256"]
 
