@@ -129,10 +129,15 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                     and re.fullmatch(r"[0-9a-f]{64}", row["observation_record_sha256"]),
                     f"verified row observation hash invalid: {row.get('name')}")
         else:
-            require(row.get("verification_status") == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+            state = row.get("verification_status")
+            require(state in ("PENDING_CURRENT_RUN_BROWSER_OBSERVATION", "CLOSED"),
                     f"unknown source status: {row.get('name')}")
             require(row.get("display_value_matches_saved_observation") is False,
-                    f"pending row cannot claim a value match: {row.get('name')}")
+                    f"unverified/closed row cannot claim a value match: {row.get('name')}")
+            if state == "CLOSED":
+                require(row.get("evidence_status") == "MARKET_CLOSED"
+                        and row.get("source_page_fetched") is True,
+                        f"closed row lacks direct page/holiday evidence: {row.get('name')}")
     # raw_response_sha256 is optional evidence; absence is not a Stage 2 failure.
     raw_hash_count = manifest.get("raw_response_sha256_saved_count", 0)
     require(isinstance(raw_hash_count, int) and 0 <= raw_hash_count <= 44,
@@ -143,6 +148,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "group_counts": EXPECTED_GROUP_COUNTS,
         "observation_count": len(rows),
         "observation_record_hash_count": verified_count,
+        "closed_count": sum(1 for row in rows if row.get("verification_status") == "CLOSED"),
         "prior_observations_reused": 0,
         "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
         "numeric_values_reconciled_this_run": verified_count == 44,
