@@ -106,6 +106,7 @@ def parse_cnn_history(payload, target):
             if score is None or not rating:
                 return {"status": "OBSERVED_PENDING_FIELD_MAPPING", "date": observed_date}
             return {"status": "PAGE_READ_OK", "date": observed_date,
+                    "timestamp_utc": datetime.fromtimestamp(float(stamp) / 1000, timezone.utc).isoformat(),
                     "score": score, "rating": str(rating).strip().lower()}
     return {"status": "TARGET_DATE_NOT_FOUND"}
 
@@ -176,6 +177,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     "instrument_identity":"CNN Fear & Greed Index",
                     "instrument_identity_status":"VERIFIED",
                     "observed_date":parsed["date"],
+                    "source_timestamp_utc":parsed.get("timestamp_utc"),
                     "observed_value":score,
                     "observed_change":rating,
                     "observed_value_field":"fear_and_greed_historical.data[].y",
