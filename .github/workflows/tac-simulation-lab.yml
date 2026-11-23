@@ -342,17 +342,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Chart 3 is a separate module: do not block the daily report when the
-          # S&P 500 quote is explicitly pending. Never hand off an unverified close.
-          python - <<'PY'
-          import json, os, sys
+          # Chart 3 is a separate module. Only append a close that is independently verified.
+          SP500_VERIFICATION_STATUS="$(python - <<'PY'
+          import json, os
           from pathlib import Path
           report = json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
           source = (report.get("global_markets") or {}).get("標普500指數", {}).get("source") or {}
-          if source.get("verification_status") != "VERIFIED":
-              print("SKIP Chart 3 handoff: S&P 500 is not verified for this trading date; daily report build continues.")
-              sys.exit(0)
+          print(source.get("verification_status") or "PENDING")
           PY
+          )"
+          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" ]]; then
           mkdir -p data/tac-chart3 simulation-lab/output/chart3-handoff
           # Append the newly verified report observation to the persistent, hash-sealed ledger.
           # Do not replace the existing ledger with this run's one-row handoff.
@@ -392,6 +391,10 @@ jobs:
           assert sp["increment_ledger"]["observed_at"] == ledger[-1]["observed_at"]
           print(json.dumps({"status":"PASS","expected_trading_date":expected,"recent_end":recent["end"],"full_start":full["start"],"full_end":full["end"],"full_rows":full["rows"],"ledger_rows":len(ledger),"increment_close":ledger[-1]["close"],"source":sp["increment_ledger"]["source_name"],"observed_at":sp["increment_ledger"]["observed_at"]},ensure_ascii=False,indent=2))
           PY
+
+          else
+            echo "SKIP Chart 3 handoff: S&P 500 is not verified for this trading date; daily report build continues."
+          fi
 
       - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[capture-44-sources'))
