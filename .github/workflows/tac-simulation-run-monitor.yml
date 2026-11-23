@@ -63,26 +63,54 @@ jobs:
               return;
             }
 
-            const run = runs[0];
-            const { data: jobsData } = await github.rest.actions.listJobsForWorkflowRun({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              run_id: run.id,
-              per_page: 100
-            });
-            const jobCount = jobsData.total_count ?? jobsData.jobs.length;
-            const zeroJobs = jobCount === 0;
-            const failed = run.conclusion !== 'success';
-            const shouldAlert = zeroJobs || failed;
+            // Scan completed runs newest-first and select the newest abnormal run.
+            // This prevents a later successful run from hiding an earlier failure
+            // between two five-minute monitor polls.
+            let selected = null;
+            let latestSuccess = null;
+            for (const candidate of runs) {
+              const { data: jobsData } = await github.rest.actions.listJobsForWorkflowRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: candidate.id,
+                per_page: 100
+              });
+              const jobCount = jobsData.total_count ?? jobsData.jobs.length;
+              const zeroJobs = jobCount === 0;
+              const failed = candidate.conclusion !== 'success';
+              if (zeroJobs || failed) {
+                selected = { run: candidate, jobCount, zeroJobs, failed };
+                break;
+              }
+              if (!latestSuccess) latestSuccess = { run: candidate, jobCount };
+            }
 
+            if (!selected) {
+              const healthy = latestSuccess;
+              core.setOutput('alert', 'false');
+              core.summary.addHeading('TAC Simulation monitor')
+                .addText('PASS: no abnormal completed run found in the latest ' + runs.length + ' completed runs.')
+                .addTable([
+                  [{data: 'Field', header: true}, {data: 'Value', header: true}],
+                  ['Latest Run ID', String(healthy.run.id)],
+                  ['Conclusion', healthy.run.conclusion || 'unknown'],
+                  ['Jobs', String(healthy.jobCount)]
+                ])
+                .addLink('Open latest run', healthy.run.html_url)
+                .write();
+              return;
+            }
+
+            const { run, jobCount, zeroJobs, failed } = selected;
+            const shouldAlert = true;
             core.setOutput('run_id', String(run.id));
             core.setOutput('run_url', run.html_url);
             core.setOutput('run_conclusion', run.conclusion || 'unknown');
             core.setOutput('job_count', String(jobCount));
-            core.setOutput('alert', shouldAlert ? 'true' : 'false');
+            core.setOutput('alert', 'true');
             core.setOutput('reason', zeroJobs
               ? 'ZERO_JOBS'
-              : (failed ? 'RUN_CONCLUSION_' + String(run.conclusion).toUpperCase() : 'SUCCESS'));
+              : 'RUN_CONCLUSION_' + String(run.conclusion).toUpperCase());
 
             core.summary.addHeading('TAC Simulation monitor')
               .addTable([
@@ -91,9 +119,10 @@ jobs:
                 ['Branch', run.head_branch],
                 ['Conclusion', run.conclusion || 'unknown'],
                 ['Jobs', String(jobCount)],
-                ['Result', shouldAlert ? 'ALERT' : 'PASS']
+                ['Result', shouldAlert ? 'ALERT' : 'PASS'],
+                ['Scan depth', String(runs.length) + ' completed runs']
               ])
-              .addLink('Open monitored run', run.html_url)
+              .addLink('Open abnormal run', run.html_url)
               .write();
 
       - name: Prepare notification state
