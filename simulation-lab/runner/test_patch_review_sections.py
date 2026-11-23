@@ -97,13 +97,20 @@ def test_last_week_nvda_consensus_overlay_is_local_and_evidence_backed():
         target_list = mother_soup.select_one("#last-week-earnings .earnings-accordion-list")
         assert target_list is not None
         target_list.append(copy.deepcopy(nvda_card))
+        warsh_card = next(
+            card for card in preview_soup.select("#last-week-calendar details.econ-event")
+            if "Kevin Warsh" in (card.select_one(":scope > summary").get_text(" ", strip=True) if card.select_one(":scope > summary") else "")
+        )
+        calendar_list = mother_soup.select_one("#last-week-calendar .econ-event-list")
+        assert calendar_list is not None
+        calendar_list.append(copy.deepcopy(warsh_card))
         html_in.write_text(str(mother_soup), encoding="utf-8")
         fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
         fixture_path = tmp_path / "fixture.json"
         fixture_path.write_text(json.dumps(fixture, ensure_ascii=False), encoding="utf-8")
 
         result = patch_section(
-            html_in, fixture_path, MANIFEST, "last_week_earnings",
+            html_in, fixture_path, MANIFEST, "last_week_earnings_and_calendar_impact",
             html_out, receipt_path, test_only=True,
         )
         assert result["status"] == "PASS"
@@ -143,10 +150,23 @@ def test_last_week_nvda_consensus_overlay_is_local_and_evidence_backed():
         assert sources.select_one('a[href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/"]')
         assert sources.select_one('a[href="https://finance.yahoo.com/quote/NVDA/analysis/"]')
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
-        overlay = receipt["internal_receipt"]
+        overlay = receipt["internal_receipt"]["last_week_earnings"]
+        calendar_overlay = receipt["internal_receipt"]["last_week_calendar_impact"]
         assert overlay["status"] == "PASS" and overlay["judgment_audit"] == "PASS"
         assert overlay["raw_response_sha256"] == "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a"
         assert overlay["non_target_cards_unchanged"] is True
+        assert calendar_overlay["status"] == "PASS"
+        assert calendar_overlay["event_id"] == "current-fed-warsh-productivity-jobs-20261117"
+        assert calendar_overlay["expected_impact_matched_exactly"] is True
+        assert calendar_overlay["authoritative_main_calendar_modified"] is False
+        warsh = next(
+            item for item in output.select("#last-week-calendar details.econ-event")
+            if "Kevin Warsh" in (item.select_one(":scope > summary").get_text(" ", strip=True) if item.select_one(":scope > summary") else "")
+        )
+        warsh_impact = warsh.select_one(".econ-field.econ-impact .econ-value").get_text(" ", strip=True)
+        assert "後續觀察" not in warsh_impact
+        assert "單位勞動成本" in warsh_impact and "AI 資本支出回報" in warsh_impact
+        assert warsh.select_one('.econ-field.econ-source .econ-value a[href="https://www.federalreserve.gov/newsevents/speech/warsh20261116a.htm"]')
         assert receipt["output_html_sha256"] == result["output_html_sha256"]
 
 
