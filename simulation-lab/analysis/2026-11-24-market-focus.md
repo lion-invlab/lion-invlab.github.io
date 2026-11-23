@@ -88,8 +88,8 @@ AI 資本支出若維持，將支持半導體設備、電力、冷卻、網通�
 - Investing.com 道瓊歷史列為 49,598.97；AP 收盤報導為 49,595.31，差異 3.66 點。不得混合成單一無註記數字。
 - Investing.com Nasdaq 歷史列為 24,090.26；AP 報導為 24,089.56，差異 0.70 點。須依 SIM 來源口徑及官方收盤基準決定顯示值。
 - AP 報導標普 500 收 7,237.17；Investing.com 相關頁的即時／歷史顯示曾出現 7,211.16、7,237.90 等不同值。需以完整日期列及標的口徑再核對，不可直接沿用搜尋摘要。
-- MOVE 頁面最新歷史列仍停在 11/20，故 11/23 必須標示 SOURCE_NO_DATA／待核實，不能沿用 106.31。
-- 日經 225 11/23 日本休市；不得將 11/20 數值偽裝為 11/23 新收盤。
+- MOVE：Investing.com 歷史頁最新列為 11/20；依 SIM-1.4 §3.4／附錄 A2，必須依序查 TradingView ICE BofA MOVE、Yahoo Finance ^MOVE、CNBC .MOVE、EODData INDEX:MOVE，不得跳過備援。
+- 日經 225：2026-11-23 日本交易所休市；當日欄位應標示「休市」，不顯示指數點位或漲跌幅。不得以 11/20 數值填補。
 - 羅素 2000 Investing.com CA 歷史頁目前僅顯示至 11/20；AP 11/23 報導提供 +3.4% 漲幅與收盤 2,669.66，需另作來源口徑核對。
 - 目前尚未完成其餘未列全球指數、11 個產業 ETF、CNN Fear & Greed、其餘資料完整性與 SIM-1.4 來源觀察 manifest。
 
@@ -137,3 +137,28 @@ Investing.com 歷史資料頁已直接讀取到以下 10 檔 11/23 收盤列；X
 - 11/23 已公布 PMI：澳洲綜合 46.1、法國 46.2、德國 55.0、歐元區 51.7、英國 52.3、美國 54.6。歐洲呈現德國擴張、法國收縮分化；美國仍擴張但服務業降溫。
 - 11/24 重要事件：德國 ifo 企業景氣指數、美國 Conference Board 消費者信心；11/25 重要事件：美國第 3 季 GDP 第二次估值、10 月 PCE／核心 PCE、耐久財訂單、新屋銷售；11/26 聯準會褐皮書、ECB 會議紀要及美國感恩節休市；11/27 東京 CPI、歐元區經濟信心、美國貿易與庫存資料。
 - 本週財報事件 11 家：HPE、ADI、DELL、MDT、ADSK、WDAY、HPQ、DLTR、BBY、ANF、DE。W48 資料庫尚未取得符合規則的 EPS／營收共識 cutoff 證據，報告不可填入未核實預期或製造 Beat／Miss 判讀。
+
+
+## 依 SIM-1.4 重新執行 MOVE 備援順序及日經休市處置（2026-11-24）
+
+### 規則原文核對
+- SIM-1.4 blob SHA：`6ab8852582b81f9da0bca7e974fbf39847067aed`。
+- §3.4 特殊指標明定 MOVE 來源順序：Investing.com HK 歷史頁 → TradingView ICE BofA MOVE → Yahoo Finance `^MOVE` → CNBC `.MOVE` → EODData `INDEX:MOVE`。必須核對指定日期、Close、時間戳與精度。
+- §3.3 規定只有所屬交易所／主管機構官方確認休市，才可標示「休市｜原因」；休市不得拿其他日期或 CFD 補值。§3.5 狀態含 CLOSED。
+
+### MOVE 備援逐級查核結果
+1. **Investing.com HK（第一順位）：** 直接歷史頁可讀，最新列仍是 2026-11-20，106.31，+10.69%；沒有 11/23 日期列。不得沿用舊值。來源：https://www.investing.com/indices/ice-bofaml-move-historical-data
+2. **TradingView ICE:MOVE（第二順位）：** 已直接開啟正確標的頁，頁名為 ICE BofAML U.S. Bond Market Option Volatility Estimate Index，資料來源標示 ICE Data Services；但頁面顯示 No trades，Key data points 未載出 Previous close／Open／Day's range，未提供可對應 2026-11-23 的歷史 Close 日期列。故本順位目前屬頁面讀取成功、指定日期 Close 證據不足，不能採用頁面概覽的未標日期即時值。來源：https://www.tradingview.com/symbols/ICE-MOVE/
+3. **Yahoo Finance ^MOVE（第三順位）：** 已查詢及嘗試開啟歷史頁；搜尋索引可見 ^MOVE 報價頁，但顯示的是當前報價／盤中欄位，未取得 2026-11-23 Historical Data 日期列；直接開啟歷史頁回應 429。不得把盤中價或 Previous Close 當成 11/23 Close。來源：https://finance.yahoo.com/quote/%5EMOVE/history/
+4. **CNBC .MOVE（第四順位）：** 已嘗試開啟指定報價頁，回應 restricted URL，未取得指定日期 Close。來源：https://www.cnbc.com/quotes/.MOVE
+5. **EODData INDEX:MOVE（第五順位）：** 直接開啟歷史頁，最近交易列仍為 2026-11-20 Close 106.3；沒有 11/23 列。不得沿用。來源：https://www.eoddata.com/stockquote/INDEX/MOVE.htm?e=INDEX&s=MOVE
+
+**裁決：** 依 SIM-1.4，MOVE 11/23 目前維持 PENDING／待核實，沒有任何已查核的核准順位來源提供 11/23 日期 Close。不得使用搜尋到的其他未列入 SIM-1.4 來源所報 102.14 或 105.4 等數字，因為它們尚未符合指定來源契約及日期／收盤欄位證據。這不是「沒有備援」，而是已按 SIM-1.4 備援順位查完，仍未取得可採用的指定日期收盤證據。
+
+### 日經 225 正確處置
+- 2026-11-23 為日本交易所休市日；依 SIM-1.4 §3.3，Fixture 對應列應設 CLOSED，主畫面只顯示「休市」，不顯示點位、不顯示漲跌幅、不使用 11/20 前收補值。
+- 日經仍保留在固定 44 欄位及來源核對清單中，但 11/23 欄位狀態為 CLOSED；不得因休市刪除指標或把 CLOSED 算成一般行情數值已驗證。
+
+### 本次更正
+- 先前「42 項當日資料候選」的表述容易讓人誤解為 42 項已通過 Gate，撤回該描述。每項是否 VERIFIED／BACKUP_VERIFIED，必須以當次來源頁 observation record、指定日期 Close／漲跌幅及 SIM-1.4 manifest 為準。
+- 本次只更新此 Simulation 研究底稿；未修改 main、正式首頁、正式母版或正式行事曆。
