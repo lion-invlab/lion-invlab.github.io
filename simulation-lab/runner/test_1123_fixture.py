@@ -341,7 +341,7 @@ def main():
     assert blockers == [], blockers
     assert not any("raw_response_sha256" in item for item in blockers)
     assert not any(any(term in x for term in ("VIX", "MOVE", "Fear & Greed", "FedWatch", "raw_response_sha256")) for x in data["review_ready_blockers"])
-    assert any("原始HTTP response body未封存" in x and "可選證據" in x for x in data["pending_items"])
+    assert any("未封存原始 HTTP response body" in x and "可選證據" in x for x in data["pending_items"])
     assert not any(x.startswith("NVDA Q3 FY2027") for x in data["pending_items"])
     assert "不要求週日刷新" in data["quality_note"]
     assert "不要求週日刷新" in data["warning_note"]
