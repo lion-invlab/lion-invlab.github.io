@@ -5,7 +5,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_review_html import apply_calendar_impact_overrides, apply_last_week_economic_overrides, apply_last_week_earnings_actuals
+from build_review_html import apply_calendar_impact_overrides, apply_last_week_calendar_impact_overrides, apply_last_week_economic_overrides, apply_last_week_earnings_actuals
 
 
 class CalendarImpactOverrideTests(unittest.TestCase):
@@ -206,6 +206,56 @@ class LastWeekEarningsActualOverrideTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "refusing to overwrite authoritative"):
             apply_last_week_earnings_actuals(data)
 
+
+class LastWeekCalendarImpactOverrideTests(unittest.TestCase):
+    def test_replaces_only_exact_known_generic_wording_in_report_layer(self):
+        original = "演講偏向長期生產力與就業結構觀點，沒有提供短期利率或政策承諾；不應解讀為升息／降息訊號。後續觀察 AI 投資是否轉化為可持續的生產力增長。"
+        replacement = "此演講未提供短期利率或政策承諾，不構成升息／降息訊號。投資判讀應檢視企業生產力、單位勞動成本與 AI 資本支出回報：若生產力增幅持續擴大且成本壓力受控，AI 投資才有助於提高潛在成長；若資本支出增加但生產力未改善，則應下修對投資回報與長期成長的假設。"
+        data = {
+            "last_week_calendar": {"events": [{
+                "id": "current-fed-warsh-productivity-jobs-20261117",
+                "impact": original,
+                "source_url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
+            }]},
+            "last_week_calendar_impact_overrides": [{
+                "event_id": "current-fed-warsh-productivity-jobs-20261117",
+                "expected_impact": original,
+                "impact": replacement,
+                "note": "specific investment transmission wording; main calendar remains read-only",
+            }],
+        }
+        self.assertEqual(apply_last_week_calendar_impact_overrides(data), 1)
+        event = data["last_week_calendar"]["events"][0]
+        self.assertEqual(event["impact"], replacement)
+        self.assertTrue(event["report_layer_only"])
+        self.assertEqual(event["source_url"], "https://www.federalreserve.gov/newsevents/2026-November.htm")
+        self.assertNotIn("後續觀察", event["impact"])
+
+    def test_refuses_changed_source_text(self):
+        data = {
+            "last_week_calendar": {"events": [{"id": "event-1", "impact": "Source wording changed."}]},
+            "last_week_calendar_impact_overrides": [{
+                "event_id": "event-1",
+                "expected_impact": "Old source wording.",
+                "impact": "A specific explanatory replacement that is long enough to be useful.",
+                "source_url": "https://example.com/source",
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "source text changed"):
+            apply_last_week_calendar_impact_overrides(data)
+
+    def test_refuses_generic_replacement(self):
+        data = {
+            "last_week_calendar": {"events": [{"id": "event-1", "impact": "Old wording."}]},
+            "last_week_calendar_impact_overrides": [{
+                "event_id": "event-1",
+                "expected_impact": "Old wording.",
+                "impact": "這裡仍然寫著後續觀察，沒有具體判斷或行動。",
+                "source_url": "https://example.com/source",
+            }],
+        }
+        with self.assertRaisesRegex(ValueError, "retains generic"):
+            apply_last_week_calendar_impact_overrides(data)
 
 if __name__ == "__main__":
     unittest.main()
