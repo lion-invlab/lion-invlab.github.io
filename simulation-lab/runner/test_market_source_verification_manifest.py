@@ -90,7 +90,8 @@ def main():
             change = source.get("history_change") or source.get("daily_change_percent") or source.get("band")
             if name == "fear_greed":
                 value = "9.67368421052632"
-            from build_market_source_verification_manifest import IDENTITY_ALIASES
+            from build_market_source_verification_manifest import IDENTITY_ALIASES, _identity_matches
+            assert _identity_matches("fx", "歐元／美元", "EUR USD")
             identity = IDENTITY_ALIASES.get(name, [name])[0]
             is_cnn = group == "risk" and name == "fear_greed"
             synthetic_observations[(group, name)] = {
