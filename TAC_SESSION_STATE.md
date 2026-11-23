@@ -1,3 +1,17 @@
+## 最新狀態錨點｜2026-11-24｜SIM-1.4 排程接手於 Stage 1 阻塞
+
+- **實際啟動：** 2026-11-24 05:56:48（Asia/Taipei）。排程喚醒訊息已嘗試送往 parent thread，但 `mcp__Automations__notify_parent` 回傳 HTTP 404 `Action not found`；未送達，不能記為 notified。本執行緒因此進入 fallback。
+- **報告基準：** report_date=2026-11-24（二）；trading_date=2026-11-23（一，前一交易日）；ISO week=2026-W48；新聞窗口=2026-11-23 12:00 至本次截稿 2026-11-24 05:56:48（台灣時間）。
+- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。
+- **規則／基準：** SIM-1.4 SHA `6ab8852582b81f9da0bca7e974fbf39847067aed`；main 正式權限邊界 WR v5.17 SHA `0210e8e04f4f6b2374997b82a658e15781932e67`；Manifest SHA `d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.21 SHA `e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`；Weekday simulation mother SHA `3f4e65c1385532b0f0969fdc76caf2883a39e798`；核准 Builder SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；simulation Workflow SHA `525b6d902a706cc66e5c7aceb8955137eb658873`。
+- **正式行事曆（main 唯讀）：** W48 路徑 `data/calendar/weeks/2026-W48.json`，blob SHA `0db095ad6638d0bf75dc1ae90248571c84169f26`；main HEAD `77ab012bb027591631c704d976468cf4ea2e2046`；updated_at=2026-11-24T04:33:03+08:00；27 筆經濟、11 筆財報；coverage=incomplete。週二只讀 W48，未讀 W47，未修改任何 calendar JSON。
+- **母版核對：** Manifest 指定 `simulation-lab/baseline/weekday-mother-template.html`；實際 SHA 與 simulation_blob_sha 相符；DOCTYPE/html/head/body 各 1，母版 ID 數 180。週二至週五情境正確。
+- **每日 Fixture：** `simulation-lab/fixtures/report-data-2026-11-24.json` 目前不存在（GitHub Contents API 404）；不得沿用 11/23 Fixture。11/24 projection 亦尚未建立。
+- **Pipeline 阻塞：** 當前 simulation Workflow 僅存在 simulation branch；main/default branch 的 `.github/workflows/tac-simulation-lab.yml` 讀取回傳 404。既有 2026-11-23 Run `45080345516` 是歷史證據，status=completed/conclusion=failure、jobs=[]、artifacts=[]；不得冒充本輪 Run。現行 BUILD_TRIGGER SHA `478ca209d4813c7d58f466f313cbd7ca43b8b473` 仍標示 report_date=2026-11-23，且其 workflow_blob_sha `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7` 與目前 Workflow SHA 不符。依 SIM-1.4 禁止將 workflow 複製到 main；在此限制下無法取得可執行的正式 Pipeline 入口。
+- **階段狀態：** Stage 1 規則／母版／W48 唯讀核對完成；Pipeline trigger BLOCKED。Stage 2 行情、Stage 3 財報共識投影、Stage 4 新聞／分析、Stage 5 Builder、Stage 6 HTML／QA Artifact、Stage 7 E2E 均未執行。未建立 11/24 Fixture，未更新 BUILD_TRIGGER，未產生 HTML／QA sidecar，未建立本輪 Workflow Run。
+- **main 保護：** 本輪未寫入 main；main index、preview、正式母版、Manifest、WR、QA Contract 及 W48 JSON 均未修改。
+- **下一步：** 必須先由受支援且符合權限隔離的 GitHub Actions 入口解決「workflow 僅在非 default branch」問題；在不修改 main 的前提下，目前 connector 只有 GitHub GET／內容檔案操作，沒有 workflow_dispatch／tag push 動作。入口解決前不得蒐集一整套資料後假裝能交付，也不得手動執行 Builder 或重建 HTML。
+
 # TAC 投資早報｜2026/11/23 15:40 最新接手狀態
 
 **最後更新：2026/11/23 15:40（Asia/Taipei）**  
