@@ -45,7 +45,7 @@ IDENTITY_ALIASES = {
     "30年期美債殖利率": ["United States 30-Year Bond Yield", "30-Year Bond Yield"],
     "美元指數": ["US Dollar Index", "DXY"],
     "美元／新台幣": ["USD/TWD"],
-    "歐元／美元": ["EUR/USD"],
+    "歐元／美元": ["EUR/USD", "EUR USD"],
     "英鎊／美元": ["GBP/USD"],
     "澳幣／美元": ["AUD/USD"],
     "美元／日圓": ["USD/JPY"],
