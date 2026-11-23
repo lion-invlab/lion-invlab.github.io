@@ -3374,3 +3374,10 @@ QA Sidecar：
 - 新增 Runner Metadata checkout commit／trigger commit 核對，以及 Simulation Branch HTML／QA Sidecar Blob SHA／SHA-256 遠端讀回。
 - 只有 Run、Job、兩份 Artifact、audit、HTML／Sidecar SHA 全部一致，才可標 PIPELINE_E2E_PASS；任何缺項均 PARTIAL／UNVERIFIED。
 - 早報 Automation 目前仍停用，因此這是 prompt 規格更新，尚未有新一輪實際執行證據；未修改排程或 main。
+
+
+### Chart 3 備援監控的停用狀態保護
+
+- 重新核對早報 Automation 目前 `is_enabled=false`，屬 E2E 完成前的刻意停用。
+- Chart 3 備援監控 prompt 已新增 `DISABLED_BY_POLICY`：早報停用時，不因缺少當日 05:25 Run／chat_ref 而誤發排程故障 Slack 告警；不得 run_now、啟用或重建早報排程。
+- Chart 3 原有資料維護照常執行；04:35 行事曆與 05:30 Chart 3 排程保持原狀。
