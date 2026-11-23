@@ -872,6 +872,7 @@ jobs:
           {
             echo "branch=simulation/tac-process-lab-2026-11-06"
             echo "commit=$(git rev-parse HEAD)"
+            echo "build_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
             echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
             echo "trigger_commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
