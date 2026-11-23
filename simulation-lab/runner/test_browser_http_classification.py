@@ -17,9 +17,9 @@ def main():
     cells = split_cells("2026年11月20日\t48,147.33\t49,071.82\t49,594.90\t47,998.86\t1.17B\t-1.93%")
     assert cells[value_i] == "48,147.33" and cells[change_i] == "-1.93%"
     print("PASS: HTTP failures/challenges, genuine date absence, and successful page reads are distinct")
-    noisy_headers, date_i, value_i, change_i = header_indexes(["代號交易所貨幣\\t日期\\t收市\\t開市\\t高\\t低\\t成交量\\t升跌（%）"], 7)
+    noisy_headers, date_i, value_i, change_i = header_indexes(["代號交易所貨幣\t日期\t收市\t開市\t高\t低\t成交量\t升跌（%）"], 7)
     assert (date_i, value_i, change_i) == (0, 1, 6)
-    empty_volume = split_cells("Nov 20, 2026\\t6,910.39\\t7,150.39\\t7,198.67\\t6,882.66\\t\\t-3.70%")
+    empty_volume = split_cells("Nov 20, 2026\t6,910.39\t7,150.39\t7,198.67\t6,882.66\t\t-3.70%")
     assert len(empty_volume) == 7 and empty_volume[5] == "" and empty_volume[6] == "-3.70%"
     print("PASS: localized historical-table headers map Date / Close / Change % to the correct cells")
     print("PASS: leading page headings and empty volume cells do not shift field mapping")
