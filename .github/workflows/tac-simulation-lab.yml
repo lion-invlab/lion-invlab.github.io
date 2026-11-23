@@ -1,6 +1,7 @@
 name: TAC isolated simulation lab
 # Rebuild 2026-11-23 preview with collapsed five-layer source disclosures.
 # Explicit isolated full E2E verification after artifact provenance fix.
+# Verify distinct build commit versus post-persistence branch HEAD.
 # Full-build push trigger: include [build-tac-report:YYYY-MM-DD] in the commit message.
 
 on:
