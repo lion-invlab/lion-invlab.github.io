@@ -3,9 +3,9 @@
   "review_ready": true,
   "review_ready_blockers": [],
   "last_week_earnings_overlay_receipt_path": "simulation-lab/output/candidate-validation/2026-11-23-last-week-consensus-overlay.json",
-  "last_week_earnings_overlay_receipt_archive_path": "simulation-lab/runs/last-week-consensus-overlay-2026-11-23-45131214730.json",
-  "last_week_earnings_overlay_receipt_sha256": "ff2662a425e3ab0627b2faa36fef84e9e120382d89ddc925fe0ab8403ab09c76",
-  "last_week_earnings_overlay_receipt_git_blob_sha": "ae438e465aaced28181bd98e5d6bfe977da192be",
+  "last_week_earnings_overlay_receipt_archive_path": "simulation-lab/runs/last-week-consensus-overlay-2026-11-23-45131247254.json",
+  "last_week_earnings_overlay_receipt_sha256": "ddefadb78aa904acb0fffe7db7c16ffea077e5bc43511f6749e0cfbf3d8d02cf",
+  "last_week_earnings_overlay_receipt_git_blob_sha": "fac2b34fa0a13c574425ea463a0c5d5417f47e3f",
   "last_week_earnings_overlay": {
     "status": "PASS",
     "event_id": "current-nvda-20261118",
@@ -71,7 +71,7 @@
     "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "994cd155cc98947a247a4cb5db43bd6e6e167f71d143c55a1490835fd128dd63",
+  "prebuild_input_receipt_sha256": "c8abadb0cc0f4f12ea4483a485ba9fc48a2763b50baf5cb81c0d453211a53ea6",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -79,7 +79,7 @@
     "report_date": "2026-11-23",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45131214730",
+    "workflow_run_id": "45131247254",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-23.json",
@@ -156,7 +156,7 @@
       "political_findings_count": 8,
       "report_cutoff_taipei": "2026-11-23 05:25"
     },
-    "created_at_utc": "2026-11-23T07:27:51Z",
+    "created_at_utc": "2026-11-23T07:29:57Z",
     "limitations": [
       "Stage 2 uses 44 prior fixture-carried browser observations; this run did not fetch source pages or independently reconcile displayed values.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -167,9 +167,9 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-23-simulation.html",
   "report_date": "2026-11-23",
-  "report_git_blob_sha": "c1be8c60ac96cd9a83322d808e0eea807366d343",
-  "report_sha256": "e51783c65b92bf60482a25e707ef4e12aea0589378394eb3a34b32ec2b7c7b39",
-  "build_commit_sha": "1314675891a95bdbd51c7f113202e4668c71606d",
+  "report_git_blob_sha": "03a280ff4ab2f7942da3a6c80e5fd7fd0eca9a23",
+  "report_sha256": "2ba5ad38757e4624fb9bb757f42594b695259cbd98751769f628fb628a79d14d",
+  "build_commit_sha": "bcd550cc9042093a9725a62410b6992f8a11b0d5",
   "builder_blob_sha": "2cb0a90e53b10c31aca20503f93a5b324091c0a7",
   "fixture_blob_sha": "867c423d624c7af5beb06d0cf62e15d1d7cb14bc",
   "template_blob_sha": "0a7d5095aaa99c470e00e67f33567ff9f359d6ae",
@@ -240,7 +240,7 @@
   "calendar_current_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "5adc48c9ec5077275b66a0230f2fa615f4814251723281111c10240ee85ebd15",
-  "visual_evidence_sha256": "a2beadd4359a4077b064eb19d252b9c2b173f34e0e17397ee60321cfa1c6bdec",
+  "visual_evidence_sha256": "aa565cb5c6fa49e715f2e8a0dd1609b179c852b66053fbe28cd54b91944525a0",
   "viewports": [
     1440,
     768,
@@ -249,6 +249,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45131214730",
+  "workflow_run_id": "45131247254",
   "workflow_run_attempt": "1"
 }
