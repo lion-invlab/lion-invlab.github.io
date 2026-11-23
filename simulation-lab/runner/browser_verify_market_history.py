@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Browser-based observation of the 44 configured historical market pages."""
+"""Browser-based observation of the 44 configured historical market pages.
+Run on a date-matched fixture; unresolved rows remain pending, never auto-promoted.
+"""
 from __future__ import annotations
 import argparse, hashlib, json, re
 from datetime import datetime, timezone
