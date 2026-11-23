@@ -138,23 +138,23 @@
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     },
     {
-      "title": "參議員華倫批評黃仁勳復職，要求白宮說明國安審查依據",
-      "url": "https://udn.com/news/story/125066/9897429",
-      "published_at_source": "2026/11/23 23:28",
-      "published_at_tw": "2026/11/23 23:28",
+      "title": "黃仁勳回任輝達執行長，民主黨高層矢言全面調查",
+      "url": "https://www.cna.com.tw/news/aopl/202611240006.aspx",
+      "published_at_source": "2026/11/24 02:42",
+      "published_at_tw": "2026/11/24 02:42",
       "source_timezone": "Asia/Taipei",
       "updated_at_tw": "原文未標示更新時間",
-      "summary": "華倫要求政府說明曾向輝達董事會提供哪些意見，並指出國會將就輝達與中國關係進行閉門訪談；這是政治監督與政策表態，不是違規認定。",
+      "summary": "美國參議院民主黨領袖舒默表示將調查輝達恢復黃仁勳職務背後是否涉及不法，加州檢察長辦公室也表示仍在調查。這是政治監督與持續調查，不代表違法已被認定。",
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     },
     {
-      "title": "美智庫報告關注中國介入台灣地方選舉的影響力行動",
-      "url": "https://udn.com/news/story/6656/9897354",
-      "published_at_source": "2026/11/23 23:30",
-      "published_at_tw": "2026/11/23 23:30",
+      "title": "九合一投票日將屆，美智庫報告關注中國介入台灣選舉",
+      "url": "https://www.cna.com.tw/news/aipl/202611230297.aspx",
+      "published_at_source": "2026/11/23 23:06",
+      "published_at_tw": "2026/11/23 23:06",
       "source_timezone": "Asia/Taipei",
       "updated_at_tw": "原文未標示更新時間",
-      "summary": "報導引述智庫與台灣國安官員說法，指出機票補助、保留航班與AI生成內容等可能影響選舉；相關主張應區分為報告與官員說法，非司法認定。",
+      "summary": "中央社引述美國智庫報告及台灣國安官員說法，指中國透過機票補助、保留航班及AI生成內容等方式影響選舉；應視為報告與官員指稱，非司法認定。",
       "verification_status": "DIRECT_OPEN_CONFIRMED"
     }
   ],
@@ -3289,8 +3289,8 @@
         "title": "輝達董事會恢復黃仁勳職務，國會議員要求說明國安審查依據",
         "domain": "us_policy",
         "classification": "political_statement",
-        "source_url": "https://udn.com/news/story/125066/9897429",
-        "published_at": "2026-11-23T23:28:00+08:00",
+        "source_url": "https://www.cna.com.tw/news/aopl/202611240006.aspx",
+        "published_at": "2026-11-24T02:42:00+08:00",
         "checked_at": "2026-11-24T06:20:00+08:00",
         "transmission": {
           "policy": "公司董事會已宣布復職；參議員要求白宮說明國安意見來源，並預告12月初閉門訪談。政治監督尚非違規認定。",
@@ -3320,6 +3320,44 @@
             "leading_indicators": "美國商務部正式規則、實體清單、出口許可政策及公司重大風險公告。",
             "strategy": "降低受限市場收入曝險，檢查供應鏈替代性與應收帳款，避免槓桿加碼。",
             "invalidation": "正式政策撤回或法院裁定暫停執行，且公司確認供應與收入恢復。"
+          }
+        }
+      },
+      {
+        "title": "美國智庫報告指稱中國以交通補助與資訊操作影響台灣選舉",
+        "domain": "us_china",
+        "classification": "unverified",
+        "source_url": "https://www.cna.com.tw/news/aipl/202611230297.aspx",
+        "published_at": "2026-11-23T23:06:00+08:00",
+        "checked_at": "2026-11-24T06:20:00+08:00",
+        "transmission": {
+          "policy": "目前屬智庫報告與台灣國安官員指稱，未見司法或行政機關正式認定全部指控成立。",
+          "industry": "可能影響航空運能、旅遊往返及台商商業組織的政治風險評估；量化企業營收影響尚未知。",
+          "macro": "若交通與資訊操作影響選舉信任，可能增加政策不確定性，但尚無可量化宏觀衝擊。",
+          "markets": "目前未見可直接歸因的資產價格反應，不應將政治指控直接轉化為交易訊號。",
+          "strategy": "追蹤政府正式調查與可驗證證據，將已知事實、智庫分析及未核實指稱分開。"
+        },
+        "scenarios": {
+          "baseline": {
+            "triggers": "報告維持智庫與官員指稱，沒有新增正式調查結果。",
+            "affected_assets": "台灣政治風險溢價、航空與跨境商務相關企業。",
+            "leading_indicators": "政府公開說明、司法調查進度、選務機關公告。",
+            "strategy": "不因單一報告調整市場部位，保留事件風險監測。",
+            "invalidation": "出現正式調查結果或新的行政措施。"
+          },
+          "risk": {
+            "triggers": "政府公布可驗證證據並啟動跨部門調查。",
+            "affected_assets": "台灣政治風險敏感資產、航空與兩岸供應鏈。",
+            "leading_indicators": "正式調查文件、航空班次與票價、企業風險揭露。",
+            "strategy": "檢查兩岸收入與供應鏈集中度，避免將單一事件擴大推論整體經濟。",
+            "invalidation": "調查未發現重大違法或相關措施未持續。"
+          },
+          "severe": {
+            "triggers": "正式證據顯示有系統性干預並引發新的制裁或跨境限制。",
+            "affected_assets": "兩岸往來、航空、旅遊、台灣風險資產及跨境供應鏈。",
+            "leading_indicators": "政府制裁公告、航班限制、企業訂單與資金流異常。",
+            "strategy": "降低高度依賴單一市場的曝險，檢查跨境支付與營運備援。",
+            "invalidation": "相關限制撤回且跨境營運恢復正常。"
           }
         }
       }
