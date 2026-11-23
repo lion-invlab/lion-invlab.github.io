@@ -182,13 +182,35 @@ async def observe(context,row,target,timeout,sem):
                 })
                 return out
             response=await page.goto(row["source_url"],wait_until="domcontentloaded",timeout=timeout)
-            out["http_status"]=response.status if response else None
+            navigation_status=response.status if response else None
+            out["navigation_http_status"]=navigation_status
+            out["http_status"]=navigation_status
             out["page_title"]=await page.title()
             out["final_url"]=page.url
+            challenge_resolved=False
+            if navigation_status == 403:
+                # Cloudflare may serve a temporary interstitial with HTTP 403 while
+                # normal browser-side verification is still running. Wait for the
+                # page itself to complete; never solve CAPTCHAs or bypass access controls.
+                try:
+                    await page.wait_for_function("""() => {
+                      const body=(document.body?.innerText || '').toLowerCase();
+                      const challenge=['just a moment','checking your browser','verify you are human','cloudflare'];
+                      const stillBlocked=challenge.some(x=>body.includes(x));
+                      const rows=document.querySelectorAll('table tr, [role=row]').length;
+                      return !stillBlocked && rows > 1;
+                    }""", timeout=9000)
+                    challenge_resolved=True
+                    out["http_status"]=200
+                    out["challenge_interstitial_resolved"]=True
+                    out["page_title"]=await page.title()
+                    out["final_url"]=page.url
+                except Exception:
+                    out["challenge_interstitial_resolved"]=False
             response_class=classify_http_response(out["http_status"])
             if response_class == "TOOL_READ_FAILURE":
                 out["status"]="TOOL_READ_FAILURE"
-                out["error"]="SOURCE_PAGE_HTTP_" + str(out["http_status"] if out["http_status"] is not None else "NO_RESPONSE") + "; NOT EVIDENCE_OF_SOURCE_NO_DATA"
+                out["error"]="SOURCE_PAGE_HTTP_" + str(navigation_status if navigation_status is not None else "NO_RESPONSE") + "; NORMAL_BROWSER_CHALLENGE_DID_NOT_COMPLETE; NOT EVIDENCE_OF_SOURCE_NO_DATA"
                 return out
             # Do not wait 30 seconds for a table that may never render.
             # Investing.com HK pages may use Chinese-localized dates; US pages use English.
