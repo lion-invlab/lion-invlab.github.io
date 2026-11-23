@@ -1,21 +1,12 @@
 name: TAC isolated simulation lab
-# Rebuild 2026-11-23 preview with collapsed five-layer source disclosures.
-# Explicit isolated full E2E verification after artifact provenance fix.
-# Verify distinct build commit versus post-persistence branch HEAD.
-# Full-build push trigger: include [build-tac-report:YYYY-MM-DD] in the commit message.
+# TAC daily report workflow: every Simulation-branch push runs the single pipeline.
+# No path filters: source notes, fixtures, workflow fixes and report inputs must not silently miss execution.
+# Full report build is selected by [build-tac-report:YYYY-MM-DD] in the commit message.
 
 on:
   push:
     branches:
       - simulation/tac-process-lab-2026-11-06
-    paths:
-      - "simulation-lab/**"
-      - ".github/scripts/**"
-      - "schemas/tac-earnings-record-v2.schema.json"
-      - "!simulation-lab/runs/**"
-      - "!simulation-lab/output/**"
-      - "!simulation-lab/analysis/**"
-      - ".github/workflows/tac-simulation-lab.yml"
   workflow_dispatch:
     inputs:
       mode:
@@ -35,7 +26,7 @@ on:
         required: false
         type: string
       run_optional_probes:
-        description: "額外研究探測（含44項來源頁擷取，可能較慢）；日常早報預設關閉"
+        description: "額外非必要研究探測；44項主要行情核驗屬每日主流程，不受此選項控制"
         required: false
         default: false
         type: boolean
