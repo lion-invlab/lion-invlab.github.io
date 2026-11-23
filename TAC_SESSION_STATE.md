@@ -1,3 +1,58 @@
+# 最新權威狀態｜2026-11-23 09:27｜SIM-1.4 E2E 建置與 QA 通過、Stage 6 待使用者核准
+
+**本節優先於下方歷史紀錄；不得再以 07:05 的 0 Jobs 阻塞狀態覆蓋本節。**
+
+## 一、最新執行結論
+- GitHub Actions Run `45094356471`：2026-11-23 09:27（台灣時間）執行；1 Job、44 Steps 全部完成，無失敗；Artifact ID `14781923815`，約 31.3 MB。
+- 執行 commit：`0b27040cf920d6d668a4cc5b1c9a98cf9e08469f`；工作分支仍為 `simulation/tac-process-lab-2026-11-06`。
+- 最新審核版：`preview/2026-11-23-simulation.html`；Git blob SHA `6a72e3a89defe2743c93a826912a7f27b1c43014`；HTML SHA-256 `e8db6479af8ab6702d1cd236284a37d8eda7460fc48e41deaf0ae41d21f35fab`。
+- QA sidecar：`preview/2026-11-23-simulation.qa.json`；Git blob SHA `2388e190185991f99fd2f8b7b9ae726e7d995fd7`；`status=QA_PASSED`、`review_ready=true`、blockers=[]。
+- Sidecar 的 `report_git_blob_sha` 與 HTML 實際 Git blob SHA 一致；QA 封存綁定上述 HTML SHA-256。
+- Builder `simulation-lab/runner/build_review_html.py` SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；Fixture SHA `867c423d624c7af5beb06d0cf62e15d1d7cb14bc`；Monday 母版 SHA `0a7d5095aaa99c470e00e67f33567ff9f359d6ae`；Manifest SHA `d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.21 SHA `e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`；SIM-1.4 SHA `6ab8852582b81f9da0bca7e974fbf39847067aed`。
+- Pre-build Stage 2–4 receipt SHA-256：`dd01247db73aa151eed188398be2eae5fc34a7c7711a5900b825a32b609312f3`，status=PASS。
+- Content analysis Gate=PASS；政治／地緣掃描=PASS；W47 NVDA consensus overlay=PASS；W47 Warsh calendar-impact overlay=PASS。
+
+## 二、行情證據的正確解讀
+- 44/44 逐筆 observation records 完整，44 項均有 observation-record hash；本輪沿用既有觀察紀錄 44 項。
+- 本輪 Pipeline 未重新擷取 44 個來源頁，`source_pages_fetched=false`、`displayed_values_independently_reconciled=false`；`raw_response_sha256` 封存數量為 0。
+- 依 SIM-1.4，raw HTTP response body／raw_response_sha256 為可選額外封存，不構成行情數值核驗失敗；不得宣稱本輪重新抓取或獨立重核全部 44 項。
+
+## 三、QA 與交付邊界
+- 桌機／手機視覺 QA 六種寬度 1440、768、412、390、360、320px 全數通過；互動及 DOM 驗收證據已封存。
+- Workflow step「Deliver the exact QA-passed artifact to main preview only after explicit user approval」為 SKIPPED，因尚未取得使用者對上述 HTML SHA-256 的明確核准。
+- 本輪沒有寫入 main preview、沒有部署 Pages、沒有修改 main/index.html。main HEAD 為 `0fa194ae64a781373464858fb70c800e4ffbf098`；main index blob SHA 為 `4c83ee2b7aeb5ecf16a3ca6cbef02c0c41bb40a4`（需以最新遠端回讀為準）。
+- 可供使用者審核的 GitHub 檔案網址：
+  - HTML：`https://github.com/lion-invlab/lion-invlab.github.io/blob/simulation/tac-process-lab-2026-11-06/preview/2026-11-23-simulation.html`
+  - QA sidecar：`https://github.com/lion-invlab/lion-invlab.github.io/blob/simulation/tac-process-lab-2026-11-06/preview/2026-11-23-simulation.qa.json`
+
+## 四、五條執行鏈與九項 E2E 最新狀態
+1. 排程→任務啟動：05:25 早報自動化目前仍停用；11/23 任務曾延遲至 06:51:22 才啟動。未完成排程恢復驗收。
+2. 任務→GitHub Workflow：Run 45094356471 已證明 Simulation branch push-trigger 可成功啟動 Workflow；先前 Run 45080345516 的 0 Jobs 原因尚未完全查明。不得再將「Workflow 不在 main」當成 push-trigger 失敗的已證實唯一原因；main 缺少該 Workflow 僅代表 workflow_dispatch 入口仍受 default-branch 限制。
+3. 行事曆資料庫→Fixture：W47/W48 main JSON 以同一 main commit SHA 鎖定並唯讀；W48 projection 已納入 Fixture，receipt PASS。
+4. Fixture→Builder：日期、交易日、Fixture、母版與 Builder 核准 SHA 全部吻合；Builder 實際執行成功。
+5. Builder→QA→審核版：HTML、sidecar、六視窗 QA、互動／DOM 驗收完成，review_ready=true；Stage 6 尚待使用者核准。
+- 九項驗收：#1 排程觸發未 PASS；#2 Workflow/Jobs PASS；#3 Fixture／週一母版 PASS；#4 核准 Builder 新 HTML PASS；#5 HTML 檢查 PASS；#6 sidecar／HTML SHA 綁定 PASS；#7 桌機／手機視覺 QA PASS；#8 GitHub branch HTML／sidecar 檔案已存在且可由 GitHub API 讀取，Pages 正式預覽尚未發布；#9 自動化失敗演練及通知送達尚未 PASS。
+- `test_simulation_workflow_delivery_gate.py` 已於本次 deterministic self-tests 通過；它驗證 main 交付必須 workflow_dispatch、publish_to_main=true 且核對使用者提供的 64 位 HTML SHA，不能冒充實際排程失敗演練。
+
+## 五、排程與通知狀態
+- 早報 05:25 自動化 `Automation_f4da15cd95c881918c7412cdd6f35bb2`：`is_enabled=false`，不得自行恢復。
+- 行事曆 04:35 自動化 `6af6d10c62448191819f04b976c64cf4`：啟用；W48 更新已完成。
+- Chart 3 05:30 自動化 `Automation_d59409d2de44819191030af1122bc0ec`：啟用；ALFRED 四序列更新與 Pages／Visual QA 已完成，S&P 500 Investing.com updater 仍為阻塞。
+- `notify_parent` 回傳 HTTP 404 Action not found；未取得 `status=notified`，不得記為已送達。
+
+## 六、歷史失敗紀錄更正
+- Run 45080345516 的 0 Jobs／0 Artifacts 仍保留為歷史失敗；後續 Run 45094356471 已成功，故前者不代表目前 Pipeline 無法執行。
+- 獨立 lint Run 45080346377 針對舊 Workflow blob `dd03a0abb3c5a8b280191ade3b80802987c46a48` 發現四個 constant `if:false` 與兩個 SC2129；這是獨立 lint 失敗，不是本次 Builder／QA 失敗。最新執行 Workflow blob SHA 為 `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7`；尚未對此最新 SHA 重新執行獨立 actionlint，因此 lint 狀態另列 NOT_TESTED。
+
+## 七、下一步
+1. 不重做已通過的 Builder／QA，不重抓已鎖定的 44 項行情。
+2. 先完成最新 Workflow SHA 的獨立 lint，並釐清 45080345516 0 Jobs 的具體事件原因。
+3. 以隔離測試驗收失敗回報與通知機制；`notify_parent` 404 未修復前不得宣稱通知鏈 PASS。
+4. 排程完整 E2E 通過前維持 05:25 早報任務停用。
+5. 使用者審核並核准確切 HTML SHA 後，才可另行執行 Stage 6 main/preview 交付；正式首頁仍須獨立明確核准。
+
+---
+
 # 最新權威狀態｜2026-11-22｜SIM-1.4 最終 SHA 鎖定與 E2E 完成
 
 **本節是目前唯一最新狀態；下方保留歷史紀錄，不得以舊 SHA 或舊狀態覆蓋本節。**
