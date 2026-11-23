@@ -83,9 +83,9 @@ IDENTITY_ALIASES = {
 
 def split_cells(text):
     raw = str(text or "")
-    if "\\t" in raw:
-        return [part.strip() for part in raw.split("\\t")]
-    return [part.strip() for part in re.split(r"\\s*\\|\\s*", raw) if part.strip()]
+    if "\t" in raw:
+        return [part.strip() for part in raw.split("\t")]
+    return [part.strip() for part in re.split(r"\s*\|\s*", raw) if part.strip()]
 
 def header_indexes(lines):
     for line in lines:
@@ -132,7 +132,7 @@ async def observe(context,row,target,timeout,sem):
                 try:
                     found=await page.locator(selector).all_inner_texts()
                     if found:
-                        header_lines.append("\\t".join(x.strip() for x in found if x.strip()))
+                        header_lines.append("\t".join(x.strip() for x in found if x.strip()))
                 except Exception:
                     pass
             body_text=await page.locator("body").inner_text()
