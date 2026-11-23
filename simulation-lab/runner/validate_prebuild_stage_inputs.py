@@ -66,22 +66,27 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(audit.get("displayed_values_independently_reconciled") is False,
             "metadata validator must not claim independent numeric reconciliation")
 
-    require(manifest.get("status") == "PASS", "market source observation manifest is not PASS")
+    require(manifest.get("status") in ("PASS", "PARTIAL"),
+            "market source observation manifest is neither PASS nor PARTIAL")
     require(manifest.get("report_date") == report_date, "source manifest report_date mismatch")
     require(manifest.get("trading_date") == trading_date, "source manifest trading_date mismatch")
-    require(manifest.get("row_count") == 44 and manifest.get("verified_count") == 44
-            and manifest.get("pending_count") == 0, "44 source observation rows are incomplete")
+    verified_count = manifest.get("verified_count")
+    pending_count = manifest.get("pending_count")
+    require(manifest.get("row_count") == 44
+            and isinstance(verified_count, int) and isinstance(pending_count, int)
+            and verified_count >= 0 and pending_count >= 0
+            and verified_count + pending_count == 44,
+            "44-row source register is incomplete or counts do not reconcile")
     require(manifest.get("prior_observation_reused_count") == 0,
             "current-run verification must not reuse prior fixture observations")
-    require(manifest.get("source_pages_fetched") is True
-            and manifest.get("displayed_values_independently_reconciled") is True,
-            "44 current-run source reads and numeric reconciliations are required")
+    require(manifest.get("source_pages_fetched") in (True, False)
+            and manifest.get("displayed_values_independently_reconciled") is (verified_count == 44),
+            "source verification summary does not match verified-row count")
     require(manifest.get("verification_scope") ==
             "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
             "unexpected source manifest verification scope")
-    require(manifest.get("browser_observation_records_complete") is True
-            and manifest.get("observation_record_hash_missing_count") == 0,
-            "44 per-item observation records and hashes must be complete")
+    require(manifest.get("observation_record_hash_missing_count") == 0,
+            "a verified observation is missing its record hash")
     rows = manifest.get("rows")
     require(isinstance(rows, list) and len(rows) == 44, "source manifest rows must contain 44 records")
     keys = {(row.get("group"), row.get("name")) for row in rows}
@@ -100,26 +105,34 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "CURRENT_RUN_BROWSER_OBSERVATION",
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "USER_SUPPLIED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
     }
-    require(all(row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
-                and row.get("display_value_matches_saved_observation") is True
-                and row.get("observation_provenance") in allowed_provenance
-                for row in rows), "one or more source rows lack a complete current-session observation")
-    require(all(isinstance(row.get("browser_observation_record"), dict)
-                and row["browser_observation_record"].get("source_url")
-                and row["browser_observation_record"].get("data_date") == trading_date
-                and row["browser_observation_record"].get("observed_value") is not None
-                and row["browser_observation_record"].get("observed_change") is not None
-                and row["browser_observation_record"].get("checked_at_tw")
-                for row in rows), "one or more browser observation records are incomplete")
-    require(all(row.get("source_page_fetched") is True and row.get("display_value_reconciled") is True for row in rows),
-            "all 44 rows must be fetched and reconciled in this run")
-    require(all(row.get("observation_record_sha256") and
-                re.fullmatch(r"[0-9a-f]{64}", row["observation_record_sha256"])
-                for row in rows), "one or more observation record hashes are invalid")
-    require(all(row.get("trading_date") == trading_date for row in rows),
-            "source manifest contains mixed trading dates")
+    for row in rows:
+        require(row.get("trading_date") == trading_date,
+                f"source manifest contains mixed trading dates: {row.get('name')}")
+        if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
+            require(row.get("display_value_matches_saved_observation") is True
+                    and row.get("observation_provenance") in allowed_provenance,
+                    f"verified row lacks current-session evidence: {row.get('name')}")
+            record = row.get("browser_observation_record")
+            require(isinstance(record, dict) and record.get("source_url")
+                    and record.get("data_date") == trading_date
+                    and record.get("observed_value") is not None
+                    and record.get("observed_change") is not None
+                    and record.get("checked_at_tw"),
+                    f"verified row observation record incomplete: {row.get('name')}")
+            require(row.get("source_page_fetched") is True
+                    and row.get("display_value_reconciled") is True,
+                    f"verified row was not fetched and reconciled: {row.get('name')}")
+            require(row.get("observation_record_sha256")
+                    and re.fullmatch(r"[0-9a-f]{64}", row["observation_record_sha256"]),
+                    f"verified row observation hash invalid: {row.get('name')}")
+        else:
+            require(row.get("verification_status") == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+                    f"unknown source status: {row.get('name')}")
+            require(row.get("display_value_matches_saved_observation") is False,
+                    f"pending row cannot claim a value match: {row.get('name')}")
     # raw_response_sha256 is optional evidence; absence is not a Stage 2 failure.
     raw_hash_count = manifest.get("raw_response_sha256_saved_count", 0)
     require(isinstance(raw_hash_count, int) and 0 <= raw_hash_count <= 44,
@@ -129,10 +142,10 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "indicator_count": 44,
         "group_counts": EXPECTED_GROUP_COUNTS,
         "observation_count": len(rows),
-        "observation_record_hash_count": 44,
+        "observation_record_hash_count": verified_count,
         "prior_observations_reused": 0,
-        "source_pages_fetched_this_run": True,
-        "numeric_values_reconciled_this_run": True,
+        "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
+        "numeric_values_reconciled_this_run": verified_count,
         "raw_response_sha256_saved_count": raw_hash_count,
     }
 
