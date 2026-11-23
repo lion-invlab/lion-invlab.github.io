@@ -105,6 +105,9 @@ Run `45131652645` 已實際驗證通過。
 
 ### Slack
 
+- 早報 Automation prompt 另已新增 GitHub Workflow／Job／Artifact 反向核驗：要求核對當次 Run、Job 非零、主 Artifact 與 post-upload audit Artifact、audit PASS、checkout／trigger commit 分離、HTML／Sidecar 遠端 SHA；缺任一證據即 PARTIAL／UNVERIFIED。此 prompt 尚未實際執行，因 05:25 早報 Automation 維持停用。
+
+
 - `#tac-alerts` Channel ID：`C0CL6GF6KJ8`。
 - 早報 Automation prompt 已加入每次執行結束時的 Slack 狀態通知；早報目前停用，尚未產生自動送達證據。
 - Chart 3 備援監控 prompt 已改用 Slack connector，並區分「尚未啟動／失敗」、「獨立 Automation 正在執行但 parent thread 未確認」及「已完成但 parent thread 未連結」，避免把 chat_ref=null 一律誤報成整體失敗。
