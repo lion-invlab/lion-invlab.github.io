@@ -1185,10 +1185,10 @@ def apply_last_week_calendar_impact_overrides(data):
         if not expected or current != expected:
             raise ValueError(f"last-week calendar impact override source text changed: {event_id}")
         replacement = str(row.get("impact") or "").strip()
-        if len(replacement) < 40 or re.match(r"^https?://", replacement, re.I):
-            raise ValueError(f"last-week calendar impact override must be explanatory text: {event_id}")
         if "後續觀察" in replacement:
             raise ValueError(f"last-week calendar impact override retains generic 後續觀察 wording: {event_id}")
+        if len(replacement) < 40 or re.match(r"^https?://", replacement, re.I):
+            raise ValueError(f"last-week calendar impact override must be explanatory text: {event_id}")
         source_url = str(row.get("source_url") or target.get("source_url") or "").strip()
         if not source_url.startswith("https://"):
             raise ValueError(f"last-week calendar impact override lacks a verifiable HTTPS source: {event_id}")
