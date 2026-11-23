@@ -81,6 +81,27 @@ IDENTITY_ALIASES = {
     "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
 }
 
+def parse_cnn_history(payload, target):
+    """Return CNN's own composite daily score/rating for the exact UTC date."""
+    block = payload.get("fear_and_greed_historical") or {}
+    points = block.get("data") or []
+    for point in points:
+        stamp = point.get("x") or point.get("timestamp")
+        if stamp is None:
+            continue
+        try:
+            observed_date = datetime.fromtimestamp(float(stamp) / 1000, timezone.utc).date().isoformat()
+        except (TypeError, ValueError, OverflowError):
+            continue
+        if observed_date == target:
+            score = point.get("y", point.get("score"))
+            rating = point.get("rating")
+            if score is None or not rating:
+                return {"status": "OBSERVED_PENDING_FIELD_MAPPING", "date": observed_date}
+            return {"status": "PAGE_READ_OK", "date": observed_date,
+                    "score": score, "rating": str(rating).strip().lower()}
+    return {"status": "TARGET_DATE_NOT_FOUND"}
+
 def split_cells(text):
     raw = str(text or "")
     if "\t" in raw:
@@ -114,6 +135,52 @@ async def observe(context,row,target,timeout,sem):
     async with sem:
         page=await context.new_page()
         try:
+            if row["name"] == "fear_greed":
+                # CNN's official page uses this JSON endpoint for its own chart.
+                # Read the provider's composite historical series, not its seven component rows.
+                endpoint="https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+                api_response=await context.request.get(endpoint,timeout=timeout,headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                    "Referer": "https://edition.cnn.com/markets/fear-and-greed",
+                    "Accept": "application/json, text/plain, */*",
+                })
+                out.update({"data_endpoint_url":endpoint,"http_status":api_response.status,
+                            "final_url":endpoint,"read_method":"CNN_OFFICIAL_HISTORICAL_JSON"})
+                if api_response.status != 200:
+                    out.update({"status":"TOOL_READ_FAILURE","error":f"CNN_GRAPH_DATA_HTTP_{api_response.status}"})
+                    return out
+                raw=await api_response.body()
+                out["raw_response_sha256"]=hashlib.sha256(raw).hexdigest()
+                payload=json.loads(raw.decode("utf-8"))
+                parsed=parse_cnn_history(payload,target)
+                out["page_title"]="CNN Business Fear & Greed historical data"
+                if parsed["status"] == "TARGET_DATE_NOT_FOUND":
+                    out.update({"status":"TARGET_DATE_NOT_FOUND","error":"CNN_HISTORICAL_SERIES_HAS_NO_TARGET_DATE"})
+                    return out
+                if parsed["status"] != "PAGE_READ_OK":
+                    out.update({"status":"OBSERVED_PENDING_FIELD_MAPPING","error":"CNN_HISTORICAL_RECORD_MISSING_SCORE_OR_RATING"})
+                    return out
+                score=str(parsed["score"])
+                rating=parsed["rating"]
+                expected_band=str(row.get("expected_change") or "").strip().lower()
+                score_match=number_token(score)==number_token(row.get("expected_value"))
+                band_match=rating==expected_band
+                out.update({
+                    "instrument_identity":"CNN Fear & Greed Index",
+                    "instrument_identity_status":"VERIFIED",
+                    "observed_date":parsed["date"],
+                    "observed_value":score,
+                    "observed_change":rating,
+                    "observed_value_field":"fear_and_greed_historical.data[].y",
+                    "observed_change_field":"fear_and_greed_historical.data[].rating",
+                    "expected_display_value":row.get("expected_value"),
+                    "expected_change_display":row.get("expected_change"),
+                    "display_value_match":score_match,
+                    "display_change_match":band_match,
+                    "field_mapping_status":"VERIFIED",
+                    "status":"VERIFIED" if score_match and band_match else "OBSERVED_PENDING_FIELD_MAPPING",
+                })
+                return out
             response=await page.goto(row["source_url"],wait_until="domcontentloaded",timeout=timeout)
             out["http_status"]=response.status if response else None
             out["page_title"]=await page.title()
