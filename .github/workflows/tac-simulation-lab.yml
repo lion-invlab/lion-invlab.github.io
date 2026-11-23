@@ -301,7 +301,7 @@ jobs:
             --fixture "${REPORT_DATA}" \
             --report-date "${REPORT_DATE}" \
             --output simulation-lab/output/market-history-browser-observations.json
-          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
+          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --observations simulation-lab/output/market-history-browser-observations.json --output simulation-lab/output/market-source-verification-manifest.json
 
       - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
