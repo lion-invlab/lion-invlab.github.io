@@ -98,7 +98,7 @@ def main() -> None:
                  "six-domain political/geopolitical scan is incomplete")
 
     outside_window = copy.deepcopy(data)
-    outside_window["headlines"][0]["published_at_tw"] = "2026/11/22 09:00"
+    outside_window["headlines"][0]["published_at_tw"] = "2026/11/20 11:59"
     expect_error(lambda: validate_stage4(outside_window, report_date),
                  "outside sealed window")
 
