@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-24T05:25:00+08:00
 news_window_taipei: 2026-11-23T12:00:00+08:00/2026-11-24T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: 2e215ff002e57ce886086a11bac03a41e3922696
+workflow_blob_sha: 9ef84422de9eb2b58c359867b127e3be3ffdf46a
 active_rules_version: SIM-1.4
 active_rules_blob_sha: 7a4dc383ccf86a7c7a89b60cafc3b91f5fdb5c3b
 qa_contract_version: 1.21
@@ -26,7 +26,7 @@ main_calendar_previous_path: data/calendar/weeks/2026-W47.json
 main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 
 market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
-market_history_verifier_blob_sha: b17539d117db117847d65ca16dcc454bea4e88b6
+market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
 publish_to_main: false
