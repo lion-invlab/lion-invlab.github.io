@@ -17,3 +17,5 @@ Final rerun after updating 11/23 fixture provenance notes and matching regressio
 Retry build on latest Simulation commit after Stage 2 Gate provenance allowlist now accepts CURRENT_CHATGPT_WEB_OPEN_OBSERVATION and CURRENT_CNN_OFFICIAL_API_OBSERVATION. Require exact 44/44 receipt before builder.
 
 Re-run after correcting obsolete regression assertion: weekend FedWatch freshness note is correctly stored in warning_note, not quality_note. Execute full deterministic self-tests and full 11/23 report build on Simulation only.
+
+[build-tac-report:2026-11-23] Re-run Stage 2 using 43 independently opened Investing.com historical pages with web citation line evidence, plus a fresh Playwright read of CNN official graphdata body; no fabricated CNN observation values or hashes. Continue full SIM-1.4 build only if all 44 pass.
