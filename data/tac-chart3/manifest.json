@@ -9,20 +9,20 @@
       "series_id": "VIXCLS",
       "artifact_id": 13859041307,
       "artifact_sha256": "6d653f79661a8dbf169b402e27dbb84c4d606d9004332e97854fee98df5faf65",
-      "current_rows": 9623,
+      "current_rows": 9624,
       "current_span": {
         "first": "1990-01-02",
-        "last": "2026-11-19"
+        "last": "2026-11-20"
       },
-      "initial_release_rows": 4142,
+      "initial_release_rows": 4143,
       "initial_release_span": {
         "first": "2010-11-22",
-        "last": "2026-11-19"
+        "last": "2026-11-20"
       },
-      "vintage_dates": 3978,
+      "vintage_dates": 3979,
       "vintage_span": {
         "first": "2010-11-22",
-        "last": "2026-11-19"
+        "last": "2026-11-20"
       },
       "chunk_files": 320,
       "chunk_grid_expected": 320,
@@ -33,15 +33,15 @@
       "raw_observation_rows": 28023,
       "vintage_columns_seen": 3970,
       "missing_vintage_columns": 0,
-      "event_rows": 9645,
+      "event_rows": 9646,
       "source_missing_value_events": 305,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "95b0e297646ad2684b7a303c9247d42250e1ef1050d99f78af158e0353830d7b",
-      "current_sha256": "f2d3cc6ccc40438e47d7ccae0c07939607404dcee6a8e925984be4dc26b798e9",
-      "initial_release_sha256": "909b37fcddaa35179d2606d84740e8f383ccce2c7572f7ebaee7b2460626c6f0",
-      "valid_rows": 9321,
+      "event_sha256": "e58603f8149d57188becea7feb47fdda09b105f6abb5176d9abf6489e8166e7e",
+      "current_sha256": "2759f0f8826cb737eb3e4a0efc75f4c28043ec74921c055c48c334c68179fca9",
+      "initial_release_sha256": "14a8bb713ddd02a5c93b4aa1931074c1fa580c1ea383c71ce6bc174288381f2d",
+      "valid_rows": 9322,
       "missing_rows": 302
     },
     {
@@ -3521,7 +3521,7 @@
     "forward_fill": false,
     "license_status": "review_required_before_redistribution"
   },
-  "last_incremental_at": "2026-11-22T21:33:09+00:00",
+  "last_incremental_at": "2026-11-23T21:35:25+00:00",
   "last_incremental_results": [
     {
       "series_id": "VIXCLS",
@@ -3530,16 +3530,16 @@
       "new_event_rows_fetched": 6,
       "added_event_rows": 1,
       "overlap_duplicate_rows": 5,
-      "current_rows": 9623,
-      "current_sha256": "f2d3cc6ccc40438e47d7ccae0c07939607404dcee6a8e925984be4dc26b798e9",
-      "event_count": 9645,
-      "events_sha256": "95b0e297646ad2684b7a303c9247d42250e1ef1050d99f78af158e0353830d7b",
-      "initial_release_rows": 4142,
-      "initial_release_sha256": "909b37fcddaa35179d2606d84740e8f383ccce2c7572f7ebaee7b2460626c6f0",
+      "current_rows": 9624,
+      "current_sha256": "2759f0f8826cb737eb3e4a0efc75f4c28043ec74921c055c48c334c68179fca9",
+      "event_count": 9646,
+      "events_sha256": "e58603f8149d57188becea7feb47fdda09b105f6abb5176d9abf6489e8166e7e",
+      "initial_release_rows": 4143,
+      "initial_release_sha256": "14a8bb713ddd02a5c93b4aa1931074c1fa580c1ea383c71ce6bc174288381f2d",
       "initial_release_added_rows": 1,
-      "vintage_date_count": 3978,
-      "vintage_dates_sha256": "a4a4507b47fbbbedb1cb9090beca084bec31b5305bc2abe21e7d6ad6932ca348",
-      "latest_vintage_date": "2026-11-19",
+      "vintage_date_count": 3979,
+      "vintage_dates_sha256": "33f633b2a55cd2db344a856d0a5258cbe233c13a58763ff904b14af9ae5ab3bf",
+      "latest_vintage_date": "2026-11-20",
       "changed": true
     },
     {
@@ -3603,11 +3603,11 @@
   "overall_status": "PASS",
   "chart_dataset": {
     "file": "chart3_market_stress.json",
-    "sha256": "8a252831eabb783191284d2765f001f493f9e8cca972a287954979abc9be557e",
-    "bytes": 1494295,
+    "sha256": "290a604ccf825dc3167300d433ada311fdc63a785c3eeb137eccb9808a1e637a",
+    "bytes": 1494381,
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
-    "generated_at": "2026-11-22T21:33:09+00:00"
+    "generated_at": "2026-11-23T21:35:25+00:00"
   },
   "source_branch": "simulation/tac-process-lab-2026-11-06",
   "deployment_branch": "main",
@@ -3734,9 +3734,9 @@
       "frequency": "daily close",
       "span": [
         "1990-01-02",
-        "2026-11-19"
+        "2026-11-20"
       ],
-      "valid_observations": 9321,
+      "valid_observations": 9322,
       "null_observations": 302,
       "source_missing_value_events": 305,
       "missing_event_resolution": "Three previously missing events were later revised to values; no interpolation or forward-fill.",
