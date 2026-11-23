@@ -77,7 +77,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
             and manifest.get("displayed_values_independently_reconciled") is True,
             "44 current-run source reads and numeric reconciliations are required")
     require(manifest.get("verification_scope") ==
-            "CURRENT_RUN_BROWSER_OBSERVATIONS",
+            "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
             "unexpected source manifest verification scope")
     require(manifest.get("browser_observation_records_complete") is True
             and manifest.get("observation_record_hash_missing_count") == 0,
