@@ -20,7 +20,7 @@ weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-23.json
 fixture_blob_sha: fec8e4f637b035c393afcf30ad7cdf05bb96e94c
 earnings_consensus_projection: simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json
-earnings_consensus_projection_blob_sha: 256c86a424b76e0b9cb4a85f915ea3ddac62f4b1
+earnings_consensus_projection_blob_sha: d683465166e02ef3d744fe0304ae95371d6cc292
 main_calendar_commit_sha: 0fa194ae20bb97a72420ad7104bdc4c226a8e65e
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 9bb842ab475fa38ca6407304990d1cd3fae42c63
@@ -44,3 +44,5 @@ artifact and its QA evidence. It cannot write main preview, main index, or deplo
 the production homepage. Optional research probes remain disabled.
 
 Fixture correction log (2026-11-23): political_scan.findings[6] and [7] were normalized from the invalid classification `reported_unverified` to the SIM-1.4 fixed enum `unverified`. Original fixture blob SHA: 8f6664356fec46c0ddb8f0a46e12eeb0e45225bc. No source, event text, transmission, scenario, or market data was changed.
+
+Projection provenance correction (2026-11-23): calendar_main_commit_sha rebound from 09e0e5fe64a781373464858fb70c800e4ffbf098 to 0fa194ae20bb97a72420ad7104bdc4c226a8e65e after verifying the W48 calendar blob is identical (9bb842ab475fa38ca6407304990d1cd3fae42c63). No forecast values, source observations, or reporting periods changed. Original projection blob SHA: 256c86a424b76e0b9cb4a85f915ea3ddac62f4b1.

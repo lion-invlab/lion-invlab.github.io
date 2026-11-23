@@ -4,7 +4,7 @@
   "week_id": "2026-W48",
   "branch_scope": "simulation/tac-process-lab-2026-11-06",
   "calendar_blob_sha": "9bb842ab475fa38ca6407304990d1cd3fae42c63",
-  "calendar_main_commit_sha": "09e0e5fe64a781373464858fb70c800e4ffbf098",
+  "calendar_main_commit_sha": "0fa194ae20bb97a72420ad7104bdc4c226a8e65e",
   "created_at": "2026-11-22T11:12:02+08:00",
   "status": "FORECASTS_CAPTURED_WITH_BASIS_DISCLOSURES",
   "source_priority": [
