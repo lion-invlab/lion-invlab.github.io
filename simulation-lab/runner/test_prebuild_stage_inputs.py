@@ -70,7 +70,7 @@ def main() -> None:
     # complete current-run 44-row evidence bundle can pass without fixture reuse.
     synthetic = copy.deepcopy(manifest)
     synthetic.update({
-        "status": "PASS", "verification_scope": "CURRENT_RUN_BROWSER_OBSERVATIONS",
+        "status": "PASS", "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
         "source_pages_fetched": True, "displayed_values_independently_reconciled": True,
         "prior_observation_reused_count": 0, "verified_count": 44, "pending_count": 0,
         "browser_observation_records_complete": True, "observation_record_hash_missing_count": 0,
