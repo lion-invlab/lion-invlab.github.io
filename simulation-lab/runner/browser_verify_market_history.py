@@ -87,15 +87,22 @@ def split_cells(text):
         return [part.strip() for part in raw.split("\t")]
     return [part.strip() for part in re.split(r"\s*\|\s*", raw) if part.strip()]
 
-def header_indexes(lines):
+def header_indexes(lines, cell_count=None):
     for line in lines:
         cells = split_cells(line)
-        normalized = [re.sub(r"[^a-z0-9%\u4e00-\u9fff]", "", x.lower()) for x in cells]
+        normalized = [re.sub(r"[^a-z0-9%\\u4e00-\\u9fff]", "", x.lower()) for x in cells]
         date_i = next((i for i,x in enumerate(normalized) if "date" in x or "日期" in x), None)
+        if date_i is None:
+            continue
+        # Some pages expose an unrelated leading instrument header in the same
+        # collection. Anchor the historical table at its Date column.
+        cells = cells[date_i:]
+        normalized = normalized[date_i:]
         value_i = next((i for i,x in enumerate(normalized) if any(k in x for k in ("price","close","收市","收盤","價格"))), None)
         change_i = next((i for i,x in enumerate(normalized) if ("change" in x and "%" in x) or "升跌" in x or "漲跌" in x or "變動%" in x), None)
-        if date_i is not None and value_i is not None and change_i is not None:
-            return cells, date_i, value_i, change_i
+        if value_i is not None and change_i is not None:
+            if cell_count is None or max(value_i, change_i) < cell_count:
+                return cells, 0, value_i, change_i
     return None, None, None, None
 
 async def observe(context,row,target,timeout,sem):
@@ -152,7 +159,7 @@ async def observe(context,row,target,timeout,sem):
                 return out
             candidate=matches[0]
             cells=split_cells(candidate)
-            headers,date_i,value_i,change_i=header_indexes(header_lines+rows+body_lines)
+            headers,date_i,value_i,change_i=header_indexes(header_lines+rows+body_lines, len(cells))
             title_text=(out.get("page_title","")+" "+(await page.locator("h1").first.inner_text() if await page.locator("h1").count() else "")).lower()
             aliases=IDENTITY_ALIASES.get(row["name"],[row["name"]])
             matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
