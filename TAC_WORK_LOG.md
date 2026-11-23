@@ -3381,3 +3381,16 @@ QA Sidecar：
 - 重新核對早報 Automation 目前 `is_enabled=false`，屬 E2E 完成前的刻意停用。
 - Chart 3 備援監控 prompt 已新增 `DISABLED_BY_POLICY`：早報停用時，不因缺少當日 05:25 Run／chat_ref 而誤發排程故障 Slack 告警；不得 run_now、啟用或重建早報排程。
 - Chart 3 原有資料維護照常執行；04:35 行事曆與 05:30 Chart 3 排程保持原狀。
+
+## 2026-11-24 05:56 Asia/Taipei｜SIM-1.4 排程接手與 Pipeline 入口阻塞
+
+- 本次排程執行開始時間 2026-11-24 05:56:48 Asia/Taipei；report_date 2026-11-24（二），trading_date 2026-11-23，ISO week W48，新聞窗口 11/23 12:00 至 11/24 05:56:48。
+- 啟動時首先呼叫 Automations notify_parent，回傳 HTTP 404 `Action not found`；未取得 status=notified，通知未送達。依任務要求進入 fallback。
+- 重新讀取 SIM-1.4（SHA `6ab8852582b81f9da0bca7e974fbf39847067aed`）、main WR v5.17（SHA `0210e8e04f4f6b2374997b82a658e15781932e67`，僅正式權限邊界）、Manifest（`d47d8abece4137884bda76d6a505ba4112904e0d`）、QA Contract v1.21（`e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`）、weekday simulation mother（`3f4e65c1385532b0f0969fdc76caf2883a39e798`）、核准 Builder（`2cb0a90e53b10c31aca20503f93a5b324091c0a7`）、Workflow（`525b6d902a706cc66e5c7aceb8955137eb658873`）及既有 Session／Work Log。
+- main HEAD 為 `77ab012bb027591631c704d976468cf4ea2e2046`。main W48 JSON `data/calendar/weeks/2026-W48.json` blob SHA `0db095ad6638d0bf75dc1ae90248571c84169f26`，updated_at 2026-11-24T04:33:03+08:00，27 經濟／11 財報，coverage incomplete。週二只讀 W48；W47 不適用；未修改任何正式行事曆 JSON。
+- Manifest 指定 weekday simulation mother，實際 SHA 與登記相符；DOCTYPE/html/head/body 各一，ID 數 180。Stage 1 基準核對完成。
+- 11/24 每日 Fixture `simulation-lab/fixtures/report-data-2026-11-24.json` 不存在（404）；未建立。BUILD_TRIGGER 現有 SHA `478ca209d4813c7d58f466f313cbd7ca43b8b473` 仍指向 11/23，並 pin 舊 Workflow SHA `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7`，與當前 Workflow SHA 不一致。
+- GitHub connector GET 確認 main/default branch 不存在 `.github/workflows/tac-simulation-lab.yml`（404），該 Workflow 僅存在 simulation branch。上一日 Run `45080345516`（僅歷史參考）completed/failure、jobs=0、artifacts=0。此為持續性入口阻塞，不是單次資料讀取錯誤。
+- SIM-1.4 禁止把 Workflow 複製到 main；本執行環境沒有 workflow_dispatch 或 tag-push 動作，不能安全觸發本輪 Pipeline。故 Stage 2–4 Fixture／Projection、BUILD_TRIGGER、Stage 5 Builder、Stage 6 HTML／Sidecar／Artifact、Stage 7 E2E 均未執行。未產生本輪 Run ID、HTML SHA-256 或 QA Sidecar。
+- 本輪未修改 main/index.html、main/preview、正式母版、Manifest、WR、QA Contract 或任何行事曆 JSON。唯一工作紀錄修改僅限本 simulation branch 根目錄 Session State／Work Log。
+- 最終狀態：Stage 1 PASS；Pipeline entry BLOCKED；review_ready=false。下一步必須取得不違反 main 保護邊界的正式 workflow 觸發方式；在此之前不得手動 Builder／手動重建 HTML。
