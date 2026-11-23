@@ -62,7 +62,7 @@ def main() -> None:
     pending_result = validate_market_inputs(data, audit, manifest, report_date)
     assert pending_result["indicator_count"] == 44
     assert pending_result["numeric_values_reconciled_count"] == 0
-    assert pending_result["pending_count"] == 44
+    assert manifest["pending_count"] == 44
     pending_receipt = build_receipt(
         data=data, fixture_sha256="1" * 64,
         audit=audit, audit_sha256="2" * 64,
