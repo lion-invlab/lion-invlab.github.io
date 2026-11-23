@@ -380,43 +380,35 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             await asyncio.sleep(0.5)
 
 async def observe(context,row,target,timeout,sem):
-    """SIM-1.4 Stage 2: first read, refresh unresolved rows, then date-query same source system."""
-    if row["name"] == "fear_greed":
-        return await observe_once(context,row,target,timeout,sem)
-    attempts=[]
+    """One direct historical-page read; retry once only for a transport/access failure."""
     original_url=row["source_url"]
-    date_query_url=original_url + ("&" if "?" in original_url else "?") + f"end_date={target}&st_date={target}"
-    plans=[
-        (1, original_url, 9000, 0),
-        (2, original_url, 2500, 3),
-        (3, date_query_url, 2500, 3),
-    ]
-    final=None
-    for attempt_no,request_url,challenge_wait_ms,delay in plans:
-        if delay:
-            await asyncio.sleep(delay)
-        attempt_row=dict(row)
-        attempt_row["request_url"]=request_url
-        attempt_timeout=timeout if attempt_no==1 else min(timeout,8000)
-        result=await observe_once(context,attempt_row,target,attempt_timeout,sem,challenge_wait_ms)
+    result=await observe_once(context,row,target,timeout,sem,challenge_wait_ms=6000)
+    attempts=[{
+        "round":1,"request_url":original_url,"status":result.get("status"),
+        "http_status":result.get("http_status"),
+        "navigation_http_status":result.get("navigation_http_status"),
+        "error":result.get("error"),
+        "started_at_utc":result.get("started_at_utc"),
+        "finished_at_utc":result.get("finished_at_utc"),
+    }]
+    # A readable page with no target-date row or an unmapped field is a data status,
+    # not a reason to repeatedly reload the same page. Retry only transport failures.
+    if result.get("status")=="TOOL_READ_FAILURE":
+        retry=await observe_once(context,row,target,min(timeout,9000),sem,challenge_wait_ms=4000)
         attempts.append({
-            "round":attempt_no,
-            "request_url":request_url,
-            "status":result.get("status"),
-            "http_status":result.get("http_status"),
-            "navigation_http_status":result.get("navigation_http_status"),
-            "error":result.get("error"),
-            "started_at_utc":result.get("started_at_utc"),
-            "finished_at_utc":result.get("finished_at_utc"),
+            "round":2,"request_url":original_url,"status":retry.get("status"),
+            "http_status":retry.get("http_status"),
+            "navigation_http_status":retry.get("navigation_http_status"),
+            "error":retry.get("error"),
+            "started_at_utc":retry.get("started_at_utc"),
+            "finished_at_utc":retry.get("finished_at_utc"),
         })
-        final=result
-        if result.get("status")=="VERIFIED":
-            break
-    final["source_url"]=original_url
-    final["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
-    final["attempt_count"]=len(attempts)
-    final["attempt_history"]=attempts
-    return final
+        result=retry
+    result["source_url"]=original_url
+    result["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
+    result["attempt_count"]=len(attempts)
+    result["attempt_history"]=attempts
+    return result
 
 async def run(a,work,target):
     sem=asyncio.Semaphore(a.concurrency)
