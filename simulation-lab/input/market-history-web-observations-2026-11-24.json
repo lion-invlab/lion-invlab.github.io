@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "report_date": "2026-11-24",
   "trading_date": "2026-11-23",
-  "captured_at_utc": "2026-11-23T23:54:34.996Z",
-  "captured_at_tw": "2026-11-24T07:54:34.996+08:00",
+  "captured_at_utc": "2026-11-23T23:56:19.353Z",
+  "captured_at_tw": "2026-11-24T07:56:19.353+08:00",
   "capture_session": "CHATGPT_WEB_OPEN_CURRENT_REPORT_SESSION",
   "observations": [
     {
@@ -34,8 +34,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -64,8 +64,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -95,8 +95,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -125,8 +125,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -156,8 +156,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -183,8 +183,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "MARKET_CLOSED",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00",
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00",
       "closure_evidence_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
       "closure_evidence_ref": "turn464821search0"
     },
@@ -216,8 +216,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -247,8 +247,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -278,8 +278,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -288,7 +288,7 @@
       "target_date": "2026-11-23",
       "observed_date": "2026-11-23",
       "page_title": "S&P/ASX200 Historical Data",
-      "instrument_identity": "S&P/ASX200",
+      "instrument_identity": "S&P/ASX 200",
       "observed_value": "8,570.60",
       "observed_change": "-0.26%",
       "observed_value_field": "收市",
@@ -309,8 +309,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -340,8 +340,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -371,8 +371,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -401,8 +401,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -431,8 +431,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -461,8 +461,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -492,8 +492,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "global_markets",
@@ -522,8 +522,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "bonds",
@@ -552,8 +552,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "bonds",
@@ -582,8 +582,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "bonds",
@@ -612,8 +612,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -642,8 +642,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -673,8 +673,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -704,8 +704,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -735,8 +735,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -766,8 +766,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "fx",
@@ -796,8 +796,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "energy",
@@ -827,8 +827,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "energy",
@@ -858,8 +858,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "metals",
@@ -889,8 +889,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "metals",
@@ -920,8 +920,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "risk",
@@ -950,8 +950,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "risk",
@@ -977,8 +977,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "SOURCE_NO_DATA",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "risk",
@@ -1005,8 +1005,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1036,8 +1036,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1067,8 +1067,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1098,8 +1098,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1129,8 +1129,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1160,8 +1160,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1191,8 +1191,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1222,8 +1222,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1253,8 +1253,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1284,8 +1284,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1315,8 +1315,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     },
     {
       "group": "sectors",
@@ -1346,8 +1346,8 @@
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null,
-      "finished_at_utc": "2026-11-23T23:54:34.996Z",
-      "finished_at_tw": "2026-11-24T07:54:34.996+08:00"
+      "finished_at_utc": "2026-11-23T23:56:19.353Z",
+      "finished_at_tw": "2026-11-24T07:56:19.353+08:00"
     }
   ]
 }
