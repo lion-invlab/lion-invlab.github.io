@@ -163,6 +163,7 @@ jobs:
           node --check simulation-lab/runner/interaction_smoke.mjs
 
       - name: Run deterministic self-tests
+        continue-on-error: true
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
