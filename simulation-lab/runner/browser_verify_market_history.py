@@ -81,6 +81,13 @@ IDENTITY_ALIASES = {
     "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
 }
 
+def cnn_score_matches_display(score, expected_display):
+    """CNN exposes decimal precision while TAC's score card displays a rounded integer."""
+    try:
+        return number_token(str(int(float(score) + 0.5))) == number_token(expected_display)
+    except (TypeError, ValueError, OverflowError):
+        return False
+
 def parse_cnn_history(payload, target):
     """Return CNN's own composite daily score/rating for the exact UTC date."""
     block = payload.get("fear_and_greed_historical") or {}
@@ -163,7 +170,7 @@ async def observe(context,row,target,timeout,sem):
                 score=str(parsed["score"])
                 rating=parsed["rating"]
                 expected_band=str(row.get("expected_change") or "").strip().lower()
-                score_match=number_token(score)==number_token(row.get("expected_value"))
+                score_match=cnn_score_matches_display(score,row.get("expected_value"))
                 band_match=rating==expected_band
                 out.update({
                     "instrument_identity":"CNN Fear & Greed Index",
