@@ -88,7 +88,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
                 if expected_url is None or source.get("url") != expected_url:
                     raise ValueError(f"{name}: primary source must be the specified Investing.com historical-data URL")
             cross_check = source.get("cross_check") or {}
-            verification = verification_fields(source, item.get("display"), item.get("change_display"), browser_observations.get((group, name)))
+            verification = verification_fields(source, item.get("display"), item.get("change_display"), browser_observations.get((group, name)), group, name)
             rows.append({
                 "group": group,
                 "name": name,
@@ -109,7 +109,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
             })
     for name, display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
-        verification = verification_fields(source, source.get("history_close"), source.get("change_display"), browser_observations.get(("sectors", name)))
+        verification = verification_fields(source, source.get("history_close"), source.get("change_display"), browser_observations.get(("sectors", name)), "sectors", name)
         rows.append({
             "group": "sectors",
             "name": name,
