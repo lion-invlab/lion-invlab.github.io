@@ -70,7 +70,7 @@ def _identity_matches(group, name, identity):
     return bool(text) and any(str(alias).casefold() in text for alias in aliases)
 
 def _expected_value(source):
-    for key in ("close_value", "history_close", "score_value"):
+    for key in ("close_value", "history_close", "source_score_value", "score_value"):
         if source.get(key) is not None:
             return source.get(key)
     return None
@@ -122,7 +122,9 @@ def verification_fields(source: dict, display, change_display, observation: dict
         observation.get("observed_value"), expected_value,
         rounded_integer=(group == "risk" and name == "fear_greed"),
     )
+    raw_score_match = True
     if group == "risk" and name == "fear_greed":
+        raw_score_match = _numeric_match(observation.get("observed_value"), source.get("source_score_value"))
         change_match = str(observation.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
     else:
         change_match = _numeric_match(observation.get("observed_change"), expected_change)
@@ -143,6 +145,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and field_ok
         and observation.get("field_mapping_status") == "VERIFIED"
         and value_match
+        and raw_score_match
         and change_match
         and observation.get("display_value_match") is True
         and observation.get("display_change_match") is True
@@ -163,6 +166,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "observed_date": observation.get("observed_date"),
             "observed_value_field": value_field,
             "observed_value": observation.get("observed_value"),
+            "expected_source_raw_value": source.get("source_score_value") if group == "risk" and name == "fear_greed" else None,
             "observed_change_field": change_field,
             "observed_change": observation.get("observed_change"),
             "checked_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
