@@ -3357,3 +3357,10 @@ QA Sidecar：
 - Gate 9 失敗證據／通知：部分通過（失敗 Artifact 與 Audit 保存已驗證；自動 Slack 送達與完整失敗演練未通過）。
 
 **操作限制持續有效：** 不啟用 05:25 排程；不修改 main、index.html、正式母版；不部署 Pages；未取得使用者核准前不得 Stage 6。04:35 行事曆及 05:30 Chart 3 排程不得停用。
+
+
+### 後續回歸測試補強（本輪 Run 45131652645 完成後新增）
+
+- `test_simulation_workflow_delivery_gate.py` 新增斷言：Checkout provenance 必須在 workflow 初始 checkout 後擷取；Runner Metadata 的 `commit` 必須來自 `SIM_CHECKOUT_COMMIT`，另記 `trigger_commit=$GITHUB_SHA`；Artifact Audit 必須驗證 expected trigger commit。
+- `test_simulation_artifact_bundle.py` 新增兩種錯誤情境：QA Sidecar build_commit_sha 與 runner metadata commit 不一致時必須 FAIL；trigger_commit 與 GitHub 事件 SHA 不一致時必須 FAIL。
+- 以上兩筆測試提交為 `[skip ci]`，不觸發新 Workflow。Run 45131652645 已驗證實際 Workflow／Artifact Audit 通過，但這兩項新增 regression assertions 尚未在該 Run 執行；需由下一次 deterministic self-tests 確認，未驗證前不宣稱測試已通過。
