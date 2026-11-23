@@ -670,31 +670,46 @@ jobs:
             exit 0
           fi
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
-          git fetch origin simulation/tac-process-lab-2026-11-06
-          # Builder/QA creates local generated files after the review commit.
-          # Auto-stash those workspace changes before rebasing onto a concurrent SIM push.\n          git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06
-          # Recheck every Chart 3 data blob after rebase; never silently persist a different snapshot.
-          for file in "${CHART3_FILES[@]}"; do
-            RECHECK_CHART3_SHA="$(git show "HEAD:${file}" | git hash-object --stdin)"
-            test "${CHART3_SHA_BEFORE[${file}]}" = "${RECHECK_CHART3_SHA}" || { echo "Chart 3 data SHA changed during persistence: ${file}" >&2; exit 1; }
+          PUSHED=false
+          # Retry a safe fetch/rebase/push if another simulation writer advances the branch.
+          # Never force-push; revalidate the exact report and evidence after every rebase.
+          for attempt in 1 2 3; do
+            git fetch origin simulation/tac-process-lab-2026-11-06
+            if ! git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06; then
+              git rebase --abort || true
+              echo "Simulation branch rebase failed on attempt ${attempt}; refusing to overwrite remote state" >&2
+              exit 1
+            fi
+            for file in "${CHART3_FILES[@]}"; do
+              RECHECK_CHART3_SHA="$(git show "HEAD:${file}" | git hash-object --stdin)"
+              test "${CHART3_SHA_BEFORE[${file}]}" = "${RECHECK_CHART3_SHA}" || { echo "Chart 3 data SHA changed during persistence: ${file}" >&2; exit 1; }
+            done
+            python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
+            RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
+            RECHECK_EVIDENCE_SHA="$(git show "HEAD:${REPORT_EVIDENCE}" | git hash-object --stdin)"
+            test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence" >&2; exit 1; }
+            test "${EVIDENCE_BLOB_SHA}" = "${RECHECK_EVIDENCE_SHA}" || { echo "QA evidence SHA changed during persistence" >&2; exit 1; }
+            if [[ -n "${AUDIT_ARCHIVE}" ]]; then
+              RECHECK_AUDIT_SHA="$(git show "HEAD:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
+              test "${AUDIT_BLOB_SHA}" = "${RECHECK_AUDIT_SHA}" || { echo "Market audit SHA changed during persistence" >&2; exit 1; }
+            fi
+            RECHECK_PREBUILD_SHA="$(git show "HEAD:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+            test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence" >&2; exit 1; }
+            RECHECK_OVERLAY_RECEIPT_SHA="$(git show "HEAD:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+            test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${RECHECK_OVERLAY_RECEIPT_SHA}" || { echo "W47 overlay receipt SHA changed during persistence" >&2; exit 1; }
+            echo "QA-passed review artifact ready for safe push; attempt=${attempt}; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
+            if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"; then
+              PUSHED=true
+              break
+            fi
+            echo "Simulation branch push rejected on attempt ${attempt}; refreshing remote and retrying without force-push" >&2
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Simulation branch push failed after 3 safe attempts" >&2
+              exit 1
+            fi
+            sleep 2
           done
-          # Revalidate after rebase so a concurrent mother/manifest change cannot
-          # leave a QA-passed HTML artifact attached to a different approved baseline.
-          python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
-          RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
-          RECHECK_EVIDENCE_SHA="$(git show "HEAD:${REPORT_EVIDENCE}" | git hash-object --stdin)"
-          test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence"; exit 1; }
-          test "${EVIDENCE_BLOB_SHA}" = "${RECHECK_EVIDENCE_SHA}" || { echo "QA evidence SHA changed during persistence"; exit 1; }
-          if [[ -n "${AUDIT_ARCHIVE}" ]]; then
-            RECHECK_AUDIT_SHA="$(git show "HEAD:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
-            test "${AUDIT_BLOB_SHA}" = "${RECHECK_AUDIT_SHA}" || { echo "Market audit SHA changed during persistence"; exit 1; }
-          fi
-          RECHECK_PREBUILD_SHA="$(git show "HEAD:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
-          test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence"; exit 1; }
-          RECHECK_OVERLAY_RECEIPT_SHA="$(git show "HEAD:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
-          test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${RECHECK_OVERLAY_RECEIPT_SHA}" || { echo "W47 overlay receipt SHA changed during persistence"; exit 1; }
-          echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
-          git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
+          test "${PUSHED}" = true || { echo "Simulation branch persistence did not complete" >&2; exit 1; }
           git fetch origin simulation/tac-process-lab-2026-11-06
           for file in "${CHART3_FILES[@]}"; do
             REMOTE_CHART3_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${file}" | git hash-object --stdin)"
