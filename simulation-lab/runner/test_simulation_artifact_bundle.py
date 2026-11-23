@@ -20,7 +20,7 @@ def make_bundle(root: Path) -> None:
     files = {
         "preview/2026-11-23-simulation.html": b"<html>ok</html>",
         "simulation-lab/output/runner-metadata.txt": (
-            "branch=simulation/test\ncommit=abc123\nrun_id=12345\nrun_attempt=1\nreport_date=2026-11-23\n"
+            "branch=simulation/test\ncommit=abc123\nrun_id=12345\ntrigger_commit=trigger456\nrun_attempt=1\nreport_date=2026-11-23\n"
         ).encode(),
         "simulation-lab/output/prebuild-stage-input-receipt.json": json.dumps({"status":"PASS","workflow_run_id":"12345"}).encode(),
         "simulation-lab/output/market-snapshot-audit.json": json.dumps({"status":"PASS","indicator_count":44}).encode(),
@@ -56,9 +56,16 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as temp:
         root = Path(temp)
         make_bundle(root)
-        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test")
+        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "PASS", result["errors"]
         assert result["png_validated_count"] == 1
+        metadata_path = root / "simulation-lab/output/runner-metadata.txt"
+        metadata = metadata_path.read_text(encoding="utf-8")
+        metadata_path.write_text(metadata.replace("trigger_commit=trigger456", "trigger_commit=wrong"), encoding="utf-8")
+        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
+        assert result["status"] == "FAIL"
+        assert any("trigger_commit mismatch" in error for error in result["errors"])
+        metadata_path.write_text(metadata, encoding="utf-8")
         (root / "simulation-lab/output/bad.json").write_text("{broken", encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test")
         assert result["status"] == "FAIL"
