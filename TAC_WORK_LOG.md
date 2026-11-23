@@ -3172,3 +3172,41 @@
 - 該 run API 仍回傳 event=push、conclusion=failure；Jobs API（包含 `filter=all`）仍回傳 `total_count=0`、`jobs=[]`。獨立 lint check run 屬另一個 check suite，不能直接當作主 Workflow 0 Jobs 的根因。
 - 後續成功建置 commit `0b27040cf920d6d668a4cc5b1c9a98cf9e08469f` 也只修改同一個 `simulation-lab/runner/BUILD_TRIGGER.md` 路徑，並成功執行；因此相同觸發路徑可成功，舊 run 的具體失敗原因仍為 UNRESOLVED，不能猜測為 branch/path filter、default branch 或 lint 造成。
 - 本次未修改 Workflow、未新增觸發提交、未注入人為失敗；05:25 早報自動化維持停用，main 與正式首頁未修改。
+
+
+---
+
+## 2026/11/23｜P0-1 Artifact 核驗、P0-2 缺陷修復與完整 Simulation 重跑
+
+**Run 45094356471 / Artifact 14781923815**
+- 實際下載解壓，76 個檔案；ZIP testzip 通過。
+- 45 張 PNG 可解碼；16 份 JSON 中兩份母版轉移證據 JSON 格式錯誤，其餘 14 份有效。
+- HTML 與 QA Sidecar Git Blob SHA 與 Simulation Branch 遠端一致。
+- 44 項行情觀察紀錄存在，但本輪未重新擷取來源頁或獨立核價。
+
+**P0-2 修正：**
+1. Workflow 母版轉移證據 JSON 尾端錯誤跳脫 \`\\\\n\`，修正為正確換行並加入立即 JSON parse gate。
+2. \`test_patch_review_sections.py\` 使用已含 Warsh 新版 impact 的 Preview 作為原始輸入，與 expected_impact 前置條件不一致；測試先還原原始 expected_impact 再執行 overlay。
+3. \`preflight_1123_overrides.py\` 不再要求歷史共識投影 commit 等於當前 main HEAD，改驗證 pinned W48 Blob SHA 及 pinned commit 為當前 main 祖先。原因是 main 僅更新 Chart 3 波動率 JSON，W47/W48 日曆 Blob SHA 未變。
+
+**修復提交：**
+- 97846eb59dfda958463cd4b5fa24e7b7827b0e60
+- 5e7a1a768235f77d4d42448297110e174131577d
+- 96f8e1a9c23c108bd6fdee98a60a028961d28c59
+
+**最終重跑：Run 45120083919**
+- Workflow Success；獨立 Lint Run 45120083939 Success。
+- 確定性測試、Preflight、44項 Metadata／日期驗證、Stage 2–4 Receipt、Builder、六種寬度 Browser QA、母版 DOM、互動、HTML／QA SHA、Artifact 保存全部成功。
+- Stage 6 main 交付略過，因未取得使用者核准；main 與 index.html 未修改。
+- 最新 HTML SHA-256：c96e44c7cc465bbcff25c007c5f36aae05c1b619fa883625f1f1b6faaecac9f2。
+- HTML Git Blob SHA：e877aee2c0801467db3f93b90941148a0eaa4094。
+- QA Sidecar Git Blob SHA：82c3d4afc8a289725c62e683502a7e47b9ede6b2。
+- Artifact ID：14793740630；ZIP SHA-256：e55776be651ae02eb65a835a34257db3352be12b8febad773fca698e689ba6dc。
+- Artifact 76 個檔案；16/16 JSON 有效；45/45 PNG 有效。
+- QA_PASSED、review_ready=true、blockers=[]。
+
+**市場行情證據界線：** 44/44 既有觀察紀錄及 Hash 存在，日期一致 2026-11-20；本輪 source_pages_fetched=false、displayed_values_independently_reconciled=false、prior_observation_reused_count=44，不得宣稱本輪重新抓取或重新核價。
+
+**通知初查：** Slack 公開頻道 #tac-alerts 已找到，ID C0CL6GF6KJ8，使用者為成員；尚未發送測試訊息，Repository Secret 名稱未確認，通知送達尚未驗證。
+
+**九大 Gate：** Gate 3–7 通過；Gate 1、9 未通過；Gate 2、8 部分通過。舊 Run 45080345516 零 Job 根因仍未查明。05:25 排程保持停用；04:35 行事曆與 05:30 Chart 3 排程保持原狀。

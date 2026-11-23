@@ -1,3 +1,130 @@
+# TAC 投資早報｜2026/11/23 最新工作狀態
+
+**最後更新：2026/11/23 13:52（Asia/Taipei）**  
+**工作分支：** \`simulation/tac-process-lab-2026-11-06\`  
+**正式分支：** \`main\`（本輪未修改）  
+**工作版本：** SIM-1.4
+
+## 本輪結論
+
+- P0-1 Artifact 逐檔核驗完成；Run \`45094356471\` 的 Artifact 已下載、解壓、核對。
+- P0-2 Workflow／測試程式缺陷修復後，Run \`45120083919\` 完整 Simulation Pipeline 成功。
+- 本輪最新 HTML 與 QA Sidecar 已寫入 Simulation Branch，遠端讀回 SHA 與 Artifact 一致。
+- Stage 6 main 交付步驟依規則略過；未修改 main、未修改 index.html、未部署 GitHub Pages。
+- 05:25 早報排程維持停用；04:35 行事曆與 05:30 Chart 3 排程保持原狀。
+
+## P0-1｜Artifact 逐檔驗證
+
+原始 Run：\`45094356471\`  
+Artifact ID：\`14781923815\`  
+ZIP Digest：\`sha256:fa3634f40491ff3f4910fc2e467db9b664476ab2a13aca4abe3ee8e91139931d\`
+
+- 解壓 76 個檔案，ZIP CRC／testzip 通過。
+- 45 張 PNG 均可正常解碼。
+- 16 份 JSON 中有 2 份母版轉移證據 JSON 因換行跳脫錯誤而無法解析，其餘 14 份正常。
+- HTML 與 QA Sidecar 的 Git Blob SHA 均與當時 Simulation Branch 遠端檔案一致。
+- 44/44 市場觀察紀錄存在、Metadata／日期／商品識別驗證通過；本輪沒有重新擷取 44 個來源頁，也沒有獨立重新核價。
+
+逐檔 SHA 清單已在本次 ChatGPT 工作區產出：\`TAC_Run_45094356471_Artifact_SHA256_manifest.csv\`。
+
+## P0-2｜Workflow 與測試修復
+
+### 修正 1：母版轉移證據 JSON 換行錯誤
+
+原 Workflow 將 JSON 輸出尾端寫成字面 \`\\\\n\`，導致 Monday／Weekday 兩份證據檔無法解析。
+
+已修正為正確換行字元，並在產生後立即以 Python JSON Parser 驗證兩份檔案。
+
+### 修正 2：W47 Warsh 局部覆寫測試前置資料錯誤
+
+\`test_patch_review_sections.py\` 原本從已套用新版 impact 的 11/23 preview 複製 Warsh 小卡，卻仍以舊版 expected_impact 作為覆寫前置條件，造成測試誤判。
+
+已在測試中先將輸入卡片還原成 fixture 所列的原始 expected_impact，再執行局部覆寫；沒有修改正式 Fixture 或 main 行事曆。
+
+### 修正 3：W48 財報共識投影的 Main Commit 比對過度嚴格
+
+\`preflight_1123_overrides.py\` 原先要求投影紀錄的 \`calendar_main_commit_sha\` 必須等於執行當下 main HEAD。
+
+Main 後續因 Chart 3 波動率資料更新而前進兩筆 commit，但 W47／W48 行事曆 JSON Blob SHA 完全未變，導致無關更新被錯判為共識投影失效。
+
+已改為：
+1. 驗證投影原始 Main Commit SHA 格式。
+2. 驗證該 pinned commit 內的 W48 JSON Blob SHA 等於投影宣告 SHA。
+3. 驗證 pinned commit 是目前 main commit 的祖先。
+4. 驗證目前 main W48 Blob SHA 仍與投影相同。
+
+此修正保留原始來源 commit 追溯能力，且不會因 Chart 3 更新非行事曆檔案而誤報。
+
+### 修復提交與執行紀錄
+
+- \`97846eb59dfda958463cd4b5fa24e7b7827b0e60\`：修正 JSON 輸出及新增解析檢查。
+- \`5e7a1a768235f77d4d42448297110e174131577d\`：修正 Warsh overlay 測試輸入重建。
+- \`96f8e1a9c23c108bd6fdee98a60a028961d28c59\`：修正 W48 投影 pinned commit 驗證。
+- Workflow Run \`45120083919\`：Success。
+- 獨立 Workflow Lint Run \`45120083939\`：Success。
+- 確定性測試、資料 Gate、Builder、Browser QA、DOM、互動、QA Sidecar、Artifact 上傳均成功。
+
+## 最新審核版與證據
+
+- HTML：\`preview/2026-11-23-simulation.html\`
+- HTML Git Blob SHA：\`e877aee2c0801467db3f93b90941148a0eaa4094\`
+- HTML SHA-256：\`c96e44c7cc465bbcff25c007c5f36aae05c1b619fa883625f1f1b6faaecac9f2\`
+- QA Sidecar：\`preview/2026-11-23-simulation.qa.json\`
+- QA Sidecar Git Blob SHA：\`82c3d4afc8a289725c62e683502a7e47b9ede6b2\`
+- QA：\`QA_PASSED\`、\`review_ready=true\`、\`blockers=[]\`
+- Artifact ID：\`14793740630\`
+- Artifact ZIP Digest：\`sha256:e55776be651ae02eb65a835a34257db3352be12b8febad773fca698e689ba6dc\`
+- Artifact：76 個檔案、16/16 JSON 有效、45/45 PNG 有效。
+- 視覺 QA：1440／768／412／390／360／320px，六種尺寸通過。
+- Interaction Smoke：PASS、page_errors=[]。
+
+### 市場資料證據限制
+
+本輪 44 項指標均為 2026-11-20 日期；44/44 既有觀察紀錄及 Hash 完整，且本輪 Metadata／日期／識別驗證通過。但：
+- \`source_pages_fetched=false\`
+- \`displayed_values_independently_reconciled=false\`
+- \`prior_observation_reused_count=44\`
+- \`raw_response_sha256_saved_count=0\`
+
+不得宣稱本輪重新抓取或重新核價 44 項資料。此限制已保留在 QA Sidecar、Market Snapshot Audit、Source Verification Manifest 及 Prebuild Receipt。
+
+## 九大 E2E Gate 狀態
+
+| Gate | 狀態 | 說明 |
+|---|---|---|
+| 1 排程準時喚醒 | 未通過 | 05:25 仍停用，排程喚醒鏈尚未驗證 |
+| 2 Workflow／Job 啟動 | 部分通過 | 新 Run 成功；舊 Run 45080345516 零 Job 根因仍未查明 |
+| 3 Fixture／雙母版 | 通過 | SHA 鎖定與母版選擇、結構驗證成功 |
+| 4 SIM-1.4 Builder | 通過 | Builder Approval 與組裝成功 |
+| 5 HTML／內容檢查 | 通過 | 內容、政治掃描、DOM、日期與資料結構 Gate 成功 |
+| 6 Sidecar／HTML SHA | 通過 | QA Sidecar 綁定本輪精確 HTML |
+| 7 視覺／互動 QA | 通過 | 六種寬度及互動測試成功 |
+| 8 審核版可取得 | 部分通過 | Branch 與 Artifact 已保存；未部署公開 Pages |
+| 9 失敗演練／通知 | 未通過 | 有 Job-step failure Artifact 證據；尚無外部通知送達證據 |
+
+## P0-3 通知管道初查
+
+- Slack 連接工具可用。
+- 已找到公開頻道 \`#tac-alerts\`，Channel ID：\`C0CL6GF6KJ8\`。
+- 使用者目前為該頻道成員。
+- 尚未發送測試訊息；不得宣稱通知已送達。
+- 尚未確認 GitHub Repository Secret 名稱。
+- 不得要求或記錄 Webhook URL、Token 或密鑰內容。
+- 需要使用者提供 Secret 名稱，並核准一次可辨識的測試訊息後，才能驗證送達。
+
+## 下一步工作
+
+1. P0-2 已有一輪完整成功證據；補強 Artifact failure-path 測試與 Workflow 故障邊界測試。
+2. P0-3 完成 Slack Secret 名稱確認、成功／失敗通知設計及實際送達演練。
+3. P0-4 追查舊 Run \`45080345516\` 零 Job 根因。
+4. P0-5 驗證 05:25 Automation → GitHub Workflow → Job → Artifact → 通知的端到端喚醒鏈。
+5. P0-6 完成九大 Gate 全部驗收。
+6. P0-7 只有在全部 Gate 通過且使用者明確同意後，才恢復 05:25 排程。
+7. P0-8 使用者核准指定 HTML SHA 及 Stage 6 後，才交付 main/preview；不得改動 main/index.html。
+
+**目前結論：SIM-1.4 的 11/23 Simulation 製作與 QA 已成功；完整自動化接管仍未完成。05:25 排程維持停用。**
+
+
 ## 續查補記｜2026-11-23｜Run 45080345516 的 0 Jobs 原因仍未證實
 
 - 重新讀取觸發提交 `50e422fac52ce0c4d7834282f289ddfea904e6b2` 的完整 diff：該提交只修改 `simulation-lab/runner/BUILD_TRIGGER.md`。
