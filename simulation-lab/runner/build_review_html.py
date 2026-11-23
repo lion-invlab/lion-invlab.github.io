@@ -1843,7 +1843,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
     keys = {(row.get("group"), row.get("name")) for row in rows}
     if len(keys) != 44 or any(not group or not name for group, name in keys):
         raise ValueError("market source verification manifest has duplicate or unnamed rows")
-    verified = pending = 0
+    verified = pending = closed = 0
     for row in rows:
         group, name = row["group"], row["name"]
         state = row.get("verification_status")
@@ -1851,6 +1851,17 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             if row.get("display_value_matches_saved_observation") is not True:
                 raise ValueError(f"verified market row lacks value reconciliation: {name}")
             verified += 1
+            continue
+        if state == "CLOSED":
+            pending += 1
+            closed += 1
+            if group != "global_markets" or name != "日經225":
+                raise ValueError(f"market-closed state is only allowed for a closed index session: {name}")
+            record = data.get(group, {}).get(name)
+            if not isinstance(record, dict) or record.get("display") != "休市":
+                raise ValueError(f"closed market row must retain its explicit 休市 display: {name}")
+            record["change_display"] = "—"
+            record["qa_status"] = "market_closed"
             continue
         if state != "PENDING_CURRENT_RUN_BROWSER_OBSERVATION":
             raise ValueError(f"unknown market verification state for {name}: {state}")
@@ -1874,7 +1885,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
     expected_status = "PASS" if pending == 0 else "PARTIAL" if verified else "PENDING"
     if source_manifest.get("status") != expected_status:
         raise ValueError("market source verification status does not match row counts")
-    return {"verified_count": verified, "pending_count": pending, "status": expected_status}
+    return {"verified_count": verified, "pending_count": pending, "closed_count": closed, "status": expected_status}
 
 
 def main():
