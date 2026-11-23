@@ -929,12 +929,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set +e
           python simulation-lab/runner/audit_simulation_artifact_bundle.py \
             --root /tmp/tac-simulation-artifact \
             --report-path "${REPORT_OUTPUT:-}" \
             --expected-run-id "${GITHUB_RUN_ID}" \
             --expected-branch "${GITHUB_REF_NAME}" \
             --output simulation-lab/output/artifact-postupload-verification.json
+          audit_status=$?
+          set -e
+          {
+            echo "### Post-upload artifact verification"
+            if [[ -s simulation-lab/output/artifact-postupload-verification.json ]]; then
+              cat simulation-lab/output/artifact-postupload-verification.json
+            else
+              echo "Audit report missing; inspect the verification step logs."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$audit_status"
 
       - name: Upload post-upload artifact audit report
         if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
