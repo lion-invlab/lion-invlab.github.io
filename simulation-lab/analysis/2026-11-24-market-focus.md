@@ -114,3 +114,17 @@ Investing.com 歷史資料頁已直接讀取到以下 10 檔 11/23 收盤列；X
 | XLV | +1.23% | https://www.investing.com/etfs/spdr---health-care-historical-data |
 
 **產業解讀：** 科技 XLK +8.97% 明顯領先，通訊、非必需消費、工業、原物料同步上漲；能源與必需消費下跌。這反映反彈高度集中於 AI／成長股及風險偏好修復，並非所有產業全面轉強。XLRE 尚無 11/23 列，不能用 11/20 的 -0.98% 代替。
+
+
+## 補齊的風險指標與市場休市狀態
+
+- CNN Fear & Greed：備援資料頁 FGScore 明確標示資料日 2026-11-23 UTC，引用 CNN 原始指數，分數 17，Extreme Fear；此為備援轉載，正式 fixture 仍須按 SIM-1.4 以 CNN 官方頁／官方歷史 API 優先核對。來源：https://fgscore.com/en
+- XLRE：Investing.com Global 搜尋索引列出 2026-11-23 收市 42.91、單日 +1.06%；該站 CA 直接開啟頁仍只呈現至 11/20，故此筆可列為搜尋索引證據，正式瀏覽器觀察仍需再確認。來源：https://ca.investing.com/etfs/real-estate-select-sector-spdr-historical-data
+- MOVE：Investing.com ICE BofAML MOVE 歷史頁最新日期仍是 11/20，未提供 11/23 列；TradingView 的 ICE:MOVE／TVC:MOVE 頁未顯示可核實的 11/23 歷史數值，故維持待核實，不採其他非規範來源的數字。
+- 日經 225：日本 11/23 因勤勞感謝日休市，最近交易日為 11/20，收 56,436.65、跌 5.06%；此為休市狀態，不得冒充 11/23 收盤。來源：https://www.tradingview.com/news/binance_news%3A364b8d9d3094b%3A0-asia-market-open-kospi-opens-2-77-lower-taiwan-turns-higher-after-weak-start-japan-closed-for-holiday/
+
+## 11/24 早報當日研究進度
+
+- 11/23 44 項資料中，已找到 42 項可用的當日資料或備援來源候選；其中 40 項來自直接開啟 Investing.com 歷史頁，另含 XLRE 搜尋索引與 CNN 指數備援資料。這不等同 44 項 SIM-1.4 當次瀏覽器觀察 Gate 通過。
+- 仍有兩個阻塞：日本休市造成 Nikkei 無 11/23 成交列；MOVE 官方／指定備援頁未提供可核實的 11/23 歷史列。
+- 來源衝突已記錄：S&P 500 Investing.com 歷史列 7,236.85（+4.72%），AP 報導 7,237.17（+4.7%）；Dow Investing.com 49,598.97（+3.01%），AP 49,595.31（+3%）；Nasdaq Investing.com 24,090.26（+6.51%），AP 24,089.56（+6.5%）。正式資料口徑須以固定指定來源頁的日期列為主，並保留差異，不可將不同來源值混算。
