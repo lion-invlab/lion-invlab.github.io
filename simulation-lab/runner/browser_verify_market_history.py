@@ -4,7 +4,7 @@ Page-read success is deliberately separate from numeric/instrument verification.
 """
 from __future__ import annotations
 import argparse, asyncio, hashlib, json, re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright
 
@@ -373,7 +373,9 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             return out
         finally:
             out["started_at_utc"]=started
-            out["finished_at_utc"]=datetime.now(timezone.utc).isoformat()
+            finished=datetime.now(timezone.utc)
+            out["finished_at_utc"]=finished.isoformat()
+            out["finished_at_tw"]=finished.astimezone(timezone(timedelta(hours=8))).isoformat()
             await page.close()
             await asyncio.sleep(0.5)
 
