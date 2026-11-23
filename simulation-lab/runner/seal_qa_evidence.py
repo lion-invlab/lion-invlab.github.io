@@ -277,10 +277,17 @@ if market_source_manifest.get("status") != "PASS" or market_source_manifest.get(
     raise SystemExit("44-row source-observation manifest is not complete")
 if market_source_manifest.get("browser_observation_records_complete") is not True or market_source_manifest.get("observation_record_hash_missing_count") != 0:
     raise SystemExit("44-row browser observation records or hashes are incomplete")
-if market_source_manifest.get("source_pages_fetched") is not False or market_source_manifest.get("displayed_values_independently_reconciled") is not False:
-    raise SystemExit("fixture-carried prior observations must not be misreported as current-run source fetches")
-if len(market_source_rows) != 44 or any(not row.get("observation_record_sha256") or row.get("source_page_fetched") is not False for row in market_source_rows):
-    raise SystemExit("market source manifest row-level observation provenance is incomplete or overstated")
+if market_source_manifest.get("source_pages_fetched") is not True or market_source_manifest.get("displayed_values_independently_reconciled") is not True:
+    raise SystemExit("44 current-session source observations were not independently fetched and reconciled")
+allowed_source_provenance = {"CURRENT_RUN_BROWSER_OBSERVATION", "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION", "CURRENT_CNN_OFFICIAL_API_OBSERVATION"}
+if len(market_source_rows) != 44 or any(
+    not row.get("observation_record_sha256")
+    or row.get("source_page_fetched") is not True
+    or row.get("display_value_reconciled") is not True
+    or row.get("observation_provenance") not in allowed_source_provenance
+    for row in market_source_rows
+):
+    raise SystemExit("market source manifest row-level current-session evidence or hashes are incomplete")
 market_source_manifest_sha256 = hashlib.sha256(market_source_manifest_path.read_bytes()).hexdigest()
 prebuild_receipt_path = Path("simulation-lab/output/prebuild-stage-input-receipt.json")
 if not prebuild_receipt_path.is_file():
