@@ -134,19 +134,25 @@ def main():
     for group in ("global_markets","bonds","fx","energy","metals","risk"):
         for name,item in (data.get(group) or {}).items():
             src=item.get("source") or {}
+            if group in ("energy", "metals"):
+                expected_value, expected_change = src.get("history_close"), src.get("history_change")
+            elif group == "risk" and src.get("score_value") is not None:
+                expected_value, expected_change = src.get("score_value"), src.get("band")
+            else:
+                expected_value, expected_change = src.get("close_value"), src.get("daily_change_percent")
             work.append({"group":group,"name":name,"source_url":src.get("url"),
-                         "expected_value":item.get("display"),"expected_change":item.get("change_display"),
-                         "quote_type":src.get("quote_type")})
+                         "expected_value":expected_value,"expected_change":expected_change,
+                         "quote_type":src.get("quote_type"), "instrument_identity_expected":src.get("instrument_identity") or src.get("name") or name})
     for name,display_change in (data.get("sectors") or {}).items():
         src=(data.get("sector_sources") or {}).get(name) or {}
         # Sector cards display only daily % change, but the historical source row
         # must be checked against the ETF's actual close AND its daily % change.
         # Never compare the close field to the card's percentage display.
         work.append({"group":"sectors","name":name,"source_url":src.get("url"),
-                     "expected_value":src.get("close") or src.get("history_close"),
-                     "expected_change":src.get("change_display") or display_change,
+                     "expected_value":src.get("history_close"),
+                     "expected_change":src.get("history_change"),
                      "quote_type":src.get("quote_type"),
-                     "instrument_ticker":name})
+                     "instrument_ticker":name, "instrument_identity_expected":name})
     if len(work)!=44 or any(not x["source_url"] for x in work): raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     observations,counts=asyncio.run(run(a,work,target))
     result={"schema_version":"1.1","report_date":a.report_date,"trading_date":target,
