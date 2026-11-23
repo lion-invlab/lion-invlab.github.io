@@ -141,8 +141,8 @@ def audit_bundle(root: Path, report_path: str | None = None,
             errors.append("QA sidecar workflow_run_id mismatch")
         if expected_branch and sidecar.get("branch") != expected_branch:
             errors.append("QA sidecar branch mismatch")
-        if metadata and sidecar.get("build_commit_sha") != metadata.get("commit"):
-            errors.append("QA sidecar build_commit_sha does not match runner metadata commit")
+        if metadata and sidecar.get("build_commit_sha") != metadata.get("build_commit"):
+            errors.append("QA sidecar build_commit_sha does not match runner metadata build_commit")
 
     receipt = parsed.get("simulation-lab/output/prebuild-stage-input-receipt.json", {})
     if receipt_bytes is not None and sidecar:
