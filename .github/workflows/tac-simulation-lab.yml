@@ -47,7 +47,7 @@ permissions:
 concurrency:
   # Serialize the simulation commit and the subsequent narrow main/preview handoff.
   group: tac-simulation-review-delivery
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   isolated-smoke:
