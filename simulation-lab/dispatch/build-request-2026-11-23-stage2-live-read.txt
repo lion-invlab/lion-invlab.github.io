@@ -1,0 +1,6 @@
+SIM-1.4 Stage 2 live browser source verification run.
+Report date: 2026-11-23
+Expected market trading date: 2026-11-20
+Scope: run 44 historical source-page observations before manifest and pre-build Gate.
+Reject prior fixture observations; do not publish to main or write index.html.
+Do not generate a review artifact if any required market observation remains unverified.
