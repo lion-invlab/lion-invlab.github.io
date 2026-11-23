@@ -20,7 +20,7 @@ def make_bundle(root: Path) -> None:
     files = {
         "preview/2026-11-23-simulation.html": b"<html>ok</html>",
         "simulation-lab/output/runner-metadata.txt": (
-            "branch=simulation/test\ncommit=abc123\nrun_id=12345\ntrigger_commit=trigger456\nrun_attempt=1\nreport_date=2026-11-23\n"
+            "branch=simulation/test\ncommit=final789\nbuild_commit=abc123\ncheckout_commit=abc123\nrun_id=12345\ntrigger_commit=trigger456\nrun_attempt=1\nreport_date=2026-11-23\n"
         ).encode(),
         "simulation-lab/output/prebuild-stage-input-receipt.json": json.dumps({"status":"PASS","workflow_run_id":"12345"}).encode(),
         "simulation-lab/output/market-snapshot-audit.json": json.dumps({"status":"PASS","indicator_count":44}).encode(),
@@ -64,7 +64,7 @@ def main() -> None:
         metadata_path.write_text(metadata.replace("commit=abc123", "commit=wrong"), encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "FAIL"
-        assert any("build_commit_sha does not match runner metadata" in error for error in result["errors"])
+        assert any("build_commit_sha does not match runner metadata build_commit" in error for error in result["errors"])
         metadata_path.write_text(metadata, encoding="utf-8")
         metadata_path.write_text(metadata.replace("trigger_commit=trigger456", "trigger_commit=wrong"), encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
