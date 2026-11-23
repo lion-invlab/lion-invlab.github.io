@@ -356,7 +356,7 @@ jobs:
           PY
 
       - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
-        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[capture-44-sources'))
         shell: bash
         run: |
           set -euo pipefail
