@@ -91,7 +91,7 @@ def main():
     assert positive["displayed_values_independently_reconciled"] is True
     assert all(r["observation_provenance"] == "CURRENT_RUN_BROWSER_OBSERVATION" for r in positive["rows"])
     assert all(len(r["observation_record_sha256"]) == 64 for r in positive["rows"])
-        print("PASS: 44 unique rows; all fixture-carried observations remain pending and cannot pass Stage 2")
+    print("PASS: 44 unique rows; all fixture-carried observations remain pending and cannot pass Stage 2")
     print("PASS: no false claim of current-run source-page fetching or independent numeric reconciliation")
     print("PASS: synthetic test-only current-run observation bundle exercises the positive manifest path")
 
