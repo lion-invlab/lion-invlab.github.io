@@ -1,0 +1,1 @@
+SIM-1.4 validation run after CNN official historical score parser and exact-date mapping update. Simulation only; no main publication.
