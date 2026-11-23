@@ -135,7 +135,7 @@ def main():
     assert "Investing.com WTI 期貨合約歷史數據頁所列 CLF27" in data["energy"]["WTI原油期貨"]["source"]["note"]
     assert data["energy"]["Brent原油期貨"]["display"] == "92.57"
     assert data["energy"]["Brent原油期貨"]["change_display"] == "+0.64%"
-    assert "WTI、Brent、GC、SI四項均採Investing.com HK" in data["warning_note"]
+    assert "WTI、Brent、GC、SI 四項均採 Investing.com HK" in data["warning_note"]
     assert "WTI、GC、SI為CME" not in data["warning_note"]
     for group in ("energy", "metals"):
         for name, item in data[group].items():
