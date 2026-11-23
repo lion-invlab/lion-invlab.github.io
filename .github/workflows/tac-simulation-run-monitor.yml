@@ -18,6 +18,8 @@ jobs:
     name: Inspect latest Simulation run
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - name: Find latest Simulation run and inspect its jobs
         id: inspect
@@ -100,9 +102,8 @@ jobs:
           key: tac-simulation-alerted-${{ steps.inspect.outputs.run_id }}
 
       - name: Send Slack failure alert
-        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && secrets.SLACK_WEBHOOK_URL != ''
+        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && env.SLACK_WEBHOOK_URL != ''
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           RUN_URL: ${{ steps.inspect.outputs.run_url }}
           RUN_ID: ${{ steps.inspect.outputs.run_id }}
           REASON: ${{ steps.inspect.outputs.reason }}
@@ -127,7 +128,7 @@ jobs:
           key: tac-simulation-alerted-${{ steps.inspect.outputs.run_id }}
 
       - name: Report notification configuration gap
-        if: steps.inspect.outputs.alert == 'true' && secrets.SLACK_WEBHOOK_URL == ''
+        if: steps.inspect.outputs.alert == 'true' && env.SLACK_WEBHOOK_URL == ''
         run: |
           echo "::warning::Simulation failure detected, but SLACK_WEBHOOK_URL is not configured. Slack notification was not sent."
           {
