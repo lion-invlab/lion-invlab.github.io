@@ -19,8 +19,14 @@ def main():
     assert result["observation_record_hash_missing_count"]==0
     assert result["raw_response_sha256_saved_count"]==0
     assert len({(r["group"],r["name"]) for r in result["rows"]})==44
-    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==43
-    assert sum(r["verification_status"]=="BACKUP_VERIFIED" for r in result["rows"])==1
+    assert sum(r["verification_status"]=="VERIFIED" for r in result["rows"])==42
+    assert sum(r["verification_status"]=="BACKUP_VERIFIED" for r in result["rows"])==2
+    backup_rows={r["name"]:r for r in result["rows"] if r["verification_status"]=="BACKUP_VERIFIED"}
+    assert set(backup_rows)=={"Brent原油期貨","fear_greed"}
+    assert backup_rows["Brent原油期貨"]["source_role"]=="BACKUP_1"
+    assert "ICE public historical settlement row was not exposed" in backup_rows["Brent原油期貨"]["notes"]
+    assert backup_rows["fear_greed"]["source_role"]=="FALLBACK_1"
+    assert "CNN Business" in backup_rows["fear_greed"]["notes"]
     pending=[r for r in result["rows"] if r["verification_status"]=="PENDING_OBSERVATION_TIMESTAMP"]
     assert pending==[]
     verified=[r for r in result["rows"] if r["verification_status"] in ("VERIFIED","BACKUP_VERIFIED")]
