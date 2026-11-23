@@ -224,6 +224,8 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
     validate_branch(repository, branch)
     report_date = str(data.get("report_date") or "")
     market = validate_market_inputs(data, audit, manifest, report_date)
+    require(manifest.get("status") in ("PASS", "PARTIAL"),
+            "market source observation manifest is neither PASS nor PARTIAL")
     stage4 = validate_stage4(data, report_date)
 
     current = calendar_bundle.get("current") or {}
