@@ -25,3 +25,5 @@ Re-run after correcting obsolete regression assertion: weekend FedWatch freshnes
 [build-tac-report:2026-11-23] Full SIM-1.4 build after all deterministic tests pass with corrected CNN official graphdata score 11.1847866419295 and 43 cited historical source rows. Stage 2 must perform a fresh Playwright capture of CNN API body and verify 44/44 before assembly.
 
 SIM-1.4 regression run: verify CNN official raw score 11.2705009276438 exactly, while separately checking the TAC rounded display score of 11; preserve the actual API capture timestamp in the observation record.
+
+[build-tac-report:2026-11-23] Rebuild with exact CNN raw score gate: official graphdata raw score 11.2705009276438, TAC display score 11. Require the latest API body capture to match the exact raw value as well as the rounded display value. Run all 44 market checks, then Monday builder and full QA. Simulation only; no main publish.
