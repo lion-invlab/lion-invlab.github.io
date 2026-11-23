@@ -13,3 +13,5 @@ Final Stage 2-4 direct-web provenance seal correction validated by isolated smok
 Rebuild final review after replacing inherited audit notes that incorrectly described old fixture reuse and FGScore fallback; current 44/44 direct observations and CNN official endpoint are now accurately documented.
 
 Final rerun after updating 11/23 fixture provenance notes and matching regression assertions; use the already validated current-session 44-row direct web evidence bundle.
+
+Retry build on latest Simulation commit after Stage 2 Gate provenance allowlist now accepts CURRENT_CHATGPT_WEB_OPEN_OBSERVATION and CURRENT_CNN_OFFICIAL_API_OBSERVATION. Require exact 44/44 receipt before builder.
