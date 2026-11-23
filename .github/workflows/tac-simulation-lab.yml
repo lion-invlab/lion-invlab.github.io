@@ -67,6 +67,13 @@ jobs:
           ref: simulation/tac-process-lab-2026-11-06
           fetch-depth: 0
 
+      - name: Capture simulation checkout provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA" >> "$GITHUB_ENV"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -863,7 +870,8 @@ jobs:
           mkdir -p simulation-lab/output
           {
             echo "branch=simulation/tac-process-lab-2026-11-06"
-            echo "commit=$GITHUB_SHA"
+            echo "commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
+            echo "trigger_commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
             echo "report_date=${REPORT_DATE:-self-test-only}"
@@ -935,6 +943,7 @@ jobs:
             --report-path "${REPORT_OUTPUT:-}" \
             --expected-run-id "${GITHUB_RUN_ID}" \
             --expected-branch "${GITHUB_REF_NAME}" \
+            --expected-trigger-commit "${GITHUB_SHA}" \
             --output simulation-lab/output/artifact-postupload-verification.json
           audit_status=$?
           set -e
