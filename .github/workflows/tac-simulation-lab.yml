@@ -340,6 +340,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Chart 3 is a separate module: do not block the daily report when the
+          # S&P 500 quote is explicitly pending. Never hand off an unverified close.
+          python - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          report = json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
+          source = (report.get("global_markets") or {}).get("標普500指數", {}).get("source") or {}
+          if source.get("verification_status") != "VERIFIED":
+              print("SKIP Chart 3 handoff: S&P 500 is not verified for this trading date; daily report build continues.")
+              sys.exit(0)
+          PY
           mkdir -p data/tac-chart3 simulation-lab/output/chart3-handoff
           # Append the newly verified report observation to the persistent, hash-sealed ledger.
           # Do not replace the existing ledger with this run's one-row handoff.
