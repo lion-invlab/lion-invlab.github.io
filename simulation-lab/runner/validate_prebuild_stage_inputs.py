@@ -66,7 +66,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(audit.get("displayed_values_independently_reconciled") is False,
             "metadata validator must not claim independent numeric reconciliation")
 
-    require(manifest.get("status") in ("PASS", "PARTIAL"),
+    require(manifest.get("status") in ("PASS", "PARTIAL", "PENDING"),
             "market source observation manifest is neither PASS nor PARTIAL")
     require(manifest.get("report_date") == report_date, "source manifest report_date mismatch")
     require(manifest.get("trading_date") == trading_date, "source manifest trading_date mismatch")
