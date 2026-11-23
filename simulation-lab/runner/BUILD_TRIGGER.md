@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-24T05:25:00+08:00
 news_window_taipei: 2026-11-23T12:00:00+08:00/2026-11-24T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: 9ef84422de9eb2b58c359867b127e3be3ffdf46a
+workflow_blob_sha: c63c00b09baf5193d7ea524669632b73bb1af546
 active_rules_version: SIM-1.4
 active_rules_blob_sha: 7a4dc383ccf86a7c7a89b60cafc3b91f5fdb5c3b
 qa_contract_version: 1.21
@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: 464dd3660d25a420fd0cbe1ff3c73481b677a782
+fixture_blob_sha: 8882d4c9abe356a61e95f7031dc1eb8fca945d9a
 main_calendar_commit_sha: 77ab012bb027591631c704d976468cf4ea2e2046
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -29,6 +29,12 @@ market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
+market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
+market_history_web_observations_blob_sha: 2a81dfbb1a89c3f6c2dd4a0d5df2285079423336
+web_observation_validator_blob_sha: 10d44f701e1bf401778081f59831e14945983e7b
+market_manifest_builder_blob_sha: a9c730d0535b9f02a0b20dfe97e15e0acf1577cd
+prebuild_validator_blob_sha: 2a1e62cd7b26f6bcc2ed2a6e90bbbfbfe25616e9
+web_observation_test_blob_sha: 50faa6b9ac23612e163e8ec7049f991e27850e8e
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
