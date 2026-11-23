@@ -138,7 +138,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
     out={"name":row["name"],"group":row["group"],"source_url":row["source_url"],
          "instrument_identity_status":"NOT_INDEPENDENTLY_VERIFIED",
          "target_date":target,"quote_type":row.get("quote_type"),
-         "read_method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE"}
+         "read_method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE","provenance":"CURRENT_RUN_BROWSER_OBSERVATION"}
     started=datetime.now(timezone.utc).isoformat()
     async with sem:
         page=await context.new_page()
@@ -165,7 +165,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     "Accept": "application/json, text/plain, */*",
                 })
                 out.update({"data_endpoint_url":endpoint,"http_status":api_response.status,
-                            "final_url":endpoint,"read_method":"CNN_OFFICIAL_HISTORICAL_JSON"})
+                            "final_url":endpoint,"read_method":"CNN_OFFICIAL_HISTORICAL_JSON","provenance":"CURRENT_CNN_OFFICIAL_API_OBSERVATION"})
                 if api_response.status != 200:
                     out.update({"status":"TOOL_READ_FAILURE","error":f"CNN_GRAPH_DATA_HTTP_{api_response.status}"})
                     return out
@@ -285,6 +285,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             cm=bool(field_ok and number_token(observed_change)==number_token(row.get("expected_change")))
             out.update({
                 "observed_row_text":candidate,
+                "observed_date":target if field_ok else None,
                 "observed_cells":cells,
                 "observed_headers":headers,
                 "expected_display_value":row.get("expected_value"),
