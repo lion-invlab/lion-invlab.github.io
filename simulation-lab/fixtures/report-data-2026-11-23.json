@@ -918,21 +918,21 @@
       "change_display": "Extreme Fear",
       "band": "極度恐懼",
       "source": {
-        "name": "FGScore｜CNN Provider Index fallback",
-        "url": "https://fgscore.com/en/markets/sp500",
+        "name": "CNN Business｜Fear & Greed Index official historical series",
+        "url": "https://edition.cnn.com/markets/fear-and-greed",
         "data_date": "2026-11-20",
         "quote_type": "third_party_provider_index",
-        "note": "CNN Business官方頁面讀取遭robots阻擋；CNN graphdata endpoint未回傳可讀資料。依D3指定備援採FGScore「US stocks · CNN / Provider index」。本輪17:57:31台灣時間重新讀取，頁面仍顯示As of Nov 20, 2026 UTC，Market timestamp Nov 20, 2026 06:59 PM EST（台灣11/21 07:59），分數10、Extreme Fear；截至本輪截稿未見較新Provider timestamp。MarketWatch當日報導曾提及15，與Provider index讀值有來源差異；依指定備援序列採10並明示第三方呈現，非CNN官方頁面直接讀值。",
+        "note": "CNN Business 官方頁面的 Fear & Greed Index；歷史分數以 CNN 官方 graphdata 歷史序列核對。2026-11-20 原始分數 10.4133580705009、評級 extreme fear；早報依整數顯示規則四捨五入為 10。",
         "source_timestamp": "2026-11-20 18:59 EST",
         "read_at_taipei": "2026-11-21 17:57:31",
         "verified_at_tw": "2026-11-22T11:40:25+08:00",
         "score_value": "10",
         "band": "Extreme Fear",
-        "verification_status": "BACKUP_VERIFIED",
-        "source_role": "FALLBACK_1",
+        "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+        "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
         "provider_timestamp_taipei": "2026-11-21T07:59:00+08:00",
-        "evidence_method": "FGScore CNN Provider Index fallback; visible provider score 10 Extreme Fear, as of 2026-11-20 UTC, market timestamp 2026-11-20 18:59 EST / 2026-11-21 07:59 Taiwan; CNN Business robots denied and CNN graphdata response had no readable data",
+        "evidence_method": "CNN Business official dashboard + official graphdata historical series",
         "raw_response_sha256": null
       }
     }
