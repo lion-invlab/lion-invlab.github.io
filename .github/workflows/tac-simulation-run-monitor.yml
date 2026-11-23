@@ -14,14 +14,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  inspect-latest-simulation-run:
-    name: Inspect latest Simulation run
+  inspect-simulation:
+    name: Inspect latest completed Simulation run
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
-      - name: Find latest Simulation run and inspect its jobs
+      - name: Find latest completed Simulation run and inspect its jobs
         id: inspect
         uses: actions/github-script@v7
         with:
@@ -35,31 +33,20 @@ jobs:
               per_page: 100
             });
             const runs = data.workflow_runs
-              .filter(run => run.name === expectedName && run.head_branch === branch)
+              .filter(run => run.name === expectedName &&
+                run.head_branch === branch &&
+                run.status === 'completed')
               .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
             if (runs.length === 0) {
               core.setOutput('alert', 'false');
               core.summary.addHeading('TAC Simulation monitor')
-                .addText('No matching Simulation run was found for the monitored branch.')
+                .addText('No completed Simulation run was found for the monitored branch.')
                 .write();
               return;
             }
 
             const run = runs[0];
-            core.setOutput('run_id', String(run.id));
-            core.setOutput('run_url', run.html_url);
-            core.setOutput('run_status', run.status);
-            core.setOutput('run_conclusion', run.conclusion || 'not-completed');
-
-            if (run.status !== 'completed') {
-              core.setOutput('alert', 'false');
-              core.summary.addHeading('TAC Simulation monitor')
-                .addText('Latest run is still in progress; no failure alert is due.')
-                .addLink('Open run', run.html_url)
-                .write();
-              return;
-            }
-
             const { data: jobsData } = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -71,11 +58,14 @@ jobs:
             const failed = run.conclusion !== 'success';
             const shouldAlert = zeroJobs || failed;
 
+            core.setOutput('run_id', String(run.id));
+            core.setOutput('run_url', run.html_url);
+            core.setOutput('run_conclusion', run.conclusion || 'unknown');
             core.setOutput('job_count', String(jobCount));
             core.setOutput('alert', shouldAlert ? 'true' : 'false');
             core.setOutput('reason', zeroJobs
               ? 'ZERO_JOBS'
-              : (failed ? 'RUN_CONCLUSION_' + run.conclusion.toUpperCase() : 'SUCCESS'));
+              : (failed ? 'RUN_CONCLUSION_' + String(run.conclusion).toUpperCase() : 'SUCCESS'));
 
             core.summary.addHeading('TAC Simulation monitor')
               .addTable([
@@ -89,11 +79,11 @@ jobs:
               .addLink('Open monitored run', run.html_url)
               .write();
 
-      - name: Prepare de-duplication cache path
+      - name: Prepare notification state
         if: steps.inspect.outputs.alert == 'true'
         run: mkdir -p .tac-monitor-state && touch .tac-monitor-state/alerted
 
-      - name: Check whether this run was already notified
+      - name: Restore notification state
         id: notified
         if: steps.inspect.outputs.alert == 'true'
         uses: actions/cache/restore@v4
@@ -101,9 +91,11 @@ jobs:
           path: .tac-monitor-state
           key: tac-simulation-alerted-${{ steps.inspect.outputs.run_id }}
 
-      - name: Send Slack failure alert
-        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && env.SLACK_WEBHOOK_URL != ''
+      - name: Send Slack alert
+        id: send
+        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true'
         env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           RUN_URL: ${{ steps.inspect.outputs.run_url }}
           RUN_ID: ${{ steps.inspect.outputs.run_id }}
           REASON: ${{ steps.inspect.outputs.reason }}
@@ -112,31 +104,31 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
+            echo "::warning::Failure detected, but SLACK_WEBHOOK_URL is unavailable to this workflow."
+            echo "delivered=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Slack notification not delivered"
+              echo "The monitored Simulation run is abnormal, but the repository secret was not exposed to this workflow."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           payload="$(jq -n \
-            --arg text ":rotating_light: TAC Simulation 執行異常\nRun: #${RUN_ID}\n原因: ${REASON}\nConclusion: ${CONCLUSION}\nJobs: ${JOB_COUNT}\n${RUN_URL}" \
+            --arg text ":rotating_light: TAC Simulation 執行異常\\nRun: #${RUN_ID}\\n原因: ${REASON}\\nConclusion: ${CONCLUSION}\\nJobs: ${JOB_COUNT}\\n${RUN_URL}" \
             '{text: $text}')"
           curl --fail --silent --show-error \
             -X POST -H "Content-Type: application/json" \
             --data "$payload" "$SLACK_WEBHOOK_URL"
+          echo "delivered=true" >> "$GITHUB_OUTPUT"
           echo "Slack alert delivered for run #${RUN_ID}."
 
-      - name: Record successful Slack notification to prevent duplicates
-        if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit != 'true' && env.SLACK_WEBHOOK_URL != ''
+      - name: Save notification state
+        if: steps.send.outputs.delivered == 'true'
         uses: actions/cache/save@v4
         with:
           path: .tac-monitor-state
           key: tac-simulation-alerted-${{ steps.inspect.outputs.run_id }}
 
-      - name: Report notification configuration gap
-        if: steps.inspect.outputs.alert == 'true' && env.SLACK_WEBHOOK_URL == ''
-        run: |
-          echo "::warning::Simulation failure detected, but SLACK_WEBHOOK_URL is not configured. Slack notification was not sent."
-          {
-            echo "### Notification not delivered"
-            echo "The monitored Simulation run is abnormal, but repository secret `SLACK_WEBHOOK_URL` is unavailable to this workflow."
-            echo "Configure that repository Actions secret to enable automatic Slack delivery."
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Report already-notified run
+      - name: Report previously notified run
         if: steps.inspect.outputs.alert == 'true' && steps.notified.outputs.cache-hit == 'true'
         run: echo "This run was already notified; suppressing duplicate Slack alert."
