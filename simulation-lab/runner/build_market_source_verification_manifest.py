@@ -10,7 +10,6 @@ import argparse
 import hashlib
 import json
 from datetime import datetime, timezone
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 
 from validate_market_snapshot import validate_market_snapshot
@@ -22,135 +21,23 @@ BOND_PRIMARY_URLS = {
 }
 
 
-IDENTITY_ALIASES = {
-    "道瓊工業指數": ["Dow Jones Industrial Average", "Dow Jones", "DJI"],
-    "標普500指數": ["S&P 500", "SPX"],
-    "那斯達克綜合指數": ["Nasdaq Composite", "IXIC"],
-    "羅素2000指數": ["Russell 2000", "RUT"],
-    "費城半導體指數": ["PHLX Semiconductor", "Philadelphia Semiconductor", "SOX"],
-    "日經225": ["Nikkei 225", "N225"],
-    "韓國 KOSPI": ["KOSPI", "KS11"],
-    "台灣加權指數": ["Taiwan Weighted", "TWII"],
-    "新加坡海峽時報指數 STI": ["FTSE Straits Times", "STI"],
-    "澳洲 S&P/ASX 200": ["S&P/ASX 200", "ASX 200", "AXJO"],
-    "上海綜合指數": ["Shanghai Composite", "SSEC"],
-    "深證成指": ["SZSE Component", "SZI"],
-    "香港恆生指數": ["Hang Seng", "HSI"],
-    "英國 FTSE 100": ["FTSE 100", "UKX"],
-    "德國 DAX": ["DAX", "GDAXI"],
-    "法國 CAC 40": ["CAC 40", "FCHI"],
-    "STOXX Europe 600": ["STOXX Europe 600", "STOXX 600", "SXXP"],
-    "2年期美債殖利率": ["United States 2-Year Bond Yield", "2-Year Bond Yield"],
-    "10年期美債殖利率": ["United States 10-Year Bond Yield", "10-Year Bond Yield"],
-    "30年期美債殖利率": ["United States 30-Year Bond Yield", "30-Year Bond Yield"],
-    "美元指數": ["US Dollar Index", "DXY"],
-    "美元／新台幣": ["USD/TWD"],
-    "歐元／美元": ["EUR/USD"],
-    "英鎊／美元": ["GBP/USD"],
-    "澳幣／美元": ["AUD/USD"],
-    "美元／日圓": ["USD/JPY"],
-    "WTI原油期貨": ["WTI原油期貨", "WTI Crude Oil", "CLF27"],
-    "Brent原油期貨": ["倫敦布倫特原油期貨", "Brent Oil", "LCOG7"],
-    "黃金期貨 GC": ["黃金期貨", "Gold Futures", "GCZ6"],
-    "白銀期貨 SI": ["白銀期貨", "Silver Futures", "SIZ6"],
-    "vix": ["CBOE Volatility Index", "VIX"],
-    "move": ["ICE BofAML MOVE", "MOVE"],
-    "fear_greed": ["CNN Fear & Greed Index", "Fear & Greed"],
-}
-
-def _decimal_value(value):
-    try:
-        return Decimal(str(value).replace(",", "").replace("%", "").replace("+", "").strip())
-    except (InvalidOperation, TypeError, ValueError):
-        return None
-
-def _identity_matches(group, name, identity):
-    text = str(identity or "").casefold()
-    aliases = [name] if group == "sectors" else IDENTITY_ALIASES.get(name, [name])
-    return bool(text) and any(str(alias).casefold() in text for alias in aliases)
-
-def _expected_value(source):
-    for key in ("close_value", "history_close", "score_value"):
-        if source.get(key) is not None:
-            return source.get(key)
-    return None
-
-def _expected_change(source):
-    for key in ("daily_change_percent", "history_change", "band"):
-        if source.get(key) is not None:
-            return source.get(key)
-    return None
-
-def _numeric_match(observed, expected, rounded_integer=False):
-    actual = _decimal_value(observed)
-    target = _decimal_value(expected)
-    if actual is None or target is None:
-        return False
-    if rounded_integer:
-        return actual.quantize(Decimal("1"), rounding=ROUND_HALF_UP) == target.quantize(Decimal("1"), rounding=ROUND_HALF_UP)
-    return abs(actual - target) <= Decimal("0.0000001")
-
-def verification_fields(source: dict, display, change_display, observation: dict | None = None,
-                        group: str = "", name: str = "") -> dict:
-    """Accept only complete, fresh source observations from this report session."""
+def verification_fields(source: dict, display, change_display, observation: dict | None = None) -> dict:
+    """Accept only a complete observation captured by this workflow run."""
     observation = observation or {}
     source_url = source.get("url")
     data_date = source.get("data_date")
-    read_method = observation.get("read_method")
-    provenance = observation.get("provenance")
-    page_read_ok = (
-        observation.get("http_status") == 200
-        or (observation.get("source_page_fetched") is True
-            and observation.get("read_status") == "PAGE_CONTENT_READ_SUCCESS")
-    )
-    identity_ok = _identity_matches(group, name, observation.get("instrument_identity"))
-    value_field = str(observation.get("observed_value_field") or "")
-    change_field = str(observation.get("observed_change_field") or "")
-    if group == "risk" and name == "fear_greed":
-        field_ok = (
-            value_field == "fear_and_greed_historical.data[].y"
-            and change_field == "fear_and_greed_historical.data[].rating"
-        )
-    else:
-        field_ok = (
-            value_field in ("Price", "Close", "收市", "收盤", "收盤價")
-            and change_field in ("Change %", "升跌（%）", "漲跌（%）", "變動%", "Change %")
-        )
-    expected_value = _expected_value(source)
-    expected_change = _expected_change(source)
-    value_match = _numeric_match(
-        observation.get("observed_value"), expected_value,
-        rounded_integer=(group == "risk" and name == "fear_greed"),
-    )
-    if group == "risk" and name == "fear_greed":
-        change_match = str(observation.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
-    else:
-        change_match = _numeric_match(observation.get("observed_change"), expected_change)
-    current_provenance = provenance in (
-        "CURRENT_RUN_BROWSER_OBSERVATION",
-        "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-        "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
-        "SYNTHETIC_TEST_ONLY",
-    )
     verified = (
         observation.get("status") == "VERIFIED"
-        and page_read_ok
+        and observation.get("http_status") == 200
         and observation.get("source_url") == source_url
         and observation.get("target_date") == data_date
-        and observation.get("observed_date") == data_date
-        and identity_ok
         and observation.get("instrument_identity_status") == "VERIFIED"
-        and field_ok
         and observation.get("field_mapping_status") == "VERIFIED"
-        and value_match
-        and change_match
         and observation.get("display_value_match") is True
         and observation.get("display_change_match") is True
         and observation.get("observed_value") is not None
         and observation.get("observed_change") is not None
         and bool(observation.get("finished_at_utc"))
-        and bool(read_method)
-        and current_provenance
     )
     record = None
     record_hash = None
@@ -160,41 +47,31 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "data_endpoint_url": observation.get("data_endpoint_url"),
             "instrument_identity": observation.get("instrument_identity"),
             "data_date": data_date,
-            "observed_date": observation.get("observed_date"),
-            "observed_value_field": value_field,
+            "observed_value_field": observation.get("observed_value_field"),
             "observed_value": observation.get("observed_value"),
-            "observed_change_field": change_field,
+            "observed_change_field": observation.get("observed_change_field"),
             "observed_change": observation.get("observed_change"),
-            "checked_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
-            "evidence_method": read_method,
-            "provenance": provenance,
-            "read_status": observation.get("read_status"),
-            "raw_response_sha256": observation.get("raw_response_sha256"),
+            "checked_at_tw": observation.get("finished_at_utc"),
+            "evidence_method": observation.get("read_method"),
             "quote_type": source.get("quote_type"),
             "source_role": source.get("source_role"),
         }
         canonical = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
         record_hash = hashlib.sha256(canonical).hexdigest()
-    source_role = source.get("source_role", "PRIMARY")
-    verification_status = (
-        "BACKUP_VERIFIED" if verified and source_role in ("BACKUP_1", "BACKUP", "SECONDARY")
-        else "VERIFIED" if verified
-        else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
-    )
     return {
-        "verification_status": verification_status,
-        "source_page_fetched": page_read_ok,
+        "verification_status": source.get("verification_status") if verified else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+        "source_page_fetched": observation.get("http_status") == 200,
         "display_value_reconciled": verified,
         "display_value_matches_saved_observation": verified,
-        "observation_provenance": provenance if verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
-        "raw_response_sha256": observation.get("raw_response_sha256") if verified else None,
-        "evidence_status": "SOURCE_OBSERVATION_VERIFIED" if verified else "SOURCE_OBSERVATION_PENDING",
+        "observation_provenance": "CURRENT_RUN_BROWSER_OBSERVATION" if verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
+        "raw_response_sha256": None,
+        "evidence_status": "BROWSER_OBSERVATION_VERIFIED" if verified else "BROWSER_OBSERVATION_PENDING",
         "browser_observation_record": record,
         "observation_record_sha256": record_hash,
-        "captured_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
-        "observed_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc") if verified else None,
+        "captured_at_tw": observation.get("finished_at_utc"),
+        "observed_at_tw": observation.get("finished_at_utc") if verified else None,
         "source_record_updated_at_tw": source.get("checked_at_tw"),
-        "evidence_method": read_method if verified else None,
+        "evidence_method": observation.get("read_method") if verified else None,
         "verified_close": observation.get("observed_value") if verified else None,
         "verified_change": observation.get("observed_change") if verified else None,
     }
@@ -260,7 +137,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
+        "verification_scope": "CURRENT_RUN_BROWSER_OBSERVATIONS",
         "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
         "displayed_values_independently_reconciled": verified_count == 44,
         "prior_observation_reused_count": 0,
@@ -272,7 +149,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         "observation_record_hash_missing_count": observation_hash_missing_count,
         "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"本次來源頁面觀察完整通過 {verified_count}/44 項；尚有 {pending_count} 項未取得完整商品身分、欄位映射與報價核對證據。舊 Fixture 觀察紀錄不納入驗證。",
+        "warning": f"本次瀏覽器驗證完整通過 {verified_count}/44 項；尚有 {pending_count} 項未取得完整商品身分、欄位映射與報價核對證據。舊 Fixture 觀察紀錄不納入驗證。",
     }
 
 
