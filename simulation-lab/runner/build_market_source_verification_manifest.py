@@ -106,7 +106,11 @@ def verification_fields(source: dict, display, change_display, observation: dict
     identity_ok = _identity_matches(group, name, observation.get("instrument_identity"))
     value_field = str(observation.get("observed_value_field") or "")
     change_field = str(observation.get("observed_change_field") or "")
-    if group == "risk" and name == "fear_greed":
+    is_fear_greed = group == "risk" and name == "fear_greed"
+    fear_greed_backup = is_fear_greed and source.get("source_role") in ("BACKUP_1", "BACKUP", "SECONDARY")
+    if is_fear_greed and fear_greed_backup:
+        field_ok = value_field == "Score" and change_field == "Band"
+    elif is_fear_greed:
         field_ok = (
             value_field == "fear_and_greed.previous_close"
             and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
@@ -116,14 +120,14 @@ def verification_fields(source: dict, display, change_display, observation: dict
             value_field in ("Price", "Close", "收市", "收盤", "收盤價")
             and change_field in ("Change %", "升跌（%）", "漲跌（%）", "變動%")
         )
-    expected_value = _expected_value(source)
-    expected_change = _expected_change(source)
+    expected_value = source.get("score_value") if is_fear_greed else _expected_value(source)
+    expected_change = source.get("band") if fear_greed_backup else _expected_change(source)
     value_match = _numeric_match(
         observation.get("observed_value"), expected_value,
-        rounded_integer=(group == "risk" and name == "fear_greed"),
+        rounded_integer=is_fear_greed,
     )
     raw_score_match = True
-    if group == "risk" and name == "fear_greed":
+    if is_fear_greed:
         raw_score_match = _numeric_match(observation.get("observed_value"), source.get("source_score_value"))
         change_match = str(observation.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
     else:
