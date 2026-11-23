@@ -49,6 +49,22 @@ jobs:
               branch,
               per_page: 100
             });
+            // One-time controlled test: exercise the exact failure-alert branch
+            // without modifying or failing the real Simulation workflow.
+            if (context.eventName === 'push') {
+              const latestMonitorRun = context.runId;
+              core.setOutput('run_id', 'TEST-' + String(latestMonitorRun));
+              core.setOutput('run_url', 'https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + latestMonitorRun);
+              core.setOutput('run_conclusion', 'simulated_failure');
+              core.setOutput('job_count', '0');
+              core.setOutput('reason', 'SIMULATED_ZERO_JOB_TEST');
+              core.setOutput('alert', 'true');
+              core.summary.addHeading('TAC Simulation monitor - controlled alert test')
+                .addText('A clearly labeled synthetic failure is being used to verify the Slack alert path. The Simulation workflow was not modified.')
+                .write();
+              return;
+            }
+
             const runs = data.workflow_runs
               .filter(run => run.name === expectedName &&
                 run.head_branch === branch &&
