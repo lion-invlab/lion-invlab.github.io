@@ -200,3 +200,25 @@ Investing.com 歷史資料頁已直接讀取到以下 10 檔 11/23 收盤列；X
 - Reuters WTI／Brent：https://www.reuters.com/business/energy/oil-prices-fall-amid-equity-selloff-though-iran-war-attacks-limit-losses-2026-11-23/
 
 限制：上述 10 項並不等於 44 項完成。其他全球指數、11 個產業 ETF、其餘債券／匯率／貴金屬及 CNN Fear & Greed 尚須逐項取得同一日期的合格來源列；不得沿用 11/20 Fixture 值。當前 11/24 Fixture 仍未建立，故尚未執行當日 Builder／Browser QA。
+
+## 第二輪日期專屬觀察補充（2026-11-24）
+
+新增可直接讀取 2026-11-23 日期列的來源：
+- 台灣加權指數：36,811.89，+2.16%；Investing.com HK 歷史資料。
+- 美國2年期公債殖利率：4.694%，+0.96%；Investing.com HK 歷史資料。
+- 美國30年期公債殖利率：5.297%，-0.76%；Investing.com HK 歷史資料。
+- 黃金期貨（Investing.com 顯示 GCZ6／2026年12月）：3,663.45，+2.19%；Investing.com HK 歷史資料。注意頁面商品標示即時差價合約，需在 Builder／quote-type guard 確認歷史序列口徑後才可採用；本筆先列為待口徑覆核，不進入 VERIFIED。
+- XLV：Yahoo Finance 11/23 收盤 179.51；XLY：116.91；XLK：162.39；XLRE：42.95；XLF：55.65。Yahoo歷史列可讀，但尚未完成各自前收比較及SIM來源角色／quote-type核對，暫不轉成ETF漲跌百分比，不填入11產業ETF最終值。
+
+證據連結：
+- 台灣加權：https://hk.investing.com/indices/taiwan-weighted-historical-data
+- 美國2年期殖利率：https://hk.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data
+- 美國30年期殖利率：https://hk.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data
+- 黃金：https://hk.investing.com/commodities/gold-historical-data
+- XLV：https://finance.yahoo.com/quote/XLV/history/
+- XLY：https://finance.yahoo.com/quote/XLY/history/
+- XLK：https://finance.yahoo.com/quote/XLK/history/
+- XLRE：https://finance.yahoo.com/quote/XLRE/history/
+- XLF：https://finance.yahoo.com/quote/XLF/history/
+
+截至本次更新，已新增日期列觀察，但尚未達到完整44項與其逐筆瀏覽器證據要求。所有未完成欄位保持待核實，不以推算或前一交易日數值補齊。
