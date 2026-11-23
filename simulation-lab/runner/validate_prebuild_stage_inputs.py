@@ -66,7 +66,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(audit.get("displayed_values_independently_reconciled") is False,
             "metadata validator must not claim independent numeric reconciliation")
 
-    require(manifest.get("status") in ("PASS", "PARTIAL"),
+    require(manifest.get("status") in ("PASS", "PARTIAL", "PENDING"),
             "market source observation manifest is neither PASS nor PARTIAL")
     require(manifest.get("report_date") == report_date, "source manifest report_date mismatch")
     require(manifest.get("trading_date") == trading_date, "source manifest trading_date mismatch")
@@ -147,6 +147,8 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
         "numeric_values_reconciled_this_run": verified_count == 44,
         "numeric_values_reconciled_count": verified_count,
+        "source_verification_status": manifest.get("status"),
+        "pending_observation_count": pending_count,
         "raw_response_sha256_saved_count": raw_hash_count,
     }
 
@@ -285,7 +287,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         "stage_4_news_and_analysis": stage4,
         "created_at_utc": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "limitations": [
-            "Stage 2 requires 44 complete current-session source observations with independently mapped values; prior fixture observations are ineligible.",
+            "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
             "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
             "Stage 3 calendar records are read-only projections from one pinned main commit.",
             "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA.",
