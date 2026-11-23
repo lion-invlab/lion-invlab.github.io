@@ -180,6 +180,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
     started=datetime.now(timezone.utc).isoformat()
     async with sem:
         page=await context.new_page()
+        page.set_default_timeout(min(timeout,3000))
+        page.set_default_navigation_timeout(timeout)
         try:
             if row["name"] == "fear_greed":
                 # First open CNN Business dashboard; use its official graphdata endpoint
@@ -302,7 +304,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             rows=[]
             for selector in ("table tr", '[role="row"]'):
                 try:
-                    await page.locator(selector).first.wait_for(state="visible",timeout=min(timeout,5000))
+                    await page.locator(selector).first.wait_for(state="visible",timeout=min(timeout,1500))
                     found=await page.locator(selector).all_inner_texts()
                     rows.extend(x.strip() for x in found if x.strip())
                 except Exception:
