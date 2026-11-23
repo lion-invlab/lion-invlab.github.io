@@ -91,6 +91,8 @@ def audit_bundle(root: Path, report_path: str | None = None,
     receipt_bytes = read_required("simulation-lab/output/prebuild-stage-input-receipt.json")
     snapshot_bytes = read_required("simulation-lab/output/market-snapshot-audit.json")
     manifest_bytes = read_required("simulation-lab/output/market-source-verification-manifest.json")
+    capture_path = root / "simulation-lab/output/market-source-page-captures.json"
+    capture_bytes = capture_path.read_bytes() if capture_path.is_file() else None
     visual_bytes = read_required("simulation-lab/output/visual/visual-regression.json")
     interaction_bytes = read_required("simulation-lab/output/interaction-smoke.json")
     monday_transfer = read_required("simulation-lab/output/monday-mother-transfer-evidence.json")
@@ -101,6 +103,7 @@ def audit_bundle(root: Path, report_path: str | None = None,
         (sidecar_rel, sidecar_bytes), ("simulation-lab/output/prebuild-stage-input-receipt.json", receipt_bytes),
         ("simulation-lab/output/market-snapshot-audit.json", snapshot_bytes),
         ("simulation-lab/output/market-source-verification-manifest.json", manifest_bytes),
+        ("simulation-lab/output/market-source-page-captures.json", capture_bytes),
         ("simulation-lab/output/visual/visual-regression.json", visual_bytes),
         ("simulation-lab/output/interaction-smoke.json", interaction_bytes),
         ("simulation-lab/output/monday-mother-transfer-evidence.json", monday_transfer),
@@ -168,6 +171,29 @@ def audit_bundle(root: Path, report_path: str | None = None,
     market_manifest = parsed.get("simulation-lab/output/market-source-verification-manifest.json", {})
     if market_manifest and (market_manifest.get("row_count") != 44 or market_manifest.get("status") != "PASS"):
         errors.append("market source manifest is not PASS with 44 rows")
+    capture = parsed.get("simulation-lab/output/market-source-page-captures.json")
+    if capture is not None:
+        capture_rows = capture.get("rows", [])
+        if capture.get("row_count") != 44 or len(capture_rows) != 44:
+            errors.append("market source page capture does not contain exactly 44 rows")
+        else:
+            readable = sum(1 for row in capture_rows if row.get("page_readable") is True)
+            failures = sum(1 for row in capture_rows if row.get("verification_status") == "TOOL_READ_FAILURE")
+            http_successes = sum(
+                1 for row in capture_rows
+                if row.get("capture", {}).get("http_status") == 200
+                and row.get("capture", {}).get("raw_response_sha256")
+            )
+            if capture.get("page_readable_count") != readable:
+                errors.append("market source capture page_readable_count does not match row evidence")
+            if capture.get("tool_read_failure_count") != failures:
+                errors.append("market source capture tool_read_failure_count does not match row evidence")
+            if capture.get("http_capture_success_count") != http_successes:
+                errors.append("market source capture HTTP success count does not match row evidence")
+            if capture.get("displayed_values_independently_reconciled") is not False:
+                warnings.append("Source capture artifact must not imply numeric reconciliation.")
+            if readable < 44:
+                warnings.append(f"Current-run market source page capture readable: {readable}/44; this is not a full live-source verification.")
     visual = parsed.get("simulation-lab/output/visual/visual-regression.json", {})
     if visual and visual.get("failures") != []:
         errors.append("visual regression contains failures")
