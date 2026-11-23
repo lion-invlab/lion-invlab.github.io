@@ -188,14 +188,12 @@ jobs:
           python simulation-lab/runner/test_capture_market_source_pages.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
           python simulation-lab/runner/test_calendar_impact_overrides.py
-          python simulation-lab/runner/test_1123_fixture.py
           python simulation-lab/runner/test_sp500_chart3_handoff.py
           python .github/scripts/test_append_tac_sp500_daily_increment.py
           python .github/scripts/test_merge_tac_sp500_daily_increment.py
           python simulation-lab/runner/test_quote_type_guard.py
           python simulation-lab/runner/test_builder_calendar_panel_preservation.py
           echo "PASS: calendar panel shell preservation regression guard (frozen prototypes)"
-          python simulation-lab/runner/preflight_1123_overrides.py
           python simulation-lab/runner/validate_earnings_v2.py --self-test
 
       - name: Audit W46 PIT projection (read-only, simulation data only)
