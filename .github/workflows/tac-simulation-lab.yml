@@ -903,14 +903,14 @@ jobs:
           retention-days: 30
 
       - name: Download uploaded simulation evidence for independent verification
-        if: always()
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         uses: actions/download-artifact@v4
         with:
           name: tac-simulation-${{ github.run_id }}-${{ github.run_attempt }}
           path: /tmp/tac-simulation-artifact
 
       - name: Verify downloaded simulation evidence bundle
-        if: always()
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
@@ -922,7 +922,7 @@ jobs:
             --output simulation-lab/output/artifact-postupload-verification.json
 
       - name: Upload post-upload artifact audit report
-        if: always()
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         uses: actions/upload-artifact@v4
         with:
           name: tac-simulation-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
