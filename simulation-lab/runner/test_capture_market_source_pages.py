@@ -25,6 +25,10 @@ def main():
         with tempfile.TemporaryDirectory() as temp:
             result = capture_manifest(fake_manifest(), Path(temp), 0)
             assert result["capture_success_count"] == 44
+            assert result["capture_status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION"
+            assert result["status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION"
+            assert result["source_value_verification_status"] == "PENDING"
+            assert result["page_readable_count"] == 44
             assert result["displayed_values_independently_reconciled"] is False
             assert all(r["verification_status"] == "CAPTURED_PENDING_VALUE_RECONCILIATION" for r in result["rows"])
             assert all(r["display_value_reconciled"] is False for r in result["rows"])
@@ -37,6 +41,11 @@ def main():
         with tempfile.TemporaryDirectory() as temp:
             result = capture_manifest(fake_manifest(), Path(temp), 0)
             assert result["capture_failure_count"] == 44
+            assert result["capture_status"] == "CAPTURE_FAILED"
+            assert result["status"] == "CAPTURE_FAILED"
+            assert result["page_readable_count"] == 0
+            assert result["tool_read_failure_count"] == 44
+            assert result["raw_response_sha256_saved_count"] == 44
             assert all(r["verification_status"] == "TOOL_READ_FAILURE" for r in result["rows"])
             assert all(r["display_value_reconciled"] is False for r in result["rows"])
         module.capture_one = lambda url, timeout=25: {
@@ -47,6 +56,8 @@ def main():
         with tempfile.TemporaryDirectory() as temp:
             result = capture_manifest(fake_manifest(), Path(temp), 0)
             assert result["capture_success_count"] == 44
+            assert result["capture_status"] == "CAPTURE_FAILED"
+            assert result["page_readable_count"] == 0
             assert result["tool_read_failure_count"] == 44
             assert all(r["source_page_fetched"] is True for r in result["rows"])
             assert all(r["page_readable"] is False for r in result["rows"])
