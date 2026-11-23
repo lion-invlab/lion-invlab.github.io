@@ -66,6 +66,32 @@ def main() -> None:
         workflow_run_id="45010119942", workflow_run_attempt="1",
     ), "market source observation manifest is not PASS")
 
+    # Positive Gate contract: synthetic test-only observations prove that a
+    # complete current-run 44-row evidence bundle can pass without fixture reuse.
+    synthetic = copy.deepcopy(manifest)
+    synthetic.update({
+        "status": "PASS", "verification_scope": "CURRENT_RUN_BROWSER_OBSERVATIONS",
+        "source_pages_fetched": True, "displayed_values_independently_reconciled": True,
+        "prior_observation_reused_count": 0, "verified_count": 44, "pending_count": 0,
+        "browser_observation_records_complete": True, "observation_record_hash_missing_count": 0,
+    })
+    for row in synthetic["rows"]:
+        row.update({
+            "verification_status": "VERIFIED", "source_page_fetched": True,
+            "display_value_reconciled": True, "display_value_matches_saved_observation": True,
+            "observation_provenance": "CURRENT_RUN_BROWSER_OBSERVATION",
+            "observation_record_sha256": "a" * 64,
+            "browser_observation_record": {
+                "source_url": row["source_url"], "data_date": data["trading_date"],
+                "observed_value": "100.00", "observed_change": "1.00",
+                "checked_at_tw": "2026-11-23T11:00:00Z",
+            },
+        })
+    positive = validate_market_inputs(data, audit, synthetic, report_date)
+    assert positive["indicator_count"] == 44
+    assert positive["prior_observations_reused"] == 0
+    assert positive["source_pages_fetched_this_run"] is True
+    assert positive["numeric_values_reconciled_this_run"] is True
     expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
                  "refusing non-simulation branch")
 
@@ -116,7 +142,7 @@ def main() -> None:
 
     print("PASS: fixture-only 44 observations are rejected before Stage 2-4 receipt can be sealed")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
-    print("PASS: old fixture observations cannot produce a pre-build PASS receipt")
+    print("PASS: synthetic current-run 44-row evidence can satisfy Gate; fixture evidence cannot")
 
 
 if __name__ == "__main__":
