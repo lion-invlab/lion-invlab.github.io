@@ -3153,3 +3153,13 @@
 - 早報自動化仍 `is_enabled=false`；本輪沒有恢復排程。notify_parent 尚未取得 `status=notified`。
 - 下一步：追查 45080345516 0 Jobs 事件；完成隔離失敗演練與通知送達驗收；九項 E2E 全通過前維持 05:25 排程停用；未核准確切 HTML SHA 前不執行 Stage 6。
 
+
+
+## 2026-11-23 09:48（台灣時間）｜失敗保留與通知鏈分離查核
+
+- 另查最新 Workflow 結尾（lines 835–890）：`Record isolated run metadata` 與 `Upload simulation evidence` 均使用 `if: always()`，可保留失敗時的 runner metadata／artifact；但 Workflow 內沒有 notify／alert step。因此目前「失敗證據保留」與「失敗通知送達」是兩條不同能力，前者存在，後者尚未實現／驗收。外層 `notify_parent` 本輪重試仍回傳 HTTP 404 Action not found，未取得 notified。
+
+- 最新 Workflow 結尾確認 `Record isolated run metadata`（`if: always()`）與 `Upload simulation evidence`（`if: always()`）能在 job 有啟動且執行失敗時保存 runner metadata 與 artifact；但沒有 Workflow 內部 notify／alert step。不得把 artifact 保存視為通知送達。
+- 本輪外層 `notify_parent` 重試仍回傳 HTTP 404 Action not found，未取得 `status=notified`。失敗通知 Gate 維持 NOT_PASS。
+- 未新增或修改 Workflow、未注入人為失敗；避免在未建立可靠通知通道前製造會被誤認為真實生產故障的事件。
+
