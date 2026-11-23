@@ -163,15 +163,15 @@ def main() -> None:
     expect_error(lambda: validate_market_inputs(data, wrong_audit, manifest, report_date),
                  "market audit trading_date mismatch")
 
-    missing_obs = copy.deepcopy(manifest)
+    missing_obs = copy.deepcopy(synthetic)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "previous calendar commit is not the pinned main commit")
+                 "one or more observation record hashes are invalid")
 
-    mixed_dates = copy.deepcopy(manifest)
+    mixed_dates = copy.deepcopy(synthetic)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
     expect_error(lambda: validate_market_inputs(data, audit, mixed_dates, report_date),
-                 "calendar path is not the canonical ISO-week database path")
+                 "source manifest contains mixed trading dates")
 
     missing_domain = copy.deepcopy(data)
     missing_domain["political_scan"]["domains_checked"].remove("geopolitics")
@@ -187,7 +187,7 @@ def main() -> None:
     wrong_calendar_commit["previous"]["commit_sha"] = "d" * 40
     expect_error(lambda: build_receipt(
         data=data, fixture_sha256="1" * 64, audit=audit, audit_sha256="2" * 64,
-        manifest=manifest, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_commit,
+        manifest=synthetic, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_commit,
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
@@ -197,7 +197,7 @@ def main() -> None:
     wrong_calendar_path["current"]["path"] = "data/calendar/weeks/2026-W47.json"
     expect_error(lambda: build_receipt(
         data=data, fixture_sha256="1" * 64, audit=audit, audit_sha256="2" * 64,
-        manifest=manifest, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_path,
+        manifest=synthetic, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_path,
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
