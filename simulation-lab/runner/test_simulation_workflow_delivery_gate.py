@@ -54,7 +54,7 @@ assert "ACTUAL_PREBUILD_RECEIPT_SHA256" in receipt_recheck
 assert 'if [[ "${ACTUAL_PREBUILD_RECEIPT_SHA256}" != "${PREBUILD_RECEIPT_SHA256}" ]]; then' in receipt_recheck
 assert 'if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; then' in receipt_recheck
 assert "Pre-build receipt SHA changed after Builder execution" in receipt_recheck
-assert "import hashlib, json, re, subprocess, sys" in seal
+assert all(module in seal for module in ("hashlib", "json", "os", "re", "subprocess", "sys"))
 assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
 assert "prebuild_receipt.get(\"status\") != \"PASS\"" in delivery
 assert "prebuild_input_receipt_sha256" in delivery
