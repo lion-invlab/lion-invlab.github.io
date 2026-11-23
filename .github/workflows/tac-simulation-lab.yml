@@ -49,7 +49,8 @@ permissions:
 concurrency:
   # Serialize the simulation commit and the subsequent narrow main/preview handoff.
   group: tac-simulation-review-delivery
-  cancel-in-progress: true
+  cancel-in-progress: false
+  # Keep an active report build alive when later SIM evidence commits arrive.
 
 jobs:
   isolated-smoke:
