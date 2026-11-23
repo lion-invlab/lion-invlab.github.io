@@ -63,7 +63,8 @@ jobs:
               return;
             }
 
-            // Scan completed runs newest-first and select the newest abnormal run.
+            // TEMPORARY ZERO-JOB ACCEPTANCE: prefer an actual historical zero-job run; revert after one-time delivery check.
+            // Scan completed runs newest-first and select an abnormal run.
             // This prevents a later successful run from hiding an earlier failure
             // between two five-minute monitor polls.
             let selected = null;
@@ -78,11 +79,14 @@ jobs:
               const jobCount = jobsData.total_count ?? jobsData.jobs.length;
               const zeroJobs = jobCount === 0;
               const failed = candidate.conclusion !== 'success';
-              if (zeroJobs || failed) {
+              if (zeroJobs) {
                 selected = { run: candidate, jobCount, zeroJobs, failed };
                 break;
               }
-              if (!latestSuccess) latestSuccess = { run: candidate, jobCount };
+              if (failed && !selected) {
+                selected = { run: candidate, jobCount, zeroJobs, failed };
+              }
+              if (!latestSuccess && !failed) latestSuccess = { run: candidate, jobCount };
             }
 
             if (!selected) {
