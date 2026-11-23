@@ -3364,3 +3364,13 @@ QA Sidecar：
 - `test_simulation_workflow_delivery_gate.py` 新增斷言：Checkout provenance 必須在 workflow 初始 checkout 後擷取；Runner Metadata 的 `commit` 必須來自 `SIM_CHECKOUT_COMMIT`，另記 `trigger_commit=$GITHUB_SHA`；Artifact Audit 必須驗證 expected trigger commit。
 - `test_simulation_artifact_bundle.py` 新增兩種錯誤情境：QA Sidecar build_commit_sha 與 runner metadata commit 不一致時必須 FAIL；trigger_commit 與 GitHub 事件 SHA 不一致時必須 FAIL。
 - 以上兩筆測試提交為 `[skip ci]`，不觸發新 Workflow。Run 45131652645 已驗證實際 Workflow／Artifact Audit 通過，但這兩項新增 regression assertions 尚未在該 Run 執行；需由下一次 deterministic self-tests 確認，未驗證前不宣稱測試已通過。
+
+
+### 早報 Automation GitHub 反向核驗補強
+
+- 早報 Automation prompt 新增確切 Run ID／branch／head_sha／event／status／conclusion 核對。
+- 新增 Job 清單核對，jobs=[] 或 total_count=0 一律 ZERO_JOB。
+- 新增主 Artifact 與 post-upload audit Artifact 同 Run 核對、下載及 audit JSON 驗證；必須 PASS、errors=[]、expected_run_id／branch／trigger_commit 正確，且 10 項必要證據存在。
+- 新增 Runner Metadata checkout commit／trigger commit 核對，以及 Simulation Branch HTML／QA Sidecar Blob SHA／SHA-256 遠端讀回。
+- 只有 Run、Job、兩份 Artifact、audit、HTML／Sidecar SHA 全部一致，才可標 PIPELINE_E2E_PASS；任何缺項均 PARTIAL／UNVERIFIED。
+- 早報 Automation 目前仍停用，因此這是 prompt 規格更新，尚未有新一輪實際執行證據；未修改排程或 main。
