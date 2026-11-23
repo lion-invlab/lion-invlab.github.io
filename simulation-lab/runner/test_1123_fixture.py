@@ -19,10 +19,10 @@ def main():
     assert data["report_date"] == "2026-11-23"
     assert data["trading_date"] == "2026-11-20"
     assert data["report_cutoff_taipei"] == "2026-11-23 05:25"
-    assert data["news_cutoff_taipei"] == "2026-11-21 17:57:31"
-    assert data["report_cutoff_taipei"] != data["news_cutoff_taipei"]
+    assert data["news_cutoff_taipei"] == "2026-11-23 05:25:00"
+    assert datetime.strptime(data["report_cutoff_taipei"], "%Y-%m-%d %H:%M") == datetime.strptime(data["news_cutoff_taipei"], "%Y-%m-%d %H:%M:%S")
     assert "2026/11/20 12:00" in data["news_window_taipei"]
-    assert "2026/11/21 17:57:31" in data["news_window_taipei"]
+    assert "2026/11/23 05:25" in data["news_window_taipei"]
 
     weekday_data = json.loads((ROOT / "simulation-lab" / "fixtures" / "report-data-2026-11-20.json").read_text(encoding="utf-8"))
     weekday_wti = weekday_data["energy"]["WTI原油期貨"]
@@ -346,7 +346,7 @@ def main():
     assert "for child in list(levels_box.contents)" not in builder
     for label in ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力"):
         assert label in builder
-    assert "if: false # Do not use repo collector" in workflow
+    assert "Skip cash-index OHLC collector" not in workflow
     assert "--key-levels-live" not in workflow
 
 
@@ -383,7 +383,7 @@ def main():
     print(f"PASS: 44 market indicators = {counts}")
     print("PASS: 5 focus news + 10 headlines; source timezones, updates and links complete")
     print("PASS: 6 W47 economic, 3 W47 earnings, 5 W48 display-layer overrides")
-    print("PASS: news window sealed 11/21 17:57:31; report cutoff remains Monday 05:25")
+    print("PASS: Monday news window 11/20 12:00–11/23 05:25; report cutoff Monday 05:25")
     print("PASS: 17 global index rows use non-CFD source contracts")
     for bond_name, close, change in (
         ("2年期美債殖利率", "4.613%", "-16.6 bp"),
