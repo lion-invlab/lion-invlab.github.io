@@ -7,3 +7,5 @@ Stage 2 must consume simulation-lab/input/market-history-web-observations-2026-1
 Re-run after DOM-only fixture isolation and full SIM-1.4 direct-web observation validator self-tests passed. Use date-specific 44-row ChatGPT web evidence bundle.
 
 Retry Stage 2-4 Gate with explicit current-session provenance acceptance for the 44 verified direct ChatGPT web observations; proceed to Monday review Builder only after receipt PASS.
+
+Final Stage 2-4 direct-web provenance seal correction validated by isolated smoke; rerun the Monday review build and QA seal. Simulation branch only; no main publication.
