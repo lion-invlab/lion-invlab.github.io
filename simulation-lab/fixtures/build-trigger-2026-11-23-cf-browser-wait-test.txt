@@ -11,3 +11,5 @@ Retry Stage 2-4 Gate with explicit current-session provenance acceptance for the
 Final Stage 2-4 direct-web provenance seal correction validated by isolated smoke; rerun the Monday review build and QA seal. Simulation branch only; no main publication.
 
 Rebuild final review after replacing inherited audit notes that incorrectly described old fixture reuse and FGScore fallback; current 44/44 direct observations and CNN official endpoint are now accurately documented.
+
+Final rerun after updating 11/23 fixture provenance notes and matching regression assertions; use the already validated current-session 44-row direct web evidence bundle.
