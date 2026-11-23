@@ -82,7 +82,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Python dependencies
-        run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
+        run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars playwright
 
       - name: Materialize SHA-locked simulation Monday and weekday mothers
         shell: bash
@@ -510,6 +510,16 @@ jobs:
           npm install --no-save playwright
           # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
           npx playwright install chromium
+      - name: Verify 44 market history rows with rendered Chromium pages
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m playwright install chromium
+          python simulation-lab/runner/browser_verify_market_history.py \
+            --fixture "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --output simulation-lab/output/market-history-browser-observations.json
       - name: Verify five-layer analysis responsive layout in both mothers
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs
