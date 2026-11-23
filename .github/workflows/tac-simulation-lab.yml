@@ -152,7 +152,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py
+          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/audit_simulation_artifact_bundle.py simulation-lab/runner/test_simulation_artifact_bundle.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
@@ -179,6 +179,7 @@ jobs:
           python simulation-lab/runner/test_patch_review_sections.py
           python simulation-lab/runner/test_sim14_builder_approval.py
           python simulation-lab/runner/test_simulation_workflow_delivery_gate.py
+          python simulation-lab/runner/test_simulation_artifact_bundle.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
           python simulation-lab/runner/test_prebuild_stage_inputs.py
@@ -898,5 +899,33 @@ jobs:
             ${{ env.REPORT_OUTPUT }}
             ${{ env.REPORT_EVIDENCE }}
 
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Download uploaded simulation evidence for independent verification
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: tac-simulation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/tac-simulation-artifact
+
+      - name: Verify downloaded simulation evidence bundle
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/audit_simulation_artifact_bundle.py \
+            --root /tmp/tac-simulation-artifact \
+            --report-path "${REPORT_OUTPUT:-}" \
+            --expected-run-id "${GITHUB_RUN_ID}" \
+            --expected-branch "${GITHUB_REF_NAME}" \
+            --output simulation-lab/output/artifact-postupload-verification.json
+
+      - name: Upload post-upload artifact audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-simulation-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: simulation-lab/output/artifact-postupload-verification.json
           if-no-files-found: warn
           retention-days: 30
