@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Validate 11/23 report-layer overrides against immutable authoritative main W47/W48 JSON."""
 import json
+import subprocess
 from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from calendar_source_guard import load_authoritative_calendar, project_calendar_data
+from calendar_source_guard import load_authoritative_calendar, project_calendar_data, run_git
 from build_review_html import (
     apply_calendar_impact_overrides,
     apply_last_week_economic_overrides,
@@ -35,7 +36,15 @@ def main():
     projection_path = ROOT / "simulation-lab" / "fixtures" / "earnings-consensus-projection-2026-11-23.json"
     projection = json.loads(projection_path.read_text(encoding="utf-8"))
     assert projection.get("calendar_blob_sha") == bundle["current"]["blob_sha"], "W48 earnings consensus projection calendar blob SHA mismatch"
-    assert projection.get("calendar_main_commit_sha") == bundle["main_commit_sha"], "W48 earnings consensus projection main commit SHA mismatch"
+    # The projection is pinned to the main commit observed when its consensus
+    # capture was made. Main may advance for unrelated data (for example Chart 3
+    # volatility series); require the pinned W48 blob to remain identical and
+    # the source commit to remain an ancestor of current main, not equal HEAD.
+    projection_commit = str(projection.get("calendar_main_commit_sha") or "")
+    assert len(projection_commit) == 40 and all(ch in "0123456789abcdef" for ch in projection_commit), "W48 earnings consensus projection main commit SHA missing or invalid"
+    pinned_w48_blob = run_git("rev-parse", f"{projection_commit}:data/calendar/weeks/2026-W48.json")
+    assert pinned_w48_blob == projection["calendar_blob_sha"], "W48 earnings consensus projection pinned commit does not contain its declared calendar blob"
+    subprocess.run(["git", "merge-base", "--is-ancestor", projection_commit, bundle["main_commit_sha"]], check=True)
     main_earnings = {
         str(item.get("id")): item
         for item in bundle["current"]["payload"]["events"]["earnings"]
