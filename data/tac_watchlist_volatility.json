@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "TAC Custom Watchlist Historical Volatility",
-    "updated_at": "2026-11-20T02:15:00.194414+00:00",
+    "updated_at": "2026-11-23T01:34:55.503983+00:00",
     "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
     "windows": [
       90,
@@ -16,17 +16,17 @@
   },
   "summary": {
     "constituents": 4,
-    "valid": 3,
-    "average_vol_90d": 0.7968825687750111,
-    "median_vol_90d": 0.6932255425214885,
-    "max_vol_90d": 1.266932912702637,
-    "min_vol_90d": 0.4304892511009076
+    "valid": 4,
+    "average_vol_90d": 0.8287211629263426,
+    "median_vol_90d": 0.7890890996489466,
+    "max_vol_90d": 1.2751716631646761,
+    "min_vol_90d": 0.46153478924280095
   },
   "data_quality": {
     "constituent_count": 4,
-    "valid_count": 3,
-    "missing_count": 1,
-    "coverage": 0.75
+    "valid_count": 4,
+    "missing_count": 0,
+    "coverage": 1.0
   },
   "stocks": [
     {
@@ -35,16 +35,16 @@
       "company": "Taiwan Semiconductor Manufacturing",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 362.6199951171875,
-      "vol_90d": 0.4304892511009076,
-      "vol_60d": 0.4517141752399432,
-      "vol_30d": 0.5670786248920532,
-      "vol_20d": 0.6674158659520416,
-      "return_90d": -0.13510602771018987,
-      "max_drawdown_90d": -0.27315764722910063,
-      "vol_ratio_20d_90d": 1.5503659249220092,
+      "price": 318.7099914550781,
+      "vol_90d": 0.46153478924280095,
+      "vol_60d": 0.49322008167100445,
+      "vol_30d": 0.6249415719385925,
+      "vol_20d": 0.7268106221145286,
+      "return_90d": -0.2200785530748548,
+      "max_drawdown_90d": -0.3439481279054676,
+      "vol_ratio_20d_90d": 1.5747688777847975,
       "valid": true,
-      "price_days": 250
+      "price_days": 251
     },
     {
       "ticker": "SKHY",
@@ -52,16 +52,16 @@
       "company": "SK hynix",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": null,
-      "vol_90d": null,
-      "vol_60d": null,
-      "vol_30d": null,
-      "vol_20d": null,
-      "return_90d": null,
-      "max_drawdown_90d": null,
-      "vol_ratio_20d_90d": null,
-      "valid": false,
-      "price_days": 0
+      "price": 103.56999969482422,
+      "vol_90d": 0.8713965753975103,
+      "vol_60d": 0.8112995169161489,
+      "vol_30d": 0.9623723154095779,
+      "vol_20d": 1.0771431192985363,
+      "return_90d": -0.3200052435495524,
+      "max_drawdown_90d": -0.47857827544268383,
+      "vol_ratio_20d_90d": 1.2361112606016031,
+      "valid": true,
+      "price_days": 95
     },
     {
       "ticker": "SPCX",
@@ -69,16 +69,16 @@
       "company": "ConvexityShares 1x SPIKES Futures ETF",
       "sector": "Other",
       "source_group": "TAC Watchlist",
-      "price": 143.5,
-      "vol_90d": 0.6932255425214885,
-      "vol_60d": 0.5754801609900541,
-      "vol_30d": 0.6527973908824193,
-      "vol_20d": 0.7095069350973912,
-      "return_90d": 0.05452673478177461,
+      "price": 127.79000091552734,
+      "vol_90d": 0.7067816239003829,
+      "vol_60d": 0.6020782817428701,
+      "vol_30d": 0.6825527687067504,
+      "vol_20d": 0.6873919378016771,
+      "return_90d": -0.025322246048117947,
       "max_drawdown_90d": -0.2809446017728491,
-      "vol_ratio_20d_90d": 1.023486429130528,
+      "vol_ratio_20d_90d": 0.9725662277526351,
       "valid": true,
-      "price_days": 111
+      "price_days": 113
     },
     {
       "ticker": "AAOI",
@@ -86,16 +86,16 @@
       "company": "Applied Optoelectronics",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 40.790000915527344,
-      "vol_90d": 1.266932912702637,
-      "vol_60d": 1.1002168461208846,
-      "vol_30d": 1.316033566877498,
-      "vol_20d": 1.4557605113779977,
-      "return_90d": -0.6748505228552826,
-      "max_drawdown_90d": -0.7366518104702542,
-      "vol_ratio_20d_90d": 1.1490430920075723,
+      "price": 32.93000030517578,
+      "vol_90d": 1.2751716631646761,
+      "vol_60d": 1.1489965101359823,
+      "vol_30d": 1.327305523069318,
+      "vol_20d": 1.5103248817024448,
+      "return_90d": -0.6714884177279307,
+      "max_drawdown_90d": -0.7873975051007938,
+      "vol_ratio_20d_90d": 1.1844090684654753,
       "valid": true,
-      "price_days": 250
+      "price_days": 251
     }
   ]
 }
