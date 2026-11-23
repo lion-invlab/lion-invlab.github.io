@@ -22,73 +22,24 @@ BOND_PRIMARY_URLS = {
 
 
 def verification_fields(source: dict, display, change_display) -> dict:
-    """Carry forward only source observations already reconciled against fixture values."""
-    evidence_method = source.get("evidence_method")
-    source_status = source.get("verification_status")
-    source_url = source.get("url")
-    data_date = source.get("data_date")
-    observed_at = source.get("verified_at_tw") or source.get("read_at_taipei") or source.get("read_at")
-    verified = (
-        source_status in ("VERIFIED", "BACKUP_VERIFIED")
-        and bool(evidence_method)
-        and bool(source_url)
-        and bool(data_date)
-        and bool(observed_at)
-    )
-    if verified and source.get("close_value") is not None:
-        verified = str(display).removesuffix("%") == str(source.get("close_value"))
-        if source.get("daily_change_bp") is not None:
-            verified = verified and str(change_display) == str(source.get("daily_change_bp")) + " bp"
-        else:
-            verified = verified and str(change_display) == str(source.get("daily_change_percent"))
-    elif verified and source.get("history_close") is not None:
-        source_close = source.get("close")
-        history_close = source.get("history_close")
-        verified = str(display).removesuffix("%") == str(history_close)
-        verified = verified and (source_close is None or str(source_close) == str(history_close))
-        verified = verified and str(change_display) == str(source.get("history_change"))
-    elif verified and source.get("score_value") is not None:
-        verified = str(display) == str(source.get("score_value")) and str(change_display) == str(source.get("band"))
-    else:
-        verified = False
-    observation_record = None
-    observation_record_sha256 = None
-    if verified:
-        observation_record = {
-            "source_url": source_url,
-            "instrument_identity": source.get("instrument_identity") or source.get("contract_label") or source.get("name"),
-            "data_date": data_date,
-            "observed_value_field": "Close/Price or provider index value",
-            "observed_value": (source.get("close_value") or source.get("history_close") or source.get("score_value")),
-            "observed_change_field": "Change % / bp / provider band",
-            "observed_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")),
-            "checked_at_tw": observed_at,
-            "evidence_method": evidence_method,
-            "quote_type": source.get("quote_type"),
-            "source_role": source.get("source_role"),
-        }
-        canonical = json.dumps(observation_record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
-        observation_record_sha256 = hashlib.sha256(canonical).hexdigest()
+    """Never promote fixture-carried observations to current-run verification."""
     return {
-        "verification_status": source_status if verified else "PENDING_OBSERVATION_TIMESTAMP",
-        # This builder reuses fixture-carried prior observations; it does not
-        # fetch pages or independently reconcile values during this workflow run.
+        "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
         "source_page_fetched": False,
         "display_value_reconciled": False,
-        "display_value_matches_saved_observation": bool(verified),
-        "observation_provenance": "FIXTURE_PRIOR_VERIFICATION_RECORD" if verified else "MISSING_PER_ITEM_OBSERVATION_TIME",
-        "raw_response_sha256": source.get("raw_response_sha256"),
-        "evidence_status": "RAW_RESPONSE_SAVED" if source.get("raw_response_sha256") else "BROWSER_OBSERVATION_SAVED" if verified else "NO_USABLE_OBSERVATION",
-        "browser_observation_record": observation_record,
-        "observation_record_sha256": observation_record_sha256,
+        "display_value_matches_saved_observation": False,
+        "observation_provenance": "NO_CURRENT_RUN_BROWSER_OBSERVATION",
+        "raw_response_sha256": None,
+        "evidence_status": "NO_CURRENT_RUN_OBSERVATION",
+        "browser_observation_record": None,
+        "observation_record_sha256": None,
         "captured_at_tw": None,
-        "observed_at_tw": observed_at if verified else None,
+        "observed_at_tw": None,
         "source_record_updated_at_tw": source.get("checked_at_tw"),
-        "evidence_method": evidence_method if verified else None,
-        "verified_close": (source.get("close_value") or source.get("history_close") or source.get("score_value")) if verified else None,
-        "verified_change": (source.get("daily_change_bp") or source.get("daily_change_percent") or source.get("history_change") or source.get("band")) if verified else None,
+        "evidence_method": None,
+        "verified_close": None,
+        "verified_change": None,
     }
-
 
 def build_manifest(data: dict, report_date: str) -> dict:
     audit = validate_market_snapshot(data, report_date)
@@ -144,16 +95,16 @@ def build_manifest(data: dict, report_date: str) -> dict:
     pending_count = len(rows) - verified_count
     observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
     raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
-    status = "PASS" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
+    status = "PENDING"
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "PRIOR_FIXTURE_OBSERVATIONS_REUSED_CURRENT_RUN_DID_NOT_FETCH_OR_RECONCILE_SOURCE_PAGES",
+        "verification_scope": "CURRENT_RUN_BROWSER_OBSERVATIONS_REQUIRED",
         "source_pages_fetched": False,
         "displayed_values_independently_reconciled": False,
-        "prior_observation_reused_count": verified_count,
+        "prior_observation_reused_count": 0,
         "prior_observation_missing_time_count": pending_count,
         "row_count": len(rows),
         "pending_count": pending_count,
@@ -162,7 +113,7 @@ def build_manifest(data: dict, report_date: str) -> dict:
         "observation_record_hash_missing_count": observation_hash_missing_count,
         "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"沿用 Fixture 既有逐筆觀察紀錄 {verified_count}/44 項；缺少可追溯逐筆觀察時間 {pending_count} 項；觀察紀錄 SHA-256 缺漏 {observation_hash_missing_count} 項。本輪未重新擷取來源頁或獨立重核數值；原始 HTTP response body 已封存 {raw_response_saved_count}/44 項（非必要條件）。",
+        "warning": "本版本刻意不接受 Fixture 內的舊觀察紀錄；必須由本次執行的瀏覽器讀取產生 44 筆完整觀察證據後，才能升級為 PASS。",
     }
 
 
