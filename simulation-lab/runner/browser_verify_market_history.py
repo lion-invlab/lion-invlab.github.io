@@ -158,7 +158,8 @@ async def observe(context,row,target,timeout,sem):
             matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
             identity_ok=matched_identity is not None
             field_ok=bool(headers and date_i is not None and value_i is not None and change_i is not None
-                          and max(date_i,value_i,change_i)<len(cells))
+                          and max(date_i,value_i,change_i)<len(cells)
+                          and date_in_row(cells[date_i],target))
             observed_value=cells[value_i] if field_ok else None
             observed_change=cells[change_i] if field_ok else None
             vm=bool(field_ok and number_token(observed_value)==number_token(row.get("expected_value")))
