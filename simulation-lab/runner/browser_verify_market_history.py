@@ -45,14 +45,14 @@ def date_in_row(text, target):
     low=text.lower()
     return any(x.lower() in low for x in forms)
 
-async def observe(browser,row,target,timeout,sem):
+async def observe(context,row,target,timeout,sem):
     out={"name":row["name"],"group":row["group"],"source_url":row["source_url"],
          "instrument_identity_status":"NOT_INDEPENDENTLY_VERIFIED",
          "target_date":target,"quote_type":row.get("quote_type"),
          "read_method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE"}
     started=datetime.now(timezone.utc).isoformat()
     async with sem:
-        page=await browser.new_page()
+        page=await context.new_page()
         try:
             response=await page.goto(row["source_url"],wait_until="domcontentloaded",timeout=timeout)
             out["http_status"]=response.status if response else None
@@ -117,11 +117,24 @@ async def observe(browser,row,target,timeout,sem):
 async def run(a,work,target):
     sem=asyncio.Semaphore(a.concurrency)
     async with async_playwright() as p:
-        browser=await p.chromium.launch(headless=True)
+        browser=await p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        context=await browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            locale="zh-HK",
+            timezone_id="Asia/Taipei",
+            extra_http_headers={
+                "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,en;q=0.6",
+                "Referer": "https://www.investing.com/",
+            },
+        )
         try:
-            tasks=[observe(browser,row,target,a.timeout_ms,sem) for row in work]
+            tasks=[observe(context,row,target,a.timeout_ms,sem) for row in work]
             observations=await asyncio.gather(*tasks)
         finally:
+            await context.close()
             await browser.close()
     for item in observations:
         canonical=json.dumps(item,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
