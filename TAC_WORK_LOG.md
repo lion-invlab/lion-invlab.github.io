@@ -3163,3 +3163,12 @@
 - 本輪外層 `notify_parent` 重試仍回傳 HTTP 404 Action not found，未取得 `status=notified`。失敗通知 Gate 維持 NOT_PASS。
 - 未新增或修改 Workflow、未注入人為失敗；避免在未建立可靠通知通道前製造會被誤認為真實生產故障的事件。
 
+
+
+## 續查補記｜2026-11-23｜Run 45080345516 的 0 Jobs 原因仍未證實
+
+- 重新讀取觸發提交 `50e422fac52ce0c4d7834282f289ddfea904e6b2` 的完整 diff：該提交只修改 `simulation-lab/runner/BUILD_TRIGGER.md`。
+- 重新讀取該提交當時的 `.github/workflows/tac-simulation-lab.yml`：`push.branches` 明確包含 `simulation/tac-process-lab-2026-11-06`，`push.paths` 包含 `simulation-lab/**`，故本次修改路徑符合分支及路徑篩選條件。不得再把 0 Jobs 歸因於 path filter 未匹配。
+- 該 run API 仍回傳 event=push、conclusion=failure；Jobs API（包含 `filter=all`）仍回傳 `total_count=0`、`jobs=[]`。獨立 lint check run 屬另一個 check suite，不能直接當作主 Workflow 0 Jobs 的根因。
+- 後續成功建置 commit `0b27040cf920d6d668a4cc5b1c9a98cf9e08469f` 也只修改同一個 `simulation-lab/runner/BUILD_TRIGGER.md` 路徑，並成功執行；因此相同觸發路徑可成功，舊 run 的具體失敗原因仍為 UNRESOLVED，不能猜測為 branch/path filter、default branch 或 lint 造成。
+- 本次未修改 Workflow、未新增觸發提交、未注入人為失敗；05:25 早報自動化維持停用，main 與正式首頁未修改。
