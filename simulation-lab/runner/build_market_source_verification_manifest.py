@@ -130,7 +130,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
     pending_count = len(rows) - verified_count
     observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
     raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
-    status = "PENDING"
+    status = "PASS" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
     return {
         "schema_version": "1.1",
         "status": status,
