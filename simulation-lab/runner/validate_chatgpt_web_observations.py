@@ -13,8 +13,8 @@ from build_market_source_verification_manifest import (
     _decimal_value, _expected_change, _expected_value, _identity_matches, _numeric_match,
 )
 
-VALUE_FIELDS = {"Price", "Close", "收市", "收盤", "收盤價"}
-CHANGE_FIELDS = {"Change %", "升跌（%）", "漲跌（%）", "變動%"}
+VALUE_FIELDS = {"Price", "Close", "收市", "收盤", "收盤價", "Score"}
+CHANGE_FIELDS = {"Change %", "升跌（%）", "漲跌（%）", "變動%", "Band"}
 CNN_ENDPOINT = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
 
 
@@ -70,10 +70,6 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
 
         method = raw.get("read_method")
         if method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
-            if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
-                raise ValueError(f"{group}/{name}: direct historical page read status is not successful")
-            if group == "risk" and name == "fear_greed":
-                raise ValueError("CNN Fear & Greed must use the official CNN historical JSON endpoint")
             value_field = raw.get("observed_value_field")
             change_field = raw.get("observed_change_field")
             headers = set(raw.get("observed_headers") or [])
@@ -86,9 +82,32 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             if raw.get("web_line_start") < 0 or raw.get("web_line_end") < raw.get("web_line_start"):
                 raise ValueError(f"{group}/{name}: invalid direct web reader source line range")
             row_text = str(raw.get("observed_row_text") or "")
-            date_markers = (target_date, "2026年11月20日", "Nov 20, 2026")
-            if not any(marker in row_text for marker in date_markers):
-                raise ValueError(f"{group}/{name}: source row text does not contain target date")
+            if group == "risk" and name == "fear_greed":
+                if source.get("source_role") not in ("BACKUP_1", "BACKUP", "SECONDARY"):
+                    raise ValueError("CNN Fear & Greed web-page fallback is allowed only when fixture pins an explicit backup source")
+                if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
+                    raise ValueError("Fear & Greed backup page was not read successfully")
+                date_markers = (target_date, "Nov 23, 2026", "2026年11月23日")
+                if not any(marker in row_text for marker in date_markers):
+                    raise ValueError("Fear & Greed backup row does not contain the target date")
+                if value_field != "Score" or change_field != "Band":
+                    raise ValueError("Fear & Greed backup must map Score and Band columns")
+            elif raw.get("read_status") == "PAGE_CONTENT_READ_SUCCESS":
+                from datetime import date as _date
+                _d = _date.fromisoformat(target_date)
+                date_markers = (target_date, _d.strftime("%b %d, %Y"), _d.strftime("%B %d, %Y"),
+                                f"{_d.year}年{_d.month}月{_d.day}日", f"{_d.year}/{_d.month}/{_d.day}")
+                if not any(marker in row_text for marker in date_markers):
+                    raise ValueError(f"{group}/{name}: source row text does not contain target date")
+            elif raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED"):
+                if raw.get("observed_value") is not None or raw.get("observed_change") is not None:
+                    raise ValueError(f"{group}/{name}: no-data/closed row cannot carry numeric observations")
+                if not row_text.strip():
+                    raise ValueError(f"{group}/{name}: no-data/closed page evidence text missing")
+                if raw.get("read_status") == "MARKET_CLOSED" and not raw.get("closure_evidence_url"):
+                    raise ValueError(f"{group}/{name}: market closure requires an official holiday evidence URL")
+            else:
+                raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             raw["http_status"] = None
             raw["source_page_fetched"] = True
             raw["provenance"] = "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
@@ -116,19 +135,25 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         else:
             raise ValueError(f"{group}/{name}: unsupported read method {method!r}")
 
-        is_cnn = group == "risk" and name == "fear_greed"
-        expected_value = source.get("score_value") if is_cnn else _expected_value(source)
-        expected_raw_value = source.get("source_score_value") if is_cnn else expected_value
+        is_fear_greed = group == "risk" and name == "fear_greed"
+        is_cnn_official = method == "CNN_OFFICIAL_PREVIOUS_CLOSE"
+        is_fear_greed_backup = is_fear_greed and method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+        expected_value = source.get("score_value") if is_fear_greed else _expected_value(source)
+        expected_raw_value = source.get("source_score_value") if is_fear_greed else expected_value
         expected_change = _expected_change(source)
         value_match = _numeric_match(
             raw.get("observed_value"), expected_value,
-            rounded_integer=is_cnn,
+            rounded_integer=is_fear_greed,
         )
-        raw_score_match = _numeric_match(raw.get("observed_value"), expected_raw_value) if is_cnn else True
-        if is_cnn:
+        raw_score_match = _numeric_match(raw.get("observed_value"), expected_raw_value) if is_fear_greed else True
+        if is_fear_greed:
             change_match = str(raw.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
         else:
             change_match = _numeric_match(raw.get("observed_change"), expected_change)
+        if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED"):
+            value_match = False
+            raw_score_match = False
+            change_match = False
         raw["expected_display_value"] = expected_value
         raw["expected_source_raw_value"] = expected_raw_value if is_cnn else None
         raw["raw_source_value_match"] = raw_score_match
@@ -187,12 +212,15 @@ def main() -> None:
     cnn_capture = json.loads(Path(args.cnn_observation).read_text(encoding="utf-8"))
     cnn_rows = [row for row in (cnn_capture.get("observations") or [])
                 if row.get("group") == "risk" and row.get("name") == "fear_greed"]
-    if len(cnn_rows) != 1:
-        raise ValueError(f"CNN capture must contain exactly one risk/fear_greed row, got {len(cnn_rows)}")
-    bundle["observations"] = [
-        row for row in (bundle.get("observations") or [])
-        if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
-    ] + [cnn_rows[0]]
+    if len(cnn_rows) > 1:
+        raise ValueError(f"CNN capture must contain at most one risk/fear_greed row, got {len(cnn_rows)}")
+    # Prefer a verified official CNN previous_close record. If CNN's endpoint
+    # cannot map that field, retain the explicitly pinned FGScore backup web row.
+    if cnn_rows and cnn_rows[0].get("status") == "VERIFIED":
+        bundle["observations"] = [
+            row for row in (bundle.get("observations") or [])
+            if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
+        ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
