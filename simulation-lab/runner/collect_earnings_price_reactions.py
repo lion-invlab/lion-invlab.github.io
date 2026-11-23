@@ -121,9 +121,8 @@ def collect(report_date: str, output: str):
         if window:
             candidates.append((event, window[0], window[1]))
     tickers = sorted({event["us_listing_ticker"] for event, _, _ in candidates})
-    # No eligible released events is a valid report-day state (for example, when
-    # the selected prior session had no five-star earnings releases). Emit an
-    # empty, calendar-pinned snapshot rather than blocking the entire report.
+    reactions = {}
+    unavailable = {}
     if tickers:
         event_dates = [d for _, d, _ in candidates]
         start = min(event_dates) - timedelta(days=7)
@@ -138,40 +137,36 @@ def collect(report_date: str, output: str):
             progress=False,
             threads=True,
         )
-    else:
-        frame = None
-    reactions = {}
-    unavailable = {}
-    for event, release_date, session in candidates:
-        ticker = event["us_listing_ticker"]
-        closes = extract_close_frame(frame, ticker) if frame is not None else {}
-        result = calculate_reaction(closes, release_date, session) if closes else None
-        if not result:
-            # Per-ticker fallback avoids losing valid closes when a batch response omits a symbol/date.
-            try:
-                single = yf.Ticker(ticker).history(
-                    start=start.isoformat(), end=end.isoformat(), auto_adjust=False
+        for event, release_date, session in candidates:
+            ticker = event["us_listing_ticker"]
+            closes = extract_close_frame(frame, ticker)
+            result = calculate_reaction(closes, release_date, session) if closes else None
+            if not result:
+                # Per-ticker fallback avoids losing valid closes when a batch response omits a symbol/date.
+                try:
+                    single = yf.Ticker(ticker).history(
+                        start=start.isoformat(), end=end.isoformat(), auto_adjust=False
+                    )
+                    closes = extract_close_frame(single, ticker)
+                    result = calculate_reaction(closes, release_date, session) if closes else None
+                except Exception:
+                    result = None
+            if not result:
+                available = sorted(closes) if closes else []
+                unavailable[event["id"]] = (
+                    "無法建立公告後首個交易日與前一交易日收盤配對；"
+                    f"可用日期={','.join(x.isoformat() for x in available)}"
                 )
-                closes = extract_close_frame(single, ticker)
-                result = calculate_reaction(closes, release_date, session) if closes else None
-            except Exception:
-                result = None
-        if not result:
-            available = sorted(closes) if closes else []
-            unavailable[event["id"]] = (
-                "無法建立公告後首個交易日與前一交易日收盤配對；"
-                f"可用日期={','.join(x.isoformat() for x in available)}"
-            )
-            continue
-        result.update({
-            "ticker": ticker,
-            "company": event.get("company"),
-            "session": session,
-            "release_date_ny": release_date.isoformat(),
-            "source_name": "Yahoo Finance歷史日收盤",
-            "source_url": f"https://finance.yahoo.com/quote/{ticker}/history/",
-        })
-        reactions[event["id"]] = result
+                continue
+            result.update({
+                "ticker": ticker,
+                "company": event.get("company"),
+                "session": session,
+                "release_date_ny": release_date.isoformat(),
+                "source_name": "Yahoo Finance歷史日收盤",
+                "source_url": f"https://finance.yahoo.com/quote/{ticker}/history/",
+            })
+            reactions[event["id"]] = result
 
     # Apply independently sourced, date-locked overrides only to Yahoo gaps.
     # Every override is tied to the same authoritative main calendar SHA.
