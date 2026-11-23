@@ -111,23 +111,28 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         else:
             raise ValueError(f"{group}/{name}: unsupported read method {method!r}")
 
-        expected_value = _expected_value(source)
+        is_cnn = group == "risk" and name == "fear_greed"
+        expected_value = source.get("score_value") if is_cnn else _expected_value(source)
+        expected_raw_value = source.get("source_score_value") if is_cnn else expected_value
         expected_change = _expected_change(source)
         value_match = _numeric_match(
             raw.get("observed_value"), expected_value,
-            rounded_integer=(group == "risk" and name == "fear_greed"),
+            rounded_integer=is_cnn,
         )
-        if group == "risk" and name == "fear_greed":
+        raw_score_match = _numeric_match(raw.get("observed_value"), expected_raw_value) if is_cnn else True
+        if is_cnn:
             change_match = str(raw.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
         else:
             change_match = _numeric_match(raw.get("observed_change"), expected_change)
         raw["expected_display_value"] = expected_value
+        raw["expected_source_raw_value"] = expected_raw_value if is_cnn else None
+        raw["raw_source_value_match"] = raw_score_match
         raw["expected_change_display"] = expected_change
         raw["instrument_identity_status"] = "VERIFIED"
         raw["field_mapping_status"] = "VERIFIED"
         raw["display_value_match"] = value_match
         raw["display_change_match"] = change_match
-        raw["status"] = "VERIFIED" if value_match and change_match else "OBSERVED_PENDING_VALIDATION"
+        raw["status"] = "VERIFIED" if value_match and raw_score_match and change_match else "OBSERVED_PENDING_VALIDATION"
         if not raw.get("finished_at_utc"):
             raw["finished_at_utc"] = captured.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
         if not raw.get("finished_at_tw"):
