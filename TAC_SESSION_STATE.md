@@ -1,3 +1,135 @@
+# TAC 投資早報｜2026/11/23 15:40 最新接手狀態
+
+**最後更新：2026/11/23 15:40（Asia/Taipei）**  
+**Simulation Branch：** `simulation/tac-process-lab-2026-11-06`  
+**最新 Simulation HEAD（更新前）：** `742880adf06ed0396370a7e21ba9dc06ddf9733a`  
+**main HEAD：** `facf43b93a96b96953cf0ee7eca5cd45181816aa`（本輪未修改）  
+**SIM 規範：** SIM-1.4
+
+## 本輪最新結論
+
+- 最新完整 Simulation Run：`45131652645`，**Success**。
+- 最新獨立 Workflow Lint：`45131652726`，**Success**。
+- Post-upload Artifact Audit：**PASS**。
+- 最新審核版 HTML 與 QA Sidecar 已保存至 Simulation Branch，遠端讀回 SHA 一致。
+- 安全 Rebase／Push 修復已實際執行成功；不使用 force push。
+- main、main/index.html、正式母版及 GitHub Pages 均未修改／發布。
+- 05:25 早報 Automation 維持停用；04:35 行事曆與 05:30 Chart 3 排程保持啟用。
+
+## 最新 Run／Artifact 證據
+
+### Run 45131652645
+
+- Run：`https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45131652645`
+- Trigger commit：`7b020d76f0f71e10ec53dcb20ba052bde205df51`
+- 實際 Builder Checkout commit：`3a4b0dec4e7e8a266cf7d2bc8ef52656c0569218`
+- 最新分支 HEAD（Builder 保存後）：`742880adf06ed0396370a7e21ba9dc06ddf9733a`
+- Workflow Blob SHA：`e90fc99f75a7448a486e5d9723e0650931e5a36d`
+- Job：`isolated-smoke`，44 個步驟成功，無失敗步驟。
+- Lint Run：`45131652726`，Success。
+
+### Artifact
+
+- 主 Artifact ID：`14797189218`
+- Artifact Digest：`sha256:8f92f4871cca9b75318cf4a26735d728533197c314e0a48a4651f4b793406cf5`
+- 大小：31,354,424 bytes。
+- 獨立稽核 Artifact ID：`14797523580`
+- 稽核 Artifact Digest：`sha256:e63a4672d1ff1d43b46d87041b689658ff6543ec48f75891f24d1d8e8d7e6afc`
+- 稽核 Artifact 下載後 ZIP CRC 通過；稽核 JSON 的 status=PASS、errors=[]。
+
+### Artifact 逐檔稽核
+
+- 76 個檔案。
+- 16 份唯一 JSON 全部有效；稽核器另對 8 份必要 JSON 做第二次指定檢查，因此報表計數為 24 次 JSON 檢查。
+- 45 張 PNG 全部通過 PNG chunk／CRC 檢查。
+- 10/10 必要證據檔存在。
+- HTML、QA Sidecar、Prebuild Receipt、Market Snapshot Audit、Market Source Manifest、Visual Regression、Interaction Smoke、雙母版轉移證據均通過存在性／SHA／內容檢查。
+- Run ID、Branch、Trigger Commit 與實際 Builder Checkout Commit 分開記錄並核對。
+- 稽核錯誤 0。
+
+### 最新審核版
+
+- HTML：`preview/2026-11-23-simulation.html`
+- HTML Git Blob SHA：`bf88e9adae14ea54057ec7227d67ac10b22d5d9d`
+- HTML SHA-256：`fca3d77105dae8e0b9f26871e758a337dbb9b92f2e8ddc678f577321242903b3`
+- QA Sidecar：`preview/2026-11-23-simulation.qa.json`
+- QA Sidecar Git Blob SHA：`158165ebdcc054db3c78cd72a21e048cf959326a`
+- QA：`QA_PASSED`、`review_ready=true`、`review_ready_blockers=[]`。
+- Sidecar build_commit_sha：`3a4b0dec4e7e8a266cf7d2bc8ef52656c0569218`，與 runner metadata 的 checkout commit 一致。
+- runner metadata 另記錄 trigger_commit：`7b020d76f0f71e10ec53dcb20ba052bde205df51`。
+
+## 本輪修正的根因
+
+### 1. Artifact JSON 格式缺陷
+
+雙母版轉移證據 JSON 的換行跳脫錯誤已修正；加入 JSON parse regression test。
+
+### 2. Workflow 持久化 Rebase 被註解
+
+原 Workflow 將 Rebase 指令接在含字面 `\\n` 的註解行後，導致 Rebase 指令實際被註解。併發推送時便直接 non-fast-forward。
+
+已修正為明確的安全 fetch／rebase／push 迴圈，最多 3 次；每次 rebase 後重新驗證 Chart 3、HTML、QA Sidecar、Audit、Prebuild Receipt 及 Overlay Receipt SHA。禁止 force push。Run `45131652645` 已實際執行 Rebase、Push、遠端讀回成功。
+
+### 3. Builder Commit 與 Trigger Commit 混用
+
+因 Workflow 以 branch ref checkout，觸發後分支可能前進，`GITHUB_SHA` 不一定等於實際 checkout commit。
+
+已新增 Checkout provenance step：
+- `commit`：Checkout 當下的 `git rev-parse HEAD`，對應 QA Sidecar build_commit_sha。
+- `trigger_commit`：GitHub 事件的 `GITHUB_SHA`。
+- Post-upload audit 同時驗證兩種識別，不再混用。
+
+Run `45131652645` 已實際驗證通過。
+
+## 44 項行情證據界線
+
+- 44/44 既有觀察紀錄存在，日期與 Metadata 檢查通過。
+- 本輪 Pipeline 的來源頁面擷取步驟未執行；本輪沒有重新抓取 44 個來源頁，也沒有獨立重新核價。
+- 原始 HTTP Response Body Hash 未封存；不得宣稱本輪 44 項全部重新抓取或重新核價。
+- 早報沿用既有觀察紀錄及本次核對的資料證據範圍，依 SIM-1.4 標示。
+
+## 排程／通知現況
+
+### 排程啟動時間對照
+
+- 早報 05:25：11/23 實際 06:51:21 啟動，延遲約 86 分 22 秒；原因尚未查明。
+- 行事曆 04:35：11/23 實際 04:36:07 啟動，延遲約 1 分 08 秒。
+- Chart 3 05:30：11/23 實際 05:32:21 啟動，延遲約 2 分 21 秒。
+- 比較顯示明顯延遲集中在早報 Automation，但沒有 Scheduler queue／平台底層遙測，不能推論其根因。
+- 早報 Automation ID `Automation_f4da15cd95c881918c7412cdd6f35bb2`：停用，保持停用。
+- 行事曆 ID `6af6d10c62448191819f04b976c64cf4`：啟用，保持原狀。
+- Chart 3 ID `Automation_d59409d2de44819191030af1122bc0ec`：啟用，保持原狀。
+
+### Slack
+
+- `#tac-alerts` Channel ID：`C0CL6GF6KJ8`。
+- 早報 Automation prompt 已加入每次執行結束時的 Slack 狀態通知；早報目前停用，尚未產生自動送達證據。
+- Chart 3 備援監控 prompt 已改用 Slack connector，並區分「尚未啟動／失敗」、「獨立 Automation 正在執行但 parent thread 未確認」及「已完成但 parent thread 未連結」，避免把 chat_ref=null 一律誤報成整體失敗。
+- 尚未實際執行自動 Slack 通知送達測試；不得宣稱 Gate 9 已通過。
+- 以上 ChatGPT Automation → Slack Connector 通知不等於 GitHub Actions Workflow 自身發送 Slack 訊息；目前沒有 GitHub Repository Secret 自動通知的送達證據。
+
+## 九大 Gate 最新狀態
+
+| Gate | 狀態 | 證據／限制 |
+|---|---|---|
+| 1 排程準時喚醒 | 未通過 | 早報延遲 86 分鐘；根因未明；05:25 停用 |
+| 2 Workflow／Job | 通過（修復後） | 零 Job 根因已確認為舊 run command 26,547 字元超過 21,000 上限；現行測試及新 Run 通過 |
+| 3 Fixture／雙母版 | 通過 | 最新 Run 通過 |
+| 4 SIM-1.4 Builder | 通過 | 最新 Run 通過 |
+| 5 HTML／內容 | 通過 | 最新 Run 通過 |
+| 6 HTML／QA SHA | 通過 | 最新 Sidecar 與 HTML SHA 綁定 |
+| 7 視覺／互動 QA | 通過 | 六種寬度、互動及 DOM 檢查通過 |
+| 8 審核版可取得 | 部分通過 | Simulation Branch／Artifact 可取得；未部署 Pages |
+| 9 失敗證據／通知 | 部分通過 | 失敗時 Artifact 與稽核報告保存已驗證；自動 Slack 送達與完整失敗通知演練未通過 |
+
+## 下一步
+
+1. 不再重複修改已通過的 Builder／母版／視覺 QA。
+2. 完成 Slack 自動通知的實際送達驗證及失敗演練；不得把人工測試當成自動通知。
+3. 追查早報 Automation 86 分鐘延遲的可用證據；若平台不提供 Scheduler telemetry，明確保留為未解，不臆測。
+4. 必須取得使用者明確授權後，才可恢復 05:25 排程。
+5. 九大 Gate 全通過及使用者核准指定 HTML SHA 後，才可進行 Stage 6 main/preview 交付；不得修改 main/index.html 或發布 Pages。
+
 # TAC 投資早報｜2026/11/23 P0-5 排程追查與 Slack 通知現況
 
 **最後更新：2026/11/23 14:12（Asia/Taipei）**  
