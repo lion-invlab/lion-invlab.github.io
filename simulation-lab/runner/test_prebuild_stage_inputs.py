@@ -64,7 +64,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1",
-    ), "market source observation manifest is not PASS")
+    ), "market source observation manifest is neither PASS nor PARTIAL")
 
     # Positive Gate contract: synthetic test-only observations prove that a
     # complete current-run 44-row evidence bundle can pass without fixture reuse.
@@ -92,6 +92,29 @@ def main() -> None:
     assert positive["prior_observations_reused"] == 0
     assert positive["source_pages_fetched_this_run"] is True
     assert positive["numeric_values_reconciled_this_run"] is True
+
+    # Partial is a valid production input state: keep all 44 fixed rows,
+    # preserve 43 current-session observations, and leave one row explicitly pending.
+    partial = copy.deepcopy(synthetic)
+    partial["status"] = "PARTIAL"
+    partial["verified_count"] = 43
+    partial["pending_count"] = 1
+    partial["displayed_values_independently_reconciled"] = False
+    partial["browser_observation_records_complete"] = False
+    pending_row = partial["rows"][0]
+    pending_row.update({
+        "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+        "source_page_fetched": False,
+        "display_value_reconciled": False,
+        "display_value_matches_saved_observation": False,
+        "observation_provenance": "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
+        "browser_observation_record": None,
+        "observation_record_sha256": None,
+    })
+    partial_result = validate_market_inputs(data, audit, partial, report_date)
+    assert partial_result["indicator_count"] == 44
+    assert partial_result["numeric_values_reconciled_count"] == 43
+    assert partial_result["numeric_values_reconciled_this_run"] is False
     expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
                  "refusing non-simulation branch")
 
@@ -103,12 +126,12 @@ def main() -> None:
     missing_obs = copy.deepcopy(manifest)
     missing_obs["rows"][0]["observation_record_sha256"] = None
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
-                 "market source observation manifest is not PASS")
+                 "market source observation manifest is neither PASS nor PARTIAL")
 
     mixed_dates = copy.deepcopy(manifest)
     mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
     expect_error(lambda: validate_market_inputs(data, audit, mixed_dates, report_date),
-                 "market source observation manifest is not PASS")
+                 "market source observation manifest is neither PASS nor PARTIAL")
 
     missing_domain = copy.deepcopy(data)
     missing_domain["political_scan"]["domains_checked"].remove("geopolitics")
@@ -128,7 +151,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "market source observation manifest is not PASS")
+        "market source observation manifest is neither PASS nor PARTIAL")
 
     wrong_calendar_path = copy.deepcopy(bundle)
     wrong_calendar_path["current"]["path"] = "data/calendar/weeks/2026-W47.json"
@@ -138,7 +161,7 @@ def main() -> None:
         repository="lion-invlab/lion-invlab.github.io",
         branch="simulation/tac-process-lab-2026-11-06",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
-        "market source observation manifest is not PASS")
+        "market source observation manifest is neither PASS nor PARTIAL")
 
     print("PASS: fixture-only 44 observations are rejected before Stage 2-4 receipt can be sealed")
     print("PASS: rejects wrong branch, mismatched date, incomplete per-row evidence, political-scan gap, out-of-window news and split main commits")
