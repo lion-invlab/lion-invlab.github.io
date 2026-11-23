@@ -466,7 +466,7 @@ jobs:
           elif [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
             CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
           fi
-          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --market-source-manifest simulation-lab/output/market-source-verification-manifest.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
 
       - name: Apply local W47 NVDA consensus overlay without rebuilding other modules
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
