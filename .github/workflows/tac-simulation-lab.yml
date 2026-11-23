@@ -191,6 +191,7 @@ jobs:
           python simulation-lab/runner/test_simulation_artifact_bundle.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
+          python simulation-lab/runner/test_browser_http_classification.py
           python simulation-lab/runner/test_prebuild_stage_inputs.py
           python simulation-lab/runner/test_capture_market_source_pages.py
           python simulation-lab/runner/test_report_layer_earnings_status.py
@@ -294,6 +295,11 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
+          # Stage 2 must attempt the live source read before any observation manifest or Gate is created.
+          python simulation-lab/runner/browser_verify_market_history.py \
+            --fixture "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --output simulation-lab/output/market-history-browser-observations.json
           python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-source-verification-manifest.json
 
       - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
@@ -510,16 +516,6 @@ jobs:
           npm install --no-save playwright
           # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
           npx playwright install chromium
-      - name: Verify 44 market history rows with rendered Chromium pages
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m playwright install chromium
-          python simulation-lab/runner/browser_verify_market_history.py \
-            --fixture "${REPORT_DATA}" \
-            --report-date "${REPORT_DATE}" \
-            --output simulation-lab/output/market-history-browser-observations.json
       - name: Verify five-layer analysis responsive layout in both mothers
         if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only'))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs
