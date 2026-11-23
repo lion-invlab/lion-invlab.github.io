@@ -357,18 +357,10 @@ async def observe(context,row,target,timeout,sem):
 async def run(a,work,target):
     sem=asyncio.Semaphore(a.concurrency)
     async with async_playwright() as p:
-        browser=await p.chromium.launch(
-            headless=True,
-            args=["--disable-blink-features=AutomationControlled"],
-        )
+        browser=await p.chromium.launch(headless=True)
         context=await browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
             locale="zh-HK",
             timezone_id="Asia/Taipei",
-            extra_http_headers={
-                "Accept-Language": "zh-HK,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,en;q=0.6",
-                "Referer": "https://www.investing.com/",
-            },
         )
         try:
             tasks=[observe(context,row,target,a.timeout_ms,sem) for row in work]
