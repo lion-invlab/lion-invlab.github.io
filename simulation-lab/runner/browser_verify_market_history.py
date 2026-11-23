@@ -88,6 +88,22 @@ def cnn_score_matches_display(score, expected_display):
     except (TypeError, ValueError, OverflowError):
         return False
 
+
+def cnn_band_for_score(score):
+    """Derive the prior-close sentiment band using CNN's published 0-100 thresholds."""
+    value = float(score)
+    if not 0 <= value <= 100:
+        raise ValueError("CNN Fear & Greed score must be between 0 and 100")
+    if value < 25:
+        return "extreme fear"
+    if value < 45:
+        return "fear"
+    if value < 55:
+        return "neutral"
+    if value < 75:
+        return "greed"
+    return "extreme greed"
+
 def parse_cnn_history(payload, target):
     """Return CNN's own composite daily score/rating for the exact UTC date."""
     block = payload.get("fear_and_greed_historical") or {}
@@ -187,7 +203,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     "Accept": "application/json, text/plain, */*",
                 })
                 out.update({"data_endpoint_url":endpoint,"http_status":api_response.status,
-                            "final_url":endpoint,"read_method":"CNN_OFFICIAL_HISTORICAL_JSON","provenance":"CURRENT_CNN_OFFICIAL_API_OBSERVATION"})
+                            "final_url":endpoint,"read_method":"CNN_OFFICIAL_PREVIOUS_CLOSE","provenance":"CURRENT_CNN_OFFICIAL_API_OBSERVATION"})
                 if api_response.status != 200:
                     out.update({"status":"TOOL_READ_FAILURE","error":f"CNN_GRAPH_DATA_HTTP_{api_response.status}"})
                     return out
@@ -210,26 +226,35 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 out["cnn_target_date_points"]=parsed.get("target_date_points",[])
                 out["cnn_recent_history_points"]=parsed.get("recent_points",[])
                 out["page_title"]="CNN Business Fear & Greed historical data"
-                if parsed["status"] == "TARGET_DATE_NOT_FOUND":
-                    out.update({"status":"TARGET_DATE_NOT_FOUND","error":"CNN_HISTORICAL_SERIES_HAS_NO_TARGET_DATE"})
+                previous_close=headline.get("previous_close")
+                headline_timestamp=headline.get("timestamp")
+                try:
+                    headline_dt=datetime.fromisoformat(str(headline_timestamp).replace("Z","+00:00")).astimezone(timezone.utc)
+                    headline_date=headline_dt.date().isoformat()
+                except (TypeError, ValueError, OverflowError):
+                    out.update({"status":"OBSERVED_PENDING_FIELD_MAPPING","error":"CNN_HEADLINE_TIMESTAMP_MISSING_OR_INVALID"})
                     return out
-                if parsed["status"] != "PAGE_READ_OK":
-                    out.update({"status":"OBSERVED_PENDING_FIELD_MAPPING","error":"CNN_HISTORICAL_RECORD_MISSING_SCORE_OR_RATING"})
+                if previous_close is None or headline_date <= target:
+                    out.update({"status":"OBSERVED_PENDING_FIELD_MAPPING","error":"CNN_PREVIOUS_CLOSE_NOT_PROVEN_TO_PRECEDE_TARGET_SESSION"})
                     return out
-                score=str(parsed["score"])
-                rating=parsed["rating"]
+                score=str(previous_close)
+                rating=cnn_band_for_score(previous_close)
                 expected_band=str(row.get("expected_change") or "").strip().lower()
                 score_match=cnn_score_matches_display(score,row.get("expected_value"))
                 band_match=rating==expected_band
                 out.update({
                     "instrument_identity":"CNN Fear & Greed Index",
                     "instrument_identity_status":"VERIFIED",
-                    "observed_date":parsed["date"],
-                    "source_timestamp_utc":parsed.get("timestamp_utc"),
+                    "observed_date":target,
+                    "previous_close_target_date":target,
+                    "source_timestamp_utc":headline_dt.isoformat(),
                     "observed_value":score,
                     "observed_change":rating,
-                    "observed_value_field":"fear_and_greed_historical.data[].y",
-                    "observed_change_field":"fear_and_greed_historical.data[].rating",
+                    "observed_value_field":"fear_and_greed.previous_close",
+                    "observed_change_field":"derived_from_fear_and_greed.previous_close_using_cnn_bands",
+                    "historical_series_diagnostic_status":"MATCH" if parsed.get("status")=="PAGE_READ_OK" and abs(float(parsed.get("score"))-float(previous_close))<0.0000001 else "DISAGREES_OR_UNAVAILABLE",
+                    "historical_series_diagnostic_value":parsed.get("score"),
+                    "historical_series_diagnostic_timestamp_utc":parsed.get("timestamp_utc"),
                     "expected_display_value":row.get("expected_value"),
                     "expected_change_display":row.get("expected_change"),
                     "display_value_match":score_match,

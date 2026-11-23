@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-20",
   "summary": "上週主軸：市場不只重新評價AI資本支出的回報，也開始把政策與地緣風險納入估值。美國先進AI晶片出口限制已生效，美中峰會尚未形成可驗證的具體履約安排，荷姆茲附近油輪受襲則提高能源運輸不確定性；這些因素與大型GPU融資、Nvidia會計調查報導交疊，使投資人更重視現金流、融資成本及供應鏈風險。企業獲利與台灣外銷訂單仍有韌性，現階段不能直接判定AI需求崩塌。\n\n風險觀察：本週第一個景氣驗證點為11/23（一）17:00歐元區Flash PMI、22:45美國11月Flash PMI（均為台灣時間）；接著觀察11/25（三）21:30美國第三季GDP第二次估值與10月PCE／核心PCE。政策面追蹤美中晶片許可執行，地緣面追蹤荷姆茲航運通報與實際通行量。若需求仍強而通膨黏著，利率可能維持高檔；若能源運輸受阻，需防範成本通膨與成長放緩並存。\n\n操作建議：立場中性偏防禦。保留現金流穩健、負債可控的核心持倉，降低高槓桿、自由現金流不足及中國政策曝險集中的AI供應鏈，不追跌、不融資抄底。待市場上漲家數擴大、VIX與MOVE連續回落、半導體相對強度止跌，且企業資本支出指引未下修，再分批加碼；若荷姆茲通行量實際下降、油價推升通膨或企業信用壓力擴大，則進一步降低高Beta曝險。",
-  "sentiment": "市場情緒維持極度恐慌：VIX 35.89、MOVE 106.31、CNN Fear & Greed 11。中國下調融資保證金是潛在流動性支持，但11/30才生效；Rabigh攻擊仍是未經沙方確認的聲稱，尚不足以改變能源供給基準。整體維持高風險、低追價意願。",
+  "sentiment": "市場情緒維持極度恐慌：VIX 35.89、MOVE 106.31、CNN Fear & Greed 10。中國下調融資保證金是潛在流動性支持，但11/30才生效；Rabigh攻擊仍是未經沙方確認的聲稱，尚不足以改變能源供給基準。整體維持高風險、低追價意願。",
   "focus_news": [
     {
       "title": "密西根大學11月消費者信心終值升至51.5，一年通膨預期降至3.7%",
@@ -914,27 +914,27 @@
       }
     },
     "fear_greed": {
-      "display": "11",
+      "display": "10",
       "change_display": "Extreme Fear",
       "band": "極度恐懼",
       "source": {
-        "name": "CNN Business｜Fear & Greed Index official historical series",
+        "name": "CNN Business｜Fear & Greed Index official previous-close field",
         "url": "https://edition.cnn.com/markets/fear-and-greed",
         "data_date": "2026-11-20",
         "quote_type": "third_party_provider_index",
-        "note": "CNN Business 官方頁面的 Fear & Greed Index；歷史分數以 CNN 官方 graphdata 歷史序列核對。2026-11-20 原始分數 11.2705009276438、評級 extreme fear；CNN 官方 graphdata 於 2026-11-23 21:38（台灣時間）重新讀取；早報依整數顯示規則四捨五入為 11。",
-        "source_timestamp": "2026-11-20T00:00:00Z (CNN official graphdata point timestamp)",
+        "note": "CNN 官方 graphdata JSON 的 fear_and_greed.previous_close=9.67368421052632；本期目標收盤日為 2026-11-20，依整數顯示規則四捨五入為 10、極度恐慌。同一回應的 fear_and_greed_historical.data[] 中 UTC 2026-11-20 點為 18.5873840445269，與 previous_close 不一致；本報以 CNN 明確標示的 previous_close 欄位作為前一完整交易日收盤，並保留歷史序列差異作資料品質警示，不混用兩個欄位。",
+        "source_timestamp": "2026-11-23T14:45:05Z (CNN headline timestamp; previous_close mapped to 2026-11-20)",
         "read_at_taipei": "2026-11-21 17:57:31",
-        "verified_at_tw": "2026-11-23T21:38:20+08:00",
-        "score_value": "11",
+        "verified_at_tw": "2026-11-23T22:45:05+08:00",
+        "score_value": "10",
         "band": "Extreme Fear",
         "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
         "source_role": "PRIMARY",
         "checked_at_tw": "2026-11-22T17:15:52+08:00",
-        "provider_timestamp_taipei": "2026-11-20T08:00:00+08:00 (CNN graphdata point timestamp)",
-        "evidence_method": "CNN Business official dashboard + official graphdata historical series",
+        "provider_timestamp_taipei": "2026-11-23T22:45:05+08:00 (CNN headline timestamp; previous_close for 2026-11-20)",
+        "evidence_method": "CNN official graphdata JSON fear_and_greed.previous_close; same-date historical-array discrepancy retained as QA warning",
         "raw_response_sha256": null,
-        "source_score_value": "11.2705009276438"
+        "source_score_value": "9.67368421052632"
       }
     }
   },
@@ -2305,7 +2305,7 @@
       "text": "整體採中性偏防禦，不追價高估值科技股；若11/23 22:45美國Flash PMI同步高於預估且美債殖利率續升，降低成長股曝險並保留現金；若PMI降溫且殖利率回落，再分批加碼現金流穩健、AI營收可驗證的企業。另追蹤中國兩融餘額、成交額與市場廣度；紅海事件須以官方確認與航運保險變化為準；美國EO 14438按聯邦合約曝險分層管理。"
     }
   ],
-  "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 11.2705009276438、評級 extreme fear；CNN 官方 graphdata 於 2026-11-23 21:38（台灣時間）重新讀取；早報依整數顯示規則四捨五入為 11，並保存 CNN 官方 JSON response SHA-256。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
+  "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 9.67368421052632、評級 extreme fear；CNN 官方 graphdata 於 2026-11-23 21:38（台灣時間）重新讀取；早報依整數顯示規則四捨五入為 11，並保存 CNN 官方 JSON response SHA-256。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -3029,7 +3029,7 @@
         "市場廣度與波動同步惡化：VIX收35.89、單日上升26.20%；MOVE收106.31、上升10.69%。標普500十一大產業ETF僅必需消費類上漲，其餘多數下跌，科技類跌幅最大。這比較像估值、槓桿與獲利能見度重新定價，而不是已能確認AI終端需求全面反轉。下一個驗證點是AI雲端業者融資成本與GPU容量利用率是否同步惡化：若信用利差收斂、利用率穩定，較接近估值去槓桿；若融資利差續擴且主要客戶下修容量合約，才需要下修設備與GPU訂單假設。",
         "跨資產訊號並非單純避險：美債殖利率下行、美元指數小跌，但WTI與Brent上漲；黃金與白銀則分別下跌4.62%及7.41%。當股票與貴金屬同跌時，可能存在現金需求或槓桿部位調整，但目前沒有足夠資金流證據證明強制平倉。中東航運風險為油價提供地緣溢價，應與需求及庫存因素分開判斷。",
         "信用市場已先於公開違約訊號反映融資壓力：Reuters於11月17日報導，CoreWeave原票息9.625%債券殖利率升至近15%；Nebius可轉債價格降至面額約70美分、殖利率超過12%。同時，NVIDIA Q3 CFO Commentary披露neocloud協議需先取得融資並完成部署驗收，若條件未滿足，承諾可下修或取消。這代表融資成本上升不只提高再融資成本，也可能直接延後或縮減GPU採購；目前屬融資條件收緊與信用重新定價，不能據此推論相關業者已違約或整條AI融資鏈瓦解。",
-        "週末中國政策支持可能改善11/23亞洲市場對流動性的預期，但11/20全球股市跌幅、VIX 35.89、MOVE 106.31與Fear & Greed 11仍顯示風險定價脆弱。胡塞攻擊Rabigh的聲稱尚未獲沙方確認，市場應先觀察風險溢價與官方證據，不應提前把它計入已發生的供應損失。"
+        "週末中國政策支持可能改善11/23亞洲市場對流動性的預期，但11/20全球股市跌幅、VIX 35.89、MOVE 106.31與Fear & Greed 10仍顯示風險定價脆弱。胡塞攻擊Rabigh的聲稱尚未獲沙方確認，市場應先觀察風險溢價與官方證據，不應提前把它計入已發生的供應損失。"
       ],
       "sources": [
         {

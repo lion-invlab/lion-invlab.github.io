@@ -92,20 +92,25 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             raw["http_status"] = None
             raw["source_page_fetched"] = True
             raw["provenance"] = "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
-        elif method == "CNN_OFFICIAL_HISTORICAL_JSON":
+        elif method == "CNN_OFFICIAL_PREVIOUS_CLOSE":
             if group != "risk" or name != "fear_greed":
                 raise ValueError(f"{group}/{name}: CNN JSON method is only valid for Fear & Greed")
             if raw.get("data_endpoint_url") != CNN_ENDPOINT or raw.get("http_status") != 200:
-                raise ValueError("CNN official historical endpoint evidence missing")
+                raise ValueError("CNN official API endpoint evidence missing")
             if raw.get("status") != "VERIFIED":
-                raise ValueError("CNN official historical JSON observation is not VERIFIED")
+                raise ValueError("CNN official previous_close observation is not VERIFIED")
             raw["read_status"] = "API_RESPONSE_READ_SUCCESS"
             if not re.fullmatch(r"[0-9a-f]{64}", str(raw.get("raw_response_sha256") or "")):
-                raise ValueError("CNN official historical response SHA-256 missing or malformed")
-            if raw.get("observed_value_field") != "fear_and_greed_historical.data[].y":
-                raise ValueError("CNN score field mapping mismatch")
-            if raw.get("observed_change_field") != "fear_and_greed_historical.data[].rating":
-                raise ValueError("CNN rating field mapping mismatch")
+                raise ValueError("CNN official response SHA-256 missing or malformed")
+            if raw.get("observed_value_field") != "fear_and_greed.previous_close":
+                raise ValueError("CNN previous_close field mapping mismatch")
+            if raw.get("observed_change_field") != "derived_from_fear_and_greed.previous_close_using_cnn_bands":
+                raise ValueError("CNN previous_close band mapping mismatch")
+            if raw.get("previous_close_target_date") != target_date:
+                raise ValueError("CNN previous_close target session date mismatch")
+            headline_timestamp = raw.get("source_timestamp_utc")
+            if not headline_timestamp or datetime.fromisoformat(headline_timestamp.replace("Z", "+00:00")).date().isoformat() <= target_date:
+                raise ValueError("CNN previous_close timestamp does not post-date target session")
             raw["source_page_fetched"] = True
             raw["provenance"] = "CURRENT_CNN_OFFICIAL_API_OBSERVATION"
         else:

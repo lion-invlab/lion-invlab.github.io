@@ -32,9 +32,9 @@ def make_bundle(data):
                 change = source.get("band")
             is_cnn = group == "risk" and name == "fear_greed"
             if is_cnn:
-                value = "11.2705009276438"
-            value_field = "fear_and_greed_historical.data[].y" if is_cnn else "Price"
-            change_field = "fear_and_greed_historical.data[].rating" if is_cnn else "Change %"
+                value = "9.67368421052632"
+            value_field = "fear_and_greed.previous_close" if is_cnn else "Price"
+            change_field = "derived_from_fear_and_greed.previous_close_using_cnn_bands" if is_cnn else "Change %"
             headers = [value_field, change_field]
             rows.append({
                 "group": group, "name": name, "source_url": source.get("url"),
@@ -48,11 +48,13 @@ def make_bundle(data):
                 "web_reader_ref": "SYNTHETIC_TEST_ONLY" if not is_cnn else None,
                 "web_line_start": 50 if not is_cnn else None,
                 "web_line_end": 50 if not is_cnn else None,
-                "read_method": "CNN_OFFICIAL_HISTORICAL_JSON" if is_cnn else "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+                "read_method": "CNN_OFFICIAL_PREVIOUS_CLOSE" if is_cnn else "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
                 "status": "VERIFIED",
                 "read_status": "API_RESPONSE_READ_SUCCESS" if is_cnn else "PAGE_CONTENT_READ_SUCCESS",
                 "http_status": 200 if is_cnn else None,
                 "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" if is_cnn else None,
+                "previous_close_target_date": source.get("data_date") if is_cnn else None,
+                "source_timestamp_utc": "2026-11-23T14:45:05+00:00" if is_cnn else None,
                 "raw_response_sha256": "a" * 64 if is_cnn else None,
             })
     for name, source in (data.get("sector_sources") or {}).items():

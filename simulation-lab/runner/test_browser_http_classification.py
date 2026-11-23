@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression: HTTP access failures must never be reported as missing market dates."""
-from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells, parse_cnn_history, cnn_score_matches_display
+from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells, parse_cnn_history, cnn_score_matches_display, cnn_band_for_score
 
 
 def main():
@@ -35,6 +35,12 @@ def main():
     ]}}, target)
     assert multi["score"] == 19.0 and len(multi["target_date_points"]) == 2
     assert cnn_score_matches_display(18.5873840445269, "19") is True
+    assert cnn_score_matches_display(9.67368421052632, "10") is True
+    assert cnn_band_for_score(9.67368421052632) == "extreme fear"
+    assert cnn_band_for_score(30) == "fear"
+    assert cnn_band_for_score(50) == "neutral"
+    assert cnn_band_for_score(65) == "greed"
+    assert cnn_band_for_score(80) == "extreme greed"
     assert cnn_score_matches_display(19.5873840445269, "19") is False
     missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":18.5,"rating":"extreme fear"}]}}, "2026-11-19")
     assert missing["status"] == "TARGET_DATE_NOT_FOUND" and missing["recent_points"]
