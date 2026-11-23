@@ -123,8 +123,12 @@ def test_last_week_nvda_consensus_overlay_is_local_and_evidence_backed():
         revenue_card = next(x for x in card.select(".earnings-actual-card") if x.select_one(".earnings-actual-card-title").get_text(" ", strip=True) == "營收")
         assert any(x.get_text(" ", strip=True) == "US$2.47" for x in eps_card.select(".earnings-actual-line strong"))
         assert any(x.get_text(" ", strip=True) == "US$108.73B" for x in revenue_card.select(".earnings-actual-line strong"))
+        assert "beat" in eps_card.get("class", [])
+        assert "beat" in revenue_card.get("class", [])
         assert "beat" in eps_card.select_one(".earnings-actual-status").get("class", [])
         assert "beat" in revenue_card.select_one(".earnings-actual-status").get("class", [])
+        assert eps_card.select_one(".earnings-actual-status").get_text(" ", strip=True) == "優於預期"
+        assert revenue_card.select_one(".earnings-actual-status").get_text(" ", strip=True) == "優於預期"
         assert "非嚴格同口徑" in eps_card.select_one(".earnings-actual-note").get_text(" ", strip=True)
         assert "非嚴格同口徑" in revenue_card.select_one(".earnings-actual-note").get_text(" ", strip=True)
         judgment = next(

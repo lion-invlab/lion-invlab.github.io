@@ -36,6 +36,9 @@ receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
 market_step = section_after(WORKFLOW, "Validate 44 market-row metadata/date/identity only")
 capture_step = section_after(WORKFLOW, "Capture 44 raw market source pages")
 builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
+overlay_step = section_after(WORKFLOW, "Apply local W47 NVDA consensus overlay")
+assert 'mkdir -p "$(dirname "${BUILDER_OUTPUT}")"' in overlay_step
+assert overlay_step.index("mkdir -p") < overlay_step.index('cp "${REPORT_OUTPUT}"')
 seal_step = section_after(WORKFLOW, "Seal QA evidence to the exact review HTML blob")
 seal = Path("simulation-lab/runner/seal_qa_evidence.py").read_text(encoding="utf-8")
 assert "seal_qa_evidence.py" in seal_step

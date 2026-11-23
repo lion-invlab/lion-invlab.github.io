@@ -115,8 +115,8 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
         builder.set_text(builder.unique(expected_line, "strong", f"W47 NVDA {metric_key} estimate"), str(record[display_key]))
         status = str(record[f"{metric_key}_comparison_status"])
         status_tag = builder.unique(metric_card, ".earnings-actual-status", f"W47 NVDA {metric_key} status")
-        css_status = {"beat": "beat", "miss": "miss", "inline": "beat"}[status]
-        status_tag["class"] = ["earnings-actual-status", css_status]
+        metric_card["class"] = ["earnings-actual-card", status]
+        status_tag["class"] = ["earnings-actual-status", status]
         builder.set_text(status_tag, builder.earnings_status_label(record, metric_key, status))
         note = builder.unique(metric_card, ".earnings-actual-note", f"W47 NVDA {metric_key} basis note")
         analyst_count = record.get("eps_analyst_count") if metric_key == "eps" else record.get("revenue_analyst_count")
@@ -126,7 +126,6 @@ def patch_last_week_earnings_consensus(soup: BeautifulSoup, data: dict) -> dict:
             note,
             f"Yahoo Finance Average Estimate｜{analyst_count}位分析師｜公告前觀測 {observation}；{caveat}；數值比較非嚴格同口徑。",
         )
-        metric_card["class"] = [x for x in metric_card.get("class", []) if x != "pending"]
         metric_card["data-consensus-overlay"] = "sim14-w47-yahoo"
         metric_card["data-comparison-status"] = status
 
