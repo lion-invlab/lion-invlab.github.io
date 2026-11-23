@@ -81,6 +81,10 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raise ValueError(f"{group}/{name}: invalid historical table field mapping")
             if value_field not in headers or change_field not in headers:
                 raise ValueError(f"{group}/{name}: mapped columns are absent from observed headers")
+            if not raw.get("web_reader_ref") or not isinstance(raw.get("web_line_start"), int) or not isinstance(raw.get("web_line_end"), int):
+                raise ValueError(f"{group}/{name}: direct web reader citation and source line range are required")
+            if raw.get("web_line_start") < 0 or raw.get("web_line_end") < raw.get("web_line_start"):
+                raise ValueError(f"{group}/{name}: invalid direct web reader source line range")
             row_text = str(raw.get("observed_row_text") or "")
             date_markers = (target_date, "2026年11月20日", "Nov 20, 2026")
             if not any(marker in row_text for marker in date_markers):
@@ -93,8 +97,9 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raise ValueError(f"{group}/{name}: CNN JSON method is only valid for Fear & Greed")
             if raw.get("data_endpoint_url") != CNN_ENDPOINT or raw.get("http_status") != 200:
                 raise ValueError("CNN official historical endpoint evidence missing")
-            if raw.get("read_status") != "API_RESPONSE_READ_SUCCESS":
-                raise ValueError("CNN official historical JSON response not successfully read")
+            if raw.get("status") != "VERIFIED":
+                raise ValueError("CNN official historical JSON observation is not VERIFIED")
+            raw["read_status"] = "API_RESPONSE_READ_SUCCESS"
             if not re.fullmatch(r"[0-9a-f]{64}", str(raw.get("raw_response_sha256") or "")):
                 raise ValueError("CNN official historical response SHA-256 missing or malformed")
             if raw.get("observed_value_field") != "fear_and_greed_historical.data[].y":
@@ -161,10 +166,21 @@ def main() -> None:
     parser.add_argument("--data", required=True)
     parser.add_argument("--report-date", required=True)
     parser.add_argument("--input", required=True)
+    parser.add_argument("--cnn-observation", required=True,
+                        help="Fresh single-row Playwright capture of CNN official graphdata response")
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
     data = json.loads(Path(args.data).read_text(encoding="utf-8"))
     bundle = json.loads(Path(args.input).read_text(encoding="utf-8"))
+    cnn_capture = json.loads(Path(args.cnn_observation).read_text(encoding="utf-8"))
+    cnn_rows = [row for row in (cnn_capture.get("observations") or [])
+                if row.get("group") == "risk" and row.get("name") == "fear_greed"]
+    if len(cnn_rows) != 1:
+        raise ValueError(f"CNN capture must contain exactly one risk/fear_greed row, got {len(cnn_rows)}")
+    bundle["observations"] = [
+        row for row in (bundle.get("observations") or [])
+        if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
+    ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
