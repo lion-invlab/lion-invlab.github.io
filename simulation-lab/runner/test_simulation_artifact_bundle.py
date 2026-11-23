@@ -65,6 +65,23 @@ def main() -> None:
         assert any("invalid JSON" in error for error in result["errors"])
     print("PASS: post-upload artifact audit accepts a SHA-bound bundle and rejects corrupt JSON.")
 
+    workflow = Path(".github/workflows/tac-simulation-lab.yml").read_text(encoding="utf-8")
+    names = [
+        "Upload simulation evidence",
+        "Download uploaded simulation evidence for independent verification",
+        "Verify downloaded simulation evidence bundle",
+        "Upload post-upload artifact audit report",
+    ]
+    positions = [workflow.index(f"- name: {name}") for name in names]
+    assert positions == sorted(positions), "post-upload artifact audit steps are out of order"
+    for name in names[1:]:
+        block = workflow.split(f"- name: {name}", 1)[1].split("\\n      - name:", 1)[0]
+        assert "if: always()" in block, f"{name} must run after earlier failures"
+    assert "uses: actions/download-artifact@v4" in workflow
+    assert "audit_simulation_artifact_bundle.py" in workflow
+    assert "tac-simulation-postupload-audit-" in workflow
+    print("PASS: workflow uploads, downloads, verifies, and separately archives the post-upload audit.")
+
 
 if __name__ == "__main__":
     main()
