@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-23T05:25:00+08:00
 news_window_taipei: 2026-11-20T12:00:00+08:00/2026-11-23T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: 745cef00ae7de8c7d1e3a558fa18cce5b6bb337f
+workflow_blob_sha: 7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7
 active_rules_version: SIM-1.4
 active_rules_blob_sha: 6ab8852582b81f9da0bca7e974fbf39847067aed
 qa_contract_version: 1.21
@@ -18,7 +18,7 @@ monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: 3f4e65c1385532b0f0969fdc76caf2883a39e798
 fixture: simulation-lab/fixtures/report-data-2026-11-23.json
-fixture_blob_sha: d2d6fef0e69cce6991086f84559dd6c0b2b72b33
+fixture_blob_sha: d4702d552736b4e008a20939cceaed9f8f7d3ae2
 earnings_consensus_projection: simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json
 earnings_consensus_projection_blob_sha: d683465166e02ef3d744fe0304ae95371d6cc292
 main_calendar_commit_sha: 0fa194ae20bb97a72420ad7104bdc4c226a8e65e
@@ -29,6 +29,8 @@ main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 2cb0a90e53b10c31aca20503f93a5b324091c0a7
 visual_regression_blob_sha: 2b9a7997ea5cda6e7bd85413c5584bbfe761ffbf
+w47_consensus_and_calendar_overlay_blob_sha: 5ac826916e5af7ab34aa4805a4f3af3b8b5d17d6
+patch_review_sections_test_blob_sha: 1c36f978beaef8e41827bb320e3ae964d65f9ef1
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
@@ -56,3 +58,5 @@ Visual QA contract correction (2026-11-23): the published-earnings regression re
 
 Builder approval integrity correction (2026-11-23): restored the exact SIM-1.4 §8.1 approved Builder SHA 2cb0a90e53b10c31aca20503f93a5b324091c0a7. Unapproved candidate Builder changes are not used.
 Content QA scope correction (2026-11-23): non-actionable conclusion wording is checked in summary, five-layer analysis, market comments, market observation and sentiment; event-calendar impact descriptions are not treated as investment conclusions.
+
+Report-layer overlay correction (2026-11-23): retain the exact approved Builder SHA 2cb0a90e53b10c31aca20503f93a5b324091c0a7. The approved local patcher now applies the W47 NVDA consensus and the exact-source-guarded Kevin Warsh impact wording together, with a single final HTML/receipt SHA. No main files are modified.
