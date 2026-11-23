@@ -434,6 +434,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p "$(dirname "${BUILDER_OUTPUT}")" "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
           cp "${REPORT_OUTPUT}" "${BUILDER_OUTPUT}"
           python simulation-lab/runner/patch_review_sections.py \
             --html "${BUILDER_OUTPUT}" \
