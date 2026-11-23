@@ -1,0 +1,4 @@
+Simulation-only Stage 2 live browser verification retest.
+Report date: 2026-11-23
+Purpose: verify that 44 source-page browser reads occur before manifest and pre-build Gate; prior fixture observations must remain ineligible.
+No main-branch publication or index.html modification is authorized.
