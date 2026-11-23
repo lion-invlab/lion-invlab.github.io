@@ -90,7 +90,7 @@ def split_cells(text):
 def header_indexes(lines, cell_count=None):
     for line in lines:
         cells = split_cells(line)
-        normalized = [re.sub(r"[^a-z0-9%\\u4e00-\\u9fff]", "", x.lower()) for x in cells]
+        normalized = [re.sub(r"[^a-z0-9%\u4e00-\u9fff]", "", x.lower()) for x in cells]
         date_i = next((i for i,x in enumerate(normalized) if "date" in x or "日期" in x), None)
         if date_i is None:
             continue
