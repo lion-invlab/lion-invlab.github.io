@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regression: HTTP access failures must never be reported as missing market dates."""
-from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells
+from browser_verify_market_history import classify_http_response, classify_rendered_page, header_indexes, split_cells, parse_cnn_history
 
 
 def main():
@@ -22,7 +22,15 @@ def main():
     empty_volume = split_cells("Nov 20, 2026\t6,910.39\t7,150.39\t7,198.67\t6,882.66\t\t-3.70%")
     assert len(empty_volume) == 7 and empty_volume[5] == "" and empty_volume[6] == "-3.70%"
     print("PASS: localized historical-table headers map Date / Close / Change % to the correct cells")
+    import datetime
+    target = "2026-11-20"
+    stamp = int(datetime.datetime(2026, 11, 20, 23, 59, 55, tzinfo=datetime.timezone.utc).timestamp() * 1000)
+    cnn = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, target)
+    assert cnn == {"status":"PAGE_READ_OK","date":target,"score":10,"rating":"extreme fear"}
+    missing = parse_cnn_history({"fear_and_greed_historical":{"data":[{"x":stamp,"y":10,"rating":"extreme fear"}]}}, "2026-11-19")
+    assert missing["status"] == "TARGET_DATE_NOT_FOUND"
     print("PASS: leading page headings and empty volume cells do not shift field mapping")
+    print("PASS: CNN composite historical score/rating is matched by exact UTC trading date")
 
 
 if __name__ == "__main__":
