@@ -64,7 +64,7 @@ def main():
             value = source.get("history_close") or source.get("close_value") or source.get("score_value")
             change = source.get("history_change") or source.get("daily_change_percent") or source.get("band")
             if name == "fear_greed":
-                value = "10.4133580705009"
+                value = "11.1847866419295"
             from build_market_source_verification_manifest import IDENTITY_ALIASES
             identity = IDENTITY_ALIASES.get(name, [name])[0]
             is_cnn = group == "risk" and name == "fear_greed"
