@@ -659,10 +659,10 @@ def set_market_observation(node, title, value):
         )
     if heading is not None:
         if str(title).strip():
-            heading.string = title
+            heading.string = str(title).strip() + " ｜ "
         text_slot.replace_with(raw)
     else:
-        text_slot.replace_with(title + "｜" + raw)
+        text_slot.replace_with(str(title).strip() + " ｜ " + raw)
 
 
 def unique(root, selector, label):
