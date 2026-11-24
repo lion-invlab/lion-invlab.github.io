@@ -350,9 +350,9 @@
 ## N. 母版固定 DOM 零退化比對（SIM-1.4 候選 Gate）
 
 - 每次完整 build 後，必須執行 `simulation-lab/runner/validate_mother_dom_contract.py`，以 Manifest 選定且 SHA 鎖定的母版副本，對照實際審核版 HTML。
-- 必須逐項比對：全部 `style`／`script` 節點與內容、全頁 ID 清單、總結段落原始子節點順序、FedWatch 兩張機率卡及分布長條／圖例、Fed 活頁 radio 與 label 對應、FOMC 固定欄位、Fed 官員行程外層四個固定槽位、QUICK ACCESS 工具欄，以及週一兩個收折區的 summary DOM。
+- 必須逐項比對：全部 `style`／`script` 節點與內容、全頁 ID 清單、總結卡外層單一 paragraph 容器的標籤與屬性（總結內部標籤、文字及 `<br>` 數量屬每日動態內容，不要求與母版原文逐節點相同）、FedWatch 兩張機率卡及分布長條／圖例、Fed 活頁 radio 與 label 對應、FOMC 固定欄位、Fed 官員行程外層四個固定槽位、QUICK ACCESS 工具欄，以及週一兩個收折區的 summary DOM。
 - 動態資料列只允許出現在明確的資料槽位內；Fed 官員行程可複製母版事件原型，但不得改寫外層容器、標題、清單 wrapper、原型或空狀態節點。
-- 週一／平日母版的總結段落子節點數量與順序必須保持各自原始結構；資料項目數量不符時停止組裝，不得清空段落後自行建立另一種標籤／換行結構。
+- 週一／平日母版的總結外層容器及屬性必須保持原樣；每日輸出固定三段。週一使用母版三槽；平日只使用前 3 槽並移除第 4、5 個未使用尾端槽位。允許依內容需要產生動態 `<br>` 換行，但不得新增／重建外層容器、改寫 CSS 或改變其他母版結構。
 - 比對失敗即為 FAIL；不得以 Playwright 視覺測試通過、元素仍可見或人工判斷「看起來一樣」取代結構比對。
 - 本 Gate 不代表資料內容已達 REVIEW_READY；行情刷新、新聞、行事曆及來源證據仍須分別通過各自 Gate。
 
@@ -437,7 +437,7 @@
 - 總結卡若清除來源元件，Builder／局部更新 receipt 必須記錄 `summary_source_receipt: {visible_sources: false}`；summary 卡及五層文章的來源顯示與內部 receipt 均須分開驗收。
 - 新聞、行情、商品、債券、匯率、行事曆及其他區塊原有來源顯示維持母版契約，不得因本條一併移除。
 - 局部更新器 `simulation-lab/runner/patch_review_sections.py` 必須分別支援 summary 與 market_analysis；只更新目標 selector，更新前後比較非目標 DOM 完全一致，並產生包含 Fixture SHA、輸入／輸出 HTML SHA-256、目標 selector、內部 evidence receipt 及局部測試狀態的收據。
-- summary 局部更新依母版原有槽位數量驗證；週一母版三槽、週二至週五母版五槽，不得以同一日期 Fixture 跨母版測試時忽略槽位差異。
+- summary Fixture 每個報告日一律恰好三筆；週一母版三槽全部使用，週二至週五母版雖有五個原生槽位，僅填前三槽並由 Builder 移除第四、第五個未使用尾端槽位。局部更新測試必須以三筆 summary_points 分別測試兩份母版，驗證輸出只剩三段、外層單一 summary paragraph 容器及其屬性不變；不得以母版可用槽位數量當成內容段數。
 - 局部更新不得呼叫 44 項行情擷取、新聞模組、行事曆模組或完整 Builder；局部 QA 不得冒充整頁 E2E。 正式 CLI 的輸入 HTML、輸出 HTML、收據、Fixture 與 Manifest 必須受 simulation-lab/output、simulation-lab/fixtures、simulation-lab/baseline 路徑範圍限制；臨時目錄只允許測試函式明確 test_only 模式使用。
 
 
