@@ -609,14 +609,14 @@ def populate_summary_points_preserving_dom(node, points):
             content = content.next_sibling
         while isinstance(content, NavigableString) and not str(content).strip():
             content = content.next_sibling
+        separator = content.next_sibling if isinstance(content, NavigableString) else None
         if isinstance(content, NavigableString):
             content.extract()
-        label.extract()
-        separator = label.next_sibling
         while isinstance(separator, NavigableString) and not str(separator).strip():
             separator = separator.next_sibling
         if getattr(separator, "name", None) == "br":
             separator.extract()
+        label.extract()
     return len(points)
 
 
