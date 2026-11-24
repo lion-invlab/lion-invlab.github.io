@@ -1,0 +1,1 @@
+Simulation-only rebuild trigger after repairing the weekday mother FOMC agenda grid. Rebuild the 2026-11-24 report from its date-matched fixture and run the full review/QA pipeline.
