@@ -495,6 +495,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # W47 retrospective NVDA overlay belongs only to Monday's mother.
+          # Tue-Fri weekday mothers have no #last-week-earnings target.
+          if [[ "${TEMPLATE_KEY}" != "monday" ]]; then
+            echo "SKIP W47 retrospective overlay: weekday mother has no last-week earnings section; report build continues."
+            exit 0
+          fi
           mkdir -p "$(dirname "${BUILDER_OUTPUT}")" "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
           cp "${REPORT_OUTPUT}" "${BUILDER_OUTPUT}"
           python simulation-lab/runner/patch_review_sections.py \
