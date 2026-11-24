@@ -31,7 +31,7 @@ market_source_manifest_test_blob_sha: 2e90721eb30faea80ec282d4aea695efc24d9421
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 102b3e3e6307fd0864bcde6618c3f089583b90ae
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
-market_history_web_observations_blob_sha: df48823c637fdb36baa34da26fc5dbd97782fb30
+market_history_web_observations_blob_sha: 9d18091e0677acd27f2002f1eb650e034f926b8f
 web_observation_validator_blob_sha: 5d5fe13aad1e2fcba9ce3309f34550e1353bf195
 market_manifest_builder_blob_sha: f127126d6a932069d3e8f5f9c52a11bbcd5f6ed2
 prebuild_validator_blob_sha: ab0f121e4b3e393f2120ddd3dde7d70d4d403953
@@ -79,3 +79,5 @@ Trigger pin synchronization (2026-11-24): aligned the date-scoped trigger with t
 Responsive earnings grid spacing correction (2026-11-24): both Simulation mothers now explicitly retain the approved <=1200px #earnings row-gap 16px / column-gap 14px; this resolves the visual regression mismatch without redesigning the section. The report's market-risk paragraph and warning note were also aligned to the freshly read MOVE 100.91 (-5.08%) and the 43-verified/1-closed observation result. Main remains untouched.
 
 Fear & Greed raw-value mapping correction (2026-11-24): CNN official previous_close raw value 16.9658627087199 is rounded to display 17; FGScore historical-page fallback score 17 is separately pinned as backup_source_score_value. The validator distinguishes the two raw-value mappings so either source can verify without false pending status. CNN API response SHA-256 and endpoint are recorded as the primary cross-check; source URL remains the FGScore fallback page. Main unchanged.
+
+2026-11-24 Stage 2 direct recapture (16:26 Asia/Taipei): reopened all 44 fixed source pages in the current ChatGPT web session; 43 numeric observations independently matched the fixture, and Nikkei 225 was retained as MARKET_CLOSED based on the official Cabinet Office holiday table (the Investing.com row was a CFD, not the cash index). New capture session: TAC-SIM14-RECAPTURE-20261124-1625-TW. Fixture SHA: 9e3acf4288227f8d449e84f62c0d6849c9b618ca; observation bundle SHA: 9d18091e0677acd27f2002f1eb650e034f926b8f. No prior observation records reused. This is a same-day Stage 2 recapture, not a blank-input Stage 1 rebuild or proof of the 05:25 schedule.
