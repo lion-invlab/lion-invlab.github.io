@@ -155,7 +155,7 @@ def comment_body(value):
 region_rows = [
     ("#tac-global-panel-0", 0, "美股"),
     ("#tac-global-panel-1", 1, "亞股"),
-    ("#tac-global-panel-2", 3, "歐股"),
+    ("#tac-global-panel-2", 2, "歐股"),
 ]
 for selector, index, label in region_rows:
     panel = soup.select_one(selector)
@@ -164,7 +164,7 @@ for selector, index, label in region_rows:
     if note is None or normalize_analysis_text(comment_body(expected)) not in normalize_analysis_text(note.get_text(" ", strip=True)):
         raise SystemExit(f"content analysis gate: {label} commentary not rendered in its correct panel")
 # Legacy region slots must not retain cross-region commentary.
-for selector, index, label in (("#asia", 1, "亞洲舊槽位"), ("#tac-region-panel-2", 3, "歐洲舊槽位")):
+for selector, index, label in (("#asia", 1, "亞洲舊槽位"), ("#tac-region-panel-2", 2, "歐洲舊槽位")):
     panel = soup.select_one(selector)
     note = panel.select_one(".market-reason") if panel else None
     expected = market_comments.get("global_markets", [])[index]
