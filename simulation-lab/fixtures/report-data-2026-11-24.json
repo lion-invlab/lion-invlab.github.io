@@ -529,9 +529,9 @@
         "raw_response_sha256": null,
         "history_close": "4.692",
         "score_value": "4.692",
-        "history_change": "NaN bp"
+        "history_change": "+4.3 bp"
       },
-      "change_display": "NaN bp"
+      "change_display": "+4.3 bp"
     },
     "10年期美債殖利率": {
       "display": "4.939%",
@@ -559,9 +559,9 @@
         "raw_response_sha256": null,
         "history_close": "4.939",
         "score_value": "4.939",
-        "history_change": "NaN bp"
+        "history_change": "-1.1 bp"
       },
-      "change_display": "NaN bp"
+      "change_display": "-1.1 bp"
     },
     "30年期美債殖利率": {
       "display": "5.308%",
@@ -589,9 +589,9 @@
         "raw_response_sha256": null,
         "history_close": "5.308",
         "score_value": "5.308",
-        "history_change": "NaN bp"
+        "history_change": "-2.9 bp"
       },
-      "change_display": "NaN bp"
+      "change_display": "-2.9 bp"
     }
   },
   "fx": {
