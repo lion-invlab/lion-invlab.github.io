@@ -22,10 +22,10 @@
 
 ### 0.2 權限邊界
 - SIM-1.4 的規則、程式、Fixture、測試、技術回歸及原始 QA 產物只在 `simulation/tac-process-lab-2026-11-06` 分支修改與保存。
-- main 原則唯讀；唯一例外是本規範 Stage 6 明定的「已通過 QA 審核版交付」：只可新增／更新指定日期的 `main:preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及交付收據。不得修改其他 main 路徑。
-- 正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；審核版交付不得觸及這些檔案。
+- main 原則唯讀；唯一固定例外為 Stage 5 REVIEW_READY 後的審核版交付及審核期間的同檔修改：只可新增／更新指定日期的 `main:preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及 delivery receipt；審核修改只更新該 HTML 與 delivery receipt。不得修改其他 main 路徑。
+- 正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；審核版交付及審核修改不得觸及這些檔案。
 - main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者。早報流程 05:25 嚴格唯讀。
-- simulation QA 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，只代表可提供 Simulation 審核版，不構成 main preview 交付授權。必須先由使用者審核並明確核准該份 HTML 的確切 SHA-256；交付只能透過獨立、具 main 寫入能力的明確授權動作，並核對完全相同的 HTML SHA-256 後，將同一 HTML 與 sidecar 原樣交付 main preview。目前 `.github/workflows/tac-simulation-lab.yml` 僅存在 Simulation 分支，未安裝於 main/default branch，因此不可假設可由 `workflow_dispatch` 從預設分支觸發；不得為此擅自將該 Workflow 加入 main。push tag、每日排程及一般 build 一律只產生 Simulation 審核版，不得交付 main。交付時必須核對 Git blob SHA／SHA-256 不變；不得重新組裝、改寫內容或重跑完整 QA。
+- Stage 5 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，必須直接將審核版交付至 `main:preview/YYYY-MM-DD-review.html`，同步交付 QA sidecar 與 delivery receipt；不需使用者另行核准 HTML SHA。Simulation branch 保留原始建置及 QA 證據；main preview 是唯一提供使用者檢視及後續修訂的審核檔。審核期間提出的錯誤或修改，直接更新同一份 main preview HTML，不重跑 Builder、Stage 5 或任何第二輪 QA；修改後只回讀確認檔案更新成功。Simulation-only Workflow 不得假設具有 main 寫入能力；Stage 6 由具 main 寫入能力的 GitHub 檔案更新動作執行，不得為此擅自將 Workflow 加入 main。
 - main preview 的交付檢查只驗證路徑、檔案存在、HTML／sidecar SHA 與 simulation QA 收據綁定一致、交付收據完整；不構成第二次內容／技術 QA。Pages 可開啟性另行如實標示。
 - 正式首頁只有使用者對 main preview 中已唯一識別的 HTML SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
 - simulation workflow 禁止 deploy Pages、修改 `main:index.html`、使用 production secrets 或自動發布正式首頁；main 寫入權限僅限 Stage 6 preview 交付白名單路徑。
@@ -161,26 +161,24 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
 **輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、PASS 的組裝前輸入收據及其 SHA-256、QA Contract。
-**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 的 main preview 交付。
-**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256。
+**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 隔離環境執行候選測試，不得寫入 main 或宣稱 REVIEW_READY。先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。全部適用強制 Gate 通過、Builder 已核准、資料及內容達 REVIEW_READY 後，Stage 5 即完成，立即進入 Stage 6 並直接交付 main preview，不等待使用者先審核 Simulation 副本或另行核准 SHA。
+**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256；以及 Stage 6 交付的 main preview HTML、QA sidecar、delivery receipt。
 **驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
 **交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
 
-### Stage 6｜審核版交付
-**輸入：** Stage 5 simulation branch 的 REVIEW_READY sidecar、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
+### Stage 6｜審核版交付與審核修改
+**輸入：** Stage 5 已通過全部適用強制 Gate 的 REVIEW_READY sidecar、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
 **執行：**
-1. 先將 simulation HTML 與 QA sidecar commit 並 push 至 simulation branch；回讀遠端兩檔，確認與本次 QA 輸出完全一致。
-2. 只有 sidecar 同時滿足 `status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`，且 `report_git_blob_sha` 等於實際 HTML Git blob SHA，才具備交付資格；此資格不等於使用者已授權 main 寫入。
-3. 必須先提供 Simulation 審核版及 QA Sidecar 給使用者檢視。只有使用者明確核准該份 HTML 的確切 SHA-256 後，才可進入 main preview 交付；不得以「review_ready=true」、排程觸發、push tag、先前日期核准或概括口頭同意代替。
-4. main 交付必須由使用者在審核後另行明確授權，並傳入64位小寫十六進位的已核准 HTML SHA-256；該值必須與 QA sidecar 的 `report_sha256` 及實際 HTML SHA-256 完全一致。任何缺漏或不一致均在讀取／寫入 main 前 BLOCKED。目前 Simulation-only Workflow 不具備從 default branch 觸發 main 交付的條件；若要採用 `workflow_dispatch`，必須先取得使用者對將 main-capable delivery workflow 加入 main 的獨立授權。一般 build、push tag、每日 05:25 排程永遠只產生 Simulation 審核版。
-5. 將同一 HTML bytes 與同一 QA sidecar bytes 原樣複製至 main：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`。禁止重新呼叫 Builder、改寫 sidecar、修補 HTML 或改變任何內容。
-6. 在 main 同次 commit 新增 `preview/YYYY-MM-DD-review.delivery.json`，記錄來源 simulation branch／commit／workflow run、兩份來源路徑、HTML Git blob SHA 與 SHA-256、QA sidecar Git blob SHA、使用者核准的 SHA、交付時間及狀態。交付收據不得改寫 QA sidecar。
-7. push main 前先 fetch 最新 main，僅在獨立 worktree 套用三個白名單檔案；若遇衝突或目標路徑已有不同內容，停止並標示 BLOCKED，不得覆蓋或強制推送。
-8. push 後從遠端 main 回讀 HTML、sidecar、delivery receipt；驗證 HTML／sidecar Git blob SHA 與 simulation 完全相同，且收據記載值吻合。交付完整性檢查不重跑完整 QA。
-9. Pages URL 只有在實際開啟成功後才標示可預覽；否則明確標示尚未部署／未驗證。
-**輸出：** main preview 可預覽連結、simulation／main 雙端回讀 SHA、交付收據、原 QA 摘要及未結事項。
-**驗收：** 只驗證交付路徑、存在性、原樣 SHA、sidecar 綁定及收據完整；不再執行第二次完整內容／DOM／視覺 QA。
-**權限：** 僅可寫入上述 main `preview/` 三個指定檔案；絕不修改 `index.html`、正式母版、Manifest、正式行事曆 JSON 或歷史報告；不做歷史封存；不視為使用者已核准正式發布。
+1. 先將 simulation HTML 與 QA sidecar commit 並 push 至 simulation branch；回讀遠端兩檔，確認與本次 QA 輸出一致。
+2. 確認 sidecar 同時滿足 `status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`content_analysis_gate=PASS`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true`、`sim14_blockers=[]`，且 `report_git_blob_sha` 等於實際 HTML Git blob SHA。
+3. 上述條件全部成立後，立即直接交付 main preview：將同一 HTML bytes 與同一 QA sidecar bytes 寫入 main：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`；同次 commit 新增 `preview/YYYY-MM-DD-review.delivery.json`，記錄來源 simulation branch／commit／workflow run、來源路徑、HTML Git blob SHA 與 SHA-256、QA sidecar Git blob SHA、交付時間及狀態。這是 Stage 5 通過後的固定交付，不需使用者另行核准 HTML SHA。
+4. 寫入前確認目標路徑僅為指定日期的三個 preview 檔；不得觸及其他 main 路徑。push 後回讀三檔，確認內容、路徑與 SHA；此為交付完整性確認，不是第二次 QA。
+5. Pages URL 只有在實際開啟成功後才標示可預覽；未驗證前如實標示。
+6. 審核修改：使用者檢視 main preview 後提出錯誤、補充或文字／版面修改，直接以 main 上同一份 `preview/YYYY-MM-DD-review.html` 為唯一審核檔進行修改；不回到 Simulation 重跑 Builder，不重跑 Stage 5，不重跑 QA Contract、DOM、互動、視覺或其他 QA。修改後只需回讀該檔確認修改已寫入，並回報更新內容及最新預覽網址。
+7. QA sidecar 保留首次 Stage 5 驗收證據，不因審核修改而重寫或宣稱修改版通過 QA；delivery receipt 記錄最新修改時間及摘要。每次審核修改只可更新該日期的 main preview HTML 及 delivery receipt；不得修改 QA sidecar、`index.html`、正式母版、Manifest、正式行事曆 JSON 或歷史報告。
+**輸出：** main preview 可預覽連結、首次交付 SHA／QA 摘要、最新修改內容與回讀結果。
+**驗收：** 首次交付以 Stage 5 QA 結果為準；後續審核修改不設第二輪 QA Gate，只確認檔案更新成功。Pages 可開啟性另行如實標示。
+**權限：** Stage 5 通過後，固定授權寫入指定日期的 main `preview/` HTML、QA sidecar、delivery receipt；審核期間固定授權更新同一日期的 preview HTML 及 delivery receipt。絕不修改 `index.html`、正式母版、Manifest、正式行事曆 JSON 或歷史報告；不做歷史封存；不視為使用者已核准正式發布。
 
 ---
 
@@ -400,7 +398,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - QA 豁免須由使用者明確指定要豁免的 Gate／測試項目及目標 SHA；紀錄理由、風險及未測試／未通過狀態。不得把豁免標示成 QA 通過。
 - 不得豁免已知重大行情日期錯誤、商品身分冒用、正式行事曆 JSON 被早報寫入、未授權修改 main／母版／首頁等權限違規。
 - 審核版、正式首頁、歷史封存是三個獨立狀態：審核版不等於正式發布；Pages 部署成功不等於內容 QA 通過；正式首頁更新不自動代表歷史封存完成。
-- main preview 交付及正式首頁更新均須使用者明確核准指定審核版 HTML SHA；審核版審閱、main preview 交付、正式首頁更新是三個獨立授權狀態。正式首頁更新前另須使用者對 main preview 中已唯一識別的 HTML SHA 明確核准；發布後回讀首頁 SHA／內容並確認部署。歷史封存另行執行，只在正式發布後新增／核對 history，並驗證首頁未被封存流程修改。
+- main preview 交付由 Stage 5 REVIEW_READY 自動觸發，不需使用者另行核准 HTML SHA；使用者審閱及提出修改直接在 main preview 同一審核檔完成，不設第二輪 QA。正式首頁更新仍須使用者對 main preview 中已唯一識別的最新 HTML 明確核准；發布後回讀首頁內容並確認部署。歷史封存另行執行，只在正式發布後新增／核對 history，並驗證首頁未被封存流程修改。
 
 ---
 
