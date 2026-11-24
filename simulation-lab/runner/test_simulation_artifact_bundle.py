@@ -25,7 +25,7 @@ def make_bundle(root: Path) -> None:
         "simulation-lab/output/prebuild-stage-input-receipt.json": json.dumps({"status":"PASS","workflow_run_id":"12345"}).encode(),
         "simulation-lab/output/market-snapshot-audit.json": json.dumps({"status":"PASS","indicator_count":44}).encode(),
         "simulation-lab/output/market-source-verification-manifest.json": json.dumps({
-            "status":"PARTIAL","row_count":44,"verified_count":42,"pending_count":2,
+            "status":"PARTIAL","row_count":44,"verified_count":42,"closed_count":1,"pending_count":1,
             "rows":[
                 {"verification_status":"VERIFIED"} for _ in range(42)
             ] + [
@@ -128,7 +128,7 @@ def main() -> None:
     for name in names[1:]:
         block = workflow.split(f"- name: {name}", 1)[1].split("\n      - name:", 1)[0]
         assert "if: always()" in block, f"{name} must run after earlier failures"
-    assert "uses: actions/download-artifact@v4" in workflow
+    assert "gh run download" in workflow
     assert "audit_simulation_artifact_bundle.py" in workflow
     assert "tac-simulation-postupload-audit-" in workflow
     assert 'echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)"' in workflow
