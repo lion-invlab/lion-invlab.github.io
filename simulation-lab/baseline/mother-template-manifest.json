@@ -15,8 +15,8 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail.",
-      "simulation_blob_sha": "0a7d5095aaa99c470e00e67f33567ff9f359d6ae",
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail. 2026-11-24: summary, five-layer analysis and sentiment panel spacing corrected with explicit 18px section margins targeting actual DOM; obsolete grid-adjacency selectors removed.",
+      "simulation_blob_sha": "eb5090131dd9f72de8f4620d79c6ec3357091b6f",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -27,8 +27,8 @@
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
-      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail. 2026-11-24: Fed/FOMC agenda grid slots explicitly separate meeting, press, current rate, observation and weekly agenda; <=560px stacks all content into one readable column. 2026-11-24: FOMC agenda grid repaired with distinct desktop grid rows and single-column mobile layout at <=560px.",
-      "simulation_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail. 2026-11-24: Fed/FOMC agenda grid slots explicitly separate meeting, press, current rate, observation and weekly agenda; <=560px stacks all content into one readable column. 2026-11-24: FOMC agenda grid repaired with distinct desktop grid rows and single-column mobile layout at <=560px. 2026-11-24: summary, five-layer analysis and sentiment panel spacing corrected with explicit 18px section margins targeting actual DOM; obsolete grid-adjacency selectors removed.",
+      "simulation_blob_sha": "308ffcc076b1cebb34a0a7b5240ab6bcdc983ecd",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -121,6 +121,10 @@
     {
       "date": "2026-11-22",
       "change": "依本輪 320px FOMC 實際截圖驗收，雙母版於 <=360px 將 Fed 官員行程日期與內容由雙欄改為上下排列；桌機及較寬手機維持原雙欄。僅更新 simulation baseline CSS 與 simulation_blob_sha；正式 main 母版、首頁及正式 Manifest 不變。"
+    },
+    {
+      "date": "2026-11-24",
+      "change": "依使用者指示修正總結、五層市場深度解析與市場情緒三區間距；移除只適用相鄰 section.grid 的舊規則，改以實際 DOM selector 為深度分析及市場情緒前方各設 18px 間距。週一與週二至週五 simulation mother SHA 同步更新；正式 main 母版不變。"
     }
   ],
   "analysis_slots": {
