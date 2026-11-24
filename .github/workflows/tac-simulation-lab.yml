@@ -999,6 +999,10 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
+      - name: Allow uploaded evidence to become visible to the run-scoped artifact API
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        run: sleep 3
+
       - name: Download uploaded simulation evidence for independent verification
         if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         uses: actions/download-artifact@v4
