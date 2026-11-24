@@ -172,55 +172,76 @@ def main():
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
         raise SystemExit("fixture provenance SHA does not match immutable build commit")
     fixture = json.loads(fixture_bytes)
-    # Fail closed when the same CNN Fear & Greed observation is rendered with
-    # inconsistent values across the numeric card, sentiment interpretation,
-    # and five-layer market analysis.
+    # Fail closed when the same CNN Fear & Greed observation is rendered
+    # consistently. A pending provider response may contain a diagnostic or
+    # previous-close cross-check score; that value is not an approved current
+    # close and must never be promoted into the report.
     fg_record = fixture.get("risk", {}).get("fear_greed", {})
     fg_display = str(fg_record.get("display", "")).strip()
-    fg_source_value = fg_record.get("source", {}).get("source_score_value")
-    if not fg_display or fg_source_value is None:
-        raise SystemExit("CNN Fear & Greed canonical score evidence missing from fixture")
-    try:
-        canonical_fg = str(int(float(fg_source_value) + 0.5))
-    except (TypeError, ValueError):
-        raise SystemExit("CNN Fear & Greed source score is not numeric")
-    if canonical_fg != fg_display:
-        raise SystemExit(f"CNN Fear & Greed fixture display {fg_display!r} differs from rounded official source score {canonical_fg!r}")
-    expected_fg_phrase = f"Fear & Greed {fg_display}"
-    if expected_fg_phrase not in str(fixture.get("sentiment", "")):
-        raise SystemExit("fixture sentiment interpretation does not match canonical CNN Fear & Greed score")
-    market_paragraphs = fixture.get("market_analysis", {}).get("markets", {}).get("paragraphs", [])
-    if not market_paragraphs or any(("Fear & Greed" in str(p) and expected_fg_phrase not in str(p)) for p in market_paragraphs):
-        raise SystemExit("fixture market-analysis Fear & Greed reference differs from canonical CNN score")
+    fg_source = fg_record.get("source", {})
+    fg_status = str(fg_source.get("verification_status", "")).upper()
+    if not fg_display:
+        raise SystemExit("CNN Fear & Greed display field missing from fixture")
     fg_card = soup.select_one("#sentiment .cnn-fg-preview .fg6-score-main")
     fg_marker = soup.select_one("#sentiment .cnn-fg-preview .fg6-marker")
     if fg_card is None or fg_card.get_text(strip=True) != fg_display:
-        raise SystemExit("rendered CNN Fear & Greed numeric card differs from canonical fixture score")
-    if fg_marker is None or str(fg_marker.get("data-score", "")).strip() != fg_display:
-        raise SystemExit("rendered CNN Fear & Greed scale marker differs from canonical fixture score")
+        raise SystemExit("rendered CNN Fear & Greed numeric card differs from fixture display")
+    if fg_marker is None:
+        raise SystemExit("rendered CNN Fear & Greed scale marker missing")
     sentiment_section = soup.select_one("#sentiment")
     sentiment_text = sentiment_section.get_text(" ", strip=True) if sentiment_section else ""
-    if expected_fg_phrase not in sentiment_text:
-        raise SystemExit("rendered sentiment section does not contain the canonical CNN Fear & Greed score")
-    # The visible core-interpretation card is a separate reader-facing output.
-    # Checking the whole section alone is insufficient: a hidden source note or
-    # numeric indicator card can contain the correct value while this narrative
-    # card remains stale.
     sentiment_cards = sentiment_section.select(".sbox") if sentiment_section else []
     if not sentiment_cards:
         raise SystemExit("rendered sentiment core-interpretation card is missing")
     core_interpretation = sentiment_cards[-1].get_text(" ", strip=True)
-    if expected_fg_phrase not in core_interpretation:
-        raise SystemExit("rendered sentiment core-interpretation card differs from canonical CNN Fear & Greed score")
-    if re.search(r"Fear\s*&\s*Greed\s+(?!"+re.escape(fg_display)+r"(?:\D|$))\d+", core_interpretation):
-        raise SystemExit("rendered sentiment core-interpretation card contains a stale CNN Fear & Greed score")
+    market_paragraphs = fixture.get("market_analysis", {}).get("markets", {}).get("paragraphs", [])
     rendered_market_paragraphs = [
         node.get_text(" ", strip=True)
         for node in soup.select('#market-analysis [data-analysis-layer="markets"] [data-analysis-content="markets"] > p')
         if "market-analysis-sources" not in node.get("class", [])
     ]
-    if not rendered_market_paragraphs or any(("Fear & Greed" in p and expected_fg_phrase not in p) for p in rendered_market_paragraphs):
-        raise SystemExit("rendered market-analysis Fear & Greed reference differs from canonical CNN score")
+    if fg_status == "VERIFIED":
+        fg_source_value = fg_source.get("source_score_value")
+        if fg_source_value is None:
+            raise SystemExit("CNN Fear & Greed verified source score missing from fixture")
+        try:
+            canonical_fg = str(int(float(fg_source_value) + 0.5))
+        except (TypeError, ValueError):
+            raise SystemExit("CNN Fear & Greed source score is not numeric")
+        if canonical_fg != fg_display:
+            raise SystemExit(f"CNN Fear & Greed fixture display {fg_display!r} differs from rounded official source score {canonical_fg!r}")
+        expected_fg_phrase = f"Fear & Greed {fg_display}"
+        if expected_fg_phrase not in str(fixture.get("sentiment", "")):
+            raise SystemExit("fixture sentiment interpretation does not match canonical CNN Fear & Greed score")
+        if not market_paragraphs or any(("Fear & Greed" in str(p) and expected_fg_phrase not in str(p)) for p in market_paragraphs):
+            raise SystemExit("fixture market-analysis Fear & Greed reference differs from canonical CNN score")
+        if str(fg_marker.get("data-score", "")).strip() != fg_display:
+            raise SystemExit("rendered CNN Fear & Greed scale marker differs from canonical fixture score")
+        if expected_fg_phrase not in sentiment_text or expected_fg_phrase not in core_interpretation:
+            raise SystemExit("rendered sentiment interpretation differs from canonical CNN Fear & Greed score")
+        if re.search(r"Fear\\s*&\\s*Greed\\s+(?!"+re.escape(fg_display)+r"(?:\\D|$))\\d+", core_interpretation):
+            raise SystemExit("rendered sentiment core-interpretation card contains a stale CNN Fear & Greed score")
+        if not rendered_market_paragraphs or any(("Fear & Greed" in p and expected_fg_phrase not in p) for p in rendered_market_paragraphs):
+            raise SystemExit("rendered market-analysis Fear & Greed reference differs from canonical CNN score")
+    elif fg_status == "PENDING":
+        if fg_display != "待核實":
+            raise SystemExit("pending CNN Fear & Greed observation must remain visibly 待核實")
+        if fg_source.get("verified_at_tw") or fg_source.get("verification_status") != "PENDING":
+            raise SystemExit("pending CNN Fear & Greed source carries contradictory verification metadata")
+        if "待核實" not in str(fixture.get("sentiment", "")) or "不沿用" not in str(fixture.get("sentiment", "")):
+            raise SystemExit("pending CNN Fear & Greed sentiment must explain the unverified value and reject stale carry-forward")
+        if not market_paragraphs or not any("Fear & Greed" in str(p) and ("未能核實" in str(p) or "待核實" in str(p)) for p in market_paragraphs):
+            raise SystemExit("pending CNN Fear & Greed market analysis must explicitly disclose the unavailable current observation")
+        if str(fg_marker.get("data-score", "")).strip() or "none" not in str(fg_marker.get("style", "")).lower() or fg_marker.get("aria-hidden") != "true":
+            raise SystemExit("pending CNN Fear & Greed marker must be hidden rather than positioned using an unverified score")
+        if "Fear & Greed" not in sentiment_text or "待核實" not in sentiment_text:
+            raise SystemExit("rendered sentiment section must disclose pending CNN Fear & Greed status")
+        if "Fear & Greed" not in core_interpretation or "待核實" not in core_interpretation:
+            raise SystemExit("rendered sentiment core-interpretation card must disclose pending CNN Fear & Greed status")
+        if not rendered_market_paragraphs or not any("Fear & Greed" in p and ("未能核實" in p or "待核實" in p) for p in rendered_market_paragraphs):
+            raise SystemExit("rendered market analysis must disclose pending CNN Fear & Greed status")
+    else:
+        raise SystemExit(f"unsupported CNN Fear & Greed verification status: {fg_status!r}")
     political_scan_receipt = validate_political_scan(fixture)
     expected_layers = [
         ("political", "一、政治與地緣政治局勢"),
