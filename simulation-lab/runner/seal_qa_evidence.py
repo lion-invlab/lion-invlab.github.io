@@ -9,7 +9,53 @@ sys.path.insert(0, 'simulation-lab/runner')
 from sim14_builder_approval import resolve_from_files
 from build_review_html import validate_political_scan
 report_path, report_date, evidence_path, patch_receipt_path, patched_output_path = sys.argv[1:]
+from datetime import date
+is_monday = date.fromisoformat(report_date).weekday() == 0
 raw = Path(report_path).read_bytes()
+patch_receipt_file = Path(patch_receipt_path)
+patched_output_file = Path(patched_output_path)
+overlay_receipt_archive_path = f"simulation-lab/runs/last-week-consensus-overlay-{report_date}-{os.environ['GITHUB_RUN_ID']}.json"
+report_sha256 = hashlib.sha256(raw).hexdigest()
+overlay = {}
+calendar_overlay = {}
+patch_receipt_bytes = b""
+patch_receipt = {}
+if is_monday:
+    if not patch_receipt_file.is_file() or not patched_output_file.is_file():
+        raise SystemExit("Monday W47 overlay receipt or patched output is missing")
+    patch_receipt_bytes = patch_receipt_file.read_bytes()
+    patch_receipt = json.loads(patch_receipt_bytes.decode("utf-8"))
+    patched_output_bytes = patched_output_file.read_bytes()
+    patched_output_sha256 = hashlib.sha256(patched_output_bytes).hexdigest()
+    if patch_receipt.get("status") != "PASS" or patch_receipt.get("section") != "last_week_earnings_and_calendar_impact":
+        raise SystemExit("Monday W47 NVDA and calendar impact overlay receipt did not PASS")
+    if patch_receipt.get("output_html_sha256") != patched_output_sha256 or patched_output_sha256 != report_sha256:
+        raise SystemExit("Monday W47 overlay receipt is not bound to the exact final review HTML")
+    internal_receipt = patch_receipt.get("internal_receipt", {})
+    overlay = internal_receipt.get("last_week_earnings", {})
+    calendar_overlay = internal_receipt.get("last_week_calendar_impact", {})
+    if overlay.get("status") != "PASS" or overlay.get("event_id") != "current-nvda-20261118" or overlay.get("judgment_audit") != "PASS":
+        raise SystemExit("Monday W47 NVDA consensus overlay evidence or TAC 1.4 judgment audit is incomplete")
+    if calendar_overlay.get("status") != "PASS" or calendar_overlay.get("event_id") != "current-fed-warsh-productivity-jobs-20261117":
+        raise SystemExit("Monday W47 Warsh calendar impact overlay evidence is incomplete")
+    if calendar_overlay.get("expected_impact_matched_exactly") is not True or calendar_overlay.get("authoritative_main_calendar_modified") is not False:
+        raise SystemExit("Monday W47 Warsh calendar impact overlay did not preserve exact-source/read-only guarantees")
+    if overlay.get("raw_response_sha256") != "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a":
+        raise SystemExit("Monday W47 NVDA consensus overlay raw response SHA mismatch")
+    if overlay.get("eps_estimate") != 2.47121 or overlay.get("revenue_estimate") != 108.7319039:
+        raise SystemExit("Monday W47 NVDA consensus overlay estimates differ from approved pre-release snapshot")
+    if overlay.get("eps_status") != "beat" or overlay.get("revenue_status") != "beat":
+        raise SystemExit("Monday W47 NVDA consensus overlay comparison statuses are not complete")
+else:
+    if not patch_receipt_file.is_file() or not patched_output_file.is_file():
+        raise SystemExit("Weekday no-overlay receipt or unchanged output copy is missing")
+    patch_receipt_bytes = patch_receipt_file.read_bytes()
+    patch_receipt = json.loads(patch_receipt_bytes.decode("utf-8"))
+    patched_output_bytes = patched_output_file.read_bytes()
+    if patch_receipt.get("status") != "NOT_APPLICABLE" or patch_receipt.get("section") != "weekday_no_last_week_overlay":
+        raise SystemExit("Weekday report must carry an explicit NOT_APPLICABLE no-overlay receipt")
+    if patch_receipt.get("output_html_sha256") != report_sha256 or patched_output_bytes != raw:
+        raise SystemExit("Weekday no-overlay receipt must bind to the unchanged report HTML")
 soup = BeautifulSoup(raw, "html.parser")
 is_monday = date.fromisoformat(report_date).weekday() == 0
 patch_receipt_file = Path(patch_receipt_path)
