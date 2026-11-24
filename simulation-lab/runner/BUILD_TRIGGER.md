@@ -18,7 +18,7 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: e892d4b0a402f63e486338b7d2c1886e372e086c
+fixture_blob_sha: d626ec856a8bb2cb4e3b6866cc5161cb754a2ee7
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -27,13 +27,13 @@ main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 
 market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
-market_source_manifest_test_blob_sha: 2e90721eb30faea80ec282d4aea695efc24d9421
+market_source_manifest_test_blob_sha: c5a8503f654314ae0c36b3c15ec84fa07dfbcbab
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 102b3e3e6307fd0864bcde6618c3f089583b90ae
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
 market_history_web_observations_blob_sha: 9d18091e0677acd27f2002f1eb650e034f926b8f
 web_observation_validator_blob_sha: 5d5fe13aad1e2fcba9ce3309f34550e1353bf195
-market_manifest_builder_blob_sha: f127126d6a932069d3e8f5f9c52a11bbcd5f6ed2
+market_manifest_builder_blob_sha: e31e2e02aaf53549dab8189b209c41a59a5318ec
 prebuild_validator_blob_sha: ab0f121e4b3e393f2120ddd3dde7d70d4d403953
 web_observation_test_blob_sha: c484aa416dbe7512f1a3d4176cac79b813f7bed3
 mother_dom_validator_blob_sha: f63c157b8cdd4895aa69d79d6245e8bf3ac6bca7
@@ -87,3 +87,5 @@ QA Contract v1.27 correction (2026-11-24): fixed the precise prior QA failure by
 Chart 3 handoff reliability correction (2026-11-24): S&P 500 read_method remains CHATGPT_WEB_OPEN_HISTORICAL_PAGE, while evidence_method is now the required INVESTING_COM_HISTORICAL_TABLE. Removed continue-on-error from deterministic self-tests and verified S&P 500 handoff: an unverified S&P 500 still skips cleanly, but a verified handoff or core-test failure now fails the workflow instead of being reported green. Main unchanged.
 
 Summary slot correction (2026-11-24): consolidated the four draft summary points into the three approved SIM-1.4 summary slots. The market-catalyst explanation remains explicit; bond, FX and commodity divergences are combined in the second point; the final point retains conditional risk exposure guidance. Fixture SHA: e892d4b0a402f63e486338b7d2c1886e372e086c. No mother or main files changed.
+
+Manifest integration correction (2026-11-24): the manifest builder now distinguishes CNN_OFFICIAL_PREVIOUS_CLOSE from the FGScore backup page even when the fixture URL is a backup URL. CNN raw previous_close compares to source_score_value; FGScore integer score compares to backup_source_score_value. The nested cross_check object carries the CNN API as PRIMARY cross-check. Added regression tests for both paths. Main unchanged.
