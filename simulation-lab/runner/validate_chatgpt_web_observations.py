@@ -147,7 +147,16 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         is_cnn_official = method == "CNN_OFFICIAL_PREVIOUS_CLOSE"
         is_fear_greed_backup = is_fear_greed and method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
         expected_value = source.get("score_value") if is_fear_greed else _expected_value(source)
-        expected_raw_value = source.get("source_score_value") if is_fear_greed else expected_value
+        if is_fear_greed:
+            # CNN official previous_close is raw decimal precision; FGScore backup
+            # publishes a rounded integer. Keep the expected raw values separate.
+            expected_raw_value = (
+                source.get("source_score_value")
+                if is_cnn_official
+                else source.get("backup_source_score_value", source.get("score_value"))
+            )
+        else:
+            expected_raw_value = expected_value
         expected_change = _expected_change(source)
         value_match = _numeric_match(
             raw.get("observed_value"), expected_value,
