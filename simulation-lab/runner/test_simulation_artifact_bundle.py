@@ -67,6 +67,18 @@ def main() -> None:
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "PASS", result["errors"]
         assert result["png_validated_count"] == 1
+        # A complete 44-row register with zero live observations is valid for a
+        # review draft only when every unresolved row remains explicitly pending.
+        manifest_path = root / "simulation-lab/output/market-source-verification-manifest.json"
+        pending_manifest = {
+            "status": "PENDING", "row_count": 44, "verified_count": 0, "pending_count": 44,
+            "rows": [{"verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"} for _ in range(44)]
+        }
+        manifest_path.write_text(json.dumps(pending_manifest), encoding="utf-8")
+        result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
+        assert result["status"] == "PASS", result["errors"]
+        # Restore the partial fixture for the remaining capture-evidence checks.
+        make_bundle(root)
         capture_rows = [
             {"page_readable": False, "verification_status": "TOOL_READ_FAILURE",
              "capture": {"http_status": 403, "raw_response_sha256": "a" * 64}}
