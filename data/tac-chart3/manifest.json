@@ -3603,24 +3603,24 @@
   "overall_status": "PASS",
   "sp500_data": {
     "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
-    "git_blob_sha1": "d1b254eebf43b913dfee45c8f53e3ec782b02578",
-    "dataset_sha256": "ddd00ebb95b1df1acb006e86a33fe40dad5c952ffa07f3e08033ab83ce30b75d",
+    "git_blob_sha1": "3c9517cfa8bf0eb413987f7e93338c9333c45f3f",
+    "dataset_sha256": "a1b5a202e5039a50270d9456eef1c2c99c3bf35dfd36fdc85dee5049c26523be",
     "start": "1927-12-30",
-    "end": "2026-11-23",
-    "rows": 24841,
+    "end": "2026-11-20",
+    "rows": 24840,
     "encoding": "zlib+base64",
-    "recent_snapshot_source": "Validated FJA/FRED compact baseline plus verified daily cash-index Close increments through 2026-11-23; latest source: Investing.com｜S&P 500 歷史數據（Real-time derived）.",
+    "recent_snapshot_source": "Validated FJA/FRED compact baseline plus verified daily cash-index Close increments through 2026-11-20; latest source: Investing.com｜S&P 500 歷史數據（Real-time derived）.",
     "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; previously merged ledger rows must match the compact baseline exactly; no interpolation or forward-fill.",
     "increment_ledger": {
       "path": "data/tac-chart3/sp500_daily_increment.jsonl",
-      "sha256": "2bbe2b3f432ff49764bd6ad9dd2d3034c201ed4b775a2e8ebc6f60cd7145668d",
+      "sha256": "305cf93620b2b27ce901e5cca9b9c642102798aea8b3139d108201eedb9aea7b",
       "first": "2026-11-20",
-      "last": "2026-11-23",
-      "rows": 2,
-      "pending_rows_merged_this_run": 1,
+      "last": "2026-11-20",
+      "rows": 1,
+      "pending_rows_merged_this_run": 0,
       "source_name": "Investing.com｜S&P 500 歷史數據（Real-time derived）",
       "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
-      "observed_at": "2026-11-24T16:26:36.510000+08:00"
+      "observed_at": "2026-11-22T17:15:52+08:00"
     }
   }
 }
