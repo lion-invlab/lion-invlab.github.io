@@ -1,6 +1,6 @@
 {
-  "status": "QA_PASSED",
-  "review_ready": true,
+  "status": "INVALIDATED",
+  "review_ready": false,
   "review_ready_blockers": [],
   "last_week_earnings_overlay_receipt_path": null,
   "last_week_earnings_overlay_receipt_archive_path": null,
@@ -201,7 +201,7 @@
   "duplicate_quote_restatements": [],
   "actionability_findings": [],
   "sim14_builder_approval": "APPROVED",
-  "sim14_review_ready": true,
+  "sim14_review_ready": false,
   "sim14_blockers": [],
   "builder_approval_record": {
     "decision": "APPROVED",
@@ -226,5 +226,13 @@
     320
   ],
   "workflow_run_id": "45359102729",
-  "workflow_run_attempt": "1"
+  "workflow_run_attempt": "1",
+  "main_publish_authorized": false,
+  "invalidation_reason": "The 2026-11-24 web observation bundle contained numeric row text copied from the existing fixture; the referenced Investing.com pages returned stale July-August 2026 content rather than the 2026-11-23 target rows. The prior QA_PASSED status does not establish independent numeric reconciliation. The 2026-11-23 S&P 500 Chart3 append has been reverted pending live Playwright verification of all 43 numeric rows.",
+  "invalidation_timestamp": "2026-11-24T09:15:00Z",
+  "invalidation_notes": [
+    "The 43 numeric observations must be read from current Investing.com historical pages through Playwright and reconciled against the fixture.",
+    "The Nikkei 225 closure remains supported by separate closure evidence.",
+    "No main branch or official homepage changes were made."
+  ]
 }
