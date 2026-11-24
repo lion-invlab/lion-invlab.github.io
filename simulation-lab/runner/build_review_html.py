@@ -579,21 +579,20 @@ def remove_visible_sources_from_summary(node):
 
 
 def populate_summary_points_preserving_dom(node, points):
-    """Update the mother-owned summary labels/text nodes without rebuilding its paragraph DOM."""
+    """Update provided summary points in the mother DOM and remove unused trailing slots."""
     if not isinstance(points, list) or not points:
         raise ValueError("summary_points must be a non-empty list aligned to the mother template")
     labels = node.find_all(["b", "strong"], recursive=False)
-    if len(labels) != len(points):
+    if len(points) > len(labels):
         raise ValueError(
-            f"summary_points count {len(points)} does not match mother template slots {len(labels)}"
+            f"summary_points count {len(points)} exceeds mother template slots {len(labels)}"
         )
-    for index, (label, point) in enumerate(zip(labels, points)):
+    for index, point in enumerate(points):
+        label = labels[index]
         if not isinstance(point, dict) or not str(point.get("label", "")).strip() or not str(point.get("text", "")).strip():
             raise ValueError(f"summary_points[{index}] requires non-empty label and text")
         label.string = str(point["label"]).strip()
         content = label.next_sibling
-        # Monday's approved paragraph uses <b><br/>text</b>; weekday's
-        # approved paragraph uses <b>text</b><br/>. Preserve either mother shape.
         if getattr(content, "name", None) == "br":
             content = content.next_sibling
         while isinstance(content, NavigableString) and not str(content).strip():
@@ -601,7 +600,24 @@ def populate_summary_points_preserving_dom(node, points):
         if not isinstance(content, NavigableString):
             raise ValueError(f"summary_points[{index}] mother paragraph is missing its original text slot")
         content.replace_with(str(point["text"]).strip())
-    return len(labels)
+
+    # A shorter summary is valid: remove unused trailing mother-owned label,
+    # paragraph text and separator without inventing filler observations.
+    for label in labels[len(points):]:
+        content = label.next_sibling
+        if getattr(content, "name", None) == "br":
+            content = content.next_sibling
+        while isinstance(content, NavigableString) and not str(content).strip():
+            content = content.next_sibling
+        if isinstance(content, NavigableString):
+            content.extract()
+        label.extract()
+        separator = label.next_sibling
+        while isinstance(separator, NavigableString) and not str(separator).strip():
+            separator = separator.next_sibling
+        if getattr(separator, "name", None) == "br":
+            separator.extract()
+    return len(points)
 
 
 def set_market_observation(node, title, value):
