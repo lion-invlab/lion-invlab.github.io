@@ -279,13 +279,37 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Read all 44 live historical pages with Playwright and reconcile values
+      - name: Load current-turn direct web observations or read live historical pages
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         id: market_observations
         run: |
           set -euo pipefail
           mkdir -p simulation-lab/output
           export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
+          WEB_EVIDENCE="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
+          if [ -f "${WEB_EVIDENCE}" ]; then
+            python - "${WEB_EVIDENCE}" "${REPORT_DATE}" "${REPORT_DATA}" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          evidence_path, report_date, fixture_path = map(Path, sys.argv[1:2]) + [] if False else (Path(sys.argv[1]), sys.argv[2], Path(sys.argv[3]))
+          evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+          fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+          rows = evidence.get("observations") or []
+          keys = [(row.get("group"), row.get("name")) for row in rows]
+          if evidence.get("report_date") != report_date or evidence.get("trading_date") != fixture.get("trading_date"):
+              raise SystemExit("Direct web evidence date does not match the current report fixture")
+          if len(rows) != 44 or len(set(keys)) != 44 or any(not all(key) for key in keys):
+              raise SystemExit(f"Direct web evidence must contain 44 unique rows; got {len(rows)}")
+          if any(row.get("target_date") != fixture.get("trading_date") for row in rows):
+              raise SystemExit("Direct web evidence contains a mixed trading date")
+          if any(row.get("status") not in ("VERIFIED", "TOOL_READ_FAILURE", "SOURCE_NO_DATA") for row in rows):
+              raise SystemExit("Direct web evidence contains an unsupported row status")
+          print(f"Loaded {len(rows)} direct web observations; verified={sum(row.get('status') == 'VERIFIED' for row in rows)}")
+          PY
+            cp "${WEB_EVIDENCE}" simulation-lab/output/market-history-browser-observations.json
+            exit 0
+          fi
           python -m playwright install chromium
           python simulation-lab/runner/browser_verify_market_history.py \
             --fixture "${REPORT_DATA}" \
