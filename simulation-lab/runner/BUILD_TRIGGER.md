@@ -9,7 +9,7 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 12d72b4162d8f8f2c80d174d55a1dc2bd74766eb
 active_rules_version: SIM-1.4
-active_rules_blob_sha: 4bcc27d4da6ea9c7d6a763fbb2a0be859dfa2958
+active_rules_blob_sha: 91083f5d18e960fa9e1e9dbb5bedca1029232d81
 qa_contract_version: 1.21
 qa_contract_blob_sha: 1bf22ea17356eaf4cdfba2c1ecc17ca402302578
 manifest_blob_sha: 81e01655fd8a2dfeaa72b5c63d1695db13370562
