@@ -225,7 +225,7 @@ def test_builder_preserves_mother_owned_fed_agenda_and_css():
 def test_market_observation_supports_existing_text_slot_shapes():
     plain = BeautifulSoup('<div class="plain">舊文字</div>', "html.parser").div
     set_market_observation(plain, "盤面觀察", "新文字")
-    assert plain.get_text(" ", strip=True) == "盤面觀察｜新文字"
+    assert plain.get_text(" ", strip=True) == "盤面觀察 ｜ 新文字"
     assert len(plain.find_all(recursive=False)) == 0
 
     wrapped = BeautifulSoup('<div class="wrapped"><b>舊標題</b><br/><span>舊文字</span></div>', "html.parser").div
@@ -233,7 +233,7 @@ def test_market_observation_supports_existing_text_slot_shapes():
     set_market_observation(wrapped, "新標題", "新文字")
     after = [(child.name, tuple(child.get("class", [])) if child.name else None) for child in wrapped.contents]
     assert before == after
-    assert wrapped.get_text(" ", strip=True) == "新標題 新文字"
+    assert wrapped.get_text(" ", strip=True) == "新標題 ｜ 新文字"
 
 
 def test_text_update_preserves_source_link_elements():
