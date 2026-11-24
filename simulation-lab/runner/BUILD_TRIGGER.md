@@ -18,7 +18,7 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: f6d16ca8ab2f59b00de22dd0d47c8fde057b92f3
+fixture_blob_sha: e892d4b0a402f63e486338b7d2c1886e372e086c
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -85,3 +85,5 @@ Fear & Greed raw-value mapping correction (2026-11-24): CNN official previous_cl
 QA Contract v1.27 correction (2026-11-24): fixed the precise prior QA failure by syncing A2.1 simulation mother SHA bindings to the current Manifest (Monday 710c944205ee05a86599ef5cd869f26c4a9ebde1; Weekday ff051c0cd22cf9267420c41e3952fa3178f0e45d). QA Contract SHA: 5328fd12f919944314494107311736ff9813ad67; active SIM-1.4 rules SHA: b9562860f84a302888472ce86a8c0e693d13220a. This is a contract-to-mother provenance sync only; no mother DOM/CSS, main files or homepage changed.
 
 Chart 3 handoff reliability correction (2026-11-24): S&P 500 read_method remains CHATGPT_WEB_OPEN_HISTORICAL_PAGE, while evidence_method is now the required INVESTING_COM_HISTORICAL_TABLE. Removed continue-on-error from deterministic self-tests and verified S&P 500 handoff: an unverified S&P 500 still skips cleanly, but a verified handoff or core-test failure now fails the workflow instead of being reported green. Main unchanged.
+
+Summary slot correction (2026-11-24): consolidated the four draft summary points into the three approved SIM-1.4 summary slots. The market-catalyst explanation remains explicit; bond, FX and commodity divergences are combined in the second point; the final point retains conditional risk exposure guidance. Fixture SHA: e892d4b0a402f63e486338b7d2c1886e372e086c. No mother or main files changed.
