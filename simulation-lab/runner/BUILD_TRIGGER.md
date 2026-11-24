@@ -27,7 +27,7 @@ main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
 
 market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
-market_source_manifest_test_blob_sha: c9d220be4b71337c17fbd8fa78e59645dda42095
+market_source_manifest_test_blob_sha: e91f734347ee8701ac4e350a5da2447160fcdc68
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 102b3e3e6307fd0864bcde6618c3f089583b90ae
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
@@ -97,3 +97,5 @@ Post-upload audit regression fix (2026-11-24): all three post-upload evidence st
 Full Simulation review build authorized by this trigger commit (2026-11-24): all BUILD_TRIGGER SHA pins were independently checked against current branch blobs. The current 44-row market manifest now accepts CNN official previous_close and FGScore backup evidence separately; S&P 500 evidence_method is INVESTING_COM_HISTORICAL_TABLE; responsive earnings spacing is synchronized in both mothers; critical self-tests and verified Chart 3 handoff fail closed. Expected market result: 43 numeric rows and one official market closure. Stage 2 recapture is late relative to 05:25 and non-market content is carried forward, so this run is not a full blank-input Stage 1 rebuild. Simulation only; publish_to_main=false; main/index.html forbidden.
 
 CNN manifest regression-test fixture correction (2026-11-24): synthetic official/backup CNN observations now use the fixture's actual report_date 2026-11-23, avoiding an unrelated 2026-11-09 report-date mismatch in the test harness. Test SHA: c9d220be4b71337c17fbd8fa78e59645dda42095.
+
+Manifest regression fixture-date correction (2026-11-24): CNN official/FGScore manifest test timestamps now use the actual 2026-11-23 fixture report date and 2026-11-20 market date, avoiding stale 2026-11-09 observation timestamps. Production report data unchanged.
