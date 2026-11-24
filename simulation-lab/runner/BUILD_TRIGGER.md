@@ -9,9 +9,9 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 691a5af57817ef3e9df688cd3b8c41e6008f08e7
 active_rules_version: SIM-1.4
-active_rules_blob_sha: d689d33fa17ef532860ce022c8e0099e47e546b3
-qa_contract_version: 1.26
-qa_contract_blob_sha: 4ba5f5a57db54aff93cff00914e2ad9e9d93ef52
+active_rules_blob_sha: b9562860f84a302888472ce86a8c0e693d13220a
+qa_contract_version: 1.27
+qa_contract_blob_sha: 5328fd12f919944314494107311736ff9813ad67
 manifest_blob_sha: 9560308371dfa43a0d352398e5ef9abcbf8ee229
 monday_mother_path: simulation-lab/baseline/monday-mother-template.html
 monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
@@ -81,3 +81,5 @@ Responsive earnings grid spacing correction (2026-11-24): both Simulation mother
 Fear & Greed raw-value mapping correction (2026-11-24): CNN official previous_close raw value 16.9658627087199 is rounded to display 17; FGScore historical-page fallback score 17 is separately pinned as backup_source_score_value. The validator distinguishes the two raw-value mappings so either source can verify without false pending status. CNN API response SHA-256 and endpoint are recorded as the primary cross-check; source URL remains the FGScore fallback page. Main unchanged.
 
 2026-11-24 Stage 2 direct recapture (16:26 Asia/Taipei): reopened all 44 fixed source pages in the current ChatGPT web session; 43 numeric observations independently matched the fixture, and Nikkei 225 was retained as MARKET_CLOSED based on the official Cabinet Office holiday table (the Investing.com row was a CFD, not the cash index). New capture session: TAC-SIM14-RECAPTURE-20261124-1625-TW. Fixture SHA: 9e3acf4288227f8d449e84f62c0d6849c9b618ca; observation bundle SHA: 9d18091e0677acd27f2002f1eb650e034f926b8f. No prior observation records reused. This is a same-day Stage 2 recapture, not a blank-input Stage 1 rebuild or proof of the 05:25 schedule.
+
+QA Contract v1.27 correction (2026-11-24): fixed the precise prior QA failure by syncing A2.1 simulation mother SHA bindings to the current Manifest (Monday 710c944205ee05a86599ef5cd869f26c4a9ebde1; Weekday ff051c0cd22cf9267420c41e3952fa3178f0e45d). QA Contract SHA: 5328fd12f919944314494107311736ff9813ad67; active SIM-1.4 rules SHA: b9562860f84a302888472ce86a8c0e693d13220a. This is a contract-to-mother provenance sync only; no mother DOM/CSS, main files or homepage changed.
