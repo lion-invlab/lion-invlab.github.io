@@ -13,10 +13,8 @@ assert "indent=2)+'\\n'" in transfer_evidence_step
 assert "json.loads" in transfer_evidence_step
 
 inputs = section_after(WORKFLOW, "workflow_dispatch:")
-assert "publish_to_main:" in inputs
-publish_input = inputs.split("publish_to_main:", 1)[1].split("approved_html_sha:", 1)[0]
-assert "default: false" in publish_input
-assert "approved_html_sha:" in inputs
+assert "publish_to_main:" not in inputs
+assert "approved_html_sha:" not in inputs
 
 persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
 assert "github.event_name == 'push'" in persist
@@ -29,19 +27,14 @@ assert "git push --force" not in persist
 assert "\\n          git -c rebase.autoStash=true rebase" not in persist
 assert "Simulation branch push failed after 3 safe attempts" in persist
 
-delivery = section_after(WORKFLOW, "Deliver the exact QA-passed artifact to main preview only after explicit user approval")
-condition = delivery.split("shell:", 1)[0]
-assert "github.event_name == 'workflow_dispatch'" in condition
-assert "inputs.mode == 'build'" in condition
-assert "inputs.publish_to_main == true" in condition
-assert "github.event_name == 'push'" not in condition
-
-assert "approved_html_sha" in delivery
-assert "APPROVED_HTML_SHA: ${{ inputs.approved_html_sha }}" in delivery
-assert 'os.environ.get("APPROVED_HTML_SHA", "")' in delivery
-assert 're.fullmatch(r"[0-9a-f]{64}", approved_html_sha)' in delivery
-assert "approved_html_sha != actual_html_sha256" in delivery
-assert delivery.index("approved_html_sha != actual_html_sha256") < delivery.index("git fetch origin main")
+# The Simulation workflow is intentionally incapable of writing any main preview or homepage file.
+assert "Deliver the exact QA-passed artifact to main preview" not in WORKFLOW
+assert "publish_to_main" not in WORKFLOW
+assert "approved_html_sha" not in WORKFLOW
+assert "git push origin main" not in WORKFLOW
+assert "git worktree add" not in WORKFLOW
+assert "MAIN_HTML" not in WORKFLOW
+assert "preview/${REPORT_DATE}-review.html" not in WORKFLOW
 
 # Stage 2-4 input receipt is mandatory before Builder execution and remains bound through QA and handoff.
 receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
@@ -90,8 +83,8 @@ assert 'echo "commit=$GITHUB_SHA"' not in metadata
 assert '--expected-trigger-commit "${GITHUB_SHA}"' in artifact_audit
 assert "expected_trigger_commit" in Path("simulation-lab/runner/audit_simulation_artifact_bundle.py").read_text(encoding="utf-8")
 
-print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, read back, and required for explicit main handoff.")
-print("PASS: main delivery requires explicit publish_to_main=true and exact approved HTML SHA-256.")
+print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, and read back.")
+print("PASS: Simulation workflow has no main preview or homepage write path.")
 
 # The approval token is never interpolated into shell source; it is read from an environment variable.
 
