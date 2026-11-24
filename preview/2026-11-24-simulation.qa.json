@@ -1,0 +1,229 @@
+{
+  "status": "QA_PASSED",
+  "review_ready": true,
+  "review_ready_blockers": [],
+  "last_week_earnings_overlay_receipt_path": null,
+  "last_week_earnings_overlay_receipt_archive_path": null,
+  "last_week_earnings_overlay_receipt_sha256": null,
+  "last_week_earnings_overlay_receipt_git_blob_sha": null,
+  "last_week_earnings_overlay": {
+    "status": "NOT_APPLICABLE_WEEKDAY"
+  },
+  "last_week_calendar_impact_overlay": {
+    "status": "NOT_APPLICABLE_WEEKDAY"
+  },
+  "data_audit": {
+    "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。Stage 3 行事曆由組裝器依 SIM-1.4 唯讀規則直接讀取 main 同一 commit 的 W47/W48，不採用 fixture 內嵌 calendar/earnings 欄位作來源。Stage 2 本次報告工作階段直接開啟 43 個 Investing.com 歷史資料頁，另讀取 1 個 CNN 官方 Fear & Greed 歷史 graphdata 端點；44/44 均核對來源網址、標的／合約、2026-11-20 資料日期、Close／Price 與 Change% 欄位和值，與 fixture 完全一致，prior_observation_reused_count=0。每筆保存 observation record SHA-256、讀取方法與本次查核時間；43 個 HTML 頁面未封存原始 HTTP response body，raw_response_sha256 為 null；CNN 官方 JSON response body 已保存 SHA-256；CNN API headline.previous_close=9.67368421052632 對應本期 11/20 前一完整交易日收盤，顯示為 10；同一回應歷史陣列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致，因此以明確標示 previous_close 的欄位為收盤值，歷史陣列僅保留為品質診斷，不混用。GitHub Actions 本身未直接開啟 Investing.com 頁面，而是消費並驗證本次 ChatGPT 直接開頁證據包，不得把兩種讀取方式混稱。VIX、MOVE、CNN 的市場資料日期仍依週末基準決策採 11/20，這次是重新直接讀取該歷史列作驗證，不是刷新成 11/23；FedWatch 沿用 11/21 13:35 台灣時間快照。WTI、Brent、GC、SI 四項價格及日漲跌幅均與對應 Investing.com HK 歷史數據頁同合約、同日期收市列逐項對齊；source.url 與 instrument_url 一致。NVDA 於 11/18 盤後公布財報；第一個完整交易日為 11/19，Investing.com 歷史列收盤 145.98、日跌 3.30%，已更新財報卡。11/20 再跌 14.01% 屬後續市場拋售，不直接歸因於財報。HTML 組裝、互動、六視窗視覺 QA 及 44 項行情結構驗收已通過。本次 QA 證據只適用於本輪 HTML 與 Fixture SHA。W47 唯一五星 NVDA 財報已補入 11/15 公告前 Yahoo Finance Average Estimate 原始快照，並由獨立局部 DOM overlay 寫入實際 HTML 卡片：EPS US$2.47121（43 位分析師）、Revenue US$108.7319B（45 位）；與公司 GAAP 實績數值比較分別高出 9.26% 及 6.50%。Yahoo 未揭露 EPS 會計細項與 Revenue 完整定義，已標註非嚴格同口徑比較；原始 capture 及 raw response SHA 保留，main W47 JSON 未修改。NVDA 上週財報卡的 EPS／營收預估、TAC 1.4 判讀、官方實際財報來源及 Yahoo 公告前共識來源，須由 last_week_earnings 局部 overlay 執行並產生 receipt；QA 只在 receipt SHA 與最終 HTML SHA 吻合時標示 review_ready。",
+    "warning_note": "行情基準日 2026-11-20。六項全球指數改採 Investing.com 全球指數歷史資料頁（Real-time derived）及 DAX Xetra 頁，quote_type 均為 cash_index_close；香港站相同商品頁明確標示股指 CFD，不再作為行情來源。FTSE 100 現貨收盤為 10,346.34、跌 1.02%，取代香港站 CFD 參考值 10,367.10、跌 0.82%。其他平台參考序列仍須保留來源註記。WTI、Brent、GC、SI 四項均採 Investing.com HK 同合約、同資料日期歷史數據頁的收市價與日漲跌幅；完整合約代碼與月份只列在收折來源說明，不採即時或盤後 Last。Fear & Greed 改以 CNN 官方歷史 graphdata 序列核對：2026-11-20 原始分數 9.67368421052632、評級 extreme fear；CNN 官方 graphdata JSON 於 2026-11-23 22:49（台灣時間）重新讀取；headline timestamp 為 22:45:36；早報依整數顯示規則四捨五入為 10。CNN 同一回應的歷史序列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致；本報以明確標示 previous_close 的欄位作為 11/20 前一完整交易日收盤，兩欄差異列為資料品質警示；CNN 官方 JSON response SHA-256 已保存。43 個 Investing.com 歷史頁由 ChatGPT web 直接開啟，另 1 個 CNN 官方歷史端點，44/44 均完成日期、標的、欄位及數值核對；43 個 HTML 頁面未保存原始 HTTP response body，這不等於沒有讀取頁面。FedWatch 為 Investing.com 11/21 13:35 台灣時間快照；依使用者確認的週末基準決策沿用該快照，不要求週日刷新，並保留實際更新時間。W47 六筆經濟實際值及三筆財報實際值僅作審核版投影修正，不回寫正式 JSON；W48 五筆 impact_judgment 錯置網址僅在 HTML 層修正。USD/TWD 採 Investing.com HK 歷史資料頁 11/20 收市 32.971、日跌 0.18%；11/19 收市 33.032，與同一平台歷史列一致。",
+    "pending_items": [
+      "MOVE 11/23收盤歷史列未取得，僅有11/20舊列；11/23盤中截圖值不作收盤價。",
+      "日經225於11/23休市，畫面顯示休市，不沿用11/20收盤。"
+    ],
+    "report_cutoff_taipei": "2026-11-24 05:25",
+    "news_window_taipei": "2026/11/23 12:00–2026/11/24 05:25（台灣時間）"
+  },
+  "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
+  "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
+  "market_snapshot_audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
+  "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
+  "market_source_verification_manifest_sha256": "fb389065bb0d1c479ba7b764a5ea58d8c823a50aaf62f8e256464351df0c63ce",
+  "market_source_verification_summary": {
+    "status": "PARTIAL",
+    "row_count": 44,
+    "verified_count": 42,
+    "pending_count": 2,
+    "prior_observation_reused_count": 0,
+    "observation_record_hash_missing_count": 0,
+    "raw_response_sha256_saved_count": 0,
+    "source_pages_fetched": false,
+    "displayed_values_independently_reconciled": false,
+    "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
+  },
+  "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
+  "prebuild_input_receipt_sha256": "841759b4cafe2b4c1deef5c01594066595fbd31afa2938ccd4010b82e66bde50",
+  "prebuild_input_receipt": {
+    "schema_version": "1.0",
+    "status": "PASS",
+    "gate": "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT",
+    "report_date": "2026-11-24",
+    "repository": "lion-invlab/lion-invlab.github.io",
+    "branch": "simulation/tac-process-lab-2026-11-06",
+    "workflow_run_id": "45298389651",
+    "workflow_run_attempt": "1",
+    "fixture": {
+      "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
+      "sha256": "8dd8b85c9f5935a49681fb714f4bc2be937dacfd5952d410475dded67e8c314a"
+    },
+    "stage_2_market": {
+      "trading_date": "2026-11-23",
+      "indicator_count": 44,
+      "group_counts": {
+        "global_markets": 17,
+        "sectors": 11,
+        "bonds": 3,
+        "fx": 6,
+        "energy": 2,
+        "metals": 2,
+        "risk": 3
+      },
+      "observation_count": 44,
+      "observation_record_hash_count": 42,
+      "closed_count": 1,
+      "prior_observations_reused": 0,
+      "source_pages_fetched_this_run": false,
+      "numeric_values_reconciled_this_run": false,
+      "numeric_values_reconciled_count": 42,
+      "source_verification_status": "PARTIAL",
+      "pending_observation_count": 2,
+      "raw_response_sha256_saved_count": 0,
+      "audit_path": "simulation-lab/output/market-snapshot-audit.json",
+      "audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
+      "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
+      "manifest_sha256": "fb389065bb0d1c479ba7b764a5ea58d8c823a50aaf62f8e256464351df0c63ce"
+    },
+    "stage_3_calendar": {
+      "repository": "lion-invlab/lion-invlab.github.io",
+      "branch": "main",
+      "main_commit_sha": "77ab012bb027591631c704d976468cf4ea2e2046",
+      "current": {
+        "path": "data/calendar/weeks/2026-W48.json",
+        "blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
+        "week_id": "2026-W48",
+        "week_start": "2026-11-23",
+        "week_end": "2026-11-29",
+        "economic_count": 27,
+        "earnings_count": 11
+      },
+      "previous": {
+        "path": "data/calendar/weeks/2026-W47.json",
+        "blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+        "week_id": "2026-W47",
+        "week_start": "2026-11-16",
+        "week_end": "2026-11-22",
+        "economic_count": 25,
+        "earnings_count": 23
+      },
+      "mode": "READ_ONLY_PINNED_MAIN_COMMIT"
+    },
+    "stage_4_news_and_analysis": {
+      "focus_news_count": 5,
+      "headlines_count": 10,
+      "unique_news_urls": 15,
+      "news_window_taipei": "2026/11/23 12:00–2026/11/24 05:25（台灣時間）",
+      "news_cutoff_taipei": "2026-11-24 05:25:00",
+      "analysis_layers": [
+        "macro",
+        "markets",
+        "policy_industry",
+        "political",
+        "strategy"
+      ],
+      "political_domains": [
+        "energy_resources",
+        "geopolitics",
+        "major_economies",
+        "trade_sanctions",
+        "us_china",
+        "us_policy"
+      ],
+      "political_findings_count": 10,
+      "report_cutoff_taipei": "2026-11-24 05:25"
+    },
+    "created_at_utc": "2026-11-24T00:36:22Z",
+    "limitations": [
+      "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
+      "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
+      "Stage 3 calendar records are read-only projections from one pinned main commit.",
+      "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA."
+    ]
+  },
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "report_path": "preview/2026-11-24-simulation.html",
+  "report_date": "2026-11-24",
+  "report_git_blob_sha": "569b6dd881da87ca181ccdd4e7f3a52d8e9f90ca",
+  "report_sha256": "3034ebb70047873822eaf8d8baa8d92d0de440041c5fcd2aa0c043477ec6b8c7",
+  "build_commit_sha": "c0d77cff5f344b43049c5ee454f32577b56682eb",
+  "builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+  "fixture_blob_sha": "4224f121bc0eea945451c12abde84a02dd1bab98",
+  "template_blob_sha": "3f4e65c1385532b0f0969fdc76caf2883a39e798",
+  "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
+  "qa_contract_blob_sha": "e4a11261fba37fbd9deee7c6b61c9dc29a1966d6",
+  "active_rules_blob_sha": "d4cd91486e78ece71df7a88fab6d23855f8b8f7f",
+  "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
+  "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
+  "candidate_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+  "data_review_ready": true,
+  "content_analysis_gate": "PASS",
+  "analysis_sections_checked": [
+    "summary",
+    "political_geopolitical",
+    "policy_industry",
+    "macro_transmission",
+    "financial_market_pricing",
+    "institutional_flows_strategy",
+    "market_sentiment",
+    "market_observation",
+    "US",
+    "Asia",
+    "Europe",
+    "sectors",
+    "bonds",
+    "FX",
+    "energy",
+    "metals"
+  ],
+  "political_geopolitical_scan": "PASS",
+  "political_domains_checked": [
+    "us_policy",
+    "us_china",
+    "geopolitics",
+    "trade_sanctions",
+    "major_economies",
+    "energy_resources"
+  ],
+  "political_event_status_classifications": [
+    "formally_effective",
+    "political_statement",
+    "unverified",
+    "unverified",
+    "announced_not_implemented",
+    "formally_effective",
+    "unverified",
+    "unverified",
+    "political_statement",
+    "unverified"
+  ],
+  "policy_transmission_completeness": 10,
+  "scenario_analysis_coverage": 10,
+  "political_scan_no_material_change_note": "截至05:25台灣時間完成六領域掃描。新增：中國三大交易所宣布11/30起降低融資買入最低保證金比例（已宣布、尚未生效）；胡塞武裝聲稱攻擊Rabigh煉油設施（沙方未確認）；白宮EO 14438於11/20正式發布（官方頁僅列日期、未列精確時刻）；AP報導班加西俄艦疑似遭無人機攻擊（歸責未明）。日本、歐洲、韓國及台灣未核實到足以改變全球資產配置的新增正式政策。Reuters荷姆茲航運量報導於05:57台灣時間發布，晚於截稿，未納入本期。",
+  "unsupported_causal_claims": [],
+  "duplicate_quote_restatements": [],
+  "actionability_findings": [],
+  "sim14_builder_approval": "APPROVED",
+  "sim14_review_ready": true,
+  "sim14_blockers": [],
+  "builder_approval_record": {
+    "decision": "APPROVED",
+    "approved_builder_path": "simulation-lab/runner/build_review_html.py",
+    "approved_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+    "actual_builder_path": "simulation-lab/runner/build_review_html.py",
+    "actual_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+    "active_rules_blob_sha": "d4cd91486e78ece71df7a88fab6d23855f8b8f7f",
+    "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
+  },
+  "calendar_main_commit_sha": "77ab012bb027591631c704d976468cf4ea2e2046",
+  "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
+  "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+  "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
+  "visual_evidence_sha256": "7c71313a7292110fa79d97feafd4d11c5cc7514f55f5d849097b88e1c9ed6312",
+  "viewports": [
+    1440,
+    768,
+    412,
+    390,
+    360,
+    320
+  ],
+  "workflow_run_id": "45298389651",
+  "workflow_run_attempt": "1"
+}
