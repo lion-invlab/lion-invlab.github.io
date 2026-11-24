@@ -66,8 +66,8 @@ assert 'if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; t
 assert "Pre-build receipt SHA changed after Builder execution" in receipt_recheck
 assert all(module in seal for module in ("hashlib", "json", "os", "re", "subprocess", "sys"))
 assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
-assert "prebuild_receipt.get(\"status\") != \"PASS\"" in builder_gate
-assert "prebuild_input_receipt_sha256" in builder_gate
+assert "Pre-build Stage 2-4 input receipt missing" in builder_gate
+assert "ACTUAL_RECEIPT_SHA256" in builder_gate
 assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in Path("simulation-lab/runner/validate_prebuild_stage_inputs.py").read_text(encoding="utf-8")
 
 capture = section_after(WORKFLOW, "Capture simulation checkout provenance")
