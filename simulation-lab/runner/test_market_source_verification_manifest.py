@@ -97,7 +97,7 @@ def main():
     nikkei_row = next(r for r in closed_manifest["rows"]
                       if r["group"] == "global_markets" and r["name"] == "日經225")
     assert nikkei_row["verification_status"] == "CLOSED"
-    assert nikkei_row["evidence_status"] == "MARKET_CLOSED"
+    assert nikkei_row["evidence_status"] == "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
     assert closed_manifest["verified_count"] == 0
     assert closed_manifest["closed_count"] == 1
     assert closed_manifest["pending_count"] == 43
