@@ -1,0 +1,5 @@
+TAC SIM-1.4 fast report build request
+report_date=2026-11-25
+trading_date=2026-11-24
+market_browser_verification=DEFERRED_PENDING
+reason=Prioritize review report production; all 44 market rows remain explicitly unverified until a separate non-blocking verification pass.
