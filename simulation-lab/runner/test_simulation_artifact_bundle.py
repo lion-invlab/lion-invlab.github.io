@@ -27,8 +27,9 @@ def make_bundle(root: Path) -> None:
         "simulation-lab/output/market-source-verification-manifest.json": json.dumps({
             "status":"PARTIAL","row_count":44,"verified_count":42,"closed_count":1,"pending_count":1,
             "rows":[
-                {"verification_status":"VERIFIED"} for _ in range(42)
+                {"verification_status":"VERIFIED"} for _ in range(41)
             ] + [
+                {"verification_status":"BACKUP_VERIFIED"},
                 {"verification_status":"CLOSED"},
                 {"verification_status":"PENDING_CURRENT_RUN_BROWSER_OBSERVATION"}
             ]
