@@ -18,7 +18,7 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: d626ec856a8bb2cb4e3b6866cc5161cb754a2ee7
+fixture_blob_sha: 0ff33221358c1b97c101f4a3d6dd26980d9ee3aa
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -107,3 +107,5 @@ Summary separator test correction (2026-11-24): updated the two unit-test expect
 Single-item summary separator test correction (2026-11-24): the one-item fallback assertion now expects the same approved “標題 ｜ 正文” separator as the two-item summary format. Builder behavior unchanged; test expectation only.
 
 Market-observation subheading spacing correction (2026-11-24): Builder now renders the approved “標題 ｜ 正文” separator with spaces for both bold-heading and plain mother slots, without changing mother DOM. Builder SHA: ff31d309ec4828d441895423a11b0fdaa094cb49; quote-type guard test SHA: 68f498eb50e04a7339a7a7c15c2670df7d4c40eb.
+
+S&P 500 evidence contract correction (2026-11-24): evidence_method now contains both the machine label INVESTING_COM_HISTORICAL_TABLE and the required literal phrase “Investing.com historical data table row” consumed by handoff_sp500_to_chart3.py. read_method remains CHATGPT_WEB_OPEN_HISTORICAL_PAGE. Main unchanged.
