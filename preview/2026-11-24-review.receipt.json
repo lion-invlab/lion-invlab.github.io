@@ -1,0 +1,21 @@
+{
+  "report_date": "2026-11-24",
+  "trading_date": "2026-11-23",
+  "source_branch": "simulation/tac-process-lab-2026-11-06",
+  "source_workflow_run_id": "45301532987",
+  "target_branch": "main",
+  "files": {
+    "html": {
+      "path": "preview/2026-11-24-review.html",
+      "source_git_blob_sha": "0b520b919e64f79b6a526bc5057bc7aa34c66d72",
+      "validated_artifact_sha256": "3b6f7f7b70b125d84698062df8efbfdc6c90687f314fa4e1dbf15d21ad95b16a"
+    },
+    "qa": {
+      "path": "preview/2026-11-24-review.qa.json",
+      "source_git_blob_sha": "03207ef3adb4bc1f916d2079ea33eee59e5eff3c",
+      "validated_artifact_sha256": "b57384b8591643987da73a28477a67c254848ddfa4d5cc30226ddbde3edf473b"
+    }
+  },
+  "copy_method": "Direct UTF-8 content copy from validated Simulation branch; no rebuild or editorial changes",
+  "homepage_index_modified": false
+}
