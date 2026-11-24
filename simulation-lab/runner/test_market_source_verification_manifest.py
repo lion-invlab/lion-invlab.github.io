@@ -155,16 +155,18 @@ def main():
             "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
         }
     # One closed exchange plus 43 verified quotes is PARTIAL, never PASS.
-    partial_data = copy.deepcopy(data)
+    partial_data = copy.deepcopy(closed_data)
     partial_data["global_markets"]["日經225"]["display"] = "休市"
     partial_data["global_markets"]["日經225"]["change_display"] = "—"
     partial_observations = copy.deepcopy(synthetic_observations)
+    for observation in partial_observations.values():
+        observation["target_date"] = "2026-11-23"
+        observation["observed_date"] = "2026-11-23"
     partial_observations.pop(("global_markets", "日經225"))
-    partial_observations[("global_markets", "日經225")] = {
-        "read_status": "MARKET_CLOSED",
-        "finished_at_tw": "2026-11-23T19:00:00+08:00",
-    }
-    partial = build_manifest(partial_data, "2026-11-23", partial_observations)
+    partial_observations[("global_markets", "日經225")] = copy.deepcopy(
+        closed_observations[("global_markets", "日經225")]
+    )
+    partial = build_manifest(partial_data, "2026-11-24", partial_observations)
     assert partial["verified_count"] == 43
     assert partial["closed_count"] == 1
     assert partial["pending_count"] == 0
