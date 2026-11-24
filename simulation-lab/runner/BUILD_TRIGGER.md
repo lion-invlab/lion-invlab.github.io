@@ -9,7 +9,7 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 659e124d3789cd1ad3f3c0ce982fe0b8cdd88e96
 active_rules_version: SIM-1.4
-active_rules_blob_sha: b9562860f84a302888472ce86a8c0e693d13220a
+active_rules_blob_sha: 7e18dc3c860bc357579f7a22cd47dd2109e4bba9
 qa_contract_version: 1.27
 qa_contract_blob_sha: 5328fd12f919944314494107311736ff9813ad67
 manifest_blob_sha: 9560308371dfa43a0d352398e5ef9abcbf8ee229
@@ -29,7 +29,7 @@ market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
 market_source_manifest_test_blob_sha: e91f734347ee8701ac4e350a5da2447160fcdc68
 builder: simulation-lab/runner/build_review_html.py
-builder_blob_sha: ff31d309ec4828d441895423a11b0fdaa094cb49
+builder_blob_sha: 1ad33cd608e8b70588accb02805696ad1e8258ad
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
 market_history_web_observations_blob_sha: 9d18091e0677acd27f2002f1eb650e034f926b8f
 web_observation_validator_blob_sha: 5d5fe13aad1e2fcba9ce3309f34550e1353bf195
@@ -100,7 +100,7 @@ CNN manifest regression-test fixture correction (2026-11-24): synthetic official
 
 Manifest regression fixture-date correction (2026-11-24): CNN official/FGScore manifest test timestamps now use the actual 2026-11-23 fixture report date and 2026-11-20 market date, avoiding stale 2026-11-09 observation timestamps. Production report data unchanged.
 
-quote_type_guard_test_blob_sha: 68f498eb50e04a7339a7a7c15c2670df7d4c40eb
+quote_type_guard_test_blob_sha: f60d14db2b84333a44849cb2bb6aac100481aca5
 
 Summary separator test correction (2026-11-24): updated the two unit-test expectations to match the approved bold subheading format “標題 ｜ 正文”; the Builder behavior itself is unchanged.
 
@@ -109,3 +109,5 @@ Single-item summary separator test correction (2026-11-24): the one-item fallbac
 Market-observation subheading spacing correction (2026-11-24): Builder now renders the approved “標題 ｜ 正文” separator with spaces for both bold-heading and plain mother slots, without changing mother DOM. Builder SHA: ff31d309ec4828d441895423a11b0fdaa094cb49; quote-type guard test SHA: 68f498eb50e04a7339a7a7c15c2670df7d4c40eb.
 
 S&P 500 evidence contract correction (2026-11-24): evidence_method now contains both the machine label INVESTING_COM_HISTORICAL_TABLE and the required literal phrase “Investing.com historical data table row” consumed by handoff_sp500_to_chart3.py. read_method remains CHATGPT_WEB_OPEN_HISTORICAL_PAGE. Main unchanged.
+
+Builder approval pin update (2026-11-24): active SIM-1.4 rules now approve the Simulation-only Builder SHA 1ad33cd608e8b70588accb02805696ad1e8258ad under the user's same-day authorization for required Simulation changes and the requested “標題 ｜ 正文” formatting. Updated rules SHA: 7e18dc3c860bc357579f7a22cd47dd2109e4bba9. This is not main publishing authorization.
