@@ -1,0 +1,4 @@
+TAC Simulation full report build request
+report_date=2026-11-25
+trading_date=2026-11-24
+scope=simulation-only
