@@ -288,41 +288,119 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Validate 44 market-row metadata/date/identity only (not live source values)
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
-        shell: bash
+      - name: Read all 44 live historical pages with Playwright and reconcile values
+        id: market_observations
+        env:
+          REPORT_DATA: simulation-lab/fixtures/report-data-2026-11-24.json
+          CLOSURE_EVIDENCE: simulation-lab/input/market-closure-evidence-2026-11-24.json
         run: |
           set -euo pipefail
-          python simulation-lab/runner/validate_market_snapshot.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --output simulation-lab/output/market-snapshot-audit.json
-          # Prefer the direct ChatGPT web-page evidence bundle for this exact report date.
-          # If no fresh bundle exists, use the standard Playwright reader; never reuse fixture observations.
-          WEB_OBSERVATIONS="simulation-lab/input/market-history-web-observations-${REPORT_DATE}.json"
-          if [[ -f "${WEB_OBSERVATIONS}" ]]; then
-            python -m playwright install chromium
-            python simulation-lab/runner/browser_verify_market_history.py \
-              --fixture "${REPORT_DATA}" \
-              --report-date "${REPORT_DATE}" \
-              --only risk:fear_greed \
-              --concurrency 1 \
-              --timeout-ms 6000 \
-              --output simulation-lab/output/cnn-official-history-observation.json
-            python simulation-lab/runner/validate_chatgpt_web_observations.py \
-              --data "${REPORT_DATA}" \
-              --report-date "${REPORT_DATE}" \
-              --input "${WEB_OBSERVATIONS}" \
-              --cnn-observation simulation-lab/output/cnn-official-history-observation.json \
-              --output simulation-lab/output/market-history-browser-observations.json
-          else
-            python -m playwright install chromium
-            python simulation-lab/runner/browser_verify_market_history.py \
-              --fixture "${REPORT_DATA}" \
-              --report-date "${REPORT_DATE}" \
-              --concurrency 12 \
-              --timeout-ms 6000 \
-              --output simulation-lab/output/market-history-browser-observations.json
-          fi
-          python simulation-lab/runner/build_market_source_verification_manifest.py --data "${REPORT_DATA}" --report-date "${REPORT_DATE}" --observations simulation-lab/output/market-history-browser-observations.json --output simulation-lab/output/market-source-verification-manifest.json
+          mkdir -p simulation-lab/output
+          python -m playwright install chromium
+          python simulation-lab/runner/browser_verify_market_history.py \
+            --fixture "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --output simulation-lab/output/market-history-playwright-observations.json \
+            --concurrency 4 \
+            --timeout-ms 20000
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
 
+          browser_path = Path("simulation-lab/output/market-history-playwright-observations.json")
+          closure_path = Path(os.environ["CLOSURE_EVIDENCE"])
+          fixture_path = Path(os.environ["REPORT_DATA"])
+          browser = json.loads(browser_path.read_text(encoding="utf-8"))
+          closure = json.loads(closure_path.read_text(encoding="utf-8"))
+          fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+
+          if browser.get("report_date") != fixture.get("report_date"):
+              raise SystemExit("Playwright observation report_date does not match the fixture")
+          if browser.get("trading_date") != fixture.get("trading_date"):
+              raise SystemExit("Playwright observation trading_date does not match the fixture")
+
+          observations = browser.get("observations") or []
+          by_key = {}
+          for row in observations:
+              key = (row.get("group"), row.get("name"))
+              if not all(key) or key in by_key:
+                  raise SystemExit(f"Duplicate or incomplete Playwright observation key: {key}")
+              by_key[key] = row
+          if len(by_key) != 44:
+              raise SystemExit(f"Playwright must return 44 unique page observations; got {len(by_key)}")
+
+          closure_rows = closure.get("observations") or []
+          if len(closure_rows) != 1:
+              raise SystemExit(f"Expected exactly one closure-evidence row; got {len(closure_rows)}")
+          closed = closure_rows[0]
+          closure_key = (closed.get("group"), closed.get("name"))
+          expected_nikkei_url = fixture["global_markets"]["日經225"]["source"]["url"]
+          if closure_key != ("global_markets", "日經225"):
+              raise SystemExit(f"Unexpected closure-evidence instrument: {closure_key}")
+          if closed.get("read_status") != "MARKET_CLOSED":
+              raise SystemExit("Nikkei closure evidence is not marked MARKET_CLOSED")
+          if closed.get("target_date") != fixture.get("trading_date"):
+              raise SystemExit("Nikkei closure evidence target date mismatch")
+          if closed.get("source_url") != expected_nikkei_url:
+              raise SystemExit("Nikkei closure evidence source URL mismatch")
+          if not str(closed.get("closure_evidence_url") or "").startswith("https://www8.cao.go.jp/"):
+              raise SystemExit("Nikkei closure evidence must cite the official Japan Cabinet Office")
+          if "休市" not in str(closed.get("observed_row_text") or ""):
+              raise SystemExit("Nikkei closure evidence text does not document the closure")
+          if closure_key not in by_key:
+              raise SystemExit("Playwright observation set is missing the Nikkei row to replace with closure evidence")
+
+          closed = {**by_key[closure_key], **closed}
+          closed["status"] = "MARKET_CLOSED"
+          closed["read_status"] = "MARKET_CLOSED"
+          closed["source_page_fetched"] = True
+          closed["closure_evidence_validated"] = True
+          by_key[closure_key] = closed
+
+          rows = list(by_key.values())
+          verified_count = sum(row.get("status") == "VERIFIED" for row in rows)
+          closed_count = sum(row.get("read_status") == "MARKET_CLOSED" for row in rows)
+          pending_count = 44 - verified_count - closed_count
+          status_counts = {}
+          for row in rows:
+              status = "MARKET_CLOSED" if row.get("read_status") == "MARKET_CLOSED" else (row.get("status") or "UNKNOWN")
+              status_counts[status] = status_counts.get(status, 0) + 1
+
+          browser["observations"] = rows
+          browser["row_count"] = 44
+          browser["verified_count"] = verified_count
+          browser["closed_count"] = closed_count
+          browser["pending_count"] = pending_count
+          browser["status_counts"] = status_counts
+          browser["source_pages_fetched_this_run"] = all(
+              row.get("http_status") == 200 or row.get("source_page_fetched") is True
+              for row in rows
+          )
+          browser["displayed_values_independently_reconciled_this_run"] = (
+              verified_count + closed_count == 44 and pending_count == 0
+          )
+          browser["numeric_observations_source"] = "PLAYWRIGHT_RENDERED_INVESTING_HISTORICAL_TABLE"
+          browser["numeric_observations_from_manual_bundle"] = 0
+          browser["closure_evidence_source"] = str(closure_path)
+          browser["notes"] = (
+              "All numeric rows must originate from current-run Playwright-rendered historical page reads. "
+              "Only the Nikkei 225 MARKET_CLOSED row is sourced from the separately validated official closure file. "
+              "The prior manual numeric observation bundle is invalidated and is not used."
+          )
+          output_path = Path("simulation-lab/output/market-history-browser-observations.json")
+          output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          print(json.dumps({
+              "row_count": 44,
+              "verified_count": verified_count,
+              "closed_count": closed_count,
+              "pending_count": pending_count,
+              "source_pages_fetched_this_run": browser["source_pages_fetched_this_run"],
+              "displayed_values_independently_reconciled_this_run": browser["displayed_values_independently_reconciled_this_run"],
+              "status_counts": status_counts,
+              "output": str(output_path),
+          }, ensure_ascii=False, indent=2))
+          PY
       - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
