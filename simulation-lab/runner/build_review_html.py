@@ -592,7 +592,12 @@ def populate_summary_points_preserving_dom(node, points):
         if not isinstance(point, dict) or not str(point.get("label", "")).strip() or not str(point.get("text", "")).strip():
             raise ValueError(f"summary_points[{index}] requires non-empty label and text")
         label.string = str(point["label"]).strip()
+        # Keep a visible separator between each bold summary subheading and its text.
+        # Remove an existing separator first so repeated Builder runs remain deterministic.
         content = label.next_sibling
+        if isinstance(content, NavigableString) and str(content).strip() == "｜":
+            content.extract()
+            content = label.next_sibling
         if getattr(content, "name", None) == "br":
             content = content.next_sibling
         while isinstance(content, NavigableString) and not str(content).strip():
@@ -600,6 +605,7 @@ def populate_summary_points_preserving_dom(node, points):
         if not isinstance(content, NavigableString):
             raise ValueError(f"summary_points[{index}] mother paragraph is missing its original text slot")
         content.replace_with(str(point["text"]).strip())
+        label.insert_after(NavigableString(" ｜ "))
 
     # A shorter summary is valid: remove unused trailing mother-owned label,
     # paragraph text and separator without inventing filler observations.
