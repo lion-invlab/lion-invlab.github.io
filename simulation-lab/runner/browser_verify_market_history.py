@@ -359,7 +359,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             if page_status == "TARGET_DATE_NOT_FOUND":
                 out["status"]="TARGET_DATE_NOT_FOUND"
                 out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
-                out["page_body_excerpt"]="\\n".join(body_lines[:80])[:5000]
+                out["page_body_excerpt"]="\n".join(body_lines[:80])[:5000]
                 try:
                     out["page_date_controls"]=await page.locator("input").evaluate_all("(els) => els.slice(0,20).map(e => ({type:e.type,placeholder:e.placeholder,value:e.value,ariaLabel:e.getAttribute('aria-label')}))")
                 except Exception:
