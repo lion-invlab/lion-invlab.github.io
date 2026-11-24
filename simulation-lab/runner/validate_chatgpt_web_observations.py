@@ -42,7 +42,9 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
     if captured.tzinfo is None:
         raise ValueError("web observation capture timestamp must be timezone-aware")
     age = now - captured.astimezone(timezone.utc)
-    if age < timedelta(minutes=-5) or age > timedelta(minutes=90):
+    # Historical close observations remain valid after capture when report/trading dates and each row are exact.
+    # Allow a two-hour orchestration window; reject future-dated evidence and genuinely stale sessions.
+    if age < timedelta(minutes=-5) or age > timedelta(minutes=120):
         raise ValueError("web observation bundle is stale or future-dated")
 
     expected = expected_sources(data)
