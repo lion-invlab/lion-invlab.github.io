@@ -23,10 +23,10 @@
 ### 0.2 權限邊界
 - SIM-1.4 的規則、程式、Fixture、測試、技術回歸及原始 QA 產物只在 `simulation/tac-process-lab-2026-11-06` 分支修改與保存。
 - main 原則唯讀；唯一固定例外為 Stage 5 REVIEW_READY 後的審核版交付及審核期間的同檔修改：只可新增／更新指定日期的 `main:preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及 delivery receipt；審核修改只更新該 HTML 與 delivery receipt。不得修改其他 main 路徑。
-- 正式母版、main Manifest、main QA 附件、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；審核版交付及審核修改不得觸及這些檔案。
+- 正式母版、main Manifest、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護；除 Stage 6 明列的審核版 QA sidecar 外，其他 main QA 附件均不得修改。
 - main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者。早報流程 05:25 嚴格唯讀。
 - Stage 5 全部適用強制 Gate 通過且 sidecar 標示 `REVIEW_READY` 後，必須直接將審核版交付至 `main:preview/YYYY-MM-DD-review.html`，同步交付 QA sidecar 與 delivery receipt；不需使用者另行核准 HTML SHA。Simulation branch 保留原始建置及 QA 證據；main preview 是唯一提供使用者檢視及後續修訂的審核檔。審核期間提出的錯誤或修改，直接更新同一份 main preview HTML，不重跑 Builder、Stage 5 或任何第二輪 QA；修改後只回讀確認檔案更新成功。Simulation-only Workflow 不得假設具有 main 寫入能力；Stage 6 由具 main 寫入能力的 GitHub 檔案更新動作執行，不得為此擅自將 Workflow 加入 main。
-- main preview 的交付檢查只驗證路徑、檔案存在、HTML／sidecar SHA 與 simulation QA 收據綁定一致、交付收據完整；不構成第二次內容／技術 QA。Pages 可開啟性另行如實標示。
+- main preview 首次交付檢查只驗證路徑、檔案存在、HTML／QA sidecar SHA 與 Simulation QA 收據綁定一致、delivery receipt 完整；這是交付完整性確認，不構成第二次內容／技術 QA。審核修改後 HTML SHA 可與首次交付不同，不要求回頭重跑 QA 或改寫首次 QA sidecar；Pages 可開啟性另行如實標示。
 - 正式首頁只有使用者對 main preview 中已唯一識別的 HTML SHA 明確核准後才可更新。歷史封存只在正式發布後另行執行。
 - simulation workflow 禁止 deploy Pages、修改 `main:index.html`、使用 production secrets 或自動發布正式首頁；main 寫入權限僅限 Stage 6 preview 交付白名單路徑。
 
