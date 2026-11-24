@@ -95,8 +95,9 @@ def audit_bundle(root: Path, report_path: str | None = None,
     capture_bytes = capture_path.read_bytes() if capture_path.is_file() else None
     visual_bytes = read_required("simulation-lab/output/visual/visual-regression.json")
     interaction_bytes = read_required("simulation-lab/output/interaction-smoke.json")
-    monday_transfer = read_required("simulation-lab/output/monday-mother-transfer-evidence.json")
-    weekday_transfer = read_required("simulation-lab/output/weekdays-mother-transfer-evidence.json")
+    # Mother transfer JSON files were a legacy contract and are not produced by
+    # the current dual-mother browser gates. The current visual regression and
+    # DOM-contract receipts are the authoritative evidence.
 
     parsed: dict[str, dict] = {}
     for rel, raw in [
@@ -106,8 +107,6 @@ def audit_bundle(root: Path, report_path: str | None = None,
         ("simulation-lab/output/market-source-page-captures.json", capture_bytes),
         ("simulation-lab/output/visual/visual-regression.json", visual_bytes),
         ("simulation-lab/output/interaction-smoke.json", interaction_bytes),
-        ("simulation-lab/output/monday-mother-transfer-evidence.json", monday_transfer),
-        ("simulation-lab/output/weekdays-mother-transfer-evidence.json", weekday_transfer),
     ]:
         if raw is None:
             continue
@@ -258,8 +257,7 @@ def audit_bundle(root: Path, report_path: str | None = None,
             "market_source_manifest": manifest_bytes is not None,
             "visual_regression": visual_bytes is not None,
             "interaction_smoke": interaction_bytes is not None,
-            "monday_mother_transfer": monday_transfer is not None,
-            "weekday_mother_transfer": weekday_transfer is not None,
+            "dual_mother_visual_and_dom_gates": visual_bytes is not None,
         },
         "errors": errors,
         "warnings": warnings,
