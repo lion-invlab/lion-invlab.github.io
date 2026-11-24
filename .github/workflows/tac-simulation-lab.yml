@@ -2,6 +2,7 @@
 # Explicit report build dispatch marker.
 name: TAC isolated simulation lab
 # TAC daily report workflow: every Simulation-branch push runs the single pipeline.
+# Simulation-only: this workflow never writes main/preview or main/index.html.
 # No path filters: source notes, fixtures, workflow fixes and report inputs must not silently miss execution.
 # Full report build is selected by [build-tac-report:YYYY-MM-DD] in the commit message.
 
@@ -32,23 +33,13 @@ on:
         required: false
         default: false
         type: boolean
-      publish_to_main:
-        description: "明確授權將本次審核通過的同一份 HTML 交付 main/preview；預設關閉"
-        required: true
-        default: false
-        type: boolean
-      approved_html_sha:
-        description: "使用者已審核核准的 HTML SHA-256（64位小寫十六進位）；只有 publish_to_main=true 才必填"
-        required: false
-        default: ""
-        type: string
 
 permissions:
   actions: read
   contents: write
 
 concurrency:
-  # Serialize builds and the subsequent narrow main/preview handoff.
+  # Serialize Simulation-branch report builds only; this workflow has no main handoff.
   # New pushes may replace a pending run, but must never cancel an active report build.
   # Full report builds are explicitly selected by [build-tac-report:YYYY-MM-DD] commit messages.
   # 11/24 rebuild includes current-date review-banner QA guard.
@@ -887,131 +878,6 @@ jobs:
           test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${REMOTE_OVERLAY_RECEIPT_SHA}" || { echo "Remote W47 overlay receipt read-back SHA mismatch"; exit 1; }
           echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
 
-      - name: Deliver the exact QA-passed artifact to main preview only after explicit user approval
-        if: success() && github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.publish_to_main == true
-        shell: bash
-        env:
-          APPROVED_HTML_SHA: ${{ inputs.approved_html_sha }}
-        run: |
-          set -euo pipefail
-          python - "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}" "${REPORT_DATE}" <<'PY'
-          import hashlib, json, os, re, subprocess, sys
-          from pathlib import Path
-          html_path, qa_path, report_date = sys.argv[1:]
-          approved_html_sha = os.environ.get("APPROVED_HTML_SHA", "")
-          html = Path(html_path).read_bytes()
-          qa_bytes = Path(qa_path).read_bytes()
-          qa = json.loads(qa_bytes)
-          html_blob = subprocess.check_output(["git","hash-object",html_path],text=True).strip()
-          actual_html_sha256 = hashlib.sha256(html).hexdigest()
-          prebuild_receipt = qa.get("prebuild_input_receipt")
-          if not isinstance(prebuild_receipt, dict) or prebuild_receipt.get("status") != "PASS":
-              raise SystemExit("Delivery blocked: pre-build Stage 2-4 receipt is missing or not PASS")
-          receipt_bytes = (json.dumps(prebuild_receipt, ensure_ascii=False, indent=2) + "\\n").encode("utf-8")
-          receipt_sha256 = hashlib.sha256(receipt_bytes).hexdigest()
-          if qa.get("prebuild_input_receipt_sha256") != receipt_sha256:
-              raise SystemExit("Delivery blocked: pre-build receipt SHA-256 does not match QA sidecar")
-          if prebuild_receipt.get("report_date") != report_date or prebuild_receipt.get("workflow_run_id") != qa.get("workflow_run_id"):
-              raise SystemExit("Delivery blocked: pre-build receipt report date/run identity mismatch")
-          if prebuild_receipt.get("stage_2_market", {}).get("indicator_count") != 44:
-              raise SystemExit("Delivery blocked: pre-build receipt does not bind all 44 market indicators")
-          if prebuild_receipt.get("stage_3_calendar", {}).get("main_commit_sha") != qa.get("calendar_main_commit_sha"):
-              raise SystemExit("Delivery blocked: pre-build receipt calendar commit differs from QA provenance")
-          if not re.fullmatch(r"[0-9a-f]{64}", approved_html_sha):
-              raise SystemExit("Delivery blocked: explicit approved_html_sha must be a 64-character lowercase SHA-256")
-          if approved_html_sha != actual_html_sha256:
-              raise SystemExit("Delivery blocked: approved HTML SHA-256 does not match this exact review artifact")
-          if qa.get("status") != "QA_PASSED": raise SystemExit("Delivery blocked: QA status is not QA_PASSED")
-          required = {
-              "review_ready": True, "data_review_ready": True,
-              "content_analysis_gate": "PASS", "political_geopolitical_scan": "PASS", "sim14_builder_approval": "APPROVED",
-              "sim14_review_ready": True
-          }
-          for key, expected in required.items():
-              if qa.get(key) != expected: raise SystemExit(f"Delivery blocked: {key} != {expected!r}")
-          expected_domains = ["us_policy", "us_china", "geopolitics", "trade_sanctions", "major_economies", "energy_resources"]
-          if qa.get("political_domains_checked") != expected_domains:
-              raise SystemExit("Delivery blocked: political scan did not verify all six required domains")
-          expected_layers = ["summary", "political_geopolitical", "policy_industry", "macro_transmission", "financial_market_pricing", "institutional_flows_strategy", "market_sentiment", "market_observation", "US", "Asia", "Europe", "sectors", "bonds", "FX", "energy", "metals"]
-          if qa.get("analysis_sections_checked") != expected_layers:
-              raise SystemExit("Delivery blocked: five-layer analysis QA coverage is incomplete")
-          if qa.get("sim14_blockers") != []: raise SystemExit("Delivery blocked: SIM-1.4 blockers are not empty")
-          if qa.get("report_git_blob_sha") != html_blob: raise SystemExit("Delivery blocked: QA sidecar is not bound to this exact HTML blob")
-          if qa.get("report_sha256") != actual_html_sha256: raise SystemExit("Delivery blocked: HTML SHA-256 differs from QA sidecar")
-          if qa.get("report_date") != report_date: raise SystemExit("Delivery blocked: report date mismatch")
-          print("Explicit user approval and QA handoff gate PASS; exact HTML SHA-256:", actual_html_sha256, "blob:", html_blob)
-          PY
-          HTML_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
-          SOURCE_SIM_COMMIT="$(git rev-parse HEAD)"
-          HTML_SHA256="$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
-          QA_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
-          MAIN_DIR="${RUNNER_TEMP}/tac-main-preview"
-          git fetch origin main
-          git worktree add --detach "${MAIN_DIR}" origin/main
-          MAIN_HTML="preview/${REPORT_DATE}-review.html"
-          MAIN_QA="preview/${REPORT_DATE}-review.qa.json"
-          MAIN_RECEIPT="preview/${REPORT_DATE}-review.delivery.json"
-          [[ ! -L "${MAIN_DIR}/preview" ]] || { echo "Main preview directory is a symlink; refusing delivery"; exit 1; }
-          mkdir -p "${MAIN_DIR}/preview"
-          for target in "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}"; do
-            [[ ! -L "${MAIN_DIR}/${target}" ]] || { echo "Main preview target is a symlink: ${target}"; exit 1; }
-          done
-          if [[ -e "${MAIN_DIR}/${MAIN_HTML}" || -e "${MAIN_DIR}/${MAIN_QA}" || -e "${MAIN_DIR}/${MAIN_RECEIPT}" ]]; then
-            test -f "${MAIN_DIR}/${MAIN_HTML}" && test -f "${MAIN_DIR}/${MAIN_QA}" && test -f "${MAIN_DIR}/${MAIN_RECEIPT}" || { echo "Existing main preview is incomplete; refusing overwrite"; exit 1; }
-            test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_HTML}")" = "${HTML_BLOB_SHA}" || { echo "Existing main HTML differs; refusing overwrite"; exit 1; }
-            test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_QA}")" = "${QA_BLOB_SHA}" || { echo "Existing main QA sidecar differs; refusing overwrite"; exit 1; }
-            echo "Identical main preview already exists; delivery is idempotent"
-            exit 0
-          fi
-          cp "${REPORT_OUTPUT}" "${MAIN_DIR}/${MAIN_HTML}"
-          cp "${REPORT_EVIDENCE}" "${MAIN_DIR}/${MAIN_QA}"
-          python - "${MAIN_DIR}/${MAIN_RECEIPT}" "${REPORT_DATE}" "${HTML_BLOB_SHA}" "${HTML_SHA256}" "${QA_BLOB_SHA}" "${SOURCE_SIM_COMMIT}" "${GITHUB_RUN_ID}" <<'PY'
-          import json, sys
-          from datetime import datetime, timezone
-          from pathlib import Path
-          path, report_date, html_blob, html_sha, qa_blob, source_commit, run_id = sys.argv[1:]
-          record = {
-              "status": "DELIVERED_SHA_VERIFIED",
-              "report_date": report_date,
-              "source_branch": "simulation/tac-process-lab-2026-11-06",
-              "source_commit": source_commit,
-              "workflow_run_id": run_id,
-              "source_html_path": f"preview/{report_date}-simulation.html",
-              "source_qa_path": f"preview/{report_date}-simulation.qa.json",
-              "main_html_path": f"preview/{report_date}-review.html",
-              "main_qa_path": f"preview/{report_date}-review.qa.json",
-              "html_git_blob_sha": html_blob,
-              "html_sha256": html_sha,
-              "qa_sidecar_git_blob_sha": qa_blob,
-              "qa_reexecuted_on_main": False,
-              "html_rebuilt_on_main": False,
-              "delivered_at_utc": datetime.now(timezone.utc).isoformat()
-          }
-          Path(path).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-          PY
-          test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_HTML}")" = "${HTML_BLOB_SHA}"
-          test "$(git -C "${MAIN_DIR}" hash-object "${MAIN_DIR}/${MAIN_QA}")" = "${QA_BLOB_SHA}"
-          INDEX_BEFORE="$(git -C "${MAIN_DIR}" rev-parse origin/main:index.html)"
-          git -C "${MAIN_DIR}" add "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}"
-          CHANGED="$(git -C "${MAIN_DIR}" diff --cached --name-only | sort)"
-          EXPECTED="$(printf '%s\n' "${MAIN_HTML}" "${MAIN_QA}" "${MAIN_RECEIPT}" | sort)"
-          test "${CHANGED}" = "${EXPECTED}" || { echo "Main write escaped preview allowlist"; exit 1; }
-          git -C "${MAIN_DIR}" config user.name "github-actions[bot]"
-          git -C "${MAIN_DIR}" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git -C "${MAIN_DIR}" commit -m "Deliver QA-passed ${REPORT_DATE} TAC review preview"
-          test "$(git -C "${MAIN_DIR}" rev-parse HEAD:index.html)" = "${INDEX_BEFORE}" || { echo "Main index.html changed unexpectedly"; exit 1; }
-          git -C "${MAIN_DIR}" push origin HEAD:main
-          git fetch origin main
-          REMOTE_HTML_SHA="$(git show "origin/main:${MAIN_HTML}" | git hash-object --stdin)"
-          REMOTE_QA_SHA="$(git show "origin/main:${MAIN_QA}" | git hash-object --stdin)"
-          REMOTE_RECEIPT="$(git show "origin/main:${MAIN_RECEIPT}")"
-          test "${REMOTE_HTML_SHA}" = "${HTML_BLOB_SHA}" || { echo "Main preview HTML SHA mismatch"; exit 1; }
-          test "${REMOTE_QA_SHA}" = "${QA_BLOB_SHA}" || { echo "Main preview QA sidecar SHA mismatch"; exit 1; }
-          printf '%s' "${REMOTE_RECEIPT}" | python -c 'import json,sys; d=json.load(sys.stdin); assert d["status"]=="DELIVERED_SHA_VERIFIED" and d["qa_reexecuted_on_main"] is False and d["html_rebuilt_on_main"] is False'
-          echo "MAIN_PREVIEW_DELIVERED=true"
-          echo "MAIN_PREVIEW_HTML=preview/${REPORT_DATE}-review.html"
-          echo "MAIN_PREVIEW_HTML_BLOB_SHA=${REMOTE_HTML_SHA}"
-          echo "MAIN_PREVIEW_QA_BLOB_SHA=${REMOTE_QA_SHA}"
 
       - name: Record isolated run metadata
         if: always()
