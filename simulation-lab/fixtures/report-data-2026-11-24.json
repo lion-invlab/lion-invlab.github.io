@@ -2535,7 +2535,10 @@
     ],
     "last_verified_at_taipei": "2026-11-23T06:38:04+08:00"
   },
-  "core_observation": "單日反彈不等於趨勢反轉：觀察市場廣度、信用利差、PCE與AI雲端融資條件。",
+  "core_observation": {
+    "heading": "單日反彈不等於趨勢反轉",
+    "text": "單日反彈不等於趨勢反轉：觀察市場廣度、信用利差、PCE與AI雲端融資條件。"
+  },
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
   "market_sentiment": "市場情緒仍處極度恐懼區：CNN Fear & Greed（FGScore備援顯示CNN原始指數）17，VIX 26.62；MOVE 11/23收盤列未取得，不能把盤中截圖值當成收盤。11/23美股強彈與恐慌指標回落，代表風險偏好修復，但韓股仍弱、亞洲市場分化，政策托底與短線回補不等於信用風險解除。",
   "quality_note": "本輪已將六項全球指數改用 Investing.com 全球指數歷史資料頁（Real-time derived）與 DAX Xetra 頁，quote_type=cash_index_close；六項香港站 CFD 參考序列不再用於呈現或計算。Stage 3 行事曆由組裝器依 SIM-1.4 唯讀規則直接讀取 main 同一 commit 的 W47/W48，不採用 fixture 內嵌 calendar/earnings 欄位作來源。Stage 2 本次報告工作階段直接開啟 43 個 Investing.com 歷史資料頁，另讀取 1 個 CNN 官方 Fear & Greed 歷史 graphdata 端點；44/44 均核對來源網址、標的／合約、2026-11-20 資料日期、Close／Price 與 Change% 欄位和值，與 fixture 完全一致，prior_observation_reused_count=0。每筆保存 observation record SHA-256、讀取方法與本次查核時間；43 個 HTML 頁面未封存原始 HTTP response body，raw_response_sha256 為 null；CNN 官方 JSON response body 已保存 SHA-256；CNN API headline.previous_close=9.67368421052632 對應本期 11/20 前一完整交易日收盤，顯示為 10；同一回應歷史陣列 UTC 11/20 點為 18.5873840445269，與 previous_close 不一致，因此以明確標示 previous_close 的欄位為收盤值，歷史陣列僅保留為品質診斷，不混用。GitHub Actions 本身未直接開啟 Investing.com 頁面，而是消費並驗證本次 ChatGPT 直接開頁證據包，不得把兩種讀取方式混稱。VIX、MOVE、CNN 的市場資料日期仍依週末基準決策採 11/20，這次是重新直接讀取該歷史列作驗證，不是刷新成 11/23；FedWatch 沿用 11/21 13:35 台灣時間快照。WTI、Brent、GC、SI 四項價格及日漲跌幅均與對應 Investing.com HK 歷史數據頁同合約、同日期收市列逐項對齊；source.url 與 instrument_url 一致。NVDA 於 11/18 盤後公布財報；第一個完整交易日為 11/19，Investing.com 歷史列收盤 145.98、日跌 3.30%，已更新財報卡。11/20 再跌 14.01% 屬後續市場拋售，不直接歸因於財報。HTML 組裝、互動、六視窗視覺 QA 及 44 項行情結構驗收已通過。本次 QA 證據只適用於本輪 HTML 與 Fixture SHA。W47 唯一五星 NVDA 財報已補入 11/15 公告前 Yahoo Finance Average Estimate 原始快照，並由獨立局部 DOM overlay 寫入實際 HTML 卡片：EPS US$2.47121（43 位分析師）、Revenue US$108.7319B（45 位）；與公司 GAAP 實績數值比較分別高出 9.26% 及 6.50%。Yahoo 未揭露 EPS 會計細項與 Revenue 完整定義，已標註非嚴格同口徑比較；原始 capture 及 raw response SHA 保留，main W47 JSON 未修改。NVDA 上週財報卡的 EPS／營收預估、TAC 1.4 判讀、官方實際財報來源及 Yahoo 公告前共識來源，須由 last_week_earnings 局部 overlay 執行並產生 receipt；QA 只在 receipt SHA 與最終 HTML SHA 吻合時標示 review_ready。",
