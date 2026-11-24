@@ -13,20 +13,20 @@
     "status": "NOT_APPLICABLE_WEEKDAY"
   },
   "data_audit": {
-    "quality_note": "本輪主要行情基準日為2026-11-23。44項行情欄位完成結構核對，來源觀察狀態為43項 VERIFIED、0項 PENDING、1項 CLOSED；各筆狀態以 market-source-verification-manifest 為準。42筆資料來自本輪直接歷史頁讀取，MOVE 100.91（-5.08%）來自Investing.com ICE BofA MOVE歷史資料搜尋結果，香港站頁面仍停留11/20，故採同站India站顯示的11/23歷史列；未將搜尋結果冒稱為瀏覽器直接開頁。所有已核驗觀察均保留紀錄雜湊；原始HTTP回應本文未封存，不宣稱已保存原始回應雜湊。日經225因日本假日休市，不沿用11/20舊收盤。VIX採11/23歷史收盤；Fear & Greed顯示17，來源為FGScore對CNN資料的備援轉載，非本輪CNN官方API直接讀值。FedWatch沿用Investing.com 11/21 13:35台灣時間快照。財報、行事曆與五層分析內容依本輪HTML及其各自來源證據驗收。",
-    "warning_note": "行情主要基準日為2026-11-23。44項指標中，43項已完成當期來源觀察與數值核對（42項直接歷史頁讀取、MOVE使用Investing.com搜尋結果所呈現的11/23歷史列）、日經225因日本假日休市；不以舊收盤或盤中值補缺。",
+    "quality_note": "本輪主要行情基準日為2026-11-23。44項來源頁面重新讀取；43項數值觀察均有當期來源紀錄，日經225依官方假日證據標示休市。Fear & Greed以CNN官方graphdata previous_close原始值16.9658627087199核驗，顯示取整17、Extreme Fear；FGScore備援歷史頁11/23列亦顯示17。CNN同一回應的歷史序列11/23點位17.0801484230056，原始精度略有差異但顯示值同為17，依SIM-1.4指定previous_close欄位核驗。MOVE由Investing.com India歷史頁直接開啟讀取11/23收盤100.91、-5.08%；XLRE因香港站頁面無法讀取，改用Investing.com Global備援頁。日經225依日本內閣府官方祝日表確認11/23勤勞感謝日休市，不採用差價合約報價。本次行情重讀晚於05:25報告截點，僅證明Stage 2重新讀取與核對，不代表05:25排程已成功；非行情內容仍沿用當日既有Fixture，並非完整空白輸入重建。",
+    "warning_note": "行情主要基準日為2026-11-23。44項指標中43項數值均有當期來源觀察，日經225依日本內閣府官方假日證據標示休市；Fear & Greed以CNN官方previous_close 16.9658627087199核驗，顯示取整17，FGScore備援歷史頁亦顯示17；MOVE由Investing.com India歷史頁直接開啟讀取11/23資料列，XLRE因香港站頁面無法讀取改用Investing.com Global備援頁。不以舊收盤或盤中值補缺。本次重讀於16:08至16:13台灣時間，晚於05:25報告截點，僅為Stage 2補抓驗證。",
     "pending_items": [
-      "MOVE 11/23收盤歷史列未取得，僅有11/20舊列；11/23盤中截圖值不作收盤價。",
-      "日經225於11/23休市，畫面顯示休市，不沿用11/20收盤。"
+      "本次44項行情於2026-11-24 16:08台灣時間重讀，晚於05:25報告截點；本次僅驗證Stage 2重新讀取，不代表05:25自動排程成功。",
+      "非行情內容沿用當日既有Fixture；尚未完成空白輸入的完整端到端重建。"
     ],
     "report_cutoff_taipei": "2026-11-24 05:25",
     "news_window_taipei": "2026/11/23 12:00–2026/11/24 05:25（台灣時間）"
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
-  "market_snapshot_audit_sha256": "54e71c3efe7c780865151f5cea769c245b4398c467b732a110cf80da6c79e829",
+  "market_snapshot_audit_sha256": "369d97d163583197032cfe1d62acff1b39772dd9d0927747ae98b639443e0f37",
   "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-  "market_source_verification_manifest_sha256": "8b09b831659566defe331339b3107d54704a5415ed1541780cb94df4c16c895d",
+  "market_source_verification_manifest_sha256": "d937d3bd4ce27dd2bf50ef5c5bd081f9d92e7677e07cd0a0c9d84bc572a5a5d7",
   "market_source_verification_summary": {
     "status": "PARTIAL",
     "row_count": 44,
@@ -35,13 +35,13 @@
     "closed_count": 1,
     "prior_observation_reused_count": 0,
     "observation_record_hash_missing_count": 0,
-    "raw_response_sha256_saved_count": 0,
+    "raw_response_sha256_saved_count": 1,
     "source_pages_fetched": true,
     "displayed_values_independently_reconciled": false,
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "e07b6e5477095c9d693688c956a5921addb76cf734997c4a1016533cff7c7faf",
+  "prebuild_input_receipt_sha256": "89eac54011e15a5100053aac1fc6e7137d4bb3f879451b6a529af872a1737f77",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +49,11 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45319269674",
+    "workflow_run_id": "45359102729",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
-      "sha256": "5ba2f692caa1bbef620ea5f48261330a401e3a6d5e90b4ed32be73e223f2f5e9"
+      "sha256": "9190c67d989856536d3b2e429a13d9c0de6cbbda979da2864d65def29c431204"
     },
     "stage_2_market": {
       "trading_date": "2026-11-23",
@@ -76,16 +76,16 @@
       "numeric_values_reconciled_count": 43,
       "source_verification_status": "PARTIAL",
       "pending_observation_count": 0,
-      "raw_response_sha256_saved_count": 0,
+      "raw_response_sha256_saved_count": 1,
       "audit_path": "simulation-lab/output/market-snapshot-audit.json",
-      "audit_sha256": "54e71c3efe7c780865151f5cea769c245b4398c467b732a110cf80da6c79e829",
+      "audit_sha256": "369d97d163583197032cfe1d62acff1b39772dd9d0927747ae98b639443e0f37",
       "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-      "manifest_sha256": "8b09b831659566defe331339b3107d54704a5415ed1541780cb94df4c16c895d"
+      "manifest_sha256": "d937d3bd4ce27dd2bf50ef5c5bd081f9d92e7677e07cd0a0c9d84bc572a5a5d7"
     },
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
       "branch": "main",
-      "main_commit_sha": "321095728cda6c0cf51a18e703039c6cfc894cab",
+      "main_commit_sha": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa",
       "current": {
         "path": "data/calendar/weeks/2026-W48.json",
         "blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T03:26:20Z",
+    "created_at_utc": "2026-11-24T08:47:42Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,18 +141,18 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "941da7138d964f20f9b0219c32b3fc50b2534dc4",
-  "report_sha256": "95448b35abdf8a716e4d9e919ed6983247019902386824221fcacbdd7c50bf77",
-  "build_commit_sha": "a05177e607b32af59f5f2e7b1e6e98ef3ad53b4d",
-  "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-  "fixture_blob_sha": "6eafa708f8da49c9b0bf8240f8b00f8ff555b960",
-  "template_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
-  "manifest_blob_sha": "81e01655fd8a2dfeaa72b5c63d1695db13370562",
-  "qa_contract_blob_sha": "1bf22ea17356eaf4cdfba2c1ecc17ca402302578",
-  "active_rules_blob_sha": "0c07271d14bcbe0f2e4ded949f9fb2faddc1c15e",
+  "report_git_blob_sha": "99cdcb0c085e222e74088dcce7a64e5360ba68a2",
+  "report_sha256": "37bbb5753b3d0e1fcd7cacc4b00c635429b2fed94e531f39fb08217e84c497bf",
+  "build_commit_sha": "1f72e565ee7d50807b7eb3c06c943348654273d4",
+  "builder_blob_sha": "1ad33cd608e8b70588accb02805696ad1e8258ad",
+  "fixture_blob_sha": "0ff33221358c1b97c101f4a3d6dd26980d9ee3aa",
+  "template_blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d",
+  "manifest_blob_sha": "9560308371dfa43a0d352398e5ef9abcbf8ee229",
+  "qa_contract_blob_sha": "5328fd12f919944314494107311736ff9813ad67",
+  "active_rules_blob_sha": "12354cbb9601858ef7af21076d87fde711392ae5",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
+  "candidate_builder_blob_sha": "1ad33cd608e8b70588accb02805696ad1e8258ad",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -206,17 +206,17 @@
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-    "approved_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
+    "approved_builder_blob_sha": "1ad33cd608e8b70588accb02805696ad1e8258ad",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
-    "actual_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-    "active_rules_blob_sha": "0c07271d14bcbe0f2e4ded949f9fb2faddc1c15e",
+    "actual_builder_blob_sha": "1ad33cd608e8b70588accb02805696ad1e8258ad",
+    "active_rules_blob_sha": "12354cbb9601858ef7af21076d87fde711392ae5",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
-  "calendar_main_commit_sha": "321095728cda6c0cf51a18e703039c6cfc894cab",
+  "calendar_main_commit_sha": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa",
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
-  "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "384e3b1150feb9f9da8fcc48b17e3de54404e4e5661bbe13cae1d07dc50aa169",
+  "interaction_evidence_sha256": "4eea0bd60dc15546e85c4b9f524ebe25cda9299da789dd80a14f14c61cb419a6",
+  "visual_evidence_sha256": "18b75acadce880ffe430ed341f96352f59a8c53adde1a4c761ddfcc5517c1290",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45319269674",
+  "workflow_run_id": "45359102729",
   "workflow_run_attempt": "1"
 }
