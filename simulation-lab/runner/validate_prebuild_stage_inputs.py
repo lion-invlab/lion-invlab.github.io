@@ -104,6 +104,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     allowed_provenance = {
         "CURRENT_RUN_BROWSER_OBSERVATION",
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
         "USER_SUPPLIED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
