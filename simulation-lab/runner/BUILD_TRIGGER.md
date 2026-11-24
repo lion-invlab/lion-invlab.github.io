@@ -9,7 +9,7 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 12d72b4162d8f8f2c80d174d55a1dc2bd74766eb
 active_rules_version: SIM-1.4
-active_rules_blob_sha: 0c07271d14bcbe0f2e4ded949f9fb2faddc1c15e
+active_rules_blob_sha: ce2ccdbde7f6a94da30a08f59b67c76b53bc101f
 qa_contract_version: 1.21
 qa_contract_blob_sha: 1bf22ea17356eaf4cdfba2c1ecc17ca402302578
 manifest_blob_sha: 81e01655fd8a2dfeaa72b5c63d1695db13370562
@@ -49,7 +49,7 @@ prebuild_stage_2_to_4_receipt_required: true
 
 This is a date-scoped trigger marker only; it contains no market data.
 The fixture is a 2026-11-24 report for the 2026-11-23 market session. All 44 fixed market rows are present; the 11 sector ETF closes and daily changes are pinned to 2026-11-23 Investing.com historical rows; the workflow must rebuild current-session browser observations and preserve any unresolved rows as explicitly pending.
-The authoritative main W48/W47 calendar JSON files are read-only inputs. The run can only create a Simulation review artifact and QA evidence; it cannot write main preview, main index, or deploy the production homepage.
+The authoritative main W48/W47 calendar JSON files are read-only inputs. The build workflow creates the Simulation artifact and QA evidence. Once Stage 5 is REVIEW_READY, Stage 6 must immediately copy the exact artifact and QA sidecar to main/preview with a delivery receipt using a main-capable GitHub file update action; this is a review-only delivery and must never modify main/index.html or deploy the production homepage. User review corrections are made directly to that same main/preview HTML without rerunning QA.
 A push commit message containing [build-tac-report:2026-11-24] triggers the full report build and required artifact QA.
 Fixture correction log (2026-11-23): political_scan.findings[6] and [7] were normalized from the invalid classification `reported_unverified` to the SIM-1.4 fixed enum `unverified`. Original fixture blob SHA: 8f6664356fec46c0ddb8f0a46e12eeb0e45225bc. No source, event text, transmission, scenario, or market data was changed.
 
