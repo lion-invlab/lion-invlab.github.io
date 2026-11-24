@@ -12,13 +12,13 @@ active_rules_version: SIM-1.4
 active_rules_blob_sha: d689d33fa17ef532860ce022c8e0099e47e546b3
 qa_contract_version: 1.26
 qa_contract_blob_sha: 4ba5f5a57db54aff93cff00914e2ad9e9d93ef52
-manifest_blob_sha: 9d071e148467e3c8117f9b69a6ff2de6c7b13827
+manifest_blob_sha: 9560308371dfa43a0d352398e5ef9abcbf8ee229
 monday_mother_path: simulation-lab/baseline/monday-mother-template.html
-monday_mother_blob_sha: eb5090131dd9f72de8f4620d79c6ec3357091b6f
+monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
-weekday_mother_blob_sha: 308ffcc076b1cebb34a0a7b5240ab6bcdc983ecd
+weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: 3dc45ac6b182c9b89312e54adf504adde3591524
+fixture_blob_sha: c4aa852ab58bfd1c56cd31cc7497e9eb7db5d9aa
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -75,3 +75,5 @@ Monday content Gate correction (2026-11-23): the risk observation now names the 
 Builder approval update (2026-11-24): the user accepted the exact Builder blob SHA 102b3e3e6307fd0864bcde6618c3f089583b90ae. Active SIM-1.4 and this trigger now pin that exact version. The Workflow Builder approval step is fail-closed; this update does not run a build or authorize main delivery.
 
 Trigger pin synchronization (2026-11-24): aligned the date-scoped trigger with the current SIM-1.4 QA Contract v1.26, simulation mother-template Manifest, and the exact Monday/weekday simulation baseline blob SHAs. This synchronizes references only; it does not approve or execute a full build, change main, or authorize homepage delivery.
+
+Responsive earnings grid spacing correction (2026-11-24): both Simulation mothers now explicitly retain the approved <=1200px #earnings row-gap 16px / column-gap 14px; this resolves the visual regression mismatch without redesigning the section. The report's market-risk paragraph and warning note were also aligned to the freshly read MOVE 100.91 (-5.08%) and the 43-verified/1-closed observation result. Main remains untouched.
