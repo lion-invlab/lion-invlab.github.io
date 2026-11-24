@@ -1869,7 +1869,6 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             verified += 1
             continue
         if state == "CLOSED":
-            pending += 1
             closed += 1
             if group != "global_markets" or name != "日經225":
                 raise ValueError(f"market-closed state is only allowed for a closed index session: {name}")
@@ -1896,9 +1895,14 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             record["display"] = "待核實"
             record["change_display"] = "待核實"
             record["qa_status"] = "source_observation_pending"
-    if verified != source_manifest.get("verified_count") or pending != source_manifest.get("pending_count") or verified + pending != 44:
+    if (
+        verified != source_manifest.get("verified_count")
+        or pending != source_manifest.get("pending_count")
+        or closed != source_manifest.get("closed_count")
+        or verified + pending + closed != 44
+    ):
         raise ValueError("market source verification counts do not reconcile")
-    expected_status = "PASS" if pending == 0 else "PARTIAL" if verified else "PENDING"
+    expected_status = "PASS" if pending == 0 and closed == 0 else "PARTIAL" if verified else "PENDING"
     if source_manifest.get("status") != expected_status:
         raise ValueError("market source verification status does not match row counts")
     return {"verified_count": verified, "pending_count": pending, "closed_count": closed, "status": expected_status}
