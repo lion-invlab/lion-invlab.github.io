@@ -24,9 +24,9 @@
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
-  "market_snapshot_audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
+  "market_snapshot_audit_sha256": "b7ece4e971bd9955c503ee528392b14ab06025816b05ae27405ab1550a4aadae",
   "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-  "market_source_verification_manifest_sha256": "9cf5ec6af290684c3dc564cab328036cd1b7194836f4cdfa28a43152a2bb6874",
+  "market_source_verification_manifest_sha256": "0f56abbc3613e6dcbc476d6aac3a8228022c8e1323cf2c99a2e0372286eed88a",
   "market_source_verification_summary": {
     "status": "PARTIAL",
     "row_count": 44,
@@ -41,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "9c6573848cd03fe8868adee92e74fce88c12feca3f5e3bd0f4505cd677699eea",
+  "prebuild_input_receipt_sha256": "42f7f1fb359a16c1afadab718fbfa51a40450e1c4fca7a7a62a622aebba90a93",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +49,11 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45301532987",
+    "workflow_run_id": "45306406124",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
-      "sha256": "8dd8b85c9f5935a49681fb714f4bc2be937dacfd5952d410475dded67e8c314a"
+      "sha256": "7a46eb603ad84fa65cc87f4974f8d9354f81cc9c10c330f803f9b65ae1ec09ef"
     },
     "stage_2_market": {
       "trading_date": "2026-11-23",
@@ -78,14 +78,14 @@
       "pending_observation_count": 1,
       "raw_response_sha256_saved_count": 0,
       "audit_path": "simulation-lab/output/market-snapshot-audit.json",
-      "audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
+      "audit_sha256": "b7ece4e971bd9955c503ee528392b14ab06025816b05ae27405ab1550a4aadae",
       "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-      "manifest_sha256": "9cf5ec6af290684c3dc564cab328036cd1b7194836f4cdfa28a43152a2bb6874"
+      "manifest_sha256": "0f56abbc3613e6dcbc476d6aac3a8228022c8e1323cf2c99a2e0372286eed88a"
     },
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
       "branch": "main",
-      "main_commit_sha": "77ab012bb027591631c704d976468cf4ea2e2046",
+      "main_commit_sha": "477752fa1198a0f3970671fd6d02bf5fdf50db27",
       "current": {
         "path": "data/calendar/weeks/2026-W48.json",
         "blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T00:59:47Z",
+    "created_at_utc": "2026-11-24T01:38:22Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,18 +141,18 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "0b520b919e64f79b6a526bc5057bc7aa34c66d72",
-  "report_sha256": "3b6f7f7b70b125d84698062df8efbfdc6c90687f314fa4e1dbf15d21ad95b16a",
-  "build_commit_sha": "3ee8dc7819a9d658a22a655b45756a2158cbe12e",
-  "builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
-  "fixture_blob_sha": "4224f121bc0eea945451c12abde84a02dd1bab98",
+  "report_git_blob_sha": "f626d738920f55b6ea33324d2fa6606361beb016",
+  "report_sha256": "97e4e0ca1ac09b32ca84e68bfab3b4ae6b67f4be328f7cc0ee1a039daeb3786f",
+  "build_commit_sha": "600c8c7d0883ba28f7916216b00b123ae2d0f5f6",
+  "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
+  "fixture_blob_sha": "7d88c66e5f95985717112a05d362f5a1307ec456",
   "template_blob_sha": "3f4e65c1385532b0f0969fdc76caf2883a39e798",
   "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
   "qa_contract_blob_sha": "e4a11261fba37fbd9deee7c6b61c9dc29a1966d6",
-  "active_rules_blob_sha": "8953d6e823e36fd7244ff2e23505f5c515e68a83",
+  "active_rules_blob_sha": "eceed91cc8dfc7201e2e6310dab94f100d916b1b",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
+  "candidate_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -206,17 +206,17 @@
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-    "approved_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
+    "approved_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
-    "actual_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
-    "active_rules_blob_sha": "8953d6e823e36fd7244ff2e23505f5c515e68a83",
+    "actual_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
+    "active_rules_blob_sha": "eceed91cc8dfc7201e2e6310dab94f100d916b1b",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
-  "calendar_main_commit_sha": "77ab012bb027591631c704d976468cf4ea2e2046",
+  "calendar_main_commit_sha": "477752fa1198a0f3970671fd6d02bf5fdf50db27",
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "053433a2bb552946556ceba371f1c55ba5e34f0e562eca3edf1150ed3c313c13",
+  "visual_evidence_sha256": "70ac7b7534d638666045983a4a4f16c88f772a13d92f6a0f32012daa4b7abf64",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45301532987",
+  "workflow_run_id": "45306406124",
   "workflow_run_attempt": "1"
 }
