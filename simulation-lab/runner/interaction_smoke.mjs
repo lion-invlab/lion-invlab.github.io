@@ -207,7 +207,7 @@ try {
   const agendaEvent = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])').first();
   if (await agendaEvent.count() !== 1) throw new Error("verified Fed official agenda event missing");
   const agendaText = (await agendaEvent.innerText()).replace(/\\s+/g, " ").trim();
-  if (!agendaText.includes("預定｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
+  if (!agendaText.includes("已發表｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
     throw new Error("Fed official agenda date/name content mismatch: " + agendaText);
   }
   const agendaSource = agendaEvent.locator("a.fc-fomc-weekly-event-source[href]");
