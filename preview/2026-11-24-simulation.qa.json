@@ -41,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "a8744f3edd25191df85b66bcb963d711278e5c98ecf20443d7b313e4860ff81c",
+  "prebuild_input_receipt_sha256": "e07b6e5477095c9d693688c956a5921addb76cf734997c4a1016533cff7c7faf",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,7 +49,7 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45319257747",
+    "workflow_run_id": "45319269674",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T03:24:48Z",
+    "created_at_utc": "2026-11-24T03:26:20Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,9 +141,9 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "02a9e306128a11c3a82c164e34f00b4a57f59ca2",
-  "report_sha256": "c0419ac8afb98e39d59834930d2dd9c3191ee634389884247afcc0060579815d",
-  "build_commit_sha": "4e2ada4387cb28336386ee12f8872052cf61b9e1",
+  "report_git_blob_sha": "941da7138d964f20f9b0219c32b3fc50b2534dc4",
+  "report_sha256": "95448b35abdf8a716e4d9e919ed6983247019902386824221fcacbdd7c50bf77",
+  "build_commit_sha": "a05177e607b32af59f5f2e7b1e6e98ef3ad53b4d",
   "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
   "fixture_blob_sha": "6eafa708f8da49c9b0bf8240f8b00f8ff555b960",
   "template_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
@@ -216,7 +216,7 @@
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "8ce895903b6dfe4afd1fc94d7af73d1b2e4c2db8e555dfd13d120301542b0264",
+  "visual_evidence_sha256": "384e3b1150feb9f9da8fcc48b17e3de54404e4e5661bbe13cae1d07dc50aa169",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45319257747",
+  "workflow_run_id": "45319269674",
   "workflow_run_attempt": "1"
 }
