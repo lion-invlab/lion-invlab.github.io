@@ -279,7 +279,7 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Load current-turn direct web observations or read live historical pages
+      - name: Register 44 market rows as pending for fast report build
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         id: market_observations
         run: |
@@ -354,7 +354,7 @@ jobs:
               "warning": "All market observations are pending; fixture values are not independently verified in this run."
           }
           Path("simulation-lab/output/market-history-playwright-observations.json").write_text(
-              json.dumps(out, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+              json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
           print("FAST_BUILD: 44 market rows registered as PENDING; browser verification skipped.")
           PY
           python - <<'PY'
