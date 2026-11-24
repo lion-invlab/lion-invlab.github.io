@@ -79,6 +79,7 @@ def main() -> None:
         sidecar_path = root / "preview/2026-11-23-simulation.qa.json"
         sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
         sidecar["market_source_verification_manifest_sha256"] = sha256(pending_bytes)
+        assert sidecar["market_source_verification_manifest_sha256"] == sha256(pending_bytes)
         sidecar_path.write_text(json.dumps(sidecar), encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "PASS", result["errors"]
