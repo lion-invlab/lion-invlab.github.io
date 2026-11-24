@@ -127,9 +127,9 @@ def main():
     assert result["prior_observation_reused_count"] == 0
     assert result["displayed_values_independently_reconciled"] is False
 
-    # A same-session historical close observation remains reusable during a delayed workflow start.
+    # A same-report-day historical close observation remains reusable after delayed orchestration.
     delayed = copy.deepcopy(bundle)
-    delayed["captured_at_utc"] = (datetime.now(timezone.utc) - timedelta(minutes=110)).isoformat()
+    delayed["captured_at_utc"] = (datetime.now(timezone.utc) - timedelta(hours=3)).isoformat()
     delayed_result = validate_bundle(data, "2026-11-24", delayed)
     assert len(delayed_result["observations"]) == 44
 
@@ -150,7 +150,7 @@ def main():
         raise AssertionError("wrong source URL must be rejected")
 
     stale = copy.deepcopy(bundle)
-    stale["captured_at_utc"] = (datetime.now(timezone.utc) - timedelta(hours=3)).isoformat()
+    stale["captured_at_utc"] = (datetime.now(timezone.utc) - timedelta(hours=25)).isoformat()
     try:
         validate_bundle(data, "2026-11-24", stale)
     except ValueError as exc:
