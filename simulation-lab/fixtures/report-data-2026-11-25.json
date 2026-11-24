@@ -1238,6 +1238,7 @@
       "band": "下降",
       "source": {
         "name": "使用者提供截圖｜Merrill Lynch Option Volatility Estimate（MOVE）",
+        "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-24",
         "quote_type": "displayed_close",
         "note": "使用者於2026-11-25 06:47（Asia/Taipei）提供截圖。畫面報價時間為2026-11-24 16:17（GMT-5）；收盤顯示98.84，變動-2.08（-2.06%），前次收盤100.91，開盤101.14，最高101.27，最低98.79。畫面收盤差額100.91-98.84=2.07，與顯示變動2.08相差0.01，保留來源顯示值並註明可能為未顯示小數精度差異。",
