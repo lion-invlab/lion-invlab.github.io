@@ -1,11 +1,13 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.26（2026-11-24｜總結次標題分隔格式統一）
+版本：1.27（2026-11-24｜雙母版 SHA 與 Manifest 同步）
 定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
 
 ## 版本紀錄
+
+- 2026-11-24｜v1.27：將 A2.1 週一與週二至週五 Simulation 母版 SHA 同步至當前 Manifest 實際 Blob SHA（Monday `710c944205ee05a86599ef5cd869f26c4a9ebde1`；Weekday `ff051c0cd22cf9267420c41e3952fa3178f0e45d`）。只修正 QA Contract 的版本綁定，未變更母版 DOM、CSS 或其他驗收規格。
 
 - 2026-11-24｜v1.24：修正總結、五層市場深度解析與市場情緒三區的實際 DOM 間距；明確驗收 `#market-analysis` 與 `#sentiment` 前各至少 18px 垂直間距，週一／平日雙母版及每日 HTML 均須核對。新增因果歸因 QA：明確區分已確認的事件催化與市場部位因素；若當日市場判讀已確認期貨空單回補助漲，須與人事／政策等直接催化並列說明，不得將其降格為未知因素；同時不得把未核實的其他因素寫成事實，也不得用後句推翻前句。
 
@@ -35,8 +37,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `eb5090131dd9f72de8f4620d79c6ec3357091b6f` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `308ffcc076b1cebb34a0a7b5240ab6bcdc983ecd` | DOCTYPE 1、html/head/body 各 1、style 121、script 24；新增 market-analysis 與五個層級 heading ID，並包含 SIM-1.4 Fed/FOMC 欄位分流及 <=560px 單欄規則 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `710c944205ee05a86599ef5cd869f26c4a9ebde1` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `ff051c0cd22cf9267420c41e3952fa3178f0e45d` | DOCTYPE 1、html/head/body 各 1、style 121、script 24；新增 market-analysis 與五個層級 heading ID，並包含 SIM-1.4 Fed/FOMC 欄位分流及 <=560px 單欄規則 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
 
