@@ -1,1 +1,4 @@
-Explicitly trigger full TAC 2026-11-24 report build after review corrections.
+report_date=2026-11-24
+reason=weekday-summary-and-mother-css-audit-fixes
+fixture_sha=6a0607bcd1773a399c8831db523ca05dcf6cacb2
+builder_sha=92605353973bb2c8200c5785917a95060681790a
