@@ -134,7 +134,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             and change_field in ("Change %", "升跌（%）", "漲跌（%）", "變動%")
         )
     expected_value = source.get("score_value") if is_fear_greed else _expected_value(source)
-    expected_change = source.get("band") if fear_greed_backup else _expected_change(source)
+    expected_change = _expected_change(source)
     value_match = _numeric_match(
         observation.get("observed_value"), expected_value,
         rounded_integer=is_fear_greed,
