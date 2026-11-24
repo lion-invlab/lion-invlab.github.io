@@ -6,156 +6,162 @@
   "sentiment": "市場情緒仍處極度恐懼區，CNN Fear & Greed 11/24歷史讀值為17；VIX 11/24升至26.88、單日上升0.98%，顯示股市波動壓力略為增加。MOVE的11/24歷史資料尚未出現在指定來源頁面，暫列待核實。",
   "focus_news": [
     {
-      "title": "白宮擬對中國、歐盟及數十個國家推出新關稅，美股承壓",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
-      "published_at_source": "2026/11/24 21:25",
-      "published_at_tw": "2026/11/24 21:25",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "美國貿易代表最快本週公布工業補貼調查結果，政府考慮對中國、歐盟及其他貿易夥伴採取新一輪關稅措施。關稅範圍與稅率尚未定案，市場先行反映政策不確定性與供應鏈成本風險。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
-    },
-    {
-      "title": "美國消費者信心升至103.3，明顯高於市場預期",
+      "title": "美國消費者信心升至103.3，遠高於市場預期",
       "url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
-      "published_at_source": "2026/11/24 23:00",
-      "published_at_tw": "2026/11/24 23:00",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "Conference Board 11月消費者信心由91.9升至103.3，高於市場預期92.4。汽油價格回落及就業看法改善支撐信心，但調查指標不等同實際消費，仍須觀察零售支出是否跟進。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_source": "2026/11/24 15:00 EST",
+      "published_at_tw": "2026/11/25 04:00",
+      "source_timezone": "America/New_York",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "美國11月諮商會消費者信心升至103.3，高於市場預期92.4及前值91.9。信心改善有助支撐假期消費，但調查指標仍需由實際零售支出驗證。",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "紐約聯準銀行總裁威廉斯稱通膨仍高，政策需保持緊縮",
-      "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1773321",
-      "published_at_source": "2026/11/24 21:05",
-      "published_at_tw": "2026/11/24 21:05",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "威廉斯表示通膨仍高於目標，聯準會需採取必要措施讓通膨回到2%，並保留12月會議進一步升息的可能。這是政策官員立場，不代表已作成升息決定。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "title": "美股與歐洲期貨回落，亞洲股市反彈幅度領先",
+      "url": "2026/11/24 07:19 EST",
+      "published_at_source": "2026/11/24 20:19",
+      "published_at_tw": "America/New_York",
+      "source_timezone": "亞洲股市因前一日美股反彈而上揚，歐洲主要指數及美股期貨則回落。市場一方面評估AI龍頭領導層變動，另一方面仍須衡量政治與法律風險。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
+    },
+    {
+      "title": "美股回吐輝達帶動的漲幅，市場重新評估AI交易",
+      "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-end-lower-following-monday-s-nvidia-fueled-rally-ce7851dbdd81f720",
+      "published_at_source": "2026/11/24 16:01 EST",
+      "published_at_tw": "2026/11/25 05:01",
+      "source_timezone": "America/New_York",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "科技股在前一日急漲後回落，投資人同時關注美國可能推出的新關稅，以及翌日公布的PCE與GDP數據。市場焦點由單一公司治理消息轉回AI投資回報與政策風險。",
+      "verification_status": "DIRECT_PAGE_READ"
+    },
+    {
+      "title": "英國零售商銷售增長創近四年最強，企業仍對復甦保持審慎",
+      "url": "2026/11/24 19:27",
+      "published_at_source": "2026/11/24 19:27",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "英國工業聯合會調查顯示，11月零售銷售差額指數由10月-10升至+9，創2022年12月以來高位；但企業對持續復甦仍審慎，並預計未來一年削減投資。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
       "title": "FedWatch：市場定價12月升息25個基點機率99.5%",
-      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+      "url": "2026/11/24 16:05 EST",
       "published_at_source": "2026/11/25 05:05",
-      "published_at_tw": "2026/11/25 05:05",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "Investing.com頁面於美東11月24日16:05更新，12月9日會議升息25個基點至4.00%–4.25%的機率為99.5%，升息50個基點機率0.5%。此為期貨隱含機率，並非聯準會決議。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
-    },
-    {
-      "title": "AI資本支出回報疑慮再起，市場焦點由公司治理轉向獲利能力",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774811",
-      "published_at_source": "2026/11/24 21:51",
-      "published_at_tw": "2026/11/24 21:51",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "高盛策略師指出，英偉達治理事件不改變AI交易核心問題：企業能否從龐大資本支出取得足夠回報。科技股前一日急漲後回落，市場重新評估資料中心投資、融資成本與現金流。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "America/New_York",
+      "source_timezone": "Investing.com Fed Rate Monitor更新顯示，12月9日會議升息25個基點至4.00%–4.25%的機率為99.5%，升息50個基點機率0.5%。此為期貨隱含機率，並非聯準會決議。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     }
   ],
   "headlines": [
     {
-      "title": "亞洲股市收市分化，台韓科技股大幅反彈、港股回落",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774001",
+      "title": "亞洲股市收市：台股與韓股強彈，港股回落",
+      "url": "2026/11/24 16:43",
       "published_at_source": "2026/11/24 16:43",
-      "published_at_tw": "2026/11/24 16:43",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "台股與韓股受前一日美國科技股反彈帶動，亞洲半導體股大幅回升；港股則高開低走。區域反彈幅度分化，不能視為全球市場同步轉強。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "台股與韓股受前一日美股反彈帶動大幅回升，日經亦走高；港股則高開低走。亞洲市場表現分化，反彈不代表全球資金全面回流。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "美股盤前期貨回落，輝達與黃金走低",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774273",
+      "title": "美股盤前：納指期貨跌逾1%，輝達與黃金走低",
+      "url": "2026/11/24 18:16",
       "published_at_source": "2026/11/24 18:16",
-      "published_at_tw": "2026/11/24 18:16",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "三大股指期貨轉弱，輝達盤前下跌，金價亦回吐前一日反彈。AI相關股票在急漲後面臨獲利了結，市場風險偏好再度降溫。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "美股盤前期貨回落，輝達及多檔半導體股承壓，金價亦結束前一日反彈。市場開始檢驗前一日急漲是否只是短線回補。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "英偉達領漲後回落，美國晶片股盤前走低",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774462",
-      "published_at_source": "2026/11/24 19:44",
-      "published_at_tw": "2026/11/24 19:44",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "美國晶片股回吐前一日由輝達帶動的漲幅，英特爾、美光、邁威爾及其他半導體股同步走低。市場關注AI資本支出能否轉化為足夠收入與利潤。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "title": "A股收評：滬指漲0.27%，深證成指跌0.29%",
+      "url": "2026/11/24 15:28",
+      "published_at_source": "2026/11/24 15:28",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "A股三大指數高開後回落，滬指小幅收高、深證成指及創業板收低。市場成交放大但下跌家數較多，顯示指數上漲未能代表市場廣度同步改善。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "明星科技股盤前集體下挫，英偉達跌逾5%",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774861",
-      "published_at_source": "2026/11/24 21:45",
-      "published_at_tw": "2026/11/24 21:45",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "多家大型科技與半導體股盤前走低，市場對AI融資及資料中心投資回報仍有疑慮。公司治理調查與出口管制議題增加不確定性，不能單以黃仁勳復職解讀股價方向。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "title": "英國零售商銷售增長創近四年最強勁表現",
+      "url": "2026/11/24 19:27",
+      "published_at_source": "2026/11/24 19:27",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "英國工業聯合會11月零售銷售差額指數升至+9，為近四年高位；但企業預期12月銷售持平，並計劃削減未來一年投資，復甦持續性仍待觀察。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "野村：機械性買盤無法消除AI交易的結構性風險",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774832",
+      "title": "Arm股價回落，投資人於前一交易日急漲後獲利了結",
+      "url": "2026/11/24 20:33",
+      "published_at_source": "2026/11/24 20:33",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "Arm盤前下跌近4.7%，市場在前一交易日反彈後重新評估估值與領導層風險。股價回落屬個股獲利了結訊號，不宜直接推論整體AI需求轉弱。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
+    },
+    {
+      "title": "野村警告：機械性買盤無法消除AI交易結構性風險",
+      "url": "2026/11/24 21:23",
       "published_at_source": "2026/11/24 21:23",
-      "published_at_tw": "2026/11/24 21:23",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "野村指出，波動率回落後的避險部位調整可能放大反彈，但這類機械性買盤不代表AI產業的資本支出回報、估值與融資風險已改善。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "野村指出，波動率下降後的避險部位調整、空頭回補及槓桿ETF再平衡，可能放大前一日反彈；但機械性買盤不能證明AI資本支出回報與估值風險已改善。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "更新 2026/11/24 21:52",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "高盛：AI投資能否產生回報，才是交易能否延續的關鍵",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774811",
-      "published_at_source": "2026/11/24 21:51",
-      "published_at_tw": "2026/11/24 21:51",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "市場焦點由輝達公司治理事件轉向AI投資的經濟效益。若資料中心與晶片投資無法轉化為現金流與利潤，短期反彈難以單獨證明產業趨勢已恢復。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
-    },
-    {
-      "title": "白宮擬對中國、歐盟及數十個國家推出全面新關稅",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
+      "title": "白宮擬對中國、歐盟及數十個國家推出新關稅",
+      "url": "2026/11/24 21:25",
       "published_at_source": "2026/11/24 21:25",
-      "published_at_tw": "2026/11/24 21:25",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "美國政府考慮以工業補貼調查為基礎推出新關稅，可能涵蓋多個主要貿易夥伴。政策細節未定，但關稅預期提高全球供應鏈與企業成本不確定性。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "美國政府可能公布工業補貼調查結果，並對多個主要貿易夥伴加徵關稅。稅率與實施細節尚未定案，但政策不確定性已重新進入市場定價。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "費城半導體指數大跌，半導體板塊全面承壓",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1775110",
+      "title": "費城半導體指數大跌，晶片板塊全面承壓",
+      "url": "2026/11/24 22:55",
       "published_at_source": "2026/11/24 22:55",
-      "published_at_tw": "2026/11/24 22:55",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "半導體指數下跌，存儲晶片展望下修與政策調查消息壓抑板塊情緒。個股跌幅擴大顯示AI供應鏈內部也出現分化，不能只用單一龍頭公司解釋。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "半導體股在前一日急漲後回落，存儲晶片展望下修與政治監督消息加重賣壓。個股跌幅擴大顯示AI供應鏈內部出現分化。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "更新 2026/11/24 23:23",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "美國消費者信心升至103.3，超出預期",
-      "url": "https://apnews.com/article/9d13d96cc3e4bac8f334f9145c718e42",
-      "published_at_source": "2026/11/24 23:11",
-      "published_at_tw": "2026/11/24 23:11",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "Conference Board 11月消費者信心升至103.3，高於10月的91.9；汽油價格回落及就業看法改善帶動信心。調查改善可能支持假期消費，但仍須以實際支出驗證。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "title": "A股晚間熱點：全球股市共振，A股高開低走分歧加大",
+      "url": "2026/11/24 23:13",
+      "published_at_source": "2026/11/24 23:13",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "報導整理亞洲股市反彈與A股高開低走情況，指出上證小幅收高、深證與創業板走弱。市場廣度偏弱，指數漲跌互現反映資金選擇性回補。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "更新 2026/11/24 23:23",
+      "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "黃金急跌近60美元，市場重新評估升息與關稅風險",
-      "url": "https://hk.investing.com/news/commodities-news/article-1775167",
-      "published_at_source": "2026/11/25 00:24",
-      "published_at_tw": "2026/11/25 00:24",
-      "source_timezone": "Asia/Taipei",
-      "updated_at_tw": null,
-      "summary": "金價在前一日反彈後再度走弱，市場關注聯準會升息前景與美國關稅不確定性。避險資產並未在股市回檔時同步走強，反映跨資產避險訊號並不一致。",
-      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+      "title": "黃金急跌近60美元，升息與關稅風險再度升溫",
+      "url": "2026/11/24 23:59",
+      "published_at_source": "2026/11/24 23:59",
+      "published_at_tw": "Asia/Hong_Kong",
+      "source_timezone": "金價在前一日反彈後再度走弱，市場重新評估聯準會升息前景及美國關稅不確定性。避險資產未隨股市回檔同步走強，跨資產訊號仍不一致。",
+      "updated_at_source": "原文未標示更新時間",
+      "updated_at_tw": "原文未標示更新時間",
+      "summary": "更新 2026/11/25 00:24",
+      "verification_status": "DIRECT_PAGE_READ"
     }
   ],
   "global_markets": {
@@ -3066,10 +3072,7 @@
   "market_sentiment": "市場情緒仍處極度恐懼區：CNN Fear & Greed 17（CNN官方previous_close 16.9659取整顯示17；FGScore備援歷史頁亦顯示17），VIX 26.62；MOVE 100.91，11/23單日回落5.08%，顯示債市利率波動預期降溫，但仍須與VIX及信用壓力共同判讀。11/23美股強彈與恐慌指標回落，代表風險偏好修復，但韓股仍弱、亞洲市場分化，政策托底與短線回補不等於信用風險解除。",
   "quality_note": "本輪主要行情基準日為2026-11-23。44項來源頁面重新讀取；43項數值觀察均有當期來源紀錄，日經225依官方假日證據標示休市。Fear & Greed以CNN官方graphdata previous_close原始值16.9658627087199核驗，顯示取整17、Extreme Fear；FGScore備援歷史頁11/23列亦顯示17。CNN同一回應的歷史序列11/23點位17.0801484230056，原始精度略有差異但顯示值同為17，依SIM-1.4指定previous_close欄位核驗。MOVE由Investing.com India歷史頁直接開啟讀取11/23收盤100.91、-5.08%；XLRE因香港站頁面無法讀取，改用Investing.com Global備援頁。日經225依日本內閣府官方祝日表確認11/23勤勞感謝日休市，不採用差價合約報價。本次行情重讀晚於05:25報告截點，僅證明Stage 2重新讀取與核對，不代表05:25排程已成功；非行情內容仍沿用當日既有Fixture，並非完整空白輸入重建。",
   "report_cutoff_taipei": "2026-11-25T05:25:00+08:00",
-  "news_window_taipei": {
-    "start": "2026-11-24T12:00:00+08:00",
-    "end": "2026-11-25T05:25:00+08:00"
-  },
+  "news_window_taipei": "2026/11/24 12:00 至 2026/11/25 05:25",
   "key_levels_overrides": {},
   "review_notice": "本版僅供內部審核，不上架正式首頁。",
   "pending_items": [
@@ -3107,7 +3110,7 @@
     "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
   },
   "report_layer_earnings_actuals": [],
-  "news_cutoff_taipei": "2026-11-25T05:25:00+08:00",
+  "news_cutoff_taipei": "2026-11-25 05:25:00",
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [
     {
@@ -3252,391 +3255,111 @@
   "market_analysis": {
     "political": {
       "paragraphs": [
-        "輝達董事會宣布黃仁勳復任總裁、執行長及董事，市場將此視為AI龍頭治理不確定性暫時下降的訊號；但美國總統介入公司決策、國會議員要求說明國安審查與中國晶片出口管制，意味公司治理、政治監督與出口政策仍交錯。復職消息不是出口限制解除，也不是相關調查結束。",
-        "中國下調融資買入最低保證金比例將於11/30生效，屬已宣布、尚未實施的市場槓桿支持；韓國準備市場穩定基金則是穩市訊號。兩者可影響短期流動性與風險情緒，但不能推論企業營收、AI終端需求或獲利已改善。"
+        "美國政府準備公布工業補貼調查結果，並可能對中國、歐盟及其他貿易夥伴加徵新關稅；目前稅率與實施細節未定，市場先反映政策不確定性及供應鏈成本風險。輝達復任消息同時引發國會與監管監督討論，公司治理與出口管制問題並未因此結束。",
+        "政策訊號須區分已宣布、擬議與已生效：關稅仍屬政策規劃，不能寫成已實施；消費信心改善也不代表關稅成本已被消化。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜11/23亞洲外匯與美元走勢",
-          "url": "https://hk.investing.com/news/forex-news/article-1771562",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "label": "Investing.com｜美國新關稅計畫",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜11/23亞洲市場收市",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771887",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜11/23亞洲AI股與融資疑慮",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771656",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜摩根大通亞洲持倉觀察",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771760",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜XLRE 11/23歷史收盤",
-          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
-          "url": "https://fgscore.com/en/markets/sp500",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
-        },
-        {
-          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
-          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
-          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
-          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
-          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
+          "label": "Washington Post｜亞洲股市反彈與美歐期貨回落",
+          "url": "https://www.washingtonpost.com/business/2026/11/24/us-futures-european-markets-fade-following-nvidia-rally/",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         }
       ]
     },
     "policy_industry": {
       "paragraphs": [
-        "美股科技與半導體急彈的直接催化，是輝達董事會宣布黃仁勳復任，輝達股價大漲約31%，帶動費半上漲14.03%；市場先前將領導層危機與AI投資回報疑慮連結，復職消息降低了短期治理不確定性。不過，期貨在正式消息前已上漲，反彈同時包含前期重挫後的回補，不能將全部漲幅視為基本面改善。",
-        "AI產業真正尚待驗證的是資料中心資本支出的融資成本、GPU利用率、客戶集中度及自由現金流。融資條件收緊可能先壓縮資料中心專案回報與採購節奏，再傳導至設備訂單及供應商應收帳款；目前沒有足夠證據把融資疑慮直接描述成企業違約或整條供應鏈瓦解。"
+        "科技股回檔由輝達與半導體股領跌，市場焦點重新回到AI資本支出的回報、資料中心融資成本及晶片供應鏈獲利能力。野村指出，前一日反彈包含空頭回補與槓桿ETF再平衡等機械性買盤，不能視為基本面全面改善。",
+        "費半當日跌幅大於那斯達克，反映晶片板塊承受更集中賣壓；但單日價格變化尚不足以證明AI終端需求反轉，後續仍須以訂單、毛利率、現金流及雲端客戶資本支出驗證。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜11/23亞洲外匯與美元走勢",
-          "url": "https://hk.investing.com/news/forex-news/article-1771562",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "label": "Investing.com｜野村對AI交易風險的觀察",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1774832",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜11/23亞洲市場收市",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771887",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜11/23亞洲AI股與融資疑慮",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771656",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜摩根大通亞洲持倉觀察",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771760",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜XLRE 11/23歷史收盤",
-          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
-          "url": "https://fgscore.com/en/markets/sp500",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
-        },
-        {
-          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
-          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
-          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
-          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
-          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
+          "label": "Investing.com｜費城半導體指數與晶片股回落",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1775110",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         }
       ]
     },
     "macro": {
       "paragraphs": [
-        "美元走強與2年期美債殖利率上升，反映交易員提高對聯準會偏緊政策的押注；美國本週公布的PCE、第三季GDP修正值與耐久財訂單，將影響市場對通膨黏著度、成長韌性與利率路徑的判斷。若PCE偏熱，短端利率與美元可能續強，對高估值成長股形成折現率壓力。",
-        "10年與30年殖利率回落，與短端上升形成分歧；目前來源未能確認長端下行的單一主因，因此不把它直接解讀為市場已全面轉向降息或衰退交易。油價下跌與供應過剩預期有關，可暫時緩和能源通膨，但若後續證實是需求走弱，則會增加景氣風險。"
+        "美國11月諮商會消費者信心升至103.3，高於市場預期92.4及前值91.9，顯示家庭對經濟的短期看法改善；但調查數據仍需由實際消費支出與假期零售銷售驗證。",
+        "市場同時關注翌日公布的PCE通膨與GDP資料。若通膨高於預期，短端殖利率與美元可能再度走強；新關稅若落地，也可能推高進口成本並增加通膨不確定性。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜11/23亞洲外匯與美元走勢",
-          "url": "https://hk.investing.com/news/forex-news/article-1771562",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "label": "Investing.com｜美國諮商會消費者信心",
+          "url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜11/23亞洲市場收市",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771887",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜11/23亞洲AI股與融資疑慮",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771656",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜摩根大通亞洲持倉觀察",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771760",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜XLRE 11/23歷史收盤",
-          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
-          "url": "https://fgscore.com/en/markets/sp500",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
-        },
-        {
-          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
-          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
-          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
-          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
-          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
+          "label": "Investing.com｜英國零售商調查",
+          "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1774428",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         }
       ]
     },
     "markets": {
       "paragraphs": [
-        "美股道瓊、標普與那斯達克分別上漲3.01%、4.73%及6.51%，費半上漲14.03%，主要由輝達復職消息帶動AI與半導體股反彈，並受到連跌後回補放大；但上漲集中於科技，不能據此認定市場廣度已全面恢復。",
-        "韓國KOSPI下跌3.31%，延續前一交易日美國AI股賣壓，且外資由早盤買方轉為賣方；高半導體權重放大指數跌幅。美元與短端殖利率走強、長端殖利率回落，VIX雖回落但Fear & Greed 17仍處極度恐慌，MOVE收在100.91、單日回落5.08%，顯示債市波動預期降溫，整體風險訊號仍不一致。"
+        "11/24美股分化：標普500與那斯達克下跌，費半跌幅更深；道瓊與羅素2000小幅收高。亞洲市場反彈，台股、KOSPI與日經走強；歐洲主要指數偏弱，顯示市場並非同步轉向單一風險方向。",
+        "跨資產方面，美債殖利率短、中、長端走勢分歧，美元指數回落，原油反彈而黃金、白銀下跌；VIX小幅上升，MOVE當日指定歷史頁未取得，暫列待核實，不以舊值替代。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜11/23亞洲外匯與美元走勢",
-          "url": "https://hk.investing.com/news/forex-news/article-1771562",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "label": "Reuters｜美股回吐輝達帶動漲幅",
+          "url": "https://www.marketscreener.com/news/nasdaq-s-p-500-end-lower-following-monday-s-nvidia-fueled-rally-ce7851dbdd81f720",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜11/23亞洲市場收市",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771887",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜11/23亞洲AI股與融資疑慮",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771656",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜摩根大通亞洲持倉觀察",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771760",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜XLRE 11/23歷史收盤",
-          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
-          "url": "https://fgscore.com/en/markets/sp500",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
-        },
-        {
-          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
-          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
-          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
-          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
-          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
+          "label": "Investing.com｜亞洲市場收市",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1774001",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         }
       ]
     },
     "strategy": {
       "paragraphs": [
-        "基準情境是AI需求尚未被證明反轉，但市場正在重新評估投資回報、融資品質與企業治理風險。保留現金流穩健、負債可控、客戶分散的核心持倉；不因單日科技股急彈就提高整體風險預算。",
-        "只有在市場上漲參與度擴大、外資賣壓緩和、波動率與信用利差持續收斂，且雲端客戶資本支出指引及現金流未下修時，才分批增加科技曝險。若PCE超預期、短端殖利率續升或融資條件惡化，先降低高Beta、槓桿及客戶集中度高的部位。"
+        "短線不追逐前一日急漲或急跌，先確認市場廣度、科技股相對強弱及信用條件是否同步改善。維持分散配置，控制高Beta與槓桿曝險，避免以單一AI龍頭消息作為加碼依據。",
+        "待PCE公布後，若通膨回落且短端殖利率穩定、非科技板塊參與度擴大，可分批提高風險資產配置；若PCE偏熱、短端殖利率續升或AI融資條件惡化，優先降低高估值科技股與槓桿部位。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜11/23亞洲外匯與美元走勢",
-          "url": "https://hk.investing.com/news/forex-news/article-1771562",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
+          "label": "Investing.com Fed Rate Monitor｜12月政策機率",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜11/23亞洲市場收市",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771887",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜11/23亞洲AI股與融資疑慮",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771656",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜摩根大通亞洲持倉觀察",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1771760",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "Investing.com｜XLRE 11/23歷史收盤",
-          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "DIRECT_OPEN_CONFIRMED"
-        },
-        {
-          "label": "FGScore（CNN Fear & Greed 備援）｜11/23官方指數轉載",
-          "url": "https://fgscore.com/en/markets/sp500",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T06:20:00+08:00",
-          "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
-        },
-        {
-          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
-          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
-          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
-          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
-        },
-        {
-          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
-          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
-          "published_at": "2026-11-23",
-          "checked_at": "2026-11-24T16:00:00+08:00",
-          "status": "DIRECT_WEB_SEARCH_RESULT"
+          "label": "Investing.com｜美國消費者信心與市場反應",
+          "url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
+          "published_at": "2026-11-24",
+          "checked_at": "2026-11-25T06:45:00+08:00",
+          "status": "DIRECT_PAGE_READ"
         }
       ]
     }
