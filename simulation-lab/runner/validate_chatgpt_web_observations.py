@@ -73,7 +73,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             raise ValueError(f"{group}/{name}: instrument identity not independently matched")
 
         method = raw.get("read_method")
-        if method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
+        if method in ("CHATGPT_WEB_OPEN_HISTORICAL_PAGE", "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"):
             value_field = raw.get("observed_value_field")
             change_field = raw.get("observed_change_field")
             headers = set(raw.get("observed_headers") or [])
@@ -114,7 +114,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             raw["http_status"] = None
             raw["source_page_fetched"] = True
-            raw["provenance"] = "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+            raw["provenance"] = ("CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION"\n                              if method == "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"\n                              else "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION")
         elif method == "CNN_OFFICIAL_PREVIOUS_CLOSE":
             if group != "risk" or name != "fear_greed":
                 raise ValueError(f"{group}/{name}: CNN JSON method is only valid for Fear & Greed")
