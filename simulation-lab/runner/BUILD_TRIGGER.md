@@ -10,13 +10,13 @@ workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 691a5af57817ef3e9df688cd3b8c41e6008f08e7
 active_rules_version: SIM-1.4
 active_rules_blob_sha: d689d33fa17ef532860ce022c8e0099e47e546b3
-qa_contract_version: 1.23
-qa_contract_blob_sha: 6d75596ff4eeabaf181fca61d9e9b7784e207f56
-manifest_blob_sha: 81e01655fd8a2dfeaa72b5c63d1695db13370562
+qa_contract_version: 1.26
+qa_contract_blob_sha: 4ba5f5a57db54aff93cff00914e2ad9e9d93ef52
+manifest_blob_sha: 9d071e148467e3c8117f9b69a6ff2de6c7b13827
 monday_mother_path: simulation-lab/baseline/monday-mother-template.html
-monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
+monday_mother_blob_sha: eb5090131dd9f72de8f4620d79c6ec3357091b6f
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
-weekday_mother_blob_sha: 33a5790c8132c1e24cebb5e30059f2b3348aca5c
+weekday_mother_blob_sha: 308ffcc076b1cebb34a0a7b5240ab6bcdc983ecd
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
 fixture_blob_sha: 6eafa708f8da49c9b0bf8240f8b00f8ff555b960
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
@@ -71,3 +71,5 @@ QA seal correction (2026-11-23): the evidence sealer now validates both nested W
 Monday content Gate correction (2026-11-23): the risk observation now names the next verified catalyst, US November Flash PMI at 11/23 22:45 Taipei time with the fixture's consensus values; the operation plan states a neutral-defensive stance and explicit conditional exposure actions.
 
 Builder approval update (2026-11-24): the user accepted the exact Builder blob SHA 102b3e3e6307fd0864bcde6618c3f089583b90ae. Active SIM-1.4 and this trigger now pin that exact version. The Workflow Builder approval step is fail-closed; this update does not run a build or authorize main delivery.
+
+Trigger pin synchronization (2026-11-24): aligned the date-scoped trigger with the current SIM-1.4 QA Contract v1.26, simulation mother-template Manifest, and the exact Monday/weekday simulation baseline blob SHAs. This synchronizes references only; it does not approve or execute a full build, change main, or authorize homepage delivery.
