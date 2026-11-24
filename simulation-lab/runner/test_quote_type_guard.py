@@ -125,7 +125,7 @@ def test_structured_market_observation():
     set_market_observation(node, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
     after = [(child.name, child.get("class")) if getattr(child, "name", None) else "#text" for child in node.contents]
     assert before == after
-    assert node.select_one("b").get_text(strip=True) == "盤面觀察重點"
+    assert node.select_one("b").get_text(strip=True) == "盤面觀察重點 ｜"
     assert "測試觀察內容" in node.get_text(" ", strip=True)
     original_heading = node.select_one("b").get_text(strip=True)
     set_market_observation(node, "", "第二次更新")
@@ -135,7 +135,7 @@ def test_structured_market_observation():
     wrapped_before = [child.name for child in wrapped.contents]
     set_market_observation(wrapped, "fallback", {"heading": "盤面觀察重點", "text": "測試觀察內容"})
     assert [child.name for child in wrapped.contents] == wrapped_before
-    assert wrapped.select_one("span").get_text(strip=True) == "盤面觀察重點｜測試觀察內容"
+    assert wrapped.select_one("span").get_text(strip=True) == "盤面觀察重點 ｜ 測試觀察內容"
 
 
 def test_fedwatch_two_card_contract():
