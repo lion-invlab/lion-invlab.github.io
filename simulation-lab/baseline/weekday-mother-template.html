@@ -4244,5 +4244,28 @@ main.wrap #sentiment .title:first-child {
 })();
 </script>
 
+
+<style id="sim14-fed-layout-repair-v1">
+/* Repair Fed/FOMC agenda: each fact owns a unique grid slot; no overlapping or compressed columns. */
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto auto auto auto!important;gap:10px!important;align-items:stretch!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important;min-width:0!important;width:auto!important;height:auto!important;min-height:100px!important;box-sizing:border-box!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{grid-column:2!important;grid-row:1!important;min-width:0!important;width:auto!important;height:auto!important;min-height:100px!important;box-sizing:border-box!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1/-1!important;grid-row:2!important;min-width:0!important;width:auto!important;height:auto!important;min-height:0!important;box-sizing:border-box!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:1/-1!important;grid-row:3!important;min-width:0!important;width:auto!important;height:auto!important;min-height:0!important;box-sizing:border-box!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1/-1!important;grid-row:4!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important}
+html body #fed .fc-fomc-weekly-events{grid-column:1/-1!important;grid-row:5!important;min-width:0!important;width:100%!important;box-sizing:border-box!important}
+html body #fed .fc-fomc-weekly-event{min-width:0!important;grid-template-columns:94px minmax(0,1fr)!important;align-items:start!important}
+html body #fed .fc-fomc-weekly-event>div{min-width:0!important}
+html body #fed .fc-fomc-weekly-event-name,html body #fed .fc-fomc-weekly-event-impact{white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important}
+@media(max-width:560px){
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;gap:8px!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press,html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate,html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation,html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>p,html body #fed .fc-fomc-weekly-events{grid-column:1!important;grid-row:auto!important}
+html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body #fed .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{min-height:0!important;height:auto!important;padding:12px!important}
+html body #fed .fc-fomc-weekly-event{grid-template-columns:minmax(0,1fr)!important;row-gap:3px!important}
+html body #fed .fc-fomc-weekly-event-date{white-space:normal!important;overflow-wrap:anywhere!important}
+html body #fed .fc-fomc-weekly-event-name,html body #fed .fc-fomc-weekly-event-impact{font-size:12px!important;line-height:1.55!important}
+}
+</style>
+
 </body>
 </html>
