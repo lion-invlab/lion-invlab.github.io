@@ -100,6 +100,8 @@ CNN manifest regression-test fixture correction (2026-11-24): synthetic official
 
 Manifest regression fixture-date correction (2026-11-24): CNN official/FGScore manifest test timestamps now use the actual 2026-11-23 fixture report date and 2026-11-20 market date, avoiding stale 2026-11-09 observation timestamps. Production report data unchanged.
 
-quote_type_guard_test_blob_sha: f03e7c0837874090f7a56b3d342fff4882cf2ddf
+quote_type_guard_test_blob_sha: 1eb271f4587ea5c614c46f9e4404fd18135056b8
 
 Summary separator test correction (2026-11-24): updated the two unit-test expectations to match the approved bold subheading format “標題 ｜ 正文”; the Builder behavior itself is unchanged.
+
+Single-item summary separator test correction (2026-11-24): the one-item fallback assertion now expects the same approved “標題 ｜ 正文” separator as the two-item summary format. Builder behavior unchanged; test expectation only.
