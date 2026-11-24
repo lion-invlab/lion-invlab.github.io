@@ -191,12 +191,12 @@ def main():
         "instrument_identity": "CNN Fear & Greed Index",
         "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
         "previous_close_target_date": cnn_source.get("data_date"),
-        "source_timestamp_utc": "2026-11-09T11:00:00+00:00",
+        "source_timestamp_utc": "2026-11-23T11:00:00+00:00",
         "raw_response_sha256": "c" * 64,
         "target_date": cnn_source.get("data_date"),
         "observed_date": cnn_source.get("data_date"),
-        "finished_at_utc": "2026-11-09T11:00:01Z",
-        "finished_at_tw": "2026-11-09T19:00:01+08:00",
+        "finished_at_utc": "2026-11-23T11:00:01Z",
+        "finished_at_tw": "2026-11-23T19:00:01+08:00",
     })
     cnn_manifest = build_manifest(cnn_data, "2026-11-23", cnn_observations)
     cnn_row = next(r for r in cnn_manifest["rows"] if r["group"] == "risk" and r["name"] == "fear_greed")
