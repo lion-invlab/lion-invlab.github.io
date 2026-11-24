@@ -41,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "396c0ed7da3fc5c499c65aafa2892961603995de286f9bc3199c08ea693eb975",
+  "prebuild_input_receipt_sha256": "876712f9d67924fcc2361555a5d4a04b9460165b901f6b41574b9936a9215d28",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +49,11 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45311420166",
+    "workflow_run_id": "45312747161",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
-      "sha256": "36b16458295e64550b0b486d8f298257e1455ef5c92277561a8abffbbfb69dc3"
+      "sha256": "8307991b3999d33f39e46315aff13caacf2c8cc136e430936475734d678200e0"
     },
     "stage_2_market": {
       "trading_date": "2026-11-23",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T02:19:32Z",
+    "created_at_utc": "2026-11-24T02:30:32Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,11 +141,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "6e11bcff5dd7ea5a65f59c195d2f20f11a6fa294",
-  "report_sha256": "bcde6a94ed83a5005e4f2a6e32ffe498310b41d5206da0d0269629a9bfa6b47d",
-  "build_commit_sha": "09fbe5f144ce80763831101dd55d69f7457479da",
+  "report_git_blob_sha": "22d8fd7511bcf6464424d298e2f21de2b5bd6823",
+  "report_sha256": "6796b64f5e08674e53b77fb095aff0bcc51868d024e6e51310923213eead396c",
+  "build_commit_sha": "d4c900ac6e5487b965de407352a43b25977c6f71",
   "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-  "fixture_blob_sha": "398db28b70fb91a8ba11014d594f35185ee1b459",
+  "fixture_blob_sha": "fad27f6e634615fd4490e737770b6ebfe16669b2",
   "template_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
   "manifest_blob_sha": "81e01655fd8a2dfeaa72b5c63d1695db13370562",
   "qa_contract_blob_sha": "1bf22ea17356eaf4cdfba2c1ecc17ca402302578",
@@ -216,7 +216,7 @@
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "e713610d3d648908d47cdec243de7d7191e9dd22a0244ecb49c01936818a60fb",
+  "visual_evidence_sha256": "e49a33793db2cab39f43278e70e50b4a80b7dce3dbd613a2b5cec48a82a168ab",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45311420166",
+  "workflow_run_id": "45312747161",
   "workflow_run_attempt": "1"
 }
