@@ -28,10 +28,10 @@
   },
   "destination": {
     "html_path": "preview/2026-11-24-review.html",
-    "html_git_blob_sha": "941da7138d964f20f9b0219c32b3fc50b2534dc4",
+    "html_git_blob_sha": "494c9752e98748aa173fb3233f0d4667d2187de9",
     "qa_sidecar_path": "preview/2026-11-24-review.qa.json",
     "qa_sidecar_git_blob_sha": "e07edefda9f6aff99942911c29fe2ea57516629c",
     "delivery_receipt_path": "preview/2026-11-24-review.delivery.json"
   },
-  "notes": "Stage 6 initial delivery. Main index.html, formal mother, Manifest and calendar JSON were not modified. Subsequent review edits must update only this HTML and this delivery receipt; do not rerun QA or rewrite QA sidecar."
+  "notes": "Stage 6 initial delivery followed by user-requested review edit. The 2026-11-24 summary was revised to exactly three paragraphs per SIM-1.4 §7.2/§7.4: 昨日市場盤面分析、風險提示、操作建議. Only this preview HTML and this delivery receipt were updated during review; QA sidecar was intentionally left unchanged. Main index.html, formal mother, Manifest and calendar JSON were not modified."
 }
