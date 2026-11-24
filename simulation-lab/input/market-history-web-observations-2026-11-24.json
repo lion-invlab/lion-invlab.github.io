@@ -4,7 +4,7 @@
   "trading_date": "2026-11-23",
   "captured_at_utc": "2026-11-24T02:37:28Z",
   "captured_at_tw": "2026-11-24T10:37:28+08:00",
-  "capture_session": "CHATGPT_WEB_OPEN_AND_SEARCH_CURRENT_REPORT_SESSION",
+  "capture_session": "CHATGPT_WEB_OPEN_AND_SEARCH_CURRENT_REPORT_SESSION_PREBUILD_RULES_SYNCED",
   "observations": [
     {
       "group": "global_markets",
