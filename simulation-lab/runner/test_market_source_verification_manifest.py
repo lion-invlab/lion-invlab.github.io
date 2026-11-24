@@ -62,13 +62,30 @@ def main():
     closed_data = copy.deepcopy(data)
     closed_data["global_markets"]["日經225"]["display"] = "休市"
     closed_data["global_markets"]["日經225"]["change_display"] = "—"
+    closed_data["global_markets"]["日經225"]["source"]["data_date"] = "2026-11-23"
+    closed_data["trading_date"] = "2026-11-23"
     closed_observations = {
         ("global_markets", "日經225"): {
             "read_status": "MARKET_CLOSED",
+            "source_page_fetched": True,
+            "source_url": closed_data["global_markets"]["日經225"]["source"]["url"],
+            "target_date": "2026-11-23",
+            "expected_display_value": "休市",
+            "instrument_identity_status": "VERIFIED",
+            "instrument_identity": "Nikkei 225 cash index",
+            "field_mapping_status": "VERIFIED",
+            "closure_evidence_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
+            "closure_evidence_reader_ref": "synthetic-closure-test-ref",
+            "closure_evidence_line_start": 19,
+            "closure_evidence_line_end": 40,
+            "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+            "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+            "prior_observation_reused": False,
+            "finished_at_utc": "2026-11-23T10:00:00Z",
             "finished_at_tw": "2026-11-23T18:00:00+08:00",
         }
     }
-    closed_manifest = build_manifest(closed_data, "2026-11-23", closed_observations)
+    closed_manifest = build_manifest(closed_data, "2026-11-24", closed_observations)
     nikkei_row = next(r for r in closed_manifest["rows"]
                       if r["group"] == "global_markets" and r["name"] == "日經225")
     assert nikkei_row["verification_status"] == "CLOSED"
