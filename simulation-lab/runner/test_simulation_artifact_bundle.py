@@ -74,7 +74,12 @@ def main() -> None:
             "status": "PENDING", "row_count": 44, "verified_count": 0, "pending_count": 44,
             "rows": [{"verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"} for _ in range(44)]
         }
-        manifest_path.write_text(json.dumps(pending_manifest), encoding="utf-8")
+        pending_bytes = json.dumps(pending_manifest).encode("utf-8")
+        manifest_path.write_bytes(pending_bytes)
+        sidecar_path = root / "preview/2026-11-23-simulation.qa.json"
+        sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+        sidecar["market_source_verification_manifest_sha256"] = sha256(pending_bytes)
+        sidecar_path.write_text(json.dumps(sidecar), encoding="utf-8")
         result = audit_bundle(root, "preview/2026-11-23-simulation.html", "12345", "simulation/test", "trigger456")
         assert result["status"] == "PASS", result["errors"]
         # Restore the partial fixture for the remaining capture-evidence checks.
