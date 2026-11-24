@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "status": "DELIVERED_TO_MAIN_PREVIEW",
+  "report_date": "2026-11-24",
+  "delivered_at_taipei": "2026-11-24T11:49:13+08:00",
+  "source": {
+    "repository": "lion-invlab/lion-invlab.github.io",
+    "branch": "simulation/tac-process-lab-2026-11-06",
+    "html_path": "preview/2026-11-24-simulation.html",
+    "html_git_blob_sha": "941da7138d964f20f9b0219c32b3fc50b2534dc4",
+    "html_sha256": "95448b35abdf8a716e4d9e919ed6983247019902386824221fcacbdd7c50bf77",
+    "qa_sidecar_path": "preview/2026-11-24-simulation.qa.json",
+    "qa_sidecar_git_blob_sha": "e07edefda9f6aff99942911c29fe2ea57516629c",
+    "workflow_run_id": "45319269674",
+    "builder_path": "simulation-lab/runner/build_review_html.py",
+    "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
+    "rules_version": "SIM-1.4",
+    "rules_blob_sha": "91083f5d18e960fa9e1e9dbb5bedca1029232d81"
+  },
+  "qa_summary": {
+    "status": "QA_PASSED",
+    "review_ready": true,
+    "data_review_ready": true,
+    "content_analysis_gate": "PASS",
+    "sim14_builder_approval": "APPROVED",
+    "sim14_review_ready": true,
+    "sim14_blockers": []
+  },
+  "destination": {
+    "html_path": "preview/2026-11-24-review.html",
+    "html_git_blob_sha": "941da7138d964f20f9b0219c32b3fc50b2534dc4",
+    "qa_sidecar_path": "preview/2026-11-24-review.qa.json",
+    "qa_sidecar_git_blob_sha": "e07edefda9f6aff99942911c29fe2ea57516629c",
+    "delivery_receipt_path": "preview/2026-11-24-review.delivery.json"
+  },
+  "notes": "Stage 6 initial delivery. Main index.html, formal mother, Manifest and calendar JSON were not modified. Subsequent review edits must update only this HTML and this delivery receipt; do not rerun QA or rewrite QA sidecar."
+}
