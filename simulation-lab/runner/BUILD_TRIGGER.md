@@ -18,7 +18,7 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-24.json
-fixture_blob_sha: c4aa852ab58bfd1c56cd31cc7497e9eb7db5d9aa
+fixture_blob_sha: 9e3acf4288227f8d449e84f62c0d6849c9b618ca
 main_calendar_commit_sha: 477752fa1198a0f3970671fd6d02bf5fdf50db27
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 0db095ad6638d0bf75dc1ae90248571c84169f26
@@ -32,10 +32,10 @@ builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: 102b3e3e6307fd0864bcde6618c3f089583b90ae
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
 market_history_web_observations_blob_sha: df48823c637fdb36baa34da26fc5dbd97782fb30
-web_observation_validator_blob_sha: 8264ad968f5f5c7ec3527345db6d1ec5167076f9
+web_observation_validator_blob_sha: 5d5fe13aad1e2fcba9ce3309f34550e1353bf195
 market_manifest_builder_blob_sha: f127126d6a932069d3e8f5f9c52a11bbcd5f6ed2
 prebuild_validator_blob_sha: ab0f121e4b3e393f2120ddd3dde7d70d4d403953
-web_observation_test_blob_sha: f46339e631898f1bd7e1080649ebf9ba3ae20903
+web_observation_test_blob_sha: c484aa416dbe7512f1a3d4176cac79b813f7bed3
 mother_dom_validator_blob_sha: f63c157b8cdd4895aa69d79d6245e8bf3ac6bca7
 
 Mother DOM contract correction (2026-11-24): the weekday summary keeps its single mother-owned paragraph container while allowing the approved dynamic editorial line breaks to vary; this permits the four-paragraph weekday summary without treating text-flow breaks as a mother DOM redesign. All other wrapper attributes and stable selectors remain enforced.
@@ -77,3 +77,5 @@ Builder approval update (2026-11-24): the user accepted the exact Builder blob S
 Trigger pin synchronization (2026-11-24): aligned the date-scoped trigger with the current SIM-1.4 QA Contract v1.26, simulation mother-template Manifest, and the exact Monday/weekday simulation baseline blob SHAs. This synchronizes references only; it does not approve or execute a full build, change main, or authorize homepage delivery.
 
 Responsive earnings grid spacing correction (2026-11-24): both Simulation mothers now explicitly retain the approved <=1200px #earnings row-gap 16px / column-gap 14px; this resolves the visual regression mismatch without redesigning the section. The report's market-risk paragraph and warning note were also aligned to the freshly read MOVE 100.91 (-5.08%) and the 43-verified/1-closed observation result. Main remains untouched.
+
+Fear & Greed raw-value mapping correction (2026-11-24): CNN official previous_close raw value 16.9658627087199 is rounded to display 17; FGScore historical-page fallback score 17 is separately pinned as backup_source_score_value. The validator distinguishes the two raw-value mappings so either source can verify without false pending status. CNN API response SHA-256 and endpoint are recorded as the primary cross-check; source URL remains the FGScore fallback page. Main unchanged.
