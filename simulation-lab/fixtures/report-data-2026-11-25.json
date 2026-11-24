@@ -18,13 +18,14 @@
     },
     {
       "title": "美股與歐洲期貨回落，亞洲股市反彈幅度領先",
-      "url": "2026/11/24 07:19 EST",
-      "published_at_source": "2026/11/24 20:19",
-      "published_at_tw": "America/New_York",
-      "source_timezone": "亞洲股市因前一日美股反彈而上揚，歐洲主要指數及美股期貨則回落。市場一方面評估AI龍頭領導層變動，另一方面仍須衡量政治與法律風險。",
+      "url": "https://www.washingtonpost.com/business/2026/11/24/us-futures-european-markets-fade-following-nvidia-rally/",
+      "published_at_source": "2026/11/24 07:19 EST",
+      "published_at_tw": "2026/11/24 20:19",
+      "source_timezone": "America/New_York",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "原文未標示更新時間",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "summary": "亞洲股市因前一日美股反彈而上揚，歐洲主要指數及美股期貨則回落。市場一方面評估AI龍頭領導層變動，另一方面仍須衡量政治與法律風險。"
     },
     {
       "title": "美股回吐輝達帶動的漲幅，市場重新評估AI交易",
@@ -90,13 +91,14 @@
       "verification_status": "DIRECT_PAGE_READ"
     },
     {
-      "title": "英國零售商銷售增長創近四年最強勁表現",
-      "url": "2026/11/24 19:27",
-      "published_at_source": "2026/11/24 19:27",
-      "published_at_tw": "Asia/Hong_Kong",
-      "source_timezone": "英國工業聯合會11月零售銷售差額指數升至+9，為近四年高位；但企業預期12月銷售持平，並計劃削減未來一年投資，復甦持續性仍待觀察。",
+      "title": "市場焦點：美股反彈後回吐，科技股與AI交易降溫",
+      "url": "https://www.investopedia.com/5-things-to-know-stock-market-november-24-2026-12274196",
+      "published_at_source": "2026/11/24 07:40 EST",
+      "published_at_tw": "2026/11/24 20:40",
+      "source_timezone": "America/New_York",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "原文未標示更新時間",
+      "summary": "Investopedia整理美股反彈後的盤前變化，指出輝達、記憶體與半導體股回落，市場同時關注本週大型科技公司財報。AI相關股票仍面臨估值與投資回報檢驗。",
       "verification_status": "DIRECT_PAGE_READ"
     },
     {
