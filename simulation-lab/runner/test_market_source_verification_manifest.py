@@ -129,6 +129,23 @@ def main():
             "finished_at_utc": "2026-11-23T11:00:00Z", "finished_at_tw": "2026-11-23T19:00:00+08:00",
             "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
         }
+    # One closed exchange plus 43 verified quotes is PARTIAL, never PASS.
+    partial_data = copy.deepcopy(data)
+    partial_data["global_markets"]["日經225"]["display"] = "休市"
+    partial_data["global_markets"]["日經225"]["change_display"] = "—"
+    partial_observations = copy.deepcopy(synthetic_observations)
+    partial_observations.pop(("global_markets", "日經225"))
+    partial_observations[("global_markets", "日經225")] = {
+        "read_status": "MARKET_CLOSED",
+        "finished_at_tw": "2026-11-23T19:00:00+08:00",
+    }
+    partial = build_manifest(partial_data, "2026-11-23", partial_observations)
+    assert partial["verified_count"] == 43
+    assert partial["closed_count"] == 1
+    assert partial["pending_count"] == 0
+    assert partial["status"] == "PARTIAL"
+    assert partial["displayed_values_independently_reconciled"] is False
+
     positive = build_manifest(data, "2026-11-23", synthetic_observations)
     if positive["status"] != "PASS":
         pending_rows = [
