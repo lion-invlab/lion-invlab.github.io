@@ -2,3 +2,6 @@ report_date=2026-11-24
 reason=weekday-summary-and-mother-css-audit-fixes
 fixture_sha=6a0607bcd1773a399c8831db523ca05dcf6cacb2
 builder_sha=92605353973bb2c8200c5785917a95060681790a
+validator_sha=02f5e82788b52238212ef22fe103db04ee60c332
+test_sha=35a029b7651c1b28d585a989fa9d68d8d767fc55
+reason=allow_120m_same_session_historical_observation_and_regression_test
