@@ -86,7 +86,20 @@ def main():
             left_compare, right_compare = copy.deepcopy(left), copy.deepcopy(right)
             for dynamic in left_compare.select(".market-analysis-content") + right_compare.select(".market-analysis-content"):
                 dynamic.clear()
-        if shape(left_compare, omit_dynamic_fed_rows=omit, include_style=include_style) != shape(right_compare, omit_dynamic_fed_rows=omit, include_style=include_style):
+        if selector == "#overview > section.grid.two > article.card.bluf > p":
+            # The approved mother owns one summary paragraph container. Its
+            # editorial line breaks are dynamic (weekday reports now use four
+            # connected paragraphs); compare the container itself, not its
+            # variable <br> children or text.
+            summary_shell = lambda node: (
+                node.name,
+                tuple(sorted((key, tuple(value) if isinstance(value, list) else str(value))
+                             for key, value in node.attrs.items()))
+            )
+            same_shape = summary_shell(left_compare) == summary_shell(right_compare)
+        else:
+            same_shape = shape(left_compare, omit_dynamic_fed_rows=omit, include_style=include_style) == shape(right_compare, omit_dynamic_fed_rows=omit, include_style=include_style)
+        if not same_shape:
             raise ValueError(f"{context} DOM skeleton changed from the approved mother")
 
     # Five-layer article content is dynamic, but its five mother-owned sections and evidence links are mandatory.
