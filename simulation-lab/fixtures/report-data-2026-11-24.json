@@ -2,7 +2,7 @@
   "report_date": "2026-11-24",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-23",
-  "summary": "11/23 全球市場出現急跌後的劇烈反彈，但不是全面風險解除。輝達董事會宣布黃仁勳即日起復任總裁、執行長及董事，重新點燃AI交易，費半單日大漲14.03%、那斯達克上漲6.51%；然而韓國KOSPI仍下跌3.31%，亞洲市場分化，顯示資金回補集中於部分科技與半導體標的。中國下調融資保證金、韓國準備市場穩定基金，屬政策托底而非企業獲利已改善。\\n\\n核心矛盾：市場從上週的AI融資與估值疑慮快速切換至反彈交易，但高利率、信用融資成本、政策與出口管制風險並未消失。美國本週即將公布10月PCE與第三季GDP修正值，若通膨仍黏著，反彈將面臨利率再定價壓力；油價大跌反映供應增加與市場供應過剩預期暫時壓過中東風險。\\n\\n操作立場：中性偏防禦，不追逐單日暴漲。先檢查高槓桿、融資依賴與客戶集中度高的AI供應鏈；待市場廣度擴大、VIX與MOVE連續回落、信用利差收斂且企業資本支出指引未下修，再分批加碼。若PCE超預期、長端殖利率再升或AI雲端融資條件惡化，重新降低高Beta曝險。",
+  "summary": "11/23市場走勢的核心是「美股科技股急彈、亞洲部分市場仍承壓」，而非全球同步反轉。輝達董事會宣布黃仁勳復任，緩解市場對AI龍頭領導層不確定性的疑慮，輝達股價大漲約31%，帶動費半上漲14.03%、那斯達克上漲6.51%；但美股期貨在消息前已反彈，連跌後的回補也放大漲幅。相對地，韓國KOSPI下跌3.31%，原因包括前一交易日美國AI與半導體股重挫的延續效應，以及外資轉為賣超，顯示區域資金尚未全面回流。\\n\\n跨資產訊號仍不一致：美元與2年期美債殖利率走高，反映市場重新押注聯準會政策偏緊；10年、30年殖利率回落，長短端分歧，不能直接視為全面降息交易。油價下跌，供應過剩預期暫時壓過中東航運風險；黃金與白銀上漲，但目前資料不足以確認單日上漲的主導原因。中國融資保證金調降及韓國穩市措施屬政策緩衝，不能等同企業需求或獲利改善。\\n\\n投資判斷：本次反彈由單一大型科技股消息帶動，並疊加超跌回補，市場廣度與信用條件尚未同步確認。維持中性偏防禦，不追逐單日急漲；待外資賣壓緩和、上漲參與度擴大、信用利差收斂，且AI資本支出回報與雲端客戶現金流獲得驗證，再分批增加科技曝險。若PCE偏熱、短端殖利率續升或AI融資條件惡化，優先降低高Beta與槓桿部位。",
   "sentiment": "市場情緒仍處極度恐懼區：CNN Fear & Greed 17（FGScore備援顯示CNN原始指數），VIX 26.62；MOVE 11/23收盤列未取得，不能把盤中截圖值當成收盤。11/23美股強彈與恐慌指標回落，代表風險偏好修復，但韓股仍弱、亞洲市場分化，政策托底與短線回補不等於信用風險解除。",
   "focus_news": [
     {
@@ -2273,24 +2273,24 @@
   },
   "summary_points": [
     {
-      "label": "美股主軸",
-      "text": "11/23美股全面反彈，道瓊上漲3.01%、標普500上漲4.74%、那斯達克上漲6.51%、費半上漲14.03%。漲勢集中於大型科技與半導體，尚不能視為市場廣度全面改善。"
+      "label": "美股反彈原因",
+      "text": "道瓊 +3.01%、標普500 +4.73%、那斯達克 +6.51%、費半 +14.03%。主因是輝達董事會宣布黃仁勳復任，緩解上週市場對公司領導層與AI投資前景的疑慮；輝達股價大漲約31%，帶動半導體與AI供應鏈急彈。惟期貨在消息前已先行反彈，且連跌後的回補也放大漲幅，不能全歸因於單一消息。"
     },
     {
-      "label": "市場分化",
-      "text": "美股與台灣科技股反彈，但韓國KOSPI下跌3.31%；日經因日本假日休市。各市場走勢分歧，資金回流並不平均。"
+      "label": "亞洲市場分化",
+      "text": "韓國KOSPI下跌3.31%，延續前一交易日美國AI與半導體股重挫後的賣壓；外資轉為賣超，半導體權重高使韓股跌幅放大。台股反彈與韓股下跌並存，反映資金回補並不平均；中國降低融資保證金及韓國準備穩市基金只能提供流動性緩衝，尚未扭轉基本面疑慮。"
     },
     {
-      "label": "主要風險",
-      "text": "VIX仍處高檔，Fear & Greed為17、屬極度恐慌；MOVE缺少11/23收盤值。AI融資成本、政策不確定性及中東事件仍須追蹤。"
+      "label": "債匯與利率",
+      "text": "美元走強、短天期美債殖利率上升，市場重新提高對聯準會偏緊政策的押注；2年期殖利率上行與此方向一致。10年、30年殖利率則回落，呈現長短端分歧；目前資料不足以把長端回落歸因於單一因素，不宜概括為全面降息交易。"
     },
     {
-      "label": "政策與經濟",
-      "text": "中國降低融資保證金比例將於11/30生效，尚非已實現的需求改善；美國本週PCE等數據將影響利率與高估值科技股定價。"
+      "label": "能源與貴金屬",
+      "text": "WTI與Brent下跌，市場對全球供應過剩的預期壓過中東航運風險，油價回落也可能減輕短期能源通膨壓力；但若油價下跌反映需求轉弱，對景氣的訊號便不同。黃金、白銀同步上漲，現有資料未能確認其單日上漲的主導催化因素，不把它直接解讀為避險需求全面回升。"
     },
     {
       "label": "操作立場",
-      "text": "維持中性偏防禦，不追逐單日急漲。待市場廣度擴大、信用利差收斂且殖利率穩定，再分批增加現金流穩健企業的曝險。"
+      "text": "這是由輝達消息引發、並疊加超跌回補的科技領漲反彈，不是全市場風險解除。維持中性偏防禦，不追逐單日急漲；待市場廣度擴大、外資賣壓緩和、信用利差收斂，且AI資本支出回報與企業現金流得到驗證，再分批增加曝險。"
     }
   ],
   "warning_note": "行情主要基準日為2026-11-23。44項指標中，42項來源觀察已核對、MOVE 11/23收盤列待核實、日經225因日本假日休市；不以舊收盤或盤中值補缺。VIX採11/23歷史收盤；Fear & Greed 17為FGScore備援轉載值。FedWatch沿用11/21 13:35台灣時間快照。",
@@ -2743,8 +2743,8 @@
   "market_analysis": {
     "political": {
       "paragraphs": [
-        "輝達董事會宣布黃仁勳復職；美國參議員要求白宮說明國安意見來源，並預告12月初閉門訪談。公司治理決策與政治監督都不等同出口管制違規認定。",
-        "中國融資保證金調降將於11/30生效；美國AI晶片出口管制未見正式豁免。南韓與台灣穩市措施可緩和交易賣壓，但仍須以資金流與市場廣度驗證。"
+        "輝達董事會宣布黃仁勳復任總裁、執行長及董事，市場將此視為AI龍頭治理不確定性暫時下降的訊號；但美國總統介入公司決策、國會議員要求說明國安審查與中國晶片出口管制，意味公司治理、政治監督與出口政策仍交錯。復職消息不是出口限制解除，也不是相關調查結束。",
+        "中國下調融資買入最低保證金比例將於11/30生效，屬已宣布、尚未實施的市場槓桿支持；韓國準備市場穩定基金則是穩市訊號。兩者可影響短期流動性與風險情緒，但不能推論企業營收、AI終端需求或獲利已改善。"
       ],
       "sources": [
         {
@@ -2788,13 +2788,41 @@
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
           "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
+        },
+        {
+          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
+          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
+          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
+          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
+          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
         }
       ]
     },
     "policy_industry": {
       "paragraphs": [
-        "費半單日大漲反映情緒與交易回補，不代表雲端客戶融資、GPU利用率或資料中心現金流同步改善。",
-        "AI融資條件若轉緊，可能先影響資料中心融資與GPU採購，再傳導至設備訂單及供應商應收帳款；中國融資政策則主要作用於市場槓桿，不能直接視為終端需求復甦。"
+        "美股科技與半導體急彈的直接催化，是輝達董事會宣布黃仁勳復任，輝達股價大漲約31%，帶動費半上漲14.03%；市場先前將領導層危機與AI投資回報疑慮連結，復職消息降低了短期治理不確定性。不過，期貨在正式消息前已上漲，反彈同時包含前期重挫後的回補，不能將全部漲幅視為基本面改善。",
+        "AI產業真正尚待驗證的是資料中心資本支出的融資成本、GPU利用率、客戶集中度及自由現金流。融資條件收緊可能先壓縮資料中心專案回報與採購節奏，再傳導至設備訂單及供應商應收帳款；目前沒有足夠證據把融資疑慮直接描述成企業違約或整條供應鏈瓦解。"
       ],
       "sources": [
         {
@@ -2838,13 +2866,41 @@
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
           "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
+        },
+        {
+          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
+          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
+          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
+          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
+          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
         }
       ]
     },
     "macro": {
       "paragraphs": [
-        "美國本週將公布PCE、第三季GDP修正值與耐久財訂單；若通膨偏熱，利率預期與長端殖利率可能上升，壓抑高估值成長股。",
-        "中國與南韓措施先影響市場流動性，不代表消費、企業投資或盈利回升；油價下跌可降低能源通膨，但若源於需求轉弱，仍須留意成長風險。"
+        "美元走強與2年期美債殖利率上升，反映交易員提高對聯準會偏緊政策的押注；美國本週公布的PCE、第三季GDP修正值與耐久財訂單，將影響市場對通膨黏著度、成長韌性與利率路徑的判斷。若PCE偏熱，短端利率與美元可能續強，對高估值成長股形成折現率壓力。",
+        "10年與30年殖利率回落，與短端上升形成分歧；目前來源未能確認長端下行的單一主因，因此不把它直接解讀為市場已全面轉向降息或衰退交易。油價下跌與供應過剩預期有關，可暫時緩和能源通膨，但若後續證實是需求走弱，則會增加景氣風險。"
       ],
       "sources": [
         {
@@ -2888,13 +2944,41 @@
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
           "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
+        },
+        {
+          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
+          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
+          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
+          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
+          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
         }
       ]
     },
     "markets": {
       "paragraphs": [
-        "11/23美股反彈由科技與半導體領漲，韓國KOSPI仍下跌；十一大產業ETF亦呈現科技強、能源弱的分化，市場廣度尚待確認。",
-        "VIX回落但Fear & Greed 17仍處極度恐慌；MOVE缺少11/23正式收盤值，不以盤中數字代替。美債殖利率仍高，跨資產訊號尚未形成全面風險偏好回歸。"
+        "美股道瓊、標普與那斯達克分別上漲3.01%、4.73%及6.51%，費半上漲14.03%，主要由輝達復職消息帶動AI與半導體股反彈，並受到連跌後回補放大；但上漲集中於科技，不能據此認定市場廣度已全面恢復。",
+        "韓國KOSPI下跌3.31%，延續前一交易日美國AI股賣壓，且外資由早盤買方轉為賣方；高半導體權重放大指數跌幅。美元與短端殖利率走強、長端殖利率回落，VIX雖回落但Fear & Greed仍為17，MOVE收盤值缺漏，整體風險訊號仍不一致。"
       ],
       "sources": [
         {
@@ -2938,13 +3022,41 @@
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
           "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
+        },
+        {
+          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
+          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
+          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
+          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
+          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
         }
       ]
     },
     "strategy": {
       "paragraphs": [
-        "基準情境仍是AI需求未被證明反轉，但估值與融資品質正在重新定價。保留現金流穩健、負債可控及客戶分散的核心持倉，不追逐單日急漲標的。",
-        "只有在市場廣度擴大、波動率與信用利差持續收斂、雲端客戶資本支出指引未下修時，才分批增加科技曝險；若通膨或融資風險升高，先降低高Beta與槓桿部位。"
+        "基準情境是AI需求尚未被證明反轉，但市場正在重新評估投資回報、融資品質與企業治理風險。保留現金流穩健、負債可控、客戶分散的核心持倉；不因單日科技股急彈就提高整體風險預算。",
+        "只有在市場上漲參與度擴大、外資賣壓緩和、波動率與信用利差持續收斂，且雲端客戶資本支出指引及現金流未下修時，才分批增加科技曝險。若PCE超預期、短端殖利率續升或融資條件惡化，先降低高Beta、槓桿及客戶集中度高的部位。"
       ],
       "sources": [
         {
@@ -2988,6 +3100,34 @@
           "published_at": "2026-11-23",
           "checked_at": "2026-11-24T06:20:00+08:00",
           "status": "BACKUP_SOURCE_DIRECT_WEB_READ"
+        },
+        {
+          "label": "Reuters｜Wall Street rebounds as Jensen Huang returns as Nvidia CEO",
+          "url": "https://www.reuters.com/business/wall-street-futures-rebound-after-rough-week-ai-linked-shares-2026-11-23/",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "AP｜How major US stock indexes fared Monday 11/23/2026",
+          "url": "https://apnews.com/article/fcdf1bad36b4f81c90cbb0f33a2c5704",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "Yonhap｜Seoul shares plunge over 3 pct on AI jitters",
+          "url": "https://en.yna.co.kr/view/AEN20261123006652320",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
+        },
+        {
+          "label": "WSJ｜Nvidia's Rally Ripples Across Markets",
+          "url": "https://www.wsj.com/finance/stocks/stock-futures-rally-as-dust-settles-after-ai-driven-selloff-705ff2c4",
+          "published_at": "2026-11-23",
+          "checked_at": "2026-11-24T16:00:00+08:00",
+          "status": "DIRECT_WEB_SEARCH_RESULT"
         }
       ]
     }
