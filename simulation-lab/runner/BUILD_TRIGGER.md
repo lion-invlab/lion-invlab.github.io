@@ -99,3 +99,7 @@ Full Simulation review build authorized by this trigger commit (2026-11-24): all
 CNN manifest regression-test fixture correction (2026-11-24): synthetic official/backup CNN observations now use the fixture's actual report_date 2026-11-23, avoiding an unrelated 2026-11-09 report-date mismatch in the test harness. Test SHA: c9d220be4b71337c17fbd8fa78e59645dda42095.
 
 Manifest regression fixture-date correction (2026-11-24): CNN official/FGScore manifest test timestamps now use the actual 2026-11-23 fixture report date and 2026-11-20 market date, avoiding stale 2026-11-09 observation timestamps. Production report data unchanged.
+
+quote_type_guard_test_blob_sha: f03e7c0837874090f7a56b3d342fff4882cf2ddf
+
+Summary separator test correction (2026-11-24): updated the two unit-test expectations to match the approved bold subheading format “標題 ｜ 正文”; the Builder behavior itself is unchanged.
