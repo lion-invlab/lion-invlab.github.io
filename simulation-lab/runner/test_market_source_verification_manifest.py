@@ -65,6 +65,13 @@ def main():
     closed_data["global_markets"]["日經225"]["source"]["data_date"] = "2026-11-23"
     closed_data["report_date"] = "2026-11-24"
     closed_data["trading_date"] = "2026-11-23"
+    # This is a synthetic whole-session closure fixture; align every source date to the synthetic trading date.
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for item in (closed_data.get(group) or {}).values():
+            source = item.get("source") or {}
+            source["data_date"] = "2026-11-23"
+    for source in (closed_data.get("sector_sources") or {}).values():
+        source["data_date"] = "2026-11-23"
     closed_observations = {
         ("global_markets", "日經225"): {
             "read_status": "MARKET_CLOSED",
