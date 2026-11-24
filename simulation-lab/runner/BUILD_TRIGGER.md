@@ -7,7 +7,7 @@ report_cutoff_taipei: 2026-11-24T05:25:00+08:00
 news_window_taipei: 2026-11-23T12:00:00+08:00/2026-11-24T05:25:00+08:00
 trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
-workflow_blob_sha: 0f6cd5da0ca819bbc1b75c8c834cee82b35022a4
+workflow_blob_sha: f55d2f7aa9f505f68d7a7e8c5ff3527188ad301a
 active_rules_version: SIM-1.4
 active_rules_blob_sha: b9562860f84a302888472ce86a8c0e693d13220a
 qa_contract_version: 1.27
@@ -89,3 +89,5 @@ Chart 3 handoff reliability correction (2026-11-24): S&P 500 read_method remains
 Summary slot correction (2026-11-24): consolidated the four draft summary points into the three approved SIM-1.4 summary slots. The market-catalyst explanation remains explicit; bond, FX and commodity divergences are combined in the second point; the final point retains conditional risk exposure guidance. Fixture SHA: e892d4b0a402f63e486338b7d2c1886e372e086c. No mother or main files changed.
 
 Manifest integration correction (2026-11-24): the manifest builder now distinguishes CNN_OFFICIAL_PREVIOUS_CLOSE from the FGScore backup page even when the fixture URL is a backup URL. CNN raw previous_close compares to source_score_value; FGScore integer score compares to backup_source_score_value. The nested cross_check object carries the CNN API as PRIMARY cross-check. Added regression tests for both paths. Main unchanged.
+
+Artifact verification reliability correction (2026-11-24): uploaded simulation evidence download/read-back now uses if: always() for build-triggered runs, so the independent artifact audit still executes after an earlier failure. Core self-tests remain fail-fast; no main changes.
