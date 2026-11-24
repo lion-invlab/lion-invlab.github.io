@@ -36,6 +36,9 @@ web_observation_validator_blob_sha: 8264ad968f5f5c7ec3527345db6d1ec5167076f9
 market_manifest_builder_blob_sha: f127126d6a932069d3e8f5f9c52a11bbcd5f6ed2
 prebuild_validator_blob_sha: ab0f121e4b3e393f2120ddd3dde7d70d4d403953
 web_observation_test_blob_sha: f46339e631898f1bd7e1080649ebf9ba3ae20903
+mother_dom_validator_blob_sha: f63c157b8cdd4895aa69d79d6245e8bf3ac6bca7
+
+Mother DOM contract correction (2026-11-24): the weekday summary keeps its single mother-owned paragraph container while allowing the approved dynamic editorial line breaks to vary; this permits the four-paragraph weekday summary without treating text-flow breaks as a mother DOM redesign. All other wrapper attributes and stable selectors remain enforced.
 prebuild_test_blob_sha: 4c40eeaa3f6232cd0be18c5cf4b7b856b2fe861a
 publish_to_main: false
 main_delivery: disabled
