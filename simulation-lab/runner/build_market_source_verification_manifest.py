@@ -120,7 +120,15 @@ def verification_fields(source: dict, display, change_display, observation: dict
     value_field = str(observation.get("observed_value_field") or "")
     change_field = str(observation.get("observed_change_field") or "")
     is_fear_greed = group == "risk" and name == "fear_greed"
-    fear_greed_backup = is_fear_greed and source.get("source_role") in ("BACKUP_1", "BACKUP", "SECONDARY")
+    is_cnn_official = is_fear_greed and (
+        read_method == "CNN_OFFICIAL_PREVIOUS_CLOSE"
+        or provenance == "CURRENT_CNN_OFFICIAL_API_OBSERVATION"
+    )
+    fear_greed_backup = (
+        is_fear_greed
+        and source.get("source_role") in ("BACKUP_1", "BACKUP", "SECONDARY")
+        and not is_cnn_official
+    )
     if is_fear_greed and fear_greed_backup:
         field_ok = value_field == "Score" and change_field == "Band"
     elif is_fear_greed:
@@ -139,9 +147,16 @@ def verification_fields(source: dict, display, change_display, observation: dict
         observation.get("observed_value"), expected_value,
         rounded_integer=is_fear_greed,
     )
-    raw_score_match = True
+    expected_raw_value = (
+        source.get("backup_source_score_value", source.get("score_value"))
+        if fear_greed_backup
+        else source.get("source_score_value")
+    ) if is_fear_greed else None
+    raw_score_match = (
+        _numeric_match(observation.get("observed_value"), expected_raw_value)
+        if is_fear_greed else True
+    )
     if is_fear_greed:
-        raw_score_match = _numeric_match(observation.get("observed_value"), source.get("source_score_value"))
         change_match = str(observation.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
     else:
         change_match = _numeric_match(observation.get("observed_change"), expected_change)
@@ -184,7 +199,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "observed_date": observation.get("observed_date"),
             "observed_value_field": value_field,
             "observed_value": observation.get("observed_value"),
-            "expected_source_raw_value": source.get("source_score_value") if group == "risk" and name == "fear_greed" else None,
+            "expected_source_raw_value": expected_raw_value,
             "observed_change_field": change_field,
             "observed_change": observation.get("observed_change"),
             "checked_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
