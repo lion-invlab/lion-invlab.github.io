@@ -59,16 +59,15 @@ def make_bundle(data):
                 read_status = "MARKET_CLOSED"
                 observed_date = None
             elif is_no_data:
-                value = change = None
                 value_field, change_field = "Price", "Change %"
-                headers = ["Date", "Price", "Change %"]
-                row_text = "Historical page last available row: Nov 20, 2026; no Nov 23, 2026 close row."
-                page_title = "ICE BofAML MOVE Index Historical Data"
-                identity = "ICE BofAML MOVE Index"
+                headers = ["Date", "Price", "Open", "High", "Low", "Vol.", "Change %"]
+                row_text = "Nov 23, 2026 | 100.91 | 106.31 | 110.09 | 100.91 | | -5.08%"
+                page_title = "ICE BofAML MOVE Historical Data"
+                identity = "ICE BofAML MOVE"
                 reader_ref, line_start, line_end = FG_WEB_REF, 45, 50
-                read_method = "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
-                read_status = "SOURCE_NO_DATA"
-                observed_date = None
+                read_method = "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"
+                read_status = "PAGE_CONTENT_READ_SUCCESS"
+                observed_date = source.get("data_date")
             else:
                 is_hk = "hk.investing.com" in str(source.get("url") or "")
                 value_field, change_field = ("收市", "升跌（%）") if is_hk else ("Price", "Change %")
@@ -122,8 +121,8 @@ def main():
     bundle = make_bundle(data)
     result = validate_bundle(data, "2026-11-24", bundle)
     assert len(result["observations"]) == 44
-    assert result["verified_count"] == 42
-    assert result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 2
+    assert result["verified_count"] == 43
+    assert result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 1
     assert result["prior_observation_reused_count"] == 0
     assert result["displayed_values_independently_reconciled"] is False
 
@@ -137,8 +136,8 @@ def main():
     first_verified = next(x for x in wrong_value["observations"] if x["read_status"] == "PAGE_CONTENT_READ_SUCCESS" and x["group"] != "risk")
     first_verified["observed_value"] = "0"
     partial = validate_bundle(data, "2026-11-24", wrong_value)
-    assert partial["verified_count"] == 41
-    assert partial["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 3
+    assert partial["verified_count"] == 42
+    assert partial["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 2
 
     wrong_url = copy.deepcopy(bundle)
     wrong_url["observations"][0]["source_url"] += "?wrong=1"
@@ -167,8 +166,8 @@ def main():
     else:
         raise AssertionError("missing source observation must be rejected")
 
-    print("PASS: 42 current-session direct page reads reconcile to exact fixture values and dates")
-    print("PASS: one official market closure and one missing source-date row remain explicitly pending")
+    print("PASS: 42 current-session direct page reads plus one dated Investing.com search-result row reconcile to exact fixture values and dates")
+    print("PASS: one official market closure remains explicitly pending; no market row is silently reused")
     print("PASS: CNN Fear & Greed uses the pinned FGScore backup only when official mapping is unavailable")
     print("PASS: wrong URL, stale capture, missing rows and numeric mismatches cannot pass")
 
