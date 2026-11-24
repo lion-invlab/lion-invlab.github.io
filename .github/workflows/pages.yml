@@ -56,7 +56,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # Give the Actions artifact metadata API a short moment to index the upload.
+      - name: Wait for artifact metadata
+        run: sleep 10
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
