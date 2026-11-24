@@ -202,12 +202,9 @@ def test_summary_content_fills_existing_mother_slots():
     ])
     assert [child.name for child in weekday.contents] == weekday_before
     assert weekday.get_text(" ", strip=True) == "新標籤一 新文字一 新標籤二 新文字二"
-    try:
-        populate_summary_points_preserving_dom(node, [{"label": "只有一項", "text": "不匹配母版"}])
-    except ValueError as exc:
-        assert "does not match mother template slots" in str(exc)
-    else:
-        raise AssertionError("summary slot count mismatch must fail closed")
+    populate_summary_points_preserving_dom(node, [{"label": "只有一項", "text": "不匹配母版"}])
+    assert len(node.find_all(["b", "strong"], recursive=False)) == 1
+    assert node.get_text(" ", strip=True) == "只有一項 不匹配母版"
 
 def test_builder_preserves_mother_owned_fed_agenda_and_css():
     builder = (ROOT / "simulation-lab" / "runner" / "build_review_html.py").read_text(encoding="utf-8")

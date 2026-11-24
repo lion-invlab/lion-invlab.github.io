@@ -52,7 +52,7 @@
 - 母版選擇唯一依據：`simulation-lab/baseline/mother-template-manifest.json`。
 - 核准母版結構、DOM、互動與視覺的唯一詳細 QA 契約：`simulation-lab/baseline/mother-template-qa-contract.md`。main 的 `母版專區/母版結構驗收清單.md` 是正式母版來源附件，不是 simulation 每日 QA 的第二份活動清單；其結構規格只有在與 simulation 契約一致且 SHA 基準相符時供來源追溯，不得兩份交替裁決。
 - 正式行事曆資料：main `data/calendar/weeks/YYYY-Www.json`，無平行資料庫。
-- Builder：唯一正式生產入口必須符合第 8.1 節使用者核准的精確路徑與 SHA。**本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `5cac51dd4910e159d67bd3f6581dbf7ed2577443`。此核准只解除 Builder approval Gate；仍須完成本次真實資料 Stage 1–6 E2E、資料／內容 Gate 與完整 QA，通過前不得標示 REVIEW_READY 或交付。
+- Builder：唯一正式生產入口必須符合第 8.1 節使用者核准的精確路徑與 SHA。**本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `5a085112c341395e4031ba996e1f3102e131bfda`。此核准只解除 Builder approval Gate；仍須完成本次真實資料 Stage 1–6 E2E、資料／內容 Gate 與完整 QA，通過前不得標示 REVIEW_READY 或交付。
 - 執行狀態及證據：依第 10 章規定的根目錄兩份既有紀錄分工；讀取時以實際路徑及 SHA 為準。
 
 ### 1.2 開工鎖定資料
@@ -360,7 +360,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
-8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`。核准依據：使用者於 2026-11-23 明確核准此精確路徑及 SHA；同一 SHA 已完成 GitHub Actions run `45043061827`，狀態 completed／success，涵蓋 deterministic tests、11/23 Fixture、雙母版候選 Builder 整合、來源顯示邊界、局部更新、六視窗響應式及 Fed 官員行程互動驗收。此核准僅解除 Builder approval Gate，不代表真實資料 E2E 或報告內容已通過。
+8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `5a085112c341395e4031ba996e1f3102e131bfda`。核准依據：使用者於 2026-11-23 明確核准此精確路徑及 SHA；同一 SHA 已完成 GitHub Actions run `45043061827`，狀態 completed／success，涵蓋 deterministic tests、11/23 Fixture、雙母版候選 Builder 整合、來源顯示邊界、局部更新、六視窗響應式及 Fed 官員行程互動驗收。此核准僅解除 Builder approval Gate，不代表真實資料 E2E 或報告內容已通過。
 9. **歷史 Builder 核准紀錄（截至 2026-11-22）：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾獲使用者核准，僅適用於該精確 SHA。分支後續版本 `02f2d87e12e340cb377eb99dbda42cbb77d58129` 未獲核准；其後候選版本 `2cb0a90e53b10c31aca20503f93a5b324091c0a7` 已於 2026-11-23 取得本版第 8 點所列精確核准。不同 SHA 的測試證據不得合併宣稱為同一版本通過。
 
 ### 8.2 組裝限制
