@@ -9,7 +9,7 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 659e124d3789cd1ad3f3c0ce982fe0b8cdd88e96
 active_rules_version: SIM-1.4
-active_rules_blob_sha: 7e18dc3c860bc357579f7a22cd47dd2109e4bba9
+active_rules_blob_sha: 12354cbb9601858ef7af21076d87fde711392ae5
 qa_contract_version: 1.27
 qa_contract_blob_sha: 5328fd12f919944314494107311736ff9813ad67
 manifest_blob_sha: 9560308371dfa43a0d352398e5ef9abcbf8ee229
@@ -111,3 +111,5 @@ Market-observation subheading spacing correction (2026-11-24): Builder now rende
 S&P 500 evidence contract correction (2026-11-24): evidence_method now contains both the machine label INVESTING_COM_HISTORICAL_TABLE and the required literal phrase “Investing.com historical data table row” consumed by handoff_sp500_to_chart3.py. read_method remains CHATGPT_WEB_OPEN_HISTORICAL_PAGE. Main unchanged.
 
 Builder approval pin update (2026-11-24): active SIM-1.4 rules now approve the Simulation-only Builder SHA 1ad33cd608e8b70588accb02805696ad1e8258ad under the user's same-day authorization for required Simulation changes and the requested “標題 ｜ 正文” formatting. Updated rules SHA: 7e18dc3c860bc357579f7a22cd47dd2109e4bba9. This is not main publishing authorization.
+
+Builder approval reference synchronization (2026-11-24): canonical SIM-1.4 active Builder references in §1.1 and §8.1 now match the already-recorded simulation-only approved Builder SHA 1ad33cd608e8b70588accb02805696ad1e8258ad. Historical Builder records remain unchanged. Main branch and homepage untouched.
