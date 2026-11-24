@@ -63,6 +63,7 @@ def main():
     closed_data["global_markets"]["日經225"]["display"] = "休市"
     closed_data["global_markets"]["日經225"]["change_display"] = "—"
     closed_data["global_markets"]["日經225"]["source"]["data_date"] = "2026-11-23"
+    closed_data["report_date"] = "2026-11-24"
     closed_data["trading_date"] = "2026-11-23"
     closed_observations = {
         ("global_markets", "日經225"): {
