@@ -198,7 +198,7 @@ def main():
         "finished_at_utc": "2026-11-09T11:00:01Z",
         "finished_at_tw": "2026-11-09T19:00:01+08:00",
     })
-    cnn_manifest = build_manifest(cnn_data, "2026-11-09", cnn_observations)
+    cnn_manifest = build_manifest(cnn_data, "2026-11-23", cnn_observations)
     cnn_row = next(r for r in cnn_manifest["rows"] if r["group"] == "risk" and r["name"] == "fear_greed")
     assert cnn_row["verification_status"] == "BACKUP_VERIFIED"
     assert cnn_row["evidence_method"] == "CNN_OFFICIAL_PREVIOUS_CLOSE"
@@ -222,7 +222,7 @@ def main():
         "source_timestamp_utc": None,
         "raw_response_sha256": None,
     })
-    backup_manifest = build_manifest(cnn_data, "2026-11-09", backup_observations)
+    backup_manifest = build_manifest(cnn_data, "2026-11-23", backup_observations)
     backup_row = next(r for r in backup_manifest["rows"] if r["group"] == "risk" and r["name"] == "fear_greed")
     assert backup_row["verification_status"] == "BACKUP_VERIFIED"
     assert backup_row["browser_observation_record"]["expected_source_raw_value"] == "17"
