@@ -84,7 +84,6 @@ def main():
     assert closed_render["global_markets"]["日經225"]["qa_status"] == "market_closed"
     assert closed_overlay["closed_count"] == 1
 
-
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
     synthetic_observations = {}
