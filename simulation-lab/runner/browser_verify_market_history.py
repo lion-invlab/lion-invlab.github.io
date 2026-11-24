@@ -32,6 +32,17 @@ def classify_rendered_page(body_text, match_count):
         return "TARGET_DATE_NOT_FOUND"
     return "PAGE_READ_OK"
 
+def target_date_markers(target):
+    from datetime import datetime as dt
+    d=dt.strptime(target,"%Y-%m-%d")
+    return list(dict.fromkeys([
+        target, d.strftime("%b %d, %Y"), d.strftime("%B %d, %Y"),
+        d.strftime("%d/%m/%Y"), d.strftime("%m/%d/%Y"),
+        d.strftime("%d %b %Y"), d.strftime("%Y/%m/%d"),
+        f"{d.year}年{d.month}月{d.day}日",
+    ]))
+
+
 def date_in_row(text, target):
     from datetime import datetime as dt
     d=dt.strptime(target,"%Y-%m-%d")
@@ -76,6 +87,17 @@ IDENTITY_ALIASES = {
     "Brent原油期貨": ["Brent Oil", "布倫特原油期貨"],
     "黃金期貨 GC": ["黃金期貨", "Gold Futures"],
     "白銀期貨 SI": ["白銀期貨", "Silver Futures"],
+    "XLK": ["XLK", "Technology Select Sector SPDR Fund", "Technology Select Sector SPDR ETF"],
+    "XLF": ["XLF", "Financial Select Sector SPDR Fund", "Financial Select Sector SPDR ETF"],
+    "XLE": ["XLE", "Energy Select Sector SPDR Fund", "Energy Select Sector SPDR ETF"],
+    "XLV": ["XLV", "Health Care Select Sector SPDR Fund", "Health Care Select Sector SPDR ETF"],
+    "XLY": ["XLY", "Consumer Discretionary Select Sector SPDR Fund", "Consumer Discretionary Select Sector SPDR ETF"],
+    "XLP": ["XLP", "Consumer Staples Select Sector SPDR Fund", "Consumer Staples Select Sector SPDR ETF"],
+    "XLI": ["XLI", "Industrial Select Sector SPDR Fund", "Industrials Select Sector SPDR Fund", "Industrial Select Sector SPDR ETF"],
+    "XLB": ["XLB", "Materials Select Sector SPDR Fund", "Materials Select Sector SPDR ETF"],
+    "XLU": ["XLU", "Utilities Select Sector SPDR Fund", "Utilities Select Sector SPDR ETF"],
+    "XLRE": ["XLRE", "Real Estate Select Sector SPDR Fund", "Real Estate Select Sector SPDR ETF"],
+    "XLC": ["XLC", "Communication Services Select Sector SPDR Fund", "Communication Services Select Sector SPDR ETF"],
     "vix": ["CBOE Volatility Index", "VIX"],
     "move": ["ICE BofAML MOVE", "MOVE Index"],
     "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
@@ -268,6 +290,12 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             request_url=row.get("request_url") or row["source_url"]
             out["attempt_url"]=request_url
             response=await page.goto(request_url,wait_until="domcontentloaded",timeout=timeout)
+            # Investing.com hydrates historical rows after DOMContentLoaded; wait for the requested session date.
+            markers=target_date_markers(target)
+            try:
+                await page.wait_for_function("(markers) => markers.some(m => (document.body?.innerText || '').includes(m))", arg=markers, timeout=min(timeout,7000))
+            except Exception:
+                await page.wait_for_timeout(1200)
             navigation_status=response.status if response else None
             out["navigation_http_status"]=navigation_status
             out["http_status"]=navigation_status
@@ -331,6 +359,11 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             if page_status == "TARGET_DATE_NOT_FOUND":
                 out["status"]="TARGET_DATE_NOT_FOUND"
                 out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
+                out["page_body_excerpt"]="\\n".join(body_lines[:80])[:5000]
+                try:
+                    out["page_date_controls"]=await page.locator("input").evaluate_all("(els) => els.slice(0,20).map(e => ({type:e.type,placeholder:e.placeholder,value:e.value,ariaLabel:e.getAttribute('aria-label')}))")
+                except Exception:
+                    out["page_date_controls"]=[]
                 return out
             candidate=matches[0]
             cells=split_cells(candidate)
