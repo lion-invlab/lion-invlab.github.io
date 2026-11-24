@@ -69,7 +69,7 @@ def main() -> None:
         # review draft only when every unresolved row remains explicitly pending.
         manifest_path = root / "simulation-lab/output/market-source-verification-manifest.json"
         pending_manifest = {
-            "status": "PENDING", "row_count": 44, "verified_count": 0, "pending_count": 44,
+            "status": "PENDING", "row_count": 44, "verified_count": 0, "pending_count": 44, "closed_count": 0,
             "rows": [{"verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"} for _ in range(44)]
         }
         pending_bytes = json.dumps(pending_manifest).encode("utf-8")
