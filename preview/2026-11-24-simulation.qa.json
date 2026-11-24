@@ -41,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "e0618ea0826784c5c9c3e08ff29cbd276b341407541a452fc705fff4e80fa484",
+  "prebuild_input_receipt_sha256": "fb1900c0bf31a0c5bf75c9146ef4608aff716ca05c9a82856558aa3e49f8a2cd",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +49,11 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45314382815",
+    "workflow_run_id": "45318138020",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
-      "sha256": "97ff41cc14aadda77f631f3bbd9ffdd3375cce0de52a90f2bb0bc36d98d069a2"
+      "sha256": "e98dc0d3b38bbb300f46d1a53c2cd07cc334f51f475d45720497e94b66375873"
     },
     "stage_2_market": {
       "trading_date": "2026-11-23",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T02:43:53Z",
+    "created_at_utc": "2026-11-24T03:15:48Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,15 +141,15 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "3b5f6b876ff8786a65de6d9b83698f2233791f77",
-  "report_sha256": "343d9d3473b127250ccdd3c5420c272182ecf2044cd070ce8304f1008040489e",
-  "build_commit_sha": "4acb9f45d3c7b91cbe57c7178b9d2fe93e76296b",
+  "report_git_blob_sha": "73a1912874717608d372b88c9335646f5d9e2ebd",
+  "report_sha256": "a92ba5e09459b63db1d351c1e8ab4ac23a4c4405af179fb6eabb5cd4fdb83e0c",
+  "build_commit_sha": "3c744b5c3c2fd0ccd94a96079165ef513c467a5c",
   "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-  "fixture_blob_sha": "8a0213547453da918e41354dea7d739519eb793d",
+  "fixture_blob_sha": "7f038bf5969f805e6b07554f33b2b7ef9139d999",
   "template_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
   "manifest_blob_sha": "81e01655fd8a2dfeaa72b5c63d1695db13370562",
   "qa_contract_blob_sha": "1bf22ea17356eaf4cdfba2c1ecc17ca402302578",
-  "active_rules_blob_sha": "eceed91cc8dfc7201e2e6310dab94f100d916b1b",
+  "active_rules_blob_sha": "8692dedf16da688b613ce11ecf5f39a39b63ed74",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
   "candidate_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
@@ -209,14 +209,14 @@
     "approved_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
     "actual_builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-    "active_rules_blob_sha": "eceed91cc8dfc7201e2e6310dab94f100d916b1b",
+    "active_rules_blob_sha": "8692dedf16da688b613ce11ecf5f39a39b63ed74",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
   "calendar_main_commit_sha": "477752fa1198a0f3970671fd6d02bf5fdf50db27",
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "f4fced91dd9749d39f9ac17e64c59ab96af2ed36c5a01cbf921a476b5dbf78eb",
+  "visual_evidence_sha256": "2bdde1323f3715227f8ff5855a379b6104321db91e6836d7d6c09eb5e79b29bb",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45314382815",
+  "workflow_run_id": "45318138020",
   "workflow_run_attempt": "1"
 }
