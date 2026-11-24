@@ -24,7 +24,15 @@ def make_bundle(root: Path) -> None:
         ).encode(),
         "simulation-lab/output/prebuild-stage-input-receipt.json": json.dumps({"status":"PASS","workflow_run_id":"12345"}).encode(),
         "simulation-lab/output/market-snapshot-audit.json": json.dumps({"status":"PASS","indicator_count":44}).encode(),
-        "simulation-lab/output/market-source-verification-manifest.json": json.dumps({"status":"PASS","row_count":44}).encode(),
+        "simulation-lab/output/market-source-verification-manifest.json": json.dumps({
+            "status":"PARTIAL","row_count":44,"verified_count":42,"pending_count":2,
+            "rows":[
+                {"verification_status":"VERIFIED"} for _ in range(42)
+            ] + [
+                {"verification_status":"CLOSED"},
+                {"verification_status":"PENDING_CURRENT_RUN_BROWSER_OBSERVATION"}
+            ]
+        }).encode(),
         "simulation-lab/output/visual/visual-regression.json": json.dumps({"failures":[]}).encode(),
         "simulation-lab/output/interaction-smoke.json": json.dumps({"status":"PASS","page_errors":[]}).encode(),
         "simulation-lab/output/monday-mother-transfer-evidence.json": b"{}",

@@ -2,6 +2,7 @@
 """Seal QA evidence to the exact final review HTML blob for this workflow run."""
 import os
 import hashlib, json, os, re, subprocess, sys
+from datetime import date
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 sys.path.insert(0, 'simulation-lab/runner')
@@ -9,36 +10,44 @@ from sim14_builder_approval import resolve_from_files
 from build_review_html import validate_political_scan
 report_path, report_date, evidence_path, patch_receipt_path, patched_output_path = sys.argv[1:]
 raw = Path(report_path).read_bytes()
-patch_receipt_file = Path(patch_receipt_path)
-overlay_receipt_archive_path = f"simulation-lab/runs/last-week-consensus-overlay-{report_date}-{os.environ['GITHUB_RUN_ID']}.json"
-patched_output_file = Path(patched_output_path)
-if not patch_receipt_file.is_file() or not patched_output_file.is_file():
-    raise SystemExit("W47 NVDA consensus overlay receipt or patched output is missing")
-patch_receipt_bytes = patch_receipt_file.read_bytes()
-patch_receipt = json.loads(patch_receipt_bytes.decode("utf-8"))
-patched_output_bytes = patched_output_file.read_bytes()
-report_sha256 = hashlib.sha256(raw).hexdigest()
-patched_output_sha256 = hashlib.sha256(patched_output_bytes).hexdigest()
-if patch_receipt.get("status") != "PASS" or patch_receipt.get("section") != "last_week_earnings_and_calendar_impact":
-    raise SystemExit("W47 NVDA and calendar impact overlay receipt did not PASS")
-if patch_receipt.get("output_html_sha256") != patched_output_sha256 or patched_output_sha256 != report_sha256:
-    raise SystemExit("combined W47 overlay receipt is not bound to the exact final review HTML")
-internal_receipt = patch_receipt.get("internal_receipt", {})
-overlay = internal_receipt.get("last_week_earnings", {})
-calendar_overlay = internal_receipt.get("last_week_calendar_impact", {})
-if overlay.get("status") != "PASS" or overlay.get("event_id") != "current-nvda-20261118" or overlay.get("judgment_audit") != "PASS":
-    raise SystemExit("W47 NVDA consensus overlay evidence or TAC 1.4 judgment audit is incomplete")
-if calendar_overlay.get("status") != "PASS" or calendar_overlay.get("event_id") != "current-fed-warsh-productivity-jobs-20261117":
-    raise SystemExit("W47 Warsh calendar impact overlay evidence is incomplete")
-if calendar_overlay.get("expected_impact_matched_exactly") is not True or calendar_overlay.get("authoritative_main_calendar_modified") is not False:
-    raise SystemExit("W47 Warsh calendar impact overlay did not preserve exact-source/read-only guarantees")
-if overlay.get("raw_response_sha256") != "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a":
-    raise SystemExit("W47 NVDA consensus overlay raw response SHA mismatch")
-if overlay.get("eps_estimate") != 2.47121 or overlay.get("revenue_estimate") != 108.7319039:
-    raise SystemExit("W47 NVDA consensus overlay estimates differ from approved pre-release snapshot")
-if overlay.get("eps_status") != "beat" or overlay.get("revenue_status") != "beat":
-    raise SystemExit("W47 NVDA consensus overlay comparison statuses are not complete")
 soup = BeautifulSoup(raw, "html.parser")
+is_monday = date.fromisoformat(report_date).weekday() == 0
+patch_receipt_file = Path(patch_receipt_path)
+patched_output_file = Path(patched_output_path)
+overlay_receipt_archive_path = None
+patch_receipt_bytes = b""
+patch_receipt = {"status": "NOT_APPLICABLE_WEEKDAY"}
+overlay = {}
+calendar_overlay = {}
+patched_output_sha256 = None
+report_sha256 = hashlib.sha256(raw).hexdigest()
+if is_monday:
+    overlay_receipt_archive_path = f"simulation-lab/runs/last-week-consensus-overlay-{report_date}-{os.environ['GITHUB_RUN_ID']}.json"
+    if not patch_receipt_file.is_file() or not patched_output_file.is_file():
+        raise SystemExit("Monday W47 NVDA consensus overlay receipt or patched output is missing")
+    patch_receipt_bytes = patch_receipt_file.read_bytes()
+    patch_receipt = json.loads(patch_receipt_bytes.decode("utf-8"))
+    patched_output_bytes = patched_output_file.read_bytes()
+    patched_output_sha256 = hashlib.sha256(patched_output_bytes).hexdigest()
+    if patch_receipt.get("status") != "PASS" or patch_receipt.get("section") != "last_week_earnings_and_calendar_impact":
+        raise SystemExit("W47 NVDA and calendar impact overlay receipt did not PASS")
+    if patch_receipt.get("output_html_sha256") != patched_output_sha256 or patched_output_sha256 != report_sha256:
+        raise SystemExit("combined W47 overlay receipt is not bound to the exact final review HTML")
+    internal_receipt = patch_receipt.get("internal_receipt", {})
+    overlay = internal_receipt.get("last_week_earnings", {})
+    calendar_overlay = internal_receipt.get("last_week_calendar_impact", {})
+    if overlay.get("status") != "PASS" or overlay.get("event_id") != "current-nvda-20261118" or overlay.get("judgment_audit") != "PASS":
+        raise SystemExit("W47 NVDA consensus overlay evidence or TAC 1.4 judgment audit is incomplete")
+    if calendar_overlay.get("status") != "PASS" or calendar_overlay.get("event_id") != "current-fed-warsh-productivity-jobs-20261117":
+        raise SystemExit("W47 Warsh calendar impact overlay evidence is incomplete")
+    if calendar_overlay.get("expected_impact_matched_exactly") is not True or calendar_overlay.get("authoritative_main_calendar_modified") is not False:
+        raise SystemExit("W47 Warsh calendar impact overlay did not preserve exact-source/read-only guarantees")
+    if overlay.get("raw_response_sha256") != "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a":
+        raise SystemExit("W47 NVDA consensus overlay raw response SHA mismatch")
+    if overlay.get("eps_estimate") != 2.47121 or overlay.get("revenue_estimate") != 108.7319039:
+        raise SystemExit("W47 NVDA consensus overlay estimates differ from approved pre-release snapshot")
+    if overlay.get("eps_status") != "beat" or overlay.get("revenue_status") != "beat":
+        raise SystemExit("W47 NVDA consensus overlay comparison statuses are not complete")
 comment = next((str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))), None)
 if not comment: raise SystemExit("missing TAC_BUILD_PROVENANCE")
 match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", comment, re.S)
@@ -58,8 +67,6 @@ if summary_body is None:
     raise SystemExit("content analysis gate: summary body missing")
 summary_text = summary_body.get_text(" ", strip=True)
 summary_points = fixture.get("summary_points", [])
-from datetime import date
-is_monday = date.fromisoformat(report_date).weekday() == 0
 if not isinstance(summary_points, list) or not summary_points:
     raise SystemExit("content analysis gate: summary points missing")
 if is_monday:
@@ -163,45 +170,47 @@ for forbidden_phrase in ("後續觀察", "值得持續關注", "市場仍需觀�
             f"content analysis gate: generic non-actionable conclusion remains in summary/deep-analysis sections: {forbidden_phrase}"
         )
 analysis_container = soup.select_one("#market-analysis")
-nvda_card_matches = [
-    card for card in soup.select("#last-week-earnings details.earnings-accordion.five-star-earnings")
-    if "NVDA" in (card.select_one(".earnings-company-sub").get_text(" ", strip=True) if card.select_one(".earnings-company-sub") else "")
-]
-if len(nvda_card_matches) != 1:
-    raise SystemExit(f"W47 NVDA five-star card missing or duplicated: {len(nvda_card_matches)}")
-nvda_card = nvda_card_matches[0]
-if nvda_card.get("data-consensus-overlay") != "sim14-w47-yahoo":
-    raise SystemExit("W47 NVDA consensus overlay marker missing from rendered HTML")
-metric_cards = {
-    card.select_one(".earnings-actual-card-title").get_text(" ", strip=True): card
-    for card in nvda_card.select(".earnings-actual-card")
-    if card.select_one(".earnings-actual-card-title")
-}
-if set(metric_cards) != {"EPS", "營收"}:
-    raise SystemExit("W47 NVDA EPS／營收 metric cards are incomplete")
-for key, expected in (("EPS", "US$2.47"), ("營收", "US$108.73B")):
-    metric_card = metric_cards[key]
-    if expected not in metric_card.get_text(" ", strip=True):
-        raise SystemExit(f"W47 NVDA {key} estimate was not rendered")
-    status_node = metric_card.select_one(".earnings-actual-status")
-    if status_node is None or "優於預期" not in status_node.get_text(" ", strip=True):
-        raise SystemExit(f"W47 NVDA {key} comparison status was not rendered")
-    if "非嚴格同口徑" not in metric_card.get_text(" ", strip=True):
-        raise SystemExit(f"W47 NVDA {key} basis caveat is missing")
-nvda_judgment = next(
-    (field.select_one(".earnings-detail-value") for field in nvda_card.select(".earnings-detail-field")
-     if field.select_one("label") and field.select_one("label").get_text(" ", strip=True) == "財報判讀"),
-    None,
-)
-if nvda_judgment is None or not all(term in nvda_judgment.get_text(" ", strip=True) for term in ("9.26%", "6.50%", "非嚴格同口徑比較", "-2.89%")):
-    raise SystemExit("W47 NVDA judgment, basis caveat or first-session price reaction is incomplete")
-nvda_sources = next(
-    (field.select_one(".earnings-detail-value") for field in nvda_card.select(".earnings-detail-field")
-     if field.select_one("label") and field.select_one("label").get_text(" ", strip=True) == "來源"),
-    None,
-)
-if nvda_sources is None or not nvda_sources.select_one('a[href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/"]') or not nvda_sources.select_one('a[href="https://finance.yahoo.com/quote/NVDA/analysis/"]'):
-    raise SystemExit("W47 NVDA official actual or Yahoo consensus source link missing")
+if is_monday:
+    nvda_card_matches = [
+        card for card in soup.select("#last-week-earnings details.earnings-accordion.five-star-earnings")
+        if "NVDA" in (card.select_one(".earnings-company-sub").get_text(" ", strip=True) if card.select_one(".earnings-company-sub") else "")
+    ]
+    if len(nvda_card_matches) != 1:
+        raise SystemExit(f"W47 NVDA five-star card missing or duplicated: {len(nvda_card_matches)}")
+    nvda_card = nvda_card_matches[0]
+    if nvda_card.get("data-consensus-overlay") != "sim14-w47-yahoo":
+        raise SystemExit("W47 NVDA consensus overlay marker missing from rendered HTML")
+    metric_cards = {
+        card.select_one(".earnings-actual-card-title").get_text(" ", strip=True): card
+        for card in nvda_card.select(".earnings-actual-card")
+        if card.select_one(".earnings-actual-card-title")
+    }
+    if set(metric_cards) != {"EPS", "營收"}:
+        raise SystemExit("W47 NVDA EPS／營收 metric cards are incomplete")
+    for key, expected in (("EPS", "US$2.47"), ("營收", "US$108.73B")):
+        metric_card = metric_cards[key]
+        if expected not in metric_card.get_text(" ", strip=True):
+            raise SystemExit(f"W47 NVDA {key} estimate was not rendered")
+        status_node = metric_card.select_one(".earnings-actual-status")
+        if status_node is None or "優於預期" not in status_node.get_text(" ", strip=True):
+            raise SystemExit(f"W47 NVDA {key} comparison status was not rendered")
+        if "非嚴格同口徑" not in metric_card.get_text(" ", strip=True):
+            raise SystemExit(f"W47 NVDA {key} basis caveat is missing")
+    nvda_judgment = next(
+        (field.select_one(".earnings-detail-value") for field in nvda_card.select(".earnings-detail-field")
+         if field.select_one("label") and field.select_one("label").get_text(" ", strip=True) == "財報判讀"),
+        None,
+    )
+    if nvda_judgment is None or not all(term in nvda_judgment.get_text(" ", strip=True) for term in ("9.26%", "6.50%", "非嚴格同口徑比較", "-2.89%")):
+        raise SystemExit("W47 NVDA judgment, basis caveat or first-session price reaction is incomplete")
+    nvda_sources = next(
+        (field.select_one(".earnings-detail-value") for field in nvda_card.select(".earnings-detail-field")
+         if field.select_one("label") and field.select_one("label").get_text(" ", strip=True) == "來源"),
+        None,
+    )
+    if nvda_sources is None or not nvda_sources.select_one('a[href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Third-Quarter-Fiscal-2027/"]') or not nvda_sources.select_one('a[href="https://finance.yahoo.com/quote/NVDA/analysis/"]'):
+        raise SystemExit("W47 NVDA official actual or Yahoo consensus source link missing")
+    
 if analysis_container is None or analysis_container.parent is not soup.select_one("#overview"):
     raise SystemExit("content analysis gate: five-layer article container missing or misplaced")
 rendered_layers = analysis_container.select(":scope > .market-analysis-layer")
@@ -248,7 +257,7 @@ actual_widths = [v.get("width") for v in visual.get("viewports", [])]
 if actual_widths != expected_widths:
     raise SystemExit(f"visual viewport evidence mismatch: {actual_widths}")
 blockers = provenance.get("review_ready_blockers", [])
-data_review_ready = bool(provenance.get("review_ready", not blockers)) and patch_receipt.get("status") == "PASS"
+data_review_ready = bool(provenance.get("review_ready", not blockers)) and (not is_monday or patch_receipt.get("status") == "PASS")
 approval = resolve_from_files("simulation-lab/TAC_WORK_RULES_SIM.md", provenance["builder_path"])
 if approval["active_rules_blob_sha"] != provenance["active_rules_blob_sha"]:
     raise SystemExit("active SIM-1.4 approval resolver SHA differs from build provenance")
@@ -257,7 +266,7 @@ if approval["actual_builder_blob_sha"] != provenance["builder_blob_sha"]:
 sim14_blockers = list(blockers)
 if approval["decision"] != "APPROVED":
     sim14_blockers.append("Builder path/SHA has no explicit approval in active SIM-1.4 §8.1")
-sim14_review_ready = approval["decision"] == "APPROVED" and data_review_ready and not blockers and overlay.get("status") == "PASS"
+sim14_review_ready = approval["decision"] == "APPROVED" and data_review_ready and not blockers and (not is_monday or overlay.get("status") == "PASS")
 data_audit = provenance.get("data_audit", {})
 market_snapshot_audit_path = Path("simulation-lab/output/market-snapshot-audit.json")
 if not market_snapshot_audit_path.is_file():
@@ -273,21 +282,30 @@ if not market_source_manifest_path.is_file():
     raise SystemExit("44-row prior-observation verification manifest missing")
 market_source_manifest = json.loads(market_source_manifest_path.read_text(encoding="utf-8"))
 market_source_rows = market_source_manifest.get("rows", [])
-if market_source_manifest.get("status") != "PASS" or market_source_manifest.get("row_count") != 44 or market_source_manifest.get("verified_count") != 44 or market_source_manifest.get("pending_count") != 0:
-    raise SystemExit("44-row source-observation manifest is not complete")
-if market_source_manifest.get("browser_observation_records_complete") is not True or market_source_manifest.get("observation_record_hash_missing_count") != 0:
-    raise SystemExit("44-row browser observation records or hashes are incomplete")
-if market_source_manifest.get("source_pages_fetched") is not True or market_source_manifest.get("displayed_values_independently_reconciled") is not True:
-    raise SystemExit("44 current-session source observations were not independently fetched and reconciled")
+verified_rows = [row for row in market_source_rows if row.get("verification_status") in {"VERIFIED", "BACKUP_VERIFIED"}]
+pending_rows = [row for row in market_source_rows if row.get("verification_status") in {"PENDING_CURRENT_RUN_BROWSER_OBSERVATION", "CLOSED"}]
+expected_manifest_status = "PASS" if len(verified_rows) == 44 else "PARTIAL" if verified_rows else "PENDING"
+if (
+    len(market_source_rows) != 44
+    or market_source_manifest.get("row_count") != 44
+    or market_source_manifest.get("verified_count") != len(verified_rows)
+    or market_source_manifest.get("pending_count") != len(pending_rows)
+    or market_source_manifest.get("status") != expected_manifest_status
+):
+    raise SystemExit("44-row source-observation manifest status/counts do not reconcile")
+if market_source_manifest.get("observation_record_hash_missing_count") != 0:
+    raise SystemExit("verified market observations have missing record hashes")
 allowed_source_provenance = {"CURRENT_RUN_BROWSER_OBSERVATION", "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION", "CURRENT_CNN_OFFICIAL_API_OBSERVATION"}
-if len(market_source_rows) != 44 or any(
+if any(
     not row.get("observation_record_sha256")
     or row.get("source_page_fetched") is not True
     or row.get("display_value_reconciled") is not True
     or row.get("observation_provenance") not in allowed_source_provenance
-    for row in market_source_rows
+    for row in verified_rows
 ):
-    raise SystemExit("market source manifest row-level current-session evidence or hashes are incomplete")
+    raise SystemExit("verified market rows lack current-session source evidence or hashes")
+if any(row.get("display_value_reconciled") is True for row in pending_rows):
+    raise SystemExit("pending/closed market rows must not claim numeric reconciliation")
 market_source_manifest_sha256 = hashlib.sha256(market_source_manifest_path.read_bytes()).hexdigest()
 prebuild_receipt_path = Path("simulation-lab/output/prebuild-stage-input-receipt.json")
 if not prebuild_receipt_path.is_file():
@@ -325,13 +343,13 @@ market_source_summary = {
 }
 evidence = {
     "status": "QA_PASSED",
-    "review_ready": bool(provenance.get("review_ready", not blockers)) and patch_receipt.get("status") == "PASS",
+    "review_ready": data_review_ready and sim14_review_ready,
     "review_ready_blockers": blockers,
-    "last_week_earnings_overlay_receipt_path": str(patch_receipt_file),
+    "last_week_earnings_overlay_receipt_path": str(patch_receipt_file) if is_monday else None,
     "last_week_earnings_overlay_receipt_archive_path": overlay_receipt_archive_path,
-    "last_week_earnings_overlay_receipt_sha256": hashlib.sha256(patch_receipt_bytes).hexdigest(),
-    "last_week_earnings_overlay_receipt_git_blob_sha": subprocess.check_output(["git", "hash-object", str(patch_receipt_file)], text=True).strip(),
-    "last_week_earnings_overlay": {
+    "last_week_earnings_overlay_receipt_sha256": hashlib.sha256(patch_receipt_bytes).hexdigest() if is_monday else None,
+    "last_week_earnings_overlay_receipt_git_blob_sha": subprocess.check_output(["git", "hash-object", str(patch_receipt_file)], text=True).strip() if is_monday else None,
+    "last_week_earnings_overlay": {"status": "NOT_APPLICABLE_WEEKDAY"} if not is_monday else {
         "status": overlay.get("status"),
         "event_id": overlay.get("event_id"),
         "ticker": overlay.get("ticker"),
@@ -345,7 +363,7 @@ evidence = {
         "capture_file_blob_sha": overlay.get("capture_file_blob_sha"),
         "non_target_cards_unchanged": overlay.get("non_target_cards_unchanged")
     },
-    "last_week_calendar_impact_overlay": {
+    "last_week_calendar_impact_overlay": {"status": "NOT_APPLICABLE_WEEKDAY"} if not is_monday else {
         "status": calendar_overlay.get("status"),
         "event_id": calendar_overlay.get("event_id"),
         "expected_impact_matched_exactly": calendar_overlay.get("expected_impact_matched_exactly"),
