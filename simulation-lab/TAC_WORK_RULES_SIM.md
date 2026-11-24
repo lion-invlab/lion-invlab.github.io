@@ -754,4 +754,4 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 - 2026-11-25｜依使用者已授權的 Simulation 自主修復範圍，Builder 的政治掃描 Gate 已對齊現有 Fixture 證據結構；重新核對 Builder 完整 Git blob SHA 並更新本節唯一有效核准值為 `fa76eb27718ac35ba0397a5a9b9562436e7718f3`。舊 SHA 保留於歷史記錄，不再作為當前 Builder 核准值；此核准僅限 Simulation 分支，不擴及 main、正式母版、首頁或部署。
 
-- 2026-11-25｜歐股觀察內容索引修正：Fixture 的 global_markets 分析陣列採美股／亞股／歐股三筆，Builder 原以索引3讀取歐股，導致有效歐股觀察被誤判為缺漏。已統一歐股觀察顯示與 QA 對應索引為2；新 Builder SHA `a3316b31322cffaa4c58816f2f1f2f780ca62d6a5a`，取代上一筆有效核准。僅限 Simulation。
+- 2026-11-25｜歐股觀察內容索引修正：Fixture 的 global_markets 分析陣列採美股／亞股／歐股三筆，Builder 原以索引3讀取歐股，導致有效歐股觀察被誤判為缺漏。已統一歐股觀察顯示與 QA 對應索引為2；新 Builder SHA `2ad7db3fb76962609d5198ef1f2f780ca62d6a5a`，取代上一筆有效核准。此版另修正行情來源待核實時的商品顯示 Gate；待核實列必須顯示「待核實」，已核實列仍逐筆核對歷史收盤價及漲跌幅。僅限 Simulation。
