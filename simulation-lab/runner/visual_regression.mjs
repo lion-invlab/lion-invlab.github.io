@@ -280,8 +280,20 @@ try {
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
       const mondayRetrospective = document.querySelector("#last-week-earnings .calendar-status-group");
-      const weekdayPublished = groups.find(group => group.querySelector(".calendar-status-heading.published"));
-      const auditGroup = mondayRetrospective || weekdayPublished || groups[1];
+      const weekdayPublishedCandidate = groups.find(group => group.querySelector(".calendar-status-heading.published"));
+      const weekdayPublished = weekdayPublishedCandidate &&
+        weekdayPublishedCandidate.querySelectorAll("details.earnings-accordion").length > 0
+          ? weekdayPublishedCandidate : null;
+      const weekdayToday = groups.find(group =>
+        group.querySelector(".calendar-status-heading.today") &&
+        group.querySelectorAll("details.earnings-accordion").length > 0
+      );
+      const weekdayUpcoming = groups.find(group =>
+        group.querySelector(".calendar-status-heading.upcoming") &&
+        group.querySelectorAll("details.earnings-accordion").length > 0
+      );
+      const auditGroup = mondayRetrospective || weekdayPublished || weekdayToday || weekdayUpcoming ||
+        groups.find(group => group.querySelectorAll("details.earnings-accordion").length > 0) || groups[1];
       const publishedMode = !!mondayRetrospective || !!weekdayPublished;
       const mode = mondayRetrospective ? "monday-published-results" : weekdayPublished ? "weekday-published-results" : "weekday-upcoming-events";
       if (!auditGroup) return { mode, count: 0, invalid: ["earnings audit group missing"] };

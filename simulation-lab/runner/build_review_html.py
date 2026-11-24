@@ -3053,10 +3053,34 @@ def main():
         if monday and disclosure is None:
             raise ValueError("Monday core-observation disclosure missing from approved mother template")
         if disclosure is None:
-            # Weekday mother has no disclosure; keep its native child structure
-            # and place optional detail in the existing text node.
-            extra = str(data["core_observation"].get("details", "")).strip()
-            main_text.replace_with(core_text + (("；補充：" + extra) if extra else ""))
+            # Weekday mother has five native heading/text slots. Update every slot
+            # in place so no stale prior-report observations survive.
+            points = data["core_observation"].get("points", [])
+            if points:
+                bold_slots = callout.find_all("b", recursive=False)
+                if len(points) != len(bold_slots) - 1:
+                    raise ValueError(
+                        f"weekday core observation requires {len(bold_slots) - 1} follow-up points; found {len(points)}"
+                    )
+                main_text.replace_with(core_text)
+                for point_index, (point_node, point) in enumerate(zip(bold_slots[1:], points), start=1):
+                    label = str(point.get("label", "")).strip()
+                    text_value = str(point.get("text", "")).strip()
+                    if not label or not text_value:
+                        raise ValueError(f"core_observation.points[{point_index - 1}] requires label and text")
+                    point_node.string = label + "："
+                    point_text = point_node.next_sibling
+                    if getattr(point_text, "name", None) == "br":
+                        point_text = point_text.next_sibling
+                    while isinstance(point_text, NavigableString) and not str(point_text).strip():
+                        point_text = point_text.next_sibling
+                    if not isinstance(point_text, NavigableString):
+                        raise ValueError(f"core observation point {point_index} mother text slot missing")
+                    point_text.replace_with(text_value)
+            else:
+                # Backward-compatible single text slot for older weekday fixtures.
+                extra = str(data["core_observation"].get("details", "")).strip()
+                main_text.replace_with(core_text + (("；補充：" + extra) if extra else ""))
         else:
             main_text.replace_with(core_text)
             detail_nodes = disclosure.find_all("div", recursive=False)
