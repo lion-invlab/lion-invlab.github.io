@@ -3217,6 +3217,13 @@ def main():
                 raise ValueError(f"{panel_id}/{instrument}: source URL and product link must be the same history page")
             if "historical-data" not in str(source.get("url") or ""):
                 raise ValueError(f"{panel_id}/{instrument}: source URL must be an Investing.com historical-data page")
+            # A current-run observation marked pending must stay visibly pending;
+            # its saved fixture close is retained only as provenance and must not be
+            # compared with (or leak back into) the displayed quote.
+            if record.get("qa_status") == "source_observation_pending":
+                if record.get("display") != "待核實" or record.get("change_display") != "待核實":
+                    raise ValueError(f"{panel_id}/{instrument}: pending source observation must render both quote and change as 待核實")
+                continue
             if str(record.get("display") or "").replace(",", "") != str(source.get("history_close") or "").replace(",", ""):
                 raise ValueError(f"{panel_id}/{instrument}: displayed quote differs from the captured historical close")
             if str(record.get("change_display") or "") != str(source.get("history_change") or ""):
