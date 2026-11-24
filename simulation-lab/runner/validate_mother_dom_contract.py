@@ -88,9 +88,9 @@ def main():
                 dynamic.clear()
         if selector == "#overview > section.grid.two > article.card.bluf > p":
             # The approved mother owns one summary paragraph container. Its
-            # editorial line breaks are dynamic (weekday reports now use four
-            # connected paragraphs); compare the container itself, not its
-            # variable <br> children or text.
+            # editorial line breaks are dynamic (all reports use three
+            # connected summary sections); compare the mother-owned container
+            # itself, not its variable <br> children or text.
             summary_shell = lambda node: (
                 node.name,
                 tuple(sorted((key, tuple(value) if isinstance(value, list) else str(value))
