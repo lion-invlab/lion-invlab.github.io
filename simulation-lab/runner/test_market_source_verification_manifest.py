@@ -73,6 +73,10 @@ def main():
                       if r["group"] == "global_markets" and r["name"] == "日經225")
     assert nikkei_row["verification_status"] == "CLOSED"
     assert nikkei_row["evidence_status"] == "MARKET_CLOSED"
+    assert closed_manifest["verified_count"] == 0
+    assert closed_manifest["closed_count"] == 1
+    assert closed_manifest["pending_count"] == 43
+    assert closed_manifest["status"] == "PENDING"
     closed_render = copy.deepcopy(closed_data)
     closed_overlay = apply_market_source_verification_manifest(closed_render, closed_manifest)
     assert closed_render["global_markets"]["日經225"]["display"] == "休市"
