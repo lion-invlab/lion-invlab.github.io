@@ -166,7 +166,6 @@ jobs:
           node --check simulation-lab/runner/interaction_smoke.mjs
 
       - name: Run deterministic self-tests
-        continue-on-error: true
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
@@ -340,8 +339,7 @@ jobs:
           echo "Pre-build Stage 2-4 receipt sealed: ${RECEIPT_SHA256}"
       - name: Handoff verified S&P 500 close to Chart 3 increment ledger (simulation only)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
-        # Chart 3 is a separate product update; an unverified S&P 500 row must not block the daily report.
-        continue-on-error: true
+         # Unverified S&P 500 rows skip cleanly; a verified row must complete the Chart 3 handoff or fail this build.
         shell: bash
         run: |
           set -euo pipefail
