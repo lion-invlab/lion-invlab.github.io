@@ -1224,7 +1224,7 @@
       "source": {
         "name": "Investing.com｜ICE BofA MOVE Index 歷史資料（India站；HK站未更新至11/23）",
         "url": "https://in.investing.com/indices/ice-bofaml-move-historical-data",
-        "data_date": null,
+        "data_date": "2026-11-24",
         "quote_type": "index_reference_quote",
         "note": "Investing.com 香港站頁面本次讀取僅更新至11/20；改以同一 ICE BofA MOVE 指數之 Investing.com India 歷史資料頁核對11/23收盤100.91、單日-5.08%。非盤中截圖值。",
         "close_value": null,
