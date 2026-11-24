@@ -1198,13 +1198,25 @@
     }
   },
   "fedwatch": {
-    "updated_at_tw": null,
+    "updated_at_tw": "2026-11-25 05:05",
+    "read_at_taipei": "2026-11-25T06:30:00+08:00",
     "target_meeting": "2026-12-09",
     "current_target_range": "3.75-4.00%",
-    "probabilities": [],
-    "source_name": "Investing.com Fed Rate Monitor",
+    "probabilities": [
+      {
+        "outcome": "升息25個基點",
+        "rate_range": "4.00-4.25%",
+        "probability": 99.5
+      },
+      {
+        "outcome": "升息50個基點",
+        "rate_range": "4.25-4.50%",
+        "probability": 0.5
+      }
+    ],
+    "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "11/25最新頁面快照待核實，不沿用舊快照。"
+    "note": "來源更新時間：2026-11-24 16:05 EST（台灣時間11/25 05:05）；12/9會議，現行目標區間3.75-4.00%，市場定價升息25bp至4.00-4.25%機率99.5%，升息50bp至4.25-4.50%機率0.5%。此為市場隱含機率，非聯準會決策。"
   },
   "observation": {
     "heading": "盤面觀察重點",
@@ -2948,12 +2960,10 @@
   "review_notice": "本版僅供內部審核，不上架正式首頁。",
   "pending_items": [
     "MOVE 11/24指定歷史頁尚未出現當日列",
-    "FedWatch 11/25最新快照待核實",
     "新聞時間戳及完整焦點新聞數量待補"
   ],
   "review_ready_blockers": [
     "44項行情的瀏覽器核驗及觀察紀錄SHA尚未完成",
-    "FedWatch最新快照待核實",
     "完整新聞與行事曆當日狀態待核對"
   ],
   "earnings_health": {
