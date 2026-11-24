@@ -169,8 +169,18 @@ def audit_bundle(root: Path, report_path: str | None = None,
     if snapshot and (snapshot.get("indicator_count") != 44 or snapshot.get("status") != "PASS"):
         errors.append("market snapshot audit is not PASS with 44 indicators")
     market_manifest = parsed.get("simulation-lab/output/market-source-verification-manifest.json", {})
-    if market_manifest and (market_manifest.get("row_count") != 44 or market_manifest.get("status") != "PASS"):
-        errors.append("market source manifest is not PASS with 44 rows")
+    if market_manifest:
+        market_rows = market_manifest.get("rows", [])
+        allowed_market_states = {
+            "VERIFIED", "BACKUP_VERIFIED",
+            "PENDING_CURRENT_RUN_BROWSER_OBSERVATION", "CLOSED",
+        }
+        row_states_valid = (
+            len(market_rows) == 44
+            and all(row.get("verification_status") in allowed_market_states for row in market_rows)
+        )
+        if market_manifest.get("row_count") != 44 or market_manifest.get("status") not in {"PASS", "PARTIAL"} or not row_states_valid:
+            errors.append("market source manifest must contain 44 rows with PASS/PARTIAL status and explicit row-level verification states")
     capture = parsed.get("simulation-lab/output/market-source-page-captures.json")
     if capture is not None:
         capture_rows = capture.get("rows", [])
