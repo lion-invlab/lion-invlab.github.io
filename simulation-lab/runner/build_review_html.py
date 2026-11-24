@@ -133,7 +133,21 @@ def populate_fedwatch_two_slots(fed, data):
     current_range = data.get("fedwatch", {}).get("current_target_range")
     if not current_range or holds[0].get("rate_range") != current_range:
         raise ValueError("FedWatch hold outcome does not match the current target range")
-    labels = ["維持不變", "升息"]
+    def rate_bounds(value):
+        match = re.fullmatch(r"\\s*(\\d+(?:\\.\\d+)?)\\s*-\\s*(\\d+(?:\\.\\d+)?)\\s*%?\\s*", str(value or ""))
+        if not match:
+            return None
+        return float(match.group(1)), float(match.group(2))
+
+    current_bounds = rate_bounds(current_range)
+    hike_bounds = rate_bounds(hikes[0].get("rate_range"))
+    if current_bounds is None or hike_bounds is None:
+        return pending("無法解析目前利率區間與升息後區間；升息幅度待核實")
+    hike_delta = round(hike_bounds[1] - current_bounds[1], 4)
+    if hike_delta <= 0 or abs(hike_delta / 0.25 - round(hike_delta / 0.25)) > 0.01:
+        return pending("升息後利率區間與目前區間不構成可核實的 25bp 倍數；升息幅度待核實")
+    hike_steps = int(round(hike_delta / 0.25))
+    labels = ["維持不變", f"升息{hike_steps}碼"]
     for row, item, label in zip(rows, ordered, labels):
         set_text(unique(row, "strong", "probability"), f'{float(item["probability"]):.1f}%')
         set_text(unique(row, ".fc-range", "range"), item.get("rate_range", "區間待核實"))
