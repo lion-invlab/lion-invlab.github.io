@@ -1326,5 +1326,9 @@
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
       "http_status": null
     }
-  ]
+  ],
+  "validation_status": "INVALIDATED_NUMERIC_OBSERVATIONS",
+  "invalidated_reason": "The 43 numeric row texts in this bundle were not independently transcribed from the live target-date Investing.com pages. Referenced web pages returned stale July-August 2026 content; numeric values copied from the existing report fixture. Do not use any numeric observation from this bundle. The single Nikkei 225 MARKET_CLOSED record has been isolated in market-closure-evidence-2026-11-24.json.",
+  "numeric_observations_usable": false,
+  "closure_evidence_extracted_to": "simulation-lab/input/market-closure-evidence-2026-11-24.json"
 }
