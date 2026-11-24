@@ -354,7 +354,7 @@ if (
     raise SystemExit("44-row source-observation manifest status/counts do not reconcile")
 if market_source_manifest.get("observation_record_hash_missing_count") != 0:
     raise SystemExit("verified market observations have missing record hashes")
-allowed_source_provenance = {"CURRENT_RUN_BROWSER_OBSERVATION", "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION", "CURRENT_CNN_OFFICIAL_API_OBSERVATION"}
+allowed_source_provenance = {"CURRENT_RUN_BROWSER_OBSERVATION", "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION", "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION", "CURRENT_CNN_OFFICIAL_API_OBSERVATION"}
 if any(
     not row.get("observation_record_sha256")
     or row.get("source_page_fetched") is not True
