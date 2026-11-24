@@ -520,7 +520,7 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "Investing.com 2026-11-23 historical Price/Close and Change % row.",
+        "note": "Investing.com 2026-11-23 historical Close and Change % row; daily yield movement converted to basis points from the current yield and provider daily percentage change.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
         "close_value": "4.692",
         "daily_change_percent": "+0.92%",
@@ -529,9 +529,9 @@
         "raw_response_sha256": null,
         "history_close": "4.692",
         "score_value": "4.692",
-        "history_change": "+0.92%"
+        "history_change": "NaN bp"
       },
-      "change_display": "+0.92%"
+      "change_display": "NaN bp"
     },
     "10年期美債殖利率": {
       "display": "4.939%",
@@ -550,7 +550,7 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "Investing.com 2026-11-23 historical Price/Close and Change % row.",
+        "note": "Investing.com 2026-11-23 historical Close and Change % row; daily yield movement converted to basis points from the current yield and provider daily percentage change.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
         "close_value": "4.939",
         "daily_change_percent": "-0.22%",
@@ -559,9 +559,9 @@
         "raw_response_sha256": null,
         "history_close": "4.939",
         "score_value": "4.939",
-        "history_change": "-0.22%"
+        "history_change": "NaN bp"
       },
-      "change_display": "-0.22%"
+      "change_display": "NaN bp"
     },
     "30年期美債殖利率": {
       "display": "5.308%",
@@ -580,7 +580,7 @@
           "role": "CROSS_CHECK_ONLY",
           "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
         },
-        "note": "Investing.com 2026-11-23 historical Price/Close and Change % row.",
+        "note": "Investing.com 2026-11-23 historical Close and Change % row; daily yield movement converted to basis points from the current yield and provider daily percentage change.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
         "close_value": "5.308",
         "daily_change_percent": "-0.55%",
@@ -589,9 +589,9 @@
         "raw_response_sha256": null,
         "history_close": "5.308",
         "score_value": "5.308",
-        "history_change": "-0.55%"
+        "history_change": "NaN bp"
       },
-      "change_display": "-0.55%"
+      "change_display": "NaN bp"
     }
   },
   "fx": {
