@@ -3496,7 +3496,9 @@
     "timezone": "Asia/Taipei",
     "created_at_taipei": "2026-11-25T06:15:00+08:00",
     "source_fixture": "2026-11-24 file used only for schema; daily data replaced or marked pending",
-    "main_publish_authorized": false
+    "main_publish_authorized": false,
+    "build_requested_at_taipei": "2026-11-25T06:47:00+08:00",
+    "build_trigger_reason": "User requested uninterrupted 2026-11-25 Simulation report production; MOVE user screenshot evidence included."
   },
   "last_week_calendar_impact_overrides": [
     {
