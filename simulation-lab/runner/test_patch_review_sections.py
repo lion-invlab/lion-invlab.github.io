@@ -47,12 +47,9 @@ def run_patch(section: str, mother_name: str) -> tuple[dict, BeautifulSoup]:
         if section == "summary":
             fixture["summary_title"] = "測試總結標題：市場風險重新定價"
             fixture["summary_points"][0]["text"] = "只更新總結文字，不重新擷取行情、新聞或行事曆。"
-            # Monday mother has three summary slots; weekday mother has five.
-            if mother_name == "weekday-mother-template.html":
-                fixture["summary_points"].extend([
-                    {"label": "測試補充一｜", "text": "週二至週五母版第五槽位測試文字。"},
-                    {"label": "測試補充二｜", "text": "週二至週五母版第五槽位測試文字。"},
-                ])
+            # Both report types must use exactly three summary points.
+            fixture["summary_points"] = fixture["summary_points"][:3]
+            assert len(fixture["summary_points"]) == 3
         fixture_path = tmp_path / "fixture.json"
         fixture_path.write_text(json.dumps(fixture, ensure_ascii=False), encoding="utf-8")
         result = patch_section(html_in, fixture_path, MANIFEST, section, html_out, receipt_path, test_only=True)
