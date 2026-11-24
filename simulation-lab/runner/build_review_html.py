@@ -634,8 +634,8 @@ def set_market_observation(node, title, value):
     if "｜" in raw and raw.startswith("📌"):
         raw = raw.split("｜", 1)[1].strip()
 
-    heading = node.find("b", recursive=False)
-    line_break = next((child for child in node.children if getattr(child, "name", None) == "br"), None)
+    heading = node.find("b")
+    line_break = node.find("br")
 
     def first_text_after(anchor):
         sibling = anchor.next_sibling if anchor is not None else None
