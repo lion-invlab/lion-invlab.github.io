@@ -272,7 +272,10 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
     if len(rows) != 44:
         raise ValueError(f"expected 44 source-verification rows, got {len(rows)}")
     verified_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED"))
-    pending_count = len(rows) - verified_count
+    closed_count = sum(1 for row in rows if row["verification_status"] == "CLOSED")
+    pending_count = sum(1 for row in rows if row["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION")
+    if verified_count + closed_count + pending_count != len(rows):
+        raise ValueError("44-row status counts do not reconcile: verified + closed + pending must equal row_count")
     observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
     raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
     status = "PASS" if pending_count == 0 and observation_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
@@ -288,12 +291,13 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         "prior_observation_missing_time_count": pending_count,
         "row_count": len(rows),
         "pending_count": pending_count,
+        "closed_count": closed_count,
         "verified_count": verified_count,
         "browser_observation_records_complete": pending_count == 0 and observation_hash_missing_count == 0,
         "observation_record_hash_missing_count": observation_hash_missing_count,
         "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"本次來源頁面觀察完整通過 {verified_count}/44 項；尚有 {pending_count} 項未取得完整商品身分、欄位映射與報價核對證據。舊 Fixture 觀察紀錄不納入驗證。",
+        "warning": f"本次來源頁面觀察：{verified_count} 項已核實、{closed_count} 項休市、{pending_count} 項待核實；舊 Fixture 觀察紀錄不納入驗證。",
     }
 
 
