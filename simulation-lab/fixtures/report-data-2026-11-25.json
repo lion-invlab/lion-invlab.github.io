@@ -3264,22 +3264,22 @@
   "market_analysis": {
     "political": {
       "paragraphs": [
-        "美國政府準備公布工業補貼調查結果，並可能對中國、歐盟及其他貿易夥伴加徵新關稅；目前稅率與實施細節未定，市場先反映政策不確定性及供應鏈成本風險。輝達復任消息同時引發國會與監管監督討論，公司治理與出口管制問題並未因此結束。",
-        "政策訊號須區分已宣布、擬議與已生效：關稅仍屬政策規劃，不能寫成已實施；消費信心改善也不代表關稅成本已被消化。"
+        "美國對巴西產品的Section 301附加關稅已進入WTO爭端程序，巴西要求成立爭端小組，但尚無裁決；美國另有對多國工業補貼調查與可能加徵關稅的政策討論，仍須區分調查、提案與正式生效措施。",
+        "中國延長部分鎵、鍺、銻及超硬材料對美出口限制暫停至2027年1月27日，11月28日起生效；這是有限範圍的貿易緩和，不代表先進AI晶片出口管制解除。地緣方面，烏克蘭確認對班加西俄羅斯船舶發動無人機攻擊，利比亞政府譴責，地中海安全風險升高。"
       ],
       "sources": [
         {
-          "label": "Investing.com｜美國新關稅計畫",
-          "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
+          "label": "WTO｜Brazil requests dispute panel regarding additional US duties",
+          "url": "https://www.wto.org/english/news_e/news26_e/dsb_24nov26_563_e.htm",
           "published_at": "2026-11-24",
-          "checked_at": "2026-11-25T06:45:00+08:00",
-          "status": "DIRECT_PAGE_READ"
+          "checked_at": "2026-11-25T06:50:00+08:00",
+          "status": "OFFICIAL_PRIMARY_SOURCE"
         },
         {
-          "label": "Washington Post｜亞洲股市反彈與美歐期貨回落",
-          "url": "https://www.washingtonpost.com/business/2026/11/24/us-futures-european-markets-fade-following-nvidia-rally/",
+          "label": "MarketScreener / Dow Jones｜China extends suspension of some critical-material export curbs",
+          "url": "https://www.marketscreener.com/news/china-to-suspend-some-critical-material-export-curbs-to-u-s-until-january-ce7851dbd989fe21",
           "published_at": "2026-11-24",
-          "checked_at": "2026-11-25T06:45:00+08:00",
+          "checked_at": "2026-11-25T06:50:00+08:00",
           "status": "DIRECT_PAGE_READ"
         }
       ]
@@ -3308,23 +3308,23 @@
     },
     "macro": {
       "paragraphs": [
-        "美國11月諮商會消費者信心升至103.3，高於市場預期92.4及前值91.9，顯示家庭對經濟的短期看法改善；但調查數據仍需由實際消費支出與假期零售銷售驗證。",
-        "市場同時關注翌日公布的PCE通膨與GDP資料。若通膨高於預期，短端殖利率與美元可能再度走強；新關稅若落地，也可能推高進口成本並增加通膨不確定性。"
+        "美國11月諮商會消費者信心升至103.3，高於預期92.4及前值91.9；英國CBI零售銷售差額指數由-10升至+9。兩項調查顯示家庭及零售商短期看法改善，但仍需實際消費支出與企業投資驗證。",
+        "美國PCE通膨數據將成為利率定價的重要檢驗；同時荷姆茲海峽商船遇襲提高航運風險，但三艘船均續航、船員安全，尚未確認供應中斷。油價反彈仍受全球供應過剩預期限制。"
       ],
       "sources": [
         {
           "label": "Investing.com｜美國諮商會消費者信心",
           "url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
           "published_at": "2026-11-24",
-          "checked_at": "2026-11-25T06:45:00+08:00",
+          "checked_at": "2026-11-25T06:50:00+08:00",
           "status": "DIRECT_PAGE_READ"
         },
         {
-          "label": "Investing.com｜英國零售商調查",
-          "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1774428",
+          "label": "Reuters｜Oil rises on Hormuz ship attacks, surplus supply outlook curbs gains",
+          "url": "https://live.euronext.com/en/financial-news/oil-rises-hormuz-ship-attacks-surplus-supply-outlook-curbs-gains",
           "published_at": "2026-11-24",
-          "checked_at": "2026-11-25T06:45:00+08:00",
-          "status": "DIRECT_PAGE_READ"
+          "checked_at": "2026-11-25T06:50:00+08:00",
+          "status": "REUTERS_REPORTED"
         }
       ]
     },
@@ -3374,7 +3374,8 @@
     }
   },
   "political_scan": {
-    "checked_at": "2026-11-24T06:20:00+08:00",
+    "checked_at": "2026-11-25T06:50:00+08:00",
+    "cutoff_at_taipei": "2026-11-25T05:25:00+08:00",
     "domains_checked": [
       "us_policy",
       "us_china",
@@ -3383,435 +3384,105 @@
       "major_economies",
       "energy_resources"
     ],
-    "no_material_change_note": "截至05:25台灣時間完成六領域掃描。新增：中國三大交易所宣布11/30起降低融資買入最低保證金比例（已宣布、尚未生效）；胡塞武裝聲稱攻擊Rabigh煉油設施（沙方未確認）；白宮EO 14438於11/20正式發布（官方頁僅列日期、未列精確時刻）；AP報導班加西俄艦疑似遭無人機攻擊（歸責未明）。日本、歐洲、韓國及台灣未核實到足以改變全球資產配置的新增正式政策。Reuters荷姆茲航運量報導於05:57台灣時間發布，晚於截稿，未納入本期。",
+    "no_material_change_note": "已依11/24至11/25 05:25台灣時間前公開資料重新掃描六領域。新增可確認事件：中國延長部分關鍵礦物對美出口限制暫停至2027/1/27（11/28生效）；WTO受理巴西要求就美國Section 301附加關稅成立爭端小組的請求；荷姆茲海峽三艘商船遭不明投射物攻擊但均續航、船員安全；烏克蘭確認對班加西俄羅斯船舶發動無人機攻擊，利比亞政府譴責。美國消費者信心及英國零售調查改善，但不能直接等同實際需求全面轉強。",
     "findings": [
       {
-        "title": "美國BIS正式發布並生效先進AI晶片遠端算力服務許可規則",
-        "domain": "trade_sanctions",
-        "classification": "formally_effective",
-        "source_url": "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm",
-        "published_at": "2026-11-19",
-        "checked_at": "2026-11-22T11:48:13+08:00",
-        "transmission": {
-          "policy": "BIS於2026-11-19發布並生效臨時最終規則：對向澳門或美國出口管制D:5國家／地區總部企業提供達規定門檻算力的海外資料中心，要求終端用途盡職調查；規則生效前已提供相關算力的既有資料中心須於90日內取得許可。另對印尼、馬來西亞、新加坡、泰國、巴西等高轉運風險目的地的先進半導體出口新增許可要求。",
-          "industry": "先進晶片供應商、海外雲端資料中心、伺服器與網通業者需增加客戶總部地、算力規模、終端用途及許可審查；合規成本與交付不確定性上升。",
-          "macro": "跨境算力區域化與替代投資可能增加資本支出及折舊成本；對受影響企業的營收與投資時程影響，仍取決於許可執行與豁免範圍。",
-          "markets": "先進晶片、海外資料中心及雲端業者的政策風險溢價上升；不得把當週科技股整體跌勢全數歸因於單一規則。",
-          "strategy": "追蹤BIS後續指引、許可核發速度及企業客戶地域揭露；優先檢查D:5／澳門客戶集中度與轉運路徑，不追逐未經證實的替代受惠題材。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "規則按已公布範圍執行，既有資料中心於90日合規期內申請許可，未再擴大受管制產品或目的地。",
-            "affected_assets": "先進晶片供應商、海外資料中心、伺服器及網通供應鏈。",
-            "leading_indicators": "美國商務部許可指引、許可核發速度、企業客戶地域揭露。",
-            "strategy": "維持核心供應鏈曝險，但降低單一中國客戶或單一轉運地區集中度。",
-            "invalidation": "官方豁免範圍擴大或許可要求被正式撤回。"
-          },
-          "risk": {
-            "triggers": "許可核發收緊、海外資料中心服務被要求停止，或更多產品與目的地納入管制。",
-            "affected_assets": "高中國營收晶片商、雲端服務商、東南亞資料中心與設備供應商。",
-            "leading_indicators": "出口許可拒絕案例、商務部執法公告、企業營收指引及交付延遲。",
-            "strategy": "降低政策曝險高且估值昂貴的供應鏈部位，轉向合規透明與客戶分散企業。",
-            "invalidation": "許可流程明確且大量核准，企業指引證實供應鏈影響有限。"
-          },
-          "severe": {
-            "triggers": "中美互相擴大出口管制，進一步延伸至稀土、關鍵材料或其他技術服務。",
-            "affected_assets": "半導體設備、先進晶片、關鍵礦物、亞洲製造供應鏈及相關匯率。",
-            "leading_indicators": "雙方正式法規、反制清單、海關出貨與稀土出口數據。",
-            "strategy": "降低跨境單點供應風險，增加現金與供應鏈分散，不追逐未驗證替代受惠股。",
-            "invalidation": "雙方正式簽署可執行協議並撤回新增限制。"
-          }
-        }
+        "domain": "us_policy",
+        "title": "美國對巴西Section 301附加關稅遭WTO爭端程序挑戰",
+        "classification": "formally_in_dispute",
+        "source_url": "https://www.wto.org/english/news_e/news26_e/dsb_24nov26_563_e.htm",
+        "published_at": "2026-11-24",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "WTO爭端解決機構於11/24審議巴西要求成立爭端小組，以檢視美國依兩項Section 301調查對巴西產品加徵的附加關稅是否符合WTO承諾。此為爭端程序，不代表WTO已裁定美國違規。"
       },
       {
-        "title": "川習會未形成公開可驗證的貿易休戰延長安排，台灣議題仍是雙邊核心分歧",
         "domain": "us_china",
-        "classification": "political_statement",
-        "source_url": "https://www.reuters.com/world/china/trump-basks-summit-pomp-chinas-xi-strengthens-his-hand-2026-11-21/",
-        "published_at": "2026-11-21T16:40:00+08:00",
-        "checked_at": "2026-11-22T11:48:13+08:00",
-        "transmission": {
-          "policy": "雙方領導人公開談及AI、貿易與荷姆茲能源運輸，但公開聲明未提供稀土、農產品採購、晶片管制及被拘留人士等議題的具體履約時程；習近平重申台灣議題的重要性，屬政治表態而非新政策條文。",
-          "industry": "稀土、半導體、農產品、雲端算力與跨境製造企業仍需面對政策不確定性；供應鏈不宜依峰會氣氛假設限制解除。",
-          "macro": "若貿易休戰延長可降低關稅與投入成本不確定性；若談判停滯，企業可能延後投資或增加庫存與替代供應鏈成本。",
-          "markets": "市場對中美關係短期穩定可能有期待，但缺少可執行協議，政策風險溢價尚不宜全面下修。",
-          "strategy": "把峰會表態與正式協議分開；追蹤G20後是否公布具體履約、關稅或稀土出口文件，避免提前交易未落地的政策利多。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "雙方維持對話，現有貿易休戰暫不惡化，但不新增實質讓步。",
-            "affected_assets": "中國稀土供應、美國農產品出口、半導體及跨境製造。",
-            "leading_indicators": "正式聯合聲明、海關出貨、稀土許可、G20會後文件。",
-            "strategy": "保留分散化供應鏈配置，不因峰會新聞快速提高單一市場曝險。",
-            "invalidation": "雙方公布具法律效力且可執行的延長協議。"
-          },
-          "risk": {
-            "triggers": "貿易休戰延長談判受阻，關稅或出口管制再度升級。",
-            "affected_assets": "中美出口商、晶片設備、稀土磁材、農產品及亞洲出口市場。",
-            "leading_indicators": "關稅公告、出口許可、企業供應鏈調整與雙邊會談取消。",
-            "strategy": "降低對單一跨境供應鏈的集中曝險，優先持有具替代產能企業。",
-            "invalidation": "雙方正式確認延長休戰並開始履行具體採購與許可承諾。"
-          },
-          "severe": {
-            "triggers": "台海相關政治與軍事緊張升級，導致金融制裁或海空運輸風險擴大。",
-            "affected_assets": "台灣股票與匯率、全球半導體供應、航運、保險及亞洲風險資產。",
-            "leading_indicators": "軍事活動官方通報、航運保險費、外交聲明、制裁法案及供應商交期。",
-            "strategy": "降低台海單一地理風險集中度、提高流動性並制定跨市場避險方案。",
-            "invalidation": "官方建立可驗證的危機溝通機制且軍事活動持續降溫。"
-          }
-        },
-        "source_status": "Reuters原文已核實，11/21 08:40 UTC（台灣16:40）發布，位於本期截稿前；公開說明未提供具體履約時程。"
-      },
-      {
-        "title": "美國SEC調查Nvidia會計作法的報導尚未構成違法認定",
-        "domain": "us_policy",
-        "classification": "unverified",
-        "source_url": "https://www.reuters.com/world/us-secs-nvidia-probe-is-examining-potential-accounting-issues-sources-say-2026-11-20/",
-        "published_at": "2026-11-21T03:13:43+08:00",
-        "checked_at": "2026-11-22T11:48:13+08:00",
-        "transmission": {
-          "policy": "Reuters引述兩名知情人士稱SEC正在檢視Nvidia潛在會計問題；SEC未公開評論調查細節，調查不等於違法或執法結果已確立。",
-          "industry": "AI晶片商、雲端客戶與資料中心融資安排的收入揭露、客戶融資、保證承諾及應收帳款品質受到更嚴格檢視。",
-          "macro": "若AI基礎設施融資條件收緊，部分資料中心投資可能延後；目前無證據顯示整體AI需求已轉弱。",
-          "markets": "Nvidia及AI供應鏈治理與融資風險溢價升高，並可能放大高估值科技股波動；不得把調查直接視為財報造假。",
-          "strategy": "區分調查、指控與正式裁決；優先檢查自由現金流、應收帳款、客戶融資及資本承諾，等待公司或監管文件更新。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "調查未進一步公開擴大，Nvidia後續揭露能釐清收入與融資安排。",
-            "affected_assets": "Nvidia、AI伺服器、資料中心及主要雲端客戶。",
-            "leading_indicators": "SEC正式文件、公司10-Q／10-K、應收帳款與融資承諾揭露。",
-            "strategy": "只依基本面與正式揭露調整部位，不因傳聞追空或抄底。",
-            "invalidation": "SEC公開提出執法指控或公司更正重大財務揭露。"
-          },
-          "risk": {
-            "triggers": "SEC持續調查並要求補充揭露，客戶融資與收入品質疑慮擴大。",
-            "affected_assets": "Nvidia、AI融資方、雲端服務商及高資本支出供應鏈。",
-            "leading_indicators": "公司財報修訂、監管文件、客戶付款條件及自由現金流變化。",
-            "strategy": "降低治理資訊不透明與融資依賴高的AI曝險，偏向現金流穩健公司。",
-            "invalidation": "公司披露完整且監管程序結束，相關財務疑慮未獲支持。"
-          },
-          "severe": {
-            "triggers": "監管機構提出重大執法行動，或融資鏈出現違約／資金斷裂。",
-            "affected_assets": "AI晶片、雲端資料中心、設備供應商及相關信用市場。",
-            "leading_indicators": "SEC正式起訴、審計意見變化、融資違約、專案取消與信用利差。",
-            "strategy": "降低單一AI供應鏈曝險，優先保留現金並避免高槓桿部位。",
-            "invalidation": "監管機構正式結案且主要融資方確認資金安排正常。"
-          }
-        }
-      },
-      {
-        "title": "荷姆茲海峽入口附近兩起油輪受襲通報，攻擊來源與船舶是否相同尚未確認",
-        "domain": "energy_resources",
-        "classification": "unverified",
-        "source_url": "https://www.reuters.com/business/energy/tanker-hit-by-unknown-projectile-near-omans-khasab-ukmto-says-2026-11-21/",
-        "published_at": "2026-11-21T15:57:07+08:00",
-        "checked_at": "2026-11-22T11:48:13+08:00",
-        "transmission": {
-          "policy": "UKMTO通報兩起油輪受襲事件；伊朗海軍另稱油輪觸雷，但Reuters無法確認是否指同一船舶，亦未獨立確認責任歸屬。",
-          "industry": "油輪船東、船舶保險、港口、能源貿易商與煉油廠可能面臨航線改道、保費與運費增加。",
-          "macro": "若荷姆茲通行受阻持續，全球原油供應與運輸成本上升，可能同時推高能源通膨並壓抑進口國消費。",
-          "markets": "WTI與Brent短線地緣風險溢價提高；若實際裝船與通行量未下降，溢價可能回吐。",
-          "strategy": "追蹤UKMTO通報、船舶AIS、保險費率、油輪運費及主要出口國裝船量，不把單一事件等同海峽全面封鎖。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "事件未持續擴大，船舶通行雖更謹慎但主要油流維持。",
-            "affected_assets": "原油期貨、油輪運費、海運保險與能源進口商。",
-            "leading_indicators": "UKMTO後續通報、荷姆茲船舶通行量、裝船量與現貨價差。",
-            "strategy": "不追高原油，僅保留與實際能源風險相稱的配置。",
-            "invalidation": "連續多日通行量下降或能源出口設施停產。"
-          },
-          "risk": {
-            "triggers": "油輪遭襲事件反覆發生，船東改道或保險商提高戰爭險費率。",
-            "affected_assets": "Brent、WTI、油輪運輸、航空、化工與能源密集產業。",
-            "leading_indicators": "戰爭險報價、運費指數、船舶AIS與原油期限結構。",
-            "strategy": "降低高能源成本企業曝險，檢查能源對沖與成本轉嫁能力。",
-            "invalidation": "航運安全恢復且保費、運費及期限結構回落。"
-          },
-          "severe": {
-            "triggers": "荷姆茲主要通道長期受阻，原油與LNG出口實質中斷。",
-            "affected_assets": "全球能源價格、通膨預期、能源進口國貨幣、航空及化工。",
-            "leading_indicators": "通行量、主要產油國出口、戰略儲備釋放及官方軍事升級。",
-            "strategy": "降低高Beta風險資產與高耗能產業曝險，保留流動性並防範通膨再加速。",
-            "invalidation": "主要航線恢復、出口與裝船數據回到常態，且官方確認安全安排。"
-          }
-        }
-      },
-      {
-        "domain": "major_economies",
-        "title": "中國三大交易所宣布下調融資買入最低保證金比例",
-        "classification": "announced_not_implemented",
-        "source_url": "https://www.reuters.com/world/china/china-exchanges-ease-margin-financing-requirements-latest-support-move-2026-11-22/",
-        "published_at": "2026-11-22T13:09:00Z",
-        "checked_at": "2026-11-23T06:17:33+08:00",
-        "transmission": {
-          "policy": "上交所、深交所與北交所宣布自11/30起將新開融資買入最低保證金比例由100%降至80%，並配合費率支持；公告已發布但尚未生效。",
-          "industry": "直接傳導至券商融資業務、交易所與A股投資者槓桿能力；較低保證金比例提高同額抵押品可支持的融資規模。",
-          "macro": "先影響金融市場流動性與資產價格，不是直接增加消費、固定資本形成或企業營收；若實體需求未改善，刺激效果可能停留在市場端。",
-          "markets": "短期有利A股風險偏好，但兩融餘額較6月高點下降逾20%至約人民幣2.2兆元，顯示槓桿需求仍弱；政策宣布不代表資金已回流。",
-          "strategy": "11/30生效後追蹤兩融餘額、成交額、上漲家數與券商融資風險；若成交與廣度未同步改善，不將政策公告解讀為趨勢反轉。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "11/30按公告實施，融資餘額止跌但成交廣度改善有限。",
-            "affected_assets": "A股券商、寬基指數及高流動性大型股。",
-            "leading_indicators": "兩融餘額、融資買入額、成交額、上漲家數。",
-            "strategy": "觀察流動性是否實際回升，不因公告追價。",
-            "invalidation": "兩融餘額持續下降且市場廣度未改善。"
-          },
-          "risk": {
-            "triggers": "融資槓桿快速回升但盈利與成交廣度未改善。",
-            "affected_assets": "高波動成長股、券商及槓桿敏感資產。",
-            "leading_indicators": "融資餘額增速、融資買入集中度、波動率。",
-            "strategy": "控制槓桿與集中度，避免將政策支持當作基本面改善。",
-            "invalidation": "企業盈利與內需數據同步轉強。"
-          },
-          "severe": {
-            "triggers": "政策支持未能止跌，融資餘額續降且信用需求疲弱。",
-            "affected_assets": "A股中小型股、券商及高估值資產。",
-            "leading_indicators": "成交額、融資餘額、信用脈衝、企業盈利預期。",
-            "strategy": "降低高槓桿曝險，等待政策傳導至盈利與需求的證據。",
-            "invalidation": "成交與盈利預期持續同步改善。"
-          }
-        }
-      },
-      {
-        "domain": "us_policy",
-        "title": "白宮發布EO 14438，要求聯邦承包商協調國會資訊請求",
-        "classification": "formally_effective",
-        "source_url": "https://www.whitehouse.gov/presidential-actions/2026/11/protecting-the-executives-privileges-and-enhancing-efficiencies-in-federal-contracting/",
-        "published_at": "2026-11-20",
-        "published_time_status": "DATE_ONLY_NOT_PROVIDED",
-        "checked_at": "2026-11-23T06:17:33+08:00",
-        "transmission": {
-          "policy": "EO 14438要求聯邦承包商及分包商立即通知白宮與採購機關涉及其政府工作／通訊的國會請求，並遵循對行政特權資訊的處理指示；OMB須提出執行指引，違規可能導致合約終止或停權。",
-          "industry": "直接適用聯邦承包商與分包商，國防、科技、顧問、資料及政府服務供應商需評估法務、合規、揭露與合約風險。",
-          "macro": "不是廣泛企業監管或直接宏觀刺激；影響集中於政府採購治理、承包商成本及國會監督程序。",
-          "markets": "可能提高政府合約曝險較高企業的政策與法律風險溢價，不應外推為整體股市風險。",
-          "strategy": "追蹤OMB與各機關執行指引、法院訴訟及企業政府合約曝險；未見實際合約終止前，不預設營收衝擊。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "OMB與機關指引限縮適用範圍，合約履行未受明顯影響。",
-            "affected_assets": "政府承包商、國防與政府IT服務商。",
-            "leading_indicators": "OMB指引、機關通知、公司合約揭露。",
-            "strategy": "依政府合約營收占比分層追蹤。",
-            "invalidation": "法院暫停或撤銷命令。"
-          },
-          "risk": {
-            "triggers": "機關廣泛要求承包商延後或限制對國會的回覆。",
-            "affected_assets": "國防、科技、諮詢與資料服務承包商。",
-            "leading_indicators": "合約變更、法律訴訟、國會監督反應。",
-            "strategy": "提高法律與政策風險折價，避免單一合約集中。",
-            "invalidation": "執行指引明確縮限且訴訟未擴大。"
-          },
-          "severe": {
-            "triggers": "命令引發廣泛法律衝突或政府合約終止／停權。",
-            "affected_assets": "高度依賴聯邦採購的企業與其供應鏈。",
-            "leading_indicators": "法院禁制令、合約取消、政府採購公告。",
-            "strategy": "按政府收入曝險與現金流敏感度調降風險。",
-            "invalidation": "命令被法院暫停或執行範圍顯著縮小。"
-          }
-        }
+        "title": "中國延長部分關鍵礦物對美出口限制暫停至2027年1月27日",
+        "classification": "announced_not_yet_effective",
+        "source_url": "https://www.marketscreener.com/news/china-to-suspend-some-critical-material-export-curbs-to-u-s-until-january-ce7851dbd989fe21",
+        "published_at": "2026-11-24T05:13:00-05:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "中國商務部宣布延長鎵、鍺、銻及超硬材料等部分兩用物項對美出口限制暫停，期間為11/28至2027/1/27，並延續石墨出口審查放寬。這是有限範圍的暫停延長，不代表先進AI晶片出口管制解除。"
       },
       {
         "domain": "geopolitics",
-        "title": "AP報導班加西港俄羅斯護衛艦疑似遭無人機攻擊",
-        "classification": "unverified",
-        "source_url": "https://apnews.com/article/libya-russia-vessel-drone-benghazi-59f6f304f3053c69c8cc890138a94d1b",
-        "published_at": "2026-11-22",
-        "published_time_status": "NOT_DISPLAYED",
-        "checked_at": "2026-11-23T06:17:33+08:00",
-        "transmission": {
-          "policy": "利比亞官員稱俄羅斯護衛艦在班加西港遭兩架無人機攻擊；聯合調查進行中，無組織承認責任，俄烏雙方未提供可核實歸責。",
-          "industry": "若確認，可能提高地中海軍事活動、港口安全與船舶保險風險；目前沒有證據顯示商業航道或能源設施受損。",
-          "macro": "事件尚未證實且無可量化供應衝擊，不能直接推導能源供給缺口或通膨變化。",
-          "markets": "短期僅屬地緣尾部風險，除非出現重複攻擊或國家歸責，否則不宜加上廣泛市場風險溢價。",
-          "strategy": "追蹤利比亞調查、俄方正式聲明、船舶狀態及是否出現第二起事件；不推定北約參與。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "調查未確認攻擊或損害有限，未出現後續事件。",
-            "affected_assets": "地中海航運與防務情緒。",
-            "leading_indicators": "利比亞調查結果、俄方聲明、港口活動。",
-            "strategy": "僅列風險觀察，不調整廣泛資產配置。",
-            "invalidation": "確認有組織的持續攻擊。"
-          },
-          "risk": {
-            "triggers": "確認俄艦受損並出現後續地中海軍事事件。",
-            "affected_assets": "區域航運、保險與防務股。",
-            "leading_indicators": "船舶活動、港口限制、官方歸責。",
-            "strategy": "檢查航運與保險曝險，避免過度外推。",
-            "invalidation": "調查排除軍事攻擊或確認無後續風險。"
-          },
-          "severe": {
-            "triggers": "事件導致俄羅斯與其他國家直接升高軍事對抗。",
-            "affected_assets": "地中海航運、能源運輸與區域防務資產。",
-            "leading_indicators": "軍事部署、港口封鎖、航線改道。",
-            "strategy": "依實際航運與保險資料調整風險，而非只依未證實消息。",
-            "invalidation": "各方降溫並恢復正常港口活動。"
-          }
-        }
+        "title": "烏克蘭確認對班加西俄羅斯船舶發動無人機攻擊，利比亞政府譴責",
+        "classification": "confirmed_attack_with_sovereignty_dispute",
+        "source_url": "https://www.theguardian.com/world/2026/nov/24/ukraine-war-briefing-kyiv-strike-on-russian-ships-in-benghazi-condemned-by-un-backed-libya-government",
+        "published_at": "2026-11-24",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "烏克蘭確認對班加西港俄羅斯船舶發動海上無人機攻擊，利比亞政府與聯合國機構關切主權及授權問題。事件提升地中海軍事與港口安全風險，但目前不等同商業航道或能源設施中斷。"
+      },
+      {
+        "domain": "trade_sanctions",
+        "title": "巴西要求WTO成立爭端小組，挑戰美國對巴西產品的額外關稅",
+        "classification": "dispute_panel_requested",
+        "source_url": "https://www.wto.org/english/news_e/news26_e/dsb_24nov26_563_e.htm",
+        "published_at": "2026-11-24",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "巴西要求WTO審查美國兩項Section 301調查所衍生的額外關稅。爭端小組成立請求仍在程序中，尚無裁決；不應寫成關稅已被撤銷或美國已敗訴。"
+      },
+      {
+        "domain": "major_economies",
+        "title": "美國消費者信心回升，英國零售商調查亦改善",
+        "classification": "economic_data_released",
+        "source_url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
+        "published_at": "2026-11-24",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "美國11月諮商會消費者信心103.3，高於預期92.4；英國CBI零售銷售差額指數由-10升至+9。兩項調查改善，但仍需實際零售支出及後續企業投資數據驗證。"
       },
       {
         "domain": "energy_resources",
-        "title": "胡塞武裝聲稱攻擊沙烏地Rabigh煉油與石化設施",
-        "classification": "unverified",
-        "source_url": "https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-saudi-rabigh-oil-refinery-2026-11-22/",
-        "published_at": "2026-11-22T17:52:00Z",
-        "checked_at": "2026-11-23T06:17:33+08:00",
-        "transmission": {
-          "policy": "胡塞武裝聲稱攻擊Rabigh設施並稱直接命中；沙烏地官方未即時確認，設施損害與停產狀況未知。",
-          "industry": "若證實受損，可能影響煉油、石化原料、出口設施與紅海沿岸物流；目前無法確認供應中斷。",
-          "macro": "只有在設施停運、出口受阻或航運保險上升後，才可能經能源成本與運費傳導至通膨；現階段不應預設供給衝擊。",
-          "markets": "短期增加中東能源風險溢價，但價格反應需與官方確認、船舶流量及保險費同步驗證。",
-          "strategy": "追蹤沙烏地政府、Petro Rabigh／股東公告、設施運轉與紅海船舶流量；未確認前不追逐油價。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "沙方未確認損害或確認設施正常運作，未出現後續攻擊。",
-            "affected_assets": "原油、成品油與石化風險溢價。",
-            "leading_indicators": "沙方聲明、公司公告、設施運轉率。",
-            "strategy": "維持觀察，不把聲稱命中視為停產。",
-            "invalidation": "官方確認重大設施損害。"
-          },
-          "risk": {
-            "triggers": "確認局部損害或短暫停運，航運保險與運費上升。",
-            "affected_assets": "原油、成品油、石化品及紅海航運。",
-            "leading_indicators": "裝置停工、出口量、保險費、船舶改道。",
-            "strategy": "重新評估能源與運輸成本敏感產業。",
-            "invalidation": "設施迅速恢復且航運正常。"
-          },
-          "severe": {
-            "triggers": "能源設施遭連續攻擊並造成持續停產或航運受阻。",
-            "affected_assets": "全球能源價格、化工、航空、運輸與通膨敏感資產。",
-            "leading_indicators": "多次攻擊、產能損失、出口中斷、運費與油價期限結構。",
-            "strategy": "按實際供應損失與期限結構管理風險，不以單一聲稱交易。",
-            "invalidation": "停產未發生或供應快速恢復。"
-          }
-        }
-      },
-      {
-        "title": "輝達董事會恢復黃仁勳職務，國會議員要求說明國安審查依據",
-        "domain": "us_policy",
-        "classification": "political_statement",
-        "source_url": "https://www.cna.com.tw/news/aopl/202611240006.aspx",
-        "published_at": "2026-11-24T02:42:00+08:00",
-        "checked_at": "2026-11-24T06:20:00+08:00",
-        "transmission": {
-          "policy": "公司董事會已宣布復職；參議員要求白宮說明國安意見來源，並預告12月初閉門訪談。政治監督尚非違規認定。",
-          "industry": "晶片出口管制與中國業務合規將持續受到審查，企業需準備客戶與終端用途資料。",
-          "macro": "對宏觀需求沒有即時量化影響，主要增加政策不確定性與合規成本。",
-          "markets": "短線消息提振AI股，但國會審查可能令相關政策風險溢價維持。",
-          "strategy": "追蹤正式聽證與政府文件，不將政治談話當成出口管制放寬或違法結論。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "國會持續要求說明，但未公布新的正式出口管制或制裁文件。",
-            "affected_assets": "輝達、AI伺服器、雲端服務及半導體設備。",
-            "leading_indicators": "美國政府正式公告、國會聽證紀錄、公司監管申報及出口許可更新。",
-            "strategy": "維持中性偏防禦，不因復職消息追價；以企業訂單、現金流與政策文件驗證。",
-            "invalidation": "美國政府發布正式豁免或限制擴大文件，改變合規成本。"
-          },
-          "risk": {
-            "triggers": "國會訪談或政府審查引發新的客戶、產品或地區限制。",
-            "affected_assets": "中國營收曝險高的晶片、設備與雲端供應鏈。",
-            "leading_indicators": "出口許可拒絕率、客戶訂單遞延、公司風險揭露及相關政策草案。",
-            "strategy": "降低中國收入集中與高估值曝險，優先保留客戶分散、現金流穩健企業。",
-            "invalidation": "正式政策文件確認審查未新增限制，且企業訂單與營收未受影響。"
-          },
-          "severe": {
-            "triggers": "正式制裁、擴大實體清單或全面限制高階AI晶片出口。",
-            "affected_assets": "AI晶片、半導體設備、資料中心與跨境雲端服務供應鏈。",
-            "leading_indicators": "美國商務部正式規則、實體清單、出口許可政策及公司重大風險公告。",
-            "strategy": "降低受限市場收入曝險，檢查供應鏈替代性與應收帳款，避免槓桿加碼。",
-            "invalidation": "正式政策撤回或法院裁定暫停執行，且公司確認供應與收入恢復。"
-          }
-        }
-      },
-      {
-        "title": "美國智庫報告指稱中國以交通補助與資訊操作影響台灣選舉",
-        "domain": "us_china",
-        "classification": "unverified",
-        "source_url": "https://www.cna.com.tw/news/aipl/202611230297.aspx",
-        "published_at": "2026-11-23T23:06:00+08:00",
-        "checked_at": "2026-11-24T06:20:00+08:00",
-        "transmission": {
-          "policy": "目前屬智庫報告與台灣國安官員指稱，未見司法或行政機關正式認定全部指控成立。",
-          "industry": "可能影響航空運能、旅遊往返及台商商業組織的政治風險評估；量化企業營收影響尚未知。",
-          "macro": "若交通與資訊操作影響選舉信任，可能增加政策不確定性，但尚無可量化宏觀衝擊。",
-          "markets": "目前未見可直接歸因的資產價格反應，不應將政治指控直接轉化為交易訊號。",
-          "strategy": "追蹤政府正式調查與可驗證證據，將已知事實、智庫分析及未核實指稱分開。"
-        },
-        "scenarios": {
-          "baseline": {
-            "triggers": "報告維持智庫與官員指稱，沒有新增正式調查結果。",
-            "affected_assets": "台灣政治風險溢價、航空與跨境商務相關企業。",
-            "leading_indicators": "政府公開說明、司法調查進度、選務機關公告。",
-            "strategy": "不因單一報告調整市場部位，保留事件風險監測。",
-            "invalidation": "出現正式調查結果或新的行政措施。"
-          },
-          "risk": {
-            "triggers": "政府公布可驗證證據並啟動跨部門調查。",
-            "affected_assets": "台灣政治風險敏感資產、航空與兩岸供應鏈。",
-            "leading_indicators": "正式調查文件、航空班次與票價、企業風險揭露。",
-            "strategy": "檢查兩岸收入與供應鏈集中度，避免將單一事件擴大推論整體經濟。",
-            "invalidation": "調查未發現重大違法或相關措施未持續。"
-          },
-          "severe": {
-            "triggers": "正式證據顯示有系統性干預並引發新的制裁或跨境限制。",
-            "affected_assets": "兩岸往來、航空、旅遊、台灣風險資產及跨境供應鏈。",
-            "leading_indicators": "政府制裁公告、航班限制、企業訂單與資金流異常。",
-            "strategy": "降低高度依賴單一市場的曝險，檢查跨境支付與營運備援。",
-            "invalidation": "相關限制撤回且跨境營運恢復正常。"
-          }
-        }
+        "title": "荷姆茲海峽三艘商船遭不明投射物攻擊，船舶續航且船員安全",
+        "classification": "reported_incident_no_confirmed_supply_disruption",
+        "source_url": "https://live.euronext.com/en/financial-news/oil-rises-hormuz-ship-attacks-surplus-supply-outlook-curbs-gains",
+        "published_at": "2026-11-24T17:55:00Z",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "transmission": "Reuters報導UKMTO通報三艘商船遭不明投射物攻擊，三船均繼續航行、船員安全。油價反彈但全球供應過剩預期限制漲幅；目前未確認實質供應中斷。"
       }
     ],
-    "cutoff_at_taipei": "2026-11-23T05:25:00+08:00",
     "domain_scan_results": {
       "us_policy": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "MATERIAL_TRADE_DISPUTE",
         "findings": [
-          "白宮EO 14438於2026-11-20發布並立即要求聯邦承包商與分包商遵循；官方頁未提供精確發布時刻。"
-        ],
-        "status": "MATERIAL_POLICY_FOUND"
+          "WTO於11/24審議巴西要求成立爭端小組，挑戰美國Section 301附加關稅；尚無裁決。"
+        ]
       },
       "us_china": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "MATERIAL_EXPORT_CONTROL_PAUSE_EXTENSION",
         "findings": [
-          "既有BIS半導體出口管制規則仍為正式生效狀態；未核實到窗口內新增正式放寬。"
-        ],
-        "status": "NO_NEW_FORMAL_CHANGE_VERIFIED"
+          "中國延長部分關鍵礦物對美出口限制暫停至2027/1/27，11/28生效；美國先進AI晶片管制仍然存在。"
+        ]
       },
       "geopolitics": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "MATERIAL_REPORTED_ATTACK",
         "findings": [
-          "AP報導利比亞官員稱班加西港俄羅斯護衛艦疑似遭無人機攻擊，責任歸屬與損害未明。"
-        ],
-        "status": "REPORTED_UNVERIFIED"
+          "烏克蘭確認對班加西俄羅斯船舶發動無人機攻擊，利比亞政府譴責；不等同能源供應中斷。"
+        ]
       },
       "trade_sanctions": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "WTO_DISPUTE_PANEL_REQUESTED",
         "findings": [
-          "既有BIS規則及制裁框架仍需按正式文件適用範圍解讀；未核實到新的全面性制裁公告。"
-        ],
-        "status": "NO_NEW_FORMAL_CHANGE_VERIFIED"
+          "巴西要求WTO就美國Section 301附加關稅成立爭端小組，程序尚未形成裁決。"
+        ]
       },
       "major_economies": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "ECONOMIC_DATA_RELEASED",
         "findings": [
-          "中國三大交易所宣布11/30起融資買入最低保證金比例由100%降至80%；措施尚未生效。"
-        ],
-        "status": "MATERIAL_POLICY_FOUND"
+          "美國消費者信心103.3高於預期92.4；英國CBI零售調查指數升至+9，仍需實際消費驗證。"
+        ]
       },
       "energy_resources": {
-        "checked_at": "2026-11-23T06:17:33+08:00",
+        "checked_at": "2026-11-25T06:50:00+08:00",
+        "status": "SHIPPING_SECURITY_INCIDENT_NO_CONFIRMED_OUTAGE",
         "findings": [
-          "11/21阿曼外海油輪受襲事件仍在調查；胡塞聲稱攻擊Rabigh煉油設施但未獲沙方確認。05:57台灣時間的荷姆茲航運量更新晚於本期截稿。"
-        ],
-        "status": "REPORTED_UNVERIFIED"
+          "荷姆茲海峽三艘商船遭不明投射物攻擊但均續航、船員安全；油價反彈但供應過剩預期限制漲幅。"
+        ]
       }
     }
   },
