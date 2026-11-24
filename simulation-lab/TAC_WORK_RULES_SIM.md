@@ -161,10 +161,10 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
 **輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、PASS 的組裝前輸入收據及其 SHA-256、QA Contract。
-**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 隔離環境執行候選測試，不得寫入 main 或宣稱 REVIEW_READY。先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。全部適用強制 Gate 通過、Builder 已核准、資料及內容達 REVIEW_READY 後，Stage 5 即完成，立即進入 Stage 6 並直接交付 main preview，不等待使用者先審核 Simulation 副本或另行核准 SHA。
-**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256；以及 Stage 6 交付的 main preview HTML、QA sidecar、delivery receipt。
+**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得寫入 main、不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；先產出指定日期 simulation preview，執行第 9 章 Gate 與四類 QA。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 的 main preview 交付。
+**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256。
 **驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
-**交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別。
+**交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別；Stage 5 完成後不先交由使用者審核，直接依 Stage 6 執行 main preview 交付。
 
 ### Stage 6｜審核版交付與審核修改
 **輸入：** Stage 5 已通過全部適用強制 Gate 的 REVIEW_READY sidecar、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
