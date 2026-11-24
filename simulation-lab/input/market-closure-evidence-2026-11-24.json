@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "MARKET_CLOSURE_ONLY",
+  "report_date": "2026-11-24",
+  "trading_date": "2026-11-23",
+  "captured_at_utc": "2026-11-24T08:26:36.510Z",
+  "observations": [
+    {
+      "group": "global_markets",
+      "name": "日經225",
+      "source_url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+      "target_date": "2026-11-23",
+      "observed_date": null,
+      "page_title": "日經225指數 歷史匯率 - Investing.com",
+      "instrument_identity": "Nikkei 225",
+      "observed_value": null,
+      "observed_change": null,
+      "observed_value_field": "收市",
+      "observed_change_field": "升跌（%）",
+      "observed_headers": [
+        "日期",
+        "收市",
+        "開市",
+        "高",
+        "低",
+        "成交量",
+        "升跌（%）"
+      ],
+      "observed_row_text": "Investing.com 頁面標示即時差價合約（非現金指數）；日本內閣府 2026 年國定假日表列 2026-11-23 為勤勞感謝の日，現金指數當日休市。",
+      "web_reader_ref": "turn353381view5",
+      "web_line_start": 14,
+      "web_line_end": 16,
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "status": "OBSERVED_PENDING_VALIDATION",
+      "read_status": "MARKET_CLOSED",
+      "http_status": null,
+      "closure_evidence_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
+      "closure_evidence_reader_ref": "turn737639view0",
+      "closure_evidence_line_start": 19,
+      "closure_evidence_line_end": 40
+    }
+  ],
+  "notes": "This file contains only the separately documented Nikkei 225 market-closure evidence. It is not a numeric market-data source."
+}
