@@ -190,7 +190,7 @@ def test_summary_content_fills_existing_mother_slots():
     ])
     after = [(child.name, str(child) if child.name is None else tuple(child.get("class", []))) for child in node.contents]
     assert [x[0] for x in after] == [x[0] for x in before]
-    assert node.get_text(" ", strip=True) == "新標籤一 新文字一 新標籤二 新文字二"
+    assert node.get_text(" ", strip=True) == "新標籤一 ｜ 新文字一 新標籤二 ｜ 新文字二"
     weekday = BeautifulSoup(
         '<p><b>舊標籤一</b>舊文字一<br/><b>舊標籤二</b>舊文字二</p>',
         "html.parser",
@@ -201,7 +201,7 @@ def test_summary_content_fills_existing_mother_slots():
         {"label": "新標籤二", "text": "新文字二"},
     ])
     assert [child.name for child in weekday.contents] == weekday_before
-    assert weekday.get_text(" ", strip=True) == "新標籤一 新文字一 新標籤二 新文字二"
+    assert weekday.get_text(" ", strip=True) == "新標籤一 ｜ 新文字一 新標籤二 ｜ 新文字二"
     populate_summary_points_preserving_dom(node, [{"label": "只有一項", "text": "不匹配母版"}])
     assert len(node.find_all(["b", "strong"], recursive=False)) == 1
     assert node.get_text(" ", strip=True) == "只有一項 不匹配母版"
