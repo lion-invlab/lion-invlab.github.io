@@ -730,6 +730,8 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-23｜W47 NVDA局部overlay最終實作：Builder仍寫入唯一核准的canonical preview路徑（保留 provenance mode=simulation-only）；複製Builder輸出至simulation-lab/output/candidate-validation，再由patch_review_sections.py以不同輸出路徑局部修改NVDA卡，最後回寫preview。Builder SHA保持`2cb0a90e53b10c31aca20503f93a5b324091c0a7`不變。最新patcher SHA：`e7677f0d39c438481f0ad534607fff2bbbc1301d`；patcher test SHA：`4229a82d1f414d84b8c6b85969b08916c695123b`；Fixture SHA：`90d689feb5559f08c8de0e0837c1e4403a025645`；Fixture test SHA：`9ae4936f824c8c9e4c8911b741ec8ee0ea901a01`；workflow SHA：`dd03a0abb3c5a8b280191ade3b80802987c46a48`；QA Contract v1.21 SHA：`e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`。QA sidecar只有在receipt output SHA等於最終HTML SHA、且實際卡片顯示EPS／Revenue預估與來源時，才可標示review_ready。
 
 - 2026-11-24：依使用者指示，週一及週二至週五總結統一為三段；段落名稱、內容與操作建議規範依現行 §7.1、§7.2、§7.4 A。
+- 2026-11-24｜三區間距與因果歸因一致性修正：週一／週二至週五 Simulation 母版以實際 DOM selector 分別設定 `#market-analysis` 與市場情緒區塊前 18px 間距，Manifest SHA 已同步；QA Contract 升至 v1.24。每日審核版同步修正三區間距，並刪除無直接證據支持的「空頭回補放大漲幅」推論。盤前期貨先行走高只記錄為可觀察現象；若無持倉／空頭部位證據，具體原因標示未能確認。此項不修改 main 正式母版、首頁或正式 Manifest。
+
 
 ## 2026-11-24｜SIM-1.4 Builder 行情休市分類修正核准
 - 使用者已授權本日 Simulation 必要修改；Builder 仍為唯一入口，修正僅讓 CLOSED 與 PENDING 分開計數，並維持 44 項總數守恆。
