@@ -1,0 +1,4 @@
+report_date=2026-11-24
+reason=historical_close_observations_remain_valid_for_report_day_not_only_two_hours
+freshness_limit=24h
+fixture_blob_sha=9d7cd6df4cf25f8c61b9623ec78f5ae515378b98
