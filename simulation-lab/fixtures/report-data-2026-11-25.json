@@ -40,22 +40,24 @@
     },
     {
       "title": "英國零售商銷售增長創近四年最強，企業仍對復甦保持審慎",
-      "url": "2026/11/24 19:27",
+      "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1774428",
       "published_at_source": "2026/11/24 19:27",
-      "published_at_tw": "Asia/Hong_Kong",
-      "source_timezone": "英國工業聯合會調查顯示，11月零售銷售差額指數由10月-10升至+9，創2022年12月以來高位；但企業對持續復甦仍審慎，並預計未來一年削減投資。",
+      "published_at_tw": "2026/11/24 19:27",
+      "source_timezone": "Asia/Hong_Kong",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "原文未標示更新時間",
+      "summary": "英國工業聯合會調查顯示，11月零售銷售差額指數由10月-10升至+9，創2022年12月以來高位；但企業對持續復甦仍審慎，並預計未來一年削減投資。",
       "verification_status": "DIRECT_PAGE_READ"
     },
     {
       "title": "FedWatch：市場定價12月升息25個基點機率99.5%",
-      "url": "2026/11/24 16:05 EST",
-      "published_at_source": "2026/11/25 05:05",
-      "published_at_tw": "America/New_York",
-      "source_timezone": "Investing.com Fed Rate Monitor更新顯示，12月9日會議升息25個基點至4.00%–4.25%的機率為99.5%，升息50個基點機率0.5%。此為期貨隱含機率，並非聯準會決議。",
-      "updated_at_source": "原文未標示更新時間",
-      "updated_at_tw": "原文未標示更新時間",
+      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+      "published_at_source": "2026/11/24 16:05 EST",
+      "published_at_tw": "2026/11/25 05:05",
+      "source_timezone": "America/New_York",
+      "updated_at_source": "2026/11/24 16:05 EST",
+      "updated_at_tw": "2026/11/25 05:05",
+      "summary": "Investing.com Fed Rate Monitor更新顯示，12月9日會議升息25個基點至4.00%–4.25%的機率為99.5%，升息50個基點機率0.5%。此為期貨隱含機率，並非聯準會決議。",
       "verification_status": "DIRECT_PAGE_READ"
     }
   ],
