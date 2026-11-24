@@ -289,13 +289,12 @@ jobs:
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
       - name: Read all 44 live historical pages with Playwright and reconcile values
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         id: market_observations
-        env:
-          REPORT_DATA: simulation-lab/fixtures/report-data-2026-11-24.json
-          CLOSURE_EVIDENCE: simulation-lab/input/market-closure-evidence-2026-11-24.json
         run: |
           set -euo pipefail
           mkdir -p simulation-lab/output
+          export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
           python -m playwright install chromium
           python simulation-lab/runner/browser_verify_market_history.py \
             --fixture "${REPORT_DATA}" \
@@ -312,7 +311,7 @@ jobs:
           closure_path = Path(os.environ["CLOSURE_EVIDENCE"])
           fixture_path = Path(os.environ["REPORT_DATA"])
           browser = json.loads(browser_path.read_text(encoding="utf-8"))
-          closure = json.loads(closure_path.read_text(encoding="utf-8"))
+          closure = json.loads(closure_path.read_text(encoding="utf-8")) if closure_path.is_file() else {"observations": []}
           fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
 
           if browser.get("report_date") != fixture.get("report_date"):
@@ -331,32 +330,33 @@ jobs:
               raise SystemExit(f"Playwright must return 44 unique page observations; got {len(by_key)}")
 
           closure_rows = closure.get("observations") or []
-          if len(closure_rows) != 1:
-              raise SystemExit(f"Expected exactly one closure-evidence row; got {len(closure_rows)}")
-          closed = closure_rows[0]
-          closure_key = (closed.get("group"), closed.get("name"))
-          expected_nikkei_url = fixture["global_markets"]["日經225"]["source"]["url"]
-          if closure_key != ("global_markets", "日經225"):
-              raise SystemExit(f"Unexpected closure-evidence instrument: {closure_key}")
-          if closed.get("read_status") != "MARKET_CLOSED":
-              raise SystemExit("Nikkei closure evidence is not marked MARKET_CLOSED")
-          if closed.get("target_date") != fixture.get("trading_date"):
-              raise SystemExit("Nikkei closure evidence target date mismatch")
-          if closed.get("source_url") != expected_nikkei_url:
-              raise SystemExit("Nikkei closure evidence source URL mismatch")
-          if not str(closed.get("closure_evidence_url") or "").startswith("https://www8.cao.go.jp/"):
-              raise SystemExit("Nikkei closure evidence must cite the official Japan Cabinet Office")
-          if "休市" not in str(closed.get("observed_row_text") or ""):
-              raise SystemExit("Nikkei closure evidence text does not document the closure")
-          if closure_key not in by_key:
-              raise SystemExit("Playwright observation set is missing the Nikkei row to replace with closure evidence")
+          if len(closure_rows) > 1:
+              raise SystemExit(f"Expected zero or one closure-evidence row; got {len(closure_rows)}")
+          if closure_rows:
+              closed = closure_rows[0]
+              closure_key = (closed.get("group"), closed.get("name"))
+              expected_nikkei_url = fixture["global_markets"]["日經225"]["source"]["url"]
+              if closure_key != ("global_markets", "日經225"):
+                  raise SystemExit(f"Unexpected closure-evidence instrument: {closure_key}")
+              if closed.get("read_status") != "MARKET_CLOSED":
+                  raise SystemExit("Nikkei closure evidence is not marked MARKET_CLOSED")
+              if closed.get("target_date") != fixture.get("trading_date"):
+                  raise SystemExit("Nikkei closure evidence target date mismatch")
+              if closed.get("source_url") != expected_nikkei_url:
+                  raise SystemExit("Nikkei closure evidence source URL mismatch")
+              if not str(closed.get("closure_evidence_url") or "").startswith("https://www8.cao.go.jp/"):
+                  raise SystemExit("Nikkei closure evidence must cite the official Japan Cabinet Office")
+              if "休市" not in str(closed.get("observed_row_text") or ""):
+                  raise SystemExit("Nikkei closure evidence text does not document the closure")
+              if closure_key not in by_key:
+                  raise SystemExit("Playwright observation set is missing the Nikkei row to replace with closure evidence")
 
-          closed = {**by_key[closure_key], **closed}
-          closed["status"] = "MARKET_CLOSED"
-          closed["read_status"] = "MARKET_CLOSED"
-          closed["source_page_fetched"] = True
-          closed["closure_evidence_validated"] = True
-          by_key[closure_key] = closed
+              closed = {**by_key[closure_key], **closed}
+              closed["status"] = "MARKET_CLOSED"
+              closed["read_status"] = "MARKET_CLOSED"
+              closed["source_page_fetched"] = True
+              closed["closure_evidence_validated"] = True
+              by_key[closure_key] = closed
 
           rows = list(by_key.values())
           verified_count = sum(row.get("status") == "VERIFIED" for row in rows)
@@ -382,11 +382,11 @@ jobs:
           )
           browser["numeric_observations_source"] = "PLAYWRIGHT_RENDERED_INVESTING_HISTORICAL_TABLE"
           browser["numeric_observations_from_manual_bundle"] = 0
-          browser["closure_evidence_source"] = str(closure_path)
+          browser["closure_evidence_source"] = str(closure_path) if closure_rows else None
           browser["notes"] = (
-              "All numeric rows must originate from current-run Playwright-rendered historical page reads. "
-              "Only the Nikkei 225 MARKET_CLOSED row is sourced from the separately validated official closure file. "
-              "The prior manual numeric observation bundle is invalidated and is not used."
+              "All numeric rows originate from current-run Playwright-rendered historical page reads. "
+              "Official closure evidence is applied only when a date-matched, independently validated closure file exists. "
+              "No prior manual numeric observation bundle is used."
           )
           output_path = Path("simulation-lab/output/market-history-browser-observations.json")
           output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
