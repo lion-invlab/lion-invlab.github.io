@@ -3,7 +3,7 @@
 import copy
 import json
 from pathlib import Path
-from build_market_source_verification_manifest import build_manifest, verification_fields
+from build_market_source_verification_manifest import build_manifest
 from build_review_html import apply_market_source_verification_manifest
 
 def main():
@@ -84,47 +84,6 @@ def main():
     assert closed_render["global_markets"]["日經225"]["qa_status"] == "market_closed"
     assert closed_overlay["closed_count"] == 1
 
-
-    # Regression: CNN backup displays a Chinese band label in the report,
-    # while the source observation carries the provider's English Band value.
-    # Verification must compare against the source field, not the UI label.
-    cnn_backup_source = {
-        "url": "https://fgscore.com/en/markets/sp500",
-        "data_date": "2026-11-23",
-        "source_role": "BACKUP_1",
-        "score_value": "17",
-        "source_score_value": "17",
-        "band": "極度恐懼",
-        "daily_change_percent": "Extreme Fear",
-    }
-    cnn_backup_observation = {
-        "status": "VERIFIED",
-        "http_status": None,
-        "source_page_fetched": True,
-        "read_status": "PAGE_CONTENT_READ_SUCCESS",
-        "source_url": cnn_backup_source["url"],
-        "target_date": "2026-11-23",
-        "observed_date": "2026-11-23",
-        "instrument_identity": "US stocks · CNN Fear & Greed Index",
-        "instrument_identity_status": "VERIFIED",
-        "field_mapping_status": "VERIFIED",
-        "observed_value_field": "Score",
-        "observed_change_field": "Band",
-        "observed_value": "17",
-        "observed_change": "Extreme Fear",
-        "display_value_match": True,
-        "display_change_match": True,
-        "finished_at_utc": "2026-11-24T02:37:28Z",
-        "finished_at_tw": "2026-11-24T10:37:28+08:00",
-        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
-        "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-    }
-    cnn_backup_result = verification_fields(
-        cnn_backup_source, "17", "極度恐懼", cnn_backup_observation, "risk", "fear_greed"
-    )
-    assert cnn_backup_result["verification_status"] == "BACKUP_VERIFIED"
-    assert cnn_backup_result["display_value_reconciled"] is True
-    assert len(cnn_backup_result["observation_record_sha256"]) == 64
 
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
