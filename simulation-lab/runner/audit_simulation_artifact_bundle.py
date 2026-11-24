@@ -180,11 +180,12 @@ def audit_bundle(root: Path, report_path: str | None = None,
         )
         verified_count = market_manifest.get("verified_count")
         pending_count = market_manifest.get("pending_count")
+        closed_count = market_manifest.get("closed_count")
         expected_status = "PASS" if verified_count == 44 else "PARTIAL" if isinstance(verified_count, int) and verified_count > 0 else "PENDING"
         counts_valid = (
-            isinstance(verified_count, int) and isinstance(pending_count, int)
-            and verified_count >= 0 and pending_count >= 0
-            and verified_count + pending_count == 44
+            isinstance(verified_count, int) and isinstance(pending_count, int) and isinstance(closed_count, int)
+            and verified_count >= 0 and pending_count >= 0 and closed_count >= 0
+            and verified_count + pending_count + closed_count == 44
             and market_manifest.get("status") == expected_status
         )
         if market_manifest.get("row_count") != 44 or not counts_valid or not row_states_valid:
