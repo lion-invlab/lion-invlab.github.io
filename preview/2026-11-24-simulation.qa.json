@@ -26,12 +26,13 @@
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
   "market_snapshot_audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
   "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-  "market_source_verification_manifest_sha256": "fb389065bb0d1c479ba7b764a5ea58d8c823a50aaf62f8e256464351df0c63ce",
+  "market_source_verification_manifest_sha256": "9cf5ec6af290684c3dc564cab328036cd1b7194836f4cdfa28a43152a2bb6874",
   "market_source_verification_summary": {
     "status": "PARTIAL",
     "row_count": 44,
     "verified_count": 42,
-    "pending_count": 2,
+    "pending_count": 1,
+    "closed_count": 1,
     "prior_observation_reused_count": 0,
     "observation_record_hash_missing_count": 0,
     "raw_response_sha256_saved_count": 0,
@@ -40,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "c7afd5d43189750968ef477e8278788003ef1ccc6d192c9c166f151ea1f759f6",
+  "prebuild_input_receipt_sha256": "9c6573848cd03fe8868adee92e74fce88c12feca3f5e3bd0f4505cd677699eea",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -48,7 +49,7 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45298827903",
+    "workflow_run_id": "45301532987",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
@@ -74,12 +75,12 @@
       "numeric_values_reconciled_this_run": false,
       "numeric_values_reconciled_count": 42,
       "source_verification_status": "PARTIAL",
-      "pending_observation_count": 2,
+      "pending_observation_count": 1,
       "raw_response_sha256_saved_count": 0,
       "audit_path": "simulation-lab/output/market-snapshot-audit.json",
       "audit_sha256": "32bd9cf2bae5ef99cd30325912ab4fae9834d285605559db093cfbb22b90edfa",
       "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-      "manifest_sha256": "fb389065bb0d1c479ba7b764a5ea58d8c823a50aaf62f8e256464351df0c63ce"
+      "manifest_sha256": "9cf5ec6af290684c3dc564cab328036cd1b7194836f4cdfa28a43152a2bb6874"
     },
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
@@ -129,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T00:39:45Z",
+    "created_at_utc": "2026-11-24T00:59:47Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -140,18 +141,18 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "3bb8115808a3e49bb368f12ce6a39738d6c7cf00",
-  "report_sha256": "1b2e2570aea7c331f0a9be644054a7ac9d20874155716f0f3eb00042a880b222",
-  "build_commit_sha": "e6904156d9004b364392a113cf875dfaab62737b",
-  "builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+  "report_git_blob_sha": "0b520b919e64f79b6a526bc5057bc7aa34c66d72",
+  "report_sha256": "3b6f7f7b70b125d84698062df8efbfdc6c90687f314fa4e1dbf15d21ad95b16a",
+  "build_commit_sha": "3ee8dc7819a9d658a22a655b45756a2158cbe12e",
+  "builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
   "fixture_blob_sha": "4224f121bc0eea945451c12abde84a02dd1bab98",
   "template_blob_sha": "3f4e65c1385532b0f0969fdc76caf2883a39e798",
   "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
   "qa_contract_blob_sha": "e4a11261fba37fbd9deee7c6b61c9dc29a1966d6",
-  "active_rules_blob_sha": "d4cd91486e78ece71df7a88fab6d23855f8b8f7f",
+  "active_rules_blob_sha": "8953d6e823e36fd7244ff2e23505f5c515e68a83",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+  "candidate_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -205,17 +206,17 @@
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-    "approved_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
+    "approved_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
-    "actual_builder_blob_sha": "2b0bbc3a9d5b0a83a635684e68eb9123d40d2119",
-    "active_rules_blob_sha": "d4cd91486e78ece71df7a88fab6d23855f8b8f7f",
+    "actual_builder_blob_sha": "0b3d94efd09211c4180c34c75c49bc4f2bb19813",
+    "active_rules_blob_sha": "8953d6e823e36fd7244ff2e23505f5c515e68a83",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
   "calendar_main_commit_sha": "77ab012bb027591631c704d976468cf4ea2e2046",
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "e3a2632f99324d1da05caebf7ddcaf1cbf47009c709c6b721fb8b4d114fe7aa6",
+  "visual_evidence_sha256": "053433a2bb552946556ceba371f1c55ba5e34f0e562eca3edf1150ed3c313c13",
   "viewports": [
     1440,
     768,
@@ -224,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45298827903",
+  "workflow_run_id": "45301532987",
   "workflow_run_attempt": "1"
 }
