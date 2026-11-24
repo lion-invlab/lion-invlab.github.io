@@ -50,6 +50,7 @@ permissions:
 concurrency:
   # Serialize builds and the subsequent narrow main/preview handoff.
   # New pushes may replace a pending run, but must never cancel an active report build.
+  # Full report builds are explicitly selected by [build-tac-report:YYYY-MM-DD] commit messages.
   group: tac-simulation-review-delivery
   cancel-in-progress: false
 
