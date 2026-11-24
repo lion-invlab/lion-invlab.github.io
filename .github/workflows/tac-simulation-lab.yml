@@ -514,7 +514,7 @@ jobs:
               "output_html_sha256": hashlib.sha256(raw).hexdigest(),
               "overlay_applied": False,
           }
-          Path(receipt_path).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          Path(receipt_path).write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
           PY
             echo "W47 overlay correctly not applicable; weekday HTML left unchanged and N/A receipt sealed."
             exit 0
