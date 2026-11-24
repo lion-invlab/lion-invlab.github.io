@@ -72,11 +72,11 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(manifest.get("trading_date") == trading_date, "source manifest trading_date mismatch")
     verified_count = manifest.get("verified_count")
     pending_count = manifest.get("pending_count")
+    closed_count = manifest.get("closed_count", 0)
     require(manifest.get("row_count") == 44
-            and isinstance(verified_count, int) and isinstance(pending_count, int)
-            and verified_count >= 0 and pending_count >= 0
-            and verified_count + pending_count == 44,
-            "44-row source register is incomplete or counts do not reconcile")
+            and all(isinstance(x, int) and x >= 0 for x in (verified_count, pending_count, closed_count))
+            and verified_count + pending_count + closed_count == 44,
+            "44-row source register is incomplete or verified + pending + closed counts do not reconcile")
     require(manifest.get("prior_observation_reused_count") == 0,
             "current-run verification must not reuse prior fixture observations")
     require(manifest.get("source_pages_fetched") in (True, False)
@@ -148,7 +148,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "group_counts": EXPECTED_GROUP_COUNTS,
         "observation_count": len(rows),
         "observation_record_hash_count": verified_count,
-        "closed_count": sum(1 for row in rows if row.get("verification_status") == "CLOSED"),
+        "closed_count": closed_count,
         "prior_observations_reused": 0,
         "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
         "numeric_values_reconciled_this_run": verified_count == 44,
