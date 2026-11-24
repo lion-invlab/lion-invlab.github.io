@@ -170,10 +170,19 @@ def verification_fields(source: dict, display, change_display, observation: dict
     data_date = source.get("data_date")
     read_method = observation.get("read_method")
     provenance = observation.get("provenance")
+    user_screenshot_ok = (
+        provenance == "CURRENT_USER_PROVIDED_SCREENSHOT"
+        and read_method == "USER_PROVIDED_SCREENSHOT"
+        and source.get("source_role") == "USER_PROVIDED_SCREENSHOT"
+        and bool(source.get("screenshot_sha256"))
+        and bool(source.get("screenshot_quote_time"))
+        and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
+    )
     page_read_ok = (
         observation.get("http_status") == 200
         or (observation.get("source_page_fetched") is True
             and observation.get("read_status") == "PAGE_CONTENT_READ_SUCCESS")
+        or user_screenshot_ok
     )
     identity_ok = _identity_matches(group, name, observation.get("instrument_identity"))
     value_field = str(observation.get("observed_value_field") or "")
@@ -224,6 +233,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "CURRENT_USER_PROVIDED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
     )
     verified = (
