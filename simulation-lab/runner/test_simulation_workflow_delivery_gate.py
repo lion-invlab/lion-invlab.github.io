@@ -38,7 +38,7 @@ assert "preview/${REPORT_DATE}-review.html" not in WORKFLOW
 
 # Stage 2-4 input receipt is mandatory before Builder execution and remains bound through QA and handoff.
 receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
-market_step = section_after(WORKFLOW, "Read all 44 live historical pages with Playwright and reconcile values")
+market_step = section_after(WORKFLOW, "Register 44 market rows as pending for fast report build")
 capture_step = section_after(WORKFLOW, "Capture 44 raw market source pages")
 builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
 overlay_step = section_after(WORKFLOW, "Apply local W47 NVDA consensus overlay")
@@ -51,7 +51,7 @@ assert "GITHUB_RUN_ID" in seal and "GITHUB_RUN_ATTEMPT" in seal and "${{" not in
 assert "analysis_text_parts" in seal and "visible_report_text" not in seal
 assert "market_analysis" in seal and "market_comments" in seal
 persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
-assert WORKFLOW.index("Read all 44 live historical pages with Playwright and reconcile values") < WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Capture 44 raw market source pages") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
+assert WORKFLOW.index("Register 44 market rows as pending for fast report build") < WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Capture 44 raw market source pages") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 assert "validate_prebuild_stage_inputs.py" in receipt_step
 assert "market-snapshot-audit.json" in receipt_step and "market-source-verification-manifest.json" in receipt_step
 assert "PREBUILD_RECEIPT_SHA256" in receipt_step
