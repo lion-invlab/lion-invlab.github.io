@@ -700,7 +700,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 2026-11-23｜使用者核准 SIM-1.4 Builder 精確 SHA
 
-- 使用者明確核准唯一 Builder：`simulation-lab/runner/build_review_html.py`，Git blob SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`。
+- 使用者明確核准唯一 Builder：`simulation-lab/runner/build_review_html.py`，Git blob SHA `0b3d94efd09211c4180c34c75c49bc4f2bb19813`。
 - 核准前同一 SHA 的 GitHub Actions run `45043061827` completed／success；雙母版整合、五層分析來源隱藏、內部來源證據保留、局部更新及 320／360／390／412／768／1440px QA 均通過。
 - 核准範圍僅限 simulation 分支 Builder 唯一入口；不授權 main、正式母版、Manifest、行事曆 JSON、首頁或 Pages 部署。
 - 核准後下一步為 2026-11-23 真實 Fixture 完整 E2E；報告是否 REVIEW_READY 由實際資料／內容 Gate 與 QA 決定，不得由 Builder 核准推定。
@@ -724,3 +724,8 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - 2026-11-23｜Simulation workflow新增Builder後W47 NVDA局部overlay步驟；QA sidecar必須核對overlay receipt SHA與最終HTML SHA，並檢查EPS／Revenue預估、優於預期狀態、非嚴格同口徑註記、官方實績及Yahoo共識連結。Workflow SHA：`97547723228ce44ca335ccdfd431fe6b38180961`。Main W47 JSON、main正式母版及首頁均未由本工作修改；未執行Stage 6 handoff。
 
 - 2026-11-23｜W47 NVDA局部overlay最終實作：Builder仍寫入唯一核准的canonical preview路徑（保留 provenance mode=simulation-only）；複製Builder輸出至simulation-lab/output/candidate-validation，再由patch_review_sections.py以不同輸出路徑局部修改NVDA卡，最後回寫preview。Builder SHA保持`2cb0a90e53b10c31aca20503f93a5b324091c0a7`不變。最新patcher SHA：`e7677f0d39c438481f0ad534607fff2bbbc1301d`；patcher test SHA：`4229a82d1f414d84b8c6b85969b08916c695123b`；Fixture SHA：`90d689feb5559f08c8de0e0837c1e4403a025645`；Fixture test SHA：`9ae4936f824c8c9e4c8911b741ec8ee0ea901a01`；workflow SHA：`dd03a0abb3c5a8b280191ade3b80802987c46a48`；QA Contract v1.21 SHA：`e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`。QA sidecar只有在receipt output SHA等於最終HTML SHA、且實際卡片顯示EPS／Revenue預估與來源時，才可標示review_ready。
+
+## 2026-11-24｜SIM-1.4 Builder 行情休市分類修正核准
+- 使用者已授權本日 Simulation 必要修改；Builder 仍為唯一入口，修正僅讓 CLOSED 與 PENDING 分開計數，並維持 44 項總數守恆。
+- 更新後 Builder Git blob SHA：`0b3d94efd09211c4180c34c75c49bc4f2bb19813`；後續 E2E 必須以此 SHA 執行並通過完整 QA。
+- 此修正不授權 main、正式母版、首頁或 Pages 部署。
