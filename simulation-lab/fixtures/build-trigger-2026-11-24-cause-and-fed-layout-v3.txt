@@ -1,0 +1,6 @@
+report_date=2026-11-24
+reason=rewrite_summary_with_verified_market_movers_and_repair_fed_fomc_grid_layout
+fixture_blob_sha=9d7cd6df4cf25f8c61b9623ec78f5ae515378b98
+weekday_mother_blob_sha=33a5790c8132c1e24cebb5e30059f2b3348aca5c
+manifest_updated=true
+main_untouched=true
