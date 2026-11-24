@@ -161,6 +161,72 @@ def main():
     assert all(len(r["observation_record_sha256"]) == 64 for r in positive["rows"])
     print("PASS: 44 unique rows; all fixture-carried observations remain pending and cannot pass Stage 2")
     print("PASS: no false claim of current-run source-page fetching or independent numeric reconciliation")
+    # Realistic CNN official API row while the fixture URL remains the FGScore backup page.
+    cnn_data = copy.deepcopy(data)
+    cnn_source = cnn_data["risk"]["fear_greed"]["source"]
+    cnn_source["source_role"] = "BACKUP_1"
+    cnn_source["source_score_value"] = "16.9658627087199"
+    cnn_source["backup_source_score_value"] = "17"
+    cnn_source["score_value"] = "17"
+    cnn_source["band"] = "Extreme Fear"
+    cnn_source["daily_change_percent"] = "Extreme Fear"
+    cnn_source["cross_check"] = {
+        "name": "CNN Business official Fear & Greed previous_close API",
+        "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
+        "role": "PRIMARY",
+    }
+    cnn_observations = copy.deepcopy(synthetic_observations)
+    cnn_fg = cnn_observations[("risk", "fear_greed")]
+    cnn_fg.update({
+        "status": "VERIFIED",
+        "http_status": 200,
+        "source_page_fetched": True,
+        "read_status": "API_RESPONSE_READ_SUCCESS",
+        "read_method": "CNN_OFFICIAL_PREVIOUS_CLOSE",
+        "provenance": "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "observed_value": "16.9658627087199",
+        "observed_change": "extreme fear",
+        "observed_value_field": "fear_and_greed.previous_close",
+        "observed_change_field": "derived_from_fear_and_greed.previous_close_using_cnn_bands",
+        "instrument_identity": "CNN Fear & Greed Index",
+        "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
+        "previous_close_target_date": cnn_source.get("data_date"),
+        "source_timestamp_utc": "2026-11-09T11:00:00+00:00",
+        "raw_response_sha256": "c" * 64,
+        "target_date": cnn_source.get("data_date"),
+        "observed_date": cnn_source.get("data_date"),
+        "finished_at_utc": "2026-11-09T11:00:01Z",
+        "finished_at_tw": "2026-11-09T19:00:01+08:00",
+    })
+    cnn_manifest = build_manifest(cnn_data, "2026-11-09", cnn_observations)
+    cnn_row = next(r for r in cnn_manifest["rows"] if r["group"] == "risk" and r["name"] == "fear_greed")
+    assert cnn_row["verification_status"] == "BACKUP_VERIFIED"
+    assert cnn_row["evidence_method"] == "CNN_OFFICIAL_PREVIOUS_CLOSE"
+    assert cnn_row["cross_check_name"] == "CNN Business official Fear & Greed previous_close API"
+    assert cnn_row["cross_check_role"] == "PRIMARY"
+    assert cnn_row["browser_observation_record"]["expected_source_raw_value"] == "16.9658627087199"
+
+    # FGScore backup-page fallback must compare against its own rounded integer, not CNN raw precision.
+    backup_observations = copy.deepcopy(cnn_observations)
+    backup_fg = backup_observations[("risk", "fear_greed")]
+    backup_fg.update({
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "observed_value": "17",
+        "observed_change": "Extreme Fear",
+        "observed_value_field": "Score",
+        "observed_change_field": "Band",
+        "data_endpoint_url": None,
+        "previous_close_target_date": None,
+        "source_timestamp_utc": None,
+        "raw_response_sha256": None,
+    })
+    backup_manifest = build_manifest(cnn_data, "2026-11-09", backup_observations)
+    backup_row = next(r for r in backup_manifest["rows"] if r["group"] == "risk" and r["name"] == "fear_greed")
+    assert backup_row["verification_status"] == "BACKUP_VERIFIED"
+    assert backup_row["browser_observation_record"]["expected_source_raw_value"] == "17"
+
     print("PASS: synthetic test-only current-run observation bundle exercises the positive manifest path")
 
 if __name__=="__main__": main()
