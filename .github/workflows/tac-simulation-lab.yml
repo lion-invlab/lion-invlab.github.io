@@ -292,7 +292,9 @@ jobs:
           import json
           import sys
           from pathlib import Path
-          evidence_path, report_date, fixture_path = map(Path, sys.argv[1:2]) + [] if False else (Path(sys.argv[1]), sys.argv[2], Path(sys.argv[3]))
+          evidence_path = Path(sys.argv[1])
+          report_date = sys.argv[2]
+          fixture_path = Path(sys.argv[3])
           evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
           fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
           rows = evidence.get("observations") or []
