@@ -6,42 +6,156 @@
   "sentiment": "市場情緒仍處極度恐懼區，CNN Fear & Greed 11/24歷史讀值為17；VIX 11/24升至26.88、單日上升0.98%，顯示股市波動壓力略為增加。MOVE的11/24歷史資料尚未出現在指定來源頁面，暫列待核實。",
   "focus_news": [
     {
-      "title": "Nasdaq、標普500回吐前一日由輝達帶動的漲幅，科技股領跌",
-      "url": "https://www.reuters.com/business/wall-st-futures-dip-chip-stocks-cool-after-nvidia-fueled-rally-2026-11-24/",
-      "published_at_source": "2026-11-24",
-      "published_at_tw": "2026-11-25 05:25前",
-      "source_timezone": "America/New_York",
-      "summary": "輝達及AI相關股票在前一交易日急漲後回落，科技股成為標普500主要拖累；市場同時評估AI資本支出的回報與美國可能對多個貿易夥伴加徵關稅的風險。",
-      "verification_status": "DIRECT_WEB_SEARCH_CONFIRMED"
+      "title": "白宮擬對中國、歐盟及數十個國家推出新關稅，美股承壓",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
+      "published_at_source": "2026/11/24 21:25",
+      "published_at_tw": "2026/11/24 21:25",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "美國貿易代表最快本週公布工業補貼調查結果，政府考慮對中國、歐盟及其他貿易夥伴採取新一輪關稅措施。關稅範圍與稅率尚未定案，市場先行反映政策不確定性與供應鏈成本風險。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
     },
     {
-      "title": "美股週二下跌，AI股票回落抵銷前一日反彈",
-      "url": "https://apnews.com/article/feec0e25b9994b1c86b16329cf770192",
-      "published_at_source": "2026-11-24",
-      "published_at_tw": "2026-11-25 05:25前",
-      "source_timezone": "America/New_York",
-      "summary": "AI相關股票下跌拖累大盤，但道瓊因多數非科技股上漲而收高；消費者信心與部分零售商財測提供支撐，市場仍關注AI投資回報與融資成本。",
-      "verification_status": "DIRECT_WEB_SEARCH_CONFIRMED"
+      "title": "美國消費者信心升至103.3，明顯高於市場預期",
+      "url": "https://hk.investing.com/economic-calendar/cb-consumer-confidence-48",
+      "published_at_source": "2026/11/24 23:00",
+      "published_at_tw": "2026/11/24 23:00",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "Conference Board 11月消費者信心由91.9升至103.3，高於市場預期92.4。汽油價格回落及就業看法改善支撐信心，但調查指標不等同實際消費，仍須觀察零售支出是否跟進。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "紐約聯準銀行總裁威廉斯稱通膨仍高，政策需保持緊縮",
+      "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1773321",
+      "published_at_source": "2026/11/24 21:05",
+      "published_at_tw": "2026/11/24 21:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "威廉斯表示通膨仍高於目標，聯準會需採取必要措施讓通膨回到2%，並保留12月會議進一步升息的可能。這是政策官員立場，不代表已作成升息決定。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "FedWatch：市場定價12月升息25個基點機率99.5%",
+      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+      "published_at_source": "2026/11/25 05:05",
+      "published_at_tw": "2026/11/25 05:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "Investing.com頁面於美東11月24日16:05更新，12月9日會議升息25個基點至4.00%–4.25%的機率為99.5%，升息50個基點機率0.5%。此為期貨隱含機率，並非聯準會決議。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "AI資本支出回報疑慮再起，市場焦點由公司治理轉向獲利能力",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774811",
+      "published_at_source": "2026/11/24 21:51",
+      "published_at_tw": "2026/11/24 21:51",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "高盛策略師指出，英偉達治理事件不改變AI交易核心問題：企業能否從龐大資本支出取得足夠回報。科技股前一日急漲後回落，市場重新評估資料中心投資、融資成本與現金流。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
     }
   ],
   "headlines": [
     {
-      "title": "Nasdaq、標普500回吐前一日由輝達帶動的漲幅，科技股領跌",
-      "url": "https://www.reuters.com/business/wall-st-futures-dip-chip-stocks-cool-after-nvidia-fueled-rally-2026-11-24/",
-      "published_at_source": "2026-11-24",
-      "published_at_tw": "2026-11-25 05:25前",
-      "source_timezone": "America/New_York",
-      "summary": "輝達及AI相關股票在前一交易日急漲後回落，科技股成為標普500主要拖累；市場同時評估AI資本支出的回報與美國可能對多個貿易夥伴加徵關稅的風險。",
-      "verification_status": "DIRECT_WEB_SEARCH_CONFIRMED"
+      "title": "亞洲股市收市分化，台韓科技股大幅反彈、港股回落",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774001",
+      "published_at_source": "2026/11/24 16:43",
+      "published_at_tw": "2026/11/24 16:43",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "台股與韓股受前一日美國科技股反彈帶動，亞洲半導體股大幅回升；港股則高開低走。區域反彈幅度分化，不能視為全球市場同步轉強。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
     },
     {
-      "title": "美股週二下跌，AI股票回落抵銷前一日反彈",
-      "url": "https://apnews.com/article/feec0e25b9994b1c86b16329cf770192",
-      "published_at_source": "2026-11-24",
-      "published_at_tw": "2026-11-25 05:25前",
-      "source_timezone": "America/New_York",
-      "summary": "AI相關股票下跌拖累大盤，但道瓊因多數非科技股上漲而收高；消費者信心與部分零售商財測提供支撐，市場仍關注AI投資回報與融資成本。",
-      "verification_status": "DIRECT_WEB_SEARCH_CONFIRMED"
+      "title": "美股盤前期貨回落，輝達與黃金走低",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774273",
+      "published_at_source": "2026/11/24 18:16",
+      "published_at_tw": "2026/11/24 18:16",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "三大股指期貨轉弱，輝達盤前下跌，金價亦回吐前一日反彈。AI相關股票在急漲後面臨獲利了結，市場風險偏好再度降溫。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "英偉達領漲後回落，美國晶片股盤前走低",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774462",
+      "published_at_source": "2026/11/24 19:44",
+      "published_at_tw": "2026/11/24 19:44",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "美國晶片股回吐前一日由輝達帶動的漲幅，英特爾、美光、邁威爾及其他半導體股同步走低。市場關注AI資本支出能否轉化為足夠收入與利潤。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "明星科技股盤前集體下挫，英偉達跌逾5%",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774861",
+      "published_at_source": "2026/11/24 21:45",
+      "published_at_tw": "2026/11/24 21:45",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "多家大型科技與半導體股盤前走低，市場對AI融資及資料中心投資回報仍有疑慮。公司治理調查與出口管制議題增加不確定性，不能單以黃仁勳復職解讀股價方向。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "野村：機械性買盤無法消除AI交易的結構性風險",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774832",
+      "published_at_source": "2026/11/24 21:23",
+      "published_at_tw": "2026/11/24 21:23",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "野村指出，波動率回落後的避險部位調整可能放大反彈，但這類機械性買盤不代表AI產業的資本支出回報、估值與融資風險已改善。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "高盛：AI投資能否產生回報，才是交易能否延續的關鍵",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774811",
+      "published_at_source": "2026/11/24 21:51",
+      "published_at_tw": "2026/11/24 21:51",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "市場焦點由輝達公司治理事件轉向AI投資的經濟效益。若資料中心與晶片投資無法轉化為現金流與利潤，短期反彈難以單獨證明產業趨勢已恢復。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "白宮擬對中國、歐盟及數十個國家推出全面新關稅",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1774773",
+      "published_at_source": "2026/11/24 21:25",
+      "published_at_tw": "2026/11/24 21:25",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "美國政府考慮以工業補貼調查為基礎推出新關稅，可能涵蓋多個主要貿易夥伴。政策細節未定，但關稅預期提高全球供應鏈與企業成本不確定性。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "費城半導體指數大跌，半導體板塊全面承壓",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1775110",
+      "published_at_source": "2026/11/24 22:55",
+      "published_at_tw": "2026/11/24 22:55",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "半導體指數下跌，存儲晶片展望下修與政策調查消息壓抑板塊情緒。個股跌幅擴大顯示AI供應鏈內部也出現分化，不能只用單一龍頭公司解釋。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "美國消費者信心升至103.3，超出預期",
+      "url": "https://apnews.com/article/9d13d96cc3e4bac8f334f9145c718e42",
+      "published_at_source": "2026/11/24 23:11",
+      "published_at_tw": "2026/11/24 23:11",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "Conference Board 11月消費者信心升至103.3，高於10月的91.9；汽油價格回落及就業看法改善帶動信心。調查改善可能支持假期消費，但仍須以實際支出驗證。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
+    },
+    {
+      "title": "黃金急跌近60美元，市場重新評估升息與關稅風險",
+      "url": "https://hk.investing.com/news/commodities-news/article-1775167",
+      "published_at_source": "2026/11/25 00:24",
+      "published_at_tw": "2026/11/25 00:24",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_tw": null,
+      "summary": "金價在前一日反彈後再度走弱，市場關注聯準會升息前景與美國關稅不確定性。避險資產並未在股市回檔時同步走強，反映跨資產避險訊號並不一致。",
+      "verification_status": "DIRECT_WEB_PAGE_SEARCH_CONFIRMED"
     }
   ],
   "global_markets": {
@@ -2959,12 +3073,10 @@
   "key_levels_overrides": {},
   "review_notice": "本版僅供內部審核，不上架正式首頁。",
   "pending_items": [
-    "MOVE 11/24指定歷史頁尚未出現當日列",
-    "新聞時間戳及完整焦點新聞數量待補"
+    "MOVE 11/24指定歷史頁尚未出現當日列"
   ],
   "review_ready_blockers": [
-    "44項行情的瀏覽器核驗及觀察紀錄SHA尚未完成",
-    "完整新聞與行事曆當日狀態待核對"
+    "44項行情的瀏覽器核驗及觀察紀錄SHA尚未完成"
   ],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
