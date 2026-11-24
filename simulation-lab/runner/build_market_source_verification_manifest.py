@@ -148,6 +148,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     current_provenance = provenance in (
         "CURRENT_RUN_BROWSER_OBSERVATION",
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
         "SYNTHETIC_TEST_ONLY",
     )
@@ -189,6 +190,9 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "checked_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
             "evidence_method": read_method,
             "provenance": provenance,
+            "web_reader_ref": observation.get("web_reader_ref"),
+            "web_line_start": observation.get("web_line_start"),
+            "web_line_end": observation.get("web_line_end"),
             "read_status": observation.get("read_status"),
             "raw_response_sha256": observation.get("raw_response_sha256"),
             "quote_type": source.get("quote_type"),
