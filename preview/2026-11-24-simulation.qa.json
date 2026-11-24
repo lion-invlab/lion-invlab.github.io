@@ -41,7 +41,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "abe35f97e843b7c6ff0417b5a6ebd4ae56646a9f02efa2db3e98d9bc1cbb9982",
+  "prebuild_input_receipt_sha256": "76824806f3ef4bba3e22971a3a2aa4524aecc14d530e63ab3144259299fb91c7",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -49,11 +49,11 @@
     "report_date": "2026-11-24",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45307079205",
-    "workflow_run_attempt": "1",
+    "workflow_run_id": "45309103449",
+    "workflow_run_attempt": "2",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-24.json",
-      "sha256": "1cdb8e0c33421aa28e2ee3a0aa61754ec9238daa9b542fe3719d69faa1f8c614"
+      "sha256": "36b16458295e64550b0b486d8f298257e1455ef5c92277561a8abffbbfb69dc3"
     },
     "stage_2_market": {
       "trading_date": "2026-11-23",
@@ -130,7 +130,7 @@
       "political_findings_count": 10,
       "report_cutoff_taipei": "2026-11-24 05:25"
     },
-    "created_at_utc": "2026-11-24T01:43:41Z",
+    "created_at_utc": "2026-11-24T02:02:54Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -141,14 +141,14 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-24-simulation.html",
   "report_date": "2026-11-24",
-  "report_git_blob_sha": "19f52b56eac3af91dfb63d7757778e873ded10c2",
-  "report_sha256": "f7d1768d9ca30df9496dab5dba13897458337344212674bf39ac49066dc732f4",
-  "build_commit_sha": "3a286a4a24fad0c3c01d66f4d9e1f85ba7b098c8",
+  "report_git_blob_sha": "5cee4ceeb2239235cb5e8d2a0a4f648dd098a710",
+  "report_sha256": "0d784e46623c734563c19d13f27f13d2857db5236fd5846c967812750ce04995",
+  "build_commit_sha": "8ec477ea17dc0a149a5ede20b9bb443d07fb1835",
   "builder_blob_sha": "92605353973bb2c8200c5785917a95060681790a",
-  "fixture_blob_sha": "4fb5a2951c1d90a64aa9b22bb9eadd247c96aa17",
-  "template_blob_sha": "3f4e65c1385532b0f0969fdc76caf2883a39e798",
-  "manifest_blob_sha": "d47d8abece4137884bda76d6a505ba4112904e0d",
-  "qa_contract_blob_sha": "e4a11261fba37fbd9deee7c6b61c9dc29a1966d6",
+  "fixture_blob_sha": "398db28b70fb91a8ba11014d594f35185ee1b459",
+  "template_blob_sha": "33a5790c8132c1e24cebb5e30059f2b3348aca5c",
+  "manifest_blob_sha": "81e01655fd8a2dfeaa72b5c63d1695db13370562",
+  "qa_contract_blob_sha": "1bf22ea17356eaf4cdfba2c1ecc17ca402302578",
   "active_rules_blob_sha": "eceed91cc8dfc7201e2e6310dab94f100d916b1b",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
@@ -216,7 +216,7 @@
   "calendar_current_blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "9f952c2e5f50d71ebf71797e5077fa943245ffb327392bc67e70f3277fac0a64",
-  "visual_evidence_sha256": "700856fec8306a9b1dd53baab905eb0f7e4fce738302dd25577fdb8c5a663994",
+  "visual_evidence_sha256": "d211a6fac77928f2599bd81fd962d8b6520d8f3adcc29e1f554ba293e7485363",
   "viewports": [
     1440,
     768,
@@ -225,6 +225,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45307079205",
-  "workflow_run_attempt": "1"
+  "workflow_run_id": "45309103449",
+  "workflow_run_attempt": "2"
 }
