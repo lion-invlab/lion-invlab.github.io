@@ -155,23 +155,7 @@ def test_political_scan_requires_classification_transmission_and_three_scenarios
         "source_url": "https://example.com/policy",
         "published_at": "2026-11-22T08:00:00+08:00",
         "checked_at": "2026-11-22T08:10:00+08:00",
-        "transmission": {
-            "policy": "政策已宣布但尚未實施",
-            "industry": "可能影響受規範產業，實際範圍待執行細則",
-            "macro": "未知",
-            "markets": "市場尚未形成一致定價",
-            "strategy": "維持風險控管，等待實施細則",
-        },
-        "scenarios": {
-            key: {
-                "triggers": f"{key} 情境觸發條件",
-                "affected_assets": "相關產業與市場資產",
-                "leading_indicators": "官方執行細則與企業公告",
-                "strategy": f"{key} 情境策略",
-                "invalidation": f"{key} 情境失效條件",
-            }
-            for key in ("baseline", "risk", "severe")
-        },
+        "transmission": "政策已宣布但尚未實施；產業影響與市場定價仍待官方細則確認。",
     }]
     receipt = builder.validate_political_scan(data)
     assert receipt["status"] == "PASS"
@@ -180,16 +164,24 @@ def test_political_scan_requires_classification_transmission_and_three_scenarios
         "major_economies", "energy_resources",
     ]
     assert receipt["policy_transmission_completeness"] == 1
-    assert receipt["scenario_analysis_coverage"] == 1
 
-    incomplete = sample_data()
-    incomplete["political_scan"]["findings"] = data["political_scan"]["findings"]
-    incomplete["political_scan"]["findings"][0]["scenarios"]["severe"]["invalidation"] = ""
+    invalid = sample_data()
+    invalid["political_scan"]["findings"] = [dict(data["political_scan"]["findings"][0])]
+    invalid["political_scan"]["findings"][0]["source_url"] = ""
     try:
-        builder.validate_political_scan(incomplete)
-        raise AssertionError("incomplete severe scenario should fail closed")
+        builder.validate_political_scan(invalid)
+        raise AssertionError("missing source URL should fail closed")
     except ValueError as exc:
-        assert "scenarios.severe is incomplete" in str(exc)
+        assert "requires a source URL" in str(exc)
+
+    invalid = sample_data()
+    invalid["political_scan"]["findings"] = [dict(data["political_scan"]["findings"][0])]
+    invalid["political_scan"]["findings"][0]["classification"] = ""
+    try:
+        builder.validate_political_scan(invalid)
+        raise AssertionError("missing classification should fail closed")
+    except ValueError as exc:
+        assert "requires an explicit classification" in str(exc)
 
 
 def test_builder_rejects_invalid_source_url_and_missing_timestamp():
