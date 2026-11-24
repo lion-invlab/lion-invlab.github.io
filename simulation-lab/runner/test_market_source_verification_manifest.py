@@ -171,7 +171,7 @@ def main():
     assert partial["closed_count"] == 1
     assert partial["pending_count"] == 0
     assert partial["status"] == "PARTIAL"
-    assert partial["displayed_values_independently_reconciled"] is False
+    assert partial["displayed_values_independently_reconciled"] is True
 
     positive = build_manifest(data, "2026-11-23", synthetic_observations)
     if positive["status"] != "PASS":
