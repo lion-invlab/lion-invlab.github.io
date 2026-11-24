@@ -380,7 +380,7 @@ jobs:
               "No prior manual numeric observation bundle is used."
           )
           output_path = Path("simulation-lab/output/market-history-browser-observations.json")
-          output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
           print(json.dumps({
               "row_count": 44,
               "verified_count": verified_count,
