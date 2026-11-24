@@ -2046,6 +2046,24 @@ def main():
     key_levels_date_label = previous_trade[5:].replace("-", "/") if len(previous_trade) == 10 else previous_trade
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
+    # Stable narrow-screen layout for the recurring Fed speakers agenda.
+    fed_agenda_style = soup.new_tag("style", id="tac-fed-agenda-mobile-layout-v1")
+    fed_agenda_style.string = """
+    #fed .fc-fomc-weekly-events{min-width:0;max-width:100%;overflow:hidden}
+    #fed .fc-fomc-weekly-events-list{min-width:0;width:100%}
+    #fed .fc-fomc-weekly-event{grid-template-columns:78px minmax(0,1fr)!important;gap:7px!important;min-width:0;width:100%}
+    #fed .fc-fomc-weekly-event-date,#fed .fc-fomc-weekly-event-name,#fed .fc-fomc-weekly-event-impact{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:normal}
+    @media(max-width:390px){
+      #fed .fc-fomc-weekly-event{grid-template-columns:66px minmax(0,1fr)!important;gap:6px!important;padding:8px 0!important}
+      #fed .fc-fomc-weekly-event-date{font-size:11px!important;line-height:1.4!important}
+      #fed .fc-fomc-weekly-event-name{font-size:12px!important;line-height:1.4!important}
+      #fed .fc-fomc-weekly-event-impact{font-size:11px!important;line-height:1.45!important}
+      #fed .fc-fomc-weekly-events{padding:9px 8px!important}
+    }
+    """
+    head_for_fed_style = soup.select_one("head")
+    if head_for_fed_style is not None:
+        head_for_fed_style.append(fed_agenda_style)
     # Remove a legacy hidden test meta tag whose stale text says key levels are unverified.
     # The generated report now includes source-checked five-index S2/S1/P/R1/R2 levels.
     for stale_meta in soup.find_all("meta", attrs={"name": "tac-correction-test"}):
