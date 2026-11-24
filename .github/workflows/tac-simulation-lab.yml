@@ -499,7 +499,17 @@ jobs:
           print(source.get("verification_status") or "PENDING")
           PY
           )"
-          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" ]]; then
+          SP500_EVIDENCE_METHOD="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
+          source = (report.get("global_markets") or {}).get("標普500指數", {}).get("source") or {}
+          print(source.get("evidence_method") or "")
+          PY
+          )"
+          # VERIFIED alone is insufficient for Chart 3: require historical-table evidence.
+          # Incomplete Chart 3 evidence must never block the independent daily report.
+          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" && "${SP500_EVIDENCE_METHOD}" == *"historical data table"* ]]; then
           mkdir -p data/tac-chart3 simulation-lab/output/chart3-handoff
           # Append the newly verified report observation to the persistent, hash-sealed ledger.
           # Do not replace the existing ledger with this run's one-row handoff.
