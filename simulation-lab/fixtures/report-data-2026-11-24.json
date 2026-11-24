@@ -210,7 +210,7 @@
         "checked_at_tw": "2026-11-24T16:26:36.510+08:00",
         "read_at_taipei": "2026-11-24T16:26:36.510+08:00",
         "verified_at_tw": "2026-11-24T16:26:36.510+08:00",
-        "evidence_method": "INVESTING_COM_HISTORICAL_TABLE",
+        "evidence_method": "INVESTING_COM_HISTORICAL_TABLE: Investing.com historical data table row",
         "web_reader_ref": "turn689347view7",
         "web_line_start": 61,
         "web_line_end": 63,
