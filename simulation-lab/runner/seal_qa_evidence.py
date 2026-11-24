@@ -329,13 +329,16 @@ if not market_source_manifest_path.is_file():
 market_source_manifest = json.loads(market_source_manifest_path.read_text(encoding="utf-8"))
 market_source_rows = market_source_manifest.get("rows", [])
 verified_rows = [row for row in market_source_rows if row.get("verification_status") in {"VERIFIED", "BACKUP_VERIFIED"}]
-pending_rows = [row for row in market_source_rows if row.get("verification_status") in {"PENDING_CURRENT_RUN_BROWSER_OBSERVATION", "CLOSED"}]
+closed_rows = [row for row in market_source_rows if row.get("verification_status") == "CLOSED"]
+pending_rows = [row for row in market_source_rows if row.get("verification_status") == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"]
 expected_manifest_status = "PASS" if len(verified_rows) == 44 else "PARTIAL" if verified_rows else "PENDING"
 if (
     len(market_source_rows) != 44
     or market_source_manifest.get("row_count") != 44
     or market_source_manifest.get("verified_count") != len(verified_rows)
+    or market_source_manifest.get("closed_count") != len(closed_rows)
     or market_source_manifest.get("pending_count") != len(pending_rows)
+    or len(verified_rows) + len(closed_rows) + len(pending_rows) != 44
     or market_source_manifest.get("status") != expected_manifest_status
 ):
     raise SystemExit("44-row source-observation manifest status/counts do not reconcile")
@@ -380,6 +383,7 @@ market_source_summary = {
     "row_count": market_source_manifest.get("row_count"),
     "verified_count": market_source_manifest.get("verified_count"),
     "pending_count": market_source_manifest.get("pending_count"),
+    "closed_count": market_source_manifest.get("closed_count"),
     "prior_observation_reused_count": market_source_manifest.get("prior_observation_reused_count"),
     "observation_record_hash_missing_count": market_source_manifest.get("observation_record_hash_missing_count"),
     "raw_response_sha256_saved_count": market_source_manifest.get("raw_response_sha256_saved_count"),
