@@ -8,14 +8,15 @@
     "html": {
       "path": "preview/2026-11-24-review.html",
       "source_git_blob_sha": "0b520b919e64f79b6a526bc5057bc7aa34c66d72",
-      "validated_artifact_sha256": "3b6f7f7b70b125d84698062df8efbfdc6c90687f314fa4e1dbf15d21ad95b16a"
+      "artifact_download_sha256_reference": "3b6f7f7b70b125d84698062df8efbfdc6c90687f314fa4e1dbf15d21ad95b16a"
     },
     "qa": {
       "path": "preview/2026-11-24-review.qa.json",
       "source_git_blob_sha": "03207ef3adb4bc1f916d2079ea33eee59e5eff3c",
-      "validated_artifact_sha256": "b57384b8591643987da73a28477a67c254848ddfa4d5cc30226ddbde3edf473b"
+      "artifact_download_sha256_reference": "b57384b8591643987da73a28477a67c254848ddfa4d5cc30226ddbde3edf473b"
     }
   },
   "copy_method": "Direct UTF-8 content copy from validated Simulation branch; no rebuild or editorial changes",
-  "homepage_index_modified": false
+  "homepage_index_modified": false,
+  "copy_verification": "Target main Git blob SHA matches the corresponding source Simulation Git blob SHA for both HTML and QA sidecar; artifact-download SHA-256 values are retained as provenance references, not claimed as the GitHub Contents API byte stream hash."
 }
