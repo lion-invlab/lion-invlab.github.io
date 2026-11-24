@@ -2225,9 +2225,9 @@ def main():
     narrative_targets = [
         ("#tac-global-panel-0", "📌 美股觀察", "global_markets", 0),
         ("#tac-global-panel-1", "📌 亞股觀察", "global_markets", 1),
-        ("#tac-global-panel-2", "📌 歐股觀察", "global_markets", 3),
+        ("#tac-global-panel-2", "📌 歐股觀察", "global_markets", 2),
         ("#asia", "📌 亞股摘要", "global_markets", 1),
-        ("#tac-region-panel-2", "📌 歐股摘要", "global_markets", 3),
+        ("#tac-region-panel-2", "📌 歐股摘要", "global_markets", 2),
         ("#tac-assets-panel-0", "📌 產業觀察", "sectors", None),
         ("#bonds", "📌 債券觀察", "bonds", None),
         ("#fx", "📌 匯率觀察", "fx", None),
@@ -2236,7 +2236,7 @@ def main():
     ]
     required_observations = [
         ("#tac-global-panel-1", "📌 亞股觀察", 1),
-        ("#tac-global-panel-2", "📌 歐股觀察", 3),
+        ("#tac-global-panel-2", "📌 歐股觀察", 2),
     ]
     comments = data.get("market_comments", {}).get("global_markets", [])
     for selector, heading, idx in required_observations:
@@ -3230,7 +3230,7 @@ def main():
     final_region_observations = [
         ("#tac-global-panel-0", "📌 美股觀察", 0),
         ("#tac-global-panel-1", "📌 亞股觀察", 1),
-        ("#tac-global-panel-2", "📌 歐股觀察", 3),
+        ("#tac-global-panel-2", "📌 歐股觀察", 2),
     ]
     final_comments = data.get("market_comments", {}).get("global_markets", [])
     for selector, heading, idx in final_region_observations:
@@ -3248,7 +3248,7 @@ def main():
     # these last so their commentary cannot remain cross-wired to the quote-row indices.
     legacy_region_observations = [
         ("#asia", "📌 亞股摘要", 1),
-        ("#tac-region-panel-2", "📌 歐股摘要", 3),
+        ("#tac-region-panel-2", "📌 歐股摘要", 2),
     ]
     for selector, heading, idx in legacy_region_observations:
         panel = soup.select_one(selector)
