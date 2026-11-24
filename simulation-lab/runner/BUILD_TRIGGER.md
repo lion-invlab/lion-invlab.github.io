@@ -9,9 +9,9 @@ trigger_scope: simulation-only
 workflow: .github/workflows/tac-simulation-lab.yml
 workflow_blob_sha: 12d72b4162d8f8f2c80d174d55a1dc2bd74766eb
 active_rules_version: SIM-1.4
-active_rules_blob_sha: 91083f5d18e960fa9e1e9dbb5bedca1029232d81
-qa_contract_version: 1.21
-qa_contract_blob_sha: 1bf22ea17356eaf4cdfba2c1ecc17ca402302578
+active_rules_blob_sha: 69f53f912a112524d10885bbe007f81cf0f30742
+qa_contract_version: 1.23
+qa_contract_blob_sha: 6d75596ff4eeabaf181fca61d9e9b7784e207f56
 manifest_blob_sha: 81e01655fd8a2dfeaa72b5c63d1695db13370562
 monday_mother_path: simulation-lab/baseline/monday-mother-template.html
 monday_mother_blob_sha: 0a7d5095aaa99c470e00e67f33567ff9f359d6ae
