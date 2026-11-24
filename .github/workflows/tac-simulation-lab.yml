@@ -48,10 +48,10 @@ permissions:
   contents: write
 
 concurrency:
-  # Serialize the simulation commit and the subsequent narrow main/preview handoff.
+  # Serialize builds and the subsequent narrow main/preview handoff.
+  # New pushes may replace a pending run, but must never cancel an active report build.
   group: tac-simulation-review-delivery
-  cancel-in-progress: true
-  # Newer report inputs supersede stale in-progress builds; keep only the latest run.
+  cancel-in-progress: false
 
 jobs:
   isolated-smoke:
@@ -1001,7 +1001,7 @@ jobs:
           retention-days: 30
 
       - name: Download uploaded simulation evidence for independent verification (retry run-scoped artifact visibility)
-        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -1023,7 +1023,7 @@ jobs:
           exit 1
 
       - name: Verify downloaded simulation evidence bundle
-        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         run: |
           set -euo pipefail
@@ -1048,7 +1048,7 @@ jobs:
           exit "$audit_status"
 
       - name: Upload post-upload artifact audit report
-        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         uses: actions/upload-artifact@v4
         with:
           name: tac-simulation-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
