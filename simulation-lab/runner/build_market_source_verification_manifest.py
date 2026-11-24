@@ -101,6 +101,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         closure_ref = observation.get("closure_evidence_reader_ref") or source.get("closure_evidence_reader_ref")
         closure_line_start = observation.get("closure_evidence_line_start") or source.get("closure_evidence_line_start")
         closure_line_end = observation.get("closure_evidence_line_end") or source.get("closure_evidence_line_end")
+        closure_text = observation.get("closure_evidence_text") or source.get("closure_evidence_text")
         captured_at = observation.get("finished_at_tw") or observation.get("finished_at_utc")
         closure_verified = (
             observation.get("source_page_fetched") is True
