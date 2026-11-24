@@ -498,7 +498,25 @@ jobs:
           # W47 retrospective NVDA overlay belongs only to Monday's mother.
           # Tue-Fri weekday mothers have no #last-week-earnings target.
           if [[ "${TEMPLATE_KEY}" != "monday" ]]; then
-            echo "SKIP W47 retrospective overlay: weekday mother has no last-week earnings section; report build continues."
+            mkdir -p "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
+            cp "${REPORT_OUTPUT}" "${PATCHED_OUTPUT}"
+            python - "${REPORT_OUTPUT}" "${PATCH_RECEIPT}" "${REPORT_DATE}" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+          report_path, receipt_path, report_date = sys.argv[1:]
+          raw = Path(report_path).read_bytes()
+          receipt = {
+              "schema_version": "1.0",
+              "status": "NOT_APPLICABLE",
+              "section": "weekday_no_last_week_overlay",
+              "report_date": report_date,
+              "reason": "Weekday mother has no prior-week earnings/calendar overlay section.",
+              "output_html_sha256": hashlib.sha256(raw).hexdigest(),
+              "overlay_applied": False,
+          }
+          Path(receipt_path).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          PY
+            echo "W47 overlay correctly not applicable; weekday HTML left unchanged and N/A receipt sealed."
             exit 0
           fi
           mkdir -p "$(dirname "${BUILDER_OUTPUT}")" "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
