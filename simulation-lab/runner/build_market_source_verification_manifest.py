@@ -96,17 +96,74 @@ def verification_fields(source: dict, display, change_display, observation: dict
     observation = observation or {}
     source_url = source.get("url")
     if observation.get("read_status") == "MARKET_CLOSED":
+        provenance = observation.get("provenance")
+        closure_url = observation.get("closure_evidence_url") or source.get("closure_evidence_url")
+        closure_ref = observation.get("closure_evidence_reader_ref") or source.get("closure_evidence_reader_ref")
+        closure_line_start = observation.get("closure_evidence_line_start") or source.get("closure_evidence_line_start")
+        closure_line_end = observation.get("closure_evidence_line_end") or source.get("closure_evidence_line_end")
+        captured_at = observation.get("finished_at_tw") or observation.get("finished_at_utc")
+        closure_verified = (
+            observation.get("source_page_fetched") is True
+            and observation.get("source_url") == source_url
+            and observation.get("target_date") == source.get("data_date")
+            and observation.get("expected_display_value") == display
+            and observation.get("instrument_identity_status") == "VERIFIED"
+            and _identity_matches(group, name, observation.get("instrument_identity"))
+            and observation.get("field_mapping_status") == "VERIFIED"
+            and bool(closure_url)
+            and bool(closure_ref)
+            and closure_line_start is not None
+            and closure_line_end is not None
+            and provenance == "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+            and observation.get("read_method") == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+            and observation.get("prior_observation_reused") is False
+            and bool(observation.get("finished_at_utc"))
+        )
+        closure_record = None
+        closure_hash = None
+        if closure_verified:
+            closure_record = {
+                "source_url": source_url,
+                "target_date": source.get("data_date"),
+                "expected_display_value": observation.get("expected_display_value"),
+                "instrument_identity": observation.get("instrument_identity"),
+                "instrument_identity_status": observation.get("instrument_identity_status"),
+                "field_mapping_status": observation.get("field_mapping_status"),
+                "observed_row_text": observation.get("observed_row_text"),
+                "read_method": observation.get("read_method"),
+                "read_status": observation.get("read_status"),
+                "provenance": provenance,
+                "source_page_fetched": True,
+                "closure_evidence_url": closure_url,
+                "closure_evidence_reader_ref": closure_ref,
+                "closure_evidence_line_start": closure_line_start,
+                "closure_evidence_line_end": closure_line_end,
+                "checked_at_tw": captured_at,
+                "prior_observation_reused": False,
+                "source_observation_record_sha256": observation.get("observation_record_sha256"),
+            }
+            canonical = json.dumps(closure_record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            closure_hash = hashlib.sha256(canonical).hexdigest()
         return {
-            "verification_status": "CLOSED",
-            "source_page_fetched": True,
-            "display_value_reconciled": False,
-            "display_value_matches_saved_observation": False,
-            "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-            "raw_response_sha256": None,
-            "evidence_status": "MARKET_CLOSED",
-            "browser_observation_record": None,
-            "observation_record_sha256": None,
-            "captured_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
+            "verification_status": "CLOSED" if closure_verified else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+            "source_page_fetched": observation.get("source_page_fetched") is True,
+            "display_value_reconciled": closure_verified,
+            "display_value_matches_saved_observation": closure_verified,
+            "observation_provenance": provenance if closure_verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
+            "raw_response_sha256": observation.get("raw_response_sha256") if closure_verified else None,
+            "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE" if closure_verified else "MARKET_CLOSED_UNVERIFIED",
+            "browser_observation_record": closure_record,
+            "observation_record_sha256": closure_hash,
+            "captured_at_tw": captured_at,
+            "observed_at_tw": captured_at if closure_verified else None,
+            "source_record_updated_at_tw": source.get("checked_at_tw"),
+            "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE+OFFICIAL_HOLIDAY_CALENDAR" if closure_verified else None,
+            "verified_close": None,
+            "verified_change": None,
+            "closure_evidence_url": closure_url if closure_verified else None,
+            "closure_evidence_reader_ref": closure_ref if closure_verified else None,
+            "closure_evidence_line_start": closure_line_start if closure_verified else None,
+            "closure_evidence_line_end": closure_line_end if closure_verified else None,
         }
     data_date = source.get("data_date")
     read_method = observation.get("read_method")
@@ -268,7 +325,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
                 "checked_at_tw": source.get("verified_at_tw") or source.get("read_at_taipei") or source.get("read_at"),
                 "source_record_updated_at_tw": source.get("checked_at_tw"),
                 **verification,
-                "notes": source.get("note") if verification["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
+                "notes": source.get("note") if verification["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED", "CLOSED") and verification.get("evidence_status") != "MARKET_CLOSED_UNVERIFIED" else "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。",
             })
     for name, display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
