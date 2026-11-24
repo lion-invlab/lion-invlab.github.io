@@ -127,6 +127,12 @@ def main():
     assert result["prior_observation_reused_count"] == 0
     assert result["displayed_values_independently_reconciled"] is False
 
+    # A same-session historical close observation remains reusable during a delayed workflow start.
+    delayed = copy.deepcopy(bundle)
+    delayed["captured_at_utc"] = (datetime.now(timezone.utc) - timedelta(minutes=110)).isoformat()
+    delayed_result = validate_bundle(data, "2026-11-24", delayed)
+    assert len(delayed_result["observations"]) == 44
+
     wrong_value = copy.deepcopy(bundle)
     first_verified = next(x for x in wrong_value["observations"] if x["read_status"] == "PAGE_CONTENT_READ_SUCCESS" and x["group"] != "risk")
     first_verified["observed_value"] = "0"
