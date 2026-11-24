@@ -35,8 +35,6 @@ def make_bundle(root: Path) -> None:
         }).encode(),
         "simulation-lab/output/visual/visual-regression.json": json.dumps({"failures":[]}).encode(),
         "simulation-lab/output/interaction-smoke.json": json.dumps({"status":"PASS","page_errors":[]}).encode(),
-        "simulation-lab/output/monday-mother-transfer-evidence.json": b"{}",
-        "simulation-lab/output/weekdays-mother-transfer-evidence.json": b"{}",
         "simulation-lab/output/visual/test.png": png_1x1(),
     }
     for rel, raw in files.items():
