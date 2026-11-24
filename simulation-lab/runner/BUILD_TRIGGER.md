@@ -113,3 +113,5 @@ S&P 500 evidence contract correction (2026-11-24): evidence_method now contains 
 Builder approval pin update (2026-11-24): active SIM-1.4 rules now approve the Simulation-only Builder SHA 1ad33cd608e8b70588accb02805696ad1e8258ad under the user's same-day authorization for required Simulation changes and the requested “標題 ｜ 正文” formatting. Updated rules SHA: 7e18dc3c860bc357579f7a22cd47dd2109e4bba9. This is not main publishing authorization.
 
 Builder approval reference synchronization (2026-11-24): canonical SIM-1.4 active Builder references in §1.1 and §8.1 now match the already-recorded simulation-only approved Builder SHA 1ad33cd608e8b70588accb02805696ad1e8258ad. Historical Builder records remain unchanged. Main branch and homepage untouched.
+
+Builder approval parser compatibility (2026-11-24): retained the exact active-rule approval clause token required by sim14_builder_approval.py while keeping the Simulation-only scope note outside the parsed clause. Rules SHA: 12354cbb9601858ef7af21076d87fde711392ae5; approved Builder SHA: 1ad33cd608e8b70588accb02805696ad1e8258ad.
