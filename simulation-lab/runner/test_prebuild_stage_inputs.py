@@ -126,8 +126,9 @@ def main() -> None:
     # preserve 43 current-session observations, and leave one row explicitly pending.
     partial = copy.deepcopy(synthetic)
     partial["status"] = "PARTIAL"
-    partial["verified_count"] = 43
+    partial["verified_count"] = 42
     partial["pending_count"] = 1
+    partial["closed_count"] = 1
     partial["displayed_values_independently_reconciled"] = False
     partial["browser_observation_records_complete"] = False
     pending_row = partial["rows"][0]
@@ -140,9 +141,21 @@ def main() -> None:
         "browser_observation_record": None,
         "observation_record_sha256": None,
     })
+    closed_row = partial["rows"][1]
+    closed_row.update({
+        "verification_status": "CLOSED",
+        "source_page_fetched": True,
+        "display_value_reconciled": False,
+        "display_value_matches_saved_observation": False,
+        "evidence_status": "MARKET_CLOSED",
+        "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "browser_observation_record": None,
+        "observation_record_sha256": None,
+    })
     partial_result = validate_market_inputs(data, audit, partial, report_date)
     assert partial_result["indicator_count"] == 44
-    assert partial_result["numeric_values_reconciled_count"] == 43
+    assert partial_result["numeric_values_reconciled_count"] == 42
+    assert partial_result["closed_count"] == 1
     assert partial_result["numeric_values_reconciled_this_run"] is False
     partial_receipt = build_receipt(
         data=data, fixture_sha256="1" * 64,
@@ -155,6 +168,7 @@ def main() -> None:
     )
     assert partial_receipt["status"] == "PASS"
     assert partial_receipt["stage_2_market"]["pending_observation_count"] == 1
+    assert partial_receipt["stage_2_market"]["closed_count"] == 1
     expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
                  "refusing non-simulation branch")
 
