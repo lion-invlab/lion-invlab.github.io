@@ -102,6 +102,16 @@ provenance = json.loads(match.group(1))
 # SIM-1.3 G1: Monday has three fixed summary sections; weekdays use a concise daily market judgment.
 fixture_path = Path(f"simulation-lab/fixtures/report-data-{report_date}.json")
 fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+# Review banner must describe this build, never carry a prior report's notice forward.
+review_banner = soup.select_one(".data-sync-warning")
+review_banner_text = review_banner.get_text(" ", strip=True) if review_banner else ""
+review_notice = str(fixture.get("review_notice", "")).strip()
+if not review_banner or report_date not in review_banner_text:
+    raise SystemExit("review banner is missing or does not identify the current report date")
+if review_notice and review_notice not in review_banner_text:
+    raise SystemExit("review banner does not contain the current fixture review notice")
+if re.search(r"20\\d{2}/\\d{1,2}/\\d{1,2}（[一二三四五六日]）審核版", review_notice):
+    raise SystemExit("review banner fixture contains a stale prior-report date")
 bluf = soup.select_one("#overview > section.grid.two > article.card.bluf")
 if bluf is None:
     raise SystemExit("content analysis gate: summary card missing")
