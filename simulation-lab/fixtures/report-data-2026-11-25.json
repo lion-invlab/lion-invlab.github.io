@@ -3083,7 +3083,7 @@
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
   "market_sentiment": "市場情緒仍處極度恐懼區：CNN Fear & Greed 11/24讀值17；VIX 11/24讀值26.88，當日變動待獨立核價。MOVE依使用者於11/25 06:47提供之截圖，11/24收盤98.84，較前次收盤100.91下降2.06%。債券波動預期回落與股票波動壓力仍高並存，代表不同市場的風險訊號並未完全一致；不能僅憑MOVE下降判定信用風險解除。",
   "quality_note": "本輪主要行情基準日為2026-11-23。44項來源頁面重新讀取；43項數值觀察均有當期來源紀錄，日經225依官方假日證據標示休市。Fear & Greed以CNN官方graphdata previous_close原始值16.9658627087199核驗，顯示取整17、Extreme Fear；FGScore備援歷史頁11/23列亦顯示17。CNN同一回應的歷史序列11/23點位17.0801484230056，原始精度略有差異但顯示值同為17，依SIM-1.4指定previous_close欄位核驗。MOVE由Investing.com India歷史頁直接開啟讀取11/23收盤100.91、-5.08%；XLRE因香港站頁面無法讀取，改用Investing.com Global備援頁。日經225依日本內閣府官方祝日表確認11/23勤勞感謝日休市，不採用差價合約報價。本次行情重讀晚於05:25報告截點，僅證明Stage 2重新讀取與核對，不代表05:25排程已成功；非行情內容仍沿用當日既有Fixture，並非完整空白輸入重建。",
-  "report_cutoff_taipei": "2026-11-25T05:25:00+08:00",
+  "report_cutoff_taipei": "2026-11-25 05:25:00+08:00",
   "news_window_taipei": "2026/11/24 12:00 至 2026/11/25 05:25",
   "key_levels_overrides": {},
   "review_notice": "本版僅供內部審核，不上架正式首頁。",
