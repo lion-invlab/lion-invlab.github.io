@@ -184,8 +184,15 @@ for selector, key, label in asset_rows:
     if not expected or note is None or normalize_analysis_text(comment_body(expected)) not in normalize_analysis_text(note.get_text(" ", strip=True)):
         raise SystemExit(f"content analysis gate: {label} commentary missing or not rendered")
     action_cues = ("操作", "投資含意", "投資應對", "策略", "配置", "避免", "防守", "觀察", "追蹤", "評估")
-    if not any(token in expected for token in action_cues):
-        raise SystemExit(f"content analysis gate: {label} commentary lacks an investment response")
+    # An explicitly pending source must disclose the gap and prohibit stale carry-forward;
+    # do not force an invented investment action from unavailable sector quotes.
+    pending_sector_disclosure = (
+        key == "sectors"
+        and any(token in expected for token in ("待核對", "待逐檔", "待核實", "尚未核實"))
+        and any(token in expected for token in ("不沿用", "不引用", "不採用"))
+    )
+    if not any(token in expected for token in action_cues) and not pending_sector_disclosure:
+        raise SystemExit(f"content analysis gate: {label} commentary lacks an investment response or explicit pending-source disclosure")
     if re.search(r"\d+(?:\.\d+)?%", expected):
         raise SystemExit(f"content analysis gate: {label} commentary repeats a percentage quote")
 observation = fixture.get("observation", {})
