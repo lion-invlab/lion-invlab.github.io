@@ -1,0 +1,3 @@
+report_date=2026-11-24
+reason=align_market_analysis_fear_greed_phrase_with_canonical_numeric_score
+fixture_blob_sha=398db28b70fb91a8ba11014d594f35185ee1b459
