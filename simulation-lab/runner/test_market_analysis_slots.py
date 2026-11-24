@@ -66,6 +66,26 @@ def test_both_mothers_have_one_ordered_slot_between_summary_and_sentiment():
         assert manifest["analysis_slots"]["market_analysis"]["required"] is True
 
 
+
+def test_builder_allows_three_summary_points_and_removes_unused_mother_slots():
+    points = [
+        {"label": "市場主軸", "text": "AI與大型科技股支撐市場，但廣度仍待確認。"},
+        {"label": "風險觀察", "text": "債券與外匯反映政策及地緣風險的不確定性。"},
+        {"label": "操作結論", "text": "不追價，等待數據與市場廣度共同確認。"},
+    ]
+    for name in ("monday-mother-template.html", "weekday-mother-template.html"):
+        soup, _ = load_assets(name)
+        bluf = soup.select_one("#overview > section.grid.two > article.card.bluf")
+        summary = bluf.select_one(".key, .bluf-content, p")
+        updated = builder.populate_summary_points_preserving_dom(summary, points)
+        assert updated == 3
+        assert len(summary.find_all(["b", "strong"], recursive=False)) == 3
+        text = summary.get_text(" ", strip=True)
+        assert "市場主軸" in text and "風險觀察" in text and "操作結論" in text
+        assert "政策與財報" not in text and "跨市場" not in text
+
+
+
 def test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers():
     for name in ("monday-mother-template.html", "weekday-mother-template.html"):
         soup, manifest = load_assets(name)
@@ -195,6 +215,7 @@ def test_builder_rejects_invalid_source_url_and_missing_timestamp():
 
 if __name__ == "__main__":
     test_both_mothers_have_one_ordered_slot_between_summary_and_sentiment()
+    test_builder_allows_three_summary_points_and_removes_unused_mother_slots()
     test_builder_populates_only_five_content_slots_and_preserves_mother_wrappers()
     test_builder_fails_closed_on_missing_layer_or_source_evidence()
     test_political_scan_requires_classification_transmission_and_three_scenarios()
