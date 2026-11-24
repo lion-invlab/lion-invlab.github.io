@@ -602,7 +602,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 2026-11-22 歷史修訂草案（當時未生效；後續採納內容以現行主文為準）
 
-- 2026-11-24：依使用者指示，週二至週五總結改為固定四段；Fixture `summary_points` 恰好四筆，沿用 Builder 移除未使用尾端槽位的既有功能，不改母版原始檔／DOM／CSS；亞洲市場分化不再是固定摘要段落或必要檢查項目。
+- 2026-11-24：依使用者指示，週二至週五總結改為固定四段；Fixture `summary_points` 恰好四筆，沿用 Builder 移除未使用尾端槽位的既有功能，不改母版原始檔／DOM／CSS；亞洲市場分化不再是固定摘要段落或必要檢查項目。 本次重新組裝觸發：[build-tac-report:2026-11-24]
 - 修正 Builder 核准流程的內部矛盾：核准前可在 simulation branch 進行完整候選 Builder 隔離測試，測試通過標示 CANDIDATE_VALIDATED；使用者核准指定路徑及 SHA 後，才可升格唯一生產 Builder 並標示 SIM-1.4 REVIEW_READY。
 - 將操作建議驗收收斂為立場、可執行動作、條件／失效訊號；避免要求每篇總結機械列齊所有資產及所有操作條件。
 - 本次僅修訂 SIM-1.4 DRAFT；SIM-1.3 仍是唯一有效規則，未修改 main、正式母版、Manifest、正式首頁或正式行事曆 JSON。
