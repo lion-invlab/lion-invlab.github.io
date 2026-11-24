@@ -1302,7 +1302,12 @@
         "historical_series_diagnostic_timestamp_utc": "2026-11-23T00:00:00+00:00",
         "backup_web_reader_ref": "turn245915view8",
         "backup_web_line_start": 64,
-        "backup_web_line_end": 68
+        "backup_web_line_end": 68,
+        "cross_check": {
+          "name": "CNN Business official Fear & Greed graphdata API previous_close",
+          "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
+          "role": "PRIMARY"
+        }
       }
     }
   },
