@@ -29,7 +29,7 @@ market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: f1599bc0068c399f5f748cbe5ea12b194668ffde
 market_source_manifest_test_blob_sha: e91f734347ee8701ac4e350a5da2447160fcdc68
 builder: simulation-lab/runner/build_review_html.py
-builder_blob_sha: 102b3e3e6307fd0864bcde6618c3f089583b90ae
+builder_blob_sha: ff31d309ec4828d441895423a11b0fdaa094cb49
 market_history_web_observations: simulation-lab/input/market-history-web-observations-2026-11-24.json
 market_history_web_observations_blob_sha: 9d18091e0677acd27f2002f1eb650e034f926b8f
 web_observation_validator_blob_sha: 5d5fe13aad1e2fcba9ce3309f34550e1353bf195
@@ -100,8 +100,10 @@ CNN manifest regression-test fixture correction (2026-11-24): synthetic official
 
 Manifest regression fixture-date correction (2026-11-24): CNN official/FGScore manifest test timestamps now use the actual 2026-11-23 fixture report date and 2026-11-20 market date, avoiding stale 2026-11-09 observation timestamps. Production report data unchanged.
 
-quote_type_guard_test_blob_sha: 1eb271f4587ea5c614c46f9e4404fd18135056b8
+quote_type_guard_test_blob_sha: 68f498eb50e04a7339a7a7c15c2670df7d4c40eb
 
 Summary separator test correction (2026-11-24): updated the two unit-test expectations to match the approved bold subheading format “標題 ｜ 正文”; the Builder behavior itself is unchanged.
 
 Single-item summary separator test correction (2026-11-24): the one-item fallback assertion now expects the same approved “標題 ｜ 正文” separator as the two-item summary format. Builder behavior unchanged; test expectation only.
+
+Market-observation subheading spacing correction (2026-11-24): Builder now renders the approved “標題 ｜ 正文” separator with spaces for both bold-heading and plain mother slots, without changing mother DOM. Builder SHA: ff31d309ec4828d441895423a11b0fdaa094cb49; quote-type guard test SHA: 68f498eb50e04a7339a7a7c15c2670df7d4c40eb.
