@@ -1,0 +1,4 @@
+TAC SIM-1.4 full report build request
+report_date=2026-11-25
+trading_date=2026-11-24
+reason=Retry after adding missing primary MOVE historical URL; full 44-row live browser reconciliation required.
