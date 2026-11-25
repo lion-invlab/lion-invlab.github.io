@@ -311,7 +311,9 @@ jobs:
           for row in rows:
               status = row.get("status") or "MISSING"
               status_counts[status] = status_counts.get(status, 0) + 1
-          print(f"Loaded {len(rows)} direct web observations; status_counts={status_counts}")
+          verified_count = sum(row.get("status") == 'VERIFIED' for row in rows)
+          pending_count = sum(row.get("status") in ('PENDING', 'OBSERVED_PENDING_VALIDATION') for row in rows)
+          print(f"Loaded {len(rows)} direct web observations; verified={verified_count}; pending={pending_count}; status_counts={status_counts}")
           PY
             cp "${WEB_EVIDENCE}" simulation-lab/output/market-history-browser-observations.json
             exit 0
