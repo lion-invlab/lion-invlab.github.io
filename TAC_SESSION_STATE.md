@@ -4472,3 +4472,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 此證據日期為 2026-11-25，只能補充該資料日；不得用於 11/26 交易日報價。MOVE 截圖為盤中畫面，正式日收盤仍須歷史資料列核對。
 - 2026-11-26 當日 Workflow 重試次數已耗盡；本次封存不觸發第三次 Workflow，不產生或宣稱 11/26 HTML／QA。
 - 封存證據提交：`e034f50450a87b6618170e1b1b3264c7a61e95ee`。
+
+
+## 最新補充狀態｜2026-11-26 06:40（Asia/Taipei）
+
+- 11/25 香港恆生：已直接讀取 Investing.com 歷史資料表第 62 行，Close 21,966.01、Change -1.14%，同時取得 Open 22,252.81、High 22,507.83、Low 21,915.88、Volume 3.65B。原本 Observation Bundle 的 SOURCE_NO_DATA 判斷錯誤，已修正為 PAGE_CONTENT_READ_SUCCESS；Fixture 狀態已改為 VERIFIED。
+- 11/25 MOVE：使用者截圖觀察 97.54、-1.30（-1.32%）、前收 98.84；Investing.com MOVE 歷史頁未顯示 11/25 列，因此保留截圖觀察並維持主來源 PENDING。
+- 三張截圖 SHA-256 已在執行環境重新計算一致；repo 保存證據說明及雜湊，PNG 原始二進位未上傳 repo。
+- 修正 commits：Observation Bundle `f82a52483afca534ab8fb2be0522a22013148a2a`；Fixture `d869e73b4d9d74f01387cc424b91e53ab941ab2d`；Work Log `adbd6e9b4b7160c3670dbef68b067301c15f4d41`。
+- 11/26 當日 Workflow retry limit 已耗盡：沒有第三次執行，沒有新 Run、HTML、QA。main 未修改。
+- 下一個可執行節點為 11/27 05:25 排程；需全新擷取 11/26 交易日的 44 項行情與 11 ETF，重新建立當日 bundle／Fixture／receipts。不得沿用 11/25 截圖值或舊 receipt。
