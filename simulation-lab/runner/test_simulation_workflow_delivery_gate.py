@@ -39,6 +39,10 @@ assert "preview/${REPORT_DATE}-review.html" not in WORKFLOW
 # Stage 2-4 input receipt is mandatory before Builder execution and remains bound through QA and handoff.
 receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
 market_step = section_after(WORKFLOW, "Register 44 market rows as pending for fast report build")
+# A row-level pending observation is valid input; it must not fail the 44-row batch.
+assert '"PENDING"' in market_step
+assert '"OBSERVED_PENDING_VALIDATION"' in market_step
+assert 'sum(row.get("status") == \'VERIFIED\' for row in rows)' in market_step
 capture_step = section_after(WORKFLOW, "Capture 44 raw market source pages")
 builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
 overlay_step = section_after(WORKFLOW, "Apply local W47 NVDA consensus overlay")
