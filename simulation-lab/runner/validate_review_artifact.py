@@ -287,6 +287,61 @@ def main():
         raise SystemExit("summary card exposes forbidden visible source disclosure")
     if provenance.get("summary_source_receipt") != {"visible_sources": False}:
         raise SystemExit("internal summary source-removal receipt missing or invalid")
+
+    # The focus panel must be fully refreshed; merely appending today's summary
+    # while leaving old mother-template market text is not an acceptable review.
+    focus_market = soup.select_one(".focus-panel.focus-market .key")
+    observation = fixture.get("observation") or {}
+    observation_text = str(observation.get("text") or "").strip()
+    observation_heading = str(observation.get("heading") or "盤面觀察重點").strip()
+    if focus_market is None or not observation_text:
+        raise SystemExit("盤面觀察重點 focus panel or current summary text missing")
+    bold_slots = focus_market.find_all("b")
+    point_slots = max(0, len(bold_slots) - 1)
+    observation_points = observation.get("points") or []
+    if point_slots and len(observation_points) != point_slots:
+        raise SystemExit(f"focus panel point count {len(observation_points)} does not match mother slots {point_slots}")
+    expected_focus_parts = [observation_heading + " ｜", observation_text]
+    if point_slots:
+        for point in observation_points:
+            label = str(point.get("label") or "").strip()
+            point_text = str(point.get("text") or "").strip()
+            if not label or not point_text:
+                raise SystemExit("focus panel observation point requires label and text")
+            expected_focus_parts.extend([label + "：", point_text])
+    expected_focus_text = re.sub(r"\\s+", " ", " ".join(expected_focus_parts)).strip()
+    actual_focus_text = re.sub(r"\\s+", " ", focus_market.get_text(" ", strip=True)).strip()
+    if actual_focus_text != expected_focus_text:
+        raise SystemExit("rendered 盤面觀察重點 contains stale mother text or differs from the current fixture")
+
+    # Two approved cards must display the exact two-outcome FedWatch distribution,
+    # including two hikes when that is what the market snapshot contains.
+    fedwatch_payload = fixture.get("fedwatch") or {}
+    fedwatch_outcomes = fedwatch_payload.get("probabilities") or []
+    if len(fedwatch_outcomes) == 2:
+        fed_rows = soup.select("#fed .fc-prob")
+        fed_bar = soup.select_one("#fed .fc-split-bar")
+        if len(fed_rows) != 2 or fed_bar is None or fed_bar.has_attr("hidden"):
+            raise SystemExit("valid two-outcome FedWatch snapshot is still rendered as pending")
+        label_map = {
+            "hold": "維持不變", "維持利率": "維持不變", "維持不變": "維持不變",
+            "hike": "升息", "升息": "升息", "cut": "降息", "降息": "降息",
+            "升息25個基點": "升息25個基點", "升息50個基點": "升息50個基點",
+            "降息25個基點": "降息25個基點", "降息50個基點": "降息50個基點",
+        }
+        for row, outcome in zip(fed_rows, fedwatch_outcomes):
+            label = label_map.get(str(outcome.get("outcome") or "").strip())
+            probability = f'{float(outcome.get("probability", 0)):.1f}%'
+            rate_range = str(outcome.get("rate_range") or "").strip()
+            rendered = row.get_text(" ", strip=True)
+            if not label or label not in rendered or probability not in rendered or rate_range not in rendered or "待核實" in rendered:
+                raise SystemExit(f"FedWatch card does not render the validated outcome: {outcome}")
+        aria = str(fed_bar.get("aria-label") or "")
+        for outcome in fedwatch_outcomes:
+            label = label_map.get(str(outcome.get("outcome") or "").strip())
+            probability = f'{float(outcome.get("probability", 0)):.1f}%'
+            if not label or label not in aria or probability not in aria:
+                raise SystemExit("FedWatch split-bar accessible label differs from the validated distribution")
     analysis_payload = fixture.get("market_analysis")
     if not isinstance(analysis_payload, dict) or set(analysis_payload) != {key for key, _ in expected_layers}:
         raise SystemExit("fixture market_analysis must contain exactly the five required layers")
