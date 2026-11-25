@@ -678,8 +678,6 @@ def set_market_observation(node, title, value):
         raw = raw.split("｜", 1)[1].strip()
 
     heading = node.find("b")
-    if heading is None:
-        raise ValueError("market observation mother heading is missing")
 
     def first_text_after(anchor):
         sibling = anchor.next_sibling if anchor is not None else None
@@ -692,6 +690,16 @@ def set_market_observation(node, title, value):
                     return candidate
             sibling = sibling.next_sibling
         return None
+
+    if heading is None:
+        line_break = node.find("br")
+        text_slot = first_text_after(line_break) if line_break is not None else next(
+            (x for x in node.descendants if isinstance(x, NavigableString) and str(x).strip()), None
+        )
+        if text_slot is None:
+            raise ValueError("market observation has no existing text slot")
+        text_slot.replace_with(str(title).strip() + " ｜ " + raw)
+        return
 
     heading.string = str(title).strip() + " ｜ "
     text_slot = first_text_after(heading)
