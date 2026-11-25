@@ -4431,3 +4431,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 重試次數已用滿（Retry 1、Retry 2）；不得再觸發本報告日期第三次 Workflow。下一步需在不違反 Builder／Workflow 保護規則的前提下，釐清並核准修正 calendar impact override 欄位契約；修正前不得宣稱完成或交付。
 - Slack #tac-alerts 最終失敗通知已送達：https://tac-sci3435.slack.com/archives/C0CL6GF6KJ8/p1795645555151479。
 - main/index.html、正式母版、Manifest、正式行事曆 JSON、Workflow、Builder、QA Contract 均未修改；main 發布未授權。
+
+
+## 2026-11-26 06:24 Asia/Taipei｜Builder 根因修正準備完成（未重跑 Workflow）
+
+- 依 SIM-1.4 §0.3／§0.6，僅在 Simulation branch 修正 Fixture；未使用當日第三次標記觸發，未觸發新 Workflow。
+- 已核對四筆 calendar_impact_overrides 目標事件（美國初領失業金、德國 GfK、法國 HICP、德國失業人數）：四筆 main W48 來源紀錄均有正常 impact_judgment 文字及獨立 source.url；Stage 3 projection 將 impact_judgment 映射為 impact、將來源網址映射至 source_url。Fixture 中四筆 override 是過時修補指令，不再符合目前投影 schema。
+- 已自 simulation-lab/fixtures/report-data-2026-11-26.json 移除整個 calendar_impact_overrides 區塊（四筆皆移除）；遠端回讀確認 JSON 可解析、27 筆經濟事件仍存在、欄位不存在。新 Fixture blob SHA：52a4b310415d468df8a78b753d3ae750dccc436d；修正 commit：51b74c8f5cf640440de8a60856d4336436e8c2c8。
+- Builder 未修改，遠端 SHA 仍為 SIM-1.4 核准 SHA de97048c280c911322c57829d8e936f80358e88b。Workflow、QA Contract、母版、Manifest、main 與正式行事曆 JSON 均未修改。
+- 重要：原 Stage 2–4 receipt 綁定舊 Fixture SHA 4b33df495c62e9ebfcdb09a6aae475b5c7d14c31；Fixture 更新後舊 receipt 不得再當作當前有效收據。原 receipt 僅保留為本次失敗執行的歷史證據。下一次獲授權的完整執行必須重新生成本次 Fixture SHA 對應的 Stage 2–4 receipt，並確認 workflow_run_id／attempt 一致。
+- 當日兩次重試已用完；本次只完成根因修正與遠端回讀，不代表 Builder 已重新通過、不代表 HTML／QA 產出、不代表 REVIEW_READY。下一步：在下一個獲授權的報告日期，重新擷取／核驗當日輸入、生成新 receipt，再由唯一核准 Builder 組裝並完成 Stage 5–6 QA。
