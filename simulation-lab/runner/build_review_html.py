@@ -93,7 +93,7 @@ def populate_key_levels_preserving_dom(levels_box, level_items, disclosure):
 
 
 def populate_fedwatch_two_slots(fed, data):
-    """Update the two approved FedWatch cards without cloning or rebuilding DOM."""
+    """Render any validated two-outcome FedWatch distribution in the approved two-card mother."""
     rows = fed.select(".fc-prob")
     bar = fed.select_one(".fc-split-bar")
     legend = fed.select_one(".fc-split-legend")
@@ -102,6 +102,7 @@ def populate_fedwatch_two_slots(fed, data):
     if len(rows) != 2 or bar is None or legend is None or len(segments) != 2 or len(entries) != 2:
         raise ValueError("FedWatch mother template must retain exactly two cards, bar segments and legend entries")
     outcomes = data.get("fedwatch", {}).get("probabilities") or []
+
     def pending(message):
         for row in rows:
             set_text(unique(row, "strong", "probability"), "待核實")
@@ -114,40 +115,80 @@ def populate_fedwatch_two_slots(fed, data):
                 entry.contents[1].replace_with("機率資料待核實 ")
                 set_text(entry.contents[-1], "—")
         return message
+
     if not outcomes:
         return pending("未取得 05:25 前可用快照")
-    total = sum(float(item["probability"]) for item in outcomes)
-    if abs(total - 100) > 0.2:
-        raise ValueError(f"FedWatch distribution totals {total}")
-    holds = [item for item in outcomes if item.get("outcome") == "hold"]
-    hikes = [item for item in outcomes if item.get("outcome") == "hike"]
-    # The approved mother has only hold + one hike slot. Do not manufacture a
-    # third card or silently omit cut/other outcomes; fail the visual display closed.
-    if len(outcomes) != 2 or len(holds) != 1 or len(hikes) != 1:
+    if len(outcomes) != 2:
         detail = "；".join(
             f'{item.get("outcome", "unknown")} {item.get("rate_range", "區間待核實")} {float(item.get("probability", 0)):.1f}%'
             for item in outcomes
         )
-        return pending("情境數量／類型超出母版兩卡規格；完整分布見資料時間與快照口徑：" + detail)
-    ordered = [holds[0], hikes[0]]
+        return pending("目前母版僅有兩個機率卡位；完整分布：" + detail)
+
+    total = sum(float(item["probability"]) for item in outcomes)
+    if abs(total - 100) > 0.2:
+        raise ValueError(f"FedWatch distribution totals {total}")
     current_range = data.get("fedwatch", {}).get("current_target_range")
-    if not current_range or holds[0].get("rate_range") != current_range:
-        raise ValueError("FedWatch hold outcome does not match the current target range")
-    labels = ["維持不變", "升息"]
-    for row, item, label in zip(rows, ordered, labels):
-        set_text(unique(row, "strong", "probability"), f'{float(item["probability"]):.1f}%')
-        set_text(unique(row, ".fc-range", "range"), item.get("rate_range", "區間待核實"))
+    if not current_range:
+        return pending("現行聯邦基金目標區間缺失")
+
+    label_map = {
+        "hold": "維持不變",
+        "維持利率": "維持不變",
+        "維持不變": "維持不變",
+        "hike": "升息",
+        "升息": "升息",
+        "cut": "降息",
+        "降息": "降息",
+        "升息25個基點": "升息25個基點",
+        "升息50個基點": "升息50個基點",
+        "降息25個基點": "降息25個基點",
+        "降息50個基點": "降息50個基點",
+    }
+
+    def bounds(value):
+        values = re.findall(r"\d+(?:\.\d+)?", str(value or ""))
+        return (float(values[0]), float(values[1])) if len(values) >= 2 else None
+
+    current_bounds = bounds(current_range)
+    if current_bounds is None:
+        return pending("現行目標區間格式無法解析")
+    labels = []
+    for item in outcomes:
+        raw_outcome = str(item.get("outcome", "")).strip()
+        label = label_map.get(raw_outcome)
+        rate_range = str(item.get("rate_range", "")).strip()
+        probability = float(item.get("probability", -1))
+        rate_bounds = bounds(rate_range)
+        if label is None or not rate_range or rate_bounds is None or not 0 <= probability <= 100:
+            return pending("升降息情境、目標區間或機率欄位未完整核實")
+        if label == "維持不變" and rate_range != current_range:
+            raise ValueError("FedWatch hold outcome does not match the current target range")
+        if label.startswith("升息") and rate_bounds[0] < current_bounds[1] - 0.001:
+            raise ValueError(f"FedWatch hike range {rate_range} is below the current target range {current_range}")
+        if label.startswith("降息") and rate_bounds[1] > current_bounds[0] + 0.001:
+            raise ValueError(f"FedWatch cut range {rate_range} is above the current target range {current_range}")
+        labels.append(label)
+
+    if len(set(labels)) != 2:
+        return pending("兩個機率情境標籤重複，無法清楚區分")
+
+    for row, item, label in zip(rows, outcomes, labels):
+        probability = float(item["probability"])
+        set_text(unique(row, "strong", "probability"), f"{probability:.1f}%")
+        set_text(unique(row, ".fc-range", "range"), item["rate_range"])
         set_text(unique(row, ".fc-prob-label span:not(.fc-dot)", "label"), label)
-    for segment, entry, label, item in zip(segments, entries, labels, ordered):
-        segment["style"] = f'width:{float(item["probability"]):.1f}%'
+    for segment, entry, label, item in zip(segments, entries, labels, outcomes):
+        probability = float(item["probability"])
+        segment["style"] = f"width:{probability:.1f}%"
         if len(entry.contents) < 3:
             raise ValueError("FedWatch legend entry lost its approved child structure")
         entry.contents[1].replace_with(label + " ")
-        set_text(entry.contents[-1], f'{float(item["probability"]):.1f}%')
+        set_text(entry.contents[-1], f"{probability:.1f}%")
     bar.attrs.pop("hidden", None)
     bar["aria-label"] = "；".join(
         f'{label} {float(item["probability"]):.1f}%'
-        for label, item in zip(labels, ordered)
+        for label, item in zip(labels, outcomes)
     )
     return None
 
@@ -623,46 +664,57 @@ def populate_summary_points_preserving_dom(node, points):
 
 
 def set_market_observation(node, title, value):
-    """Update existing heading/text nodes in place; never clear or rebuild the observation DOM."""
+    """Fill the mother-owned observation text slots in place; never rebuild the DOM."""
     if node is None:
         raise ValueError("market observation target node is missing")
     if isinstance(value, dict):
         title = str(value.get("heading") or title)
         raw = str(value.get("text") or "").strip()
+        points = value.get("points") or []
     else:
         raw = str(value or "").strip()
+        points = []
     if "｜" in raw and raw.startswith("📌"):
         raw = raw.split("｜", 1)[1].strip()
 
     heading = node.find("b")
-    line_break = node.find("br")
+    if heading is None:
+        raise ValueError("market observation mother heading is missing")
 
     def first_text_after(anchor):
         sibling = anchor.next_sibling if anchor is not None else None
         while sibling is not None:
             if isinstance(sibling, NavigableString) and str(sibling).strip():
                 return sibling
-            if getattr(sibling, "name", None):
+            if getattr(sibling, "name", None) and sibling.name != "br":
                 candidate = next((x for x in sibling.descendants if isinstance(x, NavigableString) and str(x).strip()), None)
                 if candidate is not None:
                     return candidate
             sibling = sibling.next_sibling
         return None
 
-    text_slot = first_text_after(line_break or heading)
-    if text_slot is None and heading is None:
-        text_slot = next((x for x in node.descendants if isinstance(x, NavigableString) and str(x).strip()), None)
+    heading.string = str(title).strip() + " ｜ "
+    text_slot = first_text_after(heading)
     if text_slot is None:
-        raise ValueError(
-            "market observation has no existing text slot: "
-            + str(node.name) + " class=" + " ".join(node.get("class", []))
-        )
-    if heading is not None:
-        if str(title).strip():
-            heading.string = str(title).strip() + " ｜ "
-        text_slot.replace_with(raw)
-    else:
-        text_slot.replace_with(str(title).strip() + " ｜ " + raw)
+        raise ValueError("market observation summary text slot is missing")
+    text_slot.replace_with(raw)
+
+    point_slots = [item for item in node.find_all("b") if item is not heading]
+    # The weekday mother has five additional labeled slots; Monday's mother
+    # intentionally has only the single summary slot.
+    if point_slots and points:
+        if len(point_slots) != len(points):
+            raise ValueError(f"market observation point count {len(points)} does not match mother slots {len(point_slots)}")
+        for label_node, point in zip(point_slots, points):
+            label = str(point.get("label") or "").strip()
+            point_text = str(point.get("text") or "").strip()
+            if not label or not point_text:
+                raise ValueError("market observation point requires both label and text")
+            label_node.string = label + "："
+            point_text_slot = first_text_after(label_node)
+            if point_text_slot is None:
+                raise ValueError(f"market observation text slot missing for {label}")
+            point_text_slot.replace_with(point_text)
 
 
 def unique(root, selector, label):
