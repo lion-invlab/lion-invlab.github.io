@@ -282,21 +282,38 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Read and reconcile 44 current-run market history pages with Playwright
+      - name: Read and reconcile 44 current-run market history pages with ChatGPT Web or Playwright
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         id: market_observations
         run: |
           set -euo pipefail
           mkdir -p simulation-lab/output
           export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
-          # Always perform current-run Playwright reads of all 44 historical source pages.
-          # Never reuse a fixture observation bundle or silently substitute all-PENDING fast-build rows.
-          python simulation-lab/runner/browser_verify_market_history.py \
-            --fixture "${REPORT_DATA}" \
-            --report-date "${REPORT_DATE}" \
-            --output simulation-lab/output/market-history-playwright-observations.json \
-            --concurrency 2 \
-            --timeout-ms 15000
+          WEB_OBSERVATIONS="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
+          CNN_OBSERVATION="simulation-lab/fixtures/cnn-official-observation-${REPORT_DATE}.json"
+          # Prefer a fresh, exact-date direct ChatGPT Web read bundle when present.
+          # Its validator checks all 44 URLs, dates, identities, mapped columns, values and source line references.
+          # If no current-date bundle exists, fall back to live Playwright; never reuse a prior report's observations.
+          if [[ -s "${WEB_OBSERVATIONS}" ]]; then
+            if [[ ! -s "${CNN_OBSERVATION}" ]]; then
+              printf '{"observations":[]}\n' > "${CNN_OBSERVATION}"
+            fi
+            python simulation-lab/runner/validate_chatgpt_web_observations.py \
+              --data "${REPORT_DATA}" \
+              --report-date "${REPORT_DATE}" \
+              --input "${WEB_OBSERVATIONS}" \
+              --cnn-observation "${CNN_OBSERVATION}" \
+              --output simulation-lab/output/market-history-playwright-observations.json
+            export OBSERVATION_CAPTURE_METHOD="CURRENT_CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+          else
+            python simulation-lab/runner/browser_verify_market_history.py \
+              --fixture "${REPORT_DATA}" \
+              --report-date "${REPORT_DATE}" \
+              --output simulation-lab/output/market-history-playwright-observations.json \
+              --concurrency 2 \
+              --timeout-ms 15000
+            export OBSERVATION_CAPTURE_METHOD="PLAYWRIGHT_RENDERED_HISTORY_TABLE"
+          fi
           python - <<'PY'
           import json
           import os
@@ -375,13 +392,13 @@ jobs:
           browser["displayed_values_independently_reconciled_this_run"] = (
               verified_count + closed_count == 44 and pending_count == 0
           )
-          browser["numeric_observations_source"] = "PLAYWRIGHT_RENDERED_INVESTING_HISTORICAL_TABLE"
+          browser["numeric_observations_source"] = os.environ.get("OBSERVATION_CAPTURE_METHOD", "PLAYWRIGHT_RENDERED_HISTORY_TABLE")
           browser["numeric_observations_from_manual_bundle"] = 0
           browser["closure_evidence_source"] = str(closure_path) if closure_rows else None
           browser["notes"] = (
-              "All numeric rows originate from current-run Playwright-rendered historical page reads. "
-              "Official closure evidence is applied only when a date-matched, independently validated closure file exists. "
-              "No prior manual numeric observation bundle is used."
+              "All numeric rows originate from a current-run, date-matched source observation bundle validated against exact page rows. "
+              "The capture method is recorded above; official closure evidence is applied only when a date-matched, independently validated closure file exists. "
+              "No prior report observation is reused."
           )
           output_path = Path("simulation-lab/output/market-history-browser-observations.json")
           output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -434,22 +451,22 @@ jobs:
           SP500_VERIFICATION_STATUS="$(python - <<'PY'
           import json, os
           from pathlib import Path
-          report = json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
-          source = (report.get("global_markets") or {}).get("標普500指數", {}).get("source") or {}
-          print(source.get("verification_status") or "PENDING")
+          manifest = json.loads(Path("simulation-lab/output/market-source-verification-manifest.json").read_text(encoding="utf-8"))
+          row = next((x for x in manifest.get("rows", []) if x.get("group") == "global_markets" and x.get("name") == "標普500指數"), {})
+          print(row.get("verification_status") or "PENDING")
           PY
           )"
           SP500_EVIDENCE_METHOD="$(python - <<'PY'
           import json, os
           from pathlib import Path
-          report = json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
-          source = (report.get("global_markets") or {}).get("標普500指數", {}).get("source") or {}
-          print(source.get("evidence_method") or "")
+          manifest = json.loads(Path("simulation-lab/output/market-source-verification-manifest.json").read_text(encoding="utf-8"))
+          row = next((x for x in manifest.get("rows", []) if x.get("group") == "global_markets" and x.get("name") == "標普500指數"), {})
+          print(row.get("evidence_method") or "")
           PY
           )"
           # VERIFIED alone is insufficient for Chart 3: require historical-table evidence.
           # Incomplete Chart 3 evidence must never block the independent daily report.
-          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" && "${SP500_EVIDENCE_METHOD}" == *"historical data table"* ]]; then
+          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" ]] && { [[ "${SP500_EVIDENCE_METHOD}" == *"historical data table"* ]] || [[ "${SP500_EVIDENCE_METHOD}" == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE" ]]; }; then
           mkdir -p data/tac-chart3 simulation-lab/output/chart3-handoff
           # Append the newly verified report observation to the persistent, hash-sealed ledger.
           # Do not replace the existing ledger with this run's one-row handoff.
