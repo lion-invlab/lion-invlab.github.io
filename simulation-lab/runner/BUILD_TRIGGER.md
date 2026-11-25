@@ -18,13 +18,13 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-26.json
-fixture_blob_sha: 4b33df495c62e9ebfcdb09a6aae475b5c7d14c31
-fixture_sha256: 1315c34fc4a85e3b48d37bcc34e3beca6c6606ce6371ee6b76c029543b654fe1
+fixture_blob_sha: ef57784ed30a5aff9caa465029f8980b48f32c45
+fixture_sha256: 4c63ea31ab72d9a1af0bb86ea53a2655c71338dffebfbf647f393526003656d1
 market_history_web_observations: simulation-lab/fixtures/market-history-web-observations-2026-11-26.json
-market_history_web_observations_blob_sha: daa671ee5f1bd5df1022ea99158836af2875a40f
-market_history_web_observations_sha256: 86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9
+market_history_web_observations_blob_sha: fb2ae2d62ef148d617fd9cc5d1920183e4c0febd
+market_history_web_observations_sha256: b82da105ef025393ecbe946f94bca49858b2f26d720109250b144e6d804a2d02
 market_history_capture_method: CHATGPT_WEB_OPEN_HISTORICAL_PAGE
-market_history_capture_session: manual-takeover-2026-11-26-retry-1
+market_history_capture_session: manual-exception-build-2026-11-26
 main_calendar_commit_sha: c635797d443257fff5275f678d7a40c1a6690378
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 342a51861991cfaa7367d83dffa91a71f6fa7cf5
@@ -47,7 +47,7 @@ quote_type_guard_test_blob_sha: f60d14db2b84333a44849cb2bb6aac100481aca5
 stage1_status: COMPLETE
 stage2_status: PARTIAL_42_VERIFIED_2_PENDING
 stage2_expected_rows: 44
-stage2_pending_known: MOVE; Hang Seng direct historical row not confirmed
+stage2_pending_known: MOVE primary historical close
 stage3_status: COMPLETE_READ_ONLY_MAIN_W48
 stage3_calendar_blob_sha: 342a51861991cfaa7367d83dffa91a71f6fa7cf5
 stage4_status: COMPLETE_NEWS_AND_FIVE_LAYER_ANALYSIS
@@ -57,14 +57,14 @@ stage4_unique_news_urls: 15
 prebuild_stage_2_to_4_receipt_required: true
 prebuild_receipt_path_pattern: simulation-lab/runs/prebuild-stage-input-receipt-2026-11-26-{GITHUB_RUN_ID}.json
 prebuild_receipt_sha256: GENERATED_BY_WORKFLOW_AFTER_VALIDATION
-retry_attempt: 2
-retry_max_attempts: 2
-prior_failed_run_id: 45712219629
-prior_failed_commit_sha: 485c4aa6e8af732bf53dc1e3261e538d1d441a88
+retry_attempt: 3 (user-authorized exception)
+retry_max_attempts: 3 (one explicit user-authorized exception)
+prior_failed_run_id: 45712739806
+prior_failed_commit_sha: a11dbe725b937feb8be565a783818e5422ea1f3a
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
 stage2_source_pages_fetched_this_run: true
 stage2_displayed_values_independently_reconciled_this_run: false
 
-This date-scoped marker uses a current-run ChatGPT Web observation bundle rather than the failed Runner Playwright fallback. It contains 42 current-date rows; Hang Seng direct historical row and MOVE 2026-11-25 row remain PENDING and must not be filled from prior dates or side-panel values. The S&P 500 source fields in the canonical fixture are explicitly synchronized to the verified bundle row for Chart 3 handoff. No main publication is authorized.
+This date-scoped marker is the user-authorized final exception build after two failed attempts. The canonical Fixture and Observation Bundle SHA values above are current. The previously failed pre-build receipt is invalid because it was bound to an older Fixture; the workflow must generate a new receipt for this commit/run. MOVE remains pending on primary historical-close evidence and must not be promoted from the user's intraday screenshot. No main publication is authorized.
