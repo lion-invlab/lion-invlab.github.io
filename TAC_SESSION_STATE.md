@@ -4450,3 +4450,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 精確修正前述交接措辭：Stage 2–4 receipt 確實在該次 Run 內產生並隨主 Artifact 上傳，但未在 Simulation branch 的 `simulation-lab/runs/` 找到 run-specific archive；不得稱為已完成 branch archive／遠端 read-back。Receipt 亦綁定舊 Fixture SHA，現已不適用於修正後 Fixture。
 - 目前修正後 Fixture 的 Git blob SHA=52a4b310415d468df8a78b753d3ae750dccc436d；舊 receipt 中 Fixture content SHA-256=9978734d112e1e8091ac0e6396352ed509aee22dad237b1da67b51ed1e519644，兩者不是同一種 hash 表示且來源內容版本已變更；不得沿用舊 receipt。下一個獲授權 Run 必須重新生成 receipt 並綁定新 Fixture 的實際 SHA-256。
 - 以上為既有 Run 證據補正；未觸發新 Workflow、未修改 main／Builder／Workflow／QA Contract。
+
+
+## 2026-11-26｜Run 45712739806 Artifact 深入核對補充
+
+- 已實際解壓主 Artifact 與 post-upload audit Artifact。主 Artifact 共 22 個檔案，包含 44-row market audit／manifest、兩份母版、Chart 3 S&P 500 handoff、Stage 2–4 receipt；但沒有 11/26 成品 HTML 或 QA sidecar。Post-upload audit 獨立判定 FAIL，缺少 HTML、QA sidecar、visual-regression.json、interaction-smoke.json；兩份母版檔案存在不代表雙母版視覺／DOM Gate 已通過。
+- 44 行情來源 manifest 實際狀態：41 VERIFIED、1 BACKUP_VERIFIED（CNN Fear & Greed 使用 FGScore 備援觀察）、2 PENDING（MOVE、香港恆生）。42 筆有完整 current ChatGPT Web open historical-page observation 與 observation_record_sha256；不是 44/44 全數完成。
+- 重要證據邊界：receipt／audit 明確記錄 `source_pages_fetched_this_run=false`、`numeric_values_reconciled_this_run=false`；audit scope 是 `METADATA_AND_DATE_ONLY`。因此 42 筆紀錄可稱為當次輸入所附的 ChatGPT Web 頁面觀察，不得說成 GitHub Workflow 本身重新擷取來源頁或完成獨立數值複核。Receipt 的 `numeric_values_reconciled_count=42` 是數量欄位，不能覆蓋 `numeric_values_reconciled_this_run=false` 的明確布林限制。
+- `browser_observation_records_complete=false`，兩筆缺紀錄為 MOVE 與香港恆生；其餘 42 筆有 observation record hash。這也說明 receipt PASS 僅代表規定輸入格式／身份及完整性條件通過，不代表 44 項行情全部已核實，更不代表資料層 REVIEW_READY。
+- 11/26 主 Artifact 的 prebuild receipt SHA-256 `76bff07d215ca66407969ce9f93e19189377660dadfcb8f72e37a29110d88ded` 綁定當時 Fixture SHA-256 `9978734d112e1e8091ac0e6396352ed509aee22dad237b1da67b51ed1e519644`；Fixture 後續移除四筆 stale `calendar_impact_overrides` 後已變更，該收據不能沿用。下一次獲授權完整執行須按新 Fixture 重新產生 receipt，並明確保留 2 筆行情待核實狀態，除非取得新的合格來源證據。
+- 本次僅作 Artifact 證據檢視與文件補充；沒有第三次觸發、沒有手動執行 Builder、沒有修改受保護程式或 main。
