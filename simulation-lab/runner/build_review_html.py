@@ -3205,7 +3205,7 @@ def main():
         required_chinese_labels = ("第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力")
         if any(label not in levels_text for label in required_chinese_labels):
             raise ValueError("key levels must use all five Chinese labels in vertical rows")
-    elif "暫不提供支撐" not in levels_text:
+    elif "數值待核實" not in levels_text:
         raise ValueError("pending key levels state did not assemble")
     if data["core_observation"]["text"] not in focus_tabs["core"].get_text(" ", strip=True):
         raise ValueError("core observation text did not assemble")
