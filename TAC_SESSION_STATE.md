@@ -4370,3 +4370,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Fixture路徑：simulation-lab/fixtures/report-data-2026-11-26.json；Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51。市場行情獨立核驗、Stage2 manifest、Stage2–4 prebuild receipt均待Workflow執行。
 - 下一步：更新日期觸發標記並以唯一push marker提交；追蹤精確commit SHA的Simulation Workflow，讀取失敗step logs或回讀HTML／QA sidecar／預覽。
 - 保護：main/index.html、正式母版、正式Manifest、正式行事曆、Workflow、Builder及QA Contract均未修改；publish_to_main=false。
+
+
+## 2026-11-26｜BUILD_TRIGGER_COMMITTED／WORKFLOW_RUNNING（2026-11-26T06:02:12+08:00）
+
+- Marker commit：cedfcfb29a22edfc24eb7749f79f7bf989761eea；commit message 含 [build-tac-report:2026-11-26]。
+- 主Workflow：45709983694；Workflow名稱 TAC isolated simulation lab；event=push；head_sha與marker commit完全相同；目前 in_progress。
+- YAML lint Run：45709983745，completed/success。
+- 主Workflow已完成Checkout Simulation branch only、checkout provenance、Python setup；目前停在Install Python dependencies。尚未開始Playwright 44頁驗證；prebuild receipt、Builder、HTML、QA sidecar及預覽均尚未取得。
+- Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51；Fixture blob SHA：4b2dbf2c42b221aff4797ec26b85a945a015c84c。
+- 下一步：追蹤Run 45709983694，確認44頁瀏覽器核驗、Stage2 audit/manifest、Stage2–4 receipt及後續Builder/QA結果；不以lint success代表早報完成。
