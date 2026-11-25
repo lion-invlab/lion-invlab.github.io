@@ -698,10 +698,12 @@ def set_market_observation(node, title, value):
         )
         if text_slot is None:
             raise ValueError("market observation has no existing text slot")
-        text_slot.replace_with(str(title).strip() + " ｜ " + raw)
+        prefix = str(title).strip() + " ｜ " if str(title).strip() else ""
+        text_slot.replace_with(prefix + raw)
         return
 
-    heading.string = str(title).strip() + " ｜ "
+    if str(title).strip():
+        heading.string = str(title).strip() + " ｜ "
     text_slot = first_text_after(heading)
     if text_slot is None:
         raise ValueError("market observation summary text slot is missing")
