@@ -286,83 +286,14 @@ jobs:
           set -euo pipefail
           mkdir -p simulation-lab/output
           export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
-          WEB_EVIDENCE="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
-          if [ -f "${WEB_EVIDENCE}" ]; then
-            python - "${WEB_EVIDENCE}" "${REPORT_DATE}" "${REPORT_DATA}" <<'PY'
-          import json
-          import sys
-          from pathlib import Path
-          evidence_path = Path(sys.argv[1])
-          report_date = sys.argv[2]
-          fixture_path = Path(sys.argv[3])
-          evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-          fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
-          rows = evidence.get("observations") or []
-          keys = [(row.get("group"), row.get("name")) for row in rows]
-          if evidence.get("report_date") != report_date or evidence.get("trading_date") != fixture.get("trading_date"):
-              raise SystemExit("Direct web evidence date does not match the current report fixture")
-          if len(rows) != 44 or len(set(keys)) != 44 or any(not all(key) for key in keys):
-              raise SystemExit(f"Direct web evidence must contain 44 unique rows; got {len(rows)}")
-          if any(row.get("target_date") != fixture.get("trading_date") for row in rows):
-              raise SystemExit("Direct web evidence contains a mixed trading date")
-          if any(row.get("status") not in ("VERIFIED", "PENDING", "OBSERVED_PENDING_VALIDATION", "TOOL_READ_FAILURE", "SOURCE_NO_DATA") for row in rows):
-              raise SystemExit("Direct web evidence contains an unsupported row status")
-          status_counts = {}
-          for row in rows:
-              status = row.get("status") or "MISSING"
-              status_counts[status] = status_counts.get(status, 0) + 1
-          verified_count = sum(row.get("status") == 'VERIFIED' for row in rows)
-          pending_count = sum(row.get("status") in ('PENDING', 'OBSERVED_PENDING_VALIDATION') for row in rows)
-          print(f"Loaded {len(rows)} direct web observations; verified={verified_count}; pending={pending_count}; status_counts={status_counts}")
-          PY
-            cp "${WEB_EVIDENCE}" simulation-lab/output/market-history-browser-observations.json
-            exit 0
-          fi
-          # SIM-1.4 fast-build mode: do not block report production on 44 browser page reads.
-          # All 44 rows remain explicitly PENDING; fixture values are not promoted to VERIFIED.
-          python - "${REPORT_DATA}" "${REPORT_DATE}" <<'PY'
-          import json, sys
-          from pathlib import Path
-          fixture = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-          report_date = sys.argv[2]
-          trading_date = fixture["trading_date"]
-          rows = []
-          for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
-              for name, item in (fixture.get(group) or {}).items():
-                  source = item.get("source") or {}
-                  rows.append({
-                      "group": group, "name": name, "source_url": source.get("url"),
-                      "target_date": trading_date, "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-                      "instrument_identity_status": "NOT_INDEPENDENTLY_VERIFIED",
-                      "field_mapping_status": "NOT_RUN", "source_page_fetched": False,
-                      "provenance": "NOT_RUN_FAST_BUILD", "read_method": "SKIPPED_TO_PRIORITIZE_REPORT_DELIVERY",
-                      "error": "Live 44-page browser verification skipped by fast-build policy; no numeric verification claim."
-                  })
-          for name, source in (fixture.get("sector_sources") or {}).items():
-              rows.append({
-                  "group": "sectors", "name": name, "source_url": source.get("url"),
-                  "target_date": trading_date, "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-                  "instrument_identity_status": "NOT_INDEPENDENTLY_VERIFIED",
-                  "field_mapping_status": "NOT_RUN", "source_page_fetched": False,
-                  "provenance": "NOT_RUN_FAST_BUILD", "read_method": "SKIPPED_TO_PRIORITIZE_REPORT_DELIVERY",
-                  "error": "Live 44-page browser verification skipped by fast-build policy; no numeric verification claim."
-              })
-          if len(rows) != 44:
-              raise SystemExit(f"Expected 44 pending rows, got {len(rows)}")
-          out = {
-              "schema_version": "1.1", "report_date": report_date, "trading_date": trading_date,
-              "method": "FAST_BUILD_WITH_EXPLICIT_PENDING_MARKET_OBSERVATIONS",
-              "row_count": 44, "verified_count": 0, "closed_count": 0, "pending_count": 44,
-              "status_counts": {"PENDING_CURRENT_RUN_BROWSER_OBSERVATION": 44},
-              "source_pages_fetched_this_run": False,
-              "displayed_values_independently_reconciled_this_run": False,
-              "observations": rows,
-              "warning": "All market observations are pending; fixture values are not independently verified in this run."
-          }
-          Path("simulation-lab/output/market-history-playwright-observations.json").write_text(
-              json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-          print("FAST_BUILD: 44 market rows registered as PENDING; browser verification skipped.")
-          PY
+          # Always perform current-run Playwright reads of all 44 historical source pages.
+          # Never reuse a fixture observation bundle or silently substitute all-PENDING fast-build rows.
+          python simulation-lab/runner/browser_verify_market_history.py \
+            --fixture "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --output simulation-lab/output/market-history-playwright-observations.json \
+            --concurrency 2 \
+            --timeout-ms 15000
           python - <<'PY'
           import json
           import os
