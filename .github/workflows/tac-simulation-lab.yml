@@ -44,7 +44,8 @@ concurrency:
   # Full report builds are explicitly selected by [build-tac-report:YYYY-MM-DD] commit messages.
   # 11/24 rebuild includes current-date review-banner QA guard.
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
-  group: tac-simulation-review-delivery
+  # Temporary one-off group for the corrected Builder approval rebuild; restore after launch.
+  group: tac-simulation-review-delivery-direct-web-20261125b
   cancel-in-progress: false
 
 jobs:
