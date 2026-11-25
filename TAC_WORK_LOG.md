@@ -3418,3 +3418,21 @@ QA Sidecar：
 
 ### 下一步
 建立本日 Fixture 與 observation bundle，跑 Stage 2 validators；完成 Stage 3–4 後才更新 BUILD_TRIGGER，並以 [build-tac-report:2026-11-26] 唯一路徑觸發 Simulation Workflow。不得以舊 Fixture 或舊 HTML 冒充本日成果。
+
+
+## 2026-11-26 06:02｜11/26 Fixture、新聞與行事曆投影完成
+
+### 已組裝內容
+- report_date=2026-11-26；trading_date=2026-11-25；manual takeover batch=manual-takeover-2026-11-26。
+- 44項行情資料已按11/25收盤更新：17全球指數、11產業ETF、3美債殖利率、6匯率、2能源、2貴金屬、3風險指標。MOVE因11/25歷史列尚未出現而保留待核實；Fear & Greed使用FGScore備援15，未冒充CNN官方API直接驗證。
+- W48行事曆採main最新blob 342a51861991cfaa7367d83dffa91a71f6fa7cf5（main commit c635797d443257fff5275f678d7a40c1a6690378），經濟27筆、財報11筆，更新時間 2026-11-26T04:51:14+08:00。
+- 新聞窗口2026/11/25 12:00至2026/11/26 05:50:25；5則Global Focus News、10則Hot Headlines，15個唯一URL；五層市場分析與六領域政治掃描已更新。
+- 當日Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51。
+
+### 尚待Workflow核驗
+- Playwright對44個歷史頁的當次讀取與數值比對；source manifest、market audit、Stage2–4 prebuild receipt。
+- Builder、完整E2E、HTML SHA-256、QA sidecar REVIEW_READY與預覽回讀。
+- MOVE維持PENDING；不沿用11/24舊值。關鍵價位因缺少11/25五大現金指數完整OHLC，暫不沿用11/20樞紐點。
+
+### 保護狀態
+僅Simulation branch；未修改main/index.html、正式母版、正式Manifest、正式行事曆、Workflow、Builder或QA Contract；main發布未授權。
