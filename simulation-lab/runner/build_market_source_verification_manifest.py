@@ -175,7 +175,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and read_method == "USER_PROVIDED_SCREENSHOT"
         and source.get("source_role") == "USER_PROVIDED_SCREENSHOT"
         and bool(source.get("screenshot_sha256"))
-        and bool(source.get("screenshot_quote_time"))
+        and bool(source.get("screenshot_quote_time") or source.get("quote_timestamp_source") or source.get("screenshot_capture_time_taipei"))
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
     page_read_ok = (
@@ -201,8 +201,14 @@ def verification_fields(source: dict, display, change_display, observation: dict
         field_ok = value_field == "Score" and change_field == "Band"
     elif is_fear_greed:
         field_ok = (
-            value_field == "fear_and_greed.previous_close"
-            and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
+            (
+                value_field == "fear_and_greed.previous_close"
+                and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
+            )
+            or (
+                value_field == "fear_and_greed.target_date_score"
+                and change_field == "fear_and_greed.target_date_rating"
+            )
         )
     else:
         field_ok = (
@@ -218,7 +224,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     expected_raw_value = (
         source.get("backup_source_score_value", source.get("score_value"))
         if fear_greed_backup
-        else source.get("source_score_value")
+        else source.get("cnn_target_date_score", source.get("source_score_value"))
     ) if is_fear_greed else None
     raw_score_match = (
         _numeric_match(observation.get("observed_value"), expected_raw_value)
