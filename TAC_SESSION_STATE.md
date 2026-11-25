@@ -4441,3 +4441,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Builder 未修改，遠端 SHA 仍為 SIM-1.4 核准 SHA de97048c280c911322c57829d8e936f80358e88b。Workflow、QA Contract、母版、Manifest、main 與正式行事曆 JSON 均未修改。
 - 重要：原 Stage 2–4 receipt 綁定舊 Fixture SHA 4b33df495c62e9ebfcdb09a6aae475b5c7d14c31；Fixture 更新後舊 receipt 不得再當作當前有效收據。原 receipt 僅保留為本次失敗執行的歷史證據。下一次獲授權的完整執行必須重新生成本次 Fixture SHA 對應的 Stage 2–4 receipt，並確認 workflow_run_id／attempt 一致。
 - 當日兩次重試已用完；本次只完成根因修正與遠端回讀，不代表 Builder 已重新通過、不代表 HTML／QA 產出、不代表 REVIEW_READY。下一步：在下一個獲授權的報告日期，重新擷取／核驗當日輸入、生成新 receipt，再由唯一核准 Builder 組裝並完成 Stage 5–6 QA。
+
+
+## 2026-11-26 06:24 Asia/Taipei｜補正 11/26 receipt／Artifact 封存狀態
+
+- 重新下載並檢視 Run 45712739806 的兩個 GitHub Actions Artifacts。主 Artifact `tac-simulation-45712739806-1`（artifact id 15067987953；digest sha256:fad3b7fbbcbbf4836299a344616e6e10a0ba07b7d8457d613df5604db0c033ad）內含 `simulation-lab/output/prebuild-stage-input-receipt.json`、market audit／manifest、觀察紀錄及母版輸出。Receipt status=PASS、SHA-256=76bff07d215ca66407969ce9f93e19189377660dadfcb8f72e37a29110d88ded，workflow_run_id=45712739806、attempt=1；receipt 綁定當時 Fixture SHA-256=9978734d112e1e8091ac0e6396352ed509aee22dad237b1da67b51ed1e519644。
+- Post-upload audit Artifact `tac-simulation-postupload-audit-45712739806-1`（artifact id 15069100630；digest sha256:9903df1e899f269844259af4261ba258f605a964bf151e55feb4135bae31f995）內 `artifact-postupload-verification.json` status=FAIL。Required evidence：runner metadata、prebuild receipt、market audit、source manifest=true；HTML、QA sidecar、visual regression、interaction smoke、dual-mother visual／DOM gates=false。缺檔清單為 preview/2026-11-26-simulation.html、preview/2026-11-26-simulation.qa.json、simulation-lab/output/visual/visual-regression.json、simulation-lab/output/interaction-smoke.json。
+- 精確修正前述交接措辭：Stage 2–4 receipt 確實在該次 Run 內產生並隨主 Artifact 上傳，但未在 Simulation branch 的 `simulation-lab/runs/` 找到 run-specific archive；不得稱為已完成 branch archive／遠端 read-back。Receipt 亦綁定舊 Fixture SHA，現已不適用於修正後 Fixture。
+- 目前修正後 Fixture 的 Git blob SHA=52a4b310415d468df8a78b753d3ae750dccc436d；舊 receipt 中 Fixture content SHA-256=9978734d112e1e8091ac0e6396352ed509aee22dad237b1da67b51ed1e519644，兩者不是同一種 hash 表示且來源內容版本已變更；不得沿用舊 receipt。下一個獲授權 Run 必須重新生成 receipt 並綁定新 Fixture 的實際 SHA-256。
+- 以上為既有 Run 證據補正；未觸發新 Workflow、未修改 main／Builder／Workflow／QA Contract。
