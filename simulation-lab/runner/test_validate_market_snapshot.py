@@ -73,7 +73,7 @@ def main():
     del missing_etf_source["sector_sources"]["XLK"]
     expect_error(lambda: validate_market_snapshot(missing_etf_source, "2026-11-23"), "key mismatch")
 
-    print("PASS: 44 indicator count, per-row HTTPS source metadata, common date, CFD suppression, commodity identity and ETF source map")
+    print("PASS: 44 indicator count, common date, CFD suppression, commodity identity, pending commodity suppression and ETF source map")
 
 
 if __name__ == "__main__":
