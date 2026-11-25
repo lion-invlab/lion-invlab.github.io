@@ -1641,7 +1641,7 @@
       }
     },
     "fear_greed": {
-      "display": 15,
+      "display": "15",
       "change_display": "極度恐懼",
       "band": "極度恐懼",
       "source": {
@@ -1649,7 +1649,7 @@
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-25",
         "quote_type": "third_party_provider_index",
-        "note": "11/25 risk indicator expected value; current-run ChatGPT Web observation bundle will be validated by workflow.",
+        "note": "2026-11-25 FGScore 歷史頁直接觀察：Score 15、Band 極度恐懼。原始頁面列已附於同日 44-row ChatGPT Web observation bundle；CNN 官方 previous_close 日期映射未能嚴格確認，因此採用明確標示的 BACKUP_1 備援。",
         "read_at_taipei": "2026-11-26T06:17:22+08:00",
         "score_value": 15,
         "band": "極度恐懼",
@@ -1660,16 +1660,16 @@
         "history_close": 15,
         "daily_change_percent": null,
         "history_change": null,
-        "checked_at_tw": "2026-11-26T06:17:22+08:00",
+        "checked_at_tw": "2026-11-26T07:14:00+08:00",
         "verified_at_tw": null,
         "evidence_method": null,
-        "web_reader_ref": null,
-        "web_line_start": null,
-        "web_line_end": null,
-        "read_method": "PENDING_CHATGPT_WEB_BUNDLE_VALIDATION",
-        "read_status": "PENDING",
-        "observed_value": null,
-        "observed_change": null,
+        "web_reader_ref": "https://fgscore.com/en/markets/sp500",
+        "web_line_start": 50,
+        "web_line_end": 50,
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 15,
+        "observed_change": "極度恐懼",
         "backup_source_score_value": 15,
         "cross_check_name": "CNN Business official Fear & Greed graphdata API",
         "cross_check_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
@@ -1684,17 +1684,22 @@
         "primary_source_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
         "provenance": null,
         "instrument_identity": "CNN Fear & Greed Index (provider index)",
-        "source_page_fetched": false,
+        "source_page_fetched": true,
         "page_title": "US stocks · CNN Fear & Greed Index — Today's Score & Chart",
         "cross_check_value": null,
-        "backup_web_reader_ref": null,
-        "backup_web_line_start": null,
-        "backup_web_line_end": null,
+        "backup_web_reader_ref": "https://fgscore.com/en/markets/sp500",
+        "backup_web_line_start": 50,
+        "backup_web_line_end": 50,
         "trading_date": "2026-11-25",
         "display_value_matches_saved_observation": false,
         "checked_at_taipei": "2026-11-26T06:17:22+08:00",
-        "backup_source_url": "https://fgscore.com/en/markets/sp500"
-      }
+        "backup_source_url": "https://fgscore.com/en/markets/sp500",
+        "observation_bundle_path": "simulation-lab/fixtures/market-history-web-observations-2026-11-26.json",
+        "observation_bundle_blob_sha": "fb2ae2d62ef148d617fd9cc5d1920183e4c0febd",
+        "observation_record_status": "RAW_CAPTURE_AWAITING_VALIDATOR_NORMALIZATION"
+      },
+      "value": 15,
+      "as_of": "2026-11-25"
     }
   },
   "fedwatch": {
@@ -11869,7 +11874,7 @@
       "text": "2年、10年及30年美債殖利率分別下滑1.9、3.7及3.6個基點；WTI與Brent上漲，VIX升至28.36，Fear & Greed為15（極度恐懼）。MOVE缺少11/25歷史列，維持待核實，不沿用前一交易日數值。"
     }
   ],
-  "warning_note": "當次觀察Bundle已驗證42筆；MOVE及恆生直接歷史列未確認，保留待核實。S&P 500 11/25收盤7,181.36、變動-0.27%，已具備Investing.com歷史表格證據與當次驗證狀態，供Chart 3增量交接。",
+  "warning_note": "行情逐項依當次證據顯示；MOVE採使用者收盤截圖97.54、下跌1.30（-1.32%），不得以11/24歷史頁資料替代。仍待核實項目：MOVE歷史頁11/25列、五大指數完整同日OHLC樞紐點。其他44項行情狀態須以本次current-run manifest為準；未核實欄位不可使用舊Fixture數值。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -12313,7 +12318,7 @@
   },
   "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
   "market_sentiment": "風險偏好偏弱且區域分化：VIX 28.36、單日上升7.59%；CNN Fear & Greed採FGScore備援讀值15（極度恐懼），官方CNN日期映射仍待本輪核對；MOVE缺少11/25歷史列，標示待核實。Investing.com Fed Rate Monitor顯示12/9升息25個基點機率95.6%、維持現行3.75%–4.00%機率4.4%，此為期貨隱含機率，不是聯準會決策。",
-  "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。當次ChatGPT Web observation bundle經Workflow驗證42筆；S&P 500來源狀態同步為VERIFIED以完成Chart 3交接，MOVE與恆生直接歷史列維持PENDING。W48行事曆、5則Focus News、10則Headlines及五層分析均已通過Stage 2–4輸入收據。",
+  "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。06:40台灣時間當次ChatGPT Web observation bundle共44筆：43筆來源頁成功讀取、MOVE歷史頁未提供11/25列。S&P 500與恆生目前為VERIFIED；MOVE採用使用者提供的11/25收盤截圖獨立備援。Fear & Greed 15已取得FGScore 11/25歷史頁觀察，待正式validator完成正規化。W48行事曆、5則Focus News、10則Headlines及五層分析已存在於Fixture，仍須由本次Workflow收據綁定驗證。",
   "report_cutoff_taipei": "2026-11-26T05:50:25+08:00",
   "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50",
   "key_levels_overrides": {},
