@@ -3394,3 +3394,27 @@ QA Sidecar：
 - SIM-1.4 禁止把 Workflow 複製到 main；本執行環境沒有 workflow_dispatch 或 tag-push 動作，不能安全觸發本輪 Pipeline。故 Stage 2–4 Fixture／Projection、BUILD_TRIGGER、Stage 5 Builder、Stage 6 HTML／Sidecar／Artifact、Stage 7 E2E 均未執行。未產生本輪 Run ID、HTML SHA-256 或 QA Sidecar。
 - 本輪未修改 main/index.html、main/preview、正式母版、Manifest、WR、QA Contract 或任何行事曆 JSON。唯一工作紀錄修改僅限本 simulation branch 根目錄 Session State／Work Log。
 - 最終狀態：Stage 1 PASS；Pipeline entry BLOCKED；review_ready=false。下一步必須取得不違反 main 保護邊界的正式 workflow 觸發方式；在此之前不得手動 Builder／手動重建 HTML。
+
+
+## 2026-11-26 05:56｜人工接手 11/26 早報
+
+### 當次狀態
+- STARTED；report_date=2026-11-26，trading_date=2026-11-25。
+- 人工接手時間：2026-11-26 05:50:25 Asia/Taipei；news cutoff 以本次接手時間為準。
+- 關聯排程 run：d6a4f050-94e0-8324-a5b0-56601598f351（外層 in_progress 不等於實際 worker 活躍）。
+- SIM-1.4 SHA：9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2；Simulation branch：simulation/tac-process-lab-2026-11-06。
+
+### 已完成查證
+1. 排程已喚醒，但當日 Fixture、HTML、QA sidecar 不存在；Actions 最新完整早報建置仍是 11/25，無 11/26 對應 Run。
+2. 已讀取最新 SIM-1.4、QA Contract、Manifest、weekday mother、核准 Builder；未觸碰保護資產。
+3. 44 項行情來源頁已重新讀取：11/25 當日資料可用 43 項；MOVE 尚無 11/25 歷史列，標示 PENDING。香港恆生指數以 Investing.com 歷史頁側欄讀值作交叉參考，必須在 observation 中揭露其不是該標的直接歷史表格列。
+4. main W48 行事曆 JSON 唯讀讀取，blob SHA 342a51861991cfaa7367d83dffa91a71f6fa7cf5；經濟 27 筆、財報 11 筆。
+
+### 尚未完成
+- 本日 canonical Fixture、44-row observation bundle、Stage 2 audit／manifest／receipt。
+- W48 calendar projection／Stage 3 receipt。
+- 11/25 12:00 至 11/26 05:50:25 新聞窗口的 5 則 Focus News、10 則 Headlines、五層分析及 Stage 4 receipt。
+- BUILD_TRIGGER、marker commit、對應 Workflow Run、HTML、QA sidecar、預覽回讀。
+
+### 下一步
+建立本日 Fixture 與 observation bundle，跑 Stage 2 validators；完成 Stage 3–4 後才更新 BUILD_TRIGGER，並以 [build-tac-report:2026-11-26] 唯一路徑觸發 Simulation Workflow。不得以舊 Fixture 或舊 HTML 冒充本日成果。
