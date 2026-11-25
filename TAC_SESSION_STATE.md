@@ -4409,3 +4409,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - Chart 3 handoff失敗根因：handoff script讀取canonical Fixture時，S&P 500 source.verification_status仍為PENDING_CURRENT_RUN_BROWSER_OBSERVATION，且evidence_method、source.daily_change_percent型態未符合handoff契約；manifest狀態沒有回寫Fixture。
 - Retry 2修正：S&P 500 Fixture source狀態同步為VERIFIED；補齊當次歷史表格evidence_method、web_reader_ref、line range、observed_value/change、provenance、checked_at_tw；daily_change_percent與display change同步為-0.27%。其餘MOVE及恆生仍PENDING。
 - Retry 2為最後一次允許重試；不得再觸發第三次。若仍失敗，依具體錯誤回報，不修改Workflow／Builder／QA Contract。
+
+
+## 2026-11-26｜Retry 2最後一次重試已觸發（2026-11-26T06:22:57+08:00）
+
+- Retry 2 marker commit：a11dbe725b937feb8be565a783818e5422ea1f3a；commit message含[build-tac-report:2026-11-26]。
+- 主Workflow Run：45712739806；TAC isolated simulation lab；event=push；head_sha與Retry 2 commit完全相同；目前in_progress。
+- YAML lint Run：45712739751；同一head_sha；目前in_progress。
+- 本輪修正S&P500 canonical Fixture狀態為VERIFIED，補齊Chart 3 handoff要求的歷史表格證據、觀察時間與daily_change_percent/display一致性；觀察Bundle及42 verified/2 pending狀態維持不變。
+- Retry 2為SIM-1.4允許的最後一次重試。下一步追蹤Chart 3 handoff、artifact bundle、Builder、HTML、QA與預覽；若再失敗，不再重試。
