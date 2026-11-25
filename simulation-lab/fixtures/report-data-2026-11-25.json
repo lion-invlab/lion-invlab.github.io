@@ -194,7 +194,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn477670view3",
+        "web_reader_ref": "turn648558view0",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -204,7 +204,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Dow Jones Industrial Average (DJI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "道鐘斯30 歷史匯率 - Investing.com"
       }
     },
     "標普500指數": {
@@ -228,7 +229,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn487861view0",
+        "web_reader_ref": "turn648558view1",
         "web_line_start": 63,
         "web_line_end": 63,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -238,7 +239,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "S&P 500 (SPX)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "S&P 500 Historical Data (SPX) - Investing.com"
       }
     },
     "那斯達克綜合指數": {
@@ -261,7 +263,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn518892view0",
+        "web_reader_ref": "turn648558view2",
         "web_line_start": 49,
         "web_line_end": 49,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -271,7 +273,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Nasdaq Composite (IXIC)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "Nasdaq綜合指數 歷史匯率 - Investing.com"
       }
     },
     "羅素2000指數": {
@@ -294,7 +297,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view4",
+        "web_reader_ref": "turn648558view3",
         "web_line_start": 61,
         "web_line_end": 61,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -304,7 +307,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Russell 2000 (RUT)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "Russell 2000 Historical Data (RUT) - Investing.com"
       }
     },
     "費城半導體指數": {
@@ -327,7 +331,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view5",
+        "web_reader_ref": "turn648558view4",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -337,7 +341,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "PHLX Semiconductor (SOX)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "費城半導體指數 歷史匯率 - Investing.com"
       }
     },
     "日經225": {
@@ -361,7 +366,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view6",
+        "web_reader_ref": "turn648558view5",
         "web_line_start": 51,
         "web_line_end": 51,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -375,7 +380,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Nikkei 225 (N225)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "日經225指數 歷史匯率 - Investing.com"
       }
     },
     "韓國 KOSPI": {
@@ -398,7 +404,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view7",
+        "web_reader_ref": "turn648558view6",
         "web_line_start": 51,
         "web_line_end": 51,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -408,7 +414,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "KOSPI (KS11)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "韓國KOSPI指數 歷史匯率 - Investing.com"
       }
     },
     "台灣加權指數": {
@@ -431,7 +438,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view8",
+        "web_reader_ref": "turn648558view7",
         "web_line_start": 51,
         "web_line_end": 51,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -441,7 +448,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Taiwan Weighted (TWII)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "臺灣加權指數 歷史匯率 - Investing.com"
       }
     },
     "新加坡海峽時報指數 STI": {
@@ -464,7 +472,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view9",
+        "web_reader_ref": "turn648558view8",
         "web_line_start": 49,
         "web_line_end": 49,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -474,7 +482,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "FTSE Straits Times Singapore (STI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "FTSE Straits Times Singapore 歷史匯率 - Investing.com"
       }
     },
     "澳洲 S&P/ASX 200": {
@@ -497,7 +506,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view10",
+        "web_reader_ref": "turn648558view9",
         "web_line_start": 51,
         "web_line_end": 51,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -507,7 +516,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "S&P/ASX 200 (AXJO)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "澳大利亞200 歷史匯率 - Investing.com"
       }
     },
     "上海綜合指數": {
@@ -530,7 +540,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view11",
+        "web_reader_ref": "turn648558view10",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -540,7 +550,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Shanghai Composite (SSEC)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "上證綜合指數 歷史匯率 - Investing.com"
       }
     },
     "深證成指": {
@@ -563,7 +574,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn477670view4",
+        "web_reader_ref": "turn648558view11",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -573,7 +584,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "SZSE Component (SZI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "深證成份指數 歷史匯率 - Investing.com"
       }
     },
     "香港恆生指數": {
@@ -597,7 +609,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn837118view3",
+        "web_reader_ref": "turn648558view12",
         "web_line_start": 63,
         "web_line_end": 63,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -607,7 +619,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Hang Seng (HSI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "Hang Seng Historical Data (HSI) - Investing.com"
       }
     },
     "英國 FTSE 100": {
@@ -631,7 +644,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn477670view0",
+        "web_reader_ref": "turn648558view13",
         "web_line_start": 63,
         "web_line_end": 63,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -641,7 +654,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "FTSE 100 (FTSE)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "FTSE 100 Historical Data (FTSE) - Investing.com"
       }
     },
     "德國 DAX": {
@@ -665,7 +679,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn477670view1",
+        "web_reader_ref": "turn648558view14",
         "web_line_start": 62,
         "web_line_end": 62,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -675,7 +689,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "DAX (GDAXI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "DAX Historical Data (GDAXI) - Investing.com"
       }
     },
     "法國 CAC 40": {
@@ -698,7 +713,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn454438view4",
+        "web_reader_ref": "turn139716view0",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -708,7 +723,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "CAC 40 (FCHI)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "法國40 歷史匯率 - Investing.com"
       }
     },
     "STOXX Europe 600": {
@@ -732,7 +748,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn477670view2",
+        "web_reader_ref": "turn648558view15",
         "web_line_start": 51,
         "web_line_end": 51,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -742,7 +758,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "STOXX 600 (STOXX)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "STOXX 600 Historical Data (STOXX) - Investing.com"
       }
     }
   },
@@ -791,7 +808,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn103064view0",
+        "web_reader_ref": "turn543960view0",
         "web_line_start": 49,
         "web_line_end": 49,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -800,7 +817,8 @@
         "observed_change": "+0.24%",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "United States 2-Year Bond Yield",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "United States 2-Year Bond Historical Data - Investing.com"
       },
       "change_display": "+1.1 bp"
     },
@@ -835,7 +853,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn103064view1",
+        "web_reader_ref": "turn543960view1",
         "web_line_start": 49,
         "web_line_end": 49,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -844,7 +862,8 @@
         "observed_change": "-0.37%",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "United States 10-Year Bond Yield",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "United States 10-Year Bond Historical Data - Investing.com"
       },
       "change_display": "-1.8 bp"
     },
@@ -879,7 +898,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn103064view2",
+        "web_reader_ref": "turn543960view2",
         "web_line_start": 49,
         "web_line_end": 49,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -888,7 +907,8 @@
         "observed_change": "-0.06%",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "United States 30-Year Bond Yield",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "United States 30-Year Bond Historical Data - Investing.com"
       },
       "change_display": "-0.3 bp"
     }
@@ -916,7 +936,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn874495view0",
+        "web_reader_ref": "turn543960view3",
         "web_line_start": 50,
         "web_line_end": 50,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -926,7 +946,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "US Dollar Index (DXY)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "US Dollar Index Historical Data (DXY) - Investing.com"
       }
     },
     "美元／新台幣": {
@@ -949,7 +970,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn448706view0",
+        "web_reader_ref": "turn543960view4",
         "web_line_start": 189,
         "web_line_end": 189,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -959,7 +980,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "USD/TWD",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "USD TWD 史料- Investing.com"
       }
     },
     "歐元／美元": {
@@ -982,7 +1004,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn448706view1",
+        "web_reader_ref": "turn543960view5",
         "web_line_start": 186,
         "web_line_end": 186,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -992,7 +1014,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "EUR/USD",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "EUR USD 史料- Investing.com"
       }
     },
     "英鎊／美元": {
@@ -1015,7 +1038,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn448706view2",
+        "web_reader_ref": "turn543960view6",
         "web_line_start": 148,
         "web_line_end": 148,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -1025,7 +1048,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "GBP/USD",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "GBP USD 史料- Investing.com"
       }
     },
     "澳幣／美元": {
@@ -1048,7 +1072,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn448706view3",
+        "web_reader_ref": "turn543960view7",
         "web_line_start": 121,
         "web_line_end": 121,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -1058,7 +1082,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "AUD/USD",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "AUD USD 史料- Investing.com"
       }
     },
     "美元／日圓": {
@@ -1081,7 +1106,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn448706view4",
+        "web_reader_ref": "turn543960view8",
         "web_line_start": 199,
         "web_line_end": 199,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -1091,7 +1116,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "USD/JPY",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "USD to JPY Historical Exchange Rate Data - Investing.com"
       }
     }
   },
@@ -1140,7 +1166,8 @@
         "note": "本輪直接讀取 Investing.com 歷史資料頁 2026-11-24 行情列；收盤 81.63，日變動 +1.82%。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "WTI Crude Oil Futures",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "WTI原油期貨 歷史價格 - Investing.com"
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
       "change_points": "+0.77",
@@ -1179,7 +1206,8 @@
         "observed_change": "+2.27%",
         "instrument_identity": "Brent Oil Futures",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "倫敦布倫特原油期貨 歷史價格 - Investing.com"
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
       "display_name": "Brent 原油期貨",
@@ -1230,7 +1258,8 @@
         "note": "本輪直接讀取 Investing.com 歷史資料頁 2026-11-24 行情列；收盤 3,548.90，日變動 -2.81%。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Gold Futures",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "黃金期貨 歷史價格 - Investing.com"
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
       "display_name": "黃金期貨"
@@ -1278,7 +1307,8 @@
         "note": "本輪直接讀取 Investing.com 歷史資料頁 2026-11-24 行情列；收盤 40.745，日變動 -5.63%。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "Silver Futures",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "白銀期貨 歷史價格 - Investing.com"
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
       "display_name": "白銀期貨"
@@ -1306,7 +1336,7 @@
         "read_at_taipei": "2026-11-25T15:47:56+08:00",
         "verified_at_tw": "2026-11-25T15:47:56+08:00",
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-        "web_reader_ref": "turn394546view0",
+        "web_reader_ref": "turn279002view0",
         "web_line_start": 48,
         "web_line_end": 48,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -1316,7 +1346,8 @@
         "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "CBOE Volatility Index (VIX)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "CBOE Volatility Index Historical Rates (VIX) - Investing.com"
       }
     },
     "move": {
@@ -1353,12 +1384,13 @@
         "observed_value": "98.84",
         "observed_change": "-2.05%",
         "screenshot_quote_time": "2026-11-24 16:17 GMT-5",
-        "web_reader_ref": "turn394546view1",
+        "web_reader_ref": "turn279002view1",
         "web_line_start": 48,
         "web_line_end": 48,
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "ICE BofAML MOVE (MOVE)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "ICE BofAML MOVE Historical Data (MOVE) - Investing.com"
       }
     },
     "fear_greed": {
@@ -1424,7 +1456,8 @@
         "primary_source_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "CNN Fear & Greed Index (provider index)",
-        "source_page_fetched": true
+        "source_page_fetched": true,
+        "page_title": "US stocks · CNN Fear & Greed Index — Today's Score & Chart"
       }
     }
   },
@@ -2812,7 +2845,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn454438view8",
+      "web_reader_ref": "turn807411view2",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2824,7 +2857,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLE",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR Energy Select Sector FundETF歷史資料 - Investing.com"
     },
     "XLF": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2842,7 +2876,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view4",
+      "web_reader_ref": "turn807411view5",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2854,7 +2888,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLF",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "Financial Select Sector SPDR FundETF歷史資料 - Investing.com"
     },
     "XLK": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2872,7 +2907,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view9",
+      "web_reader_ref": "turn807411view10",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2884,7 +2919,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLK",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR Select Sector - TechnologyETF歷史資料 - Investing.com"
     },
     "XLI": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2902,7 +2938,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view8",
+      "web_reader_ref": "turn807411view9",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2914,7 +2950,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLI",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "Industrial Sector SPDR TrustETF歷史資料 - Investing.com"
     },
     "XLC": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2932,7 +2969,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view6",
+      "web_reader_ref": "turn807411view7",
       "web_line_start": 55,
       "web_line_end": 55,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2944,7 +2981,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLC",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "Communication Services Select Sector SPDRETF歷史資料 - Investing.com"
     },
     "XLB": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2962,7 +3000,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view5",
+      "web_reader_ref": "turn807411view6",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -2974,7 +3012,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLB",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR Materials Select SectorETF歷史資料 - Investing.com"
     },
     "XLU": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -2992,7 +3031,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn454438view9",
+      "web_reader_ref": "turn807411view3",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -3004,7 +3043,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLU",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR Select Sector - UtilitiesETF歷史資料 - Investing.com"
     },
     "XLRE": {
       "name": "Investing.com Global｜State Street Real Estate Select Sector SPDR ETF (XLRE) historical data",
@@ -3022,7 +3062,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view3",
+      "web_reader_ref": "turn807411view4",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -3034,7 +3074,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLRE",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "XLRE Stock Price History & Performance - Investing.com"
     },
     "XLY": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -3052,7 +3093,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn103064view7",
+      "web_reader_ref": "turn807411view8",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -3064,7 +3105,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLY",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR Consumer Discr. Select SectorETF歷史資料 - Investing.com"
     },
     "XLP": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -3082,7 +3124,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn454438view6",
+      "web_reader_ref": "turn807411view0",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -3094,7 +3136,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLP",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR - Consumer StaplesETF歷史資料 - Investing.com"
     },
     "XLV": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -3112,7 +3155,7 @@
       "read_at_taipei": "2026-11-25T15:47:56+08:00",
       "verified_at_tw": "2026-11-25T15:47:56+08:00",
       "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct historical data table row for 2026-11-24",
-      "web_reader_ref": "turn454438view7",
+      "web_reader_ref": "turn807411view1",
       "web_line_start": 56,
       "web_line_end": 56,
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
@@ -3124,7 +3167,8 @@
       "note": "本期來源觀察對應 2026-11-24 交易日；逐筆核驗狀態以本輪來源觀察紀錄為準。",
       "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
       "instrument_identity": "XLV",
-      "source_page_fetched": true
+      "source_page_fetched": true,
+      "page_title": "SPDR - Health CareETF歷史資料 - Investing.com"
     }
   },
   "key_levels": {
