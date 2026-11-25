@@ -274,17 +274,20 @@ try {
     }
     const mondayHasRetrospective = await reportPage.locator("#last-week-earnings .calendar-status-group").count();
     if (!mondayHasRetrospective) {
-      // The approved fund reminder may auto-open and cover the tab labels.
-      // Dismiss it and activate the published radio through the label's native click event.
-      await reportPage.evaluate(() => {
-        document.querySelector("#tfn-close")?.click();
-        document.querySelector('label[for="week-earnings-published"]')?.click();
-      });
-      await reportPage.waitForFunction(() => {
-        const radio = document.querySelector("#week-earnings-published");
-        const group = document.querySelector("#earnings .calendar-status-group:nth-child(3)");
-        return !!radio?.checked && !!group && getComputedStyle(group).display !== "none";
-      });
+      // The published-results state must be identical in the approved mother and
+      // the review before comparing responsive parent-grid geometry. Previously
+      // only the review activated this radio, leaving the two pages in different
+      // interaction states and producing false #calendar/#last-week-earnings gap diffs.
+      for (const page of [masterPage, reportPage]) {
+        await page.evaluate(() => {
+          document.querySelector("#tfn-close")?.click();
+          document.querySelector('label[for="week-earnings-published"]')?.click();
+        });
+        await page.waitForFunction(() => {
+          const radio = document.querySelector("#week-earnings-published");
+          return !!radio?.checked;
+        });
+      }
     }
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
