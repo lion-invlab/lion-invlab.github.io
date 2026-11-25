@@ -3536,3 +3536,14 @@ QA Sidecar：
 
 ### Git
 - 新增證據檔提交：`e034f50450a87b6618170e1b1b3264c7a61e95ee`。
+
+
+## 2026-11-26 06:40｜依使用者截圖與 Investing.com 原始歷史頁修正行情證據
+
+- 使用者提供的三張 PNG 原始檔 SHA-256 已在本次執行環境重新計算，與證據說明檔記載一致：MOVE 截圖 `24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158`；恆生兩張截圖分別為 `1935563386128bb080cb56b3c583aa310789420b14729b448c6aa34cd63e4a29`、`64fa6f1641ca59f45bb628bb5945fdc1e396a8bb6c1ea75763751e00da13b523`。
+- **重要界線：** Simulation 分支已保存截圖證據說明及 SHA-256；三張 PNG 原始二進位檔本身尚未上傳到 GitHub 分支，仍是本對話附件。不得稱原圖二進位已封存於 repo。
+- 重新直接開啟 Investing.com Hang Seng 歷史資料頁，取得 2026-11-25 明確資料列：Close 21,966.01、Open 22,252.81、High 22,507.83、Low 21,915.88、Volume 3.65B、Change -1.14%。頁面行 62。這證實原 Observation Bundle 把該筆標為 SOURCE_NO_DATA 是錯誤判讀，來源頁其實有目標日期資料。
+- 已修正 `simulation-lab/fixtures/market-history-web-observations-2026-11-26.json` 的香港恆生觀察列為 PAGE_CONTENT_READ_SUCCESS，補上 11/25 數值、逐日列文字及 Investing.com 頁面行 62；並將 `report-data-2026-11-26.json` 的恆生來源狀態改為 VERIFIED。修正提交：`f82a52483afca534ab8fb2be0522a22013148a2a`（Observation Bundle），`d869e73b4d9d74f01387cc424b91e53ab941ab2d`（Fixture）。
+- MOVE 使用者截圖顯示 97.54、跌 1.30（1.32%）、前收 98.84，時間 11/25 16:17 GMT-5。Investing.com MOVE 歷史頁目前可讀到的最新列為 11/24 98.84，未顯示 11/25 列；因此 Fixture 僅補入「使用者截圖觀察」及數值顯示，正式 Investing.com 日收盤核驗狀態仍為 PENDING，不將截圖冒充 Investing.com 歷史列。
+- 本次 11/26 Workflow 兩次重試已耗盡，沒有再觸發第三次；以上修正沒有產生新的 Run、HTML 或 QA，也沒有改動 main。下一次 11/27 執行必須重新擷取 11/26 交易日資料及產生全新 11/27 Observation Bundle／Fixture，不得重用 11/25 的截圖或 11/26 收據。
+- Investing.com 來源頁：Hang Seng Historical Data，https://www.investing.com/indices/hang-sen-40-historical-data（2026-11-25 row）；MOVE Historical Data，https://www.investing.com/indices/ice-bofaml-move-historical-data（目前可見最新列 2026-11-24）。
