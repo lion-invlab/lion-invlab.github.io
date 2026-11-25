@@ -107,6 +107,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
         "USER_SUPPLIED_SCREENSHOT",
+        "CURRENT_USER_PROVIDED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
     }
     for row in rows:
