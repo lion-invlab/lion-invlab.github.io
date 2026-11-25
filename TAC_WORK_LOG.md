@@ -3471,3 +3471,11 @@ QA Sidecar：
 - Chart 3 handoff腳本要求canonical Fixture中的S&P 500 source.verification_status=VERIFIED、evidence_method含'historical data table'，且source.daily_change_percent必須與item.change_display一致。Manifest雖已將S&P 500判定VERIFIED，但Fixture欄位仍為PENDING，造成handoff失敗。
 - Retry 2已同步S&P 500 Fixture欄位：verification_status=VERIFIED、source_role=PRIMARY、instrument_type=cash_index、quote_type=cash_index_close、data_date=2026-11-25、close=7181.36、daily_change_percent/change_display=-0.27%、evidence_method、reader ref與line range、觀察值與時間戳。
 - MOVE與恆生直接歷史列仍PENDING；不得使用舊值。Retry 2為最後一次允許重試。
+
+
+## 2026-11-26 06:22｜Retry 2 marker commit與Run ID
+
+- Retry 2 commit：a11dbe725b937feb8be565a783818e5422ea1f3a；marker [build-tac-report:2026-11-26]。
+- 主Workflow Run 45712739806，event=push、head_sha完全吻合，正在執行；YAML lint Run 45712739751同SHA。
+- S&P500來源欄位已同步成VERIFIED，補齊historical data table evidence_method、reader ref、line range、observed value/change、provenance及時間戳；daily_change_percent=-0.27%與顯示一致，供Chart 3 handoff。
+- Retry 2是最後一次允許重試；MOVE與恆生直接歷史列維持PENDING；不修改受保護資產。
