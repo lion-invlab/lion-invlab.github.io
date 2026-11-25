@@ -4460,3 +4460,15 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - `browser_observation_records_complete=false`，兩筆缺紀錄為 MOVE 與香港恆生；其餘 42 筆有 observation record hash。這也說明 receipt PASS 僅代表規定輸入格式／身份及完整性條件通過，不代表 44 項行情全部已核實，更不代表資料層 REVIEW_READY。
 - 11/26 主 Artifact 的 prebuild receipt SHA-256 `76bff07d215ca66407969ce9f93e19189377660dadfcb8f72e37a29110d88ded` 綁定當時 Fixture SHA-256 `9978734d112e1e8091ac0e6396352ed509aee22dad237b1da67b51ed1e519644`；Fixture 後續移除四筆 stale `calendar_impact_overrides` 後已變更，該收據不能沿用。下一次獲授權完整執行須按新 Fixture 重新產生 receipt，並明確保留 2 筆行情待核實狀態，除非取得新的合格來源證據。
 - 本次僅作 Artifact 證據檢視與文件補充；沒有第三次觸發、沒有手動執行 Builder、沒有修改受保護程式或 main。
+
+
+## 2026-11-26｜使用者截圖補充 MOVE／恆生行情證據
+
+- 使用者提供三張 2026-11-25 截圖，已封存於 `simulation-lab/evidence/manual-screenshots/2026-11-26-market-missing-data.md`。
+- MOVE 截圖顯示 Merrill Lynch Option Volatility Estimate（INDEXNYSEGIS: MOVE）97.54，-1.30（-1.32%），前次收盤價 98.84；畫面時間 2026-11-25 16:17 GMT-5。此為截圖當時顯示值，非歷史資料表列，不宣稱是已獨立核實的日收盤值。
+- Investing.com 香港恆生指數歷史數據頁截圖明確顯示 2026-11-25 收盤 21,966.01、開市 22,252.81、最高 22,507.83、跌 253.64（-1.14%）；低點欄位遭畫面裁切，不補造。歷史列另可辨識 11/24、11/23、11/20、11/19、11/18、11/17、11/16 收盤值。
+- 已為三張原始 PNG 計算 SHA-256，並記錄於證據檔。這些是使用者截圖人工證據，不是 Workflow 自動擷取紀錄。
+- 修正結論：恆生 Investing.com 歷史資料頁確實存在；先前缺值是擷取／讀取失敗，不是來源不存在。後續應修復歷史頁讀取方式，不得將恆生標成無來源。
+- 此證據日期為 2026-11-25，只能補充該資料日；不得用於 11/26 交易日報價。MOVE 截圖為盤中畫面，正式日收盤仍須歷史資料列核對。
+- 2026-11-26 當日 Workflow 重試次數已耗盡；本次封存不觸發第三次 Workflow，不產生或宣稱 11/26 HTML／QA。
+- 封存證據提交：`e034f50450a87b6618170e1b1b3264c7a61e95ee`。
