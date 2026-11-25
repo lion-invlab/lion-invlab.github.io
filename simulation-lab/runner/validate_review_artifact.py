@@ -237,6 +237,8 @@ def main():
             raise SystemExit("CNN Fear & Greed BACKUP_VERIFIED status requires an explicit backup source role")
         if fg_source.get("source_score_value") is not None:
             raise SystemExit("CNN Fear & Greed backup status must not retain an unmapped official CNN source score")
+        if fg_source.get("observation_record_status") != "VERIFIED" or fg_source.get("display_value_matches_saved_observation") is not True or not fg_source.get("verified_at_tw"):
+            raise SystemExit("CNN Fear & Greed BACKUP_VERIFIED requires a verified current-run observation record, matching saved display value and verification timestamp")
         cross_check = fg_source.get("cross_check") or {}
         if cross_check.get("status") != "DATE_MAPPING_UNRESOLVED":
             raise SystemExit("CNN Fear & Greed backup status must disclose unresolved official-source date mapping")
