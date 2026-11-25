@@ -775,3 +775,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 - **2026-11-25｜Builder SHA 核准更新：** `simulation-lab/runner/build_review_html.py` blob SHA `bd94890e9a1b2cd2c1d09aebd9b12cb8da62127b`。保留無標題／既有標題觀察文字槽相容性，並維持母版節點結構；僅限Simulation，需以完整E2E與QA驗證。
 
 - **2026-11-25｜Builder SHA 核准更新：** `simulation-lab/runner/build_review_html.py` blob SHA `de97048c280c911322c57829d8e936f80358e88b`。修正FedWatch無障礙標籤，使卡片、圖例與aria-label使用相同升息情境名稱及機率，並移除硬編碼舊截點日期。僅限Simulation。
+
+
+## 2026-11-26｜使用者核准 SIM-1.4 Builder 精確 SHA
+- 依使用者要求自主修復 2026-11-26 審核版組版阻塞，核准唯一 Builder `simulation-lab/runner/build_review_html.py`，Git blob SHA `24f7950318bcc93f5d6ebfc05a8a547504393311`。此項僅更新 Simulation Builder 精確版本核准，不授權 main、正式母版、首頁或 Pages 部署。
