@@ -259,14 +259,19 @@ try {
     }
     // Expand the containing calendar panels and one published accordion for geometry measurement.
     // Do this after screenshots so the delivered initial-state captures remain unchanged.
-    await reportPage.evaluate(() => {
-      document.querySelectorAll("#earnings details, #last-week-calendar details, #last-week-earnings details").forEach(node => { node.open = true; });
-      document.querySelectorAll("#earnings .calendar-status-group, #last-week-calendar .calendar-status-group, #last-week-earnings .calendar-status-group").forEach(node => {
-        node.hidden = false;
-        node.style.display = "";
+    // Expand the same calendar/earnings disclosure state in both documents.
+    // Comparing a fully expanded report against a collapsed mother changes computed
+    // parent grid gaps on responsive widths even when the CSS and DOM contract match.
+    for (const page of [masterPage, reportPage]) {
+      await page.evaluate(() => {
+        document.querySelectorAll("#calendar details, #earnings details, #last-week-calendar details, #last-week-earnings details").forEach(node => { node.open = true; });
+        document.querySelectorAll("#calendar .calendar-status-group, #earnings .calendar-status-group, #last-week-calendar .calendar-status-group, #last-week-earnings .calendar-status-group").forEach(node => {
+          node.hidden = false;
+          node.style.display = "";
+        });
       });
-    });
-    await reportPage.waitForTimeout(80);
+      await page.waitForTimeout(40);
+    }
     const mondayHasRetrospective = await reportPage.locator("#last-week-earnings .calendar-status-group").count();
     if (!mondayHasRetrospective) {
       // The approved fund reminder may auto-open and cover the tab labels.
