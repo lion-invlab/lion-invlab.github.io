@@ -378,18 +378,18 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：PCE 是聯準會最重視的通膨衡量指標，核心 PCE 對利率路徑及美債殖利率定價具直接影響。",
-        "previous": "個人所得 +0.3%；個人支出 +0.6%（BEA 修訂）；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%。",
+        "previous": "個人所得 +0.3%；個人消費支出（PCE）+0.6%（BEA 修訂）；PCE 物價指數月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%。",
         "forecast": "個人所得 +0.3%；個人支出 +0.4%；PCE 月增 +0.3%、年增 3.8%；核心 PCE 月增 +0.3%、年增 3.2%",
-        "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+        "actual": "10月個人所得月增 0.7%；個人消費支出（PCE）月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
         "status": "released",
-        "impact_judgment": "核心 PCE 月增 0.3%符合預期，但年增 3.3%高於 3.2%預期；所得增幅強、支出增幅低於預期，呈現通膨黏著與實質消費動能放緩並存。",
+        "impact_judgment": "核心 PCE 月增 0.3%符合預期，但年增 3.3%高於 3.2%預期；個人所得增幅強，PCE 月增 0.3%低於 0.4%預期，呈現通膨黏著與實質消費動能放緩並存。",
         "source": {
           "name": "U.S. Bureau of Economic Analysis｜Personal Income and Outlays, October 2026",
           "url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
           "publisher": "U.S. Bureau of Economic Analysis",
           "published_at": "2026-11-25T08:30:00-05:00",
           "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "BEA 官方數據：個人所得 +0.7%、個人支出 +0.3%、PCE 價格指數 +0.3% m/m／+3.8% y/y、核心 +0.3% m/m／+3.3% y/y；實質 PCE 略降。",
+          "notes": "BEA 官方數據：個人所得 +0.7%、個人消費支出（PCE）+0.3%、PCE 價格指數 +0.3% m/m／+3.8% y/y、核心 +0.3% m/m／+3.3% y/y；實質 PCE 略降。",
           "secondary_refs": [
             "https://www.bea.gov/news/schedule?output=1",
             "https://www.usbank.com/content/dam/usbank/en/documents/pdfs/corporate-and-commercial-banking/econ-weekly-pdf-11-20-26.pdf"
@@ -10968,10 +10968,11 @@
         {
           "id": "current-us-pce-oct-2026",
           "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
-          "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+          "actual": "10月個人所得月增 0.7%；個人消費支出（PCE）月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
           "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
           "published_at": "2026-11-25T08:30:00-05:00",
-          "observed_at": "2026-11-26T04:35:11+08:00"
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "將「個人支出」精確改為 BEA 表列的 current-dollar PCE，避免與 personal outlays 混淆。"
         },
         {
           "id": "current-us-durable-goods-202610",
@@ -11269,6 +11270,11 @@
           "id": "current-us-durable-goods-202610",
           "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
           "evidence": "Census CB 26-185, October 2026: new orders +0.2%, ex-transport +0.5%, ex-defense +0.4%, nondefense capital goods +0.8%, machinery +1.8%."
+        },
+        {
+          "id": "current-us-pce-oct-2026",
+          "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
+          "evidence": "BEA table separately reports current-dollar PCE +0.3% and personal outlays in dollar terms; field label clarified to PCE."
         }
       ]
     }
@@ -11669,10 +11675,11 @@
       {
         "id": "current-us-pce-oct-2026",
         "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
-        "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+        "actual": "10月個人所得月增 0.7%；個人消費支出（PCE）月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
         "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
         "published_at": "2026-11-25T08:30:00-05:00",
-        "observed_at": "2026-11-26T04:35:11+08:00"
+        "observed_at": "2026-11-26T04:35:11+08:00",
+        "notes": "將「個人支出」精確改為 BEA 表列的 current-dollar PCE，避免與 personal outlays 混淆。"
       },
       {
         "id": "current-us-durable-goods-202610",
@@ -11970,6 +11977,11 @@
         "id": "current-us-durable-goods-202610",
         "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
         "evidence": "Census CB 26-185, October 2026: new orders +0.2%, ex-transport +0.5%, ex-defense +0.4%, nondefense capital goods +0.8%, machinery +1.8%."
+      },
+      {
+        "id": "current-us-pce-oct-2026",
+        "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
+        "evidence": "BEA table separately reports current-dollar PCE +0.3% and personal outlays in dollar terms; field label clarified to PCE."
       }
     ]
   }
