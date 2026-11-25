@@ -90,7 +90,7 @@ try {
   for (const v of viewports) {
     const masterPage = await browser.newPage({ viewport: { width: v.width, height: v.height } });
     const reportPage = await browser.newPage({ viewport: { width: v.width, height: v.height } });
-    await load(masterPage, master.path);
+    await load(masterPage, master.simulation_path);
     await load(reportPage, reportPath);
     await masterPage.screenshot({ path: path.join(output, `${v.name}-master.png`), fullPage: true });
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
