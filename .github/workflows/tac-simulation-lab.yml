@@ -45,7 +45,8 @@ concurrency:
   # 11/24 rebuild includes current-date review-banner QA guard.
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
-  group: tac-simulation-review-delivery
+  # Temporary one-off group to run the corrected review build while the stale Playwright job remains active.
+  group: tac-simulation-review-delivery-direct-web-20261125c
   cancel-in-progress: false
 
 jobs:
