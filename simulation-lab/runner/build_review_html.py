@@ -2965,32 +2965,8 @@ def main():
             meeting_label = target_meeting[5:].replace("-", "/") if len(target_meeting) >= 10 else target_meeting
             snapshot_note = f"{meeting_label}會議機率資料更新：{data.get('fedwatch',{}).get('updated_at_tw','時間待核實')}；採頁面公布值，非自行估算。"
             fed_source.append(snapshot_note)
-        probabilities = data.get("fedwatch", {}).get("probabilities", [])
-        watch=fed.select_one(".fed-live-watch")
-        if watch:
-            bar=watch.select_one(".fc-split-bar")
-            if bar and probabilities:
-                outcome_labels = {
-                    "hold": "維持不變", "維持利率": "維持不變", "維持利率不變": "維持不變", "維持不變": "維持不變",
-                    "hike": "升息", "升息": "升息", "cut": "降息", "降息": "降息",
-                    "升息25個基點": "升息25個基點", "升息50個基點": "升息50個基點",
-                    "降息25個基點": "降息25個基點", "降息50個基點": "降息50個基點",
-                }
-                bar["aria-label"]="；".join(
-                    f"{outcome_labels.get(str(x.get('outcome') or '').strip(), str(x.get('outcome') or '機率情境'))} {float(x.get('probability',0)):.1f}%"
-                    for x in probabilities
-                )
-                bar.attrs.pop("style", None)
-            elif bar:
-                bar["aria-label"]="未取得本報告資料截點前可核實的FedWatch機率快照"
-                bar["style"]="display:none"
-            note=watch.select_one("details > div")
-            legend_items=watch.select(".fc-split-legend > span")
-            if note:
-                if probabilities:
-                    set_text(note, f"本次報告資料截點為 {report_cutoff}（台灣時間）。Investing.com Fed Rate Monitor 於 {data.get('fedwatch',{}).get('updated_at_tw','時間待核實')} 提供 2026/12/09 會議機率；本版依來源頁面公布值呈現，不以舊截圖或自行估算代替。")
-                else:
-                    set_text(note, f"本次報告資料截點為 {report_cutoff}（台灣時間）。未取得該截點前可核實的 FedWatch 機率快照，因此不填入推估機率。")
+        # FedWatch card text, legend, split-bar state and aria-label are rendered once above.
+        # Do not overwrite the normalized, validated distribution in a legacy second pass.
     fg = soup.select_one(".cnn-fg-preview")
     if fg:
         fg_record = data.get("risk", {}).get("fear_greed", {})
