@@ -3097,7 +3097,7 @@ def main():
             detail_body.append(source_link(item["url"], item.get("source_name") or "OHLC source"))
             detail_body.append("。")
     else:
-        detail_body.append("本次五項現金指數 OHLC 未能在同一交易日與正式收盤點位完成一致性核實；因此不沿用母版舊數值，也不以 CFD／期貨替代。")
+        detail_body.append("本次五項現金指數 OHLC 高低價欄位未完整取得；五大指數收盤價仍依本報行情表呈現。樞紐點數值待核實，因此不沿用母版舊數值，也不以 CFD／期貨替代。")
     if data.get("core_observation"):
         core_panel = unique(view, ".focus-panel.focus-core", "core observation tab")
         callout = unique(core_panel, ".callout", "core observation content")
