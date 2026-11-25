@@ -46,7 +46,8 @@ concurrency:
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
   # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
-  group: tac-simulation-review-delivery
+  # Temporary one-off group for the final actionable-commentary QA rebuild.
+  group: tac-simulation-review-delivery-direct-web-20261125d
   cancel-in-progress: false
 
 jobs:
