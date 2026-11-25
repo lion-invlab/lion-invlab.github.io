@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Exercise the complete candidate Builder with clearly synthetic five-layer content and output-only paths."""
+# 2026-11-26 candidate regression: validates the unapproved Builder SHA in isolation only.
 from __future__ import annotations
 import json
 import subprocess
