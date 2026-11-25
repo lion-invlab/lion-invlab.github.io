@@ -34,6 +34,9 @@ outputs = []
 for report_date, template_key, source_name in cases:
     source = ROOT / "simulation-lab" / "fixtures" / source_name
     data = json.loads(source.read_text(encoding="utf-8"))
+    # Synthetic cross-date candidate fixtures must not replay report-date-specific calendar overrides.
+    # Those overrides are validated against their own W48 source IDs and are irrelevant to the Builder layout regression.
+    data.pop("calendar_impact_overrides", None)
     data["review_ready_blockers"] = list(data.get("review_ready_blockers", [])) + ["CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS"]
     data["market_analysis"] = {
         key: {
