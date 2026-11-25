@@ -3454,3 +3454,12 @@ QA Sidecar：
 - 已修正全部11檔ETF change_display、4項能源／金屬history欄位、VIX/MOVE/Fear&Greed score fields，並清除舊觀察引用與舊時間戳。
 - 建立當次ChatGPT Web observation bundle，44 rows；42 rows以本輪歷史頁讀值對照，MOVE與恆生直接歷史列維持PENDING。Bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
 - Retry 1將同時提交修正後Fixture、觀察Bundle、BUILD_TRIGGER、Session State及Work Log，仍使用同一日期marker；不改Workflow/Builder/QA Contract/main。
+
+
+## 2026-11-26 06:17｜Retry 1 marker commit與Run ID
+
+- Retry 1 commit：485c4aa6e8af732bf53dc1e3261e538d1d441a88；唯一marker [build-tac-report:2026-11-26]。
+- 主Workflow Run 45712219629，event=push，head_sha完全吻合，正在執行；YAML lint Run 45712219504同SHA。
+- Fixture SHA-256：382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86。
+- ChatGPT Web observation bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9；44 rows，42當日觀察、2待核實（MOVE、Hang Seng直接歷史列）。
+- 第一輪失敗Run 45709983694已結束，無HTML／QA sidecar；Retry 1仍在執行，不宣稱完成。
