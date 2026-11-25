@@ -411,19 +411,21 @@
         "importance_basis_source": "TAC四星：耐久財訂單與核心資本財訂單反映企業設備投資意願，是判讀 AI 資本支出以外廣泛投資動能的重要指標。",
         "previous": "9月總訂單 +2.0%（修正值）；核心資本財訂單 +0.6%；非運輸訂單 +0.5%。",
         "forecast": "總訂單 +0.5%；核心資本財訂單 +0.8%；非運輸訂單 +0.5%",
-        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
+        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；排除國防後 +0.4%；非防務資本財新訂單 +0.8%至 USD 1,094 億；機械新訂單 +1.8%至 USD 468 億。9月總訂單修正為 +2.0%。",
         "status": "released",
-        "impact_judgment": "總訂單 +0.2%低於 +0.5%共識；非防務資本財訂單 +0.8%符合原預期，排除運輸後仍增 +0.5%，顯示設備投資尚有支撐，但總量增幅溫和。",
+        "impact_judgment": "總訂單 +0.2%低於 +0.5%共識；非防務資本財新訂單 +0.8%符合原預期，排除運輸後仍增 +0.5%，機械訂單 +1.8%，顯示設備投資有支撐但整體耐久財訂單增幅溫和。",
         "source": {
           "name": "U.S. Census Bureau｜October 2026 Advance Report on Durable Goods",
-          "url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+          "url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
           "publisher": "U.S. Census Bureau",
           "published_at": "2026-11-25T08:30:00-05:00",
           "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "官方 Advance Report：總新訂單 +0.2%；排除運輸 +0.5%；非防務資本財新訂單 +0.8%；排除飛機 +1.2%；9月總訂單修正為 +2.0%。",
+          "notes": "Census 官方 10月 Advance Report（CB 26-185）：總新訂單 +0.2%至 USD 346.7B；排除運輸 +0.5%；排除國防 +0.4%；非防務資本財新訂單 +0.8%至 USD 109.4B；機械新訂單 +1.8%至 USD 46.8B；9月總訂單修正為 +2.0%。",
           "secondary_refs": [
             "https://www.census.gov/manufacturing/m3/release_schedule.html",
-            "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
+            "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
+            "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
+            "https://www.financeunc.com/economy/durable-goods-orders-edge-up-0-2-percent-in-october/"
           ]
         },
         "previous_applicable": true,
@@ -8599,7 +8601,8 @@
         "https://www.census.gov/construction/nrs/current/index.html",
         "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
         "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
-        "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf"
+        "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf",
+        "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72"
       ],
       "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。"
     },
@@ -10973,10 +10976,11 @@
         {
           "id": "current-us-durable-goods-202610",
           "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
-          "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
-          "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+          "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；排除國防後 +0.4%；非防務資本財新訂單 +0.8%至 USD 1,094 億；機械新訂單 +1.8%至 USD 468 億。9月總訂單修正為 +2.0%。",
+          "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
           "published_at": "2026-11-25T08:30:00-05:00",
-          "observed_at": "2026-11-26T04:35:11+08:00"
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "以 Census 官方 10月 PDF 核對，修正先前混入的非原文欄位；移除未在該報告中出現的「排除飛機新訂單 +1.2%」。"
         },
         {
           "id": "current-us-new-home-sales-202610",
@@ -11258,6 +11262,13 @@
           "published_at": "2026-11-25",
           "eps_actual_basis_code": "gaap_diluted_eps",
           "evidence": "SEC Exhibit 99.1 Statements of Consolidated Income：Fully diluted EPS 3.89"
+        }
+      ],
+      "economic_actual_source_refinements": [
+        {
+          "id": "current-us-durable-goods-202610",
+          "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
+          "evidence": "Census CB 26-185, October 2026: new orders +0.2%, ex-transport +0.5%, ex-defense +0.4%, nondefense capital goods +0.8%, machinery +1.8%."
         }
       ]
     }
@@ -11666,10 +11677,11 @@
       {
         "id": "current-us-durable-goods-202610",
         "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
-        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
-        "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；排除國防後 +0.4%；非防務資本財新訂單 +0.8%至 USD 1,094 億；機械新訂單 +1.8%至 USD 468 億。9月總訂單修正為 +2.0%。",
+        "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
         "published_at": "2026-11-25T08:30:00-05:00",
-        "observed_at": "2026-11-26T04:35:11+08:00"
+        "observed_at": "2026-11-26T04:35:11+08:00",
+        "notes": "以 Census 官方 10月 PDF 核對，修正先前混入的非原文欄位；移除未在該報告中出現的「排除飛機新訂單 +1.2%」。"
       },
       {
         "id": "current-us-new-home-sales-202610",
@@ -11951,6 +11963,13 @@
         "published_at": "2026-11-25",
         "eps_actual_basis_code": "gaap_diluted_eps",
         "evidence": "SEC Exhibit 99.1 Statements of Consolidated Income：Fully diluted EPS 3.89"
+      }
+    ],
+    "economic_actual_source_refinements": [
+      {
+        "id": "current-us-durable-goods-202610",
+        "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
+        "evidence": "Census CB 26-185, October 2026: new orders +0.2%, ex-transport +0.5%, ex-defense +0.4%, nondefense capital goods +0.8%, machinery +1.8%."
       }
     ]
   }
