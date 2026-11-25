@@ -18,21 +18,24 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-26.json
-fixture_blob_sha: 4b2dbf2c42b221aff4797ec26b85a945a015c84c
-fixture_sha256: e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51
+fixture_blob_sha: 1c1ba3d172b380b22c5a8bd904db8bba38a443b5
+fixture_sha256: 382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86
+market_history_web_observations: simulation-lab/fixtures/market-history-web-observations-2026-11-26.json
+market_history_web_observations_blob_sha: daa671ee5f1bd5df1022ea99158836af2875a40f
+market_history_web_observations_sha256: 86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9
+market_history_capture_method: CHATGPT_WEB_OPEN_HISTORICAL_PAGE
+market_history_capture_session: manual-takeover-2026-11-26-retry-1
 main_calendar_commit_sha: c635797d443257fff5275f678d7a40c1a6690378
 main_calendar_current_path: data/calendar/weeks/2026-W48.json
 main_calendar_current_blob_sha: 342a51861991cfaa7367d83dffa91a71f6fa7cf5
 main_calendar_previous_path: data/calendar/weeks/2026-W47.json
-main_calendar_previous_blob_sha: 727ea2be1c04688d3c4f98d36c452561bbab6821
+main_calendar_previous_blob_sha: 727ea2be6e03c1414b5f59c7f19a80d11b12b4d2
 
 market_history_verifier: simulation-lab/runner/browser_verify_market_history.py
 market_history_verifier_blob_sha: c24fac985bfbb0120f03139bd700ab8af7335174
 market_source_manifest_test_blob_sha: c1cf6008b5e41af403169d960a3212a24d2379ea
 builder: simulation-lab/runner/build_review_html.py
 builder_blob_sha: de97048c280c911322c57829d8e936f80358e88b
-market_history_web_observations: simulation-lab/fixtures/market-history-web-observations-2026-11-26.json
-market_history_web_observations_blob_sha: NONE_PLAYWRIGHT_FALLBACK
 web_observation_validator_blob_sha: f7a6183b60166d3dca01e8035e98c58ecdb2cf7e
 market_manifest_builder_blob_sha: 4f0c0fd3148f0e40c1eca37456e18989ea3654ec
 prebuild_validator_blob_sha: 6b0fd587131d307c890bf28609f97f1b3c053364
@@ -42,9 +45,9 @@ prebuild_test_blob_sha: c3765b1f95bcd726ca9c9af3858dd92e4f2f2b65
 quote_type_guard_test_blob_sha: f60d14db2b84333a44849cb2bb6aac100481aca5
 
 stage1_status: COMPLETE
-stage2_status: PENDING_CURRENT_RUN_PLAYWRIGHT_VERIFICATION
+stage2_status: PARTIAL_42_VERIFIED_2_PENDING
 stage2_expected_rows: 44
-stage2_pending_known: MOVE
+stage2_pending_known: MOVE; Hang Seng direct historical row not confirmed
 stage3_status: COMPLETE_READ_ONLY_MAIN_W48
 stage3_calendar_blob_sha: 342a51861991cfaa7367d83dffa91a71f6fa7cf5
 stage4_status: COMPLETE_NEWS_AND_FIVE_LAYER_ANALYSIS
@@ -54,10 +57,14 @@ stage4_unique_news_urls: 15
 prebuild_stage_2_to_4_receipt_required: true
 prebuild_receipt_path_pattern: simulation-lab/runs/prebuild-stage-input-receipt-2026-11-26-{GITHUB_RUN_ID}.json
 prebuild_receipt_sha256: GENERATED_BY_WORKFLOW_AFTER_VALIDATION
+retry_attempt: 1
+retry_max_attempts: 2
+prior_failed_run_id: 45709983694
+prior_failed_commit_sha: cedfcfb29a22edfc24eb7749f79f7bf989761eea
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
-stage2_source_pages_fetched_this_run: false
+stage2_source_pages_fetched_this_run: true
 stage2_displayed_values_independently_reconciled_this_run: false
 
-This is a date-scoped trigger marker only. The workflow must perform current-run Playwright source-page verification; no prior report observations are reused. MOVE has no 2026-11-25 historical row at capture and must remain PENDING unless the current-run page exposes the correct date row. No main publication is authorized.
+This date-scoped marker uses a current-run ChatGPT Web observation bundle rather than the failed Runner Playwright fallback. It contains 42 current-date rows; Hang Seng direct historical row and MOVE 2026-11-25 row remain PENDING and must not be filled from prior dates or side-panel values. No main publication is authorized.

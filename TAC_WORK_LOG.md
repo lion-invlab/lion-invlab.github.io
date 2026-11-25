@@ -3445,3 +3445,12 @@ QA Sidecar：
 - YAML lint Run 45709983745 已 completed/success；這只代表Workflow YAML檢查通過，不代表早報E2E通過。
 - Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51；Git blob SHA：4b2dbf2c42b221aff4797ec26b85a945a015c84c。
 - 尚無本輪Playwright核驗收據、Stage2–4 prebuild receipt、HTML、QA sidecar或可開啟預覽；MOVE仍PENDING。
+
+
+## 2026-11-26 06:17｜第一輪失敗根因與Retry 1修正
+
+- Run 45709983694 最終 failure；44頁Playwright結果43筆TOOL_READ_FAILURE、1筆OBSERVED_PENDING_FIELD_MAPPING。沒有HTML、QA sidecar或預覽。
+- Market metadata audit第一個明確錯誤：XLP source change_display +1.66%與顯示 +0.46%不一致。盤點發現11檔ETF source.change_display均仍保留舊值；能源與貴金屬history_close/history_change也需與顯示欄一致。
+- 已修正全部11檔ETF change_display、4項能源／金屬history欄位、VIX/MOVE/Fear&Greed score fields，並清除舊觀察引用與舊時間戳。
+- 建立當次ChatGPT Web observation bundle，44 rows；42 rows以本輪歷史頁讀值對照，MOVE與恆生直接歷史列維持PENDING。Bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
+- Retry 1將同時提交修正後Fixture、觀察Bundle、BUILD_TRIGGER、Session State及Work Log，仍使用同一日期marker；不改Workflow/Builder/QA Contract/main。

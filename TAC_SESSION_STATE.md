@@ -4380,3 +4380,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 主Workflow已完成Checkout Simulation branch only、checkout provenance、Python setup；目前停在Install Python dependencies。尚未開始Playwright 44頁驗證；prebuild receipt、Builder、HTML、QA sidecar及預覽均尚未取得。
 - Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51；Fixture blob SHA：4b2dbf2c42b221aff4797ec26b85a945a015c84c。
 - 下一步：追蹤Run 45709983694，確認44頁瀏覽器核驗、Stage2 audit/manifest、Stage2–4 receipt及後續Builder/QA結果；不以lint success代表早報完成。
+
+
+## 2026-11-26｜第一輪Workflow失敗與Retry 1修正（2026-11-26T06:17:22+08:00）
+
+- 第一輪commit：cedfcfb29a22edfc24eb7749f79f7bf989761eea；Workflow Run 45709983694，event=push、head_sha完全吻合，最終conclusion=failure。
+- 失敗根因一：44頁Runner Playwright觀察中43筆TOOL_READ_FAILURE、1筆OBSERVED_PENDING_FIELD_MAPPING；因此未產生有效的當次來源manifest。
+- 失敗根因二：market metadata audit發現11檔ETF的source.change_display仍保留舊值，首個明確錯誤為XLP source +1.66% != display +0.46%；另能源及金屬history_close/history_change型態未符合稽核欄位。
+- 修正：同步更新11檔ETF source.change_display；WTI、Brent、Gold、Silver history_close/history_change改為與顯示欄一致的字串；VIX/MOVE/Fear&Greed的score_value與當日資料同步，清除所有舊web refs及舊觀察時間。
+- 替代來源證據：建立本輪ChatGPT Web observation bundle，44筆精確身份與URL；42筆有當日觀察值，恆生直接歷史列及MOVE列維持SOURCE_NO_DATA/PENDING，不以側欄值或舊日值補入。Bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
+- Retry 1：新commit仍使用[build-tac-report:2026-11-26]同一日期標記；本輪只重試一次，不超過SIM-1.4最多2次限制。
