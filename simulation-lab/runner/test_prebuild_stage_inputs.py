@@ -122,6 +122,16 @@ def main() -> None:
     assert positive["source_pages_fetched_this_run"] is True
     assert positive["numeric_values_reconciled_this_run"] is True
 
+    # User-provided current-session screenshot is valid evidence when the
+    # screenshot timestamp and SHA are sealed by the manifest builder.
+    screenshot_evidence = copy.deepcopy(synthetic)
+    screenshot_row = next(row for row in screenshot_evidence["rows"]
+                          if row.get("group") == "risk" and row.get("name") == "move")
+    screenshot_row["observation_provenance"] = "CURRENT_USER_PROVIDED_SCREENSHOT"
+    screenshot_result = validate_market_inputs(data, audit, screenshot_evidence, report_date)
+    assert screenshot_result["indicator_count"] == 44
+    assert screenshot_result["numeric_values_reconciled_this_run"] is True
+
     # Partial is a valid production input state: keep all 44 fixed rows,
     # preserve 43 current-session observations, and leave one row explicitly pending.
     partial = copy.deepcopy(synthetic)
