@@ -1186,7 +1186,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -1477,7 +1477,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -1883,7 +1883,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -2174,7 +2174,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -2580,7 +2580,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -2871,7 +2871,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -3285,7 +3285,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -3576,7 +3576,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -3982,7 +3982,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -4273,7 +4273,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -4687,7 +4687,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -4978,7 +4978,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -5392,7 +5392,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -5683,7 +5683,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -6097,7 +6097,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -6388,7 +6388,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -6794,7 +6794,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -7085,7 +7085,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -7491,7 +7491,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -7782,7 +7782,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -8189,7 +8189,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -8480,7 +8480,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unreadable",
-            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面未取得可讀正文；目前讀取介面未回傳可判讀的 HTTP 狀態碼，因此記錄為 unreadable，不代表 Yahoo Finance 沒有該期間資料。依順位進入 Investing.com。"
           },
           {
             "source_level": 2,
@@ -8693,7 +8693,7 @@
         "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
         "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-20261125x8k.htm"
       ],
-      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。\n2026-11-26 本輪依 SIM-1.4（規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家均已公布；補入 DELL、ADSK、WDAY、HPQ、DE 五家官方 actual，原六家 actual 保留。Yahoo Finance 11/11 /analysis/ 頁面均 HTTP 429；Investing.com 11/11 頁面可讀，列出 10/2026 Forecast，但缺 provider data_as_of／公告前 vintage、EPS basis 及 Revenue definition，全部標記 missing_required_fields，不採用；LSEG、FactSet 本輪均無可讀取的公司／期間資料端點，記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts，累積各 187 筆；本輪採用 0。舊估計與來源保留在 legacy 欄位／audit，active estimate 與 selected source 不恢復。EPS／Revenue 各 11 家均有 actual，但沒有可驗證公告前同口徑共識，Beat／Miss／Inline 均不產生。PIT snapshot 本輪新增 0：網頁工具僅提供抽取後文字，無原始 response bytes 可計算 raw_response_sha256；此限制僅影響 snapshot，不阻止本輪 actual／attempt history 更新。\n本輪回讀後再以 SEC Form 8-K Exhibit 99.1 補強 DE：正式 Statements of Consolidated Income 明列 fully diluted EPS USD 3.89，故將 actual basis code 補為 gaap_diluted_eps；來源 URL 改為可直接回讀的 SEC Exhibit 99.1，發布日期記錄為 2026-11-25。"
+      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。\n2026-11-26 本輪依 SIM-1.4（規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家均已公布；補入 DELL、ADSK、WDAY、HPQ、DE 五家官方 actual，原六家 actual 保留。Yahoo Finance 11/11 /analysis/ 頁面直接開啟均未取得可讀正文（本輪讀取介面未回傳可判讀 HTTP 狀態碼）；Investing.com 11/11 頁面可讀，列出 10/2026 Forecast，但缺 provider data_as_of／公告前 vintage、EPS basis 及 Revenue definition，全部標記 missing_required_fields，不採用；LSEG、FactSet 本輪均無可讀取的公司／期間資料端點，記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts，累積各 187 筆；本輪採用 0。舊估計與來源保留在 legacy 欄位／audit，active estimate 與 selected source 不恢復。EPS／Revenue 各 11 家均有 actual，但沒有可驗證公告前同口徑共識，Beat／Miss／Inline 均不產生。PIT snapshot 本輪新增 0：網頁工具僅提供抽取後文字，無原始 response bytes 可計算 raw_response_sha256；此限制僅影響 snapshot，不阻止本輪 actual／attempt history 更新。\n本輪回讀後再以 SEC Form 8-K Exhibit 99.1 補強 DE：正式 Statements of Consolidated Income 明列 fully diluted EPS USD 3.89，故將 actual basis code 補為 gaap_diluted_eps；來源 URL 改為可直接回讀的 SEC Exhibit 99.1，發布日期記錄為 2026-11-25。"
     }
   },
   "audit": [
@@ -11353,6 +11353,10 @@
           "result": "HTTP 403",
           "retained_existing_schedule": true
         }
+      },
+      "yahoo_access_status_refinement": {
+        "attempts_updated": 22,
+        "reason": "移除未經本輪工具明確回傳的 HTTP 429 狀態碼；保留 unreadable outcome，精確記錄本輪只確認未取得可讀正文。"
       }
     }
   ],
@@ -12104,6 +12108,10 @@
         "result": "HTTP 403",
         "retained_existing_schedule": true
       }
+    },
+    "yahoo_access_status_refinement": {
+      "attempts_updated": 22,
+      "reason": "移除未經本輪工具明確回傳的 HTTP 429 狀態碼；保留 unreadable outcome，精確記錄本輪只確認未取得可讀正文。"
     }
   }
 }
