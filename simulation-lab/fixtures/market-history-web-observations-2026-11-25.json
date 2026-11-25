@@ -31,7 +31,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "50018.70",
       "observed_change": "+0.85%",
-      "web_reader_ref": "turn477670view3",
+      "web_reader_ref": "turn648558view0",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -60,7 +60,7 @@
       "observed_change_field": "Change %",
       "observed_value": "7201.09",
       "observed_change": "-0.50%",
-      "web_reader_ref": "turn487861view0",
+      "web_reader_ref": "turn648558view1",
       "web_line_start": 63,
       "web_line_end": 63,
       "quote_type": "cash_index_close"
@@ -89,7 +89,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "23733.54",
       "observed_change": "-1.48%",
-      "web_reader_ref": "turn518892view0",
+      "web_reader_ref": "turn648558view2",
       "web_line_start": 49,
       "web_line_end": 49,
       "quote_type": "provider_index_reference_series"
@@ -118,7 +118,7 @@
       "observed_change_field": "Change %",
       "observed_value": "2684.94",
       "observed_change": "+0.57%",
-      "web_reader_ref": "turn837118view4",
+      "web_reader_ref": "turn648558view3",
       "web_line_start": 61,
       "web_line_end": 61,
       "quote_type": "cash_index_close"
@@ -147,7 +147,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "8832.5",
       "observed_change": "-7.88%",
-      "web_reader_ref": "turn837118view5",
+      "web_reader_ref": "turn648558view4",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -176,7 +176,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "57301.00",
       "observed_change": "-1.00%",
-      "web_reader_ref": "turn837118view6",
+      "web_reader_ref": "turn648558view5",
       "web_line_start": 51,
       "web_line_end": 51,
       "quote_type": "cash_index_close"
@@ -205,7 +205,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "5006.03",
       "observed_change": "+6.32%",
-      "web_reader_ref": "turn837118view7",
+      "web_reader_ref": "turn648558view6",
       "web_line_start": 51,
       "web_line_end": 51,
       "quote_type": "provider_index_reference_series"
@@ -234,7 +234,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "40122.35",
       "observed_change": "+8.99%",
-      "web_reader_ref": "turn837118view8",
+      "web_reader_ref": "turn648558view7",
       "web_line_start": 51,
       "web_line_end": 51,
       "quote_type": "provider_index_reference_series"
@@ -263,7 +263,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "4958.87",
       "observed_change": "+0.10%",
-      "web_reader_ref": "turn837118view9",
+      "web_reader_ref": "turn648558view8",
       "web_line_start": 49,
       "web_line_end": 49,
       "quote_type": "provider_index_reference_series"
@@ -292,7 +292,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "8726.40",
       "observed_change": "+1.82%",
-      "web_reader_ref": "turn837118view10",
+      "web_reader_ref": "turn648558view9",
       "web_line_start": 51,
       "web_line_end": 51,
       "quote_type": "provider_index_reference_series"
@@ -321,7 +321,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "3548.37",
       "observed_change": "+0.27%",
-      "web_reader_ref": "turn837118view11",
+      "web_reader_ref": "turn648558view10",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -350,7 +350,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "10423.60",
       "observed_change": "-0.29%",
-      "web_reader_ref": "turn477670view4",
+      "web_reader_ref": "turn648558view11",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -379,7 +379,7 @@
       "observed_change_field": "Change %",
       "observed_value": "22219.65",
       "observed_change": "-0.73%",
-      "web_reader_ref": "turn837118view3",
+      "web_reader_ref": "turn648558view12",
       "web_line_start": 63,
       "web_line_end": 63,
       "quote_type": "cash_index_close"
@@ -408,7 +408,7 @@
       "observed_change_field": "Change %",
       "observed_value": "10467.07",
       "observed_change": "-0.13%",
-      "web_reader_ref": "turn477670view0",
+      "web_reader_ref": "turn648558view13",
       "web_line_start": 63,
       "web_line_end": 63,
       "quote_type": "cash_index_close"
@@ -437,7 +437,7 @@
       "observed_change_field": "Change %",
       "observed_value": "25017.81",
       "observed_change": "-1.26%",
-      "web_reader_ref": "turn477670view1",
+      "web_reader_ref": "turn648558view14",
       "web_line_start": 62,
       "web_line_end": 62,
       "quote_type": "cash_index_close"
@@ -466,7 +466,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "8040.49",
       "observed_change": "-0.05%",
-      "web_reader_ref": "turn454438view4",
+      "web_reader_ref": "turn139716view0",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -495,7 +495,7 @@
       "observed_change_field": "Change %",
       "observed_value": "632.74",
       "observed_change": "-0.66%",
-      "web_reader_ref": "turn477670view2",
+      "web_reader_ref": "turn648558view15",
       "web_line_start": 51,
       "web_line_end": 51,
       "quote_type": "cash_index_close"
@@ -524,7 +524,7 @@
       "observed_change_field": "Change %",
       "observed_value": "4.671",
       "observed_change": "+0.24%",
-      "web_reader_ref": "turn103064view0",
+      "web_reader_ref": "turn543960view0",
       "web_line_start": 49,
       "web_line_end": 49,
       "quote_type": "treasury_yield"
@@ -553,7 +553,7 @@
       "observed_change_field": "Change %",
       "observed_value": "4.902",
       "observed_change": "-0.37%",
-      "web_reader_ref": "turn103064view1",
+      "web_reader_ref": "turn543960view1",
       "web_line_start": 49,
       "web_line_end": 49,
       "quote_type": "treasury_yield"
@@ -582,7 +582,7 @@
       "observed_change_field": "Change %",
       "observed_value": "5.292",
       "observed_change": "-0.06%",
-      "web_reader_ref": "turn103064view2",
+      "web_reader_ref": "turn543960view2",
       "web_line_start": 49,
       "web_line_end": 49,
       "quote_type": "treasury_yield"
@@ -611,7 +611,7 @@
       "observed_change_field": "Change %",
       "observed_value": "103.81",
       "observed_change": "-0.48%",
-      "web_reader_ref": "turn874495view0",
+      "web_reader_ref": "turn543960view3",
       "web_line_start": 50,
       "web_line_end": 50,
       "quote_type": "provider_index_reference_series"
@@ -640,7 +640,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "32.970",
       "observed_change": "+0.46%",
-      "web_reader_ref": "turn448706view0",
+      "web_reader_ref": "turn543960view4",
       "web_line_start": 189,
       "web_line_end": 189,
       "quote_type": "spot_daily_close"
@@ -669,7 +669,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "1.0966",
       "observed_change": "+0.59%",
-      "web_reader_ref": "turn448706view1",
+      "web_reader_ref": "turn543960view5",
       "web_line_start": 186,
       "web_line_end": 186,
       "quote_type": "spot_daily_close"
@@ -698,7 +698,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "1.3115",
       "observed_change": "+0.64%",
-      "web_reader_ref": "turn448706view2",
+      "web_reader_ref": "turn543960view6",
       "web_line_start": 148,
       "web_line_end": 148,
       "quote_type": "spot_daily_close"
@@ -727,7 +727,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "0.6641",
       "observed_change": "+0.20%",
-      "web_reader_ref": "turn448706view3",
+      "web_reader_ref": "turn543960view7",
       "web_line_start": 121,
       "web_line_end": 121,
       "quote_type": "spot_daily_close"
@@ -756,7 +756,7 @@
       "observed_change_field": "Change %",
       "observed_value": "159.26",
       "observed_change": "+0.16%",
-      "web_reader_ref": "turn448706view4",
+      "web_reader_ref": "turn543960view8",
       "web_line_start": 199,
       "web_line_end": 199,
       "quote_type": "spot_daily_close"
@@ -901,7 +901,7 @@
       "observed_change_field": "Change %",
       "observed_value": "26.36",
       "observed_change": "-0.98%",
-      "web_reader_ref": "turn394546view0",
+      "web_reader_ref": "turn279002view0",
       "web_line_start": 48,
       "web_line_end": 48,
       "quote_type": "cash_index_close"
@@ -930,7 +930,7 @@
       "observed_change_field": "Change %",
       "observed_value": "98.84",
       "observed_change": "-2.05%",
-      "web_reader_ref": "turn394546view1",
+      "web_reader_ref": "turn279002view1",
       "web_line_start": 48,
       "web_line_end": 48,
       "quote_type": "displayed_close"
@@ -941,7 +941,7 @@
       "source_url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
       "target_date": "2026-11-24",
       "observed_date": "2026-11-24",
-      "page_title": "SPDR - Consumer Staples ETF歷史資料 - Investing.com",
+      "page_title": "SPDR - Consumer StaplesETF歷史資料 - Investing.com",
       "instrument_identity": "XLP",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
@@ -959,7 +959,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "91.88",
       "observed_change": "+1.66%",
-      "web_reader_ref": "turn454438view6",
+      "web_reader_ref": "turn807411view0",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -970,7 +970,7 @@
       "source_url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
       "target_date": "2026-11-24",
       "observed_date": "2026-11-24",
-      "page_title": "SPDR - Health Care ETF歷史資料 - Investing.com",
+      "page_title": "SPDR - Health CareETF歷史資料 - Investing.com",
       "instrument_identity": "XLV",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
       "read_status": "PAGE_CONTENT_READ_SUCCESS",
@@ -988,7 +988,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "184.72",
       "observed_change": "+2.95%",
-      "web_reader_ref": "turn454438view7",
+      "web_reader_ref": "turn807411view1",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1017,7 +1017,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "60.45",
       "observed_change": "+0.97%",
-      "web_reader_ref": "turn454438view8",
+      "web_reader_ref": "turn807411view2",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1046,7 +1046,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "43.40",
       "observed_change": "+0.18%",
-      "web_reader_ref": "turn454438view9",
+      "web_reader_ref": "turn807411view3",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1075,7 +1075,7 @@
       "observed_change_field": "Change %",
       "observed_value": "43.46",
       "observed_change": "+1.31%",
-      "web_reader_ref": "turn103064view3",
+      "web_reader_ref": "turn807411view4",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1104,7 +1104,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "56.11",
       "observed_change": "+0.83%",
-      "web_reader_ref": "turn103064view4",
+      "web_reader_ref": "turn807411view5",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1133,7 +1133,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "50.17",
       "observed_change": "+0.54%",
-      "web_reader_ref": "turn103064view5",
+      "web_reader_ref": "turn807411view6",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1162,7 +1162,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "104.45",
       "observed_change": "+0.82%",
-      "web_reader_ref": "turn103064view6",
+      "web_reader_ref": "turn807411view7",
       "web_line_start": 55,
       "web_line_end": 55,
       "quote_type": "ETF_daily_close"
@@ -1191,7 +1191,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "117.72",
       "observed_change": "+0.68%",
-      "web_reader_ref": "turn103064view7",
+      "web_reader_ref": "turn807411view8",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1220,7 +1220,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "161.61",
       "observed_change": "-0.53%",
-      "web_reader_ref": "turn103064view8",
+      "web_reader_ref": "turn807411view9",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
@@ -1249,7 +1249,7 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "157.09",
       "observed_change": "-3.26%",
-      "web_reader_ref": "turn103064view9",
+      "web_reader_ref": "turn807411view10",
       "web_line_start": 56,
       "web_line_end": 56,
       "quote_type": "ETF_daily_close"
