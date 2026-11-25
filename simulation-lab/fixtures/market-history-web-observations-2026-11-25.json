@@ -780,14 +780,14 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月24日 | 81.65 | +1.85%",
+      "observed_row_text": "2026年11月24日 | 81.63 | +1.82%",
       "observed_value_field": "收市",
       "observed_change_field": "升跌（%）",
-      "observed_value": "81.65",
-      "observed_change": "+1.85%",
-      "web_reader_ref": "turn939425view6",
-      "web_line_start": 50,
-      "web_line_end": 50,
+      "observed_value": "81.63",
+      "observed_change": "+1.82%",
+      "web_reader_ref": "turn543960view9",
+      "web_line_start": 51,
+      "web_line_end": 51,
       "quote_type": "investing_historical_close"
     },
     {
@@ -814,9 +814,9 @@
       "observed_change_field": "升跌（%）",
       "observed_value": "91.40",
       "observed_change": "+2.27%",
-      "web_reader_ref": "turn939425view7",
-      "web_line_start": 50,
-      "web_line_end": 50,
+      "web_reader_ref": "turn543960view10",
+      "web_line_start": 51,
+      "web_line_end": 51,
       "quote_type": "investing_historical_close"
     },
     {
@@ -838,14 +838,14 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月24日 | 3554.60 | -2.65%",
+      "observed_row_text": "2026年11月24日 | 3,548.90 | -2.81%",
       "observed_value_field": "收市",
       "observed_change_field": "升跌（%）",
-      "observed_value": "3554.60",
-      "observed_change": "-2.65%",
-      "web_reader_ref": "turn939425view8",
-      "web_line_start": 50,
-      "web_line_end": 50,
+      "observed_value": "3548.90",
+      "observed_change": "-2.81%",
+      "web_reader_ref": "turn655297view0",
+      "web_line_start": 51,
+      "web_line_end": 51,
       "quote_type": "investing_historical_close"
     },
     {
@@ -867,14 +867,14 @@
         "成交量",
         "升跌（%）"
       ],
-      "observed_row_text": "2026年11月24日 | 40.710 | -5.71%",
+      "observed_row_text": "2026年11月24日 | 40.745 | -5.63%",
       "observed_value_field": "收市",
       "observed_change_field": "升跌（%）",
-      "observed_value": "40.710",
-      "observed_change": "-5.71%",
-      "web_reader_ref": "turn939425view9",
-      "web_line_start": 50,
-      "web_line_end": 50,
+      "observed_value": "40.745",
+      "observed_change": "-5.63%",
+      "web_reader_ref": "turn655297view1",
+      "web_line_start": 51,
+      "web_line_end": 51,
       "quote_type": "investing_historical_close"
     },
     {
