@@ -3491,3 +3491,11 @@ QA Sidecar：
 - Retry 1、Retry 2 已用完，不得第三次觸發。需先核准修正欄位契約；不可用手動 Builder 或舊產物替代。
 - Slack #tac-alerts 已送達最終失敗通知：https://tac-sci3435.slack.com/archives/C0CL6GF6KJ8/p1795645555151479。
 - main 首頁、正式母版、Manifest、行事曆 JSON、Workflow、Builder、QA Contract 均未修改；main 未發布。
+
+
+## 2026-11-26 06:24 Asia/Taipei｜修正 11/26 Fixture 過時行事曆 override
+
+- 讀取 SIM-1.4、main data/calendar/weeks/2026-W48.json、Simulation calendar_source_guard.py、build_review_html.py 與 override tests。四個 override 對應事件的正式行事曆 impact_judgment 均為正常文字，來源網址各自存在於 source.url；projection 正確輸出 impact 及 source_url。Builder override helper 只在 impact 本身是 URL 時才接受覆寫，屬 fail-closed 的既有保護，不應放寬。
+- 判定 11/26 Fixture calendar_impact_overrides 四筆為過時修補指令，已從 simulation-lab/fixtures/report-data-2026-11-26.json 移除；未修改 Builder、測試、Workflow 或 main。新 Fixture SHA 52a4b310415d468df8a78b753d3ae750dccc436d，commit 51b74c8f5cf640440de8a60856d4336436e8c2c8。遠端回讀 JSON parse PASS，calendar events=27，calendar_impact_overrides absent。
+- 唯一核准 Builder SHA 仍為 de97048c280c911322c57829d8e936f80358e88b。沒有觸發第三次 11/26 Workflow；commit message 不含 [build-tac-report:2026-11-26]。
+- 原 pre-build receipt 綁定舊 Fixture SHA，修正後失效，不得沿用。下一次正式標記執行必須重新生成 Stage 2–4 receipt 並綁定新 Fixture SHA、run_id／attempt。此修正不等於 Builder 重跑成功或 REVIEW_READY。
