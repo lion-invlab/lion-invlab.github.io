@@ -4418,3 +4418,16 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - YAML lint Run：45712739751；同一head_sha；目前in_progress。
 - 本輪修正S&P500 canonical Fixture狀態為VERIFIED，補齊Chart 3 handoff要求的歷史表格證據、觀察時間與daily_change_percent/display一致性；觀察Bundle及42 verified/2 pending狀態維持不變。
 - Retry 2為SIM-1.4允許的最後一次重試。下一步追蹤Chart 3 handoff、artifact bundle、Builder、HTML、QA與預覽；若再失敗，不再重試。
+
+
+## 2026-11-26 06:24 Asia/Taipei｜Retry 2 最終失敗與交接結論
+
+- 最終狀態：FAILED；report_date=2026-11-26；trading_date=2026-11-25；SIM-1.4；Simulation branch only。
+- 排程 Automation run：d6a4f050-94e0-8324-a5b0-56601598f351；排程實際啟動 05:28:22+08:00，外層紀錄 failed，完成時間 05:53:29+08:00。人工接手時間 05:50:25+08:00。
+- 最後 marker commit：a11dbe725b937feb8be565a783818e5422ea1f3a；GitHub Actions Run 45712739806；event=push；head_sha 完全吻合；job isolated-smoke conclusion=failure。
+- Stage 2：42 VERIFIED／2 PENDING（MOVE 2026-11-25 direct historical row、Hang Seng direct historical row）；44-row audit／manifest 通過。Stage 3：main W48 唯讀投影完成。Stage 4：5 Focus News、10 Headlines、15 unique URLs、五層分析及政治掃描已完成。Stage 2–4 receipt 已封存，SHA-256 76bff07d215ca66407969ce9f93e19189377660dadfcb8f72e37a29110d88ded。
+- Chart 3 S&P 500 handoff step 通過。Builder step 失敗：`apply_calendar_impact_overrides(data)` 對 `current-us-initial-claims-20261125` 拋出 `ValueError: calendar impact override refused: source field is not a URL`。根因為 calendar projection 將 `impact_judgment` 映射為 `impact`，但 override helper 假設該欄位仍存有 URL；目前輸入投影未符合該 legacy 前提，屬欄位契約不一致。Builder 為 SIM-1.4 受保護資產，本輪未修改。
+- Builder 未產生 preview HTML／QA sidecar；後續 visual regression／interaction smoke 因上游 Builder 失敗而 skipped。Post-upload audit FAIL，缺 HTML、QA sidecar、visual-regression.json、interaction-smoke.json。REVIEW_READY=false；HTML SHA-256 未取得。
+- 重試次數已用滿（Retry 1、Retry 2）；不得再觸發本報告日期第三次 Workflow。下一步需在不違反 Builder／Workflow 保護規則的前提下，釐清並核准修正 calendar impact override 欄位契約；修正前不得宣稱完成或交付。
+- Slack #tac-alerts 最終失敗通知已送達：https://tac-sci3435.slack.com/archives/C0CL6GF6KJ8/p1795645555151479。
+- main/index.html、正式母版、Manifest、正式行事曆 JSON、Workflow、Builder、QA Contract 均未修改；main 發布未授權。
