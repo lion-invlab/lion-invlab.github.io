@@ -3479,3 +3479,15 @@ QA Sidecar：
 - 主Workflow Run 45712739806，event=push、head_sha完全吻合，正在執行；YAML lint Run 45712739751同SHA。
 - S&P500來源欄位已同步成VERIFIED，補齊historical data table evidence_method、reader ref、line range、observed value/change、provenance及時間戳；daily_change_percent=-0.27%與顯示一致，供Chart 3 handoff。
 - Retry 2是最後一次允許重試；MOVE與恆生直接歷史列維持PENDING；不修改受保護資產。
+
+
+## 2026-11-26 06:24 Asia/Taipei｜11/26 最後 Workflow 根因確認
+
+- Automation `Automation_f4da15cd95c881918c7412cdd6f35bb2` 外層 run `d6a4f050-94e0-8324-a5b0-56601598f351`：scheduled 05:25、started 05:28:22、completed 05:53:29 Asia/Taipei，recorded_status=failed。排程仍啟用，下次 11/27 05:25。
+- 最後一次 GitHub Actions 主 Workflow Run `45712739806` 對應 marker commit `a11dbe725b937feb8be565a783818e5422ea1f3a`，event=push、head_sha 完全吻合；job `isolated-smoke` 最終 failure。
+- Stage 2–4 receipt 已封存且 PASS；市場 42 VERIFIED／2 PENDING（MOVE、Hang Seng direct historical row）；Stage 3 W48 projection 完成；Stage 4 5+10 新聞及五層分析完成；Chart 3 S&P 500 handoff 成功。
+- Builder traceback：`build_review_html.py:1265 apply_calendar_impact_overrides`；事件 `current-us-initial-claims-20261125`；錯誤 `ValueError: calendar impact override refused: source field is not a URL`。`calendar_source_guard._economic_records` 將 `impact_judgment` 映射至 `impact`，而 Builder override helper 卻要求 `target.impact` 必須是 URL 才可覆寫；兩者欄位契約不一致。Builder 屬受保護資產，本輪未修改。
+- HTML／QA sidecar 未生成；post-upload audit FAIL（缺 HTML、QA sidecar、visual-regression.json、interaction-smoke.json）；REVIEW_READY=false。
+- Retry 1、Retry 2 已用完，不得第三次觸發。需先核准修正欄位契約；不可用手動 Builder 或舊產物替代。
+- Slack #tac-alerts 已送達最終失敗通知：https://tac-sci3435.slack.com/archives/C0CL6GF6KJ8/p1795645555151479。
+- main 首頁、正式母版、Manifest、行事曆 JSON、Workflow、Builder、QA Contract 均未修改；main 未發布。
