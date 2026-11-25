@@ -135,6 +135,7 @@ def populate_fedwatch_two_slots(fed, data):
     label_map = {
         "hold": "維持不變",
         "維持利率": "維持不變",
+        "維持利率不變": "維持不變",
         "維持不變": "維持不變",
         "hike": "升息",
         "升息": "升息",
