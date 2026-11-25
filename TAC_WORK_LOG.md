@@ -3463,3 +3463,11 @@ QA Sidecar：
 - Fixture SHA-256：382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86。
 - ChatGPT Web observation bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9；44 rows，42當日觀察、2待核實（MOVE、Hang Seng直接歷史列）。
 - 第一輪失敗Run 45709983694已結束，無HTML／QA sidecar；Retry 1仍在執行，不宣稱完成。
+
+
+## 2026-11-26 06:21｜Retry 1 Chart 3 handoff失敗；Retry 2修正
+
+- Run 45712219629 最終failure。Stage 2–4 prebuild receipt已成功；42筆觀察資料驗證、44-row audit及manifest均通過。
+- Chart 3 handoff腳本要求canonical Fixture中的S&P 500 source.verification_status=VERIFIED、evidence_method含'historical data table'，且source.daily_change_percent必須與item.change_display一致。Manifest雖已將S&P 500判定VERIFIED，但Fixture欄位仍為PENDING，造成handoff失敗。
+- Retry 2已同步S&P 500 Fixture欄位：verification_status=VERIFIED、source_role=PRIMARY、instrument_type=cash_index、quote_type=cash_index_close、data_date=2026-11-25、close=7181.36、daily_change_percent/change_display=-0.27%、evidence_method、reader ref與line range、觀察值與時間戳。
+- MOVE與恆生直接歷史列仍PENDING；不得使用舊值。Retry 2為最後一次允許重試。

@@ -4400,3 +4400,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 本輪Fixture SHA-256：382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86；ChatGPT Web observation bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
 - Bundle含44筆精確身份與來源URL；42筆當日觀察、MOVE與恆生直接歷史列2筆PENDING。等待Workflow validator確認42筆是否符合數值核對與來源規範。
 - 下一步：追蹤Run 45712219629；確認bundle validator、market audit、manifest、Stage2–4 receipt、Builder、HTML、QA與預覽。
+
+
+## 2026-11-26｜Retry 1失敗與Retry 2 S&P500交接修正（2026-11-26T06:21:47+08:00）
+
+- Retry 1 commit：485c4aa6e8af732bf53dc1e3261e538d1d441a88；Workflow Run 45712219629，最終failure。
+- Stage 2 observation bundle、44-row audit、verification manifest及Stage 2–4 prebuild receipt均成功；manifest已判定S&P 500為VERIFIED。
+- Chart 3 handoff失敗根因：handoff script讀取canonical Fixture時，S&P 500 source.verification_status仍為PENDING_CURRENT_RUN_BROWSER_OBSERVATION，且evidence_method、source.daily_change_percent型態未符合handoff契約；manifest狀態沒有回寫Fixture。
+- Retry 2修正：S&P 500 Fixture source狀態同步為VERIFIED；補齊當次歷史表格evidence_method、web_reader_ref、line range、observed_value/change、provenance、checked_at_tw；daily_change_percent與display change同步為-0.27%。其餘MOVE及恆生仍PENDING。
+- Retry 2為最後一次允許重試；不得再觸發第三次。若仍失敗，依具體錯誤回報，不修改Workflow／Builder／QA Contract。

@@ -18,8 +18,8 @@ monday_mother_blob_sha: 710c944205ee05a86599ef5cd869f26c4a9ebde1
 weekday_mother_path: simulation-lab/baseline/weekday-mother-template.html
 weekday_mother_blob_sha: ff051c0cd22cf9267420c41e3952fa3178f0e45d
 fixture: simulation-lab/fixtures/report-data-2026-11-26.json
-fixture_blob_sha: 1c1ba3d172b380b22c5a8bd904db8bba38a443b5
-fixture_sha256: 382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86
+fixture_blob_sha: 4b33df495c62e9ebfcdb09a6aae475b5c7d14c31
+fixture_sha256: 1315c34fc4a85e3b48d37bcc34e3beca6c6606ce6371ee6b76c029543b654fe1
 market_history_web_observations: simulation-lab/fixtures/market-history-web-observations-2026-11-26.json
 market_history_web_observations_blob_sha: daa671ee5f1bd5df1022ea99158836af2875a40f
 market_history_web_observations_sha256: 86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9
@@ -57,14 +57,14 @@ stage4_unique_news_urls: 15
 prebuild_stage_2_to_4_receipt_required: true
 prebuild_receipt_path_pattern: simulation-lab/runs/prebuild-stage-input-receipt-2026-11-26-{GITHUB_RUN_ID}.json
 prebuild_receipt_sha256: GENERATED_BY_WORKFLOW_AFTER_VALIDATION
-retry_attempt: 1
+retry_attempt: 2
 retry_max_attempts: 2
-prior_failed_run_id: 45709983694
-prior_failed_commit_sha: cedfcfb29a22edfc24eb7749f79f7bf989761eea
+prior_failed_run_id: 45712219629
+prior_failed_commit_sha: 485c4aa6e8af732bf53dc1e3261e538d1d441a88
 publish_to_main: false
 main_delivery: disabled
 run_optional_probes: false
 stage2_source_pages_fetched_this_run: true
 stage2_displayed_values_independently_reconciled_this_run: false
 
-This date-scoped marker uses a current-run ChatGPT Web observation bundle rather than the failed Runner Playwright fallback. It contains 42 current-date rows; Hang Seng direct historical row and MOVE 2026-11-25 row remain PENDING and must not be filled from prior dates or side-panel values. No main publication is authorized.
+This date-scoped marker uses a current-run ChatGPT Web observation bundle rather than the failed Runner Playwright fallback. It contains 42 current-date rows; Hang Seng direct historical row and MOVE 2026-11-25 row remain PENDING and must not be filled from prior dates or side-panel values. The S&P 500 source fields in the canonical fixture are explicitly synchronized to the verified bundle row for Chart 3 handoff. No main publication is authorized.

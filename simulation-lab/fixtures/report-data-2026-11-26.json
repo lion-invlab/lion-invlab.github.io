@@ -225,36 +225,37 @@
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
         "close_value": 7181.36,
-        "daily_change_percent": -0.27,
-        "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+        "daily_change_percent": "-0.27%",
+        "verification_status": "VERIFIED",
         "source_role": "PRIMARY",
         "raw_response_sha256": null,
-        "history_close": 7181.36,
+        "history_close": "7,181.36",
         "score_value": "7201.09",
-        "history_change": -0.27,
+        "history_change": "-0.27%",
         "checked_at_tw": "2026-11-26T06:17:22+08:00",
         "read_at_taipei": "2026-11-26T06:17:22+08:00",
-        "verified_at_tw": null,
-        "evidence_method": null,
-        "web_reader_ref": null,
-        "web_line_start": null,
-        "web_line_end": null,
-        "read_method": "PENDING_CHATGPT_WEB_BUNDLE_VALIDATION",
-        "read_status": "PENDING",
-        "observed_value": null,
-        "observed_change": null,
-        "note": "11/25 expected historical close; current-run ChatGPT Web observation bundle will be validated by workflow.",
-        "provenance": null,
+        "verified_at_tw": "2026-11-26T06:20:12+08:00",
+        "evidence_method": "Investing.com historical data table — current-run ChatGPT Web observation bundle; 2026-11-25 row.",
+        "web_reader_ref": "https://www.investing.com/indices/us-spx-500-historical-data",
+        "web_line_start": 50,
+        "web_line_end": 50,
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 7181.36,
+        "observed_change": -0.27,
+        "note": "VERIFIED from the 2026-11-25 Investing.com historical data table via current-run ChatGPT Web observation bundle; Close 7,181.36, Change -0.27%.",
+        "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "instrument_identity": "S&P 500 (SPX)",
-        "source_page_fetched": false,
+        "source_page_fetched": true,
         "page_title": "S&P 500 Historical Data (SPX) - Investing.com",
         "trading_date": "2026-11-25",
-        "display_value_matches_saved_observation": false,
+        "display_value_matches_saved_observation": true,
         "checked_at_taipei": "2026-11-26T06:17:22+08:00",
         "change_display": "-0.27%",
         "backup_web_reader_ref": null,
         "backup_web_line_start": null,
-        "backup_web_line_end": null
+        "backup_web_line_end": null,
+        "observed_date": "2026-11-25"
       }
     },
     "那斯達克綜合指數": {
@@ -11857,7 +11858,7 @@
       "text": "2年、10年及30年美債殖利率分別下滑1.9、3.7及3.6個基點；WTI與Brent上漲，VIX升至28.36，Fear & Greed為15（極度恐懼）。MOVE缺少11/25歷史列，維持待核實，不沿用前一交易日數值。"
     }
   ],
-  "warning_note": "本輪改用當次ChatGPT Web歷史頁觀察Bundle供Workflow驗證。MOVE與恆生指數直接歷史列未能確認，均標示待核實，不沿用舊日數值；其他行情須以本輪觀察Bundle驗證結果為準。",
+  "warning_note": "當次觀察Bundle已驗證42筆；MOVE及恆生直接歷史列未確認，保留待核實。S&P 500 11/25收盤7,181.36、變動-0.27%，已具備Investing.com歷史表格證據與當次驗證狀態，供Chart 3增量交接。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -12299,9 +12300,9 @@
       }
     ]
   },
-  "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-1",
+  "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
   "market_sentiment": "風險偏好偏弱且區域分化：VIX 28.36、單日上升7.59%；CNN Fear & Greed採FGScore備援讀值15（極度恐懼），官方CNN日期映射仍待本輪核對；MOVE缺少11/25歷史列，標示待核實。Investing.com Fed Rate Monitor顯示12/9升息25個基點機率95.6%、維持現行3.75%–4.00%機率4.4%，此為期貨隱含機率，不是聯準會決策。",
-  "quality_note": "2026-11-26人工接手審核版，行情基準日2026-11-25。第一輪Runner Playwright對43頁回報TOOL_READ_FAILURE，已改以當次ChatGPT Web頁面觀察Bundle提供證據；MOVE與恆生直接歷史列待核實。W48行事曆、5則Focus News、10則Headlines及五層分析沿用本輪當日資料。",
+  "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。當次ChatGPT Web observation bundle經Workflow驗證42筆；S&P 500來源狀態同步為VERIFIED以完成Chart 3交接，MOVE與恆生直接歷史列維持PENDING。W48行事曆、5則Focus News、10則Headlines及五層分析均已通過Stage 2–4輸入收據。",
   "report_cutoff_taipei": "2026-11-26T05:50:25+08:00",
   "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50",
   "key_levels_overrides": {},
@@ -12614,11 +12615,11 @@
     "main_publish_authorized": false,
     "build_requested_at_taipei": "2026-11-26T05:50:25+08:00",
     "build_trigger_reason": "User authorized manual takeover of 2026-11-26 Simulation report after scheduled run showed no current-date fixture or artifact.",
-    "execution_batch": "manual-takeover-2026-11-26-retry-1",
+    "execution_batch": "manual-takeover-2026-11-26-retry-2",
     "related_automation_run_id": "d6a4f050-94e0-8324-a5b0-56601598f351",
-    "current_session_checked_at_taipei": "2026-11-26T06:17:22+08:00",
-    "prior_failed_workflow_run_id": "45709983694",
-    "prior_failed_commit_sha": "cedfcfb29a22edfc24eb7749f79f7bf989761eea"
+    "current_session_checked_at_taipei": "2026-11-26T06:21:47+08:00",
+    "prior_failed_workflow_run_id": "45712219629",
+    "prior_failed_commit_sha": "485c4aa6e8af732bf53dc1e3261e538d1d441a88"
   },
   "last_week_calendar_impact_overrides": []
 }
