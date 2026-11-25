@@ -235,6 +235,11 @@ def main():
             raise SystemExit(f"CNN Fear & Greed backup display {fg_display!r} differs from backup source score {canonical_fg!r}")
         if str(fg_source.get("source_role", "")).upper() not in ("BACKUP_1", "BACKUP", "SECONDARY"):
             raise SystemExit("CNN Fear & Greed BACKUP_VERIFIED status requires an explicit backup source role")
+        if fg_source.get("source_score_value") is not None:
+            raise SystemExit("CNN Fear & Greed backup status must not retain an unmapped official CNN source score")
+        cross_check = fg_source.get("cross_check") or {}
+        if cross_check.get("status") != "DATE_MAPPING_UNRESOLVED":
+            raise SystemExit("CNN Fear & Greed backup status must disclose unresolved official-source date mapping")
         if "FGScore" not in str(fg_source.get("name", "")) or "fgscore.com" not in str(fg_source.get("url", "")):
             raise SystemExit("CNN Fear & Greed backup status must identify the FGScore backup source")
         if "FGScore" not in str(fixture.get("sentiment", "")) or "備援" not in str(fixture.get("sentiment", "")) or fg_display not in str(fixture.get("sentiment", "")):
