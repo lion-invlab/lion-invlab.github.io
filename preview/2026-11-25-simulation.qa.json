@@ -15,19 +15,21 @@
     "status": "NOT_APPLICABLE_WEEKDAY"
   },
   "data_audit": {
-    "quality_note": "本輪主要行情基準日為2026-11-23。44項來源頁面重新讀取；43項數值觀察均有當期來源紀錄，日經225依官方假日證據標示休市。Fear & Greed以CNN官方graphdata previous_close原始值16.9658627087199核驗，顯示取整17、Extreme Fear；FGScore備援歷史頁11/23列亦顯示17。CNN同一回應的歷史序列11/23點位17.0801484230056，原始精度略有差異但顯示值同為17，依SIM-1.4指定previous_close欄位核驗。MOVE由Investing.com India歷史頁直接開啟讀取11/23收盤100.91、-5.08%；XLRE因香港站頁面無法讀取，改用Investing.com Global備援頁。日經225依日本內閣府官方祝日表確認11/23勤勞感謝日休市，不採用差價合約報價。本次行情重讀晚於05:25報告截點，僅證明Stage 2重新讀取與核對，不代表05:25排程已成功；非行情內容仍沿用當日既有Fixture，並非完整空白輸入重建。",
-    "warning_note": "行情主要基準日為2026-11-23。44項指標中43項數值均有當期來源觀察，日經225依日本內閣府官方假日證據標示休市；Fear & Greed以CNN官方previous_close 16.9658627087199核驗，顯示取整17，FGScore備援歷史頁亦顯示17；MOVE由Investing.com India歷史頁直接開啟讀取11/23資料列，XLRE因香港站頁面無法讀取改用Investing.com Global備援頁。不以舊收盤或盤中值補缺。本次重讀於16:08至16:13台灣時間，晚於05:25報告截點，僅為Stage 2補抓驗證。",
+    "quality_note": "本輪報告日期為2026-11-25，主要行情基準日為2026-11-24。44項行情清冊：41項已取得本輪來源觀察、3項待核實（Brent、MOVE、CNN Fear & Greed）；觀察紀錄SHA缺漏0項，但原始回應SHA封存0項。44個來源頁面的批次瀏覽器擷取未執行，亦未完成44項顯示值獨立重核；因此本版不得標示為資料完整或可正式發布。待核實項目不得顯示舊值或未完成核驗的報價。",
+    "warning_note": "資料狀態：44項行情中41項已核驗、3項待核實（Brent、MOVE、CNN Fear & Greed）。原始回應SHA封存0項；44頁批次擷取與全數顯示值獨立重核尚未完成。本輪行情觀察時間晚於05:25報告截點，不代表05:25排程成功。非行情內容沿用本輪既有Fixture，並非完整空白輸入重建。",
     "pending_items": [
-      "MOVE 11/24指定歷史頁尚未出現當日列"
+      "Brent 2026-11-24指定歷史資料列尚未完成本輪觀察紀錄核驗",
+      "MOVE 2026-11-24指定歷史資料列尚未完成本輪觀察紀錄核驗",
+      "CNN Fear & Greed 2026-11-24官方收盤值尚未完成核驗"
     ],
     "report_cutoff_taipei": "2026-11-25 05:25:00+08:00",
     "news_window_taipei": "2026/11/24 12:00 至 2026/11/25 05:25"
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
-  "market_snapshot_audit_sha256": "c14badcbdc7304cf2b47bbc50c2effee040ef932280cef1f4a0c0223eede28e2",
+  "market_snapshot_audit_sha256": "40871b311dd93f35e84e0eed3c37dfc17d3e46a3d9140e00116b1452b6d35aa7",
   "market_source_verification_manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-  "market_source_verification_manifest_sha256": "19bf47dfd0b9f0742bcfec37e030c88120d5fab2b2d0437e46833d52bddd823e",
+  "market_source_verification_manifest_sha256": "b0a1457e04e7e3ff11ae5c6f69a9de6bf2687d510a5d0e3b324903a7fe512db0",
   "market_source_verification_summary": {
     "status": "PARTIAL",
     "row_count": 44,
@@ -42,7 +44,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "0df222d0a0e9563783476599dc711747a665affd4cb2a76645766e27faeb8a15",
+  "prebuild_input_receipt_sha256": "350c2edc3fe646375f878d26d2ba3b4aaa6b3154fe7dd99c5f261a7864eb9136",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -50,11 +52,11 @@
     "report_date": "2026-11-25",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45518083171",
+    "workflow_run_id": "45519479691",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-25.json",
-      "sha256": "12ceb4ff2b5a4583d7a1ad80428090a7ed9ca21dec463286f24abfc4460472d1"
+      "sha256": "1b186163b3956cb86aba0d0042305317225466591073826a35789ceed66ebd10"
     },
     "stage_2_market": {
       "trading_date": "2026-11-24",
@@ -79,9 +81,9 @@
       "pending_observation_count": 3,
       "raw_response_sha256_saved_count": 0,
       "audit_path": "simulation-lab/output/market-snapshot-audit.json",
-      "audit_sha256": "c14badcbdc7304cf2b47bbc50c2effee040ef932280cef1f4a0c0223eede28e2",
+      "audit_sha256": "40871b311dd93f35e84e0eed3c37dfc17d3e46a3d9140e00116b1452b6d35aa7",
       "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
-      "manifest_sha256": "19bf47dfd0b9f0742bcfec37e030c88120d5fab2b2d0437e46833d52bddd823e"
+      "manifest_sha256": "b0a1457e04e7e3ff11ae5c6f69a9de6bf2687d510a5d0e3b324903a7fe512db0"
     },
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
@@ -131,7 +133,7 @@
       "political_findings_count": 6,
       "report_cutoff_taipei": "2026-11-25 05:25:00+08:00"
     },
-    "created_at_utc": "2026-11-25T00:26:57Z",
+    "created_at_utc": "2026-11-25T00:37:53Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -142,11 +144,11 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-25-simulation.html",
   "report_date": "2026-11-25",
-  "report_git_blob_sha": "af00a82f23dfdf3459fc4d192fd6095cea5da403",
-  "report_sha256": "181eb47a4d6bab5a304eab0d9876c2d34e4b48798333324fee2db5be029da9a6",
-  "build_commit_sha": "a5281485bc68827ec585b810bb3855464d99cf4d",
+  "report_git_blob_sha": "3e234f4b8932ecd39fd146eac3333f4842b1216b",
+  "report_sha256": "13b7b45fc2c5825b28e5ec970bcef10c5f2631d9afac4223bc393fc062349fd4",
+  "build_commit_sha": "09392692dba2a911b6a93d8674ad64e30cef417e",
   "builder_blob_sha": "2ad7db3fb76962609d5198ef1f2f780ca62d6a5a",
-  "fixture_blob_sha": "2fb63e7091e384a192b9ca5ef3ae1391921eceee",
+  "fixture_blob_sha": "fbd597fa146f66caee7827546c4d3c9403a6d835",
   "template_blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d",
   "manifest_blob_sha": "9560308371dfa43a0d352398e5ef9abcbf8ee229",
   "qa_contract_blob_sha": "5328fd12f919944314494107311736ff9813ad67",
@@ -215,7 +217,7 @@
   "calendar_current_blob_sha": "23c253ef39d173f4d9d0fd24e565be2522dc95d8",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "4eea0bd60dc15546e85c4b9f524ebe25cda9299da789dd80a14f14c61cb419a6",
-  "visual_evidence_sha256": "476f1d8c5214b697e3e9566a990b69c15f49f6e920441b8226de9c3932ee4e62",
+  "visual_evidence_sha256": "dc1eb6e66d9fbe44db9c2a75d4b1110e8b35c2354455209a29c5220dd70a4370",
   "viewports": [
     1440,
     768,
@@ -224,6 +226,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45518083171",
+  "workflow_run_id": "45519479691",
   "workflow_run_attempt": "1"
 }
