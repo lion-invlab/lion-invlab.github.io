@@ -3436,3 +3436,12 @@ QA Sidecar：
 
 ### 保護狀態
 僅Simulation branch；未修改main/index.html、正式母版、正式Manifest、正式行事曆、Workflow、Builder或QA Contract；main發布未授權。
+
+
+## 2026-11-26 06:02｜Marker commit與Workflow啟動證據
+
+- marker commit：cedfcfb29a22edfc24eb7749f79f7bf989761eea；唯一標記 [build-tac-report:2026-11-26]。
+- 主Workflow Run 45709983694，TAC isolated simulation lab，event=push，head_sha完全吻合，目前 in_progress；已完成Checkout、provenance及Python setup，正在安裝Python dependencies。
+- YAML lint Run 45709983745 已 completed/success；這只代表Workflow YAML檢查通過，不代表早報E2E通過。
+- Fixture SHA-256：e6f6809112b61db0213bdcc13e096f6029da9ea479617bdc4ea19271c3386c51；Git blob SHA：4b2dbf2c42b221aff4797ec26b85a945a015c84c。
+- 尚無本輪Playwright核驗收據、Stage2–4 prebuild receipt、HTML、QA sidecar或可開啟預覽；MOVE仍PENDING。
