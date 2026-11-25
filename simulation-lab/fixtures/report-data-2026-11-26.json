@@ -12358,28 +12358,6 @@
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [],
   "last_week_earnings_actuals": [],
-  "calendar_impact_overrides": [
-    {
-      "event_id": "current-us-initial-claims-20261125",
-      "impact": "初領失業金若維持低檔，代表就業市場仍具韌性，可能降低降息急迫性；若連續上升，則顯示勞動需求轉弱並緩和利率壓力。",
-      "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
-    },
-    {
-      "event_id": "current-de-gfk-confidence-202612",
-      "impact": "消費者信心回升可支持德國零售與內需修復；若信心仍處低檔，家庭對高物價與就業前景的擔憂將限制消費。",
-      "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
-    },
-    {
-      "event_id": "current-fr-hicp-flash-202611",
-      "impact": "若法國通膨高於預期，將強化ECB對能源與服務價格傳導的警戒；若通膨降溫，可能緩和歐洲利率再緊縮壓力。",
-      "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
-    },
-    {
-      "event_id": "current-de-unemployment-202611",
-      "impact": "失業人數增加或失業率上升，反映德國就業市場疲弱，可能壓抑家庭消費並加深景氣下行風險；若持穩則支持內需韌性。",
-      "note": "修復W48 impact_judgment誤置來源網址；只作用於審核版投影。"
-    }
-  ],
   "market_analysis": {
     "political": {
       "paragraphs": [
