@@ -111,10 +111,17 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
                              f"{group}/{name}: commodity quote_type must be investing_historical_close")
                     _require(source.get("url") == item.get("instrument_url"),
                              f"{group}/{name}: source.url and instrument_url must match")
-                    _require(source.get("history_close") == str(display),
-                             f"{group}/{name}: history_close must equal displayed close")
-                    _require(source.get("history_change") == item.get("change_display"),
-                             f"{group}/{name}: history_change must equal displayed change")
+                    pending_display = display == "待核實" or item.get("change_display") == "待核實"
+                    if pending_display:
+                        _require(display == "待核實" and item.get("change_display") == "待核實",
+                                 f"{group}/{name}: pending commodity must suppress both close and change")
+                        _require(str(source.get("verification_status", "")).upper() not in ("VERIFIED", "BACKUP_VERIFIED"),
+                                 f"{group}/{name}: pending display cannot retain verified source status")
+                    else:
+                        _require(source.get("history_close") == str(display),
+                                 f"{group}/{name}: history_close must equal displayed close")
+                        _require(source.get("history_change") == item.get("change_display"),
+                                 f"{group}/{name}: history_change must equal displayed change")
                     _require(bool(item.get("contract_label")),
                              f"{group}/{name}: selected contract label missing")
                 rows.append(row)
