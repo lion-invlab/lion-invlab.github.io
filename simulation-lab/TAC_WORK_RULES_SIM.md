@@ -45,8 +45,8 @@
 
 
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
-- Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 `workflow_dispatch)、tag-push 或其他觸發入口。
-- `workflow_dispatch) 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
+- Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
+- workflow_dispatch 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
 - 每輪執行須分開回報：已觸發／未觸發、commit SHA、Workflow Run ID、Workflow 執行成功／失敗、審核版 HTML 是否已產出（路徑與 SHA-256）、QA sidecar 狀態，以及數據已驗證／待核實。
 - Run 必須以當次 commit SHA 精確對應，並核對 `event=push`；重試必須產生新的 commit SHA 及新的對應 Run，不得沿用前次結果。
 - 僅在 commit 標記觸發本身提交失敗時，才說明觸發限制並提供 GitHub Actions 頁面。commit 成功但找不到對應 Run，須如實回報未觸發／未取得 Run。
