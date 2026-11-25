@@ -785,8 +785,18 @@
         "forecast": "MUFG 預估 -29.9；其他市場日曆共識約 -29.0",
         "actual": null,
         "status": "upcoming",
-        "impact_judgment": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
-        "source": "NIM｜Consumer Climate Publication Dates",
+        "impact_judgment": "若指數較 -30.8 明顯回升，可能緩和德國內需疲弱疑慮；若仍深陷負值區，則顯示家庭信心與消費需求持續疲弱。",
+        "source": {
+          "name": "NIM｜Consumer Climate publication dates and latest release",
+          "url": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+          "publisher": "Nürnberg Institute for Market Decisions (NIM), founder of GfK",
+          "published_at": null,
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "本輪回讀 NIM 官方頁：下一次 Consumer Climate 發布為 2026-11-26 08:00 CET；最新已公布 11月指標為 -30.8（10/28發布）。12月 forecast 保留既有 MUFG -29.9 及其他市場日曆約 -29.0，官方頁未提供市場共識。",
+          "secondary_refs": [
+            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+          ]
+        },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "指數",
@@ -801,12 +811,22 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：法國是歐元區主要經濟體，初值通膨可先行反映能源與服務價格變化，影響 ECB 利率預期。",
-        "previous": "HICP 年增 3.7%（10月初值）",
+        "previous": "HICP 年增 3.8%（10月官方值；取代舊記錄 3.7%）。",
         "forecast": "市場共識 3.7%；MUFG 預估 3.5%",
         "actual": null,
         "status": "upcoming",
-        "impact_judgment": "https://www.insee.fr/en/statistiques/9107975",
-        "source": "INSEE｜November 2026 provisional CPI release schedule",
+        "impact_judgment": "若 HICP 年增維持高於市場預期，可能限制 ECB 寬鬆空間；若明顯低於預期，則有助緩和歐元區通膨壓力。",
+        "source": {
+          "name": "INSEE｜November 2026 provisional CPI release schedule",
+          "url": "https://www.insee.fr/en/statistiques/9107975",
+          "publisher": "Institut national de la statistique et des études économiques (INSEE)",
+          "published_at": null,
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "本輪回讀 INSEE 官方頁：11月 CPI/HICP 初值預定 2026-11-27 08:45 CET；10月 HICP 年增實際值為 3.8%，作為本事件前值。市場共識 3.7%、MUFG 3.5%保留既有來源記錄。",
+          "secondary_refs": [
+            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+          ]
+        },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "% y/y",
@@ -825,8 +845,18 @@
         "forecast": "市場共識增加 6 千人；MUFG 預估增加 2 千人",
         "actual": null,
         "status": "upcoming",
-        "impact_judgment": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
-        "source": "Federal Employment Agency｜Publication Calendar",
+        "impact_judgment": "若失業人數增幅高於預期，顯示德國勞動市場疲弱加劇；若低於預期，則代表就業仍具韌性，有助支撐家庭消費。",
+        "source": {
+          "name": "Federal Employment Agency｜Publication Calendar",
+          "url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+          "publisher": "Bundesagentur für Arbeit",
+          "published_at": null,
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "本輪嘗試重新讀取官方發布日曆時回應 HTTP 403，無法重新核對 11/27 09:55 CET 時刻；保留既有事件日期、前值與 MUFG／市場共識，不把本輪讀取失敗解讀為來源無資料。",
+          "secondary_refs": [
+            "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
+          ]
+        },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "千人",
@@ -8602,9 +8632,12 @@
         "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
         "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
         "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf",
-        "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72"
+        "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf?_sp=4cdcff2c-7436-4a7e-beb5-37bd3e84fb72",
+        "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+        "https://www.insee.fr/en/statistiques/9107975",
+        "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html"
       ],
-      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。"
+      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。\n本輪另修復 3 筆未公布事件的來源欄位倒置：德國 GfK、法國 HICP、德國失業率原先將來源名稱／URL 放在 impact_judgment；已改為 source object 並補上可讀的影響判斷。NIM 官方頁確認 GfK 11/26 08:00 CET、最新已公布值 -30.8；INSEE 確認法國 11月 CPI/HICP 初值 11/27 08:45 CET，並將10月 HICP 前值修正為官方 3.8%；德國聯邦就業局日曆本輪 HTTP 403，保留原事件時刻及預期並註明本輪未能重核。"
     },
     "earnings": {
       "status": "incomplete",
@@ -11276,7 +11309,51 @@
           "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
           "evidence": "BEA table separately reports current-dollar PCE +0.3% and personal outlays in dollar terms; field label clarified to PCE."
         }
-      ]
+      ],
+      "economic_schedule_source_repairs": [
+        {
+          "id": "current-de-gfk-confidence-202612",
+          "old_source_type": "string",
+          "old_impact": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+          "new_source_url": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+          "new_impact": "若指數較 -30.8 明顯回升，可能緩和德國內需疲弱疑慮；若仍深陷負值區，則顯示家庭信心與消費需求持續疲弱。"
+        },
+        {
+          "id": "current-fr-hicp-flash-202611",
+          "old_previous": "HICP 年增 3.7%（10月初值）",
+          "new_previous": "HICP 年增 3.8%（10月官方值；取代舊記錄 3.7%）。"
+        },
+        {
+          "id": "current-fr-hicp-flash-202611",
+          "old_source_type": "string",
+          "old_impact": "https://www.insee.fr/en/statistiques/9107975",
+          "new_source_url": "https://www.insee.fr/en/statistiques/9107975",
+          "new_impact": "若 HICP 年增維持高於市場預期，可能限制 ECB 寬鬆空間；若明顯低於預期，則有助緩和歐元區通膨壓力。"
+        },
+        {
+          "id": "current-de-unemployment-202611",
+          "old_source_type": "string",
+          "old_impact": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+          "new_source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+          "new_impact": "若失業人數增幅高於預期，顯示德國勞動市場疲弱加劇；若低於預期，則代表就業仍具韌性，有助支撐家庭消費。"
+        }
+      ],
+      "economic_schedule_sources_rechecked": {
+        "NIM": {
+          "result": "readable",
+          "published_event": "2026-11-26T08:00:00+01:00",
+          "latest_actual": -30.8
+        },
+        "INSEE": {
+          "result": "readable",
+          "next_release": "2026-11-27T08:45:00+01:00",
+          "previous_hicp_yoy": 3.8
+        },
+        "Bundesagentur_fuer_Arbeit": {
+          "result": "HTTP 403",
+          "retained_existing_schedule": true
+        }
+      }
     }
   ],
   "last_update_audit": {
@@ -11983,6 +12060,50 @@
         "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
         "evidence": "BEA table separately reports current-dollar PCE +0.3% and personal outlays in dollar terms; field label clarified to PCE."
       }
-    ]
+    ],
+    "economic_schedule_source_repairs": [
+      {
+        "id": "current-de-gfk-confidence-202612",
+        "old_source_type": "string",
+        "old_impact": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+        "new_source_url": "https://www.nim.org/en/consumer-climate/type/nim-research-report",
+        "new_impact": "若指數較 -30.8 明顯回升，可能緩和德國內需疲弱疑慮；若仍深陷負值區，則顯示家庭信心與消費需求持續疲弱。"
+      },
+      {
+        "id": "current-fr-hicp-flash-202611",
+        "old_previous": "HICP 年增 3.7%（10月初值）",
+        "new_previous": "HICP 年增 3.8%（10月官方值；取代舊記錄 3.7%）。"
+      },
+      {
+        "id": "current-fr-hicp-flash-202611",
+        "old_source_type": "string",
+        "old_impact": "https://www.insee.fr/en/statistiques/9107975",
+        "new_source_url": "https://www.insee.fr/en/statistiques/9107975",
+        "new_impact": "若 HICP 年增維持高於市場預期，可能限制 ECB 寬鬆空間；若明顯低於預期，則有助緩和歐元區通膨壓力。"
+      },
+      {
+        "id": "current-de-unemployment-202611",
+        "old_source_type": "string",
+        "old_impact": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+        "new_source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+        "new_impact": "若失業人數增幅高於預期，顯示德國勞動市場疲弱加劇；若低於預期，則代表就業仍具韌性，有助支撐家庭消費。"
+      }
+    ],
+    "economic_schedule_sources_rechecked": {
+      "NIM": {
+        "result": "readable",
+        "published_event": "2026-11-26T08:00:00+01:00",
+        "latest_actual": -30.8
+      },
+      "INSEE": {
+        "result": "readable",
+        "next_release": "2026-11-27T08:45:00+01:00",
+        "previous_hicp_yoy": 3.8
+      },
+      "Bundesagentur_fuer_Arbeit": {
+        "result": "HTTP 403",
+        "retained_existing_schedule": true
+      }
+    }
   }
 }
