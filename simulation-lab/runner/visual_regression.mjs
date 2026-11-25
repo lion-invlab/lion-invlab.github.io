@@ -97,14 +97,18 @@ try {
 
     // Explicitly exercise the Energy tab at every viewport; the default screenshot
     // only captures the initially selected S&P 11 tab.
-    const energyTab = reportPage.locator('label[for="tac-assets-3"]');
-    if (await energyTab.count() !== 1) throw new Error(`${v.name}: Energy tab label missing or duplicated`);
-    await energyTab.click();
-    await reportPage.waitForFunction(() => {
-      const radio = document.querySelector("#tac-assets-3");
-      const panel = document.querySelector("#tac-assets-panel-3");
-      return !!radio?.checked && !!panel && getComputedStyle(panel).display !== "none";
-    });
+    // Put both documents in the same interactive state before comparing computed styles.
+    // Energy tab activation can alter responsive grid calculations through mother-owned CSS.
+    for (const page of [masterPage, reportPage]) {
+      const energyTab = page.locator('label[for="tac-assets-3"]');
+      if (await energyTab.count() !== 1) throw new Error(`${v.name}: Energy tab label missing or duplicated`);
+      await energyTab.click();
+      await page.waitForFunction(() => {
+        const radio = document.querySelector("#tac-assets-3");
+        const panel = document.querySelector("#tac-assets-panel-3");
+        return !!radio?.checked && !!panel && getComputedStyle(panel).display !== "none";
+      });
+    }
     const energyAudit = await reportPage.evaluate(() => {
       const panel = document.querySelector("#tac-assets-panel-3");
       const card = panel?.querySelector(".energy-card");
