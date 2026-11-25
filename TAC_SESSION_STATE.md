@@ -4341,3 +4341,19 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 自動化 `TAC 早報｜自動製作與驗收`（Automation ID `Automation_f4da15cd95c881918c7412cdd6f35bb2`）已由 Automations 更新為 `is_enabled=false`，並以 peek 回讀確認停用。原因是本次正式 Simulation Pipeline push run `45080345516` 無任何 jobs／artifacts，且目前唯一 workflow 入口在 Simulation branch、未存在於 default branch main；在入口修復前繼續按日排程會重複產生無效 run。此停用不影響 04:35 行事曆資料庫排程及 Chart 3 排程。
 - 重新啟用條件：先由 repo 管理者／使用者決定並授權正式支援的 Simulation-only workflow 執行入口；確認不會寫入 main 正式首頁或行事曆 JSON，再重新啟用此自動化。未取得授權前不自行複製 workflow 到 main、不手動執行 Builder。
 - 通知狀態：notify_parent 初次啟動未取得可確認的 `status=notified`；完成／阻塞通知重試明確回傳 HTTP 404 `Action not found`，最終狀態 FAILED／未送達。
+
+
+## 2026-11-26｜人工接手早報進度（2026-11-26T05:56:12+08:00）
+
+- 狀態：STARTED；本次為人工接手，不代表 05:25 排程 worker 已正常執行。
+- report_date：2026-11-26；trading_date：2026-11-25。
+- 關聯 Automation run ID：d6a4f050-94e0-8324-a5b0-56601598f351（外層紀錄為 in_progress；此狀態不作為 worker 存活證據）。
+- 人工接手批次：manual-takeover-2026-11-26；開始時間 2026-11-26T05:50:25+08:00；新聞窗口截止時間採本次實際接手時間。
+- 規範：SIM-1.4；最新規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2；工作分支 simulation/tac-process-lab-2026-11-06。
+- 已讀取最新 QA Contract、Manifest、weekday mother、核准 Builder；未修改任何受保護檔案。
+- Stage 2：已重新讀取 44 項行情來源頁。43 項已有 2026-11-25 數值或備援交叉讀值；MOVE 頁尚無 11/25 歷史列，維持待核實，不沿用 11/24。香港恆生指數以 Investing.com 其他歷史頁的側欄報價交叉讀值，需在 observation 中註明非直接歷史列。尚未產生本輪 observation bundle、audit、manifest 或 receipt，故 Stage 2 尚未封存。
+- Stage 3：唯讀讀取 main W48 行事曆 JSON，blob SHA 342a51861991cfaa7367d83dffa91a71f6fa7cf5；經濟事件 27 筆、財報事件 11 筆。尚未完成當日 projection／receipt。
+- Stage 4：未完成當日新聞整理與五層分析。
+- Builder／Workflow／QA：未執行；11/26 Fixture、HTML、QA sidecar、對應 Run 均未取得。
+- 下一步：建立本日 Fixture 與 44-row web observation bundle，完成 Stage 2 驗證；再完成 Stage 3–4，同批次封存後才更新 BUILD_TRIGGER 並走唯一 push-marker 觸發路徑。
+- 保護：main/index.html、正式母版、正式 Manifest、正式行事曆 JSON、Workflow、Builder、QA Contract 均未修改。
