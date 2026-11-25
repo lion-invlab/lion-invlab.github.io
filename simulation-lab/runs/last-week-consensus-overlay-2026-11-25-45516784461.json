@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "status": "NOT_APPLICABLE",
+  "section": "weekday_no_last_week_overlay",
+  "report_date": "2026-11-25",
+  "reason": "Weekday mother has no prior-week earnings/calendar overlay section.",
+  "output_html_sha256": "25b02acc5d690421ac4502a04d9b5b91bfeee94bbfbf4663fef5fd796d707729",
+  "overlay_applied": false
+}
