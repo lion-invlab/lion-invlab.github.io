@@ -326,7 +326,7 @@ def main():
         if len(fed_rows) != 2 or fed_bar is None or fed_bar.has_attr("hidden"):
             raise SystemExit("valid two-outcome FedWatch snapshot is still rendered as pending")
         label_map = {
-            "hold": "維持不變", "維持利率": "維持不變", "維持不變": "維持不變",
+            "hold": "維持不變", "維持利率": "維持不變", "維持利率不變": "維持不變", "維持不變": "維持不變",
             "hike": "升息", "升息": "升息", "cut": "降息", "降息": "降息",
             "升息25個基點": "升息25個基點", "升息50個基點": "升息50個基點",
             "降息25個基點": "降息25個基點", "降息50個基點": "降息50個基點",
