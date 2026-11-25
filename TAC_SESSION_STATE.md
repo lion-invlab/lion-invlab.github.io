@@ -4390,3 +4390,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 修正：同步更新11檔ETF source.change_display；WTI、Brent、Gold、Silver history_close/history_change改為與顯示欄一致的字串；VIX/MOVE/Fear&Greed的score_value與當日資料同步，清除所有舊web refs及舊觀察時間。
 - 替代來源證據：建立本輪ChatGPT Web observation bundle，44筆精確身份與URL；42筆有當日觀察值，恆生直接歷史列及MOVE列維持SOURCE_NO_DATA/PENDING，不以側欄值或舊日值補入。Bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
 - Retry 1：新commit仍使用[build-tac-report:2026-11-26]同一日期標記；本輪只重試一次，不超過SIM-1.4最多2次限制。
+
+
+## 2026-11-26｜Retry 1 marker commit已觸發（2026-11-26T06:17:22+08:00）
+
+- Retry 1 marker commit：485c4aa6e8af732bf53dc1e3261e538d1d441a88；commit message含[build-tac-report:2026-11-26]。
+- 主Workflow Run：45712219629；TAC isolated simulation lab；event=push；head_sha與Retry 1 commit完全相同；目前in_progress。
+- YAML lint Run：45712219504；event=push；同一head_sha；目前in_progress。
+- 本輪Fixture SHA-256：382a9e0bc0102e2f8325f115a816b62e444de194c3cbaf14fe5c8efb316c9c86；ChatGPT Web observation bundle SHA-256：86d12b27299920a36504252c6fff49b8f888bac0fd41559e854f8ebc1a716bf9。
+- Bundle含44筆精確身份與來源URL；42筆當日觀察、MOVE與恆生直接歷史列2筆PENDING。等待Workflow validator確認42筆是否符合數值核對與來源規範。
+- 下一步：追蹤Run 45712219629；確認bundle validator、market audit、manifest、Stage2–4 receipt、Builder、HTML、QA與預覽。
