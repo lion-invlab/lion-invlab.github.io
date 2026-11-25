@@ -2,8 +2,8 @@
   "report_date": "2026-11-25",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-24",
-  "summary": "11/24全球股市呈現明顯輪動，而非全面下跌。美股道瓊上漲0.86%、羅素2000上漲0.61%，標普500下跌0.49%、那斯達克下跌1.48%，費城半導體指數大跌7.88%，顯示賣壓集中於科技與晶片族群；亞洲市場則強彈，台股上漲8.99%、韓股上漲6.32%、日經上漲1.32%。\\n\\n跨資產方面，美債殖利率小幅走高，美元指數下跌0.48%；WTI與Brent分別上漲1.85%及1.87%，但黃金下跌2.65%、白銀下跌5.71%，反映商品走勢分化。荷姆茲海峽商船遇襲提高航運風險，但三艘船均續航且船員安全，尚未確認供應中斷。\\n\\n投資判斷：市場資金由大型科技股轉向道瓊、羅素及部分亞洲市場，不能將指數分化解讀為全面風險解除。短線不追逐單日急跌或急漲，維持分散配置並控制高Beta與槓桿部位；待半導體跌勢收斂、上漲廣度擴大、PCE通膨與AI資本支出回報獲得驗證，再分批調整科技曝險。",
-  "sentiment": "VIX收於26.36，較前一日下跌0.98%；MOVE為98.84，較前一日下跌2.06%，顯示股債波動壓力略有緩和，但仍處偏高區間。CNN Fear & Greed 11/24收盤值尚未取得可核實的官方觀測，本報不沿用11/23的17分舊值，暫列待核實。",
+  "summary": "11/24全球股市呈現明顯輪動，而非全面下跌。美股道瓊上漲0.86%、羅素2000上漲0.61%，標普500下跌0.49%、那斯達克下跌1.48%，費城半導體指數大跌7.88%，顯示賣壓集中於科技與晶片族群；亞洲市場則強彈，台股上漲8.99%、韓股上漲6.32%、日經上漲1.32%。\\n\\n跨資產方面，美債殖利率小幅走高，美元指數下跌0.48%；WTI上漲1.85%；Brent本輪行情仍待核實，但黃金下跌2.65%、白銀下跌5.71%，反映商品走勢分化。荷姆茲海峽商船遇襲提高航運風險，但三艘船均續航且船員安全，尚未確認供應中斷。\\n\\n投資判斷：市場資金由大型科技股轉向道瓊、羅素及部分亞洲市場，不能將指數分化解讀為全面風險解除。短線不追逐單日急跌或急漲，維持分散配置並控制高Beta與槓桿部位；待半導體跌勢收斂、上漲廣度擴大、PCE通膨與AI資本支出回報獲得驗證，再分批調整科技曝險。",
+  "sentiment": "VIX收於26.36，較前一日下跌0.98%；MOVE本輪指定歷史資料列尚未完成核驗，暫列待核實。CNN Fear & Greed 11/24收盤值尚未取得可核實的官方觀測，暫列待核實，不沿用舊值。",
   "focus_news": [
     {
       "title": "美國消費者信心升至103.3，遠高於市場預期",
@@ -1066,8 +1066,8 @@
       "display_name": "WTI 原油期貨"
     },
     "Brent原油期貨": {
-      "display": "91.40",
-      "change_display": "+2.27%",
+      "display": "待核實",
+      "change_display": "待核實",
       "contract_label": "LCOG7（2027年1月；ICE）",
       "source": {
         "name": "Investing.com HK｜Brent期貨歷史數據",
@@ -1078,8 +1078,8 @@
         "history_change": "+2.27%",
         "volume": 220750,
         "link_label": "Investing.com 歷史數據",
-        "note": "Investing.com HK 歷史數據表 2026-11-24 列：收市 91.40、升跌 +2.27%；合約 LCOG7（2027年1月；ICE）。",
-        "verification_status": "VERIFIED",
+        "note": "本輪44項行情清冊未取得符合規範的完整觀察紀錄；91.40、+2.27%雖曾讀取歷史頁，但本輪清冊仍列待核實，故審核版不顯示為已核驗報價。",
+        "verification_status": "PENDING",
         "source_role": "PRIMARY",
         "raw_response_sha256": null,
         "primary_source_attempt": {
@@ -1094,15 +1094,15 @@
         "daily_change_percent": "+2.27%",
         "checked_at_tw": "2026-11-25T06:59:33+08:00",
         "read_at_taipei": "2026-11-25T06:59:33+08:00",
-        "verified_at_tw": "2026-11-25T06:59:33+08:00",
+        "verified_at_tw": null,
         "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE: direct table row 2026-11-24",
         "web_reader_ref": null,
         "web_line_start": null,
         "web_line_end": null,
         "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
         "read_status": "PAGE_CONTENT_READ_SUCCESS",
-        "observed_value": "91.40",
-        "observed_change": "+2.27%"
+        "observed_value": null,
+        "observed_change": null
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
       "display_name": "Brent 原油期貨",
@@ -1234,22 +1234,22 @@
       }
     },
     "move": {
-      "display": "98.84",
-      "change_display": "-2.06%",
-      "band": "下降",
+      "display": "待核實",
+      "change_display": "待核實",
+      "band": "待核實",
       "source": {
         "name": "使用者提供截圖｜Merrill Lynch Option Volatility Estimate（MOVE）",
         "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-24",
         "quote_type": "displayed_close",
-        "note": "使用者於2026-11-25 06:47（Asia/Taipei）提供截圖。畫面報價時間為2026-11-24 16:17（GMT-5）；收盤顯示98.84，變動-2.08（-2.06%），前次收盤100.91，開盤101.14，最高101.27，最低98.79。畫面收盤差額100.91-98.84=2.07，與顯示變動2.08相差0.01，保留來源顯示值並註明可能為未顯示小數精度差異。",
+        "note": "本輪44項行情清冊未取得符合規範的Investing.com 2026-11-24歷史資料列觀察；使用者截圖不替代本輪指定來源的歷史頁核驗，故暫列待核實。",
         "close_value": "98.84",
         "daily_change_percent": "-2.06%",
         "previous_close": "100.91",
         "open": "101.14",
         "high": "101.27",
         "low": "98.79",
-        "verification_status": "VERIFIED",
+        "verification_status": "PENDING",
         "source_role": "USER_PROVIDED_SCREENSHOT",
         "raw_response_sha256": null,
         "history_close": "98.84",
@@ -1257,15 +1257,15 @@
         "history_change": "-2.06%",
         "checked_at_tw": "2026-11-25T05:17:00+08:00",
         "read_at_taipei": "2026-11-25T05:17:00+08:00",
-        "verified_at_tw": "2026-11-25T05:17:00+08:00",
+        "verified_at_tw": null,
         "evidence_method": "USER_PROVIDED_SCREENSHOT",
         "screenshot_sha256": "53e68506716f67a85687278db3464f370dee9dbd190db57ff7c23c5c46c9fb7f",
         "screenshot_capture_time_taipei": "2026-11-25T06:47:00+08:00",
         "quote_timestamp_source": "2026-11-24 16:17 GMT-5",
         "read_method": "USER_PROVIDED_SCREENSHOT",
         "read_status": "USER_PROVIDED_SCREENSHOT_CONFIRMED",
-        "observed_value": "98.84",
-        "observed_change": "-2.06%"
+        "observed_value": null,
+        "observed_change": null
       }
     },
     "fear_greed": {
@@ -2697,7 +2697,7 @@
       "text": "綜合來看，這是輝達消息帶動、並疊加超跌回補的科技領漲反彈，債券、匯率與商品尚未共同確認風險解除。操作上維持中性偏防禦，不追逐單日急漲；待市場廣度擴大、信用利差收斂，且AI資本支出回報與企業現金流獲得驗證，再分批增加曝險。若賣壓擴散或信用條件轉差，則進一步降低科技股曝險、提高防禦部位。"
     }
   ],
-  "warning_note": "行情主要基準日為2026-11-23。44項指標中43項數值均有當期來源觀察，日經225依日本內閣府官方假日證據標示休市；Fear & Greed以CNN官方previous_close 16.9658627087199核驗，顯示取整17，FGScore備援歷史頁亦顯示17；MOVE由Investing.com India歷史頁直接開啟讀取11/23資料列，XLRE因香港站頁面無法讀取改用Investing.com Global備援頁。不以舊收盤或盤中值補缺。本次重讀於16:08至16:13台灣時間，晚於05:25報告截點，僅為Stage 2補抓驗證。",
+  "warning_note": "資料狀態：44項行情中41項已核驗、3項待核實（Brent、MOVE、CNN Fear & Greed）。原始回應SHA封存0項；44頁批次擷取與全數顯示值獨立重核尚未完成。本輪行情觀察時間晚於05:25報告截點，不代表05:25排程成功。非行情內容沿用本輪既有Fixture，並非完整空白輸入重建。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -3105,14 +3105,16 @@
     ]
   },
   "qa_run_revision": "2026-11-22-stage2-browser-history-verification-44of44-v1",
-  "market_sentiment": "市場情緒仍處極度恐懼區：CNN Fear & Greed 11/24讀值17；VIX 11/24讀值26.88，當日變動待獨立核價。MOVE依使用者於11/25 06:47提供之截圖，11/24收盤98.84，較前次收盤100.91下降2.06%。債券波動預期回落與股票波動壓力仍高並存，代表不同市場的風險訊號並未完全一致；不能僅憑MOVE下降判定信用風險解除。",
-  "quality_note": "本輪主要行情基準日為2026-11-23。44項來源頁面重新讀取；43項數值觀察均有當期來源紀錄，日經225依官方假日證據標示休市。Fear & Greed以CNN官方graphdata previous_close原始值16.9658627087199核驗，顯示取整17、Extreme Fear；FGScore備援歷史頁11/23列亦顯示17。CNN同一回應的歷史序列11/23點位17.0801484230056，原始精度略有差異但顯示值同為17，依SIM-1.4指定previous_close欄位核驗。MOVE由Investing.com India歷史頁直接開啟讀取11/23收盤100.91、-5.08%；XLRE因香港站頁面無法讀取，改用Investing.com Global備援頁。日經225依日本內閣府官方祝日表確認11/23勤勞感謝日休市，不採用差價合約報價。本次行情重讀晚於05:25報告截點，僅證明Stage 2重新讀取與核對，不代表05:25排程已成功；非行情內容仍沿用當日既有Fixture，並非完整空白輸入重建。",
+  "market_sentiment": "市場風險訊號仍不一致：VIX本輪觀察值為26.36、日變動-0.98%；MOVE指定歷史資料列尚未完成核驗，暫列待核實；CNN Fear & Greed 11/24官方收盤值亦未完成核驗，暫列待核實。不得以11/23舊值或使用者截圖替代本輪指定來源的完整觀察。",
+  "quality_note": "本輪報告日期為2026-11-25，主要行情基準日為2026-11-24。44項行情清冊：41項已取得本輪來源觀察、3項待核實（Brent、MOVE、CNN Fear & Greed）；觀察紀錄SHA缺漏0項，但原始回應SHA封存0項。44個來源頁面的批次瀏覽器擷取未執行，亦未完成44項顯示值獨立重核；因此本版不得標示為資料完整或可正式發布。待核實項目不得顯示舊值或未完成核驗的報價。",
   "report_cutoff_taipei": "2026-11-25 05:25:00+08:00",
   "news_window_taipei": "2026/11/24 12:00 至 2026/11/25 05:25",
   "key_levels_overrides": {},
   "review_notice": "本版僅供內部審核，不上架正式首頁。Brent 2026-11-24 歷史收盤已更正為91.40、+2.27%；44項行情仍須依本輪逐項來源觀察結果判定，未完成者維持待核實。",
   "pending_items": [
-    "MOVE 11/24指定歷史頁尚未出現當日列"
+    "Brent 2026-11-24指定歷史資料列尚未完成本輪觀察紀錄核驗",
+    "MOVE 2026-11-24指定歷史資料列尚未完成本輪觀察紀錄核驗",
+    "CNN Fear & Greed 2026-11-24官方收盤值尚未完成核驗"
   ],
   "review_ready_blockers": [
     "44項行情的瀏覽器核驗及觀察紀錄SHA尚未完成"
