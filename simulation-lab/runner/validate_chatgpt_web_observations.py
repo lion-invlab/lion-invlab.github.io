@@ -91,7 +91,15 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                     raise ValueError("CNN Fear & Greed web-page fallback is allowed only when fixture pins an explicit backup source")
                 if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
                     raise ValueError("Fear & Greed backup page was not read successfully")
-                date_markers = (target_date, "Nov 23, 2026", "2026年11月23日")
+                from datetime import date as _date
+                _d = _date.fromisoformat(target_date)
+                date_markers = (
+                    target_date,
+                    _d.strftime("%b %d, %Y"),
+                    _d.strftime("%B %d, %Y"),
+                    f"{_d.year}年{_d.month}月{_d.day}日",
+                    f"{_d.year}/{_d.month}/{_d.day}",
+                )
                 if not any(marker in row_text for marker in date_markers):
                     raise ValueError("Fear & Greed backup row does not contain the target date")
                 if value_field != "Score" or change_field != "Band":
