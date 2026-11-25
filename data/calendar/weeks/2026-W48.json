@@ -5,9 +5,9 @@
   "week_start": "2026-11-23",
   "week_end": "2026-11-29",
   "created_at": "2026-11-21T08:57:28+08:00",
-  "updated_at": "2026-11-25T04:35:58+08:00",
-  "source_report_date": "2026-11-25",
-  "wr_version": "5.17",
+  "updated_at": "2026-11-26T04:35:11+08:00",
+  "source_report_date": "2026-11-26",
+  "wr_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
   "status": "incomplete",
   "events": {
     "economic": [
@@ -315,17 +315,18 @@
         "importance_basis_source": "TAC四星：德國 GDP 詳細拆分可確認第三季成長來源及投資、出口與消費結構，影響歐元區成長評估。",
         "previous": "初值季增 0.2%；年增 1.3%",
         "forecast": "季增 0.2%（MUFG）",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若細項顯示消費改善但資本形成與出口疲弱，復甦仍可能脆弱；若投資與出口下修，將壓抑德國工業及歐元區前景。",
+        "actual": "第3季實質 GDP 季增 0.1%（價格、季節及日曆調整）；年增 1.2%（價格調整），日曆調整後年增 1.1%。較 10/30 初值季增 0.2% 下修 0.1 個百分點；Destatis 指出 9 月出口與零售營收弱於初估。",
+        "status": "released",
+        "impact_judgment": "實際季增 0.1%低於 0.2%預期，且較初值下修；出口與零售弱化，顯示德國復甦仍脆弱，限制歐元區成長動能。",
         "source": {
           "name": "Destatis｜GDP Q3 2026 detailed results",
-          "url": "https://www.destatis.de/EN/Press/2026/10/PE26_381_811.html",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_409_811.html",
           "publisher": "Federal Statistical Office of Germany",
-          "notes": "Destatis 已確認詳細結果於 11/25 發布；官方頁面未列精確時刻，故不推定。市場預期參考 MUFG 11/20。",
+          "published_at": "2026-11-25",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "官方詳細結果：Q3 GDP q/q +0.1%、y/y +1.2%；較初值下修 0.1 個百分點，主要因出口及零售營收弱於初估。",
           "secondary_refs": [
+            "https://www.destatis.de/EN/Press/2026/10/PE26_381_811.html",
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/",
             "https://www.presseportal.de/pm/32102/6394495"
           ]
@@ -348,17 +349,18 @@
         "importance_basis_source": "TAC五星：GDP 第二次估值是美國需求、投資與企業獲利的重要總體檢驗，可能改變利率與風險資產定價。",
         "previous": "第3季初值年化季增 3.4%",
         "forecast": "TD 預估 3.4%；U.S. Bank 市場共識 3.5%、自行預估 3.4%",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若 GDP 維持強勁且企業獲利上修，可能支持美股獲利預期，但亦可能推升利率；若下修則需檢視消費與投資動能。",
+        "actual": "Q3 2026 實質 GDP 年化季增 4.3%（第二次估值），較初值 3.4%上修 0.9 個百分點；私人國內最終銷售 +5.8%；當期生產企業獲利增加 2,060 億美元。",
+        "status": "released",
+        "impact_judgment": "GDP 上修至 4.3%，高於 3.5%市場共識，主要由投資與消費上修帶動，顯示需求韌性；強勁成長可能延後降息預期並推升美債殖利率，但企業獲利增量較前季放緩。",
         "source": {
-          "name": "U.S. Bureau of Economic Analysis｜Release Schedule",
-          "url": "https://www.bea.gov/news/schedule?output=1",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "U.S. Bureau of Economic Analysis｜GDP (Second Estimate) and Corporate Profits, 3rd Quarter 2026",
+          "url": "https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-3rd-quarter-2026",
           "publisher": "U.S. Bureau of Economic Analysis",
-          "notes": "BEA 官方發布表確認 11/25 08:30 ET 發布 GDP 第二次估值及企業獲利；換算台灣時間 21:30。TD Economics 共識 3.4%。",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "BEA 第二次估值：實質 GDP +4.3% SAAR，較初值上修 0.9 個百分點；私人國內最終銷售 +5.8%；企業當期生產獲利增加 USD 206.0B。",
           "secondary_refs": [
+            "https://www.bea.gov/news/schedule?output=1",
             "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
           ]
         },
@@ -376,19 +378,20 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：PCE 是聯準會最重視的通膨衡量指標，核心 PCE 對利率路徑及美債殖利率定價具直接影響。",
-        "previous": "個人所得 +0.3%；個人支出 +0.5%；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%",
+        "previous": "個人所得 +0.3%；個人支出 +0.6%（BEA 修訂）；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%。",
         "forecast": "個人所得 +0.3%；個人支出 +0.4%；PCE 月增 +0.3%、年增 3.8%；核心 PCE 月增 +0.3%、年增 3.2%",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若核心 PCE 月增高於預期，將強化通膨黏著與利率高檔預期；若降溫則可能緩解實質利率壓力。",
+        "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+        "status": "released",
+        "impact_judgment": "核心 PCE 月增 0.3%符合預期，但年增 3.3%高於 3.2%預期；所得增幅強、支出增幅低於預期，呈現通膨黏著與實質消費動能放緩並存。",
         "source": {
-          "name": "U.S. Bureau of Economic Analysis｜Release Schedule",
-          "url": "https://www.bea.gov/news/schedule?output=1",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "U.S. Bureau of Economic Analysis｜Personal Income and Outlays, October 2026",
+          "url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
           "publisher": "U.S. Bureau of Economic Analysis",
-          "notes": "BEA 官方確認 11/25 08:30 ET 發布 10 月 Personal Income and Outlays；換算台灣時間 21:30。通膨預期及前值參考 U.S. Bank 11/20 週報。",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "BEA 官方數據：個人所得 +0.7%、個人支出 +0.3%、PCE 價格指數 +0.3% m/m／+3.8% y/y、核心 +0.3% m/m／+3.3% y/y；實質 PCE 略降。",
           "secondary_refs": [
+            "https://www.bea.gov/news/schedule?output=1",
             "https://www.usbank.com/content/dam/usbank/en/documents/pdfs/corporate-and-commercial-banking/econ-weekly-pdf-11-20-26.pdf"
           ]
         },
@@ -406,19 +409,20 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：耐久財訂單與核心資本財訂單反映企業設備投資意願，是判讀 AI 資本支出以外廣泛投資動能的重要指標。",
-        "previous": "總訂單 +1.9%；核心資本財訂單 +0.6%；非運輸訂單 +0.5%",
+        "previous": "9月總訂單 +2.0%（修正值）；核心資本財訂單 +0.6%；非運輸訂單 +0.5%。",
         "forecast": "總訂單 +0.5%；核心資本財訂單 +0.8%；非運輸訂單 +0.5%",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若核心資本財訂單維持成長，支持企業投資韌性；若排除飛機後訂單轉弱，可能顯示投資動能集中於少數 AI 相關產業。",
+        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
+        "status": "released",
+        "impact_judgment": "總訂單 +0.2%低於 +0.5%共識；非防務資本財訂單 +0.8%符合原預期，排除運輸後仍增 +0.5%，顯示設備投資尚有支撐，但總量增幅溫和。",
         "source": {
-          "name": "U.S. Census Bureau｜M3 Release Schedule",
-          "url": "https://www.census.gov/manufacturing/m3/release_schedule.html",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "U.S. Census Bureau｜October 2026 Advance Report on Durable Goods",
+          "url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
           "publisher": "U.S. Census Bureau",
-          "notes": "官方發布表確認 10 月 Advance Durable Goods 於 11/25 08:30 ET 發布；換算台灣時間 21:30。共識及前值參考 TD Economics。",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "官方 Advance Report：總新訂單 +0.2%；排除運輸 +0.5%；非防務資本財新訂單 +0.8%；排除飛機 +1.2%；9月總訂單修正為 +2.0%。",
           "secondary_refs": [
+            "https://www.census.gov/manufacturing/m3/release_schedule.html",
             "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
           ]
         },
@@ -436,19 +440,20 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：新屋銷售對房貸利率敏感，可反映住宅需求、房價與建築業景氣。",
-        "previous": "9月 676 千戶",
+        "previous": "9月新屋銷售 614 千戶（官方修正值；原記錄 676 千戶）。",
         "forecast": "市場共識 645 千戶；TD 預估 648 千戶；U.S. Bank 預估 640 千戶",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若銷售低於預期，將反映高房貸利率對住宅需求的壓抑；若回升則有助降低房市硬著陸疑慮。",
+        "actual": "10月新屋銷售年化 701 千戶，較9月修正值 614 千戶增加 14.2%，高於市場共識 645 千戶；月底待售庫存 470 千戶、供給月數 8.0；新屋中位數售價 USD 391,300，年減 3.2%。",
+        "status": "released",
+        "impact_judgment": "銷售 701 千戶高於 645 千戶共識，顯示需求短期回升；但 8.0 個月供給及中位數售價年減 3.2%，反映庫存與可負擔性壓力仍在。",
         "source": {
-          "name": "U.S. Census Bureau｜Economic Indicators Calendar",
-          "url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
-          "publisher": "U.S. Census Bureau",
-          "notes": "官方日程確認 11/25 10:00 ET 發布 10 月新屋銷售；換算台灣時間 23:00。TD Economics 共識 648 千戶、前值 676 千戶。",
+          "name": "U.S. Census Bureau｜Monthly New Residential Sales, October 2026",
+          "url": "https://www.census.gov/construction/nrs/current/index.html",
+          "publisher": "U.S. Census Bureau / U.S. Department of Housing and Urban Development",
+          "published_at": "2026-11-25T10:00:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "官方發布：新屋銷售 701K SAAR；9月修正為 614K；庫存 470K、供給 8.0 個月；中位數售價 USD 391,300。",
           "secondary_refs": [
+            "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
             "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
           ]
         },
@@ -468,17 +473,20 @@
         "importance_basis_source": "TAC四星：褐皮書彙整各地區企業與勞動市場訪查，可補充官方數據以外的價格、薪資與需求趨勢。",
         "previous": null,
         "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若各區回報薪資與服務價格仍具黏性，可能強化政策審慎立場；若招聘與需求普遍放緩，則支持通膨壓力逐步緩和。",
+        "actual": "聯準會 11月褐皮書已於 11/25 14:00 ET 發布：12個聯準會轄區中8區回報輕度至溫和成長、4區無明顯變化；消費支出大致持平且家庭價格敏感；就業小幅增加，薪資與福利溫和上升；製造業溫和成長、住宅房市轉弱。",
+        "status": "released",
+        "impact_judgment": "地區經濟多為溫和擴張，但消費持平、住宅偏弱、薪資與福利漲幅略升，呈現增長放緩而成本壓力未完全消退，支持聯準會維持審慎立場。",
         "source": {
-          "name": "Federal Reserve Board｜November 2026 Calendar",
-          "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
-          "publisher": "Federal Reserve Board",
-          "notes": "Fed 官方日曆確認 11/25 14:00 ET 發布；換算台灣時間 11/26 03:00。",
-          "secondary_refs": []
+          "name": "Federal Reserve Board｜Beige Book - November 2026, National Summary",
+          "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
+          "publisher": "Board of Governors of the Federal Reserve System",
+          "published_at": "2026-11-25T14:00:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Fed 官方 11月褐皮書已發布；8/12轄區輕度至溫和成長、4/12無變化，消費持平、就業小幅增加、薪資福利溫和上升。",
+          "secondary_refs": [
+            "https://www.federalreserve.gov/monetarypolicy/beigebook202611.htm",
+            "https://www.federalreserve.gov/newsevents/2026-November.htm"
+          ]
         },
         "previous_applicable": false,
         "forecast_applicable": false,
@@ -679,17 +687,18 @@
         "importance_basis_source": "TAC四星：美國休市與隔日提前收市會改變全球市場流動性、成交量與價格發現時段，影響台灣投資人解讀美股行情。",
         "previous": null,
         "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "感恩節當日美股無正常交易；週五縮短交易時段可能降低流動性，避免將低成交量下的波動直接視為趨勢訊號。",
+        "actual": "2026-11-26 感恩節美股休市；Nasdaq 交易日曆確認 11/27 提前於 13:00 ET 收市。",
+        "status": "released",
+        "impact_judgment": "感恩節當日美股無正常交易；11/27 縮短交易時段將降低流動性，跨市場比較與週五價格波動需留意成交量偏低。",
         "source": {
-          "name": "Nasdaq Trader｜2026 U.S. Equity and Options Markets Holiday Schedule",
-          "url": "https://www.nasdaqtrader.com/Trader.aspx?id=Calendar",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "Nasdaq｜2026 U.S. Stock Market Holiday Schedule",
+          "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
           "publisher": "Nasdaq",
-          "notes": "Nasdaq 官方交易日曆確認 11/26 感恩節休市，11/27 美股 13:00 ET 提前收市（台灣時間 11/28 02:00）；SIFMA 建議美國固定收益市場 11/27 14:00 ET 提前收市。",
+          "published_at": null,
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Nasdaq 官方 2026 交易日曆確認 11/26 感恩節休市、11/27 13:00 ET 提前收市。",
           "secondary_refs": [
+            "https://www.nasdaqtrader.com/Trader.aspx?id=Calendar",
             "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
             "https://www.federalreserve.gov/newsevents/calendar.htm"
           ]
@@ -738,12 +747,24 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：週度初領失業救濟金是即時勞動市場指標，感恩節假期使本週發布日提前，需留意季節性與假期扭曲。",
-        "previous": "203 千人",
+        "previous": "202 千人（DOL 本次將前週 203 千人下修 1 千人）。",
         "forecast": "市場共識 200 千人；U.S. Bank 預估 201 千人",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
-        "source": "TD Economics｜Upcoming Economic Releases",
+        "actual": "截至 11/21 當週初領失業救濟金 189 千人，較前週修正值 202 千人減少 13 千人；四週均值 196 千人。續領失業救濟金（截至 11/14）1,697 千人，較前週修正值減少 95 千人。",
+        "status": "released",
+        "impact_judgment": "初領 189 千人低於 200 千人共識，四週均值降至 196 千人，顯示裁員仍低；但感恩節提前發布及季節調整會放大單週波動，不宜將單週數據等同於就業新增加速。",
+        "source": {
+          "name": "U.S. Department of Labor｜Unemployment Insurance Weekly Claims, November 25, 2026",
+          "url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf",
+          "publisher": "U.S. Department of Labor, Employment and Training Administration",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "DOL 官方報告：初領 189K、前週由 203K 下修至 202K、四週均值 196K；續領 1.697M。",
+          "secondary_refs": [
+            "https://www.dol.gov/index.php/newsroom/releases/eta",
+            "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
+            "TD Economics｜Upcoming Economic Releases"
+          ]
+        },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "千人",
@@ -1117,6 +1138,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/HPE/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 1.27,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -1340,6 +1429,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/HPE/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 14.35,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -1678,6 +1835,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/ADI/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 3.89,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -1901,6 +2126,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/ADI/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 4.32,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -1941,7 +2234,7 @@
         "ticker": "DELL",
         "event_date": "2026-11-25T05:30:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：AI 伺服器與資料中心硬體的重要供應商，訂單、AI 伺服器營收、積壓訂單、毛利率及供應限制具高市場影響力。",
@@ -1952,9 +2245,9 @@
         "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 8.82,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 54.937,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
@@ -1964,13 +2257,14 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Dell Technologies｜Q3 FY2027 results",
-          "url": "https://investors.delltechnologies.com/news-events/press-releases/detail/1661/dell-technologies-to-hold-conference-call-nov-24-to-discuss-third-quarter-fiscal-2027-financial-results",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "Dell Technologies Delivers Third Quarter Fiscal 2027 Financial Results",
+          "url": "https://investors.delltechnologies.com/news-events/press-releases/detail/1665/dell-technologies-delivers-third-quarter-fiscal-2027-financial-results",
           "publisher": "Dell Technologies",
-          "notes": "公司公告確認 11/24 15:30 CST 舉行電話會議，財報將於會議前發布；事件日期以官方電話會議時間表示，結果發布時刻未單獨指定。",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Dell 官方 Q3 FY2027 結果：GAAP diluted EPS USD 8.82；另列 non-GAAP diluted EPS USD 9.45，本欄採 GAAP。 Dell 官方 Q3 FY2027 net revenue USD 54,937 million（USD 54.937B）。",
           "secondary_refs": [
+            "https://investors.delltechnologies.com/news-events/press-releases/detail/1661/dell-technologies-to-hold-conference-call-nov-24-to-discuss-third-quarter-fiscal-2027-financial-results",
             "https://www.investing.com/equities/dell-inc-earnings"
           ]
         },
@@ -1987,7 +2281,7 @@
           "publisher": "Dell Technologies Inc.",
           "notes": "官方投資人關係來源確認 DELL 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": null,
+        "eps_actual_basis": "GAAP diluted EPS",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -2005,17 +2299,17 @@
           "url": "https://www.investing.com/equities/dell-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "eps_actual_basis_code": null,
+        "eps_actual_basis_code": "gaap_diluted_eps",
         "eps_estimate_basis_code": null,
-        "eps_actual_currency": null,
+        "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
-        "eps_actual_period": null,
-        "revenue_actual_basis_code": null,
+        "eps_actual_period": "Q3 FY2027",
+        "revenue_actual_basis_code": "reported_revenue",
         "revenue_estimate_basis_code": null,
-        "revenue_actual_currency": null,
+        "revenue_actual_currency": "USD",
         "revenue_estimate_currency": null,
-        "revenue_actual_period": null,
-        "revenue_actual_unit": null,
+        "revenue_actual_period": "Q3 FY2027",
+        "revenue_actual_unit": "USD billions",
         "revenue_estimate_unit": null,
         "eps_consensus_attempts": [
           {
@@ -2238,6 +2532,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/DELL/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 6.56,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -2461,10 +2823,78 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/DELL/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 49.24,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
-        "revenue_actual_basis": null,
+        "revenue_actual_basis": "Net revenue",
         "revenue_estimate_basis": null,
         "revenue_estimate_period": null,
         "eps_consensus_snapshots": [],
@@ -2473,13 +2903,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2027,
         "fiscal_quarter": "Q3",
-        "release_status": "upcoming",
-        "eps_actual_published_at": null,
-        "revenue_actual_published_at": null,
-        "eps_actual_observed_at": null,
-        "revenue_actual_observed_at": null,
-        "eps_actual_source": null,
-        "revenue_actual_source": null
+        "release_status": "released",
+        "eps_actual_published_at": "2026-11-24",
+        "revenue_actual_published_at": "2026-11-24",
+        "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "eps_actual_source": {
+          "name": "Dell Technologies Delivers Third Quarter Fiscal 2027 Financial Results",
+          "url": "https://investors.delltechnologies.com/news-events/press-releases/detail/1665/dell-technologies-delivers-third-quarter-fiscal-2027-financial-results",
+          "publisher": "Dell Technologies",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Dell 官方 Q3 FY2027 結果：GAAP diluted EPS USD 8.82；另列 non-GAAP diluted EPS USD 9.45，本欄採 GAAP。",
+          "secondary_refs": [
+            "https://investors.delltechnologies.com/news-events/press-releases/detail/1661/dell-technologies-to-hold-conference-call-nov-24-to-discuss-third-quarter-fiscal-2027-financial-results",
+            "https://www.investing.com/equities/dell-inc-earnings"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Dell Technologies Delivers Third Quarter Fiscal 2027 Financial Results",
+          "url": "https://investors.delltechnologies.com/news-events/press-releases/detail/1665/dell-technologies-delivers-third-quarter-fiscal-2027-financial-results",
+          "publisher": "Dell Technologies",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Dell 官方 Q3 FY2027 net revenue USD 54,937 million（USD 54.937B）。",
+          "secondary_refs": [
+            "https://investors.delltechnologies.com/news-events/press-releases/detail/1661/dell-technologies-to-hold-conference-call-nov-24-to-discuss-third-quarter-fiscal-2027-financial-results",
+            "https://www.investing.com/equities/dell-inc-earnings"
+          ]
+        }
       },
       {
         "id": "current-mdt-20261124",
@@ -2785,6 +3237,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/MDT/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 1.33,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -3008,6 +3528,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/MDT/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 9.48,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -3048,7 +3636,7 @@
         "ticker": "ADSK",
         "event_date": "2026-11-25T06:00:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：工程設計與建築軟體領導廠商，訂閱成長、續約率及企業客戶支出可反映軟體需求。",
@@ -3059,9 +3647,9 @@
         "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 2.68,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 2.16,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
@@ -3071,13 +3659,14 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Autodesk｜Q3 FY2027 results",
-          "url": "https://investors.autodesk.com/index.php/news-releases/news-release-details/autodesk-extends-invitation-join-financial-results-conference-53",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
-          "publisher": "Autodesk",
-          "notes": "公司公告確認 11/24 14:00 PT 舉行財報電話會議；結果時段為盤後，換算台灣時間 11/25 06:00。",
+          "name": "Autodesk, Inc. Announces Fiscal 2027 Third Quarter Results",
+          "url": "https://www.prnewswire.com/news-releases/autodesk-inc-announces-fiscal-2027-third-quarter-results-302949762.html",
+          "publisher": "Autodesk, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Autodesk 官方發布：GAAP diluted net income per share USD 2.68；另列 non-GAAP diluted EPS USD 3.20。 Autodesk 官方 Q3 FY2027 revenue USD 2,160 million（USD 2.160B）。",
           "secondary_refs": [
+            "https://investors.autodesk.com/index.php/news-releases/news-release-details/autodesk-extends-invitation-join-financial-results-conference-53",
             "https://www.investing.com/equities/autodesk-inc-earnings"
           ]
         },
@@ -3094,7 +3683,7 @@
           "publisher": "Autodesk, Inc.",
           "notes": "官方投資人關係來源確認 ADSK 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": null,
+        "eps_actual_basis": "GAAP diluted net income per share",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -3112,17 +3701,17 @@
           "url": "https://www.investing.com/equities/autodesk-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "eps_actual_basis_code": null,
+        "eps_actual_basis_code": "gaap_diluted_eps",
         "eps_estimate_basis_code": null,
-        "eps_actual_currency": null,
+        "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
-        "eps_actual_period": null,
-        "revenue_actual_basis_code": null,
+        "eps_actual_period": "Q3 FY2027",
+        "revenue_actual_basis_code": "reported_revenue",
         "revenue_estimate_basis_code": null,
-        "revenue_actual_currency": null,
+        "revenue_actual_currency": "USD",
         "revenue_estimate_currency": null,
-        "revenue_actual_period": null,
-        "revenue_actual_unit": null,
+        "revenue_actual_period": "Q3 FY2027",
+        "revenue_actual_unit": "USD billions",
         "revenue_estimate_unit": null,
         "eps_consensus_attempts": [
           {
@@ -3345,6 +3934,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/ADSK/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 3.07,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -3568,10 +4225,78 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/ADSK/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 2.13,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
-        "revenue_actual_basis": null,
+        "revenue_actual_basis": "Revenue",
         "revenue_estimate_basis": null,
         "revenue_estimate_period": null,
         "eps_consensus_snapshots": [],
@@ -3580,13 +4305,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2027,
         "fiscal_quarter": "Q3",
-        "release_status": "upcoming",
-        "eps_actual_published_at": null,
-        "revenue_actual_published_at": null,
-        "eps_actual_observed_at": null,
-        "revenue_actual_observed_at": null,
-        "eps_actual_source": null,
-        "revenue_actual_source": null
+        "release_status": "released",
+        "eps_actual_published_at": "2026-11-24",
+        "revenue_actual_published_at": "2026-11-24",
+        "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "eps_actual_source": {
+          "name": "Autodesk, Inc. Announces Fiscal 2027 Third Quarter Results",
+          "url": "https://www.prnewswire.com/news-releases/autodesk-inc-announces-fiscal-2027-third-quarter-results-302949762.html",
+          "publisher": "Autodesk, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Autodesk 官方發布：GAAP diluted net income per share USD 2.68；另列 non-GAAP diluted EPS USD 3.20。",
+          "secondary_refs": [
+            "https://investors.autodesk.com/index.php/news-releases/news-release-details/autodesk-extends-invitation-join-financial-results-conference-53",
+            "https://www.investing.com/equities/autodesk-inc-earnings"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Autodesk, Inc. Announces Fiscal 2027 Third Quarter Results",
+          "url": "https://www.prnewswire.com/news-releases/autodesk-inc-announces-fiscal-2027-third-quarter-results-302949762.html",
+          "publisher": "Autodesk, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Autodesk 官方 Q3 FY2027 revenue USD 2,160 million（USD 2.160B）。",
+          "secondary_refs": [
+            "https://investors.autodesk.com/index.php/news-releases/news-release-details/autodesk-extends-invitation-join-financial-results-conference-53",
+            "https://www.investing.com/equities/autodesk-inc-earnings"
+          ]
+        }
       },
       {
         "id": "current-wday-20261125",
@@ -3594,7 +4341,7 @@
         "ticker": "WDAY",
         "event_date": "2026-11-25T05:30:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：企業 SaaS 與 AI agent 商業化的重要觀察標的，需檢視訂閱營收、剩餘履約義務及利潤率。",
@@ -3605,9 +4352,9 @@
         "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 0.96,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 2.705,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
@@ -3617,13 +4364,14 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Workday｜Q3 FY2027 results",
-          "url": "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-to-Announce-Fiscal-2027-Third-Quarter-Financial-Results-on-November-24-2026/default.aspx",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
-          "publisher": "Workday",
-          "notes": "公司公告確認 11/24 盤後發布財報，電話會議 16:30 ET；換算台灣時間 11/25 05:30。",
+          "name": "Workday Announces Fiscal 2027 Third Quarter Financial Results",
+          "url": "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Fiscal-2027-Third-Quarter-Financial-Results/default.aspx",
+          "publisher": "Workday, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Workday 官方 Q3 FY2027 diluted net income per share USD 0.96；另列 non-GAAP diluted net income per share USD 2.82。 Workday 官方 Q3 FY2027 total revenues USD 2.705B。",
           "secondary_refs": [
+            "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-to-Announce-Fiscal-2027-Third-Quarter-Financial-Results-on-November-24-2026/default.aspx",
             "https://www.investing.com/equities/workday-inc-earnings"
           ]
         },
@@ -3640,7 +4388,7 @@
           "publisher": "Workday, Inc.",
           "notes": "官方投資人關係來源確認 WDAY 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": null,
+        "eps_actual_basis": "Diluted net income per share (GAAP; separately reported non-GAAP diluted EPS)",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -3658,17 +4406,17 @@
           "url": "https://www.investing.com/equities/workday-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "eps_actual_basis_code": null,
+        "eps_actual_basis_code": "gaap_diluted_eps",
         "eps_estimate_basis_code": null,
-        "eps_actual_currency": null,
+        "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
-        "eps_actual_period": null,
-        "revenue_actual_basis_code": null,
+        "eps_actual_period": "Q3 FY2027",
+        "revenue_actual_basis_code": "reported_revenue",
         "revenue_estimate_basis_code": null,
-        "revenue_actual_currency": null,
+        "revenue_actual_currency": "USD",
         "revenue_estimate_currency": null,
-        "revenue_actual_period": null,
-        "revenue_actual_unit": null,
+        "revenue_actual_period": "Q3 FY2027",
+        "revenue_actual_unit": "USD billions",
         "revenue_estimate_unit": null,
         "eps_consensus_attempts": [
           {
@@ -3891,6 +4639,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/WDAY/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 2.75,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4114,10 +4930,78 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/WDAY/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 2.69,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
-        "revenue_actual_basis": null,
+        "revenue_actual_basis": "Total revenues",
         "revenue_estimate_basis": null,
         "revenue_estimate_period": null,
         "eps_consensus_snapshots": [],
@@ -4126,13 +5010,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2027,
         "fiscal_quarter": "Q3",
-        "release_status": "upcoming",
-        "eps_actual_published_at": null,
-        "revenue_actual_published_at": null,
-        "eps_actual_observed_at": null,
-        "revenue_actual_observed_at": null,
-        "eps_actual_source": null,
-        "revenue_actual_source": null
+        "release_status": "released",
+        "eps_actual_published_at": "2026-11-24",
+        "revenue_actual_published_at": "2026-11-24",
+        "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "eps_actual_source": {
+          "name": "Workday Announces Fiscal 2027 Third Quarter Financial Results",
+          "url": "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Fiscal-2027-Third-Quarter-Financial-Results/default.aspx",
+          "publisher": "Workday, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Workday 官方 Q3 FY2027 diluted net income per share USD 0.96；另列 non-GAAP diluted net income per share USD 2.82。",
+          "secondary_refs": [
+            "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-to-Announce-Fiscal-2027-Third-Quarter-Financial-Results-on-November-24-2026/default.aspx",
+            "https://www.investing.com/equities/workday-inc-earnings"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Workday Announces Fiscal 2027 Third Quarter Financial Results",
+          "url": "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Fiscal-2027-Third-Quarter-Financial-Results/default.aspx",
+          "publisher": "Workday, Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Workday 官方 Q3 FY2027 total revenues USD 2.705B。",
+          "secondary_refs": [
+            "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-to-Announce-Fiscal-2027-Third-Quarter-Financial-Results-on-November-24-2026/default.aspx",
+            "https://www.investing.com/equities/workday-inc-earnings"
+          ]
+        }
       },
       {
         "id": "current-hpq-20261125",
@@ -4140,7 +5046,7 @@
         "ticker": "HPQ",
         "event_date": "2026-11-25T06:00:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：PC 與列印市場代表企業，AI PC 滲透、個人系統營收、列印需求及毛利率值得觀察。",
@@ -4151,9 +5057,9 @@
         "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 0.84,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 16,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
@@ -4163,13 +5069,14 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "HP Inc.｜Q4 FY2026 results",
-          "url": "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--to-Announce-Fourth-Quarter-Fiscal-2026-Earnings-on-November-24-2026-and-to-Attend-Upcoming-Investor-Conferences/default.aspx",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "HP Inc. Reports Fiscal 2026 Full Year and Fourth Quarter Results; Announces Dividend Increase",
+          "url": "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--Reports-Fiscal-2026-Full-Year-and-Fourth-Quarter-Results-Announces-Dividend-Increase/default.aspx",
           "publisher": "HP Inc.",
-          "notes": "公司公告確認 11/24 17:00 ET 舉行財報電話會議，財報為盤後發布；換算台灣時間 11/25 06:00。",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "HP 官方 Q4 FY2026 GAAP diluted net EPS USD 0.84；另列 non-GAAP diluted net EPS USD 0.83。 HP 官方 Q4 FY2026 GAAP net revenue USD 16.0B。",
           "secondary_refs": [
+            "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--to-Announce-Fourth-Quarter-Fiscal-2026-Earnings-on-November-24-2026-and-to-Attend-Upcoming-Investor-Conferences/default.aspx",
             "https://www.investing.com/equities/hewlett-pack-earnings"
           ]
         },
@@ -4186,7 +5093,7 @@
           "publisher": "HP Inc.",
           "notes": "官方投資人關係來源確認 HPQ 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": null,
+        "eps_actual_basis": "GAAP diluted net EPS",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -4204,17 +5111,17 @@
           "url": "https://www.investing.com/equities/hewlett-pack-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "eps_actual_basis_code": null,
+        "eps_actual_basis_code": "gaap_diluted_eps",
         "eps_estimate_basis_code": null,
-        "eps_actual_currency": null,
+        "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
-        "eps_actual_period": null,
-        "revenue_actual_basis_code": null,
+        "eps_actual_period": "Q4 FY2026",
+        "revenue_actual_basis_code": "reported_revenue",
         "revenue_estimate_basis_code": null,
-        "revenue_actual_currency": null,
+        "revenue_actual_currency": "USD",
         "revenue_estimate_currency": null,
-        "revenue_actual_period": null,
-        "revenue_actual_unit": null,
+        "revenue_actual_period": "Q4 FY2026",
+        "revenue_actual_unit": "USD billions",
         "revenue_estimate_unit": null,
         "eps_consensus_attempts": [
           {
@@ -4437,6 +5344,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/HPQ/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 0.75,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4660,10 +5635,78 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/HPQ/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 15.43,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
-        "revenue_actual_basis": null,
+        "revenue_actual_basis": "GAAP net revenue",
         "revenue_estimate_basis": null,
         "revenue_estimate_period": null,
         "eps_consensus_snapshots": [],
@@ -4672,13 +5715,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2026,
         "fiscal_quarter": "Q4",
-        "release_status": "upcoming",
-        "eps_actual_published_at": null,
-        "revenue_actual_published_at": null,
-        "eps_actual_observed_at": null,
-        "revenue_actual_observed_at": null,
-        "eps_actual_source": null,
-        "revenue_actual_source": null
+        "release_status": "released",
+        "eps_actual_published_at": "2026-11-24",
+        "revenue_actual_published_at": "2026-11-24",
+        "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "eps_actual_source": {
+          "name": "HP Inc. Reports Fiscal 2026 Full Year and Fourth Quarter Results; Announces Dividend Increase",
+          "url": "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--Reports-Fiscal-2026-Full-Year-and-Fourth-Quarter-Results-Announces-Dividend-Increase/default.aspx",
+          "publisher": "HP Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "HP 官方 Q4 FY2026 GAAP diluted net EPS USD 0.84；另列 non-GAAP diluted net EPS USD 0.83。",
+          "secondary_refs": [
+            "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--to-Announce-Fourth-Quarter-Fiscal-2026-Earnings-on-November-24-2026-and-to-Attend-Upcoming-Investor-Conferences/default.aspx",
+            "https://www.investing.com/equities/hewlett-pack-earnings"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "HP Inc. Reports Fiscal 2026 Full Year and Fourth Quarter Results; Announces Dividend Increase",
+          "url": "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--Reports-Fiscal-2026-Full-Year-and-Fourth-Quarter-Results-Announces-Dividend-Increase/default.aspx",
+          "publisher": "HP Inc.",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "HP 官方 Q4 FY2026 GAAP net revenue USD 16.0B。",
+          "secondary_refs": [
+            "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--to-Announce-Fourth-Quarter-Fiscal-2026-Earnings-on-November-24-2026-and-to-Attend-Upcoming-Investor-Conferences/default.aspx",
+            "https://www.investing.com/equities/hewlett-pack-earnings"
+          ]
+        }
       },
       {
         "id": "current-dltr-20261124",
@@ -4984,6 +6049,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/DLTR/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 0.91,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5207,6 +6340,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/DLTR/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 5.04,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -5545,6 +6746,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/BBY/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 1.49,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5768,6 +7037,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/BBY/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 9.88,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -6106,6 +7443,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/ANF/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 3.09,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6329,6 +7734,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/ANF/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 1.37,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
@@ -6369,7 +7842,7 @@
         "ticker": "DE",
         "event_date": "2026-11-25T23:00:00+08:00",
         "session": null,
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：全球農業與工程設備龍頭，農業資本支出週期、訂單、價格與利潤率對工業景氣具代表性。",
@@ -6380,9 +7853,9 @@
         "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 3.89,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 12.115,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
@@ -6392,13 +7865,14 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Deere & Company｜Q4 FY2026 results announcement",
-          "url": "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
-          "published_at": "2026-11-11",
-          "observed_at": "2026-11-23T04:41:38+08:00",
+          "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
+          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
           "publisher": "Deere & Company",
-          "notes": "Deere 官方公告確認 11/25 09:00 Central Time 舉行 Q4 FY2026 財報電話會議；換算台灣時間為 11/25 23:00。此處記錄電話會議時間，不推定實際財報發布 session。",
+          "published_at": "2026-11-25T06:15:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Deere 官方 Q4 FY2026 fully diluted EPS USD 3.89；發布摘要未明示 GAAP／Non-GAAP，故 basis_code 保留 null。 Deere 官方 Q4 FY2026 worldwide net sales and revenues USD 12.115B。",
           "secondary_refs": [
+            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
             "https://www.investing.com/equities/deere---co-earnings"
           ]
         },
@@ -6415,7 +7889,7 @@
           "publisher": "Deere & Company",
           "notes": "官方投資人關係來源確認 DE 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": null,
+        "eps_actual_basis": "Fully diluted EPS (release does not explicitly label GAAP／Non-GAAP)",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -6435,15 +7909,15 @@
         },
         "eps_actual_basis_code": null,
         "eps_estimate_basis_code": null,
-        "eps_actual_currency": null,
+        "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
-        "eps_actual_period": null,
-        "revenue_actual_basis_code": null,
+        "eps_actual_period": "Q4 FY2026",
+        "revenue_actual_basis_code": "reported_revenue",
         "revenue_estimate_basis_code": null,
-        "revenue_actual_currency": null,
+        "revenue_actual_currency": "USD",
         "revenue_estimate_currency": null,
-        "revenue_actual_period": null,
-        "revenue_actual_unit": null,
+        "revenue_actual_period": "Q4 FY2026",
+        "revenue_actual_unit": "USD billions",
         "revenue_estimate_unit": null,
         "eps_consensus_attempts": [
           {
@@ -6666,6 +8140,74 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "EPS",
+            "url": "https://finance.yahoo.com/quote/DE/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 4.03,
+            "currency": "USD",
+            "unit": null,
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6889,10 +8431,78 @@
             "analyst_count": null,
             "outcome": "unavailable",
             "reason": "本輪執行環境沒有 FactSet Estimates 授權登入、API 或可用連接器，無法讀取該公司／財報期間／指標的公告前共識；此為本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 1,
+            "provider": "Yahoo Finance Average Estimate",
+            "metric": "REVENUE",
+            "url": "https://finance.yahoo.com/quote/DE/analysis/",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unreadable",
+            "reason": "本輪直接開啟 Yahoo Finance /analysis/ 頁面回應 HTTP 429 Too Many Requests，無法讀取 Average Estimate；依順位進入 Investing.com。此狀態不代表 Yahoo 沒有資料。"
+          },
+          {
+            "source_level": 2,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": "10/2026",
+            "value": 10.4,
+            "currency": "USD",
+            "unit": "USD billions",
+            "basis_code": null,
+            "statistic": "other",
+            "analyst_count": null,
+            "outcome": "missing_required_fields",
+            "reason": "頁面可讀到 Latest Release（2026-11-24／DE 為 2026-11-25）及 10/2026 期末列 Forecast；但未提供供應商 data_as_of／公告前 vintage、EPS GAAP／Adjusted basis 或 Revenue definition，無法確認該預估為公告前且與公司 actual 同口徑，故不採用並進入下一順位。頁面顯示值僅保留為本輪觀測，不等同已核實市場共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 LSEG I/B/E/S 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
+          },
+          {
+            "source_level": 4,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-26T04:35:11+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本輪沒有可讀取的 FactSet Estimates 公司／財報期間／指標資料端點或已連線資料介面；如實記錄本輪不可存取，不代表供應商沒有資料。"
           }
         ],
         "eps_estimate_period": null,
-        "revenue_actual_basis": null,
+        "revenue_actual_basis": "Worldwide net sales and revenues",
         "revenue_estimate_basis": null,
         "revenue_estimate_period": null,
         "eps_consensus_snapshots": [],
@@ -6901,13 +8511,35 @@
         "timezone": "Asia/Taipei",
         "fiscal_year": 2026,
         "fiscal_quarter": "Q4",
-        "release_status": "upcoming",
-        "eps_actual_published_at": null,
-        "revenue_actual_published_at": null,
-        "eps_actual_observed_at": null,
-        "revenue_actual_observed_at": null,
-        "eps_actual_source": null,
-        "revenue_actual_source": null
+        "release_status": "released",
+        "eps_actual_published_at": "2026-11-25T06:15:00-05:00",
+        "revenue_actual_published_at": "2026-11-25T06:15:00-05:00",
+        "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
+        "eps_actual_source": {
+          "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
+          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+          "publisher": "Deere & Company",
+          "published_at": "2026-11-25T06:15:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Deere 官方 Q4 FY2026 fully diluted EPS USD 3.89；發布摘要未明示 GAAP／Non-GAAP，故 basis_code 保留 null。",
+          "secondary_refs": [
+            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
+            "https://www.investing.com/equities/deere---co-earnings"
+          ]
+        },
+        "revenue_actual_source": {
+          "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
+          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+          "publisher": "Deere & Company",
+          "published_at": "2026-11-25T06:15:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00",
+          "notes": "Deere 官方 Q4 FY2026 worldwide net sales and revenues USD 12.115B。",
+          "secondary_refs": [
+            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
+            "https://www.investing.com/equities/deere---co-earnings"
+          ]
+        }
       }
     ]
   },
@@ -6956,9 +8588,17 @@
         "https://de.marketscreener.com/boerse-nachrichten/ifo-geschaeftsklimaindex-november-ce7851dad08ef424",
         "https://www.conference-board.org/topics/consumer-confidence/",
         "https://www.prnewswire.com/news-releases/us-consumer-confidence-surged-in-november-302949447.html",
-        "https://www.reuters.com/world/us/us-consumer-confidence-surges-highest-level-nearly-two-years-2026-11-24/"
+        "https://www.reuters.com/world/us/us-consumer-confidence-surges-highest-level-nearly-two-years-2026-11-24/",
+        "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_409_811.html",
+        "https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-3rd-quarter-2026",
+        "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
+        "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+        "https://www.census.gov/construction/nrs/current/index.html",
+        "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
+        "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+        "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf"
       ],
-      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。"
+      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。"
     },
     "earnings": {
       "status": "incomplete",
@@ -7005,9 +8645,14 @@
         "https://corporate.dollartree.com/news-media/press-releases/detail/313/dollar-tree-inc-reports-third-quarter-results",
         "https://investors.bestbuy.com/News--Events/news/news-details/2026/Best-Buy-Reports-Third-Quarter-Results/default.aspx",
         "https://www.globenewswire.com/news-release/2026/11/24/3409152/0/en/abercrombie-fitch-co-reports-third-quarter-fiscal-2026-results.html",
-        "https://www.analog.com/en/newsroom/press-releases/2026/11-24-26-adi-reports-record-4th-qtr-and-fiscal-2026-financial-results.html"
+        "https://www.analog.com/en/newsroom/press-releases/2026/11-24-26-adi-reports-record-4th-qtr-and-fiscal-2026-financial-results.html",
+        "https://investors.delltechnologies.com/news-events/press-releases/detail/1665/dell-technologies-delivers-third-quarter-fiscal-2027-financial-results",
+        "https://www.prnewswire.com/news-releases/autodesk-inc-announces-fiscal-2027-third-quarter-results-302949762.html",
+        "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Fiscal-2027-Third-Quarter-Financial-Results/default.aspx",
+        "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--Reports-Fiscal-2026-Full-Year-and-Fourth-Quarter-Results-Announces-Dividend-Increase/default.aspx",
+        "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings"
       ],
-      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。"
+      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。\n2026-11-26 本輪依 SIM-1.4（規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家均已公布；補入 DELL、ADSK、WDAY、HPQ、DE 五家官方 actual，原六家 actual 保留。Yahoo Finance 11/11 /analysis/ 頁面均 HTTP 429；Investing.com 11/11 頁面可讀，列出 10/2026 Forecast，但缺 provider data_as_of／公告前 vintage、EPS basis 及 Revenue definition，全部標記 missing_required_fields，不採用；LSEG、FactSet 本輪均無可讀取的公司／期間資料端點，記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts，累積各 187 筆；本輪採用 0。舊估計與來源保留在 legacy 欄位／audit，active estimate 與 selected source 不恢復。EPS／Revenue 各 11 家均有 actual，但沒有可驗證公告前同口徑共識，Beat／Miss／Inline 均不產生。PIT snapshot 本輪新增 0：網頁工具僅提供抽取後文字，無原始 response bytes 可計算 raw_response_sha256；此限制僅影響 snapshot，不阻止本輪 actual／attempt history 更新。"
     }
   },
   "audit": [
@@ -8345,36 +9990,1292 @@
         "https://www.investing.com/equities/deere---co-earnings"
       ],
       "previous_last_update_audit_preserved_in_audit": true
+    },
+    {
+      "at": "2026-11-25T04:35:58+08:00",
+      "action": "W48 日常更新：補入日本 Flash PMI／德國 ifo／美國消費者信心實際值；六家財報 actual 更新；SIM-1.4 四層共識重新查核；僅修改本週週 JSON",
+      "week": "2026-W48",
+      "before": {
+        "exists": true,
+        "path": "data/calendar/weeks/2026-W48.json",
+        "blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
+        "updated_at": "2026-11-24T04:33:03+08:00",
+        "schema_version": 1,
+        "economic_events": 27,
+        "earnings_events": 11,
+        "main_head": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa"
+      },
+      "after": {
+        "economic_events": 27,
+        "earnings_events": 11,
+        "economic_status": "incomplete",
+        "earnings_status": "incomplete",
+        "updated_at": "2026-11-25T04:35:58+08:00",
+        "schema_version": 1,
+        "new_events_added": 0,
+        "economic_events_updated": 4,
+        "earnings_events_updated": 6,
+        "event_time_corrections": 1,
+        "released_economic_events": 10,
+        "upcoming_earnings_events": 5,
+        "released_earnings_events": 6
+      },
+      "source_priority": [
+        "Yahoo Finance Average Estimate",
+        "Investing.com",
+        "LSEG I/B/E/S",
+        "FactSet Estimates"
+      ],
+      "source_outcomes_this_run": {
+        "EPS": {
+          "Yahoo_Finance_unreadable": 11,
+          "Investing_not_pre_release": 6,
+          "Investing_missing_required_fields": 5,
+          "LSEG_unavailable": 11,
+          "FactSet_unavailable": 11,
+          "adopted": 0
+        },
+        "REVENUE": {
+          "Yahoo_Finance_unreadable": 11,
+          "Investing_not_pre_release": 6,
+          "Investing_missing_required_fields": 5,
+          "LSEG_unavailable": 11,
+          "FactSet_unavailable": 11,
+          "adopted": 0
+        }
+      },
+      "source_level_attempt_counts": {
+        "EPS": {
+          "Yahoo_Finance_Average_Estimate": 11,
+          "Investing_com": 11,
+          "LSEG_IBES": 11,
+          "FactSet_Estimates": 11
+        },
+        "REVENUE": {
+          "Yahoo_Finance_Average_Estimate": 11,
+          "Investing_com": 11,
+          "LSEG_IBES": 11,
+          "FactSet_Estimates": 11
+        }
+      },
+      "attempts_added": {
+        "EPS": 44,
+        "REVENUE": 44
+      },
+      "attempts_completed": {
+        "EPS": 44,
+        "REVENUE": 44
+      },
+      "attempts_total": {
+        "EPS": 143,
+        "REVENUE": 143
+      },
+      "source_adoptions": {
+        "EPS": {
+          "Yahoo_Finance_Average_Estimate": 0,
+          "Investing_com": 0,
+          "LSEG_IBES": 0,
+          "FactSet_Estimates": 0
+        },
+        "REVENUE": {
+          "Yahoo_Finance_Average_Estimate": 0,
+          "Investing_com": 0,
+          "LSEG_IBES": 0,
+          "FactSet_Estimates": 0
+        }
+      },
+      "earnings_consensus_adoptions": [],
+      "released_actuals_tickers": [
+        "HPE",
+        "ADI",
+        "MDT",
+        "DLTR",
+        "BBY",
+        "ANF"
+      ],
+      "upcoming_earnings_tickers": [
+        "DELL",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DE"
+      ],
+      "actuals_pending_tickers": [
+        "DELL",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DE"
+      ],
+      "unresolved_earnings_tickers": [
+        "DELL",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DE"
+      ],
+      "unresolved_consensus_metadata_tickers": [
+        "HPE",
+        "ADI",
+        "DELL",
+        "MDT",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DLTR",
+        "BBY",
+        "ANF",
+        "DE"
+      ],
+      "legacy_estimates_preserved": [
+        {
+          "ticker": "HPE",
+          "eps_estimate": 1.27,
+          "revenue_estimate": 14.35,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ADI",
+          "eps_estimate": 3.89,
+          "revenue_estimate": 4.32,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DELL",
+          "eps_estimate": 6.56,
+          "revenue_estimate": 49.24,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "MDT",
+          "eps_estimate": 1.33,
+          "revenue_estimate": 9.48,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ADSK",
+          "eps_estimate": 3.07,
+          "revenue_estimate": 2.13,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "WDAY",
+          "eps_estimate": 2.75,
+          "revenue_estimate": 2.69,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "HPQ",
+          "eps_estimate": 0.752,
+          "revenue_estimate": 15.43,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DLTR",
+          "eps_estimate": 0.912,
+          "revenue_estimate": 5.04,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "BBY",
+          "eps_estimate": 1.49,
+          "revenue_estimate": 9.88,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ANF",
+          "eps_estimate": 3.09,
+          "revenue_estimate": 1.37,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DE",
+          "eps_estimate": 4.03,
+          "revenue_estimate": 10.4,
+          "eps_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "revenue_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        }
+      ],
+      "coverage_matrix": {
+        "pre_release_estimates": {
+          "EPS": {
+            "value": 0,
+            "period": 0,
+            "currency": 0,
+            "basis_code": 0,
+            "data_as_of": 0,
+            "analyst_count": 0
+          },
+          "REVENUE": {
+            "value": 0,
+            "period": 0,
+            "currency": 0,
+            "unit": 0,
+            "basis_code": 0,
+            "data_as_of": 0,
+            "analyst_count": 0
+          }
+        },
+        "post_release_actuals": {
+          "EPS": {
+            "value": 6,
+            "period": 6,
+            "currency": 6,
+            "basis_code": 6,
+            "source": 6,
+            "published_at": 6
+          },
+          "REVENUE": {
+            "value": 6,
+            "period": 6,
+            "currency": 6,
+            "unit": 6,
+            "basis_code": 6,
+            "source": 6,
+            "published_at": 6
+          }
+        },
+        "comparability": {
+          "EPS": {
+            "comparable": 0,
+            "pending": 11,
+            "reason": "6 家已公布但沒有可驗證公告前且口徑一致的共識；5 家尚未公布，故不計算方向性比較。"
+          },
+          "REVENUE": {
+            "comparable": 0,
+            "pending": 11,
+            "reason": "6 家已公布但沒有可驗證公告前且定義／單位一致的共識；5 家尚未公布，故不計算方向性比較。"
+          }
+        }
+      },
+      "economic_actuals_updated": [
+        {
+          "id": "current-jp-flash-pmi-20261124",
+          "name": "日本 11 月 Flash PMI（製造業／服務業）",
+          "actual": "製造業 PMI 53.7；製造業產出指數 53.8；服務業活動指數 50.5；綜合產出指數 51.5（11 月 Flash 初值）",
+          "source_url": "https://www.reuters.com/business/japans-factory-activity-expands-november-pmi-shows-2026-11-24/",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-25T04:35:58+08:00"
+        },
+        {
+          "id": "current-de-flash-ifo-20261124",
+          "name": "德國 11 月 ifo 企業景氣指數",
+          "actual": "ifo 景氣指數 90.6；現況指數 89.4；預期指數 91.9（11 月）",
+          "source_url": "https://www.ifo.de/en/press-release/2026-11-24/ifo-business-climate-rises-november-2026",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-25T04:35:58+08:00"
+        },
+        {
+          "id": "current-us-consumer-confidence-20261124",
+          "name": "美國 11 月 Conference Board 消費者信心指數",
+          "actual": "11 月消費者信心指數 103.3（1985=100）；現況指數 132.8；預期指數 83.6",
+          "source_url": "https://www.conference-board.org/topics/consumer-confidence/",
+          "published_at": "2026-11-24",
+          "observed_at": "2026-11-25T04:35:58+08:00"
+        }
+      ],
+      "economic_event_status_updates": [
+        {
+          "id": "current-fed-williams-20261123",
+          "status": "released",
+          "note": "官方行程時間已過；未取得演講逐字稿，仍為非數值事件。"
+        }
+      ],
+      "event_time_corrections": [
+        {
+          "id": "current-de-flash-ifo-20261124",
+          "old_event_date": "2026-11-24T17:30:00+08:00",
+          "new_event_date": "2026-11-24T17:00:00+08:00",
+          "evidence": "ifo／Dow Jones 發布時間 10:00 CET，換算台灣時間 17:00。"
+        }
+      ],
+      "economic_previous_values_preserved": [
+        {
+          "id": "current-de-flash-ifo-20261124",
+          "old_forecast": "市場共識 92.0；MUFG 預估 92.2",
+          "old_previous": "10月 91.6"
+        },
+        {
+          "id": "current-us-consumer-confidence-20261124",
+          "old_previous": "10月 91.7"
+        }
+      ],
+      "economic_forecast_coverage": {
+        "total_events": 27,
+        "forecast_applicable": 23,
+        "forecast_available": 20,
+        "forecast_missing_numeric": 3,
+        "forecast_not_applicable": 4,
+        "actuals_pending": 17
+      },
+      "economic_null_forecast_classification": {
+        "total_null": 7,
+        "numeric_market_expectation_missing": [
+          {
+            "id": "current-au-flash-pmi-20261123",
+            "name": "澳洲 11 月 Flash PMI（製造業／服務業）"
+          },
+          {
+            "id": "current-jp-flash-pmi-20261124",
+            "name": "日本 11 月 Flash PMI（製造業／服務業）"
+          },
+          {
+            "id": "current-canada-seph-202609",
+            "name": "加拿大 9 月 Payroll Employment、Earnings and Hours 與 Job Vacancies（SEPH）"
+          }
+        ],
+        "not_applicable": [
+          {
+            "id": "current-fed-beige-book-20261125",
+            "name": "聯準會 Beige Book（褐皮書）"
+          },
+          {
+            "id": "current-ecb-account-20261028",
+            "name": "ECB 公布 10 月 28–29 日貨幣政策會議紀要"
+          },
+          {
+            "id": "current-us-thanksgiving-market-20261126",
+            "name": "美國感恩節：美股休市；11/27（五）美股提前收市"
+          },
+          {
+            "id": "current-fed-williams-20261123",
+            "name": "紐約聯準銀行總裁 John Williams 談經濟展望與貨幣政策"
+          }
+        ]
+      },
+      "snapshots_added": {
+        "EPS": 0,
+        "REVENUE": 0
+      },
+      "snapshot_coverage": {
+        "EPS": {
+          "new": 0,
+          "cumulative": 0,
+          "pre_release_eligible": 0,
+          "pending_cutoff_time": 0,
+          "pending_required_fields": 0,
+          "not_pre_release": 0,
+          "raw_response_body_or_hash_unavailable": 11,
+          "not_written": 11
+        },
+        "REVENUE": {
+          "new": 0,
+          "cumulative": 0,
+          "pre_release_eligible": 0,
+          "pending_cutoff_time": 0,
+          "pending_required_fields": 0,
+          "not_pre_release": 0,
+          "raw_response_body_or_hash_unavailable": 11,
+          "not_written": 11
+        }
+      },
+      "snapshot_write_blockers": {
+        "EPS": {
+          "count": 11,
+          "tickers": [
+            "HPE",
+            "ADI",
+            "DELL",
+            "MDT",
+            "ADSK",
+            "WDAY",
+            "HPQ",
+            "DLTR",
+            "BBY",
+            "ANF",
+            "DE"
+          ],
+          "reason": "本輪網頁工具僅提供抽取後文字，無法取得可封存 raw response body／計算 raw_response_sha256；raw_response_ref 必須為 null，且尚無核准的私有長期封存目的地。6 家已公布事件另缺可追溯歷史 PIT vintage；5 家未公布事件的當前頁面也無原始回應封存，故不寫 snapshot。"
+        },
+        "REVENUE": {
+          "count": 11,
+          "tickers": [
+            "HPE",
+            "ADI",
+            "DELL",
+            "MDT",
+            "ADSK",
+            "WDAY",
+            "HPQ",
+            "DLTR",
+            "BBY",
+            "ANF",
+            "DE"
+          ],
+          "reason": "本輪網頁工具僅提供抽取後文字，無法取得可封存 raw response body／計算 raw_response_sha256；raw_response_ref 必須為 null，且尚無核准的私有長期封存目的地。6 家已公布事件另缺可追溯歷史 PIT vintage；5 家未公布事件的當前頁面也無原始回應封存，故不寫 snapshot。"
+        }
+      },
+      "preservation_checks": {
+        "schema_version_1_retained": true,
+        "event_ids_unique": true,
+        "existing_event_ids_preserved": true,
+        "existing_attempts_preserved": true,
+        "new_attempts_source_order_1_to_4": true,
+        "legacy_estimates_preserved": true,
+        "active_unverified_sources_cleared": true,
+        "existing_snapshot_arrays_unchanged": true,
+        "actuals_have_separate_source_and_time": true,
+        "upcoming_actuals_null": true,
+        "no_new_judgment": true,
+        "sim_14_source_order_applied": true,
+        "no_snapshot_without_raw_response_sha256": true,
+        "only_new_W48_file_modified": true,
+        "coverage_incomplete_not_treated_as_blocker": true,
+        "numeric_forecast_events_explicitly_applicable": true
+      },
+      "wr_provenance": {
+        "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
+        "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
+        "main_branch_head": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa",
+        "main_read_at": "2026-11-25T04:35:58+08:00",
+        "simulation_version": "SIM-1.4（正式生效版）",
+        "simulation_blob_sha": "12354cbb9601858ef7af21076d87fde711392ae5",
+        "simulation_read_at": "2026-11-25T04:35:58+08:00",
+        "simulation_note": "SIM-1.4 §3 行事曆與財報事件：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開選源，第一個可用平均預期停止低順位來源搜尋。本輪另依當次任務的公告前 data_as_of 與比較口徑要求，未採用缺少時間／basis 證據的 Investing.com forecast。"
+      },
+      "schema_provenance": {
+        "main_calendar_schema": "本輪檢查 data/calendar/README.md、SCHEMA.md、schema.json、calendar.schema.json 及 schemas/calendar.schema.json、schemas/tac-calendar.schema.json，均不存在；main WR 5.17 指定既有週 JSON 路徑，W48 schema_version=1 與既有事件欄位結構作相容性基準。未更改 schema_version。",
+        "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs，以及各 event source／secondary_refs。",
+        "schema_version_retained": 1
+      },
+      "files_modified": [
+        "data/calendar/weeks/2026-W48.json"
+      ],
+      "run_status": "updated_W48_economic_actuals_and_earnings_actuals; SIM-1.4 four-level attempts appended; no consensus adoption; PIT snapshots not written due raw response/archive requirements",
+      "previous_last_update_audit_preserved": true
+    },
+    {
+      "at": "2026-11-26T04:35:11+08:00",
+      "action": "W48 日常更新：補入 8 筆經濟實際值、5 家財報 actual；SIM-1.4 四層共識逐筆重查；只更新本週週 JSON",
+      "week": "2026-W48",
+      "before": {
+        "exists": true,
+        "path": "data/calendar/weeks/2026-W48.json",
+        "blob_sha": "23c253ef39d173f4d9d0fd24e565be2522dc95d8",
+        "updated_at": "2026-11-25T04:35:58+08:00",
+        "schema_version": 1,
+        "economic_events": 27,
+        "earnings_events": 11,
+        "main_head": "8283b911946d3d195988f9c6ea1df096a5c5064f"
+      },
+      "after": {
+        "economic_events": 27,
+        "earnings_events": 11,
+        "economic_status": "incomplete",
+        "earnings_status": "incomplete",
+        "updated_at": "2026-11-26T04:35:11+08:00",
+        "schema_version": 1,
+        "new_events_added": 0,
+        "economic_events_updated": 8,
+        "earnings_events_updated": 5,
+        "event_time_corrections": 0,
+        "released_economic_events": 18,
+        "upcoming_earnings_events": 0,
+        "released_earnings_events": 11
+      },
+      "source_priority": [
+        "Yahoo Finance Average Estimate",
+        "Investing.com",
+        "LSEG I/B/E/S",
+        "FactSet Estimates"
+      ],
+      "source_outcomes_this_run": {
+        "EPS": {
+          "Yahoo_Finance_unreadable": 11,
+          "Investing_missing_required_fields": 11,
+          "LSEG_unavailable": 11,
+          "FactSet_unavailable": 11,
+          "adopted": 0
+        },
+        "REVENUE": {
+          "Yahoo_Finance_unreadable": 11,
+          "Investing_missing_required_fields": 11,
+          "LSEG_unavailable": 11,
+          "FactSet_unavailable": 11,
+          "adopted": 0
+        }
+      },
+      "source_level_attempt_counts": {
+        "EPS": {
+          "Yahoo_Finance_Average_Estimate": 11,
+          "Investing_com": 11,
+          "LSEG_IBES": 11,
+          "FactSet_Estimates": 11
+        },
+        "REVENUE": {
+          "Yahoo_Finance_Average_Estimate": 11,
+          "Investing_com": 11,
+          "LSEG_IBES": 11,
+          "FactSet_Estimates": 11
+        }
+      },
+      "attempts_added": {
+        "EPS": 44,
+        "REVENUE": 44
+      },
+      "attempts_completed": {
+        "EPS": 44,
+        "REVENUE": 44
+      },
+      "attempts_total": {
+        "EPS": 187,
+        "REVENUE": 187
+      },
+      "source_adoptions": {
+        "EPS": {
+          "Yahoo_Finance_Average_Estimate": 0,
+          "Investing_com": 0,
+          "LSEG_IBES": 0,
+          "FactSet_Estimates": 0
+        },
+        "REVENUE": {
+          "Yahoo_Finance_Average_Estimate": 0,
+          "Investing_com": 0,
+          "LSEG_IBES": 0,
+          "FactSet_Estimates": 0
+        }
+      },
+      "earnings_consensus_adoptions": [],
+      "released_actuals_tickers": [
+        "HPE",
+        "ADI",
+        "DELL",
+        "MDT",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DLTR",
+        "BBY",
+        "ANF",
+        "DE"
+      ],
+      "upcoming_earnings_tickers": [],
+      "actuals_pending_tickers": [],
+      "unresolved_earnings_tickers": [
+        "HPE",
+        "ADI",
+        "DELL",
+        "MDT",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DLTR",
+        "BBY",
+        "ANF",
+        "DE"
+      ],
+      "unresolved_consensus_metadata_tickers": [
+        "HPE",
+        "ADI",
+        "DELL",
+        "MDT",
+        "ADSK",
+        "WDAY",
+        "HPQ",
+        "DLTR",
+        "BBY",
+        "ANF",
+        "DE"
+      ],
+      "legacy_estimates_preserved": [
+        {
+          "ticker": "HPE",
+          "legacy_eps_estimate": 1.27,
+          "legacy_revenue_estimate": 14.35,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ADI",
+          "legacy_eps_estimate": 3.89,
+          "legacy_revenue_estimate": 4.32,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/analog-devices-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DELL",
+          "legacy_eps_estimate": 6.56,
+          "legacy_revenue_estimate": 49.24,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dell-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "MDT",
+          "legacy_eps_estimate": 1.33,
+          "legacy_revenue_estimate": 9.48,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/medtronic-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ADSK",
+          "legacy_eps_estimate": 3.07,
+          "legacy_revenue_estimate": 2.13,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/autodesk-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "WDAY",
+          "legacy_eps_estimate": 2.75,
+          "legacy_revenue_estimate": 2.69,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/workday-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "HPQ",
+          "legacy_eps_estimate": 0.752,
+          "legacy_revenue_estimate": 15.43,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/hewlett-pack-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DLTR",
+          "legacy_eps_estimate": 0.912,
+          "legacy_revenue_estimate": 5.04,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "BBY",
+          "legacy_eps_estimate": 1.49,
+          "legacy_revenue_estimate": 9.88,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/best-buy-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "ANF",
+          "legacy_eps_estimate": 3.09,
+          "legacy_revenue_estimate": 1.37,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        },
+        {
+          "ticker": "DE",
+          "legacy_eps_estimate": 4.03,
+          "legacy_revenue_estimate": 10.4,
+          "legacy_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          },
+          "legacy_revenue_consensus_source": {
+            "name": "Investing.com",
+            "source_level": 2,
+            "url": "https://www.investing.com/equities/deere---co-earnings",
+            "observed_at": "2026-11-23T04:41:38+08:00"
+          }
+        }
+      ],
+      "coverage_matrix": {
+        "pre_release_estimates": {
+          "EPS": {
+            "value": 0,
+            "period": 0,
+            "currency": 0,
+            "basis_code": 0,
+            "data_as_of": 0,
+            "analyst_count": 0
+          },
+          "REVENUE": {
+            "value": 0,
+            "period": 0,
+            "currency": 0,
+            "unit": 0,
+            "basis_code": 0,
+            "data_as_of": 0,
+            "analyst_count": 0
+          }
+        },
+        "post_release_actuals": {
+          "EPS": {
+            "value": 11,
+            "period": 11,
+            "currency": 11,
+            "basis_code": 10,
+            "source": 11,
+            "published_at": 11,
+            "observed_at": 11
+          },
+          "REVENUE": {
+            "value": 11,
+            "period": 11,
+            "currency": 11,
+            "unit": 11,
+            "basis_code": 11,
+            "source": 11,
+            "published_at": 11,
+            "observed_at": 11
+          }
+        },
+        "comparability": {
+          "EPS": {
+            "comparable": 0,
+            "pending": 11,
+            "reason": "11 家均有 actual，但本輪未取得可驗證公告前且口徑相容的 EPS consensus。"
+          },
+          "REVENUE": {
+            "comparable": 0,
+            "pending": 11,
+            "reason": "11 家均有 actual，但本輪未取得可驗證公告前且定義／單位相容的 Revenue consensus。"
+          }
+        }
+      },
+      "economic_actuals_updated": [
+        {
+          "id": "current-de-gdp-detail-2026q3",
+          "name": "德國第 3 季 GDP 詳細結果（第二次估算／支出與產業拆分）",
+          "actual": "第3季實質 GDP 季增 0.1%（價格、季節及日曆調整）；年增 1.2%（價格調整），日曆調整後年增 1.1%。較 10/30 初值季增 0.2% 下修 0.1 個百分點；Destatis 指出 9 月出口與零售營收弱於初估。",
+          "source_url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_409_811.html",
+          "published_at": "2026-11-25",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-gdp-q3-2026-second",
+          "name": "美國第 3 季 GDP 第二次估值與企業獲利",
+          "actual": "Q3 2026 實質 GDP 年化季增 4.3%（第二次估值），較初值 3.4%上修 0.9 個百分點；私人國內最終銷售 +5.8%；當期生產企業獲利增加 2,060 億美元。",
+          "source_url": "https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-3rd-quarter-2026",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-pce-oct-2026",
+          "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
+          "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+          "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-durable-goods-202610",
+          "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
+          "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
+          "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-new-home-sales-202610",
+          "name": "美國 10 月新屋銷售（New Residential Sales）",
+          "actual": "10月新屋銷售年化 701 千戶，較9月修正值 614 千戶增加 14.2%，高於市場共識 645 千戶；月底待售庫存 470 千戶、供給月數 8.0；新屋中位數售價 USD 391,300，年減 3.2%。",
+          "source_url": "https://www.census.gov/construction/nrs/current/index.html",
+          "published_at": "2026-11-25T10:00:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-fed-beige-book-20261125",
+          "name": "聯準會 Beige Book（褐皮書）",
+          "actual": "聯準會 11月褐皮書已於 11/25 14:00 ET 發布：12個聯準會轄區中8區回報輕度至溫和成長、4區無明顯變化；消費支出大致持平且家庭價格敏感；就業小幅增加，薪資與福利溫和上升；製造業溫和成長、住宅房市轉弱。",
+          "source_url": "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
+          "published_at": "2026-11-25T14:00:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-thanksgiving-market-20261126",
+          "name": "美國感恩節：美股休市；11/27（五）美股提前收市",
+          "actual": "2026-11-26 感恩節美股休市；Nasdaq 交易日曆確認 11/27 提前於 13:00 ET 收市。",
+          "source_url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+          "published_at": null,
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        },
+        {
+          "id": "current-us-initial-claims-20261125",
+          "name": "美國初領失業救濟金人數（Initial Jobless Claims）",
+          "actual": "截至 11/21 當週初領失業救濟金 189 千人，較前週修正值 202 千人減少 13 千人；四週均值 196 千人。續領失業救濟金（截至 11/14）1,697 千人，較前週修正值減少 95 千人。",
+          "source_url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf",
+          "published_at": "2026-11-25T08:30:00-05:00",
+          "observed_at": "2026-11-26T04:35:11+08:00"
+        }
+      ],
+      "economic_event_status_updates": [
+        {
+          "id": "current-de-gdp-detail-2026q3",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-gdp-q3-2026-second",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-pce-oct-2026",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-durable-goods-202610",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-new-home-sales-202610",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-fed-beige-book-20261125",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-thanksgiving-market-20261126",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        },
+        {
+          "id": "current-us-initial-claims-20261125",
+          "status": "released",
+          "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+        }
+      ],
+      "event_time_corrections": [],
+      "economic_previous_values_preserved": [
+        {
+          "id": "current-de-gdp-detail-2026q3",
+          "name": "德國第 3 季 GDP 詳細結果（第二次估算／支出與產業拆分）",
+          "old_previous": "初值季增 0.2%；年增 1.3%",
+          "old_forecast": "季增 0.2%（MUFG）"
+        },
+        {
+          "id": "current-us-gdp-q3-2026-second",
+          "name": "美國第 3 季 GDP 第二次估值與企業獲利",
+          "old_previous": "第3季初值年化季增 3.4%",
+          "old_forecast": "TD 預估 3.4%；U.S. Bank 市場共識 3.5%、自行預估 3.4%"
+        },
+        {
+          "id": "current-us-pce-oct-2026",
+          "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
+          "old_previous": "個人所得 +0.3%；個人支出 +0.5%；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%",
+          "old_forecast": "個人所得 +0.3%；個人支出 +0.4%；PCE 月增 +0.3%、年增 3.8%；核心 PCE 月增 +0.3%、年增 3.2%"
+        },
+        {
+          "id": "current-us-durable-goods-202610",
+          "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
+          "old_previous": "總訂單 +1.9%；核心資本財訂單 +0.6%；非運輸訂單 +0.5%",
+          "old_forecast": "總訂單 +0.5%；核心資本財訂單 +0.8%；非運輸訂單 +0.5%"
+        },
+        {
+          "id": "current-us-new-home-sales-202610",
+          "name": "美國 10 月新屋銷售（New Residential Sales）",
+          "old_previous": "9月 676 千戶",
+          "old_forecast": "市場共識 645 千戶；TD 預估 648 千戶；U.S. Bank 預估 640 千戶"
+        },
+        {
+          "id": "current-fed-beige-book-20261125",
+          "name": "聯準會 Beige Book（褐皮書）",
+          "old_previous": null,
+          "old_forecast": null
+        },
+        {
+          "id": "current-us-thanksgiving-market-20261126",
+          "name": "美國感恩節：美股休市；11/27（五）美股提前收市",
+          "old_previous": null,
+          "old_forecast": null
+        },
+        {
+          "id": "current-us-initial-claims-20261125",
+          "name": "美國初領失業救濟金人數（Initial Jobless Claims）",
+          "old_previous": "203 千人",
+          "old_forecast": "市場共識 200 千人；U.S. Bank 預估 201 千人"
+        }
+      ],
+      "economic_forecast_coverage": {
+        "total_events": 27,
+        "forecast_applicable": 23,
+        "forecast_available": 20,
+        "forecast_missing_numeric": 3,
+        "forecast_not_applicable": 4,
+        "actuals_pending": 9
+      },
+      "economic_null_forecast_classification": {
+        "total_null": 7,
+        "numeric_market_expectation_missing": [
+          {
+            "id": "current-au-flash-pmi-20261123",
+            "name": "澳洲 11 月 Flash PMI（製造業／服務業）"
+          },
+          {
+            "id": "current-jp-flash-pmi-20261124",
+            "name": "日本 11 月 Flash PMI（製造業／服務業）"
+          },
+          {
+            "id": "current-canada-seph-202609",
+            "name": "加拿大 9 月 Payroll Employment、Earnings and Hours 與 Job Vacancies（SEPH）"
+          }
+        ],
+        "not_applicable": [
+          {
+            "id": "current-fed-beige-book-20261125",
+            "name": "聯準會 Beige Book（褐皮書）"
+          },
+          {
+            "id": "current-ecb-account-20261028",
+            "name": "ECB 公布 10 月 28–29 日貨幣政策會議紀要"
+          },
+          {
+            "id": "current-us-thanksgiving-market-20261126",
+            "name": "美國感恩節：美股休市；11/27（五）美股提前收市"
+          },
+          {
+            "id": "current-fed-williams-20261123",
+            "name": "紐約聯準銀行總裁 John Williams 談經濟展望與貨幣政策"
+          }
+        ]
+      },
+      "snapshots_added": {
+        "EPS": 0,
+        "REVENUE": 0
+      },
+      "snapshot_arrays_initialized": {
+        "EPS": 0,
+        "REVENUE": 0
+      },
+      "snapshot_coverage": {
+        "EPS": {
+          "new": 0,
+          "cumulative": 0,
+          "pre_release_eligible": 0,
+          "pending_cutoff_time": 0,
+          "pending_required_fields": 0,
+          "not_pre_release": 0,
+          "raw_response_body_or_hash_unavailable": 11,
+          "not_written": 11
+        },
+        "REVENUE": {
+          "new": 0,
+          "cumulative": 0,
+          "pre_release_eligible": 0,
+          "pending_cutoff_time": 0,
+          "pending_required_fields": 0,
+          "not_pre_release": 0,
+          "raw_response_body_or_hash_unavailable": 11,
+          "not_written": 11
+        }
+      },
+      "snapshot_write_blockers": {
+        "EPS": {
+          "count": 11,
+          "tickers": [
+            "HPE",
+            "ADI",
+            "DELL",
+            "MDT",
+            "ADSK",
+            "WDAY",
+            "HPQ",
+            "DLTR",
+            "BBY",
+            "ANF",
+            "DE"
+          ],
+          "reason": "本輪網頁讀取介面只提供抽取後文字，無法取得來源 raw response bytes，故不能計算 raw_response_sha256；本輪不寫入 snapshot。這不影響實際值及 attempt history 更新。"
+        },
+        "REVENUE": {
+          "count": 11,
+          "tickers": [
+            "HPE",
+            "ADI",
+            "DELL",
+            "MDT",
+            "ADSK",
+            "WDAY",
+            "HPQ",
+            "DLTR",
+            "BBY",
+            "ANF",
+            "DE"
+          ],
+          "reason": "本輪網頁讀取介面只提供抽取後文字，無法取得來源 raw response bytes，故不能計算 raw_response_sha256；本輪不寫入 snapshot。這不影響實際值及 attempt history 更新。"
+        }
+      },
+      "preservation_checks": {
+        "schema_version_1_retained": true,
+        "event_ids_unique": true,
+        "existing_event_ids_preserved": true,
+        "existing_attempts_preserved": true,
+        "new_attempts_source_order_1_to_4": true,
+        "legacy_estimates_preserved": true,
+        "existing_snapshot_arrays_unchanged": true,
+        "actuals_have_separate_source_and_time": true,
+        "all_11_earnings_actuals_present": true,
+        "all_unverified_estimates_not_adopted": true,
+        "no_new_judgment": true,
+        "no_snapshot_without_raw_response_sha256": true,
+        "only_new_W48_file_modified": true,
+        "coverage_incomplete_not_treated_as_blocker": true,
+        "numeric_forecast_events_explicitly_applicable": true
+      },
+      "wr_provenance": {
+        "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
+        "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
+        "main_branch_head": "8283b911946d3d195988f9c6ea1df096a5c5064f",
+        "main_read_at": "2026-11-26T04:35:11+08:00",
+        "simulation_version": "SIM-1.4（正式生效版）",
+        "simulation_blob_sha": "9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2",
+        "simulation_read_at": "2026-11-26T04:35:11+08:00",
+        "simulation_note": "SIM-1.4 §5.2 First Available Wins 順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本輪依本任務明確的公告前截點與比較口徑要求，未採用缺少 data_as_of／basis／definition 證據的 Investing.com forecast。"
+      },
+      "schema_provenance": {
+        "main_calendar_schema": "未找到獨立 calendar schema 檔；依 main WR v5.17、既有 W48 schema_version=1 及現有事件欄位結構作相容性基準。未更改 schema_version。",
+        "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
+        "schema_version_retained": 1
+      },
+      "files_modified": [
+        "data/calendar/weeks/2026-W48.json"
+      ],
+      "run_status": "updated_W48_8_economic_actuals_5_earnings_actuals; appended_44_EPS_and_44_REVENUE_attempts; no_consensus_adoption; PIT_snapshots_not_written_raw_bytes_unavailable",
+      "previous_last_update_audit_preserved": true,
+      "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00"
     }
   ],
   "last_update_audit": {
-    "at": "2026-11-25T04:35:58+08:00",
-    "action": "W48 日常更新：補入日本 Flash PMI／德國 ifo／美國消費者信心實際值；六家財報 actual 更新；SIM-1.4 四層共識重新查核；僅修改本週週 JSON",
+    "at": "2026-11-26T04:35:11+08:00",
+    "action": "W48 日常更新：補入 8 筆經濟實際值、5 家財報 actual；SIM-1.4 四層共識逐筆重查；只更新本週週 JSON",
     "week": "2026-W48",
     "before": {
       "exists": true,
       "path": "data/calendar/weeks/2026-W48.json",
-      "blob_sha": "0db095ad6638d0bf75dc1ae90248571c84169f26",
-      "updated_at": "2026-11-24T04:33:03+08:00",
+      "blob_sha": "23c253ef39d173f4d9d0fd24e565be2522dc95d8",
+      "updated_at": "2026-11-25T04:35:58+08:00",
       "schema_version": 1,
       "economic_events": 27,
       "earnings_events": 11,
-      "main_head": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa"
+      "main_head": "8283b911946d3d195988f9c6ea1df096a5c5064f"
     },
     "after": {
       "economic_events": 27,
       "earnings_events": 11,
       "economic_status": "incomplete",
       "earnings_status": "incomplete",
-      "updated_at": "2026-11-25T04:35:58+08:00",
+      "updated_at": "2026-11-26T04:35:11+08:00",
       "schema_version": 1,
       "new_events_added": 0,
-      "economic_events_updated": 4,
-      "earnings_events_updated": 6,
-      "event_time_corrections": 1,
-      "released_economic_events": 10,
-      "upcoming_earnings_events": 5,
-      "released_earnings_events": 6
+      "economic_events_updated": 8,
+      "earnings_events_updated": 5,
+      "event_time_corrections": 0,
+      "released_economic_events": 18,
+      "upcoming_earnings_events": 0,
+      "released_earnings_events": 11
     },
     "source_priority": [
       "Yahoo Finance Average Estimate",
@@ -8385,16 +11286,14 @@
     "source_outcomes_this_run": {
       "EPS": {
         "Yahoo_Finance_unreadable": 11,
-        "Investing_not_pre_release": 6,
-        "Investing_missing_required_fields": 5,
+        "Investing_missing_required_fields": 11,
         "LSEG_unavailable": 11,
         "FactSet_unavailable": 11,
         "adopted": 0
       },
       "REVENUE": {
         "Yahoo_Finance_unreadable": 11,
-        "Investing_not_pre_release": 6,
-        "Investing_missing_required_fields": 5,
+        "Investing_missing_required_fields": 11,
         "LSEG_unavailable": 11,
         "FactSet_unavailable": 11,
         "adopted": 0
@@ -8423,8 +11322,8 @@
       "REVENUE": 44
     },
     "attempts_total": {
-      "EPS": 143,
-      "REVENUE": 143
+      "EPS": 187,
+      "REVENUE": 187
     },
     "source_adoptions": {
       "EPS": {
@@ -8444,30 +11343,29 @@
     "released_actuals_tickers": [
       "HPE",
       "ADI",
+      "DELL",
       "MDT",
+      "ADSK",
+      "WDAY",
+      "HPQ",
       "DLTR",
       "BBY",
-      "ANF"
-    ],
-    "upcoming_earnings_tickers": [
-      "DELL",
-      "ADSK",
-      "WDAY",
-      "HPQ",
+      "ANF",
       "DE"
     ],
-    "actuals_pending_tickers": [
-      "DELL",
-      "ADSK",
-      "WDAY",
-      "HPQ",
-      "DE"
-    ],
+    "upcoming_earnings_tickers": [],
+    "actuals_pending_tickers": [],
     "unresolved_earnings_tickers": [
+      "HPE",
+      "ADI",
       "DELL",
+      "MDT",
       "ADSK",
       "WDAY",
       "HPQ",
+      "DLTR",
+      "BBY",
+      "ANF",
       "DE"
     ],
     "unresolved_consensus_metadata_tickers": [
@@ -8486,15 +11384,15 @@
     "legacy_estimates_preserved": [
       {
         "ticker": "HPE",
-        "eps_estimate": 1.27,
-        "revenue_estimate": 14.35,
-        "eps_source": {
+        "legacy_eps_estimate": 1.27,
+        "legacy_revenue_estimate": 14.35,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
@@ -8503,15 +11401,15 @@
       },
       {
         "ticker": "ADI",
-        "eps_estimate": 3.89,
-        "revenue_estimate": 4.32,
-        "eps_source": {
+        "legacy_eps_estimate": 3.89,
+        "legacy_revenue_estimate": 4.32,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/analog-devices-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/analog-devices-earnings",
@@ -8520,15 +11418,15 @@
       },
       {
         "ticker": "DELL",
-        "eps_estimate": 6.56,
-        "revenue_estimate": 49.24,
-        "eps_source": {
+        "legacy_eps_estimate": 6.56,
+        "legacy_revenue_estimate": 49.24,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/dell-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/dell-inc-earnings",
@@ -8537,15 +11435,15 @@
       },
       {
         "ticker": "MDT",
-        "eps_estimate": 1.33,
-        "revenue_estimate": 9.48,
-        "eps_source": {
+        "legacy_eps_estimate": 1.33,
+        "legacy_revenue_estimate": 9.48,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/medtronic-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/medtronic-earnings",
@@ -8554,15 +11452,15 @@
       },
       {
         "ticker": "ADSK",
-        "eps_estimate": 3.07,
-        "revenue_estimate": 2.13,
-        "eps_source": {
+        "legacy_eps_estimate": 3.07,
+        "legacy_revenue_estimate": 2.13,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/autodesk-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/autodesk-inc-earnings",
@@ -8571,15 +11469,15 @@
       },
       {
         "ticker": "WDAY",
-        "eps_estimate": 2.75,
-        "revenue_estimate": 2.69,
-        "eps_source": {
+        "legacy_eps_estimate": 2.75,
+        "legacy_revenue_estimate": 2.69,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/workday-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/workday-inc-earnings",
@@ -8588,15 +11486,15 @@
       },
       {
         "ticker": "HPQ",
-        "eps_estimate": 0.752,
-        "revenue_estimate": 15.43,
-        "eps_source": {
+        "legacy_eps_estimate": 0.752,
+        "legacy_revenue_estimate": 15.43,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/hewlett-pack-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/hewlett-pack-earnings",
@@ -8605,15 +11503,15 @@
       },
       {
         "ticker": "DLTR",
-        "eps_estimate": 0.912,
-        "revenue_estimate": 5.04,
-        "eps_source": {
+        "legacy_eps_estimate": 0.912,
+        "legacy_revenue_estimate": 5.04,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
@@ -8622,15 +11520,15 @@
       },
       {
         "ticker": "BBY",
-        "eps_estimate": 1.49,
-        "revenue_estimate": 9.88,
-        "eps_source": {
+        "legacy_eps_estimate": 1.49,
+        "legacy_revenue_estimate": 9.88,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/best-buy-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/best-buy-earnings",
@@ -8639,15 +11537,15 @@
       },
       {
         "ticker": "ANF",
-        "eps_estimate": 3.09,
-        "revenue_estimate": 1.37,
-        "eps_source": {
+        "legacy_eps_estimate": 3.09,
+        "legacy_revenue_estimate": 1.37,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
@@ -8656,15 +11554,15 @@
       },
       {
         "ticker": "DE",
-        "eps_estimate": 4.03,
-        "revenue_estimate": 10.4,
-        "eps_source": {
+        "legacy_eps_estimate": 4.03,
+        "legacy_revenue_estimate": 10.4,
+        "legacy_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/deere---co-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "revenue_source": {
+        "legacy_revenue_consensus_source": {
           "name": "Investing.com",
           "source_level": 2,
           "url": "https://www.investing.com/equities/deere---co-earnings",
@@ -8694,86 +11592,195 @@
       },
       "post_release_actuals": {
         "EPS": {
-          "value": 6,
-          "period": 6,
-          "currency": 6,
-          "basis_code": 6,
-          "source": 6,
-          "published_at": 6
+          "value": 11,
+          "period": 11,
+          "currency": 11,
+          "basis_code": 10,
+          "source": 11,
+          "published_at": 11,
+          "observed_at": 11
         },
         "REVENUE": {
-          "value": 6,
-          "period": 6,
-          "currency": 6,
-          "unit": 6,
-          "basis_code": 6,
-          "source": 6,
-          "published_at": 6
+          "value": 11,
+          "period": 11,
+          "currency": 11,
+          "unit": 11,
+          "basis_code": 11,
+          "source": 11,
+          "published_at": 11,
+          "observed_at": 11
         }
       },
       "comparability": {
         "EPS": {
           "comparable": 0,
           "pending": 11,
-          "reason": "6 家已公布但沒有可驗證公告前且口徑一致的共識；5 家尚未公布，故不計算方向性比較。"
+          "reason": "11 家均有 actual，但本輪未取得可驗證公告前且口徑相容的 EPS consensus。"
         },
         "REVENUE": {
           "comparable": 0,
           "pending": 11,
-          "reason": "6 家已公布但沒有可驗證公告前且定義／單位一致的共識；5 家尚未公布，故不計算方向性比較。"
+          "reason": "11 家均有 actual，但本輪未取得可驗證公告前且定義／單位相容的 Revenue consensus。"
         }
       }
     },
     "economic_actuals_updated": [
       {
-        "id": "current-jp-flash-pmi-20261124",
-        "name": "日本 11 月 Flash PMI（製造業／服務業）",
-        "actual": "製造業 PMI 53.7；製造業產出指數 53.8；服務業活動指數 50.5；綜合產出指數 51.5（11 月 Flash 初值）",
-        "source_url": "https://www.reuters.com/business/japans-factory-activity-expands-november-pmi-shows-2026-11-24/",
-        "published_at": "2026-11-24",
-        "observed_at": "2026-11-25T04:35:58+08:00"
+        "id": "current-de-gdp-detail-2026q3",
+        "name": "德國第 3 季 GDP 詳細結果（第二次估算／支出與產業拆分）",
+        "actual": "第3季實質 GDP 季增 0.1%（價格、季節及日曆調整）；年增 1.2%（價格調整），日曆調整後年增 1.1%。較 10/30 初值季增 0.2% 下修 0.1 個百分點；Destatis 指出 9 月出口與零售營收弱於初估。",
+        "source_url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_409_811.html",
+        "published_at": "2026-11-25",
+        "observed_at": "2026-11-26T04:35:11+08:00"
       },
       {
-        "id": "current-de-flash-ifo-20261124",
-        "name": "德國 11 月 ifo 企業景氣指數",
-        "actual": "ifo 景氣指數 90.6；現況指數 89.4；預期指數 91.9（11 月）",
-        "source_url": "https://www.ifo.de/en/press-release/2026-11-24/ifo-business-climate-rises-november-2026",
-        "published_at": "2026-11-24",
-        "observed_at": "2026-11-25T04:35:58+08:00"
+        "id": "current-us-gdp-q3-2026-second",
+        "name": "美國第 3 季 GDP 第二次估值與企業獲利",
+        "actual": "Q3 2026 實質 GDP 年化季增 4.3%（第二次估值），較初值 3.4%上修 0.9 個百分點；私人國內最終銷售 +5.8%；當期生產企業獲利增加 2,060 億美元。",
+        "source_url": "https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-3rd-quarter-2026",
+        "published_at": "2026-11-25T08:30:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
       },
       {
-        "id": "current-us-consumer-confidence-20261124",
-        "name": "美國 11 月 Conference Board 消費者信心指數",
-        "actual": "11 月消費者信心指數 103.3（1985=100）；現況指數 132.8；預期指數 83.6",
-        "source_url": "https://www.conference-board.org/topics/consumer-confidence/",
-        "published_at": "2026-11-24",
-        "observed_at": "2026-11-25T04:35:58+08:00"
+        "id": "current-us-pce-oct-2026",
+        "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
+        "actual": "10月個人所得月增 0.7%；個人支出／PCE 月增 0.3%；PCE 物價指數月增 0.3%、年增 3.8%；核心 PCE 月增 0.3%、年增 3.3%。實質 PCE 月減不足 0.1%。",
+        "source_url": "https://bea.gov/news/2026/personal-income-and-outlays-october-2026",
+        "published_at": "2026-11-25T08:30:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
+      },
+      {
+        "id": "current-us-durable-goods-202610",
+        "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
+        "actual": "10月耐久財新訂單月增 0.2%至 USD 3,467 億；排除運輸後 +0.5%；非防務資本財新訂單 +0.8%；排除飛機新訂單 +1.2%；排除國防新訂單 +0.4%。9月總訂單修正為 +2.0%。",
+        "source_url": "https://www.census.gov/manufacturing/m3/adv/pdf/durgd.pdf",
+        "published_at": "2026-11-25T08:30:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
+      },
+      {
+        "id": "current-us-new-home-sales-202610",
+        "name": "美國 10 月新屋銷售（New Residential Sales）",
+        "actual": "10月新屋銷售年化 701 千戶，較9月修正值 614 千戶增加 14.2%，高於市場共識 645 千戶；月底待售庫存 470 千戶、供給月數 8.0；新屋中位數售價 USD 391,300，年減 3.2%。",
+        "source_url": "https://www.census.gov/construction/nrs/current/index.html",
+        "published_at": "2026-11-25T10:00:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
+      },
+      {
+        "id": "current-fed-beige-book-20261125",
+        "name": "聯準會 Beige Book（褐皮書）",
+        "actual": "聯準會 11月褐皮書已於 11/25 14:00 ET 發布：12個聯準會轄區中8區回報輕度至溫和成長、4區無明顯變化；消費支出大致持平且家庭價格敏感；就業小幅增加，薪資與福利溫和上升；製造業溫和成長、住宅房市轉弱。",
+        "source_url": "https://www.federalreserve.gov/monetarypolicy/beigebook202611-summary.htm",
+        "published_at": "2026-11-25T14:00:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
+      },
+      {
+        "id": "current-us-thanksgiving-market-20261126",
+        "name": "美國感恩節：美股休市；11/27（五）美股提前收市",
+        "actual": "2026-11-26 感恩節美股休市；Nasdaq 交易日曆確認 11/27 提前於 13:00 ET 收市。",
+        "source_url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+        "published_at": null,
+        "observed_at": "2026-11-26T04:35:11+08:00"
+      },
+      {
+        "id": "current-us-initial-claims-20261125",
+        "name": "美國初領失業救濟金人數（Initial Jobless Claims）",
+        "actual": "截至 11/21 當週初領失業救濟金 189 千人，較前週修正值 202 千人減少 13 千人；四週均值 196 千人。續領失業救濟金（截至 11/14）1,697 千人，較前週修正值減少 95 千人。",
+        "source_url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261732.pdf",
+        "published_at": "2026-11-25T08:30:00-05:00",
+        "observed_at": "2026-11-26T04:35:11+08:00"
       }
     ],
     "economic_event_status_updates": [
       {
-        "id": "current-fed-williams-20261123",
+        "id": "current-de-gdp-detail-2026q3",
         "status": "released",
-        "note": "官方行程時間已過；未取得演講逐字稿，仍為非數值事件。"
-      }
-    ],
-    "event_time_corrections": [
-      {
-        "id": "current-de-flash-ifo-20261124",
-        "old_event_date": "2026-11-24T17:30:00+08:00",
-        "new_event_date": "2026-11-24T17:00:00+08:00",
-        "evidence": "ifo／Dow Jones 發布時間 10:00 CET，換算台灣時間 17:00。"
-      }
-    ],
-    "economic_previous_values_preserved": [
-      {
-        "id": "current-de-flash-ifo-20261124",
-        "old_forecast": "市場共識 92.0；MUFG 預估 92.2",
-        "old_previous": "10月 91.6"
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
       },
       {
-        "id": "current-us-consumer-confidence-20261124",
-        "old_previous": "10月 91.7"
+        "id": "current-us-gdp-q3-2026-second",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-us-pce-oct-2026",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-us-durable-goods-202610",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-us-new-home-sales-202610",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-fed-beige-book-20261125",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-us-thanksgiving-market-20261126",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      },
+      {
+        "id": "current-us-initial-claims-20261125",
+        "status": "released",
+        "note": "官方發布／交易日曆已確認；本輪回讀後更新為 released。"
+      }
+    ],
+    "event_time_corrections": [],
+    "economic_previous_values_preserved": [
+      {
+        "id": "current-de-gdp-detail-2026q3",
+        "name": "德國第 3 季 GDP 詳細結果（第二次估算／支出與產業拆分）",
+        "old_previous": "初值季增 0.2%；年增 1.3%",
+        "old_forecast": "季增 0.2%（MUFG）"
+      },
+      {
+        "id": "current-us-gdp-q3-2026-second",
+        "name": "美國第 3 季 GDP 第二次估值與企業獲利",
+        "old_previous": "第3季初值年化季增 3.4%",
+        "old_forecast": "TD 預估 3.4%；U.S. Bank 市場共識 3.5%、自行預估 3.4%"
+      },
+      {
+        "id": "current-us-pce-oct-2026",
+        "name": "美國 10 月個人所得與支出（PCE／核心 PCE）",
+        "old_previous": "個人所得 +0.3%；個人支出 +0.5%；PCE 月增 +0.5%、年增 3.6%；核心 PCE 月增 +0.3%、年增 3.1%",
+        "old_forecast": "個人所得 +0.3%；個人支出 +0.4%；PCE 月增 +0.3%、年增 3.8%；核心 PCE 月增 +0.3%、年增 3.2%"
+      },
+      {
+        "id": "current-us-durable-goods-202610",
+        "name": "美國 10 月耐久財訂單（Advance Durable Goods）",
+        "old_previous": "總訂單 +1.9%；核心資本財訂單 +0.6%；非運輸訂單 +0.5%",
+        "old_forecast": "總訂單 +0.5%；核心資本財訂單 +0.8%；非運輸訂單 +0.5%"
+      },
+      {
+        "id": "current-us-new-home-sales-202610",
+        "name": "美國 10 月新屋銷售（New Residential Sales）",
+        "old_previous": "9月 676 千戶",
+        "old_forecast": "市場共識 645 千戶；TD 預估 648 千戶；U.S. Bank 預估 640 千戶"
+      },
+      {
+        "id": "current-fed-beige-book-20261125",
+        "name": "聯準會 Beige Book（褐皮書）",
+        "old_previous": null,
+        "old_forecast": null
+      },
+      {
+        "id": "current-us-thanksgiving-market-20261126",
+        "name": "美國感恩節：美股休市；11/27（五）美股提前收市",
+        "old_previous": null,
+        "old_forecast": null
+      },
+      {
+        "id": "current-us-initial-claims-20261125",
+        "name": "美國初領失業救濟金人數（Initial Jobless Claims）",
+        "old_previous": "203 千人",
+        "old_forecast": "市場共識 200 千人；U.S. Bank 預估 201 千人"
       }
     ],
     "economic_forecast_coverage": {
@@ -8782,7 +11789,7 @@
       "forecast_available": 20,
       "forecast_missing_numeric": 3,
       "forecast_not_applicable": 4,
-      "actuals_pending": 17
+      "actuals_pending": 9
     },
     "economic_null_forecast_classification": {
       "total_null": 7,
@@ -8820,6 +11827,10 @@
       ]
     },
     "snapshots_added": {
+      "EPS": 0,
+      "REVENUE": 0
+    },
+    "snapshot_arrays_initialized": {
       "EPS": 0,
       "REVENUE": 0
     },
@@ -8861,7 +11872,7 @@
           "ANF",
           "DE"
         ],
-        "reason": "本輪網頁工具僅提供抽取後文字，無法取得可封存 raw response body／計算 raw_response_sha256；raw_response_ref 必須為 null，且尚無核准的私有長期封存目的地。6 家已公布事件另缺可追溯歷史 PIT vintage；5 家未公布事件的當前頁面也無原始回應封存，故不寫 snapshot。"
+        "reason": "本輪網頁讀取介面只提供抽取後文字，無法取得來源 raw response bytes，故不能計算 raw_response_sha256；本輪不寫入 snapshot。這不影響實際值及 attempt history 更新。"
       },
       "REVENUE": {
         "count": 11,
@@ -8878,7 +11889,7 @@
           "ANF",
           "DE"
         ],
-        "reason": "本輪網頁工具僅提供抽取後文字，無法取得可封存 raw response body／計算 raw_response_sha256；raw_response_ref 必須為 null，且尚無核准的私有長期封存目的地。6 家已公布事件另缺可追溯歷史 PIT vintage；5 家未公布事件的當前頁面也無原始回應封存，故不寫 snapshot。"
+        "reason": "本輪網頁讀取介面只提供抽取後文字，無法取得來源 raw response bytes，故不能計算 raw_response_sha256；本輪不寫入 snapshot。這不影響實際值及 attempt history 更新。"
       }
     },
     "preservation_checks": {
@@ -8888,12 +11899,11 @@
       "existing_attempts_preserved": true,
       "new_attempts_source_order_1_to_4": true,
       "legacy_estimates_preserved": true,
-      "active_unverified_sources_cleared": true,
       "existing_snapshot_arrays_unchanged": true,
       "actuals_have_separate_source_and_time": true,
-      "upcoming_actuals_null": true,
+      "all_11_earnings_actuals_present": true,
+      "all_unverified_estimates_not_adopted": true,
       "no_new_judgment": true,
-      "sim_14_source_order_applied": true,
       "no_snapshot_without_raw_response_sha256": true,
       "only_new_W48_file_modified": true,
       "coverage_incomplete_not_treated_as_blocker": true,
@@ -8902,22 +11912,23 @@
     "wr_provenance": {
       "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
       "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
-      "main_branch_head": "fa79e9b3283cdc2d5ed944715e76445864bdf6aa",
-      "main_read_at": "2026-11-25T04:35:58+08:00",
+      "main_branch_head": "8283b911946d3d195988f9c6ea1df096a5c5064f",
+      "main_read_at": "2026-11-26T04:35:11+08:00",
       "simulation_version": "SIM-1.4（正式生效版）",
-      "simulation_blob_sha": "12354cbb9601858ef7af21076d87fde711392ae5",
-      "simulation_read_at": "2026-11-25T04:35:58+08:00",
-      "simulation_note": "SIM-1.4 §3 行事曆與財報事件：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開選源，第一個可用平均預期停止低順位來源搜尋。本輪另依當次任務的公告前 data_as_of 與比較口徑要求，未採用缺少時間／basis 證據的 Investing.com forecast。"
+      "simulation_blob_sha": "9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2",
+      "simulation_read_at": "2026-11-26T04:35:11+08:00",
+      "simulation_note": "SIM-1.4 §5.2 First Available Wins 順位：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本輪依本任務明確的公告前截點與比較口徑要求，未採用缺少 data_as_of／basis／definition 證據的 Investing.com forecast。"
     },
     "schema_provenance": {
-      "main_calendar_schema": "本輪檢查 data/calendar/README.md、SCHEMA.md、schema.json、calendar.schema.json 及 schemas/calendar.schema.json、schemas/tac-calendar.schema.json，均不存在；main WR 5.17 指定既有週 JSON 路徑，W48 schema_version=1 與既有事件欄位結構作相容性基準。未更改 schema_version。",
-      "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs，以及各 event source／secondary_refs。",
+      "main_calendar_schema": "未找到獨立 calendar schema 檔；依 main WR v5.17、既有 W48 schema_version=1 及現有事件欄位結構作相容性基準。未更改 schema_version。",
+      "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
       "schema_version_retained": 1
     },
     "files_modified": [
       "data/calendar/weeks/2026-W48.json"
     ],
-    "run_status": "updated_W48_economic_actuals_and_earnings_actuals; SIM-1.4 four-level attempts appended; no consensus adoption; PIT snapshots not written due raw response/archive requirements",
-    "previous_last_update_audit_preserved": true
+    "run_status": "updated_W48_8_economic_actuals_5_earnings_actuals; appended_44_EPS_and_44_REVENUE_attempts; no_consensus_adoption; PIT_snapshots_not_written_raw_bytes_unavailable",
+    "previous_last_update_audit_preserved": true,
+    "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00"
   }
 }
