@@ -7866,13 +7866,14 @@
         "stock_price_reaction_window": null,
         "source": {
           "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
-          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
-          "publisher": "Deere & Company",
-          "published_at": "2026-11-25T06:15:00-05:00",
+          "url": "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+          "publisher": "Deere & Company / SEC Form 8-K Exhibit 99.1",
+          "published_at": "2026-11-25",
           "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "Deere 官方 Q4 FY2026 fully diluted EPS USD 3.89；發布摘要未明示 GAAP／Non-GAAP，故 basis_code 保留 null。 Deere 官方 Q4 FY2026 worldwide net sales and revenues USD 12.115B。",
+          "notes": "SEC Exhibit 99.1：Statements of Consolidated Income；Q4 FY2026 fully diluted EPS USD 3.89；worldwide net sales and revenues USD 12.115B。EPS basis code 映射為 GAAP diluted EPS，因數值位於正式合併損益表而非非GAAP調整表。",
           "secondary_refs": [
-            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
+            "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+            "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-20261125x8k.htm",
             "https://www.investing.com/equities/deere---co-earnings"
           ]
         },
@@ -7889,7 +7890,7 @@
           "publisher": "Deere & Company",
           "notes": "官方投資人關係來源確認 DE 財報事件日期；交易所代碼由公司官方公告／投資人關係資料確認。"
         },
-        "eps_actual_basis": "Fully diluted EPS (release does not explicitly label GAAP／Non-GAAP)",
+        "eps_actual_basis": "GAAP diluted EPS（SEC Exhibit 99.1 Statements of Consolidated Income）",
         "eps_estimate_basis": null,
         "legacy_eps_comparison_status": null,
         "legacy_revenue_comparison_status": null,
@@ -7907,7 +7908,7 @@
           "url": "https://www.investing.com/equities/deere---co-earnings",
           "observed_at": "2026-11-23T04:41:38+08:00"
         },
-        "eps_actual_basis_code": null,
+        "eps_actual_basis_code": "gaap_diluted_eps",
         "eps_estimate_basis_code": null,
         "eps_actual_currency": "USD",
         "eps_estimate_currency": null,
@@ -8512,31 +8513,33 @@
         "fiscal_year": 2026,
         "fiscal_quarter": "Q4",
         "release_status": "released",
-        "eps_actual_published_at": "2026-11-25T06:15:00-05:00",
-        "revenue_actual_published_at": "2026-11-25T06:15:00-05:00",
+        "eps_actual_published_at": "2026-11-25",
+        "revenue_actual_published_at": "2026-11-25",
         "eps_actual_observed_at": "2026-11-26T04:35:11+08:00",
         "revenue_actual_observed_at": "2026-11-26T04:35:11+08:00",
         "eps_actual_source": {
           "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
-          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
-          "publisher": "Deere & Company",
-          "published_at": "2026-11-25T06:15:00-05:00",
+          "url": "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+          "publisher": "Deere & Company / SEC Form 8-K Exhibit 99.1",
+          "published_at": "2026-11-25",
           "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "Deere 官方 Q4 FY2026 fully diluted EPS USD 3.89；發布摘要未明示 GAAP／Non-GAAP，故 basis_code 保留 null。",
+          "notes": "Q4 FY2026 fully diluted EPS USD 3.89；SEC Exhibit 99.1 正式合併損益表列示，採 GAAP diluted EPS。",
           "secondary_refs": [
-            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
+            "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+            "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-20261125x8k.htm",
             "https://www.investing.com/equities/deere---co-earnings"
           ]
         },
         "revenue_actual_source": {
           "name": "Deere Reports Net Income of $1.051 Billion for Fourth Quarter, $4.860 Billion for Fiscal Year",
-          "url": "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
-          "publisher": "Deere & Company",
-          "published_at": "2026-11-25T06:15:00-05:00",
+          "url": "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+          "publisher": "Deere & Company / SEC Form 8-K Exhibit 99.1",
+          "published_at": "2026-11-25",
           "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "Deere 官方 Q4 FY2026 worldwide net sales and revenues USD 12.115B。",
+          "notes": "Q4 FY2026 worldwide net sales and revenues USD 12.115B。",
           "secondary_refs": [
-            "https://www.deere.com/en-us/john-deere-news/fy26-q4-announcement",
+            "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+            "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-20261125x8k.htm",
             "https://www.investing.com/equities/deere---co-earnings"
           ]
         }
@@ -8650,9 +8653,11 @@
         "https://www.prnewswire.com/news-releases/autodesk-inc-announces-fiscal-2027-third-quarter-results-302949762.html",
         "https://investor.workday.com/news-and-events/press-releases/news-details/2026/Workday-Announces-Fiscal-2027-Third-Quarter-Financial-Results/default.aspx",
         "https://investor.hp.com/news-events/news/news-details/2026/HP-Inc--Reports-Fiscal-2026-Full-Year-and-Fourth-Quarter-Results-Announces-Dividend-Increase/default.aspx",
-        "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings"
+        "https://www.deere.com/en-us/john-deere-news/fy26-fourth-quarter-earnings",
+        "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+        "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-20261125x8k.htm"
       ],
-      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。\n2026-11-26 本輪依 SIM-1.4（規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家均已公布；補入 DELL、ADSK、WDAY、HPQ、DE 五家官方 actual，原六家 actual 保留。Yahoo Finance 11/11 /analysis/ 頁面均 HTTP 429；Investing.com 11/11 頁面可讀，列出 10/2026 Forecast，但缺 provider data_as_of／公告前 vintage、EPS basis 及 Revenue definition，全部標記 missing_required_fields，不採用；LSEG、FactSet 本輪均無可讀取的公司／期間資料端點，記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts，累積各 187 筆；本輪採用 0。舊估計與來源保留在 legacy 欄位／audit，active estimate 與 selected source 不恢復。EPS／Revenue 各 11 家均有 actual，但沒有可驗證公告前同口徑共識，Beat／Miss／Inline 均不產生。PIT snapshot 本輪新增 0：網頁工具僅提供抽取後文字，無原始 response bytes 可計算 raw_response_sha256；此限制僅影響 snapshot，不阻止本輪 actual／attempt history 更新。"
+      "notes": "W48 本輪改依 SIM-1.4（規則 blob SHA b0aaa7cab84ffc60d5bb9d6ebb56e777afe555fc）執行 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS 與 Revenue 分開查找；Yahoo Finance /analysis/ 本輪均回應 HTTP 429，故進入第二順位。Investing.com 各公司頁均提供同一 10/2026 Period End 的 upcoming Forecast，EPS／Revenue 各採第一個可用值；LSEG／FactSet 因第二順位已採用而未查，不作交叉覆核。頁面未揭露 provider data_as_of、分析師人數、mean／median 統計及部分 EPS／Revenue methodology，相關欄位保持 null／other；依 SIM-1.4 §5.2，這些缺漏不阻擋數值採用，但不得宣稱已完成嚴格同口徑比較。11 家 actual 尚未公布，comparison status 不產生 Beat／Miss／Inline。PIT snapshot 陣列維持原樣：本輪來源讀取未提供可封存的原始 response body／可計算 SHA，且目前沒有授權私有封存目的地，故不新增 snapshot。\n2026-11-24 本輪重新執行 SIM-1.4（規則 blob SHA 6ab8852582b81f9da0bca7e974fbf39847067aed）四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。Yahoo 11 家 /analysis/ 頁面均 HTTP 429；Investing.com 10 家可讀、HPE 頁面不可讀，10 家頁面列出 10/2026 Forecast，但缺供應商 data_as_of、精確 period_end_date、EPS basis／Revenue definition；依本輪明確要求的公告前截點與可比較性條件，均不採用。LSEG 與 FactSet 本輪不可存取，均如實記錄 unavailable。原有 Investing.com 數值與來源保留在 legacy 欄位及 audit；目前 active estimate／selected source 清空，避免未核實數字被當作已驗證市場共識。SIM-1.4 §5.2 對一般數值採用較寬鬆，但本輪依本任務明確要求的 data_as_of 與口徑可比較門檻採更嚴格處理。11 家財報均尚未公布，actual 保持 null；不產生 Beat／Miss／Inline。\n2026-11-25 本輪改依 SIM-1.4（規則 blob SHA 12354cbb9601858ef7af21076d87fde711392ae5）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家公司 EPS／Revenue 各自獨立查找；Yahoo Finance 11 家 /analysis/ 均 HTTP 429；Investing.com 11 家頁面可讀，其中 6 家已公布事件僅顯示當前 Actual／Forecast、缺公告前 vintage/data_as_of，標記 not_pre_release；5 家尚未公布事件雖列 10/2026 Forecast，但缺 data_as_of、精確 period_end_date 及 EPS basis／Revenue definition，標記 missing_required_fields。LSEG 與 FactSet 本輪均無授權登入、API 或連接器，分別記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts（每家公司 1→4 層），本輪採用數均為 0；舊 estimate／legacy source 全數保留於 legacy 欄位及既有 audit，active estimate／selected source 不恢復。HPE、ADI、MDT、DLTR、BBY、ANF 六家公司已補入官方 actual；DELL、ADSK、WDAY、HPQ、DE 五家 actual=null 保持。GAAP actual EPS 與 Investing.com 頁面 forecast 可能為 non-GAAP／Adjusted，且公告前 data_as_of 未證明，因此不做 Beat／Miss／Inline。PIT snapshot 本輪仍新增 0：網頁讀取僅取得抽取後文字，無原始 response body／可計算 SHA-256；亦無核准私有長期封存目的地，故不新增 snapshot。\n2026-11-26 本輪依 SIM-1.4（規則 blob SHA 9d19d3d4ee58829a9b13f1f5ff36f37c98f9edc2）執行四層 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates。11 家均已公布；補入 DELL、ADSK、WDAY、HPQ、DE 五家官方 actual，原六家 actual 保留。Yahoo Finance 11/11 /analysis/ 頁面均 HTTP 429；Investing.com 11/11 頁面可讀，列出 10/2026 Forecast，但缺 provider data_as_of／公告前 vintage、EPS basis 及 Revenue definition，全部標記 missing_required_fields，不採用；LSEG、FactSet 本輪均無可讀取的公司／期間資料端點，記錄 unavailable。EPS／Revenue 各新增 44 筆 attempts，累積各 187 筆；本輪採用 0。舊估計與來源保留在 legacy 欄位／audit，active estimate 與 selected source 不恢復。EPS／Revenue 各 11 家均有 actual，但沒有可驗證公告前同口徑共識，Beat／Miss／Inline 均不產生。PIT snapshot 本輪新增 0：網頁工具僅提供抽取後文字，無原始 response bytes 可計算 raw_response_sha256；此限制僅影響 snapshot，不阻止本輪 actual／attempt history 更新。\n本輪回讀後再以 SEC Form 8-K Exhibit 99.1 補強 DE：正式 Statements of Consolidated Income 明列 fully diluted EPS USD 3.89，故將 actual basis code 補為 gaap_diluted_eps；來源 URL 改為可直接回讀的 SEC Exhibit 99.1，發布日期記錄為 2026-11-25。"
     }
   },
   "audit": [
@@ -10911,7 +10916,7 @@
             "value": 11,
             "period": 11,
             "currency": 11,
-            "basis_code": 10,
+            "basis_code": 11,
             "source": 11,
             "published_at": 11,
             "observed_at": 11
@@ -11245,7 +11250,16 @@
       ],
       "run_status": "updated_W48_8_economic_actuals_5_earnings_actuals; appended_44_EPS_and_44_REVENUE_attempts; no_consensus_adoption; PIT_snapshots_not_written_raw_bytes_unavailable",
       "previous_last_update_audit_preserved": true,
-      "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00"
+      "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00",
+      "earnings_actual_source_refinements": [
+        {
+          "ticker": "DE",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+          "published_at": "2026-11-25",
+          "eps_actual_basis_code": "gaap_diluted_eps",
+          "evidence": "SEC Exhibit 99.1 Statements of Consolidated Income：Fully diluted EPS 3.89"
+        }
+      ]
     }
   ],
   "last_update_audit": {
@@ -11595,7 +11609,7 @@
           "value": 11,
           "period": 11,
           "currency": 11,
-          "basis_code": 10,
+          "basis_code": 11,
           "source": 11,
           "published_at": 11,
           "observed_at": 11
@@ -11929,6 +11943,15 @@
     ],
     "run_status": "updated_W48_8_economic_actuals_5_earnings_actuals; appended_44_EPS_and_44_REVENUE_attempts; no_consensus_adoption; PIT_snapshots_not_written_raw_bytes_unavailable",
     "previous_last_update_audit_preserved": true,
-    "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00"
+    "previous_last_update_audit_at": "2026-11-25T04:35:58+08:00",
+    "earnings_actual_source_refinements": [
+      {
+        "ticker": "DE",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/315189/000110465926131741/de-ex99d1.htm",
+        "published_at": "2026-11-25",
+        "eps_actual_basis_code": "gaap_diluted_eps",
+        "evidence": "SEC Exhibit 99.1 Statements of Consolidated Income：Fully diluted EPS 3.89"
+      }
+    ]
   }
 }
