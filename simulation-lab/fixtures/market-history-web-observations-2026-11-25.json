@@ -1314,10 +1314,10 @@
       "display_value_match": false,
       "display_change_match": false,
       "read_method": "CNN_OFFICIAL_API_DATE_MAPPING_UNRESOLVED",
-      "provenance": "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
+      "provenance": "CURRENT_RUN_API_RESPONSE_DATE_MAPPING_UNRESOLVED",
       "read_status": "TARGET_DATE_MAPPING_UNRESOLVED",
-      "source_page_fetched": false,
-      "status": "PENDING",
+      "source_page_fetched": true,
+      "status": "TOOL_READ_FAILURE",
       "quote_type": "third_party_provider_index",
       "checked_at_tw": "2026-11-25T06:55:00+08:00",
       "finished_at_utc": "2026-11-24T22:55:00Z",
@@ -1325,8 +1325,9 @@
       "web_reader_ref": null,
       "web_line_start": null,
       "web_line_end": null,
-      "note": "官方 API 日期映射未能證明分數對應 2026-11-24；不得將 2026-11-23 timestamp 的歷史診斷值當作 11/24 收盤。",
-      "http_status": 200
+      "note": "API response retrieved; date mapping is unresolved, so no current-date numeric value is verified.",
+      "http_status": 200,
+      "error": "CNN API response is available, but its target_date/previous_close mapping cannot independently prove a 2026-11-24 close. Do not promote the diagnostic score."
     }
   ]
 }
