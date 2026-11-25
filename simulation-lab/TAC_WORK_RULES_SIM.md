@@ -43,6 +43,16 @@
 ### 0.5 30 分鐘目標
 30 分鐘是流程效率目標，不是資料正確性豁免。已取得且符合標的、日期、欄位、口徑及證據的資料立即鎖定，不再重抓；後續只處理待辦項目。超時必須記錄真正耗時與阻塞原因，不得為達標跳過來源讀取、Gate 或 QA。
 
+
+### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
+- Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 `workflow_dispatch)、tag-push 或其他觸發入口。
+- `workflow_dispatch) 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
+- 每輪執行須分開回報：已觸發／未觸發、commit SHA、Workflow Run ID、Workflow 執行成功／失敗、審核版 HTML 是否已產出（路徑與 SHA-256）、QA sidecar 狀態，以及數據已驗證／待核實。
+- Run 必須以當次 commit SHA 精確對應，並核對 `event=push`；重試必須產生新的 commit SHA 及新的對應 Run，不得沿用前次結果。
+- 僅在 commit 標記觸發本身提交失敗時，才說明觸發限制並提供 GitHub Actions 頁面。commit 成功但找不到對應 Run，須如實回報未觸發／未取得 Run。
+- 不得聲稱已觸發、已完成或已擷取，除非有對應 Run ID 或可回讀的實際產物證據。Workflow success 不等於審核版完成；審核版必須存在於 Simulation 分支、日期正確、HTML 非空、QA sidecar 對應且狀態為 `REVIEW_READY`。HTML SHA-256 必須對實際 HTML 內容計算，不得以 Git blob SHA-1 代替。
+- 本條僅規範 Simulation 早報排程及回報；不授權修改 Workflow、Builder、QA Contract、母版、main 或任何 Gate，也不改變 05:25 既有排程時間。
+
 ---
 
 ## 1. 唯一權威資產與資料基準
