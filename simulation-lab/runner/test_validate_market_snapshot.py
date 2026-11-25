@@ -56,6 +56,19 @@ def main():
     wrong_commodity_url["energy"]["WTI原油期貨"]["instrument_url"] = "https://hk.investing.com/commodities/crude-oil-historical-data"
     expect_error(lambda: validate_market_snapshot(wrong_commodity_url, "2026-11-23"), "source.url and instrument_url")
 
+    pending_commodity = copy.deepcopy(base)
+    pending_row = pending_commodity["energy"]["WTI原油期貨"]
+    pending_row["display"] = "待核實"
+    pending_row["change_display"] = "待核實"
+    pending_row["source"]["verification_status"] = "PENDING"
+    # Candidate history values may remain in evidence metadata, but must not be forced into the displayed quote.
+    assert validate_market_snapshot(pending_commodity, "2026-11-23")["status"] == "PASS"
+
+    contradictory_pending = copy.deepcopy(pending_commodity)
+    contradictory_pending["energy"]["WTI原油期貨"]["source"]["verification_status"] = "VERIFIED"
+    expect_error(lambda: validate_market_snapshot(contradictory_pending, "2026-11-23"),
+                 "pending display cannot retain verified source status")
+
     missing_etf_source = copy.deepcopy(base)
     del missing_etf_source["sector_sources"]["XLK"]
     expect_error(lambda: validate_market_snapshot(missing_etf_source, "2026-11-23"), "key mismatch")
