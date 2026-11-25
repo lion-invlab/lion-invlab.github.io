@@ -309,8 +309,8 @@ def main():
             if not label or not point_text:
                 raise SystemExit("focus panel observation point requires label and text")
             expected_focus_parts.extend([label + "：", point_text])
-    expected_focus_text = re.sub(r"\\s+", " ", " ".join(expected_focus_parts)).strip()
-    actual_focus_text = re.sub(r"\\s+", " ", focus_market.get_text(" ", strip=True)).strip()
+    expected_focus_text = re.sub(r"\s+", " ", " ".join(expected_focus_parts)).strip()
+    actual_focus_text = re.sub(r"\s+", " ", focus_market.get_text(" ", strip=True)).strip()
     if actual_focus_text != expected_focus_text:
         raise SystemExit("rendered 盤面觀察重點 contains stale mother text or differs from the current fixture")
 
