@@ -704,6 +704,13 @@ def main():
     if screenshot_inputs:
         observations=apply_page_completions_to_fixture(data,observations,screenshot_inputs)
         fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+if screenshot_inputs:
+        observations=apply_page_completions_to_fixture(data,observations,screenshot_inputs)
+        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        for item in observations:
+            item.pop("observation_record_sha256",None)
+            canonical=json.dumps(item,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
+            item["observation_record_sha256"]=hashlib.sha256(canonical).hexdigest()
         counts={}
         for item in observations:
             counts[item.get("status","UNKNOWN")]=counts.get(item.get("status","UNKNOWN"),0)+1
