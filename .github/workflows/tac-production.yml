@@ -13,11 +13,11 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Validate, capture Stages 1-3, or build Stages 4-6 from the exact captured Run."
+        description: "Validate, run scheduled capture, manually recover a missed report date, or build Stages 4-6 from the exact captured Run."
         required: true
         default: validate
         type: choice
-        options: [validate, capture, build]
+        options: [validate, capture, recover, build]
       report_date:
         description: "台灣報告日期 YYYY-MM-DD"
         required: false
@@ -192,7 +192,7 @@ jobs:
 
   capture-and-calendar:
     needs: [schedule-window]
-    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'capture')) }}
+    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'capture' || inputs.mode == 'recover')))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     permissions:
@@ -220,10 +220,34 @@ jobs:
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
+          DISPATCH_MODE: ${{ inputs.mode }}
         run: |
           set -euo pipefail
-          if [ -n "${REQUESTED_REPORT_DATE:-}" ]; then REPORT_DATE="$REQUESTED_REPORT_DATE"; else REPORT_DATE="$(TZ=Asia/Taipei date +%F)"; fi
-          [[ "$REPORT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
+          if [ "$DISPATCH_MODE" = "recover" ]; then
+            [ -n "${REQUESTED_REPORT_DATE:-}" ] || { echo "::error::Manual recovery requires an explicit Taiwan report_date (YYYY-MM-DD)."; exit 1; }
+            REPORT_DATE="$REQUESTED_REPORT_DATE"
+          elif [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
+            REPORT_DATE="$REQUESTED_REPORT_DATE"
+          else
+            REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
+          fi
+          python - "$REPORT_DATE" <<'PY'
+          import json, sys
+          from pathlib import Path
+          from datetime import date
+          target=sys.argv[1]
+          try:
+              date.fromisoformat(target)
+          except ValueError:
+              raise SystemExit("Invalid report_date; expected YYYY-MM-DD.")
+          for context_path in Path("production/runs").glob("TAC-*/run-context.json"):
+              context=json.loads(context_path.read_text(encoding="utf-8"))
+              if context.get("report_date") == target:
+                  run_dir=context_path.parent
+                  receipt=run_dir/"capture-stage-receipt.json"
+                  state="completed Capture" if receipt.exists() else "existing partial Run"
+                  raise SystemExit(f"Refusing duplicate manual recovery: {state} already exists for {target} at {run_dir}. Inspect/resume that exact Run; do not create a second Run.")
+          PY
           RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
@@ -299,6 +323,7 @@ jobs:
       - name: Create capture handoff receipt
         env:
           CHART3_MERGE_RUN_ID: ${{ env.CHART3_MERGE_RUN_ID }}
+          DISPATCH_MODE: ${{ inputs.mode }}
         run: |
           python - <<'PY'
           import json, os
@@ -309,6 +334,9 @@ jobs:
           summary=json.loads((run/"stage2-run-summary.json").read_text())
           stage3=json.loads((run/"stage3-calendar-receipt.json").read_text())
           receipt={"schema_version":"1.0","status":"AWAITING_EDITORIAL_INPUT",
+            "capture_trigger":{"event_name":os.environ.get("GITHUB_EVENT_NAME"),
+              "dispatch_mode":os.environ.get("DISPATCH_MODE","schedule"),
+              "workflow_run_id":os.environ.get("GITHUB_RUN_ID")},
             "run_id":context["run_id"],"report_date":context["report_date"],
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
@@ -319,7 +347,7 @@ jobs:
             "chart3_merge_workflow_run_id":os.environ.get("CHART3_MERGE_RUN_ID","NOT_REQUIRED"),
             "current_week":stage3["current_week"]["week_id"],"previous_week":stage3["previous_week"]["week_id"],
             "editorial_input_path":f"production/input/report-content-{context['report_date']}.json",
-            "next_action":"Read stage4-research-bundle.json; generate Stage 4 editorial content bound to run_id, market_snapshot_sha256 and research_bundle_sha256; commit with [build-tac-report:YYYY-MM-DD]."}
+            "next_action":"Read stage4-research-bundle.json; generate Stage 4 editorial content bound to run_id, market_snapshot_sha256 and research_bundle_sha256; run the Main Stage 4-6 continuation for this exact Run."}
           (run/"capture-stage-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
           PY
