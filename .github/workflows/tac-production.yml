@@ -232,7 +232,7 @@ jobs:
       - name: Stage 1 — create a fresh blank-first Run
         run: |
           set -euo pipefail
-          python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID"
+          python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/report-data.json"
           test -s "$RUN_DIR/stage1-receipt.json"
