@@ -2068,7 +2068,7 @@ def main():
         record = data.get("risk", {}).get(key, {})
         source = record.get("source") if isinstance(record, dict) else None
         item_date = (source or {}).get("data_date") or record.get("as_of_date") or record.get("as_of")
-        if not isinstance(source, dict) or not source.get("name") or (not source.get("url") and source.get("quote_type") != "user_supplied_market_quote_screenshot") or not item_date:
+        if not isinstance(source, dict) or not source.get("name") or (not source.get("url") and not (source.get("quote_type") == "user_supplied_market_quote_screenshot" or (source.get("read_method") == "USER_PROVIDED_CLOSING_SCREENSHOT" and source.get("read_status") == "USER_SCREENSHOT_READ_SUCCESS"))) or not item_date:
             record["display"] = "待核實"
             record["change_display"] = "待核實"
             record["qa_status"] = "missing_item_source_or_date"
@@ -2577,7 +2577,7 @@ def main():
         rows=[r for r in sent.select(".sbox") if (r.select_one(".label-en") and r.select_one(".label-en").get_text(" ",strip=True).strip()==label)]
         if not rows: raise ValueError(f"{label} row not found")
         source = record.get("source") or {}
-        is_verified = bool(source.get("name") and source.get("data_date") and (source.get("url") or source.get("quote_type") == "user_supplied_market_quote_screenshot"))
+        is_verified = bool(source.get("name") and source.get("data_date") and (source.get("url") or source.get("quote_type") == "user_supplied_market_quote_screenshot" or (source.get("read_method") == "USER_PROVIDED_CLOSING_SCREENSHOT" and source.get("read_status") == "USER_SCREENSHOT_READ_SUCCESS")))
         if key == "move" and str(record.get("as_of_date", "")).startswith("未取得"):
             is_verified = False
         if not is_verified:
