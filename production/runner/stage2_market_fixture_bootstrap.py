@@ -186,6 +186,7 @@ def populate_fixture(data, payload):
                 and obs.get("instrument_identity_status")=="VERIFIED"
                 and obs.get("field_mapping_status")=="VERIFIED"
                 and _official_calendar_url(closure_url)
+                and bool(str(obs.get("closure_evidence_text") or "").strip())
                 and bool(obs.get("closure_evidence_reader_ref") or obs.get("web_reader_ref"))
                 and (obs.get("closure_evidence_line_start") is not None or obs.get("web_line_start") is not None)
                 and (obs.get("closure_evidence_line_end") is not None or obs.get("web_line_end") is not None)
