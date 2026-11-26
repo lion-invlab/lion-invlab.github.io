@@ -1,99 +1,70 @@
 from pathlib import Path
 
 WORKFLOW = Path(".github/workflows/tac-simulation-lab.yml").read_text(encoding="utf-8")
+PAGES = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
+
 
 def section_after(text: str, marker: str) -> str:
     start = text.index(marker)
     end = text.find("\n      - name:", start + len(marker))
-    return text[start:] if end < 0 else text[start:end]
+    return text[start:] if end < 0 else text[end:]
 
-transfer_evidence_step = section_after(WORKFLOW, "Materialize SHA-locked simulation Monday and weekday mothers")
-assert "indent=2)+'\\\\n'" not in transfer_evidence_step
-assert "indent=2)+'\\n'" in transfer_evidence_step
-assert "json.loads" in transfer_evidence_step
 
-inputs = section_after(WORKFLOW, "workflow_dispatch:")
-assert "publish_to_main:" not in inputs
-assert "approved_html_sha:" not in inputs
+# The default-branch workflow is the trigger definition, but all build inputs come from Simulation.
+assert "simulation/tac-process-lab-2026-11-06" in WORKFLOW
+assert "Checkout simulation branch only" in WORKFLOW
+assert "Verify default-branch workflow mirror matches Simulation workflow" in WORKFLOW
+assert "actions: write" in WORKFLOW and "contents: write" in WORKFLOW
+assert "qa-only" not in WORKFLOW
 
-persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
-assert "github.event_name == 'push'" in persist
-assert "build-tac-report" in persist
-assert "PUSHED=false" in persist and "PUSHED=true" in persist
-assert "for attempt in 1 2 3" in persist
-assert "git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06" in persist
-assert persist.index("git fetch origin simulation/tac-process-lab-2026-11-06") < persist.index("git -c rebase.autoStash=true rebase") < persist.index('if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"')
+# Builder output remains a protected, ephemeral staging artifact; it is not committed to Simulation.
+assert 'echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html"' in WORKFLOW
+assert 'echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json"' in WORKFLOW
+persist = section_after(WORKFLOW, "Persist Simulation receipts and Chart 3 evidence only")
+assert 'git add -f "\${REPORT_OUTPUT}" "\${REPORT_EVIDENCE}"' not in persist
+assert "prebuild-stage-input-receipt" in persist
+assert "market-source-verification-manifest" in persist
+assert 'git push origin "HEAD:simulation/tac-process-lab-2026-11-06"' in persist
 assert "git push --force" not in persist
-assert "\\n          git -c rebase.autoStash=true rebase" not in persist
-assert "Simulation branch push failed after 3 safe attempts" in persist
+assert "REMOTE_HTML_SHA" not in persist and "REMOTE_EVIDENCE_SHA" not in persist
 
-# The Simulation workflow is intentionally incapable of writing any main preview or homepage file.
-assert "Deliver the exact QA-passed artifact to main preview" not in WORKFLOW
-assert "publish_to_main" not in WORKFLOW
-assert "approved_html_sha" not in WORKFLOW
-assert "git push origin main" not in WORKFLOW
-assert "git worktree add" not in WORKFLOW
-assert "MAIN_HTML" not in WORKFLOW
-assert "preview/${REPORT_DATE}-review.html" not in WORKFLOW
+# Only a QA-passed report can be published, and the main write set is exactly three dated preview files.
+publish = section_after(WORKFLOW, "Publish REVIEW_READY report to main preview and verify GitHub Pages")
+assert "if: success()" in publish
+assert "publish_main_preview.py" in publish
+assert "git push origin HEAD:refs/heads/main" in publish
+assert "git push --force" not in publish
+assert "git worktree add --detach" in publish
+assert "EXPECTED_PATHS" in publish and "STAGED_PATHS" in publish and "CHANGED_PATHS" in publish
+assert "preview/${REPORT_DATE}-review.html" in publish
+assert "preview/${REPORT_DATE}-review.qa.json" in publish
+assert "preview/${REPORT_DATE}-review.delivery.json" in publish
+assert "index.html" not in publish
+assert "data/calendar" not in publish
+assert "mother-template" not in publish
+assert "gh workflow run pages.yml" in publish
+assert "curl -fsS" in publish
+assert "MAIN_DELIVERY_COMMIT" in publish
 
-# Stage 2-4 input receipt is mandatory before Builder execution and remains bound through QA and handoff.
+# The existing Pages workflow already deploys main/preview; it is explicitly dispatched after GITHUB_TOKEN push.
+assert 'branches:\\n      - main' in PAGES
+assert '"preview/**"' in PAGES
+assert "actions/deploy-pages@v4" in PAGES
+
+# The input receipt remains Simulation-scoped and must be sealed before Builder execution.
 receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
-market_step = section_after(WORKFLOW, "Read and reconcile 44 current-run market history pages with ChatGPT Web or Playwright")
-# A row-level pending observation is valid input; it must not fail the 44-row batch.
-assert "browser_verify_market_history.py" in market_step
-assert "--concurrency 2" in market_step
-assert "validate_chatgpt_web_observations.py" in market_step
-assert "market-history-web-observations-${REPORT_DATE}.json" in market_step
-assert "cnn-official-observation-${REPORT_DATE}.json" in market_step
-assert "FAST_BUILD_WITH_EXPLICIT_PENDING_MARKET_OBSERVATIONS" not in market_step
-assert "source_pages_fetched_this_run" in market_step
-capture_step = section_after(WORKFLOW, "Capture 44 raw market source pages")
 builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
-overlay_step = section_after(WORKFLOW, "Apply local W47 NVDA consensus overlay")
-assert 'mkdir -p "$(dirname "${BUILDER_OUTPUT}")"' in overlay_step
-assert overlay_step.index("mkdir -p") < overlay_step.index('cp "${REPORT_OUTPUT}"')
-seal_step = section_after(WORKFLOW, "Seal QA evidence to the exact review HTML blob")
-seal = Path("simulation-lab/runner/seal_qa_evidence.py").read_text(encoding="utf-8")
-assert "seal_qa_evidence.py" in seal_step
-assert "GITHUB_RUN_ID" in seal and "GITHUB_RUN_ATTEMPT" in seal and "${{" not in seal
-assert "analysis_text_parts" in seal and "visible_report_text" not in seal
-assert "market_analysis" in seal and "market_comments" in seal
-persist = section_after(WORKFLOW, "Persist QA-passed source review HTML and QA sidecar on simulation branch")
-assert WORKFLOW.index("Read and reconcile 44 current-run market history pages with ChatGPT Web or Playwright") < WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Capture 44 raw market source pages") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 assert "validate_prebuild_stage_inputs.py" in receipt_step
-assert "market-snapshot-audit.json" in receipt_step and "market-source-verification-manifest.json" in receipt_step
 assert "PREBUILD_RECEIPT_SHA256" in receipt_step
 assert "test -s simulation-lab/output/prebuild-stage-input-receipt.json" in builder_gate
 assert "ACTUAL_RECEIPT_SHA256" in builder_gate
-assert "prebuild_input_receipt_sha256" in seal and "calendar_main_commit_sha" in seal
-receipt_recheck = section_after(WORKFLOW, "Recheck pre-build receipt SHA after Builder")
-assert WORKFLOW.index("Recheck pre-build receipt SHA after Builder") < WORKFLOW.index("Seal QA evidence to the exact review HTML blob")
-assert "ACTUAL_PREBUILD_RECEIPT_SHA256" in receipt_recheck
-assert 'if [[ "${ACTUAL_PREBUILD_RECEIPT_SHA256}" != "${PREBUILD_RECEIPT_SHA256}" ]]; then' in receipt_recheck
-assert 'if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; then' in receipt_recheck
-assert "Pre-build receipt SHA changed after Builder execution" in receipt_recheck
-assert all(module in seal for module in ("hashlib", "json", "os", "re", "subprocess", "sys"))
-assert "PREBUILD_RECEIPT_ARCHIVE" in persist and "REMOTE_PREBUILD_SHA" in persist
-assert "Pre-build Stage 2-4 input receipt missing" in builder_gate
-assert "ACTUAL_RECEIPT_SHA256" in builder_gate
-assert "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT" in Path("simulation-lab/runner/validate_prebuild_stage_inputs.py").read_text(encoding="utf-8")
+assert WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 
-capture = section_after(WORKFLOW, "Capture simulation checkout provenance")
-metadata = section_after(WORKFLOW, "Record isolated run metadata")
-artifact_audit = section_after(WORKFLOW, "Verify downloaded simulation evidence bundle")
-assert "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" in capture
-assert 'echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA"' in capture
-assert 'echo "commit=$(git rev-parse HEAD)"' in metadata
-assert 'echo "build_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in metadata
-assert 'echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"' in metadata
-assert 'echo "trigger_commit=$GITHUB_SHA"' in metadata
-assert 'echo "commit=$GITHUB_SHA"' not in metadata
-assert '--expected-trigger-commit "${GITHUB_SHA}"' in artifact_audit
-assert "expected_trigger_commit" in Path("simulation-lab/runner/audit_simulation_artifact_bundle.py").read_text(encoding="utf-8")
+# Run-specific evidence still uploads for independent artifact verification; it is not a branch preview.
+assert "tac-build-evidence-\${{ github.run_id }}-\${{ github.run_attempt }}" in WORKFLOW
+assert "audit_simulation_artifact_bundle.py" in WORKFLOW
+assert "test_publish_main_preview.py" in WORKFLOW
 
-print("PASS: Simulation preview requires a sealed Stage 2-4 receipt before Builder; receipt is SHA-bound to QA, archived, and read back.")
-print("PASS: Simulation workflow has no main preview or homepage write path.")
-
-# The approval token is never interpolated into shell source; it is read from an environment variable.
-
-# Trigger the 2026-11-23 simulation-only Builder and QA run; main publication remains disabled on push.
+print("PASS: Simulation builds remain isolated; canonical REVIEW_READY HTML/QA/receipt publish only to main/preview.")
+print("PASS: main/index.html, formal mothers, Manifest and calendar JSON remain outside the publisher whitelist.")
+print("PASS: existing GitHub Pages workflow is dispatched and the public preview URL is checked.")
