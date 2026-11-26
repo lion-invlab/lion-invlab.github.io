@@ -170,19 +170,38 @@ def verification_fields(source: dict, display, change_display, observation: dict
     data_date = source.get("data_date")
     read_method = observation.get("read_method")
     provenance = observation.get("provenance")
+    field_evidence = observation.get("field_evidence") or {}
+    screenshot_fields = {
+        field: evidence for field, evidence in field_evidence.items()
+        if isinstance(evidence, dict)
+        and evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT"
+    }
+    screenshot_evidence_ok = bool(screenshot_fields) and all(
+        isinstance(evidence.get("evidence_sha256"), str)
+        and len(evidence["evidence_sha256"]) == 64
+        and all(ch in "0123456789abcdef" for ch in evidence["evidence_sha256"].lower())
+        and bool(evidence.get("evidence_path"))
+        and bool(evidence.get("captured_at"))
+        for evidence in screenshot_fields.values()
+    )
     user_screenshot_ok = (
         provenance == "CURRENT_USER_PROVIDED_SCREENSHOT"
         and read_method == "USER_PROVIDED_SCREENSHOT"
-        and source.get("source_role") == "USER_PROVIDED_SCREENSHOT"
-        and bool(source.get("screenshot_sha256"))
-        and bool(source.get("screenshot_quote_time") or source.get("quote_timestamp_source") or source.get("screenshot_capture_time_taipei"))
+        and screenshot_evidence_ok
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
+    mixed_field_observation_ok = (
+        provenance == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
+        and read_method == "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+        and screenshot_evidence_ok
+        and observation.get("read_status") == "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
+    )
     page_read_ok = (
-        observation.get("http_status") == 200
-        or (observation.get("source_page_fetched") is True
-            and observation.get("read_status") == "PAGE_CONTENT_READ_SUCCESS")
+        (observation.get("http_status") == 200
+         or (observation.get("source_page_fetched") is True
+             and observation.get("read_status") == "PAGE_CONTENT_READ_SUCCESS"))
         or user_screenshot_ok
+        or mixed_field_observation_ok
     )
     identity_ok = _identity_matches(group, name, observation.get("instrument_identity"))
     value_field = str(observation.get("observed_value_field") or "")
@@ -240,6 +259,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
         "CURRENT_USER_PROVIDED_SCREENSHOT",
+        "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
         "SYNTHETIC_TEST_ONLY",
     )
     verified = (
@@ -285,6 +305,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "web_line_end": observation.get("web_line_end"),
             "read_status": observation.get("read_status"),
             "raw_response_sha256": observation.get("raw_response_sha256"),
+            "field_evidence": field_evidence,
             "quote_type": source.get("quote_type"),
             "source_role": source.get("source_role"),
         }
@@ -298,7 +319,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     )
     return {
         "verification_status": verification_status,
-        "source_page_fetched": page_read_ok,
+        "source_page_fetched": observation.get("source_page_fetched") is True,
         "display_value_reconciled": verified,
         "display_value_matches_saved_observation": verified,
         "observation_provenance": provenance if verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
