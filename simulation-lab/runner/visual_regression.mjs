@@ -178,9 +178,8 @@ try {
     if (specialAudit.exists && (!specialAudit.beforeSummary || specialAudit.width > v.width || specialAudit.right > v.width)) failures.push(`${v.name}: CPI special focus placement/overflow invalid`);
     if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
-      const isMonday = new Date(reportDate + "T12:00:00Z").getUTCDay() === 1;
       const levelsPanel = document.querySelector("#view .focus-levels");
-      const levelsText = levelsPanel?.innerText || "";
+      const levelsText = levelsPanel?.textContent || "";
       // Missing OHLC is a valid disclosed state: never require fabricated or stale pivot levels.
       const levelsPending = levelsText.includes("數值待核實")
         && levelsText.includes("本次不提供支撐／中樞／壓力數值");
@@ -214,7 +213,7 @@ try {
         if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
         if (item.id === "focus-tab-levels") {
           if (levelsPending) {
-            if (/(第二支撐|第一支撐|中樞|第一壓力|第二壓力)\\s*[：:|]?\\s*-?\\d/.test(text)) {
+            if (/(第二支撐|第一支撐|中樞|第一壓力|第二壓力)\s*[：:|]?\s*-?\d/.test(text)) {
               invalid.push(item.id + ": pending OHLC state must not render stale or invented pivot values");
             }
           } else {
