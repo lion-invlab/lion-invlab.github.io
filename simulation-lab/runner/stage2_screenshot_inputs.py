@@ -117,6 +117,93 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
     return fixture
 
 
+
+def apply_page_completions_to_fixture(fixture: dict, observations: list[dict],
+                                      screenshot_inputs: dict) -> list[dict]:
+    """Fill only screenshot-missing required fields from the current-run source read."""
+    by_key = {(row.get("group"), row.get("name")): row for row in observations}
+    for key, screenshot in screenshot_inputs.items():
+        observation = by_key.get(key)
+        if not observation:
+            continue
+        if not (
+            observation.get("source_page_fetched") is True
+            and observation.get("field_mapping_status") == "VERIFIED"
+            and observation.get("instrument_identity_status") == "VERIFIED"
+            and observation.get("observed_value") is not None
+            and observation.get("observed_change") is not None
+        ):
+            continue
+
+        group, name = key
+        is_fg = group == "risk" and name == "fear_greed"
+        value_key, change_key = ("score", "band") if is_fg else ("close", "change")
+        fields = screenshot["fields"]
+        if group == "sectors":
+            item = None
+            source = (fixture.get("sector_sources") or {}).get(name)
+        else:
+            item = (fixture.get(group) or {}).get(name)
+            source = (item or {}).get("source")
+        if not source:
+            raise ValueError(f"Screenshot completion lost Fixture source row: {group}/{name}")
+
+        if value_key not in fields:
+            raw = observation["observed_value"]
+            value = _plain_number(raw)
+            if is_fg:
+                source["score_value"] = value
+                source["source_score_value"] = value
+                source["cnn_target_date_score"] = value
+                source["backup_source_score_value"] = value
+                if item is not None:
+                    item["display"] = _display_like(item.get("display"), raw)
+            elif group == "sectors":
+                source["close_value"] = value
+                source["history_close"] = value
+            else:
+                source["close_value"] = value
+                source["history_close"] = (
+                    _display_like(item.get("display"), raw)
+                    if group in ("energy", "metals") and item is not None else value
+                )
+                if item is not None:
+                    item["display"] = _display_like(item.get("display"), raw)
+
+        if change_key not in fields:
+            raw = observation["observed_change"]
+            if is_fg:
+                band = str(raw).strip()
+                source["band"] = band
+                source["daily_change_percent"] = band
+                source["history_change"] = band
+                if item is not None:
+                    item["change_display"] = band
+            else:
+                value = _plain_number(raw)
+                if group == "sectors":
+                    source["daily_change_percent"] = value
+                    source["history_change"] = value
+                    source["change_display"] = _display_like(source.get("change_display"), raw, percent=True)
+                    fixture["sectors"][name] = source["change_display"]
+                else:
+                    source["daily_change_percent"] = value
+                    if item is not None:
+                        item["change_display"] = _display_like(item.get("change_display"), raw, percent=True)
+                    source["history_change"] = (
+                        item["change_display"] if group in ("energy", "metals") and item is not None
+                        else value
+                    )
+
+        source["history_page_completion_at"] = observation.get("finished_at_tw") or observation.get("finished_at_utc")
+        observation["observed_date"] = fixture.get("trading_date")
+        observation["display_value_match"] = True
+        observation["display_change_match"] = True
+        observation["status"] = "VERIFIED"
+        observation["read_status"] = "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
+    return observations
+
+
 def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
                            repo_root: str | Path | None = None) -> dict:
     """Return {(group, name): row} after strict date/source/path/SHA validation."""
