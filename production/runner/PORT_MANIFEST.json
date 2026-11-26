@@ -150,10 +150,11 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
     "last_validation": {
-      "workflow_run_id": 45906972440,
-      "head_sha": "766df0dbf2aeb49614c052b3f7450a3b94781296",
+      "workflow_run_id": 45907357998,
+      "head_sha": "e3c10c4a89fa611d346a1e908f9fa3b55afb8c55",
+      "event": "push",
       "conclusion": "success",
-      "scope": "Main-only validation: checkout/provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic suite, Builder/earnings deterministic suite including Stage 5/6 handoff tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data E2E or preview delivery."
+      "scope": "Main-only deterministic validation. validate-main-production all 14 primary steps passed: provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data Capture or Stage 4-6 E2E."
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
