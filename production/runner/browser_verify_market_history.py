@@ -748,7 +748,7 @@ def main():
     ap.add_argument("--fixture",required=True); ap.add_argument("--report-date",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
     ap.add_argument("--concurrency",type=int,default=4)
-    ap.add_argument("--screenshot-bundle", help="Date-matched SHA-locked screenshot sidecar JSON; defaults to simulation-lab/input/market-screenshot-observations-REPORT_DATE.json")
+    ap.add_argument("--screenshot-bundle", help="Date-matched SHA-locked screenshot sidecar JSON; defaults to production/input/market-screenshot-observations-REPORT_DATE.json")
     ap.add_argument("--no-fixture-write", action="store_true",
                     help="Emit observations without writing populated values back to the input fixture")
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
@@ -762,7 +762,7 @@ def main():
     target=data.get("trading_date")
     if data.get("report_date")!=a.report_date or not target: raise SystemExit("Fixture date mismatch")
     screenshot_bundle=Path(a.screenshot_bundle) if a.screenshot_bundle else Path(
-        f"simulation-lab/input/market-screenshot-observations-{a.report_date}.json"
+        f"production/input/market-screenshot-observations-{a.report_date}.json"
     )
     screenshot_inputs=load_screenshot_bundle(screenshot_bundle,data,Path.cwd()) if screenshot_bundle.is_file() else {}
     if a.only:
