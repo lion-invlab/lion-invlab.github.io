@@ -338,9 +338,9 @@ def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, r
             rows = payload.get("observations") or []
             if len(rows) != 1:
                 raise ValueError("targeted TradingView backup did not return exactly one row")
+            primary_normalized = dict(next(row for row in result["observations"] if row.get("group") == "risk" and row.get("name") == "move"))
             merged = merge_move_backup_observation(result, rows[0], primary_status)
             move_row = next(row for row in merged["observations"] if row.get("group") == "risk" and row.get("name") == "move")
-            primary_normalized = next(row for row in result["observations"] if row.get("group") == "risk" and row.get("name") == "move")
             primary_attempt_status = "TARGET_DATE_NOT_FOUND" if primary_status == "SOURCE_NO_DATA" else primary_status
             primary_attempt_read_status = "SOURCE_UPDATE_PENDING" if primary_status == "SOURCE_NO_DATA" else primary_status
             primary_attempt = {
