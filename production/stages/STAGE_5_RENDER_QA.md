@@ -16,3 +16,7 @@
 
 ## 限制
 Stage 5 不寫 preview、index.html、history、calendar JSON、母版或正式 Manifest。交給 Stage 6。
+
+
+## Main Builder approval gate
+Before any production REVIEW_READY output, verify `production/config/builder-approval.json`: status must be `APPROVED_MAIN`, `approved_by_owner` must be true, and the recorded blob SHA must equal the current `production/runner/build_review_html.py` Git blob SHA. Candidate validation and the approval of the Simulation source Builder do not approve the main port.
