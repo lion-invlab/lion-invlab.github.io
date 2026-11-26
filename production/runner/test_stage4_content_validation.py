@@ -47,6 +47,36 @@ class Stage4ContentTests(unittest.TestCase):
             content["research_bundle_sha256"]="0"*64
             with self.assertRaisesRegex(ValueError,"differs from capture receipt"):
                 validate_research_bundle_binding(content,self.context,receipt,path)
+    def test_rejects_http_source_in_political_scan(self):
+        x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
+        x["political_scan"]["findings"]=[{"title":"政策測試","domain":"us_policy","classification":"political_statement","source_url":"http://example.com/policy","published_at":"2026-11-25T12:00:00+08:00","checked_at":"2026-11-26T05:00:00+08:00","transmission":"政策表態尚未生效，暫不視為正式政策衝擊。"}]
+        with self.assertRaisesRegex(ValueError,"HTTPS source"): validate_content(x,self.context,self.data)
+
+    def test_rejects_political_finding_outside_six_domains(self):
+        x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
+        x["political_scan"]["findings"]=[{"title":"政策測試","domain":"unknown_domain","classification":"political_statement","source_url":"https://example.com/policy","published_at":"2026-11-25T12:00:00+08:00","checked_at":"2026-11-26T05:00:00+08:00","transmission":"政策表態尚未生效，暫不視為正式政策衝擊。"}]
+        with self.assertRaisesRegex(ValueError,"recognized domain"): validate_content(x,self.context,self.data)
+
+    def test_research_bundle_binding_rejects_cross_run_receipt(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]) as td:
+            path=Path(td)/"bundle.json"
+            bundle={"run_id":self.context["run_id"],"report_date":self.context["report_date"],"trading_date":self.context["trading_date"],"market_snapshot_sha256":market_snapshot_digest(self.data)}
+            path.write_text(json.dumps(bundle),encoding="utf-8")
+            digest=__import__("hashlib").sha256(path.read_bytes()).hexdigest()
+            content={"research_bundle_sha256":digest,"market_snapshot_sha256":bundle["market_snapshot_sha256"]}
+            receipt={"status":"PASS","run_id":"TAC-OTHER-RUN","report_date":self.context["report_date"],"market_snapshot_sha256":bundle["market_snapshot_sha256"],"trading_date":self.context["trading_date"],"bundle_sha256":digest}
+            with self.assertRaisesRegex(ValueError,"not bound to this Run"): validate_research_bundle_binding(content,self.context,receipt,path)
+
+    def test_research_bundle_binding_rejects_bundle_snapshot_mismatch(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]) as td:
+            path=Path(td)/"bundle.json"
+            bundle={"run_id":self.context["run_id"],"report_date":self.context["report_date"],"trading_date":self.context["trading_date"],"market_snapshot_sha256":"f"*64}
+            path.write_text(json.dumps(bundle),encoding="utf-8")
+            digest=__import__("hashlib").sha256(path.read_bytes()).hexdigest()
+            content={"research_bundle_sha256":digest,"market_snapshot_sha256":market_snapshot_digest(self.data)}
+            receipt={"status":"PASS","run_id":self.context["run_id"],"report_date":self.context["report_date"],"market_snapshot_sha256":content["market_snapshot_sha256"],"trading_date":self.context["trading_date"],"bundle_sha256":digest}
+            with self.assertRaisesRegex(ValueError,"not bound to the exact Run"): validate_research_bundle_binding(content,self.context,receipt,path)
+
     def test_rejects_analysis_using_unverified_market_row(self):
         x=sample();self.data["global_markets"]={"SP500":{"source":{"verification_status":"PENDING"}}};x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
         x["market_analysis"]["markets"]["supporting_market_rows"]=[{"group":"global_markets","name":"SP500"}]
