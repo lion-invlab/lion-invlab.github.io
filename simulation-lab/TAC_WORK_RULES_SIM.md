@@ -57,6 +57,22 @@
 - 本規則不降低單項行情核實標準、不把 PENDING 改為 VERIFIED，也不放寬任何母版、日曆、新聞、HTML、QA 或發布 Gate。目標是一次完成行情核實、後續以 SHA 和結構檢查守住資料，不做重複外部讀取。
 
 
+
+### 0.5.2 Stage 2 截圖優先、歷史頁讀取與快照鎖定（2026-11-26 使用者正式指示；優先於本節其他相衝突敘述）
+
+本條完整補充並在衝突處取代 0.5.1 及 Stage 2 的一般擷取敘述；不放寬任何資料正確性、標的身分、交易日期或證據要求。
+
+1. **正式網頁擷取方式：** 對尚未由使用者截圖提供的行情欄位，Stage 2 必須以瀏覽器開啟 Investing.com 對應商品正式頁面，進入該商品的 Historical Data（歷史數據）頁，讀取實際歷史數據表格；確認商品名稱／合約、日期、收盤／價格、開盤、最高、最低、漲跌及其他必要欄位，按本輪交易日擷取。不得以一般搜尋摘要、搜尋結果價格片段、未核准第三方 API、Yahoo Finance 或其他替代來源取代。不得因程式 HTTP 請求遭 Cloudflare 阻擋而改用其他來源或繞過 Cloudflare。
+2. **頁面讀取失敗分類：** 若頁面已載入但歷史表格／目標列無法由核准瀏覽器工具讀取，記錄 `TOOL_READ_FAILURE`；若頁面與表格可讀但不存在目標交易日資料列，記錄 `SOURCE_NO_DATA`。兩者不得混淆，不得偽造成功觀察。
+3. **使用者截圖優先：** 使用者提供且能辨識商品、日期及數值的行情截圖，對全部 44 項行情均優先於網頁讀取，不限 MOVE。截圖已清楚提供的欄位直接採用，不再為該欄位開啟網頁核對，不因網頁延遲或舊值覆蓋截圖值。截圖未提供的必要欄位才透過正式 Investing.com Historical Data 頁補足；補足時不得重抓或覆蓋已由截圖確認的欄位。
+4. **對外來源標示：** 截圖只作為 Stage 2 的優先資料輸入與內部證據，不改變報告既定來源標示。對應商品若其正式來源契約為 Investing.com，報告正文仍標示該商品的 Investing.com 歷史數據來源；不得在總結或報告正文寫「依使用者截圖」或揭露截圖輸入方式。內部 Observation／Manifest 必須如實記錄輸入方式為 `USER_PROVIDED_SCREENSHOT`，不得冒充瀏覽器已讀取歷史表格。
+5. **同一 Observation Schema：** 截圖與瀏覽器讀取結果必須寫入同一份 Stage 2 Observation 結構，逐欄保存商品／合約身分、資料日期、欄位名稱和值、漲跌值、來源 URL／來源標籤、輸入方式、擷取時間、證據檔案、證據 SHA-256、欄位完整性及狀態。截圖可得欄位與網頁補足欄位須逐欄標記來源，不得以一個整筆來源標籤掩蓋混合輸入。
+6. **單次取得與凍結：** Stage 2 將 44 項觀察、獨立 FedWatch（如適用）、來源證據、44 項 Manifest、Fixture 及 Stage 2 receipt 一次完成；SHA-256 必須對實際封存內容計算。鎖定報告日、交易日、批次識別碼、資料版本、Fixture SHA-256、Manifest SHA-256、Observation bundle SHA-256 及 Receipt SHA-256。已鎖定的截圖欄位不得因補讀其他欄位而改寫。
+7. **下游唯讀：** Stage 3、Stage 4、Builder、QA、Publisher、Pages、Chart 3 寫入及每日關鍵價位程序均只可讀取已鎖定快照。不得再次開啟 Investing.com、重新核實已鎖定數值、重新擷取或用其他來源覆蓋。下游只可做結構、欄位完整性、SHA 與快照一致性檢查。若發現單一欄位確有缺漏，只能啟動明確的單項補值流程；不得重跑其餘 43 項，補值後重建受影響 SHA／Receipt 並重新執行受影響 Gate。
+8. **Chart 3 與每日關鍵價位：** S&P 500 的每日收盤價及可用 OHLC 應直接沿用 Stage 2 鎖定觀察，供 Chart 3 增量資料庫及每日關鍵價位模組使用；下游不得各自另抓一份不同報價。若 Stage 2 未取得某個計算必要欄位，該欄位須明確標記缺漏並回到 Stage 2 單項補值，不得由下游自行改用未核准來源。
+9. **禁止重複擷取：** `Capture 44 raw market source pages`、`run_optional_probes`、Builder、QA 或任何其他步驟不得對已鎖定 44 項進行第二次外部行情讀取。正式原則：Stage 2 負責取得行情；後續 Stage 負責使用行情，不得重複取得。
+
+
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
 - workflow_dispatch 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
