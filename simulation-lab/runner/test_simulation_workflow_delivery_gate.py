@@ -47,6 +47,7 @@ assert "curl -fsS" in publish
 assert "MAIN_DELIVERY_COMMIT" in publish
 
 # The existing Pages workflow already deploys main/preview; it is explicitly dispatched after GITHUB_TOKEN push.
+# The same Pages workflow definition is mirrored to Simulation so this contract test sees the deployed policy.
 assert "branches:\n      - main" in PAGES
 assert '"preview/**"' in PAGES
 assert "workflow_dispatch:" in PAGES
