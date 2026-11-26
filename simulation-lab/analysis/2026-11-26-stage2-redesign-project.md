@@ -196,3 +196,24 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 將 `test_market_source_verification_manifest.py`（含 `test_stage2_field_provenance.py` 與 `test_stage2_screenshot_inputs.py`）、`test_validate_market_snapshot.py`、`test_prebuild_stage_inputs.py` 接入既有 Simulation isolated-smoke 的實際測試入口；不修改 main／Simulation workflow mirror。
 - Commit `4b1690e1f44a1c75ab52ae3cccbd13e065369f30` 的 GitHub Actions `TAC isolated simulation lab` 已回報 success。執行日誌明確顯示：截圖 SHA／日期阻擋、截圖優先、純截圖、混合來源、CFD 證據 Gate、44 列 Receipt、Observation bundle 交叉綁定等測試全部 PASS。
 - 這是 Stage 2 程式回歸測試通過；仍不是實際 44 項市場行情擷取或當日截圖 Sidecar 的 E2E。正式資料驗收仍需有當輪 44 項輸出與真實圖片證據。
+
+
+### 2026-11-26｜第五批改造：空白行情輸入與來源值回填
+
+- 新增 simulation-lab/runner/stage2_market_fixture_bootstrap.py，提供 blank 與 apply 兩種操作：
+  - blank 保留當日報告非行情內容及 44 項標的／來源中繼資料，但清除舊收盤值、漲跌值、歷史值及舊觀察證據；保存純格式規格，不把舊數值當成新一輪比對基準。
+  - 若存在當日截圖 Sidecar，先驗證實際圖片 SHA、日期、商品與來源 URL，再將截圖欄位套入空白行情輸入；已提供欄位不得被頁面讀值覆蓋。
+  - apply 只使用本輪 Observation bundle 回填 44 項行情 Fixture；沒有有效來源證據的欄位標示「待核實」，不沿用空白輸入前的舊價位。完整截圖、混合來源及純歷史頁分別保留逐欄證據。
+  - 美債殖利率顯示的 bp 變化由本輪收盤殖利率及頁面 Change % 推導；原始日變化百分比仍保留於來源欄位。產業 ETF 顯示漲跌幅，另保存本輪 ETF 收盤價供來源核對。
+- browser_verify_market_history.py 已支援空白行情基準：沒有既有數值時，不再要求和舊 Fixture 比價；仍必須確認商品身分、目標交易日、歷史表格欄位映射及可解析數值。Observation 明確標記 NOT_PERFORMED_BLANK_INPUT，不冒稱已與舊數值比對。
+- validate_chatgpt_web_observations.py 同步支援空白行情輸入：直接歷史頁觀察值只依頁面列、商品身分、交易日、欄位與來源證據判定；既有 Fixture 數值缺席時，不會被錯誤判為不匹配。讀取成功但無目標日期列仍維持待核實。
+- validate_market_snapshot.py 允許產業 ETF 欄位明確顯示「待核實」或「休市」，並要求對應來源狀態分別為 PENDING 或 CLOSED；不得以缺值假裝百分比。
+- 新增／擴充回歸測試：空白化 44 項舊值、由 44 列 Observation 回填、單項 SOURCE_NO_DATA 不沿用舊價、殖利率 bp、ETF 顯示、Fear & Greed、日期／重複列拒絕、部分截圖在頁面讀取失敗時保留已提供欄位、空白輸入下的直接 Web Observation 驗證，以及 ETF PENDING／CLOSED 狀態。
+- 專用 TAC Stage 2 live 44-row diagnostic 已改為先產生零行情值的暫存輸入，再直接開啟 Investing.com Historical Data 頁，之後才回填 Fixture、建立 Manifest 及執行 Snapshot Validator。原始已提交的 report-data-YYYY-MM-DD.json 不會被覆寫；此診斷保留非行情報告內容與來源目錄，只將 44 項市場數值清空，故驗證範圍是「零行情輸入到行情 Fixture」，不是整份報告所有內容從零建立。
+- 專用診斷工作流加入序列化，避免同一批 44 頁同時被多輪診斷重複讀取；加入空白 Fixture、直接 Web Observation 與 PENDING／CLOSED 測試。
+- Commit ba654f85711473075a5cdf785200c20636eac382 對應 Run 45777774344：目前可見步驟中，空白 Fixture bootstrap 測試、空白輸入的直接 Web Observation 測試、PENDING／CLOSED Snapshot 測試均已 PASS；44 項瀏覽器擷取仍在執行，尚未完成 Fixture 回填、Manifest 與 Snapshot 驗收。
+- 原先 Run 45775503897 已結束，Workflow conclusion=success，但 44 項觀察結果為 TOOL_READ_FAILURE=43、OBSERVED_PENDING_FIELD_MAPPING=1、VERIFIED=0。Artifact 顯示 43 個 Investing.com 頁面回應 HTTP 403，正常瀏覽器等待後 Cloudflare challenge 仍未完成；CNN 官方端點 HTTP 200，但本輪 previous_close 的顯示對應尚未通過。此結果確認真正的外部阻塞在瀏覽器來源頁存取，而非 Fixture 日期檢查；不得把 Workflow success 當行情成功。
+- 另有 2026-11-26 手動歷史頁 Observation bundle：44 列中 43 列 PAGE_CONTENT_READ_SUCCESS，MOVE 為 SOURCE_NO_DATA。這份 bundle 的 MOVE 不得沿用舊 Fixture 的 97.54；使用者曾提供的 MOVE 截圖尚未封存為本輪 Repository Sidecar，不能把缺少的截圖證據假稱已讀取。
+- 正式生產 Workflow 尚未切換到 blank/apply 新流程。曾在 Simulation copy 暫試整合，但因 SIM-1.4 要求 main/default workflow mirror SHA 一致，且 main 路徑目前受唯讀邊界限制，已將 Simulation 的 .github/workflows/tac-simulation-lab.yml 還原至 main 相同 blob SHA 0698f88333e29c3b7e86ee74e557fdc14b6ce429。正式 Workflow 尚未修改，避免下一輪完整早報因 mirror Gate 失敗；待取得更新 main workflow mirror 的明確授權後，再把已驗證的 blank/apply 呼叫鏈整合進正式生產流程。
+- main/index.html、正式首頁、母版、正式資料與每日關鍵價位 collect_key_levels_ohlc.py 均未修改。
+- 本批狀態：BOOTSTRAP_UNIT_TESTS_PASS / LIVE_44_ROW_E2E_IN_PROGRESS / PRODUCTION_WORKFLOW_NOT_YET_INTEGRATED；整體專案仍為 IMPLEMENTATION_IN_PROGRESS，不得標記 STAGE2_REDESIGN_ACCEPTED。
