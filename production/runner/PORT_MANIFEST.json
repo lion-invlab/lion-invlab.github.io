@@ -150,12 +150,19 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
     "last_validation": {
-      "workflow_run_id": 45904766962,
-      "head_sha": "057fa669a7647d8b7adddb64644667cb675a867b",
-      "conclusion": "success",
-      "scope": "Main-only deterministic validation: compile and browser-QA syntax, dual mother SHA and Manifest, Stage 2/prebuild deterministic tests, Builder/earnings deterministic tests, isolated synthetic candidate Builder fixtures and mother-owned DOM contract. capture-and-calendar, build-and-deliver and schedule-window were skipped; no real-data E2E or preview delivery."
+      "workflow_run_id": 45905791303,
+      "head_sha": "6d6b3927437d0292680b95ebc0e748d309c4c721",
+      "conclusion": "PENDING",
+      "scope": "Stage 4 HTTPS political-source enforcement and negative tests for HTTP sources, invalid political domains, cross-Run research bundle receipts and mismatched bundle snapshot SHA. GitHub run pending with no job records yet; not passed."
     },
-    "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
+    "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY",
+    "stage4_content_producer": "NOT_IMPLEMENTED_PROVIDER_AUTHORIZATION_REQUIRED",
+    "stage4_validation_hardening": {
+      "run_stage4_blob_sha": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
+      "test_stage4_content_validation_blob_sha": "85df5222d97fea88acaf02517ae0cd7f17357a71",
+      "ci_run_id": 45905791303,
+      "ci_status": "PENDING"
+    }
   },
   "main_native_modules": [
     {
