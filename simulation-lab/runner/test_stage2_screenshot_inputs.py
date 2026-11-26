@@ -8,7 +8,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
+from stage2_screenshot_inputs import apply_page_completions_to_fixture, apply_screenshot_values_to_fixture, load_screenshot_bundle
 from browser_verify_market_history import _apply_screenshot_fields
 
 
@@ -92,6 +92,11 @@ def main():
         assert mixed["observed_change"] == "-0.42"
         assert mixed["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
         assert mixed["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+        completed_fixture = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), partial)
+        apply_page_completions_to_fixture(completed_fixture, [mixed], partial)
+        completed_row = completed_fixture["global_markets"]["標普500指數"]
+        assert completed_row["change_display"] == "-0.42%"
+        assert completed_row["source"]["daily_change_percent"] == "-0.42"
 
         optional_only_bundle = copy.deepcopy(bundle)
         optional_only_bundle["observations"][0]["fields"] = {
@@ -119,6 +124,11 @@ def main():
         assert optional_mixed["status"] == "VERIFIED"
         assert optional_mixed["field_evidence"]["high"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
         assert optional_mixed["field_evidence"]["close"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+        optional_fixture = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), optional_only)
+        apply_page_completions_to_fixture(optional_fixture, [optional_mixed], optional_only)
+        optional_row = optional_fixture["global_markets"]["標普500指數"]
+        assert optional_row["display"] == "6,812.34"
+        assert optional_row["change_display"] == "-0.42%"
 
         wrong_hash = copy.deepcopy(bundle)
         wrong_hash["observations"][0]["evidence_sha256"] = "0" * 64
