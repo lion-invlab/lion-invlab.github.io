@@ -236,6 +236,8 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
                 mixed += 1
                 require("USER_PROVIDED_SCREENSHOT" in types,
                         f"mixed observation missing screenshot field provenance: {key}")
+                require(bool(types & {"INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"}),
+                        f"mixed observation missing page/official-source field provenance: {key}")
             else:
                 page_only += 1
                 require(bool(types), f"page observation missing field provenance: {key}")
