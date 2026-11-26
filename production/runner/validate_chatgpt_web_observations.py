@@ -398,7 +398,7 @@ def main() -> None:
         browser_script=Path(__file__).with_name("browser_verify_market_history.py")
         command=[sys.executable,str(browser_script),"--fixture",str(data_path),
             "--report-date",args.report_date,"--output",args.output,
-            "--timeout-ms","15000","--concurrency","2"]
+            "--timeout-ms","15000","--concurrency","4"]
         if args.no_fixture_write: command.append("--no-fixture-write")
         subprocess.run(command,check=True)
         return
