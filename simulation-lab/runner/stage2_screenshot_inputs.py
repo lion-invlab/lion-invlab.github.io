@@ -12,13 +12,15 @@ import json
 from pathlib import Path
 
 
-ALLOWED_FIELDS = {"close", "change", "open", "high", "low"}
+ALLOWED_FIELDS = {"close", "change", "open", "high", "low", "score", "band"}
 FIELD_NAMES = {
     "close": {"close", "price", "收盤", "收盤價", "收市", "價格"},
     "change": {"change %", "change", "漲跌（%）", "升跌（%）", "變動%", "漲跌幅"},
     "open": {"open", "開市", "開盤"},
     "high": {"high", "最高"},
     "low": {"low", "最低"},
+    "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數"},
+    "band": {"band", "rating", "情緒區間", "評級"},
 }
 
 
