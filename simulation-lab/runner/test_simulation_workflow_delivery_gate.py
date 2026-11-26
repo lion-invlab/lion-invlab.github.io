@@ -104,3 +104,5 @@ print("PASS: main/index.html, formal mothers, Manifest and calendar JSON remain 
 print("PASS: existing GitHub Pages workflow is dispatched and the public preview URL is checked.")
 
 # Regression contract: one external market read pass, then immutable SHA-bound snapshot checks only.
+
+# Full regression keeps synthetic candidate checks separate from report-only QA.
