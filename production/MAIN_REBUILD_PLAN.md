@@ -463,3 +463,10 @@
 - 最新 blobs：bootstrap `c71d1fd5cf3226907c09243a7a75c14af8db4e24`；測試 `3320a75d67e0f4ea61641194fa066b06cebbfe47`；Stage 4 per-row binding `f051f79fcdf1f49f98fdaf5f8de8589f79f37969`；PORT_MANIFEST `70b5bc04aebdf1ab9aa88fce9bd1a86009407a38`。
 - 先前 CI Run `45903158288`：compile、dual mother SHA、Manifest validation 通過；Stage 2 測試 24 項中 1 項失敗，其餘通過；Builder／earnings 測試因前置失敗而 skipped。最新修正後 CI 尚待執行及回讀。
 - 尚未完成：新增 Stage 4 CLOSED row 整合測試及截圖＋CLOSED 衝突回歸測試；最新 Main CI；真實 44 項資料擷取與 E2E。Builder 新 blob仍維持 exact approval pending。未修改 Simulation、排程、正式首頁。
+
+
+## 2026-11-27 Main validation result and screenshot regression
+- Main CI Run `45903428235`（HEAD `6e2213a0a5a55214e7c213b79de74d4867cd716a`）已完成 SUCCESS：Python compile、browser QA syntax、雙母版 SHA／Manifest、Stage 2 + pre-build deterministic tests、Builder／earnings tests、candidate Builder fixtures、mother-owned DOM contract 全部通過。Capture、build、schedule 均 skipped；這不是實際行情 E2E，也不是正式早報交付。
+- 另新增回歸測試：當 MOVE 已有截圖值 97.54／-1.32%，同一 observation 又帶入 MARKET_CLOSED 證據時，截圖行情必須原值保留，不得被「-／休市」覆蓋。測試檔 blob `84f866960b35c8c37ad84bc7f59f008844676352`，提交 `1850e12463de9b0d15c9d5e5cd474f6ab63f212d`；該新測試尚待下一輪 CI 驗證。
+- PORT_MANIFEST 已記錄成功 Run 與 bootstrap SHA，最新 blob `953464b5bfb767cc61dcfc979245b243ba75ffa0`。Stage 4 CLOSED row 的獨立正反向整合測試仍待補。
+- 下一階段：先驗證新增截圖衝突測試，再補 Stage 4 CLOSED 證據跨 Manifest／Receipt／Bundle 的正向與錯列負向測試；其後再處理 Builder exact-blob 核准、內容生產器、真實 Stage 1-6 E2E。未修改 Simulation、正式排程或首頁。
