@@ -10,7 +10,7 @@
     "head_sha": "c63e7f0db95ea2f9ed51f42d8f11d4d2821de81d",
     "result": "PASS",
     "scope": "main-only compile, SHA-locked dual mothers and governance inventory, Stage2/prebuild and screenshot provenance tests, Stage4 research bundle with screenshot image SHA and source data, Stage4 Run/snapshot/bundle binding, Builder approval unit tests, candidate Builder fixtures and dual-mother DOM contract",
-    "limitation": "Capture/build jobs skipped; no real-data Stage1-6 E2E and no owner approval."
+    "limitation": "Capture/build jobs skipped; this evidence does not establish real-data Stage 1–6 E2E. Exact Builder blob owner approval is separately recorded in owner_approval_record."
   },
   "approved_by_owner": true,
   "approved_at": "2026-11-26T21:29:30+08:00",
