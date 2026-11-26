@@ -218,7 +218,7 @@ try {
             }
           } else {
             const source = panel.querySelector("details.compact-disclosure, details.source-details")?.textContent || "";
-            const sourceDateMatch = source.match(/基準交易日：(\\d{4}-\\d{2}-\\d{2})/);
+            const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
             if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
             else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
             if (!source.includes("Yahoo Finance") && !source.includes("Investing.com")) invalid.push(item.id + ": missing OHLC source attribution");
