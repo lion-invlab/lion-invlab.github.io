@@ -67,9 +67,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     # Blank all quote values and apply only this report-date's SHA-verified screenshot inputs.
     data=blank_fixture(data,apply_screenshots=True)
     iso=report_date.isocalendar()
-    weeks=[week_id(report_date)]
-    if report_date.weekday()==0:
-        weeks.append(week_id(previous_week_start(report_date)))
+    weeks=[week_id(report_date),week_id(previous_week_start(report_date))]
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"
@@ -81,6 +79,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     screenshot_receipt={"present":screenshot_path.is_file(),"path":str(screenshot_path.relative_to(ROOT))}
     if screenshot_path.is_file():
         screenshot_receipt["sha256"]=sha256(screenshot_path)
+    data["run_metadata"]={"run_id":run_id,"main_commit_sha":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()}
     run_context={
       "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
