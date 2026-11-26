@@ -370,7 +370,7 @@ jobs:
           assert content["report_date"]==date==context["report_date"]
           assert content["run_id"]==context["run_id"]
           assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]\n          assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
-          print("PASS: Stage 4 editorial content is bound to exact captured Run and market snapshot.")
+          print("PASS: Stage 4 editorial content is bound to exact captured Run, market snapshot and research bundle.")
           PY
           git cat-file -e "HEAD:$RUN_DIR/run-context.json"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
