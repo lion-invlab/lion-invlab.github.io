@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "statuses": {
+    "VERIFIED": {"terminal": true, "usable": true, "meaning": "指定標的、資料日期、數值、單位、報價口徑及來源證據均已確認。"},
+    "BACKUP_VERIFIED": {"terminal": true, "usable": true, "meaning": "依來源政策使用核准備援來源，且標的、日期與口徑可比並已確認。"},
+    "TOOL_READ_FAILURE": {"terminal": true, "usable": false, "meaning": "工具未能讀取來源頁或必要欄位；不代表來源沒有資料。"},
+    "SOURCE_NO_DATA": {"terminal": true, "usable": false, "meaning": "來源已成功讀取且明確顯示指定日期／標的無資料。"},
+    "DATE_MISMATCH": {"terminal": true, "usable": false, "meaning": "讀取到資料，但資料日期不符合本次要求。"},
+    "PENDING": {"terminal": false, "usable": false, "meaning": "尚待處理或尚未完成判定；必須保留在待辦清單，不得視為成功或失敗終態。"},
+    "MARKET_CLOSED": {"terminal": true, "usable": false, "meaning": "依正式交易日曆確認該市場於目標日期休市。"},
+    "NOT_APPLICABLE": {"terminal": true, "usable": false, "meaning": "該欄位依規格不適用，必須附理由。"}
+  },
+  "transitions": {
+    "PENDING": ["VERIFIED", "BACKUP_VERIFIED", "TOOL_READ_FAILURE", "SOURCE_NO_DATA", "DATE_MISMATCH", "MARKET_CLOSED", "NOT_APPLICABLE"],
+    "VERIFIED": ["VERIFIED"],
+    "BACKUP_VERIFIED": ["BACKUP_VERIFIED", "VERIFIED"],
+    "TOOL_READ_FAILURE": ["TOOL_READ_FAILURE", "VERIFIED", "BACKUP_VERIFIED"],
+    "SOURCE_NO_DATA": ["SOURCE_NO_DATA", "VERIFIED", "BACKUP_VERIFIED"],
+    "DATE_MISMATCH": ["DATE_MISMATCH", "VERIFIED", "BACKUP_VERIFIED"],
+    "MARKET_CLOSED": ["MARKET_CLOSED"],
+    "NOT_APPLICABLE": ["NOT_APPLICABLE"]
+  },
+  "rules": [
+    "所有 44 項均須有一個明確狀態；PENDING 可作中間狀態，但 Stage 2 交付時必須列明未結項目與後續處理狀態。",
+    "狀態不決定整個 Stage 是否可執行；單項未完成不得阻止無關項目繼續。",
+    "TOOL_READ_FAILURE 不得轉寫為 SOURCE_NO_DATA。",
+    "DATE_MISMATCH 不得冒充 TOOL_READ_FAILURE。",
+    "空值不得轉為 0；未核實數值不得供下游當作事實使用。",
+    "使用者提供且足以識別標的、日期、報價口徑的截圖證據可令該項進入 VERIFIED，但須記錄 evidence_type=user_provided_screenshot、observed_at 及原始來源 URL。"
+  ]
+}
