@@ -126,7 +126,7 @@
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
-    "Current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 differs from the historically owner-approved blob 20eefe57d6f3b389157c01b8532cae3a69128a02; reapproval of the exact current blob is required.",
+    "The current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 has exact-blob owner approval recorded in production/config/builder-approval.json (APPROVED_MAIN); real-data Capture and Stage 4-6 E2E remain NOT_VERIFIED.",
     "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
   ],
@@ -148,13 +148,13 @@
     "capture_handoff": "AWAITING_EDITORIAL_INPUT",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
-    "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
+    "builder_approval": "APPROVED_MAIN_EXACT_CURRENT_BUILDER_BLOB",
     "last_validation": {
-      "workflow_run_id": 45907699637,
-      "head_sha": "6347d6d9d4e0a21528a4de7e221f1293e4fd0c81",
+      "workflow_run_id": 45909981989,
+      "head_sha": "bbba2f0640b567267cfe39bfc5b255c97869f478",
       "event": "push",
       "conclusion": "success",
-      "scope": "Main-only deterministic validation: all 14 primary validate-main-production steps passed, including checkout/provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data Capture or Stage 4-6 E2E."
+      "scope": "Main-only deterministic validation: validate-main-production passed, including compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic tests, Builder/earnings tests, isolated Candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data Capture or Stage 4-6 E2E."
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
@@ -198,7 +198,10 @@
         "conclusion": "Workflow schedule configuration landed after the 2026-11-27 trigger window; absence of that day's schedule run does not prove cron misconfiguration.",
         "next_expected_taipei": "2026-11-30T05:05:00+08:00",
         "next_expected_utc": "2026-11-29T21:05:00Z"
-      }
+      },
+      "approval_verified_at": "2026-11-27",
+      "approval_current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+      "approval_recorded_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9"
     },
     "approval_verified_at": "2026-11-27",
     "approval_current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
@@ -209,8 +212,10 @@
       "current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
       "change_commit": "dd1f5c87d23ee0d4a0594508f104198584ef76d4",
       "change_scope": "Extend official market-holiday evidence enforcement from Nikkei 225 only to all 44 market rows; bind same-day browser evidence and prohibit prior observation reuse; render closed sector ETFs as - / 休市.",
-      "owner_reapproval": "REQUIRED",
-      "build_marker_allowed": false
+      "owner_reapproval": "APPROVED_EXACT_CURRENT_BLOB",
+      "build_marker_allowed": false,
+      "approval_file_blob_sha": "c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928",
+      "build_marker_note": "Owner approval is complete; a build marker remains gated on a valid same-day schedule Run and exact Run-bound Stage 4 inputs."
     }
   },
   "main_native_modules": [
