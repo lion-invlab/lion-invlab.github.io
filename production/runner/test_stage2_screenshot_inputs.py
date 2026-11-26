@@ -78,6 +78,41 @@ def main():
         assert multi_fields_loaded["close"]["evidence_sha256"] != multi_fields_loaded["change"]["evidence_sha256"]
         assert multi_fields_loaded["close"]["evidence_path"] != multi_fields_loaded["change"]["evidence_path"]
 
+        # Rewriting sidecar dates cannot make a prior-day image current.
+        stale_bundle = copy.deepcopy(bundle)
+        stale_bundle["observations"][0]["captured_at"] = "2026-11-22T07:05:00+08:00"
+        bundle_path.write_text(json.dumps(stale_bundle), encoding="utf-8")
+        try:
+            load_screenshot_bundle(bundle_path, fixture, root)
+        except ValueError as exc:
+            assert "screenshot is stale" in str(exc)
+        else:
+            raise AssertionError("prior-day screenshot was accepted for today's report")
+
+        # Every image field is independently date-bound.
+        stale_field_bundle = copy.deepcopy(bundle)
+        stale_field_bundle["observations"][0]["fields"]["close"] = {
+            "value": "6,812.34", "field_name": "Close",
+            "captured_at": "2026-11-22T07:05:00+08:00",
+        }
+        bundle_path.write_text(json.dumps(stale_field_bundle), encoding="utf-8")
+        try:
+            load_screenshot_bundle(bundle_path, fixture, root)
+        except ValueError as exc:
+            assert "screenshot is stale" in str(exc)
+        else:
+            raise AssertionError("prior-day field screenshot was accepted")
+
+        naive_bundle = copy.deepcopy(bundle)
+        naive_bundle["observations"][0]["captured_at"] = "2026-11-23T07:05:00"
+        bundle_path.write_text(json.dumps(naive_bundle), encoding="utf-8")
+        try:
+            load_screenshot_bundle(bundle_path, fixture, root)
+        except ValueError as exc:
+            assert "explicit timezone" in str(exc)
+        else:
+            raise AssertionError("timezone-naive screenshot timestamp was accepted")
+
         bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
         updated = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), loaded)
         row = updated["global_markets"]["標普500指數"]
@@ -193,7 +228,7 @@ def main():
 
     print("PASS: screenshot evidence is SHA-checked against actual file bytes")
     print("PASS: screenshot values override Fixture close/change before expected-value construction")
-    print("PASS: wrong evidence hash and wrong trading date are rejected")
+    print("PASS: wrong hash/date, prior-day screenshots and timezone-naive timestamps are rejected")
 
 
 if __name__ == "__main__":
