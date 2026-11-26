@@ -96,7 +96,7 @@
           "value": "21915.88",
           "field_name": "低",
           "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223845).png",
-          "evidence_sha256": "64fa6f1641ca59f45bb628bb5945fdc1e396a8bb6c1ea75751e00da13b523",
+          "evidence_sha256": "64fa6f1641ca59f45bb628bb5945fdc1e396a8bb6c1ea75763751e00da13b523",
           "captured_at": "2026-11-26T06:38:00+08:00"
         }
       }
