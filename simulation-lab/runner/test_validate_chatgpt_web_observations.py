@@ -11,7 +11,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES
-from validate_chatgpt_web_observations import main as validator_main, validate_bundle
+from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
@@ -189,6 +189,24 @@ def main():
     assert backup_fixture["risk"]["move"]["source"]["verification_status"] == "BACKUP_VERIFIED"
     assert backup_fixture["risk"]["move"]["source"]["verified_source_role"] == "BACKUP_1"
     assert backup_fixture["risk"]["move"]["source"]["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+
+    # The production web-bundle path performs only a one-row TradingView read when
+    # Investing.com reports SOURCE_NO_DATA; the other 43 normalized observations stay untouched.
+    primary_missing_bundle = copy.deepcopy(bundle)
+    primary_missing = next(x for x in primary_missing_bundle["observations"]
+                           if x["group"] == "risk" and x["name"] == "move")
+    primary_missing.update({"read_status": "SOURCE_NO_DATA", "observed_date": None,
+                            "observed_value": None, "observed_change": None,
+                            "observed_row_text": "Investing.com historical page readable; target row absent."})
+    primary_missing_result = validate_bundle(blank_data, "2026-11-24", primary_missing_bundle)
+    merged_backup = merge_move_backup_observation(copy.deepcopy(primary_missing_result),
+                                                  copy.deepcopy(move_backup_normalized), "SOURCE_NO_DATA")
+    merged_move = next(x for x in merged_backup["observations"]
+                       if x["group"] == "risk" and x["name"] == "move")
+    assert merged_backup["move_backup_attempted"] is True
+    assert merged_backup["verified_count"] == 43
+    assert merged_move["source_role"] == "BACKUP_1"
+    assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
 
     # Exercise the exact production CLI path: blank the supplied fixture, validate the
     # date-matched direct page bundle, and write only current observations back in place.
