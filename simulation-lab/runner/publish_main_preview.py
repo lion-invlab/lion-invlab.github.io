@@ -8,15 +8,15 @@ import json
 import os
 import re
 import tempfile
+from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
-
 
 SOURCE_BRANCH = "simulation/tac-process-lab-2026-11-06"
 
 
 def git_blob_sha(raw: bytes) -> str:
-    return hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\\0" + raw).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw).hexdigest()
 
 
 class ReportMetaParser(HTMLParser):
@@ -53,18 +53,17 @@ def prepare_delivery(
     run_attempt: str,
     trigger_commit: str,
 ) -> dict:
-    if not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", report_date):
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", report_date):
         raise SystemExit("invalid report_date")
-    from datetime import date
     parsed_date = date.fromisoformat(report_date)
     if parsed_date.weekday() > 4:
         raise SystemExit("weekend report date rejected")
 
     expected_source_html = f"preview/{report_date}-simulation.html"
     expected_source_qa = f"preview/{report_date}-simulation.qa.json"
-    if source_html.as_posix().replace("\\\\", "/").endswith(expected_source_html) is False:
+    if source_html.as_posix().endswith(expected_source_html) is False:
         raise SystemExit(f"source HTML must be {expected_source_html}")
-    if source_qa.as_posix().replace("\\\\", "/").endswith(expected_source_qa) is False:
+    if source_qa.as_posix().endswith(expected_source_qa) is False:
         raise SystemExit(f"source QA must be {expected_source_qa}")
 
     html = source_html.read_bytes()
@@ -90,7 +89,8 @@ def prepare_delivery(
         "html_blob_sha": qa.get("report_git_blob_sha") == html_blob_sha,
         "run_id": str(qa.get("workflow_run_id")) == str(run_id),
         "run_attempt": str(qa.get("workflow_run_attempt")) == str(run_attempt),
-        "prebuild_receipt": bool(qa.get("prebuild_input_receipt_sha256")) and qa.get("prebuild_input_receipt", {}).get("status") == "PASS",
+        "prebuild_receipt": bool(qa.get("prebuild_input_receipt_sha256"))
+            and qa.get("prebuild_input_receipt", {}).get("status") == "PASS",
         "builder_sha": bool(qa.get("builder_blob_sha")),
         "no_review_blockers": not qa.get("review_ready_blockers") and not qa.get("sim14_blockers"),
     }
@@ -124,7 +124,7 @@ def prepare_delivery(
         "delivery_workflow_run_attempt": str(run_attempt),
         "delivery_trigger_commit": trigger_commit,
     })
-    qa_bytes = (json.dumps(delivered_qa, ensure_ascii=False, indent=2) + "\\n").encode("utf-8")
+    qa_bytes = (json.dumps(delivered_qa, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
     receipt = {
         "schema_version": 1,
@@ -152,7 +152,7 @@ def prepare_delivery(
         "mother_template_modified": False,
         "manifest_modified": False,
     }
-    receipt_bytes = (json.dumps(receipt, ensure_ascii=False, indent=2) + "\\n").encode("utf-8")
+    receipt_bytes = (json.dumps(receipt, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
     _atomic_write(main_root / html_rel, html)
     _atomic_write(main_root / qa_rel, qa_bytes)
