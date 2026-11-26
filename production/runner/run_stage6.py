@@ -153,7 +153,9 @@ def main():
   req=urllib.request.Request(preview_url,headers={"User-Agent":"TAC-Stage6-Preview-Verification/1.0"})
   with urllib.request.urlopen(req,timeout=30) as response:
    public_html=response.read().decode("utf-8","replace")
-   if response.status!=200 or f'<meta name="report-date" content="{report_date}"' not in public_html:
+   from bs4 import BeautifulSoup
+   public_meta=BeautifulSoup(public_html,"html.parser").select_one('meta[name="report-date"]')
+   if response.status!=200 or public_meta is None or public_meta.get("content")!=report_date:
     raise SystemExit("Public preview HTTP/date verification failed")
   final_receipt={
    "schema_version":"1.0","status":"DELIVERED_AND_PUBLICLY_VERIFIED",
