@@ -2578,7 +2578,19 @@ def main():
         if not rows: raise ValueError(f"{label} row not found")
         source = record.get("source") or {}
         is_verified = bool(source.get("name") and source.get("data_date") and (source.get("url") or source.get("quote_type") == "user_supplied_market_quote_screenshot" or (source.get("read_method") == "USER_PROVIDED_CLOSING_SCREENSHOT" and source.get("read_status") == "USER_SCREENSHOT_READ_SUCCESS")))
-        if key == "move" and str(record.get("as_of_date", "")).startswith("未取得"):
+        # A dated user-supplied closing screenshot is valid backup evidence even
+        # when the Investing.com historical row / as_of_date is unavailable.
+        # Do not let the missing primary-page date override the explicit screenshot
+        # evidence already accepted above.
+        screenshot_close_verified = bool(
+            key == "move"
+            and source.get("read_method") == "USER_PROVIDED_CLOSING_SCREENSHOT"
+            and source.get("read_status") == "USER_SCREENSHOT_READ_SUCCESS"
+            and source.get("user_screenshot_observation", {}).get("status") == "BACKUP_VERIFIED_USER_CLOSING_SCREENSHOT"
+            and source.get("user_screenshot_observation", {}).get("value") is not None
+            and source.get("data_date")
+        )
+        if key == "move" and str(record.get("as_of_date", "")).startswith("未取得") and not screenshot_close_verified:
             is_verified = False
         if not is_verified:
             record["display"] = "待核實"
