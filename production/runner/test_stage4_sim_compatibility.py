@@ -13,6 +13,7 @@ class Stage4SimCompatibilityTests(unittest.TestCase):
         data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"15","source":{"verification_status":"BACKUP_VERIFIED","url":"https://fgscore.com/","backup_source_score_value":15}}},"sectors":{},"sector_sources":{}}
         content["run_id"]=context["run_id"]
         content["market_snapshot_sha256"]=market_snapshot_digest(data)
+        content["research_bundle_sha256"]="a"*64
         result=validate_content(content,context,data)
         self.assertEqual(result["news_counts"],{"focus_news":5,"headlines":10})
         self.assertEqual(len(content["political_scan"]["findings"]),6)
