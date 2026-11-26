@@ -26,6 +26,7 @@ sidecar 的每筆 observation 對應 44 項之一，並且必須符合 Fixture �
       "evidence_path": "simulation-lab/input/screenshots/2026-11-26/sp500.png",
       "evidence_sha256": "填入圖片檔案實際 SHA-256",
       "captured_at": "2026-11-26T06:45:00+08:00",
+      "quote_timestamp": "2026-11-25 16:17 GMT-5",
       "fields": {
         "close": {
           "value": "6,812.34",
