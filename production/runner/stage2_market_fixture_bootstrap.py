@@ -29,7 +29,7 @@ VALUE_KEYS = {
     "observed_date","closure_evidence_url","closure_evidence_reader_ref","closure_evidence_line_start",
     "closure_evidence_line_end","page_label","cross_check","cross_check_value","cross_check_name",
     "cross_check_url","cross_check_role","primary_source_url","backup_source_url",
-    "observation_bundle_path","observation_bundle_blob_sha","observation_record_status",
+    "observation_bundle_path","observation_bundle_blob_sha","observation_record_status",\n    "market_calendar_status","market_calendar_source_type","market_calendar_url","market_calendar_date","market_calendar_evidence",
     "volume","official_settlement_cross_check","change_basis_points","change_points","close",
 }
 ITEM_VALUE_KEYS = {"change_basis_points","change_points","band","qa_status","value","as_of","contract_label"}
@@ -149,15 +149,30 @@ def populate_fixture(data, payload):
                and obs.get("observed_value") is not None and obs.get("observed_change") is not None
                and (screenshot or obs.get("source_page_fetched") is True))
         if not valid:
-            if obs.get("read_status")=="MARKET_CLOSED" or obs.get("status")=="MARKET_CLOSED":
+            closure_ok=(
+                obs.get("read_status")=="MARKET_CLOSED"
+                and obs.get("market_calendar_status")=="CLOSED"
+                and obs.get("market_calendar_source_type")=="OFFICIAL"
+                and obs.get("market_calendar_date")==out["trading_date"]
+                and str(obs.get("market_calendar_url") or "").startswith("https://")
+                and bool(obs.get("market_calendar_evidence"))
+            )
+            if obs.get("read_status")=="MARKET_CLOSED" and closure_ok:
                 if group=="sectors":
                     out["sectors"][name]="休市"
                     src["change_display"]="休市"
                 else:
-                    item["display"]="休市"; item["change_display"]="休市"
+                    item["display"]="-"
+                    item["change_display"]="休市"
                 src["verification_status"]="CLOSED"
                 src["read_status"]="MARKET_CLOSED"
                 src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
+                src["market_calendar_evidence"]={
+                    "status":"CLOSED","source_type":"OFFICIAL",
+                    "date":obs.get("market_calendar_date"),
+                    "url":obs.get("market_calendar_url"),
+                    "evidence":obs.get("market_calendar_evidence")
+                }
                 continue
             evidence=obs.get("field_evidence") or {}
             screenshot_fields={key for key,value in evidence.items()
