@@ -205,6 +205,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and observation.get("source_page_fetched") is not True
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
+    is_fear_greed = group == "risk" and name == "fear_greed"
     mixed_page_source_types = (
         {"CNN_OFFICIAL_API"} if is_fear_greed else {"INVESTING_HISTORICAL_PAGE"}
     )
