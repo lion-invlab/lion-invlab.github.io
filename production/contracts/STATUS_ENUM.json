@@ -1,15 +1,71 @@
 {
   "schema_version": "1.1",
   "statuses": {
-    "VERIFIED": {"terminal": true, "usable": true, "meaning": "標的、交易日期、必要欄位、報價口徑與觀察證據均已確認。"},
-    "BACKUP_VERIFIED": {"terminal": true, "usable": true, "meaning": "依該指標明確核准的備援來源取得，標的、日期與口徑均可比且已確認。"},
-    "PENDING": {"terminal": false, "usable": false, "meaning": "尚待讀取或尚未完成判定；保留待辦，不得視為成功或失敗終態。"},
-    "MISSING": {"terminal": true, "usable": false, "meaning": "必要資料缺漏且沒有可用值；不得沿用舊值。"},
-    "CLOSED": {"terminal": true, "usable": false, "meaning": "依正式交易日曆確認市場休市。"},
-    "NOT_APPLICABLE": {"terminal": true, "usable": false, "meaning": "欄位不適用，須附理由。"},
-    "NOT_TESTED": {"terminal": true, "usable": false, "meaning": "該項檢查未執行，不得宣稱通過。"},
-    "TOOL_READ_FAILURE": {"terminal": true, "usable": false, "meaning": "工具無法讀取來源頁／表格；不代表來源沒有資料。"},
-    "SOURCE_NO_DATA": {"terminal": true, "usable": false, "meaning": "來源頁及表格可讀，但指定日期或標的沒有資料列。"}
+    "VERIFIED": {
+      "terminal": true,
+      "usable": true,
+      "meaning": "標的、交易日期、必要欄位、報價口徑與觀察證據均已確認。"
+    },
+    "BACKUP_VERIFIED": {
+      "terminal": true,
+      "usable": true,
+      "meaning": "依該指標明確核准的備援來源取得，標的、日期與口徑均可比且已確認。"
+    },
+    "PENDING": {
+      "terminal": false,
+      "usable": false,
+      "meaning": "尚待讀取或尚未完成判定；保留待辦，不得視為成功或失敗終態。"
+    },
+    "MISSING": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "必要資料缺漏且沒有可用值；不得沿用舊值。"
+    },
+    "CLOSED": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "依正式交易日曆確認市場休市。"
+    },
+    "NOT_APPLICABLE": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "欄位不適用，須附理由。"
+    },
+    "NOT_TESTED": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "該項檢查未執行，不得宣稱通過。"
+    },
+    "TOOL_READ_FAILURE": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "工具無法讀取來源頁／表格；不代表來源沒有資料。"
+    },
+    "SOURCE_NO_DATA": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "來源頁及表格可讀，但指定日期或標的沒有資料列。"
+    },
+    "MARKET_CLOSED": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "依官方交易日曆與證據確認市場休市；舊模組別名，輸出時正規化為 CLOSED。"
+    },
+    "SOURCE_UPDATE_PENDING": {
+      "terminal": false,
+      "usable": false,
+      "meaning": "來源端更新尚未完成；不可視為資料已讀取或來源無資料。"
+    },
+    "UNVERIFIED": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "交付／頁面狀態尚未完成驗證，不可宣稱已交付。"
+    },
+    "STATE_STORE_MISSING": {
+      "terminal": true,
+      "usable": false,
+      "meaning": "必要狀態紀錄不存在；屬流程完整性錯誤，不得當作市場資料狀態。"
+    }
   },
   "rules": [
     "44 項每項必須有數值或明確狀態；狀態數量必須合計 44。",
@@ -17,5 +73,8 @@
     "PENDING 不可讓整個 Runner 崩潰；只阻止依賴該值的判斷或相應 REVIEW_READY Gate。",
     "空值不得轉為 0；不得以舊 Fixture 值填補本輪資料。",
     "使用者提供且可辨識商品、日期及值的截圖優先採用，記錄 USER_PROVIDED_SCREENSHOT 證據型態；不得宣稱為瀏覽器直讀。"
-  ]
+  ],
+  "normalization": {
+    "MARKET_CLOSED": "CLOSED"
+  }
 }
