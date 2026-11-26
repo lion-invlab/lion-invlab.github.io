@@ -89,8 +89,9 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
     if not content["political_scan"]["findings"] and not str(content["political_scan"].get("no_material_change_note") or "").strip():
         raise ValueError("Empty political scan requires no_material_change_note")
     for idx,finding in enumerate(content["political_scan"]["findings"]):
-        if finding.get("domain") not in DOMAINS or not finding.get("transmission") or not finding.get("source_url","").startswith(("https://","http://")):
-            raise ValueError(f"Political scan finding {idx} is missing domain, source or transmission")
+        source_url=str(finding.get("source_url") or "")
+        if finding.get("domain") not in DOMAINS or not finding.get("transmission") or not source_url.startswith("https://"):
+            raise ValueError(f"Political scan finding {idx} requires a recognized domain, HTTPS source and transmission")
         if not finding.get("published_at") or not finding.get("checked_at"):
             raise ValueError(f"Political scan finding {idx} requires publication and check timestamps")
     for layer in LAYERS:
