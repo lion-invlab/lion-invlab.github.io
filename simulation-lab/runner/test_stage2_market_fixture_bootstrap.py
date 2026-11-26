@@ -97,6 +97,9 @@ class BootstrapTests(unittest.TestCase):
         blank["risk"]["move"]["source"]["close_value"]=98.12
         rows=observation_rows(blank,pending=key)
         move=next(x for x in rows if (x["group"],x["name"])==key)
+        move["source_page_fetched"]=False
+        move["read_status"]="TOOL_READ_FAILURE"
+        move["status"]="TOOL_READ_FAILURE"
         move["field_evidence"]={"close":{"source_type":"USER_PROVIDED_SCREENSHOT",
             "evidence_path":"simulation-lab/input/screenshots/2026-11-26/move.png",
             "evidence_sha256":"a"*64,"value":"98.12"}}
