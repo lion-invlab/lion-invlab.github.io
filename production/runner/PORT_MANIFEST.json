@@ -8,7 +8,7 @@
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
       "status": "MAIN_PATCHED_UNIFIED_OFFICIAL_CLOSURE_EVIDENCE_CONTRACT",
-      "main_blob_sha": "4557c95c5ee8041231116ce937f784786d6f1076"
+      "main_blob_sha": "870ed3bbaf84bb04c095a4ec7942723f76bfa05f"
     },
     {
       "file": "stage2_screenshot_inputs.py",
@@ -91,8 +91,8 @@
     },
     {
       "file": "prepare_stage4_research_bundle.py",
-      "status": "MAIN_PATCHED_CLOSURE_EVIDENCE_STAGE4_HANDOFF",
-      "main_blob_sha": "2c07c18f3885f82dbec2aab0dba8b17566ae93ef"
+      "status": "MAIN_PATCHED_PER_ROW_CLOSURE_EVIDENCE_BINDING",
+      "main_blob_sha": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969"
     }
   ],
   "validation_tests_copied": [
@@ -127,7 +127,8 @@
     "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
     "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
     "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
+    "Stage 4 per-row CLOSED evidence binding and Stage 2 screenshot-priority guard were patched after the last validation start; fresh Main CI result is pending."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -147,12 +148,12 @@
     "capture_handoff": "AWAITING_EDITORIAL_INPUT",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
-    "builder_approval": "APPROVED_MAIN",
+    "builder_approval": "PENDING_NEW_EXACT_BLOB_APPROVAL",
     "last_validation": {
-      "workflow_run_id": 45824747088,
-      "head_sha": "9c779455278d3bde84abe70324dedf5cb0db626d",
-      "conclusion": "success",
-      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings tests, full candidate Builder fixture, mother-owned DOM contract; capture/build skipped. Predates latest Stage 4-6 handoff hardening and dedicated Stage 5/6 tests."
+      "workflow_run_id": 45903290060,
+      "head_sha": "c084333a885950fb0fd7a2d666d87f55d35e6169",
+      "conclusion": "IN_PROGRESS",
+      "scope": "Main-only validation; capture/build skipped. Does not validate commit 3050348 or any real-data E2E."
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
@@ -168,7 +169,7 @@
     {
       "file": "prepare_stage4_research_bundle.py",
       "purpose": "consolidate Stage1-3 evidence, market snapshot, calendars, earnings and screenshot SHA into a Run-bound Stage4 editorial packet",
-      "main_blob_sha": "d57346d75673b75387a6a0d0d22df7f58355d0f2",
+      "main_blob_sha": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
