@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "report_date": "2026-11-26",
+  "trading_date": "2026-11-25",
+  "draft_status": "WAITING_FOR_RAW_PNG_FILES_IN_SIMULATION_CHECKOUT",
+  "note": "Inactive draft only. Do not rename to the active market-screenshot-observations-2026-11-26.json until the three original PNG files exist at the evidence_path values below and their SHA-256 values are rechecked by load_screenshot_bundle.",
+  "observations": [
+    {
+      "group": "risk",
+      "name": "move",
+      "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+      "data_date": "2026-11-25",
+      "instrument_identity": "Merrill Lynch Option Volatility Estimate (INDEXNYSEGIS: MOVE)",
+      "captured_at": "2026-11-26T06:47:00+08:00",
+      "quote_timestamp": "2026-11-25 16:17 GMT-5",
+      "fields": {
+        "close": {
+          "value": "97.54",
+          "field_name": "Price",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223709).png",
+          "evidence_sha256": "24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158",
+          "captured_at": "2026-11-26T06:47:00+08:00",
+          "quote_timestamp": "2026-11-25 16:17 GMT-5"
+        },
+        "change": {
+          "value": "-1.32%",
+          "field_name": "Change %",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223709).png",
+          "evidence_sha256": "24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158",
+          "captured_at": "2026-11-26T06:47:00+08:00",
+          "quote_timestamp": "2026-11-25 16:17 GMT-5"
+        },
+        "open": {
+          "value": "99.32",
+          "field_name": "Open",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223709).png",
+          "evidence_sha256": "24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158",
+          "captured_at": "2026-11-26T06:47:00+08:00",
+          "quote_timestamp": "2026-11-25 16:17 GMT-5"
+        },
+        "high": {
+          "value": "102.73",
+          "field_name": "High",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223709).png",
+          "evidence_sha256": "24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158",
+          "captured_at": "2026-11-26T06:47:00+08:00",
+          "quote_timestamp": "2026-11-25 16:17 GMT-5"
+        },
+        "low": {
+          "value": "97.40",
+          "field_name": "Low",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223709).png",
+          "evidence_sha256": "24840d833af6c9818b90890ebd7e1de1afc14b6ace4c1ad600c9cffc8db80158",
+          "captured_at": "2026-11-26T06:47:00+08:00",
+          "quote_timestamp": "2026-11-25 16:17 GMT-5"
+        }
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "香港恆生指數",
+      "source_url": "https://www.investing.com/indices/hang-sen-40-historical-data",
+      "data_date": "2026-11-25",
+      "instrument_identity": "Hang Seng Index (香港恆生指數)",
+      "captured_at": "2026-11-26T06:38:00+08:00",
+      "fields": {
+        "close": {
+          "value": "21966.01",
+          "field_name": "價格",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223827).png",
+          "evidence_sha256": "1935563386128bb080cb56b3c583aa310789420b14729b448c6aa34cd63e4a29",
+          "captured_at": "2026-11-26T06:38:00+08:00"
+        },
+        "change": {
+          "value": "-1.14%",
+          "field_name": "升跌率 %",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223845).png",
+          "evidence_sha256": "64fa6f1641ca59f45bb628bb5945fdc1e396a8bb6c1ea75763751e00da13b523",
+          "captured_at": "2026-11-26T06:38:00+08:00"
+        },
+        "open": {
+          "value": "22252.81",
+          "field_name": "開市",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223827).png",
+          "evidence_sha256": "1935563386128bb080cb56b3c583aa310789420b14729b448c6aa34cd63e4a29",
+          "captured_at": "2026-11-26T06:38:00+08:00"
+        },
+        "high": {
+          "value": "22507.83",
+          "field_name": "高",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223827).png",
+          "evidence_sha256": "1935563386128bb080cb56b3c583aa310789420b14729b448c6aa34cd63e4a29",
+          "captured_at": "2026-11-26T06:38:00+08:00"
+        },
+        "low": {
+          "value": "21915.88",
+          "field_name": "低",
+          "evidence_path": "simulation-lab/input/screenshots/2026-11-26/image(20261125-223845).png",
+          "evidence_sha256": "64fa6f1641ca59f45bb628bb5945fdc1e396a8bb6c1ea75751e00da13b523",
+          "captured_at": "2026-11-26T06:38:00+08:00"
+        }
+      }
+    }
+  ]
+}
