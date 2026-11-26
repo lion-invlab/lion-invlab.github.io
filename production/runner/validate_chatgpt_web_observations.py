@@ -65,8 +65,20 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         group, name = key
         source = expected[key]
         raw = dict(by_key[key])
-        if raw.get("source_url") != source.get("url"):
-            raise ValueError(f"{group}/{name}: source URL does not match fixture primary URL")
+        method = raw.get("read_method")
+        approved_urls={source.get("url"),*(source.get("approved_primary_urls") or []),*(source.get("approved_backup_urls") or [])}
+        if raw.get("source_url") not in approved_urls:
+            raise ValueError(f"{group}/{name}: source URL is not in the approved primary/backup list")
+        if group=="risk" and name=="fear_greed":
+            if method=="CNN_OFFICIAL_CURRENT_DASHBOARD" and raw.get("source_url") not in (source.get("approved_primary_urls") or []):
+                raise ValueError("CNN current dashboard must use an approved CNN official URL")
+            if method=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE" and raw.get("source_url") not in (source.get("approved_backup_urls") or []):
+                raise ValueError("Fear & Greed historical-page fallback must use an approved provider backup URL")
+            if method=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
+                raw["source_role"]="BACKUP_1"
+                raw["evidence_source_url"]=raw.get("source_url")
+            elif method=="CNN_OFFICIAL_CURRENT_DASHBOARD":
+                raw["source_role"]="PRIMARY"
         target_date = source.get("data_date")
         if raw.get("target_date") != target_date:
             raise ValueError(f"{group}/{name}: target date mismatch")
@@ -78,8 +90,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         if not move_tool_failure and (not raw.get("instrument_identity") or not _identity_matches(group, name, raw.get("instrument_identity"))):
             raise ValueError(f"{group}/{name}: instrument identity not independently matched")
 
-        method = raw.get("read_method")
-        if method in ("CHATGPT_WEB_OPEN_HISTORICAL_PAGE", "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"):
+        if method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
             value_field = raw.get("observed_value_field")
             change_field = raw.get("observed_change_field")
             headers = set(raw.get("observed_headers") or [])
@@ -154,32 +165,48 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 if method == "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"
                 else "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
             )
-        elif method == "CNN_OFFICIAL_PREVIOUS_CLOSE":
+        elif method == "CNN_OFFICIAL_CURRENT_DASHBOARD":
             if group != "risk" or name != "fear_greed":
-                raise ValueError(f"{group}/{name}: CNN JSON method is only valid for Fear & Greed")
-            if raw.get("data_endpoint_url") != CNN_ENDPOINT or raw.get("http_status") != 200:
-                raise ValueError("CNN official API endpoint evidence missing")
-            if raw.get("status") != "VERIFIED":
-                raise ValueError("CNN official previous_close observation is not VERIFIED")
-            raw["read_status"] = "API_RESPONSE_READ_SUCCESS"
-            if not re.fullmatch(r"[0-9a-f]{64}", str(raw.get("raw_response_sha256") or "")):
-                raise ValueError("CNN official response SHA-256 missing or malformed")
-            if raw.get("observed_value_field") != "fear_and_greed.previous_close":
-                raise ValueError("CNN previous_close field mapping mismatch")
-            if raw.get("observed_change_field") != "derived_from_fear_and_greed.previous_close_using_cnn_bands":
-                raise ValueError("CNN previous_close band mapping mismatch")
-            if raw.get("previous_close_target_date") != target_date:
-                raise ValueError("CNN previous_close target session date mismatch")
-            headline_timestamp = raw.get("source_timestamp_utc")
-            if not headline_timestamp or datetime.fromisoformat(headline_timestamp.replace("Z", "+00:00")).date().isoformat() <= target_date:
-                raise ValueError("CNN previous_close timestamp does not post-date target session")
-            raw["source_page_fetched"] = True
-            raw["provenance"] = "CURRENT_CNN_OFFICIAL_API_OBSERVATION"
+                raise ValueError(f"{group}/{name}: CNN dashboard method is only valid for Fear & Greed")
+            if raw.get("source_url") not in (source.get("approved_primary_urls") or []):
+                raise ValueError("CNN current dashboard URL is not in the approved official URL list")
+            if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
+                raise ValueError("CNN current dashboard page was not read successfully")
+            if raw.get("observed_value_field") != "Current Score" or raw.get("observed_change_field") != "Current Band":
+                raise ValueError("CNN current dashboard must map Current Score and Current Band")
+            headers=set(raw.get("observed_headers") or [])
+            if not {"Current Score","Current Band"}.issubset(headers):
+                raise ValueError("CNN current dashboard field headers are missing")
+            if not raw.get("web_reader_ref") or not isinstance(raw.get("web_line_start"),int) or not isinstance(raw.get("web_line_end"),int):
+                raise ValueError("CNN current dashboard requires direct web reader citation and line range")
+            if raw.get("web_line_start")<0 or raw.get("web_line_end")<raw.get("web_line_start"):
+                raise ValueError("CNN current dashboard web line range is invalid")
+            try:
+                score=float(raw.get("observed_value"))
+            except (TypeError,ValueError):
+                raise ValueError("CNN current dashboard score must be numeric")
+            if not 0<=score<=100:
+                raise ValueError("CNN current dashboard score must be between 0 and 100")
+            valid_bands={"Extreme Fear","Fear","Neutral","Greed","Extreme Greed"}
+            if str(raw.get("observed_change") or "") not in valid_bands:
+                raise ValueError("CNN current dashboard sentiment band is invalid")
+            if not raw.get("source_timestamp_utc"):
+                raise ValueError("CNN current dashboard Last updated timestamp is required")
+            timestamp=datetime.fromisoformat(raw["source_timestamp_utc"].replace("Z","+00:00"))
+            if timestamp.tzinfo is None or timestamp.astimezone(timezone.utc)>captured.astimezone(timezone.utc)+timedelta(minutes=5):
+                raise ValueError("CNN current dashboard Last updated timestamp is invalid")
+            row_text=str(raw.get("observed_row_text") or "")
+            if target_date not in row_text and timestamp.astimezone(timezone.utc).date().isoformat()!=target_date:
+                raise ValueError("CNN current dashboard does not match the target trading date")
+            raw["source_role"]="PRIMARY"
+            raw["read_status"]="PAGE_CONTENT_READ_SUCCESS"
+            raw["source_page_fetched"]=True
+            raw["provenance"]="CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION"
         else:
             raise ValueError(f"{group}/{name}: unsupported read method {method!r}")
 
         is_fear_greed = group == "risk" and name == "fear_greed"
-        is_cnn_official = method == "CNN_OFFICIAL_PREVIOUS_CLOSE"
+        is_cnn_official = method == "CNN_OFFICIAL_CURRENT_DASHBOARD"
         is_fear_greed_backup = is_fear_greed and method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
         expected_value = source.get("score_value") if is_fear_greed else _expected_value(source)
         if is_fear_greed:
