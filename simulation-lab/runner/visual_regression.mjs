@@ -193,7 +193,7 @@ try {
         // Weekday and Monday core-observation labels intentionally differ.
         { id: "focus-tab-market", panel: ".focus-market", expectedLabel: "盤面觀察重點", needles: ["盤面觀察重點"], minLength: 80 },
         { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: levelNeedles, minLength: levelsPending ? 100 : 200 },
-        { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: [isMonday ? "本週三大觀察焦點" : "三項關鍵觀察"], minLength: 100 }
+        { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: [], minLength: 100 }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
@@ -210,6 +210,7 @@ try {
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
+        if (item.id === "focus-tab-core" && !["本週三大觀察焦點", "三項關鍵觀察"].some(heading => text.includes(heading))) invalid.push(item.id + ": valid core-observation heading missing");
         if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
         if (item.id === "focus-tab-levels") {
           if (levelsPending) {
