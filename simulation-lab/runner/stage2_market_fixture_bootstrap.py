@@ -203,7 +203,9 @@ def main():
     source=json.loads(Path(args.data).read_text(encoding="utf-8"))
     if args.mode=="blank": result=blank_fixture(source)
     else:
-        payload=json.loads(Path(args.observations).read_text(encoding="utf-8"))
+        observation_path=Path(args.observations)
+        payload=json.loads(observation_path.read_text(encoding="utf-8"))
+        payload["bundle_sha256"]=hashlib.sha256(observation_path.read_bytes()).hexdigest()
         result=populate_fixture(source,payload)
     path=Path(args.output); path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
