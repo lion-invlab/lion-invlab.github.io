@@ -255,5 +255,7 @@ def main():
     assert backup_row["browser_observation_record"]["expected_source_raw_value"] == "17"
 
     print("PASS: synthetic test-only current-run observation bundle exercises the positive manifest path")
+    from test_stage2_field_provenance import main as test_stage2_field_provenance
+    test_stage2_field_provenance()
 
 if __name__=="__main__": main()
