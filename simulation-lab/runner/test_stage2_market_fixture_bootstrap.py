@@ -52,8 +52,20 @@ def observation_rows(data, pending=None):
 class BootstrapTests(unittest.TestCase):
     def test_blank_removes_all_previous_market_values(self):
         original=fixture()
+        original["risk"]["move"]["source"].update({
+            "previous_close":98.84,"open":"101.14","high":"101.27","low":"98.79",
+            "screenshot_sha256":"a"*64,"screenshot_capture_time_taipei":"2026-11-25T06:47:00+08:00",
+            "user_screenshot_observation":{"value":97.54,"change":-1.30,"change_percent":-1.32,
+                "evidence_file":"image(20261125-223709).png","evidence_sha256":"b"*64},
+            "quote_timestamp_source":"2026-11-24 16:17 GMT-5",
+        })
         blank=blank_fixture(original)
         self.assertEqual(blank["stage2_market_bootstrap"]["preexisting_market_values_used"],False)
+        move_source=blank["risk"]["move"]["source"]
+        for stale in ("previous_close","open","high","low","screenshot_sha256",
+                      "screenshot_capture_time_taipei","user_screenshot_observation","quote_timestamp_source"):
+            self.assertNotIn(stale,move_source)
+        self.assertNotIn("97.54",move_source["note"])
         for group in ("global_markets","bonds","fx","energy","metals","risk"):
             for item in blank[group].values():
                 self.assertEqual(item["display"],"待擷取")
