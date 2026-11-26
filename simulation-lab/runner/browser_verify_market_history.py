@@ -602,6 +602,7 @@ def main():
     ap.add_argument("--fixture",required=True); ap.add_argument("--report-date",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
     ap.add_argument("--concurrency",type=int,default=2)
+    ap.add_argument("--screenshot-bundle", help="Date-matched SHA-locked screenshot sidecar JSON; defaults to simulation-lab/input/market-screenshot-observations-REPORT_DATE.json")
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
@@ -640,12 +641,24 @@ def main():
     elif len(work) != 44:
         raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
-    observations,counts=asyncio.run(run(a,work,target))
-    result={"schema_version":"1.1","report_date":a.report_date,"trading_date":target,
-            "method":"PLAYWRIGHT_RENDERED_HISTORY_TABLE_BOUNDED_CONCURRENCY",
+    screenshot_bundle=Path(a.screenshot_bundle) if a.screenshot_bundle else Path(
+        f"simulation-lab/input/market-screenshot-observations-{a.report_date}.json"
+    )
+    screenshot_inputs=load_screenshot_bundle(screenshot_bundle,data,Path.cwd()) if screenshot_bundle.is_file() else {}
+    if a.only:
+        screenshot_inputs={key:value for key,value in screenshot_inputs.items() if key in {(work[0]["group"],work[0]["name"])}}
+    observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
+    screenshot_only_count=sum(1 for item in observations if item.get("read_method")=="USER_PROVIDED_SCREENSHOT")
+    mixed_count=sum(1 for item in observations if item.get("read_method")=="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE")
+    page_count=sum(1 for item in observations if item.get("source_page_fetched") is True)
+    result={"schema_version":"1.2","report_date":a.report_date,"trading_date":target,
+            "method":"SCREENSHOT_FIRST_WITH_INVESTING_HISTORICAL_PAGE_FIELD_COMPLETION",
             "row_count":len(observations),"concurrency":a.concurrency,"timeout_ms":a.timeout_ms,
+            "screenshot_bundle":str(screenshot_bundle) if screenshot_inputs else None,
+            "screenshot_only_count":screenshot_only_count,"mixed_field_count":mixed_count,
+            "historical_page_read_count":page_count,
             "status_counts":counts,"verified_count":sum(1 for item in observations if item.get("status")=="VERIFIED"),"observations":observations,
-            "warning":"Rows are VERIFIED only when the target date, instrument identity, mapped Price/Close and Change % fields, and both numeric values match. HTTP access failures are never treated as missing source data."}
+            "warning":"Screenshot fields are immutable, SHA-locked inputs and take precedence. Only missing required fields are completed from the Investing.com historical data table. Access failures are never treated as source no-data."}
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":str(out),"status_counts":counts,"row_count":len(observations)},ensure_ascii=False))
