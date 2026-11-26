@@ -11,7 +11,7 @@ from pathlib import Path
 from validate_market_snapshot import validate_market_snapshot
 
 
-FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
+FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
 
 
 def expect_error(fn, fragment):
