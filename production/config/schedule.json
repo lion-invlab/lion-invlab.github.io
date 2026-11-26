@@ -1,0 +1,46 @@
+{
+  "timezone": "Asia/Taipei",
+  "calendar_database": {
+    "local_time": "04:35",
+    "days": [
+      "MO",
+      "TU",
+      "WE",
+      "TH",
+      "FR"
+    ],
+    "workflow": "existing calendar updater",
+    "writes": [
+      "data/calendar/weeks/YYYY-Www.json"
+    ],
+    "exclusive_writer": true
+  },
+  "daily_report": {
+    "local_time": "05:25",
+    "days": [
+      "MO",
+      "TU",
+      "WE",
+      "TH",
+      "FR"
+    ],
+    "workflow": ".github/workflows/tac-production.yml",
+    "entrypoint": "production/runner/run_daily_report.py",
+    "exclusive_writer": true,
+    "report_date_timezone": "Asia/Taipei"
+  },
+  "chart3": {
+    "local_time": "05:30",
+    "days": [
+      "MO",
+      "TU",
+      "WE",
+      "TH",
+      "FR"
+    ],
+    "workflow": "existing Chart 3 updater",
+    "scope": "FRED/ALFRED series update only; must not compete with Stage 2 S&P 500 increment writer"
+  },
+  "cutover_status": "NOT_CUT_OVER",
+  "rule": "Do not change or enable schedules until Phase 5 real-data E2E passes and Phase 6 cutover is explicitly executed."
+}
