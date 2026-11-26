@@ -161,7 +161,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["change_display"],"待核實")
         self.assertEqual(item["source"]["verification_status"],"PENDING")
 
-    def test_official_market_closure_uses_dash_for_value_and_reason_for_change(self):
+    def test_rejects_non_official_calendar_host_even_with_https_and_text(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
         row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
@@ -170,6 +170,22 @@ class BootstrapTests(unittest.TestCase):
                     "market_calendar_status":"CLOSED","market_calendar_source_type":"OFFICIAL",
                     "market_calendar_date":"2026-11-25",
                     "market_calendar_url":"https://www.example.com/official-calendar",
+                    "market_calendar_evidence":"This page claims the market is closed."})
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        item=result["global_markets"]["global_markets_0"]
+        self.assertEqual(item["display"],"待核實")
+        self.assertEqual(item["change_display"],"待核實")
+        self.assertEqual(item["source"]["verification_status"],"PENDING")
+
+    def test_official_market_closure_uses_dash_for_value_and_reason_for_change(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
+        row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+                    "observed_value":None,"observed_change":None,
+                    "market_calendar_status":"CLOSED","market_calendar_source_type":"OFFICIAL",
+                    "market_calendar_date":"2026-11-25",
+                    "market_calendar_url":"https://www.nyse.com/markets/hours-calendars",
                     "market_calendar_evidence":"Official calendar marks this date as a non-session."})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         item=result["global_markets"]["global_markets_0"]
