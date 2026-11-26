@@ -74,6 +74,11 @@ def main() -> None:
     )
     assert pending_receipt["stage_2_market"]["source_verification_status"] == "PENDING"
     assert pending_receipt["stage_2_market"]["pending_observation_count"] == 44
+    # The frozen receipt binds the exact Fixture, 44-row Manifest and metadata audit.
+    assert pending_receipt["fixture"]["sha256"] == "1" * 64
+    assert pending_receipt["stage_2_market"]["audit_sha256"] == "2" * 64
+    assert pending_receipt["stage_2_market"]["manifest_sha256"] == "3" * 64
+    assert pending_receipt["stage_2_market"]["numeric_values_reconciled_count"] == 0
 
     # Builder must not leak fixture-carried quote values when current-run source
     # observations are unavailable.
