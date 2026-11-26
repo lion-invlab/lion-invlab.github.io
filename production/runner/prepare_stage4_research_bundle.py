@@ -66,6 +66,8 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
     if stage2_summary.get("market_snapshot_sha256")!=snapshot_sha:
         raise ValueError("Research bundle market snapshot digest differs from Stage 2 receipt")
     required={
+      "run-context.json":run_dir/"run-context.json",
+      "stage1-receipt.json":run_dir/"stage1-receipt.json",
       "report-data.json":run_dir/"report-data.json",
       "stage2-market-snapshot-receipt.json":run_dir/"stage2-market-snapshot-receipt.json",
       "stage2-run-summary.json":run_dir/"stage2-run-summary.json",
