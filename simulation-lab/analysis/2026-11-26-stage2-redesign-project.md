@@ -190,3 +190,9 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 正式 44 項 Stage 2 擷取、Observation bundle／Manifest／Receipt 實際產出、Chart 3 寫入與下游防重抓 E2E 尚待執行。每日關鍵價位 `collect_key_levels_ohlc.py` 維持原樣，Yahoo Finance 獨立 OHLC 流程未被修改。
 - 正式首頁 `main/index.html`、`main` workflow、母版與正式資料均未修改。Simulation workflow 與 main/default workflow 的 mirror SHA 保持一致。
 - **專案狀態：** `IMPLEMENTATION_IN_PROGRESS`；目前是程式回歸測試通過，不等同 44 項實際行情流程驗收或正式早報發布。
+
+### 2026-11-26｜Stage 2 回歸套件已接入並通過
+
+- 將 `test_market_source_verification_manifest.py`（含 `test_stage2_field_provenance.py` 與 `test_stage2_screenshot_inputs.py`）、`test_validate_market_snapshot.py`、`test_prebuild_stage_inputs.py` 接入既有 Simulation isolated-smoke 的實際測試入口；不修改 main／Simulation workflow mirror。
+- Commit `4b1690e1f44a1c75ab52ae3cccbd13e065369f30` 的 GitHub Actions `TAC isolated simulation lab` 已回報 success。執行日誌明確顯示：截圖 SHA／日期阻擋、截圖優先、純截圖、混合來源、CFD 證據 Gate、44 列 Receipt、Observation bundle 交叉綁定等測試全部 PASS。
+- 這是 Stage 2 程式回歸測試通過；仍不是實際 44 項市場行情擷取或當日截圖 Sidecar 的 E2E。正式資料驗收仍需有當輪 44 項輸出與真實圖片證據。
