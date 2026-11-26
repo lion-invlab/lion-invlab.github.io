@@ -1,10 +1,8 @@
-# TAC 2026-11-24 review build trigger; simulation branch only.
-# Explicit report build dispatch marker.
+# TAC daily report build; workflow definition is mirrored on main/default and Simulation.
+# It executes from Simulation inputs and publishes only QA-passed review artifacts to main/preview.
 name: TAC isolated simulation lab
-# TAC daily report workflow: every Simulation-branch push runs the single pipeline.
-# Simulation-only: this workflow never writes main/preview or main/index.html.
 # No path filters: source notes, fixtures, workflow fixes and report inputs must not silently miss execution.
-# Full report build is selected by [build-tac-report:YYYY-MM-DD] in the commit message.
+# Full report build is selected by [build-tac-report:YYYY-MM-DD] in the Simulation commit message.
 
 on:
   push:
@@ -13,19 +11,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "build：組裝並驗收；qa-only：只驗收既有同日 preview，不抓資料、不重建"
+        description: "執行完整當日早報製作、QA 與 main/preview 交付"
         required: true
         default: build
         type: choice
         options:
           - build
-          - qa-only
       report_date:
-        description: "台灣報告日期 YYYY-MM-DD；build 可留白使用最新 fixture，qa-only 必填"
-        required: false
-        type: string
-      report_path:
-        description: "qa-only 目標；必須是 preview/YYYY-MM-DD-simulation.html"
+        description: "台灣報告日期 YYYY-MM-DD；可留白使用最新 fixture"
         required: false
         type: string
       run_optional_probes:
@@ -35,7 +28,7 @@ on:
         type: boolean
 
 permissions:
-  actions: read
+  actions: write
   contents: write
 
 concurrency:
@@ -72,6 +65,20 @@ jobs:
           set -euo pipefail
           echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
           echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA" >> "$GITHUB_ENV"
+
+      - name: Verify default-branch workflow mirror matches Simulation workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          MAIN_WORKFLOW_SHA="$(git show origin/main:.github/workflows/tac-simulation-lab.yml | git hash-object --stdin)"
+          SIM_WORKFLOW_SHA="$(git hash-object .github/workflows/tac-simulation-lab.yml)"
+          test "$MAIN_WORKFLOW_SHA" = "$SIM_WORKFLOW_SHA" || {
+            echo "Main/default workflow and Simulation workflow copies differ; refusing an unreviewed pipeline definition." >&2
+            echo "main=$MAIN_WORKFLOW_SHA simulation=$SIM_WORKFLOW_SHA" >&2
+            exit 1
+          }
+          echo "Workflow mirror SHA verified: $SIM_WORKFLOW_SHA"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -145,7 +152,7 @@ jobs:
           python simulation-lab/runner/probe_ortex_test.py --output simulation-lab/output/ortex-test-probe.json
 
       - name: Test Investing.com earnings page parser
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/investing_earnings_probe.py --self-test --output /tmp/investing-probe.json --archive-dir /tmp/investing-raw
 
@@ -155,7 +162,7 @@ jobs:
         run: python simulation-lab/runner/investing_earnings_probe.py --output simulation-lab/output/investing-earnings-probe.json --archive-dir simulation-lab/output/investing-raw
 
       - name: Test append-only PIT consensus snapshot store
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/test_consensus_snapshot_store.py
 
@@ -163,13 +170,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/browser_verify_market_history.py simulation-lab/runner/validate_chatgpt_web_observations.py simulation-lab/runner/test_validate_chatgpt_web_observations.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/audit_simulation_artifact_bundle.py simulation-lab/runner/test_simulation_artifact_bundle.py
+          python -m py_compile simulation-lab/runner/publish_main_preview.py simulation-lab/runner/test_publish_main_preview.py simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/browser_verify_market_history.py simulation-lab/runner/validate_chatgpt_web_observations.py simulation-lab/runner/test_validate_chatgpt_web_observations.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/audit_simulation_artifact_bundle.py simulation-lab/runner/test_simulation_artifact_bundle.py
           node --check simulation-lab/runner/visual_regression.mjs
           node --check simulation-lab/runner/test_market_analysis_browser.mjs
           node --check simulation-lab/runner/interaction_smoke.mjs
 
       - name: Run deterministic self-tests
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -192,6 +199,7 @@ jobs:
           python simulation-lab/runner/test_sim14_builder_approval.py
           python simulation-lab/runner/test_simulation_workflow_delivery_gate.py
           python simulation-lab/runner/test_simulation_artifact_bundle.py
+          python simulation-lab/runner/test_publish_main_preview.py
           python simulation-lab/runner/test_validate_market_snapshot.py
           python simulation-lab/runner/test_market_source_verification_manifest.py
           python simulation-lab/runner/test_validate_chatgpt_web_observations.py
@@ -548,54 +556,6 @@ jobs:
           print(approval)
           PY
 
-      - name: Resolve QA-only existing review target
-        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'qa-only'
-        shell: bash
-        env:
-          INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
-          INPUT_REPORT_PATH: ${{ github.event.inputs.report_path }}
-        run: |
-          set -euo pipefail
-          [[ -n "${INPUT_REPORT_DATE}" ]] || { echo "qa-only requires report_date"; exit 1; }
-          python - "${INPUT_REPORT_DATE}" <<'PY'
-          from datetime import date
-          import sys
-          d=date.fromisoformat(sys.argv[1])
-          if d.weekday()>4: raise SystemExit("Weekend report date is not allowed")
-          PY
-          REPORT_DATE="${INPUT_REPORT_DATE}"
-          EXPECTED_PATH="preview/${REPORT_DATE}-simulation.html"
-          REPORT_OUTPUT="${INPUT_REPORT_PATH:-${EXPECTED_PATH}}"
-          [[ "${REPORT_OUTPUT}" == "${EXPECTED_PATH}" ]] || { echo "qa-only path must be ${EXPECTED_PATH}"; exit 1; }
-          TEMPLATE_KEY="$(python - "${REPORT_DATE}" <<'PY'
-          from datetime import date
-          import sys
-          print("monday" if date.fromisoformat(sys.argv[1]).weekday()==0 else "weekdays")
-          PY
-          )"
-          if [[ "${TEMPLATE_KEY}" == "weekdays" ]]; then
-            MOTHER_FILE="simulation-lab/output/weekday-mother-template.html"
-          else
-            MOTHER_FILE="simulation-lab/output/monday-mother-template.html"
-          fi
-          EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
-          import json,sys
-          m=json.loads(open("simulation-lab/baseline/mother-template-manifest.json",encoding="utf-8").read())
-          print(m["templates"][sys.argv[1]]["simulation_blob_sha"])
-          PY
-          )"
-          test -s "${REPORT_OUTPUT}" || { echo "Existing review HTML not found: ${REPORT_OUTPUT}"; exit 1; }
-          {
-            echo "REPORT_DATE=${REPORT_DATE}"
-            echo "REPORT_OUTPUT=${REPORT_OUTPUT}"
-            echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json"
-            echo "TEMPLATE_KEY=${TEMPLATE_KEY}"
-            echo "MOTHER_FILE=${MOTHER_FILE}"
-            echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}"
-            echo "QA_ONLY=true"
-          } >> "$GITHUB_ENV"
-          echo "QA-only target locked: ${REPORT_OUTPUT}"
-
       - name: Capture released earnings price reactions for the selected report date
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
@@ -656,23 +616,23 @@ jobs:
           echo "W47 NVDA consensus overlay applied; Builder SHA unchanged; output SHA=$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
 
       - name: Render isolated five-layer browser fixtures
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/render_market_analysis_test_pages.py
 
       - name: Full candidate Builder integration with synthetic fixtures only
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: python simulation-lab/runner/test_full_candidate_builder.py
 
       - name: Set up Node for browser QA
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install and verify Traditional Chinese fonts for visual QA
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -699,20 +659,20 @@ jobs:
           echo "${font_match}" | grep -Eqi 'Noto Sans CJK TC'
 
       - name: Install Playwright Chromium for browser QA
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: |
           npm install --no-save playwright
           # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
           npx playwright install chromium
       - name: Verify five-layer analysis responsive layout in both mothers
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs
 
       - name: Verify full candidate Builder outputs in both mother scenarios
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: node simulation-lab/runner/test_market_analysis_browser.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/candidate-validation/2026-11-20-candidate.html
       - name: Test navigation tabs accordions and Fed agenda at all required widths
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -725,7 +685,7 @@ jobs:
 
       # Includes the summary section-heading font-size parity audit at desktop, tablet and mobile widths.
       - name: Compare review against the date-selected approved mother
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -738,15 +698,15 @@ jobs:
           node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
       - name: Verify mother-owned DOM structure unchanged
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "${MOTHER_FILE}" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
 
       - name: Independently validate exact review artifact and provenance
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
 
       - name: Validate date, authoritative calendar counts, 44 indicators and news shape
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
           import json, sys
@@ -791,7 +751,7 @@ jobs:
           PY
 
       - name: Recheck pre-build receipt SHA after Builder
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
@@ -807,24 +767,23 @@ jobs:
           echo "Pre-build receipt SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
 
       - name: Seal QA evidence to the exact review HTML blob
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
           set -euo pipefail
           python simulation-lab/runner/seal_qa_evidence.py "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" "${PATCH_RECEIPT}" "${PATCHED_OUTPUT}"
 
       - name: Keep the canonical QA artifact isolated on the simulation branch before the explicit Stage 6 handoff
-        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: test -s "${REPORT_OUTPUT}"
 
-      - name: Persist QA-passed source review HTML and QA sidecar on simulation branch
+      - name: Persist Simulation receipts and Chart 3 evidence only (no report HTML on Simulation branch)
         if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
           OVERLAY_RECEIPT_ARCHIVE="simulation-lab/runs/last-week-consensus-overlay-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
           test -s "${PATCH_RECEIPT}" || { echo "W47 consensus overlay receipt missing; refusing QA persistence" >&2; exit 1; }
           mkdir -p simulation-lab/runs
@@ -862,8 +821,6 @@ jobs:
           mkdir -p simulation-lab/runs
           cp "${SOURCE_WORKLIST}" "${SOURCE_WORKLIST_ARCHIVE}"
           git add -f "${SOURCE_WORKLIST_ARCHIVE}"
-          REVIEW_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
-          EVIDENCE_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
           AUDIT_SOURCE="simulation-lab/output/market-snapshot-audit.json"
           AUDIT_ARCHIVE="simulation-lab/runs/market-snapshot-audit-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
           if [[ -s "${AUDIT_SOURCE}" ]]; then
@@ -881,7 +838,7 @@ jobs:
             echo "No review HTML or audit evidence changes to persist"
             exit 0
           fi
-          git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
+          git commit -m "[skip ci] Store TAC Simulation QA receipts ${REPORT_DATE}"
           PUSHED=false
           # Retry a safe fetch/rebase/push if another simulation writer advances the branch.
           # Never force-push; revalidate the exact report and evidence after every rebase.
@@ -897,10 +854,6 @@ jobs:
               test "${CHART3_SHA_BEFORE[${file}]}" = "${RECHECK_CHART3_SHA}" || { echo "Chart 3 data SHA changed during persistence: ${file}" >&2; exit 1; }
             done
             python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
-            RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
-            RECHECK_EVIDENCE_SHA="$(git show "HEAD:${REPORT_EVIDENCE}" | git hash-object --stdin)"
-            test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence" >&2; exit 1; }
-            test "${EVIDENCE_BLOB_SHA}" = "${RECHECK_EVIDENCE_SHA}" || { echo "QA evidence SHA changed during persistence" >&2; exit 1; }
             if [[ -n "${AUDIT_ARCHIVE}" ]]; then
               RECHECK_AUDIT_SHA="$(git show "HEAD:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
               test "${AUDIT_BLOB_SHA}" = "${RECHECK_AUDIT_SHA}" || { echo "Market audit SHA changed during persistence" >&2; exit 1; }
@@ -909,7 +862,7 @@ jobs:
             test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence" >&2; exit 1; }
             RECHECK_OVERLAY_RECEIPT_SHA="$(git show "HEAD:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
             test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${RECHECK_OVERLAY_RECEIPT_SHA}" || { echo "W47 overlay receipt SHA changed during persistence" >&2; exit 1; }
-            echo "QA-passed review artifact ready for safe push; attempt=${attempt}; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
+            echo "Simulation evidence ready for safe push; attempt=${attempt}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
             if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"; then
               PUSHED=true
               break
@@ -928,10 +881,6 @@ jobs:
             test "${CHART3_SHA_BEFORE[${file}]}" = "${REMOTE_CHART3_SHA}" || { echo "Remote Chart 3 read-back SHA mismatch: ${file}" >&2; exit 1; }
             echo "Remote Chart 3 read-back PASS: ${file} sha=${REMOTE_CHART3_SHA}"
           done
-          REMOTE_HTML_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_OUTPUT}" | git hash-object --stdin)"
-          REMOTE_EVIDENCE_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_EVIDENCE}" | git hash-object --stdin)"
-          test "${REVIEW_BLOB_SHA}" = "${REMOTE_HTML_SHA}" || { echo "Remote preview HTML read-back SHA mismatch"; exit 1; }
-          test "${EVIDENCE_BLOB_SHA}" = "${REMOTE_EVIDENCE_SHA}" || { echo "Remote QA sidecar read-back SHA mismatch"; exit 1; }
           if [[ -n "${AUDIT_ARCHIVE}" ]]; then
             REMOTE_AUDIT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
             test "${AUDIT_BLOB_SHA}" = "${REMOTE_AUDIT_SHA}" || { echo "Remote market audit SHA read-back mismatch"; exit 1; }
@@ -940,8 +889,130 @@ jobs:
           test "${PREBUILD_RECEIPT_SHA}" = "${REMOTE_PREBUILD_SHA}" || { echo "Remote pre-build receipt SHA read-back mismatch"; exit 1; }
           REMOTE_OVERLAY_RECEIPT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
           test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${REMOTE_OVERLAY_RECEIPT_SHA}" || { echo "Remote W47 overlay receipt read-back SHA mismatch"; exit 1; }
-          echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
+          echo "Simulation evidence remote read-back PASS; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
 
+
+      - name: Publish REVIEW_READY report to main preview and verify GitHub Pages
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          MAIN_WORKTREE="$RUNNER_TEMP/tac-main-preview"
+          git worktree add --detach "$MAIN_WORKTREE" origin/main
+
+          python simulation-lab/runner/publish_main_preview.py \
+            --source-html "$REPORT_OUTPUT" \
+            --source-qa "$REPORT_EVIDENCE" \
+            --main-root "$MAIN_WORKTREE" \
+            --report-date "$REPORT_DATE" \
+            --run-id "$GITHUB_RUN_ID" \
+            --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --trigger-commit "$GITHUB_SHA"
+
+          HTML_PATH="preview/${REPORT_DATE}-review.html"
+          QA_PATH="preview/${REPORT_DATE}-review.qa.json"
+          DELIVERY_PATH="preview/${REPORT_DATE}-review.delivery.json"
+          git -C "$MAIN_WORKTREE" config user.name "github-actions[bot]"
+          git -C "$MAIN_WORKTREE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$MAIN_WORKTREE" add -f -- "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH"
+          EXPECTED_PATHS="$(printf '%s\n' "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH" | sort)"
+          STAGED_PATHS="$(git -C "$MAIN_WORKTREE" diff --cached --name-only | sort)"
+          test "$STAGED_PATHS" = "$EXPECTED_PATHS" || {
+            echo "Main preview write set escaped the three-file whitelist." >&2
+            printf 'Expected:\n%s\nActual:\n%s\n' "$EXPECTED_PATHS" "$STAGED_PATHS" >&2
+            exit 1
+          }
+          git -C "$MAIN_WORKTREE" commit -m "Publish TAC review preview ${REPORT_DATE} (run $GITHUB_RUN_ID)"
+
+          PUSHED=false
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git -C "$MAIN_WORKTREE" rebase origin/main; then
+              git -C "$MAIN_WORKTREE" rebase --abort || true
+              echo "Main preview rebase conflict on attempt $attempt; refusing to overwrite main." >&2
+              exit 1
+            fi
+            CHANGED_PATHS="$(git -C "$MAIN_WORKTREE" diff --name-only origin/main HEAD | sort)"
+            test "$CHANGED_PATHS" = "$EXPECTED_PATHS" || {
+              echo "Main delivery commit contains paths outside the preview whitelist." >&2
+              printf '%s\n' "$CHANGED_PATHS" >&2
+              exit 1
+            }
+            if git -C "$MAIN_WORKTREE" push origin HEAD:refs/heads/main; then
+              PUSHED=true
+              break
+            fi
+            if [[ "$attempt" -eq 3 ]]; then
+              echo "Main preview push failed after 3 safe attempts; no force-push was attempted." >&2
+              exit 1
+            fi
+            sleep 2
+          done
+          test "$PUSHED" = true
+
+          git fetch origin main
+          MAIN_DELIVERY_COMMIT="$(git rev-parse origin/main)"
+          for path in "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH"; do
+            LOCAL_SHA="$(git -C "$MAIN_WORKTREE" hash-object "$path")"
+            REMOTE_SHA="$(git show "origin/main:$path" | git hash-object --stdin)"
+            test "$LOCAL_SHA" = "$REMOTE_SHA" || {
+              echo "Main preview remote read-back SHA mismatch: $path" >&2
+              exit 1
+            }
+            echo "Main preview remote read-back PASS: $path sha=$REMOTE_SHA"
+          done
+          echo "MAIN_DELIVERY_COMMIT=$MAIN_DELIVERY_COMMIT" >> "$GITHUB_ENV"
+
+          # GITHUB_TOKEN pushes do not automatically start other workflows.
+          # Explicitly dispatch the existing Pages workflow, then verify the actual public URL.
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+          PAGES_RUN_ID=""
+          for attempt in $(seq 1 60); do
+            RUNS="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow pages.yml --branch main --event workflow_dispatch --limit 10 --json databaseId,headSha,status,conclusion)"
+            PAGES_RUN_ID="$(printf '%s' "$RUNS" | python -c 'import json,sys; rows=json.load(sys.stdin); hits=[r for r in rows if r.get("headSha")==sys.argv[1]]; print(hits[0]["databaseId"] if hits else "")' "$MAIN_DELIVERY_COMMIT")"
+            if [[ -n "$PAGES_RUN_ID" ]]; then
+              PAGES_STATUS="$(gh run view "$PAGES_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status,conclusion --jq '.status + ":" + (.conclusion // "")')"
+              if [[ "$PAGES_STATUS" == "completed:success" ]]; then
+                break
+              elif [[ "$PAGES_STATUS" == completed:* ]]; then
+                echo "Pages deployment failed: $PAGES_STATUS" >&2
+                exit 1
+              fi
+            fi
+            sleep 10
+          done
+          test -n "$PAGES_RUN_ID" || { echo "No Pages workflow run found for main commit $MAIN_DELIVERY_COMMIT" >&2; exit 1; }
+          PAGES_STATUS="$(gh run view "$PAGES_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status,conclusion --jq '.status + ":" + (.conclusion // "")')"
+          test "$PAGES_STATUS" = "completed:success" || {
+            echo "Pages workflow did not complete successfully: $PAGES_STATUS" >&2
+            exit 1
+          }
+
+          PREVIEW_URL="https://lion-invlab.github.io/preview/${REPORT_DATE}-review.html"
+          PREVIEW_OK=false
+          for attempt in $(seq 1 36); do
+            if curl -fsS "$PREVIEW_URL" -o "$RUNNER_TEMP/tac-review-preview.html"; then
+              if grep -Fq "content=\"${REPORT_DATE}\"" "$RUNNER_TEMP/tac-review-preview.html"; then
+                PREVIEW_OK=true
+                break
+              fi
+            fi
+            sleep 10
+          done
+          test "$PREVIEW_OK" = true || {
+            echo "GitHub Pages deployment succeeded but the review URL did not serve the expected report date: $PREVIEW_URL" >&2
+            exit 1
+          }
+          {
+            echo "### Main preview delivery"
+            echo "- Main commit: \`$MAIN_DELIVERY_COMMIT\`"
+            echo "- Pages workflow run: \`$PAGES_RUN_ID\`"
+            echo "- Preview: $PREVIEW_URL"
+            echo "- HTML SHA: $(git show "origin/main:$HTML_PATH" | sha256sum | cut -d' ' -f1)"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Record isolated run metadata
         if: always()
@@ -994,11 +1065,11 @@ jobs:
             sleep 2
           done
 
-      - name: Upload simulation evidence
+      - name: Upload build and QA evidence (HTML is not committed to Simulation branch)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-simulation-${{ github.run_id }}-${{ github.run_attempt }}
+          name: tac-build-evidence-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             simulation-lab/output/
             ${{ env.REPORT_OUTPUT }}
@@ -1007,14 +1078,14 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      - name: Download uploaded simulation evidence for independent verification (retry run-scoped artifact visibility)
+      - name: Download uploaded build evidence for independent verification (retry run-scoped artifact visibility)
         if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          artifact_name="tac-simulation-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          artifact_name="tac-build-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           target="/tmp/tac-simulation-artifact"
           for attempt in 1 2 3 4 5 6 7 8; do
             rm -rf "${target}"
@@ -1029,7 +1100,7 @@ jobs:
           echo "Could not download ${artifact_name} after 8 attempts." >&2
           exit 1
 
-      - name: Verify downloaded simulation evidence bundle
+      - name: Verify downloaded build evidence bundle
         if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         shell: bash
         run: |
@@ -1058,7 +1129,7 @@ jobs:
         if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
         uses: actions/upload-artifact@v4
         with:
-          name: tac-simulation-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          name: tac-build-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
           path: simulation-lab/output/artifact-postupload-verification.json
           if-no-files-found: warn
           retention-days: 30
