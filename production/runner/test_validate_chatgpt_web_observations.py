@@ -17,7 +17,7 @@ from browser_verify_market_history import persist_fixture
 from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
 from stage2_move_retry import merge_move_retry_observation
 
-FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
+FIXTURE = Path("production/testdata/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
 FG_WEB_REF = "SYNTHETIC_TEST_ONLY"
 
