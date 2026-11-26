@@ -551,3 +551,12 @@
 - **阻塞行為**：若當日 schedule Capture 未啟動或失敗，接續任務回報 BLOCKED，保留任務啟用狀態，不得自動停用接續任務、不得改用 Stage 4 排程取代 Stage 1。
 - **保留的獨立任務**：04:35 行事曆資料庫更新與 05:30 Chart 3 更新仍維持各自職責，不得與早報主流程混成第二個早報入口。
 - **當前驗收限制**：雖已確認 workflow 內 Stage 1–3 的順序及雙 UTC cron 定義正確，但 2026-11-27 當日未找到 schedule Capture run；因此不能宣稱排程觸發已驗收。下一個工作日必須以真實 `event=schedule` run 驗證 Stage 1 起始、Stage 1–3 receipts、Stage 4–6 接續及 Main Preview。正式首頁仍須另行核准。
+
+
+## 2026-11-27 補充｜Stage 4 由 ChatGPT 接續執行，不使用外部模型 API
+
+- Stage 4 編輯內容的執行者已定為 ChatGPT 的 Main continuation automation「TAC Main 早報接續｜Stage 4–6」。它在當日 Stage 1–3 Capture 成功後讀取同 Run receipts／research bundle，直接產出綁定 Run ID、market snapshot SHA、research bundle SHA 的 editorial JSON；不呼叫外部 LLM API、不需要另行配置模型供應商 API key。
+- 因此，舊版計畫中「Stage 4 producer 尚待模型供應商／憑證授權」的描述不再適用於此執行架構。真正尚未驗證的是：在真實 schedule Capture 成功後，continuation automation 是否能完成當日研究、JSON 寫入、Stage 4–6 build 與 Main Preview E2E。
+- production/runner/PORT_MANIFEST.json 已同步記錄此 ChatGPT continuation worker；但這不代表 E2E 已通過，也不改變 Stage 5 Builder exact-blob approval gate。
+- **現存正式阻塞**：Main Builder 當前 blob 3e5a971d6d0a3ad3d41881b542580308276021f9 與歷史核准 blob 20eefe57d6f3b389157c01b8532cae3a69128a02 不一致，仍須對當前 exact blob 取得使用者核准；未核准前不得觸發 Stage 5/6 build。
+- **下一驗收順序**：先在下一個工作日取得真實 event=schedule Stage 1–3 Capture；再驗證 ChatGPT continuation 研究與 JSON；同時先完成 Builder 當前 blob 的核准流程，最後才可執行 Stage 4–6 E2E。不得為了趕進度跳過任一條件。
