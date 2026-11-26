@@ -167,7 +167,7 @@ def main():
     backup_close = move_source.get("close_value") or move_source.get("history_close")
     backup_change = move_source.get("daily_change_percent") or move_source.get("history_change")
     move_backup.update({
-        "attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+        "attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
         "source_role": "BACKUP_1",
         "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
         "instrument_identity": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
@@ -188,7 +188,7 @@ def main():
     backup_fixture = populate_fixture(blank_data, move_backup_result)
     assert backup_fixture["risk"]["move"]["source"]["verification_status"] == "BACKUP_VERIFIED"
     assert backup_fixture["risk"]["move"]["source"]["verified_source_role"] == "BACKUP_1"
-    assert backup_fixture["risk"]["move"]["source"]["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    assert backup_fixture["risk"]["move"]["source"]["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
 
     # The production web-bundle path performs only a one-row TradingView read when
     # Investing.com reports SOURCE_NO_DATA; the other 43 normalized observations stay untouched.
@@ -206,7 +206,7 @@ def main():
     assert merged_backup["move_backup_attempted"] is True
     assert merged_backup["verified_count"] == 43
     assert merged_move["source_role"] == "BACKUP_1"
-    assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
 
     # A readable TradingView page without the target session must remain SOURCE_UPDATE_PENDING,
     # retaining its page evidence rather than being mislabeled as a tool failure.
@@ -214,7 +214,7 @@ def main():
         "group": "risk", "name": "move", "source_url": move_source.get("url"),
         "target_date": move_source.get("data_date"), "status": "SOURCE_UPDATE_PENDING",
         "read_status": "SOURCE_UPDATE_PENDING", "source_role": "BACKUP_1",
-        "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+        "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
         "source_page_fetched": True, "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
         "page_body_excerpt": "History page loaded; target date not posted.",
         "attempt_history": [{"round": 1, "source_role": "BACKUP_1", "status": "TARGET_DATE_NOT_FOUND"}],
