@@ -159,7 +159,7 @@
     {
       "file": "prepare_stage4_research_bundle.py",
       "purpose": "consolidate Stage1-3 evidence, market snapshot, calendars, earnings and screenshot SHA into a Run-bound Stage4 editorial packet",
-      "main_blob_sha": "895302f7cc87ce3296e315ace6bd2dc5770e2944",
+      "main_blob_sha": "d57346d75673b75387a6a0d0d22df7f58355d0f2",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
