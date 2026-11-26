@@ -302,7 +302,8 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      # 2026-11-25: exact-date ChatGPT Web rows are accepted only after 44-row source/date/identity/value validation.
+      # SINGLE-PASS MARKET READ: this is the only production step allowed to open the 44 external market history pages.
+      # It captures and validates each instrument/date/field/value once; all later stages consume these saved observations.
       - name: Read and reconcile 44 current-run market history pages with ChatGPT Web or Playwright
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         id: market_observations
@@ -434,7 +435,8 @@ jobs:
               "output": str(output_path),
           }, ensure_ascii=False, indent=2))
           PY
-      - name: Build 44-row market metadata audit and current-run verification manifest
+      # No network/source reads here: reconcile the already captured observations against the fixture and seal the 44-row status register.
+      - name: Build 44-row manifest from captured observations (no source reads)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           set -euo pipefail
@@ -448,7 +450,8 @@ jobs:
             --observations simulation-lab/output/market-history-browser-observations.json \
             --output simulation-lab/output/market-source-verification-manifest.json
 
-      - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
+      # Freeze point: binds Fixture, market manifest, metadata audit and Stage 3-4 inputs by SHA; downstream stages are read-only.
+      - name: Seal frozen Stage 2-4 snapshot receipt (44 markets, pinned calendars, news and analysis)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
@@ -461,7 +464,7 @@ jobs:
             --output simulation-lab/output/prebuild-stage-input-receipt.json
           RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
           echo "PREBUILD_RECEIPT_SHA256=${RECEIPT_SHA256}" >> "$GITHUB_ENV"
-          echo "Pre-build Stage 2-4 receipt sealed: ${RECEIPT_SHA256}"
+          echo "Frozen Stage 2-4 snapshot sealed: ${RECEIPT_SHA256}; downstream market inputs are read-only"
       - name: Handoff verified S&P 500 close to Chart 3 increment ledger (simulation only)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
          # Unverified S&P 500 rows skip cleanly; a verified row must complete the Chart 3 handoff or fail this build.
@@ -708,7 +711,8 @@ jobs:
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
 
-      - name: Validate date, authoritative calendar counts, 44 indicators and news shape
+      # Structural-only post-build check. Never fetch market pages or re-reconcile numeric quotes after the snapshot is sealed.
+      - name: Validate report structure and frozen 44-indicator snapshot consistency (no market re-fetch)
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
@@ -753,7 +757,7 @@ jobs:
           print(f"PASS: report_date={report_date}; calendar={actual_econ}/{expected_econ}; earnings={actual_earnings}/{expected_earnings}; indicators=44; focus=5; headlines=10")
           PY
 
-      - name: Recheck pre-build receipt SHA after Builder
+      - name: Verify frozen Stage 2-4 receipt SHA after Builder (integrity only; no market re-verification)
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
         shell: bash
         run: |
@@ -767,7 +771,7 @@ jobs:
             echo "Pre-build receipt SHA changed after Builder execution" >&2
             exit 1
           fi
-          echo "Pre-build receipt SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
+          echo "Frozen Stage 2-4 snapshot SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
 
       - name: Seal QA evidence to the exact review HTML blob
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
