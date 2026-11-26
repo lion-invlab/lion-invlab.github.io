@@ -139,6 +139,26 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(result["risk"]["move"]["display"],"97.54")
         self.assertEqual(result["risk"]["move"]["change_display"],"-1.32%")
 
+    def test_screenshot_observation_cannot_be_overwritten_by_market_closed(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("risk","move"))
+        row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+                    "observed_value":None,"observed_change":None,
+                    "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+                    "read_method":"USER_PROVIDED_SCREENSHOT","prior_observation_reused":False,
+                    "instrument_identity":"MOVE Index","finished_at_utc":"2026-11-26T22:00:00Z",
+                    "closure_evidence_url":"https://www.nyse.com/markets/hours-calendars",
+                    "closure_evidence_text":"Official calendar says closed.",
+                    "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
+                    "closure_evidence_line_end":12,
+                    "field_evidence":{"close":{"source_type":"USER_PROVIDED_SCREENSHOT"}}})
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        item=result["risk"]["move"]
+        self.assertEqual(item["source"]["verification_status"],"PENDING")
+        self.assertNotEqual(item["display"],"-")
+        self.assertNotEqual(item["change_display"],"休市")
+
     def test_rejects_wrong_date_and_duplicate_or_missing_rows(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
