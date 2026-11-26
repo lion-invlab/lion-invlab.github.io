@@ -68,6 +68,8 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
         for idx,evidence in enumerate(content["market_analysis"][layer]["sources"]):
             if not evidence.get("label") or not evidence.get("status") or not evidence.get("url"):
                 raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires label, URL and status")
+            if not evidence.get("url","").startswith("https://"):
+                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires HTTPS source URL")
             if not evidence.get("published_at") and not evidence.get("checked_at"):
                 raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires published_at or checked_at")
     if report_date.weekday()!=0 and len(content["core_observation"].get("points",[]))!=4:
