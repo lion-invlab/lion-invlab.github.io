@@ -51,7 +51,7 @@
 - 每輪執行須分開回報：已觸發／未觸發、commit SHA、Workflow Run ID、Workflow 執行成功／失敗、審核版 HTML 是否已產出（路徑與 SHA-256）、QA sidecar 狀態，以及數據已驗證／待核實。
 - Run 必須以當次 commit SHA 精確對應，並核對 `event=push`；重試必須產生新的 commit SHA 及新的對應 Run，不得沿用前次結果。
 - 僅在 commit 標記觸發本身提交失敗時，才說明觸發限制並提供 GitHub Actions 頁面。commit 成功但找不到對應 Run，須如實回報未觸發／未取得 Run。
-- 不得聲稱已觸發、已完成或已擷取，除非有對應 Run ID 或可回讀的實際產物證據。Workflow success 不等於審核版完成；審核版必須存在於 main `preview/YYYY-MM-DD-review.html`，同日期 QA sidecar 與 delivery receipt 均須存在、日期正確、HTML 非空、SHA 綁定一致，QA 狀態為 `REVIEW_READY`，且 Pages 公開 URL 已實際讀取核對。HTML SHA-256 必須對實際 HTML 內容計算，不得以 Git blob SHA-1 代替。
+- 不得聲稱已觸發、已完成或已擷取，除非有對應 Run ID 或可回讀的實際產物證據。Workflow success 不等於審核版完成；審核版必須存在於 main `preview/YYYY-MM-DD-review.html`，同日期 QA sidecar 與 delivery receipt 均須存在、日期正確、HTML 非空、SHA 綁定一致；sidecar 的 `status=QA_PASSED`、`review_ready=true`、`data_review_ready=true`、`sim14_builder_approval=APPROVED`、`sim14_review_ready=true` 且 blockers 為空，Pages 公開 URL 已實際讀取核對。HTML SHA-256 必須對實際 HTML 內容計算，不得以 Git blob SHA-1 代替。
 - 本條僅規範早報排程及回報；日常製作不得自行修改 Workflow、Builder、QA Contract、母版或 Gate。Stage 6 依本版 main/preview 三檔白名單執行，不得擴張 main 寫入範圍；不改變 05:25 既有排程時間。
 
 ---
@@ -556,7 +556,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 ---
 
 ## 附錄 D｜DOM 與技術驗收
-以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.27，SIM-1.4 執行附件；目前 blob SHA `5328fd12f919944314494107311736ff9813ad67`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。另明確規定總結與五層分析不得顯示來源文字／連結／收折區，內部來源證據與 receipt 必須保留；其他報告區域來源標示不變。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
+以 `simulation-lab/baseline/mother-template-qa-contract.md`（QA Contract v1.28，SIM-1.4 執行附件；目前 blob SHA `a00b5db3c432973cbe4c743fe781c4d12375e8ef`）作為唯一詳細 DOM／互動／視覺 QA 契約；其歷史修訂紀錄中的 DRAFT 字樣僅代表當時狀態，不覆蓋本次生效決議。契約涵蓋四種財報狀態、Yahoo → Investing → LSEG → FactSet 首筆採用來源順位、雙母版固定 DOM、Fed 官員行程、FedWatch 兩卡、商品短名稱、同合約歷史收市價與來源欄位、台灣截稿行事曆分類、TAC 漲跌配色及六視窗繁中字型驗收。另明確規定總結與五層分析不得顯示來源文字／連結／收折區，內部來源證據與 receipt 必須保留；其他報告區域來源標示不變。main `母版專區/母版結構驗收清單.md` 僅供正式資產歷史／交叉參考，不是第二份 simulation 每日 QA 清單。`scripts/tac_html_binding_map.json` 是舊版文字節點映射附件，不得視為目前 Builder 動態槽位的授權清單；在完成逐 selector 對照前，不作執行依據，也不得與本 QA Contract 並列裁決。任何契約與母版 SHA 不符即停止，不得自創 selector。
 
 ---
 
