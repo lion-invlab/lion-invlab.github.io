@@ -154,7 +154,10 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
                 raise ValueError(f"Analysis layer {layer} cites non-verified market row {group}/{name}: {status}")
     return {"window_start":window_start,"cutoff":cutoff,"news_counts":news_counts}
 
-def read_json(path:Path)->dict:\n    return json.loads(path.read_text(encoding="utf-8"))\n\ndef main():
+def read_json(path:Path)->dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--run-dir",required=True)
     ap.add_argument("--content")
