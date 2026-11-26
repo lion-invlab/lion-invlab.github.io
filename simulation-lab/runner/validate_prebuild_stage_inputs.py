@@ -82,8 +82,13 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(manifest.get("source_pages_fetched") in (True, False)
             and manifest.get("displayed_values_reconciled") is (verified_count + closed_count == 44 and pending_count == 0),
             "source value reconciliation summary does not match verified-row count")
-    require(isinstance(manifest.get("displayed_values_independently_reconciled"), bool),
-            "independent history-page reconciliation flag must be boolean")
+    screenshot_field_count = manifest.get("screenshot_field_count", 0)
+    require(isinstance(screenshot_field_count, int) and screenshot_field_count >= 0,
+            "screenshot field count is malformed")
+    require(manifest.get("displayed_values_independently_reconciled") is (
+                verified_count + closed_count == 44 and pending_count == 0 and screenshot_field_count == 0
+            ),
+            "independent history-page reconciliation flag does not match screenshot evidence count")
     require(manifest.get("verification_scope") in (
                 "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
                 "CURRENT_REPORT_SESSION_FIELD_LEVEL_SOURCE_OBSERVATIONS",
