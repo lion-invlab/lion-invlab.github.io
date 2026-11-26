@@ -11,7 +11,7 @@ from pathlib import Path
 from build_market_source_verification_manifest import verification_fields
 
 
-FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
+FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
 
 
 def screenshot_field(path: str, digest: str):
