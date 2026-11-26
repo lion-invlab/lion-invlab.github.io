@@ -209,6 +209,12 @@ def populate_fixture(data, payload):
                 change_text=_fmt(raw_change,change_spec,force_sign=True)
                 item["change_display"]=change_text
                 src["history_change"]=change_text if group in ("energy","metals") else float(_decimal(raw_change))
+        if group=="risk" and name=="fear_greed":
+            source_url=obs.get("source_url","")
+            if source_url in (src.get("approved_primary_urls") or []):
+                obs["source_role"]="PRIMARY"
+            elif source_url in (src.get("approved_backup_urls") or []):
+                obs["source_role"]="BACKUP_1" if "fgscore.com" in source_url else "BACKUP_2"
         backup_verified=obs.get("source_role") in ("BACKUP_1","BACKUP_2","BACKUP","SECONDARY")
         if screenshot:
             # A user screenshot is a first-class evidence method, not a claim that
@@ -219,13 +225,13 @@ def populate_fixture(data, payload):
         else:
             src["verification_status"]="BACKUP_VERIFIED" if backup_verified else "VERIFIED"
             if group=="risk" and name=="fear_greed":
-            if obs.get("read_method")=="CNN_OFFICIAL_CURRENT_DASHBOARD":
+            if obs.get("source_url") in (src.get("approved_primary_urls") or []):
                 src["name"]="CNN Business Fear & Greed Index"
                 src["url"]=obs.get("source_url")
                 src["source_role"]="PRIMARY"
                 src["quote_type"]="cnn_fear_greed_current_score"
                 src["instrument_identity"]="CNN Fear & Greed Index"
-            elif obs.get("read_method")=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
+            elif obs.get("source_url") in (src.get("approved_backup_urls") or []):
                 src["url"]=obs.get("source_url")
                 src["source_role"]="BACKUP_1" if "fgscore.com" in obs.get("source_url","") else "BACKUP_2"
                 src["quote_type"]="third_party_provider_index"
@@ -249,7 +255,7 @@ def populate_fixture(data, payload):
             src["observation_record_status"]="VERIFIED"
             src["display_value_matches_saved_observation"]=True
             src["verified_at_tw"]=src["checked_at_tw"]
-            if obs.get("read_method")=="CNN_OFFICIAL_CURRENT_DASHBOARD":
+            if obs.get("source_url") in (src.get("approved_primary_urls") or []):
                 src["source_score_value"]=raw_close
                 src["backup_source_score_value"]=None
                 src["cross_check"]={"status":"OFFICIAL_CURRENT_DASHBOARD_READ","note":"Current CNN dashboard score and band were read directly; previous_close was not substituted."}
