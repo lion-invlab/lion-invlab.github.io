@@ -73,6 +73,19 @@
 9. **禁止重複擷取：** `Capture 44 raw market source pages`、`run_optional_probes`、Builder、QA 或任何其他步驟不得對已鎖定的 Stage 2 44 項進行第二次外部行情讀取。此限制不禁止每日關鍵價位獨立模組依其自身排程與來源契約取得 OHLC；該模組不得因此觸發 Stage 2 44 項重新擷取。
 
 
+### 0.5.3 Stage 2 截圖 Sidecar 實際輸入契約（2026-11-26 實作增補）
+
+1. **自動輸入路徑：** Stage 2 預設讀取 `simulation-lab/input/market-screenshot-observations-YYYY-MM-DD.json`，YYYY-MM-DD 必須是當輪報告日期。若檔案不存在，44 項照既有 Investing.com Historical Data 流程擷取；若存在，先載入並驗證再建立擷取工作清單。
+2. **圖片封存：** 原始圖片須存在於 Simulation checkout 內，例如 `simulation-lab/input/screenshots/YYYY-MM-DD/`。Sidecar 的 `evidence_path` 必須指向 Repository 內實際檔案，`evidence_sha256` 必須與檔案位元組重新計算的 SHA-256 完全一致。不得只填入 64 位格式字串，也不得接受 Repository 外部路徑。
+3. **日期與標的：** Sidecar 的 `report_date`、`trading_date`、每列 `data_date`、`source_url` 及 `instrument_identity` 必須分別與當輪 Fixture、該商品正式來源 URL 及標的識別規則相符。不得挪用前一交易日圖片；不得以模糊商品名稱通過。
+4. **欄位格式：** 一般行情使用 `close`、`change`，可附 `open`、`high`、`low`；CNN Fear & Greed 使用 `score`、`band`。每欄保存畫面欄名、值、證據路徑、SHA、截圖擷取時間與可選報價時間。報價時間與截圖擷取時間必須分開記錄。
+5. **值的套用順序：** 先以截圖值更新當輪 Fixture 的相應欄位，再建立 Playwright 擷取工作。截圖已提供 Close／Change（Fear & Greed 為 Score／Band）時整項跳過網頁讀取；只提供部分欄位時，歷史頁只補缺欄，補齊結果回寫 Fixture。不得用歷史頁讀值覆蓋截圖欄位。截圖額外提供 Open／High／Low 時也必須保存並回寫，不得丟棄。
+6. **混合來源證據：** 每一欄分別標記 `USER_PROVIDED_SCREENSHOT`、`INVESTING_HISTORICAL_PAGE` 或適用的官方來源。純截圖列的 `source_page_fetched` 必須為 false；混合列必須有當輪歷史頁／官方端點讀取證據。不得將混合列標成純截圖，也不得把純截圖標成已讀取歷史頁。
+7. **失敗處理：** 圖片缺失、SHA 不符、日期不符、來源 URL 不符、欄位標籤不支援或商品識別不符，該輸入不得 VERIFIED。部分截圖所需的缺欄若遭 Cloudflare 或讀取失敗，保留 `TOOL_READ_FAILURE`／PENDING，不得沿用 Fixture 舊值冒充本輪資料。CFD 參考列如 Close／Change 未同時具備有效截圖或當輪歷史頁證據，必須隱藏數值並標示待核實。
+8. **Receipt 與下游：** Manifest 必須列出截圖列數、截圖欄位數、混合來源列數、純歷史頁列數；分開呈現「欄位值已具來源證據」與「完全由歷史頁獨立核實」。Prebuild Receipt 必須再次核對截圖檔案 SHA；Stage 3–6 只能讀取 Fixture／Manifest／Receipt，不得重新擷取已鎖定欄位。
+9. **自動化邊界：** GitHub Runner 只能讀取已存在於 Simulation checkout 的圖片與 Sidecar；聊天附件不會自動出現在 Runner 檔案系統。若截圖由對話提供，必須先把原圖及 Sidecar 封存到上述 Repository 路徑，再觸發當輪 Workflow。不得以文字描述或人工抄值取代原始圖片證據。
+
+
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
 - workflow_dispatch 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
