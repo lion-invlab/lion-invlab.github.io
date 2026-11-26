@@ -15,6 +15,9 @@ DOMAINS=("us_policy","us_china","geopolitics","trade_sanctions","major_economies
 def sha_bytes(raw:bytes)->str:return hashlib.sha256(raw).hexdigest()
 def sha(path:Path)->str:return sha_bytes(path.read_bytes())
 
+def read_json(path:Path)->dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
 def parse_tw(value:str)->datetime:
     raw=str(value).strip()
     try:
