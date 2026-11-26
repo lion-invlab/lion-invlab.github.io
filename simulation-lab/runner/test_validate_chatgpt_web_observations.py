@@ -208,6 +208,27 @@ def main():
     assert merged_move["source_role"] == "BACKUP_1"
     assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
 
+    # A readable TradingView page without the target session must remain SOURCE_UPDATE_PENDING,
+    # retaining its page evidence rather than being mislabeled as a tool failure.
+    tv_pending = {
+        "group": "risk", "name": "move", "source_url": move_source.get("url"),
+        "target_date": move_source.get("data_date"), "status": "SOURCE_UPDATE_PENDING",
+        "read_status": "SOURCE_UPDATE_PENDING", "source_role": "BACKUP_1",
+        "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+        "source_page_fetched": True, "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
+        "page_body_excerpt": "History page loaded; target date not posted.",
+        "attempt_history": [{"round": 1, "source_role": "BACKUP_1", "status": "TARGET_DATE_NOT_FOUND"}],
+        "observed_value": None, "observed_change": None, "observed_date": None,
+    }
+    merged_pending_backup = merge_move_backup_observation(copy.deepcopy(primary_missing_result),
+                                                          tv_pending, "SOURCE_NO_DATA")
+    pending_backup_row = next(x for x in merged_pending_backup["observations"]
+                              if x["group"] == "risk" and x["name"] == "move")
+    assert pending_backup_row["status"] == "SOURCE_UPDATE_PENDING"
+    assert pending_backup_row["read_status"] == "SOURCE_UPDATE_PENDING"
+    assert pending_backup_row["page_title"].startswith("ICE BofAML")
+    assert pending_backup_row["attempt_history"][0]["source_role"] == "BACKUP_1"
+
     # Exercise the exact production CLI path: blank the supplied fixture, validate the
     # date-matched direct page bundle, and write only current observations back in place.
     with tempfile.TemporaryDirectory() as tmp:
