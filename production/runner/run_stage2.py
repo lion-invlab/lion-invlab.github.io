@@ -14,11 +14,14 @@ def run(cmd:list[str])->dict:
     proc=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True)
     if proc.returncode:
         raise RuntimeError(f"Command failed ({proc.returncode}): {' '.join(cmd)}\nSTDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}")
-    lines=[x for x in proc.stdout.splitlines() if x.strip()]
-    if not lines:
-        return {}
-    try: return json.loads(lines[-1])
-    except json.JSONDecodeError: return {"stdout":proc.stdout.strip()}
+    try:
+        return json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        lines=[x for x in proc.stdout.splitlines() if x.strip()]
+        if lines:
+            try: return json.loads(lines[-1])
+            except json.JSONDecodeError: pass
+        return {"stdout":proc.stdout.strip()}
 
 def main():
     ap=argparse.ArgumentParser()
