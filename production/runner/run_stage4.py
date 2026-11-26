@@ -226,7 +226,7 @@ def main():
     analysis_path.write_text(json.dumps(analysis,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={
       "schema_version":"1.0","stage":"STAGE_4_NEWS_ANALYSIS","status":"PASS",
-      "run_id":context["run_id"],"report_date":context["report_date"],
+      "run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
       "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
