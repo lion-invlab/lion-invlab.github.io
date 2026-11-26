@@ -34,3 +34,7 @@ Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WR
 - Never reuse previous Run market values; Stage 2 is blank-first.
 - Stage 3 is calendar read-only; Stage 5 writes only Run-scoped review artifacts; Stage 6 writes only the three approved preview files. Stage 2 marks a row CLOSED only with date-matched official calendar evidence; a missing historical row alone remains SOURCE_NO_DATA / pending, and a confirmed holiday renders value as `-` and change as `休市`.
 - Do not update `index.html` or archive a formal edition without explicit user approval.
+
+
+### Stage 2 official market-closure evidence
+All 44 rows retain the single run-level `trading_date` as their target date. A missing row for that date is not proof of a holiday. Both the fixture bootstrap and source-verification manifest consume the same current-run browser evidence fields: `closure_evidence_url`, reader reference and line range, exact target date, source-page-fetched flag, verified instrument/field mapping, current web-open provenance, non-reused observation and finish timestamp. The URL must be on the explicit official-calendar host allowlist. The observation schema now declares these fields. This contract supersedes the earlier bootstrap-only `market_calendar_*` requirement.
