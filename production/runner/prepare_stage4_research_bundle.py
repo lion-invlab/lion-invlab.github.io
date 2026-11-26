@@ -2,7 +2,7 @@
 """Build a deterministic, Run-bound research packet for Stage 4 editorial generation."""
 from __future__ import annotations
 import argparse, hashlib, json
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -146,7 +146,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
       },
       "screenshot_evidence":screenshot_evidence,
       "input_refs":inputs,
-      "generated_at_utc":datetime.utcnow().isoformat(timespec="seconds")+"Z"
+      "generated_at_utc":datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00","Z")
     }
     return bundle
 
