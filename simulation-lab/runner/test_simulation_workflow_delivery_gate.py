@@ -49,7 +49,9 @@ assert "MAIN_DELIVERY_COMMIT" in publish
 # The existing Pages workflow already deploys main/preview; it is explicitly dispatched after GITHUB_TOKEN push.
 assert "branches:\n      - main" in PAGES
 assert '"preview/**"' in PAGES
+assert "workflow_dispatch:" in PAGES
 assert "actions/deploy-pages@v4" in PAGES
+assert "cancel-in-progress: false" in PAGES
 
 # The input receipt remains Simulation-scoped and must be sealed before Builder execution.
 receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
