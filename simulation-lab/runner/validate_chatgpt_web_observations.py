@@ -69,7 +69,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         target_date = source.get("data_date")
         if raw.get("target_date") != target_date:
             raise ValueError(f"{group}/{name}: target date mismatch")
-        if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED") and raw.get("observed_date") != target_date:
+        if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING") and raw.get("observed_date") != target_date:
             raise ValueError(f"{group}/{name}: observed date mismatch")
         if raw.get("page_title") is None or not str(raw.get("page_title")).strip():
             raise ValueError(f"{group}/{name}: page title missing")
@@ -115,15 +115,27 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                                 f"{_d.year}年{_d.month}月{_d.day}日", f"{_d.year}/{_d.month}/{_d.day}")
                 if not any(marker in row_text for marker in date_markers):
                     raise ValueError(f"{group}/{name}: source row text does not contain target date")
-            elif raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED"):
+            elif raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING"):
                 if raw.get("observed_value") is not None or raw.get("observed_change") is not None:
-                    raise ValueError(f"{group}/{name}: no-data/closed row cannot carry numeric observations")
+                    raise ValueError(f"{group}/{name}: no-data/closed/update-pending row cannot carry numeric observations")
                 if not row_text.strip():
-                    raise ValueError(f"{group}/{name}: no-data/closed page evidence text missing")
+                    raise ValueError(f"{group}/{name}: no-data/closed/update-pending page evidence text missing")
                 if raw.get("read_status") == "MARKET_CLOSED" and not raw.get("closure_evidence_url"):
                     raise ValueError(f"{group}/{name}: market closure requires an official holiday evidence URL")
+                if raw.get("read_status") == "SOURCE_UPDATE_PENDING" and not (group == "risk" and name == "move"):
+                    raise ValueError(f"{group}/{name}: SOURCE_UPDATE_PENDING is reserved for MOVE")
             else:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
+            if group == "risk" and name == "move":
+                backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+                attempt_url = str(raw.get("attempt_url") or "")
+                if attempt_url:
+                    if attempt_url != backup_url:
+                        raise ValueError("MOVE backup attempt_url must be the exact TradingView ICE:MOVE history URL")
+                    raw["source_role"] = "BACKUP_1"
+                    raw["evidence_source_url"] = backup_url
+                elif raw.get("read_status") == "SOURCE_UPDATE_PENDING":
+                    raw["source_role"] = "PRIMARY_AND_BACKUP_PENDING"
             raw["http_status"] = None
             raw["source_page_fetched"] = True
             raw["provenance"] = (
@@ -194,7 +206,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         raw["preexisting_value_comparison"] = (
             "NOT_PERFORMED_BLANK_INPUT" if expected_value is None else "COMPARED_TO_EXISTING_FIXTURE"
         )
-        if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED"):
+        if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING"):
             value_match = False
             raw_score_match = False
             change_match = False
