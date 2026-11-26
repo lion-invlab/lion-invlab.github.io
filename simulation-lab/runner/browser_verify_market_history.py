@@ -425,7 +425,7 @@ async def observe(context,row,target,timeout,sem):
     """Read Investing.com first; MOVE alone may fall back to TradingView ICE:MOVE."""
     original_url=row["source_url"]
     is_move=row.get("group")=="risk" and row.get("name")=="move"
-    backup_url="https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    backup_url="https://www.tradingview.com/symbols/ICE-MOVE/"
     if is_move and row.get("move_backup_only"):
         backup_row=dict(row); backup_row["request_url"]=backup_url
         result=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
