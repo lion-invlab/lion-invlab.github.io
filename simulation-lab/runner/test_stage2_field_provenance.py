@@ -111,7 +111,40 @@ def main():
         assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
         assert result["observation_record_sha256"] is None
 
+    # MOVE backup verification is attributed to TradingView, never mislabeled as Investing.com.
+    move_source = data["risk"]["move"]["source"]
+    move_value = move_source.get("close_value") or move_source.get("history_close")
+    move_change = move_source.get("daily_change_percent") or move_source.get("history_change")
+    tv_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
+    move_observation = {
+        "status": "VERIFIED", "source_url": move_source["url"],
+        "evidence_source_url": tv_url, "attempt_url": tv_url, "source_role": "BACKUP_1",
+        "target_date": move_source["data_date"], "observed_date": move_source["data_date"],
+        "instrument_identity": "ICE:MOVE", "instrument_identity_status": "VERIFIED",
+        "field_mapping_status": "VERIFIED", "observed_value": move_value,
+        "observed_change": move_change, "observed_value_field": "Price",
+        "observed_change_field": "Change %", "display_value_match": True,
+        "display_change_match": True, "finished_at_utc": "2026-11-23T11:00:00Z",
+        "finished_at_tw": "2026-11-23T19:00:00+08:00",
+        "read_method": "PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE",
+        "provenance": "CURRENT_RUN_BROWSER_OBSERVATION",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS", "http_status": 200,
+        "source_page_fetched": True,
+        "field_evidence": {
+            "close": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url, "value": move_value},
+            "change": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url, "value": move_change},
+        },
+    }
+    move_result = verification_fields(move_source, data["risk"]["move"]["display"],
+                                      data["risk"]["move"]["change_display"],
+                                      move_observation, "risk", "move")
+    assert move_result["verification_status"] == "BACKUP_VERIFIED"
+    assert move_result["browser_observation_record"]["source_role"] == "BACKUP_1"
+    assert move_result["browser_observation_record"]["evidence_source_url"] == tv_url
+    assert move_result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
+    print("PASS: MOVE backup evidence is classified BACKUP_VERIFIED and attributed to TradingView")
     print("PASS: mixed screenshot/history-page fields retain independent provenance")
     print("PASS: malformed screenshot evidence SHA cannot pass Stage 2 verification")
     from test_stage2_screenshot_inputs import main as test_screenshot_inputs
