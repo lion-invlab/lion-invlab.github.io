@@ -135,6 +135,61 @@ def main():
     assert populated_blank["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
     assert populated_blank["global_markets"]["日經225"]["display"] == "休市"
 
+    # MOVE may be pending publication at the early capture cutoff. It must stay blank,
+    # while the other 43 rows remain independently processed.
+    move_pending_bundle = copy.deepcopy(bundle)
+    move_pending = next(x for x in move_pending_bundle["observations"]
+                        if x["group"] == "risk" and x["name"] == "move")
+    move_pending.update({
+        "read_status": "SOURCE_UPDATE_PENDING",
+        "observed_date": None,
+        "observed_value": None,
+        "observed_change": None,
+        "observed_row_text": "Investing.com and TradingView history pages were readable; target session row not yet posted.",
+    })
+    move_pending_result = validate_bundle(blank_data, "2026-11-24", move_pending_bundle)
+    assert move_pending_result["verified_count"] == 42
+    assert move_pending_result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 2
+    move_pending_normalized = next(x for x in move_pending_result["observations"]
+                                    if x["group"] == "risk" and x["name"] == "move")
+    assert move_pending_normalized["read_status"] == "SOURCE_UPDATE_PENDING"
+    pending_fixture = populate_fixture(blank_data, move_pending_result)
+    assert pending_fixture["risk"]["move"]["display"] == "待核實"
+    assert pending_fixture["risk"]["move"]["change_display"] == "待核實"
+    assert pending_fixture["risk"]["move"]["source"]["close_value"] is None
+    assert pending_fixture["risk"]["move"]["source"]["verification_status"] == "PENDING"
+
+    # A target-date TradingView ICE:MOVE historical row is the sole permitted backup.
+    move_backup_bundle = copy.deepcopy(bundle)
+    move_backup = next(x for x in move_backup_bundle["observations"]
+                       if x["group"] == "risk" and x["name"] == "move")
+    move_source = data["risk"]["move"]["source"]
+    backup_close = move_source.get("close_value") or move_source.get("history_close")
+    backup_change = move_source.get("daily_change_percent") or move_source.get("history_change")
+    move_backup.update({
+        "attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+        "source_role": "BACKUP_1",
+        "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
+        "instrument_identity": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
+        "observed_value": backup_close,
+        "observed_change": backup_change,
+        "observed_value_field": "Price",
+        "observed_change_field": "Change %",
+        "observed_headers": ["Date", "Price", "Change %"],
+        "observed_row_text": "Nov 23, 2026 | " + str(backup_close) + " | " + str(backup_change),
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_date": move_source.get("data_date"),
+    })
+    move_backup_result = validate_bundle(blank_data, "2026-11-24", move_backup_bundle)
+    move_backup_normalized = next(x for x in move_backup_result["observations"]
+                                  if x["group"] == "risk" and x["name"] == "move")
+    assert move_backup_normalized["status"] == "VERIFIED"
+    assert move_backup_normalized["source_role"] == "BACKUP_1"
+    backup_fixture = populate_fixture(blank_data, move_backup_result)
+    assert backup_fixture["risk"]["move"]["source"]["verification_status"] == "BACKUP_VERIFIED"
+    assert backup_fixture["risk"]["move"]["source"]["verified_source_role"] == "BACKUP_1"
+    assert backup_fixture["risk"]["move"]["source"]["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+
     # Exercise the exact production CLI path: blank the supplied fixture, validate the
     # date-matched direct page bundle, and write only current observations back in place.
     with tempfile.TemporaryDirectory() as tmp:
