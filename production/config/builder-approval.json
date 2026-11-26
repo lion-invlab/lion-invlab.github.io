@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "status": "CANDIDATE_PENDING_OWNER_APPROVAL",
+  "builder_path": "production/runner/build_review_html.py",
+  "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+  "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
+  "mother_manifest_path": "production/config/mother-template-manifest.json",
+  "validation_evidence": {
+    "workflow_run_id": 45813748282,
+    "result": "PASS",
+    "scope": "compile, deterministic Stage2/prebuild, candidate Builder fixtures, dual-mother DOM contract",
+    "limitation": "Does not constitute real-data Stage5/6 E2E or owner approval."
+  },
+  "approved_by_owner": false,
+  "approved_at": null
+}
