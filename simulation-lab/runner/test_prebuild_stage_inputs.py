@@ -10,7 +10,7 @@ from pathlib import Path
 
 from build_market_source_verification_manifest import build_manifest
 from validate_market_snapshot import validate_market_snapshot
-from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_stage4
+from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_observation_bundle, validate_stage4
 from build_review_html import apply_market_source_verification_manifest
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
@@ -128,6 +128,47 @@ def main() -> None:
     assert positive["prior_observations_reused"] == 0
     assert positive["source_pages_fetched_this_run"] is True
     assert positive["numeric_values_reconciled_this_run"] is True
+
+    observation_rows = []
+    for row in synthetic["rows"]:
+        is_fg = row["group"] == "risk" and row["name"] == "fear_greed"
+        value_key, change_key = ("score", "band") if is_fg else ("close", "change")
+        source_type = "CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE"
+        observation_rows.append({
+            "group": row["group"], "name": row["name"],
+            "source_url": row["source_url"], "target_date": data["trading_date"],
+            "status": "VERIFIED", "read_method": "PLAYWRIGHT_RENDERED_HISTORY_TABLE",
+            "observed_value": "100.00", "observed_change": "1.00",
+            "observed_value_key": value_key, "observed_change_key": change_key,
+            "field_evidence": {
+                value_key: {"source_type": source_type, "value": "100.00"},
+                change_key: {"source_type": source_type, "value": "1.00"},
+            },
+            "observation_record_sha256": "e" * 64,
+        })
+    observation_bundle = {
+        "report_date": report_date, "trading_date": data["trading_date"],
+        "row_count": 44, "observations": observation_rows,
+    }
+    observation_summary = validate_observation_bundle(observation_bundle, report_date, data["trading_date"])
+    assert observation_summary["row_count"] == 44
+    assert observation_summary["page_only_row_count"] == 44
+    receipt_with_observations = build_receipt(
+        data=data, fixture_sha256="1" * 64,
+        audit=audit, audit_sha256="2" * 64,
+        manifest=synthetic, manifest_sha256="3" * 64,
+        calendar_bundle=bundle,
+        repository="lion-invlab/lion-invlab.github.io",
+        branch="simulation/tac-process-lab-2026-11-06",
+        workflow_run_id="45010119942", workflow_run_attempt="1",
+        observation_bundle=observation_bundle,
+        observation_bundle_sha256="d" * 64,
+    )
+    assert receipt_with_observations["stage_2_market"]["observation_bundle_sha256"] == "d" * 64
+    bad_observation_bundle = copy.deepcopy(observation_bundle)
+    bad_observation_bundle["observations"][1] = copy.deepcopy(bad_observation_bundle["observations"][0])
+    expect_error(lambda: validate_observation_bundle(bad_observation_bundle, report_date, data["trading_date"]),
+                 "duplicate or unnamed row")
 
     # User-provided current-session screenshot is valid evidence when the
     # screenshot timestamp and SHA are sealed by the manifest builder.
