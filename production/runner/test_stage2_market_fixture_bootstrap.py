@@ -41,6 +41,7 @@ def observation_rows(data, pending=None):
                 "read_method":"CNN_OFFICIAL_PREVIOUS_CLOSE" if is_fg else "PLAYWRIGHT_RENDERED_HISTORY_TABLE",
                 "observed_value":None if (group,name)==pending else ("15" if is_fg else ("4.652" if group=="bonds" else "100.00")),
                 "observed_change":None if (group,name)==pending else ("極度恐懼" if is_fg else ("-0.41" if group=="bonds" else "+0.50")),
+                "contract_label": item.get("contract_label"),
                 "finished_at_tw":"2026-11-26T06:00:00+08:00"})
     for ticker,src in data["sector_sources"].items():
         rows.append({"group":"sectors","name":ticker,"source_url":src["url"],
@@ -91,6 +92,8 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(result["bonds"]["bonds_0"]["display"],"4.652%")
         self.assertEqual(result["bonds"]["bonds_0"]["change_display"],"-1.9 bp")
         self.assertEqual(result["sectors"]["XLE"],"+0.50%")
+        self.assertEqual(result["energy"]["energy_0"]["contract_label"],"ENERGY_CONTRACT_1")
+        self.assertEqual(result["metals"]["metals_0"]["contract_label"],"METALS_CONTRACT_1")
         self.assertEqual(result["risk"]["fear_greed"]["display"],"15")
         self.assertEqual(result["risk"]["fear_greed"]["change_display"],"極度恐懼")
         self.assertEqual(blank["global_markets"]["global_markets_0"]["display"],"待擷取")
