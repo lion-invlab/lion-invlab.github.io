@@ -17,6 +17,8 @@
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
 ## 2026-11-26 持續修訂紀錄
+- Stage 2 Receipt 同步修正：`build_stage2_receipt.py` 將逐列 `market_data_status` 與 44 項狀態統計帶入凍結收據，並在新 Manifest 有提供時核對統計；舊測試／舊輸入可採相容推導，不提升未核實列狀態。新增 Receipt 回歸斷言。提交：`5db8f0cfe52ab4f6ae7165797854dc4e36e98082`。
+
 - Stage 2 狀態保真修正：Source Manifest 新增逐列 `market_data_status` 與完整 `market_status_counts`，保留 `TOOL_READ_FAILURE`、`SOURCE_NO_DATA`、`SOURCE_UPDATE_PENDING`、`PENDING` 等狀態；既有 `verification_status` 維持相容，未核實資料仍不會變成 VERIFIED。Pre-build validator 現在逐列核對正式狀態及 44 項統計。新增兩種失敗狀態的回歸測試案例。相關程式提交：`08ef80fdde1ad9d0436c915faec4fe213c08ce14`、`605663a7ea933331fe39c23d797143dd5b7da6df`。
 
 - [x] Phase 1／2 規範命名一致性：`validate_prebuild_stage_inputs.py` 模組說明由「SIM-1.4 fail-closed」修正為「Main-native」，避免把技術來源誤寫成 Main 執行期規範；僅修正說明文字，驗證邏輯未變。新 blob `648f35fb3a572d0d68435ce0d0949f647c4a2139`。
