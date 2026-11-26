@@ -21,3 +21,10 @@
 
 ## Output
 輸出當次 Run 工作目錄的 review.html、render manifest、QA sidecar。Stage 5 不寫 main/preview、index.html、history、calendar JSON 或母版。HTML 必須完整保留母版 CSS、JS、互動與響應式結構。
+
+
+## Main Builder owner approval
+- The main-path Builder is a distinct candidate even when its SIM-1.4 source Builder was approved.
+- `production/config/builder-approval.json` is the sole approval record. `APPROVED_MAIN` and `approved_by_owner: true` are required.
+- Approval is bound to the exact `production/runner/build_review_html.py` Git blob SHA. Any Builder change invalidates approval until the exact new blob is approved.
+- Stage 5 enforces this record before creating production `REVIEW_READY`. Candidate fixture validation does not confer owner approval.
