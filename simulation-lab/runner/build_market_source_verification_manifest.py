@@ -90,6 +90,18 @@ def _numeric_match(observed, expected, rounded_integer=False):
         return actual.quantize(Decimal("1"), rounding=ROUND_HALF_UP) == target.quantize(Decimal("1"), rounding=ROUND_HALF_UP)
     return abs(actual - target) <= Decimal("0.0000001")
 
+def _screenshot_evidence_valid(evidence: dict) -> bool:
+    """Require the declared screenshot SHA to match the actual evidence file bytes."""
+    path = evidence.get("evidence_path")
+    expected = str(evidence.get("evidence_sha256") or "").lower()
+    if not path or len(expected) != 64 or any(ch not in "0123456789abcdef" for ch in expected):
+        return False
+    try:
+        actual = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    except (OSError, TypeError, ValueError):
+        return False
+    return actual == expected and bool(evidence.get("captured_at"))
+
 def verification_fields(source: dict, display, change_display, observation: dict | None = None,
                         group: str = "", name: str = "") -> dict:
     """Accept only complete, fresh source observations from this report session."""
@@ -177,12 +189,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT"
     }
     screenshot_evidence_ok = bool(screenshot_fields) and all(
-        isinstance(evidence.get("evidence_sha256"), str)
-        and len(evidence["evidence_sha256"]) == 64
-        and all(ch in "0123456789abcdef" for ch in evidence["evidence_sha256"].lower())
-        and bool(evidence.get("evidence_path"))
-        and bool(evidence.get("captured_at"))
-        for evidence in screenshot_fields.values()
+        _screenshot_evidence_valid(evidence) for evidence in screenshot_fields.values()
     )
     user_screenshot_ok = (
         provenance == "CURRENT_USER_PROVIDED_SCREENSHOT"
