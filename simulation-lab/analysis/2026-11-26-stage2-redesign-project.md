@@ -128,3 +128,14 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 ## 9. 完成定義
 
 只有 WP1–WP5 全部實作、單元測試與負向測試通過、完整 44 項 E2E 產生鎖定快照、Chart 3 消費 Stage 2 鎖定收盤價、每日關鍵價位獨立 Yahoo Finance OHLC 流程保持正常、下游防重抓測試通過，才可標記 `STAGE2_REDESIGN_ACCEPTED`。在此之前狀態保持 `IMPLEMENTATION_IN_PROGRESS` 或 `PARTIAL`，不得宣稱改造完成。
+
+## 10. 實作紀錄
+
+### 2026-11-26｜第一批程式改造
+
+- `build_market_source_verification_manifest.py` 已調整為支援欄位級截圖證據：不再要求將整個商品的 `source_role` 改成截圖來源；來源契約仍保留 Investing.com。
+- Manifest 會分別保存每個截圖欄位的證據路徑、SHA-256 與擷取時間；截圖欄位與歷史頁欄位可在同一筆 Observation 混合記錄。
+- 截圖單獨驗證時，`source_page_fetched` 必須維持 false，不得因截圖證據存在而誤報成已讀取 Investing.com 網頁。
+- 新增 `test_stage2_field_provenance.py`，涵蓋純截圖、截圖＋歷史頁混合欄位及錯誤 SHA 阻擋；並納入既有 Manifest regression test 的執行入口。
+- Simulation workflow 定義暫不修改，以維持與 main/default workflow mirror 的 SHA 一致；新測試由既有 Manifest regression suite 呼叫，不另改 workflow。
+- 本批尚未完成截圖檔案自動載入、Playwright 缺欄位選擇性讀取、Fixture 自動合併、Observation bundle／Receipt 產生與完整 E2E；不得標記為完成。
