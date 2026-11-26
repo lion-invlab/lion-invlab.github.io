@@ -86,7 +86,7 @@ S&P 500 收盤價及可取得的 OHLC 從 Stage 2 鎖定資料直接寫入 Chart
 ### WP4｜Chart 3 與每日關鍵價位整合
 - Chart 3 只使用 Stage 2 的 S&P 500 鎖定收盤價／OHLC。
 - 關鍵價位只使用 Stage 2 鎖定 OHLC。
-- 移除下游重抓同一報價的路徑；缺欄位時回 Stage 2 單項補值。
+- 保留每日關鍵價位獨立 Yahoo Finance OHLC 擷取路徑及同交易日人工／官方覆寫機制；不併入 Stage 2 44 項，也不回寫 Stage 2。
 
 ### WP5｜下游唯讀與防重抓測試
 - Stage 3、4、Builder、QA、Publisher、Pages 不得發出行情來源網路請求。
