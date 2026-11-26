@@ -137,7 +137,7 @@ def main() -> None:
         observation_rows.append({
             "group": row["group"], "name": row["name"],
             "source_url": row["source_url"], "target_date": data["trading_date"],
-            "status": "VERIFIED", "read_method": "PLAYWRIGHT_RENDERED_HISTORY_TABLE",
+            "status": "VERIFIED", "read_method": "PLAYWRIGHT_RENDERED_HISTORY_TABLE", "source_page_fetched": True,
             "observed_value": "100.00", "observed_change": "1.00",
             "observed_value_key": value_key, "observed_change_key": change_key,
             "field_evidence": {
@@ -162,6 +162,7 @@ def main() -> None:
     screenshot_bundle_test = copy.deepcopy(observation_bundle)
     screenshot_row_test = screenshot_bundle_test["observations"][0]
     screenshot_row_test["read_method"] = "USER_PROVIDED_SCREENSHOT"
+    screenshot_row_test["source_page_fetched"] = False
     screenshot_row_test["field_evidence"] = {
         screenshot_row_test["observed_value_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
         screenshot_row_test["observed_change_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
@@ -175,6 +176,7 @@ def main() -> None:
     mixed_bundle_test = copy.deepcopy(observation_bundle)
     mixed_row_test = mixed_bundle_test["observations"][0]
     mixed_row_test["read_method"] = "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+    mixed_row_test["source_page_fetched"] = True
     mixed_row_test["field_evidence"][mixed_row_test["observed_value_key"]] = {"source_type": "USER_PROVIDED_SCREENSHOT"}
     mixed_row_test.pop("observation_record_sha256", None)
     mixed_row_test["observation_record_sha256"] = hashlib.sha256(
