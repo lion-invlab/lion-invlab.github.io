@@ -17,7 +17,7 @@ def sample():
       "political_scan":{"checked_at":"2026-11-26T05:00:00+08:00","domains_checked":DOMAINS,"findings":[],"no_material_change_note":"六個政治領域均已掃描，沒有新增重大且可核實的政策變化。"},
       "core_observation":{"heading":"今日核心觀察","text":"主要市場焦點仍須等待收盤數據與政策傳導進一步確認。","points":[{"label":f"焦點{i}","text":"這是一段足夠長的觀察內容。"} for i in range(4)]},
       "observation":{"text":"今日先觀察市場廣度、殖利率及風險偏好是否同步改善。"},
-      "key_levels":{"items":[]},"market_comments":{"global_markets":["美國市場測試評論內容足夠長。","亞洲市場測試評論內容足夠長。","歐洲市場測試評論內容足夠長。"],"sectors":"","bonds":"","fx":"","energy":"","metals":"","risk":""}
+      "key_levels":{"items":[]},"market_comments":{"global_markets":["美國市場測試評論內容足夠長，並描述當日市場方向與主要推動因素。","亞洲市場測試評論內容足夠長，並描述當日市場方向與主要推動因素。","歐洲市場測試評論內容足夠長，並描述當日市場方向與主要推動因素。"],"sectors":"","bonds":"","fx":"","energy":"","metals":"","risk":""}
     }
 
 class Stage4ContentTests(unittest.TestCase):
