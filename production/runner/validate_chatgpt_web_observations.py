@@ -391,7 +391,7 @@ def main() -> None:
     args = parser.parse_args()
     data_path=Path(args.data)
     original_data = json.loads(data_path.read_text(encoding="utf-8"))
-    screenshot_sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{args.report_date}.json")
+    screenshot_sidecar=Path(f"production/input/market-screenshot-observations-{args.report_date}.json")
     if screenshot_sidecar.is_file():
         # Screenshot inputs outrank any previously assembled direct-web bundle.
         # Delegate to the single screenshot-first browser reader, which fills only missing fields.
