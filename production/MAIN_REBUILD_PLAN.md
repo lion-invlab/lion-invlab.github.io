@@ -534,3 +534,10 @@
 - 對應 Main CI Run `45905791303`（HEAD `6d6b3927437d0292680b95ebc0e748d309c4c721`）目前 GitHub 回報 `pending`，尚無 jobs 可讀；不可宣稱測試通過。
 - 此次變更只加固 Stage 4 驗證器及測試，沒有生成報告內容、沒有真實研究呼叫、沒有讀取或改動任何 Simulation 檔案，沒有觸發正式擷取或發布。
 - 自動研究／編輯內容生產器仍受模型供應商、模型版本、API 憑證及付費使用授權限制。尚未獲得指定供應商與 API 使用授權前，不可啟用付費模型呼叫或宣稱 Stage 4 自動生成已完成。
+
+## 2026-11-27 Stage 4 驗證加固 CI 結果
+
+- Run `45905788264`，HEAD `4ca8bf89ed55664a493dcad96022a44061cb077d`：`SUCCESS`。
+- 通過 Main compile、雙母版 SHA／Manifest、Stage 2／Pre-build deterministic tests、Stage 4 content validation tests、Builder／earnings deterministic tests、isolated candidate Builder 與 mother DOM contract。
+- 本次新增 Stage 4 測試（HTTP 政治來源拒絕、六領域外 domain 拒絕、跨 Run research bundle receipt 拒絕、bundle snapshot SHA mismatch 拒絕）已包含於成功的 Stage 2／Pre-build deterministic tests job。
+- `build-and-deliver`、`capture-and-calendar`、`schedule-window` 均 SKIPPED；成功範圍仍不包含真實行情擷取、AI 編輯生成、Stage 5／6 真實交付或 E2E。
