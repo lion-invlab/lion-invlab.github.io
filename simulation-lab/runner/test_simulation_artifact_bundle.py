@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Regression tests for the post-upload Simulation artifact audit."""
+# Full E2E rerun after correcting the post-upload audit artifact-name contract.
 # 2026-11-26: validated by the full TAC build trigger after repairing workflow-step assertions.
 import json
 import struct
