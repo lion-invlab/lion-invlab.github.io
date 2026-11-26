@@ -23,6 +23,7 @@ VALUE_KEYS = {
     "observation_record_sha256","browser_observation_record_sha256","captured_at_tw",
     "backup_web_reader_ref","backup_web_line_start","backup_web_line_end","provenance",
     "history_page_completion_at","history_page_completion_fields","screenshot_fields_applied",
+    "evidence_source_url","verified_source_role","attempt_history","primary_attempt_status","backup_attempt_status",
     "history_close","history_change","screenshot_evidence","screenshot_evidence_path",
     "screenshot_evidence_sha256","screenshot_observation_applied_at",
 }
@@ -193,7 +194,11 @@ def populate_fixture(data, payload):
                 change_text=_fmt(raw_change,change_spec,force_sign=True)
                 item["change_display"]=change_text
                 src["history_change"]=change_text if group in ("energy","metals") else float(_decimal(raw_change))
-        src["verification_status"]="VERIFIED"
+        backup_verified=obs.get("source_role") in ("BACKUP_1","BACKUP")
+        src["verification_status"]="BACKUP_VERIFIED" if backup_verified else "VERIFIED"
+        if backup_verified:
+            src["verified_source_role"]="BACKUP_1"
+            src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
         src["data_date"]=out["trading_date"]
         src["checked_at_tw"]=obs.get("finished_at_tw") or obs.get("captured_at_taipei")
         src["read_method"]=obs.get("read_method")
