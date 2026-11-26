@@ -243,6 +243,20 @@ def populate_fixture(data, payload):
         src["instrument_identity"]=obs.get("instrument_identity")
         src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
         src["browser_observation_record_sha256"]=obs.get("observation_record_sha256")
+        if group=="risk" and name=="fear_greed":
+            src["score_value"]=raw_close
+            src["score_band"]=raw_change
+            src["observation_record_status"]="VERIFIED"
+            src["display_value_matches_saved_observation"]=True
+            src["verified_at_tw"]=src["checked_at_tw"]
+            if obs.get("read_method")=="CNN_OFFICIAL_CURRENT_DASHBOARD":
+                src["source_score_value"]=raw_close
+                src["backup_source_score_value"]=None
+                src["cross_check"]={"status":"OFFICIAL_CURRENT_DASHBOARD_READ","note":"Current CNN dashboard score and band were read directly; previous_close was not substituted."}
+            else:
+                src["source_score_value"]=None
+                src["backup_source_score_value"]=raw_close
+                src["cross_check"]={"status":"DATE_MAPPING_UNRESOLVED","note":"Official CNN current dashboard was unavailable; approved CNN provider-index backup used."}
         src.pop("_stage2_format",None)
         verified+=1
     out["stage2_market_bootstrap"]={"status":"POPULATED" if not pending else "PARTIAL",
