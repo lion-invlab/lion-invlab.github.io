@@ -1,30 +1,149 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"TAC CNN Fear and Greed current dashboard observation",
-  "type":"object",
-  "required":["observations"],
-  "properties":{
-    "observations":{"type":"array","maxItems":1,"items":{
-      "type":"object",
-      "required":["group","name","source_url","target_date","observed_date","page_title","instrument_identity","read_method","observed_value_field","observed_change_field","observed_headers","observed_row_text","read_status","observed_value","observed_change","source_timestamp_utc","web_reader_ref","web_line_start","web_line_end","captured_at_utc","finished_at_utc"],
-      "properties":{
-        "group":{"const":"risk"},"name":{"const":"fear_greed"},
-        "source_url":{"enum":["https://edition.cnn.com/markets/fear-and-greed","https://www.cnn.com/markets/fear-and-greed"]},
-        "target_date":{"type":"string","format":"date"},"observed_date":{"type":"string","format":"date"},
-        "page_title":{"type":"string"},"instrument_identity":{"const":"CNN Fear & Greed Index"},
-        "read_method":{"const":"CNN_OFFICIAL_CURRENT_DASHBOARD"},
-        "observed_value_field":{"const":"Current Score"},"observed_change_field":{"const":"Current Band"},
-        "observed_headers":{"type":"array","contains":{"const":"Current Score"},"minItems":2},
-        "observed_row_text":{"type":"string"},
-        "read_status":{"const":"PAGE_CONTENT_READ_SUCCESS"},
-        "observed_value":{"type":"number","minimum":0,"maximum":100},
-        "observed_change":{"enum":["Extreme Fear","Fear","Neutral","Greed","Extreme Greed"]},
-        "source_timestamp_utc":{"type":"string"},
-        "web_reader_ref":{"type":"string"},"web_line_start":{"type":"integer","minimum":0},"web_line_end":{"type":"integer","minimum":0},
-        "captured_at_utc":{"type":"string"},"finished_at_utc":{"type":"string"}
-      },
-      "additionalProperties":true
-    }}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TAC CNN Fear and Greed current dashboard observation",
+  "type": "object",
+  "required": [
+    "observations"
+  ],
+  "properties": {
+    "observations": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "group",
+          "name",
+          "source_url",
+          "target_date",
+          "observed_date",
+          "page_title",
+          "instrument_identity",
+          "read_method",
+          "observed_value_field",
+          "observed_change_field",
+          "observed_headers",
+          "observed_row_text",
+          "read_status",
+          "observed_value",
+          "observed_change",
+          "source_timestamp_utc",
+          "web_reader_ref",
+          "web_line_start",
+          "web_line_end",
+          "captured_at_utc",
+          "finished_at_utc"
+        ],
+        "properties": {
+          "group": {
+            "const": "risk"
+          },
+          "name": {
+            "const": "fear_greed"
+          },
+          "source_url": {
+            "enum": [
+              "https://edition.cnn.com/markets/fear-and-greed",
+              "https://www.cnn.com/markets/fear-and-greed"
+            ]
+          },
+          "target_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "observed_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "page_title": {
+            "type": "string"
+          },
+          "instrument_identity": {
+            "const": "CNN Fear & Greed Index"
+          },
+          "read_method": {
+            "const": "CNN_OFFICIAL_CURRENT_DASHBOARD"
+          },
+          "observed_value_field": {
+            "const": "Current Score"
+          },
+          "observed_change_field": {
+            "const": "Current Band"
+          },
+          "observed_headers": {
+            "type": "array",
+            "contains": {
+              "const": "Current Score"
+            },
+            "minItems": 2
+          },
+          "observed_row_text": {
+            "type": "string"
+          },
+          "read_status": {
+            "const": "PAGE_CONTENT_READ_SUCCESS"
+          },
+          "observed_value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "observed_change": {
+            "enum": [
+              "Extreme Fear",
+              "Fear",
+              "Neutral",
+              "Greed",
+              "Extreme Greed"
+            ]
+          },
+          "source_timestamp_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "web_reader_ref": {
+            "type": "string"
+          },
+          "web_line_start": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "web_line_end": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "captured_at_utc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "finished_at_utc": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": true,
+        "allOf": [
+          {
+            "properties": {
+              "observed_headers": {
+                "contains": {
+                  "const": "Current Score"
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "observed_headers": {
+                "contains": {
+                  "const": "Current Band"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
   },
-  "additionalProperties":false
+  "additionalProperties": false
 }
