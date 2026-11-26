@@ -7,10 +7,27 @@ the browser capture. The apply step writes only values returned by the current r
 """
 from __future__ import annotations
 import argparse, copy, hashlib, json, re
+from urllib.parse import urlparse
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 
 COUNTS = {"global_markets":17,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3,"sectors":11}
+# Domains controlled by the relevant exchange, regulator, or official market operator.
+# Generic hosting platforms and vendor pages are deliberately excluded.
+OFFICIAL_CALENDAR_HOSTS = {
+    "nyse.com", "nasdaq.com", "jpx.co.jp", "global.krx.co.kr", "twse.com.tw",
+    "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn", "hkex.com.hk",
+    "londonstockexchange.com", "deutsche-boerse.com", "euronext.com",
+    "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
+}
+
+def _official_calendar_url(value):
+    try:
+        parsed=urlparse(str(value or ""))
+        host=(parsed.hostname or "").lower().rstrip(".")
+        return parsed.scheme=="https" and any(host==domain or host.endswith("."+domain) for domain in OFFICIAL_CALENDAR_HOSTS)
+    except ValueError:
+        return False
 VALUE_KEYS = {
     "close_value","daily_change_percent","history_close","history_change","score_value","score_band",
     "source_score_value","cnn_target_date_score","backup_source_score_value","band",
@@ -155,7 +172,7 @@ def populate_fixture(data, payload):
                 and obs.get("market_calendar_status")=="CLOSED"
                 and obs.get("market_calendar_source_type")=="OFFICIAL"
                 and obs.get("market_calendar_date")==out["trading_date"]
-                and str(obs.get("market_calendar_url") or "").startswith("https://")
+                and _official_calendar_url(obs.get("market_calendar_url"))
                 and bool(obs.get("market_calendar_evidence"))
             )
             if obs.get("read_status")=="MARKET_CLOSED" and closure_ok:
