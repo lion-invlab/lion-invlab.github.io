@@ -500,6 +500,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "observed_date":screenshot["data_date"],
             "instrument_identity":identity,
             "instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "screenshot_instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
             "field_mapping_status":"VERIFIED",
             "observed_value":value,
             "observed_change":change,
@@ -526,6 +527,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     # for required fields that were not supplied in the screenshot.
     if not page_ok:
         observation["field_evidence"]=evidence
+        observation["screenshot_instrument_identity_status"]="VERIFIED" if screenshot_identity_ok else "NOT_INDEPENDENTLY_VERIFIED"
         observation["read_method"]="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
         observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
         observation["read_status"]="MIXED_FIELD_OBSERVATIONS_PENDING"
@@ -563,12 +565,14 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "value":page_change,"observed_at":observation.get("finished_at_tw"),
         }
     observation["field_evidence"]=evidence
+    observation["screenshot_instrument_identity_status"]="VERIFIED" if screenshot_identity_ok else "NOT_INDEPENDENTLY_VERIFIED"
     observation["read_method"]="MIXED_SCREENSHOT_AND_OFFICIAL_SOURCE" if is_fg else "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
     observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
     observation["read_status"]="MIXED_FIELD_OBSERVATIONS_CONFIRMED"
     observation["status"]=(
         "VERIFIED"
         if observation.get("instrument_identity_status")=="VERIFIED"
+        and observation.get("screenshot_instrument_identity_status")=="VERIFIED"
         and observation.get("field_mapping_status")=="VERIFIED"
         and observation.get("display_value_match") is True
         and observation.get("display_change_match") is True
