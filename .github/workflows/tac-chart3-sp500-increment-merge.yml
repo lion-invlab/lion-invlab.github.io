@@ -1,6 +1,7 @@
 name: TAC Chart 3 merge verified S&P 500 daily increments
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
