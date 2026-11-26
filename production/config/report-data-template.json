@@ -49,7 +49,6 @@
         "verification_status": "PENDING",
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "S&P 500 (SPX)",
-        "observed_date": "2026-11-25",
         "_stage2_format": {
           "close": {
             "decimals": 2,
@@ -169,10 +168,6 @@
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
         "verification_status": "PENDING",
-        "closure_evidence_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
-        "closure_evidence_reader_ref": "turn737639view0",
-        "closure_evidence_line_start": 19,
-        "closure_evidence_line_end": 40,
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "Nikkei 225 (N225)",
         "_stage2_format": {
@@ -550,21 +545,10 @@
         "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
         "data_date": "2026-11-25",
         "quote_type": "treasury_yield",
-        "page_label": "Historical Data｜Price/Close",
-        "cross_check": {
-          "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-          "quote_type": "official_daily_par_yield",
-          "data_date": "2026-11-20",
-          "note": "11/20 官方日終 par yield 4.63%；與 11/19 官方日終 4.76% 相減，單日變動 -13 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY",
-          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
         "verification_status": "PENDING",
         "instrument_identity": "United States 2-Year Bond Yield",
-        "change_basis_points": -1.9,
         "_stage2_format": {
           "close": {
             "decimals": 3,
@@ -583,8 +567,7 @@
         },
         "source_page_fetched": false
       },
-      "change_display": "待擷取",
-      "change_basis_points": -1.9
+      "change_display": "待擷取"
     },
     "10年期美債殖利率": {
       "display": "待擷取",
@@ -593,21 +576,10 @@
         "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
         "data_date": "2026-11-25",
         "quote_type": "treasury_yield",
-        "page_label": "Historical Data｜Price/Close",
-        "cross_check": {
-          "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-          "quote_type": "official_daily_par_yield",
-          "data_date": "2026-11-20",
-          "note": "11/20 官方日終 par yield 4.92%；與 11/19 官方日終 5.04% 相減，單日變動 -12 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY",
-          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
         "verification_status": "PENDING",
         "instrument_identity": "United States 10-Year Bond Yield",
-        "change_basis_points": -3.7,
         "_stage2_format": {
           "close": {
             "decimals": 3,
@@ -626,8 +598,7 @@
         },
         "source_page_fetched": false
       },
-      "change_display": "待擷取",
-      "change_basis_points": -3.7
+      "change_display": "待擷取"
     },
     "30年期美債殖利率": {
       "display": "待擷取",
@@ -636,21 +607,10 @@
         "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
         "data_date": "2026-11-25",
         "quote_type": "treasury_yield",
-        "page_label": "Historical Data｜Price/Close",
-        "cross_check": {
-          "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
-          "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
-          "quote_type": "official_daily_par_yield",
-          "data_date": "2026-11-20",
-          "note": "11/20 官方日終 par yield 5.31%；與 11/19 官方日終 5.40% 相減，單日變動 -9 bp。變動為本報告依同一官方序列自行計算，非 Treasury 頁面直接提供。",
-          "role": "CROSS_CHECK_ONLY",
-          "comparison_note": "Treasury par yield 口徑與 Investing.com bond-yield series 不保證小數完全相同；僅核對資料日期及方向，不以其覆蓋 Investing.com Close。"
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
         "verification_status": "PENDING",
         "instrument_identity": "United States 30-Year Bond Yield",
-        "change_basis_points": -3.6,
         "_stage2_format": {
           "close": {
             "decimals": 3,
@@ -669,8 +629,7 @@
         },
         "source_page_fetched": false
       },
-      "change_display": "待擷取",
-      "change_basis_points": -3.6
+      "change_display": "待擷取"
     }
   },
   "fx": {
@@ -682,7 +641,6 @@
         "url": "https://www.investing.com/indices/usdollar-historical-data",
         "data_date": "2026-11-25",
         "quote_type": "provider_index_reference_series",
-        "page_label": "Real-time derived",
         "verification_status": "PENDING",
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "US Dollar Index (DXY)",
@@ -860,29 +818,15 @@
     "WTI原油期貨": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "contract_label": "CLF27（2027年1月；CME）",
       "source": {
         "name": "Investing.com HK｜WTI原油期貨歷史數據",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-25",
         "quote_type": "investing_historical_close",
-        "volume": 252640,
         "link_label": "Investing.com 歷史數據",
         "verification_status": "PENDING",
-        "official_settlement_cross_check": {
-          "provider": "CME Group",
-          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf",
-          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
-          "contract": "CLF27 / WTI January 2027",
-          "settlement_price": 83.41,
-          "settlement_point_change": 0.97,
-          "calculated_settlement_percent_change": 1.18,
-          "checked_at_tw": "2026-11-23T06:17:33+08:00",
-          "interpretation": "CME settlement differs from the Investing.com HK historical platform close (83.98, +0.93%). The report keeps the same-page Investing.com close and percentage change together; it does not mix CME settlement price with Investing.com percentage change."
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "WTI Crude Oil Futures",
-        "change_points": 2.15,
         "_stage2_format": {
           "close": {
             "decimals": 2,
@@ -902,24 +846,20 @@
         "source_page_fetched": false
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
-      "change_points": "+2.15",
       "display_name": "WTI 原油期貨"
     },
     "Brent原油期貨": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "contract_label": "LCOG7（2027年1月；ICE）",
       "source": {
         "name": "Investing.com HK｜Brent期貨歷史數據",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
         "data_date": "2026-11-25",
         "quote_type": "investing_historical_close",
-        "volume": 220750,
         "link_label": "Investing.com 歷史數據",
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "verification_status": "PENDING",
         "instrument_identity": "Brent Oil Futures",
-        "change_points": 3.36,
         "_stage2_format": {
           "close": {
             "decimals": 2,
@@ -939,36 +879,22 @@
         "source_page_fetched": false
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
-      "display_name": "Brent 原油期貨",
-      "change_points": "+3.36"
+      "display_name": "Brent 原油期貨"
     }
   },
   "metals": {
     "黃金期貨 GC": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "contract_label": "GCZ6（2026年12月；COMEX）",
       "source": {
         "name": "Investing.com HK｜黃金期貨歷史數據",
         "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
         "data_date": "2026-11-25",
         "quote_type": "investing_historical_close",
-        "volume": 263140,
         "link_label": "Investing.com 歷史數據",
         "verification_status": "PENDING",
-        "official_settlement_cross_check": {
-          "provider": "CME Group",
-          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
-          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
-          "contract": "GCZ6 / COMEX Gold December 2026",
-          "settlement_price": 3515.4,
-          "settlement_point_change": -170.1,
-          "checked_at_tw": "2026-11-23T06:17:33+08:00",
-          "interpretation": "CME official settlement matches the Investing.com HK historical close for the same contract and date; the report retains the Investing.com same-page percentage change."
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "Gold Futures",
-        "change_points": 8.7,
         "_stage2_format": {
           "close": {
             "decimals": 2,
@@ -988,34 +914,20 @@
         "source_page_fetched": false
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
-      "display_name": "黃金期貨",
-      "change_points": "+8.70"
+      "display_name": "黃金期貨"
     },
     "白銀期貨 SI": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "contract_label": "SIZ6（2026年12月；COMEX）",
       "source": {
         "name": "Investing.com HK｜白銀期貨歷史數據",
         "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
         "data_date": "2026-11-25",
         "quote_type": "investing_historical_close",
-        "volume": 96410,
         "link_label": "Investing.com 歷史數據",
         "verification_status": "PENDING",
-        "official_settlement_cross_check": {
-          "provider": "CME Group",
-          "source_url": "https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf",
-          "bulletin": "Daily Bulletin #225, Preliminary, Friday 2026-11-20",
-          "contract": "SIZ6 / COMEX Silver December 2026",
-          "settlement_price": 41.07,
-          "settlement_point_change": -3.289,
-          "checked_at_tw": "2026-11-23T06:17:33+08:00",
-          "interpretation": "CME official settlement matches the Investing.com HK historical close for the same contract and date; the report retains the Investing.com same-page percentage change."
-        },
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "instrument_identity": "Silver Futures",
-        "change_points": 0.103,
         "_stage2_format": {
           "close": {
             "decimals": 3,
@@ -1035,15 +947,13 @@
         "source_page_fetched": false
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
-      "display_name": "白銀期貨",
-      "change_points": "+0.103"
+      "display_name": "白銀期貨"
     }
   },
   "risk": {
     "vix": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "band": "高",
       "source": {
         "name": "Investing.com Global｜CBOE Volatility Index 歷史資料",
         "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
@@ -1074,7 +984,6 @@
     "move": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "band": "高",
       "source": {
         "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
         "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
@@ -1100,13 +1009,11 @@
           }
         },
         "source_page_fetched": false
-      },
-      "qa_status": "backup_verified"
+      }
     },
     "fear_greed": {
       "display": "待擷取",
       "change_display": "待擷取",
-      "band": "極度恐懼",
       "source": {
         "name": "FGScore｜CNN Business Fear & Greed 備援歷史頁",
         "url": "https://fgscore.com/en/markets/sp500",
@@ -1115,23 +1022,7 @@
         "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
         "verification_status": "PENDING",
         "source_role": "BACKUP_1",
-        "cross_check_name": "CNN Business official Fear & Greed graphdata API",
-        "cross_check_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
-        "cross_check_role": "PRIMARY",
-        "cross_check": {
-          "name": "CNN Business official Fear & Greed graphdata API",
-          "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
-          "role": "PRIMARY",
-          "status": "DATE_MAPPING_UNRESOLVED",
-          "note": "previous_close 的時間戳不能嚴格證明對應 2026-11-24，未用作本期顯示值"
-        },
-        "primary_source_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
         "instrument_identity": "CNN Fear & Greed Index (provider index)",
-        "cross_check_value": null,
-        "backup_source_url": "https://fgscore.com/en/markets/sp500",
-        "observation_bundle_path": "simulation-lab/fixtures/market-history-web-observations-2026-11-26.json",
-        "observation_bundle_blob_sha": "fb2ae2d62ef148d617fd9cc5d1920183e4c0febd",
-        "observation_record_status": "VERIFIED",
         "_stage2_format": {
           "close": {
             "decimals": 0,
@@ -1149,9 +1040,7 @@
           }
         },
         "source_page_fetched": false
-      },
-      "value": 15,
-      "as_of": "2026-11-25"
+      }
     }
   },
   "fedwatch": {},
@@ -1168,7 +1057,6 @@
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
-      "close": "60.45",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1196,7 +1084,6 @@
     "XLF": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
-      "close": "56.11",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1224,7 +1111,6 @@
     "XLK": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
-      "close": "157.09",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1252,7 +1138,6 @@
     "XLI": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
-      "close": "161.61",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1280,7 +1165,6 @@
     "XLC": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
-      "close": "104.45",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1308,7 +1192,6 @@
     "XLB": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
-      "close": "50.17",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1336,7 +1219,6 @@
     "XLU": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
-      "close": "43.40",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1364,7 +1246,6 @@
     "XLRE": {
       "name": "Investing.com Global｜State Street Real Estate Select Sector SPDR ETF (XLRE) historical data",
       "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-      "close": "43.46",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1392,7 +1273,6 @@
     "XLY": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
-      "close": "117.72",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1420,7 +1300,6 @@
     "XLP": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
-      "close": "91.88",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
@@ -1448,7 +1327,6 @@
     "XLV": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
-      "close": "184.72",
       "data_date": "2026-11-25",
       "quote_type": "ETF_daily_close",
       "verification_status": "PENDING",
