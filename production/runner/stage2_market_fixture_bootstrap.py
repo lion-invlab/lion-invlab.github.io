@@ -252,6 +252,7 @@ def populate_fixture(data, payload):
         if group=="risk" and name=="fear_greed":
             src["score_value"]=raw_close
             src["score_band"]=raw_change
+            src["band"]=raw_change
             src["observation_record_status"]="VERIFIED"
             src["display_value_matches_saved_observation"]=True
             src["verified_at_tw"]=src["checked_at_tw"]
