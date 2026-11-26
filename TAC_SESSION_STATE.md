@@ -4497,3 +4497,12 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 最近提交：`d8f5cf930b2c33930cd8b789dc6fd067d627b3a8`，commit message `[full-regression] Record Stage 2 screenshot provenance and OHLC fixes`，用於觸發 Workflow deterministic self-tests。GitHub connector 尚未提供此 push run 的 Run ID／check status（combined status 目前空白）；因此測試狀態標示 NOT_CONFIRMED，不得宣稱 PASS。
 - 延後單項重查：現有 `.github/workflows/tac-simulation-lab.yml` 僅有 push／workflow_dispatch，無 schedule；且 main/default workflow mirror SHA 必須與 Simulation 相同，main 工作流程屬保護資產。要建立 GitHub Actions 延後重查，需同步修改 main workflow mirror，尚未取得對 main workflow 的明確授權；目前不擅自修改。MOVE 單項讀取程式已有 `--only risk:move` 與 Investing.com→TradingView 路徑，但尚無獨立延後排程及 43 項不變的 E2E 驗收。
 - 下一步：確認 full-regression Run；補齊原始截圖 binary 入庫途徑；設計單項 MOVE retry 的觀察合併／Manifest／Receipt／受影響 HTML QA；如需 GitHub schedule，先取得修改 main workflow mirror 的授權。
+
+
+## 2026-11-26｜Stage 2 截圖欄位映射追加
+
+- 最新 Simulation commit：`7c78bc89d299ff17b54bc89d5f8b243655ceb0fc`，訊息含 `[full-regression]`，目的為觸發 deterministic self-tests；GitHub connector 回傳的 commit combined status 仍為空、PR workflow run 清單亦無紀錄，故測試狀態仍是 NOT_CONFIRMED，不能宣稱通過。
+- 香港 Investing.com 截圖原生欄名已納入 parser：價格／開市／高／低／升跌率 %；已加到 Workflow 既有測試檔的合成多圖 SHA 驗收。
+- 非啟用 Sidecar 草稿：`simulation-lab/evidence/manual-screenshots/market-screenshot-observations-2026-11-26.pending.json`；含 MOVE 97.54、-1.32%、99.32／102.73／97.40，以及 Hang Seng 21,966.01、-1.14%、22,252.81／22,507.83／21,915.88。圖片路徑與 SHA 均已列入，但三張原始 PNG 尚未進入 Simulation checkout，故不得啟用。
+- 11/26 舊 Fixture MOVE 的 source_role、截圖 SHA 與 OHLC 與原圖不一致；未在缺少 repo 二進位證據時擅自改寫成機器可驗證狀態。原圖已在 Library 找回並檢視，需完成 binary upload 後再啟用 Sidecar。
+- 待完成：binary evidence 入庫；確認 full-regression 實際 Run；延後 MOVE retry 尚未排程。GitHub Actions workflow mirror 位於 main 保護範圍，若需 schedule 觸發必須同步改 main workflow，尚未獲明確授權。
