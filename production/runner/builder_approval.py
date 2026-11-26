@@ -54,9 +54,9 @@ def current_builder_blob_sha(root:Path=ROOT)->str:
         ["git","rev-parse",f"HEAD:{BUILDER_PATH}"],cwd=root,text=True
     ).strip()
 
-def current_governance_blob_shas(root:Path=ROOT)->dict:
+def current_governance_blob_shas(root:Path=ROOT, commit_sha:str="HEAD")->dict:
     return {
-        path:subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=root,text=True).strip()
+        path:subprocess.check_output(["git","rev-parse",f"{commit_sha}:{path}"],cwd=root,text=True).strip()
         for path in GOVERNANCE_PATHS
     }
 
