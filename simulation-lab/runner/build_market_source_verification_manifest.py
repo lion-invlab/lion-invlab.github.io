@@ -421,16 +421,44 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         raise ValueError("44-row status counts do not reconcile: verified + closed + pending must equal row_count")
     observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
     raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
-    # PASS means every one of the 44 numeric rows is independently reconciled; a closed market remains PARTIAL.
+    screenshot_field_count = sum(
+        1 for row in rows
+        for evidence in ((row.get("browser_observation_record") or {}).get("field_evidence") or {}).values()
+        if evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT"
+    )
+    screenshot_row_count = sum(
+        1 for row in rows
+        if any(evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT"
+               for evidence in ((row.get("browser_observation_record") or {}).get("field_evidence") or {}).values())
+    )
+    mixed_field_row_count = sum(
+        1 for row in rows if row.get("observation_provenance") == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
+    )
+    historical_page_only_row_count = sum(
+        1 for row in rows
+        if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED")
+        and row.get("source_page_fetched") is True
+        and not any(evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT"
+                    for evidence in ((row.get("browser_observation_record") or {}).get("field_evidence") or {}).values())
+    )
+    # PASS means all 44 rows have complete, date-matched evidence. Screenshot-backed rows
+    # are accepted as supplied but are not misreported as independently page-reconciled.
     status = "PASS" if verified_count == 44 and observation_hash_missing_count == 0 else "PARTIAL" if verified_count else "PENDING"
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "status": status,
         "report_date": report_date,
         "trading_date": audit["trading_date"],
-        "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
+        "verification_scope": "CURRENT_REPORT_SESSION_FIELD_LEVEL_SOURCE_OBSERVATIONS",
         "source_pages_fetched": all(row["source_page_fetched"] for row in rows),
-        "displayed_values_independently_reconciled": verified_count + closed_count == 44 and pending_count == 0,
+        "displayed_values_reconciled": verified_count + closed_count == 44 and pending_count == 0,
+        "displayed_values_independently_reconciled": (
+            verified_count + closed_count == 44 and pending_count == 0 and screenshot_field_count == 0
+        ),
+        "screenshot_row_count": screenshot_row_count,
+        "screenshot_field_count": screenshot_field_count,
+        "mixed_field_row_count": mixed_field_row_count,
+        "historical_page_only_row_count": historical_page_only_row_count,
         "prior_observation_reused_count": 0,
         "prior_observation_missing_time_count": pending_count,
         "row_count": len(rows),
@@ -441,7 +469,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         "observation_record_hash_missing_count": observation_hash_missing_count,
         "raw_response_sha256_saved_count": raw_response_saved_count,
         "rows": rows,
-        "warning": f"本次來源頁面觀察：{verified_count} 項已核實、{closed_count} 項休市、{pending_count} 項待核實；舊 Fixture 觀察紀錄不納入驗證。",
+        "warning": f"本次來源欄位觀察：{verified_count} 項已核實、{closed_count} 項休市、{pending_count} 項待核實；其中 {screenshot_row_count} 項含使用者截圖欄位（{screenshot_field_count} 欄），{historical_page_only_row_count} 項完全由歷史頁核實；舊 Fixture 觀察紀錄不納入驗證。",
     }
 
 
