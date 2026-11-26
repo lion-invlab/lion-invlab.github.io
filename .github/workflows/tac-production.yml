@@ -192,7 +192,7 @@ jobs:
 
   capture-and-calendar:
     needs: [schedule-window]
-    if: ${{ always() && ((github.event_name == 'schedule' && needs.schedule-window.outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'capture')) }}
+    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'capture')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     permissions:
