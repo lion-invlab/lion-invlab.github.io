@@ -376,7 +376,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
-8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `c4e6d4af88d16a693848a9742a98c9ce53c3f9aa`。核准依據：使用者已授權之 2026-11-26 Simulation 自主修復範圍；此精確版本修正 FedWatch 重複渲染覆寫無障礙標籤的問題，統一由 `populate_fedwatch_two_slots` 負責輸出。此核准僅限 Simulation，不授權 main 寫入，也不代表真實資料 E2E 或報告內容已通過。
+8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`。核准依據：使用者已授權之 2026-11-26 Simulation 自主修復範圍，並指定 Builder 修正提交 `060302528b7f5ed4a4443caa84cb2a295296b6e8`；此精確版本恢復已核實 MOVE 收盤備援證據的顯示，並確保已核實值不被待核實狀態覆蓋。此核准僅限 Simulation，不授權 main 寫入，也不代表真實資料 E2E 或報告內容已通過。
 9. **歷史 Builder 核准紀錄（截至 2026-11-22）：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾獲使用者核准，僅適用於該精確 SHA。分支後續版本 `02f2d87e12e340cb377eb99dbda42cbb77d58129` 未獲核准；其後候選版本 `2cb0a90e53b10c31aca20503f93a5b324091c0a7` 已於 2026-11-23 取得本版第 8 點所列精確核准。不同 SHA 的測試證據不得合併宣稱為同一版本通過。
 
 ### 8.2 組裝限制
