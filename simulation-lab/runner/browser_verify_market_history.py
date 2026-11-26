@@ -622,7 +622,7 @@ def main():
         screenshot_inputs={key:value for key,value in screenshot_inputs.items() if key==(group_name,item_name)}
     if screenshot_inputs:
         data=apply_screenshot_values_to_fixture(data,screenshot_inputs)
-        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     work=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk"):
         for name,item in (data.get(group) or {}).items():
