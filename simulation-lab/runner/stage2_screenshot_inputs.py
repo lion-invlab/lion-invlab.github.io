@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from decimal import Decimal, InvalidOperation
 
 
 ALLOWED_FIELDS = {"close", "change", "open", "high", "low", "score", "band"}
@@ -45,6 +46,13 @@ def _plain_number(value):
 def _display_like(original, raw_value, percent=False):
     raw = str(raw_value).strip()
     old = str(original or "").strip()
+    if "," in old and "," not in raw:
+        numeric = raw.replace("$", "").replace("%", "")
+        try:
+            places = len(numeric.split(".", 1)[1]) if "." in numeric else 0
+            raw = f"{Decimal(numeric):,.{places}f}"
+        except (InvalidOperation, ValueError):
+            pass
     if percent and "%" not in raw:
         raw += "%"
     if old.startswith("$") and not raw.startswith("$"):
