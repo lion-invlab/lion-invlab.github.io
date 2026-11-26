@@ -137,6 +137,14 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                         raise ValueError("MOVE backup attempt_url must be the exact TradingView ICE:MOVE history URL")
                     raw["source_role"] = "BACKUP_1"
                     raw["evidence_source_url"] = backup_url
+                    if raw.get("observed_value") is not None and raw.get("observed_change") is not None:
+                        observed_at = raw.get("finished_at_tw") or raw.get("finished_at_utc") or captured.isoformat()
+                        raw["field_evidence"] = {
+                            "close": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": backup_url,
+                                      "field_name": raw.get("observed_value_field"), "value": raw.get("observed_value"), "observed_at": observed_at},
+                            "change": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": backup_url,
+                                       "field_name": raw.get("observed_change_field"), "value": raw.get("observed_change"), "observed_at": observed_at},
+                        }
                 elif raw.get("read_status") == "SOURCE_UPDATE_PENDING":
                     raw["source_role"] = "PRIMARY_AND_BACKUP_PENDING"
             raw["http_status"] = None
