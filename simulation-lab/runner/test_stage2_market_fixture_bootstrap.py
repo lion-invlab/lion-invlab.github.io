@@ -9,7 +9,7 @@ def fixture():
     for group,count in groups.items():
         data[group]={}
         for i in range(count):
-            name=("fear_greed" if group=="risk" and i==2 else f"{group}_{i}")
+            name=(("vix","move","fear_greed")[i] if group=="risk" else f"{group}_{i}")
             data[group][name]={"display":"1,234.50" if group!="bonds" else "4.652%",
                 "change_display":"-0.25%" if group!="bonds" else "-1.9 bp",
                 "source":{"name":name,"url":f"https://example.com/{group}/{i}","data_date":"2026-11-25",
