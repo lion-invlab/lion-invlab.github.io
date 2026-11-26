@@ -139,9 +139,21 @@ def populate_fixture(data, payload):
                 src["read_status"]="MARKET_CLOSED"
                 src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
                 continue
-            if group=="sectors": out["sectors"][name]="待核實"
+            evidence=obs.get("field_evidence") or {}
+            screenshot_fields={key for key,value in evidence.items()
+                               if (value or {}).get("source_type")=="USER_PROVIDED_SCREENSHOT"}
+            is_cfd="cfd" in str(src.get("quote_type") or "").lower()
+            if group=="sectors":
+                if "change" not in screenshot_fields:
+                    out["sectors"][name]="待核實"
+                    src["change_display"]="待核實"
             else:
-                item["display"]="待核實"; item["change_display"]="待核實"
+                value_key="score" if is_fg else "close"
+                change_key="band" if is_fg else "change"
+                if value_key not in screenshot_fields or is_cfd:
+                    item["display"]="待核實"
+                if change_key not in screenshot_fields or is_cfd:
+                    item["change_display"]="待核實"
             src["verification_status"]="PENDING"
             src["read_status"]=obs.get("read_status") or obs.get("status") or "PENDING"
             src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
