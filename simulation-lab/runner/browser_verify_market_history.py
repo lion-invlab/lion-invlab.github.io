@@ -364,6 +364,11 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             if page_status == "TARGET_DATE_NOT_FOUND":
                 out["status"]="TARGET_DATE_NOT_FOUND"
                 out["error"]="TARGET_DATE_NOT_PRESENT_ON_SUCCESSFULLY_READ_PAGE"
+                title_text=(out.get("page_title","")+" "+(await page.locator("h1").first.inner_text() if await page.locator("h1").count() else "")).lower()
+                aliases=IDENTITY_ALIASES.get(row["name"],[row["name"]])
+                matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
+                out["instrument_identity"]=matched_identity
+                out["instrument_identity_status"]="VERIFIED" if matched_identity else "NOT_INDEPENDENTLY_VERIFIED"
                 out["page_body_excerpt"]="\n".join(body_lines[:80])[:5000]
                 try:
                     out["page_date_controls"]=await page.locator("input").evaluate_all("(els) => els.slice(0,20).map(e => ({type:e.type,placeholder:e.placeholder,value:e.value,ariaLabel:e.getAttribute('aria-label')}))")
@@ -445,6 +450,8 @@ async def observe(context,row,target,timeout,sem):
         result["attempt_history"]=[{"round":1,"source_role":"BACKUP_1","request_url":backup_url,
             "status":result.get("status"),"http_status":result.get("http_status"),
             "page_title":result.get("page_title"),"final_url":result.get("final_url"),
+            "instrument_identity":result.get("instrument_identity"),"instrument_identity_status":result.get("instrument_identity_status"),
+            "instrument_identity":result.get("instrument_identity"),"instrument_identity_status":result.get("instrument_identity_status"),
             "observed_row_text":result.get("observed_row_text"),"page_body_excerpt":result.get("page_body_excerpt"),
             "started_at_utc":result.get("started_at_utc"),"finished_at_utc":result.get("finished_at_utc"),
             "error":result.get("error")}]
@@ -469,6 +476,7 @@ async def observe(context,row,target,timeout,sem):
             "http_status":backup.get("http_status"),
             "navigation_http_status":backup.get("navigation_http_status"),
             "page_title":backup.get("page_title"),"final_url":backup.get("final_url"),
+            "instrument_identity":backup.get("instrument_identity"),"instrument_identity_status":backup.get("instrument_identity_status"),
             "observed_row_text":backup.get("observed_row_text"),"page_body_excerpt":backup.get("page_body_excerpt"),
             "error":backup.get("error"),
             "started_at_utc":backup.get("started_at_utc"),
