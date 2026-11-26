@@ -144,7 +144,8 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         "headline_scope":"Market, company and industry events; summaries about 3-4 lines; do not repeat index quote tables.",
         "evidence":"Preserve original publication timestamp, source timezone, canonical HTTPS URL, checked time and source for every claim. Never invent missing facts."
       },
-      "screenshot_evidence":screenshot_evidence,\n      "input_refs":inputs,
+      "screenshot_evidence":screenshot_evidence,
+      "input_refs":inputs,
       "generated_at_utc":datetime.utcnow().isoformat(timespec="seconds")+"Z"
     }
     return bundle
