@@ -185,6 +185,8 @@ def main():
                                   if x["group"] == "risk" and x["name"] == "move")
     assert move_backup_normalized["status"] == "VERIFIED"
     assert move_backup_normalized["source_role"] == "BACKUP_1"
+    assert move_backup_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+    assert move_backup_normalized["field_evidence"]["change"]["source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
     backup_fixture = populate_fixture(blank_data, move_backup_result)
     assert backup_fixture["risk"]["move"]["source"]["verification_status"] == "BACKUP_VERIFIED"
     assert backup_fixture["risk"]["move"]["source"]["verified_source_role"] == "BACKUP_1"
