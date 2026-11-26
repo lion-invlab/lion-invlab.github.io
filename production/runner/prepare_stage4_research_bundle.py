@@ -49,16 +49,17 @@ def market_rows(data:dict)->tuple[list[dict],list[dict]]:
 
 def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
     context=read_json(run_dir/"run-context.json")
+    stage1=read_json(run_dir/"stage1-receipt.json")
     data=read_json(run_dir/"report-data.json")
     stage2=read_json(run_dir/"stage2-market-snapshot-receipt.json")
     stage2_summary=read_json(run_dir/"stage2-run-summary.json")
     stage3=read_json(run_dir/"stage3-calendar-receipt.json")
-    if context.get("run_id")!=run_dir.name:
-        raise ValueError("Research bundle Run ID differs from its run directory")
+    if context.get("run_id")!=run_dir.name or stage1.get("run_id")!=context.get("run_id") or stage1.get("status")!="PASS":
+        raise ValueError("Research bundle Stage 1 receipt/Run ID differs from its run directory")
     report_date=date.fromisoformat(context["report_date"])
     if data.get("report_date")!=context["report_date"] or data.get("trading_date")!=context["trading_date"]:
         raise ValueError("Research bundle fixture dates differ from Stage 1 context")
-    if stage2.get("status") not in ("PASS","PARTIAL") or stage2_summary.get("run_id")!=context["run_id"]:
+    if stage2.get("status") not in ("PASS","PARTIAL") or stage2.get("workflow_run_id") not in (context.get("workflow_run_id"),context["run_id"]) or stage2_summary.get("run_id")!=context["run_id"]:
         raise ValueError("Research bundle Stage 2 receipt/summary is not bound to this Run")
     if stage3.get("status")!="PASS" or stage3.get("run_id")!=context["run_id"] or stage3.get("main_commit_sha")!=context["main_commit_sha"]:
         raise ValueError("Research bundle Stage 3 receipt is not bound to the pinned Run")
