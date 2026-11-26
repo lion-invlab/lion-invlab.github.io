@@ -668,8 +668,11 @@ def _ensure_field_evidence(row, observation):
         return
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
     value_key,change_key=("score","band") if is_fg else ("close","change")
-    source_type="CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE"
-    source_url=observation.get("data_endpoint_url") or row.get("source_url")
+    is_tradingview_move=(row["group"]=="risk" and row["name"]=="move" and
+                        (observation.get("source_role")=="BACKUP_1" or
+                         observation.get("evidence_source_url")=="https://www.tradingview.com/symbols/ICE-MOVE/"))
+    source_type="CNN_OFFICIAL_API" if is_fg else ("TRADINGVIEW_HISTORICAL_PAGE" if is_tradingview_move else "INVESTING_HISTORICAL_PAGE")
+    source_url=observation.get("data_endpoint_url") or observation.get("evidence_source_url") or observation.get("attempt_url") or row.get("source_url")
     observed_at=observation.get("finished_at_tw") or observation.get("finished_at_utc")
     evidence={}
     for key,field_name,value in (
