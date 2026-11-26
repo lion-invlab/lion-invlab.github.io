@@ -7,21 +7,20 @@ PAGES = Path(".github/workflows/pages.yml").read_text(encoding="utf-8")
 def section_after(text: str, marker: str) -> str:
     start = text.index(marker)
     end = text.find("\n      - name:", start + len(marker))
-    return text[start:] if end < 0 else text[end:]
+    return text[start:] if end < 0 else text[start:end]
 
 
-# The default-branch workflow is the trigger definition, but all build inputs come from Simulation.
 assert "simulation/tac-process-lab-2026-11-06" in WORKFLOW
 assert "Checkout simulation branch only" in WORKFLOW
 assert "Verify default-branch workflow mirror matches Simulation workflow" in WORKFLOW
 assert "actions: write" in WORKFLOW and "contents: write" in WORKFLOW
 assert "qa-only" not in WORKFLOW
 
-# Builder output remains a protected, ephemeral staging artifact; it is not committed to Simulation.
+# Builder output is an ephemeral staging file and is not committed to the Simulation branch.
 assert 'echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html"' in WORKFLOW
 assert 'echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json"' in WORKFLOW
 persist = section_after(WORKFLOW, "Persist Simulation receipts and Chart 3 evidence only")
-assert 'git add -f "\${REPORT_OUTPUT}" "\${REPORT_EVIDENCE}"' not in persist
+assert r'git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"' not in persist
 assert "prebuild-stage-input-receipt" in persist
 assert "market-source-verification-manifest" in persist
 assert 'git push origin "HEAD:simulation/tac-process-lab-2026-11-06"' in persist
@@ -47,7 +46,7 @@ assert "curl -fsS" in publish
 assert "MAIN_DELIVERY_COMMIT" in publish
 
 # The existing Pages workflow already deploys main/preview; it is explicitly dispatched after GITHUB_TOKEN push.
-assert 'branches:\\n      - main' in PAGES
+assert "branches:\n      - main" in PAGES
 assert '"preview/**"' in PAGES
 assert "actions/deploy-pages@v4" in PAGES
 
@@ -60,8 +59,8 @@ assert "test -s simulation-lab/output/prebuild-stage-input-receipt.json" in buil
 assert "ACTUAL_RECEIPT_SHA256" in builder_gate
 assert WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 
-# Run-specific evidence still uploads for independent artifact verification; it is not a branch preview.
-assert "tac-build-evidence-\${{ github.run_id }}-\${{ github.run_attempt }}" in WORKFLOW
+# Run-scoped Actions artifacts remain available for independent QA, but are not branch previews.
+assert "tac-build-evidence-${{ github.run_id }}-${{ github.run_attempt }}" in WORKFLOW
 assert "audit_simulation_artifact_bundle.py" in WORKFLOW
 assert "test_publish_main_preview.py" in WORKFLOW
 
