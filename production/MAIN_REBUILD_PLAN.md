@@ -435,3 +435,14 @@
 - Main 相關程式 blobs：bootstrap `02e42000d6d304f2a02c9f96056a614e652e9b18`；receipt `06c743efd6ee136a0de6bbbcb271729e0514712e`；pre-build `7ef4e3c8b4d8cc62650a3b2ae06bf91587733283`；Builder `3e5a971d6d0a3ad3d41881b542580308276021f9`；Stage 4 bundle `2c07c18f3885f82dbec2aab0dba8b17566ae93ef`。
 - **Builder 精確 SHA 已改變**，原先核准只涵蓋舊 blob `20eefe57d6f3b389157c01b8532cae3a69128a02`；PORT_MANIFEST 已標記新 Builder 為 `CANDIDATE_PENDING_NEW_EXACT_BLOB_APPROVAL`。不得沿用舊核准或聲稱新版本已獲核准。
 - **尚待驗收**：Main CI 尚未回讀；Receipt／Pre-build／Stage 4 的新增 CLOSED 分支尚未在同一實際 Run 完成整合測試；Builder 新 SHA 尚待精確版本核准。真實 44 項瀏覽器擷取及完整 E2E 仍未完成。
+
+
+### 續查發現與修正（11/27）
+- Receipt 原先把所有 Manifest browser record 都當成一般行情記錄，只接受 `data_date`；官方 CLOSED record 使用 `target_date`，會被錯誤拒絕。已修正為一般行情使用 `data_date`、休市證據使用 `target_date`，兩者都必須等於本 Run 的共同 `trading_date`。
+- 產業 ETF 的 CLOSED 分支亦需將 `history_close` 明確設為 `-`，否則 Manifest 建構時拿到 null，與 Observation 的預期顯示值不一致；已補正並新增 sector closure 測試。
+- 新增 Pre-build 對官方休市證據的完整檢查：官方網域、目標日期、當次來源頁讀取、商品與欄位身分、reader ref／line range、provenance、非重用觀察。
+- Stage 4 現在核對 Manifest 與 Receipt 的 closure URL／reader ref／line range 完全一致，並將 target date 與 provenance 帶入 research bundle。
+- 測試的休市顯示慣例同步為數值欄 `-`、變動欄 `休市`。
+- 最新程式 blobs：bootstrap `4557c95c5ee8041231116ce937f784786d6f1076`；Receipt `239f9e6aa028a159791b5f63d50b2b8b02afd03a`；Pre-build `7ef4e3c8b4d8cc62650a3b2ae06bf91587733283`；Builder `3e5a971d6d0a3ad3d41881b542580308276021f9`；Stage 4 `2c07c18f3885f82dbec2aab0dba8b17566ae93ef`；PORT_MANIFEST 最新同步 commit `63faddc`。
+- 最新測試 blobs：bootstrap `32c1515ad6d005404091eb055a130dfe0066190f`；Manifest `a67265b5940c06c73020b6668afce259c095b46f`；Pre-build `8752971e73129a8042d80ca1046a3a11ec65a6cb`。
+- 尚未取得這批最新 commits 的 CI 結果；尚未完成真實 browser run。Builder 新 blob 仍待精確 SHA 核准，不得沿用舊 blob 核准。
