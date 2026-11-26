@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "cfd-dashboard/**"
-      - "preview/**"
+      - "preview/*.html"
       - "history/**"
       - "research/**"
       - "interactive-charts/**"
