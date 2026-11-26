@@ -90,6 +90,8 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
         if "band" in fields:
             band = str(fields["band"]["value"]).strip()
             source["band"] = band
+            source["daily_change_percent"] = band
+            source["history_change"] = band
             if item is not None:
                 item["change_display"] = band
         for field in ("open", "high", "low"):
