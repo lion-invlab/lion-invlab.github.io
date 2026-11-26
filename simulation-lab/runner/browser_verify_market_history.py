@@ -469,6 +469,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "evidence_path":item["evidence_path"],
             "evidence_sha256":item["evidence_sha256"],
             "captured_at":item["captured_at"],
+            "quote_timestamp":item.get("quote_timestamp"),
             "field_name":item["field_name"],
             "value":item["value"],
         }
