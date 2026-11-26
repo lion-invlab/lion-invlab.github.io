@@ -4485,3 +4485,15 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 修正 commits：Observation Bundle `f82a52483afca534ab8fb2be0522a22013148a2a`；Fixture `d869e73b4d9d74f01387cc424b91e53ab941ab2d`；Work Log `adbd6e9b4b7160c3670dbef68b067301c15f4d41`。
 - 11/26 當日 Workflow retry limit 已耗盡：沒有第三次執行，沒有新 Run、HTML、QA。main 未修改。
 - 下一個可執行節點為 11/27 05:25 排程；需全新擷取 11/26 交易日的 44 項行情與 11 ETF，重新建立當日 bundle／Fixture／receipts。不得沿用 11/25 截圖值或舊 receipt。
+
+
+## 2026-11-26｜Stage 2 擷取規範改造接續狀態
+
+- 工作分支：`simulation/tac-process-lab-2026-11-06`。本輪只修改 Simulation runner／測試／Work Log／Session State；main、正式首頁、Workflow mirror、Builder、母版、Manifest、正式行事曆 JSON 未修改。
+- 已修正 `browser_verify_market_history.py` 的 `--no-fixture-write` 寫入隔離：三個 Fixture 寫入點全部改經 `persist_fixture()`；直接 `fixture_path.write_text` 次數為0、受控寫入點3。最新 blob SHA：`27605523180d6c2e6a1789e945002fe94f652ecb`。
+- 已修正 `stage2_market_fixture_bootstrap.py` 的來源角色：blank-first 清除非 Fear & Greed 的舊 source_role；純截圖列以 `USER_PROVIDED_SCREENSHOT` 記錄，不冒充 PRIMARY 歷史頁。最新 blob SHA：`c53e8be42ace16f64df99cd7107da375162e9d8b`。
+- 回歸測試已加入 Workflow 原本會執行的 `test_validate_chatgpt_web_observations.py`：覆蓋 no-fixture-write、MOVE screenshot-first Close／Change／Open／High／Low 回填、source_role 與 source_page_fetched 狀態。最新 blob SHA：`4137a64f722c8dd0a63806b299c6c938a7f23acf`。
+- 原始 11/25 MOVE／Hang Seng 三張截圖已從 Library 找回並檢視；MOVE 97.54、-1.30（-1.32%）、Open 99.32、High 102.73、Low 97.40；Hang Seng 11/25 Close 21,966.01、Change -1.14%。圖片二進位仍未進入 Simulation checkout，故 Sidecar 尚不能合法建立／驗收；需先完成 binary upload。
+- 最近提交：`d8f5cf930b2c33930cd8b789dc6fd067d627b3a8`，commit message `[full-regression] Record Stage 2 screenshot provenance and OHLC fixes`，用於觸發 Workflow deterministic self-tests。GitHub connector 尚未提供此 push run 的 Run ID／check status（combined status 目前空白）；因此測試狀態標示 NOT_CONFIRMED，不得宣稱 PASS。
+- 延後單項重查：現有 `.github/workflows/tac-simulation-lab.yml` 僅有 push／workflow_dispatch，無 schedule；且 main/default workflow mirror SHA 必須與 Simulation 相同，main 工作流程屬保護資產。要建立 GitHub Actions 延後重查，需同步修改 main workflow mirror，尚未取得對 main workflow 的明確授權；目前不擅自修改。MOVE 單項讀取程式已有 `--only risk:move` 與 Investing.com→TradingView 路徑，但尚無獨立延後排程及 43 項不變的 E2E 驗收。
+- 下一步：確認 full-regression Run；補齊原始截圖 binary 入庫途徑；設計單項 MOVE retry 的觀察合併／Manifest／Receipt／受影響 HTML QA；如需 GitHub schedule，先取得修改 main workflow mirror 的授權。
