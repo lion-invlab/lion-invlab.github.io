@@ -32,6 +32,67 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+
+def _plain_number(value):
+    text = str(value).strip().replace(",", "").replace("%", "").replace("+", "")
+    try:
+        return str(float(text)) if "." in text else str(int(text))
+    except (TypeError, ValueError, OverflowError):
+        raise ValueError(f"Screenshot numeric field is not parseable: {value!r}")
+
+
+def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -> dict:
+    """Apply screenshot values to the in-memory Fixture before expected-value construction."""
+    for (group, name), row in screenshot_inputs.items():
+        if group == "sectors":
+            item = None
+            source = (fixture.get("sector_sources") or {}).get(name)
+        else:
+            item = ((fixture.get(group) or {}).get(name))
+            source = (item or {}).get("source")
+        if not source:
+            raise ValueError(f"Screenshot row has no fixture source: {group}/{name}")
+        fields = row["fields"]
+        if "close" in fields:
+            value = _plain_number(fields["close"]["value"])
+            if group == "sectors":
+                source["history_close"] = value
+            else:
+                source["close_value"] = value
+                source["history_close"] = value
+                if item is not None:
+                    item["display"] = str(fields["close"]["value"]).strip()
+        if "change" in fields:
+            value = _plain_number(fields["change"]["value"])
+            if group == "sectors":
+                source["history_change"] = value
+                source["change_display"] = str(fields["change"]["value"]).strip()
+                fixture["sectors"][name] = source["change_display"]
+            else:
+                source["daily_change_percent"] = value
+                source["history_change"] = value
+                if item is not None:
+                    raw = str(fields["change"]["value"]).strip()
+                    item["change_display"] = raw if "%" in raw else f"{raw}%"
+        if "score" in fields:
+            value = _plain_number(fields["score"]["value"])
+            source["score_value"] = value
+            source["source_score_value"] = value
+            source["backup_source_score_value"] = value
+            if item is not None:
+                item["display"] = str(fields["score"]["value"]).strip()
+        if "band" in fields:
+            band = str(fields["band"]["value"]).strip()
+            source["band"] = band
+            if item is not None:
+                item["change_display"] = band
+        for field in ("open", "high", "low"):
+            if field in fields:
+                source[field] = _plain_number(fields[field]["value"])
+        source["screenshot_observation_applied_at"] = row["captured_at"]
+    return fixture
+
+
 def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
                            repo_root: str | Path | None = None) -> dict:
     """Return {(group, name): row} after strict date/source/path/SHA validation."""
