@@ -5,7 +5,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 
-const [reportPath, templateKey, reportDate] = process.argv.slice(2);
+const [reportPath, templateKey, reportDate, outputArg] = process.argv.slice(2);
 if (!reportPath || !templateKey || !reportDate) {
   throw new Error("用法：node production/runner/visual_regression.mjs <審核版HTML路徑> <monday|weekdays> <YYYY-MM-DD>；禁止回退至舊版 fixture。");
 }
@@ -28,8 +28,15 @@ const embeddedDate = reportDateTag.match(/\bcontent=["']([^"']+)["']/i)?.[1];
 if (!embeddedDate) throw new Error("審核版缺少 meta[name=report-date]；拒絕執行日期未核實的視覺 QA。");
 if (embeddedDate !== reportDate) throw new Error(`審核版日期不符：HTML=${embeddedDate}，參數=${reportDate}`);
 
-const output = "production/runs/visual";
-fs.mkdirSync(output, { recursive: true });
+const output = outputArg || "production/runs/visual";
+const resolvedOutput = path.resolve(output);
+const resolvedReport = path.resolve(reportPath);
+if (!resolvedOutput.startsWith(path.resolve("production/runs") + path.sep) ||
+    resolvedOutput === path.resolve("production/runs/visual") ||
+    !resolvedOutput.startsWith(path.dirname(resolvedReport) + path.sep)) {
+  throw new Error("visual QA output must be inside the same Run directory as the review HTML");
+}
+fs.mkdirSync(resolvedOutput, { recursive: true });
 const selectors = [
   ".top", ".nav", ".wrap", ".bluf", ".sent", "#overview", "#sentiment",
   "#news-scan", "#global-markets", "#industry-bonds-fx-commodities",
@@ -92,8 +99,8 @@ try {
     const reportPage = await browser.newPage({ viewport: { width: v.width, height: v.height } });
     await load(masterPage, master.path);
     await load(reportPage, reportPath);
-    await masterPage.screenshot({ path: path.join(output, `${v.name}-master.png`), fullPage: true });
-    await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
+    await masterPage.screenshot({ path: path.join(resolvedOutput, `${v.name}-master.png`), fullPage: true });
+    await reportPage.screenshot({ path: path.join(resolvedOutput, `${v.name}-report.png`), fullPage: true });
 
     // Explicitly exercise the Energy tab at every viewport; the default screenshot
     // only captures the initially selected S&P 11 tab.
@@ -147,7 +154,7 @@ try {
     if (!energyAudit.visible || energyAudit.rows.length !== 2 || energyAudit.invalid.length) {
       failures.push(`${v.name}: WTI/Brent energy tab QA FAIL: ${energyAudit.invalid.join("; ") || "energy panel not visible"}`);
     }
-    await reportPage.locator("#tac-assets-panel-3").screenshot({ path:path.join(output, `${v.name}-energy-report.png`) });
+    await reportPage.locator("#tac-assets-panel-3").screenshot({ path:path.join(resolvedOutput, `${v.name}-energy-report.png`) });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { ...(snapshots[v.name] || {}), master: a, report: b };
     const summaryHeadingAudit = await reportPage.evaluate(() => {
@@ -467,10 +474,10 @@ try {
       const publishedGroup = reportPage.locator("#earnings .calendar-status-group").filter({
         has: reportPage.locator(".calendar-status-heading.published")
       });
-      await publishedGroup.screenshot({ path: path.join(output, `${v.name}-published-earnings.png`) });
+      await publishedGroup.screenshot({ path: path.join(resolvedOutput, `${v.name}-published-earnings.png`) });
     } else if (earningsAudit.mode === "monday-published-results") {
       await reportPage.locator("#last-week-earnings .calendar-status-group").screenshot({
-        path: path.join(output, `${v.name}-published-earnings.png`)
+        path: path.join(resolvedOutput, `${v.name}-published-earnings.png`)
       });
     }
     // Compare the actual economic-card component against the selected approved mother,
@@ -547,12 +554,12 @@ try {
     const economicCardSelector = "#calendar details.econ-event, #last-week-calendar details.econ-event";
     if (await masterPage.locator(economicCardSelector).count()) {
       await masterPage.locator(economicCardSelector).first().screenshot({
-        path: path.join(output, `${v.name}-economic-card-master.png`)
+        path: path.join(resolvedOutput, `${v.name}-economic-card-master.png`)
       });
     }
     if (await reportPage.locator(economicCardSelector).count()) {
       await reportPage.locator(economicCardSelector).first().screenshot({
-        path: path.join(output, `${v.name}-economic-card-report.png`)
+        path: path.join(resolvedOutput, `${v.name}-economic-card-report.png`)
       });
     }
     if (economicStyleDifferences.length) {
@@ -691,7 +698,7 @@ try {
 } finally {
   await browser.close();
 }
-fs.writeFileSync(path.join(output, "visual-regression.json"), JSON.stringify({
+fs.writeFileSync(path.join(resolvedOutput, "visual-regression.json"), JSON.stringify({
   status: failures.length ? "FAIL" : "PASS",
   status: failures.length ? "FAIL" : "PASS",
   report_date: reportDate, report_path: reportPath, master_path: masterPath,
