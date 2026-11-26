@@ -54,13 +54,14 @@ def main():
  if git(["branch","--show-current"])!="main":raise SystemExit("Stage 6 must execute from main checkout")
  git(["fetch","origin","main"])
  base=git(["rev-parse","origin/main"])
- worktree=run_dir/"delivery-worktree"
+ worktree=ROOT.parent/f".tac-delivery-{context['run_id']}"
  if worktree.exists():raise SystemExit("delivery worktree path already exists; refusing to reuse stale worktree")
  git(["worktree","add","--detach",str(worktree),base])
  try:
   git(["config","user.name","github-actions[bot]"],worktree)
   git(["config","user.email","41898282+github-actions[bot]@users.noreply.github.com"],worktree)
-  protected_before={p:git(["rev-parse",f"HEAD:{p}"],worktree) if p!="data/calendar/weeks" else git(["rev-parse","HEAD:data/calendar/weeks"],worktree) for p in PROTECTED if p!="data/calendar/weeks"}
+  protected_before={p:git(["rev-parse",f"HEAD:{p}"],worktree) for p in PROTECTED if p!="data/calendar/weeks"}
+  calendar_tree_before=git(["rev-parse","HEAD:data/calendar/weeks"],worktree)
   for p in (report_path,qa_path,delivery_path):
    target=worktree/p
    target.parent.mkdir(parents=True,exist_ok=True)
@@ -97,15 +98,21 @@ def main():
   payload_commit=git(["rev-parse","HEAD"],worktree)
   git(["push","origin","HEAD:main"],worktree)
   # Finalize the receipt with the commit that introduced all three approved preview artifacts.
+  qa_doc["delivery_payload_commit_sha"]=payload_commit
+  qa_doc["delivery_commit_sha"]=payload_commit
+  qa_doc["delivery_finalized_at_utc"]=datetime.now(timezone.utc).isoformat()
+  qa_bytes=(json.dumps(qa_doc,ensure_ascii=False,indent=2)+"\n").encode()
+  (worktree/qa_path).write_bytes(qa_bytes)
   delivery["status"]="DELIVERED"
   delivery["delivery_commit_sha"]=payload_commit
   delivery["delivery_commit_message"]=f"docs(preview): deliver TAC review {report_date}"
   delivery["html"]["remote_git_blob_sha"]=blob((worktree/report_path).read_bytes())
-  delivery["qa"]["remote_git_blob_sha"]=blob((worktree/qa_path).read_bytes())
+  delivery["qa"]["sha256"]=sha(qa_bytes)
+  delivery["qa"]["remote_git_blob_sha"]=blob(qa_bytes)
   (worktree/delivery_path).write_text(json.dumps(delivery,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-  git(["add","--",delivery_path],worktree)
+  git(["add","--",qa_path,delivery_path],worktree)
   staged2=git(["diff","--cached","--name-only"],worktree).splitlines()
-  if staged2!=[delivery_path]:raise SystemExit(f"Stage 6 receipt-finalization path violation: {staged2}")
+  if set(staged2)!=set((qa_path,delivery_path)) or len(staged2)!=2:raise SystemExit(f"Stage 6 receipt-finalization path violation: {staged2}")
   git(["commit","-m",f"chore(preview): finalize TAC delivery receipt {report_date}"],worktree)
   final_commit=git(["rev-parse","HEAD"],worktree)
   git(["push","origin","HEAD:main"],worktree)
@@ -121,6 +128,8 @@ def main():
   for path,expected in protected_before.items():
    if git(["rev-parse",f"{final_commit}:{path}"],worktree)!=expected:
     raise SystemExit(f"Protected path changed during Stage 6: {path}")
+  if git(["rev-parse",f"{final_commit}:data/calendar/weeks"],worktree)!=calendar_tree_before:
+   raise SystemExit("Calendar database tree changed during Stage 6")
   # GITHUB_TOKEN pushes do not reliably trigger other workflows; dispatch Pages explicitly.
   env=os.environ.copy()
   token=env.get("GITHUB_TOKEN") or env.get("GH_TOKEN")
@@ -133,7 +142,7 @@ def main():
   pages_run=None
   while time.time()<deadline:
    runs_doc=gh(["repos/"+REPO+"/actions/workflows/pages.yml/runs?branch=main&per_page=20"],env)
-   new=[x for x in runs_doc.get("workflow_runs",[]) if x["id"] not in old_ids]
+   new=[x for x in runs_doc.get("workflow_runs",[]) if x["id"] not in old_ids and x.get("head_sha")==final_commit and x.get("event")=="workflow_dispatch"]
    if new:
     pages_run=sorted(new,key=lambda x:x.get("created_at",""),reverse=True)[0]
     if pages_run.get("status")=="completed":break
