@@ -106,3 +106,5 @@
 - 本計劃及所有新系統程式不得修改 Simulation branch。
 
 - 2026-11-26 冬令時間修正：美股 NYSE core session 16:00 ET 收盤，EST 對應台灣 05:00；Main capture cron 已由 UTC 20:45（台灣 04:45）改為 UTC 21:05（台灣 05:05）。Workflow commit `ac56284fdac80d1ae0e65c05ec922cea5f191c5e`，新 workflow blob SHA `ecad05e61de0814f66a89ffb8901124b00fcc0b3`。Manifest 已同步；首次排程實跑及 CI 尚待確認。夏令時間自動切換仍是未完成項目。
+
+- 2026-11-26 夏令／冬令自動切換：Workflow 設置兩個 UTC schedule（20:05、21:05，週日到週四 UTC），新增 `schedule-window` preflight，依 `America/New_York` 當下 DST 狀態比對 `github.event.schedule`，只放行正確的觸發器。美國 EDT 時台灣 04:05 啟動（美股 04:00 收盤後 5 分鐘）；美國 EST 時台灣 05:05 啟動（美股 05:00 收盤後 5 分鐘）。GitHub schedule 可能延遲，因此以事件所帶 cron 字串判斷，不依賴 runner 實際啟動分鐘。Workflow blob SHA `33bb98c9757093e2aa9ea73bf4a5b8044e3c7fd5`，Workflow commit `efbc6c0c41bf07458670db3b2e1ce75b68deb6a9`；需等待 CI 與兩季實際排程觀察驗證。
