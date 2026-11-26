@@ -30,6 +30,17 @@ def main():
     assert approved["approved_builder_blob_sha"] == builder_sha
     assert approved["active_rules_blob_sha"] == git_blob_sha(rules_bytes)
 
+    # Updating an unrelated active SIM rule changes the rules blob SHA, but does
+    # not revoke the separately approved Builder path/blob SHA.
+    amended_rules_text = rules_text + "\n0.5.4 Stage 2 blank-first amendment.\n"
+    amended_rules_bytes = amended_rules_text.encode("utf-8")
+    amended = resolve_builder_approval(
+        amended_rules_text, amended_rules_bytes, builder_path, builder_bytes
+    )
+    assert amended["decision"] == "APPROVED"
+    assert amended["approved_builder_blob_sha"] == builder_sha
+    assert amended["active_rules_blob_sha"] != approved["active_rules_blob_sha"]
+
     pending = resolve_builder_approval(
         "No approval clause.", b"No approval clause.",
         builder_path, builder_bytes
