@@ -14,9 +14,6 @@ on:
         type: string
 permissions:
   contents: read
-concurrency:
-  group: tac-stage2-diagnostic-${{ inputs.report_date }}
-  cancel-in-progress: false
 jobs:
   stage2-live-diagnostic:
     runs-on: ubuntu-latest
