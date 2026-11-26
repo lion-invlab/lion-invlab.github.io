@@ -110,7 +110,7 @@
 4. **兩源均無可用數據：** 若兩個來源都無法取得符合條件的目標日期收盤列，MOVE 的 Close 與 Change 必須保持 null／空值，畫面顯示「待核實」。不得沿用 Fixture 舊值、前一交易日數值、即時報價或任何推算值；不得再搜尋第三來源。若兩來源均遭存取／讀取阻擋，保留 TOOL_READ_FAILURE／PENDING；若至少一來源頁面可讀但目標列尚未出現，保留 SOURCE_UPDATE_PENDING／PENDING。
 5. **報告不中斷：** MOVE 為非核心單一行情欄位。SOURCE_UPDATE_PENDING 或 TOOL_READ_FAILURE 不得阻止其餘 43 項、行事曆、新聞、分析及 HTML 繼續製作；MOVE 保留待核實即可。
 6. **延後單項補查：** 後續補查只針對 MOVE，且仍只讀 Investing.com 與 TradingView 兩個固定來源；不得重抓其他 43 項。補查成功時以當輪新 Observation、Manifest、Receipt 及 SHA 更新 MOVE，並重跑受影響的 HTML／QA；兩源仍無目標列時維持空值。任何單項補查不得把即時報價當作歷史收盤價。
-7. **證據保存：** Observation／Manifest 必須保留 primary 與 backup 各自的 URL、嘗試狀態、讀取時間、頁面標題、目標日期、標的身分、欄位映射及目標列證據；BACKUP_VERIFIED 必須明確記錄實際證據來源為 TradingView，並綁定觀察紀錄 SHA。不得把 TradingView 備援冒充 Investing.com 頁面已成功讀取。
+7. **證據保存：** Observation／Manifest 必須保留 primary 與 backup 各自的 URL、嘗試狀態、讀取時間、頁面標題、目標日期、標的身分、欄位映射及目標列證據；TradingView 欄位證據使用 TRADINGVIEW_HISTORICAL_PAGE，BACKUP_VERIFIED 必須明確記錄實際證據來源為 TradingView，並綁定觀察紀錄 SHA。TradingView 商品頁的即時摘要、As of 時間、1 day 漲跌或圖表概覽不得代替目標交易日歷史列；不得把 TradingView 備援冒充 Investing.com 頁面已成功讀取。
 
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
