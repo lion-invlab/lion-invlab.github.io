@@ -14,7 +14,7 @@ from pathlib import PurePosixPath
 from earnings_judgment import ENGINE_VERSION, migrate_legacy_record, render_summary
 
 REPOSITORY = "lion-invlab/lion-invlab.github.io"
-SIMULATION_BRANCH = "simulation/tac-process-lab-2026-11-06"
+PRODUCTION_BRANCH = "main"
 MAIN_REF = "refs/remotes/origin/main"
 
 
@@ -36,10 +36,10 @@ def validate_repository_and_branch() -> None:
         current_branch = github_ref.removeprefix("refs/heads/")
     else:
         current_branch = run_git("branch", "--show-current")
-    if current_branch != SIMULATION_BRANCH:
+    if current_branch != PRODUCTION_BRANCH:
         raise RuntimeError(
             f"calendar source Gate 0 rejected checkout branch {current_branch!r}; "
-            f"expected {SIMULATION_BRANCH!r}. No fallback is permitted."
+            f"expected {PRODUCTION_BRANCH!r}. No fallback is permitted."
         )
 
 
@@ -300,10 +300,10 @@ def self_test() -> None:
     # Deliberately simulate the wrong branch: it must fail closed.
     try:
         branch = "main"
-        if branch != SIMULATION_BRANCH:
+        if branch != PRODUCTION_BRANCH:
             raise RuntimeError(
                 f"calendar source Gate 0 rejected checkout branch {branch!r}; "
-                f"expected {SIMULATION_BRANCH!r}. No fallback is permitted."
+                f"expected {PRODUCTION_BRANCH!r}. No fallback is permitted."
             )
     except RuntimeError as exc:
         assert "rejected checkout branch" in str(exc)
