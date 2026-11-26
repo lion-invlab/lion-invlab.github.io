@@ -167,6 +167,7 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
                 "evidence_path": str(resolved.relative_to(root.resolve())),
                 "evidence_sha256": actual_sha,
                 "captured_at": captured_at,
+                "quote_timestamp": row.get("quote_timestamp"),
                 "instrument_identity": row["instrument_identity"],
                 "data_date": row["data_date"],
             }
@@ -180,5 +181,6 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             "evidence_path": str(resolved.relative_to(root.resolve())),
             "evidence_sha256": actual_sha,
             "captured_at": captured_at,
+            "quote_timestamp": row.get("quote_timestamp"),
         }
     return result
