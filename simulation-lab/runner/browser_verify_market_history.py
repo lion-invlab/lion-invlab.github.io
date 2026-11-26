@@ -232,6 +232,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 if api_response.status != 200:
                     out.update({"status":"TOOL_READ_FAILURE","error":f"CNN_GRAPH_DATA_HTTP_{api_response.status}"})
                     return out
+                out["source_page_fetched"]=True
                 raw=await api_response.body()
                 out["raw_response_sha256"]=hashlib.sha256(raw).hexdigest()
                 payload=json.loads(raw.decode("utf-8"))
