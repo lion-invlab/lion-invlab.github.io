@@ -204,13 +204,16 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and observation.get("source_page_fetched") is not True
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
+    mixed_page_source_types = (
+        {"CNN_OFFICIAL_API"} if is_fear_greed else {"INVESTING_HISTORICAL_PAGE"}
+    )
     mixed_field_observation_ok = (
         provenance == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
-        and read_method == "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+        and read_method in ("MIXED_SCREENSHOT_AND_HISTORICAL_PAGE", "MIXED_SCREENSHOT_AND_OFFICIAL_SOURCE")
         and screenshot_evidence_ok
         and required_field_keys_present
         and bool(screenshot_fields)
-        and any(field_evidence.get(key, {}).get("source_type") == "INVESTING_HISTORICAL_PAGE"
+        and any(field_evidence.get(key, {}).get("source_type") in mixed_page_source_types
                 for key in (value_key, change_key))
         and observation.get("source_page_fetched") is True
         and observation.get("read_status") == "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
