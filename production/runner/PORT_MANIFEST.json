@@ -7,8 +7,8 @@
     {
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
-      "status": "MAIN_PATCHED_OFFICIAL_CALENDAR_HOST_ALLOWLIST",
-      "main_blob_sha": "e94eeffd7931e6cd12189f09bd5c5b3717d41d63"
+      "status": "MAIN_PATCHED_UNIFIED_OFFICIAL_CLOSURE_EVIDENCE_CONTRACT",
+      "main_blob_sha": "de41464be161bfc719663ee08555ccc4bf5a4cf0"
     },
     {
       "file": "stage2_screenshot_inputs.py",
