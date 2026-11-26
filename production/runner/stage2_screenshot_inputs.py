@@ -20,8 +20,8 @@ FIELD_NAMES = {
     "open": {"open", "開市", "開盤"},
     "high": {"high", "最高", "高"},
     "low": {"low", "最低", "低"},
-    "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數", "fear_and_greed.previous_close", "fear_and_greed.target_date_score"},
-    "band": {"band", "rating", "情緒區間", "評級", "derived_from_fear_and_greed.previous_close_using_cnn_bands", "fear_and_greed.target_date_rating"},
+    "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數", "current score", "current_score"},
+    "band": {"band", "rating", "情緒區間", "評級", "current band", "current_band"},
 }
 
 
@@ -259,8 +259,9 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             raise ValueError(f"Screenshot observation does not map to fixture row: {key}")
         if row.get("data_date") != fixture.get("trading_date"):
             raise ValueError(f"{key}: screenshot data_date does not match trading_date")
-        if row.get("source_url") != source.get("url"):
-            raise ValueError(f"{key}: screenshot source_url does not match fixture source contract")
+        approved_urls={source.get("url"),*(source.get("approved_primary_urls") or []),*(source.get("approved_backup_urls") or [])}
+        if row.get("source_url") not in approved_urls:
+            raise ValueError(f"{key}: screenshot source_url is not in the approved source list")
         if not str(row.get("instrument_identity") or "").strip():
             raise ValueError(f"{key}: screenshot instrument_identity is required")
 
