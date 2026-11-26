@@ -156,3 +156,14 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 新增測試涵蓋真實檔案 SHA 比對、日期錯誤阻擋、Fixture 截圖值優先、純截圖跳過頁面、部分欄位混合、額外 OHLC 欄位保留。
 - Workflow 無需修改即可透過預設路徑自動發現 `simulation-lab/input/market-screenshot-observations-YYYY-MM-DD.json`；截圖圖片與 sidecar 必須存在於 Simulation checkout 內。聊天附件不會自動出現在 GitHub runner，因此必須先封存實際圖片檔及 sidecar。
 - 本批尚未完成 44 項實際截圖 bundle 的上線驗收、E2E 及下游防重抓測試；亦尚未取得本輪 GitHub Actions 測試通過紀錄。狀態維持 `IMPLEMENTATION_IN_PROGRESS`。
+
+### 2026-11-26｜第三批改造：缺欄回寫、Receipt 相容與多張截圖
+
+- 部分截圖列的歷史頁缺欄讀取完成後，新增 `apply_page_completions_to_fixture()`：只把截圖未提供的欄位回寫當輪 Fixture；截圖提供欄位不覆蓋。回寫後更新 observation 的欄位匹配狀態，避免只拿舊 Fixture 值比對而無法補值。
+- 截圖可按欄位分別引用不同原始圖片；欄位層級的路徑、SHA、截圖時間及報價時間優先於列層級預設值。每張圖各自重新計算 SHA。
+- Fixture 保存逐欄截圖證據索引與歷史頁補欄欄位清單；Manifest 與 Prebuild Receipt 重新核對實際圖片檔案 SHA。
+- CFD 參考列只有在 Close／Change 均由有效截圖或本輪歷史頁完整補足時，才允許顯示數值；否則回到「待核實」，避免殘留舊 Fixture 價格。
+- `validate_prebuild_stage_inputs.py` 已區分純截圖、混合來源與歷史頁列；允許純截圖列的 `source_page_fetched=false`，同時要求完整欄位證據及實際圖片 SHA。另將「值已具證據」與「歷史頁獨立核實」拆成兩個狀態。
+- `validate_market_snapshot.py` 加入 CFD 截圖／歷史頁完整欄位證據 Gate，並新增正向／負向測試。
+- GitHub Actions 在 commit `58b64deed25e5af7f3c20cde7f22d8615db230e9` 的 Simulation isolated-smoke 已回報 success；該版本涵蓋截圖載入、欄位優先、Fixture 缺欄回寫、Prebuild Receipt 與 CFD 證據 Gate 的回歸測試。之後增加的多圖片欄位測試及規格文件，仍須等待最新 commit 的 Actions 結果。
+- 尚未完成實際 44 項截圖 bundle 的正式 E2E、完整 Stage 2 Receipt 產出與下游防重抓驗收；狀態仍為 `IMPLEMENTATION_IN_PROGRESS`。
