@@ -238,7 +238,7 @@ def main():
             raise SystemExit("CNN Fear & Greed backup source score is not numeric")
         if canonical_fg != fg_display:
             raise SystemExit(f"CNN Fear & Greed backup display {fg_display!r} differs from backup source score {canonical_fg!r}")
-        if str(fg_source.get("source_role", "")).upper() not in ("BACKUP_1", "BACKUP", "SECONDARY"):
+        if str(fg_source.get("source_role", "")).upper() not in ("BACKUP_1", "BACKUP_2", "BACKUP", "SECONDARY"):
             raise SystemExit("CNN Fear & Greed BACKUP_VERIFIED status requires an explicit backup source role")
         if fg_source.get("source_score_value") is not None:
             raise SystemExit("CNN Fear & Greed backup status must not retain an unmapped official CNN source score")
