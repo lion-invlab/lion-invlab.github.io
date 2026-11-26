@@ -378,3 +378,18 @@
   - production/runner/test_stage2_market_fixture_bootstrap.py blob c7a4358498c61b35eedd65fa592aa19f2c52264a
   - production/runner/PORT_MANIFEST.json blob cea1d6e64e212f9ddc962f786debd9b725df3ba6
 - 此修正只收緊休市證據網域，不代表 44 項逐列交易日模型已完成；create_run_fixture.py 目前仍將 NYSE 日期套用全部 44 項，這個阻塞仍列為 Stage 2 未結案。最新 CI 結果待本次 Main push 觸發後回讀；在測試通過前不得將休市驗證標示為完成。
+
+
+## 2026-11-27 Stage 2 逐列日期模型依賴盤查
+- 已逐檔追查全域交易日的硬編碼依賴，確認不能只改 Stage 1 fixture 產生器。以下模組目前仍強制 44 列共用同一日期：
+  1. `create_run_fixture.py`：以 `last_nyse_session(report_date)` 設定全域 `trading_date`，並寫入全部 44 列 `source.data_date`。
+  2. `stage2_market_fixture_bootstrap.py`：要求每列 source.data_date、Observation target_date 均等於 fixture.trading_date；輸出時再次覆寫 source.data_date。
+  3. `validate_chatgpt_web_observations.py`：bundle 僅接受一個 trading_date，且每筆 target_date 必須等於 source.data_date；需改為逐列比對。
+  4. `validate_market_snapshot.py`：`_validate_source`、截圖欄位完整性及最後 `common_data_dates == [trading_date]` 均要求單一日期。
+  5. `build_market_source_verification_manifest.py`：逐列 target/data date 已由 source.data_date讀取，但 Manifest top-level仍綁單一 trading_date；需分離 report benchmark date 與 row data date。
+  6. `build_stage2_receipt.py`：Observation target_date、Manifest row trading_date、browser record data_date、row receipt date 都被強制等於全域 trading_date。
+  7. `validate_prebuild_stage_inputs.py`：Manifest與Observation逐列日期檢核仍綁全域 trading_date。
+  8. `prepare_stage4_research_bundle.py`：目前檢核並傳遞全域 trading_date，但研究資料列已有 data_date 欄位可供逐列呈現；需確保 snapshot／receipt SHA 綁定不丟失 row dates。
+- 日期語意定義：全域 `trading_date` 只保留為報告的美股基準日期／相容欄位；每一個行情列必須有獨立 `target_date`（Observation）與 `source.data_date`（Fixture），以該商品所屬交易所或報價市場的正式交易日曆及報告截止時間計算。不可用「全部減一天」或「全部套 NYSE」替代。
+- 日期來源策略：先為 44 列建立明確 `calendar_id`／市場時區／session cutoff 對照；可由已核准日曆套件確定計算的市場才自動計算。日曆不支援、商品日期語意不明（例如外匯供應商日線、MOVE 顯示值、CNN Fear & Greed）者不得猜日期，須由明確的來源日期／時間戳或官方交易日證據決定；無法確定時 fail closed，不產生假 VERIFIED。
+- 尚未提交逐列日期程式碼：目前尚未確認 Runner 使用的日曆套件對全部指定交易所的實際支援清單，且 8 個下游模組尚未完成共同契約改造。先列出依賴與契約，避免只改一段造成生產流程中途失敗。
