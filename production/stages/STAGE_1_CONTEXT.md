@@ -11,7 +11,7 @@ MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/con
 5. 建立唯一 Run ID 與 run-context；記錄保護範圍及當次輸出路徑。Run context 必須包含後續 Stage 可直接使用的固定 report_date、trading_date、mother key/path/blob SHA、Manifest SHA、calendar commit、週 JSON SHA 及 governance blob SHA 清單。
 
 ## 輸出
-run-context.json、基準 SHA 清單、calendar read receipt。
+run-context.json、基準 SHA 清單、calendar read receipt、Stage 1 receipt（含 run-context SHA 與 governance file count）。
 
 ## 驗收與交接
 必要路徑、SHA、日期、星期情境全部正確才 PASS。將固定日期、交易日、44 項欄位清單、母版及來源規格交給 Stage 2。Stage 1 不修改母版、Manifest 或 calendar JSON。
