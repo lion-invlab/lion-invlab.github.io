@@ -26,6 +26,23 @@ EXPECTED_POLITICAL_DOMAINS = {
 EXPECTED_ANALYSIS_LAYERS = {
     "political", "policy_industry", "macro", "markets", "strategy",
 }
+OFFICIAL_CALENDAR_HOSTS = {
+    "nyse.com", "nasdaq.com", "jpx.co.jp", "cao.go.jp", "global.krx.co.kr",
+    "twse.com.tw", "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn",
+    "hkex.com.hk", "londonstockexchange.com", "deutsche-boerse.com",
+    "euronext.com", "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
+}
+
+def is_official_calendar_url(value: str) -> bool:
+    try:
+        parsed = urlparse(str(value or ""))
+        host = (parsed.hostname or "").lower().rstrip(".")
+        return parsed.scheme == "https" and any(
+            host == domain or host.endswith("." + domain)
+            for domain in OFFICIAL_CALENDAR_HOSTS
+        )
+    except ValueError:
+        return False
 
 
 def sha256_bytes(raw: bytes) -> str:
@@ -208,9 +225,23 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
             require(row.get("display_value_matches_saved_observation") is False,
                     f"unverified/closed row cannot claim a value match: {row.get('name')}")
             if state == "CLOSED":
-                require(row.get("evidence_status") == "MARKET_CLOSED"
-                        and row.get("source_page_fetched") is True,
-                        f"closed row lacks direct page/holiday evidence: {row.get('name')}")
+                record = row.get("browser_observation_record")
+                require(row.get("evidence_status") == "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
+                        and row.get("source_page_fetched") is True
+                        and isinstance(record, dict),
+                        f"closed row lacks direct page/official holiday evidence: {row.get('name')}")
+                require(record.get("read_status") == "MARKET_CLOSED"
+                        and record.get("target_date") == trading_date
+                        and record.get("source_page_fetched") is True
+                        and record.get("prior_observation_reused") is False
+                        and record.get("provenance") == "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+                        and record.get("read_method") == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+                        and is_official_calendar_url(record.get("closure_evidence_url"))
+                        and bool(record.get("closure_evidence_reader_ref"))
+                        and isinstance(record.get("closure_evidence_line_start"), int)
+                        and isinstance(record.get("closure_evidence_line_end"), int)
+                        and record.get("closure_evidence_line_end") >= record.get("closure_evidence_line_start"),
+                        f"closed row official browser evidence is incomplete or mismatched: {row.get('name')}")
     # raw_response_sha256 is optional evidence; absence is not a Stage 2 failure.
     raw_hash_count = manifest.get("raw_response_sha256_saved_count", 0)
     require(isinstance(raw_hash_count, int) and 0 <= raw_hash_count <= 44,
