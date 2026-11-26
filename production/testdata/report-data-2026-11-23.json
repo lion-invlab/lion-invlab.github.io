@@ -918,10 +918,10 @@
       "change_display": "Extreme Fear",
       "band": "極度恐懼",
       "source": {
-        "name": "CNN Business｜Fear & Greed Index official previous-close field",
+        "name": "CNN Business Fear & Greed Index",
         "url": "https://edition.cnn.com/markets/fear-and-greed",
         "data_date": "2026-11-20",
-        "quote_type": "third_party_provider_index",
+        "quote_type": "cnn_fear_greed_current_score",
         "note": "CNN 官方 graphdata JSON 的 fear_and_greed.previous_close=9.67368421052632；本期目標收盤日為 2026-11-20，依整數顯示規則四捨五入為 10、極度恐慌。同一回應的 fear_and_greed_historical.data[] 中 UTC 2026-11-20 點為 18.5873840445269，與 previous_close 不一致；本報以 CNN 明確標示的 previous_close 欄位作為前一完整交易日收盤，並保留歷史序列差異作資料品質警示，不混用兩個欄位。",
         "source_timestamp": "2026-11-23T14:45:36Z (CNN headline timestamp; previous_close mapped to 2026-11-20)",
         "read_at_taipei": "2026-11-23T22:49:15.649996+08:00",
@@ -934,7 +934,16 @@
         "provider_timestamp_taipei": "2026-11-23T22:45:36+08:00 (CNN headline timestamp; previous_close for 2026-11-20)",
         "evidence_method": "CNN official graphdata JSON fear_and_greed.previous_close; same-date historical-array discrepancy retained as QA warning",
         "raw_response_sha256": null,
-        "source_score_value": "9.67368421052632"
+        "source_score_value": "9.67368421052632",
+        "approved_primary_urls": [
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://www.cnn.com/markets/fear-and-greed"
+        ],
+        "approved_backup_urls": [
+          "https://fgscore.com/en/markets/sp500",
+          "https://staging.fcontext.com/en/fear-and-greed"
+        ],
+        "instrument_identity": "CNN Fear & Greed Index"
       }
     }
   },
