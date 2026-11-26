@@ -17,7 +17,7 @@ from urllib.parse import urlparse
 from validate_market_snapshot import validate_market_snapshot
 
 OFFICIAL_CALENDAR_HOSTS = {
-    "nyse.com", "nasdaq.com", "jpx.co.jp", "global.krx.co.jp", "twse.com.tw",
+    "nyse.com", "nasdaq.com", "jpx.co.jp", "cao.go.jp", "global.krx.co.jp", "twse.com.tw",
     "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn", "hkex.com.hk",
     "londonstockexchange.com", "deutsche-boerse.com", "euronext.com",
     "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
