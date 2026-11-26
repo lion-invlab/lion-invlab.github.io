@@ -69,6 +69,7 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
         if "close" in fields:
             value = _plain_number(fields["close"]["value"])
             if group == "sectors":
+                source["close_value"] = value
                 source["history_close"] = value
             else:
                 source["close_value"] = value
@@ -81,8 +82,9 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
         if "change" in fields:
             value = _plain_number(fields["change"]["value"])
             if group == "sectors":
+                source["daily_change_percent"] = value
                 source["history_change"] = value
-                source["change_display"] = str(fields["change"]["value"]).strip()
+                source["change_display"] = _display_like(source.get("change_display"), fields["change"]["value"], percent=True)
                 fixture["sectors"][name] = source["change_display"]
             else:
                 source["daily_change_percent"] = value
