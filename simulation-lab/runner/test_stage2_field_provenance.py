@@ -39,6 +39,7 @@ def base_observation(source: dict, *, mixed: bool = False):
         "observed_date": source["data_date"],
         "instrument_identity": "S&P 500 (SPX)",
         "instrument_identity_status": "VERIFIED",
+        "screenshot_instrument_identity_status": "VERIFIED",
         "field_mapping_status": "VERIFIED",
         "observed_value": source["close_value"],
         "observed_change": source["daily_change_percent"],
