@@ -454,3 +454,12 @@
 - Main blobs：`prepare_stage4_research_bundle.py` `f051f79fcdf1f49f98fdaf5f8de8589f79f37969`；`stage2_market_fixture_bootstrap.py` `870ed3bbaf84bb04c095a4ec7942723f76bfa05f`；PORT_MANIFEST `2fca6cdbdbd7d42d12e5e8ffc44ce91f253c7754`。
 - CI：Stage 4 修正 commit 的 Run `45903290060` 啟動時仍在安裝依賴；後續 bootstrap／Manifest commits 會觸發更新的 Main validation。尚未取得涵蓋最新 HEAD 的完成結果，不標記 PASS。
 - 尚待：為 Stage 4 增加 CLOSED row 正反向整合測試；為 Stage 2 增加截圖不被 CLOSED 覆蓋的回歸測試；回讀最新 Main CI；確認 Builder 新 blob 的 exact approval gate 維持 fail-closed。未修改 Simulation、排程、正式首頁或真實行情資料。
+
+
+## 2026-11-27 續修：CLOSED 證據內容必填與 CI 根因
+- 回讀 Run `45903158288` 的 job log，確認唯一阻塞在 `test_market_closed_requires_official_calendar_evidence`：測試案例只有官方 URL／reader ref／行號，沒有實際證據文字，但 bootstrap 仍接受 CLOSED。這是程式驗證缺口，不是單純測試格式問題。
+- 已修正 bootstrap：官方休市 URL 之外，必須有非空 `closure_evidence_text` 才能 CLOSED；截圖優先權保護仍保留。
+- 正向測試（ASX／NYSE）加入實際證據文字；無證據文字的 NYSE 案例保留負向測試，必須呈現 PENDING／待核實。
+- 最新 blobs：bootstrap `c71d1fd5cf3226907c09243a7a75c14af8db4e24`；測試 `3320a75d67e0f4ea61641194fa066b06cebbfe47`；Stage 4 per-row binding `f051f79fcdf1f49f98fdaf5f8de8589f79f37969`；PORT_MANIFEST `70b5bc04aebdf1ab9aa88fce9bd1a86009407a38`。
+- 先前 CI Run `45903158288`：compile、dual mother SHA、Manifest validation 通過；Stage 2 測試 24 項中 1 項失敗，其餘通過；Builder／earnings 測試因前置失敗而 skipped。最新修正後 CI 尚待執行及回讀。
+- 尚未完成：新增 Stage 4 CLOSED row 整合測試及截圖＋CLOSED 衝突回歸測試；最新 Main CI；真實 44 項資料擷取與 E2E。Builder 新 blob仍維持 exact approval pending。未修改 Simulation、排程、正式首頁。
