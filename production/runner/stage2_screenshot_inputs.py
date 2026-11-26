@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from decimal import Decimal, InvalidOperation
 
@@ -32,6 +34,18 @@ def _sha256(path: Path) -> str:
             digest.update(chunk)
     return digest.hexdigest()
 
+
+
+def _captured_taipei_date(value: str, key: tuple[str, str], field: str) -> str:
+    """Return the Taiwan-local capture date; reject naive or malformed timestamps."""
+    raw = str(value or "").strip()
+    try:
+        captured = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{key}/{field}: screenshot captured_at must be ISO-8601") from exc
+    if captured.tzinfo is None or captured.utcoffset() is None:
+        raise ValueError(f"{key}/{field}: screenshot captured_at must include an explicit timezone")
+    return captured.astimezone(ZoneInfo("Asia/Taipei")).date().isoformat()
 
 
 def _plain_number(value):
@@ -292,6 +306,12 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             captured_at = str(item.get("captured_at") or row.get("captured_at") or "").strip()
             if not captured_at:
                 raise ValueError(f"{key}/{field}: screenshot captured_at is required")
+            captured_date = _captured_taipei_date(captured_at, key, field)
+            if captured_date != fixture.get("report_date"):
+                raise ValueError(
+                    f"{key}/{field}: screenshot is stale; Taiwan capture date "
+                    f"{captured_date} does not match report_date {fixture.get('report_date')}"
+                )
             normalized_fields[field] = {
                 "value": item["value"],
                 "field_name": field_name,
