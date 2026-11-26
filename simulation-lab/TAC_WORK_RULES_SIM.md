@@ -780,3 +780,16 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 2026-11-26｜使用者核准 SIM-1.4 Builder 精確 SHA
 - 依使用者要求自主修復 2026-11-26 審核版組版阻塞，核准唯一 Builder `simulation-lab/runner/build_review_html.py`，Git blob SHA `24f7950318bcc93f5d6ebfc05a8a547504393311`。此項僅更新 Simulation Builder 精確版本核准，不授權 main、正式母版、首頁或 Pages 部署。
+
+## 2026-11-26｜SIM-1.4 main/preview 直接交付修訂
+
+- 依使用者明確要求，Stage 6 改為在完整 REVIEW_READY 後直接交付 main/preview；本修訂取代 2026-11-25 Simulation-only delivery amendment。
+- main 寫入白名單固定三檔：preview/YYYY-MM-DD-review.html、preview/YYYY-MM-DD-review.qa.json、preview/YYYY-MM-DD-review.delivery.json。main/index.html、正式母版、Manifest、正式行事曆 JSON、歷史報告及其他 main 路徑仍唯讀。
+- Builder 本體及精確 SHA 核准不變；Builder 只在 Simulation runner 工作目錄產生暫存 HTML／QA，暫存檔不 commit 至 Simulation branch。獨立 Publisher 在 Stage 5 QA 全通過後建立 main preview 三檔。
+- 新增 publish_main_preview.py 與正負向測試；publisher 驗證 QA_PASSED、review_ready、data_review_ready、sim14_review_ready、Builder approval、Run／attempt、pre-build receipt、HTML Git blob SHA／SHA-256，並保護 main/index.html。
+- Workflow 保留 Simulation receipts／audit／tests／provenance，僅在 main 寫入三檔白名單；採獨立 worktree、精確 path-set、禁止 force-push、安全 rebase、遠端回讀。
+- main/default branch 原先缺少 tac-simulation-lab.yml；已加入與 Simulation branch 完全相同的 workflow 定義，確保 GitHub 能以 default-branch workflow 接收 Simulation push。Workflow 啟動時核對兩份檔案 SHA。
+- 沿用既有 pages.yml；GITHUB_TOKEN push 後明確 dispatch workflow_dispatch，等待 Pages Run success，再以公開 URL 驗證 report-date。
+- QA Contract 升至 v1.28，blob SHA a00b5db3c432973cbe4c743fe781c4d12375e8ef；同步更新 TAC 早報排程 prompt 與 Chart 3 早報交付監控。
+- 移除已不適用的 qa-only mode；該模式依賴 Simulation branch 既有 HTML，與每日審核版不再存放 Simulation branch 的新規則衝突。
+- GitHub branch protection／ruleset 查詢因 connector 權限回傳 403；Actions GITHUB_TOKEN 是否能直接 push main 尚待第一次受控完整 build 驗證。未驗證前不得宣稱 E2E 完成。
