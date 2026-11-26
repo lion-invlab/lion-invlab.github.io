@@ -142,5 +142,21 @@
       "conclusion": "success",
       "scope": "main-only deterministic validation; build job skipped"
     }
+  },
+  "main_native_modules": [
+    {
+      "file": "builder_approval.py",
+      "purpose": "enforce exact-blob owner approval for the main Builder"
+    },
+    {
+      "file": "test_builder_approval.py",
+      "purpose": "test pending, mismatched and exact-approved Builder states"
+    }
+  ],
+  "approval_record": {
+    "path": "production/config/builder-approval.json",
+    "status": "CANDIDATE_PENDING_OWNER_APPROVAL",
+    "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+    "enforced_by": "production/runner/run_stage5.py"
   }
 }
