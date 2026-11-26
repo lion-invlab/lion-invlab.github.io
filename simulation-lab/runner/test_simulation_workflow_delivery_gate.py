@@ -87,3 +87,5 @@ assert "test_publish_main_preview.py" in WORKFLOW
 print("PASS: Simulation builds remain isolated; canonical REVIEW_READY HTML/QA/receipt publish only to main/preview.")
 print("PASS: main/index.html, formal mothers, Manifest and calendar JSON remain outside the publisher whitelist.")
 print("PASS: existing GitHub Pages workflow is dispatched and the public preview URL is checked.")
+
+# Regression contract: one external market read pass, then immutable SHA-bound snapshot checks only.
