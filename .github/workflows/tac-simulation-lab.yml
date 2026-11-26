@@ -1,0 +1,1138 @@
+# TAC daily report build; workflow definition is mirrored on main/default and Simulation.
+# It executes from Simulation inputs and publishes only QA-passed review artifacts to main/preview.
+name: TAC isolated simulation lab
+# No path filters: source notes, fixtures, workflow fixes and report inputs must not silently miss execution.
+# Full report build is selected by [build-tac-report:YYYY-MM-DD] in the Simulation commit message.
+
+on:
+  push:
+    branches:
+      - simulation/tac-process-lab-2026-11-06
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "執行完整當日早報製作、QA 與 main/preview 交付"
+        required: true
+        default: build
+        type: choice
+        options:
+          - build
+      report_date:
+        description: "台灣報告日期 YYYY-MM-DD；可留白使用最新 fixture"
+        required: false
+        type: string
+      run_optional_probes:
+        description: "額外非必要研究探測；44項主要行情核驗屬每日主流程，不受此選項控制"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  # Serialize Simulation-branch report builds only; this workflow has no main handoff.
+  # New pushes may replace a pending run, but must never cancel an active report build.
+  # Full report builds are explicitly selected by [build-tac-report:YYYY-MM-DD] commit messages.
+  # 11/24 rebuild includes current-date review-banner QA guard.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  # Serialize Simulation-branch report builds; active runs are never cancelled by newer pushes.
+  group: tac-simulation-review-delivery
+  cancel-in-progress: false
+
+jobs:
+  isolated-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout simulation branch only
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+          fetch-depth: 0
+
+      - name: Capture simulation checkout provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA" >> "$GITHUB_ENV"
+
+      - name: Verify default-branch workflow mirror matches Simulation workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          MAIN_WORKFLOW_SHA="$(git show origin/main:.github/workflows/tac-simulation-lab.yml | git hash-object --stdin)"
+          SIM_WORKFLOW_SHA="$(git hash-object .github/workflows/tac-simulation-lab.yml)"
+          test "$MAIN_WORKFLOW_SHA" = "$SIM_WORKFLOW_SHA" || {
+            echo "Main/default workflow and Simulation workflow copies differ; refusing an unreviewed pipeline definition." >&2
+            echo "main=$MAIN_WORKFLOW_SHA simulation=$SIM_WORKFLOW_SHA" >&2
+            exit 1
+          }
+          echo "Workflow mirror SHA verified: $SIM_WORKFLOW_SHA"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars playwright
+      - name: Install Chromium before live market history collection
+        run: python -m playwright install chromium
+
+
+      - name: Materialize SHA-locked simulation Monday and weekday mothers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p simulation-lab/output
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          manifest=json.loads(Path('simulation-lab/baseline/mother-template-manifest.json').read_text(encoding='utf-8'))
+          for key, filename in [('monday','monday-mother-template.html'),('weekdays','weekday-mother-template.html')]:
+              source=Path('simulation-lab/baseline')/filename
+              target=Path('simulation-lab/output')/filename
+              target.write_bytes(source.read_bytes())
+              raw=target.read_bytes()
+              actual=subprocess.check_output(['git','hash-object',str(source)],text=True).strip()
+              expected=manifest['templates'][key]['simulation_blob_sha']
+              assert actual==expected, f'{key} simulation mother SHA mismatch: {actual} != {expected}'
+              soup=BeautifulSoup(raw,'lxml')
+              fed=soup.select('#fed .fc-fomc-weekly-events')
+              assert len(fed)==1, f'{key} Fed weekly agenda slot missing or duplicated'
+              assert len(fed[0].select('.fc-fomc-weekly-events-title'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-events-list'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-event-template'))==1
+              assert len(fed[0].select('.fc-fomc-weekly-events-empty'))==1
+              evidence={'path':str(target),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+                        'git_blob_sha':actual,'expected_simulation_blob_sha':expected,
+                        'official_mother_blob_sha':manifest['templates'][key]['blob_sha'],
+                        'parser':'lxml','html_elements':len(soup.find_all(True)),
+                        'ids':len([x for x in soup.find_all(id=True)]),
+                        'scripts':len(soup.find_all('script')),'styles':len(soup.find_all('style')),
+                        'fed_agenda_slot_count':len(fed)}
+              print(json.dumps(evidence,ensure_ascii=False))
+              Path(f'simulation-lab/output/{key}-mother-transfer-evidence.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for key in ("monday", "weekdays"):
+              path = Path(f"simulation-lab/output/{key}-mother-transfer-evidence.json")
+              json.loads(path.read_text(encoding="utf-8"))
+          print("PASS: both mother transfer evidence JSON files parse")
+          PY
+
+      - name: Probe remaining Equibles historical snapshots (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
+        shell: bash
+        env:
+          EQUIBLES_API_KEY: ${{ secrets.EQUIBLES_API_KEY }}
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/equibles_historical_snapshot_remainder_probe.py
+
+      - name: Probe ORTEX TEST consensus API (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/probe_ortex_test.py --output simulation-lab/output/ortex-test-probe.json
+
+      - name: Test Investing.com earnings page parser
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: python simulation-lab/runner/investing_earnings_probe.py --self-test --output /tmp/investing-probe.json --archive-dir /tmp/investing-raw
+
+      - name: Probe Investing.com earnings pages (read-only, simulation only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
+        shell: bash
+        run: python simulation-lab/runner/investing_earnings_probe.py --output simulation-lab/output/investing-earnings-probe.json --archive-dir simulation-lab/output/investing-raw
+
+      - name: Test append-only PIT consensus snapshot store
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: python simulation-lab/runner/test_consensus_snapshot_store.py
+
+      - name: Compile simulation render and validation code
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile simulation-lab/runner/publish_main_preview.py simulation-lab/runner/test_publish_main_preview.py simulation-lab/runner/build_market_source_verification_manifest.py simulation-lab/runner/browser_verify_market_history.py simulation-lab/runner/validate_chatgpt_web_observations.py simulation-lab/runner/test_validate_chatgpt_web_observations.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/capture_market_source_pages.py simulation-lab/runner/test_capture_market_source_pages.py simulation-lab/runner/build_review_html.py simulation-lab/runner/test_market_analysis_slots.py simulation-lab/runner/patch_review_sections.py simulation-lab/runner/test_patch_review_sections.py simulation-lab/runner/test_full_candidate_builder.py simulation-lab/runner/render_market_analysis_test_pages.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/sim14_builder_approval.py simulation-lab/runner/validate_market_snapshot.py simulation-lab/runner/validate_prebuild_stage_inputs.py simulation-lab/runner/test_prebuild_stage_inputs.py simulation-lab/runner/project_w47_yahoo_consensus.py simulation-lab/runner/test_w47_consensus_projection.py simulation-lab/runner/probe_yfinance_estimate_methodology.py simulation-lab/runner/validate_mother_dom_contract.py simulation-lab/runner/audit_simulation_artifact_bundle.py simulation-lab/runner/test_simulation_artifact_bundle.py
+          node --check simulation-lab/runner/visual_regression.mjs
+          node --check simulation-lab/runner/test_market_analysis_browser.mjs
+          node --check simulation-lab/runner/interaction_smoke.mjs
+
+      - name: Run deterministic self-tests
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          # SIM-1.4 retires WR-lock / daily-snapshot / legacy renderer prerequisites.
+          python simulation-lab/runner/calendar_source_guard.py --self-test
+          python simulation-lab/runner/collect_earnings_price_reactions.py --self-test
+          python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
+          python simulation-lab/runner/collect_key_levels_ohlc.py --self-test
+          python simulation-lab/runner/validate_dual_mothers.py
+          python simulation-lab/runner/test_fear_greed_marker.py
+          python simulation-lab/runner/test_summary_headline.py
+          python simulation-lab/runner/test_earnings_comparison_status.py
+          python simulation-lab/runner/test_earnings_judgment_engine.py
+          python simulation-lab/runner/test_earnings_schema_audit.py
+          python simulation-lab/runner/test_earnings_health_dom_preservation.py
+          python simulation-lab/runner/test_earnings_card_dom_preservation.py
+          python simulation-lab/runner/test_builder_output_guard.py
+          python simulation-lab/runner/test_market_analysis_slots.py
+          python simulation-lab/runner/test_patch_review_sections.py
+          python simulation-lab/runner/test_sim14_builder_approval.py
+          python simulation-lab/runner/test_simulation_workflow_delivery_gate.py
+          python simulation-lab/runner/test_simulation_artifact_bundle.py
+          python simulation-lab/runner/test_publish_main_preview.py
+          python simulation-lab/runner/test_validate_market_snapshot.py
+          python simulation-lab/runner/test_market_source_verification_manifest.py
+          python simulation-lab/runner/test_validate_chatgpt_web_observations.py
+          python simulation-lab/runner/test_browser_http_classification.py
+          python simulation-lab/runner/test_prebuild_stage_inputs.py
+          python simulation-lab/runner/test_capture_market_source_pages.py
+          python simulation-lab/runner/test_report_layer_earnings_status.py
+          python simulation-lab/runner/test_calendar_impact_overrides.py
+          python simulation-lab/runner/test_sp500_chart3_handoff.py
+          python .github/scripts/test_append_tac_sp500_daily_increment.py
+          python .github/scripts/test_merge_tac_sp500_daily_increment.py
+          python simulation-lab/runner/test_quote_type_guard.py
+          python simulation-lab/runner/test_builder_calendar_panel_preservation.py
+          echo "PASS: calendar panel shell preservation regression guard (frozen prototypes)"
+          python simulation-lab/runner/validate_earnings_v2.py --self-test
+
+      - name: Test main preview publisher safety and hash binding
+        run: python simulation-lab/runner/test_publish_main_preview.py
+
+      - name: Audit W46 PIT projection (read-only, simulation data only)
+        if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
+        shell: bash
+        run: python simulation-lab/runner/audit_simulation_pit_projection.py --report-date 2026-11-16 --output simulation-lab/output/w46-pit-projection-audit.json
+
+      - name: Audit authoritative main earnings schema (read-only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
+          python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json --migration-csv simulation-lab/output/earnings-migration-preview.csv
+
+      # Dual-mother regression: rerun the Monday fixture against the same candidate gate.
+      - name: Resolve report date, fixture, weekday mother and SHA
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        env:
+          INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
+          INPUT_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${INPUT_REPORT_DATE}" ]]; then
+            REPORT_DATE="${INPUT_REPORT_DATE}"
+          elif [[ "${INPUT_COMMIT_MESSAGE}" =~ \[build-tac-report:([0-9]{4}-[0-9]{2}-[0-9]{2})\] ]]; then
+            REPORT_DATE="${BASH_REMATCH[1]}"
+          else
+            REPORT_DATE="$(python - <<'PY'
+          from pathlib import Path
+          import re
+          files = sorted(Path("simulation-lab/fixtures").glob("report-data-????-??-??.json"))
+          if not files:
+              raise SystemExit("No report-data-YYYY-MM-DD.json fixture exists")
+          print(re.search(r"(\d{4}-\d{2}-\d{2})", files[-1].name).group(1))
+          PY
+          )"
+          fi
+          python - "${REPORT_DATE}" <<'PY'
+          import sys, json
+          from datetime import date
+          from pathlib import Path
+          d = date.fromisoformat(sys.argv[1])
+          if d.weekday() > 4:
+              raise SystemExit(f"Weekend report date is not allowed: {d}")
+          fixture = Path(f"simulation-lab/fixtures/report-data-{d.isoformat()}.json")
+          if not fixture.is_file():
+              raise SystemExit(f"Missing date-matched fixture: {fixture}; refusing to reuse another date")
+          data = json.loads(fixture.read_text(encoding="utf-8"))
+          if data.get("report_date") != d.isoformat():
+              raise SystemExit(f"Fixture report_date mismatch: {data.get('report_date')!r} != {d}")
+          if data.get("timezone") != "Asia/Taipei":
+              raise SystemExit("Fixture timezone must be Asia/Taipei")
+          PY
+          TEMPLATE_KEY="$(python - "${REPORT_DATE}" <<'PY'
+          import sys
+          from datetime import date
+          print("monday" if date.fromisoformat(sys.argv[1]).weekday() == 0 else "weekdays")
+          PY
+          )"
+          if [[ "${TEMPLATE_KEY}" == "weekdays" ]]; then
+            MOTHER_FILE="simulation-lab/output/weekday-mother-template.html"
+          else
+            MOTHER_FILE="simulation-lab/output/monday-mother-template.html"
+          fi
+          EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
+          import json, sys
+          m = json.loads(open("simulation-lab/baseline/mother-template-manifest.json", encoding="utf-8").read())
+          print(m["templates"][sys.argv[1]]["simulation_blob_sha"])
+          PY
+          )"
+          {
+            echo "REPORT_DATE=${REPORT_DATE}"
+            echo "REPORT_DATA=simulation-lab/fixtures/report-data-${REPORT_DATE}.json"
+            echo "TEMPLATE_KEY=${TEMPLATE_KEY}"
+            echo "MOTHER_FILE=${MOTHER_FILE}"
+            echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}"
+            echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html"
+            echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json"
+            echo "BUILDER_OUTPUT=simulation-lab/output/candidate-validation/${REPORT_DATE}-builder-input.html"
+            echo "PATCHED_OUTPUT=simulation-lab/output/candidate-validation/${REPORT_DATE}-w47-consensus-patched.html"
+            echo "PATCH_RECEIPT=simulation-lab/output/candidate-validation/${REPORT_DATE}-last-week-consensus-overlay.json"
+          } >> "$GITHUB_ENV"
+          echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
+
+      # 2026-11-25: exact-date ChatGPT Web rows are accepted only after 44-row source/date/identity/value validation.
+      - name: Read and reconcile 44 current-run market history pages with ChatGPT Web or Playwright
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        id: market_observations
+        run: |
+          set -euo pipefail
+          mkdir -p simulation-lab/output
+          export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
+          WEB_OBSERVATIONS="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
+          CNN_OBSERVATION="simulation-lab/fixtures/cnn-official-observation-${REPORT_DATE}.json"
+          # Prefer a fresh, exact-date direct ChatGPT Web read bundle when present.
+          # Its validator checks all 44 URLs, dates, identities, mapped columns, values and source line references.
+          # If no current-date bundle exists, fall back to live Playwright; never reuse a prior report's observations.
+          if [[ -s "${WEB_OBSERVATIONS}" ]]; then
+            if [[ ! -s "${CNN_OBSERVATION}" ]]; then
+              printf '{"observations":[]}\n' > "${CNN_OBSERVATION}"
+            fi
+            python simulation-lab/runner/validate_chatgpt_web_observations.py \
+              --data "${REPORT_DATA}" \
+              --report-date "${REPORT_DATE}" \
+              --input "${WEB_OBSERVATIONS}" \
+              --cnn-observation "${CNN_OBSERVATION}" \
+              --output simulation-lab/output/market-history-playwright-observations.json
+            export OBSERVATION_CAPTURE_METHOD="CURRENT_CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+          else
+            python simulation-lab/runner/browser_verify_market_history.py \
+              --fixture "${REPORT_DATA}" \
+              --report-date "${REPORT_DATE}" \
+              --output simulation-lab/output/market-history-playwright-observations.json \
+              --concurrency 2 \
+              --timeout-ms 15000
+            export OBSERVATION_CAPTURE_METHOD="PLAYWRIGHT_RENDERED_HISTORY_TABLE"
+          fi
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          browser_path = Path("simulation-lab/output/market-history-playwright-observations.json")
+          closure_path = Path(os.environ["CLOSURE_EVIDENCE"])
+          fixture_path = Path(os.environ["REPORT_DATA"])
+          browser = json.loads(browser_path.read_text(encoding="utf-8"))
+          closure = json.loads(closure_path.read_text(encoding="utf-8")) if closure_path.is_file() else {"observations": []}
+          fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+
+          if browser.get("report_date") != fixture.get("report_date"):
+              raise SystemExit("Playwright observation report_date does not match the fixture")
+          if browser.get("trading_date") != fixture.get("trading_date"):
+              raise SystemExit("Playwright observation trading_date does not match the fixture")
+
+          observations = browser.get("observations") or []
+          by_key = {}
+          for row in observations:
+              key = (row.get("group"), row.get("name"))
+              if not all(key) or key in by_key:
+                  raise SystemExit(f"Duplicate or incomplete Playwright observation key: {key}")
+              by_key[key] = row
+          if len(by_key) != 44:
+              raise SystemExit(f"Playwright must return 44 unique page observations; got {len(by_key)}")
+
+          closure_rows = closure.get("observations") or []
+          if len(closure_rows) > 1:
+              raise SystemExit(f"Expected zero or one closure-evidence row; got {len(closure_rows)}")
+          if closure_rows:
+              closed = closure_rows[0]
+              closure_key = (closed.get("group"), closed.get("name"))
+              expected_nikkei_url = fixture["global_markets"]["日經225"]["source"]["url"]
+              if closure_key != ("global_markets", "日經225"):
+                  raise SystemExit(f"Unexpected closure-evidence instrument: {closure_key}")
+              if closed.get("read_status") != "MARKET_CLOSED":
+                  raise SystemExit("Nikkei closure evidence is not marked MARKET_CLOSED")
+              if closed.get("target_date") != fixture.get("trading_date"):
+                  raise SystemExit("Nikkei closure evidence target date mismatch")
+              if closed.get("source_url") != expected_nikkei_url:
+                  raise SystemExit("Nikkei closure evidence source URL mismatch")
+              if not str(closed.get("closure_evidence_url") or "").startswith("https://www8.cao.go.jp/"):
+                  raise SystemExit("Nikkei closure evidence must cite the official Japan Cabinet Office")
+              if "休市" not in str(closed.get("observed_row_text") or ""):
+                  raise SystemExit("Nikkei closure evidence text does not document the closure")
+              if closure_key not in by_key:
+                  raise SystemExit("Playwright observation set is missing the Nikkei row to replace with closure evidence")
+
+              closed = {**by_key[closure_key], **closed}
+              closed["status"] = "MARKET_CLOSED"
+              closed["read_status"] = "MARKET_CLOSED"
+              closed["source_page_fetched"] = True
+              closed["closure_evidence_validated"] = True
+              by_key[closure_key] = closed
+
+          rows = list(by_key.values())
+          verified_count = sum(row.get("status") == "VERIFIED" for row in rows)
+          closed_count = sum(row.get("read_status") == "MARKET_CLOSED" for row in rows)
+          pending_count = 44 - verified_count - closed_count
+          status_counts = {}
+          for row in rows:
+              status = "MARKET_CLOSED" if row.get("read_status") == "MARKET_CLOSED" else (row.get("status") or "UNKNOWN")
+              status_counts[status] = status_counts.get(status, 0) + 1
+
+          browser["observations"] = rows
+          browser["row_count"] = 44
+          browser["verified_count"] = verified_count
+          browser["closed_count"] = closed_count
+          browser["pending_count"] = pending_count
+          browser["status_counts"] = status_counts
+          browser["source_pages_fetched_this_run"] = all(
+              row.get("http_status") == 200 or row.get("source_page_fetched") is True
+              for row in rows
+          )
+          browser["displayed_values_independently_reconciled_this_run"] = (
+              verified_count + closed_count == 44 and pending_count == 0
+          )
+          browser["numeric_observations_source"] = os.environ.get("OBSERVATION_CAPTURE_METHOD", "PLAYWRIGHT_RENDERED_HISTORY_TABLE")
+          browser["numeric_observations_from_manual_bundle"] = 0
+          browser["closure_evidence_source"] = str(closure_path) if closure_rows else None
+          browser["notes"] = (
+              "All numeric rows originate from a current-run, date-matched source observation bundle validated against exact page rows. "
+              "The capture method is recorded above; official closure evidence is applied only when a date-matched, independently validated closure file exists. "
+              "No prior report observation is reused."
+          )
+          output_path = Path("simulation-lab/output/market-history-browser-observations.json")
+          output_path.write_text(json.dumps(browser, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps({
+              "row_count": 44,
+              "verified_count": verified_count,
+              "closed_count": closed_count,
+              "pending_count": pending_count,
+              "source_pages_fetched_this_run": browser["source_pages_fetched_this_run"],
+              "displayed_values_independently_reconciled_this_run": browser["displayed_values_independently_reconciled_this_run"],
+              "status_counts": status_counts,
+              "output": str(output_path),
+          }, ensure_ascii=False, indent=2))
+          PY
+      - name: Build 44-row market metadata audit and current-run verification manifest
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/validate_market_snapshot.py \
+            --data "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --output simulation-lab/output/market-snapshot-audit.json
+          python simulation-lab/runner/build_market_source_verification_manifest.py \
+            --data "${REPORT_DATA}" \
+            --report-date "${REPORT_DATE}" \
+            --observations simulation-lab/output/market-history-browser-observations.json \
+            --output simulation-lab/output/market-source-verification-manifest.json
+
+      - name: Seal pre-build Stage 2-4 input receipt (44 markets, pinned calendars, news and analysis)
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/validate_prebuild_stage_inputs.py \
+            --report-date "${REPORT_DATE}" \
+            --data "${REPORT_DATA}" \
+            --audit simulation-lab/output/market-snapshot-audit.json \
+            --manifest simulation-lab/output/market-source-verification-manifest.json \
+            --output simulation-lab/output/prebuild-stage-input-receipt.json
+          RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          echo "PREBUILD_RECEIPT_SHA256=${RECEIPT_SHA256}" >> "$GITHUB_ENV"
+          echo "Pre-build Stage 2-4 receipt sealed: ${RECEIPT_SHA256}"
+      - name: Handoff verified S&P 500 close to Chart 3 increment ledger (simulation only)
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+         # Unverified S&P 500 rows skip cleanly; a verified row must complete the Chart 3 handoff or fail this build.
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Chart 3 is a separate module. Only append a close that is independently verified.
+          SP500_VERIFICATION_STATUS="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          manifest = json.loads(Path("simulation-lab/output/market-source-verification-manifest.json").read_text(encoding="utf-8"))
+          row = next((x for x in manifest.get("rows", []) if x.get("group") == "global_markets" and x.get("name") == "標普500指數"), {})
+          print(row.get("verification_status") or "PENDING")
+          PY
+          )"
+          SP500_EVIDENCE_METHOD="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          manifest = json.loads(Path("simulation-lab/output/market-source-verification-manifest.json").read_text(encoding="utf-8"))
+          row = next((x for x in manifest.get("rows", []) if x.get("group") == "global_markets" and x.get("name") == "標普500指數"), {})
+          print(row.get("evidence_method") or "")
+          PY
+          )"
+          # VERIFIED alone is insufficient for Chart 3: require historical-table evidence.
+          # Incomplete Chart 3 evidence must never block the independent daily report.
+          if [[ "${SP500_VERIFICATION_STATUS}" == "VERIFIED" ]] && { [[ "${SP500_EVIDENCE_METHOD}" == *"historical data table"* ]] || [[ "${SP500_EVIDENCE_METHOD}" == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE" ]]; }; then
+          mkdir -p data/tac-chart3 simulation-lab/output/chart3-handoff
+          # Append the newly verified report observation to the persistent, hash-sealed ledger.
+          # Do not replace the existing ledger with this run's one-row handoff.
+          python simulation-lab/runner/handoff_sp500_to_chart3.py --data "${REPORT_DATA}" --output "data/tac-chart3/sp500_daily_increment.jsonl"
+          cp data/tac-chart3/sp500_daily_increment.jsonl simulation-lab/output/chart3-handoff/sp500_daily_increment.jsonl
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report=json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))
+          expected=report["trading_date"]
+          p=Path("data/tac-chart3/sp500_daily_increment.jsonl")
+          rows=[json.loads(x) for x in p.read_text(encoding="utf-8").splitlines() if x.strip()]
+          assert rows and rows[-1]["observation_date"] == expected
+          assert rows[-1]["report_date"] == report["report_date"]
+          assert rows[-1]["source_name"].startswith("Investing.com")
+          assert rows[-1]["instrument"] == "S&P 500 cash price index"
+          print(f"Chart 3 append-only handoff ledger verified: rows={len(rows)} last={rows[-1]['observation_date']} close={rows[-1]['close']}")
+          PY
+          python .github/scripts/merge_tac_sp500_daily_increment.py --data-dir data/tac-chart3
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          expected=json.loads(Path(os.environ["REPORT_DATA"]).read_text(encoding="utf-8"))["trading_date"]
+          manifest=json.loads(Path("data/tac-chart3/manifest.json").read_text(encoding="utf-8"))
+          sp=manifest["sp500_data"]
+          recent=json.loads(Path("data/tac-chart3/sp500_daily_close_1993-2026.compact.json").read_text(encoding="utf-8"))
+          full=json.loads(Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json").read_text(encoding="utf-8"))
+          ledger=[json.loads(x) for x in Path("data/tac-chart3/sp500_daily_increment.jsonl").read_text(encoding="utf-8").splitlines() if x.strip()]
+          assert recent["end"] == expected and full["end"] == expected
+          assert sp["end"] == expected and sp["start"] == "1927-12-30"
+          assert sp["rows"] == full["rows"] and sp["rows"] >= 24000
+          assert ledger and ledger[-1]["observation_date"] == expected
+          assert sp["increment_ledger"]["rows"] == len(ledger)
+          assert sp["increment_ledger"]["first"] == ledger[0]["observation_date"]
+          assert sp["increment_ledger"]["last"] == ledger[-1]["observation_date"]
+          assert sp["increment_ledger"]["source_name"].startswith("Investing.com")
+          assert sp["increment_ledger"]["observed_at"] == ledger[-1]["observed_at"]
+          print(json.dumps({"status":"PASS","expected_trading_date":expected,"recent_end":recent["end"],"full_start":full["start"],"full_end":full["end"],"full_rows":full["rows"],"ledger_rows":len(ledger),"increment_close":ledger[-1]["close"],"source":sp["increment_ledger"]["source_name"],"observed_at":sp["increment_ledger"]["observed_at"]},ensure_ascii=False,indent=2))
+          PY
+
+          else
+            echo "SKIP Chart 3 handoff: S&P 500 is not verified for this trading date; daily report build continues."
+          fi
+
+      - name: Capture 44 raw market source pages (opt-in, no numeric reconciliation)
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && inputs.run_optional_probes) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[capture-44-sources'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/capture_market_source_pages.py --manifest simulation-lab/output/market-source-verification-manifest.json --output simulation-lab/output/market-source-page-captures.json --raw-dir simulation-lab/output/market-source-pages-raw --sleep-seconds 1.0
+
+      - name: Enforce active SIM-1.4 Builder approval before production build
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        # Fail closed: the active SIM-1.4 rule must approve the exact Builder path and blob SHA before execution.
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s simulation-lab/output/prebuild-stage-input-receipt.json || { echo "Pre-build Stage 2-4 input receipt missing; refusing Builder execution" >&2; exit 1; }
+          ACTUAL_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          test "${ACTUAL_RECEIPT_SHA256}" = "${PREBUILD_RECEIPT_SHA256}" || { echo "Pre-build receipt SHA changed before Builder execution" >&2; exit 1; }
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "simulation-lab/runner")
+          from sim14_builder_approval import resolve_from_files
+          builder_path = "simulation-lab/runner/build_review_html.py"
+          approval = resolve_from_files("simulation-lab/TAC_WORK_RULES_SIM.md", builder_path)
+          if approval["decision"] != "APPROVED":
+              raise SystemExit("SIM-1.4 Gate 0: unique Builder has no exact active-rule approval")
+          print(approval)
+          PY
+
+      - name: Capture released earnings price reactions for the selected report date
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        run: |
+          python simulation-lab/runner/collect_earnings_price_reactions.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-price-reactions.json
+
+      - name: Assemble date-driven review from the matching fixture and approved mother
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          CONSENSUS_ARGS=()
+          if [[ "${REPORT_DATE}" == "2026-11-23" && -s simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json ]]; then
+            CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/fixtures/earnings-consensus-projection-2026-11-23.json)
+          elif [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
+            CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
+          fi
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --market-source-manifest simulation-lab/output/market-source-verification-manifest.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
+
+      - name: Apply local W47 NVDA consensus overlay without rebuilding other modules
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          # W47 retrospective NVDA overlay belongs only to Monday's mother.
+          # Tue-Fri weekday mothers have no #last-week-earnings target.
+          if [[ "${TEMPLATE_KEY}" != "monday" ]]; then
+            mkdir -p "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
+            cp "${REPORT_OUTPUT}" "${PATCHED_OUTPUT}"
+            python - "${REPORT_OUTPUT}" "${PATCH_RECEIPT}" "${REPORT_DATE}" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+          report_path, receipt_path, report_date = sys.argv[1:]
+          raw = Path(report_path).read_bytes()
+          receipt = {
+              "schema_version": "1.0",
+              "status": "NOT_APPLICABLE",
+              "section": "weekday_no_last_week_overlay",
+              "report_date": report_date,
+              "reason": "Weekday mother has no prior-week earnings/calendar overlay section.",
+              "output_html_sha256": hashlib.sha256(raw).hexdigest(),
+              "overlay_applied": False,
+          }
+          Path(receipt_path).write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding="utf-8")
+          PY
+            echo "W47 overlay correctly not applicable; weekday HTML left unchanged and N/A receipt sealed."
+            exit 0
+          fi
+          mkdir -p "$(dirname "${BUILDER_OUTPUT}")" "$(dirname "${PATCHED_OUTPUT}")" "$(dirname "${PATCH_RECEIPT}")"
+          cp "${REPORT_OUTPUT}" "${BUILDER_OUTPUT}"
+          python simulation-lab/runner/patch_review_sections.py \
+            --html "${BUILDER_OUTPUT}" \
+            --fixture "${REPORT_DATA}" \
+            --manifest simulation-lab/baseline/mother-template-manifest.json \
+            --section last_week_earnings_and_calendar_impact \
+            --output "${PATCHED_OUTPUT}" \
+            --receipt "${PATCH_RECEIPT}"
+          cp "${PATCHED_OUTPUT}" "${REPORT_OUTPUT}"
+          echo "W47 NVDA consensus overlay applied; Builder SHA unchanged; output SHA=$(sha256sum "${REPORT_OUTPUT}" | cut -d' ' -f1)"
+
+      - name: Render isolated five-layer browser fixtures
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: python simulation-lab/runner/render_market_analysis_test_pages.py
+
+      - name: Full candidate Builder integration with synthetic fixtures only
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: python simulation-lab/runner/test_full_candidate_builder.py
+
+      - name: Set up Node for browser QA
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install and verify Traditional Chinese fonts for visual QA
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+          fc-cache -f
+          tc_family="$(fc-match -f '%{family}' 'Noto Sans CJK TC')"
+          echo "Traditional Chinese font package resolved to: ${tc_family}"
+          echo "${tc_family}" | grep -Eqi 'Noto Sans CJK TC'
+          mkdir -p "${HOME}/.config/fontconfig"
+          cat > "${HOME}/.config/fontconfig/fonts.conf" <<'EOF'
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+          <fontconfig>
+            <alias>
+              <family>Noto Sans TC</family>
+              <prefer><family>Noto Sans CJK TC</family></prefer>
+            </alias>
+          </fontconfig>
+          EOF
+          fc-cache -f
+          font_match="$(fc-match -f '%{family}' 'Noto Sans TC')"
+          echo "Noto Sans TC resolved to: ${font_match}"
+          echo "${font_match}" | grep -Eqi 'Noto Sans CJK TC'
+
+      - name: Install Playwright Chromium for browser QA
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: |
+          npm install --no-save playwright
+          # ubuntu-latest already carries Chromium's runtime libraries; install only the browser binary to avoid a slow apt dependency pass.
+          npx playwright install chromium
+      - name: Verify five-layer analysis responsive layout in both mothers
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: node simulation-lab/runner/test_market_analysis_browser.mjs
+
+      - name: Verify full candidate Builder outputs in both mother scenarios
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: node simulation-lab/runner/test_market_analysis_browser.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/candidate-validation/2026-11-20-candidate.html
+      - name: Test navigation tabs accordions and Fed agenda at all required widths
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            # Use the isolated synthetic Monday candidate produced by test_full_candidate_builder.py.
+            TEMPLATE_KEY=monday node simulation-lab/runner/interaction_smoke.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html simulation-lab/output/interaction-smoke.json
+          else
+            node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
+          fi
+
+      # Includes the summary section-heading font-size parity audit at desktop, tablet and mobile widths.
+      - name: Compare review against the date-selected approved mother
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            node simulation-lab/runner/visual_regression.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html monday 2026-11-23
+            node simulation-lab/runner/visual_regression.mjs simulation-lab/output/candidate-validation/2026-11-20-candidate.html weekdays 2026-11-20
+          fi
+          # The QA sidecar must bind visual evidence to the actual report date.
+          # Synthetic dual-mother checks above are additional regression tests, not a replacement.
+          node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
+
+      - name: Verify mother-owned DOM structure unchanged
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "${MOTHER_FILE}" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
+
+      - name: Independently validate exact review artifact and provenance
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
+
+      - name: Validate date, authoritative calendar counts, 44 indicators and news shape
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        run: |
+          python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
+          import json, sys
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          sys.path.insert(0, "simulation-lab/runner")
+          from calendar_source_guard import load_authoritative_calendar
+          report_date, data_path, html_path = sys.argv[1:]
+          data = json.loads(Path(data_path).read_text(encoding="utf-8"))
+          html = BeautifulSoup(Path(html_path).read_text(encoding="utf-8"), "html.parser")
+          assert data["report_date"] == report_date
+          assert html.select_one('meta[name="report-date"]')["content"] == report_date
+          calendar = load_authoritative_calendar(report_date)
+          expected_econ = calendar["current"]["economic_count"]
+          expected_earnings = calendar["current"]["earnings_count"]
+          actual_econ = len(html.select("#calendar .econ-event"))
+          actual_earnings = len(html.select("#earnings .earnings-accordion"))
+          assert actual_econ == expected_econ, f"economic calendar mismatch: {actual_econ}/{expected_econ}"
+          assert actual_earnings == expected_earnings, f"earnings calendar mismatch: {actual_earnings}/{expected_earnings}"
+          indicators = (
+              list(data.get("global_markets", {}).values()) +
+              list(data.get("bonds", {}).values()) +
+              list(data.get("fx", {}).values()) +
+              list(data.get("energy", {}).values()) +
+              list(data.get("metals", {}).values()) +
+              list(data.get("risk", {}).values()) +
+              [{"display": value} for value in data.get("sectors", {}).values()]
+          )
+          assert len(indicators) == 44, f"expected 44 indicator fields, got {len(indicators)}"
+          # A CFD index reference may never be rendered as a cash-index close.
+          # Keep the row explicitly pending until a cash/official index source is captured.
+          cfd_rows = [
+              name for name, item in data.get("global_markets", {}).items()
+              if item.get("source", {}).get("quote_type") == "cfd_index_reference_series"
+              and (item.get("display") != "待核實" or item.get("change_display") != "待核實")
+          ]
+          assert not cfd_rows, f"CFD index values must be suppressed, not rendered as cash closes: {cfd_rows}"
+          assert len(data.get("focus_news", [])) == 5, "global focus news must contain 5 stories"
+          assert len({x.get("title") for x in data["focus_news"]}) == 5, "duplicate focus news titles"
+          assert len(data.get("headlines", [])) == 10, "market headlines must contain 10 stories"
+          print(f"PASS: report_date={report_date}; calendar={actual_econ}/{expected_econ}; earnings={actual_earnings}/{expected_earnings}; indicators=44; focus=5; headlines=10")
+          PY
+
+      - name: Recheck pre-build receipt SHA after Builder
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -s simulation-lab/output/prebuild-stage-input-receipt.json ]]; then
+            echo "Pre-build receipt missing after Builder execution" >&2
+            exit 1
+          fi
+          ACTUAL_PREBUILD_RECEIPT_SHA256="$(sha256sum simulation-lab/output/prebuild-stage-input-receipt.json | cut -d' ' -f1)"
+          if [[ "${ACTUAL_PREBUILD_RECEIPT_SHA256}" != "${PREBUILD_RECEIPT_SHA256}" ]]; then
+            echo "Pre-build receipt SHA changed after Builder execution" >&2
+            exit 1
+          fi
+          echo "Pre-build receipt SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
+
+      - name: Seal QA evidence to the exact review HTML blob
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/seal_qa_evidence.py "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" "${PATCH_RECEIPT}" "${PATCHED_OUTPUT}"
+
+      - name: Keep the canonical QA artifact isolated on the simulation branch before the explicit Stage 6 handoff
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        run: test -s "${REPORT_OUTPUT}"
+
+      - name: Persist Simulation receipts and Chart 3 evidence only (no report HTML on Simulation branch)
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          OVERLAY_RECEIPT_ARCHIVE="simulation-lab/runs/last-week-consensus-overlay-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          test -s "${PATCH_RECEIPT}" || { echo "W47 consensus overlay receipt missing; refusing QA persistence" >&2; exit 1; }
+          mkdir -p simulation-lab/runs
+          cp "${PATCH_RECEIPT}" "${OVERLAY_RECEIPT_ARCHIVE}"
+          git add -f "${OVERLAY_RECEIPT_ARCHIVE}"
+          OVERLAY_RECEIPT_BLOB_SHA="$(git hash-object "${OVERLAY_RECEIPT_ARCHIVE}")"
+
+          # Persist the exact Chart 3 merge outputs produced and validated in step 20.
+          # A successful in-run merge is not a database update until these files are committed.
+          CHART3_FILES=(
+            "data/tac-chart3/sp500_daily_increment.jsonl"
+            "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
+            "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
+            "data/tac-chart3/manifest.json"
+          )
+          declare -A CHART3_SHA_BEFORE
+          for file in "${CHART3_FILES[@]}"; do
+            test -s "${file}" || { echo "Chart 3 merge output missing; refusing persistence: ${file}" >&2; exit 1; }
+            git add -f "${file}"
+            CHART3_SHA_BEFORE["${file}"]="$(git hash-object "${file}")"
+          done
+          PREBUILD_RECEIPT="simulation-lab/output/prebuild-stage-input-receipt.json"
+          PREBUILD_RECEIPT_ARCHIVE="simulation-lab/runs/prebuild-stage-input-receipt-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          test -s "${PREBUILD_RECEIPT}" || { echo "Pre-build receipt missing; refusing to persist QA artifact" >&2; exit 1; }
+          mkdir -p simulation-lab/runs
+          cp "${PREBUILD_RECEIPT}" "${PREBUILD_RECEIPT_ARCHIVE}"
+          git add -f "${PREBUILD_RECEIPT_ARCHIVE}"
+          PREBUILD_RECEIPT_SHA="$(git hash-object "${PREBUILD_RECEIPT_ARCHIVE}")"
+          SOURCE_WORKLIST="simulation-lab/output/market-source-verification-manifest.json"
+          SOURCE_WORKLIST_ARCHIVE="simulation-lab/runs/market-source-verification-manifest-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          if [[ ! -s "${SOURCE_WORKLIST}" ]]; then
+            echo "Market source verification worklist missing; refusing to persist report without the 44-row verification register" >&2
+            exit 1
+          fi
+          mkdir -p simulation-lab/runs
+          cp "${SOURCE_WORKLIST}" "${SOURCE_WORKLIST_ARCHIVE}"
+          git add -f "${SOURCE_WORKLIST_ARCHIVE}"
+          AUDIT_SOURCE="simulation-lab/output/market-snapshot-audit.json"
+          AUDIT_ARCHIVE="simulation-lab/runs/market-snapshot-audit-${REPORT_DATE}-${GITHUB_RUN_ID}.json"
+          if [[ -s "${AUDIT_SOURCE}" ]]; then
+            mkdir -p simulation-lab/runs
+            cp "${AUDIT_SOURCE}" "${AUDIT_ARCHIVE}"
+            git add -f "${AUDIT_ARCHIVE}"
+            AUDIT_BLOB_SHA="$(git hash-object "${AUDIT_ARCHIVE}")"
+            echo "Market snapshot audit staged for durable simulation-branch archive; sha=${AUDIT_BLOB_SHA}"
+          else
+            echo "Market snapshot audit missing; continuing only with QA artifact, data evidence remains incomplete"
+            AUDIT_ARCHIVE=""
+            AUDIT_BLOB_SHA=""
+          fi
+          if git diff --cached --quiet; then
+            echo "No review HTML or audit evidence changes to persist"
+            exit 0
+          fi
+          git commit -m "[skip ci] Store TAC Simulation QA receipts ${REPORT_DATE}"
+          PUSHED=false
+          # Retry a safe fetch/rebase/push if another simulation writer advances the branch.
+          # Never force-push; revalidate the exact report and evidence after every rebase.
+          for attempt in 1 2 3; do
+            git fetch origin simulation/tac-process-lab-2026-11-06
+            if ! git -c rebase.autoStash=true rebase origin/simulation/tac-process-lab-2026-11-06; then
+              git rebase --abort || true
+              echo "Simulation branch rebase failed on attempt ${attempt}; refusing to overwrite remote state" >&2
+              exit 1
+            fi
+            for file in "${CHART3_FILES[@]}"; do
+              RECHECK_CHART3_SHA="$(git show "HEAD:${file}" | git hash-object --stdin)"
+              test "${CHART3_SHA_BEFORE[${file}]}" = "${RECHECK_CHART3_SHA}" || { echo "Chart 3 data SHA changed during persistence: ${file}" >&2; exit 1; }
+            done
+            python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
+            if [[ -n "${AUDIT_ARCHIVE}" ]]; then
+              RECHECK_AUDIT_SHA="$(git show "HEAD:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
+              test "${AUDIT_BLOB_SHA}" = "${RECHECK_AUDIT_SHA}" || { echo "Market audit SHA changed during persistence" >&2; exit 1; }
+            fi
+            RECHECK_PREBUILD_SHA="$(git show "HEAD:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+            test "${PREBUILD_RECEIPT_SHA}" = "${RECHECK_PREBUILD_SHA}" || { echo "Pre-build receipt SHA changed during persistence" >&2; exit 1; }
+            RECHECK_OVERLAY_RECEIPT_SHA="$(git show "HEAD:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+            test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${RECHECK_OVERLAY_RECEIPT_SHA}" || { echo "W47 overlay receipt SHA changed during persistence" >&2; exit 1; }
+            echo "Simulation evidence ready for safe push; attempt=${attempt}; audit_blob_sha=${AUDIT_BLOB_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${RECHECK_PREBUILD_SHA}"
+            if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"; then
+              PUSHED=true
+              break
+            fi
+            echo "Simulation branch push rejected on attempt ${attempt}; refreshing remote and retrying without force-push" >&2
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Simulation branch push failed after 3 safe attempts" >&2
+              exit 1
+            fi
+            sleep 2
+          done
+          test "${PUSHED}" = true || { echo "Simulation branch persistence did not complete" >&2; exit 1; }
+          git fetch origin simulation/tac-process-lab-2026-11-06
+          for file in "${CHART3_FILES[@]}"; do
+            REMOTE_CHART3_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${file}" | git hash-object --stdin)"
+            test "${CHART3_SHA_BEFORE[${file}]}" = "${REMOTE_CHART3_SHA}" || { echo "Remote Chart 3 read-back SHA mismatch: ${file}" >&2; exit 1; }
+            echo "Remote Chart 3 read-back PASS: ${file} sha=${REMOTE_CHART3_SHA}"
+          done
+          if [[ -n "${AUDIT_ARCHIVE}" ]]; then
+            REMOTE_AUDIT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${AUDIT_ARCHIVE}" | git hash-object --stdin)"
+            test "${AUDIT_BLOB_SHA}" = "${REMOTE_AUDIT_SHA}" || { echo "Remote market audit SHA read-back mismatch"; exit 1; }
+          fi
+          REMOTE_PREBUILD_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${PREBUILD_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${PREBUILD_RECEIPT_SHA}" = "${REMOTE_PREBUILD_SHA}" || { echo "Remote pre-build receipt SHA read-back mismatch"; exit 1; }
+          REMOTE_OVERLAY_RECEIPT_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${OVERLAY_RECEIPT_ARCHIVE}" | git hash-object --stdin)"
+          test "${OVERLAY_RECEIPT_BLOB_SHA}" = "${REMOTE_OVERLAY_RECEIPT_SHA}" || { echo "Remote W47 overlay receipt read-back SHA mismatch"; exit 1; }
+          echo "Simulation evidence remote read-back PASS; audit_blob_sha=${REMOTE_AUDIT_SHA:-NOT_AVAILABLE}; prebuild_receipt_blob_sha=${REMOTE_PREBUILD_SHA}"
+
+
+      - name: Publish REVIEW_READY report to main preview and verify GitHub Pages
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          MAIN_WORKTREE="$RUNNER_TEMP/tac-main-preview"
+          git worktree add --detach "$MAIN_WORKTREE" origin/main
+
+          python simulation-lab/runner/publish_main_preview.py \
+            --source-html "$REPORT_OUTPUT" \
+            --source-qa "$REPORT_EVIDENCE" \
+            --main-root "$MAIN_WORKTREE" \
+            --report-date "$REPORT_DATE" \
+            --run-id "$GITHUB_RUN_ID" \
+            --run-attempt "$GITHUB_RUN_ATTEMPT" \
+            --trigger-commit "$GITHUB_SHA"
+
+          HTML_PATH="preview/${REPORT_DATE}-review.html"
+          QA_PATH="preview/${REPORT_DATE}-review.qa.json"
+          DELIVERY_PATH="preview/${REPORT_DATE}-review.delivery.json"
+          git -C "$MAIN_WORKTREE" config user.name "github-actions[bot]"
+          git -C "$MAIN_WORKTREE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$MAIN_WORKTREE" add -f -- "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH"
+          EXPECTED_PATHS="$(printf '%s\n' "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH" | sort)"
+          STAGED_PATHS="$(git -C "$MAIN_WORKTREE" diff --cached --name-only | sort)"
+          test "$STAGED_PATHS" = "$EXPECTED_PATHS" || {
+            echo "Main preview write set escaped the three-file whitelist." >&2
+            printf 'Expected:\n%s\nActual:\n%s\n' "$EXPECTED_PATHS" "$STAGED_PATHS" >&2
+            exit 1
+          }
+          git -C "$MAIN_WORKTREE" commit -m "Publish TAC review preview ${REPORT_DATE} (run $GITHUB_RUN_ID)"
+
+          PUSHED=false
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git -C "$MAIN_WORKTREE" rebase origin/main; then
+              git -C "$MAIN_WORKTREE" rebase --abort || true
+              echo "Main preview rebase conflict on attempt $attempt; refusing to overwrite main." >&2
+              exit 1
+            fi
+            CHANGED_PATHS="$(git -C "$MAIN_WORKTREE" diff --name-only origin/main HEAD | sort)"
+            test "$CHANGED_PATHS" = "$EXPECTED_PATHS" || {
+              echo "Main delivery commit contains paths outside the preview whitelist." >&2
+              printf '%s\n' "$CHANGED_PATHS" >&2
+              exit 1
+            }
+            if git -C "$MAIN_WORKTREE" push origin HEAD:refs/heads/main; then
+              PUSHED=true
+              break
+            fi
+            if [[ "$attempt" -eq 3 ]]; then
+              echo "Main preview push failed after 3 safe attempts; no force-push was attempted." >&2
+              exit 1
+            fi
+            sleep 2
+          done
+          test "$PUSHED" = true
+
+          git fetch origin main
+          MAIN_DELIVERY_COMMIT="$(git rev-parse origin/main)"
+          for path in "$HTML_PATH" "$QA_PATH" "$DELIVERY_PATH"; do
+            LOCAL_SHA="$(git -C "$MAIN_WORKTREE" hash-object "$path")"
+            REMOTE_SHA="$(git show "origin/main:$path" | git hash-object --stdin)"
+            test "$LOCAL_SHA" = "$REMOTE_SHA" || {
+              echo "Main preview remote read-back SHA mismatch: $path" >&2
+              exit 1
+            }
+            echo "Main preview remote read-back PASS: $path sha=$REMOTE_SHA"
+          done
+          echo "MAIN_DELIVERY_COMMIT=$MAIN_DELIVERY_COMMIT" >> "$GITHUB_ENV"
+
+          # GITHUB_TOKEN pushes do not automatically start other workflows.
+          # Explicitly dispatch the existing Pages workflow, then verify the actual public URL.
+          gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+          PAGES_RUN_ID=""
+          for attempt in $(seq 1 60); do
+            RUNS="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow pages.yml --branch main --event workflow_dispatch --limit 10 --json databaseId,headSha,status,conclusion)"
+            PAGES_RUN_ID="$(printf '%s' "$RUNS" | python -c 'import json,sys; rows=json.load(sys.stdin); hits=[r for r in rows if r.get("headSha")==sys.argv[1]]; print(hits[0]["databaseId"] if hits else "")' "$MAIN_DELIVERY_COMMIT")"
+            if [[ -n "$PAGES_RUN_ID" ]]; then
+              PAGES_STATUS="$(gh run view "$PAGES_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status,conclusion --jq '.status + ":" + (.conclusion // "")')"
+              if [[ "$PAGES_STATUS" == "completed:success" ]]; then
+                break
+              elif [[ "$PAGES_STATUS" == completed:* ]]; then
+                echo "Pages deployment failed: $PAGES_STATUS" >&2
+                exit 1
+              fi
+            fi
+            sleep 10
+          done
+          test -n "$PAGES_RUN_ID" || { echo "No Pages workflow run found for main commit $MAIN_DELIVERY_COMMIT" >&2; exit 1; }
+          PAGES_STATUS="$(gh run view "$PAGES_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status,conclusion --jq '.status + ":" + (.conclusion // "")')"
+          test "$PAGES_STATUS" = "completed:success" || {
+            echo "Pages workflow did not complete successfully: $PAGES_STATUS" >&2
+            exit 1
+          }
+
+          PREVIEW_URL="https://lion-invlab.github.io/preview/${REPORT_DATE}-review.html"
+          PREVIEW_OK=false
+          for attempt in $(seq 1 36); do
+            if curl -fsS "$PREVIEW_URL" -o "$RUNNER_TEMP/tac-review-preview.html"; then
+              if grep -Fq "content=\"${REPORT_DATE}\"" "$RUNNER_TEMP/tac-review-preview.html"; then
+                PREVIEW_OK=true
+                break
+              fi
+            fi
+            sleep 10
+          done
+          test "$PREVIEW_OK" = true || {
+            echo "GitHub Pages deployment succeeded but the review URL did not serve the expected report date: $PREVIEW_URL" >&2
+            exit 1
+          }
+          {
+            echo "### Main preview delivery"
+            echo "- Main commit: \`$MAIN_DELIVERY_COMMIT\`"
+            echo "- Pages workflow run: \`$PAGES_RUN_ID\`"
+            echo "- Preview: $PREVIEW_URL"
+            echo "- HTML SHA: $(git show "origin/main:$HTML_PATH" | sha256sum | cut -d' ' -f1)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Record isolated run metadata
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p simulation-lab/output
+          {
+            echo "branch=simulation/tac-process-lab-2026-11-06"
+            echo "commit=$(git rev-parse HEAD)"
+            echo "build_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
+            echo "checkout_commit=${SIM_CHECKOUT_COMMIT:-unavailable}"
+            echo "trigger_commit=$GITHUB_SHA"
+            echo "run_id=$GITHUB_RUN_ID"
+            echo "run_attempt=$GITHUB_RUN_ATTEMPT"
+            echo "report_date=${REPORT_DATE:-self-test-only}"
+            echo "main_write_scope=preview-delivery-only"
+            echo "production_deploy=forbidden"
+            echo "main_index_html_write=forbidden"
+          } > simulation-lab/output/runner-metadata.txt
+
+      - name: Archive ORTEX TEST raw probe evidence on simulation branch
+        # Failed QA runs are already preserved by the always() artifact upload;
+        # never create a second branch writer while a failed run is unwinding.
+        if: success() && hashFiles('simulation-lab/output/ortex-test-probe.json') != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p simulation-lab/runs
+          cp simulation-lab/output/ortex-test-probe.json "simulation-lab/runs/ortex-test-probe-${GITHUB_RUN_ID}.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "simulation-lab/runs/ortex-test-probe-${GITHUB_RUN_ID}.json"
+          if git diff --cached --quiet; then
+            echo "No ORTEX probe evidence to archive"
+            exit 0
+          fi
+          git commit -m "[skip ci] Archive ORTEX TEST probe ${GITHUB_RUN_ID}"
+          # Rebase against the freshest remote head and retry a non-fast-forward
+          # race without force-pushing or overwriting another writer.
+          for attempt in 1 2 3; do
+            git fetch origin simulation/tac-process-lab-2026-11-06
+            git rebase origin/simulation/tac-process-lab-2026-11-06
+            if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"; then
+              exit 0
+            fi
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Archive push failed after 3 safe rebase attempts" >&2
+              exit 1
+            fi
+            sleep 2
+          done
+
+      - name: Upload build and QA evidence (HTML is not committed to Simulation branch)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-build-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            simulation-lab/output/
+            ${{ env.REPORT_OUTPUT }}
+            ${{ env.REPORT_EVIDENCE }}
+
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Download uploaded build evidence for independent verification (retry run-scoped artifact visibility)
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          artifact_name="tac-build-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          target="/tmp/tac-simulation-artifact"
+          for attempt in 1 2 3 4 5 6 7 8; do
+            rm -rf "${target}"
+            mkdir -p "${target}"
+            if gh run download "${GITHUB_RUN_ID}" --repo "${GITHUB_REPOSITORY}" --name "${artifact_name}" --dir "${target}"; then
+              echo "Downloaded ${artifact_name} on attempt ${attempt}."
+              exit 0
+            fi
+            echo "Artifact not visible yet (attempt ${attempt}/8); retrying in 5 seconds."
+            sleep 5
+          done
+          echo "Could not download ${artifact_name} after 8 attempts." >&2
+          exit 1
+
+      - name: Verify downloaded build evidence bundle
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          python simulation-lab/runner/audit_simulation_artifact_bundle.py \
+            --root /tmp/tac-simulation-artifact \
+            --report-path "${REPORT_OUTPUT:-}" \
+            --expected-run-id "${GITHUB_RUN_ID}" \
+            --expected-branch "${GITHUB_REF_NAME}" \
+            --expected-trigger-commit "${GITHUB_SHA}" \
+            --output simulation-lab/output/artifact-postupload-verification.json
+          audit_status=$?
+          set -e
+          {
+            echo "### Post-upload artifact verification"
+            if [[ -s simulation-lab/output/artifact-postupload-verification.json ]]; then
+              cat simulation-lab/output/artifact-postupload-verification.json
+            else
+              echo "Audit report missing; inspect the verification step logs."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$audit_status"
+
+      - name: Upload post-upload artifact audit report
+        if: always() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report')))
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-build-postupload-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: simulation-lab/output/artifact-postupload-verification.json
+          if-no-files-found: warn
+          retention-days: 30
