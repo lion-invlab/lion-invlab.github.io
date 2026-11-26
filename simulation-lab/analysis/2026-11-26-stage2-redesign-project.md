@@ -248,3 +248,11 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 目前 11/26 Sidecar 偵測仍為 0；本輪 43 個可核實值取自同日 direct Investing.com Historical Data page Observation bundle，非 HTTP 403 後猜測或前日 Fixture 值。Playwright 新開頁路徑仍會遇到 Cloudflare 403；正常等待後不完成 challenge 時保留 TOOL_READ_FAILURE，不繞過。
 - 正式生產入口已透過既有 Runner 程式完成 blank-first/apply 整合；無需修改 main workflow mirror。仍需注意：本輪只有 43/44 行情 VERIFIED，故 Stage 2 receipt 為 PARTIAL，不能標示 44 項完整通過或 REVIEW_READY。
 - 狀態： ZERO_MARKET_INPUT_E2E_PARTIAL_PASS / PRODUCTION_STAGE2_RUNNER_INTEGRATED / 43_VERIFIED_1_PENDING / STAGE2_RECEIPT_SHA_BOUND。
+
+
+### 2026-11-26｜SIM-1.4 正式規則增補與 SHA 影響測試
+
+- 已將空白行情值起跑、當輪 Observation 回填、正式 Runner blank-first 行為、Screenshot Sidecar 優先、Stage 2 Receipt SHA 綁定、PENDING／CLOSED 狀態及下游凍結正式寫入 SIM-1.4 第 0.5.4 節；本次新增規則明確限定「零行情值」，不要求新聞、行事曆及非行情內容從零重建。
+- SIM-1.4 規則檔內容變更會使其 Git blob SHA 改變；但 Builder approval Gate 不綁定一個固定 SIM 規則檔 SHA，而是每輪從目前有效 SIM 文字擷取核准條款，再比對 Builder 精確路徑與 Builder blob SHA。修改 Stage 2 規則不會自行撤銷已核准 Builder。
+- 已擴充 test_sim14_builder_approval.py：加入「SIM 規則文字增加 Stage 2 amendment、active_rules_blob_sha 改變，但相同 Builder path/blob SHA 仍為 APPROVED」測試。Run 45779855600 的此項測試 PASS；其餘 Stage 2 bootstrap、direct web blank input、PENDING／CLOSED、Receipt SHA 測試亦 PASS。
+- SIM 規則 SHA 更新不等於 Stage 2 Receipt SHA 更新；每輪 Receipt 仍依當輪 Fixture、Audit、Manifest、Observation 的實際內容各自計算 SHA。正式 Builder 核准仍以第 8.1 節核准的 Builder path/blob SHA 為準。
