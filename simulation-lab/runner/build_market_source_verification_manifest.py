@@ -198,6 +198,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         provenance == "CURRENT_USER_PROVIDED_SCREENSHOT"
         and read_method == "USER_PROVIDED_SCREENSHOT"
         and screenshot_evidence_ok
+        and observation.get("screenshot_instrument_identity_status") == "VERIFIED"
         and required_field_keys_present
         and all(field_evidence[key].get("source_type") == "USER_PROVIDED_SCREENSHOT"
                 for key in (value_key, change_key))
