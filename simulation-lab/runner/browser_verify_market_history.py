@@ -764,12 +764,13 @@ def main():
     if a.only:
         work = [row for row in work if row["group"] == group_name and row["name"] == item_name]
         if len(work) != 1:
-            raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")    if a.move_backup_only:
+            raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")
+    elif len(work) != 44:
+        raise SystemExit(f"Expected 44 source rows, got {len(work)}")
+    if a.move_backup_only:
         if a.only != "risk:move":
             raise SystemExit("--move-backup-only requires --only risk:move")
         work[0]["move_backup_only"]=True
-    elif len(work) != 44:
-        raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
     if screenshot_inputs:
