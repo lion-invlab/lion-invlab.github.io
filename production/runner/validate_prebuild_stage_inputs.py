@@ -46,7 +46,7 @@ def validate_branch(repository: str, branch: str) -> None:
     require(repository.rstrip("/").lower() == EXPECTED_REPOSITORY,
             f"repository mismatch: {repository!r}")
     require(branch == EXPECTED_BRANCH,
-            f"refusing non-simulation branch: {branch!r}")
+            f"refusing non-main branch: {branch!r}")
 
 
 def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date: str) -> dict:
