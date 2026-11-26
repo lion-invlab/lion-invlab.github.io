@@ -12,6 +12,8 @@ on:
       - simulation-lab/runner/test_validate_market_snapshot.py
       - simulation-lab/runner/validate_chatgpt_web_observations.py
       - simulation-lab/runner/test_validate_chatgpt_web_observations.py
+      - simulation-lab/runner/build_market_source_verification_manifest.py
+      - simulation-lab/runner/test_stage2_field_provenance.py
       - simulation-lab/runner/build_stage2_receipt.py
       - simulation-lab/runner/test_build_stage2_receipt.py
       - simulation-lab/runner/test_sim14_builder_approval.py
@@ -73,6 +75,8 @@ jobs:
         run: python simulation-lab/runner/test_stage2_market_fixture_bootstrap.py
       - name: Test direct web observations against blank market inputs
         run: python simulation-lab/runner/test_validate_chatgpt_web_observations.py
+      - name: Test TradingView MOVE backup field provenance
+        run: python simulation-lab/runner/test_stage2_field_provenance.py
       - name: Test pending and closed market snapshot states
         run: python simulation-lab/runner/test_validate_market_snapshot.py
       - name: Test Stage 2 receipt SHA binding
