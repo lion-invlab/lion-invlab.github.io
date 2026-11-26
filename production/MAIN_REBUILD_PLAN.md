@@ -117,3 +117,71 @@
 - **目前排程首次實跑尚未發生／尚未取得證據**：下一個工作日的正確 DST 時段需確認 schedule event、唯一 Capture Run、Stage 1–3 receipts、Research Bundle SHA 與 Stage 4 Automation 接手紀錄。
 - Builder 仍是 `CANDIDATE_PENDING_OWNER_APPROVAL`，exact Main Builder SHA `20eefe57d6f3b389157c01b8532cae3a69128a02`，`approved_by_owner=false`。未經使用者明確核准，不可觸發 build marker 或宣稱 REVIEW_READY。
 - Phase 6 由 NOT_STARTED 更正為 IN_PROGRESS（排程已設定；首次排程實跑、同 Run 自動交接、Builder 核准及真實 E2E 尚未完成）。整體 Pipeline 仍未達正式上線／驗收標準。
+
+## 2026-11-27｜全面回讀後的重建計畫校正（先規劃，未修改 Runner）
+
+本節優先於本文件 2026-11-26 的舊狀態敘述。原因：11/27 回讀發現計畫表、Phase 0 inventory、README、Builder approval record 與實際程式／Workflow 已出現狀態漂移。此輪先完成計畫校正，不以單點程式修改代替通盤重建。
+
+### A. 本輪實際基準與當日早報狀態
+
+- 回讀時間：2026-11-27（Asia/Taipei；本次檢查約 06:00）。
+- Main HEAD：`73be77f835a6bfa8883f64b8c6c281a7a968303f`；最新提交更新 W48 ECB meeting account actual。
+- Main 唯一生產 Workflow：`.github/workflows/tac-production.yml`，blob SHA `c2d97b2e77a84f28719b60c5f60c6654d1fac1fa`。
+- 05:05 台灣時間冬令 capture cron 已存在（UTC 21:05）；但截至本次 GitHub Actions 最新 run 清單回讀，尚未找到 2026-11-27 當日 `tac-production.yml` 的 schedule/capture run。不得將 cron 存在視為今日已啟動或成功。
+- Main Stage 4 Automation 已啟用，冬令時段為 05:15；本次 peek 顯示 11/27 05:15 run 為 `in_progress`，依其規則等待當日唯一 Capture 最多 70 分鐘。若 Capture 未成功，不得使用舊 Run／舊 Fixture 代替。
+- 因尚未取得當日 Capture Run 與 Stage 1–3 receipts，11/27 審核版目前沒有可用的正式 Run 輸入；本計畫不宣稱今日早報已產出。
+- 11/27 當日資料日期不可用單一 NYSE 日期套用全部 44 項。美股 11/26 感恩節休市，但亞洲等市場須按各自交易所日曆判斷 11/26 是否有交易。
+
+### B. 已確認的跨文件／跨模組差異
+
+| ID | 實際發現 | 影響範圍 | 必須同步處理 |
+|---|---|---|---|
+| AUD-01 | `MAIN_REBUILD_PLAN.md`、`PHASE0_INVENTORY.md` 仍含 11/26 以前的基準與過時資產描述；Phase 0 DONE 不代表新 production 架構已完成重新盤點 | 全域架構、Workflow、資料寫入者 | 重新盤點 main tree、workflow、calendar、Chart 3、preview/history、排程與權限；更新唯一現況基準 |
+| AUD-02 | Builder approval JSON 已是 `APPROVED_MAIN`、`approved_by_owner=true`，且當前 Builder blob SHA 為 `20eefe57d6f3b389157c01b8532cae3a69128a02`；但 README、計畫表仍寫候選未核准，approval JSON 的 validation limitation 又錯寫 no owner approval | Stage 5、README、計畫表、Stage 1 governance SHA | 統一狀態文字；保留真實限制：已核准 Builder exact SHA，但真實資料 E2E 尚未完成 |
+| AUD-03 | `create_run_fixture.py` 以 `last_nyse_session()` 決定單一 `trading_date`，再把該日期寫入所有 44 項 source.data_date；Stage 2 reader 也只接收單一 target date | Stage 1、Stage 2、Schema、Manifest、Receipt、Stage 4 分析 | 改為逐商品／市場資料日期；保留報告日與主要美股交易日概念，但不得將 NYSE 日期套用全市場 |
+| AUD-04 | SIM-1.4 §3.3 明定依各標的所屬交易所／主管機關官方交易日曆核對；Main Stage 2 WR／SOURCE_POLICY 尚未完整納入「查無目標列先查官方假期」流程 | Stage 2 規範、狀態分類 | 正式承接 SIM-1.4：先查資料列；查無資料時查官方市場日曆；官方確認休市才 CLOSED，並記錄假期名稱 |
+| AUD-05 | Main browser reader 對可讀頁面找不到目標日期，回傳 `TARGET_DATE_NOT_FOUND`；bootstrap 最後只保留 PENDING／原 read_status，未正規化成契約要求的 `SOURCE_NO_DATA`，也未先接市場假期核對 | Reader、Bootstrap、Manifest、Receipt、STATUS_ENUM、QA | 統一觀察狀態轉換；保留 MOVE 特例 `SOURCE_UPDATE_PENDING`，不得將一般開市但查無資料混為更新延遲 |
+| AUD-06 | Main CLOSED bootstrap 目前把行情點位與漲跌欄都顯示「休市」；既有使用者規則為點位顯示 `-`、漲跌欄顯示當地假期名稱（如「感恩節」） | Bootstrap、Schema、Builder、QA | CLOSED 必須帶 `holiday_name`、官方日曆證據與市場識別；點位 `-`、漲跌欄假期名稱 |
+| AUD-07 | Main 有 CLOSED 狀態及舊 `MARKET_CLOSED` alias，但缺少可證明各市場休市的日曆判斷來源／映射；不能因頁面無資料或 Cloudflare 阻擋就推定休市 | 市場日曆、來源政策、Runner | 建立 44 項 instrument-to-calendar mapping；對非交易所／跨時段商品定義適用日曆與未知狀態，不得猜測假期 |
+| AUD-08 | Main Runner README 說沒有自動編輯研究／交接；實際存在 Main-only Stage 4 ChatGPT Automation，但同 Run 自動交接與今日實際執行仍未證明 | Stage 4、Workflow、Automation、Handoff | 改寫為「Automation 已設定、實際 Capture→Stage 4→build E2E 未驗證」；用同一 Run ID／snapshot SHA／bundle SHA 驗收 |
+| AUD-09 | Main CI push validation 成功的 run（例如 45829664051）只有 validate job；capture/build jobs skipped。這不是真實行情擷取或完整早報 E2E | Phase 4/5、Runner、QA | 嚴格區分 deterministic validation、capture run、build run、完整真實 E2E |
+| AUD-10 | Chart 3、S&P 500 append handoff、calendar writer、舊 workflow/archive、Pages 的寫入責任需按目前 Main 實際程式與排程重新確認；不可只沿用 Phase 0 舊盤點 | Chart 3、Calendar、Stage 6、Pages、History | 逐項確認唯一 writer、commit path、workflow trigger、SHA／防重與公開部署責任 |
+
+### C. 修訂後的分階段執行順序
+
+| 子階段 | 工作範圍 | 必須交付／完成判準 | 目前狀態 |
+|---|---|---|---|
+| R0｜現況重新盤點 | 更新 Main HEAD、production tree、全部 workflow／排程、資料庫、Chart 3、preview/history、Builder 與權限基準 | 新版 PHASE0 inventory；唯一 writer／觸發器／分支邊界矩陣；所有現存與退役 workflow 清單 | IN_PROGRESS |
+| R1｜SIM-1.4 全文差異矩陣 | 對照 SIM-1.4 source baseline、MASTER WR、六份 Stage WR、全部 contracts、Schema、Manifest、QA、Runner、tests | 每條規則標記 MATCH／MISSING／CONFLICT／NOT_APPLICABLE；每項缺口有唯一修正位置及下游依賴 | NOT_STARTED |
+| R2｜契約與資料模型定版 | 先統一 report_date、per-instrument data_date、market calendar、holiday evidence、狀態 enum、Observation、Manifest、Receipt、handoff SHA | Schema／Stage WR／SOURCE_POLICY／STATUS_ENUM／Receipt／QA 完全一致；通過跨檔自動一致性檢查 | NOT_STARTED |
+| R3｜Stage 1–3 Capture 修正 | 修正 per-market 日期與假期判斷；44 項 blank-first、截圖優先、4 頁並行、來源分類、FedWatch、Calendar readonly | 每個市場日期可獨立判斷；假期正確 CLOSED；開市缺資料不冒充 CLOSED；所有 44 項有值或正確狀態；Stage 3 唯讀 | NOT_STARTED |
+| R4｜Stage 4 研究與同 Run 交接 | 讀取同一 Capture 的 Research Bundle；產生完整新聞 5+10、三段總結、情緒、五層分析、六領域政治掃描及策略；生成綁定 JSON | Run ID、market snapshot SHA、research bundle SHA 完全相符；自動交付 build marker；無舊資料 fallback | NOT_STARTED（Automation 已設定，E2E 未驗證） |
+| R5｜Stage 5 Builder／QA | 核對 Builder exact SHA approval、DOM slot、資料／內容／結構／視覺互動／整合 QA；同步修正 README、approval evidence 文字 | Builder exact SHA = APPROVED_MAIN；真實資料 Build 成功；四類 QA 收據完整；不將 PARTIAL 偽稱 REVIEW_READY | NOT_STARTED（Builder 已核准；真實 E2E 未測） |
+| R6｜Stage 6 Main Preview | 僅寫三個日期化 preview 檔；遠端 bytes／SHA 回讀；Pages workflow success；公開 URL 實際讀回日期、Run ID、HTML SHA | HTML、QA、delivery 三檔完整；Pages 公開 URL 驗證通過；index.html 與正式 history 未被未授權修改 | NOT_STARTED |
+| R7｜排程／正式切換驗收 | 05:05 capture、05:15 Stage 4、04:35 calendar、05:30 Chart 3 互相銜接；確認唯一生產入口與舊流程隔離 | 至少一輪 scheduled 真實資料完整 E2E；無重複 Run／重複 writer；Pages verified；保留使用者首頁核准權 | NOT_STARTED |
+
+### D. Stage 2 市場日期／假期處理的正式設計要求（納入 R2/R3，不單獨打補丁）
+
+1. 44 項各自保留 instrument identity、交易所／主管機構、適用交易日曆、當地時區、資料日期及來源頁 URL；不可再用單一 NYSE session date 覆蓋全部 44 項。
+2. 對每項先讀取指定日期的 Historical Data。若頁面／表格不可讀，標 `TOOL_READ_FAILURE`，不得推定休市。
+3. 若表格可讀但找不到指定日期，先查該標的所屬官方交易所／主管機關行事曆；官方確認休市時，標 `CLOSED` 並保存假期名稱、日期、日曆來源 URL 與查核時間。
+4. 若官方日曆確認當日有交易，則按來源契約判斷：一般項目查無目標列標 `SOURCE_NO_DATA`；只有明確規定允許延遲觀察的項目（例如 MOVE）才可使用 `SOURCE_UPDATE_PENDING`。不得無限重試。
+5. 若日曆資料不可取得、日曆映射不明或商品不適用單一交易所日曆，標示待核實／相應錯誤，不得猜假期名稱，也不得標 CLOSED。
+6. CLOSED 顯示：價格／點位欄為 `-`；漲跌幅／漲跌點欄為官方確認的當地假期名稱（例如「感恩節」）；來源說明保留正式來源與假期日曆證據。不得將兩欄都顯示「休市」。
+7. 單項 CLOSED、SOURCE_NO_DATA、SOURCE_UPDATE_PENDING 或 TOOL_READ_FAILURE 不得造成 44 項流程 crash；其餘項目及無依賴 Stage 繼續，未核實值不得進入分析作為事實。
+8. 任何日期／狀態／顯示規則變更，必須同步 Fixture、Observation schema、Manifest、Receipt、Stage 4 bundle、Builder、四類 QA 與測試，不可只修改 Stage 2 一個檔案。
+
+### E. 執行與保護規則
+
+- 先完成 R0/R1/R2 並回讀本計畫，再開始 R3；未完成跨檔差異矩陣前不修改 Runner。
+- R3 每個可交付改動都要回頭核對 MASTER／六份 Stage WR／Schema／Manifest／Receipt／Builder／QA／Workflow，並更新本計畫。
+- 只允許 Main-native 修改；Simulation branch、SIM-1.4 runtime、Simulation workflows 全程唯讀。
+- 不使用外部 LLM API；Stage 4 研究與撰稿由本次 ChatGPT 執行，依既有 Automation／Workflow handoff。
+- 不繞過 Cloudflare、不以未核准來源取代 Investing.com、不用舊 Fixture／舊 Run 補值、不將單項缺值升格為全流程停工。
+- 審核版只能交付 main/preview 三檔；正式首頁 index.html 與正式 history 只在使用者明確核准後更新。
+- deterministic CI success 不等於真實資料 E2E；排程存在不等於 schedule 已觸發；Builder approval 不等於 Stage 5/6 已完成。
+
+### F. 本次實際變更範圍
+
+- 本次只校正本重建計畫表，記錄回讀證據、差異與後續分拆；沒有修改 Runner、Builder、Schema、Manifest、Workflow、排程、calendar JSON、preview、index.html 或 Simulation。
+- 下一個執行動作固定為完成 R0/R1 全面盤點與差異矩陣；不得跳過規劃直接進入 Stage 2 單點修改。
