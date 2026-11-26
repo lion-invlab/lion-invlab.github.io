@@ -36,7 +36,7 @@ jobs:
         id: inputs
         shell: bash
         env:
-          REPORT_DATE: ${{ inputs.report_date }}
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
         run: |
           set -euo pipefail
           FIXTURE="simulation-lab/fixtures/report-data-${REPORT_DATE}.json"
@@ -60,7 +60,7 @@ jobs:
         id: capture
         shell: bash
         env:
-          REPORT_DATE: ${{ inputs.report_date }}
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
         run: |
           set -euo pipefail
           python simulation-lab/runner/browser_verify_market_history.py \
@@ -71,7 +71,7 @@ jobs:
       - name: Build 44-row source manifest
         shell: bash
         env:
-          REPORT_DATE: ${{ inputs.report_date }}
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
         run: |
           set -euo pipefail
           python simulation-lab/runner/build_market_source_verification_manifest.py \
@@ -82,7 +82,7 @@ jobs:
       - name: Validate 44-row market snapshot
         shell: bash
         env:
-          REPORT_DATE: ${{ inputs.report_date }}
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
         run: |
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py \
@@ -116,9 +116,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-stage2-diagnostic-${{ inputs.report_date }}
+          name: tac-stage2-diagnostic-${{ inputs.report_date || '2026-11-26' }}
           path: |
             simulation-lab/output/stage2-diagnostic/
-            simulation-lab/fixtures/report-data-${{ inputs.report_date }}.json
+            simulation-lab/fixtures/report-data-${{ inputs.report_date || '2026-11-26' }}.json
           if-no-files-found: warn
           retention-days: 14
