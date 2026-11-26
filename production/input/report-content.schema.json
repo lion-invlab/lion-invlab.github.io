@@ -417,7 +417,9 @@
         "title",
         "summary",
         "url",
-        "published_at_tw"
+        "published_at_tw",
+        "published_at_source",
+        "source_timezone"
       ],
       "properties": {
         "title": {
@@ -440,13 +442,16 @@
           "type": "string"
         },
         "source_timezone": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "updated_at_source": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "updated_at_tw": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "publisher": {
           "type": "string"
@@ -455,7 +460,19 @@
           "type": "string"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": true,
+      "oneOf": [
+        {
+          "required": [
+            "updated_at_source"
+          ]
+        },
+        {
+          "required": [
+            "updated_at_tw"
+          ]
+        }
+      ]
     },
     "evidence": {
       "type": "object",
