@@ -227,7 +227,7 @@ def populate_fixture(data, payload):
                 src["instrument_identity"]="CNN Fear & Greed Index"
             elif obs.get("read_method")=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
                 src["url"]=obs.get("source_url")
-                src["source_role"]="BACKUP_1"
+                src["source_role"]="BACKUP_1" if "fgscore.com" in obs.get("source_url","") else "BACKUP_2"
                 src["quote_type"]="third_party_provider_index"
                 src["instrument_identity"]="CNN Fear & Greed Index provider score"
                 src["name"]="FGScore | CNN Provider Index" if "fgscore.com" in obs.get("source_url","") else "Financial Context | CNN Provider Index"
