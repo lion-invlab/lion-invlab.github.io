@@ -422,30 +422,59 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             await asyncio.sleep(0.5)
 
 async def observe(context,row,target,timeout,sem):
-    """One direct historical-page read; retry once only for a transport/access failure."""
+    """Read Investing.com first; MOVE alone may fall back to TradingView ICE:MOVE."""
     original_url=row["source_url"]
     result=await observe_once(context,row,target,timeout,sem,challenge_wait_ms=6000)
     attempts=[{
-        "round":1,"request_url":original_url,"status":result.get("status"),
+        "round":1,"source_role":"PRIMARY","request_url":original_url,"status":result.get("status"),
         "http_status":result.get("http_status"),
         "navigation_http_status":result.get("navigation_http_status"),
         "error":result.get("error"),
         "started_at_utc":result.get("started_at_utc"),
         "finished_at_utc":result.get("finished_at_utc"),
     }]
-    # A readable page with no target-date row or an unmapped field is a data status,
-    # not a reason to repeatedly reload the same page. Retry only transport failures.
-    if result.get("status")=="TOOL_READ_FAILURE":
-        retry=await observe_once(context,row,target,min(timeout,9000),sem,challenge_wait_ms=4000)
+    is_move=row.get("group")=="risk" and row.get("name")=="move"
+    if is_move and result.get("status") in ("TARGET_DATE_NOT_FOUND","TOOL_READ_FAILURE"):
+        backup_url="https://www.tradingview.com/symbols/ICE-MOVE/history/"
+        backup_row=dict(row)
+        backup_row["request_url"]=backup_url
+        backup=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
         attempts.append({
-            "round":2,"request_url":original_url,"status":retry.get("status"),
-            "http_status":retry.get("http_status"),
-            "navigation_http_status":retry.get("navigation_http_status"),
-            "error":retry.get("error"),
-            "started_at_utc":retry.get("started_at_utc"),
-            "finished_at_utc":retry.get("finished_at_utc"),
+            "round":2,"source_role":"BACKUP_1","request_url":backup_url,"status":backup.get("status"),
+            "http_status":backup.get("http_status"),
+            "navigation_http_status":backup.get("navigation_http_status"),
+            "error":backup.get("error"),
+            "started_at_utc":backup.get("started_at_utc"),
+            "finished_at_utc":backup.get("finished_at_utc"),
         })
-        result=retry
+        if backup.get("status")=="VERIFIED":
+            result=backup
+            result["source_role"]="BACKUP_1"
+            result["evidence_source_url"]=backup_url
+            result["primary_source_url"]=original_url
+        elif result.get("status")=="TARGET_DATE_NOT_FOUND" or backup.get("status")=="TARGET_DATE_NOT_FOUND":
+            primary_excerpt=result.get("page_body_excerpt","")
+            backup_excerpt=backup.get("page_body_excerpt","")
+            result.update({
+                "status":"SOURCE_UPDATE_PENDING",
+                "read_status":"SOURCE_UPDATE_PENDING",
+                "source_role":"PRIMARY_AND_BACKUP_PENDING",
+                "source_url":original_url,
+                "evidence_source_url":backup_url if backup.get("source_page_fetched") else original_url,
+                "observed_date":None,"observed_value":None,"observed_change":None,
+                "observed_value_field":None,"observed_change_field":None,
+                "page_body_excerpt":"\\n".join(x for x in (primary_excerpt,backup_excerpt) if x)[:5000],
+                "primary_attempt_status":attempts[0]["status"],
+                "backup_attempt_status":attempts[1]["status"],
+                "error":"MOVE_TARGET_SESSION_NOT_YET_AVAILABLE_ON_READABLE_PRIMARY_OR_BACKUP_PAGE",
+            })
+        else:
+            result=backup if result.get("status")=="TOOL_READ_FAILURE" else result
+            result["source_role"]="PRIMARY_AND_BACKUP_READ_FAILURE"
+            result["primary_attempt_status"]=attempts[0]["status"]
+            result["backup_attempt_status"]=attempts[1]["status"]
+            if result.get("status")=="TOOL_READ_FAILURE":
+                result["read_status"]="TOOL_READ_FAILURE"
     result["source_url"]=original_url
     result["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
     result["attempt_count"]=len(attempts)
