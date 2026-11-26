@@ -32,5 +32,5 @@ Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WR
 - Never import from or read `simulation-lab/` at runtime.
 - Never bypass Investing.com Cloudflare or substitute unapproved market sources.
 - Never reuse previous Run market values; Stage 2 is blank-first.
-- Stage 3 is calendar read-only; Stage 5 writes only Run-scoped review artifacts; Stage 6 writes only the three approved preview files.
+- Stage 3 is calendar read-only; Stage 5 writes only Run-scoped review artifacts; Stage 6 writes only the three approved preview files. Stage 2 marks a row CLOSED only with date-matched official calendar evidence; a missing historical row alone remains SOURCE_NO_DATA / pending, and a confirmed holiday renders value as `-` and change as `休市`.
 - Do not update `index.html` or archive a formal edition without explicit user approval.
