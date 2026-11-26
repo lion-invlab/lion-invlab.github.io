@@ -92,6 +92,13 @@ def main():
         assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
         assert result["browser_observation_record"]["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
 
+        mislabeled_partial = copy.deepcopy(mixed)
+        mislabeled_partial["provenance"] = "CURRENT_USER_PROVIDED_SCREENSHOT"
+        mislabeled_partial["read_method"] = "USER_PROVIDED_SCREENSHOT"
+        mislabeled_partial["read_status"] = "USER_PROVIDED_SCREENSHOT_CONFIRMED"
+        result = verification_fields(source, display, change, mislabeled_partial, "global_markets", "標普500指數")
+        assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
+
         bad_hash = copy.deepcopy(screenshot)
         bad_hash["field_evidence"]["close"]["evidence_sha256"] = "b" * 64
         result = verification_fields(source, display, change, bad_hash, "global_markets", "標普500指數")
