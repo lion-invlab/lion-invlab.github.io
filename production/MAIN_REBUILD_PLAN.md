@@ -20,7 +20,7 @@
 - Main CI 最新結果：Workflow Run `45824747088`（commit `9c779455278d3bde84abe70324dedf5cb0db626d`）完成且 conclusion=success。逐步確認 Main-only checkout、模組編譯、雙母版 SHA、Stage 2／Pre-build 測試、Builder／earnings 測試、Candidate Builder fixture、母版 DOM contract 全部成功；capture/build job 為 skipped，故不代表真實資料 E2E。
 - Stage 4→5→6 交接加固：Stage 4 receipt 新增 `trading_date`；Stage 5 驗證 Stage 4 Run／報告日／交易日、凍結市場快照前後 SHA、Research Bundle SHA 與 Stage 2 snapshot SHA 一致，並將交易日、Stage 4 receipt SHA、Research Bundle SHA、market snapshot SHA、Builder blob SHA 寫入 Stage 5 receipt。
 - Stage 6 加強：核對 Stage 5 Run／雙日期、QA sidecar 日期、render manifest SHA、HTML SHA、Builder SHA；回讀 Stage 4 receipt SHA 並核對 editorial Run／snapshot／bundle 綁定後才允許交付。
-- 上述 Stage 4／5／6 程式與 Stage 4 日期綁定測試已提交 Main，SHA 已同步至 PORT_MANIFEST。注意：這批最新 Stage 4–6 修改尚未經新一輪 CI 執行；目前僅有修改前的 Main 確定性 CI 全通過。尚缺專用 Stage 5／6 runner regression tests，下一步補齊後再跑 CI。
+- 上述 Stage 4／5／6 程式與 Stage 4 日期綁定測試已提交 Main，SHA 已同步至 PORT_MANIFEST。新增專用 `test_stage56_handoff.py`，涵蓋 Stage 4→5 的交易日／快照 SHA／Research Bundle SHA 正向與負向案例，以及 Stage 5→6 的跨 Run QA、Builder SHA、render manifest 綁定測試；已加入 Main Workflow 測試清單。這批最新 Stage 4–6 修改與新增測試尚待最新 CI 實際執行確認。
 
 - Main Preview 清理確認：已查詢 main 完整 Git tree，`preview/2026-11-26*` 目前不存在，無需刪除；本次確認未觸及其他日期 preview、`index.html` 或 history。  
 - Main Workflow 現況再次確認：capture/build 仍採手動 workflow_dispatch／內容 commit marker；Stage 4 編輯研究生產者尚未自動化，不能宣稱已具備定時全自動生產。Builder 仍為 `CANDIDATE_PENDING_OWNER_APPROVAL`，不可跳過 owner exact-SHA 核准。
