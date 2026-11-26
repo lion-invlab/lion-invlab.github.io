@@ -611,6 +611,7 @@ def main() -> None:
     parser.add_argument("--data", required=True)
     parser.add_argument("--audit", required=True)
     parser.add_argument("--manifest", required=True)
+    parser.add_argument("--observations", default="simulation-lab/output/market-history-browser-observations.json")
     parser.add_argument("--output", required=True)
     parser.add_argument("--run-id", default=os.environ.get("GITHUB_RUN_ID", "local"))
     parser.add_argument("--run-attempt", default=os.environ.get("GITHUB_RUN_ATTEMPT", "1"))
@@ -621,6 +622,8 @@ def main() -> None:
             "CLI report_date does not match the selected fixture")
     audit, audit_sha = load_json(args.audit)
     manifest, manifest_sha = load_json(args.manifest)
+    require(Path(args.observations).is_file(), "final 44-row observation bundle is missing")
+    observation_bundle, observation_bundle_sha = load_json(args.observations)
 
     remote = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
     normalized = remote.lower().removesuffix(".git").replace(
@@ -638,6 +641,9 @@ def main() -> None:
         manifest=manifest, manifest_sha256=manifest_sha, calendar_bundle=calendar_bundle,
         repository=EXPECTED_REPOSITORY, branch=branch,
         workflow_run_id=args.run_id, workflow_run_attempt=args.run_attempt,
+        observation_bundle=observation_bundle,
+        observation_bundle_sha256=observation_bundle_sha,
+        observation_bundle_path=args.observations,
     )
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
