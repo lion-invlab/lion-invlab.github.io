@@ -13,7 +13,7 @@ class Stage4ResearchBundleTests(unittest.TestCase):
                   "risk":{"fear_greed":{"display":"待核實","change_display":"待核實","source":{"verification_status":"PENDING"}}},
                   "fedwatch":{"status":"PENDING"}}
             for name,doc in {
-                "run-context.json":context,"report-data.json":data,
+                "run-context.json":context,"stage1-receipt.json":{"status":"PASS","run_id":run.name},"report-data.json":data,
                 "stage2-market-snapshot-receipt.json":{"status":"PARTIAL"},
                 "stage2-run-summary.json":{"run_id":run.name,"market_snapshot_sha256":market_digest(data)},
                 "stage3-calendar-receipt.json":{"status":"PASS","run_id":run.name,"main_commit_sha":"abc"},
