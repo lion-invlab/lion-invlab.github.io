@@ -422,3 +422,16 @@
 - Main blobs：bootstrap `de41464be161bfc719663ee08555ccc4bf5a4cf0`；測試 `6f0ef2b5abca24d82b8cd30d92e49be3362e7e6e`；Observation schema `b9392611aa773df6eed939e4c875a8fb6baaa573`；PORT_MANIFEST 已更新 bootstrap SHA。
 - 相關 commits：`10810f5`（bootstrap）、`f8e2e5f`（tests）、`ef7de8e`（schema）、`ac62619`（PORT_MANIFEST）、`4845fc4`（Stage 2 WR）、`105e40e`（README）。
 - **尚未完成**：最新 Main CI 尚未取得結果；Source Manifest 的完整官方休市驗證、Receipt／Pre-build／Stage 4 傳遞與 44 項真實瀏覽器擷取仍需同一 Run 實測。此修復不代表真實早報已產出。
+
+
+## 2026-11-27 Stage 2 → Stage 4 休市狀態傳遞修復（續）
+- 回讀實際程式後，確認舊 Builder 將 CLOSED 限定為「日經 225」，且把「休市」放在數值欄、破折號放在變動欄，與 44 項共同基準日及正式顯示規則衝突。
+- 已修正 Main Builder 的 CLOSED 分支：44 項任何一列均可在具備上游官方休市證據時標記 CLOSED；非產業 ETF 數值欄輸出 `-`、變動欄輸出 `休市`；產業 ETF 的百分比欄輸出 `-`，其來源 change_display 設為 `休市`。Builder 同時檢查 Manifest 中的官方休市證據記錄及當次瀏覽器欄位。
+- Stage 2 bootstrap 的產業 ETF CLOSED 數值也由「休市」改為 `-`，原因欄維持 `休市`。
+- Receipt 現在要求 CLOSED Observation 與 Manifest 同時為 CLOSED，且 Manifest record 必須綁定同一來源 URL、11/26 等 run-level target date、官方網域、reader ref／line range、current-run provenance、非重用觀察與當次讀取完成時間；Receipt 另封存官方證據引用。
+- Pre-build Gate 現在檢查同一套官方網域及瀏覽器證據欄位，不再只接受一個寬鬆的 `evidence_status=MARKET_CLOSED` 字串。
+- Stage 4 Bundle 會核對 Receipt 與 Manifest 的休市證據引用完全一致，並將官方證據引用帶入各列的 `closure_evidence` 欄位。
+- 測試同步修正為數值欄 `-`、變動欄 `休市`，並補強 Pre-build CLOSED 證據案例。
+- Main 相關程式 blobs：bootstrap `02e42000d6d304f2a02c9f96056a614e652e9b18`；receipt `06c743efd6ee136a0de6bbbcb271729e0514712e`；pre-build `7ef4e3c8b4d8cc62650a3b2ae06bf91587733283`；Builder `3e5a971d6d0a3ad3d41881b542580308276021f9`；Stage 4 bundle `2c07c18f3885f82dbec2aab0dba8b17566ae93ef`。
+- **Builder 精確 SHA 已改變**，原先核准只涵蓋舊 blob `20eefe57d6f3b389157c01b8532cae3a69128a02`；PORT_MANIFEST 已標記新 Builder 為 `CANDIDATE_PENDING_NEW_EXACT_BLOB_APPROVAL`。不得沿用舊核准或聲稱新版本已獲核准。
+- **尚待驗收**：Main CI 尚未回讀；Receipt／Pre-build／Stage 4 的新增 CLOSED 分支尚未在同一實際 Run 完成整合測試；Builder 新 SHA 尚待精確版本核准。真實 44 項瀏覽器擷取及完整 E2E 仍未完成。
