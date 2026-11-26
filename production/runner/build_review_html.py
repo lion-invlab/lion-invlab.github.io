@@ -25,22 +25,30 @@ def resolve_allowed_output_path(report_iso: str, output_arg: str, candidate_test
     requested = Path(output_arg)
     if not requested.is_absolute():
         requested = ROOT / requested
-    requested_resolved = requested.resolve()
     if requested.is_symlink():
         raise SystemExit("output guard rejected symlink target")
+    runs_lexical = ROOT / "production" / "runs"
+    if runs_lexical.is_symlink() or runs_lexical.resolve() != runs_lexical.absolute():
+        raise SystemExit("output guard rejected production/runs symlink escape")
     if candidate_test_output:
-        test_root = (ROOT / "production" / "runs" / "candidate-validation").resolve()
-        test_root.mkdir(parents=True, exist_ok=True)
-        if requested_resolved.parent != test_root or requested_resolved.name != f"{report_iso}-candidate.html":
+        test_lexical = runs_lexical / "candidate-validation"
+        if test_lexical.is_symlink():
+            raise SystemExit("candidate output guard rejected candidate-validation symlink")
+        test_lexical.mkdir(parents=True, exist_ok=True)
+        if test_lexical.resolve() != test_lexical.absolute():
+            raise SystemExit("candidate output guard rejected candidate-validation path escape")
+        requested_resolved = requested.resolve()
+        if requested_resolved.parent != test_lexical or requested_resolved.name != f"{report_iso}-candidate.html":
             raise SystemExit("candidate output must be a direct dated child of production/runs/candidate-validation")
         return requested_resolved
-    runs_root = (ROOT / "production" / "runs").resolve()
-    if requested_resolved.name != "review.html" or requested_resolved.parent.parent != runs_root:
+    requested_resolved = requested.resolve()
+    if requested_resolved.name != "review.html" or requested_resolved.parent.parent != runs_lexical:
         raise SystemExit("production output must be production/runs/<run_id>/review.html")
-    if not requested_resolved.parent.name.startswith(f"TAC-{report_iso}-"):
+    run_dir = requested_resolved.parent
+    if run_dir.is_symlink() or run_dir.resolve() != run_dir.absolute():
+        raise SystemExit("production output guard rejected run-directory symlink escape")
+    if not run_dir.name.startswith(f"TAC-{report_iso}-"):
         raise SystemExit("run directory must be prefixed with TAC-<report_date>-")
-    if requested_resolved.parent.parent != runs_root:
-        raise SystemExit("output path escaped production/runs")
     return requested_resolved
 
 def normalize_market_label(value):
