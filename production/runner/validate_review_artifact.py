@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent fail-closed validation for the exact simulation review HTML artifact."""
+"""Independent fail-closed validation for the exact main production review HTML artifact."""
 from __future__ import annotations
 import argparse
 import hashlib
@@ -12,7 +12,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
+sys.path.insert(0, str(ROOT / "production" / "runner"))
 from build_review_html import validate_political_scan
 MANIFEST_PATH = ROOT / "production/config/mother-template-manifest.json"
 BUILDER_PATH = ROOT / "production/runner/build_review_html.py"
@@ -91,10 +91,12 @@ def main():
     report_date = date.fromisoformat(args.report_date)
     if report_date.weekday() > 4:
         raise SystemExit("weekend report date rejected")
-    expected_path = f"preview/{report_date.isoformat()}-simulation.html"
-    if args.report != expected_path:
-        raise SystemExit(f"review path must be the canonical simulation preview: {expected_path}")
-    report_path = ROOT / args.report
+    report_path_arg = Path(args.report)
+    if (report_path_arg.name != "review.html"
+            or report_path_arg.parent.parent != Path("production/runs")
+            or not report_path_arg.parent.name.startswith(f"TAC-{report_date.isoformat()}-")):
+        raise SystemExit("review path must be production/runs/TAC-<report-date>-<run-id>/review.html")
+    report_path = ROOT / report_path_arg
     if not report_path.is_file():
         raise SystemExit(f"review artifact missing: {args.report}")
     raw = report_path.read_bytes()
@@ -109,7 +111,7 @@ def main():
     template_bytes = (ROOT / template_path).read_bytes()
     template_sha = git_blob_sha(template_bytes)
     if template_sha != template["blob_sha"]:
-        raise SystemExit("approved simulation mother SHA mismatch")
+        raise SystemExit("approved production mother SHA mismatch")
     provenance_comment = next(
         (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))),
         None,
@@ -126,7 +128,7 @@ def main():
         "template_path": template_path,
         "template_blob_sha": template_sha,
         "builder_path": str(BUILDER_PATH.relative_to(ROOT)),
-        "mode": "simulation-only",
+        "mode": "main-production",
     }
     for key, value in expected_provenance.items():
         if provenance.get(key) != value:
@@ -152,7 +154,7 @@ def main():
             raise SystemExit(f"{label} provenance SHA mismatch: {actual_sha} != {provenance.get(sha_key)!r}")
         asset_bytes[label] = payload
     if template["blob_sha"].encode("ascii") not in asset_bytes["qa_contract"]:
-        raise SystemExit("QA Contract does not bind the selected simulation mother SHA")
+        raise SystemExit("QA Contract does not bind the selected production mother SHA")
     active_rules_text = asset_bytes["active_rules"].decode("utf-8")
     candidate_rules_text = asset_bytes["candidate_rules"].decode("utf-8")
     active_header = active_rules_text[:700]
