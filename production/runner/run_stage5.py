@@ -40,6 +40,15 @@ def main():
     stage4=run_dir/"stage4-analysis-receipt.json"
     for p in (fixture,audit,manifest,observations,stage2,stage3,stage4):
         if not p.is_file():raise SystemExit(f"Stage 5 missing required input: {p.relative_to(ROOT)}")
+    stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
+    stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
+    if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id") not in (str(context.get("workflow_run_id")),context["run_id"]):
+        raise SystemExit("Stage 2 receipt status/run identity mismatch")
+    if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
+        raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
+    if stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context["run_id"] or stage4_doc.get("market_snapshot_unchanged") is not True:
+        raise SystemExit("Stage 4 receipt status/run/frozen-market identity mismatch")
     start=time.monotonic()
     prebuild=run_dir/"prebuild-input-receipt.json"
     execute([sys.executable,str(RUNNER/"validate_prebuild_stage_inputs.py"),
@@ -52,7 +61,7 @@ def main():
     if prebuild_doc.get("status")!="PASS":raise SystemExit("Pre-build input receipt did not PASS")
     template_key=context["mother"]["key"]
     output=run_dir/"review.html"
-    expected_master_sha=git_blob("production/MASTER_WR.md")
+    expected_master_sha=context["mother"]["blob_sha"]
     builder_cmd=[sys.executable,str(RUNNER/"build_review_html.py"),
         "--data",str(fixture.relative_to(ROOT)),
         "--market-source-manifest",str(manifest.relative_to(ROOT)),
@@ -67,6 +76,15 @@ def main():
         if path.is_file():builder_cmd.extend([flag,str(path.relative_to(ROOT))])
     execute(builder_cmd,run_dir/"qa-builder.log")
     if not output.is_file():raise SystemExit("Builder did not create review.html")
+    from bs4 import BeautifulSoup,Comment
+    import re
+    soup=BeautifulSoup(output.read_text(encoding="utf-8"),"html.parser")
+    provenance_comment=next((str(x) for x in soup.find_all(string=lambda x:isinstance(x,Comment) and "TAC_BUILD_PROVENANCE" in str(x))),"")
+    match=re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})",provenance_comment,re.S)
+    if not match:raise SystemExit("Builder provenance is missing or malformed")
+    provenance=json.loads(match.group(1))
+    if provenance.get("review_ready") is not True:
+        raise SystemExit("Builder has not approved REVIEW_READY: "+json.dumps(provenance.get("review_ready_blockers",[]),ensure_ascii=False))
     html_sha=sha(output)
     report_arg=str(output.relative_to(ROOT))
     execute([sys.executable,str(RUNNER/"validate_review_artifact.py"),
@@ -78,6 +96,7 @@ def main():
     execute(["node",str(RUNNER/"visual_regression.mjs"),report_arg,template_key,report_date,
         str(visual_dir.relative_to(ROOT))],run_dir/"qa-visual.log")
     interaction_json=run_dir/"interaction-smoke.json"
+    os.environ["TEMPLATE_KEY"]="monday" if template_key=="monday" else "weekday"
     execute(["node",str(RUNNER/"interaction_smoke.mjs"),report_arg,
         str(interaction_json.relative_to(ROOT))],run_dir/"qa-interaction.log")
     if sha(output)!=html_sha:raise SystemExit("Review HTML bytes changed during QA")
