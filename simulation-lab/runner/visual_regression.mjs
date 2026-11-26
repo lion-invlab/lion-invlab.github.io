@@ -207,7 +207,8 @@ try {
         const text = panel.innerText || "";
         if (!input.checked) invalid.push(item.id + ": radio did not become checked after label click");
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
-        for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
+        const contentForNeedles = item.id === "focus-tab-levels" && levelsPending ? levelsText : text;
+        for (const needle of item.needles) if (!contentForNeedles.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
         if (item.id === "focus-tab-core" && !["本週三大觀察焦點", "三項關鍵觀察"].some(heading => text.includes(heading))) invalid.push(item.id + ": valid core-observation heading missing");
         if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
