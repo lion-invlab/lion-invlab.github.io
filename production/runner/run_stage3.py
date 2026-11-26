@@ -16,8 +16,11 @@ def main():
     args=ap.parse_args()
     run_dir=Path(args.run_dir)
     if not run_dir.is_absolute():run_dir=ROOT/run_dir
+    runs_root=ROOT/"production/runs"
+    if runs_root.is_symlink() or runs_root.resolve()!=runs_root.absolute() or run_dir.is_symlink():
+        raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     run_dir=run_dir.resolve()
-    if run_dir.parent!=(ROOT/"production/runs").resolve() or run_dir.is_symlink():
+    if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     report_date=context["report_date"]
