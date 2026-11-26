@@ -61,8 +61,32 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         raise ValueError("Research bundle fixture dates differ from Stage 1 context")
     if stage2.get("status") not in ("PASS","PARTIAL") or stage2.get("workflow_run_id") not in (context.get("workflow_run_id"),context["run_id"]) or stage2_summary.get("run_id")!=context["run_id"]:
         raise ValueError("Research bundle Stage 2 receipt/summary is not bound to this Run")
-    if stage3.get("status")!="PASS" or stage3.get("run_id")!=context["run_id"] or stage3.get("main_commit_sha")!=context["main_commit_sha"]:
+    if stage2.get("report_date")!=context["report_date"] or stage2.get("trading_date")!=context["trading_date"]:
+        raise ValueError("Research bundle Stage 2 receipt dates differ from Stage 1 context")
+    if stage2_summary.get("report_date")!=context["report_date"] or stage2_summary.get("trading_date")!=context["trading_date"]:
+        raise ValueError("Research bundle Stage 2 summary dates differ from Stage 1 context")
+    if stage3.get("status")!="PASS" or stage3.get("run_id")!=context["run_id"] or stage3.get("report_date")!=context["report_date"] or stage3.get("main_commit_sha")!=context["main_commit_sha"]:
         raise ValueError("Research bundle Stage 3 receipt is not bound to the pinned Run")
+    manifest=read_json(run_dir/"market-source-verification-manifest.json")
+    manifest_rows={(row.get("group"),row.get("name")):row for row in (manifest.get("rows") or [])}
+    receipt_rows={(row.get("group"),row.get("name")):row for row in (stage2.get("rows") or [])}
+    if len(manifest_rows)!=44 or len(receipt_rows)!=44 or set(manifest_rows)!=set(receipt_rows):
+        raise ValueError("Research bundle Stage 2 manifest/receipt must bind the exact 44 market rows")
+    market_status_counts={}
+    for key,receipt_row in receipt_rows.items():
+        manifest_row=manifest_rows[key]
+        state=manifest_row.get("market_data_status") or ("VERIFIED" if manifest_row.get("verification_status")=="VERIFIED" else "BACKUP_VERIFIED" if manifest_row.get("verification_status")=="BACKUP_VERIFIED" else "CLOSED" if manifest_row.get("verification_status")=="CLOSED" else "PENDING")
+        if receipt_row.get("market_data_status")!=state:
+            raise ValueError(f"Research bundle Stage 2 row status differs from manifest: {key}")
+        market_status_counts[state]=market_status_counts.get(state,0)+1
+    if stage2.get("market_status_counts")!=market_status_counts or stage2_summary.get("market_status_counts")!=market_status_counts:
+        raise ValueError("Research bundle Stage 2 market status counts differ across receipt/summary/manifest")
+    for label,ref in (stage2.get("input_files") or {}).items():
+        input_path=root/ref.get("path","")
+        if not input_path.is_file() or sha(input_path)!=ref.get("sha256"):
+            raise ValueError(f"Research bundle Stage 2 input SHA mismatch: {label}")
+    if stage2.get("input_files",{}).get("fixture",{}).get("sha256") is None:
+        raise ValueError("Research bundle Stage 2 receipt is missing fixture SHA binding")
     snapshot_sha=market_digest(data)
     if stage2_summary.get("market_snapshot_sha256")!=snapshot_sha:
         raise ValueError("Research bundle market snapshot digest differs from Stage 2 receipt")
@@ -113,6 +137,12 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                     "sha256":evidence_sha,"captured_at":field.get("captured_at") or row.get("captured_at")})
                 required[f"screenshot:{row.get('group')}:{row.get('name')}:{field_name}"]=resolved
     rows,unresolved=market_rows(data)
+    receipt_rows={(row.get("group"),row.get("name")):row for row in (stage2.get("rows") or [])}
+    for row in rows:
+        key=(row["group"],row["name"])
+        row["market_data_status"]=receipt_rows[key]["market_data_status"]
+        row["stage2_verification_status"]=receipt_rows[key]["status"]
+    unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
     cutoff_target=datetime.combine(report_date,time(5,25)).isoformat(timespec="minutes")
@@ -169,6 +199,7 @@ def main():
     output=run_dir/"stage4-research-bundle.json"
     output.write_text(json.dumps(bundle,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={"status":"PASS","run_id":bundle["run_id"],"report_date":bundle["report_date"],
+             "trading_date":bundle["trading_date"],
              "market_snapshot_sha256":bundle["market_snapshot_sha256"],
              "input_count":len(bundle["input_refs"]),"bundle_path":str(output.relative_to(ROOT)),
              "bundle_sha256":sha(output),"market_rows":bundle["market_snapshot"]["row_count"],
