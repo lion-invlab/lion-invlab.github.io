@@ -18,6 +18,9 @@ VALUE_KEYS = {
     "verified_at_tw","checked_at_taipei","evidence_method","web_reader_ref","web_line_start",
     "web_line_end","read_method","read_status","observed_value","observed_change",
     "source_page_fetched","page_title","trading_date","display_value_matches_saved_observation",
+    "previous_close","open","high","low","screenshot_sha256","screenshot_capture_time_taipei",
+    "quote_timestamp_source","screenshot_quote_time","user_screenshot_observation","evidence_file",
+    "observation_record_sha256","browser_observation_record_sha256","captured_at_tw",
     "backup_web_reader_ref","backup_web_line_start","backup_web_line_end","provenance",
     "history_page_completion_at","history_page_completion_fields","screenshot_fields_applied",
     "history_close","history_change","screenshot_evidence","screenshot_evidence_path",
@@ -84,6 +87,7 @@ def blank_fixture(source):
             src.pop(key,None)
         src["verification_status"]="PENDING"
         src["source_page_fetched"]=False
+        src["note"]="Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
     screenshot_rows=0; screenshot_fields=0
     sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{data['report_date']}.json")
     if sidecar.is_file():
