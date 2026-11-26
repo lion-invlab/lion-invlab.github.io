@@ -209,7 +209,7 @@ def populate_fixture(data, payload):
                 change_text=_fmt(raw_change,change_spec,force_sign=True)
                 item["change_display"]=change_text
                 src["history_change"]=change_text if group in ("energy","metals") else float(_decimal(raw_change))
-        backup_verified=obs.get("source_role") in ("BACKUP_1","BACKUP")
+        backup_verified=obs.get("source_role") in ("BACKUP_1","BACKUP_2","BACKUP","SECONDARY")
         if screenshot:
             # A user screenshot is a first-class evidence method, not a claim that
             # the primary Investing.com page was fetched during this run.
