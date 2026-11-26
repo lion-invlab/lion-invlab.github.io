@@ -87,6 +87,31 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
             if label.startswith("last-week-") and report_date.weekday()!=0:
                 continue
             raise FileNotFoundError(f"Research bundle input missing: {path.relative_to(root)}")
+    screenshot_evidence=[]
+    screenshot_info=context.get("screenshot_input") or {}
+    if screenshot_info.get("present"):
+        sidecar=root/screenshot_info["path"]
+        if not sidecar.is_file() or sha(sidecar)!=screenshot_info.get("sha256"):
+            raise ValueError("Stage 1 screenshot sidecar is missing or its SHA differs from the pinned context")
+        required["market-screenshot-sidecar"]=sidecar
+        sidecar_doc=read_json(sidecar)
+        for row in sidecar_doc.get("observations") or []:
+            for field_name,field in (row.get("fields") or {}).items():
+                evidence=Path(str(field.get("evidence_path") or row.get("evidence_path") or ""))
+                if not evidence.is_absolute():
+                    evidence=root/evidence
+                try:
+                    resolved=evidence.resolve(strict=True)
+                    resolved.relative_to(root.resolve())
+                except (OSError,ValueError):
+                    raise ValueError(f"Screenshot evidence file is missing or outside repository: {evidence}")
+                evidence_sha=str(field.get("evidence_sha256") or row.get("evidence_sha256") or "").lower()
+                if sha(resolved)!=evidence_sha:
+                    raise ValueError(f"Screenshot evidence SHA mismatch: {resolved}")
+                screenshot_evidence.append({"group":row.get("group"),"name":row.get("name"),
+                    "field":field_name,"path":str(resolved.relative_to(root.resolve())),
+                    "sha256":evidence_sha,"captured_at":field.get("captured_at") or row.get("captured_at")})
+                required[f"screenshot:{row.get('group')}:{row.get('name')}:{field_name}"]=resolved
     rows,unresolved=market_rows(data)
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
@@ -119,7 +144,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         "headline_scope":"Market, company and industry events; summaries about 3-4 lines; do not repeat index quote tables.",
         "evidence":"Preserve original publication timestamp, source timezone, canonical HTTPS URL, checked time and source for every claim. Never invent missing facts."
       },
-      "input_refs":inputs,
+      "screenshot_evidence":screenshot_evidence,\n      "input_refs":inputs,
       "generated_at_utc":datetime.utcnow().isoformat(timespec="seconds")+"Z"
     }
     return bundle
