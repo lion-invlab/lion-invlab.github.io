@@ -146,6 +146,8 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
             if provenance in ("CURRENT_USER_PROVIDED_SCREENSHOT", "CURRENT_RUN_MIXED_FIELD_OBSERVATION"):
                 evidence_fields = (record.get("field_evidence") or {})
                 required_fields = ("score", "band") if row.get("group") == "risk" and row.get("name") == "fear_greed" else ("close", "change")
+                require(record.get("screenshot_instrument_identity_status") == "VERIFIED",
+                        f"screenshot-backed row lacks screenshot instrument identity verification: {row.get('name')}")
                 for field in required_fields:
                     evidence = evidence_fields.get(field) or {}
                     require(bool(evidence), f"screenshot-backed row missing required field evidence: {row.get('name')}/{field}")
