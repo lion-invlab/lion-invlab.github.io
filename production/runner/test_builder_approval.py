@@ -22,7 +22,7 @@ class BuilderApprovalTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,"exact current Builder blob SHA"):
                 require_approved_builder(approval_path=p,actual_sha="new")
     def test_governance_snapshot_requires_every_pinned_file(self):
-        context={"governance":{"blob_shas":{path:"sha" for path in GOVERNANCE_PATHS}}}
+        context={"main_commit_sha":"commit","governance":{"commit_sha":"commit","blob_shas":{path:"sha" for path in GOVERNANCE_PATHS}}}
         result=verify_governance_snapshot(context,actual_blobs={path:"sha" for path in GOVERNANCE_PATHS})
         self.assertEqual(result["status"],"PASS")
         self.assertEqual(result["file_count"],len(GOVERNANCE_PATHS))
@@ -30,7 +30,7 @@ class BuilderApprovalTests(unittest.TestCase):
         pinned={path:"sha" for path in GOVERNANCE_PATHS}
         actual=dict(pinned); actual["production/MASTER_WR.md"]="changed"
         with self.assertRaisesRegex(ValueError,"changed after Stage 1"):
-            verify_governance_snapshot({"governance":{"blob_shas":pinned}},actual_blobs=actual)
+            verify_governance_snapshot({"main_commit_sha":"commit","governance":{"commit_sha":"commit","blob_shas":pinned}},actual_blobs=actual)
     def test_approved_exact_sha_passes(self):
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/"approval.json"
