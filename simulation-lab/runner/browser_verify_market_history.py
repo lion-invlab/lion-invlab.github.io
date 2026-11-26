@@ -671,7 +671,7 @@ def persist_fixture(path: Path, data: dict, *, no_fixture_write: bool = False) -
     """Persist the working Fixture only for production runs, never diagnostic runs."""
     if no_fixture_write:
         return False
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
     return True
 
 
