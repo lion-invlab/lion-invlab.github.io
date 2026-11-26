@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "source_branch": "simulation/tac-process-lab-2026-11-06",
+  "source_rules_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
+  "policy": "Source code is copied into main; main execution must use only production/ paths. Simulation branch remains unchanged. A source SHA is provenance, not proof the main port is production-ready.",
+  "ported": [
+    {
+      "file": "stage2_market_fixture_bootstrap.py",
+      "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "stage2_screenshot_inputs.py",
+      "source_sha": "77bde8ff2a35b91ad3deab1a435d86104f0ef70e",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "browser_verify_market_history.py",
+      "source_sha": "5336a323a4074687f89b4623f6866d48b74a478d",
+      "status": "COPIED_WITH_DEFAULT_CONCURRENCY_4"
+    },
+    {
+      "file": "validate_chatgpt_web_observations.py",
+      "source_sha": "5651432ae3104546c4365c7d5d9fd27b728b6531",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "build_market_source_verification_manifest.py",
+      "source_sha": "08d5dda5f380664dca670af5516ed076631cb4a5",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "build_stage2_receipt.py",
+      "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "validate_market_snapshot.py",
+      "source_sha": "1c51e42d2cd56d80637d7a0dc912858305ceba06",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "handoff_sp500_to_chart3.py",
+      "source_sha": "650102bdfad0ee01817f9774bfa0acf9950f7495",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "calendar_source_guard.py",
+      "source_sha": "eaf0db26eb4e94cb971e7a44b2f320599d409b14",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "earnings_judgment.py",
+      "source_sha": "47a8ba3fdbd9f0a2cc61975d9a814adeaa5570f9",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "collect_earnings_price_reactions.py",
+      "source_sha": "bec40b7d012ab6e84f435af48efa17048c559739",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "consensus_snapshot_store.py",
+      "source_sha": "3bdabe5a3e301777f022b07e0b89297964d5b8c8",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "validate_prebuild_stage_inputs.py",
+      "source_sha": "730b25a2f8f3a2f555008fb9c5bd1deb5ecf9bd1",
+      "status": "COPIED_UNCHANGED"
+    },
+    {
+      "file": "build_review_html.py",
+      "source_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
+      "status": "PORT_ADAPTED_TO_MAIN_PATHS_CANDIDATE_NOT_APPROVED"
+    },
+    {
+      "file": "validate_dual_mothers.py",
+      "source_sha": "269e0616e894f2b369f81642026605d024bae589",
+      "status": "PATHS_ADAPTED"
+    },
+    {
+      "file": "validate_mother_dom_contract.py",
+      "source_sha": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
+      "status": "COPIED_WITH_PATHS_ADAPTED"
+    }
+  ],
+  "validation_tests_copied": [
+    "test_stage2_market_fixture_bootstrap.py",
+    "test_stage2_screenshot_inputs.py",
+    "test_validate_chatgpt_web_observations.py",
+    "test_market_source_verification_manifest.py",
+    "test_build_stage2_receipt.py",
+    "test_validate_market_snapshot.py",
+    "test_quote_type_guard.py",
+    "test_stage2_field_provenance.py",
+    "test_browser_http_classification.py",
+    "test_sp500_chart3_handoff.py",
+    "test_prebuild_stage_inputs.py",
+    "test_earnings_judgment_engine.py",
+    "test_earnings_schema_audit.py",
+    "test_earnings_card_dom_preservation.py",
+    "test_builder_output_guard.py",
+    "test_builder_calendar_panel_preservation.py",
+    "test_earnings_health_dom_preservation.py",
+    "test_report_layer_earnings_status.py",
+    "test_summary_headline.py",
+    "test_market_analysis_slots.py",
+    "test_fear_greed_marker.py",
+    "test_full_candidate_builder.py",
+    "test_market_analysis_browser.mjs",
+    "interaction_smoke.mjs",
+    "visual_regression.mjs"
+  ],
+  "not_yet_production_ready": [
+    "No main-native daily fixture factory/input schema has been completed.",
+    "No production Stage 1-6 orchestrator exists yet.",
+    "Builder port requires candidate tests against the new production mothers and an explicit main approval decision.",
+    "Some copied candidate tests still contain Simulation paths and must be adapted before running.",
+    "No main-native production Workflow has been created or enabled.",
+    "No real-data end-to-end run has been executed."
+  ]
+}
