@@ -191,16 +191,27 @@ def verification_fields(source: dict, display, change_display, observation: dict
     screenshot_evidence_ok = bool(screenshot_fields) and all(
         _screenshot_evidence_valid(evidence) for evidence in screenshot_fields.values()
     )
+    value_key = str(observation.get("observed_value_key") or "close")
+    change_key = str(observation.get("observed_change_key") or "change")
+    required_field_keys_present = value_key in field_evidence and change_key in field_evidence
     user_screenshot_ok = (
         provenance == "CURRENT_USER_PROVIDED_SCREENSHOT"
         and read_method == "USER_PROVIDED_SCREENSHOT"
         and screenshot_evidence_ok
+        and required_field_keys_present
+        and all(field_evidence[key].get("source_type") == "USER_PROVIDED_SCREENSHOT"
+                for key in (value_key, change_key))
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
     mixed_field_observation_ok = (
         provenance == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
         and read_method == "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
         and screenshot_evidence_ok
+        and required_field_keys_present
+        and any(field_evidence[key].get("source_type") == "USER_PROVIDED_SCREENSHOT"
+                for key in (value_key, change_key))
+        and any(field_evidence[key].get("source_type") == "INVESTING_HISTORICAL_PAGE"
+                for key in (value_key, change_key))
         and observation.get("read_status") == "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
     )
     page_read_ok = (
