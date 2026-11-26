@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
+import tempfile
 from pathlib import Path
 
 from validate_market_snapshot import validate_market_snapshot
@@ -51,6 +53,20 @@ def main():
     cfd_numeric = copy.deepcopy(base)
     cfd_numeric["global_markets"]["標普500指數"]["source"]["quote_type"] = "cfd_index_reference_series"
     expect_error(lambda: validate_market_snapshot(cfd_numeric, "2026-11-23"), "CFD reference must be suppressed")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        evidence = Path(tmp) / "market.png"
+        evidence.write_bytes(b"verified screenshot bytes")
+        cfd_screenshot = copy.deepcopy(cfd_numeric)
+        cfd_source = cfd_screenshot["global_markets"]["標普500指數"]["source"]
+        cfd_source.update({
+            "screenshot_fields_applied": ["close"],
+            "history_page_completion_fields": ["change"],
+            "screenshot_evidence_path": str(evidence),
+            "screenshot_evidence_sha256": hashlib.sha256(evidence.read_bytes()).hexdigest(),
+            "screenshot_observation_applied_at": "2026-11-23T07:05:00+08:00",
+        })
+        assert validate_market_snapshot(cfd_screenshot, "2026-11-23")["status"] == "PASS"
 
     wrong_commodity_url = copy.deepcopy(base)
     wrong_commodity_url["energy"]["WTI原油期貨"]["instrument_url"] = "https://hk.investing.com/commodities/crude-oil-historical-data"
