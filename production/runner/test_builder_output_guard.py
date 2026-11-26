@@ -115,18 +115,20 @@ class BuilderOutputGuardTests(unittest.TestCase):
     def test_rejects_preview_directory_symlink_escape(self):
         outside = self.root / "outside"
         outside.mkdir()
-        (self.root / "preview").rmdir()
-        (self.root / "preview").symlink_to(outside, target_is_directory=True)
+        runs = self.root / "production" / "runs"
+        runs.rmdir()
+        runs.symlink_to(outside, target_is_directory=True)
         with self.assertRaises(SystemExit):
-            builder.resolve_allowed_output_path("2026-11-23", "preview/2026-11-23-simulation.html")
+            builder.resolve_allowed_output_path("2026-11-23", "production/runs/TAC-2026-11-23-test/review.html")
 
     def test_rejects_output_file_symlink_escape(self):
         outside = self.root / "outside.html"
         outside.write_text("do not overwrite", encoding="utf-8")
-        target = self.root / "preview/2026-11-23-simulation.html"
+        (self.root / "preview").mkdir()
+        target = self.root / "preview/2026-11-23-review.html"
         target.symlink_to(outside)
         with self.assertRaises(SystemExit):
-            builder.resolve_allowed_output_path("2026-11-23", "preview/2026-11-23-simulation.html")
+            builder.resolve_allowed_output_path("2026-11-23", "preview/2026-11-23-review.html")
 
 
 if __name__ == "__main__":
