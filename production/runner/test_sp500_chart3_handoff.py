@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/".github"/"scripts"))
 from handoff_sp500_to_chart3 import build_payload
 from append_tac_sp500_daily_increment import append_handoff
-FIXTURE=ROOT/"simulation-lab/fixtures/report-data-2026-11-23.json"
+FIXTURE=ROOT/"production/testdata/report-data-2026-11-23.json"
 class HandoffTests(unittest.TestCase):
  def setUp(self): self.data=json.loads(FIXTURE.read_text(encoding="utf-8"))
  def test_fixture_conversion(self):
