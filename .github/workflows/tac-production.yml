@@ -1,6 +1,9 @@
 name: TAC main-native production pipeline
 
 on:
+  schedule:
+    # 04:45 Asia/Taipei, Monday-Friday (UTC Sunday-Thursday).
+    - cron: "45 20 * * 0-4"
   push:
     branches: [main]
     paths:
@@ -160,7 +163,7 @@ jobs:
           retention-days: 14
 
   capture-and-calendar:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'capture' }}
+    if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'capture') }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     permissions:
