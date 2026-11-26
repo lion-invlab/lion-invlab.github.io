@@ -32,7 +32,7 @@ permissions:
   contents: write
 
 concurrency:
-  # Serialize Simulation-branch report builds only; this workflow has no main handoff.
+  # Serialize Simulation report builds; a QA-passed build may hand off only the three dated files under main/preview.
   # New pushes may replace a pending run, but must never cancel an active report build.
   # Full report builds are explicitly selected by [build-tac-report:YYYY-MM-DD] commit messages.
   # 11/24 rebuild includes current-date review-banner QA guard.
