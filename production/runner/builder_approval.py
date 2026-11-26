@@ -50,6 +50,7 @@ GOVERNANCE_PATHS=(
  "production/runner/collect_earnings_price_reactions.py",
  "production/runner/consensus_snapshot_store.py",
  "production/runner/run_stage4.py",
+ "production/runner/prepare_stage4_research_bundle.py",
  "production/runner/run_stage5.py",
  "production/runner/run_stage6.py",
  "production/runner/validate_prebuild_stage_inputs.py",
