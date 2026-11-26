@@ -94,7 +94,7 @@ def blank_fixture(source, apply_screenshots=True):
         src["source_page_fetched"]=False
         src["note"]="Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
     screenshot_rows=0; screenshot_fields=0
-    sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{data['report_date']}.json")
+    sidecar=Path(f"production/input/market-screenshot-observations-{data['report_date']}.json")
     if apply_screenshots and sidecar.is_file():
         from stage2_screenshot_inputs import load_screenshot_bundle, apply_screenshot_values_to_fixture
         inputs=load_screenshot_bundle(sidecar,data,Path.cwd())
