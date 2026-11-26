@@ -56,7 +56,7 @@ def main():
         write_json(paths["manifest"],manifest);write_json(paths["obs"],obs)
         args=SimpleNamespace(report_date="2026-11-26",data=str(paths["data"]),audit=str(paths["audit"]),
             manifest=str(paths["manifest"]),observations=str(paths["obs"]),output=str(Path(tmp)/"receipt.json"),
-            run_id="12345",commit_sha="a"*40,branch="simulation/tac-process-lab-2026-11-06")
+            run_id="12345",commit_sha="a"*40,branch="main")
         receipt=build_receipt(args)
         assert receipt["status"]=="PARTIAL"
         assert receipt["row_count"]==44 and receipt["verified_count"]==43 and receipt["pending_count"]==1
