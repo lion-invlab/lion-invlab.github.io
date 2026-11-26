@@ -271,11 +271,12 @@ def validate_stage4(data: dict, report_date: str) -> dict:
     require(isinstance(headlines, list) and len(headlines) == 10, "Market Hot Headlines must contain 10 items")
     all_news = focus + headlines
     urls = []
-    start_match = re.search(r"(\d{4}/\d{2}/\d{2} \d{2}:\d{2})", str(data.get("news_window_taipei", "")))
+    start_match = re.search(r"(\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2})", str(data.get("news_window_taipei", "")))
     end_text = data.get("news_cutoff_taipei")
     require(start_match and end_text, "news window start/cutoff missing")
-    start = datetime.strptime(start_match.group(1), "%Y/%m/%d %H:%M")
-    end = datetime.strptime(end_text, "%Y-%m-%d %H:%M:%S")
+    start_text = start_match.group(1).replace("/", "-")
+    start = datetime.strptime(start_text, "%Y-%m-%d %H:%M")
+    end = datetime.strptime(str(end_text).replace("/", "-")[:16], "%Y-%m-%d %H:%M")
     require(start <= end, "news window is inverted")
     for item in all_news:
         url = item.get("url", "")
@@ -286,7 +287,7 @@ def validate_stage4(data: dict, report_date: str) -> dict:
             require(bool(item.get(field)), f"news item missing {field}: {item.get('title')}")
         require(bool(item.get("updated_at_source") or item.get("updated_at_tw")),
                 f"news item missing update-time status: {item.get('title')}")
-        published = datetime.strptime(item["published_at_tw"], "%Y/%m/%d %H:%M")
+        published = datetime.strptime(str(item["published_at_tw"]).replace("/", "-")[:16], "%Y-%m-%d %H:%M")
         require(start <= published <= end,
                 f"news item outside sealed window: {item.get('title')} / {item['published_at_tw']}")
     require(len(set(urls)) == 15, "news source URLs must be unique")
@@ -310,8 +311,11 @@ def validate_stage4(data: dict, report_date: str) -> dict:
     require(domains == EXPECTED_POLITICAL_DOMAINS,
             "six-domain political/geopolitical scan is incomplete")
     findings = political_scan.get("findings")
-    require(isinstance(findings, list) and len(findings) > 0,
-            "political/geopolitical scan findings are missing")
+    require(isinstance(findings, list),
+            "political/geopolitical scan findings must be an explicit list")
+    if not findings:
+        require(bool(str(political_scan.get("no_material_change_note") or "").strip()),
+                "empty political scan requires a documented no-material-change conclusion")
     require(data.get("report_cutoff_taipei"), "report cutoff missing")
     return {
         "focus_news_count": 5,
