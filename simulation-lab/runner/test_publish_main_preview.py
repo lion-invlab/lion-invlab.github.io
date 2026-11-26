@@ -107,5 +107,18 @@ class MainPreviewDeliveryTests(unittest.TestCase):
             prepare_delivery(self.html_path, self.qa_path, self.main, DATE, RUN_ID, ATTEMPT, TRIGGER)
 
 
+def run_stage2_regression_suite():
+    # This file is already executed by the Simulation isolated-smoke workflow.
+    # Keep Stage 2 regressions in this existing test entry so workflow mirrors stay unchanged.
+    from test_market_source_verification_manifest import main as test_stage2_manifest
+    from test_validate_market_snapshot import main as test_market_snapshot
+    from test_prebuild_stage_inputs import main as test_prebuild_receipt
+
+    test_stage2_manifest()
+    test_market_snapshot()
+    test_prebuild_receipt()
+
+
 if __name__ == "__main__":
+    run_stage2_regression_suite()
     unittest.main(verbosity=2)
