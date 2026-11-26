@@ -120,8 +120,7 @@
     "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
     "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
     "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
-    "No dedicated Stage 5/6 runner regression tests currently exist; new cross-stage checks are compile/CI validated but need isolated negative/positive tests."
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -146,7 +145,7 @@
       "workflow_run_id": 45824747088,
       "head_sha": "9c779455278d3bde84abe70324dedf5cb0db626d",
       "conclusion": "success",
-      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings tests, full candidate Builder fixture, mother-owned DOM contract; capture/build skipped."
+      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings tests, full candidate Builder fixture, mother-owned DOM contract; capture/build skipped. Predates latest Stage 4-6 handoff hardening and dedicated Stage 5/6 tests."
     }
   },
   "main_native_modules": [
@@ -233,7 +232,7 @@
     {
       "file": "test_stage56_handoff.py",
       "purpose": "Positive and negative regression tests for Stage 5/6 exact Run/date/SHA handoff",
-      "main_blob_sha": "NEW",
+      "main_blob_sha": "856eef7621b3d3af31560f32aadb228a0ee26d58",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     }
   ],
