@@ -52,7 +52,8 @@
 - [x] Stage 5 `run_stage5.py`：pre-build receipt、main Builder、artifact validator、母版 DOM、visual regression、interaction smoke；第一輪程式回讀另修正缺少 os import 與 Chart 3 handoff 狀態變數未定義。
 - [x] Stage 5 Runner 的 `os` import、Chart 3 handoff 變數與 exact-blob approval gate 已修正，並通過 CI／fixture 驗證；正式 Builder owner approval 仍待核准。
 - [x] Stage 6 `run_stage6.py`：main/preview 三檔白名單、遠端 bytes／SHA 回讀、Pages workflow dispatch 與公開 URL 驗證。
-- [x] Capture 在 Stage 3 後自動產生 `stage4-research-bundle.json`：包含完整 44 項行情來源資料、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、瀏覽器觀察、source manifest、audit、所有輸入 SHA，以及截圖 sidecar／圖片 SHA。\n- [ ] 尚未建立自動產生 `report-content-YYYY-MM-DD.json` 的 LLM 編輯研究與自動提交交接。
+- [x] Capture 在 Stage 3 後自動產生 `stage4-research-bundle.json`：包含完整 44 項行情來源資料、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、瀏覽器觀察、source manifest、audit、所有輸入 SHA，以及截圖 sidecar／圖片 SHA。
+- [ ] 尚未建立自動產生 `report-content-YYYY-MM-DD.json` 的 LLM 編輯研究與自動提交交接。
 - [x] Stage 2 Chart 3 increment 已由 main Workflow 僅提交 `data/tac-chart3/sp500_daily_increment.jsonl`，並明確 dispatch `tac-chart3-sp500-increment-merge.yml`；等待真實 S&P 500 VERIFIED run 驗證。
 - [x] Stage 5 main Builder 已加精確 SHA 核准紀錄 gate，並由獨立模組及測試執行；目前 `CANDIDATE_PENDING_OWNER_APPROVAL`，未獲核准不得產生正式 REVIEW_READY。Stage 5／6 尚未用真實當日輸入完成 E2E。
 
