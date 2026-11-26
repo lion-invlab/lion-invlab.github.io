@@ -172,6 +172,40 @@
         "market_calendar_evidence": {
           "type": "string",
           "minLength": 1
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "prior_observation_reused": {
+          "type": "boolean"
+        },
+        "source_page_fetched": {
+          "type": "boolean"
+        },
+        "instrument_identity_status": {
+          "type": "string"
+        },
+        "field_mapping_status": {
+          "type": "string"
+        },
+        "closure_evidence_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "closure_evidence_text": {
+          "type": "string"
+        },
+        "closure_evidence_reader_ref": {
+          "type": "string"
+        },
+        "closure_evidence_line_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "closure_evidence_line_end": {
+          "type": "integer",
+          "minimum": 0
         }
       },
       "additionalProperties": true
