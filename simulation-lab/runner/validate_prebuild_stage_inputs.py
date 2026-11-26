@@ -207,6 +207,7 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
     observations = bundle.get("observations")
     require(isinstance(observations, list) and len(observations) == 44,
             "observation bundle must contain exactly 44 rows")
+    require(bundle.get("row_count", 44) == 44, "observation bundle row_count metadata mismatch")
     keys = set()
     screenshot_only = mixed = page_only = 0
     for row in observations:
@@ -530,6 +531,27 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         observation_summary = validate_observation_bundle(
             observation_bundle, report_date, str(data.get("trading_date") or "")
         )
+        observation_map = {
+            (row.get("group"), row.get("name")): row
+            for row in observation_bundle.get("observations", [])
+        }
+        manifest_map = {
+            (row.get("group"), row.get("name")): row
+            for row in manifest.get("rows", [])
+        }
+        require(set(observation_map) == set(manifest_map),
+                "observation bundle identities do not match the 44-row Manifest")
+        for key, manifest_row in manifest_map.items():
+            observation = observation_map[key]
+            require(observation.get("source_url") == manifest_row.get("source_url")
+                    and observation.get("target_date") == manifest_row.get("trading_date"),
+                    f"observation bundle source/date mismatch with Manifest: {key}")
+            if manifest_row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
+                record = manifest_row.get("browser_observation_record") or {}
+                require(observation.get("status") == "VERIFIED"
+                        and observation.get("observed_value") == record.get("observed_value")
+                        and observation.get("observed_change") == record.get("observed_change"),
+                        f"observation bundle values do not match verified Manifest record: {key}")
         require(re.fullmatch(r"[0-9a-f]{64}", observation_bundle_sha256 or "") is not None,
                 "observation bundle SHA-256 missing or malformed")
 
