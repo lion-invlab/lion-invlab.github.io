@@ -238,7 +238,7 @@
     },
     {
       "file": "tac-production.yml",
-      "main_blob_sha": "33bb98c9757093e2aa9ea73bf4a5b8044e3c7fd5",
+      "main_blob_sha": "c2d97b2e77a84f28719b60c5f60c6654d1fac1fa",
       "purpose": "Main-native weekday post-close Stage 1-3 capture: 04:05 Taiwan under U.S. EDT, 05:05 under U.S. EST, dual UTC cron with New York DST gate",
       "status": "MAIN_PATCHED_SCHEDULED_CAPTURE"
     }
