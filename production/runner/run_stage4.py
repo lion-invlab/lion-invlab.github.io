@@ -88,9 +88,14 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
     for layer in LAYERS:
         for row in content["market_analysis"][layer].get("supporting_market_rows",[]):
             group,name=row["group"],row["name"]
-            item=(data.get(group) or {}).get(name)
+            if group=="sectors":
+                item=(data.get("sector_sources") or {}).get(name)
+                source=item or {}
+            else:
+                item=(data.get(group) or {}).get(name)
+                source=(item or {}).get("source") or {} if isinstance(item,dict) else {}
             if item is None:raise ValueError(f"Unknown supporting market row: {group}/{name}")
-            status=(item.get("source") or {}).get("verification_status")
+            status=source.get("verification_status")
             if status not in ("VERIFIED","BACKUP_VERIFIED"):
                 raise ValueError(f"Analysis layer {layer} cites non-verified market row {group}/{name}: {status}")
     return {"window_start":window_start,"cutoff":cutoff,"news_counts":news_counts}
