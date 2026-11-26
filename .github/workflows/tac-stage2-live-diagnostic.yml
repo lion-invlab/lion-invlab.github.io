@@ -12,6 +12,8 @@ on:
       - simulation-lab/runner/test_validate_market_snapshot.py
       - simulation-lab/runner/validate_chatgpt_web_observations.py
       - simulation-lab/runner/test_validate_chatgpt_web_observations.py
+      - simulation-lab/runner/build_stage2_receipt.py
+      - simulation-lab/runner/test_build_stage2_receipt.py
   workflow_dispatch:
     inputs:
       report_date:
@@ -72,6 +74,8 @@ jobs:
         run: python simulation-lab/runner/test_validate_chatgpt_web_observations.py
       - name: Test pending and closed market snapshot states
         run: python simulation-lab/runner/test_validate_market_snapshot.py
+      - name: Test Stage 2 receipt SHA binding
+        run: python simulation-lab/runner/test_build_stage2_receipt.py
       - name: Create zero-value 44-row market input
         shell: bash
         env:
@@ -142,6 +146,19 @@ jobs:
             --data simulation-lab/output/stage2-diagnostic/report-data-populated.json \
             --report-date "$REPORT_DATE" \
             --output simulation-lab/output/stage2-diagnostic/market-snapshot-audit.json
+      - name: Build SHA-bound Stage 2 market snapshot receipt
+        shell: bash
+        env:
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/build_stage2_receipt.py \
+            --report-date "$REPORT_DATE" \
+            --data simulation-lab/output/stage2-diagnostic/report-data-populated.json \
+            --audit simulation-lab/output/stage2-diagnostic/market-snapshot-audit.json \
+            --manifest simulation-lab/output/stage2-diagnostic/market-source-verification-manifest.json \
+            --observations simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json \
+            --output simulation-lab/output/stage2-diagnostic/stage2-market-snapshot-receipt.json
       - name: Emit Stage 2 diagnostic summary
         if: always()
         shell: bash
