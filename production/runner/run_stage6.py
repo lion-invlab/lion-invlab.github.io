@@ -43,14 +43,26 @@ def main():
     if stage5.get("status")!="REVIEW_READY" or stage5.get("run_id")!=context.get("run_id"):
         raise SystemExit("Stage 6 requires same-Run Stage 5 REVIEW_READY")
     report_date=context["report_date"]
-    if stage5.get("report_date")!=report_date:raise SystemExit("Stage 5 report date mismatch")
+    if stage5.get("report_date")!=report_date or stage5.get("trading_date")!=context.get("trading_date"):raise SystemExit("Stage 5 report/trading date mismatch")
+    if not stage5.get("stage4_receipt_sha256") or not stage5.get("research_bundle_sha256") or not stage5.get("market_snapshot_sha256"):
+        raise SystemExit("Stage 5 receipt is missing Stage 4 research/snapshot handoff identities")
     html=run_dir/"review.html";qa=run_dir/"qa-sidecar.json"
     if not html.is_file() or not qa.is_file():raise SystemExit("Stage 5 HTML or QA sidecar missing")
     html_raw=html.read_bytes();qa_source_raw=qa.read_bytes();qa_doc=json.loads(qa_source_raw)
     if sha(html_raw)!=stage5.get("html_sha256"):raise SystemExit("Stage 5 HTML SHA changed after QA")
     if sha(qa_source_raw)!=stage5.get("qa_sidecar_sha256"):raise SystemExit("Stage 5 QA sidecar SHA changed after QA")
-    if qa_doc.get("status")!="REVIEW_READY" or qa_doc.get("run_id")!=context["run_id"]:
-        raise SystemExit("QA sidecar is not a same-Run REVIEW_READY artifact")
+    if qa_doc.get("status")!="REVIEW_READY" or qa_doc.get("run_id")!=context["run_id"] or qa_doc.get("report_date")!=report_date or qa_doc.get("trading_date")!=context.get("trading_date"):
+        raise SystemExit("QA sidecar is not a same-Run/date REVIEW_READY artifact")
+    render_path=run_dir/"render-manifest.json"
+    if not render_path.is_file():raise SystemExit("Stage 5 render manifest is missing")
+    render_doc=json.loads(render_path.read_text(encoding="utf-8"))
+    if (render_doc.get("run_id")!=context["run_id"] or render_doc.get("report_date")!=report_date
+            or render_doc.get("trading_date")!=context.get("trading_date")
+            or render_doc.get("output",{}).get("sha256")!=stage5.get("html_sha256")
+            or render_doc.get("builder_blob_sha")!=stage5.get("builder_blob_sha")):
+        raise SystemExit("Stage 5 render manifest identity/HTML/Builder binding mismatch")
+    if sha(render_path)!=stage5.get("render_manifest_sha256"):
+        raise SystemExit("Stage 5 render manifest SHA mismatch")
     report_path,qa_path,delivery_path=allowed_paths(report_date)
     if git(["branch","--show-current"])!="main":raise SystemExit("Stage 6 must execute from main checkout")
     git(["fetch","origin","main"])
@@ -85,6 +97,7 @@ def main():
             "html":{"sha256":sha(html_raw),"git_blob_sha":blob(html_raw)},
             "qa":{"sha256":sha(qa_bytes),"source_qa_sha256":sha(qa_source_raw)},
             "builder_sha":builder_blob,"prebuild_receipt_sha256":sha(prebuild),
+            "stage5_receipt_sha256":sha(run_dir/"stage5-render-qa-receipt.json"),
             "protected_paths_unchanged":True,"protected_paths":list(PROTECTED)+["data/calendar/weeks"],
             "formal_homepage_modified":False,"history_archive_modified":False,
             "payload_commit_sha":"PENDING","pages_deployment_commit_sha":"PENDING",
