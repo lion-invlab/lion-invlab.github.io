@@ -1,12 +1,12 @@
 # Stage 4 editorial content handoff
 
-The main-native pipeline is a two-phase workflow. First, dispatch `tac-production.yml` with mode `capture`. It runs Stage 1–3, captures the current 44-item market snapshot, reads the pinned calendar/earnings JSON, and commits a unique Run folder under `production/runs/<run_id>/`. Its `capture-stage-receipt.json` ends in `AWAITING_EDITORIAL_INPUT`.
+The main-native pipeline is a two-phase workflow. First, dispatch `tac-production.yml` with mode `capture`. It runs Stage 1–3, captures the current 44-item market snapshot, reads the pinned calendar/earnings JSON, and commits a unique Run folder under `production/runs/<run_id>/`. Its `capture-stage-receipt.json` ends in `AWAITING_EDITORIAL_INPUT`. Before the handoff, the capture workflow also creates `stage4-research-bundle.json` and its receipt from the exact Stage 1–3 Run.
 
-The editorial producer must read that exact Run's `run-context.json`, `report-data.json`, Stage 2 observation/receipt/summary, Stage 3 calendar/earnings projections and capture receipt. It then creates:
+The editorial producer should use `production/runs/<run_id>/stage4-research-bundle.json` as its consolidated input. The bundle contains the exact Run ID, report/trading dates, frozen market snapshot and unresolved rows, FedWatch, current/previous calendar and earnings projections, news window, editorial contract, and SHA-256 references to all Stage 1–3 source artifacts. The original Run artifacts remain authoritative and can be opened for detail. The producer then creates:
 
 `production/input/report-content-YYYY-MM-DD.json`
 
-The JSON must include **both** `run_id` and `market_snapshot_sha256`, copied from the exact Run's `run-context.json` and `stage2-run-summary.json`. These are required schema fields, not optional hints. Stage 4 and the build workflow reject missing or mismatched bindings. Never generate content against a different Run or a changed market snapshot.
+The JSON must include `run_id`, `market_snapshot_sha256`, and `research_bundle_sha256`, copied from the exact Run's context, Stage 2 summary, and `stage4-research-bundle-receipt.json`. All three are required schema bindings, not optional hints. Stage 4 and the build workflow reject missing or mismatched bindings. Never generate content against a different Run or a changed market snapshot.
 
 The file must validate against `report-content.schema.json`. It contains exactly three summary points, 5 Global Focus News, 10 Market Hot Headlines, sentiment text, five ordered market-analysis layers with internal source evidence, six-domain political scan, core observation, market observation, key levels and market commentary.
 
