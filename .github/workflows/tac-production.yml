@@ -1,6 +1,11 @@
 name: TAC main production validation (build disabled until Phase 5 E2E)
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "production/**"
+      - ".github/workflows/tac-production.yml"
   workflow_dispatch:
     inputs:
       mode:
@@ -58,6 +63,11 @@ jobs:
         env:
           PYTHONPATH: production/runner
         run: python -m compileall -q production/runner
+
+      - name: Syntax-check browser QA modules
+        run: |
+          node --check production/runner/visual_regression.mjs
+          node --check production/runner/interaction_smoke.mjs
 
       - name: Validate SHA-locked production mothers and manifest
         env:
