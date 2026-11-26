@@ -463,7 +463,7 @@
         }
       },
       "additionalProperties": true,
-      "oneOf": [
+      "anyOf": [
         {
           "required": [
             "updated_at_source"
