@@ -100,6 +100,16 @@
 10. **診斷範圍：** 「零行情值起跑」指 44 項市場行情數值與舊觀察證據清空；不代表整份報告的新聞、行事曆、摘要或其他非行情內容必須從空白重建。診斷與正式流程都必須明確標示此範圍，不得將市場行情零值測試誤稱整份報告全空白 E2E。
 
 
+### 0.5.5 MOVE 延遲發布與唯一 TradingView 備援（2026-11-26 使用者確認）
+
+1. **來源順序固定且僅有兩個：** MOVE 首選 Investing.com 香港站 ICE BofA MOVE Historical Data；首選頁面尚未出現目標交易日歷史列，或首選頁面無法讀取時，只允許改查 TradingView 的 ICE:MOVE 歷史頁（https://www.tradingview.com/symbols/ICE-MOVE/history/）。TradingView 標的必須明確識別為 ICE BofAML U.S. Bond Market Option Volatility Estimate Index／ICE:MOVE。不得使用 ICE 直接資料、thetrading.tools、Yahoo Finance、其他第三方來源或其他 MOVE 衍生標的。
+2. **備援核實條件：** TradingView 必須可讀取目標交易日的歷史資料列，且同一列可辨識日期、收盤值及日漲跌欄位；標的身分及欄位映射均通過後，才可標記 BACKUP_VERIFIED。即時摘要、今日漲跌、前一日收盤摘要、搜尋摘要、圖表概覽或未含目標交易日的頁面均不得作為收盤證據。
+3. **延遲發布狀態：** 若 Investing.com 頁面可讀但目標交易日歷史列尚未出現，該狀態不得記為 SOURCE_NO_DATA。若 TradingView 亦未提供目標交易日歷史列，記錄 SOURCE_UPDATE_PENDING；該狀態代表資料發布／更新尚待觀察，不等同來源確定無資料，也不等同工具讀取失敗。
+4. **兩源均無可用數據：** 若兩個來源都無法取得符合條件的目標日期收盤列，MOVE 的 Close 與 Change 必須保持 null／空值，畫面顯示「待核實」。不得沿用 Fixture 舊值、前一交易日數值、即時報價或任何推算值；不得再搜尋第三來源。若兩來源均遭存取／讀取阻擋，保留 TOOL_READ_FAILURE／PENDING；若至少一來源頁面可讀但目標列尚未出現，保留 SOURCE_UPDATE_PENDING／PENDING。
+5. **報告不中斷：** MOVE 為非核心單一行情欄位。SOURCE_UPDATE_PENDING 或 TOOL_READ_FAILURE 不得阻止其餘 43 項、行事曆、新聞、分析及 HTML 繼續製作；MOVE 保留待核實即可。
+6. **延後單項補查：** 後續補查只針對 MOVE，且仍只讀 Investing.com 與 TradingView 兩個固定來源；不得重抓其他 43 項。補查成功時以當輪新 Observation、Manifest、Receipt 及 SHA 更新 MOVE，並重跑受影響的 HTML／QA；兩源仍無目標列時維持空值。任何單項補查不得把即時報價當作歷史收盤價。
+7. **證據保存：** Observation／Manifest 必須保留 primary 與 backup 各自的 URL、嘗試狀態、讀取時間、頁面標題、目標日期、標的身分、欄位映射及目標列證據；BACKUP_VERIFIED 必須明確記錄實際證據來源為 TradingView，並綁定觀察紀錄 SHA。不得把 TradingView 備援冒充 Investing.com 頁面已成功讀取。
+
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
 - workflow_dispatch 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
