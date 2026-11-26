@@ -63,7 +63,7 @@ for report_date, template_key, source_name in cases:
     fixture_path = FIXTURES / f"report-data-{report_date}-candidate.json"
     fixture_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     output_path = OUT / f"{report_date}-candidate.html"
-    expected_sha = manifest["templates"][template_key]["simulation_blob_sha"]
+    expected_sha = manifest["templates"][template_key]["blob_sha"]
     command = [
         sys.executable,
         str(RUNNER / "build_review_html.py"),
