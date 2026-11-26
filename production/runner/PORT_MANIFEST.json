@@ -309,15 +309,19 @@
   ],
   "approval_record": {
     "path": "production/config/builder-approval.json",
-    "status": "HISTORICAL_APPROVAL_DOES_NOT_COVER_CURRENT_BLOB",
-    "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+    "status": "APPROVED_MAIN",
+    "builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
     "enforced_by": "production/runner/run_stage5.py",
     "approved_by_owner": true,
-    "approved_at": "2026-11-26T21:29:30+08:00",
+    "approved_at": "2026-11-27",
     "approval_scope": "Main production Builder exact-blob approval only",
-    "real_data_e2e": "NOT_RUN",
+    "approval_commit": "baec2f7768c76e3d28d02175d3168d7d20c4cc2d",
+    "approval_file_blob_sha": "c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928",
     "current_builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
-    "current_blob_approval_status": "REAPPROVAL_REQUIRED",
-    "historical_approved_builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02"
+    "current_blob_approval_status": "APPROVED_EXACT_SHA",
+    "historical_approved_builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+    "validation_run_id": 45908064532,
+    "validation_result": "PASS",
+    "validation_scope": "Main-only deterministic validation; real-data Capture and Stage 4-6 E2E not run"
   }
 }
