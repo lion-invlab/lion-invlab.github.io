@@ -24,55 +24,60 @@
       "url": "https://news.cnyes.com/news/id/6671729",
       "published_at_source": "2026-11-25 21:44 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 21:44",
+      "published_at_tw": "2026-11-25 21:44",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "美國10月核心PCE年增3.3%，高於市場預期3.2%，創2023年11月以來新高；整體PCE年增3.8%。個人所得月增0.7%，但實質消費近乎停滯，通膨與消費韌性出現分化。通膨黏著加上成長強勁，使市場提高對Fed於12月升息的定價。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "美國Q3 GDP強勁上修至4.3% 消費與投資雙引擎熱絡 聯準會12月升息機率飆升",
       "url": "https://news.cnyes.com/news/id/6671691",
       "published_at_source": "2026-11-25 21:48 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 21:48",
+      "published_at_tw": "2026-11-25 21:48",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "美國第三季實質GDP年化季增率由初估3.4%上修至4.3%，高於市場預期，第二季為2.2%。上修主因是個人消費與企業固定投資增強，實質國內最終銷售成長5.8%、GDI成長4.4%。強勁成長降低Fed立即寬鬆空間，但仍需觀察實質消費與家庭購買力。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "川普關稅再出招！美擬對14貿易夥伴課新稅 台灣也在列",
       "url": "https://news.cnyes.com/news/id/6671770",
       "published_at_source": "2026-11-25 21:18 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 21:18",
+      "published_at_tw": "2026-11-25 21:18",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "美國政府擬對14個貿易夥伴加徵新關稅，台灣亦在名單內，理由涉及產業補貼與產能過剩。此為政策提案與調查方向，尚非已生效稅率；中國可能面臨額外關稅的討論。對台灣半導體與出口供應鏈的影響，仍取決於最終稅目、豁免與實施時程。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "科技股罕見折價10%！為何小摩卻轉趨謹慎？",
       "url": "https://news.cnyes.com/news/id/6671827",
       "published_at_source": "2026-11-25 23:46 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 23:46",
+      "published_at_tw": "2026-11-25 23:46",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "摩根大通市場團隊對科技股反彈轉趨審慎，指出AI與科技股面臨的阻力、Fed升息不確定性及2027至2028年獲利前景壓力。科技股相對標普500的估值已折價約10%，但成交量未見明顯追價。投資重點應從估值折價轉向訂單能見度、現金流與資本支出回報。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "從火雞大餐到玩具都漲價！美國人勒緊褲帶過節 Fed升息恐再補一刀",
       "url": "https://news.cnyes.com/news/id/6671772",
       "published_at_source": "2026-11-26 00:24 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/26 00:24",
+      "published_at_tw": "2026-11-26 00:24",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "美國感恩節與聖誕購物旺季到來，但食品、能源、旅遊與玩具價格普遍上漲，消費者縮減節日支出。Bain估計年終零售額增近5%並首度突破1兆美元，但成長很大部分來自價格而非實際購買量。若通膨維持高檔且Fed升息，低收入與信用卡負債家庭將承受更大壓力。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     }
   ],
   "headlines": [
@@ -81,110 +86,120 @@
       "url": "https://news.cnyes.com/news/id/6671063",
       "published_at_source": "2026-11-25 16:30 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 16:30",
+      "published_at_tw": "2026-11-25 16:30",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "上證收3,476.47點、下跌2.03%；深證成指收10,086.36點、下跌3.24%，創業板跌4.19%。市場擔憂美國對中國及其他貿易夥伴加徵關稅，並重新評估出口與製造業成本。這是收盤數據，與美股盤中波動分開判讀。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "〈台股盤後〉兩日如洗三溫暖 盤中跌逾3400點創第二大跌點 終場跌1926點收38195點",
       "url": "https://news.cnyes.com/news/id/6671653",
       "published_at_source": "2026-11-25 14:00 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 14:00",
+      "published_at_tw": "2026-11-25 14:00",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "台股收38,195.43點，單日下跌1,926.92點、跌幅4.80%，盤中最大跌幅曾逾3,400點。台積電、聯發科、鴻海等權值股承壓，成交量放大至1.19兆元。市場反映AI與半導體估值、關稅政策及外資撤出三重壓力。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "外資大舉倒貨1236億、投信猛接535億 三大法人賣超829.55億元",
       "url": "https://news.cnyes.com/news/id/6671668",
       "published_at_source": "2026-11-25 15:02 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 15:02",
+      "published_at_tw": "2026-11-25 15:02",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "外資單日賣超約1,236億元，投信買超約535億元，自營商亦偏向賣出，三大法人合計賣超829.55億元。外資大幅撤出對權值股與台幣資金面形成壓力。後續需觀察外資期現貨是否同步減碼，以及投信承接能否延續。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "亞洲股市收市 | AI股再遭重創！台韓股市急挫，恒科指創52週新低",
       "url": "https://hk.investing.com/news/stock-market-news/article-1776133",
       "published_at_source": "2026-11-25 16:39 Asia/Hong_Kong",
       "source_timezone": "Asia/Hong_Kong",
-      "published_at_tw": "2026/11/25 16:39",
+      "published_at_tw": "2026-11-25 16:39",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "亞洲股市收盤呈現科技股領跌，KOSPI下跌6.16%、台灣加權下跌4.80%、日經下跌2.78%、恆生下跌1.14%。韓國半導體與台灣電子權值股跌幅顯著，恒生科技指數創52週新低。這顯示AI與晶片供應鏈賣壓擴散至亞洲市場。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "Investing.com"
     },
     {
       "title": "Direxion Dly Semiconductor Bull 3X今日為何大跌？",
       "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1776732",
       "published_at_source": "2026-11-25 20:21 Asia/Hong_Kong",
       "source_timezone": "Asia/Hong_Kong",
-      "published_at_tw": "2026/11/25 20:21",
+      "published_at_tw": "2026-11-25 20:21",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "三倍做多半導體ETF SOXL因晶片股波動而大幅震盪，放大現貨半導體指數的日內風險。報導列出輝達、美光、AMD等晶片股下跌，反映AI資本支出回報與利率預期同時壓抑估值。高槓桿ETF波動不宜直接當作產業基本面指標。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "Investing.com"
     },
     {
       "title": "〈美股早盤〉AI賣壓、通膨與關稅夾擊！那指跌逾4% 台積電ADR挫逾7%",
       "url": "https://news.cnyes.com/news/id/6671728",
       "published_at_source": "2026-11-25 22:44 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 22:44",
+      "published_at_tw": "2026-11-25 22:44",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "美股早盤那斯達克一度跌逾4%，費半跌幅超過7%，輝達與台積電ADR領跌AI相關股票。市場同時消化核心PCE年增3.3%、GDP上修至4.3%與新關稅提案，資金轉向美債避險。此為盤中報導，不能與最終收盤跌幅混用。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "美股異動 | 費城半導體指數暴跌逾7% 半導體板塊全線重挫",
       "url": "https://hk.investing.com/news/stock-market-news/article-1777205",
       "published_at_source": "2026-11-25 22:57 Asia/Hong_Kong",
       "source_timezone": "Asia/Hong_Kong",
-      "published_at_tw": "2026/11/25 22:57",
+      "published_at_tw": "2026-11-25 22:57",
       "updated_at_source": "2026-11-25 23:26 Asia/Hong_Kong",
       "updated_at_tw": "未標示",
       "summary": "費城半導體指數盤中一度下跌逾7%，晶片設備、設計與記憶體族群同步承壓。報導列出輝達、美光、AMD、應用材料與科林研發等股票的盤中跌幅。這是盤中價格快照；正式收盤仍以11/25歷史行情列為準。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "Investing.com"
     },
     {
       "title": "AI股遭遇猛烈拋售！納斯達克100指數恐單日蒸發1.5萬億美元 半導體指數較高點暴跌43% 債務風險警報拉響",
       "url": "https://hk.investing.com/news/stock-market-news/article-1777298",
       "published_at_source": "2026-11-26 00:56 Asia/Hong_Kong",
       "source_timezone": "Asia/Hong_Kong",
-      "published_at_tw": "2026/11/26 00:56",
+      "published_at_tw": "2026-11-26 00:56",
       "updated_at_source": "2026-11-26 00:58 Asia/Hong_Kong",
       "updated_at_tw": "未標示",
       "summary": "報導聚焦AI股拋售、科技企業融資與資料中心資本支出的債務風險，並估算若跌勢延續，納斯達克100市值可能大幅縮水。半導體指數距高點回撤的說法屬文章估算，須與單日收盤跌幅分開。核心觀察是AI資本支出回收、現金流與融資成本是否同步惡化。",
-      "verification_status": "DIRECT_PAGE_READ"
+      "verification_status": "DIRECT_PAGE_READ",
+      "publisher": "Investing.com"
     },
     {
       "title": "三星與SK海力士股價重挫，韓國半導體市場承受AI估值修正",
       "url": "https://news.cnyes.com/news/id/6671718",
       "published_at_source": "2026-11-25 19:40 Asia/Taipei",
       "source_timezone": "Asia/Taipei",
-      "published_at_tw": "2026/11/25 19:40",
+      "published_at_tw": "2026-11-25 19:40",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "韓國半導體權值股大幅下跌，三星電子跌9.87%、SK海力士跌11.05%，AI投資回報疑慮傳導至亞洲晶片供應鏈。這與KOSPI單日下跌6.16%相互印證，顯示賣壓集中於科技與半導體權重股。此項採搜尋結果摘要，頁面本輪讀取逾時，保留為待直接回讀新聞來源。",
-      "verification_status": "SEARCH_RESULT_READ"
+      "verification_status": "SEARCH_RESULT_READ",
+      "publisher": "鉅亨網"
     },
     {
       "title": "晶片股盤前走弱，輝達、美光與AMD承壓",
       "url": "https://hk.investing.com/news/stock-market-news/article-1776471",
       "published_at_source": "2026-11-25 18:19 Asia/Hong_Kong",
       "source_timezone": "Asia/Hong_Kong",
-      "published_at_tw": "2026/11/25 18:19",
+      "published_at_tw": "2026-11-25 18:19",
       "updated_at_source": "原文未標示更新時間",
       "updated_at_tw": "未標示",
       "summary": "Investing.com盤前報導顯示晶片股普遍承壓，輝達、美光與AMD等AI相關股票下跌。市場關注科技股估值修正、AI投資回收期與12月Fed升息定價。此為盤前資訊，最終價格仍以11/25歷史收盤資料為準。",
-      "verification_status": "SEARCH_RESULT_READ"
+      "verification_status": "SEARCH_RESULT_READ",
+      "publisher": "Investing.com"
     }
   ],
   "sentiment": "風險偏好偏弱且區域分化：VIX 28.36、單日上升7.59%；CNN Fear & Greed採FGScore備援讀值15（極度恐懼），官方CNN日期映射仍待本輪核對；MOVE收於97.54，單日下跌1.32%。Investing.com Fed Rate Monitor顯示12/9升息25個基點機率95.6%、維持現行3.75%–4.00%機率4.4%，此為期貨隱含機率，不是聯準會決策。",
