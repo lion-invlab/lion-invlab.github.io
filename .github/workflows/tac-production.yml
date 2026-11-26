@@ -13,7 +13,11 @@ on:
         required: true
         default: validate
         type: choice
-        options: [validate]
+        options: [validate, build]
+      report_date:
+        description: "台灣報告日期 YYYY-MM-DD；build 模式必須已有同日期 Stage 4 內容輸入"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -150,3 +154,147 @@ jobs:
             production/runs/candidate-validation/
           if-no-files-found: warn
           retention-days: 14
+
+  build-and-deliver:
+    if: \${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'build' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    permissions:
+      contents: write
+      actions: write
+    concurrency:
+      group: tac-main-production-build
+      cancel-in-progress: false
+    steps:
+      - name: Checkout main only with full history
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install production dependencies
+        run: |
+          python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Resolve report date and require Stage 4 input before market capture
+        shell: bash
+        env:
+          REQUESTED_REPORT_DATE: \${{ inputs.report_date }}
+        run: |
+          set -euo pipefail
+          if [ -n "\${REQUESTED_REPORT_DATE:-}" ]; then
+            REPORT_DATE="$REQUESTED_REPORT_DATE"
+          else
+            REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
+          fi
+          [[ "$REPORT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
+          CONTENT_FILE="production/input/report-content-$REPORT_DATE.json"
+          test -s "$CONTENT_FILE" || {
+            echo "::error::Stage 4 content input is missing: $CONTENT_FILE. No market capture was started."
+            exit 1
+          }
+          RUN_DIR="production/runs/TAC-$REPORT_DATE-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
+          echo "CONTENT_FILE=$CONTENT_FILE" >> "$GITHUB_ENV"
+          echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
+          echo "TAC report date: $REPORT_DATE"
+          echo "Run directory: $RUN_DIR"
+
+      - name: Stage 1 — create a fresh blank-first Run
+        run: |
+          set -euo pipefail
+          python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
+          test -s "$RUN_DIR/run-context.json"
+          test -s "$RUN_DIR/report-data.json"
+
+      - name: Stage 2 — capture 44 market indicators with four-page concurrency
+        run: |
+          set -euo pipefail
+          python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
+          test -s "$RUN_DIR/stage2-market-snapshot-receipt.json"
+
+      - name: Commit only verified S&P 500 Chart 3 increment and dispatch merge
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          LEDGER="data/tac-chart3/sp500_daily_increment.jsonl"
+          if git diff --quiet -- "$LEDGER"; then
+            echo "No new verified S&P 500 increment; Chart 3 handoff is a no-op."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$LEDGER"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          test "\${#STAGED[@]}" -eq 1 && test "\${STAGED[0]}" = "$LEDGER"
+          git commit -m "data(chart3): verified S&P 500 increment $REPORT_DATE"
+          git push origin HEAD:main
+          CHART3_COMMIT="$(git rev-parse HEAD)"
+          BEFORE_IDS="$(gh api "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30" --jq '[.workflow_runs[].id]')"
+          gh api -X POST "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/dispatches" -f ref=main
+          export CHART3_COMMIT BEFORE_IDS
+          python - <<'PY'
+          import json, os, subprocess, time
+          repo="lion-invlab/lion-invlab.github.io"
+          old=set(json.loads(os.environ["BEFORE_IDS"]))
+          target=os.environ["CHART3_COMMIT"]
+          deadline=time.time()+1800
+          selected=None
+          while time.time()<deadline:
+              raw=subprocess.check_output(["gh","api",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30"],text=True)
+              runs=json.loads(raw).get("workflow_runs",[])
+              matches=[r for r in runs if r.get("id") not in old and r.get("head_sha")==target and r.get("event")=="workflow_dispatch"]
+              if matches:
+                  selected=sorted(matches,key=lambda r:r.get("created_at",""),reverse=True)[0]
+                  if selected.get("status")=="completed":
+                      break
+              time.sleep(15)
+          if not selected or selected.get("status")!="completed" or selected.get("conclusion")!="success":
+              raise SystemExit("Chart 3 S&P 500 merge workflow did not complete successfully")
+          with open(os.environ["GITHUB_ENV"],"a") as f:
+              f.write(f"CHART3_MERGE_RUN_ID={selected['id']}\n")
+          print(json.dumps({"status":"PASS","chart3_commit":target,"merge_run_id":selected["id"]}))
+          PY
+
+      - name: Stage 3 — read-only pinned calendar and earnings projection
+        run: |
+          set -euo pipefail
+          python production/runner/run_stage3.py --run-dir "$RUN_DIR"
+          test -s "$RUN_DIR/stage3-calendar-receipt.json"
+
+      - name: Stage 4 — validate and merge current editorial research
+        run: |
+          set -euo pipefail
+          python production/runner/run_stage4.py --run-dir "$RUN_DIR" --content "$CONTENT_FILE"
+          test -s "$RUN_DIR/stage4-analysis-receipt.json"
+
+      - name: Stage 5 — build exact mother and run full QA
+        run: |
+          set -euo pipefail
+          python production/runner/run_stage5.py --run-dir "$RUN_DIR"
+          test -s "$RUN_DIR/stage5-render-qa-receipt.json"
+
+      - name: Stage 6 — deliver three preview files and verify Pages
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        run: python production/runner/run_stage6.py --run-dir "$RUN_DIR"
+
+      - name: Upload complete Run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-main-run-\${{ github.run_id }}-\${{ github.run_attempt }}
+          path: \${{ env.RUN_DIR }}/
+          if-no-files-found: warn
+          retention-days: 30
