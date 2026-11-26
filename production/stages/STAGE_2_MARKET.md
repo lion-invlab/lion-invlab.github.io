@@ -22,4 +22,4 @@ market fixture、44-row Observation bundle、source manifest、metadata audit、
 
 
 ## 截圖 sidecar 必要欄位
-Sidecar 必須含 report_date、trading_date、rows；每列含 group、name、source_url、instrument_identity、fields。每個 field 含 field_name、value、evidence_path、evidence_sha256、screenshot_captured_at、quote_time（可得時）。圖片必須位於上述 Repository 路徑，SHA-256 重新計算一致；每欄位獨立驗證。聊天附件不會自動出現在 GitHub Runner checkout，必須先封存原圖與 sidecar 才能由排程讀取。不得只填看似有效的 SHA 字串。
+固定路徑：`production/input/market-screenshot-observations-YYYY-MM-DD.json`；原始圖片封存於 `production/input/screenshots/YYYY-MM-DD/`。JSON 根層欄位為 `report_date`、`trading_date`、`observations`。每筆 observation 含 `group`、`name`、`data_date`、`source_url`、`instrument_identity`、`fields`。fields 是欄位名稱對應物件，key 限 `close`、`change`、`open`、`high`、`low`、`score)、`band`；每個欄位物件必含 `value`、`field_name`、`evidence_path`、`evidence_sha256`、`captured_at`，可含 `quote_timestamp`。source_url 必須與該 fixture 指標來源 URL 完全一致；data_date 必須等於 trading_date。圖片 SHA-256 由 Runner 重新計算；不得只填看似有效的 SHA 字串。聊天附件不會自動出現在 GitHub Runner checkout，必須先封存原圖與 sidecar 才能由排程讀取。
