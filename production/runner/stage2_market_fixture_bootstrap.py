@@ -76,12 +76,14 @@ def blank_fixture(source, apply_screenshots=True):
     _assert_universe(data)
     for group,name,item,src in _rows(data):
         if group=="sectors":
-            src["_stage2_format"]={"close":_format_spec(src.get("history_close") or src.get("close_value")),
-                                   "change":_format_spec(src.get("change_display") or item.get("display"))}
+            if not isinstance(src.get("_stage2_format"), dict):
+                src["_stage2_format"]={"close":_format_spec(src.get("history_close") or src.get("close_value")),
+                                       "change":_format_spec(src.get("change_display") or item.get("display"))}
             data["sectors"][name]="待擷取"
         else:
-            src["_stage2_format"]={"close":_format_spec(item.get("display")),
-                                   "change":_format_spec(item.get("change_display"))}
+            if not isinstance(src.get("_stage2_format"), dict):
+                src["_stage2_format"]={"close":_format_spec(item.get("display")),
+                                       "change":_format_spec(item.get("change_display"))}
             item["display"]="待擷取"
             item["change_display"]="待擷取"
         for key in VALUE_KEYS:
