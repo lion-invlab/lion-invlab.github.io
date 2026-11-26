@@ -283,6 +283,11 @@ def merge_move_backup_observation(result: dict, fallback: dict, primary_read_sta
             fallback["read_status"] = "TOOL_READ_FAILURE"
     else:
         raise ValueError(f"unsupported MOVE backup status: {fallback.get('status')!r}")
+    canonical = json.dumps(
+        {key: value for key, value in fallback.items() if key != "observation_record_sha256"},
+        ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+    ).encode("utf-8")
+    fallback["observation_record_sha256"] = hashlib.sha256(canonical).hexdigest()
     rows = result.get("observations") or []
     replaced = False
     for index, row in enumerate(rows):
