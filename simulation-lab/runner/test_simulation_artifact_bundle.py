@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Regression tests for the post-upload Simulation artifact audit."""
+# 2026-11-26: validated by the full TAC build trigger after repairing workflow-step assertions.
 import json
 import struct
 import tempfile
