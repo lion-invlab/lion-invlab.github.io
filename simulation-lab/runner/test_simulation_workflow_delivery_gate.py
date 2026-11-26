@@ -31,7 +31,7 @@ assert "REMOTE_HTML_SHA" not in persist and "REMOTE_EVIDENCE_SHA" not in persist
 publish = section_after(WORKFLOW, "Publish REVIEW_READY report to main preview and verify GitHub Pages")
 assert "if: success()" in publish
 assert "publish_main_preview.py" in publish
-assert "git push origin HEAD:refs/heads/main" in publish
+assert "push origin HEAD:refs/heads/main" in publish
 assert "git push --force" not in publish
 assert "git worktree add --detach" in publish
 assert "EXPECTED_PATHS" in publish and "STAGED_PATHS" in publish and "CHANGED_PATHS" in publish
