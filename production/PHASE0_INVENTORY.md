@@ -56,7 +56,7 @@ main 根目錄 `scripts/` 現有資產包括：
 
 ### 3.3 GitHub Actions 現況
 
-main 的 `.github/workflows/` 盤點到 22 份 workflow：
+main 的 `.github/workflows/` 盤點到 23 份 workflow：
 
 - `archive_index.yml`
 - `chart2-preview-browser-qa.yml`
@@ -82,7 +82,7 @@ main 的 `.github/workflows/` 盤點到 22 份 workflow：
 - `us-mmf-public-data-qa.yml`
 - `volatility-sticky-columns.yml`
 
-註：上列實際共 23 份（逐項盤點後以清單為準；不是 22 份）。其中：
+逐項清單共 23 份。其中：
 - `main.yml` 名稱為 Update S&P 500 Volatility Data，排程 cron `10 21 * * 0-4`，執行 `update_data.py` 與 `update_tac_watchlist.py`，會寫入 `data/`；它不是 TAC 早報正式 Pipeline。
 - `archive_index.yml` 監看 `index.html` push，另有 cron `10 17 * * 0-4`，會從 index 歷史 commit 建立 `history/` 封存。這與新 Stage 6 的核准後封存責任必須整併，避免雙重封存／錯誤日期。
 - `pages.yml` 監看 preview、history、research、Chart 3 data、index 等路徑並部署 Pages；新 Stage 6 應重用部署能力，不另建競爭部署器。
