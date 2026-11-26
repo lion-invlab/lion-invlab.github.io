@@ -17,7 +17,9 @@
     "core_observation",
     "observation",
     "key_levels",
-    "market_comments"
+    "market_comments",
+    "run_id",
+    "market_snapshot_sha256"
   ],
   "properties": {
     "report_date": {
