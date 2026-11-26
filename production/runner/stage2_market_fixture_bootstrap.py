@@ -26,7 +26,13 @@ VALUE_KEYS = {
     "evidence_source_url","verified_source_role","attempt_history","primary_attempt_status","backup_attempt_status",
     "history_close","history_change","screenshot_evidence","screenshot_evidence_path",
     "screenshot_evidence_sha256","screenshot_observation_applied_at",
+    "observed_date","closure_evidence_url","closure_evidence_reader_ref","closure_evidence_line_start",
+    "closure_evidence_line_end","page_label","cross_check","cross_check_value","cross_check_name",
+    "cross_check_url","cross_check_role","primary_source_url","backup_source_url",
+    "observation_bundle_path","observation_bundle_blob_sha","observation_record_status",
+    "volume","official_settlement_cross_check","change_basis_points","change_points","close",
 }
+ITEM_VALUE_KEYS = {"change_basis_points","change_points","band","qa_status","value","as_of","contract_label"}
 
 def _decimal(value):
     text=str(value).strip().replace(",","").replace("$","").replace("%","").replace("+","").replace("−","-")
@@ -75,6 +81,9 @@ def blank_fixture(source, apply_screenshots=True):
     data=copy.deepcopy(source)
     _assert_universe(data)
     for group,name,item,src in _rows(data):
+        if group!="sectors":
+            for key in ITEM_VALUE_KEYS:
+                item.pop(key,None)
         if group=="sectors":
             if not isinstance(src.get("_stage2_format"), dict):
                 src["_stage2_format"]={"close":_format_spec(src.get("history_close") or src.get("close_value")),
