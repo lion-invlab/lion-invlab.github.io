@@ -44,6 +44,17 @@
 ### 0.5 30 分鐘目標
 30 分鐘是流程效率目標，不是資料正確性豁免。已取得且符合標的、日期、欄位、口徑及證據的資料立即鎖定，不再重抓；後續只處理待辦項目。超時必須記錄真正耗時與阻塞原因，不得為達標跳過來源讀取、Gate 或 QA。
 
+### 0.5.1 行情單次核實、快照鎖定與下游唯讀（2026-11-26 效率修訂）
+- 每輪報告的 44 項行情，唯一一次外部來源讀取／觀察入口為 Workflow 的「Read and reconcile 44 current-run market history pages」Stage 2。每項在此階段完成來源頁讀取、標的身分、交易日期、欄位對應、收盤值與漲跌值核對，並立即定為 VERIFIED、BACKUP_VERIFIED、PENDING 或 CLOSED。
+- Stage 2 後由同一份當輪觀察紀錄建立 44 列 source-verification manifest。Manifest 建置只把已捕捉觀察值與 Fixture 逐項比對並封存證據，不得再開啟來源頁、重新擷取或另找來源。這是同一輪證據的核對／記錄，不是第二次行情擷取。
+- Stage 2–4 receipt 必須綁定完整 Fixture SHA-256、44 列 Manifest SHA-256、Metadata Audit SHA-256、報告日、交易日及當輪 Workflow Run ID。Receipt 建立後即視為行情快照凍結點；任何下游程序不得改寫 Fixture、行情狀態或行情顯示值。
+- Stage 3 行事曆、Stage 4 新聞與分析、Builder、HTML QA、母版比對、DOM／互動測試、Stage 6 Publisher 及 Pages 驗證均為下游唯讀。它們可以檢查日期、44 欄位是否存在、狀態與顯示是否一致、receipt／manifest／HTML SHA 是否相符；不得重新抓取行情頁、重新比對外部報價或要求 44 項再核實一次。
+- Builder 後的 44 項檢查僅屬結構與快照一致性檢查：確認 44 欄位完整、PENDING 仍顯示待核實、CLOSED 顯示休市、已核實值未被改寫。不得把這個步驟命名或報告成第二次行情數值核實。
+- 已 VERIFIED／BACKUP_VERIFIED 的資料不得因後續 QA、HTML 組裝或其他欄位缺漏而重抓。只有 Stage 2 明確 PENDING 的單項，才可按使用者要求或獨立補值流程針對該項補抓；補抓後只更新該項觀察、重新產生 Manifest／Receipt 及受影響的 HTML／QA，不得重跑其他 43 項。若補值發生在本輪交付前，必須產生新的當輪證據 SHA 並重新執行受影響的 Gate。
+- SHA 的用途必須區分：Fixture SHA 綁定實際輸入資料；Manifest SHA 綁定 44 項核實狀態及觀察證據；Receipt SHA 證明 Stage 2–4 輸入未遭修改；HTML SHA 綁定成品；QA sidecar／delivery receipt 綁定成品與交付。這些雜湊核對不構成行情重抓或數值重核。
+- 如發現 SHA 不符，先定位是哪個檔案／階段遭修改，只重建受影響產物；不得把 SHA 不符直接當成 44 項行情全部失效，也不得為修復 SHA 而重新擷取全部來源。
+- 本規則不降低單項行情核實標準、不把 PENDING 改為 VERIFIED，也不放寬任何母版、日曆、新聞、HTML、QA 或發布 Gate。目標是一次完成行情核實、後續以 SHA 和結構檢查守住資料，不做重複外部讀取。
+
 
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
