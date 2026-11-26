@@ -23,3 +23,6 @@ Five Global Focus News and ten Market Hot Headlines. Each item includes canonica
 
 ## Builder and delivery provenance
 Render manifest binds all input SHAs, mother path/blob SHA, Manifest SHA, QA contract SHA, Builder SHA, report_date, Run ID, output HTML SHA-256 and QA results. Delivery receipt binds HTML/QA Git blob SHA and SHA-256, main commit, Pages deployment and public URL verification.
+
+## Screenshot sidecar
+The exact parser contract is `production/input/market-screenshot-observations.schema.json`. Root keys: report_date, trading_date, observations. Each observation keys: group, name, data_date, source_url, instrument_identity, fields. Each field key is one of close/change/open/high/low/score/band and its object carries value, field_name, evidence_path, evidence_sha256, captured_at and optional quote_timestamp. The original image must be stored under `production/input/screenshots/YYYY-MM-DD/`; parser recomputes the hash and requires the fixture source URL and trading date to match exactly.
