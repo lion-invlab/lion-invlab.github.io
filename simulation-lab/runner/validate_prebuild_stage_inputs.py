@@ -80,10 +80,14 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
     require(manifest.get("prior_observation_reused_count") == 0,
             "current-run verification must not reuse prior fixture observations")
     require(manifest.get("source_pages_fetched") in (True, False)
-            and manifest.get("displayed_values_independently_reconciled") is (verified_count == 44),
-            "source verification summary does not match verified-row count")
-    require(manifest.get("verification_scope") ==
-            "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
+            and manifest.get("displayed_values_reconciled") is (verified_count + closed_count == 44 and pending_count == 0),
+            "source value reconciliation summary does not match verified-row count")
+    require(isinstance(manifest.get("displayed_values_independently_reconciled"), bool),
+            "independent history-page reconciliation flag must be boolean")
+    require(manifest.get("verification_scope") in (
+                "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
+                "CURRENT_REPORT_SESSION_FIELD_LEVEL_SOURCE_OBSERVATIONS",
+            ),
             "unexpected source manifest verification scope")
     require(manifest.get("observation_record_hash_missing_count") == 0,
             "a verified observation is missing its record hash")
@@ -106,6 +110,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
         "USER_SUPPLIED_SCREENSHOT",
         "CURRENT_USER_PROVIDED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
@@ -124,9 +129,35 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                     and record.get("observed_change") is not None
                     and record.get("checked_at_tw"),
                     f"verified row observation record incomplete: {row.get('name')}")
-            require(row.get("source_page_fetched") is True
-                    and row.get("display_value_reconciled") is True,
-                    f"verified row was not fetched and reconciled: {row.get('name')}")
+            provenance = row.get("observation_provenance")
+            if provenance == "CURRENT_USER_PROVIDED_SCREENSHOT":
+                require(row.get("source_page_fetched") is False,
+                        f"screenshot-only row must not claim a history-page read: {row.get('name')}")
+            else:
+                require(row.get("source_page_fetched") is True,
+                        f"page-completed row lacks a current source-page read: {row.get('name')}")
+            require(row.get("display_value_reconciled") is True,
+                    f"verified row was not reconciled: {row.get('name')}")
+            if provenance in ("CURRENT_USER_PROVIDED_SCREENSHOT", "CURRENT_RUN_MIXED_FIELD_OBSERVATION"):
+                evidence_fields = (record.get("field_evidence") or {})
+                required_fields = ("score", "band") if row.get("group") == "risk" and row.get("name") == "fear_greed" else ("close", "change")
+                for field in required_fields:
+                    evidence = evidence_fields.get(field) or {}
+                    require(bool(evidence), f"screenshot-backed row missing required field evidence: {row.get('name')}/{field}")
+                    if provenance == "CURRENT_USER_PROVIDED_SCREENSHOT":
+                        require(evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT",
+                                f"screenshot-only required field has non-screenshot provenance: {row.get('name')}/{field}")
+                    else:
+                        require(evidence.get("source_type") in ("USER_PROVIDED_SCREENSHOT", "INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"),
+                                f"mixed field has unknown source provenance: {row.get('name')}/{field}")
+                for evidence in evidence_fields.values():
+                    if evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT":
+                        evidence_path = Path(str(evidence.get("evidence_path") or ""))
+                        if not evidence_path.is_absolute():
+                            evidence_path = Path.cwd() / evidence_path
+                        require(evidence_path.is_file(), f"screenshot evidence file missing: {row.get('name')}")
+                        require(sha256_bytes(evidence_path.read_bytes()) == evidence.get("evidence_sha256"),
+                                f"screenshot evidence SHA mismatch: {row.get('name')}")
             require(row.get("observation_record_sha256")
                     and re.fullmatch(r"[0-9a-f]{64}", row["observation_record_sha256"]),
                     f"verified row observation hash invalid: {row.get('name')}")
@@ -153,7 +184,8 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "closed_count": closed_count,
         "prior_observations_reused": 0,
         "source_pages_fetched_this_run": manifest.get("source_pages_fetched"),
-        "numeric_values_reconciled_this_run": verified_count == 44,
+        "numeric_values_reconciled_this_run": manifest.get("displayed_values_reconciled") is True,
+        "numeric_values_independently_reconciled_this_run": manifest.get("displayed_values_independently_reconciled") is True,
         "numeric_values_reconciled_count": verified_count,
         "source_verification_status": manifest.get("status"),
         "pending_observation_count": pending_count,
