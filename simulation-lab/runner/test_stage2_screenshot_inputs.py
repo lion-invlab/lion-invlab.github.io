@@ -47,6 +47,31 @@ def main():
         assert ("global_markets", "標普500指數") in loaded
         assert loaded[("global_markets", "標普500指數")]["fields"]["close"]["evidence_sha256"] == digest
 
+        close_image = root / "spx-close.png"
+        change_image = root / "spx-change.png"
+        close_image.write_bytes(b"close-only screenshot")
+        change_image.write_bytes(b"change-only screenshot")
+        multi_image_bundle = copy.deepcopy(bundle)
+        multi_fields = multi_image_bundle["observations"][0]["fields"]
+        multi_fields["close"].update({
+            "evidence_path": "spx-close.png",
+            "evidence_sha256": hashlib.sha256(close_image.read_bytes()).hexdigest(),
+            "captured_at": "2026-11-23T07:04:00+08:00",
+        })
+        multi_fields["change"].update({
+            "evidence_path": "spx-change.png",
+            "evidence_sha256": hashlib.sha256(change_image.read_bytes()).hexdigest(),
+            "captured_at": "2026-11-23T07:05:00+08:00",
+        })
+        multi_image_bundle["observations"][0].pop("evidence_path")
+        multi_image_bundle["observations"][0].pop("evidence_sha256")
+        bundle_path.write_text(json.dumps(multi_image_bundle), encoding="utf-8")
+        multi_image_loaded = load_screenshot_bundle(bundle_path, fixture, root)
+        multi_fields_loaded = multi_image_loaded[("global_markets", "標普500指數")]["fields"]
+        assert multi_fields_loaded["close"]["evidence_sha256"] != multi_fields_loaded["change"]["evidence_sha256"]
+        assert multi_fields_loaded["close"]["evidence_path"] != multi_fields_loaded["change"]["evidence_path"]
+
+        bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
         updated = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), loaded)
         row = updated["global_markets"]["標普500指數"]
         assert row["display"] == "6,812.34"
