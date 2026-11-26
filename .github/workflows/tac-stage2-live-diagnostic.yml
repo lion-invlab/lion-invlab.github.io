@@ -107,7 +107,7 @@ jobs:
             echo "Using screenshot-first Playwright path; page reads will fill only missing screenshot fields."
             python simulation-lab/runner/browser_verify_market_history.py \
               --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
-              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 2 --no-fixture-write
+              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 4 --no-fixture-write
           elif [[ -s "$WEB_OBSERVATIONS" ]]; then
             if [[ ! -s "$CNN_OBSERVATION" ]]; then
               CNN_OBSERVATION="simulation-lab/output/stage2-diagnostic/cnn-official-observation-empty.json"
@@ -122,7 +122,7 @@ jobs:
             echo "No date-matched screenshot or direct web bundle; opening Investing.com Historical Data pages."
             python simulation-lab/runner/browser_verify_market_history.py \
               --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
-              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 2
+              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 4
           fi
       - name: Populate fresh market Fixture from current-run observations
         shell: bash
