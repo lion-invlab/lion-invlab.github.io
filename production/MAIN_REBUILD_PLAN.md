@@ -17,6 +17,9 @@
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
 ## 2026-11-26 持續修訂紀錄
+- Main Stage 1–3 排程入口已加入 `.github/workflows/tac-production.yml`：GitHub Actions cron `45 20 * * 0-4` UTC，即台灣時間週一至週五 04:45；排程事件直接執行 Main capture-and-calendar（Stage 1–3），workflow_dispatch 的 validate/capture/build 手動模式保留。這個排程不會執行 Stage 4–6，也不會修改首頁；Stage 3 後仍以同一 Run 的 `capture-stage-receipt.json` 等待編輯內容。
+- 排程 workflow SHA 已寫入 PORT_MANIFEST。這是新增入口，尚未等到下一個排程時點實際觸發，需用首次排程 run 驗證。
+
 - Main CI 最新結果：Workflow Run `45824747088`（commit `9c779455278d3bde84abe70324dedf5cb0db626d`）完成且 conclusion=success。逐步確認 Main-only checkout、模組編譯、雙母版 SHA、Stage 2／Pre-build 測試、Builder／earnings 測試、Candidate Builder fixture、母版 DOM contract 全部成功；capture/build job 為 skipped，故不代表真實資料 E2E。
 - Stage 4→5→6 交接加固：Stage 4 receipt 新增 `trading_date`；Stage 5 驗證 Stage 4 Run／報告日／交易日、凍結市場快照前後 SHA、Research Bundle SHA 與 Stage 2 snapshot SHA 一致，並將交易日、Stage 4 receipt SHA、Research Bundle SHA、market snapshot SHA、Builder blob SHA 寫入 Stage 5 receipt。
 - Stage 6 加強：核對 Stage 5 Run／雙日期、QA sidecar 日期、render manifest SHA、HTML SHA、Builder SHA；回讀 Stage 4 receipt SHA 並核對 editorial Run／snapshot／bundle 綁定後才允許交付。
