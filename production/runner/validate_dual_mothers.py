@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Validate the simulation-only Monday and weekday mother templates."""
+"""Validate the main production Monday and weekday mother templates."""
 from __future__ import annotations
 import hashlib, json
 from pathlib import Path
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[2]
-BASE = ROOT / "simulation-lab/baseline"
-MANIFEST = json.loads((BASE / "mother-template-manifest.json").read_text(encoding="utf-8"))
+BASE = ROOT / "production/templates"
+MANIFEST = json.loads((ROOT / "production/config/mother-template-manifest.json").read_text(encoding="utf-8"))
 
 def blob_sha(text: str) -> str:
     raw = text.encode("utf-8")
@@ -19,16 +19,16 @@ def validate(key: str) -> dict:
     isolated_path = BASE / ("monday-mother-template.html" if key == "monday" else "weekday-mother-template.html")
     raw = isolated_path.read_text(encoding="utf-8")
     actual = blob_sha(raw)
-    if actual != record["simulation_blob_sha"]:
+    if actual != record["blob_sha"]:
         raise SystemExit(
-            f"{key}: simulation baseline SHA mismatch actual={actual} "
+            f"{key}: production mother SHA mismatch actual={actual} "
             f"expected={record['simulation_blob_sha']}"
         )
 
-    if record.get("simulation_path") != str(isolated_path.relative_to(ROOT)):
+    if record.get("path") != str(isolated_path.relative_to(ROOT)):
         raise SystemExit(
-            f"{key}: manifest simulation_path mismatch "
-            f"{record.get('simulation_path')!r} != {str(isolated_path.relative_to(ROOT))!r}"
+            f"{key}: manifest path mismatch "
+            f"{record.get('path')!r} != {str(isolated_path.relative_to(ROOT))!r}"
         )
 
     soup = BeautifulSoup(raw, "html.parser")
@@ -36,7 +36,7 @@ def validate(key: str) -> dict:
     # The Monday retrospective disclosure is nested under article.card.calendar-card.
     # Validate the approved section-scoped structure without imposing direct-child placement.
     # Validate the fixed structural anchors and weekday-specific sections
-    # documented by mother-template-qa-contract.md.
+    # documented by MOTHER_TEMPLATE_QA.md.
     required_ids = [
         "overview", "market-analysis", "sentiment", "news-scan", "global-markets",
         "industry-bonds-fx-commodities", "calendar", "earnings",
