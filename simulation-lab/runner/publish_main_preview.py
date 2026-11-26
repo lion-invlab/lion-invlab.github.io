@@ -91,15 +91,23 @@ def prepare_delivery(
         "run_attempt": str(qa.get("workflow_run_attempt")) == str(run_attempt),
         "prebuild_receipt": bool(qa.get("prebuild_input_receipt_sha256"))
             and qa.get("prebuild_input_receipt", {}).get("status") == "PASS",
-        "builder_sha": bool(qa.get("builder_blob_sha")),
+        "builder_sha": (
+            bool(qa.get("builder_blob_sha"))
+            and qa.get("builder_approval_record", {}).get("decision") == "APPROVED"
+            and qa.get("builder_approval_record", {}).get("approved_builder_path") == "simulation-lab/runner/build_review_html.py"
+            and qa.get("builder_approval_record", {}).get("approved_builder_blob_sha") == qa.get("builder_blob_sha")
+            and qa.get("builder_approval_record", {}).get("actual_builder_blob_sha") == qa.get("builder_blob_sha")
+        ),
         "no_review_blockers": not qa.get("review_ready_blockers") and not qa.get("sim14_blockers"),
     }
     failed = [name for name, ok in required.items() if not ok]
     if failed:
         raise SystemExit("main preview delivery gate failed: " + ", ".join(failed))
 
+    if main_root.is_symlink():
+        raise SystemExit("main worktree root is a symlink")
     main_root = main_root.resolve()
-    if not main_root.is_dir() or main_root.is_symlink():
+    if not main_root.is_dir():
         raise SystemExit("main worktree root is missing or unsafe")
     preview_dir = main_root / "preview"
     if preview_dir.exists() and preview_dir.is_symlink():
