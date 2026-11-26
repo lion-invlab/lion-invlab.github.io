@@ -151,6 +151,7 @@ def apply_page_completions_to_fixture(fixture: dict, observations: list[dict],
             observation.get("source_page_fetched") is True
             and observation.get("field_mapping_status") == "VERIFIED"
             and observation.get("instrument_identity_status") == "VERIFIED"
+            and observation.get("screenshot_instrument_identity_status") == "VERIFIED"
             and observation.get("observed_value") is not None
             and observation.get("observed_change") is not None
         ):
