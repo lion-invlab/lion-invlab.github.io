@@ -154,7 +154,13 @@ class BootstrapTests(unittest.TestCase):
         rows=observation_rows(blank)
         row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
         row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
-                    "observed_value":None,"observed_change":None})
+                    "observed_value":None,"observed_change":None,
+                    "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+                    "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
+                    "instrument_identity":"global_markets_0","finished_at_utc":"2026-11-26T22:00:00Z",
+                    "closure_evidence_url":"https://www.nyse.com/markets/hours-calendars",
+                    "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
+                    "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         item=result["global_markets"]["global_markets_0"]
         self.assertEqual(item["display"],"待核實")
@@ -167,10 +173,12 @@ class BootstrapTests(unittest.TestCase):
         row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
         row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
                     "observed_value":None,"observed_change":None,
-                    "market_calendar_status":"CLOSED","market_calendar_source_type":"OFFICIAL",
-                    "market_calendar_date":"2026-11-25",
-                    "market_calendar_url":"https://www.example.com/official-calendar",
-                    "market_calendar_evidence":"This page claims the market is closed."})
+                    "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+                    "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
+                    "instrument_identity":"global_markets_0","finished_at_utc":"2026-11-26T22:00:00Z",
+                    "closure_evidence_url":"https://www.example.com/official-calendar",
+                    "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
+                    "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         item=result["global_markets"]["global_markets_0"]
         self.assertEqual(item["display"],"待核實")
@@ -183,10 +191,12 @@ class BootstrapTests(unittest.TestCase):
         row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
         row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
                     "observed_value":None,"observed_change":None,
-                    "market_calendar_status":"CLOSED","market_calendar_source_type":"OFFICIAL",
-                    "market_calendar_date":"2026-11-25",
-                    "market_calendar_url":"https://www.nyse.com/markets/hours-calendars",
-                    "market_calendar_evidence":"Official calendar marks this date as a non-session."})
+                    "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+                    "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
+                    "instrument_identity":"global_markets_0","finished_at_utc":"2026-11-26T22:00:00Z",
+                    "closure_evidence_url":"https://www.nyse.com/markets/hours-calendars",
+                    "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
+                    "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         item=result["global_markets"]["global_markets_0"]
         self.assertEqual(item["display"],"-")
