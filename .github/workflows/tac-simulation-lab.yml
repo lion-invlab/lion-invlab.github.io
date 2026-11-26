@@ -216,6 +216,9 @@ jobs:
           echo "PASS: calendar panel shell preservation regression guard (frozen prototypes)"
           python simulation-lab/runner/validate_earnings_v2.py --self-test
 
+      - name: Test main preview publisher safety and hash binding
+        run: python simulation-lab/runner/test_publish_main_preview.py
+
       - name: Audit W46 PIT projection (read-only, simulation data only)
         if: github.event_name == 'workflow_dispatch' && inputs.run_optional_probes
         shell: bash
