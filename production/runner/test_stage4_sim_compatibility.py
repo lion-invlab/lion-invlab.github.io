@@ -10,7 +10,7 @@ class Stage4SimCompatibilityTests(unittest.TestCase):
         path=ROOT/"production/testdata/report-content-2026-11-26.json"
         content=json.loads(path.read_text(encoding="utf-8"))
         context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
-        data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{},"sectors":{},"sector_sources":{}}
+        data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"15","source":{"verification_status":"BACKUP_VERIFIED","url":"https://fgscore.com/","backup_source_score_value":15}}},"sectors":{},"sector_sources":{}}
         result=validate_content(content,context,data)
         self.assertEqual(result["news_counts"],{"focus_news":5,"headlines":10})
         self.assertEqual(len(content["political_scan"]["findings"]),6)
