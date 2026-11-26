@@ -617,3 +617,12 @@
 - Builder current blob `3e5a971d6d0a3ad3d41881b542580308276021f9` 已取得使用者 exact-SHA 核准，核准檔 blob `c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928`。根目錄 WR v5.17 已停用，Main 唯一規範仍為 `production/MASTER_WR.md` v1.1。
 - PORT_MANIFEST 狀態同步 commit `b814101ac82a860bb5622662c9f2e06a57ae4e7f`，blob `e5e9eecbcdf64cc1a90568063123445204235c97`。CI Run `45911061965` SUCCESS；僅 validate-main-production PASS，schedule-window／capture-and-calendar／build-and-deliver SKIPPED，並非真實 E2E。
 - 下一個真實排程驗收窗口：台灣 2026-11-30 05:05（UTC 2026-11-29T21:05Z），只接受 event=schedule Stage 1–3 receipts；05:15 continuation 等待同一 Run。不得手動 dispatch 取代正式排程，不更新首頁、不修改 Simulation。
+
+## 2026-11-27｜漏跑排程手動補救機制
+
+- 發現原 workflow 雖有 `workflow_dispatch mode=capture`，但沒有明確的 missed-schedule recovery 模式、強制指定報告日、同日 Run 防重及 continuation 接手契約；且 Stage 4 continuation automation 曾因當日 Capture 缺席被錯誤停用。
+- `.github/workflows/tac-production.yml` 新增 `mode=recover`：必須指定台灣 report_date，從 Stage 1 blank-first 建立全新 Run，依序執行 Stage 2／3；若同一 report_date 已存在完整或部分 Run，fail-closed 拒絕另建 Run。Capture receipt 記錄 event、mode、workflow_run_id，供後續精確辨識。
+- Main MASTER WR v1.2 手動補救條款明定：recover 只補 Stage 1–3；ChatGPT continuation 只接同一 recover Run 的 Stage 4–6；不使用舊行情／過期截圖、不混 Run、不更新首頁、不修改 Simulation。部分 Run 的自動續跑尚未實作，遇到既有 Run 必須先檢查，不可重複建立。
+- Stage 4 continuation automation 已更新：允許在使用者手動補做 Capture 完成後，以 `run_now` 接受且只接受 `event=workflow_dispatch`、`mode=recover` 的成功 Run；禁止因 BLOCKED 自動停用。已回讀確認 `is_enabled=true)，原台灣工作日 05:15 喚醒排程未變。
+- 變更 commit：workflow `92262d74e79e72499ea314633657065ac178fb9b`（後續 provenance 修正 `a3118478eeb838829aa0b93fa677559e9e20b4cf`，最終 workflow blob `ff9ef15b8cb2aa002222ec268cbacc2976baea7b`）；MASTER WR commit `7e36ef66f21ca3a18fe599ebb49025cd4e35c820`（blob `32c3257a7a831462e31caba4c463f12c46723588`）；PORT_MANIFEST commit `e3fdba5140fd0e76ff3dfd828bd268adf7dbfbe3`（blob `a7c2a7bef9729dc246eab068325fed90d3c75e03`）。
+- 本次只增加手動補救入口及其規範／Manifest／continuation 接手規則；沒有觸發 Capture、沒有修改排程 cron、正式首頁或 Simulation。Workflow deterministic CI 尚待完成；recover 真實執行與 Stage 4–6 E2E 尚未測試。
