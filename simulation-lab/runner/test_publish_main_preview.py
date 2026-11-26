@@ -39,6 +39,12 @@ def make_source(root: Path, *, ready=True, run_id=RUN_ID, attempt=ATTEMPT, tampe
         "prebuild_input_receipt_sha256": "b" * 64,
         "prebuild_input_receipt": {"status": "PASS"},
         "builder_blob_sha": "c" * 40,
+        "builder_approval_record": {
+            "decision": "APPROVED",
+            "approved_builder_path": "simulation-lab/runner/build_review_html.py",
+            "approved_builder_blob_sha": "c" * 40,
+            "actual_builder_blob_sha": "c" * 40,
+        },
         "review_ready_blockers": [],
         "sim14_blockers": [],
     }
