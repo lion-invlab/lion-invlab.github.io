@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import subprocess
+import tempfile
 import sys
 import json
 import re
@@ -254,6 +255,83 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
     }
 
 
+
+def merge_move_backup_observation(result: dict, fallback: dict, primary_read_status: str) -> dict:
+    """Replace only MOVE with a separately captured TradingView backup observation."""
+    if (fallback.get("group"), fallback.get("name")) != ("risk", "move"):
+        raise ValueError("targeted backup capture did not return the MOVE row")
+    backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    if fallback.get("evidence_source_url") != backup_url:
+        raise ValueError("MOVE backup evidence URL is not the pinned TradingView history page")
+    if fallback.get("status") == "VERIFIED":
+        fallback["source_role"] = "BACKUP_1"
+        fallback["read_status"] = "PAGE_CONTENT_READ_SUCCESS"
+        fallback["provenance"] = "CURRENT_RUN_BROWSER_OBSERVATION"
+    elif fallback.get("status") == "TARGET_DATE_NOT_FOUND":
+        fallback.update({"status": "SOURCE_UPDATE_PENDING", "read_status": "SOURCE_UPDATE_PENDING",
+                         "observed_date": None, "observed_value": None, "observed_change": None,
+                         "observed_value_field": None, "observed_change_field": None})
+    elif fallback.get("status") == "TOOL_READ_FAILURE":
+        if primary_read_status == "SOURCE_NO_DATA":
+            fallback.update({"status": "SOURCE_UPDATE_PENDING", "read_status": "SOURCE_UPDATE_PENDING",
+                             "observed_date": None, "observed_value": None, "observed_change": None,
+                             "observed_value_field": None, "observed_change_field": None,
+                             "error": "INVESTING_HISTORY_ROW_ABSENT; TRADINGVIEW_BACKUP_READ_FAILED"})
+        else:
+            fallback["read_status"] = "TOOL_READ_FAILURE"
+    else:
+        raise ValueError(f"unsupported MOVE backup status: {fallback.get('status')!r}")
+    rows = result.get("observations") or []
+    replaced = False
+    for index, row in enumerate(rows):
+        if (row.get("group"), row.get("name")) == ("risk", "move"):
+            rows[index] = fallback
+            replaced = True
+            break
+    if not replaced:
+        raise ValueError("normalized 44-row bundle is missing MOVE")
+    counts = {}
+    for row in rows:
+        counts[row.get("status", "UNKNOWN")] = counts.get(row.get("status", "UNKNOWN"), 0) + 1
+    result["observations"] = rows
+    result["row_count"] = len(rows)
+    result["status_counts"] = counts
+    result["verified_count"] = sum(1 for row in rows if row.get("status") == "VERIFIED")
+    result["displayed_values_independently_reconciled"] = result["verified_count"] == 44
+    result["move_backup_attempted"] = True
+    return result
+
+def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, result: dict) -> dict:
+    """If the primary MOVE web row is missing, read only TradingView ICE:MOVE once."""
+    raw_move = next((row for row in (bundle.get("observations") or [])
+                     if row.get("group") == "risk" and row.get("name") == "move"), None)
+    if not raw_move or raw_move.get("read_status") not in ("SOURCE_NO_DATA", "TOOL_READ_FAILURE"):
+        return result
+    primary_status = raw_move.get("read_status")
+    browser_script = Path(__file__).with_name("browser_verify_market_history.py")
+    with tempfile.TemporaryDirectory(prefix="tac-move-backup-") as tmp:
+        output = Path(tmp) / "move-backup-observation.json"
+        command = [sys.executable, str(browser_script), "--fixture", str(data_path),
+                   "--report-date", report_date, "--output", str(output),
+                   "--timeout-ms", "12000", "--concurrency", "1",
+                   "--no-fixture-write", "--only", "risk:move", "--move-backup-only"]
+        try:
+            subprocess.run(command, check=True, capture_output=True, text=True)
+            payload = json.loads(output.read_text(encoding="utf-8"))
+            rows = payload.get("observations") or []
+            if len(rows) != 1:
+                raise ValueError("targeted TradingView backup did not return exactly one row")
+            return merge_move_backup_observation(result, rows[0], primary_status)
+        except Exception as exc:
+            fallback = {
+                "group": "risk", "name": "move", "source_url": raw_move.get("source_url"),
+                "target_date": raw_move.get("target_date"), "status": "TOOL_READ_FAILURE",
+                "read_status": "TOOL_READ_FAILURE", "source_role": "BACKUP_1",
+                "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+                "error": f"TRADINGVIEW_MOVE_BACKUP_EXCEPTION: {type(exc).__name__}: {exc}",
+            }
+            return merge_move_backup_observation(result, fallback, primary_status)
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", required=True)
@@ -293,6 +371,7 @@ def main() -> None:
             if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
         ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
+    result = maybe_capture_move_backup(data_path, args.report_date, bundle, result)
     result["row_count"]=len(result["observations"])
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
