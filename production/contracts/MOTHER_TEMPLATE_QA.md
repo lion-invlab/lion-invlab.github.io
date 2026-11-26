@@ -1,14 +1,14 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.28（2026-11-26｜main/preview 自動交付與三檔白名單）
-定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
+版本：1.29（2026-11-27｜Main-native runtime contract）
+定位：TAC Main 原生生產流程的唯一詳細 DOM／互動／視覺 QA 執行附件。執行時必須與 `production/MASTER_WR.md`、`production/config/mother-template-manifest.json` 及 Stage 5／6 contracts 一致；不得讀取即時 Simulation 分支規則或依賴 Simulation runtime。SIM-1.4 僅由 `production/reference/SIM-1.4_SOURCE_BASELINE.md` 提供固定技術沿革與比對依據。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
 
 ## 版本紀錄
 
 - 2026-11-24｜v1.27：將 A2.1 週一與週二至週五 Simulation 母版 SHA 同步至當前 Manifest 實際 Blob SHA（Monday `710c944205ee05a86599ef5cd869f26c4a9ebde1`；Weekday `ff051c0cd22cf9267420c41e3952fa3178f0e45d`）。只修正 QA Contract 的版本綁定，未變更母版 DOM、CSS 或其他驗收規格。
-- 2026-11-26｜v1.28：Stage 6 審核版交付改為 main/preview；新增 HTML／QA sidecar／delivery receipt 三檔白名單、QA sidecar delivery provenance、main 遠端 SHA 回讀及 GitHub Pages 部署／公開 URL 驗證。main/index.html、母版、Manifest、正式行事曆及歷史報告仍受保護。
+- 2026-11-26｜v1.28：Stage 6 審核版交付改為 main/preview；新增 HTML／QA sidecar／delivery receipt 三檔白名單、QA sidecar delivery provenance、main 遠端 SHA 回讀及 GitHub Pages 部署／公開 URL 驗證。main/index.html、母版、Manifest、正式行事曆及歷史報告仍受保護。\n- 2026-11-27｜v1.29：將本 QA 契約的執行期依賴改為 Main-native；以 production MASTER WR、production mother Manifest 及 production/templates 為唯一執行來源，SIM-1.4 pinned copy 僅供技術沿革查閱。
 
 - 2026-11-24｜v1.24：修正總結、五層市場深度解析與市場情緒三區的實際 DOM 間距；明確驗收 `#market-analysis` 與 `#sentiment` 前各至少 18px 垂直間距，週一／平日雙母版及每日 HTML 均須核對。新增因果歸因 QA：明確區分已確認的事件催化與市場部位因素；若當日市場判讀已確認期貨空單回補助漲，須與人事／政策等直接催化並列說明，不得將其降格為未知因素；同時不得把未核實的其他因素寫成事實，也不得用後句推翻前句。
 
@@ -22,8 +22,8 @@
 
 ## A. 開工前來源鎖定（未通過即停止）
 
-- [ ] 已先讀取唯一有效主規則 `simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.4），並記錄其實際 blob SHA。
-- [ ] 已讀取 `simulation-lab/baseline/mother-template-manifest.json`，並依 `simulation_path` 讀取本目錄的唯讀母版副本。
+- [ ] 已先讀取 `production/MASTER_WR.md` 及本輪 Stage 1 governance SHA receipt；Main 規範 SHA 必須與本輪 Run 綁定。
+- [ ] 已讀取 `production/config/mother-template-manifest.json`，並依 `path` 讀取 `production/templates/` 內的 Main 正式母版。
 - [ ] 已依台灣報告日期選定正確情境：週一／週二至週五。
 - [ ] 母版精確路徑與 manifest 登記一致。
 - [ ] 實際 Git blob SHA 與 manifest 核准 SHA 完全一致；不一致即停止，不得自行更新 manifest 或 fallback。
@@ -34,14 +34,14 @@
 
 ### A2.1 結構基準與有效範圍
 
-本節是兩份模擬母版的固定結構定位契約。官方母版 SHA 是 main Manifest 的唯讀正式基準；本次依使用者授權，僅更新 simulation branch 的隔離基準副本，故兩者 SHA 可不同。每日模擬只使用下列 simulation blob SHA；不得把模擬副本 SHA 冒充 main 正式母版 SHA。
+本節是 Main 正式雙母版的固定結構定位契約。Main 執行期唯一讀取來源為 `production/config/mother-template-manifest.json` 指定的 `production/templates/` 檔案；不得改讀 Simulation branch 或以 Simulation baseline 代替 Main 母版。兩份 Main 母版目前逐位元承接 SIM-1.4 核准的技術模板，來源沿革 SHA 僅供追溯，不構成 runtime dependency。
 
-| 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
+| 情境 | Main 執行母版路徑 | Main Manifest 核准 blob SHA | SIM-1.4 技術來源路徑（僅沿革） | SIM-1.4 來源 blob SHA（僅沿革） | 基準結構統計 |
 |---|---|---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `710c944205ee05a86599ef5cd869f26c4a9ebde1` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；新增 market-analysis 與五個層級 heading ID，ID 唯一性由雙母版 Gate 驗證 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `ff051c0cd22cf9267420c41e3952fa3178f0e45d` | DOCTYPE 1、html/head/body 各 1、style 121、script 24；新增 market-analysis 與五個層級 heading ID，並包含 SIM-1.4 Fed/FOMC 欄位分流及 <=560px 單欄規則 |
+| 週一 | `production/templates/monday-mother-template.html` | `710c944205ee05a86599ef5cd869f26c4a9ebde1` | `simulation-lab/baseline/monday-mother-template.html` | `710c944205ee05a86599ef5cd869f26c4a9ebde1` | DOCTYPE 1、html/head/body 各 1、style 121、script 25；含 market-analysis 與五個層級 heading ID |
+| 週二至週五 | `production/templates/weekday-mother-template.html` | `ff051c0cd22cf9267420c41e3952fa3178f0e45d` | `simulation-lab/baseline/weekday-mother-template.html` | `ff051c0cd22cf9267420c41e3952fa3178f0e45d` | DOCTYPE 1、html/head/body 各 1、style 121、script 24；含 market-analysis、五層 heading、Fed/FOMC 分流及 <=560px 單欄規則 |
 
-以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.4 正式生效版寫入權限的明確授權。
+以上 SHA 必須與 Main Manifest 及 Stage 1 governance receipt 完全一致。每日 QA 只驗證本輪選定的 Main 母版與輸出 HTML；不得 checkout、讀取或修改 Simulation branch。SIM-1.4 pinned source baseline 僅供規範沿革與技術比對，不是每日執行依賴。
 
 ### A2.2 共用主要區塊錨點
 
