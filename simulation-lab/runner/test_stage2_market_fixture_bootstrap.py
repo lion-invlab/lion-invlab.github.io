@@ -109,6 +109,36 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(result["risk"]["move"]["change_display"],"待核實")
         self.assertEqual(result["risk"]["move"]["source"]["verification_status"],"PENDING")
 
+    def test_screenshot_provenance_is_not_mislabeled_as_primary_page(self):
+        original=fixture()
+        original["risk"]["move"]["source"]["source_role"]="PRIMARY"
+        original["risk"]["fear_greed"]["source"]["source_role"]="BACKUP_1"
+        blank=blank_fixture(original)
+        self.assertNotIn("source_role",blank["risk"]["move"]["source"])
+        self.assertEqual(blank["risk"]["fear_greed"]["source"]["source_role"],"BACKUP_1")
+        rows=observation_rows(blank)
+        move=next(x for x in rows if (x["group"],x["name"])==("risk","move"))
+        move.update({
+            "status":"VERIFIED","read_status":"USER_PROVIDED_SCREENSHOT_CONFIRMED",
+            "read_method":"USER_PROVIDED_SCREENSHOT","provenance":"CURRENT_USER_PROVIDED_SCREENSHOT",
+            "source_page_fetched":False,"observed_date":"2026-11-25",
+            "instrument_identity":"Merrill Lynch Option Volatility Estimate (INDEXNYSEGIS: MOVE)",
+            "instrument_identity_status":"VERIFIED","screenshot_instrument_identity_status":"VERIFIED",
+            "field_mapping_status":"VERIFIED","observed_value":"97.54","observed_change":"-1.32",
+            "observed_value_field":"Price","observed_change_field":"Change %",
+            "field_evidence":{
+                "close":{"source_type":"USER_PROVIDED_SCREENSHOT","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"value":"97.54"},
+                "change":{"source_type":"USER_PROVIDED_SCREENSHOT","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"value":"-1.32"},
+            },
+        })
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        source=result["risk"]["move"]["source"]
+        self.assertEqual(source["verification_status"],"VERIFIED")
+        self.assertEqual(source["source_role"],"USER_PROVIDED_SCREENSHOT")
+        self.assertFalse(source["source_page_fetched"])
+        self.assertEqual(result["risk"]["move"]["display"],"97.54")
+        self.assertEqual(result["risk"]["move"]["change_display"],"-1.32%")
+
     def test_rejects_wrong_date_and_duplicate_or_missing_rows(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
