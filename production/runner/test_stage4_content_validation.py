@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import unittest
-from run_stage4 import validate_content, market_snapshot_digest
+from run_stage4 import validate_content, market_snapshot_digest, validate_research_bundle_binding
+import json, tempfile
+from pathlib import Path
 
 DOMAINS=["us_policy","us_china","geopolitics","trade_sanctions","major_economies","energy_resources"]
 LAYERS=("political","policy_industry","macro","markets","strategy")
@@ -9,7 +11,7 @@ def sample():
     def news(i):
         return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25 13:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei","publisher":"Test publisher","updated_at_source":"原文未標示","updated_at_source":"Nov 25 2026 1:10 PM"}
     return {
-      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
+      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","research_bundle_sha256":"a"*64,"report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
       "summary_title":"市場測試主題與風險觀察","summary_points":[{"label":f"重點{i}","text":"這是一段長度足夠的測試總結文字，用來驗證三段摘要格式。"} for i in range(3)],
       "focus_news":[news(i) for i in range(5)],"headlines":[news(i+10) for i in range(10)],
       "sentiment":"市場情緒測試文字長度足夠。Fear & Greed 待核實，不沿用舊值。",
@@ -31,6 +33,20 @@ class Stage4ContentTests(unittest.TestCase):
     def test_rejects_news_outside_shared_window(self):
         x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data);x["focus_news"][0]["published_at_tw"]="2026-11-25 11:59"
         with self.assertRaisesRegex(ValueError,"outside the report window"):validate_content(x,self.context,self.data)
+    def test_research_bundle_binding_requires_exact_run_snapshot_and_bytes(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]) as td:
+            path=Path(td)/"bundle.json"
+            bundle={"run_id":self.context["run_id"],"market_snapshot_sha256":market_snapshot_digest(self.data)}
+            path.write_text(json.dumps(bundle),encoding="utf-8")
+            digest=__import__("hashlib").sha256(path.read_bytes()).hexdigest()
+            content={"research_bundle_sha256":digest,"market_snapshot_sha256":bundle["market_snapshot_sha256"]}
+            receipt={"status":"PASS","run_id":self.context["run_id"],"report_date":self.context["report_date"],
+                     "market_snapshot_sha256":bundle["market_snapshot_sha256"],"bundle_sha256":digest}
+            result=validate_research_bundle_binding(content,self.context,receipt,path)
+            self.assertEqual(result["sha256"],digest)
+            content["research_bundle_sha256"]="0"*64
+            with self.assertRaisesRegex(ValueError,"differs from capture receipt"):
+                validate_research_bundle_binding(content,self.context,receipt,path)
     def test_rejects_analysis_using_unverified_market_row(self):
         x=sample();self.data["global_markets"]={"SP500":{"source":{"verification_status":"PENDING"}}};x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
         x["market_analysis"]["markets"]["supporting_market_rows"]=[{"group":"global_markets","name":"SP500"}]
