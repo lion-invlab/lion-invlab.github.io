@@ -1,6 +1,6 @@
 # TAC 投資早報 R3｜main 重建計劃表
 
-更新：2026-11-26（Asia/Taipei）
+更新：2026-11-27（Asia/Taipei）
 正式目標：main 原生獨立生產；審核版直接交付 main/preview；使用者核准後才更新 index.html。
 硬性邊界：Simulation branch 全程唯讀、不修改、不重寫、不停用其工作流程；main 舊母版／舊 WR／舊早報 Pipeline 可退役，不作新系統依賴。
 
@@ -11,14 +11,14 @@
 | 0. 資產盤點與架構定案 | 盤點 main、標出唯一資料來源／寫入者／Workflow 衝突，定案新目錄與權責 | PHASE0_INVENTORY、架構責任與風險清單 | main tree、母版、calendar、Chart 3、Pages、archive、舊 workflows 均已盤點；依賴與風險有記錄 | DONE |
 | 1. 規範與契約定版 | 以 SIM-1.4 技術內容為基準，重寫 main MASTER WR、六份 Stage WR、共用 contracts、雙母版 Manifest／QA；排除舊 main 規則衝突 | MASTER_WR、STAGE_1–6、DATA_SCHEMA、STATUS_ENUM、SOURCE_POLICY、RUN、HANDOFF、BUILDER、QA、PUBLISH、母版 Manifest／QA | 每項規則有唯一權威；Stage 間輸入輸出一致；44 欄位、截圖優先、4 頁並行、Stage3唯讀、五層分析、Builder／交付責任一致；交叉引用及 SHA 經回讀 | IN_PROGRESS（六份 Stage WR 已逐份回讀並完成第一輪修訂；尚待完整 SIM-1.4 逐條對照與 Runner／Contract 自動一致性驗證） |
 | 2. Runner 與 Builder 移植 | 將 SIM-1.4 可用模組移植／適配至 production，建立 main 唯一 Runner；不直接引用 simulation 路徑 | production/runner、Builder、Stage adapters、Stage 1–6 Runner、測試 | 不依賴 Simulation runtime 路徑；使用 production templates／Manifest；blank-first、截圖 sidecar、4 concurrency、Stage2 receipt、Chart3 append、calendar readonly、Stage 5 QA、Stage 6 delivery 均可執行 | IN_PROGRESS（Stage 1–6 Runner 已建立；Stage 2 Chart 3 commit／merge dispatch 已接入 Workflow；Stage 5/6 尚未真實 E2E 驗證） |
-| 3. Main Workflow 與發布管線 | 建立唯一 tac-production.yml，接通 Stage 1–6、Chart 3 handoff、權限／concurrency／main preview三檔白名單／Pages dispatch；整理舊 main workflow 衝突 | .github/workflows/tac-production.yml、Workflow wiring tests、舊流程退役清單 | 新 Workflow 只 checkout main；單一正式入口；Chart 3 增量另行受控提交；Stage 6 明確 dispatch Pages；舊 Simulation-to-main preview 流程在新 E2E 通過後退役 | IN_PROGRESS（main Workflow 已拆為 validate／capture／build：capture 完成 Stage 1–3 並交付 AWAITING_EDITORIAL_INPUT handoff；build 僅接受綁定同一 Run 的編輯內容再執行 Stage 4–6。Chart 3 merge 與 Pages dispatch 已接通；尚未完成自動編輯內容交接及真實 E2E） |
+| 3. Main Workflow 與發布管線 | 建立唯一 tac-production.yml，接通 Stage 1–6、Chart 3 handoff、權限／concurrency／main preview三檔白名單／Pages dispatch；整理舊 main workflow 衝突 | .github/workflows/tac-production.yml、Workflow wiring tests、舊流程退役清單 | 新 Workflow 只 checkout main；單一正式入口；Chart 3 增量另行受控提交；Stage 6 明確 dispatch Pages；舊 Simulation-to-main preview 流程在新 E2E 通過後退役 | IN_PROGRESS（唯一 weekday schedule 由 Stage 1 啟動 Stage 1–3；ChatGPT continuation automation 已配置為同 Run Stage 3 後接手 Stage 4–6；但 schedule Capture 首次真實觸發、當日 editorial JSON、Builder exact-SHA 核准及 Stage 4–6 E2E 尚未全部驗收） |
 | 4. 全面整合測試 | 44行情、calendar、earnings、news、五層分析、雙母版、DOM、視覺互動、Chart3、delivery 全鏈整合 | deterministic tests、browser QA、negative tests、integration receipts | 兩種母版都通過；狀態分類不崩潰；不重抓已鎖定行情；跨 Run 不混資料；僅三檔 preview 寫入；Pages公開預覽驗證 | IN_PROGRESS（main-only validation 14 個步驟全數通過，含 Stage 1 governance SHA、Stage 2／截圖、Stage 4 research bundle、Builder／財報 deterministic tests、候選 HTML DOM contract；真實 44 頁擷取、Stage 5/6 delivery 與雙母版完整 E2E 尚未驗收） |
 | 5. 真實資料 E2E | 用當日真實資料完整執行六階段，輸出審核版；不沿用舊 fixture 價格；記錄Stage2 4頁並行實際耗時 | 完整 Run artifact、preview HTML、QA sidecar、delivery receipt、E2E report | 六階段均有真實輸入輸出與SHA；44項有值或狀態；Chart3 SP500增量同步；calendar只讀；HTML／QA／Pages驗證完成；無未揭露阻塞 | NOT_STARTED |
-| 6. 排程與正式切換 | Main capture EDT 04:05／EST 05:05；Main Stage 4 EDT 04:15／EST 05:15；04:35 calendar、05:30 Chart3責任分流；保留使用者正式首頁核准權 | 首次 scheduled capture evidence、同 Run Stage 4 handoff、Builder 核准、真實 E2E、舊流程退役證據 | 排程已設定但首次實跑待驗證；同 Run 自動交接、Builder exact-SHA 核准、真實 E2E、正式切換與舊流程退役均未完成 | IN_PROGRESS |
+| 6. 排程與正式切換 | Main Stage 1–3 capture EDT 04:05／EST 05:05；ChatGPT Stage 4–6 continuation EDT 04:15／EST 05:15；04:35 calendar、05:30 Chart3 各司其職；保留使用者正式首頁核准權 | 首次 scheduled capture evidence、同 Run Stage 4 handoff、Builder 當前 exact-SHA 核准、真實 E2E、舊流程退役證據 | 主排程與接續任務已設定；首次 schedule Capture 真實觸發、同 Run 自動交接、Builder 當前 exact-SHA 核准、真實 E2E、正式切換與舊流程退役仍未完成 | IN_PROGRESS |
 
 ## 2026-11-26 持續修訂紀錄
 - Main Stage 1–3 排程入口已加入 `.github/workflows/tac-production.yml`：GitHub Actions cron `5 21 * * 0-4` UTC，即美國冬令時間期間台灣時間週一至週五 05:05；排程事件直接執行 Main capture-and-calendar（Stage 1–3），workflow_dispatch 的 validate/capture/build 手動模式保留。這個排程不會執行 Stage 4–6，也不會修改首頁；Stage 3 後仍以同一 Run 的 `capture-stage-receipt.json` 等待編輯內容。冬令時間已修正為收盤後 05:05 啟動，避免 05:00 收盤前擷取。夏令時間切換仍待加入自動 DST 排程邏輯。
-- 排程 workflow SHA 已寫入 PORT_MANIFEST。這是新增入口，尚未等到下一個排程時點實際觸發，需用首次排程 run 驗證。
+- 排程 workflow 使用雙 UTC cron：EDT 20:05 UTC、EST 21:05 UTC，對應台灣次日 04:05／05:05；schedule-window 依 New York DST 選取唯一正確觸發。此設定已由 2026-11-27 回讀確認，但 11/27 未找到 schedule Capture Run，仍須以後續真實 schedule run 驗證。
 
 - Main CI 最新結果：Workflow Run `45824747088`（commit `9c779455278d3bde84abe70324dedf5cb0db626d`）完成且 conclusion=success。逐步確認 Main-only checkout、模組編譯、雙母版 SHA、Stage 2／Pre-build 測試、Builder／earnings 測試、Candidate Builder fixture、母版 DOM contract 全部成功；capture/build job 為 skipped，故不代表真實資料 E2E。
 - Stage 4→5→6 交接加固：Stage 4 receipt 新增 `trading_date`；Stage 5 驗證 Stage 4 Run／報告日／交易日、凍結市場快照前後 SHA、Research Bundle SHA 與 Stage 2 snapshot SHA 一致，並將交易日、Stage 4 receipt SHA、Research Bundle SHA、market snapshot SHA、Builder blob SHA 寫入 Stage 5 receipt。
@@ -26,7 +26,7 @@
 - 上述 Stage 4／5／6 程式與 Stage 4 日期綁定測試已提交 Main，SHA 已同步至 PORT_MANIFEST。新增專用 `test_stage56_handoff.py`，涵蓋 Stage 4→5 的交易日／快照 SHA／Research Bundle SHA 正向與負向案例，以及 Stage 5→6 的跨 Run QA、Builder SHA、render manifest 綁定測試；已加入 Main Workflow 測試清單。這批最新 Stage 4–6 修改與新增測試尚待最新 CI 實際執行確認。
 
 - Main Preview 清理確認：已查詢 main 完整 Git tree，`preview/2026-11-26*` 目前不存在，無需刪除；本次確認未觸及其他日期 preview、`index.html` 或 history。  
-- Main Workflow 現況再次確認：capture/build 仍採手動 workflow_dispatch／內容 commit marker；Stage 4 編輯研究生產者尚未自動化，不能宣稱已具備定時全自動生產。Builder 仍為 `CANDIDATE_PENDING_OWNER_APPROVAL`，不可跳過 owner exact-SHA 核准。
+- Main Workflow 現況：weekday schedule 是唯一 Stage 1 主啟動入口，負責 Stage 1–3；ChatGPT continuation automation 只負責 Stage 3 完成後的 Stage 4–6，不呼叫外部 LLM API。自動化已設定但未完成真實 schedule Capture 與全鏈 E2E。Builder 當前 blob 與歷史核准 SHA 不一致，必須取得當前 exact-SHA 核准，不可跳過。
 - Stage 4 Bundle SHA 輸入完整性再收緊：不只逐一驗證已列出的 SHA，還強制 Stage 2 Receipt 必須完整提供 fixture、audit、manifest、observations 四種輸入引用，缺少任一項即拒絕產包。最新 Builder blob SHA：`d57346d75673b75387a6a0d0d22df7f58355d0f2`；PORT_MANIFEST 已同步。
 - Stage 4 Research Bundle 完整性補強：除逐列市場狀態外，資料包現在直接嵌入完整 Observation bundle、44 列 Source Manifest 與 Market Snapshot Audit；Stage 4 編輯端不必依賴同名外部檔案才能檢視來源證據。README 同步修正，並新增內容存在與狀態統計斷言。提交：`9a63526`。
 
