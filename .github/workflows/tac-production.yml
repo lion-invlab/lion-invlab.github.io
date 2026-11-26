@@ -259,6 +259,9 @@ jobs:
           set -euo pipefail
           python production/runner/run_stage3.py --run-dir "$RUN_DIR"
           test -s "$RUN_DIR/stage3-calendar-receipt.json"
+          python production/runner/prepare_stage4_research_bundle.py --run-dir "$RUN_DIR"
+          test -s "$RUN_DIR/stage4-research-bundle.json"
+          test -s "$RUN_DIR/stage4-research-bundle-receipt.json"
       - name: Create capture handoff receipt
         env:
           CHART3_MERGE_RUN_ID: ${{ env.CHART3_MERGE_RUN_ID }}
@@ -276,10 +279,13 @@ jobs:
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
             "chart3_handoff":summary.get("chart3_handoff"),
+            "research_bundle_path":f"{run.as_posix()}/stage4-research-bundle.json",
+            "research_bundle_sha256":json.loads((run/"stage4-research-bundle-receipt.json").read_text())["bundle_sha256"],
+            "research_bundle_unresolved_market_rows":json.loads((run/"stage4-research-bundle-receipt.json").read_text())["unresolved_market_rows"],
             "chart3_merge_workflow_run_id":os.environ.get("CHART3_MERGE_RUN_ID","NOT_REQUIRED"),
             "current_week":stage3["current_week"]["week_id"],"previous_week":stage3["previous_week"]["week_id"],
             "editorial_input_path":f"production/input/report-content-{context['report_date']}.json",
-            "next_action":"Read report-data.json and Stage 2/3 evidence; generate run-bound Stage 4 content; commit with [build-tac-report:YYYY-MM-DD]."}
+            "next_action":"Read stage4-research-bundle.json; generate Stage 4 editorial content bound to run_id, market_snapshot_sha256 and research_bundle_sha256; commit with [build-tac-report:YYYY-MM-DD]."}
           (run/"capture-stage-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
           PY
