@@ -108,3 +108,12 @@
 - 2026-11-26 冬令時間修正：美股 NYSE core session 16:00 ET 收盤，EST 對應台灣 05:00；Main capture cron 已由 UTC 20:45（台灣 04:45）改為 UTC 21:05（台灣 05:05）。Workflow commit `ac56284fdac80d1ae0e65c05ec922cea5f191c5e`，新 workflow blob SHA `ecad05e61de0814f66a89ffb8901124b00fcc0b3`。Manifest 已同步；首次排程實跑及 CI 尚待確認。夏令時間自動切換仍是未完成項目。
 
 - 2026-11-26 夏令／冬令自動切換：Workflow 設置兩個 UTC schedule（20:05、21:05，週日到週四 UTC），新增 `schedule-window` preflight，依 `America/New_York` 當下 DST 狀態比對 `github.event.schedule`，只放行正確的觸發器。美國 EDT 時台灣 04:05 啟動（美股 04:00 收盤後 5 分鐘）；美國 EST 時台灣 05:05 啟動（美股 05:00 收盤後 5 分鐘）。GitHub schedule 可能延遲，因此以事件所帶 cron 字串判斷，不依賴 runner 實際啟動分鐘。Workflow blob SHA `c2d97b2e77a84f28719b60c5f60c6654d1fac1fa`，Workflow commit `f31b449872147cb5be7be18541d6f8657cf0502f`；需等待 CI 與兩季實際排程觀察驗證。
+
+
+## 2026-11-26 排程與交接狀態校正（最新回讀）
+- Main Stage 1–3 capture 已設定於唯一入口 `.github/workflows/tac-production.yml` 的 DST-gated schedule：EDT 台灣 04:05、EST 台灣 05:05；兩個 UTC cron 由 `schedule-window` 依 `America/New_York` DST 只放行一個。這是「已設定、尚待首次 scheduled run 驗證」，不可記為未設定，也不可記為已實際成功。
+- Main Stage 4 ChatGPT Automation 已由原早報任務 ID 改寫為 Main-only，設定 EDT 台灣 04:15／EST 台灣 05:15；inactive slot no-op。已回讀確認 enabled、prompt 的 Main-only 邊界及確切 Stage 4 WR／schema 路徑。Chart 3 05:30 任務已回讀確認監控 Main Stage 4；行事曆 04:35 任務保持不變。
+- Stage 4 handoff 說明已更新為符合上述排程，Commit `9b7698465488d0361a11413eeb3488ff24c201fc`；CI Run `45828484006` completed/success。該 run 是 push validation，capture/build jobs 並未執行。
+- **目前排程首次實跑尚未發生／尚未取得證據**：下一個工作日的正確 DST 時段需確認 schedule event、唯一 Capture Run、Stage 1–3 receipts、Research Bundle SHA 與 Stage 4 Automation 接手紀錄。
+- Builder 仍是 `CANDIDATE_PENDING_OWNER_APPROVAL`，exact Main Builder SHA `20eefe57d6f3b389157c01b8532cae3a69128a02`，`approved_by_owner=false`。未經使用者明確核准，不可觸發 build marker 或宣稱 REVIEW_READY。
+- Phase 6 由 NOT_STARTED 更正為 IN_PROGRESS（排程已設定；首次排程實跑、同 Run 自動交接、Builder 核准及真實 E2E 尚未完成）。整體 Pipeline 仍未達正式上線／驗收標準。
