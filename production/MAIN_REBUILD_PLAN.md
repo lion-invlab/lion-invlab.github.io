@@ -16,7 +16,7 @@
 | 5. 真實資料 E2E | 用當日真實資料完整執行六階段，輸出審核版；不沿用舊 fixture 價格；記錄Stage2 4頁並行實際耗時 | 完整 Run artifact、preview HTML、QA sidecar、delivery receipt、E2E report | 六階段均有真實輸入輸出與SHA；44項有值或狀態；Chart3 SP500增量同步；calendar只讀；HTML／QA／Pages驗證完成；無未揭露阻塞 | NOT_STARTED |
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
-## 2026-11-26 持續修訂紀錄\n- [x] Stage 1／2／5 WR 第一輪修訂與 GitHub 回讀。\n- [x] 修正 Stage 5 Runner 缺少 `os` import 及 Chart 3 handoff 狀態變數未定義。\n- [x] Stage 5 加入 main Builder exact-SHA owner approval gate；候選狀態不得標 REVIEW_READY。\n- [x] MASTER WR、PORT_MANIFEST、Runner README 已同步 main 的 validate／capture／build 三模式流程，移除不存在的 `run_daily_report.py` 入口描述。\n- [x] 最新已完成驗證 run `45813748282`：validate job success；build job skipped（該 run 為 validation only）。Stage 5 新 gate 尚待新 CI 執行。\n\n## Phase 1 已完成項目
+## 2026-11-26 持續修訂紀錄\n- [x] Stage 1／2／5 WR 第一輪修訂與 GitHub 回讀。\n- [x] 修正 Stage 5 Runner 缺少 `os` import 及 Chart 3 handoff 狀態變數未定義。\n- [x] Stage 5 加入 main Builder exact-SHA owner approval gate，抽成 `builder_approval.py` 並新增三種狀態測試；候選狀態不得標 REVIEW_READY。\n- [x] MASTER WR、PORT_MANIFEST、Runner README 已同步 main 的 validate／capture／build 三模式流程，移除不存在的 `run_daily_report.py` 入口描述。\n- [x] Stage 4 schema 已將 `run_id` 與 `market_snapshot_sha256` 設為必填；修正 Stage4 README 對自動綁定及 Stage1–6觸發行為的錯誤描述。\n- [x] 修正 CI unittest 指令漏接續行的反斜線，並修正 SIM-1.4 相容測試 fixture 必須自行綁定合成 Run ID／snapshot SHA。\n- [x] 最新已完成驗證 run `45813748282`：validate job success；build job skipped（該 run 為 validation only）。Stage 5 新 gate 尚待新 CI 執行。\n\n## Phase 1 已完成項目
 - [x] 建立 `production/MASTER_WR.md` 並明確以 SIM-1.4 為技術來源，main 為獨立生產。
 - [x] 將 SIM-1.4 Monday／Weekday 母版逐位元複製至 `production/templates/`。
 - [x] 建立 `production/config/mother-template-manifest.json`，SHA 綁定兩份 SIM-1.4 模板。
@@ -42,7 +42,7 @@
 - [x] Stage 6 `run_stage6.py`：main/preview 三檔白名單、遠端 bytes／SHA 回讀、Pages workflow dispatch 與公開 URL 驗證。
 - [ ] Stage 4 編輯內容仍由 `production/input/report-content-YYYY-MM-DD.json` 提供；capture receipt 已指向 exact Run 的輸入位置，但尚未建立可獨立執行的新聞研究／五層分析內容生成器及自動提交交接。
 - [x] Stage 2 Chart 3 increment 已由 main Workflow 僅提交 `data/tac-chart3/sp500_daily_increment.jsonl`，並明確 dispatch `tac-chart3-sp500-increment-merge.yml`；等待真實 S&P 500 VERIFIED run 驗證。
-- [ ] Stage 5 main Builder 已加精確 SHA 核准紀錄 gate；目前 `CANDIDATE_PENDING_OWNER_APPROVAL`，未獲核准不得產生正式 REVIEW_READY。Stage 5／6 尚未用真實當日輸入完成 E2E。
+- [ ] Stage 5 main Builder 已加精確 SHA 核准紀錄 gate，並由獨立模組及測試執行；目前 `CANDIDATE_PENDING_OWNER_APPROVAL`，未獲核准不得產生正式 REVIEW_READY。Stage 5／6 尚未用真實當日輸入完成 E2E。
 - [ ] 尚無自動產生 `production/input/report-content-YYYY-MM-DD.json` 的編輯研究步驟；capture 已改為明確交付 Run-bound handoff，build 再以 `workflow_dispatch` 或 `[build-tac-report:YYYY-MM-DD]` marker 啟動。
 
 ## Phase 1 未完成／需收尾
