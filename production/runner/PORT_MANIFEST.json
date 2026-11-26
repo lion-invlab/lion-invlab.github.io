@@ -150,11 +150,11 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
     "last_validation": {
-      "workflow_run_id": 45907357998,
-      "head_sha": "e3c10c4a89fa611d346a1e908f9fa3b55afb8c55",
+      "workflow_run_id": 45907699637,
+      "head_sha": "6347d6d9d4e0a21528a4de7e221f1293e4fd0c81",
       "event": "push",
       "conclusion": "success",
-      "scope": "Main-only deterministic validation. validate-main-production all 14 primary steps passed: provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data Capture or Stage 4-6 E2E."
+      "scope": "Main-only deterministic validation: all 14 primary validate-main-production steps passed, including checkout/provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data Capture or Stage 4-6 E2E."
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
@@ -202,7 +202,16 @@
     },
     "approval_verified_at": "2026-11-27",
     "approval_current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
-    "approval_recorded_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02"
+    "approval_recorded_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+    "builder_change_review": {
+      "approved_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+      "approved_blob_confirmed_at_commit": "a34a774da4b2de851532765f50aeb506563900ec",
+      "current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+      "change_commit": "dd1f5c87d23ee0d4a0594508f104198584ef76d4",
+      "change_scope": "Extend official market-holiday evidence enforcement from Nikkei 225 only to all 44 market rows; bind same-day browser evidence and prohibit prior observation reuse; render closed sector ETFs as - / 休市.",
+      "owner_reapproval": "REQUIRED",
+      "build_marker_allowed": false
+    }
   },
   "main_native_modules": [
     {
