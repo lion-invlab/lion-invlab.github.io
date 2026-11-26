@@ -146,6 +146,12 @@ def main() -> None:
             },
             "observation_record_sha256": "e" * 64,
         })
+    for observation in observation_rows:
+        canonical = dict(observation)
+        canonical.pop("observation_record_sha256", None)
+        observation["observation_record_sha256"] = hashlib.sha256(
+            json.dumps(canonical, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
     observation_bundle = {
         "report_date": report_date, "trading_date": data["trading_date"],
         "row_count": 44, "observations": observation_rows,
@@ -160,12 +166,20 @@ def main() -> None:
         screenshot_row_test["observed_value_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
         screenshot_row_test["observed_change_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
     }
+    screenshot_row_test.pop("observation_record_sha256", None)
+    screenshot_row_test["observation_record_sha256"] = hashlib.sha256(
+        json.dumps(screenshot_row_test, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     screenshot_summary = validate_observation_bundle(screenshot_bundle_test, report_date, data["trading_date"])
     assert screenshot_summary["screenshot_only_row_count"] == 1
     mixed_bundle_test = copy.deepcopy(observation_bundle)
     mixed_row_test = mixed_bundle_test["observations"][0]
     mixed_row_test["read_method"] = "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
     mixed_row_test["field_evidence"][mixed_row_test["observed_value_key"]] = {"source_type": "USER_PROVIDED_SCREENSHOT"}
+    mixed_row_test.pop("observation_record_sha256", None)
+    mixed_row_test["observation_record_sha256"] = hashlib.sha256(
+        json.dumps(mixed_row_test, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
     mixed_summary = validate_observation_bundle(mixed_bundle_test, report_date, data["trading_date"])
     assert mixed_summary["mixed_field_row_count"] == 1
     receipt_with_observations = build_receipt(
