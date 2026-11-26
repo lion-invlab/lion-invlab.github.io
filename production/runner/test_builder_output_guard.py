@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Negative tests for the Builder's simulation-preview-only write boundary."""
+"""Negative tests for the Builder's main run-scoped output-only write boundary."""
 from pathlib import Path
 import tempfile
 import unittest
@@ -12,7 +12,7 @@ class BuilderOutputGuardTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
-        (self.root / "preview").mkdir()
+        (self.root / "production" / "runs").mkdir(parents=True)
         self.original_root = builder.ROOT
         builder.ROOT = self.root
 
@@ -56,10 +56,10 @@ class BuilderOutputGuardTests(unittest.TestCase):
                 self.assertIn("第二支撐：1", box.get_text(" ", strip=True))
                 self.assertIn("第二壓力：5", box.get_text(" ", strip=True))
 
-    def test_accepts_only_canonical_dated_preview(self):
-        expected = (self.root / "preview/2026-11-23-simulation.html").resolve()
+    def test_accepts_only_run_scoped_review_output(self):
+        expected = (self.root / "production/runs/TAC-2026-11-23-test/review.html").resolve()
         self.assertEqual(
-            builder.resolve_allowed_output_path("2026-11-23", "preview/2026-11-23-simulation.html"),
+            builder.resolve_allowed_output_path("2026-11-23", "production/runs/TAC-2026-11-23-test/review.html"),
             expected,
         )
         self.assertEqual(
@@ -80,7 +80,7 @@ class BuilderOutputGuardTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             builder.resolve_allowed_output_path(
                 "2026-11-23",
-                "preview/2026-11-23-simulation.html",
+                "production/runs/TAC-2026-11-23-test/review.html",
                 candidate_test_output=True,
             )
         with self.assertRaises(SystemExit):
@@ -90,7 +90,7 @@ class BuilderOutputGuardTests(unittest.TestCase):
             )
 
     def test_rejects_candidate_validation_directory_symlink_escape(self):
-        output = self.root / "simulation-lab/output"
+        output = self.root / "production/runs"
         output.mkdir(parents=True)
         outside = self.root / "outside"
         outside.mkdir()
@@ -103,7 +103,7 @@ class BuilderOutputGuardTests(unittest.TestCase):
             )
 
     def test_rejects_homepage_and_protected_paths(self):
-        for target in ("index.html", "母版專區/master.html", "data/calendar/weeks/2026-W48.json", "production/config/mother-template-manifest.json"):
+        for target in ("index.html", "母版專區/master.html", "data/calendar/weeks/2026-W48.json", "production/config/mother-template-manifest.json", "preview/2026-11-23-review.html"):
             with self.subTest(target=target), self.assertRaises(SystemExit):
                 builder.resolve_allowed_output_path("2026-11-23", target)
 
