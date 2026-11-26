@@ -144,6 +144,16 @@ def apply_page_completions_to_fixture(fixture: dict, observations: list[dict],
             and observation.get("observed_value") is not None
             and observation.get("observed_change") is not None
         ):
+            group, name = key
+            if group == "global_markets":
+                pending_item = (fixture.get(group) or {}).get(name) or {}
+                pending_source = pending_item.get("source") or {}
+                if "cfd" in str(pending_source.get("quote_type") or "").lower():
+                    required = ("close", "change")
+                    if not all(field in screenshot["fields"] for field in required):
+                        pending_item["display"] = "待核實"
+                        pending_item["change_display"] = "待核實"
+                        pending_source["verification_status"] = "PENDING"
             continue
 
         group, name = key
