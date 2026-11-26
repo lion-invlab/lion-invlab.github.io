@@ -540,18 +540,19 @@
         "importance_basis_source": "TAC四星：會議紀要可揭示 ECB 對通膨、薪資、成長與政策風險的討論，影響歐元及歐洲利率定價。",
         "previous": null,
         "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "若討論顯示通膨風險偏上行或政策分歧擴大，可能推升歐洲短端利率；若偏向成長風險，則可能降低升息預期。",
+        "actual": "已公布：會議紀要指出，多數委員認為自 9 月會議以來的數據已支持進一步緊縮，當次會議亦有不少委員可支持升息；但全體委員支持當次維持利率不變，前提是溝通明確承諾中期通膨回到 2%，並維持依數據、逐次會議決策且不預先承諾利率路徑。",
+        "status": "released",
+        "impact_judgment": "會議紀要呈現偏鷹派傾向，顯示升息討論已有相當支持度，能源價格衝擊使通膨上行風險增加；但當次維持利率不變獲全體支持，ECB 仍未承諾特定升息路徑，應解讀為後續升息風險提高，而非已確定升息。",
         "source": {
-          "name": "ECB｜Monetary Policy Accounts",
-          "url": "https://www.ecb.europa.eu/press/accounts/html/index.en.html",
-          "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "name": "ECB｜Account of the monetary policy meeting of the Governing Council held on 28–29 October 2026",
+          "url": "https://www.ecb.europa.eu/press/accounts/2026/html/ecb.mg261126~ccf28c8071.en.html",
           "publisher": "European Central Bank",
-          "notes": "ECB 官方頁面確認下一次會議紀要於 11/26 發布；ECB 週行程列示 13:30 CET，換算台灣時間 20:30。",
+          "published_at": "2026-11-26",
+          "observed_at": "2026-11-27T04:36:00+08:00",
+          "notes": "ECB 官方週行程確認本次 account 於 2026-11-26 13:30 CET 發布（台灣 20:30）；官方 account 已可讀取。會議紀要記載不少委員認為可支持當次升息，但全體支持維持當次利率不變，並要求溝通維持 2% 中期通膨目標、data-dependent、meeting-by-meeting 且不預先承諾利率路徑。",
           "secondary_refs": [
-            "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html"
+            "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+            "https://www.reuters.com/markets/europe/ecb-already-had-large-support-rate-hike-oct-accounts-show-2026-11-26/"
           ]
         },
         "previous_applicable": false,
@@ -608,9 +609,9 @@
           "name": "ECB｜Weekly Schedule",
           "url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
           "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "observed_at": "2026-11-27T04:36:00+08:00",
           "publisher": "European Central Bank",
-          "notes": "ECB 官方週行程確認 11/27 10:00 CET 發布；換算台灣時間 17:00。",
+          "notes": "ECB 官方週行程本輪重新核對，確認 2026-11-27 10:00 CET 發布 10 月 Consumer Expectations Survey（台灣時間 17:00）；事件仍為 upcoming。MUFG 1 年期通膨預期 3.2% 保留既有來源，不以本次日程核對改寫 forecast。",
           "secondary_refs": [
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
@@ -11636,9 +11637,10 @@
         "https://www150.statcan.gc.ca/n1/daily-quotidien/261126/dq261126a-eng.htm",
         "https://www.nim.org/en/consumer-climate",
         "https://www.reuters.com/markets/europe/german-consumer-sentiment-edges-up-into-december-survey-finds-2026-11-26/",
-        "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en"
+        "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
+        "https://www.ecb.europa.eu/press/accounts/2026/html/ecb.mg261126~ccf28c8071.en.html"
       ],
-      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。\n本輪另修復 3 筆未公布事件的來源欄位倒置：德國 GfK、法國 HICP、德國失業率原先將來源名稱／URL 放在 impact_judgment；已改為 source object 並補上可讀的影響判斷。NIM 官方頁確認 GfK 11/26 08:00 CET、最新已公布值 -30.8；INSEE 確認法國 11月 CPI/HICP 初值 11/27 08:45 CET，並將10月 HICP 前值修正為官方 3.8%；德國聯邦就業局日曆本輪 HTTP 403，保留原事件時刻及預期並註明本輪未能重核。\n2026-11-26 04:51 追加查核：找到 1TRADER 11/23 日本 Flash PMI 預覽，明確列出製造業市場預期 53.5；僅補製造業預期，服務業／綜合指數仍無可核實預期。因此本週數值型 forecast 缺漏由 3 筆降為 2 筆（澳洲 PMI、加拿大 SEPH）；4 筆非數值事件仍為 NOT_APPLICABLE。加拿大 SEPH 的 3.6% 搜尋摘要在直接開啟頁面時未能取得同日可回讀證據，故不採用；德國 GfK 的 Investing.com 11/26 歷史表列 forecast 空白，保留既有 MUFG 預估，不用搜尋摘要改寫。\n2026-11-27 04:36 本輪更新：補入加拿大 9 月 SEPH 官方實際值（11/26 已發布：薪資就業 +9.7 千、平均週薪 CAD 1,357.92、職缺 528.1 千），並將事件由 upcoming 改為 released；補入德國 12 月 NIM/GfK 消費者景氣指數 -30.2，前值依官方修正為 -30.9，Reuters 調查共識 -29.9，並更新事件狀態。兩項均保留各自 forecast 與 actual 的區分；加拿大 SEPH forecast 仍缺，仍列數值型市場預期缺漏。週五尚未公布事件維持 upcoming：日本東京 CPI（官方日曆確認 11/27）、法國 CPI/HICP 初值（INSEE 11/27 08:45 CET）、德國失業數據（BA 11/27，09:55 CET embargo／10:00 CET 一般發布）、歐元區 ESI（DG ECFIN 最新頁列 11/27，但 Eurostat 日曆顯示 11/26，日期存在官方來源差異，暫不提前標記 released）、美國 Advance Economic Indicators Report（Census 11/27 08:30 ET）。非數值事件 forecast 仍 NOT_APPLICABLE；coverage.status=incomplete 仍為動態狀態，不構成阻塞。\n2026-11-27 04:36 來源欄位補核：更新日本東京 CPI、法國 HICP、德國失業、歐元區 ESI、U.S. Advance Economic Indicators 的來源 observed_at 與官方日程說明；歐元區 ESI primary source 改為 DG ECFIN 最新調查頁，並保留 Eurostat 11/26 與 DG ECFIN 11/27 的日期差異。以上事件在本輪時間點均未到發布時刻，維持 upcoming；未更改 event_date、actual 或 forecast。"
+      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。\n本輪另修復 3 筆未公布事件的來源欄位倒置：德國 GfK、法國 HICP、德國失業率原先將來源名稱／URL 放在 impact_judgment；已改為 source object 並補上可讀的影響判斷。NIM 官方頁確認 GfK 11/26 08:00 CET、最新已公布值 -30.8；INSEE 確認法國 11月 CPI/HICP 初值 11/27 08:45 CET，並將10月 HICP 前值修正為官方 3.8%；德國聯邦就業局日曆本輪 HTTP 403，保留原事件時刻及預期並註明本輪未能重核。\n2026-11-26 04:51 追加查核：找到 1TRADER 11/23 日本 Flash PMI 預覽，明確列出製造業市場預期 53.5；僅補製造業預期，服務業／綜合指數仍無可核實預期。因此本週數值型 forecast 缺漏由 3 筆降為 2 筆（澳洲 PMI、加拿大 SEPH）；4 筆非數值事件仍為 NOT_APPLICABLE。加拿大 SEPH 的 3.6% 搜尋摘要在直接開啟頁面時未能取得同日可回讀證據，故不採用；德國 GfK 的 Investing.com 11/26 歷史表列 forecast 空白，保留既有 MUFG 預估，不用搜尋摘要改寫。\n2026-11-27 04:36 本輪更新：補入加拿大 9 月 SEPH 官方實際值（11/26 已發布：薪資就業 +9.7 千、平均週薪 CAD 1,357.92、職缺 528.1 千），並將事件由 upcoming 改為 released；補入德國 12 月 NIM/GfK 消費者景氣指數 -30.2，前值依官方修正為 -30.9，Reuters 調查共識 -29.9，並更新事件狀態。兩項均保留各自 forecast 與 actual 的區分；加拿大 SEPH forecast 仍缺，仍列數值型市場預期缺漏。週五尚未公布事件維持 upcoming：日本東京 CPI（官方日曆確認 11/27）、法國 CPI/HICP 初值（INSEE 11/27 08:45 CET）、德國失業數據（BA 11/27，09:55 CET embargo／10:00 CET 一般發布）、歐元區 ESI（DG ECFIN 最新頁列 11/27，但 Eurostat 日曆顯示 11/26，日期存在官方來源差異，暫不提前標記 released）、美國 Advance Economic Indicators Report（Census 11/27 08:30 ET）。非數值事件 forecast 仍 NOT_APPLICABLE；coverage.status=incomplete 仍為動態狀態，不構成阻塞。\n2026-11-27 04:36 來源欄位補核：更新日本東京 CPI、法國 HICP、德國失業、歐元區 ESI、U.S. Advance Economic Indicators 的來源 observed_at 與官方日程說明；歐元區 ESI primary source 改為 DG ECFIN 最新調查頁，並保留 Eurostat 11/26 與 DG ECFIN 11/27 的日期差異。以上事件在本輪時間點均未到發布時刻，維持 upcoming；未更改 event_date、actual 或 forecast。\n2026-11-27 04:36 補入 ECB 10/28–29 貨幣政策會議紀要實際發布：ECB 官方週行程確認 11/26 13:30 CET（台灣 20:30）發布，狀態由 upcoming 更新為 released。紀要顯示不少委員認為可支持當次升息，但全體支持維持利率不變，並強調 2% 中期通膨目標、data-dependent、meeting-by-meeting、不預先承諾路徑。此為非數值事件，forecast 仍 NOT_APPLICABLE，不計入數值型市場預期缺漏。另重新核對 ECB 10 月消費者預期調查，官方週行程確認 11/27 10:00 CET（台灣 17:00），維持 upcoming。"
     },
     "earnings": {
       "status": "incomplete",
@@ -15702,21 +15704,117 @@
         "previous_audit_preserved": true,
         "only_W48_file_modified": true
       }
+    },
+    {
+      "at": "2026-11-27T04:36:00+08:00",
+      "action": "W48 日常更新補充：依 ECB 官方帳戶頁與週行程，更新 10 月會議紀要實際發布及 11 月消費者預期調查時程",
+      "week": "2026-W48",
+      "before": {
+        "exists": true,
+        "path": "data/calendar/weeks/2026-W48.json",
+        "blob_sha": "53159d0c58ad529f5260fea46e28dcde6a72496e",
+        "updated_at": "2026-11-27T04:36:00+08:00",
+        "schema_version": 1,
+        "economic_events": 27,
+        "earnings_events": 11,
+        "main_head": "6b74aa672e6560284fd434f4e839a87fe1d80caa"
+      },
+      "after": {
+        "economic_events": 27,
+        "earnings_events": 11,
+        "economic_status": "incomplete",
+        "earnings_status": "incomplete",
+        "updated_at": "2026-11-27T04:36:00+08:00",
+        "schema_version": 1,
+        "new_events_added": 0,
+        "economic_events_updated": 2,
+        "economic_actuals_updated": 1,
+        "event_time_corrections": 0,
+        "released_economic_events": 21,
+        "upcoming_economic_events": 6
+      },
+      "economic_actuals_updated": [
+        {
+          "id": "current-ecb-account-20261028",
+          "name": "ECB 公布 10 月 28–29 日貨幣政策會議紀要",
+          "actual": "已公布：會議紀要指出，多數委員認為自 9 月會議以來的數據已支持進一步緊縮，當次會議亦有不少委員可支持升息；但全體委員支持當次維持利率不變，前提是溝通明確承諾中期通膨回到 2%，並維持依數據、逐次會議決策且不預先承諾利率路徑。",
+          "source_url": "https://www.ecb.europa.eu/press/accounts/2026/html/ecb.mg261126~ccf28c8071.en.html",
+          "published_at": "2026-11-26"
+        }
+      ],
+      "economic_event_status_updates": [
+        {
+          "id": "current-ecb-account-20261028",
+          "from": "upcoming",
+          "to": "released"
+        }
+      ],
+      "source_metadata_updated": [
+        {
+          "id": "current-ecb-consumer-expectations-202610",
+          "source_url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+          "change": "official ECB weekly schedule rechecked; observed_at and note refreshed"
+        }
+      ],
+      "economic_forecast_coverage": {
+        "total_events": 27,
+        "forecast_applicable": 23,
+        "forecast_available": 21,
+        "forecast_missing_numeric": 2,
+        "forecast_not_applicable": 4,
+        "actuals_pending": 6
+      },
+      "wr_provenance": {
+        "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
+        "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
+        "main_branch_head": "620c0f22a034c7cb0af76ef436f7e036c1eae876",
+        "main_read_at": "2026-11-27T04:36:00+08:00",
+        "simulation_version": "SIM-1.4（正式生效版）",
+        "simulation_blob_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
+        "simulation_branch": "simulation/tac-process-lab-2026-11-06",
+        "simulation_read_at": "2026-11-27T04:36:00+08:00",
+        "simulation_note": "SIM-1.4 §5.2 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本次另依使用者當次任務明列的公告前 data_as_of、期間與比較口徑條件判斷是否採用。"
+      },
+      "schema_provenance": {
+        "main_calendar_schema": "main 分支 schemas/ 僅找到 tac-daily-market-snapshot.schema.json（非行事曆 schema）；data/calendar/ 只有 weeks/，未找到獨立 calendar schema 檔。依 main WR v5.17 與現有 W48 schema_version=1 events 結構作相容性基準，未更改 schema。",
+        "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
+        "market_snapshot_schema_blob_sha": "f891725f1403e53038042e562d2dc36553778761",
+        "schema_version_retained": 1
+      },
+      "files_modified": [
+        "data/calendar/weeks/2026-W48.json"
+      ],
+      "run_status": "updated_ECB_account_actual_and_CES_schedule; no_new_events_or_forecast_change",
+      "previous_last_update_audit_preserved": true,
+      "previous_last_update_audit_at": "2026-11-27T04:36:00+08:00",
+      "preservation_checks": {
+        "schema_version_1_retained": true,
+        "event_ids_unique": true,
+        "all_earnings_records_unchanged": true,
+        "all_earnings_attempts_unchanged": true,
+        "all_earnings_snapshot_arrays_unchanged": true,
+        "all_other_economic_actuals_unchanged": true,
+        "event_dates_and_times_unchanged": true,
+        "forecast_values_unchanged": true,
+        "nonnumeric_forecast_not_applicable_preserved": true,
+        "prior_audits_preserved": true,
+        "only_W48_file_modified": true
+      }
     }
   ],
   "last_update_audit": {
     "at": "2026-11-27T04:36:00+08:00",
-    "action": "W48 來源欄位補核：重讀週五未公布事件的官方發布日程並修正來源註記；不變更事件時間或預期值",
+    "action": "W48 日常更新補充：依 ECB 官方帳戶頁與週行程，更新 10 月會議紀要實際發布及 11 月消費者預期調查時程",
     "week": "2026-W48",
     "before": {
       "exists": true,
       "path": "data/calendar/weeks/2026-W48.json",
-      "blob_sha": "f286178895dff26d7206c7149009d0bc41cbe3b9",
+      "blob_sha": "53159d0c58ad529f5260fea46e28dcde6a72496e",
       "updated_at": "2026-11-27T04:36:00+08:00",
       "schema_version": 1,
       "economic_events": 27,
       "earnings_events": 11,
-      "main_head": "872fd509ec706f52a368fa538f057dc26da98f1d"
+      "main_head": "6b74aa672e6560284fd434f4e839a87fe1d80caa"
     },
     "after": {
       "economic_events": 27,
@@ -15725,87 +15823,43 @@
       "earnings_status": "incomplete",
       "updated_at": "2026-11-27T04:36:00+08:00",
       "schema_version": 1,
-      "economic_source_records_refreshed": 5,
       "new_events_added": 0,
-      "economic_actuals_changed": 0,
-      "event_time_corrections": 0
+      "economic_events_updated": 2,
+      "economic_actuals_updated": 1,
+      "event_time_corrections": 0,
+      "released_economic_events": 21,
+      "upcoming_economic_events": 6
     },
-    "source_metadata_updated": [
+    "economic_actuals_updated": [
       {
-        "id": "current-japan-tokyo-cpi-202611",
-        "source_url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
-        "change": "observed_at and schedule note refreshed"
-      },
-      {
-        "id": "current-fr-hicp-flash-202611",
-        "source_url": "https://www.insee.fr/en/statistiques/9107975",
-        "change": "observed_at and schedule note refreshed"
-      },
-      {
-        "id": "current-de-unemployment-202611",
-        "source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
-        "change": "official date and embargo/general publication times rechecked"
-      },
-      {
-        "id": "current-eurozone-esi-202611",
-        "source_url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
-        "change": "primary source switched to DG ECFIN; official schedule discrepancy documented"
-      },
-      {
-        "id": "current-us-advance-goods-trade-202610",
-        "source_url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
-        "change": "official release date/time rechecked"
+        "id": "current-ecb-account-20261028",
+        "name": "ECB 公布 10 月 28–29 日貨幣政策會議紀要",
+        "actual": "已公布：會議紀要指出，多數委員認為自 9 月會議以來的數據已支持進一步緊縮，當次會議亦有不少委員可支持升息；但全體委員支持當次維持利率不變，前提是溝通明確承諾中期通膨回到 2%，並維持依數據、逐次會議決策且不預先承諾利率路徑。",
+        "source_url": "https://www.ecb.europa.eu/press/accounts/2026/html/ecb.mg261126~ccf28c8071.en.html",
+        "published_at": "2026-11-26"
       }
     ],
-    "economic_schedule_sources_rechecked": {
-      "Canada_SEPH": {
-        "result": "released",
-        "source_url": "https://www150.statcan.gc.ca/n1/daily-quotidien/261126/dq261126a-eng.htm",
-        "published_at": "2026-11-26",
-        "actual": "payroll employment +9.7K; average weekly earnings CAD 1,357.92; job vacancies 528.1K"
-      },
-      "Germany_GfK": {
-        "result": "released",
-        "source_url": "https://www.nim.org/en/consumer-climate",
-        "published_at": "2026-11-26",
-        "actual": "-30.2",
-        "previous_revised": "-30.9",
-        "Reuters_poll_consensus": "-29.9"
-      },
-      "Japan_Tokyo_CPI": {
-        "result": "scheduled_upcoming",
-        "source_url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
-        "release_date": "2026-11-27",
-        "scheduled_local_time": "08:30 JST / 07:30 Taiwan (release convention; official calendar confirms date)"
-      },
-      "France_HICP": {
-        "result": "scheduled_upcoming",
-        "source_url": "https://www.insee.fr/en/statistiques/9107975",
-        "release_time": "2026-11-27 08:45 CET / 15:45 Taiwan"
-      },
-      "Germany_Unemployment": {
-        "result": "scheduled_upcoming",
-        "source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
-        "release_date": "2026-11-27",
-        "release_time": "09:55 CET embargo / 10:00 CET general publication"
-      },
-      "Eurozone_ESI": {
-        "result": "official_schedule_conflict",
-        "source_url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
-        "alternative_source_url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
-        "note": "DG ECFIN page states next update 2026-11-27; Eurostat calendar search result displays 2026-11-26. Retained existing 11/27 event and upcoming status pending direct release confirmation."
-      },
-      "US_Advance_Economic_Indicators": {
-        "result": "scheduled_upcoming",
-        "source_url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
-        "release_time": "2026-11-27 08:30 ET / 21:30 Taiwan"
+    "economic_event_status_updates": [
+      {
+        "id": "current-ecb-account-20261028",
+        "from": "upcoming",
+        "to": "released"
       }
-    },
-    "source_conflict": {
-      "event_id": "current-eurozone-esi-202611",
-      "primary": "DG ECFIN page: next update 2026-11-27",
-      "secondary": "Eurostat calendar page: displays 2026-11-26",
-      "decision": "retain 2026-11-27 upcoming pending direct release"
+    ],
+    "source_metadata_updated": [
+      {
+        "id": "current-ecb-consumer-expectations-202610",
+        "source_url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+        "change": "official ECB weekly schedule rechecked; observed_at and note refreshed"
+      }
+    ],
+    "economic_forecast_coverage": {
+      "total_events": 27,
+      "forecast_applicable": 23,
+      "forecast_available": 21,
+      "forecast_missing_numeric": 2,
+      "forecast_not_applicable": 4,
+      "actuals_pending": 6
     },
     "wr_provenance": {
       "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
@@ -15827,19 +15881,20 @@
     "files_modified": [
       "data/calendar/weeks/2026-W48.json"
     ],
-    "run_status": "refreshed_W48_upcoming_event_source_metadata_only; no_event_time_or_forecast_changes",
+    "run_status": "updated_ECB_account_actual_and_CES_schedule; no_new_events_or_forecast_change",
     "previous_last_update_audit_preserved": true,
     "previous_last_update_audit_at": "2026-11-27T04:36:00+08:00",
     "preservation_checks": {
       "schema_version_1_retained": true,
       "event_ids_unique": true,
-      "earnings_records_unchanged": true,
-      "earnings_attempts_unchanged": true,
-      "earnings_snapshot_arrays_unchanged": true,
-      "economic_actuals_unchanged": true,
+      "all_earnings_records_unchanged": true,
+      "all_earnings_attempts_unchanged": true,
+      "all_earnings_snapshot_arrays_unchanged": true,
+      "all_other_economic_actuals_unchanged": true,
       "event_dates_and_times_unchanged": true,
-      "forecasts_unchanged": true,
-      "previous_audit_preserved": true,
+      "forecast_values_unchanged": true,
+      "nonnumeric_forecast_not_applicable_preserved": true,
+      "prior_audits_preserved": true,
       "only_W48_file_modified": true
     }
   }
