@@ -22,9 +22,11 @@ def main():
     args=ap.parse_args()
     run_dir=Path(args.run_dir)
     if not run_dir.is_absolute():run_dir=ROOT/run_dir
-    run_dir=run_dir.resolve()
     runs=ROOT/"production/runs"
-    if runs.is_symlink() or runs.resolve()!=runs.absolute() or run_dir.parent!=runs.resolve() or run_dir.is_symlink():
+    if runs.is_symlink() or runs.resolve()!=runs.absolute() or run_dir.is_symlink():
+        raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
+    run_dir=run_dir.resolve()
+    if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     report_date=context["report_date"]
@@ -79,7 +81,7 @@ def main():
     execute(["node",str(RUNNER/"interaction_smoke.mjs"),report_arg,
         str(interaction_json.relative_to(ROOT))],run_dir/"qa-interaction.log")
     if sha(output)!=html_sha:raise SystemExit("Review HTML bytes changed during QA")
-    visual_report=visual_dir/"visual-regression-report.json"
+    visual_report=visual_dir/"visual-regression.json"
     if not visual_report.is_file():raise SystemExit("Visual regression report missing")
     interaction=json.loads(interaction_json.read_text(encoding="utf-8"))
     render_manifest={
