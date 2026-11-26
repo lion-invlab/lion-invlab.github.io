@@ -338,7 +338,33 @@ def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, r
             rows = payload.get("observations") or []
             if len(rows) != 1:
                 raise ValueError("targeted TradingView backup did not return exactly one row")
-            return merge_move_backup_observation(result, rows[0], primary_status)
+            merged = merge_move_backup_observation(result, rows[0], primary_status)
+            move_row = next(row for row in merged["observations"] if row.get("group") == "risk" and row.get("name") == "move")
+            primary_attempt = {
+                "round": 1, "source_role": "PRIMARY", "request_url": raw_move.get("source_url"),
+                "status": primary_status, "read_status": primary_status,
+                "http_status": raw_move.get("http_status"), "page_title": raw_move.get("page_title"),
+                "final_url": raw_move.get("final_url"), "instrument_identity": raw_move.get("instrument_identity"),
+                "observed_row_text": raw_move.get("observed_row_text"),
+                "page_body_excerpt": raw_move.get("page_body_excerpt"), "error": raw_move.get("error"),
+                "started_at_utc": raw_move.get("started_at_utc"), "finished_at_utc": raw_move.get("finished_at_utc"),
+            }
+            backup_attempts = move_row.get("attempt_history") or [{
+                "round": 2, "source_role": "BACKUP_1",
+                "request_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
+                "status": move_row.get("status"), "read_status": move_row.get("read_status"),
+                "page_title": move_row.get("page_title"), "instrument_identity": move_row.get("instrument_identity"),
+                "error": move_row.get("error"),
+            }]
+            for attempt in backup_attempts:
+                attempt["round"] = 2
+            move_row["attempt_history"] = [primary_attempt] + backup_attempts
+            move_row["attempt_count"] = len(move_row["attempt_history"])
+            move_row["verification_round"] = 2
+            canonical = json.dumps({key: value for key, value in move_row.items() if key != "observation_record_sha256"},
+                                   ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            move_row["observation_record_sha256"] = hashlib.sha256(canonical).hexdigest()
+            return merged
         except Exception as exc:
             fallback = {
                 "group": "risk", "name": "move", "source_url": raw_move.get("source_url"),
