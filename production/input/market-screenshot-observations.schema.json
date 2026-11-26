@@ -1,0 +1,378 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TAC Stage 2 screenshot observations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_date",
+    "trading_date",
+    "observations"
+  ],
+  "properties": {
+    "report_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "trading_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "group",
+          "name",
+          "data_date",
+          "source_url",
+          "instrument_identity",
+          "fields"
+        ],
+        "properties": {
+          "group": {
+            "enum": [
+              "global_markets",
+              "bonds",
+              "fx",
+              "energy",
+              "metals",
+              "risk",
+              "sectors"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "data_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "source_url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "instrument_identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "captured_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quote_timestamp": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_sha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "fields": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "properties": {
+              "close": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "change": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "open": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "high": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "low": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "score": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "band": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "value",
+                  "field_name",
+                  "evidence_path",
+                  "evidence_sha256",
+                  "captured_at"
+                ],
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "field_name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                  },
+                  "captured_at": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "quote_timestamp": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
