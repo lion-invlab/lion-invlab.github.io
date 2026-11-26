@@ -120,6 +120,11 @@ def main():
     if output.is_symlink(): raise SystemExit("Run output directory must not be a symlink")
     output.mkdir(parents=True,exist_ok=True)
     result=build(report_date,run_id,date.fromisoformat(args.trading_date) if args.trading_date else None)
+    result["market_fixture"].setdefault("run_metadata",{}).update({
+      "run_id":run_id,"run_dir":str(output.relative_to(ROOT)),
+      "fixture_path":str((output/"report-data.json").relative_to(ROOT)),
+      "main_commit_sha":result["run_context"]["main_commit_sha"]
+    })
     (output/"run-context.json").write_text(json.dumps(result["run_context"],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     fixture_path=output/"report-data.json"
     fixture_path.write_text(json.dumps(result["market_fixture"],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
