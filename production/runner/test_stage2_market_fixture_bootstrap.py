@@ -102,7 +102,7 @@ class BootstrapTests(unittest.TestCase):
         move["read_status"]="TOOL_READ_FAILURE"
         move["status"]="TOOL_READ_FAILURE"
         move["field_evidence"]={"close":{"source_type":"USER_PROVIDED_SCREENSHOT",
-            "evidence_path":"simulation-lab/input/screenshots/2026-11-26/move.png",
+            "evidence_path":"production/input/screenshots/2026-11-26/move.png",
             "evidence_sha256":"a"*64,"value":"98.12"}}
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         self.assertEqual(result["risk"]["move"]["display"],"98.12")
