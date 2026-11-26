@@ -52,7 +52,7 @@ class Stage4ResearchBundleTests(unittest.TestCase):
             data={"report_date":"2026-11-26","trading_date":"2026-11-25"}
             context={"run_id":run.name,"report_date":"2026-11-26","trading_date":"2026-11-25","main_commit_sha":"abc"}
             for name,doc in {
-                "run-context.json":context,"report-data.json":data,
+                "run-context.json":context,"stage1-receipt.json":{"status":"PASS","run_id":run.name},"report-data.json":data,
                 "stage2-market-snapshot-receipt.json":{"status":"PASS"},
                 "stage2-run-summary.json":{"run_id":run.name,"market_snapshot_sha256":market_digest(data)},
                 "stage3-calendar-receipt.json":{"status":"PASS","run_id":"other","main_commit_sha":"abc"}
