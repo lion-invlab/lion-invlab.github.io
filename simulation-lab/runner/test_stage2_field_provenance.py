@@ -84,6 +84,11 @@ def main():
         assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
         assert result["observation_record_sha256"] and len(result["observation_record_sha256"]) == 64
 
+        false_page_claim = copy.deepcopy(screenshot)
+        false_page_claim["source_page_fetched"] = True
+        result = verification_fields(source, display, change, false_page_claim, "global_markets", "標普500指數")
+        assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
+
         mixed = base_observation(source, mixed=True)
         mixed["field_evidence"]["close"] = screenshot_field(str(evidence_path), evidence_sha)
         result = verification_fields(source, display, change, mixed, "global_markets", "標普500指數")
