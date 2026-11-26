@@ -152,15 +152,17 @@ jobs:
           p=Path("simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json")
           if p.exists():
               d=json.loads(p.read_text(encoding="utf-8"))
+              observations=d.get("observations") or []
               print(json.dumps({
                   "report_date":d.get("report_date"),
                   "trading_date":d.get("trading_date"),
-                  "row_count":d.get("row_count"),
+                  "row_count":d.get("row_count",len(observations)),
                   "verified_count":d.get("verified_count"),
                   "status_counts":d.get("status_counts"),
-                  "screenshot_only_count":d.get("screenshot_only_count"),
-                  "mixed_field_count":d.get("mixed_field_count"),
-                  "historical_page_read_count":d.get("historical_page_read_count"),
+                  "screenshot_only_count":d.get("screenshot_only_count",sum(x.get("read_method")=="USER_PROVIDED_SCREENSHOT" for x in observations)),
+                  "mixed_field_count":d.get("mixed_field_count",sum(x.get("read_method")=="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE" for x in observations)),
+                  "historical_page_read_count":d.get("historical_page_read_count",sum(x.get("source_page_fetched") is True and x.get("read_method")!="USER_PROVIDED_SCREENSHOT" for x in observations)),
+                  "capture_method":d.get("capture_method") or d.get("method"),
               },ensure_ascii=False,indent=2))
           else:
               print("No observation bundle was produced.")
