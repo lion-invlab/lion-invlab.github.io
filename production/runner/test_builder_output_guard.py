@@ -91,7 +91,7 @@ class BuilderOutputGuardTests(unittest.TestCase):
 
     def test_rejects_candidate_validation_directory_symlink_escape(self):
         output = self.root / "production/runs"
-        output.mkdir(parents=True)
+        output.mkdir(parents=True, exist_ok=True)
         outside = self.root / "outside"
         outside.mkdir()
         (output / "candidate-validation").symlink_to(outside, target_is_directory=True)
