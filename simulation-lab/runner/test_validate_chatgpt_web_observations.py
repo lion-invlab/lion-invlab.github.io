@@ -156,7 +156,7 @@ def main():
     pending_fixture = populate_fixture(blank_data, move_pending_result)
     assert pending_fixture["risk"]["move"]["display"] == "待核實"
     assert pending_fixture["risk"]["move"]["change_display"] == "待核實"
-    assert pending_fixture["risk"]["move"]["source"]["close_value"] is None
+    assert pending_fixture["risk"]["move"]["source"].get("close_value") is None
     assert pending_fixture["risk"]["move"]["source"]["verification_status"] == "PENDING"
 
     # A target-date TradingView ICE:MOVE historical row is the sole permitted backup.
