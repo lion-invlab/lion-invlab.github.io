@@ -18,13 +18,13 @@ Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WR
 
 - SIM-1.4 Builder source SHA: `6bf6eb2f5ae29774addf696c541c5b806953c7a3`.
 - Main-path candidate: `production/runner/build_review_html.py`, exact blob SHA recorded in `production/config/builder-approval.json`.
-- The exact Main Builder blob `20eefe57d6f3b389157c01b8532cae3a69128a02` is explicitly owner-approved in `production/config/builder-approval.json` (`APPROVED_MAIN`, approved 2026-11-26 21:29 Asia/Taipei). This approval covers that exact Builder blob only; it does not substitute for real-data Stage 1–6 E2E or any Stage 5/6 QA Gate.
+- The historical owner approval covers only Builder blob `20eefe57d6f3b389157c01b8532cae3a69128a02`. Current Main Builder blob is `3e5a971d6d0a3ad3d41881b542580308276021f9` (changed by commit `dd1f5c87d23ee0d4a0594508f104198584ef76d4`); the old approval does not cover it. Stage 5 must remain fail-closed until the exact current blob is separately approved.
 
 ## Current blockers
 
-1. No automated editorial research/content producer yet creates `production/input/report-content-YYYY-MM-DD.json` from the exact captured Run. This remains the handoff between capture and build.
-2. Main Builder exact-blob approval is complete (`APPROVED_MAIN`); real-data Stage 1–6 E2E and Stage 5/6 delivery QA remain outstanding.
-3. Stage 5/6 real-data E2E and public Pages verification remain untested.
+1. No automated editorial research/content producer yet creates `production/input/report-content-YYYY-MM-DD.json` from the exact captured Run. The current capture workflow creates a research bundle and stops at `AWAITING_EDITORIAL_INPUT`; the build workflow only consumes a pre-existing JSON file. No model invocation is wired into the workflow.
+2. Current Builder exact-blob approval is not valid: current blob `3e5a971d6d0a3ad3d41881b542580308276021f9` differs from historically approved blob `20eefe57d6f3b389157c01b8532cae3a69128a02`; exact current-blob reapproval is required.
+3. Stage 5 runtime approval gate, real-data Stage 1–6 E2E and public Pages verification remain untested.
 4. Daily schedule must not be cut over until those items are resolved.
 
 ## Hard boundaries
