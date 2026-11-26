@@ -269,3 +269,17 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - Run 45779855507 的 TAC isolated simulation lab workflow mirror check PASS，確認 Simulation 與 main 的 tac-simulation-lab.yml blob SHA 都是 0698f88333e29c3b7e86ee74e557fdc14b6ce429；compile／靜態檢查 PASS。未帶 [build-tac-report:YYYY-MM-DD]，因此完整早報建置依規則 SKIPPED。
 - 本次修改只在 Simulation branch 的 SIM、Runner、Tests、診斷 Workflow 與專案紀錄；main workflow mirror、main/index.html、正式母版、正式資料及每日關鍵價位程式均未修改。
 - **目前結論：** Stage 2 blank-first／apply 已在正式 Runner 入口整合，44 列 E2E 的結構與 SHA 收據流程通過；市場數值為 43 VERIFIED／1 PENDING，故整體仍是 PARTIAL，不得標記 44/44 VERIFIED 或 REVIEW_READY。
+
+### 2026-11-26｜MOVE 延遲發布與 TradingView 唯一備援正式整合
+
+- 使用者確認 MOVE 來源僅保留兩層：Investing.com 歷史數據優先；TradingView ICE:MOVE 唯一備援；兩邊都沒有目標交易日歷史收盤資料時，Close／Change 保持 null，畫面顯示待核實。禁止第三來源、舊值回填、即時報價代替收盤。
+- SIM-1.4 新增第 0.5.5 節，明確定義 MOVE 的 SOURCE_UPDATE_PENDING、TradingView 備援核實條件、報告不中斷、單項補查及證據保存；該 MOVE 專用來源契約優先於一般來源限制，不影響其他 43 項。
+- browser_verify_market_history.py：Investing.com 目標列缺失或讀取失敗時，MOVE 才開啟 TradingView ICE:MOVE 商品頁；支援 --only risk:move --move-backup-only，供只讀單項備援，不重抓其餘 43 項。TradingView 使用獨立 read_method、TRADINGVIEW_HISTORICAL_PAGE 欄位來源類型及 BACKUP_1 角色。
+- validate_chatgpt_web_observations.py：直接 Web Observation 的 MOVE 主來源若缺目標列，會自動執行 TradingView 單列備援；把原 Investing.com 嘗試與 TradingView 備援嘗試合併在同一 Observation，保留兩邊 URL、狀態、頁面標題、標的識別、時間、頁面摘錄與 SHA。Manifest 也保留 evidence_source_url、evidence_source_role、source_attempts、source_read_status、source_page_title 及 source_instrument_identity。
+- 測試新增 MOVE 延遲狀態、TradingView 備援成功時 BACKUP_VERIFIED、兩來源均無目標列時空值、欄位來源類型、primary／backup attempt history 等回歸測試；Stage 2 diagnostic workflow 已納入 test_stage2_field_provenance.py。
+- 實際驗收 Run 45785278030（Commit f9e68f669592a6751a7785fd4d3ada72477e9671）成功；同一 Commit 的 isolated simulation lab Run 45785278199 success、workflow YAML lint Run 45785278396 success。44-row Stage 2：43 VERIFIED、1 SOURCE_UPDATE_PENDING；Fixture、Manifest、Receipt 均維持 PARTIAL，無舊行情值回填。
+- 本輪 MOVE 目標交易日為 2026-11-25。Investing.com 歷史頁可讀但尚無 11/25 目標列；TradingView ICE:MOVE 商品頁 HTTP 200，商品身分確認為 ICE:MOVE，但頁面只顯示當下延遲報價／區間摘要，沒有 11/25 歷史列。頁面顯示的即時摘要數字沒有寫入 Close／Change；MOVE 兩欄均為 null，顯示待核實。
+- Stage 2 Receipt：PARTIAL，44 rows、43 verified、1 pending、0 closed；batch_id 3e874d6c2398fcbd62170a2c；Receipt SHA-256 d35561a7255b61a4b33c92c0b7fbc37f141e2515f379decbe7411a24ee2760e5。Fixture SHA df37dbd8cd816457cbb76b0a7a086b4fa6769f5e68aefb87439b47e13ea7978c；Audit SHA 7003c76ce0ecd7c01c251205a45b6e98d40853e6b94856ec3722f619f91b907b；Manifest SHA 2e822a52f663e7fc2d2d1caf2617654f539e77123eb8fab93db0c604c959abbd；Observation SHA 9e7f6d2c1bb01bcc1901b400c91de5a65bfb9d09e77296636f25b9d0d603ccba。
+- Artifact ID 15100326736；Artifact ZIP SHA-256 76cd233bd6740cacc13fed4bad4456985252b5e4db7c0e455388ce12282faf99。Workflow： https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45785278030
+- 本次只修改 Simulation branch 的 SIM、Runner、Tests、Stage 2 diagnostic workflow 與專案紀錄；未改 main/index.html、正式母版、main workflow mirror、正式資料或每日關鍵價位模組。未觸發正式早報建置、main/preview 發布或首頁更新。
+- 狀態： MOVE_INVESTING_PRIMARY_TRADINGVIEW_ONLY_BACKUP / MOVE_NO_DATA_STAYS_BLANK / 43_VERIFIED_1_UPDATE_PENDING / STAGE2_PARTIAL_RECEIPT_PASS。
