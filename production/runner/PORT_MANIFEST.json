@@ -185,10 +185,19 @@
         "us_est": "05:15"
       },
       "continuation_role": "Wait for and validate the same-day schedule Capture Run; then perform Stage 4 editorial research and trigger approved Stage 4-6 build. Not a master start schedule.",
-      "schedule_event_e2e": "NOT_VERIFIED_2026-11-27_NO_SCHEDULE_CAPTURE_RUN",
+      "schedule_event_e2e": "NOT_TRIGGERED_2026-11-27_WORKFLOW_SCHEDULE_COMMITTED_AFTER_05:05_TAIPEI_WINDOW; NEXT_EXPECTED_2026-11-30_05:05_TAIPEI",
       "formal_homepage_update": "OWNER_APPROVAL_REQUIRED",
       "continuation_worker_enabled": true,
-      "continuation_worker_role": "After Stage 1-3 schedule Capture completes, ChatGPT automation reads the exact Run and produces run-bound editorial JSON; it does not start the report pipeline."
+      "continuation_worker_role": "After Stage 1-3 schedule Capture completes, ChatGPT automation reads the exact Run and produces run-bound editorial JSON; it does not start the report pipeline.",
+      "first_schedule_window_diagnosis": {
+        "report_date": "2026-11-27",
+        "expected_taipei": "2026-11-27T05:05:00+08:00",
+        "expected_utc": "2026-11-26T21:05:00Z",
+        "schedule_workflow_commit_utc": "2026-11-26T22:46:32Z",
+        "conclusion": "Workflow schedule configuration landed after the 2026-11-27 trigger window; absence of that day's schedule run does not prove cron misconfiguration.",
+        "next_expected_taipei": "2026-11-30T05:05:00+08:00",
+        "next_expected_utc": "2026-11-29T21:05:00Z"
+      }
     }
   },
   "main_native_modules": [
