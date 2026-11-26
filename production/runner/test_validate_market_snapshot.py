@@ -77,8 +77,14 @@ def main():
     pending_row["display"] = "待核實"
     pending_row["change_display"] = "待核實"
     pending_row["source"]["verification_status"] = "PENDING"
-    # Candidate history values may remain in evidence metadata, but must not be forced into the displayed quote.
+    # Pending quotes must not fail solely because the current-run contract header was unreadable.
+    pending_row.pop("contract_label", None)
     assert validate_market_snapshot(pending_commodity, "2026-11-23")["status"] == "PASS"
+
+    missing_verified_contract = copy.deepcopy(base)
+    missing_verified_contract["energy"]["WTI原油期貨"].pop("contract_label", None)
+    expect_error(lambda: validate_market_snapshot(missing_verified_contract, "2026-11-23"),
+                 "selected contract label missing for verified quote")
 
     contradictory_pending = copy.deepcopy(pending_commodity)
     contradictory_pending["energy"]["WTI原油期貨"]["source"]["verification_status"] = "VERIFIED"
