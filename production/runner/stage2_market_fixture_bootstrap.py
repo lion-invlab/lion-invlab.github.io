@@ -50,7 +50,9 @@ VALUE_KEYS = {
     "market_calendar_status","market_calendar_source_type","market_calendar_url","market_calendar_date","market_calendar_evidence",
     "volume","official_settlement_cross_check","change_basis_points","change_points","close",
 }
-ITEM_VALUE_KEYS = {"change_basis_points","change_points","band","qa_status","value","as_of","contract_label"}
+# Selected futures contract is instrument identity metadata, not a reusable quote value.
+# Preserve it through blank-first capture so a read failure cannot erase the contract label.
+ITEM_VALUE_KEYS = {"change_basis_points","change_points","band","qa_status","value","as_of"}
 
 def _decimal(value):
     text=str(value).strip().replace(",","").replace("$","").replace("%","").replace("+","").replace("−","-")
