@@ -86,6 +86,35 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
         raise ValueError("Weekday core_observation requires exactly four follow-up points")
     if report_date.weekday()==0 and not content["core_observation"].get("details"):
         raise ValueError("Monday core_observation requires a disclosure details paragraph")
+    fg=(data.get("risk") or {}).get("fear_greed") or {}
+    fg_source=fg.get("source") or {}
+    fg_status=str(fg_source.get("verification_status") or "").upper()
+    fg_display=str(fg.get("display") or "")
+    market_text=" ".join(content["market_analysis"]["markets"]["paragraphs"])
+    if fg_status=="VERIFIED":
+        score=fg_source.get("source_score_value")
+        if score is None:raise ValueError("Verified CNN current dashboard requires source_score_value")
+        canonical=str(int(float(score)+0.5))
+        if canonical!=fg_display or f"Fear & Greed {fg_display}" not in content["sentiment"]:
+            raise ValueError("Sentiment must reflect the verified current CNN Fear & Greed score")
+        if f"Fear & Greed {fg_display}" not in market_text:
+            raise ValueError("Markets analysis must reflect the verified current CNN Fear & Greed score")
+    elif fg_status=="BACKUP_VERIFIED":
+        score=fg_source.get("backup_source_score_value")
+        provider="FGScore" if "fgscore.com" in str(fg_source.get("url","")) else "Financial Context"
+        if score is None or str(int(float(score)+0.5))!=fg_display:
+            raise ValueError("Verified Fear & Greed backup score does not match display")
+        if provider not in content["sentiment"] or "備援" not in content["sentiment"] or fg_display not in content["sentiment"]:
+            raise ValueError("Sentiment must disclose Fear & Greed provider backup and score")
+        if provider not in market_text or "備援" not in market_text or fg_display not in market_text:
+            raise ValueError("Markets analysis must disclose Fear & Greed provider backup and score")
+    elif fg_status in ("PENDING","TOOL_READ_FAILURE","SOURCE_NO_DATA","DATE_MISMATCH"):
+        if fg_display!="待核實" or "Fear & Greed" not in content["sentiment"] or "待核實" not in content["sentiment"] or "不沿用" not in content["sentiment"]:
+            raise ValueError("Unresolved Fear & Greed must be disclosed as 待核實 and must reject stale carry-forward")
+        if "Fear & Greed" not in market_text or not any(x in market_text for x in ("待核實","未能核實")):
+            raise ValueError("Markets analysis must disclose unresolved Fear & Greed")
+    else:
+        raise ValueError(f"Unsupported Fear & Greed verification status: {fg_status!r}")
     level_items=content["key_levels"]["items"]
     if len(level_items) not in (0,5):raise ValueError("key_levels.items must be empty or contain exactly five cash-index items")
     if len(level_items)==5:
