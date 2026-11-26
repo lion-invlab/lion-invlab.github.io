@@ -523,3 +523,14 @@
 3. 對目前 Builder 新 blob 維持 `REAPPROVAL_REQUIRED`；完成程式修訂與測試後，提交 exact SHA 供使用者核准，不自動改寫核准紀錄。
 4. 完成後再執行 Main validation；Stage 5/6 真實 E2E 仍須等編輯內容與 Builder 核准條件俱備，且另行遵守正式擷取與發布權限。
 5. 本次續查未修改 Simulation、Workflow 排程、正式行情資料、Main preview 或 `index.html`。
+
+## 2026-11-27 Stage 4 驗證加固（CI 待完成）
+
+- Stage 4 政治掃描 finding 的來源 URL 原先接受 HTTP 或 HTTPS，與 Stage 4 證據品質要求不一致；已收緊為僅接受 HTTPS。
+- 新增負向測試：政治 finding 使用 HTTP 必須拒絕；政治 finding 使用六領域以外的 domain 必須拒絕；研究包 receipt 跨 Run 必須拒絕；研究包內 market snapshot SHA 與當次 Run 不一致必須拒絕。
+- 修改：
+  - `production/runner/run_stage4.py` blob `0e30c83ad54876f5450866fe2bd11eaf218494b4`
+  - `production/runner/test_stage4_content_validation.py` blob `85df5222d97fea88acaf02517ae0cd7f17357a71`
+- 對應 Main CI Run `45905791303`（HEAD `6d6b3927437d0292680b95ebc0e748d309c4c721`）目前 GitHub 回報 `pending`，尚無 jobs 可讀；不可宣稱測試通過。
+- 此次變更只加固 Stage 4 驗證器及測試，沒有生成報告內容、沒有真實研究呼叫、沒有讀取或改動任何 Simulation 檔案，沒有觸發正式擷取或發布。
+- 自動研究／編輯內容生產器仍受模型供應商、模型版本、API 憑證及付費使用授權限制。尚未獲得指定供應商與 API 使用授權前，不可啟用付費模型呼叫或宣稱 Stage 4 自動生成已完成。
