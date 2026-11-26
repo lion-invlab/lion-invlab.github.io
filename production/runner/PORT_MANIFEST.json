@@ -125,7 +125,7 @@
     "test_stage56_handoff.py"
   ],
   "not_yet_production_ready": [
-    "No automated research/model adapter currently creates report-content-YYYY-MM-DD.json from the exact captured Run; capture still hands off as AWAITING_EDITORIAL_INPUT.",
+    "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
     "Current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 differs from the historically owner-approved blob 20eefe57d6f3b389157c01b8532cae3a69128a02; reapproval of the exact current blob is required.",
     "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
@@ -156,7 +156,7 @@
       "scope": "Main compile; dual-mother SHA/Manifest; Stage 2/prebuild deterministic suite including new Stage 4 negative tests (HTTP political source, invalid political domain, cross-Run receipt, research-bundle snapshot SHA mismatch); Builder/earnings tests; isolated synthetic candidate Builder and mother DOM contract. Capture/build/schedule jobs skipped; no real-data E2E or preview delivery."
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
-    "stage4_content_producer": "NOT_IMPLEMENTED_PROVIDER_AUTHORIZATION_REQUIRED",
+    "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
     "stage4_validation_hardening": {
       "run_stage4_blob_sha": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
       "test_stage4_content_validation_blob_sha": "85df5222d97fea88acaf02517ae0cd7f17357a71",
@@ -186,7 +186,9 @@
       },
       "continuation_role": "Wait for and validate the same-day schedule Capture Run; then perform Stage 4 editorial research and trigger approved Stage 4-6 build. Not a master start schedule.",
       "schedule_event_e2e": "NOT_VERIFIED_2026-11-27_NO_SCHEDULE_CAPTURE_RUN",
-      "formal_homepage_update": "OWNER_APPROVAL_REQUIRED"
+      "formal_homepage_update": "OWNER_APPROVAL_REQUIRED",
+      "continuation_worker_enabled": true,
+      "continuation_worker_role": "After Stage 1-3 schedule Capture completes, ChatGPT automation reads the exact Run and produces run-bound editorial JSON; it does not start the report pipeline."
     }
   },
   "main_native_modules": [
