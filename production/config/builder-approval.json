@@ -2,23 +2,23 @@
   "schema_version": "1.0",
   "status": "APPROVED_MAIN",
   "builder_path": "production/runner/build_review_html.py",
-  "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+  "builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
-    "workflow_run_id": 45819680821,
-    "head_sha": "c63e7f0db95ea2f9ed51f42d8f11d4d2821de81d",
+    "workflow_run_id": 45907699637,
+    "head_sha": "6347d6d9d4e0a21528a4de7e221f1293e4fd0c81",
     "result": "PASS",
-    "scope": "main-only compile, SHA-locked dual mothers and governance inventory, Stage2/prebuild and screenshot provenance tests, Stage4 research bundle with screenshot image SHA and source data, Stage4 Run/snapshot/bundle binding, Builder approval unit tests, candidate Builder fixtures and dual-mother DOM contract",
-    "limitation": "Capture/build jobs skipped; this evidence does not establish real-data Stage 1–6 E2E. Exact Builder blob owner approval is separately recorded in owner_approval_record."
+    "scope": "Main-only deterministic validation: compile, Browser QA syntax, dual-mother SHA/Manifest, Stage2/pre-build deterministic tests, Builder/earnings tests, isolated Candidate Builder fixtures, dual-mother DOM contract.",
+    "limitation": "Capture, schedule-window and build-and-deliver jobs skipped; this evidence does not establish real-data Stage 1–6 E2E."
   },
   "approved_by_owner": true,
-  "approved_at": "2026-11-26T21:29:30+08:00",
+  "approved_at": "2026-11-27",
   "owner_approval_record": {
     "decision": "APPROVED",
-    "approved_builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
+    "approved_builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
     "approval_scope": "Main production Builder exact-blob approval only",
-    "approved_at": "2026-11-26T21:29:30+08:00",
+    "approved_at": "2026-11-27",
     "evidence": "Explicit user approval in ChatGPT conversation"
   }
 }
