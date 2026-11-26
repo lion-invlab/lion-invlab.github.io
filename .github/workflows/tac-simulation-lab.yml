@@ -332,7 +332,7 @@ jobs:
               --fixture "${REPORT_DATA}" \
               --report-date "${REPORT_DATE}" \
               --output simulation-lab/output/market-history-playwright-observations.json \
-              --concurrency 2 \
+              --concurrency 4 \
               --timeout-ms 15000
             export OBSERVATION_CAPTURE_METHOD="PLAYWRIGHT_RENDERED_HISTORY_TABLE"
           fi
