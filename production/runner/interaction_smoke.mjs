@@ -4,7 +4,7 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
 const htmlPath = path.resolve(process.argv[2] || "");
-const outputPath = path.resolve(process.argv[3] || "simulation-lab/output/interaction-smoke.json");
+const outputPath = path.resolve(process.argv[3] || "production/runs/test-output/interaction-smoke.json");
 if (!fs.existsSync(htmlPath)) throw new Error(`HTML review file not found: ${htmlPath}`);
 
 const browser = await chromium.launch({ headless: true });
@@ -83,7 +83,7 @@ try {
   // have different anchor counts; compare the output against the selected mother.
   const templateKey = process.env.TEMPLATE_KEY || "weekday";
   const templateName = templateKey === "monday" ? "monday-mother-template.html" : "weekday-mother-template.html";
-  const templatePath = path.resolve("simulation-lab/baseline", templateName);
+  const templatePath = path.resolve("production/templates", templateName);
   if (!fs.existsSync(templatePath)) throw new Error("approved mother template not found: " + templatePath);
   const templateHtml = fs.readFileSync(templatePath, "utf8");
   const templateNavTargets = await page.evaluate(html => {
@@ -216,7 +216,7 @@ try {
   }
 
   const fedAgendaLayouts = [];
-  const visualDir = "simulation-lab/output/visual";
+  const visualDir = "production/runs/visual";
   fs.mkdirSync(visualDir, { recursive: true });
   for (const width of [1440, 412, 390, 360, 320]) {
     await page.setViewportSize({ width, height: 900 });
