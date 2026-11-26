@@ -79,8 +79,8 @@ def main():
 
     # A directly observed exchange holiday is distinct from a missing quote.
     closed_data = copy.deepcopy(data)
-    closed_data["global_markets"]["日經225"]["display"] = "休市"
-    closed_data["global_markets"]["日經225"]["change_display"] = "—"
+    closed_data["global_markets"]["日經225"]["display"] = "-"
+    closed_data["global_markets"]["日經225"]["change_display"] = "休市"
     closed_data["global_markets"]["日經225"]["source"]["data_date"] = "2026-11-23"
     closed_data["report_date"] = "2026-11-24"
     closed_data["trading_date"] = "2026-11-23"
@@ -97,7 +97,7 @@ def main():
             "source_page_fetched": True,
             "source_url": closed_data["global_markets"]["日經225"]["source"]["url"],
             "target_date": "2026-11-23",
-            "expected_display_value": "休市",
+            "expected_display_value": "-",
             "instrument_identity_status": "VERIFIED",
             "instrument_identity": "Nikkei 225 cash index",
             "field_mapping_status": "VERIFIED",
@@ -123,8 +123,8 @@ def main():
     assert closed_manifest["status"] == "PENDING"
     closed_render = copy.deepcopy(closed_data)
     closed_overlay = apply_market_source_verification_manifest(closed_render, closed_manifest)
-    assert closed_render["global_markets"]["日經225"]["display"] == "休市"
-    assert closed_render["global_markets"]["日經225"]["change_display"] == "—"
+    assert closed_render["global_markets"]["日經225"]["display"] == "-"
+    assert closed_render["global_markets"]["日經225"]["change_display"] == "休市"
     assert closed_render["global_markets"]["日經225"]["qa_status"] == "market_closed"
     assert closed_overlay["closed_count"] == 1
 
