@@ -17,6 +17,8 @@
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
 ## 2026-11-26 持續修訂紀錄
+- Stage 4 Research Bundle 完整性補強：除逐列市場狀態外，資料包現在直接嵌入完整 Observation bundle、44 列 Source Manifest 與 Market Snapshot Audit；Stage 4 編輯端不必依賴同名外部檔案才能檢視來源證據。README 同步修正，並新增內容存在與狀態統計斷言。提交：`9a63526`。
+
 - Stage 2→Stage 4 交接強化：Stage 2 summary 傳遞 `market_status_counts`；Research Bundle 現在核對 Stage 2 Receipt、Summary、Manifest 的 44 列身份與逐列狀態一致，驗證 Receipt 內所有輸入檔 SHA，並將正式狀態帶入研究資料包；同時鎖定 Stage 2／Stage 3 的 report_date、trading_date、run_id 與 pinned main commit。Stage 4 validator 新增 Research Bundle trading_date 綁定。新增完整 44 列 handoff 測試。提交：`a88b76a`、`c323261`、`00dc7c6`、`44e4ee8`。
 
 - Runner 移植清單同步：`PORT_MANIFEST.json` 為三支經 Main 修訂的 Stage 2 runner 記錄目前 Main blob SHA，狀態改為 `MAIN_PATCHED_STATUS_PRESERVATION`；原 Simulation source SHA 保留作來源沿革，不再誤標 Main 程式仍是原樣複製。既有 last_validation 明確標示為本輪修正前的舊驗證。提交：`2321e301fd8c9cc03442b757e029f3f52a7fa123`。
