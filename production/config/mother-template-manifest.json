@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "purpose": "TAC main production 唯一母版 Manifest；模板內容逐位元承接 SIM-1.4 已核准的雙母版。",
+  "approved_on": "2026-11-26",
+  "approval_basis": "使用者於 2026-11-26 明確指示 main 母版以 Simulation SIM-1.4 模板為準，main 舊母版可棄用。",
+  "timezone": "Asia/Taipei",
+  "selection_rule": "依台灣報告日期的星期選擇唯一來源；週一使用 monday，週二至週五使用 weekdays；週末不自動製作",
+  "failure_policy": "來源不存在、SHA 不符、星期情境不符或必要結構驗證失敗時立即停止；禁止自動 fallback；只有使用者明確核准才可更新母版或 SHA",
+  "templates": {
+    "monday": {
+      "path": "production/templates/monday-mother-template.html",
+      "blob_sha": "710c944205ee05a86599ef5cd869f26c4a9ebde1",
+      "required_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
+      "forbidden_calendar_sections": [],
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. Simulation baseline SHA synchronized on 2026-11-22 after verifying the exact Git blob; no main mother was changed. 2026-11-22: authorized simulation-only mobile published earnings EPS/revenue cards remain two columns through 700px; formal main mother unchanged. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail. 2026-11-24: summary, five-layer analysis and sentiment panel spacing corrected with explicit 18px section margins targeting actual DOM; obsolete grid-adjacency selectors removed. 2026-11-24: responsive #earnings grid spacing parity formalized at <=1200px (row-gap 16px, column-gap 14px) in both Simulation mothers to match the approved computed baseline and resolve visual regression; no main files or homepage changed.",
+      "source_branch": "simulation/tac-process-lab-2026-11-06",
+      "source_path": "simulation-lab/baseline/monday-mother-template.html",
+      "source_blob_sha": "710c944205ee05a86599ef5cd869f26c4a9ebde1"
+    },
+    "weekdays": {
+      "path": "production/templates/weekday-mother-template.html",
+      "blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d",
+      "required_calendar_sections": [],
+      "forbidden_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。 Fed 官員週行程固定槽位位於 #fed .fc-fomc-weekly-events。 Summary and Market Sentiment section headings are statically aligned to 21px in the simulation mother; no Builder CSS injection. SIM-1.4 five-layer analysis slot added after summary and before sentiment; simulation-only baseline SHA updated 2026-11-22. 2026-11-22: at <=412px, Fed official agenda date and event content stack vertically to preserve readable mobile text width. 2026-11-22: responsive threshold expanded to <=412px; 413px and wider retain the original desktop two-column date rail. 2026-11-24: Fed/FOMC agenda grid slots explicitly separate meeting, press, current rate, observation and weekly agenda; <=560px stacks all content into one readable column. 2026-11-24: FOMC agenda grid repaired with distinct desktop grid rows and single-column mobile layout at <=560px. 2026-11-24: summary, five-layer analysis and sentiment panel spacing corrected with explicit 18px section margins targeting actual DOM; obsolete grid-adjacency selectors removed. 2026-11-24: responsive #earnings grid spacing parity formalized at <=1200px (row-gap 16px, column-gap 14px) in both Simulation mothers to match the approved computed baseline and resolve visual regression; no main files or homepage changed.",
+      "source_branch": "simulation/tac-process-lab-2026-11-06",
+      "source_path": "simulation-lab/baseline/weekday-mother-template.html",
+      "source_blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d"
+    }
+  },
+  "protected_paths": [
+    "index.html",
+    "refactor-work/design-system.css",
+    "refactor-work/source-baseline-2026-10-26.html"
+  ],
+  "change_log": [
+    {
+      "date": "2026-10-29",
+      "change": "首次建立唯一母版登記；以使用者確認的兩份最終定版檔案及其實際 Git blob SHA 鎖定來源"
+    },
+    {
+      "date": "2026-10-30",
+      "change": "依使用者核准，雙母版同步標準行情超連結與 CNN 同頁返回規則；版面及既有互動保留，僅更新連結與必要樣式。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者明確核准，將週一與週二至週五正式雙母版的經濟及財報小卡紅色圓形加減控制統一為 32×32px（含 flex-basis、width、height 與 min-height）；同步更新母版 SHA 鎖。未修改首頁、WR 或其他版面內容。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者明確指示，雙母版全球市場固定欄位同步增加新加坡 STI、澳洲 S&P/ASX 200、STOXX Europe 600；三項新增列以待核實佔位，不帶入未核實行情；同步更新母版 SHA 鎖。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者指定，全球主要市場美國／亞洲／歐洲 17 個指數名稱連結統一導向 Investing.com 香港站對應商品頁；只更新 href 與母版 SHA 鎖，未修改行情數值及版面。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者明確核准，雙母版僅將重複的工具欄提示 style/script ID 改為唯一識別值；不刪除重複區塊、不改 CSS／JavaScript 行為或版面；完成雙母版 ID 與內部錨點檢查後同步更新核准 SHA。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的 Q4 精選基金與歷史早報之間新增「📖 專題報導」連結，目標為 https://lion-invlab.github.io/special-reports.html；未建立或修改專題報導頁面及其他內容。"
+    },
+    {
+      "date": "2026-11-06",
+      "change": "依使用者明確核准，僅修復週一母版 #calendar 的 12 張本週經濟事件卡：在各 summary 內補入既有規格 econ-toggle 控制；沿用原有 32×32px 紅色圓形加減控制 CSS，不改版面、樣式、JavaScript 或其他卡片。同步更新週一母版 SHA 與結構驗收契約。"
+    },
+    {
+      "date": "2026-11-12",
+      "change": "修正模擬母版基準漂移：simulation baseline 改為與 main Manifest 核准的週一／週二至週五正式母版逐位元相同；視覺回歸直接以正式母版 SHA 比較，不再以含 simulation-only CSS 的副本作基準。"
+    },
+    {
+      "date": "2026-11-15",
+      "change": "依使用者明確授權，雙母版經濟事件卡統一為五區 DOM：前值左上、預估左下、實際右側跨兩列、市場影響與資料來源各自全寬；週一上週回顧及本週卡均套用，保留各情境既有展開控制與互動。同步更新 Manifest SHA 與 QA 契約。"
+    },
+    {
+      "date": "2026-11-15",
+      "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的「專題報導」與「歷史早報」之間新增「📈 互動式圖表」連結，目標為 https://lion-invlab.github.io/interactive-charts/；同步更新模擬母版 SHA 與工具欄驗收。未修改 main、正式首頁或其他區塊。"
+    },
+    {
+      "date": "2026-11-21",
+      "change": "依使用者指示保留 Fed 官員週行程功能；雙母版於 FOMC 活頁加入固定外層容器、標題、事件清單、事件原型及空狀態槽位。Builder 僅複製核准事件原型並填入文字／來源欄位，不再清空重建 Fed 外層 DOM；同步更新 simulation 母版 SHA。未修改 main 正式母版或首頁。"
+    },
+    {
+      "date": "2026-11-21",
+      "change": "Simulation-only mother typography correction: align #overview and #sentiment section headings at 21px in existing mother CSS; update both simulation template SHA locks. Formal main mothers remain unchanged."
+    },
+    {
+      "date": "2026-11-21",
+      "change": "Corrected simulation summary heading selector to the actual nested card title (#overview > section > article.card.bluf > .title) in the existing final mother style block; Builder remains free of heading CSS injection. Formal main mothers unchanged."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "Mobile review corrections: existing Monday mother CSS now prevents EPS/revenue values from breaking across lines; FOMC weekly speaker agenda spans both columns of the compact mobile FOMC grid so the date/content columns regain normal width. No DOM rebuild, no added style blocks, no formal main mother or homepage changes."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "Simulation-only Monday mother mobile earnings value wrap correction; preserved official main mother SHA and updated only simulation_blob_sha to the exact simulation baseline blob. Main mother and homepage remain unchanged."
+    },
+    {
+      "date": "2026-11-22",
+      "change": "依使用者明確授權，僅修正 simulation Monday mother 的手機版已公布財報 EPS／營收雙卡：移除 max-width:700px 單欄覆蓋，保留 repeat(2,minmax(0,1fr)) 雙欄；同步 simulation_blob_sha。main 正式母版、首頁與正式 Manifest 未修改。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "依使用者明確授權，僅在 simulation 雙母版總結小卡之後、既有市場情緒之前新增五層市場深度解析槽位；各層使用固定標題及獨立內容節點。同步更新雙母版 simulation_blob_sha 與 Manifest slot contract；未修改 main 正式母版、正式 Manifest 或首頁。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "修正五層分析第二層的 data key 命名，統一以 policy_industry 對應 Fixture、Manifest、母版與 QA；同步更新雙母版 simulation SHA。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "五層文章來源列改用較小灰階字級與獨立連結樣式，改善正文與來源證據層級；同步更新雙母版 SHA。"
+    },
+    {
+      "date": "2026-11-22",
+      "change": "依本輪 320px FOMC 實際截圖驗收，雙母版於 <=360px 將 Fed 官員行程日期與內容由雙欄改為上下排列；桌機及較寬手機維持原雙欄。僅更新 simulation baseline CSS 與 simulation_blob_sha；正式 main 母版、首頁及正式 Manifest 不變。"
+    },
+    {
+      "date": "2026-11-24",
+      "change": "依使用者指示修正總結、五層市場深度解析與市場情緒三區間距；移除只適用相鄰 section.grid 的舊規則，改以實際 DOM selector 為深度分析及市場情緒前方各設 18px 間距。週一與週二至週五 simulation mother SHA 同步更新；正式 main 母版不變。"
+    },
+    {
+      "date": "2026-11-24",
+      "change": "Both Simulation mother templates now explicitly preserve #earnings responsive grid gap at <=1200px (row-gap 16px, column-gap 14px), resolving the visual regression mismatch; main unchanged."
+    }
+  ],
+  "analysis_slots": {
+    "market_analysis": {
+      "required": true,
+      "fixture_key": "market_analysis",
+      "container_selector": "#market-analysis",
+      "parent_selector": "#overview",
+      "position": "after #overview > section.grid.two summary section; before #sentiment",
+      "title_selector": "#market-analysis > .title",
+      "editable_scope": "Only the five .market-analysis-content nodes; all wrapper, heading, class, ID, attributes and CSS are mother-owned and immutable.",
+      "layers": [
+        {
+          "key": "political",
+          "title": "一、政治與地緣政治局勢",
+          "section_selector": "#market-analysis [data-analysis-layer=\"political\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"political\"]"
+        },
+        {
+          "key": "policy_industry",
+          "title": "二、政策傳導與企業／產業鏈影響",
+          "section_selector": "#market-analysis [data-analysis-layer=\"policy_industry\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"policy_industry\"]"
+        },
+        {
+          "key": "macro",
+          "title": "三、宏觀經濟傳導",
+          "section_selector": "#market-analysis [data-analysis-layer=\"macro\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"macro\"]"
+        },
+        {
+          "key": "markets",
+          "title": "四、金融市場定價、情緒與風險",
+          "section_selector": "#market-analysis [data-analysis-layer=\"markets\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"markets\"]"
+        },
+        {
+          "key": "strategy",
+          "title": "五、機構資金動向與投資策略",
+          "section_selector": "#market-analysis [data-analysis-layer=\"strategy\"]",
+          "content_selector": "#market-analysis [data-analysis-content=\"strategy\"]"
+        }
+      ],
+      "mother_sha_required_for_both_scenarios": true,
+      "css_injection_allowed": false,
+      "dom_rebuild_allowed": false
+    }
+  },
+  "source_manifest": {
+    "branch": "simulation/tac-process-lab-2026-11-06",
+    "path": "simulation-lab/baseline/mother-template-manifest.json",
+    "blob_sha": "9560308371dfa43a0d352398e5ef9abcbf8ee229"
+  }
+}
