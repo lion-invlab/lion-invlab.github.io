@@ -4,10 +4,14 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import subprocess
+import sys
 import json
 import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
+from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
 from build_market_source_verification_manifest import (
     _decimal_value, _expected_change, _expected_value, _identity_matches, _numeric_match,
@@ -247,7 +251,18 @@ def main() -> None:
                         help="Fresh single-row Playwright capture of CNN official graphdata response")
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
-    data = json.loads(Path(args.data).read_text(encoding="utf-8"))
+    data_path=Path(args.data)
+    original_data = json.loads(data_path.read_text(encoding="utf-8"))
+    screenshot_sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{args.report_date}.json")
+    if screenshot_sidecar.is_file():
+        # Screenshot inputs outrank any previously assembled direct-web bundle.
+        # Delegate to the single screenshot-first browser reader, which fills only missing fields.
+        browser_script=Path(__file__).with_name("browser_verify_market_history.py")
+        subprocess.run([sys.executable,str(browser_script),"--fixture",str(data_path),
+            "--report-date",args.report_date,"--output",args.output,
+            "--timeout-ms","15000","--concurrency","2"],check=True)
+        return
+    data=blank_fixture(original_data,apply_screenshots=False)
     bundle = json.loads(Path(args.input).read_text(encoding="utf-8"))
     cnn_capture = json.loads(Path(args.cnn_observation).read_text(encoding="utf-8"))
     cnn_rows = [row for row in (cnn_capture.get("observations") or [])
@@ -262,15 +277,22 @@ def main() -> None:
             if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
         ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
+    result["row_count"]=len(result["observations"])
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    result["bundle_sha256"]=hashlib.sha256(output.read_bytes()).hexdigest()
+    populated=populate_fixture(data,result)
+    data_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({
         "output": str(output),
+        "fixture_output": str(data_path),
         "row_count": len(result["observations"]),
         "verified_count": result["verified_count"],
+        "pending_count": populated["stage2_market_bootstrap"]["pending_count"],
         "status_counts": result["status_counts"],
         "sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+        "preexisting_market_values_used": False,
     }, ensure_ascii=False))
 
 
