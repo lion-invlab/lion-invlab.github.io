@@ -152,16 +152,10 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "PENDING_NEW_EXACT_BLOB_APPROVAL",
     "last_validation": {
-      "workflow_run_id": 45903428235,
-      "head_sha": "6e2213a0a5a55214e7c213b79de74d4867cd716a",
+      "workflow_run_id": 45904153569,
+      "head_sha": "da3ac8e7478570a94b2973c53929c3abba69f357",
       "conclusion": "success",
-      "scope": "Corrected screenshot-vs-CLOSED regression fixture to mark both screenshot close and change fields; CI pending.",
-      "pending_run_ids": [
-        45903973586,
-        45903977272
-      ],
-      "latest_pending_test_fix_commit": "81a17584001d321915a0a6c3e6b59910804e9bc1",
-      "latest_pending_test_fix_blob": "6fe74dbb8e8fd23f3dc7567d89e06b31041f3f0e"
+      "scope": "Main validation passed after Taiwan-local screenshot same-day expiry guard, stale screenshot negative tests, per-field timestamp checks, and screenshot-vs-CLOSED field evidence fixture correction. Capture/build/schedule jobs skipped; not a real-data E2E."
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
