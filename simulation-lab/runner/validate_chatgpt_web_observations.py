@@ -130,7 +130,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             else:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             if group == "risk" and name == "move":
-                backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+                backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
                 attempt_url = str(raw.get("attempt_url") or "")
                 if attempt_url:
                     if attempt_url != backup_url:
@@ -262,7 +262,7 @@ def merge_move_backup_observation(result: dict, fallback: dict, primary_read_sta
     """Replace only MOVE with a separately captured TradingView backup observation."""
     if (fallback.get("group"), fallback.get("name")) != ("risk", "move"):
         raise ValueError("targeted backup capture did not return the MOVE row")
-    backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    backup_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
     if fallback.get("evidence_source_url") != backup_url:
         raise ValueError("MOVE backup evidence URL is not the pinned TradingView history page")
     if fallback.get("status") == "VERIFIED":
@@ -336,7 +336,7 @@ def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, r
                 "group": "risk", "name": "move", "source_url": raw_move.get("source_url"),
                 "target_date": raw_move.get("target_date"), "status": "TOOL_READ_FAILURE",
                 "read_status": "TOOL_READ_FAILURE", "source_role": "BACKUP_1",
-                "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/history/",
+                "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
                 "error": f"TRADINGVIEW_MOVE_BACKUP_EXCEPTION: {type(exc).__name__}: {exc}",
             }
             return merge_move_backup_observation(result, fallback, primary_status)
