@@ -4,8 +4,6 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "run_id",
-    "market_snapshot_sha256",
     "report_date",
     "trading_date",
     "news_cutoff_taipei",
