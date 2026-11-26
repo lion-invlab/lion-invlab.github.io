@@ -577,3 +577,14 @@
 - `schedule-window`、`capture-and-calendar`、`build-and-deliver` 均為 `SKIPPED`。此 Run 僅證明 deterministic validation 通過，不是 schedule Capture、真實行情擷取、Stage 4 編輯內容、Stage 5/6 交付或真實 E2E。
 - Builder 核准檔仍為歷史核准 SHA `20eefe57d6f3b389157c01b8532cae3a69128a02`；當前 Builder blob `3e5a971d6d0a3ad3d41881b542580308276021f9`。本輪重新回讀確認不一致，維持 `REAPPROVAL_REQUIRED`，未修改核准檔。
 - 下一個正式排程驗收仍是 2026-11-30 台灣 05:05 的真實 `event=schedule` Stage 1–3 Capture；不以手動 dispatch 或 push validation 代替。未修改排程、Simulation、正式首頁或真實行情資料。
+
+
+## 2026-11-27 後續 Main validation 回讀（Run 45907357998）
+
+- Main HEAD／驗證 Run `e3c10c4a89fa611d346a1e908f9fa3b55afb8c55`／Run `45907357998`：`event=push`、`conclusion=success`。
+- `validate-main-production` 14 個主要步驟全部成功，包含 Main-only provenance、Python／Browser QA 語法、雙母版 SHA／Manifest、Stage 2／Pre-build deterministic tests、Builder／earnings tests、隔離 Candidate Builder fixtures、雙母版 DOM contract。
+- `schedule-window`、`capture-and-calendar`、`build-and-deliver` 均為 `SKIPPED`。因此這是最新 Main deterministic validation 成功，不是 Stage 1–3 排程 Capture，也不是 Stage 4–6 E2E。
+- 回讀現行 workflow 確認 Stage 1–3 的雙 UTC cron 為 `5 20 * * 0-4`（EDT）及 `5 21 * * 0-4`（EST）；`schedule-window` 依 New York DST 只放行正確時段。Stage 1 建立 Run，接續 Stage 2 四頁並行、Stage 3 行事曆／財報唯讀投影及 Research Bundle。
+- 回讀 ChatGPT continuation automation：目前 `is_enabled=true`，台灣工作日單一喚醒時間 05:15，下一次為 `2026-11-30T05:15:00+08:00`；它只等待當日 Stage 1–3 的 schedule Capture，不是主啟動器。
+- Builder current blob `3e5a971d6d0a3ad3d41881b542580308276021f9` 仍與歷史核准 blob `20eefe57d6f3b389157c01b8532cae3a69128a02` 不一致；本次不修改核准檔、不觸發 build marker。
+- 下一個真實排程驗收窗口：台灣 2026-11-30 05:05（UTC `2026-11-29T21:05:00Z`）。不得用 push validation 或手動 dispatch 代替 schedule event；不得修改正式首頁或 Simulation。
