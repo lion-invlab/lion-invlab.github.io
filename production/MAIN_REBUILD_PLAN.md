@@ -325,3 +325,12 @@
 - 已完成：24 份 Workflow 的觸發類型清冊；Main capture、Chart 3 increment/merge、Simulation-to-main preview、archive、Pages 等主要寫入流程的第一輪實際命令與權限核對。
 - 尚未完成：全部 24 份 workflow 的完整 permissions／branch filters／path filters／concurrency／write-set 機器可讀矩陣；Chart 3 writer 的檔案白名單與相互觸發圖；所有舊 workflow 對 preview/index/history 的潛在寫入掃描。
 - R0 維持 IN_PROGRESS；R1 維持 NOT_STARTED。未開始 R2/R3 Runner 修改，未更改任何排程或 Automation。
+
+
+#### H7. Chart 3 FRED workflow 觸發範圍精確校正
+進一步回讀 `.github/workflows/tac-chart3-incremental.yml` 全文後，修正 H5 的風險描述：
+- 觸發器不是對 `data/tac-chart3/**` 的一般 push，而是 main 上 `.github/scripts/tac_chart3_incremental_trigger.py` 路徑變更。
+- Workflow checkout main 後，執行 FRED／ALFRED 系列增量程式，再以 `git add data/tac-chart3` 提交變更。
+- 因此，Main Stage 2 提交 S&P 500 ledger 的一般資料 push **不會單憑該資料路徑觸發**這支 FRED workflow；先前將它描述成會由 ledger push 直接觸發，並無 YAML 證據，予以撤回。
+- 仍保留一項較窄的檢查：該 workflow 的 stage 範圍是整個 `data/tac-chart3`，R0/R1 需確認乾淨 checkout 下只有 FRED/ALFRED 程式修改其系列檔，並核對與 S&P500 merge writer 的 branch push 競爭控制；目前沒有證據顯示它會主動改寫 S&P500 ledger。
+
