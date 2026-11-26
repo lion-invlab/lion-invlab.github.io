@@ -154,7 +154,10 @@ class BootstrapTests(unittest.TestCase):
                     "closure_evidence_text":"Official calendar says closed.",
                     "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
                     "closure_evidence_line_end":12,
-                    "field_evidence":{"close":{"source_type":"USER_PROVIDED_SCREENSHOT"}}})
+                    "field_evidence":{
+                        "close":{"source_type":"USER_PROVIDED_SCREENSHOT","value":"97.54"},
+                        "change":{"source_type":"USER_PROVIDED_SCREENSHOT","value":"-1.32"},
+                    }})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
         item=result["risk"]["move"]
         self.assertEqual(item["source"]["verification_status"],"PENDING")
