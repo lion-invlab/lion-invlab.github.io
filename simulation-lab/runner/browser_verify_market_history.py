@@ -666,7 +666,7 @@ def main():
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
     if screenshot_inputs:
         observations=apply_page_completions_to_fixture(data,observations,screenshot_inputs)
-        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         counts={}
         for item in observations:
             counts[item.get("status","UNKNOWN")]=counts.get(item.get("status","UNKNOWN"),0)+1
