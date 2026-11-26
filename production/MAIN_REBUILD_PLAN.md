@@ -608,3 +608,12 @@
 - PORT_MANIFEST.json 已同步登記 exact-SHA 核准及 Run 45908064532 PASS。
 - Stage 4 continuation automation 回讀為 is_enabled=true，台灣工作日單一 05:15 喚醒，下一次 2026-11-30T05:15:00+08:00。唯一主流程仍由 Main workflow schedule 啟動 Stage 1–3；下一個真實 schedule 驗收為台灣 2026-11-30 05:05（UTC 2026-11-29T21:05:00Z）。
 - 後續不得以 push validation 或手動 dispatch 冒充 schedule Capture；需先取得當日 event=schedule 的 Stage 1–3 Run 與完整 receipts，再由 Stage 4 接續。正式首頁與 Simulation 均未觸及。
+
+
+
+## 2026-11-27｜Main Stage 1–2 日期契約與最新 CI 校正
+- 已直接回讀 Stage 1／Stage 2 WR、RUN／SOURCE／DATA contracts、狀態列舉、截圖 schema、Stage 2 README 及相關 Runner／Validator／Receipt Builder。Stage 1 以 NYSE 最近已完成交易日作唯一 trading_date；Stage 2 明文要求 44 項 target_date 共用該日期，不得逐市場回退日期。程式的 Bootstrap、Observation、Manifest、Receipt 與 Screenshot parser 在此規則上相互一致，故本輪不改日期模型。
+- 截圖輸入必須是當日 sidecar＋封存原圖、真實 SHA-256、具時區 captured_at；截圖台灣日期等於 report_date，data_date 等於 trading_date。截圖欄位優先、缺欄才補讀；歷史頁 concurrency 上限 4，不繞過 Cloudflare。休市須官方日曆證據及 reader ref／行號；SOURCE_NO_DATA 與 TOOL_READ_FAILURE 嚴格區分。
+- Builder current blob `3e5a971d6d0a3ad3d41881b542580308276021f9` 已取得使用者 exact-SHA 核准，核准檔 blob `c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928`。根目錄 WR v5.17 已停用，Main 唯一規範仍為 `production/MASTER_WR.md` v1.1。
+- PORT_MANIFEST 狀態同步 commit `b814101ac82a860bb5622662c9f2e06a57ae4e7f`，blob `e5e9eecbcdf64cc1a90568063123445204235c97`。CI Run `45911061965` SUCCESS；僅 validate-main-production PASS，schedule-window／capture-and-calendar／build-and-deliver SKIPPED，並非真實 E2E。
+- 下一個真實排程驗收窗口：台灣 2026-11-30 05:05（UTC 2026-11-29T21:05Z），只接受 event=schedule Stage 1–3 receipts；05:15 continuation 等待同一 Run。不得手動 dispatch 取代正式排程，不更新首頁、不修改 Simulation。
