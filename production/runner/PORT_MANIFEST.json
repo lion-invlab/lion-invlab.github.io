@@ -113,7 +113,8 @@
     "test_full_candidate_builder.py",
     "test_market_analysis_browser.mjs",
     "interaction_smoke.mjs",
-    "visual_regression.mjs"
+    "visual_regression.mjs",
+    "test_stage56_handoff.py"
   ],
   "not_yet_production_ready": [
     "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
@@ -213,20 +214,26 @@
     },
     {
       "file": "run_stage5.py",
-      "purpose": "Stage 5 exact Stage 4 evidence, snapshot and Builder binding",
-      "main_blob_sha": "09cf39818b6da033840000c20422887b2034d6e9",
+      "purpose": "Testable Stage 4 to Stage 5 identity/snapshot/bundle validator",
+      "main_blob_sha": "94f50a0b251fa5a0987cc4dee1c967d2decb86ae",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "run_stage6.py",
-      "purpose": "Stage 6 verifies Stage 5 render manifest and Stage 4 evidence before preview delivery",
-      "main_blob_sha": "881dbd925dd8f5c552d26b1734044f6a9f3dbf58",
+      "purpose": "Testable Stage 5 to Stage 6 render/Stage 4 evidence validator",
+      "main_blob_sha": "c60835291308073db7cc021f5d3861c19eb9e34d",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "test_stage4_content_validation.py",
       "purpose": "Stage 4 exact Run/date/research bundle binding regression test",
       "main_blob_sha": "895256641f3e333669c3b193e9670991726bb535",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "test_stage56_handoff.py",
+      "purpose": "Positive and negative regression tests for Stage 5/6 exact Run/date/SHA handoff",
+      "main_blob_sha": "NEW",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     }
   ],
