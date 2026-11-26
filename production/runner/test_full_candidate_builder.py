@@ -9,8 +9,8 @@ from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 
 ROOT = Path(__file__).resolve().parents[2]
-RUNNER = ROOT / "simulation-lab" / "runner"
-OUT = ROOT / "simulation-lab" / "output" / "candidate-validation"
+RUNNER = ROOT / "production" / "runner"
+OUT = ROOT / "production" / "runs" / "candidate-validation"
 FIXTURES = OUT / "fixtures"
 FIXTURES.mkdir(parents=True, exist_ok=True)
 OUT.mkdir(parents=True, exist_ok=True)
@@ -32,7 +32,7 @@ cases = [
 ]
 outputs = []
 for report_date, template_key, source_name in cases:
-    source = ROOT / "simulation-lab" / "fixtures" / source_name
+    source = ROOT / "production" / "testdata" / source_name
     data = json.loads(source.read_text(encoding="utf-8"))
     # Synthetic cross-date candidate fixtures must not replay report-date-specific calendar overrides.
     # Those overrides are validated against their own W48 source IDs and are irrelevant to the Builder layout regression.
@@ -118,7 +118,7 @@ for report_date, template_key, source_name in cases:
         raise SystemExit(f"{template_key}: output lacks candidate-validation-only provenance marker")
     if "CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS" not in output_path.read_text(encoding="utf-8"):
         raise SystemExit(f"{template_key}: synthetic-only blocker missing; candidate output could be mistaken for production")
-    mother_path = ROOT / "simulation-lab" / "baseline" / (
+    mother_path = ROOT / "production" / "templates" / (
         "monday-mother-template.html" if template_key == "monday" else "weekday-mother-template.html"
     )
     subprocess.run([
