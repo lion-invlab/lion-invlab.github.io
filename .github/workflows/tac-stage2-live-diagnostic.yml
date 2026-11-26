@@ -5,6 +5,8 @@ on:
       - simulation/tac-process-lab-2026-11-06
     paths:
       - .github/workflows/tac-stage2-live-diagnostic.yml
+      - simulation-lab/runner/stage2_market_fixture_bootstrap.py
+      - simulation-lab/runner/browser_verify_market_history.py
   workflow_dispatch:
     inputs:
       report_date:
@@ -56,6 +58,15 @@ jobs:
             echo "screenshot_sidecar=absent" >> "$GITHUB_OUTPUT"
           fi
           mkdir -p simulation-lab/output/stage2-diagnostic
+      - name: Create zero-value 44-row market input
+        shell: bash
+        env:
+          REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/stage2_market_fixture_bootstrap.py blank \
+            --data "simulation-lab/fixtures/report-data-${REPORT_DATE}.json" \
+            --output simulation-lab/output/stage2-diagnostic/report-data-blank.json
       - name: Run direct Investing.com Historical Data browser capture
         id: capture
         shell: bash
@@ -64,10 +75,18 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/browser_verify_market_history.py \
-            --fixture "simulation-lab/fixtures/report-data-${REPORT_DATE}.json" \
+            --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
             --report-date "$REPORT_DATE" \
             --output simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json \
             --timeout-ms 15000 --concurrency 2
+      - name: Populate fresh market Fixture from current-run observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/stage2_market_fixture_bootstrap.py apply \
+            --data simulation-lab/output/stage2-diagnostic/report-data-blank.json \
+            --observations simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json \
+            --output simulation-lab/output/stage2-diagnostic/report-data-populated.json
       - name: Build 44-row source manifest
         shell: bash
         env:
@@ -75,7 +94,7 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/build_market_source_verification_manifest.py \
-            --data "simulation-lab/fixtures/report-data-${REPORT_DATE}.json" \
+            --data simulation-lab/output/stage2-diagnostic/report-data-populated.json \
             --report-date "$REPORT_DATE" \
             --observations simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json \
             --output simulation-lab/output/stage2-diagnostic/market-source-verification-manifest.json
@@ -86,7 +105,7 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/validate_market_snapshot.py \
-            --data "simulation-lab/fixtures/report-data-${REPORT_DATE}.json" \
+            --data simulation-lab/output/stage2-diagnostic/report-data-populated.json \
             --report-date "$REPORT_DATE" \
             --output simulation-lab/output/stage2-diagnostic/market-snapshot-audit.json
       - name: Emit Stage 2 diagnostic summary
@@ -119,6 +138,7 @@ jobs:
           name: tac-stage2-diagnostic-${{ inputs.report_date || '2026-11-26' }}
           path: |
             simulation-lab/output/stage2-diagnostic/
-            simulation-lab/fixtures/report-data-${{ inputs.report_date || '2026-11-26' }}.json
+            simulation-lab/output/stage2-diagnostic/report-data-blank.json
+            simulation-lab/output/stage2-diagnostic/report-data-populated.json
           if-no-files-found: warn
           retention-days: 14
