@@ -167,6 +167,7 @@ def main() -> None:
     partial["pending_count"] = 1
     partial["closed_count"] = 1
     partial["displayed_values_independently_reconciled"] = False
+    partial["displayed_values_reconciled"] = False
     partial["browser_observation_records_complete"] = False
     pending_row = partial["rows"][0]
     pending_row.update({
