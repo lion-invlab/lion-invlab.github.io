@@ -12,6 +12,8 @@ The only workflow entry is `.github/workflows/tac-production.yml`:
 
 There is no `run_daily_report.py` orchestrator; the GitHub Actions workflow is the single entrypoint and owns sequencing, permissions, commit boundaries and dispatches.
 
+Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WRs, all shared contracts, both mother configuration files, schemas, Builder approval, Builder, Stage runners/dependencies and the relevant GitHub workflows. Stage 5 compares the exact inventory against current main and refuses cross-version builds.
+
 ## Builder status
 
 - SIM-1.4 Builder source SHA: `6bf6eb2f5ae29774addf696c541c5b806953c7a3`.
