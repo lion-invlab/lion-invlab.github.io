@@ -460,8 +460,8 @@ def _apply_screenshot_fields(row, observation, screenshot):
         return observation
     fields=screenshot["fields"]
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
-    value_key="score" if is_fg and "score" in fields else "close"
-    change_key="band" if is_fg and "band" in fields else "change"
+    value_key="score" if is_fg else "close"
+    change_key="band" if is_fg else "change"
     evidence={}
     for key,item in fields.items():
         evidence[key]={
@@ -537,7 +537,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     else:
         observation["observed_value_key"]=value_key
         evidence[value_key]={
-            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
+            "source_type":"CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
             "field_name":observation.get("observed_value_field"),
             "value":page_value,"observed_at":observation.get("finished_at_tw"),
         }
@@ -557,7 +557,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "value":page_change,"observed_at":observation.get("finished_at_tw"),
         }
     observation["field_evidence"]=evidence
-    observation["read_method"]="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+    observation["read_method"]="MIXED_SCREENSHOT_AND_OFFICIAL_SOURCE" if is_fg else "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
     observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
     observation["read_status"]="MIXED_FIELD_OBSERVATIONS_CONFIRMED"
     observation["status"]=(
