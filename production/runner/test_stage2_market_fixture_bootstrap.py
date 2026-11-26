@@ -185,6 +185,25 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["change_display"],"待核實")
         self.assertEqual(item["source"]["verification_status"],"PENDING")
 
+    def test_official_market_closure_applies_to_sector_rows(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("sectors","XLE"))
+        row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+                    "observed_value":None,"observed_change":None,
+                    "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+                    "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
+                    "instrument_identity":"XLE ETF","instrument_identity_status":"VERIFIED",
+                    "field_mapping_status":"VERIFIED","finished_at_utc":"2026-11-26T22:00:00Z",
+                    "closure_evidence_url":"https://www.asx.com.au/markets/trade-our-cash-market",
+                    "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
+                    "closure_evidence_line_end":12})
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        self.assertEqual(result["sectors"]["XLE"],"-")
+        self.assertEqual(result["sector_sources"]["XLE"]["history_close"],"-")
+        self.assertEqual(result["sector_sources"]["XLE"]["change_display"],"休市")
+        self.assertEqual(result["sector_sources"]["XLE"]["verification_status"],"CLOSED")
+
     def test_official_market_closure_uses_dash_for_value_and_reason_for_change(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
