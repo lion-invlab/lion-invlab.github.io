@@ -4506,3 +4506,13 @@ SIM-1.3要求11/23早報納入亞洲市場實際開盤及盤中反應，但既�
 - 非啟用 Sidecar 草稿：`simulation-lab/evidence/manual-screenshots/market-screenshot-observations-2026-11-26.pending.json`；含 MOVE 97.54、-1.32%、99.32／102.73／97.40，以及 Hang Seng 21,966.01、-1.14%、22,252.81／22,507.83／21,915.88。圖片路徑與 SHA 均已列入，但三張原始 PNG 尚未進入 Simulation checkout，故不得啟用。
 - 11/26 舊 Fixture MOVE 的 source_role、截圖 SHA 與 OHLC 與原圖不一致；未在缺少 repo 二進位證據時擅自改寫成機器可驗證狀態。原圖已在 Library 找回並檢視，需完成 binary upload 後再啟用 Sidecar。
 - 待完成：binary evidence 入庫；確認 full-regression 實際 Run；延後 MOVE retry 尚未排程。GitHub Actions workflow mirror 位於 main 保護範圍，若需 schedule 觸發必須同步改 main workflow，尚未獲明確授權。
+
+
+## 2026-11-26｜MOVE 單項補查 Runner 已建立
+
+- 新增 `simulation-lab/runner/stage2_move_retry.py`，blob SHA `1b6fb9f5741b15123f1a6b8c20d2e23b4131ba04`。此 Runner 只讀取 MOVE（Investing.com 優先、TradingView ICE:MOVE 備援），以 no-fixture-write 模式取得單筆新 Observation；合併後明確記錄 43 筆舊 Observation 沿用，並把全體本輪重新擷取／數值複核旗標設為 false。
+- Runner 以 44-row 原始 Observation 重新建構新 Fixture，並比較所有非 MOVE 行情的顯示值、漲跌及歷史值；任何 43 項非 MOVE 變動即停止，不覆寫原始 Fixture。
+- Workflow 原本會執行的 `test_validate_chatgpt_web_observations.py` 已加入 MOVE-only retry 測試：成功補值、仍待更新保持 null、43 筆非 MOVE Observation canonical JSON 完全不變。測試 blob SHA `acdbb3810e4eb400acd8a9b6bd821822d6016fb9`。
+- 最新 full-regression trigger commit：`bf4d6789bce6002a20e220a89e7954bece7956d3`；GitHub combined status 尚為空，沒有可回讀 Run ID／結果，故測試仍 NOT_CONFIRMED。
+- 目前已完成：no-fixture-write 隔離、截圖來源角色修正、MOVE／Hang Seng 截圖欄位映射、HK 原生欄名支援、非啟用 sidecar 草稿、MOVE 單項補查核心 Runner。尚未完成：實際 full-regression 結果、正式 binary evidence 入庫、retry schedule wiring、Manifest／Audit／Prebuild Receipt／HTML QA 的 delayed retry E2E。
+- 延後排程的唯一安全接線方式需新增 GitHub Actions schedule／workflow_run 路徑；現有 workflow mirror SHA 必須 main/default 與 Simulation 一致。因 main workflow 是保護資產，尚未取得同步修改 main workflow 的明確授權，故未修改任何 Workflow 檔案。
