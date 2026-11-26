@@ -560,3 +560,11 @@
 - production/runner/PORT_MANIFEST.json 已同步記錄此 ChatGPT continuation worker；但這不代表 E2E 已通過，也不改變 Stage 5 Builder exact-blob approval gate。
 - **現存正式阻塞**：Main Builder 當前 blob 3e5a971d6d0a3ad3d41881b542580308276021f9 與歷史核准 blob 20eefe57d6f3b389157c01b8532cae3a69128a02 不一致，仍須對當前 exact blob 取得使用者核准；未核准前不得觸發 Stage 5/6 build。
 - **下一驗收順序**：先在下一個工作日取得真實 event=schedule Stage 1–3 Capture；再驗證 ChatGPT continuation 研究與 JSON；同時先完成 Builder 當前 blob 的核准流程，最後才可執行 Stage 4–6 E2E。不得為了趕進度跳過任一條件。
+
+
+## 2026-11-27 首次排程窗口根因判定
+
+- 以 GitHub Actions 實際 run metadata 核對：最新 schedule/workflow 變更提交 `67c79b4fb6c98e78f03867dfa8695233fcf27d9c` 建立於 `2026-11-26T22:46:32Z`；11/27 台灣 05:05 的冬令啟動窗口等於 `2026-11-26T21:05:00Z`。因此該 workflow 在預定窗口後約 1 小時 41 分才更新到 main，11/27 沒有 schedule Capture 屬於錯過首次排程窗口，不能據此判定 cron 表達式失效。
+- 11/27 可見的 Main pipeline runs `45897439038`、`45897601608` 是 `event=push`，其 `capture-and-calendar` 與 `schedule-window` 均 skipped；最新文件驗證 run `45906904274` 同樣是 `event=push`，`validate-main-production` 執行中，Capture／Build／schedule-window 均 skipped。這些都不是早報排程執行。
+- 現行 cron `5 21 * * 0-4` 在美國冬令時間對應台灣週一至週五 05:05；下一個預期 schedule event 為 `2026-11-29T21:05:00Z`（台灣 `2026-11-30T05:05:00+08:00`）。夏令時間對應 `5 20 * * 0-4`（台灣 04:05）。
+- 已將此時間根因、實際 Run event 類型及下一個預期窗口同步寫入 PORT_MANIFEST。未手動 dispatch capture，未啟動真實行情擷取，避免把測試當成排程驗收。
