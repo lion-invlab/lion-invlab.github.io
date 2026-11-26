@@ -18,13 +18,12 @@ Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WR
 
 - SIM-1.4 Builder source SHA: `6bf6eb2f5ae29774addf696c541c5b806953c7a3`.
 - Main-path candidate: `production/runner/build_review_html.py`, exact blob SHA recorded in `production/config/builder-approval.json`.
-- Candidate deterministic tests have passed, but this does not equal main Builder owner approval or real-data E2E.
-- Stage 5 now refuses production `REVIEW_READY` until the exact current Builder blob is explicitly marked `APPROVED_MAIN` in the approval record.
+- The exact Main Builder blob `20eefe57d6f3b389157c01b8532cae3a69128a02` is explicitly owner-approved in `production/config/builder-approval.json` (`APPROVED_MAIN`, approved 2026-11-26 21:29 Asia/Taipei). This approval covers that exact Builder blob only; it does not substitute for real-data Stage 1–6 E2E or any Stage 5/6 QA Gate.
 
 ## Current blockers
 
 1. No automated editorial research/content producer yet creates `production/input/report-content-YYYY-MM-DD.json` from the exact captured Run. This remains the handoff between capture and build.
-2. Main Builder approval remains `CANDIDATE_PENDING_OWNER_APPROVAL`.
+2. Main Builder exact-blob approval is complete (`APPROVED_MAIN`); real-data Stage 1–6 E2E and Stage 5/6 delivery QA remain outstanding.
 3. Stage 5/6 real-data E2E and public Pages verification remain untested.
 4. Daily schedule must not be cut over until those items are resolved.
 
