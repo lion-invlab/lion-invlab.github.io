@@ -22,7 +22,7 @@ def validate(key: str) -> dict:
     if actual != record["blob_sha"]:
         raise SystemExit(
             f"{key}: production mother SHA mismatch actual={actual} "
-            f"expected={record['simulation_blob_sha']}"
+            f"expected={record['blob_sha']}"
         )
 
     if record.get("path") != str(isolated_path.relative_to(ROOT)):
