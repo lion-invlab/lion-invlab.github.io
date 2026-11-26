@@ -39,9 +39,9 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git branch --show-current)" = "main"
-          if find production/runner -type f \\( -name '*.py' -o -name '*.mjs' \\) -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' | grep -q .; then
+          if grep -RIlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' --include='*.py' --include='*.mjs' production/runner | grep -q .; then
             echo "Production runtime contains a Simulation path dependency." >&2
-            find production/runner -type f \\( -name '*.py' -o -name '*.mjs' \\) -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' || true
+            grep -RIlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' --include='*.py' --include='*.mjs' production/runner || true
             exit 1
           fi
           echo "MAIN_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
@@ -128,6 +128,10 @@ jobs:
             --mother production/templates/monday-mother-template.html \
             --report production/runs/candidate-validation/2026-11-23-candidate.html \
             --template monday
+          python production/runner/validate_mother_dom_contract.py \
+            --mother production/templates/weekday-mother-template.html \
+            --report production/runs/candidate-validation/2026-11-20-candidate.html \
+            --template weekdays
 
       - name: Upload main production validation evidence
         if: always()
