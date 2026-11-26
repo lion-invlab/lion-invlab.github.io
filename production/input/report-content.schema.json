@@ -4,6 +4,8 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "run_id",
+    "market_snapshot_sha256",
     "report_date",
     "trading_date",
     "news_cutoff_taipei",
@@ -408,6 +410,14 @@
         }
       },
       "additionalProperties": true
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "market_snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     }
   },
   "$defs": {
@@ -463,18 +473,6 @@
         }
       },
       "additionalProperties": true,
-      "anyOf": [
-        {
-          "required": [
-            "updated_at_source"
-          ]
-        },
-        {
-          "required": [
-            "updated_at_tw"
-          ]
-        }
-      ],
       "anyOf": [
         {
           "required": [
