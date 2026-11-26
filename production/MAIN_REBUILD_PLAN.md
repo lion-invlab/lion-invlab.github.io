@@ -486,3 +486,10 @@
 - 已修正測試：同時明確提供 close=97.54 與 change=-1.32 的 USER_PROVIDED_SCREENSHOT field_evidence，讓測試真正驗證兩欄都不得被 CLOSED 覆蓋。Main commit `81a17584`，blob `6fe74dbb8e8fd23f3dc7567d89e06b31041f3f0e`。
 - 這是測試資料修正，不放寬程式規則；截圖只保護實際有截圖證據的欄位。
 - 同日有效期變更 CI 仍未完成；不得標示 PASS。
+
+
+## 2026-11-27 截圖當日有效期與截圖優先權 CI 驗收
+- Main CI Run `45904128098`（commit `81a17584001d321915a0a6c3e6b59910804e9bc1`）SUCCESS；截圖與 CLOSED 衝突回歸測試通過。
+- Main CI Run `45904153569`（HEAD `da3ac8e7478570a94b2973c53929c3abba69f357`）SUCCESS；涵蓋同日有效期載入器、舊日期截圖拒絕、欄位級 captured_at 檢查、無時區時間戳拒絕，以及修正後的截圖／CLOSED 衝突測試。
+- 驗收範圍僅為 Main deterministic validation；capture-and-calendar、build-and-deliver、schedule-window 均 skipped。未執行真實 44 項行情擷取、早報 E2E、排程切換或正式首頁更新。
+- PORT_MANIFEST 已記錄最新成功 Run 與精確 HEAD SHA。截圖規則可標記為程式與 CI 測試通過，但真實 Run 尚未實測。
