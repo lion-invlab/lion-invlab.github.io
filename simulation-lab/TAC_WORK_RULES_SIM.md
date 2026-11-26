@@ -86,6 +86,20 @@
 9. **自動化邊界：** GitHub Runner 只能讀取已存在於 Simulation checkout 的圖片與 Sidecar；聊天附件不會自動出現在 Runner 檔案系統。若截圖由對話提供，必須先把原圖及 Sidecar 封存到上述 Repository 路徑，再觸發當輪 Workflow。不得以文字描述或人工抄值取代原始圖片證據。
 
 
+### 0.5.4 Stage 2 零行情值起跑、當輪回填與 Receipt 凍結（2026-11-26 實作增補）
+
+1. **禁止以舊行情值作本輪擷取基準：** Stage 2 每輪開始時，必須先建立當輪零行情值輸入。可保留報告日期、交易日期、44 項標的清單、正式來源 URL、標的／合約識別、quote_type、欄位格式及非行情報告內容；必須清除所有舊 close、daily change、history close/change、score、previous close、OHLC、舊 observation、舊 screenshot record、舊 evidence hash／timestamp 及含舊數值的來源備註。不得以 Fixture 內既有數字當作 expected value，也不得在來源失敗時把舊數字帶回。
+2. **零行情值證明：** 當輪輸入須附 stage2_market_bootstrap metadata，至少記錄 status、row_count=44、report_date、trading_date、preexisting_market_values_used=false、screenshot_row_count 與 screenshot_field_count。若無法證明舊行情值已清除，Stage 2 不得標記已從零起跑。
+3. **截圖與頁面順序：** 先讀取並驗證當日 Sidecar；有截圖欄位即先寫入零值輸入。其後依序使用當日、同交易日的直接歷史頁 Observation bundle，或 Playwright 直接開啟 Investing.com Historical Data 頁補齊缺欄。當日 Screenshot Sidecar 永遠優先於任何 Web Observation bundle；Sidecar 存在時，必須走 screenshot-first browser reader，不能先用 Web bundle 覆蓋截圖欄位。沒有 Sidecar 時，才可使用符合 0.5.1／0.5.2 的當日直接歷史頁 Observation bundle；若沒有有效 bundle，直接開啟核准歷史頁。
+4. **欄位回填：** 只可將本輪 VERIFIED／BACKUP_VERIFIED／CLOSED Observation 回填至當輪 Fixture。截圖純輸入、截圖與歷史頁混合、純歷史頁及官方 Fear & Greed 觀察均須保留逐欄來源。歷史頁讀取失敗或目標列不存在時，該欄保持 PENDING／SOURCE_NO_DATA／TOOL_READ_FAILURE 並顯示「待核實」；部分截圖已提供的欄位必須保留，但 CFD 參考列的 Close／Change 未同時具備有效證據時仍須隱藏整組數值。不得以舊值填補。
+5. **正式 Runner 行為：** browser_verify_market_history.py 與 validate_chatgpt_web_observations.py 的正式入口均須 blank-first，再將本輪 Observation 回填至同一工作目錄 Fixture。兩者可提供 no-fixture-write 模式，供診斷工作流將 capture 與 apply 分開驗收；正式早報入口預設必須完成回填。若當日 Screenshot Sidecar 存在，validate_chatgpt_web_observations.py 必須委派 screenshot-first browser reader，不得使用舊 Web bundle 取代截圖。
+6. **不得覆寫 Repository 原始 Fixture：** 正式 Workflow 在隔離工作目錄中對選定 Fixture 執行 blank/apply；不得將本輪回填後的每日 Fixture commit 回 Simulation 或 main。原始 Fixture 保持為非行情資料與來源中繼資料的輸入基準；本輪回填後 Fixture、Observation、Manifest、Audit 與 Receipt 作為本輪 Artifact／收據封存。
+7. **Stage 2 Receipt：** 每輪必須建立 SHA-256 綁定的 Stage 2 market snapshot receipt，至少包含報告日、交易日、Workflow Run ID、commit SHA、batch_id、44 列、verified／pending／closed 數量、Fixture SHA、Observation bundle SHA、Manifest SHA、Metadata Audit SHA、逐列來源與 Observation／Manifest record SHA。Receipt 必須檢查 Fixture、Observation、Manifest 的 44 項 identity set 完全一致；已 VERIFIED 列的值、日期、URL 與 record SHA 必須一致；PENDING 列不得殘留舊數值；CLOSED 列必須有對應休市狀態。
+8. **狀態不可混淆：** 44 列結構完整且 Metadata Audit PASS，不代表 44 項行情已 VERIFIED。Receipt 的 verified+pending+closed 必須等於 44；有任一 pending 時 Receipt 狀態為 PARTIAL，不得宣稱 44 項 E2E 全數通過、不得標記 REVIEW_READY。非核心行情缺漏依 0.4 繼續無依賴工作，不得擅自停掉整份早報。
+9. **下游凍結：** Stage 2 Receipt 建立後，Stage 3–6 只能讀取本輪 populated Fixture／Manifest／Receipt；不得重新擷取、回填或改寫 44 項行情。任何補值必須針對單一 PENDING 列建立新 Observation、重新產生受影響 Manifest／Receipt，並只重跑受影響的下游工作。
+10. **診斷範圍：** 「零行情值起跑」指 44 項市場行情數值與舊觀察證據清空；不代表整份報告的新聞、行事曆、摘要或其他非行情內容必須從空白重建。診斷與正式流程都必須明確標示此範圍，不得將市場行情零值測試誤稱整份報告全空白 E2E。
+
+
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
 - Simulation 早報自動任務的唯一正式觸發方式，是對 `simulation/tac-process-lab-2026-11-06` 提交 commit，且 commit message 含當日標記 `[build-tac-report:YYYY-MM-DD]`。一般 push 不代表完整製作；不得要求或依賴 workflow_dispatch、tag-push 或其他觸發入口。
 - workflow_dispatch 僅在該 Workflow 存在於 Repository 預設分支且可被 GitHub 接受時才可能使用；它不是 Simulation 早報排程的必要條件，不得因其不可用而停止執行。
