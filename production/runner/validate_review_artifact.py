@@ -169,8 +169,11 @@ def main():
         raise SystemExit("historical SIM-1.4 draft must be explicitly superseded and non-executable")
     fixture_path = provenance.get("fixture_path", "")
     if not fixture_path.startswith("production/runs/"):
-        raise SystemExit("fixture provenance path outside approved simulation fixtures")
-    fixture_bytes = git_show(build_commit, fixture_path)
+        raise SystemExit("fixture provenance path outside current production Run")
+    fixture_file = ROOT / fixture_path
+    if not fixture_file.is_file():
+        raise SystemExit(f"current Run fixture is missing: {fixture_path}")
+    fixture_bytes = fixture_file.read_bytes()
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
         raise SystemExit("fixture provenance SHA does not match immutable build commit")
     fixture = json.loads(fixture_bytes)
