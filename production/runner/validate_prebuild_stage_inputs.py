@@ -9,6 +9,7 @@ import os
 import re
 import subprocess
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -40,6 +41,24 @@ def load_json(path: str | Path) -> tuple[dict, str]:
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise ValueError(message)
+
+def parse_taipei_datetime(value: str) -> datetime:
+    raw = str(value).strip()
+    try:
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        parsed = None
+        for fmt in ("%Y-%m-%d %H:%M", "%Y/%m/%d %H:%M", "%Y-%m-%d %H:%M:%S", "%Y/%m/%d %H:%M:%S"):
+            try:
+                parsed = datetime.strptime(raw, fmt)
+                break
+            except ValueError:
+                continue
+        if parsed is None:
+            raise ValueError(f"invalid Taiwan-local datetime: {value!r}")
+    if parsed.tzinfo is not None:
+        parsed = parsed.astimezone(ZoneInfo("Asia/Taipei")).replace(tzinfo=None)
+    return parsed
 
 
 def validate_branch(repository: str, branch: str) -> None:
@@ -274,9 +293,8 @@ def validate_stage4(data: dict, report_date: str) -> dict:
     start_match = re.search(r"(\d{4}[-/]\d{2}[-/]\d{2} \d{2}:\d{2})", str(data.get("news_window_taipei", "")))
     end_text = data.get("news_cutoff_taipei")
     require(start_match and end_text, "news window start/cutoff missing")
-    start_text = start_match.group(1).replace("/", "-")
-    start = datetime.strptime(start_text, "%Y-%m-%d %H:%M")
-    end = datetime.strptime(str(end_text).replace("/", "-")[:16], "%Y-%m-%d %H:%M")
+    start = parse_taipei_datetime(start_match.group(1))
+    end = parse_taipei_datetime(str(end_text))
     require(start <= end, "news window is inverted")
     for item in all_news:
         url = item.get("url", "")
@@ -287,7 +305,7 @@ def validate_stage4(data: dict, report_date: str) -> dict:
             require(bool(item.get(field)), f"news item missing {field}: {item.get('title')}")
         require(bool(item.get("updated_at_source") or item.get("updated_at_tw")),
                 f"news item missing update-time status: {item.get('title')}")
-        published = datetime.strptime(str(item["published_at_tw"]).replace("/", "-")[:16], "%Y-%m-%d %H:%M")
+        published = parse_taipei_datetime(item["published_at_tw"])
         require(start <= published <= end,
                 f"news item outside sealed window: {item.get('title')} / {item['published_at_tw']}")
     require(len(set(urls)) == 15, "news source URLs must be unique")
