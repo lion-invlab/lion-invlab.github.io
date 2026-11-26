@@ -12,7 +12,7 @@ from pathlib import Path
 
 COUNTS = {"global_markets":17,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3,"sectors":11}
 VALUE_KEYS = {
-    "close_value","daily_change_percent","history_close","history_change","score_value",
+    "close_value","daily_change_percent","history_close","history_change","score_value","score_band",
     "source_score_value","cnn_target_date_score","backup_source_score_value","band",
     "change_display","raw_response_sha256","checked_at_tw","checked_at","read_at_taipei",
     "verified_at_tw","checked_at_taipei","evidence_method","web_reader_ref","web_line_start",
