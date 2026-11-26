@@ -36,11 +36,13 @@ def main():
     manifest=run_dir/"market-source-verification-manifest.json"
     observations=run_dir/"market-history-browser-observations.json"
     stage2=run_dir/"stage2-market-snapshot-receipt.json"
+    stage2_summary=run_dir/"stage2-run-summary.json"
     stage3=run_dir/"stage3-calendar-receipt.json"
     stage4=run_dir/"stage4-analysis-receipt.json"
-    for p in (fixture,audit,manifest,observations,stage2,stage3,stage4):
+    for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4):
         if not p.is_file():raise SystemExit(f"Stage 5 missing required input: {p.relative_to(ROOT)}")
     stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
     if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id") not in (str(context.get("workflow_run_id")),context["run_id"]):
@@ -111,7 +113,7 @@ def main():
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
-      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2,stage3,stage4,prebuild)},
+      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4,prebuild)},
       "output":{"path":str(output.relative_to(ROOT)),"sha256":html_sha},
       "visual_report_sha256":sha(visual_report),"interaction_report_sha256":sha(interaction_json)
     }
@@ -120,7 +122,7 @@ def main():
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,
       "status":"REVIEW_READY","groups":{
-        "data_content":{"status":"PASS","prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage3_receipt_sha256":sha(stage3),"stage4_receipt_sha256":sha(stage4)},
+        "data_content":{"status":"PASS","prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS"},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
         "run_integration":{"status":"PASS","same_run_id":True,"html_sha256":html_sha,"render_manifest_sha256":sha(render_path)}
