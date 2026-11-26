@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 from stage2_screenshot_inputs import apply_page_completions_to_fixture, apply_screenshot_values_to_fixture, load_screenshot_bundle
-from browser_verify_market_history import _apply_screenshot_fields
+from browser_verify_market_history import _apply_screenshot_fields, persist_fixture
 
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
@@ -20,6 +20,13 @@ def main():
     source = fixture["global_markets"]["標普500指數"]["source"]
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
+        fixture_path = root / "diagnostic-fixture.json"
+        original_bytes = b'{"original":"must remain untouched"}\\n'
+        fixture_path.write_bytes(original_bytes)
+        assert persist_fixture(fixture_path, {"changed": True}, no_fixture_write=True) is False
+        assert fixture_path.read_bytes() == original_bytes
+        assert persist_fixture(fixture_path, {"changed": True}, no_fixture_write=False) is True
+        assert json.loads(fixture_path.read_text(encoding="utf-8")) == {"changed": True}
         image = root / "spx.png"
         image.write_bytes(b"stage2 screenshot evidence bytes")
         digest = hashlib.sha256(image.read_bytes()).hexdigest()
