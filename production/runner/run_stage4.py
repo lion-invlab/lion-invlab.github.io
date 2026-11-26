@@ -56,6 +56,19 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
         news_counts[key]=expected
     if len(content["political_scan"]["domains_checked"])!=6 or tuple(content["political_scan"]["domains_checked"])!=DOMAINS:
         raise ValueError("Political scan must check the six required domains in canonical order")
+    if not content["political_scan"]["findings"] and not str(content["political_scan"].get("no_material_change_note") or "").strip():
+        raise ValueError("Empty political scan requires no_material_change_note")
+    for idx,finding in enumerate(content["political_scan"]["findings"]):
+        if finding.get("domain") not in DOMAINS or not finding.get("transmission") or not finding.get("source_url","").startswith(("https://","http://")):
+            raise ValueError(f"Political scan finding {idx} is missing domain, source or transmission")
+        if not finding.get("published_at") or not finding.get("checked_at"):
+            raise ValueError(f"Political scan finding {idx} requires publication and check timestamps")
+    for layer in LAYERS:
+        for idx,evidence in enumerate(content["market_analysis"][layer]["sources"]):
+            if not evidence.get("label") or not evidence.get("status") or not evidence.get("url"):
+                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires label, URL and status")
+            if not evidence.get("published_at") and not evidence.get("checked_at"):
+                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires published_at or checked_at")
     if report_date.weekday()!=0 and len(content["core_observation"].get("points",[]))!=4:
         raise ValueError("Weekday core_observation requires exactly four follow-up points")
     if report_date.weekday()==0 and not content["core_observation"].get("details"):
