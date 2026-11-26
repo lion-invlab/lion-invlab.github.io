@@ -353,6 +353,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             out["body_text_line_count"]=len(body_lines)
             out["target_date_rows"]=matches[:5]
             page_status=classify_rendered_page(body_text,len(matches))
+            if page_status != "TOOL_READ_FAILURE":
+                out["source_page_fetched"]=True
             if page_status == "TOOL_READ_FAILURE":
                 out["status"]="TOOL_READ_FAILURE"
                 out["error"]="SOURCE_PAGE_CHALLENGE_OR_ACCESS_BLOCK; NOT EVIDENCE_OF_SOURCE_NO_DATA"
