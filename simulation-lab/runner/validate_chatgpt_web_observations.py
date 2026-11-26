@@ -250,6 +250,8 @@ def main() -> None:
     parser.add_argument("--cnn-observation", required=True,
                         help="Fresh single-row Playwright capture of CNN official graphdata response")
     parser.add_argument("--output", required=True)
+    parser.add_argument("--no-fixture-write", action="store_true",
+                        help="Emit observations without writing populated values back to the input fixture")
     args = parser.parse_args()
     data_path=Path(args.data)
     original_data = json.loads(data_path.read_text(encoding="utf-8"))
@@ -258,9 +260,11 @@ def main() -> None:
         # Screenshot inputs outrank any previously assembled direct-web bundle.
         # Delegate to the single screenshot-first browser reader, which fills only missing fields.
         browser_script=Path(__file__).with_name("browser_verify_market_history.py")
-        subprocess.run([sys.executable,str(browser_script),"--fixture",str(data_path),
+        command=[sys.executable,str(browser_script),"--fixture",str(data_path),
             "--report-date",args.report_date,"--output",args.output,
-            "--timeout-ms","15000","--concurrency","2"],check=True)
+            "--timeout-ms","15000","--concurrency","2"]
+        if args.no_fixture_write: command.append("--no-fixture-write")
+        subprocess.run(command,check=True)
         return
     data=blank_fixture(original_data,apply_screenshots=False)
     bundle = json.loads(Path(args.input).read_text(encoding="utf-8"))
@@ -282,18 +286,20 @@ def main() -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     result["bundle_sha256"]=hashlib.sha256(output.read_bytes()).hexdigest()
-    populated=populate_fixture(data,result)
-    data_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps({
+    summary={
         "output": str(output),
-        "fixture_output": str(data_path),
         "row_count": len(result["observations"]),
         "verified_count": result["verified_count"],
-        "pending_count": populated["stage2_market_bootstrap"]["pending_count"],
         "status_counts": result["status_counts"],
         "sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
         "preexisting_market_values_used": False,
-    }, ensure_ascii=False))
+    }
+    if not args.no_fixture_write:
+        populated=populate_fixture(data,result)
+        data_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        summary.update({"fixture_output":str(data_path),
+            "pending_count":populated["stage2_market_bootstrap"]["pending_count"]})
+    print(json.dumps(summary,ensure_ascii=False))
 
 
 if __name__ == "__main__":
