@@ -11,6 +11,7 @@ def fixture():
         for i in range(count):
             name=(("vix","move","fear_greed")[i] if group=="risk" else f"{group}_{i}")
             data[group][name]={"display":"1,234.50" if group!="bonds" else "4.652%",
+                **({"contract_label": f"{group.upper()}_CONTRACT_1"} if group in ("energy","metals") else {}),
                 "change_display":"-0.25%" if group!="bonds" else "-1.9 bp",
                 "source":{"name":name,"url":f"https://example.com/{group}/{i}","data_date":"2026-11-25",
                     "quote_type":"treasury_yield" if group=="bonds" else "spot_daily_close",
@@ -62,6 +63,9 @@ class BootstrapTests(unittest.TestCase):
         })
         blank=blank_fixture(original)
         self.assertEqual(blank["stage2_market_bootstrap"]["preexisting_market_values_used"],False)
+        for group in ("energy","metals"):
+            for item in blank[group].values():
+                self.assertTrue(item["contract_label"].endswith("_CONTRACT_1"))
         move_source=blank["risk"]["move"]["source"]
         for stale in ("previous_close","open","high","low","screenshot_sha256",
                       "screenshot_capture_time_taipei","user_screenshot_observation","quote_timestamp_source"):
