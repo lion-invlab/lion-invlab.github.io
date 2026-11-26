@@ -1,0 +1,30 @@
+# SOURCE POLICY v1.1
+
+## Market data
+- For every field not supplied by a valid user screenshot, Stage 2 opens the exact approved Investing.com instrument page in a browser, navigates to Historical Data, and reads the actual historical table row for the target trading date.
+- Do not substitute search snippets, Yahoo Finance, third-party APIs or unapproved sources for the required Investing.com historical-page read. Do not bypass Cloudflare, login, robots or other access restrictions.
+- Maximum concurrency is four distinct Investing.com Historical Data pages. Each page is independently identified and observed. Do not shorten page timeouts or increase concurrency to evade access controls.
+- A valid user screenshot identifying instrument, date and value has priority across all 44 items, not only MOVE. Adopt its supplied fields without re-reading or overwriting them. Read the official Investing.com history page only for required fields missing from the screenshot. Report source display remains the relevant Investing.com product page; never expose “依使用者截圖” in the report.
+- Record screenshot evidence truthfully as USER_PROVIDED_SCREENSHOT; do not claim browser page read. Field-level evidence is mandatory for mixed screenshot/browser inputs.
+- Browser page/table inaccessible => TOOL_READ_FAILURE. Page/table readable but no target-date row => SOURCE_NO_DATA. Never conflate.
+- First pass covers all 44. Lock values as soon as identity/date/field/quote type/evidence match. Later passes only resolve unresolved rows; never re-fetch locked values without correction evidence.
+- Do not use disabled repository collectors as production quote sources.
+
+## Market universe
+44 fixed items: 17 global indices including SOX; 11 sector ETFs XLE, XLF, XLK, XLI, XLY, XLP, XLU, XLV, XLB, XLRE, XLC; 2Y/10Y/30Y Treasury yields; DXY, USD/TWD, EUR/USD, GBP/USD, AUD/USD, USD/JPY; WTI, Brent, Gold, Silver; VIX, MOVE, CNN Fear & Greed. Exact item identities and selectors are taken from selected mother template and its Manifest. FedWatch is separate.
+
+## Special instruments
+- SOX: Investing.com HK historical page; Yahoo ^SOX only as approved backup/cross-check.
+- VIX: Investing.com HK historical page; Cboe official history cross-check; Yahoo ^VIX backup.
+- MOVE: Investing.com HK history first; TradingView ICE BofA MOVE second when specified date unavailable; Yahoo ^MOVE, CNBC .MOVE, EODData INDEX:MOVE thereafter as specified in SIM-1.4 source baseline.
+- CNN Fear & Greed: CNN Business dashboard current score and Last updated first; Previous close is not current score. Then CNN graphdata endpoint, FGScore CNN Provider Index, Financial Context CNN Tracker as specified. No third-party self-estimated score.
+- FedWatch: read Investing.com Fed Rate Monitor at report production time. CME FedWatch is methodology/cross-check only; do not label Investing.com data as CME official.
+
+## Quote identity
+Distinguish cash index, CFD, futures, continuous contract, settlement and Last. Do not use a CFD as official cash-index close. Futures require exchange, product code, expiry month, date and quote type. Public commodity labels stay short (WTI 原油期貨, Brent 原油期貨, 黃金期貨, 白銀期貨); full contract detail belongs in the existing source disclosure.
+
+## Calendar and earnings
+Stage 3 reads only main weekly JSON. Yahoo Finance Average Estimate is first-choice earnings consensus source; fallback order per metric is Investing.com, LSEG I/B/E/S, FactSet Estimates. EPS and Revenue are selected independently; stop at first available valid average estimate for each metric.
+
+## News
+Global Focus News target 5, Market Hot Headlines target 10. Use original publication time, timezone and canonical HTTPS URL. Shared report cutoff window applies; do not use page updated time as original publication time.
