@@ -361,7 +361,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         "display_value_matches_saved_observation": verified,
         "observation_provenance": provenance if verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
         "raw_response_sha256": observation.get("raw_response_sha256") if verified else None,
-        "evidence_status": "SOURCE_OBSERVATION_VERIFIED" if verified else (observation.get("read_status") or observation.get("status") or "PENDING"),
+        "evidence_status": "SOURCE_OBSERVATION_VERIFIED" if verified else (observation.get("read_status") or "SOURCE_OBSERVATION_PENDING"),
         "browser_observation_record": record,
         "observation_record_sha256": record_hash,
         "captured_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
