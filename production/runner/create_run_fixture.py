@@ -128,11 +128,15 @@ def main():
       "fixture_path":str((output/"report-data.json").relative_to(ROOT)),
       "main_commit_sha":result["run_context"]["main_commit_sha"]
     })
-    (output/"run-context.json").write_text(json.dumps(result["run_context"],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    context_path=output/"run-context.json"
+    context_path.write_text(json.dumps(result["run_context"],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     fixture_path=output/"report-data.json"
     fixture_path.write_text(json.dumps(result["market_fixture"],ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={"status":"PASS","run_id":run_id,"report_date":args.report_date,"trading_date":result["run_context"]["trading_date"],
              "fixture_path":str(fixture_path.relative_to(ROOT)),"fixture_sha256":sha256(fixture_path),
+             "run_context_sha256":sha256(context_path),
+             "governance_commit_sha":result["run_context"]["governance"]["commit_sha"],
+             "governance_file_count":len(result["run_context"]["governance"]["blob_shas"]),
              "market_rows":44,"preexisting_market_values_used":False,
              "screenshot_fields":result["market_fixture"]["stage2_market_bootstrap"]["screenshot_field_count"]}
     (output/"stage1-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
