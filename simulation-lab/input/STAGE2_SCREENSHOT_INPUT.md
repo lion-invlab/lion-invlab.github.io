@@ -60,6 +60,7 @@ sidecar 的每筆 observation 對應 44 項之一，並且必須符合 Fixture �
 - CNN Fear & Greed：使用 `score`、`band`。
 - 欄位名稱須與畫面表頭相符；數值只填欄位值，不要把商品名稱、日期或漲跌說明混進數值。
 - `evidence_sha256` 必須是圖片檔案實際 SHA-256。擷取器會重新計算並比對，不接受只有格式正確但雜湊不符的資料。
+- 同一商品若不同欄位來自不同截圖，可在各欄位物件內分別填寫 `evidence_path`、`evidence_sha256`、`captured_at`、`quote_timestamp`；欄位層級設定優先於列層級設定。若整列欄位來自同一張圖，可沿用列層級證據設定。每張圖都會各自核對實際 SHA。
 - `data_date` 必須等於該報告 Fixture 的 `trading_date`；不允許沿用前一交易日截圖。
 - `source_url` 必須等於 Fixture 中該商品的正式來源 URL。截圖只決定欄位值優先權，不改寫正式來源契約。
 - `instrument_identity` 必須清楚指出商品／代號；若無法確認身分，該列不會 VERIFIED。
