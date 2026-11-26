@@ -1,0 +1,140 @@
+name: TAC main production pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "production/**"
+      - ".github/workflows/tac-production.yml"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Main production validation only; build mode will be enabled after Phase 5 E2E."
+        required: true
+        default: validate
+        type: choice
+        options: [validate]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-main-production-validation
+  cancel-in-progress: false
+
+jobs:
+  validate-main-production:
+    if: ${{ github.event_name == 'push' || inputs.mode == 'validate' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout main only
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Record main-only provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = "main"
+          if find production -type f -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' | grep -q .; then
+            echo "Production runtime contains a Simulation path dependency." >&2
+            find production -type f -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' || true
+            exit 1
+          fi
+          echo "MAIN_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "Main-only checkout verified: $(git rev-parse HEAD)"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Compile main production modules
+        env:
+          PYTHONPATH: production/runner
+        run: python -m compileall -q production/runner
+
+      - name: Validate SHA-locked production mothers and manifest
+        env:
+          PYTHONPATH: production/runner
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root=Path('.')
+          manifest=json.loads((root/'production/config/mother-template-manifest.json').read_text(encoding='utf-8'))
+          for key, path in [('monday','production/templates/monday-mother-template.html'),('weekdays','production/templates/weekday-mother-template.html')]:
+              raw=(root/path).read_bytes()
+              blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\\0'+raw).hexdigest()
+              expected=manifest['templates'][key]['blob_sha']
+              assert blob==expected, (key,blob,expected)
+          print('PASS: production mother blob SHA matches Manifest')
+          PY
+          python production/runner/validate_dual_mothers.py
+
+      - name: Run Stage 2 and pre-build deterministic tests
+        env:
+          PYTHONPATH: production/runner
+        run: |
+          python -m unittest -v \
+            test_stage2_market_fixture_bootstrap \
+            test_stage2_screenshot_inputs \
+            test_validate_chatgpt_web_observations \
+            test_market_source_verification_manifest \
+            test_build_stage2_receipt \
+            test_validate_market_snapshot \
+            test_quote_type_guard \
+            test_stage2_field_provenance \
+            test_browser_http_classification \
+            test_sp500_chart3_handoff \
+            test_prebuild_stage_inputs
+
+      - name: Run Builder and earnings deterministic tests
+        env:
+          PYTHONPATH: production/runner
+        run: |
+          python -m unittest -v \
+            test_builder_output_guard \
+            test_builder_calendar_panel_preservation \
+            test_earnings_card_dom_preservation \
+            test_earnings_health_dom_preservation \
+            test_earnings_judgment_engine \
+            test_earnings_schema_audit \
+            test_report_layer_earnings_status \
+            test_summary_headline \
+            test_market_analysis_slots \
+            test_fear_greed_marker
+
+      - name: Run full candidate Builder against isolated test fixtures
+        env:
+          PYTHONPATH: production/runner
+        run: python production/runner/test_full_candidate_builder.py
+
+      - name: Verify mother-owned DOM contract on generated candidates
+        env:
+          PYTHONPATH: production/runner
+        run: |
+          python production/runner/validate_mother_dom_contract.py \
+            --mother production/templates/monday-mother-template.html \
+            --report production/runs/candidate-validation/2026-11-23-candidate.html \
+            --template monday
+
+      - name: Upload main production validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-main-production-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            production/runs/candidate-validation/
+          if-no-files-found: warn
+          retention-days: 14
