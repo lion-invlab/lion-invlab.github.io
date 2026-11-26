@@ -94,8 +94,12 @@ def main() -> None:
     for row in manifest["rows"]:
         group, name = row["group"], row["name"]
         if row.get("verification_status") == "CLOSED":
-            assert pending_data[group][name]["display"] == "休市"
-            assert pending_data[group][name]["change_display"] == "—"
+            if group == "sectors":
+                assert pending_data["sectors"][name] == "-"
+                assert pending_data["sector_sources"][name]["change_display"] == "休市"
+            else:
+                assert pending_data[group][name]["display"] == "-"
+                assert pending_data[group][name]["change_display"] == "休市"
         elif group == "sectors":
             assert pending_data["sectors"][name] == "待核實"
         else:
@@ -258,9 +262,18 @@ def main() -> None:
         "source_page_fetched": True,
         "display_value_reconciled": False,
         "display_value_matches_saved_observation": False,
-        "evidence_status": "MARKET_CLOSED",
+        "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-        "browser_observation_record": None,
+        "browser_observation_record": {
+            "read_status": "MARKET_CLOSED", "source_url": closed_row.get("source_url"),
+            "target_date": data["trading_date"], "source_page_fetched": True,
+            "prior_observation_reused": False,
+            "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+            "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+            "closure_evidence_url": "https://www.nyse.com/markets/hours-calendars",
+            "closure_evidence_reader_ref": "test-reader-ref",
+            "closure_evidence_line_start": 10, "closure_evidence_line_end": 12
+        },
         "observation_record_sha256": None,
     })
     partial_result = validate_market_inputs(data, audit, partial, report_date)
