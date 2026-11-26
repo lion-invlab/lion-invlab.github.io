@@ -32,12 +32,13 @@ def main():
     if not 1<=args.concurrency<=4: raise SystemExit("--concurrency must be between 1 and 4")
     run_dir=Path(args.run_dir)
     if not run_dir.is_absolute(): run_dir=ROOT/run_dir
-    run_dir=run_dir.resolve()
     runs_lexical=ROOT/"production/runs"
     if runs_lexical.is_symlink() or runs_lexical.resolve()!=runs_lexical.absolute():
         raise SystemExit("production/runs must not be a symlink")
+    if run_dir.is_symlink():raise SystemExit("Stage 2 run directory must not be a symlink")
     runs_root=runs_lexical.resolve()
-    if run_dir.parent!=runs_root or run_dir.is_symlink():
+    run_dir=run_dir.resolve()
+    if run_dir.parent!=runs_root:
         raise SystemExit("Stage 2 run directory must be a direct, non-symlink child of production/runs")
     context_path=run_dir/"run-context.json"
     fixture_path=run_dir/"report-data.json"
