@@ -7,6 +7,7 @@ import argparse, asyncio, hashlib, json, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright
+from stage2_screenshot_inputs import load_screenshot_bundle
 
 def number_token(value):
     s=str(value or "").replace(",","").replace("\u2212","-").replace("+","").strip()
@@ -445,20 +446,150 @@ async def observe(context,row,target,timeout,sem):
     result["attempt_history"]=attempts
     return result
 
-async def run(a,work,target):
-    sem=asyncio.Semaphore(a.concurrency)
-    async with async_playwright() as p:
-        browser=await p.chromium.launch(headless=True)
-        context=await browser.new_context(
-            locale="zh-HK",
-            timezone_id="Asia/Taipei",
+def _screenshot_identity_matches(name, identity):
+    text=str(identity or "").casefold()
+    aliases=IDENTITY_ALIASES.get(name,[name])
+    return any(str(alias).casefold() in text for alias in aliases)
+
+
+def _apply_screenshot_fields(row, observation, screenshot):
+    """Overlay screenshot-provided fields without replacing them with page values."""
+    if not screenshot:
+        return observation
+    fields=screenshot["fields"]
+    is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
+    value_key="score" if is_fg and "score" in fields else "close"
+    change_key="band" if is_fg and "band" in fields else "change"
+    if value_key not in fields and change_key not in fields:
+        return observation
+
+    evidence={}
+    for key,item in fields.items():
+        evidence[key]={
+            "source_type":"USER_PROVIDED_SCREENSHOT",
+            "evidence_path":item["evidence_path"],
+            "evidence_sha256":item["evidence_sha256"],
+            "captured_at":item["captured_at"],
+            "field_name":item["field_name"],
+            "value":item["value"],
+        }
+
+    page_ok=observation.get("status")=="VERIFIED" and observation.get("source_page_fetched") is not False
+    required_keys=(value_key,change_key)
+    screenshot_only=all(key in fields for key in required_keys)
+    if screenshot_only:
+        identity=screenshot["instrument_identity"]
+        identity_ok=_screenshot_identity_matches(row["name"],identity)
+        value=fields[value_key]["value"]
+        change=fields[change_key]["value"]
+        vm=number_token(value)==number_token(row.get("expected_value"))
+        cm=(str(change).strip().casefold()==str(row.get("expected_change") or "").strip().casefold()
+            if is_fg else number_token(change)==number_token(row.get("expected_change")))
+        observation.update({
+            "status":"VERIFIED" if identity_ok and vm and cm else "OBSERVED_PENDING_FIELD_MAPPING",
+            "source_url":row["source_url"],
+            "target_date":row.get("target_date") or observation.get("target_date"),
+            "observed_date":screenshot["data_date"],
+            "instrument_identity":identity,
+            "instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "field_mapping_status":"VERIFIED",
+            "observed_value":value,
+            "observed_change":change,
+            "observed_value_field":fields[value_key]["field_name"],
+            "observed_change_field":fields[change_key]["field_name"],
+            "observed_value_key":value_key,
+            "observed_change_key":change_key,
+            "display_value_match":vm,
+            "display_change_match":cm,
+            "read_method":"USER_PROVIDED_SCREENSHOT",
+            "provenance":"CURRENT_USER_PROVIDED_SCREENSHOT",
+            "read_status":"USER_PROVIDED_SCREENSHOT_CONFIRMED",
+            "source_page_fetched":False,
+            "http_status":None,
+            "field_evidence":evidence,
+            "screenshot_evidence_path":screenshot["evidence_path"],
+            "screenshot_evidence_sha256":screenshot["evidence_sha256"],
+        })
+        observation["finished_at_utc"]=screenshot["captured_at"]
+        observation["finished_at_tw"]=screenshot["captured_at"]
+        return observation
+
+    # Partial screenshot: retain screenshot fields and use the historical page only
+    # for required fields that were not supplied in the screenshot.
+    if not page_ok:
+        observation["field_evidence"]=evidence
+        observation["read_method"]="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+        observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
+        observation["read_status"]="MIXED_FIELD_OBSERVATIONS_PENDING"
+        observation["source_page_fetched"]=bool(observation.get("source_page_fetched"))
+        return observation
+
+    page_value=observation.get("observed_value")
+    page_change=observation.get("observed_change")
+    if value_key in fields:
+        observation["observed_value"]=fields[value_key]["value"]
+        observation["observed_value_field"]=fields[value_key]["field_name"]
+        observation["observed_value_key"]=value_key
+        observation["display_value_match"]=number_token(fields[value_key]["value"])==number_token(row.get("expected_value"))
+        evidence[value_key]=evidence[value_key]
+    else:
+        observation["observed_value_key"]=value_key
+        evidence[value_key]={
+            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
+            "field_name":observation.get("observed_value_field"),
+            "value":page_value,"observed_at":observation.get("finished_at_tw"),
+        }
+    if change_key in fields:
+        observation["observed_change"]=fields[change_key]["value"]
+        observation["observed_change_field"]=fields[change_key]["field_name"]
+        observation["observed_change_key"]=change_key
+        observation["display_change_match"]=(
+            str(fields[change_key]["value"]).strip().casefold()==str(row.get("expected_change") or "").strip().casefold()
+            if is_fg else number_token(fields[change_key]["value"])==number_token(row.get("expected_change"))
         )
-        try:
-            tasks=[observe(context,row,target,a.timeout_ms,sem) for row in work]
-            observations=await asyncio.gather(*tasks)
-        finally:
-            await context.close()
-            await browser.close()
+    else:
+        observation["observed_change_key"]=change_key
+        evidence[change_key]={
+            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
+            "field_name":observation.get("observed_change_field"),
+            "value":page_change,"observed_at":observation.get("finished_at_tw"),
+        }
+    observation["field_evidence"]=evidence
+    observation["read_method"]="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+    observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
+    observation["read_status"]="MIXED_FIELD_OBSERVATIONS_CONFIRMED"
+    return observation
+
+
+async def run(a,work,target,screenshot_inputs):
+    sem=asyncio.Semaphore(a.concurrency)
+    by_key={}
+    for row in work:
+        shot=screenshot_inputs.get((row["group"],row["name"]))
+        row["screenshot_input"]=shot
+        required=("score","band") if row["group"]=="risk" and row["name"]=="fear_greed" else ("close","change")
+        if shot and all(key in shot["fields"] for key in required):
+            empty={
+                "name":row["name"],"group":row["group"],"source_url":row["source_url"],
+                "target_date":target,"quote_type":row.get("quote_type"),
+                "status":"PENDING","source_page_fetched":False,
+            }
+            by_key[(row["group"],row["name"])]=_apply_screenshot_fields(row,empty,shot)
+    pending=[row for row in work if (row["group"],row["name"]) not in by_key]
+    if pending:
+        async with async_playwright() as p:
+            browser=await p.chromium.launch(headless=True)
+            context=await browser.new_context(locale="zh-HK",timezone_id="Asia/Taipei")
+            try:
+                tasks=[observe(context,row,target,a.timeout_ms,sem) for row in pending]
+                page_observations=await asyncio.gather(*tasks)
+            finally:
+                await context.close()
+                await browser.close()
+        for row,item in zip(pending,page_observations):
+            item=_apply_screenshot_fields(row,item,row.get("screenshot_input"))
+            by_key[(row["group"],row["name"])]=item
+    observations=[by_key[(row["group"],row["name"])] for row in work]
     for item in observations:
         canonical=json.dumps(item,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
         item["observation_record_sha256"]=hashlib.sha256(canonical).hexdigest()
