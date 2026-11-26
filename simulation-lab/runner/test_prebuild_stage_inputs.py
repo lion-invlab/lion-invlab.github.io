@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
+import tempfile
 from pathlib import Path
 
 from build_market_source_verification_manifest import build_manifest
@@ -105,7 +107,7 @@ def main() -> None:
     synthetic = copy.deepcopy(manifest)
     synthetic.update({
         "status": "PASS", "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS",
-        "source_pages_fetched": True, "displayed_values_independently_reconciled": True,
+        "source_pages_fetched": True, "displayed_values_reconciled": True, "displayed_values_independently_reconciled": True, "screenshot_field_count": 0,
         "prior_observation_reused_count": 0, "verified_count": 44, "pending_count": 0,
         "browser_observation_records_complete": True, "observation_record_hash_missing_count": 0,
     })
@@ -129,13 +131,33 @@ def main() -> None:
 
     # User-provided current-session screenshot is valid evidence when the
     # screenshot timestamp and SHA are sealed by the manifest builder.
-    screenshot_evidence = copy.deepcopy(synthetic)
-    screenshot_row = next(row for row in screenshot_evidence["rows"]
-                          if row.get("group") == "risk" and row.get("name") == "move")
-    screenshot_row["observation_provenance"] = "CURRENT_USER_PROVIDED_SCREENSHOT"
-    screenshot_result = validate_market_inputs(data, audit, screenshot_evidence, report_date)
-    assert screenshot_result["indicator_count"] == 44
-    assert screenshot_result["numeric_values_reconciled_this_run"] is True
+    with tempfile.TemporaryDirectory() as tmp:
+        screenshot_file = Path(tmp) / "move.png"
+        screenshot_file.write_bytes(b"sealed MOVE screenshot bytes")
+        screenshot_sha = hashlib.sha256(screenshot_file.read_bytes()).hexdigest()
+        screenshot_evidence = copy.deepcopy(synthetic)
+        screenshot_evidence["source_pages_fetched"] = False
+        screenshot_evidence["displayed_values_independently_reconciled"] = False
+        screenshot_evidence["screenshot_row_count"] = 1
+        screenshot_evidence["screenshot_field_count"] = 2
+        screenshot_row = next(row for row in screenshot_evidence["rows"]
+                              if row.get("group") == "risk" and row.get("name") == "move")
+        screenshot_row["observation_provenance"] = "CURRENT_USER_PROVIDED_SCREENSHOT"
+        screenshot_row["source_page_fetched"] = False
+        screenshot_row["browser_observation_record"]["field_evidence"] = {
+            field: {
+                "source_type": "USER_PROVIDED_SCREENSHOT",
+                "evidence_path": str(screenshot_file),
+                "evidence_sha256": screenshot_sha,
+                "captured_at": "2026-11-23T07:05:00+08:00",
+            }
+            for field in ("close", "change")
+        }
+        screenshot_result = validate_market_inputs(data, audit, screenshot_evidence, report_date)
+        assert screenshot_result["indicator_count"] == 44
+        assert screenshot_result["source_pages_fetched_this_run"] is False
+        assert screenshot_result["numeric_values_reconciled_this_run"] is True
+        assert screenshot_result["numeric_values_independently_reconciled_this_run"] is False
 
     # Partial is a valid production input state: keep all 44 fixed rows,
     # preserve 43 current-session observations, and leave one row explicitly pending.
