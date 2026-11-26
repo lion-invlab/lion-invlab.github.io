@@ -138,10 +138,10 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "CANDIDATE_PENDING_OWNER_APPROVAL",
     "last_validation": {
-      "workflow_run_id": 45816469703,
-      "head_sha": "d895bbd60a4aeb47c5b97bc787ef4b1551f19532",
+      "workflow_run_id": 45817407669,
+      "head_sha": "17623c7d2a2de0e1b8759a8cd11788548ca19662",
       "conclusion": "success",
-      "scope": "main-only deterministic validation; build job skipped"
+      "scope": "main-only deterministic validation; capture/build jobs skipped"
     }
   },
   "main_native_modules": [
