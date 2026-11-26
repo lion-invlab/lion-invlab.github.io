@@ -69,6 +69,21 @@ assert "playwright" not in market_postbuild.lower()
 assert "curl " not in market_postbuild
 assert "no market re-fetch" in market_postbuild.lower()
 assert "Frozen Stage 2-4 snapshot SHA unchanged after Builder" in WORKFLOW
+candidate_visual = section_after(WORKFLOW, "Compare synthetic candidates against both approved mothers")
+report_visual = section_after(WORKFLOW, "Compare review against the date-selected approved mother")
+assert "[full-regression]" in candidate_visual
+assert "candidate-validation/2026-11-23-candidate.html" in candidate_visual
+assert "candidate-validation/2026-11-20-candidate.html" in candidate_visual
+assert "[full-regression]" not in report_visual
+for marker in (
+    "Verify mother-owned DOM structure unchanged",
+    "Independently validate exact review artifact and provenance",
+    "Validate report structure and frozen 44-indicator snapshot consistency",
+    "Verify frozen Stage 2-4 receipt SHA after Builder",
+    "Seal QA evidence to the exact review HTML blob",
+):
+    block = section_after(WORKFLOW, marker)
+    assert "[full-regression]" not in block, f"production-only QA step leaked into full-regression: {marker}"
 
 # The input receipt remains Simulation-scoped and must be sealed before Builder execution.
 receipt_step = section_after(WORKFLOW, "Seal frozen Stage 2-4 snapshot receipt")
