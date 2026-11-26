@@ -54,14 +54,30 @@ assert "workflow_dispatch:" in PAGES
 assert "actions/deploy-pages@v4" in PAGES
 assert "cancel-in-progress: false" in PAGES
 
+# Market data is read once. The manifest reconciles the saved observation bundle; it does not open sources.
+market_read = section_after(WORKFLOW, "Read and reconcile 44 current-run market history pages")
+market_manifest = section_after(WORKFLOW, "Build 44-row manifest from captured observations")
+market_postbuild = section_after(WORKFLOW, "Validate report structure and frozen 44-indicator snapshot consistency")
+assert WORKFLOW.count("python simulation-lab/runner/browser_verify_market_history.py") == 1
+assert "validate_chatgpt_web_observations.py" in market_read
+assert "browser_verify_market_history.py" in market_read
+assert "build_market_source_verification_manifest.py" in market_manifest
+assert "browser_verify_market_history.py" not in market_manifest
+assert "playwright" not in market_manifest.lower()
+assert "browser_verify_market_history.py" not in market_postbuild
+assert "playwright" not in market_postbuild.lower()
+assert "curl " not in market_postbuild
+assert "no market re-fetch" in market_postbuild.lower()
+assert "Frozen Stage 2-4 snapshot SHA unchanged after Builder" in WORKFLOW
+
 # The input receipt remains Simulation-scoped and must be sealed before Builder execution.
-receipt_step = section_after(WORKFLOW, "Seal pre-build Stage 2-4 input receipt")
+receipt_step = section_after(WORKFLOW, "Seal frozen Stage 2-4 snapshot receipt")
 builder_gate = section_after(WORKFLOW, "Enforce active SIM-1.4 Builder approval before production build")
 assert "validate_prebuild_stage_inputs.py" in receipt_step
 assert "PREBUILD_RECEIPT_SHA256" in receipt_step
 assert "test -s simulation-lab/output/prebuild-stage-input-receipt.json" in builder_gate
 assert "ACTUAL_RECEIPT_SHA256" in builder_gate
-assert WORKFLOW.index("Seal pre-build Stage 2-4 input receipt") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
+assert WORKFLOW.index("Seal frozen Stage 2-4 snapshot receipt") < WORKFLOW.index("Enforce active SIM-1.4 Builder approval before production build") < WORKFLOW.index("Assemble date-driven review")
 
 # Run-scoped Actions artifacts remain available for independent QA, but are not branch previews.
 assert "tac-build-evidence-${{ github.run_id }}-${{ github.run_attempt }}" in WORKFLOW
