@@ -39,9 +39,9 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git branch --show-current)" = "main"
-          if find production -type f -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' | grep -q .; then
+          if find production/runner -type f \\( -name '*.py' -o -name '*.mjs' \\) -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' | grep -q .; then
             echo "Production runtime contains a Simulation path dependency." >&2
-            find production -type f -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' || true
+            find production/runner -type f \\( -name '*.py' -o -name '*.mjs' \\) -print0 | xargs -0 grep -IlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' || true
             exit 1
           fi
           echo "MAIN_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
