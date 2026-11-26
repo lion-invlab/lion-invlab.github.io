@@ -16,13 +16,24 @@
 | 5. 真實資料 E2E | 用當日真實資料完整執行六階段，輸出審核版；不沿用舊 fixture 價格；記錄Stage2 4頁並行實際耗時 | 完整 Run artifact、preview HTML、QA sidecar、delivery receipt、E2E report | 六階段均有真實輸入輸出與SHA；44項有值或狀態；Chart3 SP500增量同步；calendar只讀；HTML／QA／Pages驗證完成；無未揭露阻塞 | NOT_STARTED |
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
-## 2026-11-26 持續修訂紀錄\n- [x] Stage 1／2／5 WR 第一輪修訂與 GitHub 回讀。\n- [x] Stage 1 建立 commit-pinned governance SHA 清單；Stage 5 逐檔比對當前 main，任何規範、Schema、Builder、Runner、依賴或 Workflow 漂移即停止。Stage 1 receipt 同時記錄 run-context SHA 與 governance 檔案數。\n- [x] 修正 Stage 5 Runner 缺少 `os` import 及 Chart 3 handoff 狀態變數未定義。\n- [x] Stage 5 加入 main Builder exact-SHA owner approval gate，抽成 `builder_approval.py` 並新增三種狀態測試；候選狀態不得標 REVIEW_READY。\n- [x] MASTER WR、PORT_MANIFEST、Runner README 已同步 main 的 validate／capture／build 三模式流程，移除不存在的 `run_daily_report.py` 入口描述。\n- [x] Stage 4 schema 已將 `run_id` 與 `market_snapshot_sha256` 設為必填；修正 Stage4 README 對自動綁定及 Stage1–6觸發行為的錯誤描述。\n- [x] 修正 CI unittest 指令漏接續行的反斜線，並修正 SIM-1.4 相容測試 fixture 必須自行綁定合成 Run ID／snapshot SHA。\n- [x] 最新已完成驗證 run `45813748282`：validate job success；build job skipped（該 run 為 validation only）。Stage 5 新 gate 尚待新 CI 執行。\n\n## Phase 1 已完成項目
+## 2026-11-26 持續修訂紀錄
+- [x] Stage 1／2／5 WR 第一輪修訂與 GitHub 回讀。
+- [x] Stage 1 建立 commit-pinned governance SHA 清單；Stage 5 逐檔比對當前 main，任何規範、Schema、Builder、Runner、依賴或 Workflow 漂移即停止。Stage 1 receipt 同時記錄 run-context SHA 與 governance 檔案數。
+- [x] 修正 Stage 5 Runner 缺少 `os` import 及 Chart 3 handoff 狀態變數未定義。
+- [x] Stage 5 加入 main Builder exact-SHA owner approval gate，抽成 `builder_approval.py` 並新增三種狀態測試；候選狀態不得標 REVIEW_READY。
+- [x] MASTER WR、PORT_MANIFEST、Runner README 已同步 main 的 validate／capture／build 三模式流程，移除不存在的 `run_daily_report.py` 入口描述。
+- [x] Stage 4 schema 已將 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 設為必填；Stage 4 Runner 重新計算研究包 SHA，與 receipt、Run、行情快照逐一比對。
+- [x] 修正 CI unittest 指令漏接續行的反斜線，並修正 SIM-1.4 相容測試 fixture 必須自行綁定合成 Run ID／snapshot SHA。
+- [x] 最新 main-only 驗證 run `45819680821`：14 個 validation 步驟全數 success，包含完整治理 SHA inventory、Stage 2／截圖證據、Stage 4 research bundle 與三重 SHA 綁定、Builder approval tests、候選 Builder 及雙母版 DOM；capture/build jobs 均 skipped。
+
+## Phase 1 已完成項目
 - [x] 建立 `production/MASTER_WR.md` 並明確以 SIM-1.4 為技術來源，main 為獨立生產。
 - [x] 將 SIM-1.4 Monday／Weekday 母版逐位元複製至 `production/templates/`。
 - [x] 建立 `production/config/mother-template-manifest.json`，SHA 綁定兩份 SIM-1.4 模板。
 - [x] 將 SIM-1.4 詳細母版 QA 契約複製至 `production/contracts/MOTHER_TEMPLATE_QA.md`。
 - [x] 將 SIM-1.4 完整 WR 原文保存為 `production/reference/SIM-1.4_SOURCE_BASELINE.md`，作為可追溯技術依據。
-- [x] 建立六份 Stage WR。\n- [x] 第一輪 Stage WR 交叉核對：修正 Stage 1 自身規範輸入說明、Stage 2 sidecar 欄位 typo／狀態計數語意、Stage 5 Builder 核准與 REVIEW_READY 條件；六份文件均已從 main 回讀。
+- [x] 建立六份 Stage WR。
+- [x] 第一輪 Stage WR 交叉核對：修正 Stage 1 自身規範輸入說明、Stage 2 sidecar 欄位 typo／狀態計數語意、Stage 5 Builder 核准與 REVIEW_READY 條件；六份文件均已從 main 回讀。
 - [x] 建立／修訂 DATA_SCHEMA、STATUS_ENUM、SOURCE_POLICY、RUN、HANDOFF、HTML_BUILDER、QA、PUBLISH contracts。
 
 ## Phase 2 已移植項目
@@ -37,20 +48,24 @@
 - [x] Stage 1 `create_run_fixture.py`：每次建立獨立 Run、NYSE trading date、鎖定雙母版／Manifest SHA、calendar main commit，44 行 blank-first fixture。
 - [x] Stage 2 `run_stage2.py`：4 頁並行、44-row observation／audit／manifest／receipt，S&P 500 verified 時產生 Chart 3 increment；MOVE delayed retry module 已移植。
 - [x] Stage 3 `run_stage3.py`：從 Stage 1 pinned main commit 唯讀讀取本週及前一週 calendar，輸出 projection 與 receipt。
-- [x] Stage 4 `run_stage4.py`：新聞／總結／五層分析／政治掃描 schema、日期窗口、來源欄位與市場快照不變檢查。
-- [x] Stage 5 `run_stage5.py`：pre-build receipt、main Builder、artifact validator、母版 DOM、visual regression、interaction smoke；第一輪程式回讀另修正缺少 os import 與 Chart 3 handoff 狀態變數未定義。\n- [ ] Stage 5 Runner 修正後仍須 CI／fixture 執行驗證；Builder 核准狀態 gate 尚未完成。
+- [x] Stage 4 `run_stage4.py`：新聞／總結／五層分析／政治掃描 schema、日期窗口、來源欄位、research bundle 三重 SHA 綁定與市場快照不變檢查。
+- [x] Stage 5 `run_stage5.py`：pre-build receipt、main Builder、artifact validator、母版 DOM、visual regression、interaction smoke；第一輪程式回讀另修正缺少 os import 與 Chart 3 handoff 狀態變數未定義。
+- [x] Stage 5 Runner 的 `os` import、Chart 3 handoff 變數與 exact-blob approval gate 已修正，並通過 CI／fixture 驗證；正式 Builder owner approval 仍待核准。
 - [x] Stage 6 `run_stage6.py`：main/preview 三檔白名單、遠端 bytes／SHA 回讀、Pages workflow dispatch 與公開 URL 驗證。
-- [ ] Stage 4 編輯內容仍由 `production/input/report-content-YYYY-MM-DD.json` 提供；capture receipt 已指向 exact Run 的輸入位置，但尚未建立可獨立執行的新聞研究／五層分析內容生成器及自動提交交接。
+- [x] Capture 在 Stage 3 後自動產生 `stage4-research-bundle.json`：包含完整 44 項行情來源資料、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、所有輸入 SHA，以及截圖 sidecar／圖片 SHA。\n- [ ] 尚未建立自動產生 `report-content-YYYY-MM-DD.json` 的 LLM 編輯研究與自動提交交接。
 - [x] Stage 2 Chart 3 increment 已由 main Workflow 僅提交 `data/tac-chart3/sp500_daily_increment.jsonl`，並明確 dispatch `tac-chart3-sp500-increment-merge.yml`；等待真實 S&P 500 VERIFIED run 驗證。
 - [ ] Stage 5 main Builder 已加精確 SHA 核准紀錄 gate，並由獨立模組及測試執行；目前 `CANDIDATE_PENDING_OWNER_APPROVAL`，未獲核准不得產生正式 REVIEW_READY。Stage 5／6 尚未用真實當日輸入完成 E2E。
 - [ ] 尚無自動產生 `production/input/report-content-YYYY-MM-DD.json` 的 LLM 編輯研究步驟；capture 已自動交付完整 Run-bound research bundle，仍需內容產生器寫入三重 SHA 綁定 JSON，build 再以 `workflow_dispatch` 或 `[build-tac-report:YYYY-MM-DD]` marker 啟動。
 
 ## Phase 1 未完成／需收尾
 - [ ] 完成 MASTER／六份 Stage WR／contracts／Runner 全面逐欄一致性檢查；第一輪只處理已確認問題，尚未完成 SIM-1.4 全文逐條比對。
-- [x] 列出 Builder 主程式精確 SHA 與來源 SHA；建立 `production/config/builder-approval.json`，預設候選待核准，Stage 5 強制檢查 exact blob SHA 與 APPROVED_MAIN 狀態。\n- [ ] 完成 Builder 所有 import dependency、可寫入 selector、CLI 及路徑適配的完整清冊；SIM Builder 核准不等於 main port 已核准。
+- [x] 列出 Builder 主程式精確 SHA 與來源 SHA；建立 `production/config/builder-approval.json`，預設候選待核准，Stage 5 強制檢查 exact blob SHA 與 APPROVED_MAIN 狀態。
+- [ ] 完成 Builder 所有 import dependency、可寫入 selector、CLI 及路徑適配的完整清冊；SIM Builder 核准不等於 main port 已核准。
 - [ ] 明確處理 SIM-1.4 的四頁並行規則與原 Workflow 中仍殘留的 concurrency=2。
-- [ ] 完成新 Manifest／QA contract 的 schema 與自動檢查。\n- [ ] 對照完整 SIM-1.4 原文核對全部細節；目前主文件已覆蓋核心責任，但仍需驗證所有歷史規則與 selector 契約。
-- [ ] 建立 Stage 2–4 pre-build receipt 欄位與 Builder provenance 一致性規格。\n- [ ] Stage 5 Runner 尚須加入 main Builder 精確版本核准狀態檢查；目前僅檢查 Builder provenance 的 review_ready，不足以單獨證明 main port 已核准。
+- [ ] 完成新 Manifest／QA contract 的 schema 與自動檢查。
+- [ ] 對照完整 SIM-1.4 原文核對全部細節；目前主文件已覆蓋核心責任，但仍需驗證所有歷史規則與 selector 契約。
+- [ ] 建立 Stage 2–4 pre-build receipt 欄位與 Builder provenance 一致性規格。
+- [x] Stage 5 Runner 已加入 main Builder exact blob SHA 與 `APPROVED_MAIN` owner approval 檢查；候選狀態不得產生正式 REVIEW_READY。
 
 ## 全域依賴與每階段回看規則
 每次完成一個可交付步驟，回到本計劃表更新狀態，並檢查：

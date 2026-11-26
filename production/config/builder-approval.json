@@ -6,10 +6,10 @@
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
-    "workflow_run_id": 45819330715,
-    "head_sha": "2aadcbb597bea600b703361f5db692dbab135c69",
+    "workflow_run_id": 45819680821,
+    "head_sha": "c63e7f0db95ea2f9ed51f42d8f11d4d2821de81d",
     "result": "PASS",
-    "scope": "main-only compile, SHA-locked dual mothers and governance inventory, Stage2/prebuild and screenshot provenance tests, deterministic Stage4 research bundle with screenshot image SHA, Stage4 run/snapshot/bundle binding, Builder approval unit tests, candidate Builder fixtures and dual-mother DOM contract",
+    "scope": "main-only compile, SHA-locked dual mothers and governance inventory, Stage2/prebuild and screenshot provenance tests, Stage4 research bundle with screenshot image SHA and source data, Stage4 Run/snapshot/bundle binding, Builder approval unit tests, candidate Builder fixtures and dual-mother DOM contract",
     "limitation": "Capture/build jobs skipped; no real-data Stage1-6 E2E and no owner approval."
   },
   "approved_by_owner": false,

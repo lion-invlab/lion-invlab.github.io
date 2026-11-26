@@ -50,7 +50,9 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 已公布事件必須顯示實際值、共識及判讀；財報另呈現 EPS／Revenue 與預期比較及股價反應。資料不足如實標示。
 
 ## 6. Stage 4 新聞與分析
-- Capture 的 Stage 3 後自動產生 `stage4-research-bundle.json`，彙整完整 44 項行情／來源狀態、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、所有輸入 SHA，以及使用者截圖 sidecar／圖片證據 SHA。\n- 編輯內容必須綁定同一 Run 的 `run_id`、`market_snapshot_sha256` 與 `research_bundle_sha256`；Stage 4 與 build workflow 逐一驗證，禁止跨 Run 或使用過期行情。\n- 全球焦點新聞 5 則；市場熱門頭條 10 則；核對原始發布時間、時區、URL 與共同時間窗口。
+- Capture 的 Stage 3 後自動產生 `stage4-research-bundle.json`，彙整完整 44 項行情／來源狀態、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、所有輸入 SHA，以及使用者截圖 sidecar／圖片證據 SHA。
+- 編輯內容必須綁定同一 Run 的 `run_id`、`market_snapshot_sha256` 與 `research_bundle_sha256`；Stage 4 與 build workflow 逐一驗證，禁止跨 Run 或使用過期行情。
+- 全球焦點新聞 5 則；市場熱門頭條 10 則；核對原始發布時間、時區、URL 與共同時間窗口。
 - 總結小卡、五層深度解析、盤面觀察重點分層，不互相複製。
 - 五層固定順序：政治與地緣政治；政策傳導與企業／產業鏈；宏觀經濟；金融市場定價／情緒／風險；機構資金動向與投資策略。
 - 每日完成六領域政治掃描；無重大變化可明確寫無重大已核實變化，不硬湊。
@@ -59,7 +61,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 總結／五層文字局部修正使用 DOM 局部更新器；不重跑行情、行事曆、新聞或完整 Builder，並保留非目標 DOM 指紋。
 
 ## 7. Stage 5 Builder 與 QA
-- Builder 只接受同一 Run 的 Stage 1–4 輸出、PASS 的 pre-build receipt、正式 Manifest、QA Contract。
+- Builder 只接受同一 Run 的 Stage 1–4 輸出、PASS 的 pre-build receipt、正式 Manifest、QA Contract 與 Stage 1 governance SHA snapshot；main Builder 必須通過 exact blob SHA owner approval。
 - 目前 SIM-1.4 核准 Builder 的來源 SHA 為 `6bf6eb2f5ae29774addf696c541c5b806953c7a3`，但其路徑與執行環境仍是 Simulation 專用；main 必須先完成路徑／依賴適配、測試與使用者核准前的技術驗證，不得直接把該 SHA 宣稱為 main Runner 已可用。
 - QA 四類：資料／內容、HTML 結構、視覺與互動、Run／交付整合。只跑必要且有區別的檢查，不無限加 Gate。
 - 未測試標 NOT_TESTED；不把缺值變成 0 或虛構成功。必要 Gate FAIL 不得 REVIEW_READY；非核心欄位缺漏可 PARTIAL 並繼續可完成工作。
