@@ -698,16 +698,16 @@ jobs:
         run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
       - name: Verify mother-owned DOM structure unchanged
-if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: python simulation-lab/runner/validate_mother_dom_contract.py --mother "${MOTHER_FILE}" --report "${REPORT_OUTPUT}" --template "${TEMPLATE_KEY}"
 
       - name: Independently validate exact review artifact and provenance
-if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
 
       # Structural-only post-build check. Never fetch market pages or re-reconcile numeric quotes after the snapshot is sealed.
       - name: Validate report structure and frozen 44-indicator snapshot consistency (no market re-fetch)
-if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
           import json, sys
@@ -752,7 +752,7 @@ if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (git
           PY
 
       - name: Verify frozen Stage 2-4 receipt SHA after Builder (integrity only; no market re-verification)
-if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
@@ -768,7 +768,7 @@ if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (git
           echo "Frozen Stage 2-4 snapshot SHA unchanged after Builder: ${ACTUAL_PREBUILD_RECEIPT_SHA256}"
 
       - name: Seal QA evidence to the exact review HTML blob
-if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
         shell: bash
         run: |
           set -euo pipefail
