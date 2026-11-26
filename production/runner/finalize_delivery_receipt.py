@@ -9,6 +9,8 @@ ROOT=Path(__file__).resolve().parents[2]
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(commit:str,path:str)->str:
     return subprocess.check_output(["git","rev-parse",f"{commit}:{path}"],cwd=ROOT,text=True).strip()
+def working_blob(path:str)->str:
+    return subprocess.check_output(["git","hash-object",path],cwd=ROOT,text=True).strip()
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--report-date",required=True)
@@ -29,6 +31,10 @@ def main():
     subprocess.run(["git","merge-base","--is-ancestor",args.preview_commit,"HEAD"],cwd=ROOT,check=True)
     html_sha=sha(ROOT/html_path)
     qa_sha=sha(ROOT/qa_path)
+    if git_blob(args.preview_commit,html_path)!=working_blob(html_path):
+        raise SystemExit("Current preview HTML does not match the preview commit")
+    if git_blob(args.preview_commit,qa_path)!=working_blob(qa_path):
+        raise SystemExit("Current preview QA sidecar does not match the preview commit")
     if html_sha!=args.public_url_content_sha256:
         raise SystemExit("Public preview content SHA does not match main preview HTML")
     receipt=json.loads((ROOT/receipt_path).read_text(encoding="utf-8"))
