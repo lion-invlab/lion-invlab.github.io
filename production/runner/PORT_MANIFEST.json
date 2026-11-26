@@ -8,7 +8,7 @@
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
       "status": "MAIN_PATCHED_OFFICIAL_MARKET_CLOSURE_EVIDENCE",
-      "main_blob_sha": "a3ab74d58467b2a577ec118f88396bb52b57f51b"
+      "main_blob_sha": "d6d26bf0bf8b3070ab7f6e3cd017c8dc654769c6"
     },
     {
       "file": "stage2_screenshot_inputs.py",
