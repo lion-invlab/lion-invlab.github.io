@@ -130,7 +130,9 @@ def populate_fixture(data, payload):
                and (screenshot or obs.get("source_page_fetched") is True))
         if not valid:
             if obs.get("read_status")=="MARKET_CLOSED" or obs.get("status")=="MARKET_CLOSED":
-                if group=="sectors": out["sectors"][name]="休市"
+                if group=="sectors":
+                    out["sectors"][name]="休市"
+                    src["change_display"]="休市"
                 else:
                     item["display"]="休市"; item["change_display"]="休市"
                 src["verification_status"]="CLOSED"
