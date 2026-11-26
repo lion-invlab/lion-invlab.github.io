@@ -1,0 +1,37 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"TAC Stage 2 direct web observations",
+  "type":"object",
+  "required":["schema_version","report_date","trading_date","captured_at_utc","observations"],
+  "properties":{
+    "schema_version":{"const":"1.0"},
+    "report_date":{"type":"string","format":"date"},
+    "trading_date":{"type":"string","format":"date"},
+    "captured_at_utc":{"type":"string"},
+    "observations":{"type":"array","minItems":44,"maxItems":44,"items":{"$ref":"#/$defs/observation"}}
+  },
+  "$defs":{
+    "observation":{
+      "type":"object",
+      "required":["group","name","source_url","target_date","observed_date","page_title","instrument_identity","read_method","observed_value_field","observed_change_field","observed_headers","observed_row_text","read_status","captured_at_utc","finished_at_utc"],
+      "properties":{
+        "group":{"type":"string"},"name":{"type":"string"},
+        "source_url":{"type":"string","format":"uri","pattern":"^https://"},
+        "target_date":{"type":"string","format":"date"},"observed_date":{"type":"string","format":"date"},
+        "page_title":{"type":"string"},"instrument_identity":{"type":"string"},
+        "read_method":{"enum":["CHATGPT_WEB_OPEN_HISTORICAL_PAGE","CNN_OFFICIAL_CURRENT_DASHBOARD"]},
+        "observed_value_field":{"type":"string"},"observed_change_field":{"type":"string"},
+        "observed_headers":{"type":"array","items":{"type":"string"}},
+        "observed_row_text":{"type":"string"},
+        "read_status":{"enum":["PAGE_CONTENT_READ_SUCCESS","SOURCE_NO_DATA","MARKET_CLOSED","SOURCE_UPDATE_PENDING","TOOL_READ_FAILURE"]},
+        "observed_value":{"type":["number","string","null"]},
+        "observed_change":{"type":["number","string","null"]},
+        "captured_at_utc":{"type":"string"},"finished_at_utc":{"type":"string"},
+        "web_reader_ref":{"type":"string"},"web_line_start":{"type":"integer","minimum":0},"web_line_end":{"type":"integer","minimum":0},
+        "source_timestamp_utc":{"type":"string"},"source_role":{"type":"string"},
+        "evidence_path":{"type":"string"},"observation_record_sha256":{"type":"string"}
+      },
+      "additionalProperties":true
+    }
+  }
+}
