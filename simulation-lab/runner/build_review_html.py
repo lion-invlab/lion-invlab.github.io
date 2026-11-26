@@ -2592,6 +2592,11 @@ def main():
         )
         if key == "move" and str(record.get("as_of_date", "")).startswith("未取得") and not screenshot_close_verified:
             is_verified = False
+        if screenshot_close_verified:
+            # A dated, verified closing screenshot is valid backup evidence. Restore its captured close/change after any pending manifest overlay.
+            record["display"] = f'{float(source.get("close_value")):.2f}'
+            record["change_display"] = f'{float(source.get("daily_change_percent")):+.2f}%'
+            is_verified = True
         if not is_verified:
             record["display"] = "待核實"
             record["change_display"] = "待核實"
