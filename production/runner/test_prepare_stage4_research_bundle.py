@@ -93,11 +93,11 @@ class Stage4ResearchBundleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); run=root/"TAC-2026-11-26-test-1"; run.mkdir()
             data={"report_date":"2026-11-26","trading_date":"2026-11-25"}
-            context={"run_id":run.name,"report_date":"2026-11-26","trading_date":"2026-11-25","main_commit_sha":"abc"}
+            context={"run_id":run.name,"report_date":"2026-11-26","trading_date":"2026-11-25","main_commit_sha":"abc","workflow_run_id":"12345"}
             for name,doc in {
                 "run-context.json":context,"stage1-receipt.json":{"status":"PASS","run_id":run.name},"report-data.json":data,
-                "stage2-market-snapshot-receipt.json":{"status":"PASS"},
-                "stage2-run-summary.json":{"run_id":run.name,"market_snapshot_sha256":market_digest(data)},
+                "stage2-market-snapshot-receipt.json":{"status":"PASS","workflow_run_id":"12345","report_date":"2026-11-26","trading_date":"2026-11-25"},
+                "stage2-run-summary.json":{"run_id":run.name,"report_date":"2026-11-26","trading_date":"2026-11-25","market_snapshot_sha256":market_digest(data)},
                 "stage3-calendar-receipt.json":{"status":"PASS","run_id":"other","main_commit_sha":"abc"}
             }.items():
                 (run/name).write_text(json.dumps(doc),encoding="utf-8")
