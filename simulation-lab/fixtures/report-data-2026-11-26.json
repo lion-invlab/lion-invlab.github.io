@@ -12604,12 +12604,13 @@
     "source_fixture": "2026-11-25 fixture used for schema only; all 44 daily market rows, news, calendar and analysis replaced for this report date",
     "main_publish_authorized": false,
     "build_requested_at_taipei": "2026-11-26T05:50:25+08:00",
-    "build_trigger_reason": "User authorized manual takeover of 2026-11-26 Simulation report after scheduled run showed no current-date fixture or artifact.",
+    "build_trigger_reason": "Rebuild after fixing MOVE backup verification and removing screenshot wording from summary.",
     "execution_batch": "manual-takeover-2026-11-26-retry-2",
     "related_automation_run_id": "d6a4f050-94e0-8324-a5b0-56601598f351",
     "current_session_checked_at_taipei": "2026-11-26T06:21:47+08:00",
     "prior_failed_workflow_run_id": "45712219629",
-    "prior_failed_commit_sha": "485c4aa6e8af732bf53dc1e3261e538d1d441a88"
+    "prior_failed_commit_sha": "485c4aa6e8af732bf53dc1e3261e538d1d441a88",
+    "builder_fix_commit": "060302528b7f5ed4a4443caa84cb2a295296b6e8"
   },
   "last_week_calendar_impact_overrides": []
 }
