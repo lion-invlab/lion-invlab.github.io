@@ -493,3 +493,33 @@
 - Main CI Run `45904153569`（HEAD `da3ac8e7478570a94b2973c53929c3abba69f357`）SUCCESS；涵蓋同日有效期載入器、舊日期截圖拒絕、欄位級 captured_at 檢查、無時區時間戳拒絕，以及修正後的截圖／CLOSED 衝突測試。
 - 驗收範圍僅為 Main deterministic validation；capture-and-calendar、build-and-deliver、schedule-window 均 skipped。未執行真實 44 項行情擷取、早報 E2E、排程切換或正式首頁更新。
 - PORT_MANIFEST 已記錄最新成功 Run 與精確 HEAD SHA。截圖規則可標記為程式與 CI 測試通過，但真實 Run 尚未實測。
+
+
+## 2026-11-27 Main 重建續查：最新 CI、Stage 4 生產邊界與 Builder 核准差異
+
+### 最新 Main validation
+- Run `45904766962`，HEAD `057fa669a7647d8b7adddb64644667cb675a867b`，已完成 `SUCCESS`。
+- `validate-main-production` 成功；`capture-and-calendar`、`build-and-deliver`、`schedule-window` 均為 `SKIPPED`。
+- 成功範圍包括 Python／Browser QA 語法檢查、雙母版 SHA 與 Manifest、Stage 2／Pre-build deterministic tests、Builder／earnings deterministic tests、隔離 fixture 候選 Builder 建置及母版 DOM contract。
+- CI log 明確標示候選 fixture 為 synthetic，且 `production_preview_written=false`、`review_ready=false`。因此本 Run 不代表真實行情擷取、Stage 4 編輯內容產生、Stage 5/6 真實交付或完整 E2E 通過。
+
+### Stage 4 編輯內容生產器盤點
+- 已逐條回讀 SIM-1.4 Stage 4 規格及 Main `production/stages/STAGE_4_NEWS_ANALYSIS.md`。
+- Main 現有 `prepare_stage4_research_bundle.py` 負責把同一 Run 的凍結 44 項行情、未核實項目、FedWatch、行事曆／財報、來源觀察、Manifest、Receipt、截圖證據及新聞時間窗整理成研究包；它不是新聞研究或編輯內容生成器。
+- Main `run_stage4.py` 負責驗證既有 `report-content-YYYY-MM-DD.json` 的 Schema、Run／日期／行情 SHA／研究包 SHA、新聞時間窗、來源及分析結構，再把內容合併至同一 Run Fixture；它不會自行搜尋原始報導或撰寫內容。
+- Main Workflow 的 capture handoff 明確停在 `AWAITING_EDITORIAL_INPUT`，build job 則要求先存在日期化 report-content JSON。Workflow 目前沒有模型研究／生成步驟；因此 P0-1 尚未完成。
+- 真正自動化需補上可核准的研究／生成執行介面、模型供應商與憑證管理、成本／重試／逾時政策、原文抓取與時間戳證據封存，以及輸出後的既有 Stage 4 fail-closed 驗證。不得用空白、測試 fixture、搜尋摘要或假新聞填補。未取得模型服務授權前，不得假設 API secret 已存在或自行發起付費模型呼叫。
+- Stage 4 輸出仍必須由同一 Run 的 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三者綁定；Stage 2 快照保持唯讀。
+
+### Stage 5 Builder exact-blob 核准差異
+- Main 現行 `production/runner/build_review_html.py` blob SHA 為 `3e5a971d6d0a3ad3d41881b542580308276021f9`。
+- `production/config/builder-approval.json` 的歷史核准只涵蓋 `20eefe57d6f3b389157c01b8532cae3a69128a02`。
+- 目前 Builder 在 2026-11-26 的 `dd1f5c87d23ee0d4a0594508f104198584ef76d4` 變更後，已不是原核准 blob。Stage 5 的 exact-blob gate 會拒絕此差異；不得把舊核准延伸到新版，也不得由助理代替使用者核准。
+- Main validation Run 45904766962 沒有執行 Stage 5 runtime gate，故未驗證新版 Builder 可正式執行。
+
+### 下一步（不改排程、不啟動正式擷取、不發布首頁）
+1. 定義並實作 Stage 4 研究／生成 adapter，但先確認模型供應商與憑證／成本授權邊界；沒有授權時只完成可測試的介面與 fail-closed contract，不偽稱內容已自動生成。
+2. 補強 Stage 4 producer／validator 的正反向測試：跨 Run、跨日期、行情 SHA 不符、研究包 SHA 不符、新聞超出時間窗、來源缺失、政治六領域未完成及五層分析缺來源均須拒絕。
+3. 對目前 Builder 新 blob 維持 `REAPPROVAL_REQUIRED`；完成程式修訂與測試後，提交 exact SHA 供使用者核准，不自動改寫核准紀錄。
+4. 完成後再執行 Main validation；Stage 5/6 真實 E2E 仍須等編輯內容與 Builder 核准條件俱備，且另行遵守正式擷取與發布權限。
+5. 本次續查未修改 Simulation、Workflow 排程、正式行情資料、Main preview 或 `index.html`。
