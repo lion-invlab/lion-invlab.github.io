@@ -211,6 +211,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         provenance == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
         and read_method in ("MIXED_SCREENSHOT_AND_HISTORICAL_PAGE", "MIXED_SCREENSHOT_AND_OFFICIAL_SOURCE")
         and screenshot_evidence_ok
+        and observation.get("screenshot_instrument_identity_status") == "VERIFIED"
         and required_field_keys_present
         and bool(screenshot_fields)
         and any(field_evidence.get(key, {}).get("source_type") in mixed_page_source_types
@@ -318,6 +319,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "source_url": source_url,
             "data_endpoint_url": observation.get("data_endpoint_url"),
             "instrument_identity": observation.get("instrument_identity"),
+            "screenshot_instrument_identity_status": observation.get("screenshot_instrument_identity_status"),
             "data_date": data_date,
             "observed_date": observation.get("observed_date"),
             "observed_value_field": value_field,
