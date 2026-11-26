@@ -667,6 +667,14 @@ def _apply_screenshot_fields(row, observation, screenshot):
     return observation
 
 
+def persist_fixture(path: Path, data: dict, *, no_fixture_write: bool = False) -> bool:
+    """Persist the working Fixture only for production runs, never diagnostic runs."""
+    if no_fixture_write:
+        return False
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    return True
+
+
 def _ensure_field_evidence(row, observation):
     """Record field-level provenance for page-only rows as well as screenshot rows."""
     if observation.get("field_evidence"):
@@ -764,7 +772,7 @@ def main():
         screenshot_inputs={key:value for key,value in screenshot_inputs.items() if key==(group_name,item_name)}
     if screenshot_inputs:
         data=apply_screenshot_values_to_fixture(data,screenshot_inputs)
-        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        persist_fixture(fixture_path, data, no_fixture_write=a.no_fixture_write)
     work=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk"):
         for name,item in (data.get(group) or {}).items():
@@ -802,7 +810,7 @@ def main():
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
     if screenshot_inputs:
         observations=apply_page_completions_to_fixture(data,observations,screenshot_inputs)
-        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        persist_fixture(fixture_path, data, no_fixture_write=a.no_fixture_write)
         for item in observations:
             item.pop("observation_record_sha256",None)
             canonical=json.dumps(item,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
@@ -828,7 +836,7 @@ def main():
         "preexisting_market_values_used":False}
     if not a.no_fixture_write:
         populated=populate_fixture(data,result)
-        fixture_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        persist_fixture(fixture_path, populated, no_fixture_write=a.no_fixture_write)
         summary.update({"fixture_output":str(fixture_path),
             "verified_count":populated["stage2_market_bootstrap"]["verified_count"],
             "pending_count":populated["stage2_market_bootstrap"]["pending_count"]})
