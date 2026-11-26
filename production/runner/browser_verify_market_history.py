@@ -378,7 +378,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             candidate=matches[0]
             cells=split_cells(candidate)
             headers,date_i,value_i,change_i=header_indexes(header_lines+rows+body_lines, len(cells))
-            title_text=(out.get("page_title","")+" "+(await page.locator("h1").first.inner_text() if await page.locator("h1").count() else "")).lower()
+            h1_text=await page.locator("h1").first.inner_text() if await page.locator("h1").count() else ""
+            title_text=(out.get("page_title","")+" "+h1_text).lower()
             aliases=IDENTITY_ALIASES.get(row["name"],[row["name"]])
             matched_identity=next((alias for alias in aliases if alias.lower() in title_text),None)
             identity_ok=matched_identity is not None
@@ -404,6 +405,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 "display_change_match":cm,
                 "instrument_identity":matched_identity,
                 "instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+                "contract_label":h1_text.strip() if identity_ok and row.get("group") in ("energy","metals") and h1_text.strip() else None,
             "screenshot_instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
                 "field_mapping_status":"VERIFIED" if field_ok else "PENDING_FIELD_HEADER_MAPPING",
             })
