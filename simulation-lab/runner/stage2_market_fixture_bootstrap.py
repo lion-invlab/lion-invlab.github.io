@@ -86,6 +86,10 @@ def blank_fixture(source, apply_screenshots=True):
             item["change_display"]="待擷取"
         for key in VALUE_KEYS:
             src.pop(key,None)
+        # source_role is observation provenance, not a reusable quote value.
+        # Keep only the pinned Fear & Greed backup role from its source contract.
+        if not (group=="risk" and name=="fear_greed"):
+            src.pop("source_role",None)
         src["verification_status"]="PENDING"
         src["source_page_fetched"]=False
         src["note"]="Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
@@ -195,10 +199,18 @@ def populate_fixture(data, payload):
                 item["change_display"]=change_text
                 src["history_change"]=change_text if group in ("energy","metals") else float(_decimal(raw_change))
         backup_verified=obs.get("source_role") in ("BACKUP_1","BACKUP")
-        src["verification_status"]="BACKUP_VERIFIED" if backup_verified else "VERIFIED"
-        if backup_verified:
-            src["verified_source_role"]="BACKUP_1"
-            src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
+        if screenshot:
+            # A user screenshot is a first-class evidence method, not a claim that
+            # the primary Investing.com page was fetched during this run.
+            src["verification_status"]="VERIFIED"
+            src["source_role"]="USER_PROVIDED_SCREENSHOT"
+            src.pop("verified_source_role",None)
+        else:
+            src["verification_status"]="BACKUP_VERIFIED" if backup_verified else "VERIFIED"
+            src["source_role"]=obs.get("source_role") or src.get("source_role") or "PRIMARY"
+            if backup_verified:
+                src["verified_source_role"]="BACKUP_1"
+                src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
         src["data_date"]=out["trading_date"]
         src["checked_at_tw"]=obs.get("finished_at_tw") or obs.get("captured_at_taipei")
         src["read_method"]=obs.get("read_method")
