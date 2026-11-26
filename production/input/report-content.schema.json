@@ -419,7 +419,8 @@
         "url",
         "published_at_tw",
         "published_at_source",
-        "source_timezone"
+        "source_timezone",
+        "publisher"
       ],
       "properties": {
         "title": {
@@ -436,7 +437,8 @@
           "pattern": "^https://"
         },
         "published_at_tw": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
         },
         "published_at_source": {
           "type": "string"
@@ -462,6 +464,18 @@
       },
       "additionalProperties": true,
       "oneOf": [
+        {
+          "required": [
+            "updated_at_source"
+          ]
+        },
+        {
+          "required": [
+            "updated_at_tw"
+          ]
+        }
+      ],
+      "anyOf": [
         {
           "required": [
             "updated_at_source"
