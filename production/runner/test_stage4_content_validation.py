@@ -7,7 +7,7 @@ LAYERS=("political","policy_industry","macro","markets","strategy")
 
 def sample():
     def news(i):
-        return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25 13:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei"}
+        return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25 13:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei","updated_at_source":"Nov 25 2026 1:10 PM"}
     return {
       "report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
       "summary_title":"市場測試主題與風險觀察","summary_points":[{"label":f"重點{i}","text":"這是一段長度足夠的測試總結文字，用來驗證三段摘要格式。"} for i in range(3)],
