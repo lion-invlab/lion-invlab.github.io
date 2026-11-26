@@ -583,3 +583,11 @@
 - 更新 `production/runner/PORT_MANIFEST.json`：commit `b814101ac82a860bb5622662c9f2e06a57ae4e7f`，新 blob SHA `e5e9eecbcdf64cc1a90568063123445204235c97`；同步 Builder 核准與 deterministic validation scope，保留真實 E2E 未完成限制。
 - CI Run `45911061965`：event=push、conclusion=success；validate-main-production PASS，schedule-window／capture-and-calendar／build-and-deliver SKIPPED。不能稱為真實行情擷取或 Stage 4–6 E2E。
 - 下一步：2026-11-30 台灣 05:05 等待真實 event=schedule Stage 1–3 Capture；05:15 continuation 只在當日 receipts 完整後接手。未修改排程、首頁、Simulation；未手動 dispatch 或執行正式 Capture。
+
+## 2026-11-27｜Main 漏跑排程補救入口已建立
+- Main Workflow 新增 `workflow_dispatch mode=recover`，必填台灣 report_date；從 Stage 1 blank-first 執行 Stage 1–3，並在啟動前檢查同日 Run，存在完整或部分 Run 即 fail-closed，不另建第二份。
+- Capture receipt 新增 capture_trigger（event_name、dispatch_mode、workflow_run_id）；Stage 4 continuation 只接受成功的 workflow_dispatch/recover 同 Run receipts。
+- Main MASTER WR 已升為 v1.2，新增手動補救規範；PORT_MANIFEST 與 MAIN_REBUILD_PLAN 已同步。最終 workflow blob SHA `5ffbc27d3a84d8b2580b8edd610b13519954e291`。
+- Stage 4–6 continuation automation `Automation_f4da15cd95c881918c7412cdd6f35bb2` 已恢復啟用，原台灣工作日 05:15 喚醒時間不變；prompt 新增 recover Run 接手規則，BLOCKED 不再自動停用任務。
+- deterministic CI Run `45912016851`（push、HEAD `ad7152c3d2663f5b70241ff37acca00a18c0c908`）截至本紀錄仍為 pending，未宣稱通過。未觸發真實 Capture，未更新正式首頁，未修改 Simulation 或每日 cron。
+- 手動補做 11/27 的入口：GitHub Actions `tac-production.yml` → Run workflow → mode 選 `recover` → report_date 填 `2026-11-27`。Capture 成功後，對同一日期執行 Stage 4–6 continuation 的 run_now；不重新跑 Stage 1–3。
