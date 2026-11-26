@@ -577,9 +577,9 @@
           "name": "Statistics Bureau of Japan｜CPI Schedule of Release",
           "url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
           "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "observed_at": "2026-11-27T04:36:00+08:00",
           "publisher": "Statistics Bureau of Japan",
-          "notes": "日本官方發布表確認東京區部 11 月 CPI 於 11/27 發布；官方月曆未在該頁列出時刻，08:30 JST 依官方 CPI 發布慣例換算台灣時間 07:30。市場預期參考 MUFG。",
+          "notes": "日本總務省統計局官方發布日程（頁面最後更新 2026-01-23）確認東京都區部 11 月 CPI 於 2026-11-27 發布。官方日程只列日期，未列時刻；08:30 JST／台灣 07:30 依 CPI 慣例保留，明確視為慣例時刻而非官方日程欄位。",
           "secondary_refs": [
             "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm",
             "https://www.stat.go.jp/english/data/cpi/1585.htm"
@@ -635,13 +635,14 @@
         "status": "upcoming",
         "impact_judgment": "若信心回升幅度擴大，可能支持歐洲週期股；若仍低於長期平均 100，則復甦基礎仍偏脆弱。",
         "source": {
-          "name": "Eurostat｜Release calendar for Euro indicators",
-          "url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar?type=listMonth",
+          "name": "European Commission DG ECFIN｜Latest business and consumer surveys",
+          "url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
+          "publisher": "European Commission DG ECFIN",
           "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
-          "publisher": "European Commission",
-          "notes": "Eurostat 官方發布日曆確認 11/27 發布 11 月 Economic Sentiment Indicator；MUFG 11/20 報告列 10:00 GMT（台灣時間 18:00）、共識 97.2、預估 96.4、前值 96.9。",
+          "observed_at": "2026-11-27T04:36:00+08:00",
+          "notes": "DG ECFIN 最新調查頁面列示下一次 Business and Consumer Survey results（含 ESI、EEI、EUI）更新日期為 2026-11-27。Eurostat Release Calendar 的當週頁面則顯示 2026-11-26，官方來源日期不一致；本資料庫暫依 DG ECFIN 最新頁與既有 10:00 GMT／台灣 18:00 時程保留 11/27 upcoming，待正式發布頁出現後再更新 actual。",
           "secondary_refs": [
+            "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
         },
@@ -668,9 +669,9 @@
           "name": "U.S. Census Bureau｜Economic Indicators Calendar",
           "url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
           "published_at": null,
-          "observed_at": "2026-11-21T08:57:28+08:00",
+          "observed_at": "2026-11-27T04:36:00+08:00",
           "publisher": "U.S. Census Bureau",
-          "notes": "官方日程確認 11/27 08:30 ET 發布 10 月 Advance Economic Indicators Report；換算台灣時間 21:30。TD Economics 預估商品貿易逆差 1,308 億美元。",
+          "notes": "U.S. Census Bureau 2026 Economic Indicator Release Schedule 明列 Advance Economic Indicators Report（International Trade, Retail & Wholesale）於 2026-11-27 08:30 ET 發布，涵蓋 2026 年 10 月；換算台灣時間 21:30。TD 與 U.S. Bank 預估保留原來源紀錄，未以本次日程核對改寫市場預期。",
           "secondary_refs": [
             "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-20/upcoming.htm"
           ]
@@ -824,8 +825,8 @@
           "url": "https://www.insee.fr/en/statistiques/9107975",
           "publisher": "Institut national de la statistique et des études économiques (INSEE)",
           "published_at": null,
-          "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "本輪回讀 INSEE 官方頁：11月 CPI/HICP 初值預定 2026-11-27 08:45 CET；10月 HICP 年增實際值為 3.8%，作為本事件前值。市場共識 3.7%、MUFG 3.5%保留既有來源記錄。",
+          "observed_at": "2026-11-27T04:36:00+08:00",
+          "notes": "INSEE 官方頁面確認 11 月 CPI／HICP 初值預定 2026-11-27 08:45 CET（台灣 15:45）；10 月 HICP 年增實際值 3.8% 作前值。市場共識 3.7%、MUFG 3.5%保留原來源記錄，非 INSEE 官方預測。",
           "secondary_refs": [
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
@@ -854,8 +855,8 @@
           "url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
           "publisher": "Bundesagentur für Arbeit",
           "published_at": null,
-          "observed_at": "2026-11-26T04:35:11+08:00",
-          "notes": "本輪嘗試重新讀取官方發布日曆時回應 HTTP 403，無法重新核對 11/27 09:55 CET 時刻；保留既有事件日期、前值與 MUFG／市場共識，不把本輪讀取失敗解讀為來源無資料。",
+          "observed_at": "2026-11-27T04:36:00+08:00",
+          "notes": "德國聯邦就業局 2026 官方發布日曆確認 11 月勞動市場報告於 2026-11-27 發布；一般統計產品發布時間 10:00 CET，月度新聞稿 embargo 為 09:55 CET。事件仍以 09:55 CET（台灣 16:55）作新聞稿發布時間，當次讀取時尚未到發布時點。",
           "secondary_refs": [
             "https://www.mufgresearch.com/macro/european-macro-weekly-20-november-2026/"
           ]
@@ -11637,7 +11638,7 @@
         "https://www.reuters.com/markets/europe/german-consumer-sentiment-edges-up-into-december-survey-finds-2026-11-26/",
         "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en"
       ],
-      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。\n本輪另修復 3 筆未公布事件的來源欄位倒置：德國 GfK、法國 HICP、德國失業率原先將來源名稱／URL 放在 impact_judgment；已改為 source object 並補上可讀的影響判斷。NIM 官方頁確認 GfK 11/26 08:00 CET、最新已公布值 -30.8；INSEE 確認法國 11月 CPI/HICP 初值 11/27 08:45 CET，並將10月 HICP 前值修正為官方 3.8%；德國聯邦就業局日曆本輪 HTTP 403，保留原事件時刻及預期並註明本輪未能重核。\n2026-11-26 04:51 追加查核：找到 1TRADER 11/23 日本 Flash PMI 預覽，明確列出製造業市場預期 53.5；僅補製造業預期，服務業／綜合指數仍無可核實預期。因此本週數值型 forecast 缺漏由 3 筆降為 2 筆（澳洲 PMI、加拿大 SEPH）；4 筆非數值事件仍為 NOT_APPLICABLE。加拿大 SEPH 的 3.6% 搜尋摘要在直接開啟頁面時未能取得同日可回讀證據，故不採用；德國 GfK 的 Investing.com 11/26 歷史表列 forecast 空白，保留既有 MUFG 預估，不用搜尋摘要改寫。\n2026-11-27 04:36 本輪更新：補入加拿大 9 月 SEPH 官方實際值（11/26 已發布：薪資就業 +9.7 千、平均週薪 CAD 1,357.92、職缺 528.1 千），並將事件由 upcoming 改為 released；補入德國 12 月 NIM/GfK 消費者景氣指數 -30.2，前值依官方修正為 -30.9，Reuters 調查共識 -29.9，並更新事件狀態。兩項均保留各自 forecast 與 actual 的區分；加拿大 SEPH forecast 仍缺，仍列數值型市場預期缺漏。週五尚未公布事件維持 upcoming：日本東京 CPI（官方日曆確認 11/27）、法國 CPI/HICP 初值（INSEE 11/27 08:45 CET）、德國失業數據（BA 11/27，09:55 CET embargo／10:00 CET 一般發布）、歐元區 ESI（DG ECFIN 最新頁列 11/27，但 Eurostat 日曆顯示 11/26，日期存在官方來源差異，暫不提前標記 released）、美國 Advance Economic Indicators Report（Census 11/27 08:30 ET）。非數值事件 forecast 仍 NOT_APPLICABLE；coverage.status=incomplete 仍為動態狀態，不構成阻塞。"
+      "notes": "W48 本輪更新：coverage.status=incomplete 為動態進行中狀態，不構成阻塞。27 筆事件均保留，未新增事件。7 筆 forecast=null 已分類：3 筆數值型市場預期缺漏（澳洲 11 月 Flash PMI、日本 11 月 Flash PMI、加拿大 9 月 SEPH），4 筆非數值事件不適用（Beige Book、ECB 會議紀要、美國感恩節休市、Williams 談話），不計入市場預期缺漏。澳洲 1TRADER 預覽明確標示無共識；加拿大 TD Economics 11/20 表列 SEPH consensus 為「-」；日本本輪可查核來源未取得 11 月同指標有效共識，均保持 forecast=null 並設 forecast_applicable=true。澳洲、日本 10 月前值已補入。所有尚未公布事件 actual=null 保持正常。 數值型事件（含有預期值的法國 Flash PMI、ECB 消費者預期調查）均明確標記 forecast_applicable=true；四項非數值事件維持 false。\n2026-11-24 本輪補入 11/23 澳洲、法國、德國、歐元區、英國及美國共 6 筆 Flash PMI 初值 actual，狀態改為 released；日本 11/24 08:30（台灣時間）尚未到公布時間，actual=null 保持。forecast=null 分類維持 3 筆數值型預期缺漏（澳洲 Flash PMI、日本 Flash PMI、加拿大 SEPH）及 4 筆非數值事件 NOT_APPLICABLE；不把非數值事件計入市場預期缺漏。coverage.status=incomplete 仍為動態狀態，不作阻塞。\n2026-11-25 本輪更新：補入日本 11 月 Flash PMI（製造業 53.7、服務業 50.5、綜合 51.5）、德國 11 月 ifo 景氣指數（90.6）及美國 11 月 Conference Board 消費者信心（103.3）實際值；紐約聯準銀行 Williams 11/23 16:00 EST 官方行程已到期，標記為已舉行之非數值事件並註明未取得逐字稿。德國 ifo 發布時間依官方／Dow Jones 資料修正為 10:00 CET（台灣 17:00），headline forecast 更正為 Reuters poll 90.5；原 92.0 為不同 ifo 分項的預期值，不再用於 headline。日本 PMI forecast 仍為 null（數值型預期缺漏）；澳洲 PMI 與加拿大 SEPH 亦仍列數值型預期缺漏。4 項非數值事件（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）仍為 NOT_APPLICABLE，不計入市場預期缺漏。coverage.status=incomplete 保持動態狀態，不作阻塞。\n2026-11-26 本輪補入 8 筆已公布事件實際值／狀態：德國 Q3 GDP 詳細結果 +0.1% q/q；美國 Q3 GDP 第二次估值 +4.3% SAAR；10月 PCE／核心 PCE；10月耐久財訂單；10月新屋銷售 701K；11月 Beige Book；截至 11/21 當週初領失業救濟金 189K；美國感恩節美股休市。同步採用官方修正前值：9月 PCE 個人支出 +0.6%、9月耐久財總訂單 +2.0%、9月新屋銷售 614K、前週初領 202K。其餘尚未到公布時間的事件保持 upcoming／actual=null。forecast=null 分類仍為 3 筆數值型預期缺漏（澳洲 PMI、日本 PMI、加拿大 SEPH）及 4 筆非數值 NOT_APPLICABLE（Beige Book、ECB 會議紀要、感恩節休市、Williams 談話）；coverage.status=incomplete 為動態狀態，不構成阻塞。\n本輪另修復 3 筆未公布事件的來源欄位倒置：德國 GfK、法國 HICP、德國失業率原先將來源名稱／URL 放在 impact_judgment；已改為 source object 並補上可讀的影響判斷。NIM 官方頁確認 GfK 11/26 08:00 CET、最新已公布值 -30.8；INSEE 確認法國 11月 CPI/HICP 初值 11/27 08:45 CET，並將10月 HICP 前值修正為官方 3.8%；德國聯邦就業局日曆本輪 HTTP 403，保留原事件時刻及預期並註明本輪未能重核。\n2026-11-26 04:51 追加查核：找到 1TRADER 11/23 日本 Flash PMI 預覽，明確列出製造業市場預期 53.5；僅補製造業預期，服務業／綜合指數仍無可核實預期。因此本週數值型 forecast 缺漏由 3 筆降為 2 筆（澳洲 PMI、加拿大 SEPH）；4 筆非數值事件仍為 NOT_APPLICABLE。加拿大 SEPH 的 3.6% 搜尋摘要在直接開啟頁面時未能取得同日可回讀證據，故不採用；德國 GfK 的 Investing.com 11/26 歷史表列 forecast 空白，保留既有 MUFG 預估，不用搜尋摘要改寫。\n2026-11-27 04:36 本輪更新：補入加拿大 9 月 SEPH 官方實際值（11/26 已發布：薪資就業 +9.7 千、平均週薪 CAD 1,357.92、職缺 528.1 千），並將事件由 upcoming 改為 released；補入德國 12 月 NIM/GfK 消費者景氣指數 -30.2，前值依官方修正為 -30.9，Reuters 調查共識 -29.9，並更新事件狀態。兩項均保留各自 forecast 與 actual 的區分；加拿大 SEPH forecast 仍缺，仍列數值型市場預期缺漏。週五尚未公布事件維持 upcoming：日本東京 CPI（官方日曆確認 11/27）、法國 CPI/HICP 初值（INSEE 11/27 08:45 CET）、德國失業數據（BA 11/27，09:55 CET embargo／10:00 CET 一般發布）、歐元區 ESI（DG ECFIN 最新頁列 11/27，但 Eurostat 日曆顯示 11/26，日期存在官方來源差異，暫不提前標記 released）、美國 Advance Economic Indicators Report（Census 11/27 08:30 ET）。非數值事件 forecast 仍 NOT_APPLICABLE；coverage.status=incomplete 仍為動態狀態，不構成阻塞。\n2026-11-27 04:36 來源欄位補核：更新日本東京 CPI、法國 HICP、德國失業、歐元區 ESI、U.S. Advance Economic Indicators 的來源 observed_at 與官方日程說明；歐元區 ESI primary source 改為 DG ECFIN 最新調查頁，並保留 Eurostat 11/26 與 DG ECFIN 11/27 的日期差異。以上事件在本輪時間點均未到發布時刻，維持 upcoming；未更改 event_date、actual 或 forecast。"
     },
     "earnings": {
       "status": "incomplete",
@@ -15562,21 +15563,160 @@
         "attempts_updated": 22,
         "reason": "本輪直接開啟 11 個 Yahoo Finance /analysis/ 頁面均回應 HTTP 429；EPS／Revenue 各記錄 unreadable。"
       }
+    },
+    {
+      "at": "2026-11-27T04:36:00+08:00",
+      "action": "W48 來源欄位補核：重讀週五未公布事件的官方發布日程並修正來源註記；不變更事件時間或預期值",
+      "week": "2026-W48",
+      "before": {
+        "exists": true,
+        "path": "data/calendar/weeks/2026-W48.json",
+        "blob_sha": "f286178895dff26d7206c7149009d0bc41cbe3b9",
+        "updated_at": "2026-11-27T04:36:00+08:00",
+        "schema_version": 1,
+        "economic_events": 27,
+        "earnings_events": 11,
+        "main_head": "872fd509ec706f52a368fa538f057dc26da98f1d"
+      },
+      "after": {
+        "economic_events": 27,
+        "earnings_events": 11,
+        "economic_status": "incomplete",
+        "earnings_status": "incomplete",
+        "updated_at": "2026-11-27T04:36:00+08:00",
+        "schema_version": 1,
+        "economic_source_records_refreshed": 5,
+        "new_events_added": 0,
+        "economic_actuals_changed": 0,
+        "event_time_corrections": 0
+      },
+      "source_metadata_updated": [
+        {
+          "id": "current-japan-tokyo-cpi-202611",
+          "source_url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
+          "change": "observed_at and schedule note refreshed"
+        },
+        {
+          "id": "current-fr-hicp-flash-202611",
+          "source_url": "https://www.insee.fr/en/statistiques/9107975",
+          "change": "observed_at and schedule note refreshed"
+        },
+        {
+          "id": "current-de-unemployment-202611",
+          "source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+          "change": "official date and embargo/general publication times rechecked"
+        },
+        {
+          "id": "current-eurozone-esi-202611",
+          "source_url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
+          "change": "primary source switched to DG ECFIN; official schedule discrepancy documented"
+        },
+        {
+          "id": "current-us-advance-goods-trade-202610",
+          "source_url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
+          "change": "official release date/time rechecked"
+        }
+      ],
+      "economic_schedule_sources_rechecked": {
+        "Canada_SEPH": {
+          "result": "released",
+          "source_url": "https://www150.statcan.gc.ca/n1/daily-quotidien/261126/dq261126a-eng.htm",
+          "published_at": "2026-11-26",
+          "actual": "payroll employment +9.7K; average weekly earnings CAD 1,357.92; job vacancies 528.1K"
+        },
+        "Germany_GfK": {
+          "result": "released",
+          "source_url": "https://www.nim.org/en/consumer-climate",
+          "published_at": "2026-11-26",
+          "actual": "-30.2",
+          "previous_revised": "-30.9",
+          "Reuters_poll_consensus": "-29.9"
+        },
+        "Japan_Tokyo_CPI": {
+          "result": "scheduled_upcoming",
+          "source_url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
+          "release_date": "2026-11-27",
+          "scheduled_local_time": "08:30 JST / 07:30 Taiwan (release convention; official calendar confirms date)"
+        },
+        "France_HICP": {
+          "result": "scheduled_upcoming",
+          "source_url": "https://www.insee.fr/en/statistiques/9107975",
+          "release_time": "2026-11-27 08:45 CET / 15:45 Taiwan"
+        },
+        "Germany_Unemployment": {
+          "result": "scheduled_upcoming",
+          "source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+          "release_date": "2026-11-27",
+          "release_time": "09:55 CET embargo / 10:00 CET general publication"
+        },
+        "Eurozone_ESI": {
+          "result": "official_schedule_conflict",
+          "source_url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
+          "alternative_source_url": "https://ec.europa.eu/eurostat/news/euro-indicators/release-calendar",
+          "note": "DG ECFIN page states next update 2026-11-27; Eurostat calendar search result displays 2026-11-26. Retained existing 11/27 event and upcoming status pending direct release confirmation."
+        },
+        "US_Advance_Economic_Indicators": {
+          "result": "scheduled_upcoming",
+          "source_url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
+          "release_time": "2026-11-27 08:30 ET / 21:30 Taiwan"
+        }
+      },
+      "source_conflict": {
+        "event_id": "current-eurozone-esi-202611",
+        "primary": "DG ECFIN page: next update 2026-11-27",
+        "secondary": "Eurostat calendar page: displays 2026-11-26",
+        "decision": "retain 2026-11-27 upcoming pending direct release"
+      },
+      "wr_provenance": {
+        "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
+        "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
+        "main_branch_head": "620c0f22a034c7cb0af76ef436f7e036c1eae876",
+        "main_read_at": "2026-11-27T04:36:00+08:00",
+        "simulation_version": "SIM-1.4（正式生效版）",
+        "simulation_blob_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
+        "simulation_branch": "simulation/tac-process-lab-2026-11-06",
+        "simulation_read_at": "2026-11-27T04:36:00+08:00",
+        "simulation_note": "SIM-1.4 §5.2 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本次另依使用者當次任務明列的公告前 data_as_of、期間與比較口徑條件判斷是否採用。"
+      },
+      "schema_provenance": {
+        "main_calendar_schema": "main 分支 schemas/ 僅找到 tac-daily-market-snapshot.schema.json（非行事曆 schema）；data/calendar/ 只有 weeks/，未找到獨立 calendar schema 檔。依 main WR v5.17 與現有 W48 schema_version=1 events 結構作相容性基準，未更改 schema。",
+        "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
+        "market_snapshot_schema_blob_sha": "f891725f1403e53038042e562d2dc36553778761",
+        "schema_version_retained": 1
+      },
+      "files_modified": [
+        "data/calendar/weeks/2026-W48.json"
+      ],
+      "run_status": "refreshed_W48_upcoming_event_source_metadata_only; no_event_time_or_forecast_changes",
+      "previous_last_update_audit_preserved": true,
+      "previous_last_update_audit_at": "2026-11-27T04:36:00+08:00",
+      "preservation_checks": {
+        "schema_version_1_retained": true,
+        "event_ids_unique": true,
+        "earnings_records_unchanged": true,
+        "earnings_attempts_unchanged": true,
+        "earnings_snapshot_arrays_unchanged": true,
+        "economic_actuals_unchanged": true,
+        "event_dates_and_times_unchanged": true,
+        "forecasts_unchanged": true,
+        "previous_audit_preserved": true,
+        "only_W48_file_modified": true
+      }
     }
   ],
   "last_update_audit": {
     "at": "2026-11-27T04:36:00+08:00",
-    "action": "W48 日常更新：補入加拿大 SEPH 與德國 NIM/GfK 實際值；11 家已公布財報逐家公司重查四級共識；只更新本週週 JSON",
+    "action": "W48 來源欄位補核：重讀週五未公布事件的官方發布日程並修正來源註記；不變更事件時間或預期值",
     "week": "2026-W48",
     "before": {
       "exists": true,
       "path": "data/calendar/weeks/2026-W48.json",
-      "blob_sha": "342a51861991cfaa7367d83dffa91a71f6fa7cf5",
-      "updated_at": "2026-11-26T04:51:14+08:00",
+      "blob_sha": "f286178895dff26d7206c7149009d0bc41cbe3b9",
+      "updated_at": "2026-11-27T04:36:00+08:00",
       "schema_version": 1,
       "economic_events": 27,
       "earnings_events": 11,
-      "main_head": "620c0f22a034c7cb0af76ef436f7e036c1eae876"
+      "main_head": "872fd509ec706f52a368fa538f057dc26da98f1d"
     },
     "after": {
       "economic_events": 27,
@@ -15585,552 +15725,38 @@
       "earnings_status": "incomplete",
       "updated_at": "2026-11-27T04:36:00+08:00",
       "schema_version": 1,
+      "economic_source_records_refreshed": 5,
       "new_events_added": 0,
-      "economic_events_updated": 2,
-      "earnings_events_updated": 11,
-      "event_time_corrections": 0,
-      "released_economic_events": 20,
-      "upcoming_economic_events": 7,
-      "upcoming_earnings_events": 0,
-      "released_earnings_events": 11
+      "economic_actuals_changed": 0,
+      "event_time_corrections": 0
     },
-    "source_priority": [
-      "Yahoo Finance Average Estimate",
-      "Investing.com",
-      "LSEG I/B/E/S",
-      "FactSet Estimates"
-    ],
-    "source_outcomes_this_run": {
-      "EPS": {
-        "Yahoo_Finance_unreadable": 11,
-        "Investing_missing_required_fields": 10,
-        "Investing_unreadable": 1,
-        "LSEG_unavailable": 11,
-        "FactSet_unavailable": 11,
-        "adopted": 0
-      },
-      "REVENUE": {
-        "Yahoo_Finance_unreadable": 11,
-        "Investing_missing_required_fields": 10,
-        "Investing_unreadable": 1,
-        "LSEG_unavailable": 11,
-        "FactSet_unavailable": 11,
-        "adopted": 0
-      }
-    },
-    "source_level_attempt_counts": {
-      "EPS": {
-        "Yahoo_Finance_Average_Estimate": 11,
-        "Investing_com": 11,
-        "LSEG_IBES": 11,
-        "FactSet_Estimates": 11
-      },
-      "REVENUE": {
-        "Yahoo_Finance_Average_Estimate": 11,
-        "Investing_com": 11,
-        "LSEG_IBES": 11,
-        "FactSet_Estimates": 11
-      }
-    },
-    "attempts_added": {
-      "EPS": 44,
-      "REVENUE": 44
-    },
-    "attempts_completed": {
-      "EPS": 44,
-      "REVENUE": 44
-    },
-    "attempts_total": {
-      "EPS": 275,
-      "REVENUE": 275
-    },
-    "source_adoptions": {
-      "EPS": {
-        "Yahoo_Finance_Average_Estimate": 0,
-        "Investing_com": 0,
-        "LSEG_IBES": 0,
-        "FactSet_Estimates": 0
-      },
-      "REVENUE": {
-        "Yahoo_Finance_Average_Estimate": 0,
-        "Investing_com": 0,
-        "LSEG_IBES": 0,
-        "FactSet_Estimates": 0
-      }
-    },
-    "earnings_consensus_adoptions": [],
-    "released_actuals_tickers": [
-      "HPE",
-      "ADI",
-      "DELL",
-      "MDT",
-      "ADSK",
-      "WDAY",
-      "HPQ",
-      "DLTR",
-      "BBY",
-      "ANF",
-      "DE"
-    ],
-    "upcoming_earnings_tickers": [],
-    "actuals_pending_tickers": [],
-    "unresolved_earnings_tickers": [
-      "HPE",
-      "ADI",
-      "DELL",
-      "MDT",
-      "ADSK",
-      "WDAY",
-      "HPQ",
-      "DLTR",
-      "BBY",
-      "ANF",
-      "DE"
-    ],
-    "unresolved_consensus_metadata_tickers": [
-      "HPE",
-      "ADI",
-      "DELL",
-      "MDT",
-      "ADSK",
-      "WDAY",
-      "HPQ",
-      "DLTR",
-      "BBY",
-      "ANF",
-      "DE"
-    ],
-    "legacy_estimates_preserved": [
+    "source_metadata_updated": [
       {
-        "ticker": "HPE",
-        "legacy_eps_estimate": 1.27,
-        "legacy_revenue_estimate": 14.35,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/hewlett-packard-enterprise-co-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
+        "id": "current-japan-tokyo-cpi-202611",
+        "source_url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
+        "change": "observed_at and schedule note refreshed"
       },
       {
-        "ticker": "ADI",
-        "legacy_eps_estimate": 3.89,
-        "legacy_revenue_estimate": 4.32,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/analog-devices-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/analog-devices-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
+        "id": "current-fr-hicp-flash-202611",
+        "source_url": "https://www.insee.fr/en/statistiques/9107975",
+        "change": "observed_at and schedule note refreshed"
       },
       {
-        "ticker": "DELL",
-        "legacy_eps_estimate": 6.56,
-        "legacy_revenue_estimate": 49.24,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/dell-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/dell-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
+        "id": "current-de-unemployment-202611",
+        "source_url": "https://statistik.arbeitsagentur.de/DE/Navigation/Service/Veroeffentlichungskalender/Veroeffentlichungskalender-Nav.html",
+        "change": "official date and embargo/general publication times rechecked"
       },
       {
-        "ticker": "MDT",
-        "legacy_eps_estimate": 1.33,
-        "legacy_revenue_estimate": 9.48,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/medtronic-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/medtronic-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
+        "id": "current-eurozone-esi-202611",
+        "source_url": "https://economy-finance.ec.europa.eu/economic-forecast-and-surveys/business-and-consumer-surveys/latest-business-and-consumer-surveys_en",
+        "change": "primary source switched to DG ECFIN; official schedule discrepancy documented"
       },
       {
-        "ticker": "ADSK",
-        "legacy_eps_estimate": 3.07,
-        "legacy_revenue_estimate": 2.13,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/autodesk-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/autodesk-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "WDAY",
-        "legacy_eps_estimate": 2.75,
-        "legacy_revenue_estimate": 2.69,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/workday-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/workday-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "HPQ",
-        "legacy_eps_estimate": 0.752,
-        "legacy_revenue_estimate": 15.43,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/hewlett-pack-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/hewlett-pack-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "DLTR",
-        "legacy_eps_estimate": 0.912,
-        "legacy_revenue_estimate": 5.04,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/dollar-tree-inc-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "BBY",
-        "legacy_eps_estimate": 1.49,
-        "legacy_revenue_estimate": 9.88,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/best-buy-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/best-buy-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "ANF",
-        "legacy_eps_estimate": 3.09,
-        "legacy_revenue_estimate": 1.37,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/aberc-fitch-a-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
-      },
-      {
-        "ticker": "DE",
-        "legacy_eps_estimate": 4.03,
-        "legacy_revenue_estimate": 10.4,
-        "legacy_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/deere---co-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        },
-        "legacy_revenue_consensus_source": {
-          "name": "Investing.com",
-          "source_level": 2,
-          "url": "https://www.investing.com/equities/deere---co-earnings",
-          "observed_at": "2026-11-23T04:41:38+08:00"
-        }
+        "id": "current-us-advance-goods-trade-202610",
+        "source_url": "https://www.census.gov/economic-indicators/calendar-listview-2026.html",
+        "change": "official release date/time rechecked"
       }
     ],
-    "coverage_matrix": {
-      "pre_release_estimates": {
-        "EPS": {
-          "value": 0,
-          "period": 0,
-          "currency": 0,
-          "basis_code": 0,
-          "data_as_of": 0,
-          "analyst_count": 0
-        },
-        "REVENUE": {
-          "value": 0,
-          "period": 0,
-          "currency": 0,
-          "unit": 0,
-          "basis_code": 0,
-          "data_as_of": 0,
-          "analyst_count": 0
-        }
-      },
-      "post_release_actuals": {
-        "EPS": {
-          "value": 11,
-          "period": 11,
-          "currency": 11,
-          "basis_code": 11,
-          "source": 11,
-          "published_at": 11,
-          "observed_at": 11
-        },
-        "REVENUE": {
-          "value": 11,
-          "period": 11,
-          "currency": 11,
-          "unit": 11,
-          "basis_code": 11,
-          "source": 11,
-          "published_at": 11,
-          "observed_at": 11
-        }
-      },
-      "comparability": {
-        "EPS": {
-          "comparable": 0,
-          "pending": 11,
-          "reason": "11 家均有 actual；本輪未取得可證明公告前、期間及 GAAP／Adjusted basis 相容的 EPS consensus。"
-        },
-        "REVENUE": {
-          "comparable": 0,
-          "pending": 11,
-          "reason": "11 家均有 actual；本輪未取得可證明公告前、期間及 Revenue definition／單位相容的 Revenue consensus。"
-        }
-      }
-    },
-    "economic_actuals_updated": [
-      {
-        "id": "current-canada-seph-202609",
-        "name": "加拿大 9 月 Payroll Employment、Earnings and Hours 與 Job Vacancies（SEPH）",
-        "actual": "9月薪資就業增加 9.7 千人（+0.1%）；平均週薪 CAD 1,357.92，月增 0.5%、年增 3.3%；職缺 528.1 千個，月增 17.3 千個（+3.4%）。",
-        "source_url": "https://www150.statcan.gc.ca/n1/daily-quotidien/261126/dq261126a-eng.htm",
-        "published_at": "2026-11-26"
-      },
-      {
-        "id": "current-de-gfk-confidence-202612",
-        "name": "德國 12 月 GfK／NIM 消費者景氣指數",
-        "actual": "12月 NIM Consumer Climate 指數 -30.2，較修正後 11月 -30.9 回升 0.7 點，但仍處低檔。",
-        "source_url": "https://www.nim.org/en/consumer-climate",
-        "published_at": "2026-11-26"
-      }
-    ],
-    "economic_event_status_updates": [
-      {
-        "id": "current-canada-seph-202609",
-        "from": "upcoming",
-        "to": "released"
-      },
-      {
-        "id": "current-de-gfk-confidence-202612",
-        "from": "upcoming",
-        "to": "released"
-      }
-    ],
-    "event_time_corrections": [],
-    "economic_previous_values_preserved": [
-      {
-        "id": "current-de-gfk-confidence-202612",
-        "old_previous": "11月 -30.8",
-        "new_previous": "11月 -30.9（官方修正值；原資料庫前值 -30.8）",
-        "reason": "NIM 官方 11/26 新聞稿明確標示前月修正為 -30.9；保留原資料庫 -30.8 作為本輪稽核紀錄。"
-      },
-      {
-        "id": "current-canada-seph-202609",
-        "previous_preserved": "8月薪資就業減少 49.6 千人（前期資料）",
-        "reason": "未以本輪 actual 覆寫前值欄位。"
-      }
-    ],
-    "economic_forecast_coverage": {
-      "total_events": 27,
-      "forecast_applicable": 23,
-      "forecast_available": 21,
-      "forecast_missing_numeric": 2,
-      "forecast_not_applicable": 4,
-      "actuals_pending": 7
-    },
-    "economic_null_forecast_classification": {
-      "total_null": 6,
-      "numeric_market_expectation_missing": [
-        {
-          "id": "current-au-flash-pmi-20261123",
-          "name": "澳洲 11 月 Flash PMI（製造業／服務業）"
-        },
-        {
-          "id": "current-canada-seph-202609",
-          "name": "加拿大 9 月 Payroll Employment、Earnings and Hours 與 Job Vacancies（SEPH）"
-        }
-      ],
-      "not_applicable": [
-        {
-          "id": "current-fed-beige-book-20261125",
-          "name": "聯準會 Beige Book（褐皮書）"
-        },
-        {
-          "id": "current-ecb-account-20261028",
-          "name": "ECB 公布 10 月 28–29 日貨幣政策會議紀要"
-        },
-        {
-          "id": "current-us-thanksgiving-market-20261126",
-          "name": "美國感恩節：美股休市；11/27（五）美股提前收市"
-        },
-        {
-          "id": "current-fed-williams-20261123",
-          "name": "紐約聯準銀行總裁 John Williams 談經濟展望與貨幣政策"
-        }
-      ]
-    },
-    "snapshots_added": {
-      "EPS": 0,
-      "REVENUE": 0
-    },
-    "snapshot_arrays_initialized": {
-      "EPS": 0,
-      "REVENUE": 0
-    },
-    "snapshot_coverage": {
-      "EPS": {
-        "new": 0,
-        "cumulative": 0,
-        "pre_release_eligible": 0,
-        "pending_cutoff_time": 0,
-        "pending_required_fields": 0,
-        "not_pre_release": 0,
-        "raw_response_body_or_hash_unavailable": 11,
-        "not_written": 11
-      },
-      "REVENUE": {
-        "new": 0,
-        "cumulative": 0,
-        "pre_release_eligible": 0,
-        "pending_cutoff_time": 0,
-        "pending_required_fields": 0,
-        "not_pre_release": 0,
-        "raw_response_body_or_hash_unavailable": 11,
-        "not_written": 11
-      }
-    },
-    "snapshot_write_blockers": {
-      "EPS": {
-        "count": 11,
-        "tickers": [
-          "HPE",
-          "ADI",
-          "DELL",
-          "MDT",
-          "ADSK",
-          "WDAY",
-          "HPQ",
-          "DLTR",
-          "BBY",
-          "ANF",
-          "DE"
-        ],
-        "reason": "本輪網頁讀取介面只提供抽取後文字，無原始 HTTP response bytes 可計算 raw_response_sha256；不編造 hash，本輪不新增 snapshot。此限制只影響 PIT snapshot，不阻止週 JSON 其他欄位更新。"
-      },
-      "REVENUE": {
-        "count": 11,
-        "tickers": [
-          "HPE",
-          "ADI",
-          "DELL",
-          "MDT",
-          "ADSK",
-          "WDAY",
-          "HPQ",
-          "DLTR",
-          "BBY",
-          "ANF",
-          "DE"
-        ],
-        "reason": "本輪網頁讀取介面只提供抽取後文字，無原始 HTTP response bytes 可計算 raw_response_sha256；不編造 hash，本輪不新增 snapshot。此限制只影響 PIT snapshot，不阻止週 JSON 其他欄位更新。"
-      }
-    },
-    "preservation_checks": {
-      "schema_version_1_retained": true,
-      "event_ids_unique": true,
-      "existing_event_ids_preserved": true,
-      "existing_actuals_and_sources_preserved": true,
-      "existing_attempts_preserved": true,
-      "new_attempts_source_order_1_to_4": true,
-      "legacy_estimates_preserved": true,
-      "existing_snapshot_arrays_unchanged": true,
-      "all_11_earnings_actuals_present": true,
-      "all_unverified_estimates_not_adopted": true,
-      "no_new_judgment": true,
-      "no_snapshot_without_raw_response_sha256": true,
-      "only_new_W48_file_modified": true,
-      "coverage_incomplete_not_treated_as_blocker": true,
-      "numeric_forecast_events_explicitly_applicable": true,
-      "new_economic_actuals_sources_traceable": true
-    },
-    "wr_provenance": {
-      "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
-      "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
-      "main_branch_head": "620c0f22a034c7cb0af76ef436f7e036c1eae876",
-      "main_read_at": "2026-11-27T04:36:00+08:00",
-      "simulation_version": "SIM-1.4（正式生效版）",
-      "simulation_blob_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
-      "simulation_branch": "simulation/tac-process-lab-2026-11-06",
-      "simulation_read_at": "2026-11-27T04:36:00+08:00",
-      "simulation_note": "SIM-1.4 §5.2 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本次另依使用者當次任務明列的公告前 data_as_of、期間與比較口徑條件判斷是否採用。"
-    },
-    "schema_provenance": {
-      "main_calendar_schema": "main 分支 schemas/ 僅找到 tac-daily-market-snapshot.schema.json（非行事曆 schema）；data/calendar/ 只有 weeks/，未找到獨立 calendar schema 檔。依 main WR v5.17 與現有 W48 schema_version=1 events 結構作相容性基準，未更改 schema。",
-      "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
-      "market_snapshot_schema_blob_sha": "f891725f1403e53038042e562d2dc36553778761",
-      "schema_version_retained": 1
-    },
-    "files_modified": [
-      "data/calendar/weeks/2026-W48.json"
-    ],
-    "run_status": "updated_W48_canada_seph_and_germany_gfk_actuals_plus_44_EPS_and_44_REVENUE_attempts; no_consensus_adoption; PIT_snapshots_not_written_raw_bytes_unavailable",
-    "previous_last_update_audit_preserved": true,
-    "previous_last_update_audit_at": "2026-11-26T04:51:14+08:00",
     "economic_schedule_sources_rechecked": {
       "Canada_SEPH": {
         "result": "released",
@@ -16175,28 +15801,46 @@
         "release_time": "2026-11-27 08:30 ET / 21:30 Taiwan"
       }
     },
-    "earnings_access_this_run": {
-      "yahoo_finance": {
-        "pages_opened": 11,
-        "unreadable_http_429": 11
-      },
-      "investing_com": {
-        "pages_opened": 11,
-        "readable": 10,
-        "unreadable": 1,
-        "period": "10/2026",
-        "historical_forecast_rows_recorded_as_non_adopted_observations": 10
-      },
-      "lseg_ibes": {
-        "unavailable": 11
-      },
-      "factset_estimates": {
-        "unavailable": 11
-      }
+    "source_conflict": {
+      "event_id": "current-eurozone-esi-202611",
+      "primary": "DG ECFIN page: next update 2026-11-27",
+      "secondary": "Eurostat calendar page: displays 2026-11-26",
+      "decision": "retain 2026-11-27 upcoming pending direct release"
     },
-    "yahoo_access_status_refinement": {
-      "attempts_updated": 22,
-      "reason": "本輪直接開啟 11 個 Yahoo Finance /analysis/ 頁面均回應 HTTP 429；EPS／Revenue 各記錄 unreadable。"
+    "wr_provenance": {
+      "main_version": "5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）",
+      "main_blob_sha": "0210e8e04f4f6b2374997b82a658e15781932e67",
+      "main_branch_head": "620c0f22a034c7cb0af76ef436f7e036c1eae876",
+      "main_read_at": "2026-11-27T04:36:00+08:00",
+      "simulation_version": "SIM-1.4（正式生效版）",
+      "simulation_blob_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
+      "simulation_branch": "simulation/tac-process-lab-2026-11-06",
+      "simulation_read_at": "2026-11-27T04:36:00+08:00",
+      "simulation_note": "SIM-1.4 §5.2 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本次另依使用者當次任務明列的公告前 data_as_of、期間與比較口徑條件判斷是否採用。"
+    },
+    "schema_provenance": {
+      "main_calendar_schema": "main 分支 schemas/ 僅找到 tac-daily-market-snapshot.schema.json（非行事曆 schema）；data/calendar/ 只有 weeks/，未找到獨立 calendar schema 檔。依 main WR v5.17 與現有 W48 schema_version=1 events 結構作相容性基準，未更改 schema。",
+      "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
+      "market_snapshot_schema_blob_sha": "f891725f1403e53038042e562d2dc36553778761",
+      "schema_version_retained": 1
+    },
+    "files_modified": [
+      "data/calendar/weeks/2026-W48.json"
+    ],
+    "run_status": "refreshed_W48_upcoming_event_source_metadata_only; no_event_time_or_forecast_changes",
+    "previous_last_update_audit_preserved": true,
+    "previous_last_update_audit_at": "2026-11-27T04:36:00+08:00",
+    "preservation_checks": {
+      "schema_version_1_retained": true,
+      "event_ids_unique": true,
+      "earnings_records_unchanged": true,
+      "earnings_attempts_unchanged": true,
+      "earnings_snapshot_arrays_unchanged": true,
+      "economic_actuals_unchanged": true,
+      "event_dates_and_times_unchanged": true,
+      "forecasts_unchanged": true,
+      "previous_audit_preserved": true,
+      "only_W48_file_modified": true
     }
   }
 }
