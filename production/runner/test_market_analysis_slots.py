@@ -48,7 +48,7 @@ def sample_data():
 
 def load_assets(name):
     manifest = json.loads((ROOT / "production/config/mother-template-manifest.json").read_text(encoding="utf-8"))
-    soup = BeautifulSoup((ROOT / "simulation-lab/baseline" / name).read_text(encoding="utf-8"), "html.parser")
+    soup = BeautifulSoup((ROOT / "production/templates" / name).read_text(encoding="utf-8"), "html.parser")
     return soup, manifest
 
 
