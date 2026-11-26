@@ -20,7 +20,7 @@ class Stage3CalendarTests(unittest.TestCase):
             self.assertEqual(receipt["current_week"]["week_id"],"2026-W48")
             self.assertEqual(receipt["previous_week"]["week_id"],"2026-W47")
             self.assertTrue(receipt["source_json_read_only"])
-            self.assertTrue((run_dir/"calendar-data.json").is_file())
+            self.assertTrue((run_dir/"calendar.json").is_file())
             self.assertTrue((run_dir/"earnings.json").is_file())
         after=subprocess.check_output(["git","diff","--","data/calendar/weeks"],cwd=ROOT,text=True)
         self.assertEqual(before,after)
