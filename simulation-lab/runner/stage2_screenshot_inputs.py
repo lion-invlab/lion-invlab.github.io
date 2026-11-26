@@ -19,8 +19,8 @@ FIELD_NAMES = {
     "open": {"open", "開市", "開盤"},
     "high": {"high", "最高"},
     "low": {"low", "最低"},
-    "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數"},
-    "band": {"band", "rating", "情緒區間", "評級"},
+    "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數", "fear_and_greed.previous_close", "fear_and_greed.target_date_score"},
+    "band": {"band", "rating", "情緒區間", "評級", "derived_from_fear_and_greed.previous_close_using_cnn_bands", "fear_and_greed.target_date_rating"},
 }
 
 
