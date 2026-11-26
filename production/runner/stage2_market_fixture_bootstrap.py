@@ -172,8 +172,14 @@ def populate_fixture(data, payload):
             # separate market_calendar_* aliases, which the observation validator
             # does not populate.
             closure_url=obs.get("closure_evidence_url")
+            screenshot_evidence=obs.get("field_evidence") or {}
+            screenshot_fields_present=any(
+                (field or {}).get("source_type")=="USER_PROVIDED_SCREENSHOT"
+                for field in screenshot_evidence.values()
+            )
             closure_ok=(
-                obs.get("read_status")=="MARKET_CLOSED"
+                not screenshot and not screenshot_fields_present
+                and obs.get("read_status")=="MARKET_CLOSED"
                 and obs.get("source_page_fetched") is True
                 and obs.get("source_url")==src.get("url")
                 and obs.get("target_date")==out["trading_date"]
