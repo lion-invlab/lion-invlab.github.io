@@ -19,7 +19,8 @@
     "key_levels",
     "market_comments",
     "run_id",
-    "market_snapshot_sha256"
+    "market_snapshot_sha256",
+    "research_bundle_sha256"
   ],
   "properties": {
     "report_date": {
@@ -443,6 +444,10 @@
       "minLength": 1
     },
     "market_snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "research_bundle_sha256": {
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
     }
