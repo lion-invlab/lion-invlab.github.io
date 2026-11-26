@@ -8,7 +8,8 @@
 ## 版本紀錄
 
 - 2026-11-24｜v1.27：將 A2.1 週一與週二至週五 Simulation 母版 SHA 同步至當前 Manifest 實際 Blob SHA（Monday `710c944205ee05a86599ef5cd869f26c4a9ebde1`；Weekday `ff051c0cd22cf9267420c41e3952fa3178f0e45d`）。只修正 QA Contract 的版本綁定，未變更母版 DOM、CSS 或其他驗收規格。
-- 2026-11-26｜v1.28：Stage 6 審核版交付改為 main/preview；新增 HTML／QA sidecar／delivery receipt 三檔白名單、QA sidecar delivery provenance、main 遠端 SHA 回讀及 GitHub Pages 部署／公開 URL 驗證。main/index.html、母版、Manifest、正式行事曆及歷史報告仍受保護。\n- 2026-11-27｜v1.29：將本 QA 契約的執行期依賴改為 Main-native；以 production MASTER WR、production mother Manifest 及 production/templates 為唯一執行來源，SIM-1.4 pinned copy 僅供技術沿革查閱。
+- 2026-11-26｜v1.28：Stage 6 審核版交付改為 main/preview；新增 HTML／QA sidecar／delivery receipt 三檔白名單、QA sidecar delivery provenance、main 遠端 SHA 回讀及 GitHub Pages 部署／公開 URL 驗證。main/index.html、母版、Manifest、正式行事曆及歷史報告仍受保護。
+- 2026-11-27｜v1.29：將本 QA 契約的執行期依賴改為 Main-native；以 production MASTER WR、production mother Manifest 及 production/templates 為唯一執行來源，SIM-1.4 pinned copy 僅供技術沿革查閱。
 
 - 2026-11-24｜v1.24：修正總結、五層市場深度解析與市場情緒三區的實際 DOM 間距；明確驗收 `#market-analysis` 與 `#sentiment` 前各至少 18px 垂直間距，週一／平日雙母版及每日 HTML 均須核對。新增因果歸因 QA：明確區分已確認的事件催化與市場部位因素；若當日市場判讀已確認期貨空單回補助漲，須與人事／政策等直接催化並列說明，不得將其降格為未知因素；同時不得把未核實的其他因素寫成事實，也不得用後句推翻前句。
 
