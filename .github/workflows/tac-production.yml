@@ -229,7 +229,7 @@ jobs:
         run: |
           set -euo pipefail
           LEDGER="data/tac-chart3/sp500_daily_increment.jsonl"
-          if git diff --quiet -- "$LEDGER"; then
+          if ! git status --porcelain -- "$LEDGER" | grep -q .; then
             echo "No new verified S&P 500 increment; Chart 3 handoff is a no-op."
             exit 0
           fi
