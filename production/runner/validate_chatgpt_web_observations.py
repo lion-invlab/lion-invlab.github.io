@@ -433,7 +433,7 @@ def main() -> None:
         raise ValueError(f"CNN capture must contain at most one risk/fear_greed row, got {len(cnn_rows)}")
     # Prefer a verified CNN current-dashboard observation. If the official
     # dashboard is unavailable, retain the explicitly approved provider backup row.
-    if cnn_rows and cnn_rows[0].get("status") == "VERIFIED":
+    if cnn_rows and cnn_rows[0].get("read_method") == "CNN_OFFICIAL_CURRENT_DASHBOARD" and cnn_rows[0].get("read_status") == "PAGE_CONTENT_READ_SUCCESS":
         bundle["observations"] = [
             row for row in (bundle.get("observations") or [])
             if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
