@@ -8,6 +8,7 @@ class Stage3CalendarTests(unittest.TestCase):
     def test_read_only_projection_uses_pinned_main_commit(self):
         commit=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
         before=subprocess.check_output(["git","diff","--","data/calendar/weeks"],cwd=ROOT,text=True)
+        (ROOT/"production/runs").mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(prefix="TAC-2026-11-26-stage3-",dir=ROOT/"production/runs") as td:
             run_dir=Path(td)
             context={"run_id":run_dir.name,"report_date":"2026-11-26","main_commit_sha":commit}
