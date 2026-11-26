@@ -32,7 +32,16 @@ class HandoffTests(unittest.TestCase):
   self.setUp(); self.data["global_markets"]["標普500指數"]["source"]["close_value"]="6,900.00"
   with self.assertRaisesRegex(ValueError,"does not match"): build_payload(self.data)
   self.setUp(); self.data["global_markets"]["標普500指數"]["source"]["checked_at_tw"]=None
-  with self.assertRaisesRegex(ValueError,"checked_at_tw"): build_payload(self.data)
+  with self.assertRaisesRegex(ValueError,"timestamp"): build_payload(self.data)
+ def test_screenshot_verified_sp500_is_eligible(self):
+  source=self.data["global_markets"]["標普500指數"]["source"]
+  source["source_role"]="USER_PROVIDED_SCREENSHOT"
+  source["read_method"]="USER_PROVIDED_SCREENSHOT"
+  source["daily_change_percent"]=-3.70
+  source.pop("evidence_method",None)
+  p=build_payload(self.data)
+  self.assertEqual(p["sp500"]["source"]["quote_type"],"cash_index_close")
+  self.assertIn("USER_PROVIDED_SCREENSHOT",p["sp500"]["notes"])
  def test_rejects_unverified_source(self):
   self.data["global_markets"]["標普500指數"]["source"]["verification_status"]="PENDING"
   with self.assertRaisesRegex(ValueError,"VERIFIED"): build_payload(self.data)
