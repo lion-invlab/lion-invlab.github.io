@@ -33,8 +33,6 @@ def market_snapshot_digest(data:dict)->str:
 
 def validate_content(content:dict,context:dict,data:dict)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
-    content.setdefault("run_id",context["run_id"])
-    content.setdefault("market_snapshot_sha256",current_snapshot_sha)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator.check_schema(schema)
     errors=sorted(Draft202012Validator(schema,format_checker=FormatChecker()).iter_errors(content),key=lambda e:list(e.path))
@@ -169,7 +167,7 @@ def main():
     data.update({
       "summary_title":editorial["summary_title"],
       "summary_points":editorial["summary_points"],
-      "summary":"\\n\\n".join(f"{x['label']}｜{x['text']}" for x in editorial["summary_points"]),
+      "summary":"\n\n".join(f"{x['label']}｜{x['text']}" for x in editorial["summary_points"]),
       "focus_news":editorial["focus_news"],"headlines":editorial["headlines"],
       "sentiment":editorial["sentiment"],"market_sentiment":editorial.get("market_sentiment",editorial["sentiment"]),
       "market_analysis":editorial["market_analysis"],"political_scan":editorial["political_scan"],
@@ -184,7 +182,7 @@ def main():
     if "pending_items" in editorial:data["pending_items"]=editorial["pending_items"]
     after=market_snapshot_digest(data)
     if before!=after:raise SystemExit("Stage 4 modified the frozen Stage 2 market snapshot")
-    fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     analysis={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":context["report_date"],
       "run_id":context["run_id"],"market_snapshot_sha256":before,
