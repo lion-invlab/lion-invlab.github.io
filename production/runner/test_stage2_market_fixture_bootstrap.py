@@ -149,5 +149,34 @@ class BootstrapTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows+[rows[0]]})
 
+    def test_market_closed_requires_official_calendar_evidence(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
+        row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+                    "observed_value":None,"observed_change":None})
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        item=result["global_markets"]["global_markets_0"]
+        self.assertEqual(item["display"],"待核實")
+        self.assertEqual(item["change_display"],"待核實")
+        self.assertEqual(item["source"]["verification_status"],"PENDING")
+
+    def test_official_market_closure_uses_dash_for_value_and_reason_for_change(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("global_markets","global_markets_0"))
+        row.update({"status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+                    "observed_value":None,"observed_change":None,
+                    "market_calendar_status":"CLOSED","market_calendar_source_type":"OFFICIAL",
+                    "market_calendar_date":"2026-11-25",
+                    "market_calendar_url":"https://www.example.com/official-calendar",
+                    "market_calendar_evidence":"Official calendar marks this date as a non-session."})
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        item=result["global_markets"]["global_markets_0"]
+        self.assertEqual(item["display"],"-")
+        self.assertEqual(item["change_display"],"休市")
+        self.assertEqual(item["source"]["verification_status"],"CLOSED")
+        self.assertEqual(item["source"]["market_calendar_evidence"]["status"],"CLOSED")
+
 if __name__=="__main__":
     unittest.main()
