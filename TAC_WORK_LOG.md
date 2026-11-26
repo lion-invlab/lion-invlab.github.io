@@ -3598,3 +3598,13 @@ QA Sidecar：
 - 更新 Workflow 已執行的 `test_validate_chatgpt_web_observations.py`，增加 MOVE screenshot-first Close／Change／Open／High／Low 回填及 `USER_PROVIDED_SCREENSHOT` 來源角色驗收；blob SHA `4137a64f722c8dd0a63806b299c6c938a7f23acf`，commit `e1f815f35b5f502d8ecdd09ef4143ca91354c27c`。
 - 原始圖片尚未上傳到 Simulation checkout；現有 GitHub 寫檔介面僅接受 UTF-8 文字，不能直接將已 materialize 的 PNG 二進位寫入 repo。Sidecar 不得先行建立成會因缺少原圖而驗收失敗的狀態。下一步需完成圖片二進位入庫途徑，或由使用者／具 binary upload 能力的 GitHub workflow 將三張原圖放入規定路徑，再建立 SHA 鎖定 Sidecar。
 - 本輪仍未取得 GitHub Actions run ID／測試完成證據；下一次以獨立 `[full-regression]` commit 執行 deterministic self-tests，不觸發當日早報 build。main、Workflow mirror、Builder、母版、Manifest、行事曆 JSON均未修改。
+
+
+## 2026-11-26｜Investing.com HK 截圖欄位映射與 Sidecar 草稿
+
+- 擴充 `stage2_screenshot_inputs.py` 的欄位標籤對照：`high` 接受「高」、`low` 接受「低」、`change` 接受「升跌率 %／升跌率%`；支援 Investing.com 香港站手機歷史表格原生欄名。新 blob SHA：`77bde8ff2a35b91ad3deab1a435d86104f0ef70e`，commit `97f81de62a1e9331598d6498e97fcf15a6e89908`。
+- 更新 Workflow 已執行的 `test_validate_chatgpt_web_observations.py`，新增多張截圖欄位合併、香港站「價格／開市／高／低／升跌率 %」欄名及逐欄 SHA 測試；新 blob SHA：`655c526273b821e3ead18afbafe61d41832d901e`，commit `35946908d319c567d88a3bd9a41f192ef41a2a1e`。
+- 建立非啟用 Sidecar 草稿 `simulation-lab/evidence/manual-screenshots/market-screenshot-observations-2026-11-26.pending.json`，包含 MOVE 5 欄及 Hang Seng 5 欄、各自圖片路徑／SHA／截圖時間。草稿明確標記 WAITING_FOR_RAW_PNG_FILES_IN_SIMULATION_CHECKOUT，不得改名成正式 active sidecar；最新 blob SHA：`e4cfdb86ff2a79b12a4eed9bcf5462fe786a37fb`。
+- 重新核對 11/26 base Fixture：MOVE 的舊 `source_role=PRIMARY`、截圖 SHA `53e685...` 與原始 PNG SHA `24840d...` 不一致，且 Fixture OHLC（101.14／101.27／98.79）與截圖（99.32／102.73／97.40）不一致。尚未改寫該歷史 Fixture，避免在原圖未進入 checkout 前產生無法由 Workflow 重算的證據宣稱；以 pending Sidecar 草稿保留正確值及 SHA。
+- 原始 PNG 已從 Library 找回、重算 SHA 並檢視；仍未上傳 Simulation checkout。Sidecar loader 會檢查本地 evidence_path 與 SHA，因此原圖未入庫前不啟用 Sidecar。
+- 後續測試觸發：待本次 field mapping／sidecar draft 修改完成後，以新的 `[full-regression]` commit 執行 Workflow deterministic self-tests；不得觸發當日早報 build。GitHub Actions run ID／結果尚未取得。
