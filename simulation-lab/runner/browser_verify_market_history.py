@@ -563,6 +563,14 @@ def _apply_screenshot_fields(row, observation, screenshot):
     observation["read_method"]="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
     observation["provenance"]="CURRENT_RUN_MIXED_FIELD_OBSERVATION"
     observation["read_status"]="MIXED_FIELD_OBSERVATIONS_CONFIRMED"
+    observation["status"]=(
+        "VERIFIED"
+        if observation.get("instrument_identity_status")=="VERIFIED"
+        and observation.get("field_mapping_status")=="VERIFIED"
+        and observation.get("display_value_match") is True
+        and observation.get("display_change_match") is True
+        else "OBSERVED_PENDING_FIELD_MAPPING"
+    )
     return observation
 
 
