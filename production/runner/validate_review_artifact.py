@@ -271,11 +271,13 @@ def main():
                 raise SystemExit(f"rendered {label} must identify the CNN Fear & Greed backup score")
         if not rendered_market_paragraphs or not any("Fear & Greed" in p and backup_name in p and "備援" in p and fg_display in p for p in rendered_market_paragraphs):
             raise SystemExit("rendered market analysis must identify the CNN Fear & Greed backup score")
-    elif fg_status == "PENDING":
+    elif fg_status in ("PENDING","TOOL_READ_FAILURE","SOURCE_NO_DATA","DATE_MISMATCH"):
         if fg_display != "待核實":
             raise SystemExit("pending CNN Fear & Greed observation must remain visibly 待核實")
-        if fg_source.get("verified_at_tw") or fg_source.get("verification_status") != "PENDING":
-            raise SystemExit("pending CNN Fear & Greed source carries contradictory verification metadata")
+        if fg_source.get("verified_at_tw") or fg_source.get("verification_status") != fg_status:
+            raise SystemExit("unresolved CNN Fear & Greed source carries contradictory verification metadata")
+        if fg_source.get("source_score_value") is not None or fg_source.get("backup_source_score_value") is not None:
+            raise SystemExit("unresolved CNN Fear & Greed must not retain an unverified numeric score")
         if "待核實" not in str(fixture.get("sentiment", "")) or "不沿用" not in str(fixture.get("sentiment", "")):
             raise SystemExit("pending CNN Fear & Greed sentiment must explain the unverified value and reject stale carry-forward")
         if not market_paragraphs or not any("Fear & Greed" in str(p) and ("未能核實" in str(p) or "待核實" in str(p)) for p in market_paragraphs):
