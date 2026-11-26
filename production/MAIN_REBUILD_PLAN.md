@@ -17,6 +17,7 @@
 | 6. 排程與正式切換 | 新main-native workflow取代舊主流程；確認04:35 calendar、05:25 report、05:30 Chart3責任分流；保留使用者正式首頁核准權 | Schedule cutover evidence、old workflow disabled/retired record、monitoring | 不重複執行、不漏跑、不雙寫；自動執行與失敗恢復可驗證；正式首頁仍須使用者核准 | NOT_STARTED |
 
 ## 2026-11-26 持續修訂紀錄
+- [x] Phase 1 一致性修正：Stage 2／3 輸入規範明確改為引用 main `MASTER_WR.md` 與對應 contracts；SIM-1.4 僅保留為技術規範來源，不再列為 main Stage 執行期輸入。兩份 Stage WR 已提交並從 main 回讀驗證（Stage 2 blob `af892651b772366cb3f516c4149d9f2420c2ca70`；Stage 3 blob `992e97e980ceb05bb31001396703cbe4d7cd38cd`）。
 - [x] Stage 1／2／5 WR 第一輪修訂與 GitHub 回讀。
 - [x] Stage 1 建立 commit-pinned governance SHA 清單；Stage 5 逐檔比對當前 main，任何規範、Schema、Builder、Runner、依賴或 Workflow 漂移即停止。Stage 1 receipt 同時記錄 run-context SHA 與 governance 檔案數。
 - [x] 修正 Stage 5 Runner 缺少 `os` import 及 Chart 3 handoff 狀態變數未定義。
