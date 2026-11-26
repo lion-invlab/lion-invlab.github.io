@@ -66,8 +66,11 @@ def prepare_delivery(
     if source_qa.as_posix().endswith(expected_source_qa) is False:
         raise SystemExit(f"source QA must be {expected_source_qa}")
 
+    if source_html.is_symlink() or source_qa.is_symlink():
+        raise SystemExit("refusing symlinked source HTML or QA sidecar")
     html = source_html.read_bytes()
     qa = json.loads(source_qa.read_text(encoding="utf-8"))
+    builder_record = qa.get("builder_approval_record") or {}
     html_sha256 = hashlib.sha256(html).hexdigest()
     html_blob_sha = git_blob_sha(html)
 
@@ -93,10 +96,10 @@ def prepare_delivery(
             and qa.get("prebuild_input_receipt", {}).get("status") == "PASS",
         "builder_sha": (
             bool(qa.get("builder_blob_sha"))
-            and qa.get("builder_approval_record", {}).get("decision") == "APPROVED"
-            and qa.get("builder_approval_record", {}).get("approved_builder_path") == "simulation-lab/runner/build_review_html.py"
-            and qa.get("builder_approval_record", {}).get("approved_builder_blob_sha") == qa.get("builder_blob_sha")
-            and qa.get("builder_approval_record", {}).get("actual_builder_blob_sha") == qa.get("builder_blob_sha")
+            and builder_record.get("decision") == "APPROVED"
+            and builder_record.get("approved_builder_path") == "simulation-lab/runner/build_review_html.py"
+            and builder_record.get("approved_builder_blob_sha") == qa.get("builder_blob_sha")
+            and builder_record.get("actual_builder_blob_sha") == qa.get("builder_blob_sha")
         ),
         "no_review_blockers": not qa.get("review_ready_blockers") and not qa.get("sim14_blockers"),
     }
