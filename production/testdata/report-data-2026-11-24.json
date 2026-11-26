@@ -1253,7 +1253,7 @@
       "change_display": "Extreme Fear",
       "band": "極度恐懼",
       "source": {
-        "name": "FGScore備援歷史頁｜CNN Business Fear & Greed Index official previous-close API cross-check",
+        "name": "FGScore | CNN Provider Index",
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-23",
         "quote_type": "third_party_provider_index",
@@ -1307,7 +1307,16 @@
           "name": "CNN Business official Fear & Greed graphdata API previous_close",
           "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
           "role": "PRIMARY"
-        }
+        },
+        "approved_primary_urls": [
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://www.cnn.com/markets/fear-and-greed"
+        ],
+        "approved_backup_urls": [
+          "https://fgscore.com/en/markets/sp500",
+          "https://staging.fcontext.com/en/fear-and-greed"
+        ],
+        "instrument_identity": "CNN Fear & Greed Index provider score"
       }
     }
   },
