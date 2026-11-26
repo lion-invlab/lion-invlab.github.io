@@ -61,7 +61,10 @@ def current_governance_blob_shas(root:Path=ROOT)->dict:
     }
 
 def verify_governance_snapshot(context:dict, root:Path=ROOT, actual_blobs:dict|None=None)->dict:
-    pinned=(context.get("governance") or {}).get("blob_shas")
+    governance=context.get("governance") or {}
+    if governance.get("commit_sha")!=context.get("main_commit_sha"):
+        raise ValueError("Run governance snapshot commit does not match Stage 1 main_commit_sha")
+    pinned=governance.get("blob_shas")
     if not isinstance(pinned,dict):
         raise ValueError("Run context is missing the Stage 1 governance SHA snapshot")
     missing=sorted(set(GOVERNANCE_PATHS)-set(pinned))
