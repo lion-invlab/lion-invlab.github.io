@@ -15,7 +15,7 @@ COUNTS = {"global_markets":17,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3,"s
 # Domains controlled by the relevant exchange, regulator, or official market operator.
 # Generic hosting platforms and vendor pages are deliberately excluded.
 OFFICIAL_CALENDAR_HOSTS = {
-    "nyse.com", "nasdaq.com", "jpx.co.jp", "global.krx.co.kr", "twse.com.tw",
+    "nyse.com", "nasdaq.com", "jpx.co.jp", "cao.go.jp", "global.krx.co.kr", "twse.com.tw",
     "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn", "hkex.com.hk",
     "londonstockexchange.com", "deutsche-boerse.com", "euronext.com",
     "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
@@ -167,13 +167,26 @@ def populate_fixture(data, payload):
                and obs.get("observed_value") is not None and obs.get("observed_change") is not None
                and (screenshot or obs.get("source_page_fetched") is True))
         if not valid:
+            # Use the same current-run browser + official-calendar evidence contract
+            # as build_market_source_verification_manifest.py. Do not require the
+            # separate market_calendar_* aliases, which the observation validator
+            # does not populate.
+            closure_url=obs.get("closure_evidence_url")
             closure_ok=(
                 obs.get("read_status")=="MARKET_CLOSED"
-                and obs.get("market_calendar_status")=="CLOSED"
-                and obs.get("market_calendar_source_type")=="OFFICIAL"
-                and obs.get("market_calendar_date")==out["trading_date"]
-                and _official_calendar_url(obs.get("market_calendar_url"))
-                and bool(obs.get("market_calendar_evidence"))
+                and obs.get("source_page_fetched") is True
+                and obs.get("source_url")==src.get("url")
+                and obs.get("target_date")==out["trading_date"]
+                and obs.get("instrument_identity_status")=="VERIFIED"
+                and obs.get("field_mapping_status")=="VERIFIED"
+                and _official_calendar_url(closure_url)
+                and bool(obs.get("closure_evidence_reader_ref") or obs.get("web_reader_ref"))
+                and (obs.get("closure_evidence_line_start") is not None or obs.get("web_line_start") is not None)
+                and (obs.get("closure_evidence_line_end") is not None or obs.get("web_line_end") is not None)
+                and obs.get("provenance")=="CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+                and obs.get("read_method")=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+                and obs.get("prior_observation_reused") is False
+                and bool(obs.get("finished_at_utc"))
             )
             if obs.get("read_status")=="MARKET_CLOSED" and closure_ok:
                 if group=="sectors":
@@ -187,9 +200,12 @@ def populate_fixture(data, payload):
                 src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
                 src["market_calendar_evidence"]={
                     "status":"CLOSED","source_type":"OFFICIAL",
-                    "date":obs.get("market_calendar_date"),
-                    "url":obs.get("market_calendar_url"),
-                    "evidence":obs.get("market_calendar_evidence")
+                    "date":obs.get("target_date"),
+                    "url":closure_url,
+                    "reader_ref":obs.get("closure_evidence_reader_ref") or obs.get("web_reader_ref"),
+                    "line_start":obs.get("closure_evidence_line_start") if obs.get("closure_evidence_line_start") is not None else obs.get("web_line_start"),
+                    "line_end":obs.get("closure_evidence_line_end") if obs.get("closure_evidence_line_end") is not None else obs.get("web_line_end"),
+                    "evidence":obs.get("closure_evidence_text") or obs.get("observed_row_text")
                 }
                 continue
             evidence=obs.get("field_evidence") or {}
