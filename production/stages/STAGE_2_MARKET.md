@@ -1,7 +1,7 @@
 # Stage 2｜44 項行情及獨立 FedWatch
 
 ## 輸入
-Stage 1 run-context、SIM-1.4 來源規則、選定母版欄位、當日使用者截圖 sidecar（若存在）。
+Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_POLICY.md`、選定母版欄位、當日使用者截圖 sidecar（若存在）。
 
 ## 執行順序
 1. 建立本輪 blank-first market fixture：清除所有舊 close/change/score/OHLC、舊 Observation、截圖紀錄、evidence hash/time 與含舊數字的備註；保留欄位身分、來源 URL、quote_type、日期及非行情內容。不得沿用舊 fixture 數值。
