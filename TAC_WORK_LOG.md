@@ -571,3 +571,15 @@
 - Pages deployment run 44436438399 SUCCESS；Chart 3 預覽：https://lion-invlab.github.io/research/tac-chart3/chart3-preview.html 。最新 browser QA run 44436438312。
 - 本次只修改 Chart 3 專用資料、Manifest、preview 子頁、scripts/tests/workflows、WR 與紀錄；index.html、雙母版、早報首頁、行事曆 JSON 未修改。
 - 另行註記：前一個 Manifest span builder workflow run 44434579316 仍以 failure 結束，失敗在「Commit only if data changed」步驟；此為獨立工作流程，不得與本次 S&P 500 merge、Manifest 對齊及 browser QA 成功混稱。待後續單獨查明該 commit 步驟失敗原因。
+
+
+
+## 2026-11-27｜Main 日期契約回讀、Builder 核准同步與 CI 驗收
+- 重新回讀 Main `production/MASTER_WR.md`、`production/stages/STAGE_1_CONTEXT.md`（SHA `f6c0c4ab3a97e2705e3ef955982aec1b113edaa1`）、`production/stages/STAGE_2_MARKET.md`（SHA `0c4e70c6e3e5addee7984a80b45d1553646accce`）、`RUN_CONTRACT.md`、`SOURCE_POLICY.md`、`DATA_SCHEMA.md`、`STATUS_ENUM.json`、Stage 2 screenshot schema／README，以及 Bootstrap、Screenshot parser、Browser reader、Manifest builder、Snapshot validator、Stage 2 receipt builder／Runner。
+- 日期契約結論：Stage 1 以 NYSE calendar 取 report_date 前最近已完成 NYSE session；Stage 2 明文要求 44 項統一使用該 trading_date，不得逐市場退回最近有資料日。Bootstrap、44 Observation、Manifest、Receipt、Screenshot sidecar／parser 與 validator 都檢查相同日期。現有程式與規範在此處一致，未修改日期欄位模型。
+- 截圖契約已核對：報告日 sidecar／原圖路徑、report_date／trading_date、商品身分、來源 URL、欄位標籤、實際圖片 SHA、含時區 captured_at；截圖台灣日期須等於 report_date，data_date 須等於 trading_date。部分欄位由截圖提供時，剩餘必要欄位才由指定歷史頁補讀；來源欄位逐項保存 provenance。沒有發現足以支持改寫規格的實證缺陷。
+- 官方休市狀態必須有當次官方交易所／市場營運機構證據、reader ref／行號及完整欄位；SOURCE_NO_DATA 與 TOOL_READ_FAILURE 分開，不可僅因歷史表格缺列推定休市。Stage 2 receipt 對 44 列身份、日期、狀態計數、Observation SHA、Manifest SHA 做綁定。
+- 更正舊文件狀態：根目錄 WR v5.17 已停用；不得再將其作為 Main 規範。Main Builder exact SHA 核准已由使用者明確完成，當前 SHA `3e5a971d6d0a3ad3d41881b542580308276021f9` 與核准檔 SHA `c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928` 一致。
+- 更新 `production/runner/PORT_MANIFEST.json`：commit `b814101ac82a860bb5622662c9f2e06a57ae4e7f`，新 blob SHA `e5e9eecbcdf64cc1a90568063123445204235c97`；同步 Builder 核准與 deterministic validation scope，保留真實 E2E 未完成限制。
+- CI Run `45911061965`：event=push、conclusion=success；validate-main-production PASS，schedule-window／capture-and-calendar／build-and-deliver SKIPPED。不能稱為真實行情擷取或 Stage 4–6 E2E。
+- 下一步：2026-11-30 台灣 05:05 等待真實 event=schedule Stage 1–3 Capture；05:15 continuation 只在當日 receipts 完整後接手。未修改排程、首頁、Simulation；未手動 dispatch 或執行正式 Capture。
