@@ -235,7 +235,13 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and source.get("source_role") in ("BACKUP_1", "BACKUP", "SECONDARY")
         and not is_cnn_official
     )
-    if is_fear_greed and fear_greed_backup:
+    screenshot_fear_greed = is_fear_greed and (user_screenshot_ok or mixed_field_observation_ok)
+    if screenshot_fear_greed:
+        field_ok = (
+            value_field in ("Score", "fear_and_greed.previous_close", "fear_and_greed.target_date_score")
+            and change_field in ("Band", "derived_from_fear_and_greed.previous_close_using_cnn_bands", "fear_and_greed.target_date_rating")
+        )
+    elif is_fear_greed and fear_greed_backup:
         field_ok = value_field == "Score" and change_field == "Band"
     elif is_fear_greed:
         field_ok = (
