@@ -597,3 +597,14 @@
 - Builder 核准差異已精確定位：歷史核准 blob `20eefe57d6f3b389157c01b8532cae3a69128a02` 可由 Main parent commit `a34a774da4b2de851532765f50aeb506563900ec` 回讀確認；當前 Main blob `3e5a971d6d0a3ad3d41881b542580308276021f9` 僅在 commit `dd1f5c87d23ee0d4a0594508f104198584ef76d4` 增加一項核心行為：將官方休市證據驗證由僅限 global_markets 的日經 225，擴展到所有 44 項行情；要求官方假期證據狀態、當日 browser observation、target_date、已抓取來源頁、不可重用舊觀察、證據 URL／reader ref／行號完整；產業 ETF 休市顯示為 `-`／`休市`，其他市場列也明確顯示休市。這是資料正確性防護，不是純排版修改。
 - 因此 Builder 當前 SHA 仍須由使用者明確核准；本次未修改 `builder-approval.json`、未觸發 build marker。
 - Main 計畫與 Manifest 已記錄 Run 45907699637 的成功結果及 Builder 差異；下一個真實 schedule 驗收仍是 2026-11-30 台灣 05:05。正式首頁與 Simulation 均未觸及。
+
+
+## 2026-11-27 Builder exact-SHA 核准完成與 CI 驗證（Run 45908064532）
+
+- 使用者已明確核准 Main Builder exact blob：3e5a971d6d0a3ad3d41881b542580308276021f9；核准範圍僅限 Main production Builder，不包含正式首頁更新、正式排程變更或 Simulation。
+- production/config/builder-approval.json 已提交於 baec2f7768c76e3d28d02175d3168d7d20c4cc2d，回讀確認 status=APPROVED_MAIN、approved_by_owner=true，核准 SHA 與 Main Builder 實際 blob SHA 完全一致。
+- 核准提交觸發 Workflow Run 45908064532，event=push、HEAD baec2f7768c76e3d28d02175d3168d7d20c4cc2d、conclusion=success。validate-main-production 全部主要步驟成功：依賴安裝、Chromium 安裝、Python compile、Browser QA syntax、雙母版 SHA／Manifest、Stage 2／pre-build deterministic tests、Builder／earnings tests、隔離 Candidate Builder fixtures、雙母版 DOM contract、validation artifact upload。
+- schedule-window、capture-and-calendar、build-and-deliver 均 skipped；因此此 CI 是 deterministic validation，不是當日真實行情 Capture，也不是 Stage 4–6 E2E。沒有觸發 build marker，沒有產生審核版，沒有更新 main/index.html。
+- PORT_MANIFEST.json 已同步登記 exact-SHA 核准及 Run 45908064532 PASS。
+- Stage 4 continuation automation 回讀為 is_enabled=true，台灣工作日單一 05:15 喚醒，下一次 2026-11-30T05:15:00+08:00。唯一主流程仍由 Main workflow schedule 啟動 Stage 1–3；下一個真實 schedule 驗收為台灣 2026-11-30 05:05（UTC 2026-11-29T21:05:00Z）。
+- 後續不得以 push validation 或手動 dispatch 冒充 schedule Capture；需先取得當日 event=schedule 的 Stage 1–3 Run 與完整 receipts，再由 Stage 4 接續。正式首頁與 Simulation 均未觸及。
