@@ -155,11 +155,13 @@
       "workflow_run_id": 45903428235,
       "head_sha": "6e2213a0a5a55214e7c213b79de74d4867cd716a",
       "conclusion": "success",
-      "scope": "Screenshot expiry change and regression tests; awaiting Main CI.",
+      "scope": "Corrected screenshot-vs-CLOSED regression fixture to mark both screenshot close and change fields; CI pending.",
       "pending_run_ids": [
         45903973586,
         45903977272
-      ]
+      ],
+      "latest_pending_test_fix_commit": "81a17584001d321915a0a6c3e6b59910804e9bc1",
+      "latest_pending_test_fix_blob": "6fe74dbb8e8fd23f3dc7567d89e06b31041f3f0e"
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
