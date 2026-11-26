@@ -3547,3 +3547,35 @@ QA Sidecar：
 - MOVE 使用者截圖顯示 97.54、跌 1.30（1.32%）、前收 98.84，時間 11/25 16:17 GMT-5。Investing.com MOVE 歷史頁目前可讀到的最新列為 11/24 98.84，未顯示 11/25 列；因此 Fixture 僅補入「使用者截圖觀察」及數值顯示，正式 Investing.com 日收盤核驗狀態仍為 PENDING，不將截圖冒充 Investing.com 歷史列。
 - 本次 11/26 Workflow 兩次重試已耗盡，沒有再觸發第三次；以上修正沒有產生新的 Run、HTML 或 QA，也沒有改動 main。下一次 11/27 執行必須重新擷取 11/26 交易日資料及產生全新 11/27 Observation Bundle／Fixture，不得重用 11/25 的截圖或 11/26 收據。
 - Investing.com 來源頁：Hang Seng Historical Data，https://www.investing.com/indices/hang-sen-40-historical-data（2026-11-25 row）；MOVE Historical Data，https://www.investing.com/indices/ice-bofaml-move-historical-data（目前可見最新列 2026-11-24）。
+
+## 2026-11-26｜SIM-1.4 main/preview 直接交付架構修訂
+
+### 使用者決策
+- 使用者明確要求：每日產出早報時，審核版直接寫入 main/preview；不得只將審核版放在 Simulation branch，造成無法使用 GitHub Pages 預覽。
+- 正式首頁 main/index.html 仍須使用者另行明確核准；main preview 與正式首頁是兩個不同交付狀態。
+
+### 規範與 QA
+- SIM-1.4 新增 2026-11-26 amendment，明確取代 2026-11-25 Simulation-only delivery 限制。
+- main 寫入白名單僅三檔：preview/YYYY-MM-DD-review.html、preview/YYYY-MM-DD-review.qa.json、preview/YYYY-MM-DD-review.delivery.json。
+- QA Contract 升至 v1.28，SHA a00b5db3c432973cbe4c743fe781c4d12375e8ef；加入 sidecar delivery provenance、三檔差異稽核、遠端回讀與 Pages 公開 URL 驗證。
+- Builder 不直接寫 main；保留核准 Builder 的 Simulation runner 暫存輸出及原有輸出安全限制。每日 HTML／QA 暫存檔不再 commit 到 Simulation branch。
+
+### Workflow 與發布機制
+- 先前 main/default branch 缺少 .github/workflows/tac-simulation-lab.yml，GitHub push trigger 無法依預期從 default branch 載入工作流程。
+- 已將更新後 workflow 同步加入 main/default branch，main commit c7bf02da64f0db3e3d02ea8c3905fb098b25f339；Simulation branch workflow blob SHA 6d7016fb3f7ab61baa4654b6aa0aa04fb8c793de，兩份檔案內容 SHA 一致。
+- Workflow 先在 Simulation branch 完成資料、Builder、QA 與證據封存，再使用獨立 main worktree 僅提交三檔白名單；不使用 force-push，main HEAD 競爭時安全 rebase，遠端回讀三檔 SHA。
+- 現有 pages.yml 已包含 main preview/** 及 workflow_dispatch。由於 GITHUB_TOKEN push 不會自動觸發其他 workflow，Stage 6 會明確 dispatch Pages workflow，確認成功後以公開 URL 核對報告日期。
+- 新增 publisher simulation-lab/runner/publish_main_preview.py，SHA 9436974f3f1c320b6950e4d9dd1a07bed481a15e；新增正負向測試 test_publish_main_preview.py，並更新 workflow delivery contract test。
+- 移除原 qa-only dispatch mode；該模式依賴 Simulation branch 已保存審核版，與新規則不相容，且不能重用舊 Run 的 run-bound pre-build receipt。
+
+### 影響盤點
+- Builder：無需修改 Builder 本體；保留現有 SHA 核准與 simulation-only output guard。新增獨立 Publisher 在 QA 全通過後進行 main preview delivery。
+- QA：原 Stage 5 完整 QA 不變；新增 Stage 6 delivery QA，驗證 QA 狀態、Run／attempt、Builder approval、receipt、HTML／sidecar SHA、三檔白名單及 Pages 實際部署。
+- Workflow：必須同時維護 main/default 與 Simulation branch 的 workflow mirror；啟動時比對兩份 workflow blob SHA，不一致即停止。Simulation branch 繼續保存 receipts、audit、測試與 provenance，不保存每日 review HTML／QA。
+- Chart 3 Automation：新增檢查 main preview HTML／QA／delivery receipt 與 Pages 狀態；告警不阻塞 Chart 3 工作。早報 Automation prompt 已同步改為 main/preview 交付規則；行事曆資料庫 Automation 未變。
+- GitHub Pages：沿用既有 pages.yml，不另建 Pages 部署流程。
+
+### 尚待驗收／限制
+- GitHub branch protection／ruleset 查詢回傳 403（Resource not accessible by integration），目前無法確認 Actions GITHUB_TOKEN 是否具有直接 push main 的權限。
+- 尚未執行新架構 full-regression 或真實資料 E2E；因此本次僅標記規格與程式已更新，不能宣稱自動 main preview 交付已端到端通過。
+- 下一步先跑不觸發正式報告的 full-regression；其後以受控完整 build 驗證 main push、Pages workflow_dispatch、公開 URL。若 main push 被保護規則拒絕，安全停止，不得 force-push 或擴大 main 寫入範圍。
