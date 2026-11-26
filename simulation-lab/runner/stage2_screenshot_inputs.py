@@ -16,10 +16,10 @@ from decimal import Decimal, InvalidOperation
 ALLOWED_FIELDS = {"close", "change", "open", "high", "low", "score", "band"}
 FIELD_NAMES = {
     "close": {"close", "price", "收盤", "收盤價", "收市", "價格"},
-    "change": {"change %", "change", "漲跌（%）", "升跌（%）", "變動%", "漲跌幅"},
+    "change": {"change %", "change", "漲跌（%）", "升跌（%）", "變動%", "漲跌幅", "升跌率 %", "升跌率%"},
     "open": {"open", "開市", "開盤"},
-    "high": {"high", "最高"},
-    "low": {"low", "最低"},
+    "high": {"high", "最高", "高"},
+    "low": {"low", "最低", "低"},
     "score": {"score", "fear & greed", "恐懼貪婪指數", "指數分數", "fear_and_greed.previous_close", "fear_and_greed.target_date_score"},
     "band": {"band", "rating", "情緒區間", "評級", "derived_from_fear_and_greed.previous_close_using_cnn_bands", "fear_and_greed.target_date_rating"},
 }
