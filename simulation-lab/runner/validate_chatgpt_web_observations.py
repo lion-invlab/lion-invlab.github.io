@@ -340,14 +340,17 @@ def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, r
                 raise ValueError("targeted TradingView backup did not return exactly one row")
             merged = merge_move_backup_observation(result, rows[0], primary_status)
             move_row = next(row for row in merged["observations"] if row.get("group") == "risk" and row.get("name") == "move")
+            primary_normalized = next(row for row in result["observations"] if row.get("group") == "risk" and row.get("name") == "move")
+            primary_attempt_status = "TARGET_DATE_NOT_FOUND" if primary_status == "SOURCE_NO_DATA" else primary_status
+            primary_attempt_read_status = "SOURCE_UPDATE_PENDING" if primary_status == "SOURCE_NO_DATA" else primary_status
             primary_attempt = {
                 "round": 1, "source_role": "PRIMARY", "request_url": raw_move.get("source_url"),
-                "status": primary_status, "read_status": primary_status,
-                "http_status": raw_move.get("http_status"), "page_title": raw_move.get("page_title"),
-                "final_url": raw_move.get("final_url"), "instrument_identity": raw_move.get("instrument_identity"),
-                "observed_row_text": raw_move.get("observed_row_text"),
-                "page_body_excerpt": raw_move.get("page_body_excerpt"), "error": raw_move.get("error"),
-                "started_at_utc": raw_move.get("started_at_utc"), "finished_at_utc": raw_move.get("finished_at_utc"),
+                "status": primary_attempt_status, "read_status": primary_attempt_read_status,
+                "http_status": primary_normalized.get("http_status"), "page_title": primary_normalized.get("page_title"),
+                "final_url": primary_normalized.get("final_url"), "instrument_identity": primary_normalized.get("instrument_identity"),
+                "observed_row_text": primary_normalized.get("observed_row_text"),
+                "page_body_excerpt": primary_normalized.get("page_body_excerpt"), "error": primary_normalized.get("error"),
+                "started_at_utc": primary_normalized.get("started_at_utc"), "finished_at_utc": primary_normalized.get("finished_at_utc"),
             }
             backup_attempts = move_row.get("attempt_history") or [{
                 "round": 2, "source_role": "BACKUP_1",
