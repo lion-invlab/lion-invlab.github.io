@@ -59,6 +59,7 @@ market_read = section_after(WORKFLOW, "Read and reconcile 44 current-run market 
 market_manifest = section_after(WORKFLOW, "Build 44-row manifest from captured observations")
 market_postbuild = section_after(WORKFLOW, "Validate report structure and frozen 44-indicator snapshot consistency")
 assert WORKFLOW.count("python simulation-lab/runner/browser_verify_market_history.py") == 1
+assert "python simulation-lab/runner/capture_market_source_pages.py" not in WORKFLOW
 assert "validate_chatgpt_web_observations.py" in market_read
 assert "browser_verify_market_history.py" in market_read
 assert "build_market_source_verification_manifest.py" in market_manifest
