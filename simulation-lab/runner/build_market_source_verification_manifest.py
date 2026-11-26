@@ -319,6 +319,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     if verified:
         record = {
             "source_url": source_url,
+            "evidence_source_url": observation.get("evidence_source_url") or observation.get("attempt_url") or source_url,
             "data_endpoint_url": observation.get("data_endpoint_url"),
             "instrument_identity": observation.get("instrument_identity"),
             "screenshot_instrument_identity_status": observation.get("screenshot_instrument_identity_status"),
@@ -339,11 +340,11 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "raw_response_sha256": observation.get("raw_response_sha256"),
             "field_evidence": field_evidence,
             "quote_type": source.get("quote_type"),
-            "source_role": source.get("source_role"),
+            "source_role": observation.get("source_role") or source.get("source_role"),
         }
         canonical = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
         record_hash = hashlib.sha256(canonical).hexdigest()
-    source_role = source.get("source_role", "PRIMARY")
+    source_role = observation.get("source_role") or source.get("source_role", "PRIMARY")
     verification_status = (
         "BACKUP_VERIFIED" if verified and source_role in ("BACKUP_1", "BACKUP", "SECONDARY")
         else "VERIFIED" if verified
