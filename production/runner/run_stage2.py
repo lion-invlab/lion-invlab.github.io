@@ -120,7 +120,7 @@ def main():
       "mixed_field_count":observations.get("mixed_field_count"),
       "status_counts":observations.get("status_counts"),
       "verified_count":receipt.get("verified_count"),"pending_count":receipt.get("pending_count"),
-      "closed_count":receipt.get("closed_count"),"chart3_handoff":chart3,
+      "closed_count":receipt.get("closed_count"),"market_status_counts":receipt.get("market_status_counts"),"chart3_handoff":chart3,
       "outputs":{p.name:{"path":str(p.relative_to(ROOT)),"sha256":__import__("hashlib").sha256(p.read_bytes()).hexdigest()}
                  for p in (fixture_path,observations_path,audit_path,manifest_path,receipt_path)}
     }
