@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Execute Stage 2 from a Stage 1 run directory and freeze the 44-row snapshot."""
 from __future__ import annotations
-import argparse, json, subprocess, sys, time
+import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -105,8 +105,10 @@ def main():
             chart3={"status":"BLOCKED","reason":str(exc)}
     elapsed=round(time.monotonic()-started,3)
     observations=load(observations_path)
+    market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
+    market_snapshot_sha256=hashlib.sha256(json.dumps(market_groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     summary={
-      "schema_version":"1.0","stage":"STAGE_2_MARKET",
+      "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
       "run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
