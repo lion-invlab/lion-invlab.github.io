@@ -209,9 +209,8 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and read_method == "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
         and screenshot_evidence_ok
         and required_field_keys_present
-        and any(field_evidence[key].get("source_type") == "USER_PROVIDED_SCREENSHOT"
-                for key in (value_key, change_key))
-        and any(field_evidence[key].get("source_type") == "INVESTING_HISTORICAL_PAGE"
+        and bool(screenshot_fields)
+        and any(field_evidence.get(key, {}).get("source_type") == "INVESTING_HISTORICAL_PAGE"
                 for key in (value_key, change_key))
         and observation.get("source_page_fetched") is True
         and observation.get("read_status") == "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
