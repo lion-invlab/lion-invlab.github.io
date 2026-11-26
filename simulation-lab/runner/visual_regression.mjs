@@ -178,12 +178,22 @@ try {
     if (specialAudit.exists && (!specialAudit.beforeSummary || specialAudit.width > v.width || specialAudit.right > v.width)) failures.push(`${v.name}: CPI special focus placement/overflow invalid`);
     if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
+      const isMonday = new Date(reportDate + "T12:00:00Z").getUTCDay() === 1;
+      const levelsPanel = document.querySelector("#view .focus-levels");
+      const levelsText = levelsPanel?.innerText || "";
+      // Missing OHLC is a valid disclosed state: never require fabricated or stale pivot levels.
+      const levelsPending = levelsText.includes("數值待核實")
+        && levelsText.includes("本次不提供支撐／中樞／壓力數值");
+      const levelNeedles = levelsPending
+        ? ["道瓊工業指數", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000",
+           "數值待核實", "OHLC 高低價欄位未完整取得", "不沿用母版舊數值", "不以 CFD／期貨替代"]
+        : ["道瓊工業指數", "第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力",
+           "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"];
       const cases = [
-        // Validate the approved tab semantics: 盤面觀察重點, the full
-        // OHLC level set with source/date disclosure, and three weekly observation points.
+        // Weekday and Monday core-observation labels intentionally differ.
         { id: "focus-tab-market", panel: ".focus-market", expectedLabel: "盤面觀察重點", needles: ["盤面觀察重點"], minLength: 80 },
-        { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: ["道瓊工業指數", "第二支撐", "第一支撐", "中樞", "第一壓力", "第二壓力", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
-        { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: ["本週三大觀察焦點"], minLength: 100 }
+        { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: levelNeedles, minLength: levelsPending ? 100 : 200 },
+        { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: [isMonday ? "本週三大觀察焦點" : "三項關鍵觀察"], minLength: 100 }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
@@ -202,11 +212,17 @@ try {
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
         if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
         if (item.id === "focus-tab-levels") {
-          const source = panel.querySelector("details.compact-disclosure, details.source-details")?.textContent || "";
-      const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
-          if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
-          else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
-          if (!source.includes("Yahoo Finance") && !source.includes("Investing.com")) invalid.push(item.id + ": missing OHLC source attribution");
+          if (levelsPending) {
+            if (/(第二支撐|第一支撐|中樞|第一壓力|第二壓力)\\s*[：:|]?\\s*-?\\d/.test(text)) {
+              invalid.push(item.id + ": pending OHLC state must not render stale or invented pivot values");
+            }
+          } else {
+            const source = panel.querySelector("details.compact-disclosure, details.source-details")?.textContent || "";
+            const sourceDateMatch = source.match(/基準交易日：(\\d{4}-\\d{2}-\\d{2})/);
+            if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
+            else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
+            if (!source.includes("Yahoo Finance") && !source.includes("Investing.com")) invalid.push(item.id + ": missing OHLC source attribution");
+          }
         }
         results.push({ id: item.id, checked: input.checked, visible, text_length: text.length, needles: item.needles });
       }
