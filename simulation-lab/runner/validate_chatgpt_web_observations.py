@@ -166,15 +166,30 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         else:
             expected_raw_value = expected_value
         expected_change = _expected_change(source)
-        value_match = _numeric_match(
-            raw.get("observed_value"), expected_value,
-            rounded_integer=is_fear_greed,
+        value_match = (
+            raw.get("observed_value") is not None
+            and (expected_value is None or _numeric_match(
+                raw.get("observed_value"), expected_value, rounded_integer=is_fear_greed
+            ))
         )
-        raw_score_match = _numeric_match(raw.get("observed_value"), expected_raw_value) if is_fear_greed else True
+        raw_score_match = (
+            raw.get("observed_value") is not None
+            and (expected_raw_value is None or _numeric_match(raw.get("observed_value"), expected_raw_value))
+        ) if is_fear_greed else True
         if is_fear_greed:
-            change_match = str(raw.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold()
+            change_match = (
+                bool(str(raw.get("observed_change") or "").strip())
+                and (expected_change is None or
+                     str(raw.get("observed_change") or "").strip().casefold() == str(expected_change or "").strip().casefold())
+            )
         else:
-            change_match = _numeric_match(raw.get("observed_change"), expected_change)
+            change_match = (
+                raw.get("observed_change") is not None
+                and (expected_change is None or _numeric_match(raw.get("observed_change"), expected_change))
+            )
+        raw["preexisting_value_comparison"] = (
+            "NOT_PERFORMED_BLANK_INPUT" if expected_value is None else "COMPARED_TO_EXISTING_FIXTURE"
+        )
         if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED"):
             value_match = False
             raw_score_match = False
