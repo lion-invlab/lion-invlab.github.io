@@ -11,3 +11,8 @@ The news cutoff is Taiwan-local report time (target 05:25). Weekday window begin
 Stage 4 verifies that cited market rows are VERIFIED or BACKUP_VERIFIED, validates the shared time window and exact counts, then merges editorial content into the current Run fixture. It computes a before/after hash of all Stage 2 market data and fails if Stage 4 changes any market value or provenance.
 
 Do not copy prior-day report text or news into a new input. The schema is a structure contract, not a source of facts.
+
+## Main production trigger
+After the date-matched content file has been generated and validated, commit it to main with the exact marker `[build-tac-report:YYYY-MM-DD]` in the commit message. The main-native `tac-production.yml` workflow then starts Stage 1–6 automatically. A normal production code commit without this marker runs validation only. A manual `workflow_dispatch` with mode `build` is also supported.
+
+The workflow checks that the content file exists before starting the 44-row market capture. Missing content therefore fails early and does not waste a Stage 2 run.
