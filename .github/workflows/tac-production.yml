@@ -1,11 +1,6 @@
 name: TAC main production validation (build disabled until Phase 5 E2E)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "production/**"
-      - ".github/workflows/tac-production.yml"
   workflow_dispatch:
     inputs:
       mode:
@@ -20,7 +15,7 @@ permissions:
 
 concurrency:
   group: tac-main-production-validation
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   validate-main-production:
