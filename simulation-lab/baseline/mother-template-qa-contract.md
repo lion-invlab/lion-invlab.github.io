@@ -1,6 +1,6 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
-版本：1.27（2026-11-24｜雙母版 SHA 與 Manifest 同步）
+版本：1.28（2026-11-26｜main/preview 自動交付與三檔白名單）
 定位：SIM-1.4 的唯一詳細 DOM／互動／視覺 QA 執行附件。必須與 `simulation-lab/TAC_WORK_RULES_SIM.md` 同步讀取；此檔不獨立於主規則生效，也不取代主規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
@@ -8,6 +8,7 @@
 ## 版本紀錄
 
 - 2026-11-24｜v1.27：將 A2.1 週一與週二至週五 Simulation 母版 SHA 同步至當前 Manifest 實際 Blob SHA（Monday `710c944205ee05a86599ef5cd869f26c4a9ebde1`；Weekday `ff051c0cd22cf9267420c41e3952fa3178f0e45d`）。只修正 QA Contract 的版本綁定，未變更母版 DOM、CSS 或其他驗收規格。
+- 2026-11-26｜v1.28：Stage 6 審核版交付改為 main/preview；新增 HTML／QA sidecar／delivery receipt 三檔白名單、QA sidecar delivery provenance、main 遠端 SHA 回讀及 GitHub Pages 部署／公開 URL 驗證。main/index.html、母版、Manifest、正式行事曆及歷史報告仍受保護。
 
 - 2026-11-24｜v1.24：修正總結、五層市場深度解析與市場情緒三區的實際 DOM 間距；明確驗收 `#market-analysis` 與 `#sentiment` 前各至少 18px 垂直間距，週一／平日雙母版及每日 HTML 均須核對。新增因果歸因 QA：明確區分已確認的事件催化與市場部位因素；若當日市場判讀已確認期貨空單回補助漲，須與人事／政策等直接催化並列說明，不得將其降格為未知因素；同時不得把未核實的其他因素寫成事實，也不得用後句推翻前句。
 
@@ -333,9 +334,15 @@
 
 - [ ] 將每日審核版與所選母版比較，逐項檢查結構差異；不可只做關鍵字存在檢查。
 - [ ] 上述 C–H 各項全部通過；任何一項失敗即不得標示為「可審核完成」。
-- [ ] 正式首頁 `index.html`、雙母版、manifest、設計系統及其他受保護檔案均未被擅自修改。
-- [ ] 使用者未授權發布前，不得更新正式首頁。
-- [ ] 寫入後重新 fetch 回讀每日審核版，確認 SHA、內容及差異。
+- [ ] Stage 6 只有在 SIM-1.4 `sim14_review_ready=true`、`data_review_ready=true`、Builder approval=APPROVED 且 blockers 為空時，才可自動交付 main/preview。
+- [ ] main 寫入白名單僅限 `preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`、`preview/YYYY-MM-DD-review.delivery.json`；提交差異必須逐檔比對，任何額外路徑均阻止交付。
+- [ ] QA sidecar 必須綁定 HTML 的 Git blob SHA／SHA-256，保留 Simulation build branch／Run provenance，並新增 `delivery_branch=main`、main review path、delivery Run／attempt／trigger commit。
+- [ ] delivery receipt 必須列出來源 branch、HTML／QA 路徑及 SHA、Builder SHA、pre-build receipt SHA、Run／attempt、trigger commit，並明確聲明 index／calendar／mother／Manifest 未修改。
+- [ ] main 寫入後重新 fetch 回讀三檔，核對 SHA、內容、sidecar 綁定及日期；不得以 commit 成功取代回讀。
+- [ ] 既有 GitHub Pages workflow 必須因 main preview 更新而被明確觸發；核對 Pages Run success，並實際開啟公開 preview URL 驗證 report-date。無法驗證時標示 UNVERIFIED，不得宣稱預覽可用。
+- [ ] 正式首頁 `index.html`、雙母版、Manifest、設計系統、正式行事曆 JSON 及正式歷史報告均未被修改。
+- [ ] 使用者未明確核准前，不得更新正式首頁；main preview 交付本身不等於正式發布。
+- [ ] 寫入後重新 fetch 回讀每日審核版與 delivery receipt，確認 SHA、內容及差異。
 - [ ] 回報逐項列出「通過／未通過／未測試／待核實」，並提供實際證據；不得以 commit 成功取代驗收。
 
 ## K. 發現不符合時的處理
