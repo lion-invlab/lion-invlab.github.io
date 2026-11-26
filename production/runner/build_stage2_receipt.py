@@ -129,7 +129,7 @@ def build_receipt(args):
     hashes={key:sha_file(path) for key,path in paths.items()}
     run_id=str(args.run_id or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
     commit=str(args.commit_sha or os.environ.get("GITHUB_SHA") or "UNKNOWN")
-    branch=str(args.branch or os.environ.get("GITHUB_REF_NAME") or "simulation/tac-process-lab-2026-11-06")
+    branch=str(args.branch or os.environ.get("GITHUB_REF_NAME") or "main")
     batch_seed="|".join([args.report_date,data["trading_date"],run_id,commit,*[hashes[k] for k in ("fixture","audit","manifest","observations")]])
     batch_id=hashlib.sha256(batch_seed.encode()).hexdigest()[:24]
     status="PARTIAL" if counts["pending_count"] else "PASS"
