@@ -113,11 +113,34 @@
     "visual_regression.mjs"
   ],
   "not_yet_production_ready": [
-    "No main-native daily fixture factory/input schema has been completed.",
-    "No production Stage 1-6 orchestrator exists yet.",
-    "Builder port requires candidate tests against the new production mothers and an explicit main approval decision.",
-    "Some copied candidate tests still contain Simulation paths and must be adapted before running.",
-    "No main-native production Workflow has been created or enabled.",
-    "No real-data end-to-end run has been executed."
-  ]
+    "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
+    "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
+    "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
+  ],
+  "main_status": {
+    "workflow": ".github/workflows/tac-production.yml",
+    "stages": [
+      "Stage 1",
+      "Stage 2",
+      "Stage 3",
+      "Stage 4",
+      "Stage 5",
+      "Stage 6"
+    ],
+    "workflow_modes": [
+      "validate",
+      "capture",
+      "build"
+    ],
+    "capture_handoff": "AWAITING_EDITORIAL_INPUT",
+    "real_data_e2e": "NOT_RUN",
+    "production_schedule": "NOT_CUT_OVER",
+    "builder_approval": "CANDIDATE_PENDING_OWNER_APPROVAL",
+    "last_validation": {
+      "workflow_run_id": 45813748282,
+      "conclusion": "success",
+      "scope": "main-only deterministic validation; build job skipped"
+    }
+  }
 }
