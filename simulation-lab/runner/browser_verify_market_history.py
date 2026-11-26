@@ -100,7 +100,7 @@ IDENTITY_ALIASES = {
     "XLRE": ["XLRE", "Real Estate Select Sector SPDR Fund", "Real Estate Select Sector SPDR ETF"],
     "XLC": ["XLC", "Communication Services Select Sector SPDR Fund", "Communication Services Select Sector SPDR ETF"],
     "vix": ["CBOE Volatility Index", "VIX"],
-    "move": ["ICE BofAML MOVE", "MOVE Index"],
+    "move": ["ICE BofAML MOVE", "MOVE Index", "MOVE", "Merrill Lynch Option Volatility Estimate", "INDEXNYSEGIS: MOVE"],
     "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
 }
 
