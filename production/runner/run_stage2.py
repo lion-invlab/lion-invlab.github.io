@@ -57,6 +57,7 @@ def main():
     cnn_observation=ROOT/f"production/input/cnn-fear-greed-observation-{report_date}.json"
     input_mode="PLAYWRIGHT_BROWSER_FALLBACK"
     if web_bundle.is_file():
+        screenshot_sidecar=ROOT/f"production/input/market-screenshot-observations-{report_date}.json"
         if not cnn_observation.is_file():
             cnn_observation=run_dir/"cnn-observation-empty.json"
             cnn_observation.write_text(json.dumps({"observations":[]},ensure_ascii=False)+"\n",encoding="utf-8")
@@ -65,7 +66,7 @@ def main():
             "--input",str(web_bundle.relative_to(ROOT)),
             "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
             "--output",str(observations_path.relative_to(ROOT))])
-        input_mode="CHATGPT_WEB_DIRECT_PAGE_OBSERVATIONS"
+        input_mode="SCREENSHOT_FIRST_BROWSER_COMPLETION" if screenshot_sidecar.is_file() else "CHATGPT_WEB_DIRECT_PAGE_OBSERVATIONS"
     else:
         run([sys.executable,str(RUNNER/"browser_verify_market_history.py"),
             "--fixture",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
@@ -112,7 +113,8 @@ def main():
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
       "run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
-      "web_observation_bundle_sha256":__import__("hashlib").sha256(web_bundle.read_bytes()).hexdigest() if web_bundle.is_file() else None,
+      "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest() if web_bundle.is_file() else None,
+      "cnn_observation_sha256":hashlib.sha256(cnn_observation.read_bytes()).hexdigest() if cnn_observation.is_file() else None,
       "historical_page_read_count":observations.get("historical_page_read_count"),
       "screenshot_only_count":observations.get("screenshot_only_count"),
       "mixed_field_count":observations.get("mixed_field_count"),
