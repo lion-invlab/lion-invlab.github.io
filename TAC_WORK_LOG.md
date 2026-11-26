@@ -3588,3 +3588,13 @@ QA Sidecar：
 - 修正提交：`40717acf0f31098a19af4312f02bfa556a8139e1`（寫入隔離 helper／換行序列化）；`a5aa3daad17bbc4e08afea8a6d1af03a048ab2cd`（工作流測試加入回歸斷言）。
 - 尚未執行 GitHub Actions deterministic self-tests；後續以獨立 `[full-regression]` commit 觸發測試，不啟動當日早報製作，不重抓 44 項行情。
 - main、正式首頁、Workflow mirror、Builder、母版、Manifest、行事曆 JSON 均未修改。
+
+
+## 2026-11-26｜Stage 2 截圖來源角色與 OHLC 回填修正
+
+- 從 Library 找回並檢視 2026-11-25 原始截圖：MOVE（97.54、-1.30／-1.32%，畫面 16:17 GMT-5；Open 99.32、High 102.73、Low 97.40），香港恆生兩張 Investing.com 歷史數據頁截圖（11/25 Close 21,966.01、Change -1.14%，可見 Open 22,252.81、High 22,507.83、Low 21,915.88、Volume 3.65B）。原始檔已在 Library 找回並檢視；目前尚未寫入 Simulation checkout，不能稱為 repo 原圖封存。
+- 修正 `stage2_market_fixture_bootstrap.py`：blank-first 時清除非 Fear & Greed 的舊 `source_role`，避免沿用前輪 PRIMARY／BACKUP；純截圖 VERIFIED 列明確標示 `source_role=USER_PROVIDED_SCREENSHOT`，不冒充 Investing.com 歷史頁已在本輪讀取；歷史頁及 TradingView 備援則保留 PRIMARY／BACKUP_1 來源角色。新 blob SHA：`c53e8be42ace16f64df99cd7107da375162e9d8b`，commit `4efa63475ad420eafb9602dac787b02575d5ff53`。
+- 新增回歸測試：`test_stage2_market_fixture_bootstrap.py` 覆蓋 stale role 清除及 screenshot provenance；blob SHA `103156282e849a8971cda32a6ea4427b6492f16e`，commit `e828dba375f45e87a573d95394f8dee6f5c37307`。
+- 更新 Workflow 已執行的 `test_validate_chatgpt_web_observations.py`，增加 MOVE screenshot-first Close／Change／Open／High／Low 回填及 `USER_PROVIDED_SCREENSHOT` 來源角色驗收；blob SHA `4137a64f722c8dd0a63806b299c6c938a7f23acf`，commit `e1f815f35b5f502d8ecdd09ef4143ca91354c27c`。
+- 原始圖片尚未上傳到 Simulation checkout；現有 GitHub 寫檔介面僅接受 UTF-8 文字，不能直接將已 materialize 的 PNG 二進位寫入 repo。Sidecar 不得先行建立成會因缺少原圖而驗收失敗的狀態。下一步需完成圖片二進位入庫途徑，或由使用者／具 binary upload 能力的 GitHub workflow 將三張原圖放入規定路徑，再建立 SHA 鎖定 Sidecar。
+- 本輪仍未取得 GitHub Actions run ID／測試完成證據；下一次以獨立 `[full-regression]` commit 執行 deterministic self-tests，不觸發當日早報 build。main、Workflow mirror、Builder、母版、Manifest、行事曆 JSON均未修改。
