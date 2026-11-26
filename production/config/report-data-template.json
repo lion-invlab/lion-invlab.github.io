@@ -1039,7 +1039,15 @@
             "plus": false
           }
         },
-        "source_page_fetched": false
+        "source_page_fetched": false,
+        "approved_primary_urls": [
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://www.cnn.com/markets/fear-and-greed"
+        ],
+        "approved_backup_urls": [
+          "https://fgscore.com/en/markets/sp500",
+          "https://staging.fcontext.com/en/fear-and-greed"
+        ]
       }
     }
   },
