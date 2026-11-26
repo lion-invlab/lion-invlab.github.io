@@ -27,12 +27,14 @@
     {
       "file": "build_market_source_verification_manifest.py",
       "source_sha": "08d5dda5f380664dca670af5516ed076631cb4a5",
-      "status": "COPIED_UNCHANGED"
+      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
+      "main_blob_sha": "5014fea19082a7d771918d6961c40a51f7c1514c"
     },
     {
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
-      "status": "COPIED_UNCHANGED"
+      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
+      "main_blob_sha": "d33788b65552e72bef46289cd258cff0f7baba1a"
     },
     {
       "file": "validate_market_snapshot.py",
@@ -67,7 +69,8 @@
     {
       "file": "validate_prebuild_stage_inputs.py",
       "source_sha": "730b25a2f8f3a2f555008fb9c5bd1deb5ecf9bd1",
-      "status": "COPIED_UNCHANGED"
+      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
+      "main_blob_sha": "48a2b0d109f9e91ca9c9ade5d82bd433b2bd1fb6"
     },
     {
       "file": "build_review_html.py",
@@ -141,7 +144,7 @@
       "workflow_run_id": 45819680821,
       "head_sha": "c63e7f0db95ea2f9ed51f42d8f11d4d2821de81d",
       "conclusion": "success",
-      "scope": "main-only deterministic validation; capture/build jobs skipped"
+      "scope": "previous main-only deterministic validation; predates current Stage 2 status-preservation commits"
     }
   },
   "main_native_modules": [
