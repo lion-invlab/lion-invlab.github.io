@@ -732,9 +732,10 @@ jobs:
           if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
             node simulation-lab/runner/visual_regression.mjs simulation-lab/output/candidate-validation/2026-11-23-candidate.html monday 2026-11-23
             node simulation-lab/runner/visual_regression.mjs simulation-lab/output/candidate-validation/2026-11-20-candidate.html weekdays 2026-11-20
-          else
-            node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
           fi
+          # The QA sidecar must bind visual evidence to the actual report date.
+          # Synthetic dual-mother checks above are additional regression tests, not a replacement.
+          node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
       - name: Verify mother-owned DOM structure unchanged
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build-tac-report') || contains(github.event.head_commit.message, '[full-regression]')))
