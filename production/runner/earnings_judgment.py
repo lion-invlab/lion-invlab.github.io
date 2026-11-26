@@ -1,0 +1,561 @@
+#!/usr/bin/env python3
+"""Single-source TAC earnings comparison engine.
+
+This module is the only component allowed to calculate EPS/revenue Beat/Miss.
+HTML assembly must call render_status/render_summary only; it must never infer a
+comparison from raw numbers or free-text basis descriptions.
+"""
+from __future__ import annotations
+
+from decimal import Decimal, InvalidOperation
+from datetime import date, datetime, timezone
+import re
+from typing import Any
+
+ENGINE_VERSION = "1.4.0"
+VALID_STATUSES = {"beat", "miss", "inline", "pending"}
+DIRECTIONAL_STATUSES = {"beat", "miss", "inline"}
+STATUS_LABELS = {
+    "beat": "優於預期",
+    "miss": "低於預期",
+    "inline": "符合預期",
+    "pending": "尚未公布／數值尚未齊備",
+}
+_CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
+EPS_BASIS_CODES = frozenset({
+    "US_GAAP_DILUTED_EPS",
+    "US_GAAP_BASIC_EPS",
+    "US_GAAP_BASIC_AND_DILUTED_EPS",
+    "IFRS_DILUTED_EPS",
+    "IFRS_BASIC_EPS",
+    "IFRS_ATTRIBUTABLE_EPS",
+    "IFRS_ADJUSTED_DILUTED_EPS",
+    "IFRS_ADJUSTED_BASIC_EPS",
+    "NON_GAAP_ADJUSTED_DILUTED_EPS",
+    "NON_GAAP_ADJUSTED_BASIC_EPS",
+    "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS",
+    "NON_GAAP_DILUTED_EPS",
+    "NON_GAAP_BASIC_EPS",
+    "ISSUER_DEFINED_ADJUSTED_EPS",
+})
+REVENUE_BASIS_CODES = frozenset({
+    "US_GAAP_TOTAL_REVENUE",
+    "US_GAAP_NET_SALES",
+    "US_GAAP_OPERATING_REVENUE",
+    "IFRS_TOTAL_REVENUE",
+    "IFRS_NET_SALES",
+    "IFRS_REVENUE",
+    "ISSUER_DEFINED_REVENUE_METRIC",
+})
+
+
+def _decimal(value: Any) -> Decimal | None:
+    if isinstance(value, bool) or value is None:
+        return None
+    try:
+        result = Decimal(str(value))
+    except (InvalidOperation, ValueError, TypeError):
+        return None
+    return result if result.is_finite() else None
+
+
+def _valid_code(value: Any, metric: str) -> bool:
+    registry = EPS_BASIS_CODES if metric == "eps" else REVENUE_BASIS_CODES
+    return isinstance(value, str) and value in registry
+
+
+def _valid_currency(value: Any) -> bool:
+    return isinstance(value, str) and bool(_CURRENCY_RE.fullmatch(value))
+
+
+def _valid_source(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    url = value.get("url")
+    observed_at = value.get("observed_at")
+    return (
+        isinstance(url, str)
+        and url.startswith("https://")
+        and isinstance(observed_at, str)
+        and bool(observed_at.strip())
+    )
+
+def _parse_pit_time(value: Any):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    raw = value.strip().replace("Z", "+00:00")
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
+            return date.fromisoformat(raw)
+        parsed = datetime.fromisoformat(raw)
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            return None
+        return parsed
+    except ValueError:
+        return None
+
+
+def _precedes_event(value: Any, event_value: Any) -> bool:
+    parsed = _parse_pit_time(value)
+    event = _parse_pit_time(event_value)
+    if parsed is None or event is None:
+        return False
+    if isinstance(parsed, datetime) and isinstance(event, datetime):
+        return parsed.astimezone(timezone.utc) < event.astimezone(timezone.utc)
+    parsed_day = parsed.date() if isinstance(parsed, datetime) else parsed
+    event_day = event.date() if isinstance(event, datetime) else event
+    return parsed_day < event_day
+
+
+def _not_after(value: Any, reference: Any) -> bool:
+    parsed = _parse_pit_time(value)
+    ref = _parse_pit_time(reference)
+    if parsed is None or ref is None:
+        return False
+    if isinstance(parsed, datetime) and isinstance(ref, datetime):
+        return parsed.astimezone(timezone.utc) <= ref.astimezone(timezone.utc)
+    parsed_day = parsed.date() if isinstance(parsed, datetime) else parsed
+    ref_day = ref.date() if isinstance(ref, datetime) else ref
+    return parsed_day <= ref_day
+
+
+def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
+    """A directional judgment must be backed by the exact immutable pre-release snapshot."""
+    key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    source = record.get(key)
+    if not isinstance(source, dict):
+        return False
+    snapshot_id = source.get("snapshot_id")
+    if not isinstance(snapshot_id, str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot_id):
+        return False
+    array_key = "eps_consensus_snapshots" if metric == "eps" else "revenue_consensus_snapshots"
+    snapshots = record.get(array_key)
+    if not isinstance(snapshots, list):
+        return False
+    snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
+    if not isinstance(snapshot, dict):
+        return False
+
+    level = snapshot.get("source_level")
+    providers = {1: "Yahoo Finance", 2: "Investing.com", 3: "LSEG I/B/E/S", 4: "FactSet Estimates"}
+    event_date = record.get("event_date")
+    estimate_key = f"{metric}_estimate"
+    basis_key = f"{metric}_estimate_basis_code"
+    currency_key = f"{metric}_estimate_currency"
+    period_key = f"{metric}_estimate_period"
+    required_equal = {
+        "event_id": record.get("id"),
+        "ticker": record.get("ticker"),
+        "metric": "EPS" if metric == "eps" else "REVENUE",
+        "event_date": event_date,
+        "value": record.get(estimate_key),
+        "basis_code": record.get(basis_key),
+        "currency": record.get(currency_key),
+        "period": record.get(period_key),
+    }
+    if any(snapshot.get(k) != v for k, v in required_equal.items()):
+        return False
+    if level not in providers or snapshot.get("provider") != providers[level]:
+        return False
+    status = snapshot.get("snapshot_status")
+    if status == "pre_release_eligible":
+        # Provider PIT: provider-declared as-of and TAC capture both precede release.
+        if not _precedes_event(snapshot.get("data_as_of"), event_date):
+            return False
+        if not _not_after(snapshot.get("data_as_of"), snapshot.get("observed_at")):
+            return False
+    elif status == "tac_observed_pre_release_eligible":
+        # TAC-observed PIT: exact immutable source content was captured before
+        # release. This does not assert when the provider first published it.
+        if snapshot.get("data_as_of") not in (None, ""):
+            return False
+    else:
+        return False
+    if not _precedes_event(snapshot.get("observed_at"), event_date):
+        return False
+    if snapshot.get("published_at") and not _precedes_event(snapshot.get("published_at"), event_date):
+        return False
+    if not isinstance(snapshot.get("period_end_date"), str) or not snapshot["period_end_date"].strip():
+        return False
+    if not isinstance(snapshot.get("statistic"), str) or not snapshot["statistic"].strip():
+        return False
+    if not isinstance(snapshot.get("raw_response_ref"), str) or not snapshot["raw_response_ref"].strip():
+        return False
+    if not isinstance(snapshot.get("raw_response_sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot["raw_response_sha256"]):
+        return False
+    if not isinstance(snapshot.get("source_url"), str) or not snapshot["source_url"].startswith("https://"):
+        return False
+    if source.get("url") != snapshot.get("source_url") or source.get("observed_at") != snapshot.get("observed_at"):
+        return False
+    if metric == "revenue" and snapshot.get("unit") != record.get("revenue_estimate_unit"):
+        return False
+    return True
+
+
+def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
+    """Recognize only curated notes that explicitly document unresolved revenue-consensus disagreement."""
+    source = record.get("revenue_consensus_source")
+    notes = source.get("notes") if isinstance(source, dict) else None
+    if not isinstance(notes, str):
+        return False
+    has_revenue_context = "營收共識" in notes or "revenue consensus" in notes.casefold()
+    has_unresolved_divergence = "不一致" in notes or "差異仍未解" in notes or "unresolved divergence" in notes.casefold()
+    return has_revenue_context and has_unresolved_divergence
+
+
+def _has_explicit_same_basis_consensus(record: dict, metric: str) -> bool:
+    """Use a consensus basis only when curated source notes explicitly confirm the same basis."""
+    key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    source = record.get(key)
+    notes = source.get("notes") if isinstance(source, dict) else None
+    if not isinstance(notes, str):
+        return False
+    lowered = notes.casefold()
+    explicit_same_basis = any(marker in notes for marker in ("採同口徑", "同口徑判定", "同口徑呈現", "同口徑比較"))
+    explicit_gaap_pair = "gaap eps actual" in lowered and "consensus" in lowered
+    explicit_gaap_loss_pair = ("gaap net loss/share" in lowered or "gaap diluted loss/share" in lowered) and "consensus" in lowered
+    return explicit_same_basis or explicit_gaap_pair or explicit_gaap_loss_pair
+
+
+def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
+    difference = actual - estimate if actual is not None and estimate is not None else None
+    surprise_pct = None
+    if difference is not None and estimate != 0:
+        surprise_pct = float((difference / abs(estimate)) * Decimal("100"))
+    return {
+        "status": status,
+        "reason": reason,
+        "surprise": float(difference) if difference is not None else None,
+        "surprise_pct": surprise_pct,
+    }
+
+
+def _comparison_block_reason(record: dict, metric: str) -> str | None:
+    """Block only explicit currency/unit mismatches or a documented non-comparable basis."""
+    actual_currency = record.get(f"{metric}_actual_currency")
+    estimate_currency = record.get(f"{metric}_estimate_currency")
+    if actual_currency and estimate_currency and actual_currency != estimate_currency:
+        return "actual_and_estimate_currencies_differ"
+
+    if metric == "revenue":
+        actual_unit = record.get("revenue_actual_unit")
+        estimate_unit = record.get("revenue_estimate_unit")
+        if actual_unit and estimate_unit and actual_unit != estimate_unit:
+            return "actual_and_estimate_revenue_units_differ"
+        currency_text = str(record.get("revenue_currency") or "")
+        if "(not comparable)" in currency_text.casefold() or "not comparable" in currency_text.casefold():
+            return "source_marks_revenue_currency_as_not_comparable"
+
+    note = str(record.get("financial_judgment") or "")
+    if metric == "eps" and "EPS" in note and "不判 beat/miss" in note:
+        return "issuer_note_explicitly_withholds_eps_comparison"
+    if metric == "revenue" and (("revenue estimates" in note.casefold() and "consolidated revenue" in note.casefold()) or ("營收預期" in note and "實際營收" in note)) and "不判 beat/miss" in note:
+        return "issuer_note_explicitly_withholds_revenue_comparison"
+    return None
+
+
+def evaluate_metric(record: dict, metric: str) -> dict:
+    """Practical TAC comparison: compare the platform consensus with the reported actual.
+
+    Source/basis/PIT metadata is retained for transparency, but it is not a
+    prerequisite for a usable investor-facing numerical comparison. EPS and
+    Revenue are evaluated independently. Missing numbers are the only reason
+    a released metric cannot yet receive a directional result.
+    """
+    if metric not in {"eps", "revenue"}:
+        raise ValueError(f"unsupported earnings metric: {metric!r}")
+
+    actual = _decimal(record.get(f"{metric}_actual"))
+    estimate = _decimal(record.get(f"{metric}_estimate"))
+    if actual is None or estimate is None:
+        return _result("pending", "actual_or_consensus_not_yet_available", actual, estimate)
+    comparison_block_reason = _comparison_block_reason(record, metric)
+    if comparison_block_reason:
+        # The public status contract has exactly four states. Keep the specific
+        # reason in the audit field, but map non-comparable inputs to pending.
+        return _result("pending", f"comparison_inputs_not_comparable:{comparison_block_reason}", actual, estimate)
+
+    # A user-supplied absolute tolerance wins. Otherwise, values within 1% of
+    # the absolute consensus are treated as broadly in line, avoiding noise
+    # from tiny rounding differences. Negative EPS (losses) is handled by
+    # comparing the signed actual and estimate directly.
+    tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
+    if tolerance is None:
+        tolerance = abs(estimate) * Decimal("0.01")
+    if tolerance < 0:
+        tolerance = Decimal("0")
+
+    difference = actual - estimate
+    if abs(difference) <= tolerance:
+        return _result("inline", "within_practical_one_percent_consensus_band", actual, estimate)
+    if difference > 0:
+        return _result("beat", "actual_above_platform_consensus", actual, estimate)
+    return _result("miss", "actual_below_platform_consensus", actual, estimate)
+
+def _legacy_basis_code(metric: str, label: Any) -> str | None:
+    """Conservatively map a descriptive v1 basis label to a controlled v2 code."""
+    if not isinstance(label, str) or not label.strip():
+        return None
+    text = re.sub(r"[^a-z0-9]+", " ", label.casefold()).strip()
+
+    if metric == "eps":
+        # Narrative summaries sometimes mention both the selected EPS and a
+        # separately disclosed GAAP/adjusted alternative. Such mixed labels
+        # are not a single comparable basis and must never be guessed.
+        plain_gaap_text = text.replace("non gaap", "")
+        if (
+            ("gaap" in plain_gaap_text and ("non gaap" in text or "adjusted" in text or "normalized" in text))
+            or ("ifrs" in text and "non ifrs" in text and ("adjusted" in text or "normalized" in text))
+        ):
+            return None
+        if "gaap" in text and "non gaap" not in text:
+            if "basic" in text and "diluted" in text:
+                return "US_GAAP_BASIC_AND_DILUTED_EPS"
+            if "diluted" in text:
+                return "US_GAAP_DILUTED_EPS"
+            if "basic" in text:
+                return "US_GAAP_BASIC_EPS"
+            return None
+        if "ifrs" in text:
+            if "adjusted" in text and "diluted" in text:
+                return "IFRS_ADJUSTED_DILUTED_EPS"
+            if "adjusted" in text and "basic" in text:
+                return "IFRS_ADJUSTED_BASIC_EPS"
+            if "diluted" in text:
+                return "IFRS_DILUTED_EPS"
+            if "basic" in text:
+                return "IFRS_BASIC_EPS"
+            if "attributable" in text:
+                return "IFRS_ATTRIBUTABLE_EPS"
+            return None
+        if "non gaap" in text or "adjusted" in text or "normalized" in text:
+            if "diluted" in text:
+                return "NON_GAAP_ADJUSTED_DILUTED_EPS" if ("adjusted" in text or "normalized" in text) else "NON_GAAP_DILUTED_EPS"
+            if "basic" in text:
+                return "NON_GAAP_ADJUSTED_BASIC_EPS" if ("adjusted" in text or "normalized" in text) else "NON_GAAP_BASIC_EPS"
+            if "adjusted" in text or "normalized" in text:
+                return "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS"
+        return None
+
+    if metric == "revenue":
+        if "gaap" in text:
+            if "operating revenue" in text:
+                return "US_GAAP_OPERATING_REVENUE"
+            if "net sales" in text:
+                return "US_GAAP_NET_SALES"
+            if "revenue" in text:
+                return "US_GAAP_TOTAL_REVENUE"
+            return None
+        if "ifrs" in text:
+            if "net sales" in text:
+                return "IFRS_NET_SALES"
+            if "revenue" in text:
+                return "IFRS_TOTAL_REVENUE"
+            return None
+    return None
+
+
+def _split_legacy_currency(value: Any) -> tuple[str | None, str | None]:
+    """Only split a legacy field when it explicitly distinguishes actual and estimate."""
+    if not isinstance(value, str):
+        return None, None
+    match = re.fullmatch(
+        r"\s*([A-Z]{3})\s+actual\s*;\s*([A-Z]{3})\s+estimate(?:\s*\([^)]*\))?\s*",
+        value.strip(),
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return match.group(1).upper(), match.group(2).upper()
+    # A single legacy currency is ambiguous and must not be copied to both sides.
+    return None, None
+
+
+def _currency_from_basis_label(label: Any) -> str | None:
+    if not isinstance(label, str):
+        return None
+    match = re.search(
+        r"\b(USD|EUR|GBP|CHF|CAD|AUD|JPY|CNY|INR|BRL|SGD|HKD|KRW|TWD|MXN|SEK|NOK|DKK|NZD|ZAR|ILS|SAR|AED|PLN|CZK|HUF|TRY|IDR|THB|MYR|PHP|CLP|COP|PEN)\s*(?:/share|per share|billion|billions|million|millions|bn|mm)\b",
+        label,
+        flags=re.IGNORECASE,
+    )
+    return match.group(1).upper() if match else None
+
+
+def _revenue_unit_from_basis_label(label: Any) -> str | None:
+    if not isinstance(label, str):
+        return None
+    text = label.casefold()
+    currency = _currency_from_basis_label(label)
+    if not currency:
+        return None
+    if re.search(r"\b(billions?|bn)\b", text):
+        return f"{currency}_BILLION"
+    if re.search(r"\b(millions?|mm)\b", text):
+        return f"{currency}_MILLION"
+    return None
+
+
+def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") -> dict:
+    """Create an in-memory v2 migration preview; never writes the source JSON."""
+    migrated = dict(record)
+    migrated["legacy_eps_comparison_status"] = record.get("eps_comparison_status")
+    migrated["legacy_revenue_comparison_status"] = record.get("revenue_comparison_status")
+
+    for metric in ("eps", "revenue"):
+        actual_label = record.get(f"{metric}_actual_basis")
+        # Legacy calendar records store the reported EPS definition in the
+        # shared eps_basis field. Use it only as the actual-result basis;
+        # never copy it to the analyst-consensus side.
+        if metric == "eps" and not (isinstance(actual_label, str) and actual_label.strip()):
+            actual_label = record.get("eps_basis")
+        estimate_label = record.get(f"{metric}_estimate_basis")
+        migrated.setdefault(
+            f"{metric}_actual_basis_code",
+            _legacy_basis_code(metric, actual_label),
+        )
+        migrated.setdefault(
+            f"{metric}_estimate_basis_code",
+            _legacy_basis_code(metric, estimate_label),
+        )
+        actual_currency, estimate_currency = _split_legacy_currency(
+            record.get(f"{metric}_currency")
+        )
+        if actual_currency is None:
+            actual_currency = _currency_from_basis_label(actual_label)
+        if estimate_currency is None:
+            estimate_currency = _currency_from_basis_label(estimate_label)
+        migrated.setdefault(f"{metric}_actual_currency", actual_currency)
+        migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
+        period = record.get("reporting_period")
+        migrated.setdefault(f"{metric}_actual_period", period)
+        # A company's reporting_period identifies the reported actual period.
+        # It is not evidence of the consensus estimate's fiscal period.
+        # Preserve an explicitly sourced estimate period; otherwise leave it
+        # missing so evaluate_metric returns pending rather than assuming a match.
+        migrated.setdefault(f"{metric}_estimate_period", None)
+
+    migrated.setdefault(
+        "revenue_actual_unit",
+        _revenue_unit_from_basis_label(record.get("revenue_actual_basis")),
+    )
+    migrated.setdefault(
+        "revenue_estimate_unit",
+        _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")),
+    )
+    if _has_explicit_revenue_consensus_divergence(record):
+        migrated["revenue_consensus_conflict"] = True
+
+    for metric in ("eps", "revenue"):
+        actual_code = migrated.get(f"{metric}_actual_basis_code")
+        estimate_code = migrated.get(f"{metric}_estimate_basis_code")
+        if (
+            _valid_code(actual_code, metric)
+            and not _valid_code(estimate_code, metric)
+            and _has_explicit_same_basis_consensus(record, metric)
+        ):
+            migrated[f"{metric}_estimate_basis_code"] = actual_code
+
+    return apply_judgment(migrated, observed_at)
+
+
+def apply_judgment(record: dict, observed_at: str) -> dict:
+    """Write deterministic comparison fields to a record in the caller's data layer."""
+    results = {}
+    for metric in ("eps", "revenue"):
+        result = evaluate_metric(record, metric)
+        results[metric] = result
+        record[f"{metric}_comparison_status"] = result["status"]
+        record[f"{metric}_surprise"] = result["surprise"]
+        record[f"{metric}_surprise_pct"] = result["surprise_pct"]
+        record[f"{metric}_comparison_reason"] = result["reason"]
+    record["judgment_engine_version"] = ENGINE_VERSION
+    record["judgment_timestamp"] = observed_at
+    record["earnings_comparison_summary"] = (
+        f"EPS：{STATUS_LABELS[results['eps']['status']]}；"
+        f"營收：{STATUS_LABELS[results['revenue']['status']]}"
+    )
+    return record
+
+
+def render_status(record: dict, metric: str) -> str:
+    """Read a persisted engine result. Never calculate or infer in the renderer."""
+    if metric not in {"eps", "revenue"}:
+        raise ValueError(f"unsupported earnings metric: {metric!r}")
+    if record.get("judgment_engine_version") != ENGINE_VERSION:
+        return "pending"
+    status = record.get(f"{metric}_comparison_status")
+    return status if status in VALID_STATUSES else "pending"
+
+
+def _valid_tac_observation_reference(record: dict, metric: str, snapshot: dict, source: dict) -> bool:
+    """Validate a selected estimate without imposing PIT or optional-metadata gates."""
+    providers = {1: "Yahoo Finance", 2: "Investing.com", 3: "LSEG I/B/E/S", 4: "FactSet Estimates"}
+    expected_metric = "EPS" if metric == "eps" else "REVENUE"
+    value = record.get(f"{metric}_estimate")
+    period = record.get(f"{metric}_estimate_period")
+    if any(snapshot.get(k) != v for k, v in {
+        "event_id": record.get("id"), "ticker": record.get("ticker"),
+        "metric": expected_metric, "event_date": record.get("event_date"),
+        "value": value, "period": period,
+    }.items()):
+        return False
+    level = snapshot.get("source_level")
+    if isinstance(level, bool) or level not in providers or snapshot.get("provider") != providers[level]:
+        return False
+    url = snapshot.get("source_url")
+    if not isinstance(url, str) or not url.startswith("https://") or source.get("url") != url:
+        return False
+    # Missing currency/unit is retained as an unknown disclosure, not an
+    # estimate-adoption blocker. If both sides disclose them, mismatches remain
+    # a comparison limitation handled by evaluate_metric().
+    if metric == "revenue":
+        snapshot_unit = snapshot.get("unit")
+        record_unit = record.get("revenue_estimate_unit")
+        if snapshot_unit and record_unit and snapshot_unit != record_unit:
+            return False
+    return True
+
+
+def consensus_evidence_label(record: dict, metric: str) -> str | None:
+    """Label the exact linked capture; distinguish evidence existence from comparison eligibility."""
+    if metric not in {"eps", "revenue"}:
+        raise ValueError(f"unsupported earnings metric: {metric!r}")
+    source_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    snapshots_key = "eps_consensus_snapshots" if metric == "eps" else "revenue_consensus_snapshots"
+    source = record.get(source_key)
+    snapshots = record.get(snapshots_key)
+    snapshot_id = source.get("snapshot_id") if isinstance(source, dict) else None
+    if not isinstance(snapshots, list) or not snapshot_id:
+        return None
+    snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
+    if not isinstance(snapshot, dict):
+        return None
+    if _valid_tac_observation_reference(record, metric, snapshot, source):
+        return "來源已記錄（PIT／補充欄位非採用門檻）"
+    return None
+
+
+def render_summary(record: dict) -> str:
+    """Render only a summary persisted by this engine version."""
+    if record.get("judgment_engine_version") != ENGINE_VERSION:
+        return "EPS／營收預期比較尚未由 TAC 1.4 引擎重算。"
+    summary = record.get("earnings_comparison_summary")
+    return summary if isinstance(summary, str) and summary.strip() else (
+        "EPS／營收比較結果尚未產生。"
+    )
+
+
+def audit_record(record: dict) -> list[str]:
+    """Return data-quality issues without mutating the source record."""
+    issues = []
+    version = record.get("judgment_engine_version")
+    if version != ENGINE_VERSION:
+        issues.append("legacy_or_missing_judgment_engine_version")
+    for metric in ("eps", "revenue"):
+        stored = record.get(f"{metric}_comparison_status")
+        computed = evaluate_metric(record, metric)["status"]
+        if stored in DIRECTIONAL_STATUSES and computed not in DIRECTIONAL_STATUSES:
+            issues.append(f"{metric}_directional_status_not_supported_by_v2_evidence")
+        elif version == ENGINE_VERSION and stored != computed:
+            issues.append(f"{metric}_stored_status_differs_from_engine_result")
+    return issues
