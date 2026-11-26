@@ -80,7 +80,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 5 是本次 HTML 唯一 writer；Stage 6 是交付 sidecar 唯一 writer。
 
 ## 10. Run、恢復與效率
-- 每次唯一 Run ID，綁定 report_date、Asia/Taipei、git SHA、規則／Manifest／母版／QA SHA。
+- 每次唯一 Run ID，綁定 report_date、Asia/Taipei、起始 main commit，以及 MASTER／六份 Stage WR／contracts／schemas／Manifest／母版／QA／Builder approval／Builder／Stage runners／依賴／Workflow 的 governance blob SHA。Stage 5 必須比對全清單，禁止跨版本 Run。
 - 同一 report_date 不可有兩個並行正式 Run。
 - 每個 Stage 完成即保存輸出 SHA 與狀態；失敗只從最後有效 Stage 恢復。
 - 已鎖定行情不重抓；下游只讀快照。無關項目不因單項失敗停工。
