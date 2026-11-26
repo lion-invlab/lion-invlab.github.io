@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SIM-1.4 fail-closed, pre-build receipt binding Stage 2-4 inputs to one run."""
+"""Main-native pre-build receipt binding Stage 2-4 inputs to one run."""
 from __future__ import annotations
 
 import argparse
