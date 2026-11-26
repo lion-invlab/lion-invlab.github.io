@@ -28,7 +28,8 @@ def make_inputs():
             "trading_date":"2026-11-25","verification_status":status,
             "display_value_matches_saved_observation":status=="VERIFIED",
             "observation_provenance":"CURRENT_RUN_BROWSER_OBSERVATION",
-            "browser_observation_record":record,"observation_record_sha256":canonical_sha(record),
+            "browser_observation_record":record if status=="VERIFIED" else None,
+            "observation_record_sha256":canonical_sha(record) if status=="VERIFIED" else None,
             "source_page_fetched":bool(row.get("source_page_fetched")),
             "display_value_reconciled":status=="VERIFIED"})
     manifest={"status":"PARTIAL","report_date":"2026-11-26","trading_date":"2026-11-25",
