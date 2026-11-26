@@ -747,7 +747,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--fixture",required=True); ap.add_argument("--report-date",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
-    ap.add_argument("--concurrency",type=int,default=2)
+    ap.add_argument("--concurrency",type=int,default=4)
     ap.add_argument("--screenshot-bundle", help="Date-matched SHA-locked screenshot sidecar JSON; defaults to simulation-lab/input/market-screenshot-observations-REPORT_DATE.json")
     ap.add_argument("--no-fixture-write", action="store_true",
                     help="Emit observations without writing populated values back to the input fixture")
