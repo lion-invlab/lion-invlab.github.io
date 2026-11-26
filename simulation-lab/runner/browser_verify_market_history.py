@@ -537,7 +537,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     else:
         observation["observed_value_key"]=value_key
         evidence[value_key]={
-            "source_type":"CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
+            "source_type":"CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE","source_url":observation.get("data_endpoint_url") or row["source_url"],
             "field_name":observation.get("observed_value_field"),
             "value":page_value,"observed_at":observation.get("finished_at_tw"),
         }
@@ -552,7 +552,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     else:
         observation["observed_change_key"]=change_key
         evidence[change_key]={
-            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":row["source_url"],
+            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":observation.get("data_endpoint_url") or row["source_url"],
             "field_name":observation.get("observed_change_field"),
             "value":page_change,"observed_at":observation.get("finished_at_tw"),
         }
