@@ -91,6 +91,15 @@ def main():
         assert screenshot_only["status"] == "VERIFIED"
         assert screenshot_only["source_page_fetched"] is False
 
+        wrong_identity_input = copy.deepcopy(loaded[("global_markets", "標普500指數")])
+        wrong_identity_input["instrument_identity"] = "Nasdaq Composite (IXIC)"
+        wrong_identity = _apply_screenshot_fields(
+            work_row, {"group": "global_markets", "name": "標普500指數", "target_date": fixture["trading_date"]},
+            wrong_identity_input
+        )
+        assert wrong_identity["status"] == "OBSERVED_PENDING_FIELD_MAPPING"
+        assert wrong_identity["screenshot_instrument_identity_status"] == "NOT_INDEPENDENTLY_VERIFIED"
+
         partial_bundle = copy.deepcopy(bundle)
         partial_bundle["observations"][0]["fields"].pop("change")
         bundle_path.write_text(json.dumps(partial_bundle), encoding="utf-8")
