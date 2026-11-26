@@ -191,6 +191,7 @@ def populate_fixture(data, payload):
             if obs.get("read_status")=="MARKET_CLOSED" and closure_ok:
                 if group=="sectors":
                     out["sectors"][name]="-"
+                    src["history_close"]="-"
                     src["change_display"]="休市"
                 else:
                     item["display"]="-"
