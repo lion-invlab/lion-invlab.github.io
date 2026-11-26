@@ -12,7 +12,7 @@ from stage2_screenshot_inputs import apply_page_completions_to_fixture, apply_sc
 from browser_verify_market_history import _apply_screenshot_fields, persist_fixture
 
 
-FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
+FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
 
 
 def main():
