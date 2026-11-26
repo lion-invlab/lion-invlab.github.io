@@ -153,6 +153,21 @@ def main() -> None:
     observation_summary = validate_observation_bundle(observation_bundle, report_date, data["trading_date"])
     assert observation_summary["row_count"] == 44
     assert observation_summary["page_only_row_count"] == 44
+    screenshot_bundle_test = copy.deepcopy(observation_bundle)
+    screenshot_row_test = screenshot_bundle_test["observations"][0]
+    screenshot_row_test["read_method"] = "USER_PROVIDED_SCREENSHOT"
+    screenshot_row_test["field_evidence"] = {
+        screenshot_row_test["observed_value_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
+        screenshot_row_test["observed_change_key"]: {"source_type": "USER_PROVIDED_SCREENSHOT"},
+    }
+    screenshot_summary = validate_observation_bundle(screenshot_bundle_test, report_date, data["trading_date"])
+    assert screenshot_summary["screenshot_only_row_count"] == 1
+    mixed_bundle_test = copy.deepcopy(observation_bundle)
+    mixed_row_test = mixed_bundle_test["observations"][0]
+    mixed_row_test["read_method"] = "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE"
+    mixed_row_test["field_evidence"][mixed_row_test["observed_value_key"]] = {"source_type": "USER_PROVIDED_SCREENSHOT"}
+    mixed_summary = validate_observation_bundle(mixed_bundle_test, report_date, data["trading_date"])
+    assert mixed_summary["mixed_field_row_count"] == 1
     receipt_with_observations = build_receipt(
         data=data, fixture_sha256="1" * 64,
         audit=audit, audit_sha256="2" * 64,
