@@ -167,3 +167,13 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - `validate_market_snapshot.py` 加入 CFD 截圖／歷史頁完整欄位證據 Gate，並新增正向／負向測試。
 - GitHub Actions 在 commit `58b64deed25e5af7f3c20cde7f22d8615db230e9` 的 Simulation isolated-smoke 已回報 success；該版本涵蓋截圖載入、欄位優先、Fixture 缺欄回寫、Prebuild Receipt 與 CFD 證據 Gate 的回歸測試。之後增加的多圖片欄位測試及規格文件，仍須等待最新 commit 的 Actions 結果。
 - 尚未完成實際 44 項截圖 bundle 的正式 E2E、完整 Stage 2 Receipt 產出與下游防重抓驗收；狀態仍為 `IMPLEMENTATION_IN_PROGRESS`。
+
+### 2026-11-26｜第四批改造：Observation bundle 與 Receipt SHA 閉環
+
+- Page-only Observation 也補上逐欄來源證據；不再只有整列的 read method，而是逐欄記錄 Investing.com Historical Data 或 CNN 官方端點來源、欄名、值與觀察時間。
+- 截圖欄位與頁面補欄完成後，重新計算最終 Observation row SHA；不得沿用欄位合併前的舊雜湊。
+- Prebuild Receipt 現在必須讀取 `simulation-lab/output/market-history-browser-observations.json`，核對 44 列、日期、唯一標的、每列 canonical SHA，並逐列比對 Manifest 的來源 URL、交易日及已核實數值。
+- Receipt 新增 Observation bundle 路徑、SHA-256、純截圖列數、混合來源列數與純歷史頁列數，將 Fixture、Audit、Manifest、Observation bundle 一起綁定。
+- 另外加上來源模式一致性檢查：純截圖列必須 `source_page_fetched=false)，混合列與純歷史頁列必須有本輪頁面／官方來源讀取紀錄。
+- 目前已完成程式與回歸測試接線；最新一輪對應 commit 的 isolated-smoke 正在執行。先前 commit `b85fdb2deea5be79ed2364d6749fc033975b39a3` 的 isolated-smoke 已成功，涵蓋修正後的 Python compile 與既有測試；新增的 Receipt source-mode gate 尚待最新測試確認。
+- 完整 44 項實際截圖 bundle、正式 Stage 2 Receipt 實際產出、下游防重抓 E2E 仍未完成。狀態維持 `IMPLEMENTATION_IN_PROGRESS`，不得宣稱整體改造已驗收。
