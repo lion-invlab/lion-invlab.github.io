@@ -144,6 +144,7 @@ def main() -> None:
                               if row.get("group") == "risk" and row.get("name") == "move")
         screenshot_row["observation_provenance"] = "CURRENT_USER_PROVIDED_SCREENSHOT"
         screenshot_row["source_page_fetched"] = False
+        screenshot_row["browser_observation_record"]["screenshot_instrument_identity_status"] = "VERIFIED"
         screenshot_row["browser_observation_record"]["field_evidence"] = {
             field: {
                 "source_type": "USER_PROVIDED_SCREENSHOT",
