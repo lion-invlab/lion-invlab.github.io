@@ -1,7 +1,7 @@
 # Stage 3｜行事曆與財報事件
 
 ## 輸入
-Stage 1 當週／上週 JSON commit 與 blob SHA、Stage 2 凍結行情快照、SIM-1.4 行事曆／財報規格。
+Stage 1 當週／上週 JSON commit 與 blob SHA、Stage 2 凍結行情快照、`production/MASTER_WR.md`、`production/contracts/DATA_SCHEMA.md` 與 `production/contracts/SOURCE_POLICY.md`。SIM-1.4 僅為技術規範來源，不是 main 執行期依賴。
 
 ## 執行
 1. 僅讀取 main `data/calendar/weeks/YYYY-Www.json`。工作日 04:35 行事曆排程是唯一 writer；Stage 3 嚴格唯讀，不修補、不 merge、不 upsert、不覆寫。
