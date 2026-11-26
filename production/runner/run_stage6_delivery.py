@@ -43,8 +43,12 @@ def main():
         raise SystemExit("A different preview HTML already exists for this report date; refusing overwrite")
     if destinations["qa"].exists():
         existing=json.loads(destinations["qa"].read_text(encoding="utf-8"))
-        if existing.get("run_id")!=context["run_id"] and existing.get("html",{}).get("sha256")!=sha(html):
-            raise SystemExit("A different QA sidecar already exists for this report date; refusing overwrite")
+        if existing.get("run_id")!=context["run_id"]:
+            raise SystemExit("A QA sidecar from a different Run ID already exists; refusing overwrite")
+    if destinations["delivery"].exists():
+        existing=json.loads(destinations["delivery"].read_text(encoding="utf-8"))
+        if existing.get("run_id")!=context["run_id"]:
+            raise SystemExit("A delivery receipt from a different Run ID already exists; refusing overwrite")
     destinations["html"].parent.mkdir(parents=True,exist_ok=True)
     destinations["html"].write_bytes(html.read_bytes())
     qa["delivery"]={"status":"PREVIEW_COMMIT_PENDING","branch":"main","path":str(destinations["html"].relative_to(ROOT)),
