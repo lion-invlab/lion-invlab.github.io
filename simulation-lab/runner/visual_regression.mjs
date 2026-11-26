@@ -676,6 +676,7 @@ try {
 }
 fs.writeFileSync(path.join(output, "visual-regression.json"), JSON.stringify({
   status: failures.length ? "FAIL" : "PASS",
+  status: failures.length ? "FAIL" : "PASS",
   report_date: reportDate, report_path: reportPath, master_path: masterPath,
   master_blob_sha: gitBlobSha, template: templateKey, viewports, failures, snapshots, font_audits: fontAudits,
   gap_comparison_exceptions: ["#calendar", "#last-week-earnings"],
