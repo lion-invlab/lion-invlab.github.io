@@ -217,3 +217,16 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 正式生產 Workflow 尚未切換到 blank/apply 新流程。曾在 Simulation copy 暫試整合，但因 SIM-1.4 要求 main/default workflow mirror SHA 一致，且 main 路徑目前受唯讀邊界限制，已將 Simulation 的 .github/workflows/tac-simulation-lab.yml 還原至 main 相同 blob SHA 0698f88333e29c3b7e86ee74e557fdc14b6ce429。正式 Workflow 尚未修改，避免下一輪完整早報因 mirror Gate 失敗；待取得更新 main workflow mirror 的明確授權後，再把已驗證的 blank/apply 呼叫鏈整合進正式生產流程。
 - main/index.html、正式首頁、母版、正式資料與每日關鍵價位 collect_key_levels_ohlc.py 均未修改。
 - 本批狀態：BOOTSTRAP_UNIT_TESTS_PASS / LIVE_44_ROW_E2E_IN_PROGRESS / PRODUCTION_WORKFLOW_NOT_YET_INTEGRATED；整體專案仍為 IMPLEMENTATION_IN_PROGRESS，不得標記 STAGE2_REDESIGN_ACCEPTED。
+
+
+### 2026-11-26｜第五批驗收結果補記
+
+- Commit 66016cc831b35901aeeb1bff19bd20ba711f656c 對應 Run 45778257845，專用 Stage 2 diagnostic 全部步驟 success：三組回歸測試、空白行情輸入建立、當日直接歷史頁 Observation 驗證、Fixture 回填、Manifest 建立、Snapshot Validator、Artifact 上傳均完成。
+- 實際結果：空白輸入 44 列；Observation 44 列，其中 VERIFIED 43、OBSERVED_PENDING_VALIDATION 1；回填 Fixture 44 列，其中 verified 43、pending 1；Manifest 為 PARTIAL（43 verified／1 pending）；Snapshot Audit 為 PASS（44 列 metadata/date 結構檢查）。這代表零行情值到 43 項有效數值回填的 E2E 已通過，不能宣稱 44 項全部核實。
+- 唯一待核實列為 risk/move：當日 Investing.com 歷史頁 Observation 記錄 2026-11-25 無目標列（SOURCE_NO_DATA）；不沿用舊 Fixture 97.54，也不將舊截圖記錄冒充本輪證據。
+- 驗收 Artifact：tac-stage2-diagnostic-2026-11-26，Artifact ID 15097495872；SHA-256 digest 4baf021f98bbc422884e9260c667b1bba3a02bc0c729aa4d53d156591815af7f。Artifact 中 report-data-blank.json 的 stage2_market_bootstrap.preexisting_market_values_used=false；report-data-populated.json 只有 43 項新觀察值，MOVE close_value 為 null、顯示「待核實」。
+- 本輪另發現舊 Fixture 的 MOVE source metadata 還殘留 previous_close／OHLC、screenshot_sha256、user_screenshot_observation、截圖時間與來源時間等舊欄位，即使顯示值已清空仍可能造成錯誤引用。已擴充 blank 清理清單並將舊數值型 note 改成通用 Stage 2 提示；新增負向測試確認上述欄位全部移除。Run 45778257845 的空白 bootstrap 測試已 PASS；Artifact 證實 MOVE 不再殘留上述舊截圖與 OHLC metadata。
+- 本輪截圖 Sidecar 偵測數為 0；因此沒有把舊 Fixture 內 SHA／時間互相不一致的 MOVE 截圖紀錄當成當日有效截圖。使用者先前提供的截圖必須以當日有效原始圖檔與 Sidecar 封存，才能作為 SHA-locked screenshot evidence。
+- Run 45775503897 的 43 個 Investing.com HTTP 403 仍是 Playwright live-page path 的實際存取阻塞；本輪 43 項成功值來自當日直接歷史頁 Observation bundle（capture session manual-takeover-2026-11-26-retry-1），不是把 HTTP 403 當成功，也不是沿用前一交易日 Fixture。
+- 正式生產 Workflow 仍未切換 blank/apply；Simulation workflow mirror 已還原並與 main blob SHA 一致。正式整合仍需更新 main/default workflow mirror 的明確授權。
+- 狀態： ZERO_MARKET_INPUT_E2E_PARTIAL_PASS / 43_VERIFIED_1_PENDING / PRODUCTION_WORKFLOW_NOT_YET_INTEGRATED。
