@@ -43,7 +43,7 @@
 - [ ] Stage 4 編輯內容仍由 `production/input/report-content-YYYY-MM-DD.json` 提供；capture receipt 已指向 exact Run 的輸入位置，但尚未建立可獨立執行的新聞研究／五層分析內容生成器及自動提交交接。
 - [x] Stage 2 Chart 3 increment 已由 main Workflow 僅提交 `data/tac-chart3/sp500_daily_increment.jsonl`，並明確 dispatch `tac-chart3-sp500-increment-merge.yml`；等待真實 S&P 500 VERIFIED run 驗證。
 - [ ] Stage 5 main Builder 已加精確 SHA 核准紀錄 gate，並由獨立模組及測試執行；目前 `CANDIDATE_PENDING_OWNER_APPROVAL`，未獲核准不得產生正式 REVIEW_READY。Stage 5／6 尚未用真實當日輸入完成 E2E。
-- [ ] 尚無自動產生 `production/input/report-content-YYYY-MM-DD.json` 的編輯研究步驟；capture 已改為明確交付 Run-bound handoff，build 再以 `workflow_dispatch` 或 `[build-tac-report:YYYY-MM-DD]` marker 啟動。
+- [ ] 尚無自動產生 `production/input/report-content-YYYY-MM-DD.json` 的 LLM 編輯研究步驟；capture 已自動交付完整 Run-bound research bundle，仍需內容產生器寫入三重 SHA 綁定 JSON，build 再以 `workflow_dispatch` 或 `[build-tac-report:YYYY-MM-DD]` marker 啟動。
 
 ## Phase 1 未完成／需收尾
 - [ ] 完成 MASTER／六份 Stage WR／contracts／Runner 全面逐欄一致性檢查；第一輪只處理已確認問題，尚未完成 SIM-1.4 全文逐條比對。

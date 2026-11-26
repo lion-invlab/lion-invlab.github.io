@@ -12,7 +12,7 @@ The only workflow entry is `.github/workflows/tac-production.yml`:
 
 There is no `run_daily_report.py` orchestrator; the GitHub Actions workflow is the single entrypoint and owns sequencing, permissions, commit boundaries and dispatches.
 
-Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WRs, all shared contracts, both mother configuration files, schemas, Builder approval, Builder, Stage runners/dependencies and the relevant GitHub workflows. Stage 5 compares the exact inventory against current main and refuses cross-version builds.
+Stage 1 records a commit-pinned SHA inventory for the master rules, six Stage WRs, all shared contracts, both mother configuration files, schemas, Builder approval, Builder, Stage runners/dependencies and the relevant GitHub workflows. Stage 5 compares the exact inventory against current main and refuses cross-version builds.\n\nAfter Stage 3, capture creates `stage4-research-bundle.json`, consolidating the frozen 44-row market snapshot, unresolved items, FedWatch, calendar/earnings projections, source receipts and screenshot evidence SHA. Stage 4 content must bind to the bundle SHA as well as Run ID and market snapshot SHA.
 
 ## Builder status
 
