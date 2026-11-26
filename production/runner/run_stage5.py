@@ -29,6 +29,15 @@ def main():
     if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+    approval_path=ROOT/"production/config/builder-approval.json"
+    if not approval_path.is_file():
+        raise SystemExit("Main Builder approval record is missing; refusing production REVIEW_READY.")
+    approval=json.loads(approval_path.read_text(encoding="utf-8"))
+    actual_builder_sha=git_blob("production/runner/build_review_html.py")
+    if approval.get("status")!="APPROVED_MAIN" or approval.get("approved_by_owner") is not True:
+        raise SystemExit("Main Builder is still a candidate pending explicit owner approval; candidate validation is not production REVIEW_READY.")
+    if approval.get("builder_path")!="production/runner/build_review_html.py" or approval.get("builder_blob_sha")!=actual_builder_sha:
+        raise SystemExit("Main Builder approval does not match the exact current Builder blob SHA.")
     report_date=context["report_date"]
     if not run_dir.name.startswith(f"TAC-{report_date}-"):raise SystemExit("Stage 5 run ID/date mismatch")
     fixture=run_dir/"report-data.json"
