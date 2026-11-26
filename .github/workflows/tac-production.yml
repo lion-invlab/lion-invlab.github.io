@@ -127,6 +127,7 @@ jobs:
             test_summary_headline \
             test_market_analysis_slots \
             test_fear_greed_marker
+            test_builder_approval
 
       - name: Run full candidate Builder against isolated test fixtures
         env:
