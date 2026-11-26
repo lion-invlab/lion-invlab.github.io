@@ -15,7 +15,7 @@ main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件
    上述模板及 QA 契約已逐位元從 SIM-1.4 baseline 複製至 main。舊 `母版專區/`、根目錄 Manifest、舊 WR、舊 layout QA 不再是新 Pipeline 的規則或母版來源；可保留歷史檔案，但不得被新 Runner 引用。
 3. SIM-1.4 詳細技術原文保存在 `production/reference/SIM-1.4_SOURCE_BASELINE.md`，blob SHA 來源 `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`。本文件將其轉換為 main 生產責任；SIM 原文中的 Simulation-only 分支限制不適用 main，但資料品質、欄位、Stage 定義、來源政策、母版規格及 QA 原則保留。
 4. main 舊生產入口及 Workflow 不得成為新系統的第二入口。完成切換前先隔離／停用衝突觸發；不刪除歷史證據，不修改 Simulation。
-5. 唯一入口：`production/runner/run_daily_report.py`；唯一正式 Workflow：`.github/workflows/tac-production.yml`。未完成程式與 E2E 前不得宣稱可生產。
+5. 唯一正式入口：`.github/workflows/tac-production.yml`。`capture` 負責 Stage 1–3 並產生精確 Run handoff；`build` 只接受同一 Run 的 Stage 4 編輯內容，再執行 Stage 4–6。Python Stage Runner 是 Workflow 的執行模組，不另設第二個排程入口。未完成編輯內容自動交接與真實 E2E 前不得宣稱可全自動生產。
 
 ## 2. 唯一每日流程
 Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Stage 3 行事曆與財報 → Stage 4 新聞與市場分析 → Stage 5 唯一 HTML Builder 與 QA → Stage 6 main/preview 審核版交付與驗證。
