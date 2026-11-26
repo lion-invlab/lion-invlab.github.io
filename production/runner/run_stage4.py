@@ -20,7 +20,10 @@ def parse_tw(value:str)->datetime:
     try:
         dt=datetime.fromisoformat(raw.replace("Z","+00:00"))
     except ValueError:
-        dt=datetime.strptime(raw,"%Y-%m-%d %H:%M")
+        try:
+            dt=datetime.strptime(raw,"%Y-%m-%d %H:%M")
+        except ValueError:
+            dt=datetime.strptime(raw,"%Y/%m/%d %H:%M")
     if dt.tzinfo is None:dt=dt.replace(tzinfo=TZ)
     return dt.astimezone(TZ)
 
