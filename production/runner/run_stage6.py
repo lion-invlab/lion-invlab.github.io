@@ -63,6 +63,15 @@ def main():
         raise SystemExit("Stage 5 render manifest identity/HTML/Builder binding mismatch")
     if sha(render_path)!=stage5.get("render_manifest_sha256"):
         raise SystemExit("Stage 5 render manifest SHA mismatch")
+    stage4_path=run_dir/"stage4-analysis-receipt.json"
+    if not stage4_path.is_file() or sha(stage4_path)!=stage5.get("stage4_receipt_sha256"):
+        raise SystemExit("Stage 4 analysis receipt SHA differs from Stage 5 handoff")
+    stage4_doc=json.loads(stage4_path.read_text(encoding="utf-8"))
+    binding=stage4_doc.get("editorial_run_binding") or {}
+    if (binding.get("run_id")!=context["run_id"]
+            or binding.get("market_snapshot_sha256")!=stage5.get("market_snapshot_sha256")
+            or binding.get("research_bundle_sha256")!=stage5.get("research_bundle_sha256")):
+        raise SystemExit("Stage 5 editorial evidence does not match Stage 4 receipt")
     report_path,qa_path,delivery_path=allowed_paths(report_date)
     if git(["branch","--show-current"])!="main":raise SystemExit("Stage 6 must execute from main checkout")
     git(["fetch","origin","main"])
