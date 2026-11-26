@@ -172,18 +172,22 @@ jobs:
       - name: Select the single post-close Taiwan trigger using New York DST
         id: dst
         shell: bash
+        env:
+          SCHEDULE_CRON: ${{ github.event.schedule }}
         run: |
           python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
           from datetime import datetime, timezone
           from zoneinfo import ZoneInfo
           now = datetime.now(timezone.utc)
           ny = now.astimezone(ZoneInfo("America/New_York"))
-          expected_utc_hour = 20 if ny.dst() and ny.dst().total_seconds() else 21
-          should_run = now.minute == 5 and now.hour == expected_utc_hour
+          expected_cron = "5 20 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "5 21 * * 0-4"
+          actual_cron = os.environ.get("SCHEDULE_CRON", "")
+          should_run = actual_cron == expected_cron
           print(f"should_run={'true' if should_run else 'false'}")
-          print(f"utc_now={now.isoformat()}")
+          print(f"actual_cron={actual_cron}")
+          print(f"expected_cron={expected_cron}")
           print(f"new_york_now={ny.isoformat()}")
-          print(f"expected_utc_hour={expected_utc_hour}")
           PY
 
   capture-and-calendar:
