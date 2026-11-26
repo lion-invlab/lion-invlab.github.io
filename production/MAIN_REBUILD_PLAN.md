@@ -410,3 +410,15 @@
 - 原盤查所指出的 8 個模組仍需檢查，但目的改為確保它們一致保留共同目標日期 2026-11-26，並能逐列記錄「當日有數據／官方休市／無法判定」的證據與狀態；不得引入 row-specific fallback trading date。
 - 既有官方休市證據欄位、官方網域白名單及負向測試方向保留；需再確認實際 browser observation 能產生並傳遞這些欄位，且上游 Manifest、Fixture、Receipt、Pre-build 與 Stage 4 Bundle 使用同一套證據契約。
 - 本更正只修正日期模型規則與盤查結論，不代表 44 項真實擷取、休市查核或 E2E 已完成。
+
+
+## 2026-11-27 Stage 2 休市證據契約實際修復（Main）
+- 依使用者確認，11/27 早報 44 項行情統一查詢 11/26；不採用逐市場最近交易日替代基準日。原 I4 提出的 row-specific fallback date 設計已撤回。
+- 實際回讀發現 Stage 2 bootstrap 原先要求 `market_calendar_*` 欄位，但 Observation validator 與 Source Verification Manifest 使用的是 `closure_evidence_*`、reader ref／line range 及 current-run provenance。這是上下游欄位契約不一致，會使有效的瀏覽器休市證據無法通過 bootstrap。
+- 已修正 `stage2_market_fixture_bootstrap.py`：改用與 Source Verification Manifest 相同的當次瀏覽器休市證據欄位、官方網域檢查、目標日期、來源頁讀取、商品身分／欄位映射、非重用觀察與完成時間；並補回日本官方假日網域 `cao.go.jp`。有效證據摘要寫入 Fixture。
+- 已更新 Observation schema，明列 `closure_evidence_url/text/reader_ref/line_start/line_end`、provenance、prior_observation_reused、source_page_fetched、instrument_identity_status、field_mapping_status。
+- 已更新 Stage 2 WR 與 Runner README，明訂全體 44 列共用 run-level target/trading date；缺少目標日資料先記 SOURCE_NO_DATA，只有具備官方行事曆及當次瀏覽器證據才標 CLOSED。
+- 已更新 bootstrap 測試：無證據不准 CLOSED、非官方網域不准 CLOSED、完整官方證據可呈現數值 `-`／變動 `休市`。
+- Main blobs：bootstrap `de41464be161bfc719663ee08555ccc4bf5a4cf0`；測試 `6f0ef2b5abca24d82b8cd30d92e49be3362e7e6e`；Observation schema `b9392611aa773df6eed939e4c875a8fb6baaa573`；PORT_MANIFEST 已更新 bootstrap SHA。
+- 相關 commits：`10810f5`（bootstrap）、`f8e2e5f`（tests）、`ef7de8e`（schema）、`ac62619`（PORT_MANIFEST）、`4845fc4`（Stage 2 WR）、`105e40e`（README）。
+- **尚未完成**：最新 Main CI 尚未取得結果；Source Manifest 的完整官方休市驗證、Receipt／Pre-build／Stage 4 傳遞與 44 項真實瀏覽器擷取仍需同一 Run 實測。此修復不代表真實早報已產出。
