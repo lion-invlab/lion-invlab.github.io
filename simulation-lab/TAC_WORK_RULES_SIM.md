@@ -46,6 +46,7 @@
 
 ### 0.5.1 行情單次核實、快照鎖定與下游唯讀（2026-11-26 效率修訂）
 - 每輪報告的 44 項行情，唯一一次外部來源讀取／觀察入口為 Workflow 的「Read and reconcile 44 current-run market history pages」Stage 2。每項在此階段完成來源頁讀取、標的身分、交易日期、欄位對應、收盤值與漲跌值核對，並立即定為 VERIFIED、BACKUP_VERIFIED、PENDING 或 CLOSED。
+- 已移除原本可選的 `Capture 44 raw market source pages` 第二次 44 頁擷取步驟；不得以 `[capture-44-sources]` 或 `run_optional_probes` 重新讀取同一批行情頁。若研究需要原始頁面，必須使用 Stage 2 已取得的觀察紀錄；另行研究不屬於當日早報行情核實流程。
 - Stage 2 後由同一份當輪觀察紀錄建立 44 列 source-verification manifest。Manifest 建置只把已捕捉觀察值與 Fixture 逐項比對並封存證據，不得再開啟來源頁、重新擷取或另找來源。這是同一輪證據的核對／記錄，不是第二次行情擷取。
 - Stage 2–4 receipt 必須綁定完整 Fixture SHA-256、44 列 Manifest SHA-256、Metadata Audit SHA-256、報告日、交易日及當輪 Workflow Run ID。Receipt 建立後即視為行情快照凍結點；任何下游程序不得改寫 Fixture、行情狀態或行情顯示值。
 - Stage 3 行事曆、Stage 4 新聞與分析、Builder、HTML QA、母版比對、DOM／互動測試、Stage 6 Publisher 及 Pages 驗證均為下游唯讀。它們可以檢查日期、44 欄位是否存在、狀態與顯示是否一致、receipt／manifest／HTML SHA 是否相符；不得重新抓取行情頁、重新比對外部報價或要求 44 項再核實一次。
