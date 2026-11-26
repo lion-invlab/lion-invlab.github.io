@@ -156,7 +156,7 @@ jobs:
           retention-days: 14
 
   build-and-deliver:
-    if: \${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'build' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'build' }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     permissions:
@@ -188,10 +188,10 @@ jobs:
       - name: Resolve report date and require Stage 4 input before market capture
         shell: bash
         env:
-          REQUESTED_REPORT_DATE: \${{ inputs.report_date }}
+          REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
         run: |
           set -euo pipefail
-          if [ -n "\${REQUESTED_REPORT_DATE:-}" ]; then
+          if [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
             REPORT_DATE="$REQUESTED_REPORT_DATE"
           else
             REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
@@ -224,7 +224,7 @@ jobs:
 
       - name: Commit only verified S&P 500 Chart 3 increment and dispatch merge
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
@@ -237,7 +237,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "$LEDGER"
           mapfile -t STAGED < <(git diff --cached --name-only)
-          test "\${#STAGED[@]}" -eq 1 && test "\${STAGED[0]}" = "$LEDGER"
+          test "${#STAGED[@]}" -eq 1 && test "${STAGED[0]}" = "$LEDGER"
           git commit -m "data(chart3): verified S&P 500 increment $REPORT_DATE"
           git push origin HEAD:main
           CHART3_COMMIT="$(git rev-parse HEAD)"
@@ -287,14 +287,14 @@ jobs:
 
       - name: Stage 6 — deliver three preview files and verify Pages
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python production/runner/run_stage6.py --run-dir "$RUN_DIR"
 
       - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-main-run-\${{ github.run_id }}-\${{ github.run_attempt }}
-          path: \${{ env.RUN_DIR }}/
+          name: tac-main-run-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.RUN_DIR }}/
           if-no-files-found: warn
           retention-days: 30
