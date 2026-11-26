@@ -7,7 +7,7 @@ import argparse, asyncio, hashlib, json, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright
-from stage2_screenshot_inputs import load_screenshot_bundle
+from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
 
 def number_token(value):
     s=str(value or "").replace(",","").replace("\u2212","-").replace("+","").strip()
@@ -608,8 +608,21 @@ def main():
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
-    data=json.loads(Path(a.fixture).read_text(encoding="utf-8")); target=data.get("trading_date")
+    fixture_path=Path(a.fixture)
+    data=json.loads(fixture_path.read_text(encoding="utf-8")); target=data.get("trading_date")
     if data.get("report_date")!=a.report_date or not target: raise SystemExit("Fixture date mismatch")
+    screenshot_bundle=Path(a.screenshot_bundle) if a.screenshot_bundle else Path(
+        f"simulation-lab/input/market-screenshot-observations-{a.report_date}.json"
+    )
+    screenshot_inputs=load_screenshot_bundle(screenshot_bundle,data,Path.cwd()) if screenshot_bundle.is_file() else {}
+    if a.only:
+        group_name, sep, item_name = a.only.partition(":")
+        if not sep or not group_name or not item_name:
+            raise SystemExit("--only must use group:name")
+        screenshot_inputs={key:value for key,value in screenshot_inputs.items() if key==(group_name,item_name)}
+    if screenshot_inputs:
+        data=apply_screenshot_values_to_fixture(data,screenshot_inputs)
+        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     work=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk"):
         for name,item in (data.get(group) or {}).items():
@@ -634,21 +647,12 @@ def main():
                      "quote_type":src.get("quote_type"),
                      "instrument_ticker":name, "instrument_identity_expected":name})
     if a.only:
-        group_name, sep, item_name = a.only.partition(":")
-        if not sep or not group_name or not item_name:
-            raise SystemExit("--only must use group:name")
         work = [row for row in work if row["group"] == group_name and row["name"] == item_name]
         if len(work) != 1:
             raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")
     elif len(work) != 44:
         raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
-    screenshot_bundle=Path(a.screenshot_bundle) if a.screenshot_bundle else Path(
-        f"simulation-lab/input/market-screenshot-observations-{a.report_date}.json"
-    )
-    screenshot_inputs=load_screenshot_bundle(screenshot_bundle,data,Path.cwd()) if screenshot_bundle.is_file() else {}
-    if a.only:
-        screenshot_inputs={key:value for key,value in screenshot_inputs.items() if key in {(work[0]["group"],work[0]["name"])}}
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
     screenshot_only_count=sum(1 for item in observations if item.get("read_method")=="USER_PROVIDED_SCREENSHOT")
     mixed_count=sum(1 for item in observations if item.get("read_method")=="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE")
