@@ -206,6 +206,10 @@ def main():
         if "market-analysis-sources" not in node.get("class", [])
     ]
     if fg_status == "VERIFIED":
+        if fg_source.get("read_method")=="CNN_OFFICIAL_PREVIOUS_CLOSE":
+            raise SystemExit("CNN previous_close must never be substituted for the current Fear & Greed dashboard score")
+        if fg_source.get("quote_type")!="cnn_fear_greed_current_score" or fg_source.get("url") not in (fg_source.get("approved_primary_urls") or []):
+            raise SystemExit("VERIFIED Fear & Greed must use the approved CNN current-dashboard source")
         fg_source_value = fg_source.get("source_score_value")
         if fg_source_value is None:
             raise SystemExit("CNN Fear & Greed verified source score missing from fixture")
