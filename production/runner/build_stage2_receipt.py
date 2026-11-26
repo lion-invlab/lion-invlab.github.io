@@ -5,8 +5,21 @@ import argparse, hashlib, json, os
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from urllib.parse import urlparse
 
 EXPECTED_GROUPS={"global_markets":17,"sectors":11,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3}
+OFFICIAL_CALENDAR_HOSTS={"nyse.com","nasdaq.com","jpx.co.jp","cao.go.jp","global.krx.co.kr",
+    "twse.com.tw","sgx.com","asx.com.au","sse.com.cn","szse.cn","hkex.com.hk",
+    "londonstockexchange.com","deutsche-boerse.com","euronext.com","stoxx.com",
+    "cmegroup.com","theice.com","cboe.com","ice.com"}
+
+def official_calendar_url(value):
+    try:
+        parsed=urlparse(str(value or ""))
+        host=(parsed.hostname or "").lower().rstrip(".")
+        return parsed.scheme=="https" and any(host==d or host.endswith("."+d) for d in OFFICIAL_CALENDAR_HOSTS)
+    except ValueError:
+        return False
 
 def sha_file(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -109,7 +122,27 @@ def validate_inputs(data,audit,manifest,observations,report_date):
             actual=src.get("score_value") if group=="risk" and name=="fear_greed" else src.get("close_value")
             if num(actual)!=num(obs.get("observed_value")): raise ValueError(f"{group}/{name}: fixture value differs from current observation")
         elif obs.get("read_status")=="MARKET_CLOSED":
-            if status!="CLOSED" or src.get("verification_status")!="CLOSED": raise ValueError(f"{group}/{name}: closure state mismatch")
+            if status!="CLOSED" or src.get("verification_status")!="CLOSED":
+                raise ValueError(f"{group}/{name}: closure state mismatch")
+            closure=record or {}
+            if (mr.get("evidence_status")!="MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
+                    or closure.get("read_status")!="MARKET_CLOSED"
+                    or closure.get("source_url")!=obs.get("source_url")
+                    or closure.get("target_date")!=trading_date
+                    or closure.get("source_page_fetched") is not True
+                    or closure.get("prior_observation_reused") is not False
+                    or closure.get("provenance")!="CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+                    or closure.get("read_method")!="CHATGPT_WEB_OPEN_HISTORICAL_PAGE"
+                    or not official_calendar_url(closure.get("closure_evidence_url"))
+                    or not closure.get("closure_evidence_reader_ref")
+                    or not isinstance(closure.get("closure_evidence_line_start"),int)
+                    or not isinstance(closure.get("closure_evidence_line_end"),int)
+                    or closure.get("closure_evidence_line_end")<closure.get("closure_evidence_line_start")):
+                raise ValueError(f"{group}/{name}: official closure evidence record incomplete")
+            if (obs.get("source_page_fetched") is not True
+                    or obs.get("target_date")!=trading_date
+                    or obs.get("prior_observation_reused") is not False):
+                raise ValueError(f"{group}/{name}: closure observation does not bind current target date")
         else:
             if status in ("VERIFIED","BACKUP_VERIFIED"): raise ValueError(f"{group}/{name}: pending observation promoted to verified")
             evidence=obs.get("field_evidence") or {}
@@ -128,6 +161,12 @@ def validate_inputs(data,audit,manifest,observations,report_date):
             "manifest_record_sha256":mr.get("observation_record_sha256"),
             "read_method":obs.get("read_method"),
             "source_page_fetched":obs.get("source_page_fetched") is True,
+            "closure_evidence":({
+                "url":(mr.get("browser_observation_record") or {}).get("closure_evidence_url"),
+                "reader_ref":(mr.get("browser_observation_record") or {}).get("closure_evidence_reader_ref"),
+                "line_start":(mr.get("browser_observation_record") or {}).get("closure_evidence_line_start"),
+                "line_end":(mr.get("browser_observation_record") or {}).get("closure_evidence_line_end"),
+            } if status=="CLOSED" else None),
         })
     if len(row_receipts)!=44: raise ValueError("receipt row register is incomplete")
     return {"verified_count":verified,"pending_count":pending,"closed_count":closed,
