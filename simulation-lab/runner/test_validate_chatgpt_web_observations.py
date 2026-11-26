@@ -14,7 +14,7 @@ from build_market_source_verification_manifest import IDENTITY_ALIASES, build_ma
 from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 from browser_verify_market_history import persist_fixture
-from stage2_screenshot_inputs import apply_screenshot_values_to_fixture
+from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -123,6 +123,44 @@ def main():
         assert json.loads(diagnostic_path.read_text(encoding="utf-8")) == {"changed": True}
 
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
+
+    # Investing.com HK's native Traditional Chinese historical table headers
+    # must be accepted as screenshot field labels, including the clipped-width
+    # single-character High/Low columns shown in mobile captures.
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        image_a = root / "hangseng-a.png"
+        image_b = root / "hangseng-b.png"
+        image_a.write_bytes(b"synthetic investing screenshot A")
+        image_b.write_bytes(b"synthetic investing screenshot B")
+        import hashlib
+        sha_a = hashlib.sha256(image_a.read_bytes()).hexdigest()
+        sha_b = hashlib.sha256(image_b.read_bytes()).hexdigest()
+        hs_source = data["global_markets"]["香港恆生指數"]["source"]
+        hs_bundle = {
+            "report_date": data["report_date"], "trading_date": data["trading_date"],
+            "observations": [{
+                "group":"global_markets", "name":"香港恆生指數",
+                "data_date":data["trading_date"], "source_url":hs_source["url"],
+                "instrument_identity":"Hang Seng Index (香港恆生指數)",
+                "captured_at":"2026-11-24T06:38:00+08:00",
+                "fields":{
+                    "close":{"value":"22,383.74","field_name":"價格","evidence_path":"hangseng-a.png","evidence_sha256":sha_a,"captured_at":"2026-11-24T06:38:00+08:00"},
+                    "open":{"value":"22,168.19","field_name":"開市","evidence_path":"hangseng-a.png","evidence_sha256":sha_a,"captured_at":"2026-11-24T06:38:00+08:00"},
+                    "high":{"value":"22,436.18","field_name":"高","evidence_path":"hangseng-a.png","evidence_sha256":sha_a,"captured_at":"2026-11-24T06:38:00+08:00"},
+                    "low":{"value":"21,998.05","field_name":"低","evidence_path":"hangseng-b.png","evidence_sha256":sha_b,"captured_at":"2026-11-24T06:38:00+08:00"},
+                    "change":{"value":"-0.12%","field_name":"升跌率 %","evidence_path":"hangseng-b.png","evidence_sha256":sha_b,"captured_at":"2026-11-24T06:38:00+08:00"},
+                },
+            }],
+        }
+        hs_path = root / "hangseng-sidecar.json"
+        hs_path.write_text(json.dumps(hs_bundle,ensure_ascii=False),encoding="utf-8")
+        loaded_hs = load_screenshot_bundle(hs_path,data,root)
+        hs_fields = loaded_hs[("global_markets","香港恆生指數")]["fields"]
+        assert set(hs_fields) == {"close","open","high","low","change"}
+        assert hs_fields["high"]["field_name"] == "高" and hs_fields["low"]["field_name"] == "低"
+        assert hs_fields["change"]["field_name"] == "升跌率 %"
+        assert hs_fields["low"]["evidence_sha256"] == sha_b
 
     # Screenshot fields, including optional OHLC, must populate the blank Fixture
     # without inheriting stale PRIMARY provenance from a previous observation.
