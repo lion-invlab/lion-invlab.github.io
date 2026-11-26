@@ -55,9 +55,9 @@ def main():
     started=time.monotonic()
     web_bundle=ROOT/f"production/input/market-history-web-observations-{report_date}.json"
     cnn_observation=ROOT/f"production/input/cnn-fear-greed-observation-{report_date}.json"
-    input_mode="PLAYWRIGHT_BROWSER_FALLBACK"
+    screenshot_sidecar=ROOT/f"production/input/market-screenshot-observations-{report_date}.json"
+    input_mode="SCREENSHOT_FIRST_BROWSER_FALLBACK" if screenshot_sidecar.is_file() else "PLAYWRIGHT_BROWSER_FALLBACK"
     if web_bundle.is_file():
-        screenshot_sidecar=ROOT/f"production/input/market-screenshot-observations-{report_date}.json"
         if not cnn_observation.is_file():
             cnn_observation=run_dir/"cnn-observation-empty.json"
             cnn_observation.write_text(json.dumps({"observations":[]},ensure_ascii=False)+"\n",encoding="utf-8")
