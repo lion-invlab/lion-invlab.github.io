@@ -63,6 +63,15 @@ def main():
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--observations",str(observations_path.relative_to(ROOT)),
         "--output",str(manifest_path.relative_to(ROOT))])
+    fixture=load(fixture_path)
+    metadata=fixture.setdefault("run_metadata",{})
+    metadata.update({
+      "market_audit_path":str(audit_path.relative_to(ROOT)),
+      "market_manifest_path":str(manifest_path.relative_to(ROOT)),
+      "observations_path":str(observations_path.relative_to(ROOT)),
+      "stage2_receipt_path":str(receipt_path.relative_to(ROOT))
+    })
+    fixture_path.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=run([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
         "--report-date",report_date,"--data",str(fixture_path.relative_to(ROOT)),
         "--audit",str(audit_path.relative_to(ROOT)),"--manifest",str(manifest_path.relative_to(ROOT)),
