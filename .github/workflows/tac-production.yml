@@ -87,6 +87,7 @@ jobs:
           PYTHONPATH: production/runner
         run: |
           python -m unittest -v \
+            test_create_run_fixture \
             test_stage2_market_fixture_bootstrap \
             test_stage2_screenshot_inputs \
             test_validate_chatgpt_web_observations \
