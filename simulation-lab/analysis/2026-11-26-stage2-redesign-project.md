@@ -138,4 +138,5 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 截圖單獨驗證時，`source_page_fetched` 必須維持 false，不得因截圖證據存在而誤報成已讀取 Investing.com 網頁。
 - 新增 `test_stage2_field_provenance.py`，涵蓋純截圖、截圖＋歷史頁混合欄位及錯誤 SHA 阻擋；並納入既有 Manifest regression test 的執行入口。
 - Simulation workflow 定義暫不修改，以維持與 main/default workflow mirror 的 SHA 一致；新測試由既有 Manifest regression suite 呼叫，不另改 workflow。
+- Manifest 的截圖證據 Gate 已加上實際檔案 SHA-256 比對；只檢查 64 位十六進位格式不足以通過。測試改用暫存證據檔驗證正確雜湊可通過、雜湊不符必須退回 PENDING。
 - 本批尚未完成截圖檔案自動載入、Playwright 缺欄位選擇性讀取、Fixture 自動合併、Observation bundle／Receipt 產生與完整 E2E；不得標記為完成。
