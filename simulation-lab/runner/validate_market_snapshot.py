@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from urllib.parse import urlparse
@@ -24,6 +25,25 @@ EXPECTED_TOTAL = 44
 def _require(condition: bool, message: str) -> None:
     if not condition:
         raise ValueError(message)
+
+
+
+def _screenshot_page_fields_complete(source: dict, trading_date: str) -> bool:
+    screenshot_fields = set(source.get("screenshot_fields_applied") or [])
+    page_fields = set(source.get("history_page_completion_fields") or [])
+    if not all(field in screenshot_fields or field in page_fields for field in ("close", "change")):
+        return False
+    if screenshot_fields:
+        evidence_path = Path(str(source.get("screenshot_evidence_path") or ""))
+        if not evidence_path.is_absolute():
+            evidence_path = Path.cwd() / evidence_path
+        expected = str(source.get("screenshot_evidence_sha256") or "").lower()
+        if not evidence_path.is_file() or len(expected) != 64:
+            return False
+        actual = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+        if actual != expected or source.get("screenshot_observation_applied_at") is None:
+            return False
+    return source.get("data_date") == trading_date
 
 
 def _validate_source(group: str, name: str, source: dict, trading_date: str) -> dict:
@@ -103,8 +123,9 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
                 if group == "global_markets":
                     quote_type = str(source.get("quote_type", "")).lower()
                     if "cfd" in quote_type:
-                        _require(display == "待核實" and item.get("change_display") == "待核實",
-                                 f"global_markets/{name}: CFD reference must be suppressed as 待核實")
+                        if display != "待核實" or item.get("change_display") != "待核實":
+                            _require(_screenshot_page_fields_complete(source, trading_date),
+                                     f"global_markets/{name}: CFD reference must be suppressed unless date-matched screenshot/page fields are complete")
 
                 if group in ("energy", "metals"):
                     _require(source.get("quote_type") == "investing_historical_close",
