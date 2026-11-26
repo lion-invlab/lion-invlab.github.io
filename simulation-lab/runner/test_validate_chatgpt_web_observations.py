@@ -213,7 +213,7 @@ def main():
     assert merged_backup["verified_count"] == 43
     assert merged_move["source_role"] == "BACKUP_1"
     assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
-    manifest_from_backup = build_manifest(blank_data, "2026-11-24",
+    manifest_from_backup = build_manifest(data, "2026-11-24",
         {(row["group"], row["name"]): row for row in merged_backup["observations"]})
     manifest_move = next(x for x in manifest_from_backup["rows"]
                          if x["group"] == "risk" and x["name"] == "move")
