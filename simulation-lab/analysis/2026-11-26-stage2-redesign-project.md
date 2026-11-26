@@ -177,3 +177,16 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 另外加上來源模式一致性檢查：純截圖列必須 `source_page_fetched=false)，混合列與純歷史頁列必須有本輪頁面／官方來源讀取紀錄。
 - 目前已完成程式與回歸測試接線；最新一輪對應 commit 的 isolated-smoke 正在執行。先前 commit `b85fdb2deea5be79ed2364d6749fc033975b39a3` 的 isolated-smoke 已成功，涵蓋修正後的 Python compile 與既有測試；新增的 Receipt source-mode gate 尚待最新測試確認。
 - 完整 44 項實際截圖 bundle、正式 Stage 2 Receipt 實際產出、下游防重抓 E2E 仍未完成。狀態維持 `IMPLEMENTATION_IN_PROGRESS`，不得宣稱整體改造已驗收。
+
+### 2026-11-26｜最新回歸結果與尚未驗收項目
+
+<badge color="success">ISOLATED-SMOKE PASS</badge>
+
+- Commit `43cbd281bdf108b5b36f584dbc0449f576261bc5` 的 GitHub Actions `TAC isolated simulation lab` 已完成並回報 success；同 commit 的 workflow YAML lint 亦 success。
+- 本輪測試涵蓋 Python compile、截圖 sidecar SHA／日期／標的識別、純截圖跳過歷史頁、部分欄位由歷史頁補足並回寫 Fixture、同商品多張圖片、CFD 證據 Gate、Prebuild Receipt 純截圖／混合來源接受，以及 Observation bundle 44 列／canonical row SHA／Manifest 交叉綁定。
+- Receipt production entry 預設讀取 `simulation-lab/output/market-history-browser-observations.json`，必須核對 44 列、報告日、交易日、唯一標的、逐列 SHA、Manifest 對應值，並將 Observation bundle 檔案 SHA 納入 Receipt。
+- **尚未完成實際 44 項行情 E2E。** 目前 `simulation-lab/input/` 只有輸入規格文件，沒有 2026-11-26 的 `market-screenshot-observations-2026-11-26.json` 及對應原始圖片，因此本輪程式測試沒有套用任何真實截圖值。
+- 11/26 MOVE 舊 Fixture 的截圖 SHA／報價時間不一致仍未解決；不得把該舊紀錄宣稱為已驗證，也不得拿它冒充新的 Sidecar 證據。
+- 正式 44 項 Stage 2 擷取、Observation bundle／Manifest／Receipt 實際產出、Chart 3 寫入與下游防重抓 E2E 尚待執行。每日關鍵價位 `collect_key_levels_ohlc.py` 維持原樣，Yahoo Finance 獨立 OHLC 流程未被修改。
+- 正式首頁 `main/index.html`、`main` workflow、母版與正式資料均未修改。Simulation workflow 與 main/default workflow 的 mirror SHA 保持一致。
+- **專案狀態：** `IMPLEMENTATION_IN_PROGRESS`；目前是程式回歸測試通過，不等同 44 項實際行情流程驗收或正式早報發布。
