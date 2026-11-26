@@ -10,7 +10,7 @@ from unittest.mock import patch
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-from build_market_source_verification_manifest import IDENTITY_ALIASES
+from build_market_source_verification_manifest import IDENTITY_ALIASES, build_manifest
 from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
@@ -183,6 +183,10 @@ def main():
     move_backup_result = validate_bundle(blank_data, "2026-11-24", move_backup_bundle)
     move_backup_normalized = next(x for x in move_backup_result["observations"]
                                   if x["group"] == "risk" and x["name"] == "move")
+    move_backup_normalized["attempt_history"] = [
+        {"round": 1, "source_role": "PRIMARY", "request_url": move_source.get("url"), "status": "SOURCE_NO_DATA"},
+        {"round": 2, "source_role": "BACKUP_1", "request_url": "https://www.tradingview.com/symbols/ICE-MOVE/", "status": "VERIFIED"},
+    ]
     assert move_backup_normalized["status"] == "VERIFIED"
     assert move_backup_normalized["source_role"] == "BACKUP_1"
     assert move_backup_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
@@ -209,6 +213,13 @@ def main():
     assert merged_backup["verified_count"] == 43
     assert merged_move["source_role"] == "BACKUP_1"
     assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
+    manifest_from_backup = build_manifest(blank_data, "2026-11-24",
+        {(row["group"], row["name"]): row for row in merged_backup["observations"]})
+    manifest_move = next(x for x in manifest_from_backup["rows"]
+                         if x["group"] == "risk" and x["name"] == "move")
+    assert manifest_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
+    assert manifest_move["evidence_source_role"] == "BACKUP_1"
+    assert [x["source_role"] for x in manifest_move["source_attempts"]] == ["PRIMARY", "BACKUP_1"]
 
     # A readable TradingView page without the target session must remain SOURCE_UPDATE_PENDING,
     # retaining its page evidence rather than being mislabeled as a tool failure.
