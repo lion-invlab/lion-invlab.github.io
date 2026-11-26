@@ -4,7 +4,7 @@ The scheduled TAC content-research step writes one report-date input file. It mu
 
 `production/input/report-content-YYYY-MM-DD.json`
 
-It must validate against `report-content.schema.json` and be committed on main before Stage 4 runs. The file contains the exact three summary paragraphs, 5 Global Focus News, 10 Market Hot Headlines, sentiment text, five ordered market-analysis layers with internal source evidence, six-domain political scan, core observation, market observation, key levels and market commentary.
+It must validate against `report-content.schema.json` and be committed on main before the production trigger. The Run ID and market snapshot SHA are bound by Stage 4 after Stage 2 completes. The file contains the exact three summary paragraphs, 5 Global Focus News, 10 Market Hot Headlines, sentiment text, five ordered market-analysis layers with internal source evidence, six-domain political scan, core observation, market observation, key levels and market commentary. The Runner binds the file to the active Run ID and SHA-256 of the frozen Stage 2 market snapshot; if either binding is supplied by the producer, it must match exactly.
 
 The news cutoff is Taiwan-local report time (target 05:25). Weekday window begins the previous calendar day at 12:00; Monday window begins Friday at 12:00. Every news item must carry its original publication time, source timezone and Taiwan-converted publication time. Do not substitute page update time for original publication time.
 
