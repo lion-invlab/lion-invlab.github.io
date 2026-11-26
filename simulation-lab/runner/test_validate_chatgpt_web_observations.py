@@ -184,7 +184,7 @@ def main():
     move_backup_normalized = next(x for x in move_backup_result["observations"]
                                   if x["group"] == "risk" and x["name"] == "move")
     move_backup_normalized["attempt_history"] = [
-        {"round": 1, "source_role": "PRIMARY", "request_url": move_source.get("url"), "status": "SOURCE_NO_DATA"},
+        {"round": 1, "source_role": "PRIMARY", "request_url": move_source.get("url"), "status": "TARGET_DATE_NOT_FOUND", "read_status": "SOURCE_UPDATE_PENDING"},
         {"round": 2, "source_role": "BACKUP_1", "request_url": "https://www.tradingview.com/symbols/ICE-MOVE/", "status": "VERIFIED"},
     ]
     assert move_backup_normalized["status"] == "VERIFIED"
@@ -220,6 +220,8 @@ def main():
     assert manifest_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
     assert manifest_move["evidence_source_role"] == "BACKUP_1"
     assert [x["source_role"] for x in manifest_move["source_attempts"]] == ["PRIMARY", "BACKUP_1"]
+    assert manifest_move["source_attempts"][0]["status"] == "TARGET_DATE_NOT_FOUND"
+    assert manifest_move["source_attempts"][0]["read_status"] == "SOURCE_UPDATE_PENDING"
 
     # A readable TradingView page without the target session must remain SOURCE_UPDATE_PENDING,
     # retaining its page evidence rather than being mislabeled as a tool failure.
