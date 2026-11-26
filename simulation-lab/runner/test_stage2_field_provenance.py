@@ -53,12 +53,12 @@ def base_observation(source: dict, *, mixed: bool = False):
         "read_status": read_status,
         "source_page_fetched": mixed,
         "field_evidence": {
-            "close": screenshot_field("evidence/spx-close.png"),
+            "close": {"source_type": "UNSET"},
             "change": (
                 {"source_type": "INVESTING_HISTORICAL_PAGE",
                  "source_url": source["url"],
                  "observed_at": "2026-11-23T07:06:00+08:00"}
-                if mixed else screenshot_field("evidence/spx-change.png", "b" * 64)
+                if mixed else {"source_type": "UNSET"}
             ),
         },
     }
