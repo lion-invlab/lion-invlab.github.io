@@ -81,7 +81,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     screenshot_receipt={"present":screenshot_path.is_file(),"path":str(screenshot_path.relative_to(ROOT))}
     if screenshot_path.is_file():
         screenshot_receipt["sha256"]=sha256(screenshot_path)
-    data["run_metadata"]={"run_id":run_id,"main_commit_sha":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()}
+    data["run_metadata"]={"run_id":run_id,"main_commit_sha":main_commit_sha}
     run_context={
       "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
@@ -92,8 +92,8 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
       "workflow_run_id":os.environ.get("GITHUB_RUN_ID","LOCAL"),
       "workflow_run_attempt":os.environ.get("GITHUB_RUN_ATTEMPT","1"),
       "mother":{"key":template_key,"path":template["path"],"blob_sha":actual_mother_sha},
-      "manifest":{"path":"production/config/mother-template-manifest.json","sha256":sha256(manifest_path),"git_blob_sha":git_blob(manifest_path)},
-      "base_fixture":{"path":"production/config/report-data-template.json","sha256":sha256(base_path)},
+      "manifest":{"path":"production/config/mother-template-manifest.json","sha256":sha256(manifest_path),"git_blob_sha":git_blob(manifest_path,main_commit_sha)},
+      "base_fixture":{"path":"production/config/report-data-template.json","sha256":sha256(base_path),"git_blob_sha":git_blob(base_path,main_commit_sha)},
       "calendar_read_receipts":calendar_receipts,
       "screenshot_input":screenshot_receipt,
       "stage2_bootstrap":data["stage2_market_bootstrap"],
