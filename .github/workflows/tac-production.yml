@@ -366,10 +366,13 @@ jobs:
           import json,sys
           content=json.load(open(sys.argv[1],encoding="utf-8")); run_dir=sys.argv[2]; date=sys.argv[3]
           context=json.load(open(run_dir+"/run-context.json",encoding="utf-8"))
-          summary=json.load(open(run_dir+"/stage2-run-summary.json",encoding="utf-8"))\n          capture=json.load(open(run_dir+"/capture-stage-receipt.json",encoding="utf-8"))\n          bundle=json.load(open(run_dir+"/stage4-research-bundle-receipt.json",encoding="utf-8"))
+          summary=json.load(open(run_dir+"/stage2-run-summary.json",encoding="utf-8"))
+          capture=json.load(open(run_dir+"/capture-stage-receipt.json",encoding="utf-8"))
+          bundle=json.load(open(run_dir+"/stage4-research-bundle-receipt.json",encoding="utf-8"))
           assert content["report_date"]==date==context["report_date"]
           assert content["run_id"]==context["run_id"]
-          assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]\n          assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
+          assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]
+          assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
           print("PASS: Stage 4 editorial content is bound to exact captured Run, market snapshot and research bundle.")
           PY
           git cat-file -e "HEAD:$RUN_DIR/run-context.json"
