@@ -158,11 +158,27 @@
     },
     {
       "file": "prepare_stage4_research_bundle.py",
-      "purpose": "consolidate Stage1-3 evidence, market snapshot, calendars, earnings and screenshot SHA into a Run-bound Stage4 editorial packet"
+      "purpose": "consolidate Stage1-3 evidence, market snapshot, calendars, earnings and screenshot SHA into a Run-bound Stage4 editorial packet",
+      "main_blob_sha": "c323cef3a1ddb0b11ae7901c2cb3a3560157fe4b",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "test_prepare_stage4_research_bundle.py",
-      "purpose": "test Run binding, screenshot sidecar/image SHA and cross-Run rejection"
+      "purpose": "test Run binding, screenshot sidecar/image SHA and cross-Run rejection",
+      "main_blob_sha": "c3967fa93d218bf1b45b08282157b2cef86113fe",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "run_stage2.py",
+      "purpose": "Main-native Stage 2/4 run-bound status and provenance handling",
+      "main_blob_sha": "0bf9fb1c88ddfafeee7f152f9a77a89c22d9d189",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "run_stage4.py",
+      "purpose": "Main-native Stage 2/4 run-bound status and provenance handling",
+      "main_blob_sha": "a43e91daf65251c7f5ea895870805f4f0508ee2d",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
     }
   ],
   "approval_record": {
