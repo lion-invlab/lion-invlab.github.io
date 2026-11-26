@@ -9,6 +9,7 @@ from pathlib import Path
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES
 from validate_chatgpt_web_observations import validate_bundle
+from stage2_market_fixture_bootstrap import blank_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -114,6 +115,17 @@ def main():
     assert result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 1
     assert result["prior_observation_reused_count"] == 0
     assert result["displayed_values_independently_reconciled"] is False
+
+    # The same direct observations must also populate a zero-value market input;
+    # they must not be compared against stale numeric values from the base fixture.
+    blank_data = blank_fixture(copy.deepcopy(data))
+    blank_result = validate_bundle(blank_data, "2026-11-24", bundle)
+    assert blank_result["verified_count"] == 43
+    assert blank_result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 1
+    blank_fear_greed = next(x for x in blank_result["observations"]
+                             if x["group"] == "risk" and x["name"] == "fear_greed")
+    assert blank_fear_greed["preexisting_value_comparison"] == "NOT_PERFORMED_BLANK_INPUT"
+    assert blank_fear_greed["display_value_match"] is True
 
     # CNN official previous_close is raw decimal precision and must match its own pinned raw value.
     cnn_official = copy.deepcopy(bundle)
