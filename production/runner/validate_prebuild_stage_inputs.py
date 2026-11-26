@@ -470,7 +470,7 @@ def main() -> None:
     validate_branch(normalized.removeprefix("https://github.com/"), branch)
 
     from calendar_source_guard import load_authoritative_calendar
-    calendar_bundle = load_authoritative_calendar(args.report_date)
+    calendar_bundle = load_authoritative_calendar(args.report_date, expected_commit=(data.get("run_metadata") or {}).get("main_commit_sha"))
     receipt = build_receipt(
         data=data, fixture_sha256=fixture_sha, audit=audit, audit_sha256=audit_sha,
         manifest=manifest, manifest_sha256=manifest_sha, calendar_bundle=calendar_bundle,
