@@ -5,7 +5,7 @@
 
 ## 執行
 1. 比對 Stage 1 governance.blob_shas 與當前 main 的所有規範、Manifest、Builder approval、Builder、Stage Runner、依賴模組及 Workflow blob SHA；任何差異均停止，避免跨版本 Run。並核對 Builder approval record 的 exact blob SHA 與 APPROVED_MAIN 狀態。
-2. SIM-1.4 核准 Builder 是 main 移植的技術基準，來源 SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`。此來源版本含 Simulation 路徑與隔離寫入限制，不得直接視為 main 已核准版本。main port 必須完成路徑／依賴適配、完整測試、精確版本與 provenance 登記；在正式核准狀態成立前只能標示 PORT_IN_PROGRESS／CANDIDATE，不能產生正式 REVIEW_READY。
+2. SIM-1.4 Builder 僅為 Main 移植的技術來源，來源 SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`；Main 執行只能使用 `production/runner/build_review_html.py`。目前 Main Builder exact blob `20eefe57d6f3b389157c01b8532cae3a69128a02` 已於 2026-11-26 獲 Owner 明確核准，核准紀錄為 `APPROVED_MAIN`。此核准僅對應該精確 blob，不代表真實資料 E2E 或 Stage 5／6 QA 已通過；任何 Builder 程式修改都必須重新核准 exact blob SHA。
 3. Builder 只接受同一 Run 的完整輸入；核對 pre-build receipt PASS、run_id、report_date、Fixture／Manifest／calendar SHA。任何跨 Run、跨日期或 SHA 不符均停止。
 4. 使用真正 DOM parser，從核准母版完整複製後只更新核准槽位。不得 regex 改 HTML、重建 DOM、注入 CSS／JS、改 class／ID／屬性／父子結構或破壞互動。
 5. 依 MOTHER_TEMPLATE_QA 執行 DOM、ID、導航、收折、tabs、財報卡、Fed/FOMC、手機版及視覺測試。必要 viewport：360、390、412、768、1440 px。詳細檢查以 MOTHER_TEMPLATE_QA 為唯一清單，不在本文件複製第二份檢查表。
