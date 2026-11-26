@@ -310,6 +310,13 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p simulation-lab/output
+          BASE_REPORT_DATA="${REPORT_DATA}"
+          STAGE2_MARKET_INPUT="simulation-lab/output/${REPORT_DATE}-market-input-blank.json"
+          STAGE2_MARKET_OUTPUT="simulation-lab/output/${REPORT_DATE}-report-data-stage2-populated.json"
+          python simulation-lab/runner/stage2_market_fixture_bootstrap.py blank \
+            --data "${BASE_REPORT_DATA}" \
+            --output "${STAGE2_MARKET_INPUT}"
+          export STAGE2_MARKET_INPUT STAGE2_MARKET_OUTPUT
           export CLOSURE_EVIDENCE="simulation-lab/input/market-closure-evidence-${REPORT_DATE}.json"
           WEB_OBSERVATIONS="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
           CNN_OBSERVATION="simulation-lab/fixtures/cnn-official-observation-${REPORT_DATE}.json"
@@ -343,7 +350,7 @@ jobs:
 
           browser_path = Path("simulation-lab/output/market-history-playwright-observations.json")
           closure_path = Path(os.environ["CLOSURE_EVIDENCE"])
-          fixture_path = Path(os.environ["REPORT_DATA"])
+          fixture_path = Path(os.environ["STAGE2_MARKET_INPUT"])
           browser = json.loads(browser_path.read_text(encoding="utf-8"))
           closure = json.loads(closure_path.read_text(encoding="utf-8")) if closure_path.is_file() else {"observations": []}
           fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
@@ -435,6 +442,11 @@ jobs:
               "output": str(output_path),
           }, ensure_ascii=False, indent=2))
           PY
+          python simulation-lab/runner/stage2_market_fixture_bootstrap.py apply \
+            --data "${STAGE2_MARKET_INPUT}" \
+            --observations simulation-lab/output/market-history-browser-observations.json \
+            --output "${STAGE2_MARKET_OUTPUT}"
+          echo "REPORT_DATA=${STAGE2_MARKET_OUTPUT}" >> "$GITHUB_ENV"
       # No network/source reads here: reconcile the already captured observations against the fixture and seal the 44-row status register.
       - name: Build 44-row manifest from captured observations (no source reads)
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report'))
