@@ -13,7 +13,8 @@
     {
       "file": "stage2_screenshot_inputs.py",
       "source_sha": "77bde8ff2a35b91ad3deab1a435d86104f0ef70e",
-      "status": "COPIED_UNCHANGED"
+      "status": "MAIN_PATCHED_TAIWAN_REPORT_DATE_SCREENSHOT_EXPIRY",
+      "main_blob_sha": "8d254826569b65c901dbff32eb14a2ebc4c49dda"
     },
     {
       "file": "browser_verify_market_history.py",
@@ -128,7 +129,8 @@
     "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
     "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
-    "Stage 4 per-row CLOSED evidence binding and Stage 2 screenshot-priority guard were patched after the last validation start; fresh Main CI result is pending."
+    "Stage 4 per-row CLOSED evidence binding and Stage 2 screenshot-priority guard were patched after the last validation start; fresh Main CI result is pending.",
+    "Screenshot same-day expiry code and negative tests are committed; latest Main CI is pending, so the new guard is not yet validated."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -153,7 +155,11 @@
       "workflow_run_id": 45903428235,
       "head_sha": "6e2213a0a5a55214e7c213b79de74d4867cd716a",
       "conclusion": "success",
-      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings deterministic tests, full candidate Builder fixtures, mother-owned DOM contract. Capture/build/schedule skipped; not real-data E2E."
+      "scope": "Screenshot expiry change and regression tests; awaiting Main CI.",
+      "pending_run_ids": [
+        45903973586,
+        45903977272
+      ]
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
