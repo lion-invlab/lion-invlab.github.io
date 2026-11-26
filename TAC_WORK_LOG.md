@@ -3608,3 +3608,13 @@ QA Sidecar：
 - 重新核對 11/26 base Fixture：MOVE 的舊 `source_role=PRIMARY`、截圖 SHA `53e685...` 與原始 PNG SHA `24840d...` 不一致，且 Fixture OHLC（101.14／101.27／98.79）與截圖（99.32／102.73／97.40）不一致。尚未改寫該歷史 Fixture，避免在原圖未進入 checkout 前產生無法由 Workflow 重算的證據宣稱；以 pending Sidecar 草稿保留正確值及 SHA。
 - 原始 PNG 已從 Library 找回、重算 SHA 並檢視；仍未上傳 Simulation checkout。Sidecar loader 會檢查本地 evidence_path 與 SHA，因此原圖未入庫前不啟用 Sidecar。
 - 後續測試觸發：待本次 field mapping／sidecar draft 修改完成後，以新的 `[full-regression]` commit 執行 Workflow deterministic self-tests；不得觸發當日早報 build。GitHub Actions run ID／結果尚未取得。
+
+
+## 2026-11-26｜MOVE 單項延後補查 Runner
+
+- 新增 `simulation-lab/runner/stage2_move_retry.py`：只讀取 `risk:move`，由既有 browser reader 按 Investing.com 優先、TradingView ICE:MOVE 備援執行；使用 `--no-fixture-write --only risk:move`，不寫入原始 Fixture。
+- 新 Runner 將單筆 MOVE Observation 合併回既有 44-row bundle，強制驗證報告日／交易日／來源 URL；重新計算 MOVE observation SHA；明確記錄 43 筆舊 Observation 沿用，並將 `source_pages_fetched_this_run=false`、`numeric_values_reconciled_this_run=false`，避免把 1 筆重查誇稱 44 筆重抓。
+- Runner 會從原 Fixture blank-first 再用合併後 44-row Observation 重建新 Fixture，並比較 43 項非 MOVE 行情快照；任何非 MOVE 顯示值、漲跌、Close 或歷史值有變即停止，不輸出更新 Fixture。原始輸入不覆寫。
+- Runner blob SHA：`1b6fb9f5741b15123f1a6b8c20d2e23b4131ba04`；新增測試至 Workflow 已執行的 `test_validate_chatgpt_web_observations.py`，覆蓋 MOVE 單列成功補值、仍待更新時保持 null，以及 43 列 canonical JSON 完全不變；測試 blob SHA：`acdbb3810e4eb400acd8a9b6bd821822d6016fb9`。
+- 目前已完成單項補查資料合併核心，但尚未接入 GitHub 延後排程，也尚未完成 Manifest／Audit／Prebuild Receipt／HTML QA／main preview 的後續自動接線。不能宣稱延後排程或 E2E 完成。
+- 下一步以獨立 `[full-regression]` commit 執行 Workflow deterministic tests；若要將 retry 接入 GitHub Actions schedule，必須同步修改 main/default workflow mirror（SIM 規定兩份 workflow SHA 必須一致），目前 main workflow 保護範圍尚未取得明確授權。
