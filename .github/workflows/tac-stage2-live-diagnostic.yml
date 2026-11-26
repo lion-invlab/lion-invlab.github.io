@@ -81,18 +81,38 @@ jobs:
           python simulation-lab/runner/stage2_market_fixture_bootstrap.py blank \
             --data "simulation-lab/fixtures/report-data-${REPORT_DATE}.json" \
             --output simulation-lab/output/stage2-diagnostic/report-data-blank.json
-      - name: Run direct Investing.com Historical Data browser capture
+      - name: Read current-date historical-page observations (screenshot first)
         id: capture
         shell: bash
         env:
           REPORT_DATE: ${{ inputs.report_date || '2026-11-26' }}
         run: |
           set -euo pipefail
-          python simulation-lab/runner/browser_verify_market_history.py \
-            --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
-            --report-date "$REPORT_DATE" \
-            --output simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json \
-            --timeout-ms 15000 --concurrency 2
+          SIDE_CAR="simulation-lab/input/market-screenshot-observations-${REPORT_DATE}.json"
+          WEB_OBSERVATIONS="simulation-lab/fixtures/market-history-web-observations-${REPORT_DATE}.json"
+          CNN_OBSERVATION="simulation-lab/fixtures/cnn-official-observation-${REPORT_DATE}.json"
+          OUTPUT="simulation-lab/output/stage2-diagnostic/market-history-browser-observations.json"
+          if [[ -s "$SIDE_CAR" ]]; then
+            echo "Using screenshot-first Playwright path; page reads will fill only missing screenshot fields."
+            python simulation-lab/runner/browser_verify_market_history.py \
+              --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
+              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 2
+          elif [[ -s "$WEB_OBSERVATIONS" ]]; then
+            if [[ ! -s "$CNN_OBSERVATION" ]]; then
+              CNN_OBSERVATION="simulation-lab/output/stage2-diagnostic/cnn-official-observation-empty.json"
+              printf '{"observations":[]}\n' > "$CNN_OBSERVATION"
+            fi
+            echo "Using current-date direct historical-page observations; no prior report bundle is reused."
+            python simulation-lab/runner/validate_chatgpt_web_observations.py \
+              --data simulation-lab/output/stage2-diagnostic/report-data-blank.json \
+              --report-date "$REPORT_DATE" --input "$WEB_OBSERVATIONS" \
+              --cnn-observation "$CNN_OBSERVATION" --output "$OUTPUT"
+          else
+            echo "No date-matched screenshot or direct web bundle; opening Investing.com Historical Data pages."
+            python simulation-lab/runner/browser_verify_market_history.py \
+              --fixture "simulation-lab/output/stage2-diagnostic/report-data-blank.json" \
+              --report-date "$REPORT_DATE" --output "$OUTPUT" --timeout-ms 15000 --concurrency 2
+          fi
       - name: Populate fresh market Fixture from current-run observations
         shell: bash
         run: |
