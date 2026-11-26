@@ -196,6 +196,7 @@ class BootstrapTests(unittest.TestCase):
                     "instrument_identity":"XLE ETF","instrument_identity_status":"VERIFIED",
                     "field_mapping_status":"VERIFIED","finished_at_utc":"2026-11-26T22:00:00Z",
                     "closure_evidence_url":"https://www.asx.com.au/markets/trade-our-cash-market",
+                    "closure_evidence_text":"ASX official calendar confirms the market is closed on 2026-11-25.",
                     "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
                     "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
@@ -214,6 +215,7 @@ class BootstrapTests(unittest.TestCase):
                     "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
                     "instrument_identity":"global_markets_0","finished_at_utc":"2026-11-26T22:00:00Z",
                     "closure_evidence_url":"https://www.nyse.com/markets/hours-calendars",
+                    "closure_evidence_text":"NYSE official calendar confirms the market is closed on 2026-11-25.",
                     "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
                     "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
