@@ -18,8 +18,8 @@ from build_market_source_verification_manifest import (
     _decimal_value, _expected_change, _expected_value, _identity_matches, _numeric_match,
 )
 
-VALUE_FIELDS = {"Price", "Close", "收市", "收盤", "收盤價", "Score"}
-CHANGE_FIELDS = {"Change %", "升跌（%）", "漲跌（%）", "變動%", "Band"}
+VALUE_FIELDS = {"Price", "Close", "收市", "收盤", "收盤價", "Score", "Current Score"}
+CHANGE_FIELDS = {"Change %", "升跌（%）", "漲跌（%）", "變動%", "Band", "Current Band"}
 CNN_ENDPOINT = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
 
 
@@ -411,7 +411,7 @@ def main() -> None:
     parser.add_argument("--report-date", required=True)
     parser.add_argument("--input", required=True)
     parser.add_argument("--cnn-observation", required=True,
-                        help="Fresh single-row Playwright capture of CNN official graphdata response")
+                        help="Direct CNN official current-dashboard page observation; previous_close is not accepted")
     parser.add_argument("--output", required=True)
     parser.add_argument("--no-fixture-write", action="store_true",
                         help="Emit observations without writing populated values back to the input fixture")
@@ -436,8 +436,8 @@ def main() -> None:
                 if row.get("group") == "risk" and row.get("name") == "fear_greed"]
     if len(cnn_rows) > 1:
         raise ValueError(f"CNN capture must contain at most one risk/fear_greed row, got {len(cnn_rows)}")
-    # Prefer a verified official CNN previous_close record. If CNN's endpoint
-    # cannot map that field, retain the explicitly pinned FGScore backup web row.
+    # Prefer a verified CNN current-dashboard observation. If the official
+    # dashboard is unavailable, retain the explicitly approved provider backup row.
     if cnn_rows and cnn_rows[0].get("status") == "VERIFIED":
         bundle["observations"] = [
             row for row in (bundle.get("observations") or [])
