@@ -461,6 +461,8 @@ def _apply_screenshot_fields(row, observation, screenshot):
     if not screenshot:
         return observation
     fields=screenshot["fields"]
+    observation.setdefault("group",row["group"])
+    observation.setdefault("name",row["name"])
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
     screenshot_identity_ok=_screenshot_identity_matches(row["name"],screenshot.get("instrument_identity"))
     value_key="score" if is_fg else "close"
