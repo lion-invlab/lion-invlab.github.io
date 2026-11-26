@@ -13,6 +13,25 @@ def main():
     assert result["verified_count"]==0
     assert result["pending_count"]==44
     assert result["status"]=="PENDING"
+    # Preserve operationally distinct failures even though none is a verified quote.
+    failure_observations = {
+        ("global_markets", "道瓊工業指數"): {
+            "status": "TOOL_READ_FAILURE", "read_status": "TOOL_READ_FAILURE",
+            "source_page_fetched": False,
+        },
+        ("global_markets", "標普500指數"): {
+            "status": "SOURCE_NO_DATA", "read_status": "SOURCE_NO_DATA",
+            "source_page_fetched": True,
+        },
+    }
+    failure_manifest = build_manifest(data, "2026-11-23", failure_observations)
+    failure_rows = {(r["group"], r["name"]): r for r in failure_manifest["rows"]}
+    assert failure_rows[("global_markets", "道瓊工業指數")]["market_data_status"] == "TOOL_READ_FAILURE"
+    assert failure_rows[("global_markets", "標普500指數")]["market_data_status"] == "SOURCE_NO_DATA"
+    assert failure_manifest["market_status_counts"]["TOOL_READ_FAILURE"] == 1
+    assert failure_manifest["market_status_counts"]["SOURCE_NO_DATA"] == 1
+    assert sum(failure_manifest["market_status_counts"].values()) == 44
+    assert failure_manifest["pending_count"] == 44
     assert result["source_pages_fetched"] is False
     assert result["displayed_values_independently_reconciled"] is False
     assert result["prior_observation_reused_count"]==0
