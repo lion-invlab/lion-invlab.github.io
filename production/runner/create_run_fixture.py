@@ -111,7 +111,10 @@ def main():
     run_id=f"TAC-{report_date.isoformat()}-{run_token}-{attempt}"
     output=Path(args.output_dir) if args.output_dir else ROOT/"production/runs"/run_id
     if not output.is_absolute(): output=ROOT/output
-    expected=(ROOT/"production/runs").resolve()
+    runs_lexical=ROOT/"production/runs"
+    if runs_lexical.is_symlink() or runs_lexical.resolve()!=runs_lexical.absolute():
+        raise SystemExit("production/runs must not be a symlink")
+    expected=runs_lexical.resolve()
     if output.resolve().parent!=expected or not output.name.startswith(f"TAC-{report_date.isoformat()}-"):
         raise SystemExit("Output must be a direct child of production/runs named TAC-<report_date>-<run_id>")
     if output.is_symlink(): raise SystemExit("Run output directory must not be a symlink")
