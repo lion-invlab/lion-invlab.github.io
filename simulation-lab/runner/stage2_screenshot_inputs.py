@@ -87,11 +87,12 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
             else:
                 source["daily_change_percent"] = value
                 raw = str(fields["change"]["value"]).strip()
-                source["history_change"] = (
-                    raw if group in ("energy", "metals") else value
-                )
                 if item is not None:
                     item["change_display"] = _display_like(item.get("change_display"), raw, percent=True)
+                source["history_change"] = (
+                    item["change_display"] if group in ("energy", "metals") and item is not None
+                    else raw if group in ("energy", "metals") else value
+                )
         if "score" in fields:
             value = _plain_number(fields["score"]["value"])
             source["score_value"] = value
