@@ -247,3 +247,59 @@
 3. 完成六份 Stage WR、九份 contracts、Schema、兩份 screenshot/web observation schema、44 項 Manifest、兩份母版、Builder approval、Builder、六階段 Runner 與 tests 的逐條 SIM-1.4 規則對照。
 4. 完成唯一 writer matrix：Calendar JSON、44 行情 Fixture／snapshot、Chart 3 ALFRED、S&P 500 daily increment、review HTML、QA sidecar、delivery receipt、Pages、history archive、index。
 5. 完成後才把 R0 標記 DONE、R1 標記 PASS，並凍結 R2 資料模型；目前 R0 仍 IN_PROGRESS。
+
+
+### H. R0 實際回讀校正｜2026-11-27（追加）
+
+#### H1. Main Git tree 與 Workflow 數量校正
+本次以 GitHub main recursive tree API 回讀，不沿用前版盤點數字：
+- Main recursive tree 回傳 `truncated=false`。
+- `.github/workflows/` 實際為 **24 份**，不是 G1/G5 所記的 23 份；原盤點漏列 `tac-simulation-run-monitor.yml`。
+- `production/` 實際 107 個 tree entries（含目錄）；Runner、六份 Stage WR、九份 contracts、四份主要 config、四種 input schema／README、雙母版均已列入目錄盤點。
+- `preview/` 有 39 個 entries；其中可見多種歷史／Simulation preview 命名，需在 R0 writer matrix 中按 workflow 觸發來源區分，不能將整個 preview 目錄視為 Main 新流程獨占。
+- Chart 3 的 `data/tac-chart3/` 有 33 個 entries；包括 FRED/ALFRED 系列、歷史 S&P 500 compact data 及 `sp500_daily_increment.jsonl`。
+
+#### H2. 24 份 Workflow 觸發器清冊（main 回讀）
+| Workflow | 已讀到的觸發器 | R0 初步分類 |
+|---|---|---|
+| archive_index.yml | push、workflow_dispatch、schedule（17:10 UTC，週日–週四） | History/index writer，須確認 push paths 與核准邊界 |
+| chart2-preview-browser-qa.yml | workflow_dispatch、pull_request、push | Chart 2 QA |
+| chart3-preview-visual-qa.yml | workflow_dispatch、workflow_run、pull_request、push | Chart 3 QA／部署相依 |
+| company_nasdaq100.yml | workflow_dispatch、schedule（21:20 UTC，週日–週四） | 公司／市場資料更新 |
+| company_profiles.yml | workflow_dispatch、schedule（週六 21:40 UTC） | 公司資料 |
+| company_profiles_nasdaq100.yml | workflow_dispatch、schedule（週六 22:00 UTC） | 公司資料 |
+| main.yml | workflow_dispatch、schedule（21:10 UTC，週日–週四） | S&P 500 波動資料 |
+| mother-template-guard.yml | push、workflow_dispatch、pull_request | 母版保護／QA |
+| pages.yml | push、workflow_dispatch、workflow_run | GitHub Pages 部署器 |
+| simulation-workflow-lint.yml | push | Simulation YAML lint |
+| tac-chart3-bootstrap.yml | workflow_dispatch | Chart 3 bootstrap |
+| tac-chart3-incremental.yml | push | Chart 3 FRED／ALFRED 增量 |
+| tac-chart3-ingest.yml | workflow_dispatch | Chart 3 歷史匯入 |
+| tac-chart3-sp500-increment-merge.yml | workflow_dispatch、push | S&P 500 increment merge writer |
+| tac-chart3-stress-analysis-tests.yml | push | Chart 3 stress QA |
+| tac-five-site-browser-poc.yml | workflow_dispatch | Browser PoC |
+| tac-market-source-capture.yml | workflow_dispatch | Simulation-only 行情診斷 |
+| tac-production.yml | schedule（20:05／21:05 UTC，週日–週四）、push、workflow_dispatch | Main 新生產入口；validate／capture／build 分流 |
+| tac-simulation-lab.yml | push、workflow_dispatch | Simulation 生產／preview writer 潛在交叉 |
+| tac-simulation-run-monitor.yml | push、schedule（每 5 分鐘）、workflow_dispatch | Simulation run monitor |
+| tac-sp500-increment-qa.yml | push、pull_request | S&P 500 increment QA |
+| us-mmf-chart-visual-qa.yml | workflow_dispatch、push | MMF 視覺 QA |
+| us-mmf-public-data-qa.yml | push、workflow_dispatch | MMF 公開資料 QA |
+| volatility-sticky-columns.yml | push、pull_request | Volatility UI QA |
+
+本表只記錄已回讀的觸發類型與已知 cron；各 workflow 的完整 branches／paths filter、permissions、實際寫入路徑、concurrency 與跨 workflow_run 關係，仍須在 R0 writer matrix 逐項展開，不能僅由觸發器名稱推定。
+
+#### H3. 直接讀取確認的排程與自動化現況
+- `tac-production.yml` main blob SHA：`c2d97b2e77a84f28719b60c5f60c6654d1fac1fa`。排程有兩個 UTC cron：20:05、21:05，並由 `schedule-window` 按 New York DST 只放行一個；冬令對應台灣 05:05，夏令對應台灣 04:05。workflow_dispatch 的 `mode` 預設仍為 `validate`，選 `capture` 才會跑 Stage 1–3；選 `build` 才會跑 Stage 4–6。
+- 手動 Run `45899538718` 已 completed：`validate-main-production` success（14 個步驟），`schedule-window`、`capture-and-calendar`、`build-and-deliver` skipped。這是 validate，不是 Capture。
+- Main Stage 4 Automation `Automation_f4da15cd95c881918c7412cdd6f35bb2` 最新回讀 `is_enabled=false`；不得引用先前文件所稱「已啟用」作現況。其 prompt 雖定義 EDT 04:15／EST 05:15 接手，但目前停用，無法自動接手 Capture。
+- `production/config/schedule.json` blob SHA `3f42774d58a865fa46a6a321f8366a181b05767b` 仍寫 daily_report 05:25、entrypoint `production/runner/run_daily_report.py`；該檔在 main 不存在。此為已確認的設定文件漂移，不代表應直接改 cron 或切換排程。
+- Builder approval JSON blob SHA `1da061e7eb9149ceaee3b0b83cd5b1ad40b37932`：`APPROVED_MAIN`、`approved_by_owner=true`，核准 Builder SHA `20eefe57d6f3b389157c01b8532cae3a69128a02`。但其 validation_evidence.limitation 仍寫 no owner approval，與同一檔案的核准欄位矛盾；需修正文案，不能推翻已存在的核准記錄。
+- `production/runner/README.md` 仍寫 Builder 尚未 owner approval，與 approval JSON 不一致。
+- `production/stages/STAGE_5_RENDER_QA.md` 的條件式 gate 正確要求 exact SHA + APPROVED_MAIN；不需因核准已成立而移除 gate，只需確保現況說明一致。
+- Stage 4 Automation 停用、真實 Stage 1–6 E2E 未完成、排程尚未 cut over，三者是不同狀態，必須分別追蹤。
+
+#### H4. R0/R1 狀態修正
+- R0：仍 IN_PROGRESS。Workflow 數量修正為 24；尚欠每份 Workflow 的 branches／paths／permissions／concurrency／write-set matrix，以及各資料資產唯一 writer 與觸發依賴圖。
+- R1：仍 NOT_STARTED。六份 Stage WR 與九份 contracts 的第一輪內容已回讀；但尚未完成 SIM-1.4 source baseline 逐條對照、schema／manifest／runner／tests 的完整規則矩陣，不能標記 PASS。
+- 本次只追加現況證據至重建計畫；沒有修改任何 Workflow、Automation、排程、Runner、Builder、Schema、Manifest、calendar、preview、index.html 或 Simulation。
