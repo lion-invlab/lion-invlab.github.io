@@ -36,12 +36,12 @@ class Stage4ContentTests(unittest.TestCase):
     def test_research_bundle_binding_requires_exact_run_snapshot_and_bytes(self):
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[2]) as td:
             path=Path(td)/"bundle.json"
-            bundle={"run_id":self.context["run_id"],"market_snapshot_sha256":market_snapshot_digest(self.data)}
+            bundle={"run_id":self.context["run_id"],"report_date":self.context["report_date"],"trading_date":self.context["trading_date"],"market_snapshot_sha256":market_snapshot_digest(self.data)}
             path.write_text(json.dumps(bundle),encoding="utf-8")
             digest=__import__("hashlib").sha256(path.read_bytes()).hexdigest()
             content={"research_bundle_sha256":digest,"market_snapshot_sha256":bundle["market_snapshot_sha256"]}
             receipt={"status":"PASS","run_id":self.context["run_id"],"report_date":self.context["report_date"],
-                     "market_snapshot_sha256":bundle["market_snapshot_sha256"],"bundle_sha256":digest}
+                     "market_snapshot_sha256":bundle["market_snapshot_sha256"],"trading_date":self.context["trading_date"],"bundle_sha256":digest}
             result=validate_research_bundle_binding(content,self.context,receipt,path)
             self.assertEqual(result["sha256"],digest)
             content["research_bundle_sha256"]="0"*64
