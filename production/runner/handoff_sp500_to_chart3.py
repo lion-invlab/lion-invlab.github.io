@@ -45,7 +45,7 @@ def build_payload(data: dict) -> dict:
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
-    ap.add_argument("--output", default="simulation-lab/output/chart3-handoff/sp500_daily_increment.jsonl")
+    ap.add_argument("--output", default="data/tac-chart3/sp500_daily_increment.jsonl")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text(encoding="utf-8"))
     payload=build_payload(data)
