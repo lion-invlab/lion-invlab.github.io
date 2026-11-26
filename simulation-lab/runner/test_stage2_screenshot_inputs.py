@@ -129,7 +129,7 @@ def main():
         completed_fixture = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), partial)
         apply_page_completions_to_fixture(completed_fixture, [mixed], partial)
         completed_row = completed_fixture["global_markets"]["標普500指數"]
-        assert completed_row["change_display"] == "-0.42%"
+        assert completed_row["change_display"] == "-0.42%", (completed_row["change_display"], mixed.get("source_page_fetched"), mixed.get("screenshot_instrument_identity_status"), partial[("global_markets", "標普500指數")]["fields"].keys())
         assert completed_row["source"]["daily_change_percent"] == "-0.42"
 
         optional_only_bundle = copy.deepcopy(bundle)
