@@ -8,11 +8,70 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 APPROVAL_PATH=ROOT/"production/config/builder-approval.json"
 BUILDER_PATH="production/runner/build_review_html.py"
+GOVERNANCE_PATHS=(
+ "production/MASTER_WR.md",
+ "production/stages/STAGE_1_CONTEXT.md",
+ "production/stages/STAGE_2_MARKET.md",
+ "production/stages/STAGE_3_CALENDAR.md",
+ "production/stages/STAGE_4_NEWS_ANALYSIS.md",
+ "production/stages/STAGE_5_RENDER_QA.md",
+ "production/stages/STAGE_6_DELIVERY.md",
+ "production/contracts/DATA_SCHEMA.md",
+ "production/contracts/HANDOFF_CONTRACT.md",
+ "production/contracts/HTML_BUILDER_CONTRACT.md",
+ "production/contracts/MOTHER_TEMPLATE_QA.md",
+ "production/contracts/PUBLISH_CONTRACT.md",
+ "production/contracts/QA_CONTRACT.md",
+ "production/contracts/RUN_CONTRACT.md",
+ "production/contracts/SOURCE_POLICY.md",
+ "production/contracts/STATUS_ENUM.json",
+ "production/config/mother-template-manifest.json",
+ "production/config/builder-approval.json",
+ "production/runner/PORT_MANIFEST.json",
+ "production/runner/create_run_fixture.py",
+ "production/runner/run_stage2.py",
+ "production/runner/browser_verify_market_history.py",
+ "production/runner/stage2_screenshot_inputs.py",
+ "production/runner/stage2_market_fixture_bootstrap.py",
+ "production/runner/validate_chatgpt_web_observations.py",
+ "production/runner/build_stage2_receipt.py",
+ "production/runner/handoff_sp500_to_chart3.py",
+ "production/runner/run_stage3.py",
+ "production/runner/run_stage4.py",
+ "production/runner/run_stage5.py",
+ "production/runner/run_stage6.py",
+ "production/runner/validate_prebuild_stage_inputs.py",
+ "production/runner/validate_mother_dom_contract.py",
+ "production/runner/visual_regression.mjs",
+ "production/runner/interaction_smoke.mjs",
+ "production/runner/build_review_html.py",
+ "production/runner/builder_approval.py",
+ ".github/workflows/tac-production.yml",
+)
 
 def current_builder_blob_sha(root:Path=ROOT)->str:
     return subprocess.check_output(
         ["git","rev-parse",f"HEAD:{BUILDER_PATH}"],cwd=root,text=True
     ).strip()
+
+def current_governance_blob_shas(root:Path=ROOT)->dict:
+    return {
+        path:subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=root,text=True).strip()
+        for path in GOVERNANCE_PATHS
+    }
+
+def verify_governance_snapshot(context:dict, root:Path=ROOT, actual_blobs:dict|None=None)->dict:
+    pinned=(context.get("governance") or {}).get("blob_shas")
+    if not isinstance(pinned,dict):
+        raise ValueError("Run context is missing the Stage 1 governance SHA snapshot")
+    missing=sorted(set(GOVERNANCE_PATHS)-set(pinned))
+    if missing:
+        raise ValueError("Run context governance snapshot is incomplete: "+", ".join(missing))
+    actual=actual_blobs if actual_blobs is not None else current_governance_blob_shas(root)
+    mismatches=[path for path in GOVERNANCE_PATHS if pinned.get(path)!=actual.get(path)]
+    if mismatches:
+        raise ValueError("Governance files changed after Stage 1; refusing cross-version build: "+", ".join(mismatches))
+    return {"status":"PASS","file_count":len(GOVERNANCE_PATHS),"blob_shas":pinned}
 
 def require_approved_builder(root:Path=ROOT, approval_path:Path=APPROVAL_PATH, actual_sha:str|None=None)->dict:
     if not approval_path.is_file():
