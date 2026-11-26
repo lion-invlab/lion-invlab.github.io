@@ -13,6 +13,7 @@ from pathlib import Path
 from build_market_source_verification_manifest import IDENTITY_ALIASES, build_manifest
 from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
+from browser_verify_market_history import persist_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -110,6 +111,16 @@ def make_bundle(data):
 
 
 def main():
+    # Diagnostic mode must never persist the blanked or screenshot-enriched working Fixture.
+    with tempfile.TemporaryDirectory() as tmp:
+        diagnostic_path = Path(tmp) / "fixture.json"
+        original = b'{"keep":"original"}'
+        diagnostic_path.write_bytes(original)
+        assert persist_fixture(diagnostic_path, {"changed": True}, no_fixture_write=True) is False
+        assert diagnostic_path.read_bytes() == original
+        assert persist_fixture(diagnostic_path, {"changed": True}, no_fixture_write=False) is True
+        assert json.loads(diagnostic_path.read_text(encoding="utf-8")) == {"changed": True}
+
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
     bundle = make_bundle(data)
     result = validate_bundle(data, "2026-11-24", bundle)
