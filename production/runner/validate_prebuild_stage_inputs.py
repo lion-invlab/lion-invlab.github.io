@@ -13,7 +13,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 EXPECTED_REPOSITORY = "lion-invlab/lion-invlab.github.io"
-EXPECTED_BRANCH = "simulation/tac-process-lab-2026-11-06"
+EXPECTED_BRANCH = "main"
 EXPECTED_GROUP_COUNTS = {
     "global_markets": 17, "sectors": 11, "bonds": 3, "fx": 6,
     "energy": 2, "metals": 2, "risk": 3,
@@ -332,7 +332,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                   workflow_run_id: str, workflow_run_attempt: str,
                   observation_bundle: dict | None = None,
                   observation_bundle_sha256: str | None = None,
-                  observation_bundle_path: str = "simulation-lab/output/market-history-browser-observations.json") -> dict:
+                  observation_bundle_path: str = "production/runs/current/market-history-browser-observations.json") -> dict:
     validate_branch(repository, branch)
     report_date = str(data.get("report_date") or "")
     market = validate_market_inputs(data, audit, manifest, report_date)
@@ -403,13 +403,13 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         "branch": branch,
         "workflow_run_id": str(workflow_run_id),
         "workflow_run_attempt": str(workflow_run_attempt),
-        "fixture": {"path": f"simulation-lab/fixtures/report-data-{report_date}.json",
+        "fixture": {"path": f"production/runs/current/report-data-{report_date}.json",
                     "sha256": fixture_sha256},
         "stage_2_market": {
             **market,
-            "audit_path": "simulation-lab/output/market-snapshot-audit.json",
+            "audit_path": "production/runs/current/market-snapshot-audit.json",
             "audit_sha256": audit_sha256,
-            "manifest_path": "simulation-lab/output/market-source-verification-manifest.json",
+            "manifest_path": "production/runs/current/market-source-verification-manifest.json",
             "manifest_sha256": manifest_sha256,
             **({
                 "observation_bundle_path": observation_bundle_path,
@@ -446,7 +446,7 @@ def main() -> None:
     parser.add_argument("--data", required=True)
     parser.add_argument("--audit", required=True)
     parser.add_argument("--manifest", required=True)
-    parser.add_argument("--observations", default="simulation-lab/output/market-history-browser-observations.json")
+    parser.add_argument("--observations", default="production/runs/current/market-history-browser-observations.json")
     parser.add_argument("--output", required=True)
     parser.add_argument("--run-id", default=os.environ.get("GITHUB_RUN_ID", "local"))
     parser.add_argument("--run-attempt", default=os.environ.get("GITHUB_RUN_ATTEMPT", "1"))
