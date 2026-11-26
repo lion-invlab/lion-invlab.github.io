@@ -13,14 +13,9 @@
     "status": "NOT_APPLICABLE_WEEKDAY"
   },
   "data_audit": {
-    "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。06:40台灣時間當次ChatGPT Web observation bundle共44筆：43筆來源頁成功讀取、MOVE歷史頁未提供11/25列。S&P 500與恆生目前為VERIFIED；MOVE採用使用者提供的11/25收盤截圖獨立備援。Fear & Greed 15已取得FGScore 11/25歷史頁觀察，待正式validator完成正規化。W48行事曆、5則Focus News、10則Headlines及五層分析已存在於Fixture，仍須由本次Workflow收據綁定驗證。",
-    "warning_note": "行情逐項依當次證據顯示；MOVE採使用者收盤截圖97.54、下跌1.30（-1.32%），不得以11/24歷史頁資料替代。仍待核實項目：MOVE歷史頁11/25列、五大指數完整同日OHLC樞紐點。其他44項行情狀態須以本次current-run manifest為準；未核實欄位不可使用舊Fixture數值。",
+    "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。06:40台灣時間當次ChatGPT Web observation bundle共44筆：43筆來源頁成功讀取、MOVE歷史頁未提供11/25列，但已採用核實的備援收盤證據。S&P 500與恆生目前為VERIFIED；MOVE 11/25收盤值97.54、下跌1.32%，採已核實備援收盤證據。Fear & Greed 15已取得FGScore 11/25歷史頁觀察，待正式validator完成正規化。W48行事曆、5則Focus News、10則Headlines及五層分析已存在於Fixture，仍須由本次Workflow收據綁定驗證。",
+    "warning_note": "行情逐項依當次證據顯示；MOVE 11/25收盤值97.54、下跌1.32%，已由備援收盤證據核實。仍待核實項目：五大指數完整同日OHLC樞紐點。其他44項行情狀態須以本次current-run manifest為準；未核實欄位不可使用舊Fixture數值。",
     "pending_items": [
-      {
-        "item": "MOVE Index 2026-11-25 historical row",
-        "status": "PENDING",
-        "reason": "來源歷史頁尚無11/25列；不沿用11/24數值。"
-      },
       {
         "item": "Hang Seng Index 2026-11-25 direct historical row",
         "status": "PENDING",
@@ -33,7 +28,15 @@
       }
     ],
     "report_cutoff_taipei": "2026-11-26T05:50:25+08:00",
-    "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50"
+    "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50",
+    "backup_verified_items": [
+      {
+        "item": "MOVE Index 2026-11-25 close",
+        "close": "97.54",
+        "daily_change_percent": -1.32,
+        "status": "BACKUP_VERIFIED"
+      }
+    ]
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
@@ -154,8 +157,8 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-26-simulation.html",
   "report_date": "2026-11-26",
-  "report_git_blob_sha": "0d6ee9bb017a6781199b15fa65b38d9ba2d76084",
-  "report_sha256": "7a4f0b84bff9515765df3f1bb2e479fb36021e289efdcc2a5580b337a004d89e",
+  "report_git_blob_sha": "032090e047a363e7654e36c12adadbe859666bc2",
+  "report_sha256": "6b81a7450a8db012f9aeea8b97ee1942fac7928d07a2f40afe0e77428ec6b687",
   "build_commit_sha": "4c0ca39f9ab1c67008fad79c09b2ba7af58c5d85",
   "builder_blob_sha": "c4e6d4af88d16a693848a9742a98c9ce53c3f9aa",
   "fixture_blob_sha": "39eb2ad3ac2d56fd4f10b1b23187330d945175df",
@@ -235,5 +238,15 @@
     320
   ],
   "workflow_run_id": "45731349178",
-  "workflow_run_attempt": "1"
+  "workflow_run_attempt": "1",
+  "review_patch": {
+    "date": "2026-11-26",
+    "scope": [
+      "Summary wording",
+      "MOVE display",
+      "MOVE pending list"
+    ],
+    "note": "Existing review HTML corrected in place; no layout or unrelated sections changed.",
+    "visual_regression_rerun": false
+  }
 }
