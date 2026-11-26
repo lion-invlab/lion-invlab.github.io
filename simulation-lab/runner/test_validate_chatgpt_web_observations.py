@@ -14,6 +14,7 @@ from build_market_source_verification_manifest import IDENTITY_ALIASES, build_ma
 from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 from browser_verify_market_history import persist_fixture
+from stage2_screenshot_inputs import apply_screenshot_values_to_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -122,6 +123,49 @@ def main():
         assert json.loads(diagnostic_path.read_text(encoding="utf-8")) == {"changed": True}
 
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
+
+    # Screenshot fields, including optional OHLC, must populate the blank Fixture
+    # without inheriting stale PRIMARY provenance from a previous observation.
+    screenshot_fixture = blank_fixture(copy.deepcopy(data))
+    move_screenshot = {
+        "group":"risk","name":"move","source_url":data["risk"]["move"]["source"]["url"],
+        "data_date":data["trading_date"],"instrument_identity":"Merrill Lynch Option Volatility Estimate (INDEXNYSEGIS: MOVE)",
+        "captured_at":"2026-11-26T06:47:00+08:00",
+        "fields":{
+            "close":{"value":"97.54","field_name":"Price","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"captured_at":"2026-11-26T06:47:00+08:00"},
+            "change":{"value":"-1.32%","field_name":"Change %","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"captured_at":"2026-11-26T06:47:00+08:00"},
+            "open":{"value":"99.32","field_name":"Open","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"captured_at":"2026-11-26T06:47:00+08:00"},
+            "high":{"value":"102.73","field_name":"High","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"captured_at":"2026-11-26T06:47:00+08:00"},
+            "low":{"value":"97.40","field_name":"Low","evidence_path":"screenshots/move.png","evidence_sha256":"a"*64,"captured_at":"2026-11-26T06:47:00+08:00"},
+        },
+    }
+    apply_screenshot_values_to_fixture(screenshot_fixture,{("risk","move"):move_screenshot})
+    move_source = screenshot_fixture["risk"]["move"]["source"]
+    assert move_source["close_value"] == "97.54"
+    assert move_source["daily_change_percent"] == "-1.32"
+    assert move_source["open"] == "99.32" and move_source["high"] == "102.73" and move_source["low"] == "97.40"
+    assert "source_role" not in move_source
+    screenshot_bundle = make_bundle(screenshot_fixture)
+    screenshot_row = next(x for x in screenshot_bundle["observations"] if x["group"]=="risk" and x["name"]=="move")
+    screenshot_row.update({
+        "status":"VERIFIED","read_status":"USER_PROVIDED_SCREENSHOT_CONFIRMED",
+        "read_method":"USER_PROVIDED_SCREENSHOT","provenance":"CURRENT_USER_PROVIDED_SCREENSHOT",
+        "source_page_fetched":False,"instrument_identity":move_screenshot["instrument_identity"],
+        "instrument_identity_status":"VERIFIED","screenshot_instrument_identity_status":"VERIFIED",
+        "field_mapping_status":"VERIFIED","observed_value":"97.54","observed_change":"-1.32",
+        "observed_value_field":"Price","observed_change_field":"Change %",
+        "field_evidence":{
+            key:{"source_type":"USER_PROVIDED_SCREENSHOT","evidence_path":"screenshots/move.png",
+                 "evidence_sha256":"a"*64,"value":value["value"],"field_name":value["field_name"]}
+            for key,value in move_screenshot["fields"].items()
+        },
+    })
+    screenshot_populated = populate_fixture(screenshot_fixture,screenshot_bundle)
+    screenshot_move_source = screenshot_populated["risk"]["move"]["source"]
+    assert screenshot_move_source["verification_status"] == "VERIFIED"
+    assert screenshot_move_source["source_role"] == "USER_PROVIDED_SCREENSHOT"
+    assert screenshot_move_source["source_page_fetched"] is False
+    assert screenshot_move_source["open"] == "99.32" and screenshot_move_source["high"] == "102.73" and screenshot_move_source["low"] == "97.40"
     bundle = make_bundle(data)
     result = validate_bundle(data, "2026-11-24", bundle)
     assert len(result["observations"]) == 44
