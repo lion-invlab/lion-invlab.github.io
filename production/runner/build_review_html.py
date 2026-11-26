@@ -1919,13 +1919,38 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             continue
         if state == "CLOSED":
             closed += 1
-            if group != "global_markets" or name != "日經225":
-                raise ValueError(f"market-closed state is only allowed for a closed index session: {name}")
-            record = data.get(group, {}).get(name)
-            if not isinstance(record, dict) or record.get("display") != "休市":
-                raise ValueError(f"closed market row must retain its explicit 休市 display: {name}")
-            record["change_display"] = "—"
-            record["qa_status"] = "market_closed"
+            # Any of the 44 contracted instruments may legitimately have a
+            # market holiday on the common report trading_date. The official
+            # closure evidence is validated upstream in the source manifest.
+            if row.get("evidence_status") != "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE":
+                raise ValueError(f"closed market row lacks verified official holiday evidence: {name}")
+            browser_record = row.get("browser_observation_record")
+            if not isinstance(browser_record, dict):
+                raise ValueError(f"closed market row lacks its browser evidence record: {name}")
+            if (browser_record.get("read_status") != "MARKET_CLOSED"
+                    or browser_record.get("target_date") != trading_date
+                    or browser_record.get("source_page_fetched") is not True
+                    or browser_record.get("prior_observation_reused") is not False
+                    or not browser_record.get("closure_evidence_url")
+                    or not browser_record.get("closure_evidence_reader_ref")
+                    or browser_record.get("closure_evidence_line_start") is None
+                    or browser_record.get("closure_evidence_line_end") is None):
+                raise ValueError(f"closed market row browser evidence is incomplete: {name}")
+            if group == "sectors":
+                if name not in data.get("sectors", {}):
+                    raise ValueError(f"closed sector missing from report fixture: {name}")
+                data["sectors"][name] = "-"
+                sector_source = data.get("sector_sources", {}).get(name)
+                if not isinstance(sector_source, dict):
+                    raise ValueError(f"closed sector source missing: {name}")
+                sector_source["change_display"] = "休市"
+            else:
+                record = data.get(group, {}).get(name)
+                if not isinstance(record, dict):
+                    raise ValueError(f"closed market row missing from report fixture: {group}/{name}")
+                record["display"] = "-"
+                record["change_display"] = "休市"
+                record["qa_status"] = "market_closed"
             continue
         if state != "PENDING_CURRENT_RUN_BROWSER_OBSERVATION":
             raise ValueError(f"unknown market verification state for {name}: {state}")
