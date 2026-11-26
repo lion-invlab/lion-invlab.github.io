@@ -7,24 +7,37 @@ on:
     paths:
       - "cfd-dashboard/**"
       - "preview/**"
+      - "history/**"
       - "research/**"
+      - "interactive-charts/**"
+      - "data/tac-chart3/**"
       - "index.html"
       - "special-reports.html"
       - "scripts/build-special-reports-index.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "TAC Chart 3 incremental update (main branch trigger)"
+      - "TAC Chart 3 merge verified S&P 500 daily increments"
+    branches:
+      - main
+    types:
+      - completed
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Queue Pages deployments so a preview handoff cannot cancel an in-flight Chart 3 or site deployment.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     name: Deploy site and TAC previews
     runs-on: ubuntu-latest
     environment:
@@ -44,7 +57,14 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # Give the Actions artifact metadata API a short moment to index the upload.
+      - name: Wait for artifact metadata
+        run: sleep 10
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
