@@ -44,7 +44,7 @@ def build_payload(data:dict)->dict:
         raise ValueError("S&P 500 display does not match verified Close value")
     source_change=source.get("daily_change_percent")
     display_change=_number(item.get("change_display"))
-    if source_change is None or round(float(source_change),2)!=round(display_change,2):
+    if source_change is None or round(_number(source_change),2)!=round(display_change,2):
         raise ValueError("S&P 500 displayed change does not match verified source row")
     note=str(source.get("note") or "")
     if source.get("source_role")=="USER_PROVIDED_SCREENSHOT":
