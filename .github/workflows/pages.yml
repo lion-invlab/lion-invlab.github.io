@@ -30,9 +30,10 @@ permissions:
   pages: write
   id-token: write
 
+# Queue Pages deployments so a preview handoff cannot cancel an in-flight Chart 3 or site deployment.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
