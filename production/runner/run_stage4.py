@@ -44,8 +44,12 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
     if not bundle_path.is_file() or sha(bundle_path)!=receipt.get("bundle_sha256"):
         raise ValueError("Stage 4 research bundle bytes do not match its receipt SHA-256")
     bundle=json.loads(bundle_path.read_text(encoding="utf-8"))
-    if bundle.get("run_id")!=context.get("run_id") or bundle.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256"):
-        raise ValueError("Stage 4 research bundle contents are not bound to the exact Run and market snapshot")
+    if (bundle.get("run_id")!=context.get("run_id")
+            or bundle.get("report_date")!=context.get("report_date")
+            or bundle.get("trading_date")!=context.get("trading_date")
+            or receipt.get("trading_date")!=context.get("trading_date")
+            or bundle.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256")):
+        raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
 def validate_content(content:dict,context:dict,data:dict)->dict:
