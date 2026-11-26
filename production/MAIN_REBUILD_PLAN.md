@@ -541,3 +541,13 @@
 - 通過 Main compile、雙母版 SHA／Manifest、Stage 2／Pre-build deterministic tests、Stage 4 content validation tests、Builder／earnings deterministic tests、isolated candidate Builder 與 mother DOM contract。
 - 本次新增 Stage 4 測試（HTTP 政治來源拒絕、六領域外 domain 拒絕、跨 Run research bundle receipt 拒絕、bundle snapshot SHA mismatch 拒絕）已包含於成功的 Stage 2／Pre-build deterministic tests job。
 - `build-and-deliver`、`capture-and-calendar`、`schedule-window` 均 SKIPPED；成功範圍仍不包含真實行情擷取、AI 編輯生成、Stage 5／6 真實交付或 E2E。
+
+
+## 2026-11-27｜早報主排程由 Stage 1 啟動（正式架構修正）
+
+- **唯一早報主啟動入口**：`.github/workflows/tac-production.yml` 的 weekday `schedule` event。該 workflow 的 `capture-and-calendar` job 必須由 Stage 1 建立全新 Run，依序執行 Stage 1 → Stage 2 → Stage 3；不得以 Stage 4 automation 作為早報主啟動排程。
+- **Stage 1 時間**：美國 EDT 期間台灣 04:05；美國 EST 期間台灣 05:05。現行 workflow 以雙 UTC cron 搭配 `schedule-window` 的 New York DST gate 選出唯一正確觸發。Workflow SHA 維持既有 `c2d97b2e77a84f28719b60c5f60c6654d1fac1fa`，本次不變更已正確設定的 Stage 1–3 cron。
+- **Stage 4–6 接續任務**：ChatGPT automation 僅作為 Stage 3 完成後的 continuation worker；EDT 台灣 04:15、EST 台灣 05:15 喚醒，等待並核對當日唯一 schedule Capture 的 receipts 後，才進行 Stage 4 研究撰稿、Stage 5 Builder/QA、Stage 6 Main Preview 交付。它不是另一個早報起點，也不得在 Capture 缺席時自行以舊資料啟動。
+- **阻塞行為**：若當日 schedule Capture 未啟動或失敗，接續任務回報 BLOCKED，保留任務啟用狀態，不得自動停用接續任務、不得改用 Stage 4 排程取代 Stage 1。
+- **保留的獨立任務**：04:35 行事曆資料庫更新與 05:30 Chart 3 更新仍維持各自職責，不得與早報主流程混成第二個早報入口。
+- **當前驗收限制**：雖已確認 workflow 內 Stage 1–3 的順序及雙 UTC cron 定義正確，但 2026-11-27 當日未找到 schedule Capture run；因此不能宣稱排程觸發已驗收。下一個工作日必須以真實 `event=schedule` run 驗證 Stage 1 起始、Stage 1–3 receipts、Stage 4–6 接續及 Main Preview。正式首頁仍須另行核准。
