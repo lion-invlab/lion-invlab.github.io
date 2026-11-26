@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage 5: pre-build receipt, main Builder, structural/visual QA, and immutable review artifact."""
 from __future__ import annotations
-import argparse, hashlib, json, subprocess, sys, time
+import argparse, hashlib, json, os, subprocess, sys, time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -51,6 +51,13 @@ def main():
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
     if stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context["run_id"] or stage4_doc.get("market_snapshot_unchanged") is not True:
         raise SystemExit("Stage 4 receipt status/run/frozen-market identity mismatch")
+    fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
+    sp500_item=(fixture_doc.get("global_markets") or {}).get("標普500指數") or {}
+    sp500_verified=(sp500_item.get("source") or {}).get("verification_status")=="VERIFIED"
+    chart3_handoff=stage2_summary_doc.get("chart3_handoff") or {}
+    chart3_status=chart3_handoff.get("status","UNKNOWN")
+    if sp500_verified and chart3_status not in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS"):
+        raise SystemExit("Verified S&P 500 requires a successful Chart 3 handoff; got "+str(chart3_status))
     start=time.monotonic()
     prebuild=run_dir/"prebuild-input-receipt.json"
     execute([sys.executable,str(RUNNER/"validate_prebuild_stage_inputs.py"),
