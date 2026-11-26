@@ -8,7 +8,7 @@ Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_P
 2. 當日截圖 sidecar 固定路徑為 `production/input/market-screenshot-observations-YYYY-MM-DD.json`；原始圖片須封存在 `production/input/screenshots/YYYY-MM-DD/`。先讀取 sidecar 並驗證 report_date、trading_date、商品身分、正式 Investing.com URL、欄位標籤、圖片路徑與 SHA-256。使用者提供且可辨識商品、日期及數值的截圖優先於全部 44 項行情，不限 MOVE。已提供欄位直接採用，不重抓、不覆蓋；缺欄才補讀。
 3. 對仍需讀取的項目，瀏覽器直接開啟 Investing.com 對應商品 Historical Data 頁，讀取實際歷史數據表格及指定交易日列。不得以搜尋摘要、第三方 API、Yahoo Finance 或其他未核准來源取代；不得繞過 Cloudflare。
 4. 同時最多開啟 4 個不同歷史資料頁（concurrency=4）。每頁獨立記錄商品／合約、日期、Close／Price、Change／Change %、必要 OHLC、URL、查核時間、讀取方法與狀態。不得縮短 timeout 或提高並行數規避限制。已完整由截圖提供欄位的頁面不開啟。
-5. 第一輪完整掃描 44 項；符合標的、交易日、欄位、口徑及證據者立即鎖定。後續只刷新 PENDING／缺欄／有具體疑義項目；不重抓已鎖定值。頁面表格可讀但無目標日期列為 SOURCE_NO_DATA；工具無法讀取頁面／表格列為 TOOL_READ_FAILURE。
+5. 第一輪完整掃描 44 項；符合標的、交易日、欄位、口徑及證據者立即鎖定。後續只刷新 PENDING／缺欄／有具體疑義項目；不重抓已鎖定值。頁面表格可讀但無目標日期列為 SOURCE_NO_DATA；工具無法讀取頁面／表格列為 TOOL_READ_FAILURE。只有同時附上指定交易日、官方交易日曆來源 URL、官方來源類型及可回查證據，才可標記 MARKET_CLOSED；單憑歷史表格沒有該日期列，或只回傳 MARKET_CLOSED 字串，不得推定休市。正式休市列的數值欄顯示「-」，變動欄顯示「休市」；不得兩欄都顯示休市。
 6. 建立 44 列 Observation、source manifest、metadata audit、fixture 及 Stage 2 receipt，綁定 workflow_run_id、attempt、report/trading date、batch_id 與 SHA-256。各列狀態計數必須完整覆蓋 44 項且總數等於 44；不得把 PENDING、MISSING、CLOSED、TOOL_READ_FAILURE 或 SOURCE_NO_DATA 併記成 VERIFIED。Observation SHA 是標準化觀察紀錄 SHA，不得冒充原始 HTTP response SHA。
 7. FedWatch 獨立讀取 Investing.com Fed Rate Monitor，記錄當下時間、會議日期、現行利率區間、各目標區間機率及來源；CME 僅作方法／交叉核對。
 8. 將本輪已核實 S&P 500 現貨正式收盤交接至既有 `data/tac-chart3/sp500_daily_increment.jsonl`。沿用既有 append 程式、SHA、防重、日期遞增及衝突停止規則；不得另抓第二份報價、不得重建歷史底稿。
