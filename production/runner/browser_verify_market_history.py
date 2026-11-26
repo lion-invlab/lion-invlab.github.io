@@ -755,7 +755,7 @@ def main():
     ap.add_argument("--move-backup-only", action="store_true",
                     help="Read only the TradingView ICE:MOVE history backup; requires --only risk:move")
     a=ap.parse_args()
-    if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
+    if not 1<=a.concurrency<=4: raise SystemExit("--concurrency must be between 1 and 4")
     fixture_path=Path(a.fixture)
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
     data=blank_fixture(data,apply_screenshots=False)
