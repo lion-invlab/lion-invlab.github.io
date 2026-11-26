@@ -104,15 +104,22 @@ def _load_week(commit: str, day: date) -> dict:
     }
 
 
-def load_authoritative_calendar(report_date: str) -> dict:
-    """Fetch origin/main once, then read current and previous ISO-week JSON by immutable commit."""
+def load_authoritative_calendar(report_date: str, expected_commit: str | None = None) -> dict:
+    """Read current and prior ISO-week JSON from one immutable main commit."""
     validate_repository_and_branch()
     report_day = date.fromisoformat(report_date)
-    subprocess.run(
-        ["git", "fetch", "--no-tags", "origin", "main"],
-        check=True, text=True, capture_output=True
-    )
-    main_commit = run_git("rev-parse", MAIN_REF)
+    if expected_commit:
+        # Production Runs pin the exact Stage 1 checkout commit; never float to a later main HEAD.
+        subprocess.run(["git", "cat-file", "-e", f"{expected_commit}^{{commit}}"],
+                       check=True, text=True, capture_output=True)
+        main_commit = expected_commit
+    else:
+        # Compatibility path for isolated tests only. Production Runner always supplies expected_commit.
+        subprocess.run(
+            ["git", "fetch", "--no-tags", "origin", "main"],
+            check=True, text=True, capture_output=True
+        )
+        main_commit = run_git("rev-parse", MAIN_REF)
     current = _load_week(main_commit, report_day)
     previous = _load_week(main_commit, report_day - timedelta(days=7))
     return {"main_commit_sha": main_commit, "current": current, "previous": previous}
