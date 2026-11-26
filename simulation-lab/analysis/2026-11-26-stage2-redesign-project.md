@@ -143,3 +143,16 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - 另加負向條件：若 Close／Change 其中一欄來自歷史頁，整筆不得標記為「純截圖」；必須明確標示混合來源，逐欄保留來源方式。
 - 純截圖／混合來源狀態另須與 `source_page_fetched` 布林值一致，避免來源方法標籤與實際頁面讀取紀錄互相矛盾。
 - 本批尚未完成截圖檔案自動載入、Playwright 缺欄位選擇性讀取、Fixture 自動合併、Observation bundle／Receipt 產生與完整 E2E；不得標記為完成。
+
+### 2026-11-26｜第二批程式改造：截圖優先輸入與欄位合併
+
+- 新增 `stage2_screenshot_inputs.py`：讀取報告日期專屬 sidecar，逐筆核對交易日、商品來源 URL、商品識別、證據檔案路徑與實際檔案 SHA-256。
+- 新增 `simulation-lab/input/STAGE2_SCREENSHOT_INPUT.md`：定義 44 項共用輸入格式、圖片封存位置、欄位名稱與報價時間／截圖時間分離規則。
+- `browser_verify_market_history.py` 已改成先載入截圖，再以截圖值更新當輪 Fixture 的對應值，之後才建立 44 項擷取工作清單。
+- Close／Change（Fear & Greed 為 Score／Band）均由截圖提供時，該商品不會開啟歷史頁；部分截圖則只以歷史頁補齊缺少的必要欄位，已提供欄位永不被頁面值覆蓋。
+- 截圖額外提供 Open／High／Low 時，亦保存欄位級來源與證據，不因主要 Close／Change 仍需補齊而丟棄。
+- Fear & Greed 部分欄位可由 CNN 官方端點補足；其餘商品缺漏欄位仍使用 Playwright 直接讀取 Investing.com Historical Data，不繞過 Cloudflare。
+- Manifest 已新增截圖列數、截圖欄位數、混合來源列數與純歷史頁列數；另將「值已核對」與「完全由歷史頁獨立核實」分開呈現，避免把截圖來源誤報成歷史頁重讀。
+- 新增測試涵蓋真實檔案 SHA 比對、日期錯誤阻擋、Fixture 截圖值優先、純截圖跳過頁面、部分欄位混合、額外 OHLC 欄位保留。
+- Workflow 無需修改即可透過預設路徑自動發現 `simulation-lab/input/market-screenshot-observations-YYYY-MM-DD.json`；截圖圖片與 sidecar 必須存在於 Simulation checkout 內。聊天附件不會自動出現在 GitHub runner，因此必須先封存實際圖片檔及 sidecar。
+- 本批尚未完成 44 項實際截圖 bundle 的上線驗收、E2E 及下游防重抓測試；亦尚未取得本輪 GitHub Actions 測試通過紀錄。狀態維持 `IMPLEMENTATION_IN_PROGRESS`。
