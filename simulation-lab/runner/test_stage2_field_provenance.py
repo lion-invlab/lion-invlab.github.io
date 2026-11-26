@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
+import tempfile
 from pathlib import Path
 
 from build_market_source_verification_manifest import verification_fields
@@ -12,7 +14,7 @@ from build_market_source_verification_manifest import verification_fields
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
 
 
-def screenshot_field(path: str, digest: str = "a" * 64):
+def screenshot_field(path: str, digest: str):
     return {
         "source_type": "USER_PROVIDED_SCREENSHOT",
         "evidence_path": path,
@@ -68,25 +70,33 @@ def main():
     display = data["global_markets"]["標普500指數"]["display"]
     change = data["global_markets"]["標普500指數"]["change_display"]
 
-    screenshot = base_observation(source)
-    result = verification_fields(source, display, change, screenshot, "global_markets", "標普500指數")
-    assert result["verification_status"] == "VERIFIED"
-    assert result["source_page_fetched"] is False
-    assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
-    assert result["observation_record_sha256"] and len(result["observation_record_sha256"]) == 64
+    with tempfile.TemporaryDirectory() as tmp:
+        evidence_path = Path(tmp) / "spx-screenshot.png"
+        evidence_path.write_bytes(b"test screenshot evidence bytes")
+        evidence_sha = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
 
-    mixed = base_observation(source, mixed=True)
-    result = verification_fields(source, display, change, mixed, "global_markets", "標普500指數")
-    assert result["verification_status"] == "VERIFIED"
-    assert result["source_page_fetched"] is True
-    assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
-    assert result["browser_observation_record"]["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+        screenshot = base_observation(source)
+        screenshot["field_evidence"]["close"] = screenshot_field(str(evidence_path), evidence_sha)
+        screenshot["field_evidence"]["change"] = screenshot_field(str(evidence_path), evidence_sha)
+        result = verification_fields(source, display, change, screenshot, "global_markets", "標普500指數")
+        assert result["verification_status"] == "VERIFIED"
+        assert result["source_page_fetched"] is False
+        assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
+        assert result["observation_record_sha256"] and len(result["observation_record_sha256"]) == 64
 
-    bad_hash = copy.deepcopy(screenshot)
-    bad_hash["field_evidence"]["close"]["evidence_sha256"] = "not-a-sha256"
-    result = verification_fields(source, display, change, bad_hash, "global_markets", "標普500指數")
-    assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
-    assert result["observation_record_sha256"] is None
+        mixed = base_observation(source, mixed=True)
+        mixed["field_evidence"]["close"] = screenshot_field(str(evidence_path), evidence_sha)
+        result = verification_fields(source, display, change, mixed, "global_markets", "標普500指數")
+        assert result["verification_status"] == "VERIFIED"
+        assert result["source_page_fetched"] is True
+        assert result["browser_observation_record"]["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
+        assert result["browser_observation_record"]["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+
+        bad_hash = copy.deepcopy(screenshot)
+        bad_hash["field_evidence"]["close"]["evidence_sha256"] = "b" * 64
+        result = verification_fields(source, display, change, bad_hash, "global_markets", "標普500指數")
+        assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
+        assert result["observation_record_sha256"] is None
 
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: mixed screenshot/history-page fields retain independent provenance")
