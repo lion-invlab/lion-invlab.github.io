@@ -7,8 +7,8 @@
     {
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
-      "status": "MAIN_PATCHED_OFFICIAL_MARKET_CLOSURE_EVIDENCE",
-      "main_blob_sha": "d6d26bf0bf8b3070ab7f6e3cd017c8dc654769c6"
+      "status": "MAIN_PATCHED_OFFICIAL_CALENDAR_HOST_ALLOWLIST",
+      "main_blob_sha": "e94eeffd7931e6cd12189f09bd5c5b3717d41d63"
     },
     {
       "file": "stage2_screenshot_inputs.py",
@@ -28,8 +28,8 @@
     {
       "file": "build_market_source_verification_manifest.py",
       "source_sha": "08d5dda5f380664dca670af5516ed076631cb4a5",
-      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
-      "main_blob_sha": "5014fea19082a7d771918d6961c40a51f7c1514c"
+      "status": "MAIN_PATCHED_OFFICIAL_CALENDAR_HOST_ALLOWLIST",
+      "main_blob_sha": "b2ed6b66adda87f97c8144807d36105fa208f504"
     },
     {
       "file": "build_stage2_receipt.py",
@@ -198,8 +198,8 @@
     {
       "file": "build_market_source_verification_manifest.py",
       "purpose": "Main-native Stage 2/4 status and run-bound handoff",
-      "main_blob_sha": "5014fea19082a7d771918d6961c40a51f7c1514c",
-      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+      "main_blob_sha": "b2ed6b66adda87f97c8144807d36105fa208f504",
+      "status": "MAIN_PATCHED_OFFICIAL_CALENDAR_HOST_ALLOWLIST"
     },
     {
       "file": "test_build_stage2_receipt.py",
