@@ -10,6 +10,24 @@ from builder_approval import require_approved_builder, verify_governance_snapsho
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
+def validate_stage4_handoff(stage4_doc:dict, stage2_summary_doc:dict, context:dict)->dict:
+    if (stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context.get("run_id")
+            or stage4_doc.get("report_date")!=context.get("report_date")
+            or stage4_doc.get("trading_date")!=context.get("trading_date")
+            or stage4_doc.get("market_snapshot_unchanged") is not True):
+        raise ValueError("Stage 4 receipt status/run/date/frozen-market identity mismatch")
+    binding=stage4_doc.get("editorial_run_binding") or {}
+    bundle=stage4_doc.get("research_bundle") or {}
+    if (binding.get("run_id")!=context.get("run_id")
+            or binding.get("market_snapshot_sha256")!=stage4_doc.get("market_snapshot_sha256_before")
+            or stage4_doc.get("market_snapshot_sha256_before")!=stage4_doc.get("market_snapshot_sha256_after")
+            or not binding.get("research_bundle_sha256")
+            or binding.get("research_bundle_sha256")!=bundle.get("sha256")):
+        raise ValueError("Stage 4 editorial Run/snapshot/research-bundle binding is incomplete or inconsistent")
+    if stage2_summary_doc.get("market_snapshot_sha256")!=binding.get("market_snapshot_sha256"):
+        raise ValueError("Stage 4 market snapshot SHA differs from the Stage 2 frozen snapshot")
+    return binding
+
 def execute(cmd:list[str],log_path:Path)->str:
     p=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True)
     log_path.write_text("$ "+" ".join(cmd)+"\n\nSTDOUT:\n"+p.stdout+"\nSTDERR:\n"+p.stderr,encoding="utf-8")
@@ -58,17 +76,10 @@ def main():
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
-    if stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context["run_id"] or stage4_doc.get("report_date")!=context["report_date"] or stage4_doc.get("trading_date")!=context["trading_date"] or stage4_doc.get("market_snapshot_unchanged") is not True:
-        raise SystemExit("Stage 4 receipt status/run/date/frozen-market identity mismatch")
-    editorial_binding=stage4_doc.get("editorial_run_binding") or {}
-    if (editorial_binding.get("run_id")!=context["run_id"]
-            or editorial_binding.get("market_snapshot_sha256")!=stage4_doc.get("market_snapshot_sha256_before")
-            or stage4_doc.get("market_snapshot_sha256_before")!=stage4_doc.get("market_snapshot_sha256_after")
-            or not editorial_binding.get("research_bundle_sha256")
-            or editorial_binding.get("research_bundle_sha256")!=(stage4_doc.get("research_bundle") or {}).get("sha256")):
-        raise SystemExit("Stage 4 editorial Run/snapshot/research-bundle binding is incomplete or inconsistent")
-    if stage2_summary_doc.get("market_snapshot_sha256")!=editorial_binding.get("market_snapshot_sha256"):
-        raise SystemExit("Stage 4 market snapshot SHA differs from the Stage 2 frozen snapshot")
+    try:
+        editorial_binding=validate_stage4_handoff(stage4_doc,stage2_summary_doc,context)
+    except ValueError as exc:
+        raise SystemExit(str(exc))
     fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
     sp500_item=(fixture_doc.get("global_markets") or {}).get("標普500指數") or {}
     sp500_verified=(sp500_item.get("source") or {}).get("verification_status")=="VERIFIED"
