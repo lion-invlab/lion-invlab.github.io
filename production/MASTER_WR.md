@@ -45,7 +45,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 ## 5. Stage 3 行事曆／財報
 - 唯一資料來源為 `data/calendar/weeks/YYYY-Www.json`；早報嚴格唯讀。
 - 工作日 04:35 行事曆排程為 JSON 唯一 writer；Stage 3 不得修補、merge、upsert 或回寫。
-- 週一讀本週及上週；週二至週五讀本週。
+- Stage 3 以 Stage 1 鎖定的同一 main commit 讀取本週及前一週 JSON，以完成跨週來源收據；只有週一將上週事件投影至可見回顧區塊，週二至週五不呈現上週回顧。
 - 財報 EPS 與 Revenue 分開選源：Yahoo Finance Average Estimate 第一順位；缺值／不可讀／期間不符依序 Investing.com、LSEG I/B/E/S、FactSet Estimates。各指標取得第一個可用平均預期後停止該指標搜尋。
 - 已公布事件必須顯示實際值、共識及判讀；財報另呈現 EPS／Revenue 與預期比較及股價反應。資料不足如實標示。
 
