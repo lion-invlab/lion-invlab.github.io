@@ -107,7 +107,8 @@ def validate_inputs(data,audit,manifest,observations,report_date):
         if record is not None:
             if mr.get("observation_record_sha256")!=canonical_sha(record):
                 raise ValueError(f"{group}/{name}: manifest record SHA mismatch")
-            if record.get("source_url")!=obs.get("source_url") or record.get("data_date")!=trading_date:
+            record_date=record.get("data_date") or record.get("target_date")
+            if record.get("source_url")!=obs.get("source_url") or record_date!=trading_date:
                 raise ValueError(f"{group}/{name}: manifest record does not bind to observation")
             if num(record.get("observed_value"))!=num(obs.get("observed_value")):
                 raise ValueError(f"{group}/{name}: manifest observed value differs from observation bundle")
