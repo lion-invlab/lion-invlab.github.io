@@ -201,6 +201,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         and required_field_keys_present
         and all(field_evidence[key].get("source_type") == "USER_PROVIDED_SCREENSHOT"
                 for key in (value_key, change_key))
+        and observation.get("source_page_fetched") is not True
         and observation.get("read_status") == "USER_PROVIDED_SCREENSHOT_CONFIRMED"
     )
     mixed_field_observation_ok = (
@@ -212,6 +213,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
                 for key in (value_key, change_key))
         and any(field_evidence[key].get("source_type") == "INVESTING_HISTORICAL_PAGE"
                 for key in (value_key, change_key))
+        and observation.get("source_page_fetched") is True
         and observation.get("read_status") == "MIXED_FIELD_OBSERVATIONS_CONFIRMED"
     )
     page_read_ok = (
