@@ -366,3 +366,15 @@
 - 最新 Stage 2 closure patch 觸發 Main CI Run `45900637416`（截至本紀錄仍 in_progress）；之後的 manifest／README commits 亦觸發後續 validation runs，需以最新 HEAD 對應 run 的完整步驟結果作為判定。
 - Main Workflow 的 validate 不執行 capture/build；所有本輪驗證成功均不可等同真實 44 項擷取、Stage 4–6、Pages 預覽交付或 E2E。
 - 未改動 tac-production cron、Stage 4 automation、Simulation branch/workflows、正式首頁 `index.html`、preview 交付檔、calendar DB 或 Chart 3 歷史資料。
+
+
+## 2026-11-27 Stage 2 休市證據修正（Main）
+- 針對前一版休市判斷只檢查 HTTPS 與非空文字的漏洞，Stage 2 fixture bootstrap 現在要求休市行事曆 URL 的 hostname 必須屬於明確列出的交易所／官方市場營運機構網域；一般網站、內容平台與任意 HTTPS 網址不再足以構成官方休市證據。
+- Source Verification Manifest 同步套用相同官方網域檢查，避免上游 Manifest 將非官方連結標成 CLOSED，但下游 Fixture 又採用不同標準。
+- 新增負向測試：example.com 即使有 OFFICIAL 標籤、休市日期與證據文字，也必須維持 PENDING；正向測試改用 NYSE 官方行事曆網域。日本官方假日來源 cao.go.jp 保留在允許清單，與既有日經休市測試一致。
+- Main 變更檔案：
+  - production/runner/stage2_market_fixture_bootstrap.py blob e94eeffd7931e6cd12189f09bd5c5b3717d41d63
+  - production/runner/build_market_source_verification_manifest.py blob b2ed6b66adda87f97c8144807d36105fa208f504
+  - production/runner/test_stage2_market_fixture_bootstrap.py blob c7a4358498c61b35eedd65fa592aa19f2c52264a
+  - production/runner/PORT_MANIFEST.json blob cea1d6e64e212f9ddc962f786debd9b725df3ba6
+- 此修正只收緊休市證據網域，不代表 44 項逐列交易日模型已完成；create_run_fixture.py 目前仍將 NYSE 日期套用全部 44 項，這個阻塞仍列為 Stage 2 未結案。最新 CI 結果待本次 Main push 觸發後回讀；在測試通過前不得將休市驗證標示為完成。
