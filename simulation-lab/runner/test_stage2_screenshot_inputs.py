@@ -93,6 +93,33 @@ def main():
         assert mixed["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
         assert mixed["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
 
+        optional_only_bundle = copy.deepcopy(bundle)
+        optional_only_bundle["observations"][0]["fields"] = {
+            "high": {"value": "6,845.20", "field_name": "High"}
+        }
+        bundle_path.write_text(json.dumps(optional_only_bundle), encoding="utf-8")
+        optional_only = load_screenshot_bundle(bundle_path, fixture, root)
+        complete_page = {
+            "status": "VERIFIED",
+            "source_page_fetched": True,
+            "field_mapping_status": "VERIFIED",
+            "instrument_identity_status": "VERIFIED",
+            "instrument_identity": "S&P 500",
+            "observed_value": "6812.34",
+            "observed_change": "-0.42",
+            "observed_value_field": "Price",
+            "observed_change_field": "Change %",
+            "display_value_match": True,
+            "display_change_match": True,
+            "finished_at_tw": "2026-11-23T07:06:00+08:00",
+        }
+        optional_mixed = _apply_screenshot_fields(
+            work_row, complete_page, optional_only[("global_markets", "標普500指數")]
+        )
+        assert optional_mixed["status"] == "VERIFIED"
+        assert optional_mixed["field_evidence"]["high"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
+        assert optional_mixed["field_evidence"]["close"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+
         wrong_hash = copy.deepcopy(bundle)
         wrong_hash["observations"][0]["evidence_sha256"] = "0" * 64
         bundle_path.write_text(json.dumps(wrong_hash), encoding="utf-8")
