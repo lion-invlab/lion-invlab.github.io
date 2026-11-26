@@ -185,3 +185,65 @@
 
 - 本次只校正本重建計畫表，記錄回讀證據、差異與後續分拆；沒有修改 Runner、Builder、Schema、Manifest、Workflow、排程、calendar JSON、preview、index.html 或 Simulation。
 - 下一個執行動作固定為完成 R0/R1 全面盤點與差異矩陣；不得跳過規劃直接進入 Stage 2 單點修改。
+
+### G. R0 追加盤點｜Workflow、排程、契約與執行清單（2026-11-27）
+
+#### G1. Main 現有 Workflow inventory
+
+本次重新讀取 `.github/workflows/`，目前共 23 份 Workflow。以下按 TAC 早報生產相依性分組：
+
+| Workflow | 目前責任／觸發 | R0 判定 |
+|---|---|---|
+| `tac-production.yml` | Main 唯一新生產入口；雙 UTC cron、DST gate、push validation、workflow_dispatch capture/build | 保留為唯一 Main Stage 1–6 入口；須補首次 scheduled capture 實跑證據 |
+| `tac-simulation-lab.yml` | Simulation branch push／手動觸發；checkout Simulation，QA 後可寫 main/preview 三檔 | 仍是潛在跨分支 preview writer；Main 正式切換前必須定義隔離／停用策略，但不得修改 Simulation branch |
+| `tac-market-source-capture.yml` | 手動觸發、checkout Simulation，僅 Simulation 行情診斷 | Simulation 專用，Main 不可引用；保留唯讀 |
+| `archive_index.yml` | index.html push 與每日 UTC 17:10 schedule，自動建立 history archive／index | 與正式首頁核准及歷史封存責任需整併；避免未核准封存 |
+| `pages.yml` | preview/history/index push、手動 dispatch、指定 Chart 3 workflow_run 成功後部署 | 沿用唯一 Pages 部署器；Stage 6 需核對實際 dispatch、公開 URL 與 SHA |
+| `tac-chart3-incremental.yml` | Chart 3 FRED／ALFRED 增量資料更新 | 保留風險指標序列更新；不得競爭 S&P 500 writer |
+| `tac-chart3-sp500-increment-merge.yml` | 手動 dispatch／指定程式路徑 push；合併已驗證 S&P 500 增量 | Stage 2 handoff 的下游 merge writer；須驗證防重、日期衝突、唯一資料表及成功 receipt |
+| `tac-chart3-bootstrap.yml`, `tac-chart3-ingest.yml`, `tac-chart3-stress-analysis-tests.yml`, `chart3-preview-visual-qa.yml`, `tac-sp500-increment-qa.yml` | Chart 3 bootstrap／ingest／QA／視覺測試 | 盤點各自寫入路徑與觸發關係，禁止重複寫入同一資料 |
+| 其餘 12 份非早報核心 Workflow | 公司資料、其他圖表、母版保護、Simulation workflow lint、MMF、volatility 等 | 保留；只在證實會修改早報受保護資產時才納入改造 |
+
+#### G2. 排程資料存在明確漂移
+
+- `production/config/schedule.json` 目前 daily_report.local_time 仍寫 05:25。
+- 實際 Main Workflow 冬令 capture cron 是台灣 05:05；Main Stage 4 Automation 冬令時段是台灣 05:15；Chart 3 Automation 是台灣 05:30；Calendar updater 是台灣 04:35。
+- 因此 schedule.json 不能再當成目前排程真相；R2 必須統一 schedule.json、MASTER WR、Workflow cron、Automation prompt、handoff 文件及驗收紀錄。
+- 本次確認 05:05 cron 已寫入，但 11/27 當日尚未在 Actions run 清單看到對應 schedule run；不得以排程設定代替實際觸發證據。
+
+#### G3. 執行與歷史狀態證據
+
+- Main commit `620c0f22...` 的 Builder approval push validation run `45829664051`：`validate-main-production` success；`schedule-window`、`capture-and-calendar`、`build-and-deliver` 均 skipped。這只證明 deterministic validation 成功，不是當日行情擷取或報告 E2E。
+- 本次計畫文件提交後，Main run `45897439038` 正在執行 `validate-main-production`；capture/build jobs skipped。此 run 也不能視為早報生產成功。
+- Simulation branch 的舊 workflow `tac-simulation-lab.yml` 仍存在 push／workflow_dispatch 觸發；最新回讀的相關歷史 run `45798889894`（2026-11-26 push）結論 failure。此為 Simulation workflow 證據，不得拿來當 Main 生產結果。
+- Calendar Automation 11/27 04:36 已完成 W48 更新並回讀；Main 最新 HEAD 因而更新到 `73be77f...`。Stage 3 仍只能唯讀此週 JSON。
+- Main Stage 4 Automation 11/27 05:15 run 在本次查核時仍為 `in_progress`，等待當日唯一 Capture；不得重複 run_now 或拿舊 Run 替代。
+
+#### G4. Main 文件與資料契約的追加差異
+
+| ID | 文件／契約 | 目前差異 | 修正安排 |
+|---|---|---|---|
+| AUD-11 | `production/config/schedule.json` | daily_report 仍寫 05:25，與實際 05:05 capture／05:15 Stage 4 不一致 | R2 統一排程單一真相，保留 04:35 calendar 與 05:30 Chart 3 |
+| AUD-12 | `production/runner/PORT_MANIFEST.json` | builder_approval 仍寫 CANDIDATE_PENDING_OWNER_APPROVAL；但 approval record 與 Builder exact SHA 已是 APPROVED_MAIN | R2 同步實際 Builder 核准狀態、當前 SHA、CI evidence 與「真實 E2E 尚未完成」限制 |
+| AUD-13 | `production/contracts/MOTHER_TEMPLATE_QA.md` | Main contract 仍要求讀取 Simulation branch 的 `simulation-lab/TAC_WORK_RULES_SIM.md`，與 Main-only runtime／權威文件邊界不夠清楚 | R1/R2 改為引用 Main 已封存的 `production/reference/SIM-1.4_SOURCE_BASELINE.md` 與 Main MASTER WR；不得在 Main runtime checkout／讀取 Simulation |
+| AUD-14 | `tac-simulation-lab.yml`／`archive_index.yml`／`pages.yml` | 舊 Simulation workflow 仍可向 main/preview 寫入；archive workflow 仍有獨立自動封存排程；Pages 同時承接多種來源 | R0 完成觸發／寫入者／部署圖；R7 才執行安全切換，不能在真實 E2E 前任意停用或同時放行兩套生產 |
+| AUD-15 | `production/contracts/DATA_SCHEMA.md` 與 Runner | Schema 每列可保存交易日期，但 Stage 1／Stage 2 實際仍以單一 NYSE `trading_date` 當 44 項 target date | R2 定義全域主要交易日與逐項 market_data_date／data_date 的關係；R3 實作並測試跨市場日期 |
+| AUD-16 | `production/runner/README.md`／`PORT_MANIFEST.json`／`MAIN_REBUILD_PLAN.md` | 自動編輯研究能力、Builder approval、schedule cutover 狀態各自描述不一致 | R2 統一文件狀態；只記錄實際存在的 Automation 與已驗證的執行結果，不誇大自動化完成度 |
+
+#### G5. 本輪新增盤點數量
+
+- Main workflows：23。
+- Stage WR：6。
+- Shared contracts：9（含 STATUS_ENUM）。
+- Main runner：本次目錄回讀含 Runner、Builder、validators 與 tests；需以 PORT_MANIFEST 完成逐檔 SHA／來源／依賴矩陣。
+- Config：4 個主要檔案（Builder approval、雙母版 Manifest、report data template、schedule）。
+- Input：7 個主要 schema／README 檔案。
+- Main 已存在 SIM-1.4 pinned source baseline；此為 Main repo 內的規則參考快照，不等於 Main 可讀寫 Simulation runtime。
+
+#### G6. R0/R1 尚未完成的工作
+
+1. 將 23 份 Workflow 的完整觸發、寫入路徑、權限、分支及 concurrency 逐項盤成 machine-readable matrix。
+2. 讀取 PORT_MANIFEST 全部 253 行，逐檔核對當前 Main blob SHA、source SHA、copy/adaptation status、測試覆蓋與未完成依賴。
+3. 完成六份 Stage WR、九份 contracts、Schema、兩份 screenshot/web observation schema、44 項 Manifest、兩份母版、Builder approval、Builder、六階段 Runner 與 tests 的逐條 SIM-1.4 規則對照。
+4. 完成唯一 writer matrix：Calendar JSON、44 行情 Fixture／snapshot、Chart 3 ALFRED、S&P 500 daily increment、review HTML、QA sidecar、delivery receipt、Pages、history archive、index。
+5. 完成後才把 R0 標記 DONE、R1 標記 PASS，並凍結 R2 資料模型；目前 R0 仍 IN_PROGRESS。
