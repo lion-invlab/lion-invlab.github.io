@@ -92,3 +92,13 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 12. 全域上線定義
 六階段真實 E2E、兩種母版、44 項行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 同步、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
+
+## 13. 手動補救入口（Missed Schedule Recovery）
+- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
+- 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
+- `recover` 必須從 Stage 1 建立全新 blank-first Run，依序執行 Stage 2（44 項、截圖優先、四頁並行）及 Stage 3；保留同一 Run 的 Chart 3 增量、所有 receipts 與 research bundle。不得使用 fixture、前日行情或過期截圖。
+- 啟動前檢查同一 report_date 是否已有 Run。若已存在完整 Capture receipt 或部分 Run，必須 fail-closed，禁止另建第二個 Run；先檢查並處理原 Run，不可混合兩個 Run 的資料。現行 recover 入口不宣稱自動續跑部分 Run。
+- Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、market snapshot SHA 與 research bundle SHA。手動補救只接受 `event=workflow_dispatch` 且 `mode=recover` 的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成補救證據。
+- Stage 1–3 完成後，由 Main ChatGPT continuation worker 接手同一 Run 的 Stage 4–6。手動補救後可立即執行 continuation 的 `run_now`；worker 必須驗證 recover receipt 與全部 Run/SHA 綁定，不得重新執行 Stage 1–3。
+- 手動補救僅交付 Main Preview；不自動更新 `index.html`、不封存正式歷史、不修改 Simulation。正式首頁仍需使用者另行核准。
+- 一次 BLOCKED 不得自動停用 continuation automation；排程喚醒應維持啟用，確保下一個工作日正常接續。
