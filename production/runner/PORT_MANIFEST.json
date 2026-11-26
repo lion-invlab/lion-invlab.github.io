@@ -119,7 +119,8 @@
     "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
     "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
     "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
+    "No dedicated Stage 5/6 runner regression tests currently exist; new cross-stage checks are compile/CI validated but need isolated negative/positive tests."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -141,10 +142,10 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "CANDIDATE_PENDING_OWNER_APPROVAL",
     "last_validation": {
-      "workflow_run_id": 45819680821,
-      "head_sha": "c63e7f0db95ea2f9ed51f42d8f11d4d2821de81d",
+      "workflow_run_id": 45824747088,
+      "head_sha": "9c779455278d3bde84abe70324dedf5cb0db626d",
       "conclusion": "success",
-      "scope": "previous main-only deterministic validation; predates current Stage 2 status-preservation commits"
+      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings tests, full candidate Builder fixture, mother-owned DOM contract; capture/build skipped."
     }
   },
   "main_native_modules": [
@@ -176,8 +177,8 @@
     },
     {
       "file": "run_stage4.py",
-      "purpose": "Main-native Stage 2/4 run-bound status and provenance handling",
-      "main_blob_sha": "a43e91daf65251c7f5ea895870805f4f0508ee2d",
+      "purpose": "Stage 4 Run/date/research bundle handoff receipt",
+      "main_blob_sha": "2adbc6c6e955acd13ad6f8d0ff73c52dffabb898",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
@@ -208,6 +209,24 @@
       "file": "test_market_source_verification_manifest.py",
       "purpose": "Main-native Stage 2/4 status and run-bound handoff",
       "main_blob_sha": "939d21153260f58bfbe6b1c6cfbbe60c5faf9b1e",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "run_stage5.py",
+      "purpose": "Stage 5 exact Stage 4 evidence, snapshot and Builder binding",
+      "main_blob_sha": "09cf39818b6da033840000c20422887b2034d6e9",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "run_stage6.py",
+      "purpose": "Stage 6 verifies Stage 5 render manifest and Stage 4 evidence before preview delivery",
+      "main_blob_sha": "881dbd925dd8f5c552d26b1734044f6a9f3dbf58",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "test_stage4_content_validation.py",
+      "purpose": "Stage 4 exact Run/date/research bundle binding regression test",
+      "main_blob_sha": "895256641f3e333669c3b193e9670991726bb535",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     }
   ],
