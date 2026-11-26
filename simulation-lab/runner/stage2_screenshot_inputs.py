@@ -122,8 +122,18 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
             if field in fields:
                 source[field] = _plain_number(fields[field]["value"])
         source["screenshot_observation_applied_at"] = row["captured_at"]
-        source["screenshot_evidence_path"] = row["evidence_path"]
-        source["screenshot_evidence_sha256"] = row["evidence_sha256"]
+        source["screenshot_evidence"] = {
+            field: {
+                "evidence_path": evidence["evidence_path"],
+                "evidence_sha256": evidence["evidence_sha256"],
+                "captured_at": evidence["captured_at"],
+                "quote_timestamp": evidence.get("quote_timestamp"),
+            }
+            for field, evidence in fields.items()
+        }
+        first_evidence = next(iter(fields.values()))
+        source["screenshot_evidence_path"] = first_evidence["evidence_path"]
+        source["screenshot_evidence_sha256"] = first_evidence["evidence_sha256"]
         source["screenshot_fields_applied"] = sorted(fields)
     return fixture
 
