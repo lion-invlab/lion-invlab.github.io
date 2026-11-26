@@ -32,7 +32,7 @@
     },
     "news_cutoff_taipei": {
       "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$"
     },
     "summary_title": {
       "type": "string",
@@ -163,7 +163,10 @@
                   "announced_not_implemented",
                   "political_statement",
                   "market_expectation",
-                  "unverified"
+                  "unverified",
+                  "announced_not_yet_effective",
+                  "reported_incident_no_confirmed_supply_disruption",
+                  "economic_data_released"
                 ]
               },
               "source_url": {
