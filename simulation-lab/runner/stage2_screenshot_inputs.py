@@ -83,6 +83,7 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
             value = _plain_number(fields["score"]["value"])
             source["score_value"] = value
             source["source_score_value"] = value
+            source["cnn_target_date_score"] = value
             source["backup_source_score_value"] = value
             if item is not None:
                 item["display"] = str(fields["score"]["value"]).strip()
