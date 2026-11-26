@@ -32,8 +32,9 @@ def build_payload(data:dict)->dict:
         raise ValueError("S&P 500 evidence must retain its Investing.com historical-data URL")
     method=str(source.get("read_method") or source.get("evidence_method") or "")
     allowed=("USER_PROVIDED_SCREENSHOT","MIXED_SCREENSHOT_AND_HISTORICAL_PAGE",
-             "PLAYWRIGHT_RENDERED_HISTORY_TABLE","CHATGPT_WEB_OPEN_HISTORICAL_PAGE")
-    if not any(x in method for x in allowed):
+             "PLAYWRIGHT_RENDERED_HISTORY_TABLE","CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+             "HISTORICAL DATA TABLE")
+    if not any(x in method.upper() for x in allowed):
         raise ValueError(f"S&P 500 evidence method is not an approved current-run observation: {method!r}")
     observed_at=source.get("checked_at_tw") or source.get("screenshot_observation_applied_at")
     if not observed_at:
