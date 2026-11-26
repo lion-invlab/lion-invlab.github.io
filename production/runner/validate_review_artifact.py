@@ -247,18 +247,29 @@ def main():
         cross_check = fg_source.get("cross_check") or {}
         if cross_check.get("status") != "DATE_MAPPING_UNRESOLVED":
             raise SystemExit("CNN Fear & Greed backup status must disclose unresolved official-source date mapping")
-        if "FGScore" not in str(fg_source.get("name", "")) or "fgscore.com" not in str(fg_source.get("url", "")):
-            raise SystemExit("CNN Fear & Greed backup status must identify the FGScore backup source")
-        if "FGScore" not in str(fixture.get("sentiment", "")) or "備援" not in str(fixture.get("sentiment", "")) or fg_display not in str(fixture.get("sentiment", "")):
-            raise SystemExit("backup CNN Fear & Greed sentiment must disclose FGScore, backup status and the score")
-        if not market_paragraphs or not any("Fear & Greed" in str(p) and "備援" in str(p) and fg_display in str(p) for p in market_paragraphs):
-            raise SystemExit("backup CNN Fear & Greed market analysis must disclose the backup source and score")
+        backup_url=str(fg_source.get("url",""))
+        if "fgscore.com" in backup_url:
+            backup_name="FGScore"
+            expected_role="BACKUP_1"
+        elif "fcontext.com" in backup_url:
+            backup_name="Financial Context"
+            expected_role="BACKUP_2"
+        else:
+            raise SystemExit("CNN Fear & Greed backup must use an approved FGScore or Financial Context provider")
+        if str(fg_source.get("source_role","")).upper()!=expected_role:
+            raise SystemExit("CNN Fear & Greed backup role does not match its approved provider tier")
+        if backup_name not in str(fg_source.get("name","")):
+            raise SystemExit("CNN Fear & Greed backup source name does not match its provider URL")
+        if backup_name not in str(fixture.get("sentiment","")) or "備援" not in str(fixture.get("sentiment","")) or fg_display not in str(fixture.get("sentiment","")):
+            raise SystemExit("backup CNN Fear & Greed sentiment must disclose the provider, backup status and score")
+        if not market_paragraphs or not any("Fear & Greed" in str(p) and backup_name in str(p) and "備援" in str(p) and fg_display in str(p) for p in market_paragraphs):
+            raise SystemExit("backup CNN Fear & Greed market analysis must disclose the provider and score")
         if str(fg_marker.get("data-score", "")).strip() != fg_display:
             raise SystemExit("rendered backup CNN Fear & Greed scale marker differs from the verified backup score")
         for label, rendered in (("sentiment", sentiment_text), ("core interpretation", core_interpretation)):
-            if "Fear & Greed" not in rendered or "備援" not in rendered or fg_display not in rendered:
+            if "Fear & Greed" not in rendered or backup_name not in rendered or "備援" not in rendered or fg_display not in rendered:
                 raise SystemExit(f"rendered {label} must identify the CNN Fear & Greed backup score")
-        if not rendered_market_paragraphs or not any("Fear & Greed" in p and "備援" in p and fg_display in p for p in rendered_market_paragraphs):
+        if not rendered_market_paragraphs or not any("Fear & Greed" in p and backup_name in p and "備援" in p and fg_display in p for p in rendered_market_paragraphs):
             raise SystemExit("rendered market analysis must identify the CNN Fear & Greed backup score")
     elif fg_status == "PENDING":
         if fg_display != "待核實":
