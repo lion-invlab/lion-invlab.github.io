@@ -61,6 +61,8 @@ def main():
         assert receipt["status"]=="PARTIAL"
         assert receipt["row_count"]==44 and receipt["verified_count"]==43 and receipt["pending_count"]==1
         assert receipt["pending_rows"][0]["name"]=="move"
+        assert sum(receipt["market_status_counts"].values())==44
+        assert all("market_data_status" in row for row in receipt["rows"])
         assert receipt["preexisting_market_values_used"] is False
         assert all(len(x["sha256"])==64 for x in receipt["input_files"].values())
 
