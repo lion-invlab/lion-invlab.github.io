@@ -116,8 +116,15 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
                          f"sectors/{name}: quote_type must be ETF_daily_close")
                 _require(source.get("change_display") == value,
                          f"sectors/{name}: source change {source.get('change_display')!r} != display {value!r}")
-                _require(isinstance(value, str) and value.endswith("%"),
-                         f"sectors/{name}: display must be a percentage string")
+                if value == "待核實":
+                    _require(str(source.get("verification_status", "")).upper() not in ("VERIFIED", "BACKUP_VERIFIED"),
+                             f"sectors/{name}: pending display cannot retain verified source status")
+                elif value == "休市":
+                    _require(str(source.get("verification_status", "")).upper() == "CLOSED",
+                             f"sectors/{name}: closed display requires CLOSED source status")
+                else:
+                    _require(isinstance(value, str) and value.endswith("%"),
+                             f"sectors/{name}: display must be a percentage string or explicit pending/closed status")
                 row["display"] = value
                 rows.append(row)
         else:
