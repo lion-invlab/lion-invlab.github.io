@@ -236,16 +236,22 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
                     f"verified observation missing field-level provenance: {key}")
             types = {item.get("source_type") for item in evidence.values() if isinstance(item, dict)}
             if row.get("read_method") == "USER_PROVIDED_SCREENSHOT":
+                require(row.get("source_page_fetched") is False,
+                        f"screenshot-only observation falsely claims a page read: {key}")
                 screenshot_only += 1
                 require(types == {"USER_PROVIDED_SCREENSHOT"},
                         f"screenshot-only observation contains non-screenshot fields: {key}")
             elif str(row.get("read_method") or "").startswith("MIXED_SCREENSHOT_"):
+                require(row.get("source_page_fetched") is True,
+                        f"mixed observation lacks a page/official-source read: {key}")
                 mixed += 1
                 require("USER_PROVIDED_SCREENSHOT" in types,
                         f"mixed observation missing screenshot field provenance: {key}")
                 require(bool(types & {"INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"}),
                         f"mixed observation missing page/official-source field provenance: {key}")
             else:
+                require(row.get("source_page_fetched") is True,
+                        f"page-only observation lacks a current source-page read: {key}")
                 page_only += 1
                 require(bool(types), f"page observation missing field provenance: {key}")
     return {
@@ -389,7 +395,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
             "market source manifest SHA-256 missing or malformed")
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "status": "PASS",
         "gate": "PRE_BUILD_STAGE_2_TO_4_INPUT_RECEIPT",
         "report_date": report_date,
@@ -426,7 +432,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         "stage_4_news_and_analysis": stage4,
         "created_at_utc": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
         "limitations": [
-            "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
+            "Stage 2 requires a complete 44-row current-session source register; rows may be verified from SHA-bound user screenshot fields, mixed screenshot/page fields, or current approved source-page fields. Screenshot-backed rows are not misreported as independently page-reconciled; pending rows must render as 待核實; prior fixture observations are ineligible.",
             "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
             "Stage 3 calendar records are read-only projections from one pinned main commit.",
             "This receipt validates input identity/completeness before HTML assembly; it does not certify the later HTML or visual QA.",
