@@ -70,7 +70,7 @@ def _assert_universe(data):
         raise ValueError(f"44-row universe mismatch: {counts!r}")
     return counts
 
-def blank_fixture(source):
+def blank_fixture(source, apply_screenshots=True):
     data=copy.deepcopy(source)
     _assert_universe(data)
     for group,name,item,src in _rows(data):
@@ -90,7 +90,7 @@ def blank_fixture(source):
         src["note"]="Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
     screenshot_rows=0; screenshot_fields=0
     sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{data['report_date']}.json")
-    if sidecar.is_file():
+    if apply_screenshots and sidecar.is_file():
         from stage2_screenshot_inputs import load_screenshot_bundle, apply_screenshot_values_to_fixture
         inputs=load_screenshot_bundle(sidecar,data,Path.cwd())
         apply_screenshot_values_to_fixture(data,inputs)
