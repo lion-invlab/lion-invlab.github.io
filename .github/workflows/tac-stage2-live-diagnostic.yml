@@ -1,5 +1,10 @@
 name: TAC Stage 2 live 44-row diagnostic
 on:
+  push:
+    branches:
+      - simulation/tac-process-lab-2026-11-06
+    paths:
+      - .github/workflows/tac-stage2-live-diagnostic.yml
   workflow_dispatch:
     inputs:
       report_date:
