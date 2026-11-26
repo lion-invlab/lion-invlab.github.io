@@ -424,25 +424,52 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
 async def observe(context,row,target,timeout,sem):
     """Read Investing.com first; MOVE alone may fall back to TradingView ICE:MOVE."""
     original_url=row["source_url"]
+    is_move=row.get("group")=="risk" and row.get("name")=="move"
+    backup_url="https://www.tradingview.com/symbols/ICE-MOVE/history/"
+    if is_move and row.get("move_backup_only"):
+        backup_row=dict(row); backup_row["request_url"]=backup_url
+        result=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
+        result["source_url"]=original_url
+        result["source_role"]="BACKUP_1"
+        result["evidence_source_url"]=backup_url
+        if result.get("status")=="TARGET_DATE_NOT_FOUND":
+            result.update({"status":"SOURCE_UPDATE_PENDING","read_status":"SOURCE_UPDATE_PENDING",
+                           "observed_date":None,"observed_value":None,"observed_change":None,
+                           "observed_value_field":None,"observed_change_field":None,
+                           "error":"MOVE_TARGET_SESSION_NOT_YET_AVAILABLE_ON_TRADINGVIEW"})
+        elif result.get("status")=="VERIFIED":
+            result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
+        else:
+            result["read_status"]="TOOL_READ_FAILURE"
+        result["attempt_count"]=1
+        result["attempt_history"]=[{"round":1,"source_role":"BACKUP_1","request_url":backup_url,
+            "status":result.get("status"),"http_status":result.get("http_status"),
+            "page_title":result.get("page_title"),"final_url":result.get("final_url"),
+            "observed_row_text":result.get("observed_row_text"),"page_body_excerpt":result.get("page_body_excerpt"),
+            "started_at_utc":result.get("started_at_utc"),"finished_at_utc":result.get("finished_at_utc"),
+            "error":result.get("error")}]
+        result["verification_round"]=1
+        return result
     result=await observe_once(context,row,target,timeout,sem,challenge_wait_ms=6000)
     attempts=[{
         "round":1,"source_role":"PRIMARY","request_url":original_url,"status":result.get("status"),
         "http_status":result.get("http_status"),
         "navigation_http_status":result.get("navigation_http_status"),
+        "page_title":result.get("page_title"),"final_url":result.get("final_url"),
+        "observed_row_text":result.get("observed_row_text"),"page_body_excerpt":result.get("page_body_excerpt"),
         "error":result.get("error"),
         "started_at_utc":result.get("started_at_utc"),
         "finished_at_utc":result.get("finished_at_utc"),
     }]
-    is_move=row.get("group")=="risk" and row.get("name")=="move"
     if is_move and result.get("status") in ("TARGET_DATE_NOT_FOUND","TOOL_READ_FAILURE"):
-        backup_url="https://www.tradingview.com/symbols/ICE-MOVE/history/"
-        backup_row=dict(row)
-        backup_row["request_url"]=backup_url
+        backup_row=dict(row); backup_row["request_url"]=backup_url
         backup=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
         attempts.append({
             "round":2,"source_role":"BACKUP_1","request_url":backup_url,"status":backup.get("status"),
             "http_status":backup.get("http_status"),
             "navigation_http_status":backup.get("navigation_http_status"),
+            "page_title":backup.get("page_title"),"final_url":backup.get("final_url"),
+            "observed_row_text":backup.get("observed_row_text"),"page_body_excerpt":backup.get("page_body_excerpt"),
             "error":backup.get("error"),
             "started_at_utc":backup.get("started_at_utc"),
             "finished_at_utc":backup.get("finished_at_utc"),
@@ -452,6 +479,7 @@ async def observe(context,row,target,timeout,sem):
             result["source_role"]="BACKUP_1"
             result["evidence_source_url"]=backup_url
             result["primary_source_url"]=original_url
+            result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
         elif result.get("status")=="TARGET_DATE_NOT_FOUND" or backup.get("status")=="TARGET_DATE_NOT_FOUND":
             primary_excerpt=result.get("page_body_excerpt","")
             backup_excerpt=backup.get("page_body_excerpt","")
@@ -461,6 +489,9 @@ async def observe(context,row,target,timeout,sem):
                 "source_role":"PRIMARY_AND_BACKUP_PENDING",
                 "source_url":original_url,
                 "evidence_source_url":backup_url if backup.get("source_page_fetched") else original_url,
+                "source_page_fetched":bool(result.get("source_page_fetched") or backup.get("source_page_fetched")),
+                "backup_page_title":backup.get("page_title"),
+                "backup_final_url":backup.get("final_url"),
                 "observed_date":None,"observed_value":None,"observed_change":None,
                 "observed_value_field":None,"observed_change_field":None,
                 "page_body_excerpt":"\\n".join(x for x in (primary_excerpt,backup_excerpt) if x)[:5000],
@@ -473,8 +504,7 @@ async def observe(context,row,target,timeout,sem):
             result["source_role"]="PRIMARY_AND_BACKUP_READ_FAILURE"
             result["primary_attempt_status"]=attempts[0]["status"]
             result["backup_attempt_status"]=attempts[1]["status"]
-            if result.get("status")=="TOOL_READ_FAILURE":
-                result["read_status"]="TOOL_READ_FAILURE"
+            if result.get("status")=="TOOL_READ_FAILURE": result["read_status"]="TOOL_READ_FAILURE"
     result["source_url"]=original_url
     result["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
     result["attempt_count"]=len(attempts)
@@ -687,6 +717,8 @@ def main():
     ap.add_argument("--no-fixture-write", action="store_true",
                     help="Emit observations without writing populated values back to the input fixture")
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
+    ap.add_argument("--move-backup-only", action="store_true",
+                    help="Read only the TradingView ICE:MOVE history backup; requires --only risk:move")
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
     fixture_path=Path(a.fixture)
@@ -732,7 +764,10 @@ def main():
     if a.only:
         work = [row for row in work if row["group"] == group_name and row["name"] == item_name]
         if len(work) != 1:
-            raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")
+            raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")    if a.move_backup_only:
+        if a.only != "risk:move":
+            raise SystemExit("--move-backup-only requires --only risk:move")
+        work[0]["move_backup_only"]=True
     elif len(work) != 44:
         raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
