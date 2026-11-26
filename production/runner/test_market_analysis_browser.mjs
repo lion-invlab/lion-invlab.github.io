@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 import { chromium } from "playwright";
 
 const root = process.cwd();
-const outDir = path.join(root, "simulation-lab/output/market-analysis-browser");
+const outDir = path.join(root, "production/runs/test-output/market-analysis-browser");
 const widths = [1440, 768, 412, 390, 360, 320];
 const candidatePaths = process.argv.slice(2);
 if (candidatePaths.length !== 0 && candidatePaths.length !== 2) {
