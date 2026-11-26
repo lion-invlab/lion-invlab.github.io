@@ -75,7 +75,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             if method=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE" and raw.get("source_url") not in (source.get("approved_backup_urls") or []):
                 raise ValueError("Fear & Greed historical-page fallback must use an approved provider backup URL")
             if method=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
-                raw["source_role"]="BACKUP_1"
+                raw["source_role"]="BACKUP_1" if "fgscore.com" in raw.get("source_url","") else "BACKUP_2"
                 raw["evidence_source_url"]=raw.get("source_url")
             elif method=="CNN_OFFICIAL_CURRENT_DASHBOARD":
                 raw["source_role"]="PRIMARY"
