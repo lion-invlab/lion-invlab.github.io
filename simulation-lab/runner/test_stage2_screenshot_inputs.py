@@ -9,6 +9,7 @@ import tempfile
 from pathlib import Path
 
 from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
+from browser_verify_market_history import _apply_screenshot_fields
 
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
@@ -52,6 +53,45 @@ def main():
         assert row["change_display"] == "-0.42%"
         assert row["source"]["close_value"] == "6812.34"
         assert row["source"]["daily_change_percent"] == "-0.42"
+
+        work_row = {
+            "group": "global_markets", "name": "標普500指數",
+            "source_url": source["url"], "target_date": fixture["trading_date"],
+            "expected_value": "6812.34", "expected_change": "-0.42",
+        }
+        screenshot_only = _apply_screenshot_fields(
+            work_row, {"group": "global_markets", "name": "標普500指數", "target_date": fixture["trading_date"]},
+            loaded[("global_markets", "標普500指數")]
+        )
+        assert screenshot_only["status"] == "VERIFIED"
+        assert screenshot_only["source_page_fetched"] is False
+
+        partial_bundle = copy.deepcopy(bundle)
+        partial_bundle["observations"][0]["fields"].pop("change")
+        bundle_path.write_text(json.dumps(partial_bundle), encoding="utf-8")
+        partial = load_screenshot_bundle(bundle_path, fixture, root)
+        page_observation = {
+            "status": "OBSERVED_PENDING_FIELD_MAPPING",
+            "source_page_fetched": True,
+            "field_mapping_status": "VERIFIED",
+            "instrument_identity_status": "VERIFIED",
+            "instrument_identity": "S&P 500",
+            "observed_value": "6000.00",
+            "observed_change": "-0.42",
+            "observed_value_field": "Price",
+            "observed_change_field": "Change %",
+            "display_value_match": False,
+            "display_change_match": True,
+            "finished_at_tw": "2026-11-23T07:06:00+08:00",
+        }
+        mixed = _apply_screenshot_fields(
+            work_row, page_observation, partial[("global_markets", "標普500指數")]
+        )
+        assert mixed["status"] == "VERIFIED"
+        assert mixed["observed_value"] == "6,812.34"
+        assert mixed["observed_change"] == "-0.42"
+        assert mixed["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
+        assert mixed["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
 
         wrong_hash = copy.deepcopy(bundle)
         wrong_hash["observations"][0]["evidence_sha256"] = "0" * 64
