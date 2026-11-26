@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import copy
 import json
+import sys
+import tempfile
+from unittest.mock import patch
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES
-from validate_chatgpt_web_observations import validate_bundle
+from validate_chatgpt_web_observations import main as validator_main, validate_bundle
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
@@ -131,6 +134,28 @@ def main():
     assert populated_blank["stage2_market_bootstrap"]["verified_count"] == 43
     assert populated_blank["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
     assert populated_blank["global_markets"]["日經225"]["display"] == "休市"
+
+    # Exercise the exact production CLI path: blank the supplied fixture, validate the
+    # date-matched direct page bundle, and write only current observations back in place.
+    with tempfile.TemporaryDirectory() as tmp:
+        data_path=Path(tmp)/"report-data.json"
+        bundle_path=Path(tmp)/"web-observations.json"
+        cnn_path=Path(tmp)/"cnn-observations.json"
+        output_path=Path(tmp)/"normalized-observations.json"
+        data_path.write_text(json.dumps(data,ensure_ascii=False),encoding="utf-8")
+        bundle_path.write_text(json.dumps(bundle,ensure_ascii=False),encoding="utf-8")
+        cnn_path.write_text('{"observations":[]}',encoding="utf-8")
+        argv=["validate_chatgpt_web_observations.py","--data",str(data_path),
+              "--report-date","2026-11-24","--input",str(bundle_path),
+              "--cnn-observation",str(cnn_path),"--output",str(output_path)]
+        with patch.object(sys,"argv",argv):
+            validator_main()
+        written=json.loads(data_path.read_text(encoding="utf-8"))
+        normalized=json.loads(output_path.read_text(encoding="utf-8"))
+        assert written["stage2_market_bootstrap"]["preexisting_market_values_used"] is False
+        assert written["stage2_market_bootstrap"]["verified_count"] == 43
+        assert len(normalized["observations"]) == 44
+        assert written["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
 
     # CNN official previous_close is raw decimal precision and must match its own pinned raw value.
     cnn_official = copy.deepcopy(bundle)
