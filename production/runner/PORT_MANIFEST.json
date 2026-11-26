@@ -155,7 +155,7 @@
       "conclusion": "success",
       "scope": "Main compile; dual-mother SHA/Manifest; Stage 2/prebuild deterministic suite including new Stage 4 negative tests (HTTP political source, invalid political domain, cross-Run receipt, research-bundle snapshot SHA mismatch); Builder/earnings tests; isolated synthetic candidate Builder and mother DOM contract. Capture/build/schedule jobs skipped; no real-data E2E or preview delivery."
     },
-    "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY",
+    "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "NOT_IMPLEMENTED_PROVIDER_AUTHORIZATION_REQUIRED",
     "stage4_validation_hardening": {
       "run_stage4_blob_sha": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
@@ -163,6 +163,30 @@
       "ci_run_id": 45905788264,
       "ci_status": "PASS",
       "ci_head_sha": "4ca8bf89ed55664a493dcad96022a44061cb077d"
+    },
+    "orchestration_model": {
+      "master_entrypoint": ".github/workflows/tac-production.yml schedule",
+      "master_starts_at": "Stage 1",
+      "ordered_stages": [
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Stage 6"
+      ],
+      "capture_schedule_taipei": {
+        "us_edt": "04:05",
+        "us_est": "05:05"
+      },
+      "continuation_worker": "TAC Main 早報接續｜Stage 4–6",
+      "continuation_schedule_taipei": {
+        "us_edt": "04:15",
+        "us_est": "05:15"
+      },
+      "continuation_role": "Wait for and validate the same-day schedule Capture Run; then perform Stage 4 editorial research and trigger approved Stage 4-6 build. Not a master start schedule.",
+      "schedule_event_e2e": "NOT_VERIFIED_2026-11-27_NO_SCHEDULE_CAPTURE_RUN",
+      "formal_homepage_update": "OWNER_APPROVAL_REQUIRED"
     }
   },
   "main_native_modules": [
