@@ -7,6 +7,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from stage2_market_fixture_bootstrap import blank_fixture
+from builder_approval import current_governance_blob_shas
 
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
@@ -80,12 +81,13 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     if screenshot_path.is_file():
         screenshot_receipt["sha256"]=sha256(screenshot_path)
     data["run_metadata"]={"run_id":run_id,"main_commit_sha":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()}
+    main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     run_context={
       "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
       "repository":"lion-invlab/lion-invlab.github.io","branch":"main",
-      "main_commit_sha":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip(),
+      "main_commit_sha":main_commit_sha,\n      "governance":{"commit_sha":main_commit_sha,"blob_shas":current_governance_blob_shas(ROOT)},
       "workflow_run_id":os.environ.get("GITHUB_RUN_ID","LOCAL"),
       "workflow_run_attempt":os.environ.get("GITHUB_RUN_ATTEMPT","1"),
       "mother":{"key":template_key,"path":template["path"],"blob_sha":actual_mother_sha},
