@@ -8,6 +8,10 @@ on:
       - simulation-lab/runner/stage2_market_fixture_bootstrap.py
       - simulation-lab/runner/test_stage2_market_fixture_bootstrap.py
       - simulation-lab/runner/browser_verify_market_history.py
+      - simulation-lab/runner/validate_market_snapshot.py
+      - simulation-lab/runner/test_validate_market_snapshot.py
+      - simulation-lab/runner/validate_chatgpt_web_observations.py
+      - simulation-lab/runner/test_validate_chatgpt_web_observations.py
   workflow_dispatch:
     inputs:
       report_date:
@@ -17,6 +21,9 @@ on:
         type: string
 permissions:
   contents: read
+concurrency:
+  group: tac-stage2-live-diagnostic-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   stage2-live-diagnostic:
     runs-on: ubuntu-latest
@@ -61,6 +68,10 @@ jobs:
           mkdir -p simulation-lab/output/stage2-diagnostic
       - name: Test zero-value Stage 2 fixture bootstrap
         run: python simulation-lab/runner/test_stage2_market_fixture_bootstrap.py
+      - name: Test direct web observations against blank market inputs
+        run: python simulation-lab/runner/test_validate_chatgpt_web_observations.py
+      - name: Test pending and closed market snapshot states
+        run: python simulation-lab/runner/test_validate_market_snapshot.py
       - name: Create zero-value 44-row market input
         shell: bash
         env:
