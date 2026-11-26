@@ -207,7 +207,9 @@ def verification_fields(source: dict, display, change_display, observation: dict
     )
     is_fear_greed = group == "risk" and name == "fear_greed"
     mixed_page_source_types = (
-        {"CNN_OFFICIAL_API"} if is_fear_greed else {"INVESTING_HISTORICAL_PAGE"}
+        {"CNN_OFFICIAL_API"} if is_fear_greed else
+        ({"INVESTING_HISTORICAL_PAGE", "TRADINGVIEW_HISTORICAL_PAGE"}
+         if group == "risk" and name == "move" else {"INVESTING_HISTORICAL_PAGE"})
     )
     mixed_field_observation_ok = (
         provenance == "CURRENT_RUN_MIXED_FIELD_OBSERVATION"
