@@ -230,3 +230,21 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - Run 45775503897 的 43 個 Investing.com HTTP 403 仍是 Playwright live-page path 的實際存取阻塞；本輪 43 項成功值來自當日直接歷史頁 Observation bundle（capture session manual-takeover-2026-11-26-retry-1），不是把 HTTP 403 當成功，也不是沿用前一交易日 Fixture。
 - 正式生產 Workflow 仍未切換 blank/apply；Simulation workflow mirror 已還原並與 main blob SHA 一致。正式整合仍需更新 main/default workflow mirror 的明確授權。
 - 狀態： ZERO_MARKET_INPUT_E2E_PARTIAL_PASS / 43_VERIFIED_1_PENDING / PRODUCTION_WORKFLOW_NOT_YET_INTEGRATED。
+
+
+### 2026-11-26｜第六批改造：正式 Stage 2 入口 blank-first 整合與 Stage 2 Receipt
+
+- 正式早報 Workflow YAML 無須修改，也沒有擴張 main 寫入白名單；透過既有 Stage 2 呼叫的 Runner 程式完成整合：
+  - browser_verify_market_history.py 預設先將傳入 Fixture 的 44 項行情值、舊截圖紀錄與舊觀察證據清空，再執行截圖優先／歷史頁補值；成功後將本輪 Observation 回填至同一份工作目錄 Fixture。另提供 --no-fixture-write，供診斷工作流分離 capture 與 apply。
+  - validate_chatgpt_web_observations.py 預設同樣 blank-first，依本輪直接歷史頁 Observation 回填同一份 Fixture；若當日 Screenshot Sidecar 存在，則優先委派 screenshot-first browser runner，不會讓舊 Web bundle 覆蓋截圖欄位。另提供 --no-fixture-write 給診斷工作流。
+  - 因此既有 tac-simulation-lab.yml 的兩條 Stage 2 入口都已使用 blank-first/apply；後續 Metadata Audit、Manifest、Stage 2–4 Receipt、Chart 3 與 Builder 讀到的都是本輪回填後的 Fixture。正式 Workflow YAML 本身未修改，Simulation/main workflow mirror SHA 仍一致。
+- 新增 simulation-lab/runner/build_stage2_receipt.py：將 populated Fixture、Metadata Audit、44-row Manifest、Observation bundle 的檔案 SHA-256 綁成獨立 Stage 2 receipt；逐列核對商品、來源 URL、交易日、Observation row SHA、Manifest record SHA、回填值及 PENDING/CLOSED 狀態。PENDING row 若沒有有效截圖欄位，不得殘留舊 close／score 或舊顯示值。
+- 新增 test_build_stage2_receipt.py，涵蓋 44 列 SHA 綁定、43 verified + 1 pending、manifest record SHA 錯誤、Observation SHA 錯誤，以及 MOVE 待核實列殘留 97.54 時拒絕產生 Receipt。
+- 正式入口 CLI 整合測試加入 test_validate_chatgpt_web_observations.py：直接呼叫正式 Validator main，確認它先清空原 Fixture、再驗證 44 列、回填 43 項與一筆 CLOSED，並將新 Fixture 寫回原工作目錄路徑。Run 45779383174 的測試全部 PASS。
+- Run 45779383174（Commit 9d9eaf730b8b847fb9bb3c2ed117af868883bf7c）專用 Stage 2 diagnostic 全流程 success；44-row Observation=43 VERIFIED／1 OBSERVED_PENDING_VALIDATION，Manifest=PARTIAL（43／1），Snapshot Audit=PASS（44 metadata/date rows），Stage 2 Receipt=PARTIAL（44 rows、43 verified、1 pending、0 closed）。
+- Stage 2 Receipt batch_id：fcb6ae5c1caf8662d37e0d78。Artifact ID：15096998765；Artifact SHA-256：0f24a8c1b3a7e786aa872c9a618a5a1dc2448373116afa29835c5a567b36c0ca。Receipt 綁定 Fixture SHA f8b566aa48cbde8a5aed0df32bf3720aff0f9cf1185648ed4d1837882c2072b8、Audit SHA 7003c76ce0ecd7c01c251205a45b6e98d40853e6b94856ec3722f619f91b907b、Manifest SHA 94be7a7974765a1bb415877037f6a17651c5cf542eff31df207dbde25d70d819、Observation SHA 9bd76c1b0b11392ccb66b4b9cc13f26d3553180cc90850134823439abc7803fc。
+- Receipt 明確標記 PARTIAL；唯一待核實仍為 MOVE，原因是當日 Observation bundle 的 Investing.com 歷史頁沒有 2026-11-25 目標列（SOURCE_NO_DATA）。MOVE 顯示待核實，close_value 為 null，舊 screenshot_sha256、user_screenshot_observation、previous_close、OHLC 與舊 note 均未被帶入新 Fixture。
+- 同一 Commit 的 TAC isolated simulation lab Run 45779383099：workflow mirror check PASS，compile／靜態檢查 PASS；因提交未包含 [build-tac-report:YYYY-MM-DD]，完整報告建置階段依規則 SKIPPED，未觸發 main/preview 交付。
+- 目前 11/26 Sidecar 偵測仍為 0；本輪 43 個可核實值取自同日 direct Investing.com Historical Data page Observation bundle，非 HTTP 403 後猜測或前日 Fixture 值。Playwright 新開頁路徑仍會遇到 Cloudflare 403；正常等待後不完成 challenge 時保留 TOOL_READ_FAILURE，不繞過。
+- 正式生產入口已透過既有 Runner 程式完成 blank-first/apply 整合；無需修改 main workflow mirror。仍需注意：本輪只有 43/44 行情 VERIFIED，故 Stage 2 receipt 為 PARTIAL，不能標示 44 項完整通過或 REVIEW_READY。
+- 狀態： ZERO_MARKET_INPUT_E2E_PARTIAL_PASS / PRODUCTION_STAGE2_RUNNER_INTEGRATED / 43_VERIFIED_1_PENDING / STAGE2_RECEIPT_SHA_BOUND。
