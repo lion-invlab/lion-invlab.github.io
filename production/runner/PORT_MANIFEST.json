@@ -8,7 +8,7 @@
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
       "status": "MAIN_PATCHED_UNIFIED_OFFICIAL_CLOSURE_EVIDENCE_CONTRACT",
-      "main_blob_sha": "02e42000d6d304f2a02c9f96056a614e652e9b18"
+      "main_blob_sha": "4557c95c5ee8041231116ce937f784786d6f1076"
     },
     {
       "file": "stage2_screenshot_inputs.py",
@@ -35,7 +35,7 @@
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
       "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_RECEIPT_BINDING",
-      "main_blob_sha": "06c743efd6ee136a0de6bbbcb271729e0514712e"
+      "main_blob_sha": "239f9e6aa028a159791b5f63d50b2b8b02afd03a"
     },
     {
       "file": "validate_market_snapshot.py",
