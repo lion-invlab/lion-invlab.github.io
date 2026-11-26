@@ -462,9 +462,6 @@ def _apply_screenshot_fields(row, observation, screenshot):
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
     value_key="score" if is_fg and "score" in fields else "close"
     change_key="band" if is_fg and "band" in fields else "change"
-    if value_key not in fields and change_key not in fields:
-        return observation
-
     evidence={}
     for key,item in fields.items():
         evidence[key]={
