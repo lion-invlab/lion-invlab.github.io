@@ -476,7 +476,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "value":item["value"],
         }
 
-    page_ok=observation.get("status")=="VERIFIED" and observation.get("source_page_fetched") is not False
+    page_ok=(observation.get("source_page_fetched") is True\n             and observation.get("field_mapping_status")=="VERIFIED"\n             and observation.get("observed_value") is not None\n             and observation.get("observed_change") is not None)
     required_keys=(value_key,change_key)
     screenshot_only=all(key in fields for key in required_keys)
     if screenshot_only:
