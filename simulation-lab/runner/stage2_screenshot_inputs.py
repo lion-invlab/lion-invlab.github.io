@@ -257,24 +257,6 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
         if not str(row.get("instrument_identity") or "").strip():
             raise ValueError(f"{key}: screenshot instrument_identity is required")
 
-        evidence_path = Path(str(row.get("evidence_path") or ""))
-        if not evidence_path.is_absolute():
-            evidence_path = root / evidence_path
-        try:
-            resolved = evidence_path.resolve(strict=True)
-            resolved.relative_to(root.resolve())
-        except (OSError, ValueError):
-            raise ValueError(f"{key}: screenshot evidence file missing or outside repository root")
-        expected_sha = str(row.get("evidence_sha256") or "").lower()
-        if len(expected_sha) != 64 or any(ch not in "0123456789abcdef" for ch in expected_sha):
-            raise ValueError(f"{key}: screenshot evidence_sha256 is malformed")
-        actual_sha = _sha256(resolved)
-        if actual_sha != expected_sha:
-            raise ValueError(f"{key}: screenshot evidence SHA-256 mismatch")
-        captured_at = str(row.get("captured_at") or "").strip()
-        if not captured_at:
-            raise ValueError(f"{key}: screenshot captured_at is required")
-
         fields = row.get("fields") or {}
         if not fields or set(fields) - ALLOWED_FIELDS:
             raise ValueError(f"{key}: screenshot fields must use {sorted(ALLOWED_FIELDS)}")
@@ -285,6 +267,23 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             field_name = str(item.get("field_name") or "").strip()
             if field_name.casefold() not in {x.casefold() for x in FIELD_NAMES[field]}:
                 raise ValueError(f"{key}/{field}: unsupported source field label {field_name!r}")
+            evidence_path = Path(str(item.get("evidence_path") or row.get("evidence_path") or ""))
+            if not evidence_path.is_absolute():
+                evidence_path = root / evidence_path
+            try:
+                resolved = evidence_path.resolve(strict=True)
+                resolved.relative_to(root.resolve())
+            except (OSError, ValueError):
+                raise ValueError(f"{key}/{field}: screenshot evidence file missing or outside repository root")
+            expected_sha = str(item.get("evidence_sha256") or row.get("evidence_sha256") or "").lower()
+            if len(expected_sha) != 64 or any(ch not in "0123456789abcdef" for ch in expected_sha):
+                raise ValueError(f"{key}/{field}: screenshot evidence_sha256 is malformed")
+            actual_sha = _sha256(resolved)
+            if actual_sha != expected_sha:
+                raise ValueError(f"{key}/{field}: screenshot evidence SHA-256 mismatch")
+            captured_at = str(item.get("captured_at") or row.get("captured_at") or "").strip()
+            if not captured_at:
+                raise ValueError(f"{key}/{field}: screenshot captured_at is required")
             normalized_fields[field] = {
                 "value": item["value"],
                 "field_name": field_name,
@@ -292,10 +291,11 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
                 "evidence_path": str(resolved.relative_to(root.resolve())),
                 "evidence_sha256": actual_sha,
                 "captured_at": captured_at,
-                "quote_timestamp": row.get("quote_timestamp"),
+                "quote_timestamp": item.get("quote_timestamp", row.get("quote_timestamp")),
                 "instrument_identity": row["instrument_identity"],
                 "data_date": row["data_date"],
             }
+        first_field = next(iter(normalized_fields.values()))
         result[key] = {
             "group": group,
             "name": name,
@@ -303,9 +303,9 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             "data_date": row["data_date"],
             "instrument_identity": row["instrument_identity"],
             "fields": normalized_fields,
-            "evidence_path": str(resolved.relative_to(root.resolve())),
-            "evidence_sha256": actual_sha,
-            "captured_at": captured_at,
-            "quote_timestamp": row.get("quote_timestamp"),
+            "evidence_path": first_field["evidence_path"],
+            "evidence_sha256": first_field["evidence_sha256"],
+            "captured_at": str(row.get("captured_at") or first_field["captured_at"]),
+            "quote_timestamp": row.get("quote_timestamp", first_field.get("quote_timestamp")),
         }
     return result
