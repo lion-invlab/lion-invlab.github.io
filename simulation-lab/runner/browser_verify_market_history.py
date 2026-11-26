@@ -8,6 +8,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright
 from stage2_screenshot_inputs import apply_page_completions_to_fixture, apply_screenshot_values_to_fixture, load_screenshot_bundle
+from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
 def number_token(value):
     s=str(value or "").replace(",","").replace("\u2212","-").replace("+","").strip()
@@ -658,7 +659,9 @@ def main():
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
     fixture_path=Path(a.fixture)
-    data=json.loads(fixture_path.read_text(encoding="utf-8")); target=data.get("trading_date")
+    data=json.loads(fixture_path.read_text(encoding="utf-8"))
+    data=blank_fixture(data,apply_screenshots=False)
+    target=data.get("trading_date")
     if data.get("report_date")!=a.report_date or not target: raise SystemExit("Fixture date mismatch")
     screenshot_bundle=Path(a.screenshot_bundle) if a.screenshot_bundle else Path(
         f"simulation-lab/input/market-screenshot-observations-{a.report_date}.json"
@@ -726,5 +729,12 @@ def main():
             "warning":"Screenshot fields are immutable, SHA-locked inputs and take precedence. Only missing required fields are completed from the Investing.com historical data table. Access failures are never treated as source no-data."}
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps({"output":str(out),"status_counts":counts,"row_count":len(observations)},ensure_ascii=False))
+    result["bundle_sha256"]=hashlib.sha256(out.read_bytes()).hexdigest()
+    populated=populate_fixture(data,result)
+    fixture_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"output":str(out),"fixture_output":str(fixture_path),
+        "status_counts":counts,"row_count":len(observations),
+        "verified_count":populated["stage2_market_bootstrap"]["verified_count"],
+        "pending_count":populated["stage2_market_bootstrap"]["pending_count"],
+        "preexisting_market_values_used":False},ensure_ascii=False))
 if __name__=="__main__": main()
