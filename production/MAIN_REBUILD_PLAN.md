@@ -470,3 +470,12 @@
 - 另新增回歸測試：當 MOVE 已有截圖值 97.54／-1.32%，同一 observation 又帶入 MARKET_CLOSED 證據時，截圖行情必須原值保留，不得被「-／休市」覆蓋。測試檔 blob `84f866960b35c8c37ad84bc7f59f008844676352`，提交 `1850e12463de9b0d15c9d5e5cd474f6ab63f212d`；該新測試尚待下一輪 CI 驗證。
 - PORT_MANIFEST 已記錄成功 Run 與 bootstrap SHA，最新 blob `953464b5bfb767cc61dcfc979245b243ba75ffa0`。Stage 4 CLOSED row 的獨立正反向整合測試仍待補。
 - 下一階段：先驗證新增截圖衝突測試，再補 Stage 4 CLOSED 證據跨 Manifest／Receipt／Bundle 的正向與錯列負向測試；其後再處理 Builder exact-blob 核准、內容生產器、真實 Stage 1-6 E2E。未修改 Simulation、正式排程或首頁。
+
+
+## 2026-11-27 Main 截圖當日有效期修正
+- 使用者明確規定：提供的行情截圖僅限當天有效，不得跨日沿用。
+- 回讀 `stage2_screenshot_inputs.py` 確認原程式僅檢查 sidecar 的 report_date／trading_date、row data_date，對 captured_at 只檢查非空；舊圖若被複製到新 sidecar 並改寫日期欄位，仍可能通過。
+- Main 已修改載入器：解析每個欄位實際使用的 ISO-8601 captured_at，要求明確時區，轉換為 Asia/Taipei 日期後必須等於本次 report_date。逐欄位檢查，避免列級時間戳掩蓋舊圖；data_date 仍獨立要求等於共同 trading_date。
+- 新增負向測試：舊日期截圖即使 sidecar 日期欄位改成當天仍拒絕；個別欄位舊時間戳不得被列級新時間戳掩蓋；無時區時間戳拒絕。
+- Main commits：載入器 `8d698825`（blob `8d254826569b65c901dbff32eb14a2ebc4c49dda`）；測試 `96693240`（blob `f21f7004792c691ebdfd3e4cc19e3af335934fc0`）。PORT_MANIFEST 已同步載入器 SHA。
+- CI Runs `45903973586` 與 `45903977272` 涵蓋此次變更，狀態待完成；尚未宣告通過。未執行真實行情擷取、早報建置、排程修改或正式首頁更新。
