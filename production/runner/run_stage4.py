@@ -35,8 +35,12 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
     if errors:
         raise ValueError("Stage 4 JSON Schema errors: "+"; ".join(f"{'/'.join(map(str,e.path))}: {e.message}" for e in errors[:20]))
     report_date=date.fromisoformat(context["report_date"])
+    if content["run_id"]!=context["run_id"]:
+        raise ValueError("Stage 4 content Run ID differs from the Stage 1 Run")
     if content["report_date"]!=context["report_date"] or content["trading_date"]!=context["trading_date"]:
         raise ValueError("Stage 4 content report_date/trading_date differs from Stage 1 Run context")
+    if content["market_snapshot_sha256"]!=market_snapshot_digest(data):
+        raise ValueError("Stage 4 content was not written against this exact frozen Stage 2 market snapshot")
     cutoff=parse_tw(content["news_cutoff_taipei"])
     expected_date=datetime.combine(report_date,time(5,25),TZ)
     if cutoff.date()!=report_date or cutoff>expected_date+timedelta(minutes=30):
