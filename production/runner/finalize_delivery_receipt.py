@@ -47,9 +47,6 @@ def main():
       "finalized_at_utc":datetime.now(timezone.utc).isoformat(),
       "formal_homepage_modified":False,"history_archive_modified":False
     })
-    receipt["delivery_receipt_sha256_after_finalize"]=None
-    (ROOT/receipt_path).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    receipt["delivery_receipt_sha256_after_finalize"]=sha(ROOT/receipt_path)
     (ROOT/receipt_path).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"status":"DELIVERED","report_date":date,"preview_commit_sha":args.preview_commit,
       "html_sha256":html_sha,"qa_sha256":qa_sha,"delivery_receipt_sha256":sha(ROOT/receipt_path),
