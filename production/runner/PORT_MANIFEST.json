@@ -150,10 +150,10 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
     "last_validation": {
-      "workflow_run_id": 45905788264,
-      "head_sha": "4ca8bf89ed55664a493dcad96022a44061cb077d",
+      "workflow_run_id": 45906972440,
+      "head_sha": "766df0dbf2aeb49614c052b3f7450a3b94781296",
       "conclusion": "success",
-      "scope": "Main compile; dual-mother SHA/Manifest; Stage 2/prebuild deterministic suite including new Stage 4 negative tests (HTTP political source, invalid political domain, cross-Run receipt, research-bundle snapshot SHA mismatch); Builder/earnings tests; isolated synthetic candidate Builder and mother DOM contract. Capture/build/schedule jobs skipped; no real-data E2E or preview delivery."
+      "scope": "Main-only validation: checkout/provenance, Python compile, browser QA syntax, dual-mother SHA/Manifest, Stage 2/pre-build deterministic suite, Builder/earnings deterministic suite including Stage 5/6 handoff tests, isolated candidate Builder fixtures, and dual-mother DOM contract. schedule-window, capture-and-calendar, and build-and-deliver skipped; no real-data E2E or preview delivery."
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
@@ -198,7 +198,10 @@
         "next_expected_taipei": "2026-11-30T05:05:00+08:00",
         "next_expected_utc": "2026-11-29T21:05:00Z"
       }
-    }
+    },
+    "approval_verified_at": "2026-11-27",
+    "approval_current_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+    "approval_recorded_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02"
   },
   "main_native_modules": [
     {

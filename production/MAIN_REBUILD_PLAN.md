@@ -568,3 +568,12 @@
 - 11/27 可見的 Main pipeline runs `45897439038`、`45897601608` 是 `event=push`，其 `capture-and-calendar` 與 `schedule-window` 均 skipped；最新文件驗證 run `45906904274` 同樣是 `event=push`，`validate-main-production` 執行中，Capture／Build／schedule-window 均 skipped。這些都不是早報排程執行。
 - 現行 cron `5 21 * * 0-4` 在美國冬令時間對應台灣週一至週五 05:05；下一個預期 schedule event 為 `2026-11-29T21:05:00Z`（台灣 `2026-11-30T05:05:00+08:00`）。夏令時間對應 `5 20 * * 0-4`（台灣 04:05）。
 - 已將此時間根因、實際 Run event 類型及下一個預期窗口同步寫入 PORT_MANIFEST。未手動 dispatch capture，未啟動真實行情擷取，避免把測試當成排程驗收。
+
+
+## 2026-11-27 最新 Main validation 回讀（Run 45906972440）
+
+- Main HEAD／驗證 Run `766df0dbf2aeb49614c052b3f7450a3b94781296`／Run `45906972440`：`SUCCESS`。
+- `validate-main-production` 全部步驟成功：Main-only checkout/provenance、Python compile、Browser QA syntax、雙母版 SHA／Manifest、Stage 2／Pre-build deterministic tests、Builder／earnings tests（含 Stage 5/6 handoff）、隔離 fixture Candidate Builder、雙母版 DOM contract。
+- `schedule-window`、`capture-and-calendar`、`build-and-deliver` 均為 `SKIPPED`。此 Run 僅證明 deterministic validation 通過，不是 schedule Capture、真實行情擷取、Stage 4 編輯內容、Stage 5/6 交付或真實 E2E。
+- Builder 核准檔仍為歷史核准 SHA `20eefe57d6f3b389157c01b8532cae3a69128a02`；當前 Builder blob `3e5a971d6d0a3ad3d41881b542580308276021f9`。本輪重新回讀確認不一致，維持 `REAPPROVAL_REQUIRED`，未修改核准檔。
+- 下一個正式排程驗收仍是 2026-11-30 台灣 05:05 的真實 `event=schedule` Stage 1–3 Capture；不以手動 dispatch 或 push validation 代替。未修改排程、Simulation、正式首頁或真實行情資料。
