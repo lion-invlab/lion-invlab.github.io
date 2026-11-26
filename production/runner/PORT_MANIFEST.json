@@ -8,7 +8,7 @@
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
       "status": "MAIN_PATCHED_UNIFIED_OFFICIAL_CLOSURE_EVIDENCE_CONTRACT",
-      "main_blob_sha": "de41464be161bfc719663ee08555ccc4bf5a4cf0"
+      "main_blob_sha": "02e42000d6d304f2a02c9f96056a614e652e9b18"
     },
     {
       "file": "stage2_screenshot_inputs.py",
@@ -34,8 +34,8 @@
     {
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
-      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
-      "main_blob_sha": "d33788b65552e72bef46289cd258cff0f7baba1a"
+      "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_RECEIPT_BINDING",
+      "main_blob_sha": "06c743efd6ee136a0de6bbbcb271729e0514712e"
     },
     {
       "file": "validate_market_snapshot.py",
@@ -70,13 +70,14 @@
     {
       "file": "validate_prebuild_stage_inputs.py",
       "source_sha": "730b25a2f8f3a2f555008fb9c5bd1deb5ecf9bd1",
-      "status": "MAIN_PATCHED_STATUS_PRESERVATION",
-      "main_blob_sha": "48a2b0d109f9e91ca9c9ade5d82bd433b2bd1fb6"
+      "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_PREBUILD_GATE",
+      "main_blob_sha": "7ef4e3c8b4d8cc62650a3b2ae06bf91587733283"
     },
     {
       "file": "build_review_html.py",
       "source_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
-      "status": "PORT_ADAPTED_TO_MAIN_PATHS_CANDIDATE_NOT_APPROVED"
+      "status": "CANDIDATE_PENDING_NEW_EXACT_BLOB_APPROVAL",
+      "main_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9"
     },
     {
       "file": "validate_dual_mothers.py",
@@ -87,6 +88,11 @@
       "file": "validate_mother_dom_contract.py",
       "source_sha": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
       "status": "COPIED_WITH_PATHS_ADAPTED"
+    },
+    {
+      "file": "prepare_stage4_research_bundle.py",
+      "status": "MAIN_PATCHED_CLOSURE_EVIDENCE_STAGE4_HANDOFF",
+      "main_blob_sha": "2c07c18f3885f82dbec2aab0dba8b17566ae93ef"
     }
   ],
   "validation_tests_copied": [
