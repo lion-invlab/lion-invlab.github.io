@@ -12,8 +12,8 @@ def sample():
       "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
       "summary_title":"市場測試主題與風險觀察","summary_points":[{"label":f"重點{i}","text":"這是一段長度足夠的測試總結文字，用來驗證三段摘要格式。"} for i in range(3)],
       "focus_news":[news(i) for i in range(5)],"headlines":[news(i+10) for i in range(10)],
-      "sentiment":"市場情緒測試文字長度足夠，且描述不包含未核實數據。",
-      "market_analysis":{k:{"paragraphs":["這是一段足夠長的市場分析文字，說明傳導機制與觀察條件。"],"sources":[{"label":f"{k} source","url":f"https://example.com/{k}","status":"VERIFIED","checked_at":"2026-11-26T05:00:00+08:00"}]} for k in LAYERS},
+      "sentiment":"市場情緒測試文字長度足夠。Fear & Greed 待核實，不沿用舊值。",
+      "market_analysis":{k:{"paragraphs":["這是一段足夠長的市場分析文字，說明傳導機制與觀察條件。"+(" Fear & Greed 待核實。" if k=="markets" else "")],"sources":[{"label":f"{k} source","url":f"https://example.com/{k}","status":"VERIFIED","checked_at":"2026-11-26T05:00:00+08:00"}]} for k in LAYERS},
       "political_scan":{"checked_at":"2026-11-26T05:00:00+08:00","domains_checked":DOMAINS,"findings":[],"no_material_change_note":"六個政治領域均已掃描，沒有新增重大且可核實的政策變化。"},
       "core_observation":{"heading":"今日核心觀察","text":"主要市場焦點仍須等待收盤數據與政策傳導進一步確認。","points":[{"label":f"焦點{i}","text":"這是一段足夠長的觀察內容。"} for i in range(4)]},
       "observation":{"text":"今日先觀察市場廣度、殖利率及風險偏好是否同步改善。"},
@@ -23,7 +23,7 @@ def sample():
 class Stage4ContentTests(unittest.TestCase):
     def setUp(self):
         self.context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
-        self.data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{}}
+        self.data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"待核實","source":{"verification_status":"PENDING"}}}}
     def test_valid_three_summary_five_ten_and_five_layers(self):
         x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
         result=validate_content(x,self.context,self.data)
