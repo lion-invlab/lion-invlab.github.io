@@ -342,14 +342,26 @@ def verification_fields(source: dict, display, change_display, observation: dict
         else "VERIFIED" if verified
         else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
     )
+    raw_status = str(observation.get("read_status") or observation.get("status") or "PENDING").upper()
+    if verification_status in ("VERIFIED", "BACKUP_VERIFIED", "CLOSED"):
+        market_data_status = verification_status
+    elif raw_status in ("TOOL_READ_FAILURE", "SOURCE_NO_DATA", "SOURCE_UPDATE_PENDING", "NOT_APPLICABLE", "NOT_TESTED", "MISSING"):
+        market_data_status = raw_status
+    elif raw_status in ("TARGET_DATE_NOT_FOUND",):
+        market_data_status = "SOURCE_NO_DATA"
+    elif raw_status in ("MARKET_CLOSED",):
+        market_data_status = "CLOSED"
+    else:
+        market_data_status = "PENDING"
     return {
         "verification_status": verification_status,
+        "market_data_status": market_data_status,
         "source_page_fetched": observation.get("source_page_fetched") is True,
         "display_value_reconciled": verified,
         "display_value_matches_saved_observation": verified,
         "observation_provenance": provenance if verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
         "raw_response_sha256": observation.get("raw_response_sha256") if verified else None,
-        "evidence_status": "SOURCE_OBSERVATION_VERIFIED" if verified else "SOURCE_OBSERVATION_PENDING",
+        "evidence_status": "SOURCE_OBSERVATION_VERIFIED" if verified else (observation.get("read_status") or observation.get("status") or "PENDING"),
         "browser_observation_record": record,
         "observation_record_sha256": record_hash,
         "captured_at_tw": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
@@ -423,6 +435,12 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
     pending_count = sum(1 for row in rows if row["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION")
     if verified_count + closed_count + pending_count != len(rows):
         raise ValueError("44-row status counts do not reconcile: verified + closed + pending must equal row_count")
+    market_status_counts = {}
+    for row in rows:
+        state = row.get("market_data_status", "PENDING")
+        market_status_counts[state] = market_status_counts.get(state, 0) + 1
+    if sum(market_status_counts.values()) != 44:
+        raise ValueError("44-row market_data_status counts do not reconcile")
     observation_hash_missing_count = sum(1 for row in rows if row["verification_status"] in ("VERIFIED", "BACKUP_VERIFIED") and not row["observation_record_sha256"])
     raw_response_saved_count = sum(1 for row in rows if row["raw_response_sha256"])
     screenshot_field_count = sum(
@@ -466,6 +484,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
         "prior_observation_reused_count": 0,
         "prior_observation_missing_time_count": pending_count,
         "row_count": len(rows),
+        "market_status_counts": market_status_counts,
         "pending_count": pending_count,
         "closed_count": closed_count,
         "verified_count": verified_count,
