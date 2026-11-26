@@ -54,7 +54,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "ec9dd1c4457930934b2d3efc7ff36193c51f56dc489ef436f79dcf4cbcc9fc2c",
+  "prebuild_input_receipt_sha256": "3268485cab3c3fc689528360eb01e84270302bc5a82bf52d6b30ce56a32a0193",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -62,7 +62,7 @@
     "report_date": "2026-11-26",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45727561775",
+    "workflow_run_id": "45728479446",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-26.json",
@@ -143,7 +143,7 @@
       "political_findings_count": 6,
       "report_cutoff_taipei": "2026-11-26T05:50:25+08:00"
     },
-    "created_at_utc": "2026-11-26T00:17:23Z",
+    "created_at_utc": "2026-11-26T00:24:52Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -154,18 +154,18 @@
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-26-simulation.html",
   "report_date": "2026-11-26",
-  "report_git_blob_sha": "1a19e414fec36007e5bc2fe8f5cc06d8c388c7c3",
-  "report_sha256": "6e45c56712f3059a7eda58c6f4b65961042eb0d14d5e937e081e1a8eb1feae79",
-  "build_commit_sha": "817b4d07c909301946a612c2bc59ccefc742c4e7",
-  "builder_blob_sha": "c571ea4090645bfc84ae56683456eb36e38eab84",
+  "report_git_blob_sha": "927fe26a728e4ff78255c57676fb94d3ed7d28f2",
+  "report_sha256": "844af0508e5076284148d3be8e785b12157efe3686015326213ba39e3d819e87",
+  "build_commit_sha": "f6d816a7c1ff7707c558119775354bcadd737959",
+  "builder_blob_sha": "54316b99215287c902bec8cc557f034992715586",
   "fixture_blob_sha": "19467f85e4188fc0f898b689bf37cf595bf4a809",
   "template_blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d",
   "manifest_blob_sha": "9560308371dfa43a0d352398e5ef9abcbf8ee229",
   "qa_contract_blob_sha": "5328fd12f919944314494107311736ff9813ad67",
-  "active_rules_blob_sha": "e10b52675a908634841f384df5dad13b7b1f5033",
+  "active_rules_blob_sha": "13c24942be052c1a2dba4c2d79a4a06bec4f09eb",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "c571ea4090645bfc84ae56683456eb36e38eab84",
+  "candidate_builder_blob_sha": "54316b99215287c902bec8cc557f034992715586",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -215,17 +215,17 @@
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-    "approved_builder_blob_sha": "c571ea4090645bfc84ae56683456eb36e38eab84",
+    "approved_builder_blob_sha": "54316b99215287c902bec8cc557f034992715586",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
-    "actual_builder_blob_sha": "c571ea4090645bfc84ae56683456eb36e38eab84",
-    "active_rules_blob_sha": "e10b52675a908634841f384df5dad13b7b1f5033",
+    "actual_builder_blob_sha": "54316b99215287c902bec8cc557f034992715586",
+    "active_rules_blob_sha": "13c24942be052c1a2dba4c2d79a4a06bec4f09eb",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
   "calendar_main_commit_sha": "c635797d443257fff5275f678d7a40c1a6690378",
   "calendar_current_blob_sha": "342a51861991cfaa7367d83dffa91a71f6fa7cf5",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "4eea0bd60dc15546e85c4b9f524ebe25cda9299da789dd80a14f14c61cb419a6",
-  "visual_evidence_sha256": "7be12c64daef09e016a105043cb47f0c6b4fee204568be2c11c873bcc30577bb",
+  "visual_evidence_sha256": "ce7c2e17eb0aa5132b921dc29740ca5b8253aaf161950af1f2c174f7de8cc77b",
   "viewports": [
     1440,
     768,
@@ -234,6 +234,6 @@
     360,
     320
   ],
-  "workflow_run_id": "45727561775",
+  "workflow_run_id": "45728479446",
   "workflow_run_attempt": "1"
 }
