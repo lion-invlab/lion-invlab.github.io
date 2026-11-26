@@ -1,16 +1,19 @@
-## 最新狀態錨點｜2026-11-24｜SIM-1.4 排程接手於 Stage 1 阻塞
+## 最新狀態錨點｜2026-11-26｜SIM-1.4 main/preview 交付架構修訂
 
-- **實際啟動：** 2026-11-24 05:56:48（Asia/Taipei）。排程喚醒訊息已嘗試送往 parent thread，但 `mcp__Automations__notify_parent` 回傳 HTTP 404 `Action not found`；未送達，不能記為 notified。本執行緒因此進入 fallback。
-- **報告基準：** report_date=2026-11-24（二）；trading_date=2026-11-23（一，前一交易日）；ISO week=2026-W48；新聞窗口=2026-11-23 12:00 至本次截稿 2026-11-24 05:56:48（台灣時間）。
-- **唯一工作分支：** `simulation/tac-process-lab-2026-11-06`。
-- **規則／基準：** SIM-1.4 SHA `6ab8852582b81f9da0bca7e974fbf39847067aed`；main 正式權限邊界 WR v5.17 SHA `0210e8e04f4f6b2374997b82a658e15781932e67`；Manifest SHA `d47d8abece4137884bda76d6a505ba4112904e0d`；QA Contract v1.21 SHA `e4a11261fba37fbd9deee7c6b61c9dc29a1966d6`；Weekday simulation mother SHA `3f4e65c1385532b0f0969fdc76caf2883a39e798`；核准 Builder SHA `2cb0a90e53b10c31aca20503f93a5b324091c0a7`；simulation Workflow SHA `525b6d902a706cc66e5c7aceb8955137eb658873`。
-- **正式行事曆（main 唯讀）：** W48 路徑 `data/calendar/weeks/2026-W48.json`，blob SHA `0db095ad6638d0bf75dc1ae90248571c84169f26`；main HEAD `77ab012bb027591631c704d976468cf4ea2e2046`；updated_at=2026-11-24T04:33:03+08:00；27 筆經濟、11 筆財報；coverage=incomplete。週二只讀 W48，未讀 W47，未修改任何 calendar JSON。
-- **母版核對：** Manifest 指定 `simulation-lab/baseline/weekday-mother-template.html`；實際 SHA 與 simulation_blob_sha 相符；DOCTYPE/html/head/body 各 1，母版 ID 數 180。週二至週五情境正確。
-- **每日 Fixture：** `simulation-lab/fixtures/report-data-2026-11-24.json` 目前不存在（GitHub Contents API 404）；不得沿用 11/23 Fixture。11/24 projection 亦尚未建立。
-- **Pipeline 阻塞：** 當前 simulation Workflow 僅存在 simulation branch；main/default branch 的 `.github/workflows/tac-simulation-lab.yml` 讀取回傳 404。既有 2026-11-23 Run `45080345516` 是歷史證據，status=completed/conclusion=failure、jobs=[]、artifacts=[]；不得冒充本輪 Run。現行 BUILD_TRIGGER SHA `478ca209d4813c7d58f466f313cbd7ca43b8b473` 仍標示 report_date=2026-11-23，且其 workflow_blob_sha `7defbbab2b4d77a77f5ec208d5843b1a05dcc7e7` 與目前 Workflow SHA 不符。依 SIM-1.4 禁止將 workflow 複製到 main；在此限制下無法取得可執行的正式 Pipeline 入口。
-- **階段狀態：** Stage 1 規則／母版／W48 唯讀核對完成；Pipeline trigger BLOCKED。Stage 2 行情、Stage 3 財報共識投影、Stage 4 新聞／分析、Stage 5 Builder、Stage 6 HTML／QA Artifact、Stage 7 E2E 均未執行。未建立 11/24 Fixture，未更新 BUILD_TRIGGER，未產生 HTML／QA sidecar，未建立本輪 Workflow Run。
-- **main 保護：** 本輪未寫入 main；main index、preview、正式母版、Manifest、WR、QA Contract 及 W48 JSON 均未修改。
-- **下一步：** 必須先由受支援且符合權限隔離的 GitHub Actions 入口解決「workflow 僅在非 default branch」問題；在不修改 main 的前提下，目前 connector 只有 GitHub GET／內容檔案操作，沒有 workflow_dispatch／tag push 動作。入口解決前不得蒐集一整套資料後假裝能交付，也不得手動執行 Builder 或重建 HTML。
+- **本次目標：** 每日早報完成 Stage 5 且 sim14_review_ready=true 後，審核版 HTML／QA sidecar／delivery receipt 直接交付 main/preview；正式首頁 main/index.html 仍須使用者另行明確核准。
+- **規則：** SIM-1.4 已新增 2026-11-26 main-preview delivery amendment，取代 11/25 Simulation-only delivery 限制。SIM 規則 SHA：6219f5b76127d9e4d9be2afbee18b4c8b9e201a5。
+- **QA Contract：** v1.28；SHA a00b5db3c432973cbe4c743fe781c4d12375e8ef。新增 main preview 三檔白名單、sidecar delivery provenance、遠端 SHA 回讀及 Pages URL 驗證。
+- **Workflow：** Simulation 分支 workflow SHA 6d7016fb3f7ab61baa4654b6aa0aa04fb8c793de；已將同一份 workflow 複製至 main/default branch，main commit c7bf02da64f0db3e3d02ea8c3905fb098b25f339。兩分支 workflow 檔案 SHA 相同；GitHub push trigger 現在可由 default-branch workflow 定義接收 Simulation branch push。
+- **交付設計：** Builder 仍在 Simulation runner 工作目錄產生暫存 HTML／QA，保留原有精確 SHA 核准與輸出保護；暫存報告不再 commit 到 Simulation branch。新增 simulation-lab/runner/publish_main_preview.py（SHA 9436974f3f1c320b6950e4d9dd1a07bed481a15e），只有 QA_PASSED、review_ready、data_review_ready、sim14_review_ready、Builder approval、Run／attempt、HTML SHA 與 pre-build receipt 全部相符時，才準備 main 三檔。
+- **main 寫入白名單：** preview/YYYY-MM-DD-review.html、preview/YYYY-MM-DD-review.qa.json、preview/YYYY-MM-DD-review.delivery.json。Workflow 使用獨立 main worktree、逐項檢查 staged／committed path set、禁止 force-push，並回讀三檔 SHA。不得寫入 index.html、母版、Manifest、正式行事曆或其他 main 路徑。
+- **Pages：** 既有 .github/workflows/pages.yml 已涵蓋 main 的 preview/**，且支援 workflow_dispatch。由於 GITHUB_TOKEN push 不會自動觸發其他 workflow，新流程會明確 dispatch Pages workflow，等候成功並以公開 URL 核對 report-date。
+- **QA／測試：** 新增 publisher 正負向測試 test_publish_main_preview.py；更新 test_simulation_workflow_delivery_gate.py 與 workflow 自測／compile。QA Contract 升至 v1.28。原 Builder output guard 與 pre-build receipt 仍維持 Simulation 工作目錄／分支隔離，無需放寬 Builder 對 main 的直接寫入權限。
+- **Workflow dispatch：** 移除原本依賴 Simulation branch 已保存 HTML 的 qa-only 模式；它與「不再將審核版存入 Simulation branch」衝突，且無法重用舊 Run 的 run-bound pre-build receipt。完整 build 仍由 commit message [build-tac-report:YYYY-MM-DD] 觸發。
+- **自動化：** TAC 早報排程 prompt 已改為 main/preview 三檔交付標準；Chart 3 排程新增檢查 main preview／Pages 的告警，不會阻塞 Chart 3 工作。行事曆資料庫排程未變。
+- **尚未驗證的關鍵風險：** GitHub branch protection／ruleset API 回傳 403，無法讀取 main 的保護規則；因此尚未證明 Actions 的 GITHUB_TOKEN 可直接 push main。第一次完整 build 必須實際驗證 main push 權限、Pages workflow dispatch、公開 URL；失敗時不得 force-push 或改寫其他路徑。
+- **目前狀態：** 規格、workflow、publisher、QA contract 與自動化 prompt 已更新；尚未執行新的 full-regression／真實資料 E2E，因此不得宣稱 main preview 自動交付已端到端驗收完成。
+- **11/26 已核准報告：** 先前已依使用者核准更新 main/index.html；本次架構修訂沒有再次修改首頁。未對 11/26 已正式發布的內容重跑新的 pipeline。
+- **下一步：** 先執行不觸發正式報告製作的 full-regression，確認 YAML／actionlint／publisher／workflow contract tests；其後以一次受控完整 build 驗證 main preview push 與 Pages URL。只有上述全部通過，才能把自動交付標記為正式可用。
 
 # TAC 投資早報｜2026/11/23 15:40 最新接手狀態
 
