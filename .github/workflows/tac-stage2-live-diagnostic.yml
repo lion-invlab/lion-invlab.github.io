@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/tac-stage2-live-diagnostic.yml
       - simulation-lab/runner/stage2_market_fixture_bootstrap.py
+      - simulation-lab/runner/test_stage2_market_fixture_bootstrap.py
       - simulation-lab/runner/browser_verify_market_history.py
   workflow_dispatch:
     inputs:
@@ -58,6 +59,8 @@ jobs:
             echo "screenshot_sidecar=absent" >> "$GITHUB_OUTPUT"
           fi
           mkdir -p simulation-lab/output/stage2-diagnostic
+      - name: Test zero-value Stage 2 fixture bootstrap
+        run: python simulation-lab/runner/test_stage2_market_fixture_bootstrap.py
       - name: Create zero-value 44-row market input
         shell: bash
         env:
