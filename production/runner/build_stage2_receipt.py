@@ -63,6 +63,19 @@ def validate_inputs(data,audit,manifest,observations,report_date):
     verified=manifest.get("verified_count"); pending=manifest.get("pending_count"); closed=manifest.get("closed_count",0)
     if any(not isinstance(x,int) or x<0 for x in (verified,pending,closed)) or verified+pending+closed!=44:
         raise ValueError("manifest verified/pending/closed counts do not reconcile to 44")
+    market_status_counts={}
+    for row in manifest_rows:
+        state=row.get("market_data_status")
+        if state is None:
+            state=("VERIFIED" if row.get("verification_status")=="VERIFIED" else
+                   "BACKUP_VERIFIED" if row.get("verification_status")=="BACKUP_VERIFIED" else
+                   "CLOSED" if row.get("verification_status")=="CLOSED" else "PENDING")
+        market_status_counts[state]=market_status_counts.get(state,0)+1
+    if sum(market_status_counts.values())!=44:
+        raise ValueError("manifest market data status counts do not reconcile to 44")
+    declared_market_counts=manifest.get("market_status_counts")
+    if declared_market_counts is not None and declared_market_counts!=market_status_counts:
+        raise ValueError("manifest market_data_status counts disagree with its rows")
     if manifest.get("status") not in ("PASS","PARTIAL","PENDING"): raise ValueError("manifest status is invalid")
     if manifest.get("prior_observation_reused_count")!=0: raise ValueError("manifest reused a prior observation")
     if manifest.get("observation_record_hash_missing_count")!=0: raise ValueError("manifest contains missing observation record hashes")
@@ -109,6 +122,7 @@ def validate_inputs(data,audit,manifest,observations,report_date):
             pending_rows.append({"group":group,"name":name,"status":status,"read_status":obs.get("read_status")})
         row_receipts.append({
             "group":group,"name":name,"status":status,
+            "market_data_status":mr.get("market_data_status") or ("VERIFIED" if status=="VERIFIED" else "BACKUP_VERIFIED" if status=="BACKUP_VERIFIED" else "CLOSED" if status=="CLOSED" else "PENDING"),
             "source_url":src.get("url"),"trading_date":trading_date,
             "observation_row_sha256":obs.get("observation_record_sha256"),
             "manifest_record_sha256":mr.get("observation_record_sha256"),
@@ -117,6 +131,7 @@ def validate_inputs(data,audit,manifest,observations,report_date):
         })
     if len(row_receipts)!=44: raise ValueError("receipt row register is incomplete")
     return {"verified_count":verified,"pending_count":pending,"closed_count":closed,
+            "market_status_counts":market_status_counts,
             "row_receipts":row_receipts,"pending_rows":pending_rows}
 
 def build_receipt(args):
