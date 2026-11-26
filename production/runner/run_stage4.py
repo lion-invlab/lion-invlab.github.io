@@ -130,6 +130,8 @@ def main():
       "news_window_taipei":editorial.get("news_window_taipei",f"{window['window_start'].strftime('%Y-%m-%d %H:%M')}–{window['cutoff'].strftime('%Y-%m-%d %H:%M')}"),
       "warning_note":editorial.get("warning_note",""),"quality_note":editorial.get("quality_note","")
     })
+    if "earnings_health" in editorial:
+        data["earnings_health"]=editorial["earnings_health"]
     if "pending_items" in editorial:data["pending_items"]=editorial["pending_items"]
     after=market_snapshot_digest(data)
     if before!=after:raise SystemExit("Stage 4 modified the frozen Stage 2 market snapshot")
@@ -140,7 +142,7 @@ def main():
       "headlines":editorial["headlines"],"market_analysis":editorial["market_analysis"],
       "political_scan":editorial["political_scan"],"core_observation":editorial["core_observation"],
       "observation":editorial["observation"],"key_levels":editorial["key_levels"],
-      "market_comments":editorial["market_comments"],"news_window_start_taipei":window["window_start"].isoformat(),
+      "market_comments":editorial["market_comments"],"earnings_health":data.get("earnings_health"),"news_window_start_taipei":window["window_start"].isoformat(),
       "news_cutoff_taipei":window["cutoff"].isoformat()
     }
     analysis_path=run_dir/"analysis-data.json"
