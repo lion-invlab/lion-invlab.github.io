@@ -29,7 +29,8 @@ VALUE_KEYS = {
     "observed_date","closure_evidence_url","closure_evidence_reader_ref","closure_evidence_line_start",
     "closure_evidence_line_end","page_label","cross_check","cross_check_value","cross_check_name",
     "cross_check_url","cross_check_role","primary_source_url","backup_source_url",
-    "observation_bundle_path","observation_bundle_blob_sha","observation_record_status",\n    "market_calendar_status","market_calendar_source_type","market_calendar_url","market_calendar_date","market_calendar_evidence",
+    "observation_bundle_path","observation_bundle_blob_sha","observation_record_status",
+    "market_calendar_status","market_calendar_source_type","market_calendar_url","market_calendar_date","market_calendar_evidence",
     "volume","official_settlement_cross_check","change_basis_points","change_points","close",
 }
 ITEM_VALUE_KEYS = {"change_basis_points","change_points","band","qa_status","value","as_of","contract_label"}
