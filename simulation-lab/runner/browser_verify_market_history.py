@@ -7,7 +7,7 @@ import argparse, asyncio, hashlib, json, re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from playwright.async_api import async_playwright
-from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
+from stage2_screenshot_inputs import apply_page_completions_to_fixture, apply_screenshot_values_to_fixture, load_screenshot_bundle
 
 def number_token(value):
     s=str(value or "").replace(",","").replace("\u2212","-").replace("+","").strip()
@@ -664,6 +664,12 @@ def main():
         raise SystemExit(f"Expected 44 source rows, got {len(work)}")
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
+    if screenshot_inputs:
+        observations=apply_page_completions_to_fixture(data,observations,screenshot_inputs)
+        fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        counts={}
+        for item in observations:
+            counts[item.get("status","UNKNOWN")]=counts.get(item.get("status","UNKNOWN"),0)+1
     screenshot_only_count=sum(1 for item in observations if item.get("read_method")=="USER_PROVIDED_SCREENSHOT")
     mixed_count=sum(1 for item in observations if item.get("read_method")=="MIXED_SCREENSHOT_AND_HISTORICAL_PAGE")
     page_count=sum(1 for item in observations if item.get("source_page_fetched") is True)
