@@ -13,8 +13,8 @@
     "status": "NOT_APPLICABLE_WEEKDAY"
   },
   "data_audit": {
-    "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。06:40台灣時間當次ChatGPT Web observation bundle共44筆：43筆來源頁成功讀取、MOVE歷史頁未提供11/25列，但已採用核實的備援收盤證據。S&P 500與恆生目前為VERIFIED；MOVE 11/25收盤值97.54、下跌1.32%，採已核實備援收盤證據。Fear & Greed 15已取得FGScore 11/25歷史頁觀察，待正式validator完成正規化。W48行事曆、5則Focus News、10則Headlines及五層分析已存在於Fixture，仍須由本次Workflow收據綁定驗證。",
-    "warning_note": "行情逐項依當次證據顯示；MOVE 11/25收盤值97.54、下跌1.32%，已由備援收盤證據核實。仍待核實項目：五大指數完整同日OHLC樞紐點。其他44項行情狀態須以本次current-run manifest為準；未核實欄位不可使用舊Fixture數值。",
+    "quality_note": "2026-11-26人工接手Simulation審核版，行情基準日2026-11-25。06:40台灣時間當次ChatGPT Web observation bundle共44筆：43筆來源頁成功讀取、MOVE歷史頁未提供11/25列。S&P 500與恆生目前為VERIFIED；MOVE採用已核實的11/25收盤備援證據。Fear & Greed 15已取得FGScore 11/25歷史頁觀察，待正式validator完成正規化。W48行事曆、5則Focus News、10則Headlines及五層分析已存在於Fixture，仍須由本次Workflow收據綁定驗證。",
+    "warning_note": "行情逐項依當次證據顯示；MOVE採已核實的11/25收盤值97.54、下跌1.30（-1.32%），不得以11/24歷史頁資料替代。仍待核實項目：五大指數完整同日OHLC樞紐點。其他44項行情狀態須以本次current-run manifest為準；未核實欄位不可使用舊Fixture數值。",
     "pending_items": [
       {
         "item": "Hang Seng Index 2026-11-25 direct historical row",
@@ -28,15 +28,7 @@
       }
     ],
     "report_cutoff_taipei": "2026-11-26T05:50:25+08:00",
-    "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50",
-    "backup_verified_items": [
-      {
-        "item": "MOVE Index 2026-11-25 close",
-        "close": "97.54",
-        "daily_change_percent": -1.32,
-        "status": "BACKUP_VERIFIED"
-      }
-    ]
+    "news_window_taipei": "2026/11/25 12:00 至 2026/11/26 05:50"
   },
   "market_snapshot_audit_path": "simulation-lab/output/market-snapshot-audit.json",
   "market_snapshot_audit_scope": "METADATA_AND_DATE_ONLY",
@@ -57,7 +49,7 @@
     "verification_scope": "CURRENT_REPORT_SESSION_SOURCE_OBSERVATIONS"
   },
   "prebuild_input_receipt_path": "simulation-lab/output/prebuild-stage-input-receipt.json",
-  "prebuild_input_receipt_sha256": "897b3503654740d145084549cad34d1f564a9eb010ad71a2dce51b2fb95c7525",
+  "prebuild_input_receipt_sha256": "44198a7ccb0aded58b5f219c04b8b4ef72e54ab10cfb90c46be651923fdc7210",
   "prebuild_input_receipt": {
     "schema_version": "1.0",
     "status": "PASS",
@@ -65,11 +57,11 @@
     "report_date": "2026-11-26",
     "repository": "lion-invlab/lion-invlab.github.io",
     "branch": "simulation/tac-process-lab-2026-11-06",
-    "workflow_run_id": "45731349178",
+    "workflow_run_id": "45736738151",
     "workflow_run_attempt": "1",
     "fixture": {
       "path": "simulation-lab/fixtures/report-data-2026-11-26.json",
-      "sha256": "b080f420ade407794d1f63beb969bc4a1767b3e455fd9dc1c8276e682e4ae088"
+      "sha256": "103075226f948a5aaa55767aff95a3868636ffbb357fb6d406a0ba9a4b324053"
     },
     "stage_2_market": {
       "trading_date": "2026-11-25",
@@ -101,7 +93,7 @@
     "stage_3_calendar": {
       "repository": "lion-invlab/lion-invlab.github.io",
       "branch": "main",
-      "main_commit_sha": "c635797d443257fff5275f678d7a40c1a6690378",
+      "main_commit_sha": "96197b3595b412b7998ef37b3cfa6f39a495db7b",
       "current": {
         "path": "data/calendar/weeks/2026-W48.json",
         "blob_sha": "342a51861991cfaa7367d83dffa91a71f6fa7cf5",
@@ -146,7 +138,7 @@
       "political_findings_count": 6,
       "report_cutoff_taipei": "2026-11-26T05:50:25+08:00"
     },
-    "created_at_utc": "2026-11-26T00:49:09Z",
+    "created_at_utc": "2026-11-26T01:36:44Z",
     "limitations": [
       "Stage 2 requires a complete 44-row current-session source register; each row is either independently verified or explicitly pending. Pending rows must render as 待核實; prior fixture observations are ineligible.",
       "raw_response_sha256 is optional and is not required for a completed per-item browser observation.",
@@ -155,20 +147,20 @@
     ]
   },
   "branch": "simulation/tac-process-lab-2026-11-06",
-  "report_path": "preview/2026-11-26-simulation.html",
+  "report_path": "preview/2026-11-26-review.html",
   "report_date": "2026-11-26",
-  "report_git_blob_sha": "032090e047a363e7654e36c12adadbe859666bc2",
-  "report_sha256": "6b81a7450a8db012f9aeea8b97ee1942fac7928d07a2f40afe0e77428ec6b687",
-  "build_commit_sha": "4c0ca39f9ab1c67008fad79c09b2ba7af58c5d85",
-  "builder_blob_sha": "c4e6d4af88d16a693848a9742a98c9ce53c3f9aa",
-  "fixture_blob_sha": "39eb2ad3ac2d56fd4f10b1b23187330d945175df",
+  "report_git_blob_sha": "d591ecee31ca772c64df9df1bdd2ff4ce3ba4022",
+  "report_sha256": "325468312d4efd08bda2d986d27ba0326f2b6f7e5d2c39b51699b650feb6a979",
+  "build_commit_sha": "e00b6546716f0a3aa7a54e0bb55693586ae3e88c",
+  "builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
+  "fixture_blob_sha": "30c27ecfdc4946cd4b9ecf3aaf0e705ffc7935a0",
   "template_blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d",
   "manifest_blob_sha": "9560308371dfa43a0d352398e5ef9abcbf8ee229",
-  "qa_contract_blob_sha": "5328fd12f919944314494107311736ff9813ad67",
-  "active_rules_blob_sha": "5115c08919adcbcd8ad4919e90f4f0ae61e45cc1",
+  "qa_contract_blob_sha": "a00b5db3c432973cbe4c743fe781c4d12375e8ef",
+  "active_rules_blob_sha": "ed9a2882dc40f1b784f98415a42aee28d2f82d67",
   "candidate_rules_blob_sha": "0d64eb9b16202d3e9e6d86a1aa87b7105843d571",
   "candidate_builder_path": "simulation-lab/runner/build_review_html.py",
-  "candidate_builder_blob_sha": "c4e6d4af88d16a693848a9742a98c9ce53c3f9aa",
+  "candidate_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "data_review_ready": true,
   "content_analysis_gate": "PASS",
   "analysis_sections_checked": [
@@ -218,17 +210,17 @@
   "builder_approval_record": {
     "decision": "APPROVED",
     "approved_builder_path": "simulation-lab/runner/build_review_html.py",
-    "approved_builder_blob_sha": "c4e6d4af88d16a693848a9742a98c9ce53c3f9aa",
+    "approved_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
     "actual_builder_path": "simulation-lab/runner/build_review_html.py",
-    "actual_builder_blob_sha": "c4e6d4af88d16a693848a9742a98c9ce53c3f9aa",
-    "active_rules_blob_sha": "5115c08919adcbcd8ad4919e90f4f0ae61e45cc1",
+    "actual_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
+    "active_rules_blob_sha": "ed9a2882dc40f1b784f98415a42aee28d2f82d67",
     "approval_basis": "Exact path and Git blob SHA matched the active SIM-1.4 §8.1 approval clause"
   },
-  "calendar_main_commit_sha": "c635797d443257fff5275f678d7a40c1a6690378",
+  "calendar_main_commit_sha": "96197b3595b412b7998ef37b3cfa6f39a495db7b",
   "calendar_current_blob_sha": "342a51861991cfaa7367d83dffa91a71f6fa7cf5",
   "calendar_previous_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
   "interaction_evidence_sha256": "4eea0bd60dc15546e85c4b9f524ebe25cda9299da789dd80a14f14c61cb419a6",
-  "visual_evidence_sha256": "3e6e429ad4291b77b5f94b132f1e445cfcf916e995dd42e452bb71414c274a7e",
+  "visual_evidence_sha256": "845973a45474ab3ab72740036084fb970c994fdaabd1a38583254393c4e1909b",
   "viewports": [
     1440,
     768,
@@ -237,16 +229,13 @@
     360,
     320
   ],
-  "workflow_run_id": "45731349178",
+  "workflow_run_id": "45736738151",
   "workflow_run_attempt": "1",
-  "review_patch": {
-    "date": "2026-11-26",
-    "scope": [
-      "Summary wording",
-      "MOVE display",
-      "MOVE pending list"
-    ],
-    "note": "Existing review HTML corrected in place; no layout or unrelated sections changed.",
-    "visual_regression_rerun": false
-  }
+  "delivery_branch": "main",
+  "delivery_path": "preview/2026-11-26-review.html",
+  "delivery_qa_path": "preview/2026-11-26-review.qa.json",
+  "delivery_receipt_path": "preview/2026-11-26-review.delivery.json",
+  "delivery_workflow_run_id": "45736738151",
+  "delivery_workflow_run_attempt": "1",
+  "delivery_trigger_commit": "e00b6546716f0a3aa7a54e0bb55693586ae3e88c"
 }
