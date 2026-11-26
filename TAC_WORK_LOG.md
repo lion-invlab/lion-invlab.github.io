@@ -3579,3 +3579,12 @@ QA Sidecar：
 - GitHub branch protection／ruleset 查詢回傳 403（Resource not accessible by integration），目前無法確認 Actions GITHUB_TOKEN 是否具有直接 push main 的權限。
 - 尚未執行新架構 full-regression 或真實資料 E2E；因此本次僅標記規格與程式已更新，不能宣稱自動 main preview 交付已端到端通過。
 - 下一步先跑不觸發正式報告的 full-regression；其後以受控完整 build 驗證 main push、Pages workflow_dispatch、公開 URL。若 main push 被保護規則拒絕，安全停止，不得 force-push 或擴大 main 寫入範圍。
+
+
+## 2026-11-26｜Stage 2 診斷 Fixture 寫入隔離修正
+
+- 修正 `simulation-lab/runner/browser_verify_market_history.py`：新增 `persist_fixture()`，所有三個 Fixture 寫入位置統一經過此函式；`--no-fixture-write` 現在會阻止截圖套用後、中間補欄後及最終回填後的 Fixture 寫入，正式模式仍保留原寫入行為。
+- 修正程式 blob SHA：`27605523180d6c2e6a1789e945002fe94f652ecb`；新增回歸斷言至 Workflow 已執行的 `test_validate_chatgpt_web_observations.py`，確認診斷模式原始 Fixture bytes 不變、正式模式仍可寫入；測試 blob SHA：`5edb84fe4f3584f3884c6bd7b780e650ffb17f8d`。
+- 修正提交：`40717acf0f31098a19af4312f02bfa556a8139e1`（寫入隔離 helper／換行序列化）；`a5aa3daad17bbc4e08afea8a6d1af03a048ab2cd`（工作流測試加入回歸斷言）。
+- 尚未執行 GitHub Actions deterministic self-tests；後續以獨立 `[full-regression]` commit 觸發測試，不啟動當日早報製作，不重抓 44 項行情。
+- main、正式首頁、Workflow mirror、Builder、母版、Manifest、行事曆 JSON 均未修改。
