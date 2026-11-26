@@ -150,10 +150,10 @@
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "PENDING_NEW_EXACT_BLOB_APPROVAL",
     "last_validation": {
-      "workflow_run_id": null,
-      "head_sha": "41815e6fe405e5b1c4bfaa0b426afbe2ee641ac2",
-      "conclusion": "PENDING_TRIGGER",
-      "scope": "Fresh Main-only validation required after closure evidence-text and screenshot-priority changes; capture/build skipped."
+      "workflow_run_id": 45903428235,
+      "head_sha": "6e2213a0a5a55214e7c213b79de74d4867cd716a",
+      "conclusion": "success",
+      "scope": "Main-only compile, SHA-locked dual mothers, Stage 2/prebuild deterministic tests, Builder/earnings deterministic tests, full candidate Builder fixtures, mother-owned DOM contract. Capture/build/schedule skipped; not real-data E2E."
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
