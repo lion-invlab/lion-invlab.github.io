@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
+from builder_approval import require_approved_builder
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
@@ -29,15 +30,10 @@ def main():
     if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    approval_path=ROOT/"production/config/builder-approval.json"
-    if not approval_path.is_file():
-        raise SystemExit("Main Builder approval record is missing; refusing production REVIEW_READY.")
-    approval=json.loads(approval_path.read_text(encoding="utf-8"))
-    actual_builder_sha=git_blob("production/runner/build_review_html.py")
-    if approval.get("status")!="APPROVED_MAIN" or approval.get("approved_by_owner") is not True:
-        raise SystemExit("Main Builder is still a candidate pending explicit owner approval; candidate validation is not production REVIEW_READY.")
-    if approval.get("builder_path")!="production/runner/build_review_html.py" or approval.get("builder_blob_sha")!=actual_builder_sha:
-        raise SystemExit("Main Builder approval does not match the exact current Builder blob SHA.")
+    try:
+        builder_approval=require_approved_builder(ROOT)
+    except (ValueError, OSError, json.JSONDecodeError) as exc:
+        raise SystemExit(str(exc))
     report_date=context["report_date"]
     if not run_dir.name.startswith(f"TAC-{report_date}-"):raise SystemExit("Stage 5 run ID/date mismatch")
     fixture=run_dir/"report-data.json"
@@ -126,6 +122,7 @@ def main():
       "main_commit_sha":context["main_commit_sha"],"mother":context["mother"],
       "manifest_sha256":context["manifest"]["sha256"],"builder_path":"production/runner/build_review_html.py",
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
+      "builder_approval":builder_approval,
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
