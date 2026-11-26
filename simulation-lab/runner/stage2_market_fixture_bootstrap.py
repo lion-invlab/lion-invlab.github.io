@@ -6,7 +6,7 @@ catalogue. All prior market prices, changes and observation evidence are removed
 the browser capture. The apply step writes only values returned by the current run.
 """
 from __future__ import annotations
-import argparse, copy, json, re
+import argparse, copy, hashlib, json, re
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
 
@@ -25,7 +25,7 @@ VALUE_KEYS = {
 }
 
 def _decimal(value):
-    text=str(value).strip().replace(",","").replace("%","").replace("+","").replace("−","-")
+    text=str(value).strip().replace(",","").replace("$","").replace("%","").replace("+","").replace("−","-")
     try: return Decimal(text)
     except (InvalidOperation, ValueError): raise ValueError(f"Not a numeric market value: {value!r}")
 
@@ -84,8 +84,18 @@ def blank_fixture(source):
             src.pop(key,None)
         src["verification_status"]="PENDING"
         src["source_page_fetched"]=False
-    data["stage2_market_bootstrap"]={"status":"BLANK_INPUT","preexisting_market_values_used":False,
-        "row_count":44,"report_date":data["report_date"],"trading_date":data["trading_date"]}
+    screenshot_rows=0; screenshot_fields=0
+    sidecar=Path(f"simulation-lab/input/market-screenshot-observations-{data['report_date']}.json")
+    if sidecar.is_file():
+        from stage2_screenshot_inputs import load_screenshot_bundle, apply_screenshot_values_to_fixture
+        inputs=load_screenshot_bundle(sidecar,data,Path.cwd())
+        apply_screenshot_values_to_fixture(data,inputs)
+        screenshot_rows=len(inputs)
+        screenshot_fields=sum(len(row.get("fields") or {}) for row in inputs.values())
+    data["stage2_market_bootstrap"]={"status":"BLANK_INPUT_WITH_SCREENSHOTS" if screenshot_rows else "BLANK_INPUT",
+        "preexisting_market_values_used":False,"screenshot_row_count":screenshot_rows,
+        "screenshot_field_count":screenshot_fields,"row_count":44,
+        "report_date":data["report_date"],"trading_date":data["trading_date"]}
     return data
 
 def _get_observation_map(payload, data):
@@ -119,6 +129,14 @@ def populate_fixture(data, payload):
                and obs.get("observed_value") is not None and obs.get("observed_change") is not None
                and (screenshot or obs.get("source_page_fetched") is True))
         if not valid:
+            if obs.get("read_status")=="MARKET_CLOSED" or obs.get("status")=="MARKET_CLOSED":
+                if group=="sectors": out["sectors"][name]="休市"
+                else:
+                    item["display"]="休市"; item["change_display"]="休市"
+                src["verification_status"]="CLOSED"
+                src["read_status"]="MARKET_CLOSED"
+                src["source_page_fetched"]=bool(obs.get("source_page_fetched"))
+                continue
             if group=="sectors": out["sectors"][name]="待核實"
             else:
                 item["display"]="待核實"; item["change_display"]="待核實"
