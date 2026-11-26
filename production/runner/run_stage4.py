@@ -44,12 +44,13 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0),TZ)
     news_counts={}
+    all_urls=set()
     for key,expected in (("focus_news",5),("headlines",10)):
         seen=set()
         for idx,item in enumerate(content[key]):
             url=item["url"]
-            if url in seen:raise ValueError(f"Duplicate URL in {key}: {url}")
-            seen.add(url)
+            if url in seen or url in all_urls:raise ValueError(f"Duplicate URL across report news sections: {url}")
+            seen.add(url);all_urls.add(url)
             published=parse_tw(item["published_at_tw"])
             if not window_start<=published<=cutoff:
                 raise ValueError(f"{key}[{idx}] published_at_tw is outside the report window: {item['published_at_tw']}")
