@@ -81,12 +81,17 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         market_status_counts[state]=market_status_counts.get(state,0)+1
     if stage2.get("market_status_counts")!=market_status_counts or stage2_summary.get("market_status_counts")!=market_status_counts:
         raise ValueError("Research bundle Stage 2 market status counts differ across receipt/summary/manifest")
-    for label,ref in (stage2.get("input_files") or {}).items():
-        input_path=root/ref.get("path","")
-        if not input_path.is_file() or sha(input_path)!=ref.get("sha256"):
+    stage2_inputs=stage2.get("input_files") or {}
+    required_stage2_inputs={"fixture","audit","manifest","observations"}
+    if not required_stage2_inputs.issubset(stage2_inputs):
+        raise ValueError("Research bundle Stage 2 receipt is missing required input SHA references")
+    for label in required_stage2_inputs:
+        ref=stage2_inputs[label]
+        if not isinstance(ref,dict) or not ref.get("path") or not ref.get("sha256"):
+            raise ValueError(f"Research bundle Stage 2 input reference is malformed: {label}")
+        input_path=root/ref["path"]
+        if not input_path.is_file() or sha(input_path)!=ref["sha256"]:
             raise ValueError(f"Research bundle Stage 2 input SHA mismatch: {label}")
-    if stage2.get("input_files",{}).get("fixture",{}).get("sha256") is None:
-        raise ValueError("Research bundle Stage 2 receipt is missing fixture SHA binding")
     snapshot_sha=market_digest(data)
     if stage2_summary.get("market_snapshot_sha256")!=snapshot_sha:
         raise ValueError("Research bundle market snapshot digest differs from Stage 2 receipt")
