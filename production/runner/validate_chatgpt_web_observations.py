@@ -20,7 +20,6 @@ from build_market_source_verification_manifest import (
 
 VALUE_FIELDS = {"Price", "Close", "收市", "收盤", "收盤價", "Score", "Current Score"}
 CHANGE_FIELDS = {"Change %", "升跌（%）", "漲跌（%）", "變動%", "Band", "Current Band"}
-CNN_ENDPOINT = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
 
 
 def expected_sources(data: dict) -> dict:
@@ -160,11 +159,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                     raw["source_role"] = "PRIMARY_AND_BACKUP_PENDING"
             raw["http_status"] = None
             raw["source_page_fetched"] = raw.get("read_status") != "TOOL_READ_FAILURE"
-            raw["provenance"] = (
-                "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION"
-                if method == "CHATGPT_WEB_SEARCH_RESULT_HISTORICAL_PAGE"
-                else "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
-            )
+            raw["provenance"] = "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
         elif method == "CNN_OFFICIAL_CURRENT_DASHBOARD":
             if group != "risk" or name != "fear_greed":
                 raise ValueError(f"{group}/{name}: CNN dashboard method is only valid for Fear & Greed")
