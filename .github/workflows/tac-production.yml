@@ -75,7 +75,7 @@ jobs:
           manifest=json.loads((root/'production/config/mother-template-manifest.json').read_text(encoding='utf-8'))
           for key, path in [('monday','production/templates/monday-mother-template.html'),('weekdays','production/templates/weekday-mother-template.html')]:
               raw=(root/path).read_bytes()
-              blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\\0'+raw).hexdigest()
+              blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\x00'+raw).hexdigest()
               expected=manifest['templates'][key]['blob_sha']
               assert blob==expected, (key,blob,expected)
           print('PASS: production mother blob SHA matches Manifest')
