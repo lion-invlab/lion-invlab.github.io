@@ -256,3 +256,16 @@ S&P 500 收盤價使用 Stage 2 已鎖定的 44 項行情資料寫入 Chart 3 �
 - SIM-1.4 規則檔內容變更會使其 Git blob SHA 改變；但 Builder approval Gate 不綁定一個固定 SIM 規則檔 SHA，而是每輪從目前有效 SIM 文字擷取核准條款，再比對 Builder 精確路徑與 Builder blob SHA。修改 Stage 2 規則不會自行撤銷已核准 Builder。
 - 已擴充 test_sim14_builder_approval.py：加入「SIM 規則文字增加 Stage 2 amendment、active_rules_blob_sha 改變，但相同 Builder path/blob SHA 仍為 APPROVED」測試。Run 45779855600 的此項測試 PASS；其餘 Stage 2 bootstrap、direct web blank input、PENDING／CLOSED、Receipt SHA 測試亦 PASS。
 - SIM 規則 SHA 更新不等於 Stage 2 Receipt SHA 更新；每輪 Receipt 仍依當輪 Fixture、Audit、Manifest、Observation 的實際內容各自計算 SHA。正式 Builder 核准仍以第 8.1 節核准的 Builder path/blob SHA 為準。
+
+
+### 2026-11-26｜第七批正式規則與回歸驗收
+
+- SIM-1.4 第 0.5.4 節已正式加入零行情值起跑、blank-first、當輪 Observation 回填、正式入口 screenshot-first、Stage 2 Receipt、PENDING／CLOSED、SHA 凍結及診斷範圍定義。
+- 最新 SIM-1.4 blob SHA：daf94617679efa74e39e576442200b90bf1423db。
+- Run 45779855600（Commit 9e0bbc963371fef5f650046ab9a057a75e7f68f8）全部步驟 success；空白 Fixture、Web Observation blank-input、PENDING／CLOSED、Stage 2 Receipt SHA、SIM 規則 SHA 更新不撤銷 Builder 核准等測試均 PASS；44 列 Observation／Manifest／Audit／Receipt 與 Artifact 上傳完成。
+- 最新 Stage 2 Receipt：PARTIAL；44 rows、43 VERIFIED、1 PENDING、0 CLOSED。batch_id f35f102abeb86cfce389df38；Receipt file SHA-256 f003c61727857f02be376f0e5a5c273ff316a96e3df636e5fb5409af45478924。
+- 最新 Artifact：ID 15097976732；SHA-256 3509a25e7b1b291ac2d5b45a83c988a60045476a0f116008e99ef5fbe318de0c。Fixture SHA f8b566aa48cbde8a5aed0df32bf3720aff0f9cf1185648ed4d1837882c2072b8；Manifest SHA 94be7a7974765a1bb415877037f6a17651c5cf542eff31df207dbde25d70d819；Observation SHA 9bd76c1b0b11392ccb66b4b9cc13f26d3553180cc90850134823439abc7803fc；Audit SHA 7003c76ce0ecd7c01c251205a45b6e98d40853e6b94856ec3722f619f91b907b。
+- 最新 Fixture 的 stage2_market_bootstrap.preexisting_market_values_used=false；MOVE close_value=null、display／change_display 均為待核實，舊截圖／OHLC metadata 均已清除。唯一 pending 原因仍是當日 MOVE 歷史頁 Observation 為 SOURCE_NO_DATA，且本輪 Sidecar 偵測為 0。
+- Run 45779855507 的 TAC isolated simulation lab workflow mirror check PASS，確認 Simulation 與 main 的 tac-simulation-lab.yml blob SHA 都是 0698f88333e29c3b7e86ee74e557fdc14b6ce429；compile／靜態檢查 PASS。未帶 [build-tac-report:YYYY-MM-DD]，因此完整早報建置依規則 SKIPPED。
+- 本次修改只在 Simulation branch 的 SIM、Runner、Tests、診斷 Workflow 與專案紀錄；main workflow mirror、main/index.html、正式母版、正式資料及每日關鍵價位程式均未修改。
+- **目前結論：** Stage 2 blank-first／apply 已在正式 Runner 入口整合，44 列 E2E 的結構與 SHA 收據流程通過；市場數值為 43 VERIFIED／1 PENDING，故整體仍是 PARTIAL，不得標記 44/44 VERIFIED 或 REVIEW_READY。
