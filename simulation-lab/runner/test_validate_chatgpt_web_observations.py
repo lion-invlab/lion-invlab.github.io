@@ -9,7 +9,7 @@ from pathlib import Path
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES
 from validate_chatgpt_web_observations import validate_bundle
-from stage2_market_fixture_bootstrap import blank_fixture
+from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -126,6 +126,11 @@ def main():
                              if x["group"] == "risk" and x["name"] == "fear_greed")
     assert blank_fear_greed["preexisting_value_comparison"] == "NOT_PERFORMED_BLANK_INPUT"
     assert blank_fear_greed["display_value_match"] is True
+    populated_blank = populate_fixture(blank_data, blank_result)
+    assert populated_blank["stage2_market_bootstrap"]["preexisting_market_values_used"] is False
+    assert populated_blank["stage2_market_bootstrap"]["verified_count"] == 43
+    assert populated_blank["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
+    assert populated_blank["global_markets"]["日經225"]["display"] == "休市"
 
     # CNN official previous_close is raw decimal precision and must match its own pinned raw value.
     cnn_official = copy.deepcopy(bundle)
