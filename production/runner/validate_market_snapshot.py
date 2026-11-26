@@ -164,8 +164,9 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
                                  f"{group}/{name}: history_close must equal displayed close")
                         _require(source.get("history_change") == item.get("change_display"),
                                  f"{group}/{name}: history_change must equal displayed change")
-                    _require(bool(item.get("contract_label")),
-                             f"{group}/{name}: selected contract label missing")
+                    if not pending_display:
+                        _require(bool(item.get("contract_label")),
+                                 f"{group}/{name}: selected contract label missing for verified quote")
                 rows.append(row)
         counts[group] = expected
 
