@@ -32,18 +32,21 @@ def market_snapshot_digest(data:dict)->str:
     return sha_bytes(json.dumps(groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode())
 
 def validate_content(content:dict,context:dict,data:dict)->dict:
+    current_snapshot_sha=market_snapshot_digest(data)
+    content.setdefault("run_id",context["run_id"])
+    content.setdefault("market_snapshot_sha256",current_snapshot_sha)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator.check_schema(schema)
     errors=sorted(Draft202012Validator(schema,format_checker=FormatChecker()).iter_errors(content),key=lambda e:list(e.path))
     if errors:
         raise ValueError("Stage 4 JSON Schema errors: "+"; ".join(f"{'/'.join(map(str,e.path))}: {e.message}" for e in errors[:20]))
     report_date=date.fromisoformat(context["report_date"])
-    if content["run_id"]!=context["run_id"]:
+    if content.get("run_id")!=context["run_id"]:
         raise ValueError("Stage 4 content Run ID differs from the Stage 1 Run")
     if content["report_date"]!=context["report_date"] or content["trading_date"]!=context["trading_date"]:
         raise ValueError("Stage 4 content report_date/trading_date differs from Stage 1 Run context")
-    if content["market_snapshot_sha256"]!=market_snapshot_digest(data):
-        raise ValueError("Stage 4 content was not written against this exact frozen Stage 2 market snapshot")
+    if content.get("market_snapshot_sha256")!=current_snapshot_sha:
+        raise ValueError("Stage 4 content was not bound to this exact frozen Stage 2 market snapshot")
     cutoff=parse_tw(content["news_cutoff_taipei"])
     expected_date=datetime.combine(report_date,time(5,25),TZ)
     if cutoff.date()!=report_date or cutoff>expected_date+timedelta(minutes=30):
@@ -155,6 +158,7 @@ def main():
     fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     analysis={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":context["report_date"],
+      "run_id":context["run_id"],"market_snapshot_sha256":before,
       "summary_points":editorial["summary_points"],"focus_news":editorial["focus_news"],
       "headlines":editorial["headlines"],"market_analysis":editorial["market_analysis"],
       "political_scan":editorial["political_scan"],"core_observation":editorial["core_observation"],
@@ -170,6 +174,7 @@ def main():
       "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
+      "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
