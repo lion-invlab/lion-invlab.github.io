@@ -85,11 +85,28 @@ def main():
     expect_error(lambda: validate_market_snapshot(contradictory_pending, "2026-11-23"),
                  "pending display cannot retain verified source status")
 
+    pending_sector = copy.deepcopy(base)
+    pending_sector["sectors"]["XLK"] = "待核實"
+    pending_sector["sector_sources"]["XLK"]["change_display"] = "待核實"
+    pending_sector["sector_sources"]["XLK"]["verification_status"] = "PENDING"
+    assert validate_market_snapshot(pending_sector, "2026-11-23")["status"] == "PASS"
+
+    contradictory_pending_sector = copy.deepcopy(pending_sector)
+    contradictory_pending_sector["sector_sources"]["XLK"]["verification_status"] = "VERIFIED"
+    expect_error(lambda: validate_market_snapshot(contradictory_pending_sector, "2026-11-23"),
+                 "pending display cannot retain verified source status")
+
+    closed_sector = copy.deepcopy(base)
+    closed_sector["sectors"]["XLK"] = "休市"
+    closed_sector["sector_sources"]["XLK"]["change_display"] = "休市"
+    closed_sector["sector_sources"]["XLK"]["verification_status"] = "CLOSED"
+    assert validate_market_snapshot(closed_sector, "2026-11-23")["status"] == "PASS"
+
     missing_etf_source = copy.deepcopy(base)
     del missing_etf_source["sector_sources"]["XLK"]
     expect_error(lambda: validate_market_snapshot(missing_etf_source, "2026-11-23"), "key mismatch")
 
-    print("PASS: 44 indicator count, common date, CFD suppression, commodity identity, pending commodity suppression and ETF source map")
+    print("PASS: 44 indicator count, common date, CFD suppression, commodity identity, pending commodity/sector suppression, closed sector state and ETF source map")
 
 
 if __name__ == "__main__":
