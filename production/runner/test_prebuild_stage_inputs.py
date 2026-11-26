@@ -13,7 +13,7 @@ from validate_market_snapshot import validate_market_snapshot
 from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_observation_bundle, validate_stage4
 from build_review_html import apply_market_source_verification_manifest
 
-FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-23.json")
+FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
 
 
 def expect_error(fn, fragment: str) -> None:
@@ -71,7 +71,7 @@ def main() -> None:
         manifest=manifest, manifest_sha256="3" * 64,
         calendar_bundle=bundle,
         repository="lion-invlab/lion-invlab.github.io",
-        branch="simulation/tac-process-lab-2026-11-06",
+        branch="main",
         workflow_run_id="45010119942", workflow_run_attempt="1",
     )
     assert pending_receipt["stage_2_market"]["source_verification_status"] == "PENDING"
@@ -190,7 +190,7 @@ def main() -> None:
         manifest=synthetic, manifest_sha256="3" * 64,
         calendar_bundle=bundle,
         repository="lion-invlab/lion-invlab.github.io",
-        branch="simulation/tac-process-lab-2026-11-06",
+        branch="main",
         workflow_run_id="45010119942", workflow_run_attempt="1",
         observation_bundle=observation_bundle,
         observation_bundle_sha256="d" * 64,
@@ -274,7 +274,7 @@ def main() -> None:
         manifest=partial, manifest_sha256="3" * 64,
         calendar_bundle=bundle,
         repository="lion-invlab/lion-invlab.github.io",
-        branch="simulation/tac-process-lab-2026-11-06",
+        branch="main",
         workflow_run_id="45010119942", workflow_run_attempt="1",
     )
     assert partial_receipt["status"] == "PASS"
@@ -314,7 +314,7 @@ def main() -> None:
         data=data, fixture_sha256="1" * 64, audit=audit, audit_sha256="2" * 64,
         manifest=synthetic, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_commit,
         repository="lion-invlab/lion-invlab.github.io",
-        branch="simulation/tac-process-lab-2026-11-06",
+        branch="main",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
         "previous calendar commit is not the pinned main commit")
 
@@ -324,7 +324,7 @@ def main() -> None:
         data=data, fixture_sha256="1" * 64, audit=audit, audit_sha256="2" * 64,
         manifest=synthetic, manifest_sha256="3" * 64, calendar_bundle=wrong_calendar_path,
         repository="lion-invlab/lion-invlab.github.io",
-        branch="simulation/tac-process-lab-2026-11-06",
+        branch="main",
         workflow_run_id="45010119942", workflow_run_attempt="1"),
         "calendar path is not the canonical ISO-week database path")
 
