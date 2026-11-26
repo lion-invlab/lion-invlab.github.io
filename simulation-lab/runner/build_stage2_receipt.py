@@ -76,16 +76,19 @@ def validate_inputs(data,audit,manifest,observations,report_date):
         if obs.get("source_url")!=src.get("url") or mr.get("source_url")!=src.get("url"):
             raise ValueError(f"{group}/{name}: source URL differs across fixture/observation/manifest")
         if mr.get("trading_date")!=trading_date: raise ValueError(f"{group}/{name}: manifest trading date mismatch")
-        record=mr.get("browser_observation_record") or {}
-        if mr.get("observation_record_sha256")!=canonical_sha(record):
-            raise ValueError(f"{group}/{name}: manifest record SHA mismatch")
-        if record.get("source_url")!=obs.get("source_url") or record.get("data_date")!=trading_date:
-            raise ValueError(f"{group}/{name}: manifest record does not bind to observation")
-        if num(record.get("observed_value"))!=num(obs.get("observed_value")):
-            raise ValueError(f"{group}/{name}: manifest observed value differs from observation bundle")
-        if num(record.get("observed_change"))!=num(obs.get("observed_change")) and str(record.get("observed_change"))!=str(obs.get("observed_change")):
-            raise ValueError(f"{group}/{name}: manifest observed change differs from observation bundle")
+        record=mr.get("browser_observation_record")
         status=mr.get("verification_status")
+        if record is not None:
+            if mr.get("observation_record_sha256")!=canonical_sha(record):
+                raise ValueError(f"{group}/{name}: manifest record SHA mismatch")
+            if record.get("source_url")!=obs.get("source_url") or record.get("data_date")!=trading_date:
+                raise ValueError(f"{group}/{name}: manifest record does not bind to observation")
+            if num(record.get("observed_value"))!=num(obs.get("observed_value")):
+                raise ValueError(f"{group}/{name}: manifest observed value differs from observation bundle")
+            if num(record.get("observed_change"))!=num(obs.get("observed_change")) and str(record.get("observed_change"))!=str(obs.get("observed_change")):
+                raise ValueError(f"{group}/{name}: manifest observed change differs from observation bundle")
+        elif status in ("VERIFIED","BACKUP_VERIFIED") or mr.get("observation_record_sha256") is not None:
+            raise ValueError(f"{group}/{name}: verified manifest row is missing its observation record")
         if obs.get("status")=="VERIFIED":
             if status not in ("VERIFIED","BACKUP_VERIFIED"): raise ValueError(f"{group}/{name}: verified observation not verified in manifest")
             if src.get("verification_status") not in ("VERIFIED","BACKUP_VERIFIED"):
