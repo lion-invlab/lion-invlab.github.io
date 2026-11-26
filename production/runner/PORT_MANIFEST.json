@@ -165,7 +165,7 @@
     {
       "file": "test_prepare_stage4_research_bundle.py",
       "purpose": "test Run binding, screenshot sidecar/image SHA and cross-Run rejection",
-      "main_blob_sha": "16bf87ce6c2a237c5e59a8e6fda9c75972f301f2",
+      "main_blob_sha": "89fa02b4ce47ea610e79f8715debe46487d4df2a",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
