@@ -148,6 +148,10 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         row["market_data_status"]=receipt_rows[key]["market_data_status"]
         row["stage2_verification_status"]=receipt_rows[key]["status"]
         if row["stage2_verification_status"] == "CLOSED":
+            # Bind closure evidence to this exact row; never reuse the final
+            # manifest/receipt loop variables from the earlier count pass.
+            manifest_row=manifest_rows[key]
+            receipt_row=receipt_rows[key]
             browser_record=manifest_row.get("browser_observation_record") or {}
             closure={
                 "url":browser_record.get("closure_evidence_url"),
