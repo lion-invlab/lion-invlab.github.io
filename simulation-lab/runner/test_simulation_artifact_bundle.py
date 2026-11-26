@@ -135,7 +135,7 @@ def main() -> None:
         assert "GITHUB_RUN_ID" in block or name == names[-1], f"{name} must be scoped to the current workflow run"
     assert "gh run download" in workflow
     assert "audit_simulation_artifact_bundle.py" in workflow
-    assert "tac-simulation-postupload-audit-" in workflow
+    assert "tac-build-postupload-audit-" in workflow
     assert 'echo "SIM_CHECKOUT_COMMIT=$(git rev-parse HEAD)"' in workflow
     assert 'echo "SIM_TRIGGER_COMMIT=$GITHUB_SHA"' in workflow
     assert 'echo "commit=$(git rev-parse HEAD)"' in workflow
