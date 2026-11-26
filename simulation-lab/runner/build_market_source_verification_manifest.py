@@ -382,7 +382,8 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
                 if expected_url is None or source.get("url") != expected_url:
                     raise ValueError(f"{name}: primary source must be the specified Investing.com historical-data URL")
             cross_check = source.get("cross_check") or {}
-            verification = verification_fields(source, item.get("display"), item.get("change_display"), browser_observations.get((group, name)), group, name)
+            observation = browser_observations.get((group, name)) or {}
+            verification = verification_fields(source, item.get("display"), item.get("change_display"), observation, group, name)
             rows.append({
                 "group": group,
                 "name": name,
@@ -393,6 +394,12 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
                 "source_name": source.get("name"),
                 "source_url": source.get("url"),
                 "source_role": "PRIMARY" if group == "bonds" else source.get("source_role", "PRIMARY_AS_CONFIGURED"),
+                "evidence_source_url": observation.get("evidence_source_url") or observation.get("attempt_url") or source.get("url"),
+                "evidence_source_role": observation.get("source_role") or source.get("source_role", "PRIMARY_AS_CONFIGURED"),
+                "source_read_status": observation.get("read_status"),
+                "source_page_title": observation.get("page_title"),
+                "source_instrument_identity": observation.get("instrument_identity"),
+                "source_attempts": observation.get("attempt_history") or [],
                 "cross_check_name": cross_check.get("name"),
                 "cross_check_url": cross_check.get("url"),
                 "cross_check_role": cross_check.get("role"),
