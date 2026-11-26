@@ -110,8 +110,8 @@ def main():
     fixture_path=run_dir/"report-data.json"
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
     stage3_receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
-    if stage2_receipt.get("run_id") not in (context.get("workflow_run_id"),context.get("run_id")):
-        raise ValueError("Stage 2 receipt run identity mismatch")
+    if stage2_receipt.get("workflow_run_id") not in (context.get("workflow_run_id"),context.get("run_id")):
+        raise ValueError("Stage 2 receipt workflow_run_id does not match this Run")
     if stage3_receipt.get("run_id")!=context.get("run_id"):
         raise ValueError("Stage 3 receipt run identity mismatch")
     content_path=Path(args.content) if args.content else ROOT/f"production/input/report-content-{context['report_date']}.json"
