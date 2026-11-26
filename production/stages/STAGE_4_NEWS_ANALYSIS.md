@@ -1,7 +1,7 @@
 # Stage 4｜新聞與市場分析
 
 ## 輸入
-Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及其 SHA receipt、核准新聞來源及台灣時間截稿窗口。
+Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及其 SHA receipt、核准新聞來源及台灣時間截稿窗口。編輯內容 JSON 必須攜帶 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三個必填綁定欄位；Stage 4 必須重新計算研究包 SHA，與 receipt 及內容逐一比對。
 
 ## 新聞
 - Global Focus News 目標 5 則，主要來自鉅亨網及 Investing.com，聚焦總體經濟、政策與全球宏觀事件。
