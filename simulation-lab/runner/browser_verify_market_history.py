@@ -617,6 +617,11 @@ def _apply_screenshot_fields(row, observation, screenshot):
 
     page_value=observation.get("observed_value")
     page_change=observation.get("observed_change")
+    tradingview_move=(row["group"]=="risk" and row["name"]=="move" and
+                      (observation.get("source_role")=="BACKUP_1" or
+                       observation.get("evidence_source_url")=="https://www.tradingview.com/symbols/ICE-MOVE/"))
+    page_source_type="TRADINGVIEW_HISTORICAL_PAGE" if tradingview_move else "INVESTING_HISTORICAL_PAGE"
+    page_source_url=observation.get("data_endpoint_url") or observation.get("evidence_source_url") or observation.get("attempt_url") or row["source_url"]
     if value_key in fields:
         observation["observed_value"]=fields[value_key]["value"]
         observation["observed_value_field"]=fields[value_key]["field_name"]
@@ -626,7 +631,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     else:
         observation["observed_value_key"]=value_key
         evidence[value_key]={
-            "source_type":"CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE","source_url":observation.get("data_endpoint_url") or row["source_url"],
+            "source_type":"CNN_OFFICIAL_API" if is_fg else page_source_type,"source_url":page_source_url,
             "field_name":observation.get("observed_value_field"),
             "value":page_value,"observed_at":observation.get("finished_at_tw"),
         }
@@ -641,7 +646,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
     else:
         observation["observed_change_key"]=change_key
         evidence[change_key]={
-            "source_type":"INVESTING_HISTORICAL_PAGE","source_url":observation.get("data_endpoint_url") or row["source_url"],
+            "source_type":page_source_type,"source_url":page_source_url,
             "field_name":observation.get("observed_change_field"),
             "value":page_change,"observed_at":observation.get("finished_at_tw"),
         }
