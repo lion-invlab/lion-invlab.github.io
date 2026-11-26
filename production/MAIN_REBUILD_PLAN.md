@@ -334,3 +334,35 @@
 - 因此，Main Stage 2 提交 S&P 500 ledger 的一般資料 push **不會單憑該資料路徑觸發**這支 FRED workflow；先前將它描述成會由 ledger push 直接觸發，並無 YAML 證據，予以撤回。
 - 仍保留一項較窄的檢查：該 workflow 的 stage 範圍是整個 `data/tac-chart3`，R0/R1 需確認乾淨 checkout 下只有 FRED/ALFRED 程式修改其系列檔，並核對與 S&P500 merge writer 的 branch push 競爭控制；目前沒有證據顯示它會主動改寫 S&P500 ledger。
 
+
+
+### I. Main-native 修正與驗證進度｜2026-11-27
+
+#### I1. Builder 核准狀態文件一致化
+- `production/config/builder-approval.json` 已保留既有 Owner 核准事實：`APPROVED_MAIN`、exact Builder blob `20eefe57d6f3b389157c01b8532cae3a69128a02`、核准時間 2026-11-26 21:29:30 +08:00；只修正 validation limitation 的矛盾文字，明確指出 capture/build 未執行，故不構成真實 E2E。
+- `production/runner/PORT_MANIFEST.json` 與 `production/runner/README.md` 已同步為 `APPROVED_MAIN`。核准只涵蓋精確 Builder blob，不代表 Stage 5/6 或真實資料 E2E 通過。
+- `production/stages/STAGE_5_RENDER_QA.md` 已更新 exact Main Builder 核准說明，保留任何 Builder blob 變更必須重新核准的 gate。
+- Main-only validation Runs `45900415778`、`45900427665` 均 success；兩次的 capture/build jobs 均 skipped，故只證明 validate scope 通過。
+
+#### I2. 母版 QA 契約切離 Simulation runtime
+- `production/contracts/MOTHER_TEMPLATE_QA.md` 升為 v1.29：執行期依賴改為 Main `MASTER_WR`、Main mother Manifest、`production/templates/`；SIM-1.4 pinned source baseline 僅供技術沿革／比對，不再要求每日讀取 Simulation branch。
+- A2.1 兩份模板路徑與 SHA 改為 Main 執行路徑及 Main Manifest SHA；明文禁止每日 QA checkout、讀取或修改 Simulation branch。
+- Simulation branch 與 Simulation workflow 未修改。
+
+#### I3. Stage 2 休市證據與呈現修正
+- `stage2_market_fixture_bootstrap.py` 現在只有在 `read_status=MARKET_CLOSED` 且同時具備日期吻合的官方交易日曆證據（OFFICIAL、HTTPS URL、指定 trading date、非空 evidence）時才輸出 CLOSED。
+- 只回傳 MARKET_CLOSED 字串、或歷史表格缺少該日資料，不能直接推定休市；未達證據條件者保留 PENDING。
+- 確認休市時，非 sector 行情的數值欄輸出 `-`、變動欄輸出 `休市`，不再兩欄都寫休市；sector 單一變動欄保留休市狀態。
+- Observation schema 已加入官方日曆證據欄位；Stage 2 WR 與 Runner README 已同步規定。
+- 新增正向／負向測試：沒有官方日曆證據不得標 CLOSED；有正式證據時檢查顯示欄位。此批修改的最新完整 CI 尚待回報；不可先標 PASS。
+
+#### I4. 仍需處理的 Stage 2 日期模型缺陷
+- `create_run_fixture.py` 目前以 `last_nyse_session(report_date)` 得出單一 trading_date，並將該日期寫入全球 17 指數、11 個產業 ETF、債券、FX、能源、金屬及風險指標所有列。
+- 這會把 NYSE 交易日曆錯誤套用到東京、首爾、台灣、澳洲、歐洲及其他不同交易日曆的市場；遇到當地假日／時差或非同步收盤時，資料日期會錯配。
+- 尚未修改。下一步需從 44 項 Manifest 的商品／交易所欄位建立逐列 calendar mapping；每列獨立解析該市場最近已完成交易日，並在 Stage 2 Observation、Fixture、receipt、Builder 中保留 row-level trading_date。不能只把日期計算函式換成另一個單一市場日曆。
+- 只有官方交易日曆能證明 CLOSED；缺少目標日期資料而無正式假日證據時，必須保留 SOURCE_NO_DATA／PENDING，不能用「前一筆日期」推斷休市。
+
+#### I5. 驗證及安全邊界
+- 最新 Stage 2 closure patch 觸發 Main CI Run `45900637416`（截至本紀錄仍 in_progress）；之後的 manifest／README commits 亦觸發後續 validation runs，需以最新 HEAD 對應 run 的完整步驟結果作為判定。
+- Main Workflow 的 validate 不執行 capture/build；所有本輪驗證成功均不可等同真實 44 項擷取、Stage 4–6、Pages 預覽交付或 E2E。
+- 未改動 tac-production cron、Stage 4 automation、Simulation branch/workflows、正式首頁 `index.html`、preview 交付檔、calendar DB 或 Chart 3 歷史資料。
