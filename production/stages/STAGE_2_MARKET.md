@@ -22,3 +22,12 @@ market fixture、44-row Observation bundle、source manifest、metadata audit、
 
 ## 截圖 sidecar 必要欄位
 固定路徑：`production/input/market-screenshot-observations-YYYY-MM-DD.json`；原始圖片封存於 `production/input/screenshots/YYYY-MM-DD/`。JSON 根層欄位為 `report_date`、`trading_date`、`observations`。每筆 observation 含 `group`、`name`、`data_date`、`source_url`、`instrument_identity`、`fields`。fields 是欄位名稱對應物件，key 限 `close`、`change`、`open`、`high`、`low`、`score`、`band`；每個欄位物件必含 `value`、`field_name`、`evidence_path`、`evidence_sha256`、`captured_at`，可含 `quote_timestamp`。source_url 必須與該 fixture 指標來源 URL 完全一致；data_date 必須等於 trading_date。圖片 SHA-256 由 Runner 重新計算；不得只填看似有效的 SHA 字串。聊天附件不會自動出現在 GitHub Runner checkout，必須先封存原圖與 sidecar 才能由排程讀取。
+
+
+## 官方休市 Observation 證據契約（Main）
+- 44 項行情的 `target_date` 統一等於本次 Run 的 `trading_date`；例如 2026-11-27 早報全部查 2026-11-26。不得按市場分別退回最近有資料日期。
+- 歷史頁沒有目標日期列時，先記錄 `SOURCE_NO_DATA`；只有進一步取得官方市場行事曆證據才可改為 `MARKET_CLOSED`。
+- `MARKET_CLOSED` Observation 必須使用同一組可回查欄位：`source_page_fetched=true`、`source_url`、`target_date`、`instrument_identity_status=VERIFIED`、`field_mapping_status=VERIFIED`、`closure_evidence_url`、`closure_evidence_reader_ref`、`closure_evidence_line_start/end`、`provenance=CURRENT_CHATGPT_WEB_OPEN_OBSERVATION`、`read_method=CHATGPT_WEB_OPEN_HISTORICAL_PAGE`、`prior_observation_reused=false`、`finished_at_utc`。
+- `closure_evidence_url` 必須為官方交易所／官方市場營運機構網域；頁面缺列、任意 HTTPS、非官方內容或沒有當次瀏覽器 reader 行號，均不得標 CLOSED。
+- Fixture bootstrap 與 Source Verification Manifest 必須採用同一套 `closure_evidence_*` 欄位，不得一端要求 `market_calendar_*` 別名而另一端只產生 `closure_evidence_*`。
+- Schema 已列明上述欄位；測試需涵蓋無證據、非官方網域及完整官方證據三種情境。
