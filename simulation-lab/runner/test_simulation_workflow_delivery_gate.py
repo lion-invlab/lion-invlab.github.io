@@ -109,3 +109,5 @@ print("PASS: existing GitHub Pages workflow is dispatched and the public preview
 # Full regression keeps synthetic candidate checks separate from report-only QA.
 
 # Regression guard: the former optional raw-page recapture must stay out of the daily pipeline.
+
+# Re-run the synthetic-only full regression after production-only step condition repair.
