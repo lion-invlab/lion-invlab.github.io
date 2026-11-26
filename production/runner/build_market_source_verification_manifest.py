@@ -207,7 +207,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     )
     is_fear_greed = group == "risk" and name == "fear_greed"
     mixed_page_source_types = (
-        {"CNN_OFFICIAL_API"} if is_fear_greed else
+        {"CNN_OFFICIAL_CURRENT_DASHBOARD"} if is_fear_greed else
         ({"INVESTING_HISTORICAL_PAGE", "TRADINGVIEW_HISTORICAL_PAGE"}
          if group == "risk" and name == "move" else {"INVESTING_HISTORICAL_PAGE"})
     )
@@ -235,33 +235,24 @@ def verification_fields(source: dict, display, change_display, observation: dict
     change_field = str(observation.get("observed_change_field") or "")
     is_fear_greed = group == "risk" and name == "fear_greed"
     is_cnn_official = is_fear_greed and (
-        read_method == "CNN_OFFICIAL_PREVIOUS_CLOSE"
-        or provenance == "CURRENT_CNN_OFFICIAL_API_OBSERVATION"
+        read_method == "CNN_OFFICIAL_CURRENT_DASHBOARD"
+        or provenance == "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION"
     )
     fear_greed_backup = (
         is_fear_greed
-        and source.get("source_role") in ("BACKUP_1", "BACKUP", "SECONDARY")
+        and source.get("source_role") in ("BACKUP_1", "BACKUP_2", "BACKUP", "SECONDARY")
         and not is_cnn_official
     )
     screenshot_fear_greed = is_fear_greed and (user_screenshot_ok or mixed_field_observation_ok)
     if screenshot_fear_greed:
         field_ok = (
-            value_field in ("Score", "fear_and_greed.previous_close", "fear_and_greed.target_date_score")
-            and change_field in ("Band", "derived_from_fear_and_greed.previous_close_using_cnn_bands", "fear_and_greed.target_date_rating")
+            value_field in ("Score", "Current Score")
+            and change_field in ("Band", "Current Band")
         )
     elif is_fear_greed and fear_greed_backup:
         field_ok = value_field == "Score" and change_field == "Band"
     elif is_fear_greed:
-        field_ok = (
-            (
-                value_field == "fear_and_greed.previous_close"
-                and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
-            )
-            or (
-                value_field == "fear_and_greed.target_date_score"
-                and change_field == "fear_and_greed.target_date_rating"
-            )
-        )
+        field_ok = value_field == "Current Score" and change_field == "Current Band"
     else:
         field_ok = (
             value_field in ("Price", "Close", "收市", "收盤", "收盤價")
@@ -289,8 +280,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
     current_provenance = provenance in (
         "CURRENT_RUN_BROWSER_OBSERVATION",
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
-        "CURRENT_CHATGPT_WEB_SEARCH_RESULT_OBSERVATION",
-        "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION",
         "CURRENT_USER_PROVIDED_SCREENSHOT",
         "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
         "SYNTHETIC_TEST_ONLY",
