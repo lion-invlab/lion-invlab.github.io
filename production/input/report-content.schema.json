@@ -301,7 +301,31 @@
     "pending_items": {
       "type": "array",
       "items": {
-        "type": "string"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "required": [
+              "item",
+              "status",
+              "reason"
+            ],
+            "properties": {
+              "item": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
       }
     },
     "news_window_taipei": {
