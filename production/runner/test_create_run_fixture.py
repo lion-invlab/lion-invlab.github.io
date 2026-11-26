@@ -26,6 +26,10 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertEqual(len(data["global_markets"]),17)
         self.assertEqual(len(data["sectors"]),11)
         self.assertEqual(result["run_context"]["mother"]["key"],"weekdays")
+        governance=result["run_context"]["governance"]
+        self.assertEqual(governance["commit_sha"],result["run_context"]["main_commit_sha"])
+        self.assertIn("production/config/builder-approval.json",governance["blob_shas"])
+        self.assertIn("production/runner/run_stage5.py",governance["blob_shas"])
 
     def test_rejects_weekend_report_date(self):
         with self.assertRaises(ValueError):
