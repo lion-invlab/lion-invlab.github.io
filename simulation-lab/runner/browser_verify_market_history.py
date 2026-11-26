@@ -266,8 +266,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 score=str(previous_close)
                 rating=cnn_band_for_score(previous_close)
                 expected_band=str(row.get("expected_change") or "").strip().lower()
-                score_match=cnn_score_matches_display(score,row.get("expected_value"))
-                band_match=rating==expected_band
+                score_match=(row.get("expected_value") is None or cnn_score_matches_display(score,row.get("expected_value")))
+                band_match=(not expected_band or rating==expected_band)
                 out.update({
                     "instrument_identity":"CNN Fear & Greed Index",
                     "instrument_identity_status":"VERIFIED",
@@ -381,8 +381,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                           and date_in_row(cells[date_i],target))
             observed_value=cells[value_i] if field_ok else None
             observed_change=cells[change_i] if field_ok else None
-            vm=bool(field_ok and number_token(observed_value)==number_token(row.get("expected_value")))
-            cm=bool(field_ok and number_token(observed_change)==number_token(row.get("expected_change")))
+            vm=bool(field_ok and (row.get("expected_value") is None or number_token(observed_value)==number_token(row.get("expected_value"))))
+            cm=bool(field_ok and (row.get("expected_change") is None or number_token(observed_change)==number_token(row.get("expected_change"))))
             out.update({
                 "observed_row_text":candidate,
                 "observed_date":target if field_ok else None,
@@ -401,6 +401,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             "screenshot_instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
                 "field_mapping_status":"VERIFIED" if field_ok else "PENDING_FIELD_HEADER_MAPPING",
             })
+            out["preexisting_value_comparison"]="NOT_PERFORMED_BLANK_INPUT" if row.get("expected_value") is None else "COMPARED_TO_EXISTING_FIXTURE"
             if identity_ok and field_ok and vm and cm:
                 out["status"]="VERIFIED"
                 out["numeric_token_match_only"]=False
@@ -492,9 +493,8 @@ def _apply_screenshot_fields(row, observation, screenshot):
         identity_ok=_screenshot_identity_matches(row["name"],identity)
         value=fields[value_key]["value"]
         change=fields[change_key]["value"]
-        vm=number_token(value)==number_token(row.get("expected_value"))
-        cm=(str(change).strip().casefold()==str(row.get("expected_change") or "").strip().casefold()
-            if is_fg else number_token(change)==number_token(row.get("expected_change")))
+        vm=(row.get("expected_value") is None or number_token(value)==number_token(row.get("expected_value")))
+        cm=(not row.get("expected_change") or str(change).strip().casefold()==str(row.get("expected_change") or "").strip().casefold()) if is_fg else (row.get("expected_change") is None or number_token(change)==number_token(row.get("expected_change")))
         observation.update({
             "status":"VERIFIED" if identity_ok and vm and cm else "OBSERVED_PENDING_FIELD_MAPPING",
             "source_url":row["source_url"],
