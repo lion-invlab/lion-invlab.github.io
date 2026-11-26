@@ -1,6 +1,6 @@
 # Stage 4 editorial content handoff
 
-The scheduled TAC content-research step writes one report-date input file:
+The scheduled TAC content-research step writes one report-date input file. It must include the exact Stage 1 `run_id` and the `market_snapshot_sha256` printed in that Run's `stage2-run-summary.json`; Stage 4 refuses content from any other Run or changed market snapshot.
 
 `production/input/report-content-YYYY-MM-DD.json`
 
