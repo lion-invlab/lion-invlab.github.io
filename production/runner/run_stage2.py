@@ -53,10 +53,24 @@ def main():
     manifest_path=run_dir/"market-source-verification-manifest.json"
     receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     started=time.monotonic()
-    browser=run([sys.executable,str(RUNNER/"browser_verify_market_history.py"),
-        "--fixture",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
-        "--output",str(observations_path.relative_to(ROOT)),
-        "--timeout-ms",str(args.timeout_ms),"--concurrency",str(args.concurrency)])
+    web_bundle=ROOT/f"production/input/market-history-web-observations-{report_date}.json"
+    cnn_observation=ROOT/f"production/input/cnn-fear-greed-observation-{report_date}.json"
+    input_mode="PLAYWRIGHT_BROWSER_FALLBACK"
+    if web_bundle.is_file():
+        if not cnn_observation.is_file():
+            cnn_observation=run_dir/"cnn-observation-empty.json"
+            cnn_observation.write_text(json.dumps({"observations":[]},ensure_ascii=False)+"\n",encoding="utf-8")
+        run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
+            "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
+            "--input",str(web_bundle.relative_to(ROOT)),
+            "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
+            "--output",str(observations_path.relative_to(ROOT))])
+        input_mode="CHATGPT_WEB_DIRECT_PAGE_OBSERVATIONS"
+    else:
+        run([sys.executable,str(RUNNER/"browser_verify_market_history.py"),
+            "--fixture",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
+            "--output",str(observations_path.relative_to(ROOT)),
+            "--timeout-ms",str(args.timeout_ms),"--concurrency",str(args.concurrency)])
     audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--output",str(audit_path.relative_to(ROOT))])
@@ -95,7 +109,8 @@ def main():
       "schema_version":"1.0","stage":"STAGE_2_MARKET",
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
       "run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
-      "concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
+      "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
+      "web_observation_bundle_sha256":__import__("hashlib").sha256(web_bundle.read_bytes()).hexdigest() if web_bundle.is_file() else None,
       "historical_page_read_count":observations.get("historical_page_read_count"),
       "screenshot_only_count":observations.get("screenshot_only_count"),
       "mixed_field_count":observations.get("mixed_field_count"),
