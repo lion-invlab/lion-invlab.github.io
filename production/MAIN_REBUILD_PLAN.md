@@ -446,3 +446,11 @@
 - 最新程式 blobs：bootstrap `4557c95c5ee8041231116ce937f784786d6f1076`；Receipt `239f9e6aa028a159791b5f63d50b2b8b02afd03a`；Pre-build `7ef4e3c8b4d8cc62650a3b2ae06bf91587733283`；Builder `3e5a971d6d0a3ad3d41881b542580308276021f9`；Stage 4 `2c07c18f3885f82dbec2aab0dba8b17566ae93ef`；PORT_MANIFEST 最新同步 commit `63faddc`。
 - 最新測試 blobs：bootstrap `32c1515ad6d005404091eb055a130dfe0066190f`；Manifest `a67265b5940c06c73020b6668afce259c095b46f`；Pre-build `8752971e73129a8042d80ca1046a3a11ec65a6cb`。
 - 尚未取得這批最新 commits 的 CI 結果；尚未完成真實 browser run。Builder 新 blob 仍待精確 SHA 核准，不得沿用舊 blob 核准。
+
+
+## 2026-11-27 續修：Stage 4 逐列休市證據與截圖優先權
+- 回讀 Stage 4 實際程式發現 CLOSED row handoff 使用了前一段統計迴圈殘留的 `manifest_row`、`receipt_row`，而非當前 row key；已修正為以 `manifest_rows[key]`、`receipt_rows[key]` 精確綁定，避免證據錯列。
+- Stage 2 bootstrap 新增截圖優先權保護：當 observation 由使用者截圖提供，或欄位證據含 USER_PROVIDED_SCREENSHOT 時，不得進入 CLOSED 分支覆蓋截圖行情。
+- Main blobs：`prepare_stage4_research_bundle.py` `f051f79fcdf1f49f98fdaf5f8de8589f79f37969`；`stage2_market_fixture_bootstrap.py` `870ed3bbaf84bb04c095a4ec7942723f76bfa05f`；PORT_MANIFEST `2fca6cdbdbd7d42d12e5e8ffc44ce91f253c7754`。
+- CI：Stage 4 修正 commit 的 Run `45903290060` 啟動時仍在安裝依賴；後續 bootstrap／Manifest commits 會觸發更新的 Main validation。尚未取得涵蓋最新 HEAD 的完成結果，不標記 PASS。
+- 尚待：為 Stage 4 增加 CLOSED row 正反向整合測試；為 Stage 2 增加截圖不被 CLOSED 覆蓋的回歸測試；回讀最新 Main CI；確認 Builder 新 blob 的 exact approval gate 維持 fail-closed。未修改 Simulation、排程、正式首頁或真實行情資料。
