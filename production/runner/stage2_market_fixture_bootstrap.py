@@ -225,21 +225,21 @@ def populate_fixture(data, payload):
         else:
             src["verification_status"]="BACKUP_VERIFIED" if backup_verified else "VERIFIED"
             if group=="risk" and name=="fear_greed":
-            if obs.get("source_url") in (src.get("approved_primary_urls") or []):
-                src["name"]="CNN Business Fear & Greed Index"
-                src["url"]=obs.get("source_url")
-                src["source_role"]="PRIMARY"
-                src["quote_type"]="cnn_fear_greed_current_score"
-                src["instrument_identity"]="CNN Fear & Greed Index"
-            elif obs.get("source_url") in (src.get("approved_backup_urls") or []):
-                src["url"]=obs.get("source_url")
-                src["source_role"]="BACKUP_1" if "fgscore.com" in obs.get("source_url","") else "BACKUP_2"
-                src["quote_type"]="third_party_provider_index"
-                src["instrument_identity"]="CNN Fear & Greed Index provider score"
-                src["name"]="FGScore | CNN Provider Index" if "fgscore.com" in obs.get("source_url","") else "Financial Context | CNN Provider Index"
-        src["source_role"]=obs.get("source_role") or src.get("source_role") or "PRIMARY"
+                if obs.get("read_method")=="CNN_OFFICIAL_CURRENT_DASHBOARD":
+                    src["name"]="CNN Business Fear & Greed Index"
+                    src["url"]=obs.get("source_url")
+                    src["source_role"]="PRIMARY"
+                    src["quote_type"]="cnn_fear_greed_current_score"
+                    src["instrument_identity"]="CNN Fear & Greed Index"
+                elif obs.get("read_method")=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
+                    src["url"]=obs.get("source_url")
+                    src["source_role"]="BACKUP_1"
+                    src["quote_type"]="third_party_provider_index"
+                    src["instrument_identity"]="CNN Fear & Greed Index provider score"
+                    src["name"]="FGScore | CNN Provider Index" if "fgscore.com" in obs.get("source_url","") else "Financial Context | CNN Provider Index"
+            src["source_role"]=obs.get("source_role") or src.get("source_role") or "PRIMARY"
             if backup_verified:
-                src["verified_source_role"]="BACKUP_1"
+                src["verified_source_role"]=obs.get("source_role") or "BACKUP_1"
                 src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
         src["data_date"]=out["trading_date"]
         src["checked_at_tw"]=obs.get("finished_at_tw") or obs.get("captured_at_taipei")
