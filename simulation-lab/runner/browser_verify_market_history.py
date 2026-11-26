@@ -398,6 +398,7 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                 "display_change_match":cm,
                 "instrument_identity":matched_identity,
                 "instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "screenshot_instrument_identity_status":"VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
                 "field_mapping_status":"VERIFIED" if field_ok else "PENDING_FIELD_HEADER_MAPPING",
             })
             if identity_ok and field_ok and vm and cm:
@@ -461,6 +462,7 @@ def _apply_screenshot_fields(row, observation, screenshot):
         return observation
     fields=screenshot["fields"]
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
+    screenshot_identity_ok=_screenshot_identity_matches(row["name"],screenshot.get("instrument_identity"))
     value_key="score" if is_fg else "close"
     change_key="band" if is_fg else "change"
     evidence={}
@@ -475,7 +477,9 @@ def _apply_screenshot_fields(row, observation, screenshot):
             "value":item["value"],
         }
 
-    page_ok=(observation.get("source_page_fetched") is True
+    page_ok=(screenshot_identity_ok
+             and observation.get("source_page_fetched") is True
+             and observation.get("instrument_identity_status")=="VERIFIED"
              and observation.get("field_mapping_status")=="VERIFIED"
              and observation.get("observed_value") is not None
              and observation.get("observed_change") is not None)
