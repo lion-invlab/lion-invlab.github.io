@@ -655,6 +655,8 @@ def main():
     ap.add_argument("--output",required=True); ap.add_argument("--timeout-ms",type=int,default=15000)
     ap.add_argument("--concurrency",type=int,default=2)
     ap.add_argument("--screenshot-bundle", help="Date-matched SHA-locked screenshot sidecar JSON; defaults to simulation-lab/input/market-screenshot-observations-REPORT_DATE.json")
+    ap.add_argument("--no-fixture-write", action="store_true",
+                    help="Emit observations without writing populated values back to the input fixture")
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
     a=ap.parse_args()
     if not 1<=a.concurrency<=12: raise SystemExit("--concurrency must be between 1 and 12")
@@ -730,11 +732,13 @@ def main():
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     result["bundle_sha256"]=hashlib.sha256(out.read_bytes()).hexdigest()
-    populated=populate_fixture(data,result)
-    fixture_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps({"output":str(out),"fixture_output":str(fixture_path),
-        "status_counts":counts,"row_count":len(observations),
-        "verified_count":populated["stage2_market_bootstrap"]["verified_count"],
-        "pending_count":populated["stage2_market_bootstrap"]["pending_count"],
-        "preexisting_market_values_used":False},ensure_ascii=False))
+    summary={"output":str(out),"status_counts":counts,"row_count":len(observations),
+        "preexisting_market_values_used":False}
+    if not a.no_fixture_write:
+        populated=populate_fixture(data,result)
+        fixture_path.write_text(json.dumps(populated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        summary.update({"fixture_output":str(fixture_path),
+            "verified_count":populated["stage2_market_bootstrap"]["verified_count"],
+            "pending_count":populated["stage2_market_bootstrap"]["pending_count"]})
+    print(json.dumps(summary,ensure_ascii=False))
 if __name__=="__main__": main()
