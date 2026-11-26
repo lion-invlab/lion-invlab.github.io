@@ -147,6 +147,30 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
         key=(row["group"],row["name"])
         row["market_data_status"]=receipt_rows[key]["market_data_status"]
         row["stage2_verification_status"]=receipt_rows[key]["status"]
+        if row["stage2_verification_status"] == "CLOSED":
+            browser_record=manifest_row.get("browser_observation_record") or {}
+            closure={
+                "url":browser_record.get("closure_evidence_url"),
+                "reader_ref":browser_record.get("closure_evidence_reader_ref"),
+                "line_start":browser_record.get("closure_evidence_line_start"),
+                "line_end":browser_record.get("closure_evidence_line_end"),
+                "target_date":browser_record.get("target_date"),
+                "provenance":browser_record.get("provenance"),
+            }
+            receipt_closure=receipt_row.get("closure_evidence")
+            if (manifest_row.get("evidence_status") != "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
+                    or not closure["url"] or not closure["reader_ref"]
+                    or not isinstance(closure["line_start"],int)
+                    or not isinstance(closure["line_end"],int)
+                    or closure["target_date"] != context["trading_date"]
+                    or closure["provenance"] != "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+                    or not isinstance(receipt_closure,dict)
+                    or receipt_closure.get("url") != closure["url"]
+                    or receipt_closure.get("reader_ref") != closure["reader_ref"]
+                    or receipt_closure.get("line_start") != closure["line_start"]
+                    or receipt_closure.get("line_end") != closure["line_end"]):
+                raise ValueError(f"Stage 4 closed row lacks matching official closure evidence: {key}")
+            row["closure_evidence"]=closure
     unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
