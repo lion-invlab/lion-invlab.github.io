@@ -159,13 +159,13 @@
     {
       "file": "prepare_stage4_research_bundle.py",
       "purpose": "consolidate Stage1-3 evidence, market snapshot, calendars, earnings and screenshot SHA into a Run-bound Stage4 editorial packet",
-      "main_blob_sha": "c323cef3a1ddb0b11ae7901c2cb3a3560157fe4b",
+      "main_blob_sha": "895302f7cc87ce3296e315ace6bd2dc5770e2944",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "test_prepare_stage4_research_bundle.py",
       "purpose": "test Run binding, screenshot sidecar/image SHA and cross-Run rejection",
-      "main_blob_sha": "c3967fa93d218bf1b45b08282157b2cef86113fe",
+      "main_blob_sha": "16bf87ce6c2a237c5e59a8e6fda9c75972f301f2",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
@@ -178,6 +178,36 @@
       "file": "run_stage4.py",
       "purpose": "Main-native Stage 2/4 run-bound status and provenance handling",
       "main_blob_sha": "a43e91daf65251c7f5ea895870805f4f0508ee2d",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "build_stage2_receipt.py",
+      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "main_blob_sha": "d33788b65552e72bef46289cd258cff0f7baba1a",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "validate_prebuild_stage_inputs.py",
+      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "main_blob_sha": "48a2b0d109f9e91ca9c9ade5d82bd433b2bd1fb6",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "build_market_source_verification_manifest.py",
+      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "main_blob_sha": "5014fea19082a7d771918d6961c40a51f7c1514c",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "test_build_stage2_receipt.py",
+      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "main_blob_sha": "ab5305119038e2a565df6cfb5049f21cfc734e86",
+      "status": "MAIN_PATCHED_STAGE_HANDOFF"
+    },
+    {
+      "file": "test_market_source_verification_manifest.py",
+      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "main_blob_sha": "939d21153260f58bfbe6b1c6cfbbe60c5faf9b1e",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     }
   ],
