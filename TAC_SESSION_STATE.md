@@ -1320,3 +1320,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - GitHub Pages deployment run 44436438399 SUCCESS；預覽網址：https://lion-invlab.github.io/research/tac-chart3/chart3-preview.html 。最新 Chart 3 預覽已部署。相關視覺 QA artifact run 44436438312。
 - 本輪只修改 Chart 3 資料、Manifest、preview 子頁、專用腳本／測試／workflow 及工作紀錄／WR；未修改 index.html、雙母版、早報首頁版面或行事曆 JSON。
 - 先前 Manifest span builder workflow run 44434579316 仍是獨立失敗（Commit only if data changed 步驟）；不得把該 workflow 狀態與本次 S&P 500 merge/QA 成功混為一談。需另行查明其失敗原因，但不影響本次 S&P 500 增量資料與 Chart 3 瀏覽器 QA 已通過的結果。
+
+
+
+## 2026-11-27｜Main 重建續接狀態校正（最新）
+- Main 現行唯一生產規範為 `production/MASTER_WR.md` v1.1；根目錄 `TAC_WORK_RULES.md` WR v5.17 已停用，不得再引用或作為權威依據。
+- Stage 1／Stage 2 日期規則已回讀：Stage 1 以 Asia/Taipei 決定 report_date，並以 NYSE 最近已完成交易日作唯一 trading_date；Stage 2 明文規定 44 項 target_date 統一等於該 trading_date，不得按市場各自退回最近資料日。Bootstrap、Screenshot parser、Observation validator、Snapshot validator、Stage 2 receipt 均採同一日期綁定。此為現行規格，不是已證實的程式缺陷，未擅改日期模型。
+- 截圖規則：report-date sidecar 與原圖按報告日封存；截圖欄位優先、不重抓、不覆蓋，缺欄才由指定歷史頁補讀；captured_at 必須含時區且換算 Asia/Taipei 日期等於 report_date；data_date 必須等於 trading_date；SHA-256 由 Runner 對實際圖片 bytes 重算。歷史頁最多 concurrency=4，不得繞過 Cloudflare。
+- Builder exact-blob 核准已完成：Main Builder SHA `3e5a971d6d0a3ad3d41881b542580308276021f9`，核准檔 `production/config/builder-approval.json` SHA `c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928`，status=APPROVED_MAIN、approved_by_owner=true。不得再標示 REAPPROVAL_REQUIRED。
+- PORT_MANIFEST 已同步核准及 CI 狀態：commit `b814101ac82a860bb5622662c9f2e06a57ae4e7f`，blob SHA `e5e9eecbcdf64cc1a90568063123445204235c97`。
+- 對應 CI Run `45911061965`（event=push，HEAD `b814101ac82a860bb5622662c9f2e06a57ae4e7f`）已 SUCCESS；validate-main-production PASS，schedule-window、capture-and-calendar、build-and-deliver 均 SKIPPED。這只代表 deterministic validation 成功，不是真實 Capture 或 Stage 4–6 E2E。
+- 仍待完成：Main 早報真實 schedule Capture、Stage 4 ChatGPT continuation、Stage 5/6 Main Preview E2E。下一個正式排程驗收窗口為台灣 2026-11-30 05:05（UTC 2026-11-29T21:05Z）；Stage 4 continuation 單一喚醒 05:15。不得以 push validation 或手動 dispatch 代替 schedule event。
+- 本輪未修改排程、正式首頁、Simulation 或真實行情；未執行正式 Capture。
