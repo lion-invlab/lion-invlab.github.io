@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
-from builder_approval import require_approved_builder
+from builder_approval import require_approved_builder, verify_governance_snapshot
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
@@ -30,6 +30,10 @@ def main():
     if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+    try:
+        governance_snapshot=verify_governance_snapshot(context,ROOT)
+    except (ValueError, OSError, subprocess.CalledProcessError) as exc:
+        raise SystemExit(str(exc))
     try:
         builder_approval=require_approved_builder(ROOT)
     except (ValueError, OSError, json.JSONDecodeError) as exc:
@@ -122,7 +126,7 @@ def main():
       "main_commit_sha":context["main_commit_sha"],"mother":context["mother"],
       "manifest_sha256":context["manifest"]["sha256"],"builder_path":"production/runner/build_review_html.py",
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
-      "builder_approval":builder_approval,
+      "builder_approval":builder_approval,\n      "governance_snapshot":governance_snapshot,
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
