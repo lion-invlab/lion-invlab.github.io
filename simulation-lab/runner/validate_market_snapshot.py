@@ -34,14 +34,28 @@ def _screenshot_page_fields_complete(source: dict, trading_date: str) -> bool:
     if not all(field in screenshot_fields or field in page_fields for field in ("close", "change")):
         return False
     if screenshot_fields:
-        evidence_path = Path(str(source.get("screenshot_evidence_path") or ""))
-        if not evidence_path.is_absolute():
-            evidence_path = Path.cwd() / evidence_path
-        expected = str(source.get("screenshot_evidence_sha256") or "").lower()
-        if not evidence_path.is_file() or len(expected) != 64:
-            return False
-        actual = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
-        if actual != expected or source.get("screenshot_observation_applied_at") is None:
+        evidence_map = source.get("screenshot_evidence") or {}
+        if evidence_map:
+            for field in screenshot_fields:
+                evidence = evidence_map.get(field) or {}
+                evidence_path = Path(str(evidence.get("evidence_path") or ""))
+                if not evidence_path.is_absolute():
+                    evidence_path = Path.cwd() / evidence_path
+                expected = str(evidence.get("evidence_sha256") or "").lower()
+                if not evidence_path.is_file() or len(expected) != 64 or not evidence.get("captured_at"):
+                    return False
+                if hashlib.sha256(evidence_path.read_bytes()).hexdigest() != expected:
+                    return False
+        else:
+            evidence_path = Path(str(source.get("screenshot_evidence_path") or ""))
+            if not evidence_path.is_absolute():
+                evidence_path = Path.cwd() / evidence_path
+            expected = str(source.get("screenshot_evidence_sha256") or "").lower()
+            if not evidence_path.is_file() or len(expected) != 64:
+                return False
+            if hashlib.sha256(evidence_path.read_bytes()).hexdigest() != expected:
+                return False
+        if source.get("screenshot_observation_applied_at") is None:
             return False
     return source.get("data_date") == trading_date
 
