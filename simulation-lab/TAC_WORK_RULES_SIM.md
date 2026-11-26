@@ -1,6 +1,6 @@
 # TAC 投資早報｜統一模擬工作規範 SIM-1.4（正式生效版）
 
-> **狀態：ACTIVE／正式生效。生效日期：2026-11-22。** 本文件為 TAC 投資早報 simulation branch 唯一有效工作規範。SIM-1.3 已封存為歷史版，不再與本版並列有效。SIM-1.4 生效不代表 Builder 已獲核准、審核版已 REVIEW_READY 或正式首頁已獲發布授權。本版仍嚴格禁止修改 main、正式母版、正式 Manifest、正式首頁及正式行事曆 JSON。
+> **狀態：ACTIVE／正式生效。生效日期：2026-11-22。** 本文件為 TAC 投資早報 simulation branch 唯一有效工作規範。SIM-1.3 已封存為歷史版，不再與本版並列有效。SIM-1.4 生效不代表 Builder 已獲核准、審核版已 REVIEW_READY 或正式首頁已獲發布授權。本版允許 Stage 6 在所有 REVIEW_READY Gate 通過後，將審核版 HTML、QA sidecar 及 delivery receipt 寫入 main/preview 白名單；仍嚴格禁止修改 main/index.html、正式母版、正式 Manifest、正式行事曆 JSON 及其他 main 路徑。
 
 - 專案：TAC 投資早報
 - Repository：`lion-invlab/lion-invlab.github.io`
@@ -12,7 +12,7 @@
 
 ---
 
-> **2026-11-25 Simulation-only automation amendment (SIM-1.4).** This scheduled task produces only a Simulation-branch review artifact. It must never write `main:preview`, `main:index.html`, or any other `main` path. This amendment supersedes conflicting historical Stage 6/main-preview wording in this document for the Simulation automation. Main delivery is outside this task and requires a separate, explicit user instruction and separate manual action.
+> **2026-11-26 Main-preview delivery amendment (SIM-1.4).** This amendment supersedes the 2026-11-25 Simulation-only delivery restriction and restores the existing Stage 6 main-preview handoff. The production build, Fixture, observations, receipts, tests and build provenance remain Simulation-scoped. After all required QA gates pass and `sim14_review_ready=true`, the workflow automatically publishes only the dated review HTML, its SHA-bound QA sidecar and delivery receipt to `main/preview/`; it must never write `main/index.html`, formal mothers, Manifest, calendar JSON or any other main path. The existing GitHub Pages workflow is explicitly dispatched and the public preview URL is verified. User approval is still required before the separate formal homepage update.
 
 ## 0. 核心原則、權限與狀態
 
@@ -23,12 +23,13 @@
 4. 發生本文件內部衝突時，先依本文件的專門章節優先於一般原則；仍無法裁決時標記 BLOCKED，不得自行猜測。
 
 ### 0.2 權限邊界
-- SIM-1.4 的規則、程式、Fixture、Observation、Stage 2–4 receipts、測試、審核版及 QA 證據只在 `simulation/tac-process-lab-2026-11-06` 分支修改與保存。
-- `main` 對本任務嚴格唯讀；本自動任務沒有任何 `main:preview`、`main:index.html` 或其他 `main` 寫入例外。
+- SIM-1.4 的規則、程式、Fixture、Observation、Stage 2–4 receipts、測試及建置來源證據只在 `simulation/tac-process-lab-2026-11-06` 分支修改與保存。
+- Builder 在 Simulation Workflow 的隔離工作目錄產生暫存 HTML／QA sidecar；這兩個建置暫存檔只作本次 QA 與 Actions Artifact 驗證，不得 commit 到 Simulation 分支作為每日審核版。
+- `main` 僅開放 Stage 6 的三檔白名單：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`、`preview/YYYY-MM-DD-review.delivery.json`。除這三個日期化路徑外，早報自動任務對 main 一律唯讀。
 - 正式母版、main Manifest、`index.html`、正式歷史報告及正式行事曆 JSON 均受保護。main `data/calendar/weeks/YYYY-Www.json` 是早報唯一行事曆資料來源；工作日 04:35 專用排程是唯一寫入者，早報流程嚴格唯讀。
-- Stage 6 只可在 Simulation 工作分支產生 `preview/YYYY-MM-DD-simulation.html`、同 SHA `.qa.json` 及 Workflow Artifacts／交付 metadata；不得複製或同步到 main。
-- Simulation preview 的交付完整性以 GitHub Simulation branch 遠端回讀、HTML Git blob SHA、HTML SHA-256、QA sidecar 綁定及本次 Actions Artifacts 為準；Simulation branch 不部署 GitHub Pages，不得以 main Pages URL 代替 Simulation preview。
-- 正式首頁發布及任何 main 寫入均不屬於本自動任務；只有使用者另行明確授權的獨立人工任務才可考慮。
+- Stage 6 的 main preview 寫入必須由 Workflow 在獨立 main worktree 執行，限定三檔白名單、禁止 force-push，遠端回讀核對 HTML／QA／delivery receipt SHA，並確認 `index.html` 未變。
+- main preview 部署使用既有 `.github/workflows/pages.yml`；因 GITHUB_TOKEN 的 push 不會自動觸發其他 workflow，Stage 6 必須明確 dispatch Pages workflow，確認部署 Run success，再以公開 URL 讀取並核對報告日期。
+- 正式首頁發布仍不屬於 Stage 6；只有使用者另行明確核准 main preview 中最新審核版後，獨立人工任務才可更新 `main/index.html`。
 
 ### 0.3 保護與修改閉環
 每次修改前取得目標檔案最新內容與 SHA；確認授權範圍；採最小必要差異；執行相應測試；寫入後回讀並核對 SHA、內容及未授權檔案未變。不得平行寫入同一路徑。遇到 SHA 競爭或更新失敗，重新讀取最新版本並重新比對，不得強制覆蓋。
@@ -50,8 +51,8 @@
 - 每輪執行須分開回報：已觸發／未觸發、commit SHA、Workflow Run ID、Workflow 執行成功／失敗、審核版 HTML 是否已產出（路徑與 SHA-256）、QA sidecar 狀態，以及數據已驗證／待核實。
 - Run 必須以當次 commit SHA 精確對應，並核對 `event=push`；重試必須產生新的 commit SHA 及新的對應 Run，不得沿用前次結果。
 - 僅在 commit 標記觸發本身提交失敗時，才說明觸發限制並提供 GitHub Actions 頁面。commit 成功但找不到對應 Run，須如實回報未觸發／未取得 Run。
-- 不得聲稱已觸發、已完成或已擷取，除非有對應 Run ID 或可回讀的實際產物證據。Workflow success 不等於審核版完成；審核版必須存在於 Simulation 分支、日期正確、HTML 非空、QA sidecar 對應且狀態為 `REVIEW_READY`。HTML SHA-256 必須對實際 HTML 內容計算，不得以 Git blob SHA-1 代替。
-- 本條僅規範 Simulation 早報排程及回報；不授權修改 Workflow、Builder、QA Contract、母版、main 或任何 Gate，也不改變 05:25 既有排程時間。
+- 不得聲稱已觸發、已完成或已擷取，除非有對應 Run ID 或可回讀的實際產物證據。Workflow success 不等於審核版完成；審核版必須存在於 main `preview/YYYY-MM-DD-review.html`，同日期 QA sidecar 與 delivery receipt 均須存在、日期正確、HTML 非空、SHA 綁定一致，QA 狀態為 `REVIEW_READY`，且 Pages 公開 URL 已實際讀取核對。HTML SHA-256 必須對實際 HTML 內容計算，不得以 Git blob SHA-1 代替。
+- 本條僅規範早報排程及回報；日常製作不得自行修改 Workflow、Builder、QA Contract、母版或 Gate。Stage 6 依本版 main/preview 三檔白名單執行，不得擴張 main 寫入範圍；不改變 05:25 既有排程時間。
 
 ---
 
@@ -171,27 +172,27 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ### Stage 5｜唯一 HTML Builder 組裝與 QA
 **輸入：** 核准母版、Manifest、Fixture、Stage 2–4 成果、PASS 的組裝前輸入收據及其 SHA-256、QA Contract。
-**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；產生指定日期 Simulation preview，執行第 9 章 Gate 與四類 QA。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 的 Simulation-only 交付。
-**輸出：** simulation branch 完整審核版 HTML、組裝收據、Stage 2–4 輸入收據、QA sidecar（含輸入收據完整內容及 SHA-256）、QA 報告、HTML SHA-256。
+**執行：** 正式生產只能使用經使用者核准的唯一 Builder。Builder 核准前，允許在 simulation branch 的隔離環境以候選 Builder 執行 Fixture／雙母版回歸測試；此階段只屬候選驗證，不得宣稱 Builder 已核准或正式 REVIEW_READY。所有 DOM 更新只作用於核准槽位；Builder 在 Simulation runner 工作目錄產生日期化暫存 HTML，執行第 9 章 Gate 與四類 QA。暫存 HTML／QA sidecar 不 commit 至 Simulation 分支。只有全部適用強制 Gate 通過、Builder 精確核准、資料及內容均達 REVIEW_READY，才可進入 Stage 6 main preview 交付。
+**輸出：** 本次 Workflow 工作目錄內的暫存 HTML／QA sidecar、組裝收據、Stage 2–4 輸入收據（含完整內容及 SHA-256）、QA 報告、HTML SHA-256；暫存 HTML／QA sidecar 只保留於 Actions Artifact，不 commit 至 Simulation branch。
 **驗收：** 組裝輸入完整、輸出有效、QA 全部適用強制項目通過。候選 Builder 的技術測試通過，只能標示 CANDIDATE_VALIDATED；使用者尚未核准 Builder 路徑及 SHA 前，不得標示 SIM-1.4 REVIEW_READY。
-**交接：** Stage 6 接收 HTML 本體、SHA、QA 報告、來源與母版識別；Stage 5 完成後只交付 Simulation branch preview、QA sidecar 與 Artifacts。
+**交接：** Stage 6 接收 HTML 本體、SHA、QA sidecar、QA 報告、來源與母版識別；Stage 5 完成後將審核版交付至 main/preview，Simulation branch 只保留 receipts、測試及建置 provenance。
 
-### Stage 6｜Simulation 審核版交付與驗證
+### Stage 6｜main/preview 審核版交付與驗證
 
-**輸入：** Stage 5 已通過全部適用強制 Gate 的 Simulation review-ready sidecar、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
+**輸入：** Stage 5 已通過全部適用強制 Gate 的 QA sidecar（`sim14_review_ready=true`）、完整 QA 證據及唯一 HTML Git blob SHA／SHA-256。
 
 **執行：**
-1. 只在 `simulation/tac-process-lab-2026-11-06` 分支產生唯一當日 `preview/YYYY-MM-DD-simulation.html` 及同名 `.qa.json`；不得寫入 `main:preview`、`main:index.html` 或任何其他 main 路徑。
-2. QA sidecar 必須以 `report_git_blob_sha`、`report_sha256` 綁定同一份最終 HTML，並記錄 `status`、`review_ready`、`data_review_ready`、`content_analysis_gate`、`sim14_builder_approval`、`sim14_review_ready`、`sim14_blockers`。
-3. Workflow 必須將 HTML、QA sidecar、pre-build Stage 2–4 receipt、market audit、Builder metadata 與必要測試證據保存在 Simulation branch，並上傳本次 Run 專屬主 Artifact 與 post-upload audit Artifact。
-4. 寫入後必須從遠端重新讀取 Simulation preview 與 QA sidecar，核對完整內容、Git blob SHA、HTML SHA-256、run_id、attempt、trigger commit 及 Builder commit；Artifacts 必須屬於同一個 Run。
-5. Simulation branch 不部署 Pages。使用者檢視以 GitHub Simulation branch 檔案連結及本次 Actions Artifact 為準；不得宣稱 main Pages URL 是 Simulation preview。
-6. 本自動任務不得執行 main delivery。任何 main 寫入、正式首頁發布或審核後交付均屬另一個獨立人工任務，必須取得使用者另行明確授權。
+1. Workflow 從 main 最新 HEAD 建立獨立 worktree，只寫入三個日期化路徑：`preview/YYYY-MM-DD-review.html`、`preview/YYYY-MM-DD-review.qa.json`、`preview/YYYY-MM-DD-review.delivery.json`。不得將每日審核版 HTML／QA sidecar commit 到 Simulation branch。
+2. HTML 原始 bytes 不得重組或改寫；main QA sidecar 是原始 QA sidecar 的交付副本，必須保留 `branch=simulation/tac-process-lab-2026-11-06` 作為建置來源，將 `report_path` 改為 main review HTML 路徑，並新增 `delivery_branch=main`、delivery path、Run／attempt／trigger commit 欄位。HTML SHA-256 與 Git blob SHA 必須與 Stage 5 完全一致。
+3. delivery receipt 必須記錄 report_date、source branch、source HTML／QA 路徑、main 三個目標路徑、HTML／QA Git blob SHA 與 SHA-256、workflow_run_id／attempt、trigger commit、Builder SHA、pre-build receipt SHA，以及明確的 homepage/calendar/mother/Manifest 未修改聲明。
+4. main 寫入前後都必須核對 staged／committed path set 僅包含上述三檔；禁止 force-push。遇到 main HEAD 競爭，安全 rebase 後重驗三檔白名單及 SHA；衝突或權限拒絕即停止，不得擴大權限或改寫其他路徑。
+5. 寫入後從遠端 main 重新讀取三檔，核對內容、Git blob SHA、HTML SHA-256、QA 綁定、Run／attempt／trigger commit 及 Builder provenance；任何不一致均不得交付。
+6. 使用既有 `.github/workflows/pages.yml` 部署 main preview。因 GITHUB_TOKEN 的 push 不會自動觸發其他 workflow，必須明確 dispatch Pages workflow，確認該 main commit 對應的 Pages Run success，並以公開 URL 讀取 HTML、核對 report-date。未完成 Pages 部署或 URL 驗證時，標示 MAIN_PREVIEW_DEPLOY_PENDING／UNVERIFIED，不得回報預覽已可開啟。
+7. main 寫入白名單之外的所有正式資產仍唯讀；特別禁止更新 `main/index.html`、正式母版、Manifest、正式歷史報告及正式行事曆 JSON。正式首頁更新仍須使用者另行明確核准。
 
-**輸出：** Simulation branch 唯一 preview、同 SHA QA sidecar、Workflow Artifacts、遠端回讀結果及各 Gate 狀態。
+**輸出：** main/preview 唯一審核版 HTML、同 SHA 綁定 QA sidecar、delivery receipt、main 遠端回讀結果、Pages workflow Run 及公開 URL 驗證證據。Simulation branch 只保存建置 receipts、測試、audit、Builder metadata 及必要來源證據。
 
-**驗收：** HTML／sidecar／Artifacts 同批次、同 Run、同 SHA 綁定；所有必要 Gate 通過才可標示 `review_ready=true`。資料缺漏、測試未執行或 Artifact／遠端回讀缺失時，必須標示 PARTIAL／UNVERIFIED 或 `review_ready=false`。
-
+**驗收：** HTML／QA／delivery receipt 同批次、同 Run、同 SHA 綁定；三檔白名單、main 遠端回讀及 Pages URL 驗證全部通過才可標示 `MAIN_PREVIEW_READY`。資料缺漏、測試未執行、Artifacts／遠端回讀／Pages 驗證缺失時，必須標示 PARTIAL／UNVERIFIED 或 `review_ready=false`.
 ---
 
 ## 3. 行情資料契約
@@ -376,7 +377,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 5. 必須證明 Builder 不會寫 main JSON、母版、Manifest、正式首頁或其他保護檔案。
 6. 通過以上測試後，提交候選 SHA、測試證據及差異報告，由使用者明確核准其路徑與 SHA。核准後 SIM-1.4 正式版只列該一個 Builder；任何其他組裝入口均禁止作每日生產路徑。
 7. Builder 核准前，允許在 simulation branch 以候選 Builder 執行完整隔離測試及雙母版回歸，作為核准依據；不得將候選測試結果宣稱為 Builder 已核准、正式生產通過或 SIM-1.4 REVIEW_READY。不得以手工拼 HTML 冒充候選 Builder。
-8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`。核准依據：使用者已授權之 2026-11-26 Simulation 自主修復範圍，並指定 Builder 修正提交 `060302528b7f5ed4a4443caa84cb2a295296b6e8`；此精確版本恢復已核實 MOVE 收盤備援證據的顯示，並確保已核實值不被待核實狀態覆蓋。此核准僅限 Simulation，不授權 main 寫入，也不代表真實資料 E2E 或報告內容已通過。
+8. **本版唯一正式 Builder 已核准：** `simulation-lab/runner/build_review_html.py`，blob SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`。核准依據：使用者已授權之 2026-11-26 Simulation 自主修復範圍，並指定 Builder 修正提交 `060302528b7f5ed4a4443caa84cb2a295296b6e8`；此精確版本恢復已核實 MOVE 收盤備援證據的顯示，並確保已核實值不被待核實狀態覆蓋。此核准僅授權 Builder 在 Simulation runner 工作目錄產生暫存建置檔；不授權 Builder 直接寫入 main。Stage 6 的 main/preview 三檔交付由獨立 Publisher 在全部 QA 通過後執行，也不代表真實資料 E2E 或報告內容已通過。
 9. **歷史 Builder 核准紀錄（截至 2026-11-22）：** `simulation-lab/runner/build_review_html.py`，blob SHA `16254bfa249814ac75e62cf8acbad2828f366fe6` 曾獲使用者核准，僅適用於該精確 SHA。分支後續版本 `02f2d87e12e340cb377eb99dbda42cbb77d58129` 未獲核准；其後候選版本 `2cb0a90e53b10c31aca20503f93a5b324091c0a7` 已於 2026-11-23 取得本版第 8 點所列精確核准。不同 SHA 的測試證據不得合併宣稱為同一版本通過。
 
 ### 8.2 組裝限制
@@ -438,7 +439,7 @@ Stage 2、3、4 的成果不得只靠 Fixture 內嵌欄位或前次 QA sidecar �
 
 ## 11. 正式發布、封存與版本管理
 
-1. simulation 審核版僅依當次授權寫入指定 preview 路徑；寫入後 fetch 回讀，核對日期、內容、commit SHA、blob SHA 及 HTML SHA-256。
+1. Simulation 建置暫存檔不 commit 至 Simulation branch；Stage 6 只將通過 REVIEW_READY 的審核版寫入 main `preview/YYYY-MM-DD-review.html`、同名 QA sidecar 及 delivery receipt。寫入後 fetch 回讀，核對日期、內容、commit SHA、blob SHA 及 HTML SHA-256。
 2. Pages 實際開啟驗證另記錄網址、時間、部署狀態及頁面內容；若無法驗證，明確標示「GitHub 已寫入、Pages 未驗證」。
 3. 使用者核准指定 HTML SHA 後，才可進行正式首頁更新。首頁更新前讀取最新首頁與 SHA；更新後回讀並驗證只改授權範圍。
 4. 歷史封存只在正式發布後執行；獨立核對歷史路徑與內容，驗證 `index.html` 未被封存流程修改。
