@@ -101,7 +101,7 @@ IDENTITY_ALIASES = {
     "XLRE": ["XLRE", "Real Estate Select Sector SPDR Fund", "Real Estate Select Sector SPDR ETF"],
     "XLC": ["XLC", "Communication Services Select Sector SPDR Fund", "Communication Services Select Sector SPDR ETF"],
     "vix": ["CBOE Volatility Index", "VIX"],
-    "move": ["ICE BofAML MOVE", "MOVE Index", "MOVE", "Merrill Lynch Option Volatility Estimate", "INDEXNYSEGIS: MOVE"],
+    "move": ["ICE:MOVE", "ICE BofAML U.S. Bond Market Option Volatility Estimate Index", "ICE BofAML MOVE", "MOVE Index", "MOVE", "Merrill Lynch Option Volatility Estimate", "INDEXNYSEGIS: MOVE"],
     "fear_greed": ["CNN Fear & Greed Index", "US stocks · CNN"],
 }
 
@@ -437,6 +437,7 @@ async def observe(context,row,target,timeout,sem):
         result["source_url"]=original_url
         result["source_role"]="BACKUP_1"
         result["evidence_source_url"]=backup_url
+        result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
         if result.get("status")=="TARGET_DATE_NOT_FOUND":
             result.update({"status":"SOURCE_UPDATE_PENDING","read_status":"SOURCE_UPDATE_PENDING",
                            "observed_date":None,"observed_value":None,"observed_change":None,
@@ -444,8 +445,10 @@ async def observe(context,row,target,timeout,sem):
                            "error":"MOVE_TARGET_SESSION_NOT_YET_AVAILABLE_ON_TRADINGVIEW"})
         elif result.get("status")=="VERIFIED":
             result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
+            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
         else:
             result["read_status"]="TOOL_READ_FAILURE"
+            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
         result["attempt_count"]=1
         result["attempt_history"]=[{"round":1,"source_role":"BACKUP_1","request_url":backup_url,
             "status":result.get("status"),"http_status":result.get("http_status"),
@@ -488,6 +491,7 @@ async def observe(context,row,target,timeout,sem):
             result["evidence_source_url"]=backup_url
             result["primary_source_url"]=original_url
             result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
+            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
         elif result.get("status")=="TARGET_DATE_NOT_FOUND" or backup.get("status")=="TARGET_DATE_NOT_FOUND":
             primary_excerpt=result.get("page_body_excerpt","")
             backup_excerpt=backup.get("page_body_excerpt","")
@@ -500,6 +504,13 @@ async def observe(context,row,target,timeout,sem):
                 "source_page_fetched":bool(result.get("source_page_fetched") or backup.get("source_page_fetched")),
                 "backup_page_title":backup.get("page_title"),
                 "backup_final_url":backup.get("final_url"),
+                "page_title":backup.get("page_title") if backup.get("source_page_fetched") else result.get("page_title"),
+                "final_url":backup.get("final_url") if backup.get("source_page_fetched") else result.get("final_url"),
+                "attempt_url":backup_url if backup.get("source_page_fetched") else original_url,
+                "read_method":"PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE" if backup.get("source_page_fetched") else "PLAYWRIGHT_RENDERED_HISTORY_TABLE",
+                "instrument_identity":backup.get("instrument_identity") if backup.get("source_page_fetched") else result.get("instrument_identity"),
+                "instrument_identity_status":backup.get("instrument_identity_status") if backup.get("source_page_fetched") else result.get("instrument_identity_status"),
+                "http_status":backup.get("http_status") if backup.get("source_page_fetched") else result.get("http_status"),
                 "observed_date":None,"observed_value":None,"observed_change":None,
                 "observed_value_field":None,"observed_change_field":None,
                 "page_body_excerpt":"\\n".join(x for x in (primary_excerpt,backup_excerpt) if x)[:5000],
