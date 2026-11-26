@@ -15,6 +15,7 @@ from validate_chatgpt_web_observations import main as validator_main, validate_b
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 from browser_verify_market_history import persist_fixture
 from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
+from stage2_move_retry import merge_move_retry_observation
 
 FIXTURE = Path("simulation-lab/fixtures/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -205,6 +206,40 @@ def main():
     assert screenshot_move_source["source_page_fetched"] is False
     assert screenshot_move_source["open"] == "99.32" and screenshot_move_source["high"] == "102.73" and screenshot_move_source["low"] == "97.40"
     bundle = make_bundle(data)
+
+    # A delayed retry may replace only MOVE; the other 43 frozen observations
+    # must remain byte-for-byte equivalent after canonical JSON serialization.
+    pending_base = copy.deepcopy(bundle)
+    pending_move = next(x for x in pending_base["observations"] if x["group"]=="risk" and x["name"]=="move")
+    pending_move.update({"status":"SOURCE_UPDATE_PENDING","read_status":"SOURCE_UPDATE_PENDING",
+                         "observed_date":None,"observed_value":None,"observed_change":None})
+    retry_move = copy.deepcopy(pending_move)
+    retry_move.update({
+        "status":"VERIFIED","read_status":"PAGE_CONTENT_READ_SUCCESS",
+        "observed_date":data["trading_date"],"observed_value":"97.54","observed_change":"-1.32",
+        "instrument_identity_status":"VERIFIED","field_mapping_status":"VERIFIED",
+        "source_page_fetched":True,"finished_at_tw":"2026-11-24T07:30:00+08:00",
+    })
+    retry_bundle = {"report_date":bundle["report_date"],"trading_date":bundle["trading_date"],"observations":[retry_move]}
+    merged_retry = merge_move_retry_observation(pending_base,retry_bundle)
+    before_non_move = {(x["group"],x["name"]):json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(",",":"))
+                       for x in pending_base["observations"] if (x["group"],x["name"]) != ("risk","move")}
+    after_non_move = {(x["group"],x["name"]):json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(",",":"))
+                      for x in merged_retry["observations"] if (x["group"],x["name"]) != ("risk","move")}
+    assert before_non_move == after_non_move
+    assert merged_retry["prior_observation_reused_count"] == 43
+    assert merged_retry["move_delayed_retry"]["non_move_observations_unchanged"] is True
+    assert merged_retry["source_pages_fetched_this_run"] is False
+    assert next(x for x in merged_retry["observations"] if x["group"]=="risk" and x["name"]=="move")["observed_value"] == "97.54"
+
+    still_pending_retry = copy.deepcopy(retry_move)
+    still_pending_retry.update({"status":"SOURCE_UPDATE_PENDING","read_status":"SOURCE_UPDATE_PENDING",
+                                "observed_date":None,"observed_value":None,"observed_change":None})
+    pending_merged = merge_move_retry_observation(
+        pending_base,{"report_date":bundle["report_date"],"trading_date":bundle["trading_date"],"observations":[still_pending_retry]})
+    pending_merged_move = next(x for x in pending_merged["observations"] if x["group"]=="risk" and x["name"]=="move")
+    assert pending_merged_move["observed_value"] is None and pending_merged_move["observed_change"] is None
+    assert pending_merged_move["status"] == "SOURCE_UPDATE_PENDING"
     result = validate_bundle(data, "2026-11-24", bundle)
     assert len(result["observations"]) == 44
     assert result["verified_count"] == 43
