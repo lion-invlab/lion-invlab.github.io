@@ -113,6 +113,8 @@ def main():
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: mixed screenshot/history-page fields retain independent provenance")
     print("PASS: malformed screenshot evidence SHA cannot pass Stage 2 verification")
+    from test_stage2_screenshot_inputs import main as test_screenshot_inputs
+    test_screenshot_inputs()
 
 
 if __name__ == "__main__":
