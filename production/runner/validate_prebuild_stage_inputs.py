@@ -117,6 +117,20 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
             "a verified observation is missing its record hash")
     rows = manifest.get("rows")
     require(isinstance(rows, list) and len(rows) == 44, "source manifest rows must contain 44 records")
+    allowed_market_states = {
+        "VERIFIED", "BACKUP_VERIFIED", "PENDING", "MISSING", "CLOSED",
+        "NOT_APPLICABLE", "NOT_TESTED", "TOOL_READ_FAILURE", "SOURCE_NO_DATA",
+        "SOURCE_UPDATE_PENDING",
+    }
+    actual_market_counts = {}
+    for item in rows:
+        state = item.get("market_data_status")
+        require(state in allowed_market_states,
+                f"unknown market data status for {item.get('name')}: {state}")
+        actual_market_counts[state] = actual_market_counts.get(state, 0) + 1
+    require(manifest.get("market_status_counts") == actual_market_counts
+            and sum(actual_market_counts.values()) == 44,
+            "44-row market status counts do not match row-level statuses")
     keys = {(row.get("group"), row.get("name")) for row in rows}
     require(len(keys) == 44 and all(a and b for a, b in keys),
             "source manifest has duplicate or unnamed rows")
