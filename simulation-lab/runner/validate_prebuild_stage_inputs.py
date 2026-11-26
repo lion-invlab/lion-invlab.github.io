@@ -220,6 +220,12 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
         digest = str(row.get("observation_record_sha256") or "")
         require(re.fullmatch(r"[0-9a-f]{64}", digest) is not None,
                 f"observation bundle row hash missing or malformed: {key}")
+        if row.get("status") not in ("CLOSED", "MARKET_CLOSED"):
+            canonical_row = dict(row)
+            canonical_row.pop("observation_record_sha256", None)
+            canonical = json.dumps(canonical_row, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            require(hashlib.sha256(canonical).hexdigest() == digest,
+                    f"observation bundle row SHA-256 mismatch: {key}")
         if row.get("status") == "VERIFIED":
             value_key = row.get("observed_value_key") or ("score" if key == ("risk", "fear_greed") else "close")
             change_key = row.get("observed_change_key") or ("band" if key == ("risk", "fear_greed") else "change")
