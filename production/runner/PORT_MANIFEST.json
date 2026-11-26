@@ -125,12 +125,10 @@
     "test_stage56_handoff.py"
   ],
   "not_yet_production_ready": [
-    "No automated editorial research/content producer currently creates report-content-YYYY-MM-DD.json for the exact captured Run.",
-    "Stage 5 main Builder remains a candidate pending explicit owner approval of its exact blob SHA.",
-    "The latest Stage 5 runtime approval gate has not yet been exercised by CI or a real Run.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
-    "Stage 4 per-row CLOSED evidence binding and Stage 2 screenshot-priority guard were patched after the last validation start; fresh Main CI result is pending.",
-    "Screenshot same-day expiry code and negative tests are committed; latest Main CI is pending, so the new guard is not yet validated."
+    "No automated research/model adapter currently creates report-content-YYYY-MM-DD.json from the exact captured Run; capture still hands off as AWAITING_EDITORIAL_INPUT.",
+    "Current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 differs from the historically owner-approved blob 20eefe57d6f3b389157c01b8532cae3a69128a02; reapproval of the exact current blob is required.",
+    "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -150,12 +148,12 @@
     "capture_handoff": "AWAITING_EDITORIAL_INPUT",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
-    "builder_approval": "PENDING_NEW_EXACT_BLOB_APPROVAL",
+    "builder_approval": "REAPPROVAL_REQUIRED_CURRENT_BUILDER_BLOB_MISMATCH",
     "last_validation": {
-      "workflow_run_id": 45904153569,
-      "head_sha": "da3ac8e7478570a94b2973c53929c3abba69f357",
+      "workflow_run_id": 45904766962,
+      "head_sha": "057fa669a7647d8b7adddb64644667cb675a867b",
       "conclusion": "success",
-      "scope": "Main validation passed after Taiwan-local screenshot same-day expiry guard, stale screenshot negative tests, per-field timestamp checks, and screenshot-vs-CLOSED field evidence fixture correction. Capture/build/schedule jobs skipped; not a real-data E2E."
+      "scope": "Main-only deterministic validation: compile and browser-QA syntax, dual mother SHA and Manifest, Stage 2/prebuild deterministic tests, Builder/earnings deterministic tests, isolated synthetic candidate Builder fixtures and mother-owned DOM contract. capture-and-calendar, build-and-deliver and schedule-window were skipped; no real-data E2E or preview delivery."
     },
     "workflow_schedule": "WEEKDAYS_04:05_TAIPEI_US_EDT_OR_05:05_US_EST_STAGE1_TO_3_ONLY"
   },
@@ -255,12 +253,15 @@
   ],
   "approval_record": {
     "path": "production/config/builder-approval.json",
-    "status": "APPROVED_MAIN",
+    "status": "HISTORICAL_APPROVAL_DOES_NOT_COVER_CURRENT_BLOB",
     "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
     "enforced_by": "production/runner/run_stage5.py",
     "approved_by_owner": true,
     "approved_at": "2026-11-26T21:29:30+08:00",
     "approval_scope": "Main production Builder exact-blob approval only",
-    "real_data_e2e": "NOT_RUN"
+    "real_data_e2e": "NOT_RUN",
+    "current_builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+    "current_blob_approval_status": "REAPPROVAL_REQUIRED",
+    "historical_approved_builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02"
   }
 }
