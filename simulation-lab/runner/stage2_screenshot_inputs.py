@@ -122,6 +122,9 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
             if field in fields:
                 source[field] = _plain_number(fields[field]["value"])
         source["screenshot_observation_applied_at"] = row["captured_at"]
+        source["screenshot_evidence_path"] = row["evidence_path"]
+        source["screenshot_evidence_sha256"] = row["evidence_sha256"]
+        source["screenshot_fields_applied"] = sorted(fields)
     return fixture
 
 
@@ -204,6 +207,7 @@ def apply_page_completions_to_fixture(fixture: dict, observations: list[dict],
                     )
 
         source["history_page_completion_at"] = observation.get("finished_at_tw") or observation.get("finished_at_utc")
+        source["history_page_completion_fields"] = [field for field in (value_key, change_key) if field not in fields]
         observation["observed_date"] = fixture.get("trading_date")
         observation["display_value_match"] = True
         observation["display_change_match"] = True
