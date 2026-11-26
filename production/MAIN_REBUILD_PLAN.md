@@ -303,3 +303,25 @@
 - R0：仍 IN_PROGRESS。Workflow 數量修正為 24；尚欠每份 Workflow 的 branches／paths／permissions／concurrency／write-set matrix，以及各資料資產唯一 writer 與觸發依賴圖。
 - R1：仍 NOT_STARTED。六份 Stage WR 與九份 contracts 的第一輪內容已回讀；但尚未完成 SIM-1.4 source baseline 逐條對照、schema／manifest／runner／tests 的完整規則矩陣，不能標記 PASS。
 - 本次只追加現況證據至重建計畫；沒有修改任何 Workflow、Automation、排程、Runner、Builder、Schema、Manifest、calendar、preview、index.html 或 Simulation。
+
+
+#### H5. 核心跨流程寫入者與權限實證（追加回讀）
+以下不是只依 workflow 名稱推定，而是檢視 YAML 中實際 permissions、checkout、git add／commit／push 與 dispatch 命令：
+
+| 資產 | 已確認寫入者／觸發 | 實際風險與處理界線 |
+|---|---|---|
+| `production/runs/<RUN_ID>/`、Stage 1–3 收據 | `tac-production.yml` 的 capture job，contents/actions write；只提交當次 RUN_DIR | Main 新流程的 capture writer；應保留 |
+| `data/tac-chart3/sp500_daily_increment.jsonl` | `tac-production.yml` capture job；只 stage 此 ledger 後 push main，再 dispatch merge workflow | Stage 2 是 increment ledger writer；必須保留既有 SHA／防重流程 |
+| Chart 3 compact S&P500 data／manifest | `tac-chart3-sp500-increment-merge.yml`，contents write；checkout main，僅 stage兩份 compact JSON 與 manifest | 下游 merge writer；需在 R0/R1 核對日期排序／防重／衝突驗收 |
+| Chart 3 FRED／ALFRED data | `tac-chart3-incremental.yml`，contents write；push trigger、checkout main，提交 `data/tac-chart3` | 與 S&P500 ledger 是不同資料路徑；仍須核對是否可能把 S&P500 ledger 也納入 stage |
+| `preview/YYYY-MM-DD-review.*` | `tac-simulation-lab.yml` 有 actions/contents write，Simulation branch checkout；流程明確設定 Main preview 三檔路徑、dispatch Pages 並驗證公開 URL | **這是 Main preview 的第二個實際 writer**，不是單純 Simulation-only。它可從 Simulation 流程寫 Main preview，與 Main 新流程的唯一入口原則衝突。依使用者要求保留 Simulation 不動；R7 切換時必須在 Main 側設置安全隔離／權限或流程防護，不能直接改 Simulation workflow |
+| `history/` 與 `history/index.json` | `archive_index.yml` 有 contents write；index.html push 或每日 17:10 UTC schedule；生成 archive 並 push | 獨立歷史封存 writer；須核對自動排程是否會在首頁未核准時封存舊首頁 |
+| GitHub Pages | `pages.yml` 接受 preview/history/index push、workflow_dispatch、workflow_run；contents read，使用 Pages artifact/deploy actions | Pages 是部署器，不是內容 writer；多個來源可觸發部署，需以 main commit／URL 驗證來源 |
+| 正式首頁 `index.html` | 本次讀取的 `archive_index.yml` 會檢查 index.html 且不修改；`pages.yml` 只部署；Main Stage 6 明文禁止改 index | 本次未證實上述三者會寫 index；仍需盤點其他舊 workflow／人工流程與保護規則，不能宣稱已證明唯一 writer |
+
+**R0 新增關鍵裁決：** `tac-simulation-lab.yml` 的 Main preview 寫入能力是切換前必須處理的雙 writer 風險。不得以「Simulation branch 唯讀」誤認其無法影響 Main；本次不修改該 workflow，保留 Simulation 原狀。
+
+#### H6. 盤點狀態更新
+- 已完成：24 份 Workflow 的觸發類型清冊；Main capture、Chart 3 increment/merge、Simulation-to-main preview、archive、Pages 等主要寫入流程的第一輪實際命令與權限核對。
+- 尚未完成：全部 24 份 workflow 的完整 permissions／branch filters／path filters／concurrency／write-set 機器可讀矩陣；Chart 3 writer 的檔案白名單與相互觸發圖；所有舊 workflow 對 preview/index/history 的潛在寫入掃描。
+- R0 維持 IN_PROGRESS；R1 維持 NOT_STARTED。未開始 R2/R3 Runner 修改，未更改任何排程或 Automation。
