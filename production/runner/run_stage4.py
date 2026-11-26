@@ -194,7 +194,7 @@ def main():
       "news_cutoff_taipei":window["cutoff"].isoformat()
     }
     analysis_path=run_dir/"analysis-data.json"
-    analysis_path.write_text(json.dumps(analysis,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    analysis_path.write_text(json.dumps(analysis,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={
       "schema_version":"1.0","stage":"STAGE_4_NEWS_ANALYSIS","status":"PASS",
       "run_id":context["run_id"],"report_date":context["report_date"],
@@ -207,7 +207,7 @@ def main():
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
     receipt_path=run_dir/"stage4-analysis-receipt.json"
-    receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
 
 if __name__=="__main__":main()
