@@ -41,6 +41,19 @@ def _plain_number(value):
         raise ValueError(f"Screenshot numeric field is not parseable: {value!r}")
 
 
+
+def _display_like(original, raw_value, percent=False):
+    raw = str(raw_value).strip()
+    old = str(original or "").strip()
+    if percent and "%" not in raw:
+        raw += "%"
+    if old.startswith("$") and not raw.startswith("$"):
+        raw = "$" + raw
+    elif old.endswith("%") and "%" not in raw:
+        raw += "%"
+    return raw
+
+
 def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -> dict:
     """Apply screenshot values to the in-memory Fixture before expected-value construction."""
     for (group, name), row in screenshot_inputs.items():
@@ -60,11 +73,11 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
             else:
                 source["close_value"] = value
                 source["history_close"] = (
-                    str(fields["close"]["value"]).strip()
+                    _display_like(item.get("display") if item else None, fields["close"]["value"])
                     if group in ("energy", "metals") else value
                 )
                 if item is not None:
-                    item["display"] = str(fields["close"]["value"]).strip()
+                    item["display"] = _display_like(item.get("display"), fields["close"]["value"])
         if "change" in fields:
             value = _plain_number(fields["change"]["value"])
             if group == "sectors":
@@ -78,7 +91,7 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
                     raw if group in ("energy", "metals") else value
                 )
                 if item is not None:
-                    item["change_display"] = raw if "%" in raw else f"{raw}%"
+                    item["change_display"] = _display_like(item.get("change_display"), raw, percent=True)
         if "score" in fields:
             value = _plain_number(fields["score"]["value"])
             source["score_value"] = value
