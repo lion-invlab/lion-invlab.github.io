@@ -1976,7 +1976,7 @@ def main():
         print(json.dumps({"market_source_status": market_source_status}, ensure_ascii=False))
     # Gate 0: never trust calendar copies embedded in fixtures or the simulation branch.
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
-    calendar_source = load_authoritative_calendar(data["report_date"])
+    calendar_source = load_authoritative_calendar(data["report_date"], expected_commit=(data.get("run_metadata") or {}).get("main_commit_sha"))
     data.update(project_calendar_data(calendar_source))
     apply_last_week_economic_overrides(data)
     apply_last_week_earnings_actuals(data)
