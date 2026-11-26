@@ -31,6 +31,20 @@ def market_snapshot_digest(data:dict)->str:
     groups={k:data.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     return sha_bytes(json.dumps(groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode())
 
+def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bundle_path:Path)->dict:
+    if receipt.get("status")!="PASS" or receipt.get("run_id")!=context.get("run_id") or receipt.get("report_date")!=context.get("report_date"):
+        raise ValueError("Stage 4 research bundle receipt is not bound to this Run")
+    if receipt.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256"):
+        raise ValueError("Stage 4 research bundle market snapshot SHA differs from editorial content")
+    if content.get("research_bundle_sha256")!=receipt.get("bundle_sha256"):
+        raise ValueError("Stage 4 editorial content research_bundle_sha256 differs from capture receipt")
+    if not bundle_path.is_file() or sha(bundle_path)!=receipt.get("bundle_sha256"):
+        raise ValueError("Stage 4 research bundle bytes do not match its receipt SHA-256")
+    bundle=json.loads(bundle_path.read_text(encoding="utf-8"))
+    if bundle.get("run_id")!=context.get("run_id") or bundle.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256"):
+        raise ValueError("Stage 4 research bundle contents are not bound to the exact Run and market snapshot")
+    return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
+
 def validate_content(content:dict,context:dict,data:dict)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
@@ -137,7 +151,7 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
                 raise ValueError(f"Analysis layer {layer} cites non-verified market row {group}/{name}: {status}")
     return {"window_start":window_start,"cutoff":cutoff,"news_counts":news_counts}
 
-def main():
+def read_json(path:Path)->dict:\n    return json.loads(path.read_text(encoding="utf-8"))\n\ndef main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--run-dir",required=True)
     ap.add_argument("--content")
@@ -162,6 +176,11 @@ def main():
     if not content_path.is_absolute():content_path=ROOT/content_path
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
+    bundle_receipt_path=run_dir/"stage4-research-bundle-receipt.json"
+    bundle_path=run_dir/"stage4-research-bundle.json"
+    if not bundle_receipt_path.is_file():
+        raise ValueError("Stage 4 research bundle receipt is missing")
+    bundle_binding=validate_research_bundle_binding(editorial,context,read_json(bundle_receipt_path),bundle_path)
     before=market_snapshot_digest(data)
     window=validate_content(editorial,context,data)
     data.update({
@@ -185,7 +204,7 @@ def main():
     fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     analysis={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":context["report_date"],
-      "run_id":context["run_id"],"market_snapshot_sha256":before,
+      "run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"],
       "summary_points":editorial["summary_points"],"focus_news":editorial["focus_news"],
       "headlines":editorial["headlines"],"market_analysis":editorial["market_analysis"],
       "political_scan":editorial["political_scan"],"core_observation":editorial["core_observation"],
@@ -201,9 +220,9 @@ def main():
       "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
-      "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before},
+      "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
-      "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
+      "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},\n      "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
     receipt_path=run_dir/"stage4-analysis-receipt.json"
