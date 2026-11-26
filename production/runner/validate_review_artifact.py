@@ -15,10 +15,10 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from build_review_html import validate_political_scan
 MANIFEST_PATH = ROOT / "production/config/mother-template-manifest.json"
-BUILDER_PATH = ROOT / "simulation-lab/runner/build_review_html.py"
+BUILDER_PATH = ROOT / "production/runner/build_review_html.py"
 QA_CONTRACT_PATH = ROOT / "production/contracts/MOTHER_TEMPLATE_QA.md"
-ACTIVE_RULES_PATH = ROOT / "simulation-lab/TAC_WORK_RULES_SIM.md"
-CANDIDATE_RULES_PATH = ROOT / "simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md"
+ACTIVE_RULES_PATH = ROOT / "production/MASTER_WR.md"
+CANDIDATE_RULES_PATH = ROOT / "production/reference/SIM-1.4_SOURCE_BASELINE.md"
 
 
 def git_blob_sha(raw: bytes) -> str:
@@ -105,10 +105,10 @@ def main():
     template_key = "monday" if report_date.weekday() == 0 else "weekdays"
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     template = manifest["templates"][template_key]
-    template_path = template["simulation_path"]
+    template_path = template["path"]
     template_bytes = (ROOT / template_path).read_bytes()
     template_sha = git_blob_sha(template_bytes)
-    if template_sha != template["simulation_blob_sha"]:
+    if template_sha != template["blob_sha"]:
         raise SystemExit("approved simulation mother SHA mismatch")
     provenance_comment = next(
         (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))),
@@ -139,8 +139,8 @@ def main():
     asset_specs = {
         "manifest": ("manifest_path", "manifest_blob_sha", "production/config/mother-template-manifest.json"),
         "qa_contract": ("qa_contract_path", "qa_contract_blob_sha", "production/contracts/MOTHER_TEMPLATE_QA.md"),
-        "active_rules": ("active_rules_path", "active_rules_blob_sha", "simulation-lab/TAC_WORK_RULES_SIM.md"),
-        "candidate_rules": ("candidate_rules_path", "candidate_rules_blob_sha", "simulation-lab/TAC_WORK_RULES_SIM_1.4_DRAFT.md"),
+        "active_rules": ("active_rules_path", "active_rules_blob_sha", "production/MASTER_WR.md"),
+        "candidate_rules": ("candidate_rules_path", "candidate_rules_blob_sha", "production/reference/SIM-1.4_SOURCE_BASELINE.md"),
     }
     asset_bytes = {}
     for label, (path_key, sha_key, expected_path) in asset_specs.items():
@@ -151,7 +151,7 @@ def main():
         if actual_sha != provenance.get(sha_key):
             raise SystemExit(f"{label} provenance SHA mismatch: {actual_sha} != {provenance.get(sha_key)!r}")
         asset_bytes[label] = payload
-    if template["simulation_blob_sha"].encode("ascii") not in asset_bytes["qa_contract"]:
+    if template["blob_sha"].encode("ascii") not in asset_bytes["qa_contract"]:
         raise SystemExit("QA Contract does not bind the selected simulation mother SHA")
     active_rules_text = asset_bytes["active_rules"].decode("utf-8")
     candidate_rules_text = asset_bytes["candidate_rules"].decode("utf-8")
@@ -166,7 +166,7 @@ def main():
     if "SIM-1.4" not in candidate_header or "SUPERSEDED" not in candidate_header or "不得作為執行規則" not in candidate_header:
         raise SystemExit("historical SIM-1.4 draft must be explicitly superseded and non-executable")
     fixture_path = provenance.get("fixture_path", "")
-    if not fixture_path.startswith("simulation-lab/fixtures/report-data-"):
+    if not fixture_path.startswith("production/runs/"):
         raise SystemExit("fixture provenance path outside approved simulation fixtures")
     fixture_bytes = git_show(build_commit, fixture_path)
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
