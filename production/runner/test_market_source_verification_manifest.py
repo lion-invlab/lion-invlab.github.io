@@ -7,7 +7,7 @@ from build_market_source_verification_manifest import build_manifest
 from build_review_html import apply_market_source_verification_manifest
 
 def main():
-    data=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-23.json").read_text(encoding="utf-8"))
+    data=json.loads(Path("production/testdata/report-data-2026-11-23.json").read_text(encoding="utf-8"))
     result=build_manifest(data,"2026-11-23")
     assert result["row_count"]==44
     assert result["verified_count"]==0
