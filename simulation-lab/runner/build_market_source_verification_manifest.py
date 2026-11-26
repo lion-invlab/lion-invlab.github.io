@@ -54,7 +54,7 @@ IDENTITY_ALIASES = {
     "黃金期貨 GC": ["黃金期貨", "Gold Futures", "GCZ6"],
     "白銀期貨 SI": ["白銀期貨", "Silver Futures", "SIZ6"],
     "vix": ["CBOE Volatility Index", "VIX"],
-    "move": ["ICE BofAML MOVE", "MOVE", "Merrill Lynch Option Volatility Estimate", "INDEXNYSEGIS: MOVE"],
+    "move": ["ICE BofAML U.S. Bond Market Option Volatility Estimate Index", "ICE BofAML MOVE", "MOVE", "Merrill Lynch Option Volatility Estimate", "INDEXNYSEGIS: MOVE"],
     "fear_greed": ["CNN Fear & Greed Index", "Fear & Greed"],
 }
 
