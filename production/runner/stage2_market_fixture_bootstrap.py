@@ -240,6 +240,10 @@ def populate_fixture(data, payload):
             continue
         fmt=src["_stage2_format"]; close_spec=fmt["close"]; change_spec=fmt["change"]
         raw_close=obs["observed_value"]; raw_change=obs["observed_change"]
+        if group in ("energy","metals"):
+            contract_label=str(obs.get("contract_label") or "").strip()
+            if contract_label:
+                item["contract_label"]=contract_label
         close_num=_decimal(raw_close); src["close_value"]=float(close_num)
         src["daily_change_percent"]=float(_decimal(raw_change)) if not is_fg else None
         src["history_close"]=float(close_num) if group not in ("energy","metals") else _fmt(raw_close,close_spec)
