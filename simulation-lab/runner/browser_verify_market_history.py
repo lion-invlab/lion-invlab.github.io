@@ -581,6 +581,33 @@ def _apply_screenshot_fields(row, observation, screenshot):
     return observation
 
 
+def _ensure_field_evidence(row, observation):
+    """Record field-level provenance for page-only rows as well as screenshot rows."""
+    if observation.get("field_evidence"):
+        return
+    is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
+    value_key,change_key=("score","band") if is_fg else ("close","change")
+    source_type="CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE"
+    source_url=observation.get("data_endpoint_url") or row.get("source_url")
+    observed_at=observation.get("finished_at_tw") or observation.get("finished_at_utc")
+    evidence={}
+    for key,field_name,value in (
+        (value_key,observation.get("observed_value_field"),observation.get("observed_value")),
+        (change_key,observation.get("observed_change_field"),observation.get("observed_change")),
+    ):
+        if value is not None:
+            evidence[key]={
+                "source_type":source_type,
+                "source_url":source_url,
+                "field_name":field_name,
+                "value":value,
+                "observed_at":observed_at,
+            }
+    observation["field_evidence"]=evidence
+    observation["observed_value_key"]=value_key
+    observation["observed_change_key"]=change_key
+
+
 async def run(a,work,target,screenshot_inputs):
     sem=asyncio.Semaphore(a.concurrency)
     by_key={}
@@ -610,6 +637,8 @@ async def run(a,work,target,screenshot_inputs):
             item=_apply_screenshot_fields(row,item,row.get("screenshot_input"))
             by_key[(row["group"],row["name"])]=item
     observations=[by_key[(row["group"],row["name"])] for row in work]
+    for row,item in zip(work,observations):
+        _ensure_field_evidence(row,item)
     for item in observations:
         canonical=json.dumps(item,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()
         item["observation_record_sha256"]=hashlib.sha256(canonical).hexdigest()
