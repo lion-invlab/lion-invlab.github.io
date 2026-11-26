@@ -269,7 +269,7 @@ def merge_move_backup_observation(result: dict, fallback: dict, primary_read_sta
         fallback["source_role"] = "BACKUP_1"
         fallback["read_status"] = "PAGE_CONTENT_READ_SUCCESS"
         fallback["provenance"] = "CURRENT_RUN_BROWSER_OBSERVATION"
-    elif fallback.get("status") == "TARGET_DATE_NOT_FOUND":
+    elif fallback.get("status") in ("TARGET_DATE_NOT_FOUND", "SOURCE_UPDATE_PENDING"):
         fallback.update({"status": "SOURCE_UPDATE_PENDING", "read_status": "SOURCE_UPDATE_PENDING",
                          "observed_date": None, "observed_value": None, "observed_change": None,
                          "observed_value_field": None, "observed_change_field": None})
@@ -305,7 +305,9 @@ def merge_move_backup_observation(result: dict, fallback: dict, primary_read_sta
     result["status_counts"] = counts
     result["verified_count"] = sum(1 for row in rows if row.get("status") == "VERIFIED")
     result["displayed_values_independently_reconciled"] = result["verified_count"] == 44
+    result["source_pages_fetched"] = all(row.get("source_page_fetched") is True for row in rows)
     result["move_backup_attempted"] = True
+    result["move_backup_status"] = fallback.get("status")
     return result
 
 def maybe_capture_move_backup(data_path: Path, report_date: str, bundle: dict, result: dict) -> dict:
