@@ -58,8 +58,17 @@ def main():
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
-    if stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context["run_id"] or stage4_doc.get("market_snapshot_unchanged") is not True:
-        raise SystemExit("Stage 4 receipt status/run/frozen-market identity mismatch")
+    if stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context["run_id"] or stage4_doc.get("report_date")!=context["report_date"] or stage4_doc.get("trading_date")!=context["trading_date"] or stage4_doc.get("market_snapshot_unchanged") is not True:
+        raise SystemExit("Stage 4 receipt status/run/date/frozen-market identity mismatch")
+    editorial_binding=stage4_doc.get("editorial_run_binding") or {}
+    if (editorial_binding.get("run_id")!=context["run_id"]
+            or editorial_binding.get("market_snapshot_sha256")!=stage4_doc.get("market_snapshot_sha256_before")
+            or stage4_doc.get("market_snapshot_sha256_before")!=stage4_doc.get("market_snapshot_sha256_after")
+            or not editorial_binding.get("research_bundle_sha256")
+            or editorial_binding.get("research_bundle_sha256")!=(stage4_doc.get("research_bundle") or {}).get("sha256")):
+        raise SystemExit("Stage 4 editorial Run/snapshot/research-bundle binding is incomplete or inconsistent")
+    if stage2_summary_doc.get("market_snapshot_sha256")!=editorial_binding.get("market_snapshot_sha256"):
+        raise SystemExit("Stage 4 market snapshot SHA differs from the Stage 2 frozen snapshot")
     fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
     sp500_item=(fixture_doc.get("global_markets") or {}).get("標普500指數") or {}
     sp500_verified=(sp500_item.get("source") or {}).get("verification_status")=="VERIFIED"
@@ -122,7 +131,7 @@ def main():
     if not visual_report.is_file():raise SystemExit("Visual regression report missing")
     interaction=json.loads(interaction_json.read_text(encoding="utf-8"))
     render_manifest={
-      "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,
+      "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "main_commit_sha":context["main_commit_sha"],"mother":context["mother"],
       "manifest_sha256":context["manifest"]["sha256"],"builder_path":"production/runner/build_review_html.py",
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
@@ -138,7 +147,7 @@ def main():
     render_path=run_dir/"render-manifest.json"
     render_path.write_text(json.dumps(render_manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     qa={
-      "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,
+      "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "status":"REVIEW_READY","groups":{
         "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified,"unresolved_rows":stage2_doc.get("pending_rows",[])},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS"},
@@ -150,8 +159,9 @@ def main():
     }
     qa_path=run_dir/"qa-sidecar.json"
     qa_path.write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    receipt={"status":"REVIEW_READY","run_id":context["run_id"],"report_date":report_date,
-      "html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
+    receipt={"status":"REVIEW_READY","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
+      "stage4_receipt_sha256":sha(stage4),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
+      "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
       "render_manifest_sha256":sha(render_path),"qa_sidecar_sha256":sha(qa_path),
       "elapsed_seconds":round(time.monotonic()-start,3)}
     receipt_path=run_dir/"stage5-render-qa-receipt.json"
