@@ -12,8 +12,24 @@ import json
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
+from urllib.parse import urlparse
 
 from validate_market_snapshot import validate_market_snapshot
+
+OFFICIAL_CALENDAR_HOSTS = {
+    "nyse.com", "nasdaq.com", "jpx.co.jp", "global.krx.co.jp", "twse.com.tw",
+    "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn", "hkex.com.hk",
+    "londonstockexchange.com", "deutsche-boerse.com", "euronext.com",
+    "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
+}
+
+def _official_calendar_url(value: str | None) -> bool:
+    try:
+        parsed=urlparse(str(value or ""))
+        host=(parsed.hostname or "").lower().rstrip(".")
+        return parsed.scheme=="https" and any(host==domain or host.endswith("."+domain) for domain in OFFICIAL_CALENDAR_HOSTS)
+    except ValueError:
+        return False
 
 BOND_PRIMARY_URLS = {
     "2年期美債殖利率": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
@@ -123,7 +139,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             and observation.get("instrument_identity_status") == "VERIFIED"
             and _identity_matches(group, name, observation.get("instrument_identity"))
             and observation.get("field_mapping_status") == "VERIFIED"
-            and bool(closure_url)
+            and _official_calendar_url(closure_url)
             and bool(closure_ref)
             and closure_line_start is not None
             and closure_line_end is not None
