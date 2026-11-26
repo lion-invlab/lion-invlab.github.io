@@ -107,3 +107,5 @@ print("PASS: existing GitHub Pages workflow is dispatched and the public preview
 # Regression contract: one external market read pass, then immutable SHA-bound snapshot checks only.
 
 # Full regression keeps synthetic candidate checks separate from report-only QA.
+
+# Regression guard: the former optional raw-page recapture must stay out of the daily pipeline.
