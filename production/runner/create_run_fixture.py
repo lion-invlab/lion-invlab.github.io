@@ -15,8 +15,8 @@ TZ=ZoneInfo("Asia/Taipei")
 def sha256(path:Path)->str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def git_blob(path:Path)->str:
-    return subprocess.check_output(["git","hash-object",str(path)],cwd=ROOT,text=True).strip()
+def git_blob(path:Path, commit_sha:str="HEAD")->str:
+    return subprocess.check_output(["git","rev-parse",f"{commit_sha}:{path.relative_to(ROOT).as_posix()}"],cwd=ROOT,text=True).strip()
 
 def last_nyse_session(report_date:date)->date:
     try:
@@ -40,6 +40,7 @@ def previous_week_start(day:date)->date:
     return monday-timedelta(days=7)
 
 def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
+    main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday()>4:
         raise ValueError(f"Weekend report date is not allowed: {report_date}")
     trading_date=trading_date or last_nyse_session(report_date)
@@ -50,7 +51,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     template_key="monday" if report_date.weekday()==0 else "weekdays"
     template=manifest["templates"][template_key]
     mother_path=ROOT/template["path"]
-    actual_mother_sha=git_blob(mother_path)
+    actual_mother_sha=git_blob(mother_path,main_commit_sha)
     if actual_mother_sha!=template["blob_sha"]:
         raise ValueError(f"Mother SHA mismatch: {actual_mother_sha} != {template['blob_sha']}")
     base_path=ROOT/"production/config/report-data-template.json"
@@ -75,20 +76,19 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
         if not path.is_file():
             raise FileNotFoundError(f"Required read-only calendar database is missing: {path.relative_to(ROOT)}")
         json.loads(path.read_text(encoding="utf-8"))
-        calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path)})
+        calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path,main_commit_sha)})
     screenshot_path=ROOT/f"production/input/market-screenshot-observations-{report_date.isoformat()}.json"
     screenshot_receipt={"present":screenshot_path.is_file(),"path":str(screenshot_path.relative_to(ROOT))}
     if screenshot_path.is_file():
         screenshot_receipt["sha256"]=sha256(screenshot_path)
     data["run_metadata"]={"run_id":run_id,"main_commit_sha":subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()}
-    main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     run_context={
       "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
       "repository":"lion-invlab/lion-invlab.github.io","branch":"main",
       "main_commit_sha":main_commit_sha,
-      "governance":{"commit_sha":main_commit_sha,"blob_shas":current_governance_blob_shas(ROOT)},
+      "governance":{"commit_sha":main_commit_sha,"blob_shas":current_governance_blob_shas(ROOT,main_commit_sha)},
       "workflow_run_id":os.environ.get("GITHUB_RUN_ID","LOCAL"),
       "workflow_run_attempt":os.environ.get("GITHUB_RUN_ATTEMPT","1"),
       "mother":{"key":template_key,"path":template["path"],"blob_sha":actual_mother_sha},
