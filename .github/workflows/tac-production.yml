@@ -335,7 +335,7 @@ jobs:
           stage3=json.loads((run/"stage3-calendar-receipt.json").read_text())
           receipt={"schema_version":"1.0","status":"AWAITING_EDITORIAL_INPUT",
             "capture_trigger":{"event_name":os.environ.get("GITHUB_EVENT_NAME"),
-              "dispatch_mode":os.environ.get("DISPATCH_MODE","schedule"),
+              "dispatch_mode":(os.environ.get("DISPATCH_MODE") or "schedule"),
               "workflow_run_id":os.environ.get("GITHUB_RUN_ID")},
             "run_id":context["run_id"],"report_date":context["report_date"],
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
