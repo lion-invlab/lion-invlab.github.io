@@ -68,9 +68,9 @@
 4. **對外來源標示：** 截圖只作為 Stage 2 的優先資料輸入與內部證據，不改變報告既定來源標示。對應商品若其正式來源契約為 Investing.com，報告正文仍標示該商品的 Investing.com 歷史數據來源；不得在總結或報告正文寫「依使用者截圖」或揭露截圖輸入方式。內部 Observation／Manifest 必須如實記錄輸入方式為 `USER_PROVIDED_SCREENSHOT`，不得冒充瀏覽器已讀取歷史表格。
 5. **同一 Observation Schema：** 截圖與瀏覽器讀取結果必須寫入同一份 Stage 2 Observation 結構，逐欄保存商品／合約身分、資料日期、欄位名稱和值、漲跌值、來源 URL／來源標籤、輸入方式、擷取時間、證據檔案、證據 SHA-256、欄位完整性及狀態。截圖可得欄位與網頁補足欄位須逐欄標記來源，不得以一個整筆來源標籤掩蓋混合輸入。
 6. **單次取得與凍結：** Stage 2 將 44 項觀察、獨立 FedWatch（如適用）、來源證據、44 項 Manifest、Fixture 及 Stage 2 receipt 一次完成；SHA-256 必須對實際封存內容計算。鎖定報告日、交易日、批次識別碼、資料版本、Fixture SHA-256、Manifest SHA-256、Observation bundle SHA-256 及 Receipt SHA-256。已鎖定的截圖欄位不得因補讀其他欄位而改寫。
-7. **下游唯讀：** Stage 3、Stage 4、Builder、QA、Publisher、Pages、Chart 3 寫入及每日關鍵價位程序均只可讀取已鎖定快照。不得再次開啟 Investing.com、重新核實已鎖定數值、重新擷取或用其他來源覆蓋。下游只可做結構、欄位完整性、SHA 與快照一致性檢查。若發現單一欄位確有缺漏，只能啟動明確的單項補值流程；不得重跑其餘 43 項，補值後重建受影響 SHA／Receipt 並重新執行受影響 Gate。
-8. **Chart 3 與每日關鍵價位：** S&P 500 的每日收盤價及可用 OHLC 應直接沿用 Stage 2 鎖定觀察，供 Chart 3 增量資料庫及每日關鍵價位模組使用；下游不得各自另抓一份不同報價。若 Stage 2 未取得某個計算必要欄位，該欄位須明確標記缺漏並回到 Stage 2 單項補值，不得由下游自行改用未核准來源。
-9. **禁止重複擷取：** `Capture 44 raw market source pages`、`run_optional_probes`、Builder、QA 或任何其他步驟不得對已鎖定 44 項進行第二次外部行情讀取。正式原則：Stage 2 負責取得行情；後續 Stage 負責使用行情，不得重複取得。
+7. **下游唯讀（限 Stage 2 的 44 項行情資料）：** Stage 3、Stage 4、Builder、QA、Publisher、Pages 與 Chart 3 寫入只可讀取已鎖定快照，不得再次擷取或覆蓋 44 項已鎖定行情。每日關鍵價位是既有獨立計算模組，不屬於 Stage 2 的 44 項行情擷取；它保留自己的 OHLC 擷取與來源契約，不因本次 Stage 2 改造而強制改用 Stage 2 資料。每日關鍵價位可繼續使用其既有 Yahoo Finance 日線 OHLC 與同交易日人工／官方覆寫機制，並維持獨立交易日、欄位完整性與來源證據檢查。此獨立擷取不得回寫或覆蓋 Stage 2 的 44 項行情快照。
+8. **Chart 3 與每日關鍵價位分流：** Chart 3 的 S&P 500 每日收盤價沿用 Stage 2 已鎖定的 44 項行情，不另行抓取同一收盤報價。每日關鍵價位則維持獨立 OHLC 資料流，依該模組既有核准來源（目前為 Yahoo Finance 日線資料，並允許同交易日且具來源證據的人工／官方 OHLC 覆寫）獨立取得 Open／High／Low／Close，再執行關鍵價位計算。兩條資料流各自封存日期、來源、擷取時間及 SHA；不得互相覆蓋，也不得把其中一條資料流的成功狀態當成另一條已驗證。
+9. **禁止重複擷取：** `Capture 44 raw market source pages`、`run_optional_probes`、Builder、QA 或任何其他步驟不得對已鎖定的 Stage 2 44 項進行第二次外部行情讀取。此限制不禁止每日關鍵價位獨立模組依其自身排程與來源契約取得 OHLC；該模組不得因此觸發 Stage 2 44 項重新擷取。
 
 
 ### 0.6 Simulation 早報排程正式觸發與回報（取代任何相衝突的舊觸發敘述）
