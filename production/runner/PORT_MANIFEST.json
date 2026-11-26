@@ -140,7 +140,7 @@
     "capture_handoff": "AWAITING_EDITORIAL_INPUT",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
-    "builder_approval": "CANDIDATE_PENDING_OWNER_APPROVAL",
+    "builder_approval": "APPROVED_MAIN",
     "last_validation": {
       "workflow_run_id": 45824747088,
       "head_sha": "9c779455278d3bde84abe70324dedf5cb0db626d",
@@ -245,8 +245,12 @@
   ],
   "approval_record": {
     "path": "production/config/builder-approval.json",
-    "status": "CANDIDATE_PENDING_OWNER_APPROVAL",
+    "status": "APPROVED_MAIN",
     "builder_blob_sha": "20eefe57d6f3b389157c01b8532cae3a69128a02",
-    "enforced_by": "production/runner/run_stage5.py"
+    "enforced_by": "production/runner/run_stage5.py",
+    "approved_by_owner": true,
+    "approved_at": "2026-11-26T21:29:30+08:00",
+    "approval_scope": "Main production Builder exact-blob approval only",
+    "real_data_e2e": "NOT_RUN"
   }
 }
