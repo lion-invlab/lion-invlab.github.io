@@ -367,6 +367,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "read_status": observation.get("read_status"),
             "raw_response_sha256": observation.get("raw_response_sha256"),
             "field_evidence": field_evidence,
+            "primary_attempt": observation.get("primary_attempt") if group == "risk" and name == "move" else None,
             "quote_type": source.get("quote_type"),
             "source_role": observation.get("source_role") or source.get("source_role"),
         }
