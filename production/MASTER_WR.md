@@ -28,6 +28,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Preflight 必須讀取完整 UTF-8 文件、確認非空、計算 SHA-256 並核對 Git blob。缺失、讀取失敗、未鎖定、版本漂移或收據缺少 `wr_preflight` 均 FAIL-CLOSED，不得開始或宣告完成。
 - Stage 4 編輯工作者在撰寫內容前，必須先讀取當次 capture receipt 內完整 `stage4_work_instructions.full_text`；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。僅由 Python Runner 事後讀取 WR 不代表編輯工作者已遵守。
 - 每階段收據必須記錄 WR 路徑、完整讀取狀態、SHA-256、Git blob SHA、Stage 1 pinned SHA 及讀取位元組數。無證據不得 PASS。
+- 下游 Stage 必須驗證所有直接上游 receipt 的 `wr_preflight` 證據：Stage 2 驗 Stage 1；Stage 3 驗 Stage 2；Stage 4 驗 Stage 2、3；Stage 5 驗 Stage 2–4；Stage 6 驗 Stage 5。路徑、Stage key、Git blob SHA、Stage 1 pinned commit 任一缺漏或不符即拒絕交接。
 
 ## 3. 唯一正式母版規則
 - 週一使用 Monday template；週二至週五使用 Weekday template；週末不自動製作。
