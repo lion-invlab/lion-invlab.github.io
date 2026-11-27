@@ -391,6 +391,13 @@ def main():
     assert move_tv_normalized["source_role"] == "BACKUP_1"
     assert move_tv_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
     assert move_tv_normalized["field_evidence"]["change"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+    tv_populated = populate_fixture(copy.deepcopy(blank_data), move_tv_result)
+    tv_source = tv_populated["risk"]["move"]["source"]
+    assert tv_source["verification_status"] == "BACKUP_VERIFIED"
+    assert tv_source["source_role"] == "BACKUP_1"
+    assert tv_source["verified_source_name"] == "TradingView ICE:MOVE"
+    assert tv_source["verified_source_url"] == tv_url
+    assert tv_source["url"] == primary_url
     tv_prebuild = validate_observation_bundle(move_tv_result, "2026-11-24", "2026-11-23")
     assert tv_prebuild["row_count"] == 44 and tv_prebuild["page_only_row_count"] == 44
 
