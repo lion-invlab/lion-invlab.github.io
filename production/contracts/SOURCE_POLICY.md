@@ -1,4 +1,4 @@
-# SOURCE POLICY v1.1
+# SOURCE POLICY v1.2
 
 ## Market data
 - For every field not supplied by a valid user screenshot, Stage 2 opens the exact approved Investing.com instrument page in a browser, navigates to Historical Data, and reads the actual historical table row for the target trading date.
@@ -16,7 +16,7 @@
 ## Special instruments
 - SOX: Investing.com HK historical page; Yahoo ^SOX only as approved backup/cross-check.
 - VIX: Investing.com HK historical page; Cboe official history cross-check; Yahoo ^VIX backup.
-- MOVE: Investing.com HK history first; TradingView ICE BofA MOVE second when specified date unavailable; Yahoo ^MOVE, CNBC .MOVE, EODData INDEX:MOVE thereafter as specified in SIM-1.4 source baseline.
+- MOVE only: (1) a valid current-run user screenshot takes priority; (2) otherwise read the pinned Investing.com MOVE Historical Data page; (3) if the page is inaccessible or the target-date row is unavailable, use TradingView's exact ICE:MOVE instrument page (`https://www.tradingview.com/symbols/ICE-MOVE/`) as the first backup and accept it only when the dated daily close and required change field are directly readable and independently evidenced; (4) if TradingView also lacks a verifiable target-date observation, retain the appropriate failure/no-data state. Do not substitute a different MOVE-like instrument. The TradingView backup must be recorded as `TRADINGVIEW_HISTORICAL_PAGE` with `source_role=BACKUP_1`; never relabel it as Investing.com. This exception applies only to `risk.move`, not to any of the other 43 market rows.
 - CNN Fear & Greed: CNN Business dashboard current score and Last updated first; Previous close is not current score. Then CNN graphdata endpoint, FGScore CNN Provider Index, Financial Context CNN Tracker as specified. No third-party self-estimated score.
 - FedWatch: read Investing.com Fed Rate Monitor at report production time. CME FedWatch is methodology/cross-check only; do not label Investing.com data as CME official.
 
