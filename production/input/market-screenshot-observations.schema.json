@@ -6,7 +6,13 @@
   "required": [
     "report_date",
     "trading_date",
-    "observations"
+    "observations",
+    "schema_version",
+    "run_id",
+    "captured_at_utc",
+    "stage1_receipt_sha256",
+    "run_context_sha256",
+    "stage1_fixture_sha256"
   ],
   "properties": {
     "schema_version": {
