@@ -14,11 +14,12 @@ def make_run(root):
       "fx":{f"f{i}":{} for i in range(6)},"energy":{f"e{i}":{} for i in range(2)},
       "metals":{f"m{i}":{} for i in range(2)},"risk":{f"r{i}":{} for i in range(3)},
       "sectors":{f"ETF{i}":"待擷取" for i in range(11)}}
-    cp,fp,rp=run/"run-context.json",run/"report-data.json",run/"stage1-receipt.json"
+    cp,stage1_fp,working_fp,rp=run/"run-context.json",run/"stage1-fixture.json",run/"report-data.json",run/"stage1-receipt.json"
     cp.write_text(json.dumps({"run_id":run_id,"report_date":report,"trading_date":trading},sort_keys=True))
-    fp.write_text(json.dumps(fixture,sort_keys=True))
+    stage1_fp.write_text(json.dumps(fixture,sort_keys=True))
+    working_fp.write_text(json.dumps(fixture,sort_keys=True))
     rp.write_text(json.dumps({"status":"PASS","run_id":run_id,"report_date":report,"trading_date":trading,
-      "run_context_sha256":digest(cp),"fixture_sha256":digest(fp)},sort_keys=True))
+      "run_context_sha256":digest(cp),"fixture_sha256":digest(stage1_fp)},sort_keys=True))
     binding={"schema_version":"1.0","run_id":run_id,"report_date":report,"trading_date":trading,
       "stage1_receipt_sha256":digest(rp),"run_context_sha256":digest(cp),
       "stage1_fixture_sha256":digest(fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
@@ -34,6 +35,17 @@ class RunHandoffTests(unittest.TestCase):
             run=make_run(Path(tmp)); out=validate_stage2_run_handoff(run,Path(tmp))
             self.assertEqual(out["status"],"PASS"); self.assertEqual(out["run_id"],run.name)
             self.assertEqual(out["bundle_sha256"],digest(run/"market-history-web-observations.json"))
+    def test_mutable_working_fixture_does_not_change_stage1_binding(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run=make_run(Path(tmp))
+            working=run/"report-data.json"
+            value=json.loads(working.read_text())
+            value["run_metadata"]["stage2_attempt"]="partial-retry"
+            working.write_text(json.dumps(value))
+            out=validate_stage2_run_handoff(run,Path(tmp))
+            self.assertEqual(out["status"],"PASS")
+            self.assertEqual(out["stage1_fixture_sha256"],json.loads((run/"market-history-web-observations.json").read_text())["stage1_fixture_sha256"])
+
     def test_rejects_wrong_run_id(self):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp)); p=run/"market-history-web-observations.json"
