@@ -20,7 +20,7 @@ def make_run(root):
     working_fp.write_text(json.dumps(fixture,sort_keys=True))
     rp.write_text(json.dumps({"status":"PASS","run_id":run_id,"report_date":report,"trading_date":trading,
       "run_context_sha256":digest(cp),"fixture_sha256":digest(stage1_fp)},sort_keys=True))
-    binding={"schema_version":"1.0","run_id":run_id,"report_date":report,"trading_date":trading,
+    binding={"schema_version":"1.1","run_id":run_id,"report_date":report,"trading_date":trading,"stage2_wr_sha256":"a"*64,
       "stage1_receipt_sha256":digest(rp),"run_context_sha256":digest(cp),
       "stage1_fixture_sha256":digest(stage1_fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
     rows=[]
@@ -79,8 +79,11 @@ class RunHandoffTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp))
             base=json.loads((run/"market-history-web-observations.json").read_text())
-            for name in ("cnn-fear-greed-observation.json","market-screenshot-observations.json"):
-                (run/name).write_text(json.dumps({**base,"observations":[]}))
+            (run/"cnn-fear-greed-observation.json").write_text(json.dumps({**base,"observations":[]}))
+            screenshot={key:base[key] for key in ("schema_version","run_id","report_date","trading_date","captured_at_utc",
+                "stage1_receipt_sha256","run_context_sha256","stage1_fixture_sha256")}
+            screenshot["observations"]=[]
+            (run/"market-screenshot-observations.json").write_text(json.dumps(screenshot))
             out=validate_stage2_run_handoff(run,Path(tmp))
             self.assertEqual(out["screenshot"],{"row_count":0,"field_count":0})
             self.assertEqual(set(out["optional_bundle_sha256"]),{
@@ -91,7 +94,7 @@ class RunHandoffTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp))
             (run/"cnn-fear-greed-observation.json").write_text(json.dumps({
-                "schema_version":"1.0","report_date":"2026-11-27","trading_date":"2026-11-26",
+                "schema_version":"1.1","report_date":"2026-11-27","trading_date":"2026-11-26",
                 "captured_at_utc":"2026-11-27T00:51:42Z","observations":[]
             }))
             with self.assertRaisesRegex(ValueError,"run_id"):
