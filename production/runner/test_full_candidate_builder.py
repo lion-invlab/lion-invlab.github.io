@@ -44,6 +44,12 @@ for report_date, template_key, source_name in cases:
     # Synthetic cross-date candidate fixtures must not replay report-date-specific calendar overrides.
     # Those overrides are validated against their own W48 source IDs and are irrelevant to the Builder layout regression.
     data.pop("calendar_impact_overrides", None)
+    # Regression: SOURCE_NO_DATA has null current_target_range, never a stale carry-forward.
+    data["fedwatch"]["status"] = "SOURCE_NO_DATA"
+    data["fedwatch"]["current_target_range"] = None
+    data["fedwatch"]["target_meeting"] = None
+    data["fedwatch"]["updated_at_tw"] = None
+    data["fedwatch"]["probabilities"] = []
     data["review_ready_blockers"] = list(data.get("review_ready_blockers", [])) + ["CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS"]
     data["market_analysis"] = {
         key: {
@@ -128,6 +134,9 @@ for report_date, template_key, source_name in cases:
     if "candidate-validation-only" not in output_path.read_text(encoding="utf-8"):
         # Provenance is JSON-escaped in the embedded HTML; still require the mode marker.
         raise SystemExit(f"{template_key}: output lacks candidate-validation-only provenance marker")
+    rate_node = soup.select_one("#fed .fc-fomc-rate b")
+    if rate_node is None or rate_node.get_text(" ", strip=True) != "待核實":
+        raise SystemExit(f"{template_key}: SOURCE_NO_DATA null FedWatch target range must render 待核實 safely")
     if "CANDIDATE_TEST_ONLY_SYNTHETIC_ANALYSIS" not in output_path.read_text(encoding="utf-8"):
         raise SystemExit(f"{template_key}: synthetic-only blocker missing; candidate output could be mistaken for production")
     mother_path = ROOT / "production" / "templates" / (

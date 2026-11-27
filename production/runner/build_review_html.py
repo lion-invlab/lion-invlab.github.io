@@ -3002,7 +3002,7 @@ def main():
         press = fed.select_one(".fc-fomc-press b")
         if press: set_text(press, "2026/12/10 03:30")
         rate = fed.select_one(".fc-fomc-rate b")
-        current_target_range = data.get("fedwatch", {}).get("current_target_range", "待核實")
+        current_target_range = data.get("fedwatch", {}).get("current_target_range") or "待核實"
         if rate: set_text(rate, current_target_range.replace("–", "%–") + ("%" if current_target_range != "待核實" and not current_target_range.endswith("%") else ""))
         rate_date = fed.select_one(".fc-fomc-rate small")
         if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
