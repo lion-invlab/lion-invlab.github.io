@@ -390,9 +390,7 @@ jobs:
           python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
           test -s "$RUN_DIR/stage2-market-snapshot-receipt.json"
           test -s "$RUN_DIR/stage2-run-summary.json"
-      - name: Commit only verified S&P 500 Chart 3 increment and dispatch merge
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit only verified S&P 500 Chart 3 increment for post-delivery merge
         shell: bash
         run: |
           set -euo pipefail
@@ -404,9 +402,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Chart 3 ALFRED and S&P 500 workflows share the same data area.
-          # Commit the ledger-only change, then rebase that commit onto latest
-          # main before pushing; retry if another disjoint Chart 3 commit wins.
+          # Keep the verified increment in Main, but defer Chart 3's independent
+          # history merge until after Stage 6 has delivered the daily report.
           git add -- "$LEDGER"
           mapfile -t STAGED < <(git diff --cached --name-only)
           test "${#STAGED[@]}" -eq 1 && test "${STAGED[0]}" = "$LEDGER"
@@ -423,13 +420,8 @@ jobs:
             git rebase origin/main
           done
           test "$PUSHED" = true
-          CHART3_COMMIT="$(git rev-parse HEAD)"
-          BEFORE_IDS="$(gh api "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30" --jq '[.workflow_runs[].id]')"
-          gh api -X POST "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/dispatches" -f ref=main
-          # Chart 3 is an independent data branch. Dispatch it and continue
-          # Stage 3 without waiting for its merge workflow.
-          echo "CHART3_MERGE_RUN_ID=DISPATCHED_ASYNC" >> "$GITHUB_ENV"
-          echo "Chart 3 merge dispatched asynchronously; it does not gate the report."
+          echo "CHART3_MERGE_RUN_ID=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
+          echo "Verified Chart 3 increment committed; merge deferred until Stage 6 completes."
       - name: Fetch latest main after Chart 3 dispatch
         run: |
           git fetch origin main
@@ -609,3 +601,62 @@ jobs:
           path: ${{ env.RUN_DIR }}/
           if-no-files-found: warn
           retention-days: 30
+  chart3-maintenance:
+    needs: [build-and-deliver]
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report:') && needs['build-and-deliver'].result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    continue-on-error: true
+    permissions:
+      contents: read
+      actions: write
+    # This lock is acquired only after Stage 6 has delivered the report.
+    concurrency:
+      group: tac-chart3-data-maintenance
+      cancel-in-progress: false
+    steps:
+      - name: Checkout delivered Main state
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Merge pending Chart 3 increment after report delivery
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRIGGER_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, re, subprocess, time
+          from pathlib import Path
+          match=re.search(r"\\[build-tac-report:(\\d{4}-\\d{2}-\\d{2})\\]",os.environ["TRIGGER_COMMIT_MESSAGE"])
+          if not match: raise SystemExit("Chart 3 post-delivery job requires the exact report-date marker")
+          report_date=match.group(1)
+          content_path=Path(f"production/input/report-content-{report_date}.json")
+          content=json.loads(content_path.read_text(encoding="utf-8"))
+          run_dir=Path("production/runs")/content["run_id"]
+          capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
+          handoff=capture.get("chart3_handoff") or {}
+          status=handoff.get("status")
+          ledger=Path(handoff.get("ledger_path") or "data/tac-chart3/sp500_daily_increment.jsonl")
+          if status not in ("APPENDED","NOOP_IDENTICAL_OBSERVATION") or not ledger.is_file() or not ledger.stat().st_size:
+              print(json.dumps({"status":"NOOP","reason":"No pending verified S&P 500 increment","handoff_status":status}))
+              raise SystemExit(0)
+          repo="lion-invlab/lion-invlab.github.io"
+          old=json.loads(subprocess.check_output(["gh","api",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30"],text=True))
+          old_ids={item["id"] for item in old.get("workflow_runs",[])}
+          target=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          subprocess.run(["gh","api","-X","POST",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/dispatches","-f","ref=main"],check=True)
+          deadline=time.time()+1800
+          selected=None
+          while time.time()<deadline:
+              doc=json.loads(subprocess.check_output(["gh","api",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30"],text=True))
+              matches=[item for item in doc.get("workflow_runs",[]) if item["id"] not in old_ids and item.get("head_sha")==target and item.get("event")=="workflow_dispatch"]
+              if matches:
+                  selected=sorted(matches,key=lambda item:item.get("created_at",""),reverse=True)[0]
+                  if selected.get("status")=="completed": break
+              time.sleep(15)
+          if not selected or selected.get("status")!="completed" or selected.get("conclusion")!="success":
+              raise SystemExit("Post-delivery Chart 3 merge did not complete successfully")
+          print(json.dumps({"status":"PASS","report_date":report_date,"run_id":content["run_id"],"chart3_workflow_run_id":selected["id"],"chart3_commit_base":target}))
+          PY
