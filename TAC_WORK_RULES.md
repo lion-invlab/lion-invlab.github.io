@@ -1,14 +1,21 @@
-# TAC 投資早報｜正式工作規則
+# TAC 投資早報｜共通規則與行事曆資料庫維護 WR
 
-版本：5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）
+版本：5.18（2026-11-27｜Main Pipeline 權責分離）
 建立日期：2026-10-28
 本次整併日期：2026-11-04
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
 
+## 適用範圍與規則權威（2026-11-27 起）
+- 本文件保留 TAC 共通資料原則及「行事曆資料庫更新任務」的維護規則；不再作為 Main 每日早報 Pipeline 的執行流程權威。
+- Main 每日早報唯一生產規範為 `production/MASTER_WR.md`，六份 Stage WR 與 contracts 為其執行附件；Main 的 Stage 順序、交接、Runner、QA、Preview 及發布均以該規範為準。
+- Simulation 僅在 `simulation/tac-process-lab-2026-11-06` 分支使用 `simulation-lab/TAC_WORK_RULES_SIM.md`；不得將 Simulation 流程混入 Main。
+- 本文件中原本描述「Main 早報由單一 ChatGPT 依六步驟直接製作」、禁止 Main Runner／Workflow／Snapshot 的條文，均屬舊流程歷史規則，不得覆蓋 `production/MASTER_WR.md`。
+
+
 ## A. 規則權威、責任與基本原則
 
 ### A1. 唯一權威來源
-1. 本檔（GitHub main 根目錄 `TAC_WORK_RULES.md`）是唯一正式工作規則。每次工作開始前必須重新讀取 main 最新內容，不得以聊天記憶、舊交接摘要、舊版副本或其他同名檔案取代。
+1. 本檔是 TAC 共通資料原則及行事曆資料庫更新任務的正式工作規則；Main 每日早報生產以 `production/MASTER_WR.md` 為唯一權威。行事曆資料庫更新開始前仍須重新讀取本檔最新內容。
 2. 使用者最新明確指示優先於本檔；但不得把一般討論、假設或助理建議視為已核准變更。若明確指示改變長期規則，先更新本檔並記錄，再依新規則執行。
 3. `母版專區/mother-template-manifest.json` 是核准母版路徑與 SHA 的唯一登記來源；本檔定義製作規則，Manifest 定義實際核准檔案。兩者不一致時停止母版渲染，不得自行猜選或更新 SHA。
 4. `母版專區/母版結構驗收清單.md` 是每日 HTML 結構、功能與視覺 QA 的唯一詳細執行清單。它是技術驗收附件，不是第二份 Work Rules；本檔只定義 QA Gate、通過門檻及權責，不重複抄錄清單。
@@ -16,8 +23,8 @@
 
 ### A1-補充｜單一執行者與版本確認
 
-1. 每次早報由 ChatGPT 單一執行者直接負責。開工時重新讀取 GitHub main 最新 TAC_WORK_RULES.md、Manifest、核准母版及當週行事曆 JSON，記錄本次採用的 WR 版本與讀取時間。
-2. 不再要求建立 WR Lock、下載 lock artifact、讀取 Issue #319 relay，亦不以 GitHub Actions、Snapshot、Assembler、Renderer 或 Orchestrator 成功作為早報開工前提。
+1. 本文件的單一執行者原則僅適用於本文件所管轄的行事曆資料庫維護與一般研究工作；Main 每日早報必須依 `production/MASTER_WR.md` 使用六 Stage Pipeline、Runner、Snapshot 與必要 QA。
+2. 行事曆資料庫更新仍由其唯一排程任務負責；不得將此任務誤認為 Main 早報 Stage 1 或 Stage 3 的替代流程。
 3. 允許每日工作日 04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。每日 05:25 早報仍由 ChatGPT 單一執行者負責，但對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於早報工作紀錄與預覽 HTML。不得要求使用者逐步輸入「繼續」。
 4. 歷史 Snapshot、lock、workflow artifact 及舊版流程紀錄只作歷史資料，不得冒充當次行情或當次執行證據。
 5. **六步驟成果交接的唯一工作錨點：** 使用既有 `TAC_SESSION_STATE.md` 保存當次報告的活動狀態、各步驟輸入／輸出索引、完成狀態、未結事項、下一步及可恢復位置；使用既有 `TAC_WORK_LOG.md` 記錄重要查核結果、關鍵來源證據、決策、修正及完成驗收。兩者分工不得互換：Session State 是目前進度與恢復錨點，Work Log 是重要工作證據與決策紀錄。不得另建每日 Snapshot、行情資料庫、新聞資料庫、第二份工作台帳或新的流程協調器。
@@ -76,7 +83,9 @@
 - 工具欄說明泡泡須在使用者首次捲動／觸控移動時立即提前消失，不等待原定 6.5 秒；泡泡消失不得連帶移除工具欄呼吸燈／高亮提示，呼吸燈仍依原定時間持續（除非使用者點擊或母版原始行為另有定義）。此行為若存在於所選母版，須在預覽中保留並分別驗收泡泡及呼吸燈；未實測不得宣稱實機通過。
 - 不得以 CSS 臨時覆蓋掩飾 DOM 缺失，不得為統一 selector 重寫母版原有不同實作。
 
-## C. 每日唯一生產流程（六步驟）
+## C. 舊版人工早報流程（已退役，不適用 Main）
+
+本節保留歷史參考；Main 每日早報不得依本節執行，必須遵循 `production/MASTER_WR.md`。
 
 這是每日唯一主流程。其他章節只提供各步驟需要遵循的內容規格，不另形成第二套流程。
 
