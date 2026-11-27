@@ -26,6 +26,13 @@ def run(cmd:list[str])->dict:
             except json.JSONDecodeError: pass
         return {"stdout":proc.stdout.strip()}
 
+def validate_stage2_worker_wr_attestation(payload:dict,wr_preflight:dict)->dict:
+    supplied=payload.get("stage2_wr_sha256") if isinstance(payload,dict) else None
+    expected=wr_preflight.get("wr_sha256")
+    if not supplied or supplied!=expected:
+        raise ValueError("Stage 2 ChatGPT capture is missing the exact Stage 2 WR read attestation")
+    return {"status":"PASS","stage2_wr_sha256":supplied,"expected_wr_sha256":expected}
+
 def build_chart3_handoff_candidate(run_dir:Path,context:dict,fixture_path:Path,
                                   stage1_fixture_sha256:str,market_snapshot_sha256:str,sp500:dict)->dict:
     """Preserve verified S&P 500 input for R3 without invoking the unapproved writer."""
@@ -133,6 +140,8 @@ def main():
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
+    web_payload=load(web_bundle)
+    worker_wr_attestation=validate_stage2_worker_wr_attestation(web_payload,wr_preflight)
     if not cnn_observation.is_file():
         cnn_observation.write_text(json.dumps({
             "schema_version":"1.0", "run_id":context["run_id"],
@@ -176,6 +185,7 @@ def main():
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["wr_preflight"]=wr_preflight
+    stage2_receipt_doc["worker_wr_attestation"]=worker_wr_attestation
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
     fixture=load(fixture_path)
@@ -197,6 +207,7 @@ def main():
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "wr_preflight":wr_preflight,
+      "worker_wr_attestation":worker_wr_attestation,
       "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
       "stage2_handoff":handoff,
