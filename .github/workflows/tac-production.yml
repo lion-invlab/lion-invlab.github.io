@@ -243,7 +243,7 @@ jobs:
             REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
           fi
           python - "$REPORT_DATE" <<'PY'
-          import json, sys
+          import json, sys, os
           from pathlib import Path
           from datetime import date
           target=sys.argv[1]
@@ -251,23 +251,44 @@ jobs:
               date.fromisoformat(target)
           except ValueError:
               raise SystemExit("Invalid report_date; expected YYYY-MM-DD.")
+          matches=[]
           for context_path in Path("production/runs").glob("TAC-*/run-context.json"):
               context=json.loads(context_path.read_text(encoding="utf-8"))
               if context.get("report_date") == target:
-                  run_dir=context_path.parent
-                  receipt=run_dir/"capture-stage-receipt.json"
-                  state="completed Capture" if receipt.exists() else "existing partial Run"
-                  raise SystemExit(f"Refusing duplicate manual recovery: {state} already exists for {target} at {run_dir}. Inspect/resume that exact Run; do not create a second Run.")
+                  matches.append(context_path.parent)
+          supersedes=""
+          if matches:
+              if os.environ.get("DISPATCH_MODE") != "recover":
+                  raise SystemExit(f"Run already exists for {target}; only explicit recover may supersede an undelivered Run.")
+              if len(matches) != 1:
+                  raise SystemExit(f"Cannot auto-supersede {len(matches)} prior Runs for {target}; manual reconciliation required.")
+              prior=matches[0]
+              delivered_files=[
+                  Path("preview")/f"{target}-review.html",
+                  Path("preview")/f"{target}-review.qa.json",
+                  Path("preview")/f"{target}-review.delivery.json"
+              ]
+              if ((prior/"stage5-render-qa-receipt.json").exists()
+                  or (prior/"stage6-delivery-receipt.json").exists()
+                  or any(path.exists() for path in delivered_files)):
+                  raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; automatic supersession is prohibited.")
+              supersedes=prior.name
+          print(f"supersedes_run_id={supersedes or 'NONE'}")
           PY
           RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
+          echo "SUPERSEDES_RUN_ID=$supersedes" >> "$GITHUB_ENV"
       - name: Stage 1 — create a fresh blank-first Run
         run: |
           set -euo pipefail
-          python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
+          if [ -n "${SUPERSEDES_RUN_ID:-}" ]; then
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID" --supersedes-run-id "$SUPERSEDES_RUN_ID"
+          else
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
+          fi
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/report-data.json"
           test -s "$RUN_DIR/stage1-receipt.json"
