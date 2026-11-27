@@ -9,23 +9,26 @@ from test_stage2_market_fixture_bootstrap import fixture, observation_rows
 def make_inputs():
     blank=blank_fixture(fixture())
     obs_rows=observation_rows(blank,pending=("risk","move"))
-    for row in obs_rows:
+    for index,row in enumerate(obs_rows):
         row["read_status"]="SOURCE_NO_DATA" if row["status"]=="SOURCE_NO_DATA" else "PAGE_CONTENT_READ_SUCCESS"
         row["instrument_identity"]=row["name"]
+        if index == 0:
+            row["target_date"]="2026-11-24"
+            row["observed_date"]="2026-11-24"
         row["observation_record_sha256"]=canonical_sha(row)
     obs={"report_date":"2026-11-26","trading_date":"2026-11-25","observations":obs_rows}
     populated=populate_fixture(blank,obs)
     manifest_rows=[]
     for row in obs_rows:
         status="VERIFIED" if row["status"]=="VERIFIED" else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
-        record={"source_url":row["source_url"],"data_date":"2026-11-25",
+        record={"source_url":row["source_url"],"data_date":row["target_date"],
             "observed_date":row.get("observed_date"),"instrument_identity":row.get("instrument_identity"),
             "observed_value":row.get("observed_value"),"observed_change":row.get("observed_change"),
             "checked_at_tw":row.get("finished_at_tw"),"evidence_method":row.get("read_method"),
             "provenance":"CURRENT_RUN_BROWSER_OBSERVATION","read_status":row.get("read_status"),
             "field_evidence":row.get("field_evidence") or {},"quote_type":"spot_daily_close","source_role":"PRIMARY"}
         manifest_rows.append({"group":row["group"],"name":row["name"],"source_url":row["source_url"],
-            "trading_date":"2026-11-25","verification_status":status,
+            "data_date":row["target_date"],"verification_status":status,
             "display_value_matches_saved_observation":status=="VERIFIED",
             "observation_provenance":"CURRENT_RUN_BROWSER_OBSERVATION",
             "browser_observation_record":record if status=="VERIFIED" else None,
@@ -63,6 +66,7 @@ def main():
         assert receipt["pending_rows"][0]["name"]=="move"
         assert sum(receipt["market_status_counts"].values())==44
         assert all("market_data_status" in row for row in receipt["rows"])
+        assert len({row["data_date"] for row in receipt["rows"]}) == 2
         assert receipt["preexisting_market_values_used"] is False
         assert all(len(x["sha256"])==64 for x in receipt["input_files"].values())
 
