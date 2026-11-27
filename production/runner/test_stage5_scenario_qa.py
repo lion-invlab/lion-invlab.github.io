@@ -1,8 +1,17 @@
 import unittest
-from run_stage5 import evaluate_scenario_qa
+from run_stage5 import evaluate_scenario_qa, determine_stage5_status
 
 
 class Stage5ScenarioQATests(unittest.TestCase):
+    def test_verified_inputs_can_be_review_ready(self):
+        self.assertEqual(determine_stage5_status({"status":"PASS","pending_rows":[]},{"pending_items":[]}),"REVIEW_READY")
+
+    def test_partial_market_rows_cannot_be_review_ready(self):
+        self.assertEqual(determine_stage5_status({"status":"PARTIAL","pending_rows":[{"name":"VIX"}]},{"pending_items":[]}),"PARTIAL")
+
+    def test_pending_editorial_items_cannot_be_review_ready(self):
+        self.assertEqual(determine_stage5_status({"status":"PASS","pending_rows":[]},{"pending_items":["consensus unresolved"]}),"PARTIAL")
+
     def test_no_material_change_scan_is_not_applicable(self):
         result=evaluate_scenario_qa(
             {"political_scan":{"findings":[],"no_material_change_note":"六個領域均已掃描，沒有重大且可核實的政策變化。"}},
