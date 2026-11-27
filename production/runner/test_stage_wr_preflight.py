@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import stage_wr_preflight
+from run_stage2 import validate_stage2_worker_wr_attestation
 
 class StageWRPreflightTests(unittest.TestCase):
     def setUp(self):
@@ -62,6 +63,15 @@ class StageWRPreflightTests(unittest.TestCase):
         with patch.object(stage_wr_preflight, "_git_blob", side_effect=[self.blob, "b" * 40]):
             with self.assertRaises(SystemExit):
                 stage_wr_preflight.stage_wr_preflight("STAGE_3", context)
+
+    def test_stage2_worker_requires_exact_stage_wr_sha(self):
+        preflight = {"wr_sha256":"e"*64}
+        result = validate_stage2_worker_wr_attestation({"stage2_wr_sha256":"e"*64},preflight)
+        self.assertEqual(result["status"],"PASS")
+        with self.assertRaisesRegex(ValueError,"exact Stage 2 WR"):
+            validate_stage2_worker_wr_attestation({},preflight)
+        with self.assertRaisesRegex(ValueError,"exact Stage 2 WR"):
+            validate_stage2_worker_wr_attestation({"stage2_wr_sha256":"f"*64},preflight)
 
     def test_upstream_receipt_requires_valid_wr_proof(self):
         evidence = {"status":"PASS","stage":"STAGE_2","wr_loaded":True,"rules_text_loaded":True,
