@@ -7,6 +7,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
+from stage_wr_preflight import stage_wr_preflight
+
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
 LAYERS=("political","policy_industry","macro","markets","strategy")
@@ -176,6 +178,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 4 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+    wr_preflight=stage_wr_preflight("STAGE_4",context)
     fixture_path=run_dir/"report-data.json"
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
     stage3_receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
@@ -234,6 +237,7 @@ def main():
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
+      "wr_preflight":wr_preflight,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
