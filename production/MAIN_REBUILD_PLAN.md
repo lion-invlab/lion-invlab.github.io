@@ -196,3 +196,17 @@
 - R2 尚未完成：現行 `tac-production.yml` 仍在同一 Capture job 直接呼叫 Stage 2 Runner；Runner 在缺少 ChatGPT bundle 時仍有 Playwright fallback，且 observation bundle／editorial input 仍使用日期級全域路徑，尚未完成 Run-scoped handoff。
 - 11/27 當日尚無成功的 11/26 Stage 2 snapshot、Stage 3 receipt、Stage 4 editorial JSON、Stage 5 QA 或 Stage 6 Preview。舊失敗 Run `TAC-2026-11-27-45912371719-1` 的 trading_date=11/25，不得重用。
 - 下一個唯一工程主軸：完成 R2 的兩段式 Run-scoped handoff（Stage 1 commit → ChatGPT Stage 2 bundle → Runner Stage 2/3 → ChatGPT Stage 4 JSON → Runner Stage 4–6），同步更新 schema、validator、Runner、Workflow、contracts、tests、README、PORT_MANIFEST；移除 Stage 2 Playwright fallback。未完成前不得宣稱 11/27 早報已產出.
+
+
+## 2026-11-27｜R2 同 Run 輸入與 SHA 驗證第一批實作
+
+- R2 工作分支：`tac-r2-run-scoped-handoff-20261127`。
+- 新增 `production/runner/validate_stage2_run_handoff.py`：驗證 Run 目錄身分、Stage 1 receipt、run-context、blank-first fixture 三者實際 SHA-256，並檢查 44 列觀察、固定 Run 內檔名、report/trading date、目標日、商品 URL 與來源商品 universe。
+- 新增 `production/runner/test_stage2_run_handoff.py`：涵蓋正向同 Run 接受、錯誤 Run ID、錯誤 fixture SHA、觀察檔 bytes 改變及重新計算 SHA 後仍跨 trading_date 等負向案例。
+- `production/contracts/HANDOFF_CONTRACT.md` 更新為 v1.2，新增 Stage 1→ChatGPT Stage 2 傳輸、SHA、acknowledgement、冪等重送及 PARTIAL 恢復規格。
+- `production/input/STAGE2_README.md` 改為 Run-scoped 固定路徑與禁止 Playwright／TradingView 替代讀取規則。
+- `.github/workflows/tac-production.yml` 已加入新測試的 unittest discovery 與獨立執行命令。
+- 上述提交目前尚未取得可引用的 CI 執行結果；不得標記為測試通過。新 validator 尚未接入 Stage 2 Runner，也尚未建立 Stage 1 work packet／marker receiver。Stage 2 Runner 目前仍有日期級輸入與 Playwright fallback。
+- 本輪未修改 Simulation、Main 正式首頁、正式母版、正式排程或既有正式資料。
+
+**下一步（仍屬 R2，不可跳至移除 fallback）：** 完成新 validator 的實際測試與修正；接著讓 Stage 1 receipt／work packet 明確提供本 Run 的固定輸入檔名與 SHA，再將 Stage 2 Runner 改為只接收 `production/runs/<run_id>/stage2-chatgpt-handoff.json` 並在 fixture 寫入前完成同 Run 驗證。驗證完成後才進入三條替代讀取路徑移除。
