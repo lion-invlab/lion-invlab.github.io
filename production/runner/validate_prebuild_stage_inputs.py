@@ -521,9 +521,9 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
             "current": {k: current.get(k) for k in
                         ("path", "blob_sha", "week_id", "week_start", "week_end",
                          "economic_count", "earnings_count")},
-            "previous": {k: previous.get(k) for k in
-                         ("path", "blob_sha", "week_id", "week_start", "week_end",
-                          "economic_count", "earnings_count")},
+            "previous": ({k: previous.get(k) for k in
+                          ("path", "blob_sha", "week_id", "week_start", "week_end",
+                           "economic_count", "earnings_count")} if previous is not None else None),
             "mode": "READ_ONLY_PINNED_MAIN_COMMIT",
         },
         "stage_4_news_and_analysis": stage4,
