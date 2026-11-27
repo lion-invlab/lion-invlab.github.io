@@ -43,7 +43,7 @@
 
 - 台灣報告日為 `report_date`。
 - 週二至週五報告，目標資料日為前一個日曆日；週一報告，目標資料日為前一個週五。
-- 例：2026-11-27 早報的目標資料日為 **2026-11-26**。美國感恩節休市的商品必須標記 CLOSED；亞洲、歐洲及外匯市場則讀取 11/26 實際資料。不得把 11/25 的美股收盤值冒充 11/26 行情。
+- 例：2026-11-27 早報的目標資料日為 **2026-11-26**。美國股票一般交易時段與 11 檔產業 ETF 休市，應依官方交易日曆標記 CLOSED；但不得把「美股現貨休市」一概套用到 VIX 或其他商品。Cboe 2026 假期表顯示 11/26 SPX／VIX 指數選擇權仍有 Global Trading Hours，VIX 需依其實際歷史列與交易時段判讀。SIFMA 對美國固定收益市場提出 11/26 full-close recommendation，但屬建議、各會員機構可自行決定；2Y／10Y／30Y 殖利率須核對 Investing.com 當日歷史列與觀察時間，不可僅憑 SIFMA 建議自動標 CLOSED。不得把 11/25 的美股收盤值冒充 11/26 行情。
 - Stage 1 只鎖定報告規則產生的共同目標日；Stage 2 逐項依該商品所屬市場的官方日曆與 Investing.com 歷史表格判斷該目標日是否有資料。
 - 頁面可讀但缺少目標日列：SOURCE_NO_DATA；工具無法讀取頁面／表格：TOOL_READ_FAILURE；只有可回查的官方市場日曆明確證明休市，才可標 MARKET_CLOSED。
 - 不得用 NYSE 單一交易日曆決定亞洲、歐洲、外匯及商品的資料日期。不得把「表格沒有該日期」直接推定為休市。
@@ -189,10 +189,10 @@
 
 ---
 
-**目前狀態（2026-11-27 08:40 Asia/Taipei）：**
+**目前狀態（2026-11-27 08:56 Asia/Taipei；依後續 GitHub 回讀更新）：**
 - R0 全面現況盤點：已完成 24 份 workflow 的逐一讀取與初步 trigger／writer 矩陣；發現 Preview 雙 writer、archive 自動封存政策衝突、main.yml 廣泛 data staging，以及 Stage2 雙 Playwright fallback。R0 的盤點已完成，衝突處理列為 R7 切換 Gate，不在 E2E 前任意停用舊流程。
-- R1 日期基準：`create_run_fixture.py` 已採台灣報告日規則；2026-11-27 → 2026-11-26。CI #395（GitHub Run `45916213111`）與更新本計畫的 CI #396（GitHub Run `45918547203`）均已 success；兩者都是 deterministic validation，不是當日 Capture 或 E2E。
-- 11/26 休市證據：Nasdaq／Cboe 官方交易日曆確認美國股票與選擇權市場 11/26 休市；SIFMA 確認美國固定收益市場 11/26 full close。不得將 11/25 價格回填為 11/26。
-- R2 尚未完成：現行 `tac-production.yml` 仍在同一 Capture job 直接呼叫 Stage 2 Runner；Runner 在缺少 ChatGPT bundle 時仍有 Playwright fallback，且 observation bundle／editorial input 仍使用日期級全域路徑，尚未完成 Run-scoped handoff。
-- 11/27 當日尚無成功的 11/26 Stage 2 snapshot、Stage 3 receipt、Stage 4 editorial JSON、Stage 5 QA 或 Stage 6 Preview。舊失敗 Run `TAC-2026-11-27-45912371719-1` 的 trading_date=11/25，不得重用。
-- 下一個唯一工程主軸：完成 R2 的兩段式 Run-scoped handoff（Stage 1 commit → ChatGPT Stage 2 bundle → Runner Stage 2/3 → ChatGPT Stage 4 JSON → Runner Stage 4–6），同步更新 schema、validator、Runner、Workflow、contracts、tests、README、PORT_MANIFEST；移除 Stage 2 Playwright fallback。未完成前不得宣稱 11/27 早報已產出.
+- R1 日期基準：`create_run_fixture.py` 已採台灣報告日規則；2026-11-27 → 2026-11-26。GitHub Actions `run_number=395`（Run `45916213111`）與 `run_number=400`（Run `45918547203`）均 success；`run_number=398`（Run `45917320326`）亦 success。以上均為 deterministic validation，不是當日 Capture 或 E2E。
+- 11/26 市場時段判讀已補充核對：Cboe 官方 2026 Options Holiday Schedule 顯示 11/26 一般 RTH 關閉，但 SPX／VIX 指數選擇權 GTH 仍有 08:15 p.m.（11/25）至 11:30 a.m.（11/26）及 08:15 p.m.（11/26）至 09:25 a.m.（11/27）時段；因此 VIX 的 11/26 歷史列不可直接判休市。SIFMA 11/12 公告為美國固定收益市場 full-close recommendation，並明示由會員機構自行決定是否交易；因此 2Y／10Y／30Y 不可只憑該建議自動標 CLOSED，必須同時保留 Investing.com 歷史列、標的口徑及觀察時間證據。美國股票指數與 11 檔產業 ETF 仍依官方假期日曆標記 CLOSED。不得將 11/25 美股收盤值回填為 11/26。
+- R2 協定文件與輸入測試已有進展，但程式／Workflow 尚未完成：Run `45919110905`（run_number=402，協定文件 commit `fa54bff`）success；Run `45919431535`（run_number=403，加入 11/27 直接頁面觀察資料）success；Run `45919671512`（run_number=404，44-row bundle deterministic test）success。11/27 日期級 observation bundle 目前為 44 列：27 PAGE_CONTENT_READ_SUCCESS、16 MARKET_CLOSED、1 SOURCE_UPDATE_PENDING（MOVE），捕捉時間 `2026-11-27T00:51:42Z`；此 bundle 尚未帶入實際 Stage 1 Run ID／SHA，不能當成正式 snapshot。現行 `tac-production.yml` 仍在同一 Capture job 直接呼叫 Stage 2 Runner；Runner 缺少 Run-scoped ChatGPT bundle 時仍有 Playwright fallback，且 observation bundle／editorial input 仍使用日期級全域路徑。
+- 11/27 當日尚無成功的 Stage 1 Run，也尚無 11/26 Stage 2 snapshot、Stage 3 receipt、Stage 4 editorial JSON、Stage 5 QA 或 Stage 6 Preview。舊失敗 Run `TAC-2026-11-27-45912371719-1` 的 trading_date=11/25，不得重用；其 Playwright capture artifact 42/44 rows 為 TOOL_READ_FAILURE，MOVE 為 SOURCE_UPDATE_PENDING，僅 1 row VERIFIED。
+- 下一個唯一工程主軸：完成 R2 的兩段式 Run-scoped handoff（Stage 1 commit → ChatGPT Stage 2 bundle → Runner Stage 2/3 → ChatGPT Stage 4 JSON → Runner Stage 4–6），同步更新 schema、validator、Runner、Workflow、contracts、tests、README、PORT_MANIFEST；移除 Stage 2 Playwright／TradingView 自動 fallback。並須把現有 Main continuation automation 改為同一任務依序接手 Stage 2 與 Stage 4–6（不新增第二個排程），但必須等 workflow／handoff 完成後再更新 prompt。Chart 3 S&P500 writer 仍有獨立 Run/SHA binding 與 merge fallback／重複 compact table 問題，納入 R3 驗收，不得視為已核准 writer。未完成前不得宣稱 11/27 早報已產出.
