@@ -658,17 +658,8 @@ def main() -> None:
     args = parser.parse_args()
     data_path=Path(args.data)
     original_data = json.loads(data_path.read_text(encoding="utf-8"))
-    screenshot_sidecar=Path(f"production/input/market-screenshot-observations-{args.report_date}.json")
-    if screenshot_sidecar.is_file():
-        # Screenshot inputs outrank any previously assembled direct-web bundle.
-        # Delegate to the single screenshot-first browser reader, which fills only missing fields.
-        browser_script=Path(__file__).with_name("browser_verify_market_history.py")
-        command=[sys.executable,str(browser_script),"--fixture",str(data_path),
-            "--report-date",args.report_date,"--output",args.output,
-            "--timeout-ms","15000","--concurrency","4"]
-        if args.no_fixture_write: command.append("--no-fixture-write")
-        subprocess.run(command,check=True)
-        return
+    # Evidence must be supplied inside the Run-scoped packet; no date-global
+    # screenshot sidecar may trigger browser automation or override this input.
     data=blank_fixture(original_data,apply_screenshots=False)
     bundle = json.loads(Path(args.input).read_text(encoding="utf-8"))
     cnn_capture = json.loads(Path(args.cnn_observation).read_text(encoding="utf-8"))
@@ -684,7 +675,8 @@ def main() -> None:
             if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
         ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
-    result = maybe_capture_move_backup(data_path, args.report_date, bundle, result)
+    # MOVE remains the pinned Investing.com observation. If its row is absent
+    # or pending, preserve that status; never substitute TradingView.
     result["row_count"]=len(result["observations"])
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
