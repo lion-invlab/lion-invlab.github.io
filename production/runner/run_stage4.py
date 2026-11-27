@@ -54,7 +54,7 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
         raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
-def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)->None:
+def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)->dict:
     instructions=capture.get("stage4_work_instructions") or {}
     full_text=instructions.get("full_text")
     if capture.get("status")!="AWAITING_EDITORIAL_INPUT" or not isinstance(full_text,str) or not full_text.strip():
@@ -67,6 +67,9 @@ def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)-
         raise ValueError("Stage 4 full-WR handoff does not match the pinned current Stage 4 WR")
     if editorial.get("stage4_wr_sha256")!=wr_preflight.get("wr_sha256"):
         raise ValueError("Stage 4 editorial input is missing the exact full-WR read attestation")
+    return {"status":"PASS","stage4_wr_sha256":wr_preflight["wr_sha256"],
+            "full_text_sha256":full_sha,"handoff_path":instructions["path"],
+            "handoff_git_blob_sha":instructions["git_blob_sha"]}
 
 def validate_content(content:dict,context:dict,data:dict)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
@@ -209,7 +212,7 @@ def main():
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
     try:
-        validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
+        editorial_wr_attestation=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
     except ValueError as exc:
         raise SystemExit(str(exc))
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
@@ -261,6 +264,7 @@ def main():
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
       "wr_preflight":wr_preflight,
+      "editorial_worker_wr_attestation":editorial_wr_attestation,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
