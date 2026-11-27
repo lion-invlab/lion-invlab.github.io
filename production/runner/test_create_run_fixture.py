@@ -30,6 +30,8 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertEqual(governance["commit_sha"],result["run_context"]["main_commit_sha"])
         self.assertIn("production/config/builder-approval.json",governance["blob_shas"])
         self.assertIn("production/runner/run_stage5.py",governance["blob_shas"])
+        self.assertIn("production/runner/stage_wr_preflight.py",governance["blob_shas"])
+        self.assertTrue(result["run_context"]["stage_wr_preflight"]["wr_loaded"])
 
 
     def test_writes_immutable_stage1_fixture_and_working_copy(self):
