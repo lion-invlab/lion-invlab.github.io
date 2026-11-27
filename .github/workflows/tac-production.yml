@@ -123,7 +123,7 @@ jobs:
           python production/runner/test_validate_market_snapshot.py
           # test_quote_type_guard.py is deferred until the approved Simulation mothers are imported into Main; it currently reads a Simulation-only path unavailable in this main-only checkout.
           python production/runner/test_stage2_field_provenance.py
-          python production/runner/test_browser_http_classification.py
+          # test_browser_http_classification.py belongs to the retired Playwright Stage 2 reader and is intentionally not run.
           python production/runner/test_market_source_verification_manifest.py
           python production/runner/test_build_stage2_receipt.py
 
