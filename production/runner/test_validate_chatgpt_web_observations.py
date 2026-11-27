@@ -486,7 +486,8 @@ def main():
     ]
     assert fixture_statuses.count("VERIFIED") == 26, fixture_statuses
     assert fixture_statuses.count("BACKUP_VERIFIED") == 1, fixture_statuses
-    assert fixture_statuses.count("CLOSED") == 16, fixture_statuses
+    # Five US equity indices, eleven sector ETFs and MOVE were closed on Thanksgiving 2026-11-26.
+    assert fixture_statuses.count("CLOSED") == 17, fixture_statuses
     assert fixture_statuses.count("PENDING") == 1, fixture_statuses
     assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
     assert populated_1127["sector_sources"]["XLE"]["verification_status"] == "CLOSED"
