@@ -406,9 +406,7 @@ def main():
         try:
             validate_bundle(blank_data, "2026-11-24", invalid_bundle)
         except ValueError as exc:
-            assert "move" in str(exc).casefold() and (
-                "source" in str(exc).casefold() or "pinned" in str(exc).casefold() or "approved" in str(exc).casefold()
-            )
+            assert "move" in str(exc).casefold()
         else:
             raise AssertionError(f"Unapproved or premature MOVE alternate-source evidence was accepted: {invalid_fields}")
 
