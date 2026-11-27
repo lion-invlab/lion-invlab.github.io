@@ -32,7 +32,7 @@ def previous_week_start(day:date)->date:
     monday=day-timedelta(days=day.weekday())
     return monday-timedelta(days=7)
 
-def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
+def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_run_id:str|None=None)->dict:
     stage1_wr = stage_wr_preflight("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday()>4: raise ValueError(f"Weekend report date is not allowed: {report_date}")
@@ -69,6 +69,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
         calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path,main_commit_sha)})
     run_context={
       "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
+      "supersedes_run_id":supersedes_run_id,
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
       "repository":"lion-invlab/lion-invlab.github.io","branch":"main",
@@ -122,7 +123,8 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "governance_file_count":len(context["governance"]["blob_shas"]),
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
              "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
-             "wr_preflight":context["stage_wr_preflight"]}
+             "wr_preflight":context["stage_wr_preflight"],
+             "supersedes_run_id":context.get("supersedes_run_id")}
     (output/"stage1-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     return receipt
 
@@ -132,6 +134,7 @@ def main():
     ap.add_argument("--trading-date")
     ap.add_argument("--run-id")
     ap.add_argument("--output-dir")
+    ap.add_argument("--supersedes-run-id")
     args=ap.parse_args()
     report_date=date.fromisoformat(args.report_date)
     run_token=args.run_id or os.environ.get("GITHUB_RUN_ID") or uuid.uuid4().hex[:12]
@@ -145,7 +148,7 @@ def main():
     if output.resolve().parent!=runs_lexical.resolve() or not output.name.startswith(f"TAC-{report_date.isoformat()}-"):
         raise SystemExit("Output must be a direct child of production/runs named TAC-<report_date>-<run_id>")
     if output.is_symlink(): raise SystemExit("Run output directory must not be a symlink")
-    result=build(report_date,run_id,date.fromisoformat(args.trading_date) if args.trading_date else None)
+    result=build(report_date,run_id,date.fromisoformat(args.trading_date) if args.trading_date else None,args.supersedes_run_id)
     receipt=write_run_files(output,run_id,result,ROOT)
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
 
