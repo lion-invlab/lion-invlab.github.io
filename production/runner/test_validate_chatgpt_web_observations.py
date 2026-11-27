@@ -206,7 +206,7 @@ def main():
     assert screenshot_move_source["verification_status"] == "VERIFIED"
     assert screenshot_move_source["source_role"] == "USER_PROVIDED_SCREENSHOT"
     assert screenshot_move_source["source_page_fetched"] is False
-    assert screenshot_move_source["open"] == "99.32" and screenshot_move_source["high"] == "102.73" and screenshot_move_source["low"] == "97.40"
+    assert Decimal(screenshot_move_source["open"]) == Decimal("99.32") and Decimal(screenshot_move_source["high"]) == Decimal("102.73") and Decimal(screenshot_move_source["low"]) == Decimal("97.40")
     bundle = make_bundle(data)
 
     # A delayed retry may replace only MOVE; the other 43 frozen observations
