@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "status": "APPROVED_MAIN",
   "builder_path": "production/runner/build_review_html.py",
-  "builder_blob_sha": "c09e93947d91d29d2220fde2e4110c79eca5392c",
+  "builder_blob_sha": "5d555e40285bf4156740e418664f4833d66956ee",
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
@@ -16,8 +16,8 @@
   "approved_at": "2026-11-27",
   "owner_approval_record": {
     "decision": "APPROVED",
-    "approved_builder_blob_sha": "c09e93947d91d29d2220fde2e4110c79eca5392c",
-    "approval_scope": "Main production Builder exact-blob approval: replace Simulation/internal-training labels in existing approved DOM text slots with Main review labels, and calculate explicit base/risk/severe scenario coverage in the existing market-analysis evidence receipt. No market values, sources, mother-template structure or formal homepage content are changed.",
+    "approved_builder_blob_sha": "5d555e40285bf4156740e418664f4833d66956ee",
+    "approval_scope": "Main production Builder exact-blob approval: replace Simulation/internal-training labels in existing approved DOM text slots with Main review labels while preserving child elements and line breaks, and calculate explicit base/risk/severe scenario coverage in the existing market-analysis evidence receipt. No market values, sources, mother-template structure or formal homepage content are changed.",
     "approved_at": "2026-11-27",
     "evidence": "User's broad authorization for the Main rebuild and autonomous continuation on 2026-11-26, reaffirmed by the 2026-11-27 Main rebuild instructions requiring Main-specific review output and Stage 5 content QA. The merge-triggered Main validation workflow remains mandatory before Stage 5–6."
   }

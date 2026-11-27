@@ -2380,7 +2380,11 @@ def main():
     for node in soup.select(".top-warning"):
         set_text(node, "⚠️ Main 審核版｜正式首頁尚未更新")
     for node in soup.select(".tac-side-foot"):
-        set_text(node, "TAC 投資早報｜Main 審核版")
+        text_nodes = [child for child in node.contents if isinstance(child, str) and child.strip()]
+        if len(text_nodes) != 2:
+            raise ValueError(f"Expected two approved leaf text nodes in .tac-side-foot; found {len(text_nodes)}")
+        text_nodes[0].replace_with("TAC 投資早報")
+        text_nodes[1].replace_with("Main 審核版｜正式首頁尚未更新")
     for warning in soup.select(".data-sync-warning"):
         set_text(warning, f"Main 審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 來源或日期不足的行情依其狀態標示，不得以待補資料冒充已核實。")
     footer = soup.select_one("footer.footer")
