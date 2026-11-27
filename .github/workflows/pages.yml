@@ -46,6 +46,11 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce official homepage publication lock
+        run: python3 production/runner/verify_homepage_publication_lock.py
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
