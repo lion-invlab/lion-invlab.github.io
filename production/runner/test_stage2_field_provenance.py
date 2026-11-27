@@ -216,6 +216,10 @@ def main():
     assert move_backup_result["market_data_status"] == "BACKUP_VERIFIED"
     assert move_backup_result["browser_observation_record"]["source_role"] == "BACKUP_1"
     assert move_backup_result["browser_observation_record"]["evidence_source_url"] == tv_url
+    # The manifest fixture predates the approved-backup policy field. Mirror the
+    # current production template so build_manifest validates the same allowlist
+    # that Stage 2 receives in a real blank-first Run.
+    data["risk"]["move"]["source"]["approved_backup_urls"] = [tv_url]
     move_manifest = build_manifest(
         data, data["report_date"], {("risk", "move"): move_backup_observation}
     )
