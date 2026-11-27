@@ -114,7 +114,7 @@ def main():
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--input",str(web_bundle.relative_to(ROOT)),
         "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
-        "--output",str(observations_path.relative_to(ROOT)),"--no-fixture-write"])
+        "--output",str(observations_path.relative_to(ROOT))])
     input_mode="RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS"
     audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
