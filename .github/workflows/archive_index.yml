@@ -26,6 +26,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Enforce official homepage publication lock
+        run: python3 production/runner/verify_homepage_publication_lock.py
+        with:
+          fetch-depth: 0
+
       - name: Archive previous TAC report
         shell: bash
         run: |
