@@ -170,7 +170,9 @@ def _apply_screenshot_fields(row: dict, observation: dict, screenshot: dict) -> 
             else "FGSCORE_HISTORICAL_PAGE"
         )
     else:
-        page_source_type = "INVESTING_HISTORICAL_PAGE"
+        page_source_type = ("TRADINGVIEW_HISTORICAL_PAGE"
+                            if group == "risk" and name == "move" and "tradingview.com" in str(page_url).casefold()
+                            else "INVESTING_HISTORICAL_PAGE")
 
     evidence = dict(screenshot_evidence)
     if value_key in fields:
@@ -287,6 +289,21 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raw["evidence_source_url"]=raw.get("source_url")
             elif method=="CNN_OFFICIAL_CURRENT_DASHBOARD":
                 raw["source_role"]="PRIMARY"
+        if group=="risk" and name=="move" and method=="CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
+            tradingview_url="https://www.tradingview.com/symbols/ICE-MOVE/"
+            if raw.get("source_url")==tradingview_url:
+                primary=raw.get("primary_attempt") or {}
+                if primary.get("source_url") != source.get("url"):
+                    raise ValueError("MOVE TradingView backup must include the exact Investing.com primary attempt URL")
+                if primary.get("read_status") not in ("TOOL_READ_FAILURE","SOURCE_NO_DATA"):
+                    raise ValueError("MOVE TradingView backup is allowed only after Investing.com TOOL_READ_FAILURE or SOURCE_NO_DATA")
+                if not primary.get("web_reader_ref") or not isinstance(primary.get("web_line_start"),int) or not isinstance(primary.get("web_line_end"),int):
+                    raise ValueError("MOVE TradingView backup requires cited evidence of the failed/missing Investing.com primary observation")
+                raw["source_role"]="BACKUP_1"
+                raw["evidence_source_url"]=tradingview_url
+                raw["source_type"]="TRADINGVIEW_HISTORICAL_PAGE"
+            elif raw.get("source_url") != source.get("url"):
+                raise ValueError("MOVE source URL must be the pinned Investing.com primary or the exact approved TradingView backup")
         target_date = raw.get("target_date")
         try:
             from datetime import date as _date
@@ -369,19 +386,29 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             else:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             if group == "risk" and name == "move":
-                # MOVE is pinned to its approved Investing.com source. No external
-                # historical-page fallback is permitted; only current-run user
-                # screenshot fields may take precedence through the screenshot path.
-                if raw.get("source_url") != source.get("url"):
-                    raise ValueError("MOVE source_url must remain the pinned Investing.com URL")
-                if raw.get("attempt_url"):
-                    raise ValueError("MOVE alternate-source attempt_url is not permitted")
-                if raw.get("evidence_source_url") not in (None, raw.get("source_url")):
-                    raise ValueError("MOVE evidence_source_url must remain the pinned Investing.com URL")
-                if raw.get("source_role") in ("BACKUP", "BACKUP_1", "BACKUP_2", "SECONDARY"):
-                    raise ValueError("MOVE alternate source roles are not permitted")
-                if raw.get("read_status") == "SOURCE_UPDATE_PENDING":
-                    raw["source_role"] = "PRIMARY_PENDING"
+                tradingview_url="https://www.tradingview.com/symbols/ICE-MOVE/"
+                if raw.get("source_url")==source.get("url"):
+                    if raw.get("source_role") in ("BACKUP","BACKUP_1","BACKUP_2","SECONDARY"):
+                        raise ValueError("MOVE Investing.com primary observation cannot be labelled as backup")
+                    if raw.get("evidence_source_url") not in (None,source.get("url")):
+                        raise ValueError("MOVE primary evidence URL must remain the pinned Investing.com URL")
+                    if raw.get("read_status") == "SOURCE_UPDATE_PENDING":
+                        raw["source_role"] = "PRIMARY_PENDING"
+                elif raw.get("source_url")==tradingview_url:
+                    if raw.get("source_role")!="BACKUP_1":
+                        raise ValueError("MOVE TradingView must be explicitly labelled BACKUP_1")
+                    if raw.get("source_type")!="TRADINGVIEW_HISTORICAL_PAGE":
+                        raise ValueError("MOVE TradingView evidence must retain its source type")
+                    if raw.get("read_status") not in ("PAGE_CONTENT_READ_SUCCESS","SOURCE_NO_DATA","TOOL_READ_FAILURE"):
+                        raise ValueError("MOVE TradingView backup has an unsupported read status")
+                    if raw.get("read_status")=="PAGE_CONTENT_READ_SUCCESS":
+                        title=str(raw.get("page_title") or "").casefold()
+                        if "ice bofaml" not in title or "option volatility estimate" not in title:
+                            raise ValueError("MOVE TradingView page title does not identify the exact ICE BofAML MOVE index")
+                    if raw.get("evidence_source_url")!=tradingview_url:
+                        raise ValueError("MOVE TradingView evidence URL must match the approved TradingView page")
+                else:
+                    raise ValueError("MOVE source URL is not an approved primary or backup URL")
             raw["http_status"] = None
             raw["source_page_fetched"] = raw.get("read_status") != "TOOL_READ_FAILURE"
             raw["provenance"] = "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
