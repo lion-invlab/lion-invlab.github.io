@@ -361,7 +361,9 @@ def verification_fields(source: dict, display, change_display, observation: dict
         }
         canonical = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
         record_hash = hashlib.sha256(canonical).hexdigest()
-    source_role = observation.get("source_role") or source.get("source_role", "PRIMARY")
+    # Verification tier follows the fixture-configured source priority; the observation role
+    # describes the endpoint used for evidence and must not silently promote a configured backup.
+    source_role = source.get("source_role") or observation.get("source_role", "PRIMARY")
     verification_status = (
         "BACKUP_VERIFIED" if verified and source_role in ("BACKUP_1", "BACKUP", "SECONDARY")
         else "VERIFIED" if verified
