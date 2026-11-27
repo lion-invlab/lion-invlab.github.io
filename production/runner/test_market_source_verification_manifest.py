@@ -150,7 +150,7 @@ def main():
     move_item["display"] = "-"
     move_item["change_display"] = "休市"
     move_source = move_item["source"]
-    move_source["data_date"] = "2026-11-23"
+    move_source["data_date"] = "2026-11-26"
     move_closed_observation = {
         ("risk", "move"): {
             "read_status": "MARKET_CLOSED",
@@ -174,8 +174,8 @@ def main():
             "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
             "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
             "prior_observation_reused": False,
-            "finished_at_utc": "2026-11-23T10:00:00Z",
-            "finished_at_tw": "2026-11-23T18:00:00+08:00",
+            "finished_at_utc": "2026-11-27T00:00:00Z",
+            "finished_at_tw": "2026-11-27T08:00:00+08:00",
         }
     }
     move_closed_manifest = build_manifest(move_closed_data, "2026-11-27", move_closed_observation)
