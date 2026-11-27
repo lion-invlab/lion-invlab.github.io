@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_3_CALENDAR",
+  "status": "PASS",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "report_date": "2026-11-27",
+  "main_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
+  "current_week": {
+    "week_id": "2026-W48",
+    "path": "data/calendar/weeks/2026-W48.json",
+    "blob_sha": "fdcdc3a4a2870b988a00458b6947a24005443076",
+    "economic_count": 27,
+    "earnings_count": 11
+  },
+  "previous_week": {
+    "week_id": "2026-W47",
+    "path": "data/calendar/weeks/2026-W47.json",
+    "blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+    "economic_count": 25,
+    "earnings_count": 23
+  },
+  "source_json_read_only": true,
+  "projection_is_in_memory": true,
+  "outputs": {
+    "calendar.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/calendar.json",
+      "sha256": "23ed8f25c27c6f645bd0055271dee4c852af48dbd1e494043f8c679057c38ae9"
+    },
+    "earnings.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/earnings.json",
+      "sha256": "593b5361816b78aa012bf079cc89a5bea21abe2ac72eec579f3d863b9959ecf1"
+    },
+    "last-week-calendar.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/last-week-calendar.json",
+      "sha256": "eb87a898b4dfe3eb9b37cd5960dc0624d3c00e3fc894f7b1151e21dddb53a4b1"
+    },
+    "last-week-earnings.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/last-week-earnings.json",
+      "sha256": "47a7aa7f95b54265a71e2eff7e76dcbe738694803b886727cecc2cf181d58181"
+    },
+    "calendar-source-bundle.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/calendar-source-bundle.json",
+      "sha256": "85748a9c81f3fc615db9c4d3e57c58c0e1cdaeb6704b07057e2ef76802f5e720"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_2_MARKET",
+  "market_snapshot_sha256": "41ac628e643d0f0a1ace05283c48f366c95ad4b6048d681c769b75ef33dcdda1",
+  "status": "PARTIAL",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
+  "concurrency": 4,
+  "timeout_ms": 15000,
+  "elapsed_seconds": 0.3,
+  "stage2_handoff": {
+    "status": "PASS",
+    "run_id": "TAC-2026-11-27-45937649928-1",
+    "report_date": "2026-11-27",
+    "trading_date": "2026-11-26",
+    "stage1_receipt_sha256": "a3a540239ed50fd4e75dae2b0b6b886f563d21ec430534e4b66fa40caa3871c2",
+    "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
+    "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
+    "stage1_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/stage1-fixture.json",
+    "working_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
+    "bundle_sha256": "04e20be4f7ab8024fcfe1858bb3e240c37389a123745b42496c3e740c88e7deb",
+    "optional_bundle_sha256": {
+      "cnn-fear-greed-observation.json": "9e5c9078757c6b9246fab5a585eb20a750b0bedf7935a42dfbc7518b63042e05"
+    },
+    "screenshot": {
+      "row_count": 0,
+      "field_count": 0
+    }
+  },
+  "web_observation_bundle_sha256": "04e20be4f7ab8024fcfe1858bb3e240c37389a123745b42496c3e740c88e7deb",
+  "cnn_observation_sha256": "9e5c9078757c6b9246fab5a585eb20a750b0bedf7935a42dfbc7518b63042e05",
+  "historical_page_read_count": null,
+  "screenshot_only_count": null,
+  "mixed_field_count": null,
+  "status_counts": {
+    "VERIFIED": 27,
+    "OBSERVED_PENDING_VALIDATION": 17
+  },
+  "verified_count": 27,
+  "pending_count": 1,
+  "closed_count": 16,
+  "market_status_counts": {
+    "VERIFIED": 26,
+    "CLOSED": 16,
+    "BACKUP_VERIFIED": 1,
+    "SOURCE_UPDATE_PENDING": 1
+  },
+  "chart3_handoff": {
+    "status": "SKIPPED_UNVERIFIED",
+    "reason": "S&P 500 cash-index close is not VERIFIED; no Chart 3 handoff candidate created."
+  },
+  "outputs": {
+    "report-data.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
+      "sha256": "4f2e197649808f280bbd5259ecd554a4e68d7c5a4295aff34c8b2795acc7656e"
+    },
+    "market-history-browser-observations.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
+      "sha256": "6b82fd6c8adc2e58be297dfa880a7ef9281d27dafec25db74c9fb43bd9567c17"
+    },
+    "market-snapshot-audit.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/market-snapshot-audit.json",
+      "sha256": "3d9b236a7541f5afbc27f49e6ce6dfa2d26d8a68ab4529f7611bac341396da29"
+    },
+    "market-source-verification-manifest.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
+      "sha256": "72e75edf5b1806f1259e5bdd8398115eb58039f38941169e426aa78447b7417f"
+    },
+    "stage2-market-snapshot-receipt.json": {
+      "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
+      "sha256": "78d47d1ea3fe0b305fd7beadd7e6091a60a21b6b4fbc4a8c7c6ab582680ee1f2"
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "timezone": "Asia/Taipei",
+  "started_at": "2026-11-27T12:04:46.618114+08:00",
+  "repository": "lion-invlab/lion-invlab.github.io",
+  "branch": "main",
+  "main_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
+  "governance": {
+    "commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
+    "blob_shas": {
+      "production/MASTER_WR.md": "25fe936b6cafff82780ff06c309e9ec822b84f01",
+      "production/stages/STAGE_1_CONTEXT.md": "f6c0c4ab3a97e2705e3ef955982aec1b113edaa1",
+      "production/stages/STAGE_2_MARKET.md": "0c4e70c6e3e5addee7984a80b45d1553646accce",
+      "production/stages/STAGE_3_CALENDAR.md": "992e97e980ceb05bb31001396703cbe4d7cd38cd",
+      "production/stages/STAGE_4_NEWS_ANALYSIS.md": "67629c41ae6a71cbfc47c4c0227a672e3e7d486e",
+      "production/stages/STAGE_5_RENDER_QA.md": "58c97781b9eb4b090d0d075af47f45d171abfb2f",
+      "production/stages/STAGE_6_DELIVERY.md": "36b967332d13a449e48fea33227ba640d5050f87",
+      "production/contracts/DATA_SCHEMA.md": "c50e8e99f90cf9364b87fbb9f676ade7fa4d4e62",
+      "production/contracts/HANDOFF_CONTRACT.md": "bcfae545634374673607d7d588789c277947d309",
+      "production/contracts/HTML_BUILDER_CONTRACT.md": "bd9dbc9536cf28b269078a1a1b80efd89f54764b",
+      "production/contracts/MOTHER_TEMPLATE_QA.md": "dd4b7d4622baccb9afb858fd2d7bd8e0320060b7",
+      "production/contracts/PUBLISH_CONTRACT.md": "e255a006620bcfc1b1d4c545abf692ed986bcb15",
+      "production/contracts/QA_CONTRACT.md": "2a57a7471c3026a38cf72067fac81aea0814d9f2",
+      "production/contracts/RUN_CONTRACT.md": "e5a2af159007e3323a285547e1dd115b6e09129d",
+      "production/contracts/SOURCE_POLICY.md": "b38ca5845a52ede91d0c9551a2d19da7c538aee0",
+      "production/contracts/STATUS_ENUM.json": "55b854c9ea6bc96237ba02429da174636c0d36f2",
+      "production/config/mother-template-manifest.json": "617de0b9ae915139ac93a74b61d26dbfe716d91b",
+      "production/config/report-data-template.json": "c1b408ae760640c668904cfc8bd63011ad17049f",
+      "production/input/report-content.schema.json": "6fbec5f45b0cf9ec03d74edd4450f5cc13643a55",
+      "production/input/market-screenshot-observations.schema.json": "1395c05a2c15015658164b2b3567df1d4b0a1661",
+      "production/config/builder-approval.json": "c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928",
+      "production/runner/PORT_MANIFEST.json": "f1cfdcc1bf0ffdc0de8ec622832edafb79627052",
+      "production/runner/create_run_fixture.py": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
+      "production/runner/run_stage2.py": "068a6861c9d4eab489f4f0b50a1bbfc0d04748af",
+      "production/runner/browser_verify_market_history.py": "b659c4b4fce989b8479e7b7c581fd13e7f0332b3",
+      "production/runner/stage2_screenshot_inputs.py": "8d254826569b65c901dbff32eb14a2ebc4c49dda",
+      "production/runner/stage2_market_fixture_bootstrap.py": "7f8643b34f974bae31113b97f0a0ea7dd32eccf1",
+      "production/runner/validate_chatgpt_web_observations.py": "f514620bfbf3eec30bfca8ce244f80efb5ac8b83",
+      "production/runner/build_stage2_receipt.py": "239f9e6aa028a159791b5f63d50b2b8b02afd03a",
+      "production/runner/build_market_source_verification_manifest.py": "ec54b16f383290539ee7063f37f640558c5e9485",
+      "production/runner/validate_market_snapshot.py": "e476d764267ff03bceb3aa78bae7248784e316a5",
+      "production/runner/stage2_move_retry.py": "1b6fb9f5741b15123f1a6b8c20d2e23b4131ba04",
+      "production/runner/handoff_sp500_to_chart3.py": "513b2424861cbc1046ca93adf935a9f00014a176",
+      "production/runner/run_stage3.py": "6a3d04a9fed106ceef022850578241338ac604a8",
+      "production/runner/calendar_source_guard.py": "3c49e05b992e9c65f165cfb7d26c493073f080c7",
+      "production/runner/earnings_judgment.py": "47a8ba3fdbd9f0a2cc61975d9a814adeaa5570f9",
+      "production/runner/audit_earnings_schema.py": "6d2f30e3da786e9a3b08c6223d81e13659c21a8f",
+      "production/runner/validate_earnings_v2.py": "67f4640981f43842de482e73992bef5e65017825",
+      "production/runner/collect_earnings_price_reactions.py": "7d70bfffa79af5cda4952535e0d9b5bebacc8abb",
+      "production/runner/consensus_snapshot_store.py": "3bdabe5a3e301777f022b07e0b89297964d5b8c8",
+      "production/runner/run_stage4.py": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
+      "production/runner/prepare_stage4_research_bundle.py": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969",
+      "production/runner/run_stage5.py": "94f50a0b251fa5a0987cc4dee1c967d2decb86ae",
+      "production/runner/run_stage6.py": "c60835291308073db7cc021f5d3861c19eb9e34d",
+      "production/runner/validate_prebuild_stage_inputs.py": "7ef4e3c8b4d8cc62650a3b2ae06bf91587733283",
+      "production/runner/validate_mother_dom_contract.py": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
+      "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
+      "production/runner/visual_regression.mjs": "39a1483b34bceba1e3b17c4382dd74c9e996157b",
+      "production/runner/interaction_smoke.mjs": "33165eb6b50187449f95fcfc614c576b1c9e2ca9",
+      "production/runner/build_review_html.py": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+      "production/runner/builder_approval.py": "8213bed709b981fd89c8126d004d034185a941ae",
+      ".github/workflows/tac-production.yml": "729e63d1af13caed5b3a15c728af28209f08a322",
+      ".github/workflows/tac-chart3-sp500-increment-merge.yml": "666e13e5c3837ed664cf912cc3e5c9926994aa8f",
+      ".github/workflows/pages.yml": "f90a1b52c26b3bc202e6fac48df59774265dcbb3"
+    }
+  },
+  "workflow_run_id": "45937649928",
+  "workflow_run_attempt": "1",
+  "mother": {
+    "key": "weekdays",
+    "path": "production/templates/weekday-mother-template.html",
+    "blob_sha": "ff051c0cd22cf9267420c41e3952fa3178f0e45d"
+  },
+  "manifest": {
+    "path": "production/config/mother-template-manifest.json",
+    "sha256": "abc5669705be705e344d31497a2712326d325b3eba45a7b19c2fef872d23ce15",
+    "git_blob_sha": "617de0b9ae915139ac93a74b61d26dbfe716d91b"
+  },
+  "base_fixture": {
+    "path": "production/config/report-data-template.json",
+    "sha256": "0a80ea96c24e92d5a1cb28b127ac5f2e55a9eeff4a9a1adfc86e729bb80a46c8",
+    "git_blob_sha": "c1b408ae760640c668904cfc8bd63011ad17049f"
+  },
+  "calendar_read_receipts": [
+    {
+      "path": "data/calendar/weeks/2026-W48.json",
+      "sha256": "b3f1f5de3f49df135ee7bb74fbbf810fa44319640dcdfda6a46189701c1e1c2d",
+      "git_blob_sha": "fdcdc3a4a2870b988a00458b6947a24005443076"
+    },
+    {
+      "path": "data/calendar/weeks/2026-W47.json",
+      "sha256": "e3470bcb33301233c7fc4e5221c9132465587b5001f78dff6f00fc3eb3e004fa",
+      "git_blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821"
+    }
+  ],
+  "screenshot_input": {
+    "status": "NOT_READ_AT_STAGE1",
+    "handoff_stage": "STAGE2"
+  },
+  "stage2_bootstrap": {
+    "status": "BLANK_INPUT",
+    "preexisting_market_values_used": false,
+    "screenshot_row_count": 0,
+    "screenshot_field_count": 0,
+    "row_count": 44,
+    "report_date": "2026-11-27",
+    "trading_date": "2026-11-26"
+  },
+  "market_universe_count": 44,
+  "stage1_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/stage1-fixture.json",
+  "working_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json"
+}

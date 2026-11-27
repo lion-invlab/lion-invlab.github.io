@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/stage1-fixture.json",
+  "working_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
+  "fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
+  "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
+  "governance_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
+  "governance_file_count": 54,
+  "market_rows": 44,
+  "preexisting_market_values_used": false,
+  "screenshot_fields": 0,
+  "screenshot_input_receipt": {
+    "status": "NOT_READ_AT_STAGE1",
+    "handoff_stage": "STAGE2",
+    "fields": []
+  }
+}
