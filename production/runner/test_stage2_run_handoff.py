@@ -104,6 +104,20 @@ def main() -> None:
         else:
             raise AssertionError("changed observation bytes must fail SHA validation")
 
+        # Even if a submitter recomputes the bundle SHA, a row targeting another
+        # trading date is rejected as cross-date input.
+        observations["observations"][0]["target_date"] = "2026-11-25"
+        obs_sha = write_json(observations_path, observations)
+        bad = copy.deepcopy(bundle)
+        bad["market_observations_sha256"] = obs_sha
+        write_json(run_dir / "stage2-chatgpt-handoff.json", bad)
+        try:
+            validator.verify(run_dir, run_dir / "stage2-chatgpt-handoff.json")
+        except ValueError as exc:
+            assert "target_date differs" in str(exc)
+        else:
+            raise AssertionError("cross-date observation must fail even with recomputed SHA")
+
     print("PASS: same-Run handoff accepts exact inputs and rejects Run/SHA/date tampering")
 
 
