@@ -261,6 +261,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["source"]["verification_status"],"CLOSED")
         self.assertEqual(item["source"]["market_calendar_evidence"]["status"],"CLOSED")
 
+ # Regression: metals labels are parsed from the observed row text, including its row key.
  # 11/27 Main capture trigger after closure manifest alignment.
 if __name__=="__main__":
     unittest.main()
