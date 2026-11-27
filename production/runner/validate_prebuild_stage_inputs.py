@@ -200,6 +200,24 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                     and record.get("observed_change") is not None
                     and record.get("checked_at_tw"),
                     f"verified row observation record incomplete: {row.get('name')}")
+            record_evidence_types = {
+                item.get("source_type") for item in (record.get("field_evidence") or {}).values()
+                if isinstance(item, dict)
+            }
+            if "TRADINGVIEW_HISTORICAL_PAGE" in record_evidence_types:
+                tv_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
+                primary = record.get("primary_attempt") or {}
+                require(row.get("group") == "risk" and row.get("name") == "move"
+                        and row.get("evidence_source_url") == tv_url
+                        and row.get("evidence_source_role") == "BACKUP_1",
+                        "TradingView evidence is restricted to the approved MOVE BACKUP_1 source")
+                require(primary.get("source_url") == record.get("source_url")
+                        and primary.get("target_date") == row_data_date
+                        and primary.get("read_status") in ("TOOL_READ_FAILURE", "SOURCE_NO_DATA")
+                        and bool(primary.get("web_reader_ref"))
+                        and isinstance(primary.get("web_line_start"), int)
+                        and isinstance(primary.get("web_line_end"), int),
+                        "MOVE TradingView manifest record lacks same-date Investing.com primary-failure evidence")
             provenance = row.get("observation_provenance")
             if provenance == "CURRENT_USER_PROVIDED_SCREENSHOT":
                 require(row.get("source_page_fetched") is False,
@@ -334,8 +352,9 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
                         and all(item.get("source_url") == tv_url for item in evidence.values()
                                 if item.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE"),
                         "MOVE TradingView evidence URL or backup role is invalid")
-                require(primary.get("source_url", "").startswith("https://")
-                        and "investing.com/" in primary.get("source_url", "")
+                primary_url = str(primary.get("source_url") or "")
+                require(primary_url.startswith("https://")
+                        and "investing.com/" in primary_url
                         and primary.get("target_date") == row.get("target_date")
                         and primary.get("read_status") in ("TOOL_READ_FAILURE", "SOURCE_NO_DATA")
                         and bool(primary.get("web_reader_ref"))
