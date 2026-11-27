@@ -48,17 +48,14 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 
 ## 五、當前執行順序（2026-11-27 狀態校正）
 
-1. **保留舊 Run，不得原地修補。** 既有 `TAC-2026-11-27-45937649928-1` 的 Stage 1 governance pin 是舊版提交 `c337b44`，早於六階段 WR preflight 強制規則；其 Stage 1–4 receipts 沒有新制要求的 WR 證據，因此不能接續新規則下的 Stage 2–6。舊 Run 與舊 observation／editorial 全部保留作歷史證據，不回填或偽造 worker attestation。
-2. **建立受控替代 Run。** 只有 `workflow_dispatch mode=recover` 可在確認當日僅有一個未交付舊 Run、且沒有 Stage 5／6 或公開 Preview 成果時，建立新 Run；新 Run 明確記錄 `supersedes_run_id`，舊 Run 不刪除、不覆寫。若已有多個 Run 或任何已交付成果，停止並人工釐清。
-3. **重新執行 Stage 2。** 既有 11/27 observation 缺少 `stage2_wr_sha256`，不能沿用或事後補簽。Stage 2 擷取工作者必須先完整讀取本版 `STAGE_2_MARKET.md`，重新讀取當日有效截圖／Investing.com Historical Data，並在 44 列 observation bundle 根層寫入精確 `stage2_wr_sha256`。當日截圖僅當天有效；沒有有效截圖就重新讀取來源，不得沿用舊截圖。
-4. **Stage 3–4 重新綁定同一 Run。** Stage 3 讀取該新 Run 的行事曆；Stage 4 必須先讀 capture receipt 內完整 Stage 4 WR，再根據新 research bundle 重寫 editorial，寫入精確 `stage4_wr_sha256`。舊 `report-content-2026-11-27.json` 不得直接送入新 Run。
-5. **完成 Stage 5–6。** 使用核准 Builder 產生 11/27 Preview，通過必要 QA，部署後遠端回讀 HTML／QA／delivery 三檔並驗證公開 URL。這只交付審核版，不更新正式首頁或歷史封存。
-6. **最後才驗收排程。** 確認 Stage 2 observation 先於 Capture workflow 到位，Stage 4 editorial 先於 Stage 4–6 continuation 到位；以同一 Run 串接，不另造第二條生產入口。
+1. **保留 11/27 已交付成果。** `preview/2026-11-27-review.html`、QA 與 delivery 三檔均存在；QA 為 `REVIEW_READY`，四類 QA 均 PASS，Pages 公開 URL 回讀 HTTP 200 且 SHA 一致。正式首頁與歷史封存未修改。此成果已交付，不得重做、覆蓋或另建同日 Run。
+2. **舊 Run 僅作歷史證據。** `TAC-2026-11-27-45937649928-1` 建立時使用舊 governance pin，缺少新制 Stage WR worker attestation；不得把新規則回填至舊 receipt，也不得再執行舊的 MOVE holiday resume job。舊 observation 與 editorial 不得作為新 Run 的合格輸入。
+3. **保留受控復原機制，但只用於未交付日期。** `workflow_dispatch mode=recover` 僅可在當日恰有一個舊 Run、且沒有 Stage 5／6 receipt 或公開 Preview 三檔時建立替代 Run；新 Run 記錄 `supersedes_run_id`，舊 Run 完全保留。多個舊 Run 或已有交付成果時停止，不自動覆蓋。
+4. **補齊下一個工作日的 Stage 2 輸入鏈。** 新 observation bundle 必須先由擷取工作者完整讀取本版 `STAGE_2_MARKET.md`，並在根層寫入精確 `stage2_wr_sha256`；再由 Main Capture workflow 建立 Stage 1–3。舊日期 observation 不得沿用或事後補簽。
+5. **以 2026-11-30（週一）作下一次新制真實 E2E。** Stage 1 鎖定 Monday mother 與 governance；Stage 2 完成 44 項與 FedWatch；Stage 3 唯讀投影 W48／W47；Stage 4 編輯者讀取 capture receipt 的完整 Stage 4 WR 並回填 `stage4_wr_sha256`；Stage 5 Builder／必要 QA；Stage 6 交付 Preview 三檔並遠端回讀。
+6. **排程整合最後驗收。** 確認 Stage 2 observation 先於 Capture、Stage 4 editorial 先於 Stage 4–6 continuation；三個現有任務（行事曆 04:35、Stage 4–6 05:15、Chart 3 05:30）與 Main Workflow 使用同一報告日期／Run。未完成真實 E2E 前，不宣稱新制已正式上線。
 
-每完成一項，只回頭檢查：**是否讓當日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
-
-每完成一項，只回頭檢查：**是否讓當日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
-
+每完成一項，只回頭檢查：**是否讓下一個工作日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
 ## 六、明確不做
 
 - 不再建立多層 handoff receipt、重複 SHA 綁定、過度細分 Gate。
