@@ -33,6 +33,8 @@ GOVERNANCE_PATHS=(
  "production/runner/PORT_MANIFEST.json",
  "production/runner/stage_wr_preflight.py",
  "production/runner/test_stage_wr_preflight.py",
+ "production/runner/test_stage2_fedwatch.py",
+ "production/input/market-history-web-observations.schema.json",
  "production/runner/create_run_fixture.py",
  "production/runner/run_stage2.py",
  "production/runner/browser_verify_market_history.py",
