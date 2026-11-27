@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "status": "PAGES_DEPLOY_PENDING",
+  "report_date": "2026-11-27",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "source": {
+    "repository": "lion-invlab/lion-invlab.github.io",
+    "branch": "main",
+    "run_path": "production/runs/TAC-2026-11-27-45937649928-1/review.html",
+    "workflow_run_id": "45937649928",
+    "workflow_run_attempt": "1",
+    "trigger_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336"
+  },
+  "targets": {
+    "html": "preview/2026-11-27-review.html",
+    "qa": "preview/2026-11-27-review.qa.json",
+    "delivery_receipt": "preview/2026-11-27-review.delivery.json"
+  },
+  "html": {
+    "sha256": "777f45ef5511faa4f125da5d3cbcadc0254512a118cb90ad79cc1f8b6071e051",
+    "git_blob_sha": "efa7fde68616e6708d084d6ab35c621f4fc92cbb"
+  },
+  "qa": {
+    "sha256": "1c29c36f541699294e5e4ad0eb98ea9c704d00a46398f39fcd520894a1c06bc7",
+    "source_qa_sha256": "c568cad1ad86fbe710e98e1270887206412f89ddfdaacfca416d97e51a06bea6"
+  },
+  "builder_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
+  "prebuild_receipt_sha256": "2f412fa93ea05dc4c243ef4f3868818e2292571f330d1928cf4126226bbbb02d",
+  "stage5_receipt_sha256": "cdfedce4bad591074ae114a5ab66473e25cd3d255a3c8fadb45623300b2e15fa",
+  "protected_paths_unchanged": true,
+  "protected_paths": [
+    "index.html",
+    "data/calendar/weeks",
+    "production/templates/monday-mother-template.html",
+    "production/templates/weekday-mother-template.html",
+    "production/config/mother-template-manifest.json",
+    "data/calendar/weeks"
+  ],
+  "formal_homepage_modified": false,
+  "history_archive_modified": false,
+  "payload_commit_sha": "PENDING",
+  "pages_deployment_commit_sha": "PENDING",
+  "pages_workflow_run_id": null,
+  "pages_workflow_conclusion": null,
+  "public_url_verified": false
+}
