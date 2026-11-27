@@ -390,6 +390,7 @@ jobs:
           python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
           test -s "$RUN_DIR/stage2-market-snapshot-receipt.json"
           test -s "$RUN_DIR/stage2-run-summary.json"
+      # The Chart 3 merge workflow listens for this production workflow's successful completion; never dispatch it from Stage 2.
       - name: Commit only verified S&P 500 Chart 3 increment for post-delivery merge
         shell: bash
         run: |
