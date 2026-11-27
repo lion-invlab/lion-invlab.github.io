@@ -8,6 +8,11 @@
  
 Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／修改行情 fixture 或讀取行情。
 
+## 美股收盤時點與擷取邊界
+- 台灣冬令 04:45（15:45 ET）是 Stage 1 建立 Run 的時間；美股尚未收盤。Stage 1 僅建立 Run／鎖定治理版本／交付 handoff，不代表可開始正式收盤行情擷取。
+- Stage 2 worker 排程為台灣冬令 05:00（16:00 ET），即美股正式收盤時點；只有在同一 Run 的 Stage 1 三份 handoff 檔及 SHA 核對通過後，才可開始行情頁讀取。
+- `report_cutoff_taipei` 是資料截點而非排程啟動時間：美東 16:25，台灣夏令 04:25／冬令 05:25。各商品仍須依自身市場已完成交易時段、實際歷史表格日期及資料可讀性判定；不得把 04:45 盤中值當收盤，也不得因 05:00 到點就把尚未更新的歷史表格當成已核實收盤。尚未出現收盤列時，只能維持 PENDING 並依本 WR 刷新同一來源，或在交付期限到達時如實標示來源狀態；不得用盤中價、舊值或未核准來源替代。
+
 ## Stage 2 ChatGPT 擷取工作者開工前必讀
 - 在讀取任何使用者截圖、Investing.com Historical Data 頁或建立 observation 前，必須先完整讀取本 WR；隨後等待同一 report_date 的 Stage 1 Run 已提交 `run-context.json`、`stage1-fixture.json`、`stage1-receipt.json`。讀取三檔並計算 SHA 後，才可開始擷取。Stage 1 未完成、Run 不唯一或資料不一致時，Stage 2 必須等待／阻塞，不得先行預擷取。
 - `production/input/market-history-web-observations-YYYY-MM-DD.json` 根層必須包含 `stage2_wr_sha256`，值為本文件完整 UTF-8 bytes 的 SHA-256。
