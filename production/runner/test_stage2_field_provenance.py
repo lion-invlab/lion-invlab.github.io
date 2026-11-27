@@ -2,6 +2,7 @@
 """Stage 2 regression tests for screenshot-first, field-level evidence provenance."""
 from __future__ import annotations
 
+import ast
 import copy
 import hashlib
 import json
@@ -111,6 +112,23 @@ def main():
         assert result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
         assert result["observation_record_sha256"] is None
 
+    # The production browser reader must make exactly one pinned-source read
+    # per row; an alternate-source retry is forbidden.
+    browser_path = Path("production/runner/browser_verify_market_history.py")
+    browser_source = browser_path.read_text(encoding="utf-8")
+    browser_ast = ast.parse(browser_source)
+    observe_fn = next(
+        node for node in browser_ast.body
+        if isinstance(node, ast.AsyncFunctionDef) and node.name == "observe"
+    )
+    observe_once_calls = [
+        node for node in ast.walk(observe_fn)
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+        and node.func.id == "observe_once"
+    ]
+    assert len(observe_once_calls) == 1
+    assert "tradingview.com" not in browser_source.casefold()
+    assert "--move-backup-only" not in browser_source
     # MOVE must remain pending when the approved Investing.com page cannot be read; no TradingView substitution.
     move_source = data["risk"]["move"]["source"]
     move_observation = {
