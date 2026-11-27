@@ -429,43 +429,17 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
             await asyncio.sleep(0.5)
 
 async def observe(context,row,target,timeout,sem):
-    """Read Investing.com first; MOVE alone may fall back to TradingView ICE:MOVE."""
+    """Read only the pinned Investing.com historical page; never use an alternate source."""
     original_url=row["source_url"]
-    is_move=row.get("group")=="risk" and row.get("name")=="move"
-    backup_url="https://www.tradingview.com/symbols/ICE-MOVE/"
-    if is_move and row.get("move_backup_only"):
-        backup_row=dict(row); backup_row["request_url"]=backup_url
-        result=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
-        result["source_url"]=original_url
-        result["source_role"]="BACKUP_1"
-        result["evidence_source_url"]=backup_url
-        result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
-        if result.get("status")=="TARGET_DATE_NOT_FOUND":
-            result.update({"status":"SOURCE_UPDATE_PENDING","read_status":"SOURCE_UPDATE_PENDING",
-                           "observed_date":None,"observed_value":None,"observed_change":None,
-                           "observed_value_field":None,"observed_change_field":None,
-                           "error":"MOVE_TARGET_SESSION_NOT_YET_AVAILABLE_ON_TRADINGVIEW"})
-        elif result.get("status")=="VERIFIED":
-            result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
-            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
-        else:
-            result["read_status"]="TOOL_READ_FAILURE"
-            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
-        result["attempt_count"]=1
-        result["attempt_history"]=[{"round":1,"source_role":"BACKUP_1","request_url":backup_url,
-            "status":result.get("status"),"http_status":result.get("http_status"),
-            "page_title":result.get("page_title"),"final_url":result.get("final_url"),
-            "instrument_identity":result.get("instrument_identity"),"instrument_identity_status":result.get("instrument_identity_status"),
-            "instrument_identity":result.get("instrument_identity"),"instrument_identity_status":result.get("instrument_identity_status"),
-            "observed_row_text":result.get("observed_row_text"),"page_body_excerpt":result.get("page_body_excerpt"),
-            "started_at_utc":result.get("started_at_utc"),"finished_at_utc":result.get("finished_at_utc"),
-            "error":result.get("error")}]
-        result["verification_round"]=1
-        return result
     result=await observe_once(context,row,target,timeout,sem,challenge_wait_ms=6000)
-    attempts=[{
-        "round":1,"source_role":"PRIMARY","request_url":original_url,"status":result.get("status"),
-        "http_status":result.get("http_status"),
+    result["source_url"]=original_url
+    result["source_role"]="PRIMARY"
+    result["evidence_source_url"]=original_url
+    result["verification_round"]=1
+    result["attempt_count"]=1
+    result["attempt_history"]=[{
+        "round":1,"source_role":"PRIMARY","request_url":original_url,
+        "status":result.get("status"),"http_status":result.get("http_status"),
         "navigation_http_status":result.get("navigation_http_status"),
         "page_title":result.get("page_title"),"final_url":result.get("final_url"),
         "observed_row_text":result.get("observed_row_text"),"page_body_excerpt":result.get("page_body_excerpt"),
@@ -473,63 +447,6 @@ async def observe(context,row,target,timeout,sem):
         "started_at_utc":result.get("started_at_utc"),
         "finished_at_utc":result.get("finished_at_utc"),
     }]
-    if is_move and result.get("status") in ("TARGET_DATE_NOT_FOUND","TOOL_READ_FAILURE"):
-        backup_row=dict(row); backup_row["request_url"]=backup_url
-        backup=await observe_once(context,backup_row,target,min(timeout,12000),sem,challenge_wait_ms=4000)
-        attempts.append({
-            "round":2,"source_role":"BACKUP_1","request_url":backup_url,"status":backup.get("status"),
-            "http_status":backup.get("http_status"),
-            "navigation_http_status":backup.get("navigation_http_status"),
-            "page_title":backup.get("page_title"),"final_url":backup.get("final_url"),
-            "instrument_identity":backup.get("instrument_identity"),"instrument_identity_status":backup.get("instrument_identity_status"),
-            "observed_row_text":backup.get("observed_row_text"),"page_body_excerpt":backup.get("page_body_excerpt"),
-            "error":backup.get("error"),
-            "started_at_utc":backup.get("started_at_utc"),
-            "finished_at_utc":backup.get("finished_at_utc"),
-        })
-        if backup.get("status")=="VERIFIED":
-            result=backup
-            result["source_role"]="BACKUP_1"
-            result["evidence_source_url"]=backup_url
-            result["primary_source_url"]=original_url
-            result["read_status"]="PAGE_CONTENT_READ_SUCCESS"
-            result["read_method"]="PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE"
-        elif result.get("status")=="TARGET_DATE_NOT_FOUND" or backup.get("status")=="TARGET_DATE_NOT_FOUND":
-            primary_excerpt=result.get("page_body_excerpt","")
-            backup_excerpt=backup.get("page_body_excerpt","")
-            result.update({
-                "status":"SOURCE_UPDATE_PENDING",
-                "read_status":"SOURCE_UPDATE_PENDING",
-                "source_role":"PRIMARY_AND_BACKUP_PENDING",
-                "source_url":original_url,
-                "evidence_source_url":backup_url if backup.get("source_page_fetched") else original_url,
-                "source_page_fetched":bool(result.get("source_page_fetched") or backup.get("source_page_fetched")),
-                "backup_page_title":backup.get("page_title"),
-                "backup_final_url":backup.get("final_url"),
-                "page_title":backup.get("page_title") if backup.get("source_page_fetched") else result.get("page_title"),
-                "final_url":backup.get("final_url") if backup.get("source_page_fetched") else result.get("final_url"),
-                "attempt_url":backup_url if backup.get("source_page_fetched") else original_url,
-                "read_method":"PLAYWRIGHT_RENDERED_TRADINGVIEW_SYMBOL_PAGE" if backup.get("source_page_fetched") else "PLAYWRIGHT_RENDERED_HISTORY_TABLE",
-                "instrument_identity":backup.get("instrument_identity") if backup.get("source_page_fetched") else result.get("instrument_identity"),
-                "instrument_identity_status":backup.get("instrument_identity_status") if backup.get("source_page_fetched") else result.get("instrument_identity_status"),
-                "http_status":backup.get("http_status") if backup.get("source_page_fetched") else result.get("http_status"),
-                "observed_date":None,"observed_value":None,"observed_change":None,
-                "observed_value_field":None,"observed_change_field":None,
-                "page_body_excerpt":"\\n".join(x for x in (primary_excerpt,backup_excerpt) if x)[:5000],
-                "primary_attempt_status":attempts[0]["status"],
-                "backup_attempt_status":attempts[1]["status"],
-                "error":"MOVE_TARGET_SESSION_NOT_YET_AVAILABLE_ON_READABLE_PRIMARY_OR_BACKUP_PAGE",
-            })
-        else:
-            result=backup if result.get("status")=="TOOL_READ_FAILURE" else result
-            result["source_role"]="PRIMARY_AND_BACKUP_READ_FAILURE"
-            result["primary_attempt_status"]=attempts[0]["status"]
-            result["backup_attempt_status"]=attempts[1]["status"]
-            if result.get("status")=="TOOL_READ_FAILURE": result["read_status"]="TOOL_READ_FAILURE"
-    result["source_url"]=original_url
-    result["verification_round"]=next((x["round"] for x in attempts if x["status"]=="VERIFIED"),attempts[-1]["round"])
-    result["attempt_count"]=len(attempts)
-    result["attempt_history"]=attempts
     return result
 
 def _screenshot_identity_matches(name, identity):
@@ -619,11 +536,8 @@ def _apply_screenshot_fields(row, observation, screenshot):
 
     page_value=observation.get("observed_value")
     page_change=observation.get("observed_change")
-    tradingview_move=(row["group"]=="risk" and row["name"]=="move" and
-                      (observation.get("source_role")=="BACKUP_1" or
-                       observation.get("evidence_source_url")=="https://www.tradingview.com/symbols/ICE-MOVE/"))
-    page_source_type="TRADINGVIEW_HISTORICAL_PAGE" if tradingview_move else "INVESTING_HISTORICAL_PAGE"
-    page_source_url=observation.get("data_endpoint_url") or observation.get("evidence_source_url") or observation.get("attempt_url") or row["source_url"]
+    page_source_type="INVESTING_HISTORICAL_PAGE"
+    page_source_url=row["source_url"]
     if value_key in fields:
         observation["observed_value"]=fields[value_key]["value"]
         observation["observed_value_field"]=fields[value_key]["field_name"]
@@ -683,11 +597,8 @@ def _ensure_field_evidence(row, observation):
         return
     is_fg=row["group"]=="risk" and row["name"]=="fear_greed"
     value_key,change_key=("score","band") if is_fg else ("close","change")
-    is_tradingview_move=(row["group"]=="risk" and row["name"]=="move" and
-                        (observation.get("source_role")=="BACKUP_1" or
-                         observation.get("evidence_source_url")=="https://www.tradingview.com/symbols/ICE-MOVE/"))
-    source_type="CNN_OFFICIAL_API" if is_fg else ("TRADINGVIEW_HISTORICAL_PAGE" if is_tradingview_move else "INVESTING_HISTORICAL_PAGE")
-    source_url=observation.get("data_endpoint_url") or observation.get("evidence_source_url") or observation.get("attempt_url") or row.get("source_url")
+    source_type="CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE"
+    source_url=row.get("source_url")
     observed_at=observation.get("finished_at_tw") or observation.get("finished_at_utc")
     evidence={}
     for key,field_name,value in (
@@ -754,8 +665,6 @@ def main():
     ap.add_argument("--no-fixture-write", action="store_true",
                     help="Emit observations without writing populated values back to the input fixture")
     ap.add_argument("--only", help="Optional exact group:name row selector, e.g. risk:fear_greed")
-    ap.add_argument("--move-backup-only", action="store_true",
-                    help="Read only the TradingView ICE:MOVE history backup; requires --only risk:move")
     a=ap.parse_args()
     if not 1<=a.concurrency<=4: raise SystemExit("--concurrency must be between 1 and 4")
     fixture_path=Path(a.fixture)
@@ -804,10 +713,6 @@ def main():
             raise SystemExit(f"--only selector must match exactly one row, matched {len(work)}")
     elif len(work) != 44:
         raise SystemExit(f"Expected 44 source rows, got {len(work)}")
-    if a.move_backup_only:
-        if a.only != "risk:move":
-            raise SystemExit("--move-backup-only requires --only risk:move")
-        work[0]["move_backup_only"]=True
     if any(not x["source_url"] for x in work): raise SystemExit("One or more selected rows have no source URL")
     observations,counts=asyncio.run(run(a,work,target,screenshot_inputs))
     if screenshot_inputs:
