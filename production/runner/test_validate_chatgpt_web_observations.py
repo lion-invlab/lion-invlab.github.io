@@ -423,7 +423,7 @@ def main():
     official_band = fg_source.get("source_band") or fg_source.get("band")
     cnn_fg.update({
         "read_method": "CNN_OFFICIAL_CURRENT_DASHBOARD",
-        "source_url": fg_source["url"],
+        "source_url": fg_source["approved_primary_urls"][0],
         "source_role": "PRIMARY",
         "page_title": "CNN Business Fear & Greed Index",
         "instrument_identity": "CNN Fear & Greed Index",
