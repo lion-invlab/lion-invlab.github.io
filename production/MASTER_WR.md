@@ -107,7 +107,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 六階段真實 E2E、兩種母版、44 項逐市場日期行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 增量交接與非阻塞派送、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
 
 ## 13. 手動補救入口（Missed Schedule Recovery）
-- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；Stage 1 排程為台灣夏令 03:45／冬令 04:45（15:45 ET），Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET）。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
+- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；Stage 1 排程為台灣夏令 03:45／冬令 04:45（15:45 ET），其職責僅為建立唯一 Run、鎖定版本與發布 handoff，**不得擷取或判定美股正式收盤行情**。Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET），此時美股才正式收盤，Stage 2 自此時點起才可擷取當日美股收盤資料。報告資料截點另固定為美東 16:25，台灣夏令 04:25／冬令 05:25；此為收盤後資料截點，不是 Stage 1 或 Stage 2 排程時間。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
 - 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
 - `recover` 必須從 Stage 1 建立全新 blank-first Run，依序執行 Stage 2（44 項、截圖優先、四頁並行）及 Stage 3；保留同一 Run 的 Chart 3 增量、所有 receipts 與 research bundle。不得使用 fixture、前日行情或過期截圖。
 - 啟動前檢查同一 report_date 是否已有 Run。一般 `recover` 僅允許替代未交付 Run；已有 Stage 5／6 或 Preview 時 fail-closed。
