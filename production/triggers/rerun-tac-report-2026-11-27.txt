@@ -1,4 +1,0 @@
-Owner-authorized same-date full E2E rerun for report_date 2026-11-27.
-Predecessor: TAC-2026-11-27-45937649928-1
-Mode: rerun
-Stage 1 must create a fresh blank-first Run; Stage 2 must use only the fresh 44-row observation bundle.

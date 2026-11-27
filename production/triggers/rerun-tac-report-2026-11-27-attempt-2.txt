@@ -1,0 +1,2 @@
+Owner-authorized second attempt at the 2026-11-27 full E2E rerun.
+Previous attempt stopped at Stage 2 due missing dynamic contract labels; the bundle now records all four exact Investing.com page titles and labels.
