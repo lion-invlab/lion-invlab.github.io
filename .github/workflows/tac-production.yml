@@ -19,6 +19,18 @@ on:
       - "production/input/*.schema.json"
       - "production/input/STAGE4_README.md"
       - ".github/workflows/tac-production.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "production/MASTER_WR.md"
+      - "production/runner/**"
+      - "production/stages/**"
+      - "production/contracts/**"
+      - "production/config/**"
+      - "production/templates/**"
+      - "production/input/*.schema.json"
+      - "production/input/STAGE4_README.md"
+      - ".github/workflows/tac-production.yml"
   workflow_dispatch:
     inputs:
       mode:
@@ -36,37 +48,40 @@ permissions:
   contents: read
 
 concurrency:
-  group: tac-main-production
+  group: tac-main-production-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   validate-main-production:
-    if: ${{ (github.event_name == 'push' && !contains(github.event.head_commit.message, '[build-tac-report:')) || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
+    if: ${{ (github.event_name == 'push' && !contains(github.event.head_commit.message, '[build-tac-report:')) || github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
       - name: Checkout the requested production ref
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
 
       - name: Record production-ref provenance
         shell: bash
+        env:
+          VALIDATION_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           set -euo pipefail
-          case "$GITHUB_REF_NAME" in
+          case "$VALIDATION_BRANCH" in
             main|refactor/*) ;;
             *) echo "Production validation is limited to main and refactor branches." >&2; exit 1 ;;
           esac
-          test "$(git branch --show-current)" = "$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           if grep -RIlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' --include='*.py' --include='*.mjs' production/runner | grep -q .; then
             echo "Production runtime contains a Simulation path dependency." >&2
             grep -RIlE 'simulation-lab/|simulation/tac-process-lab-2026-11-06' --include='*.py' --include='*.mjs' production/runner || true
             exit 1
           fi
           echo "MAIN_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
-          echo "Production ref verified ($GITHUB_REF_NAME): $(git rev-parse HEAD)"
+          echo "Production ref verified ($VALIDATION_BRANCH): $(git rev-parse HEAD)"
 
       - name: Set up Python
         uses: actions/setup-python@v5
