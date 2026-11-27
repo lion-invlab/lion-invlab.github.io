@@ -1922,6 +1922,11 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
     verified = pending = closed = 0
     for row in rows:
         group, name = row["group"], row["name"]
+        source = (data.get("sector_sources", {}).get(name) if group == "sectors"
+                  else (data.get(group, {}).get(name, {}).get("source") or {}))
+        row_data_date = (source or {}).get("data_date")
+        if row.get("data_date") != row_data_date:
+            raise ValueError(f"market source manifest data_date differs from fixture: {name}")
         state = row.get("verification_status")
         if state in {"VERIFIED", "BACKUP_VERIFIED"}:
             if row.get("display_value_matches_saved_observation") is not True:
@@ -1931,7 +1936,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
         if state == "CLOSED":
             closed += 1
             # Any of the 44 contracted instruments may legitimately have a
-            # market holiday on the common report trading_date. The official
+            # market holiday on this instrument's expected session date. The official
             # closure evidence is validated upstream in the source manifest.
             if row.get("evidence_status") != "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE":
                 raise ValueError(f"closed market row lacks verified official holiday evidence: {name}")
@@ -1939,7 +1944,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             if not isinstance(browser_record, dict):
                 raise ValueError(f"closed market row lacks its browser evidence record: {name}")
             if (browser_record.get("read_status") != "MARKET_CLOSED"
-                    or browser_record.get("target_date") != trading_date
+                    or browser_record.get("target_date") != row_data_date
                     or browser_record.get("source_page_fetched") is not True
                     or browser_record.get("prior_observation_reused") is not False
                     or not browser_record.get("closure_evidence_url")
