@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup
 
+from stage_wr_preflight import stage_wr_preflight
+
 ROOT=Path(__file__).resolve().parents[2]
 REPO="lion-invlab/lion-invlab.github.io"
 def allowed_paths(report_date):
@@ -104,6 +106,7 @@ def main():
     run_dir=run_dir.resolve()
     if run_dir.parent!=runs.resolve():raise SystemExit("Stage 6 run directory must be a direct child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+    wr_preflight=stage_wr_preflight("STAGE_6",context)
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
     report_date=context["report_date"]
     html=run_dir/"review.html";qa=run_dir/"qa-sidecar.json"
@@ -154,7 +157,8 @@ def main():
             "targets":{"html":report_path,"qa":qa_path,"delivery_receipt":delivery_path},
             "html":{"sha256":sha(html_raw),"git_blob_sha":blob(html_raw)},
             "qa":{"sha256":sha(qa_bytes),"source_qa_sha256":sha(qa_source_raw)},
-            "builder_sha":builder_blob,"prebuild_receipt_sha256":sha(prebuild.read_bytes()),
+            "builder_sha":builder_blob,
+             "wr_preflight":wr_preflight,"prebuild_receipt_sha256":sha(prebuild.read_bytes()),
             "stage5_receipt_sha256":sha((run_dir/"stage5-render-qa-receipt.json").read_bytes()),
             "protected_paths_unchanged":True,"protected_paths":list(PROTECTED)+["data/calendar/weeks"],
             "formal_homepage_modified":False,"history_archive_modified":False,
