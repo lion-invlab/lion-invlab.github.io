@@ -516,7 +516,8 @@ def main():
         (source or {}).get("verification_status")
         for source in (populated_1127.get("sector_sources") or {}).values()
     ]
-    assert fixture_statuses.count("VERIFIED") == 27, fixture_statuses
+    assert fixture_statuses.count("VERIFIED") == 26, fixture_statuses
+    assert fixture_statuses.count("BACKUP_VERIFIED") == 1, fixture_statuses
     assert fixture_statuses.count("CLOSED") == 16, fixture_statuses
     assert fixture_statuses.count("PENDING") == 1, fixture_statuses
     assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
