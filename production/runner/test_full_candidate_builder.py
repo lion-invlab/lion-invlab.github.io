@@ -38,6 +38,9 @@ for report_date, template_key, source_name in cases:
     placeholder_note = "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
     next(iter(data["global_markets"].values()))["source"]["note"] = placeholder_note
     next(iter(data["risk"].values()))["source"]["note"] = placeholder_note
+    data["risk"]["fear_greed"]["source"]["note"] = placeholder_note
+    data["risk"]["fear_greed"]["source"]["verification_status"] = "BACKUP_VERIFIED"
+    data["risk"]["fear_greed"]["source"]["name"] = "FGScore | CNN Provider Index"
     # Synthetic cross-date candidate fixtures must not replay report-date-specific calendar overrides.
     # Those overrides are validated against their own W48 source IDs and are irrelevant to the Builder layout regression.
     data.pop("calendar_impact_overrides", None)
@@ -84,6 +87,8 @@ for report_date, template_key, source_name in cases:
     rendered_html = output_path.read_text(encoding="utf-8")
     if placeholder_note in rendered_html:
         raise SystemExit(f"{template_key}: internal Stage 2 bootstrap note leaked into report HTML")
+    if "官方 CNN 當日頁面未能取得可核實讀值，故採用已核准的 FGScore 備援來源。" not in rendered_html:
+        raise SystemExit(f"{template_key}: approved Fear & Greed backup source explanation missing")
     article = soup.select_one("#market-analysis")
     if article is None:
         raise SystemExit(f"{template_key}: candidate Builder output missing #market-analysis")
