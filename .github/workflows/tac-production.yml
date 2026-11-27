@@ -315,14 +315,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # Chart 3 ALFRED and S&P 500 workflows share the same data area.
-          # Rebase the ledger-only change onto the latest main before pushing,
-          # then retry safely if another disjoint Chart 3 commit wins the race.
-          git fetch origin main
-          git rebase origin/main
+          # Commit the ledger-only change, then rebase that commit onto latest
+          # main before pushing; retry if another disjoint Chart 3 commit wins.
           git add -- "$LEDGER"
           mapfile -t STAGED < <(git diff --cached --name-only)
           test "${#STAGED[@]}" -eq 1 && test "${STAGED[0]}" = "$LEDGER"
           git commit -m "data(chart3): verified S&P 500 increment $REPORT_DATE"
+          git fetch origin main
+          git rebase origin/main
           PUSHED=false
           for attempt in 1 2 3 4 5; do
             if git push origin HEAD:main; then
