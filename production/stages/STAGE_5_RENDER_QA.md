@@ -20,7 +20,7 @@ Stage 5 必須先完整讀取本文件及完成 WR Preflight，才可執行 Buil
 6. 使用真正 DOM parser，從核准母版完整複製後只更新核准槽位。不得 regex 改 HTML、重建 DOM、注入 CSS／JS、改 class／ID／屬性／父子結構或破壞互動。
 7. 依 MOTHER_TEMPLATE_QA 執行 DOM、ID、導航、收折、tabs、財報卡、Fed/FOMC、手機版及視覺測試。必要 viewport：360、390、412、768、1440 px。詳細檢查以 MOTHER_TEMPLATE_QA 為唯一清單，不在本文件複製第二份檢查表。
 8. 四類 QA：資料／內容、HTML 結構、視覺／互動、Run／交付整合。不得把未測試寫成 PASS；不得新增重複檢核同一事實的冗餘 Gate。必要 QA 只執行一次，結果由 receipt 引用。
-9. 只有 main Builder 精確版本已核准、必要 Gate 全數通過、同一 Run provenance 完整時，才標 REVIEW_READY。非核心行情缺漏須明確呈現，可標 PARTIAL 並讓無依賴工作繼續；不可把缺值當 0，也不可將 PARTIAL 誤寫成 REVIEW_READY。
+9. 只有 main Builder 精確版本已核准、必要 Gate 全數通過、同一 Run provenance 完整時，才標 REVIEW_READY。非核心行情缺漏須明確呈現，可標 PARTIAL 並讓無依賴工作繼續；不可把缺值當 0，也不可將 PARTIAL 誤寫成 REVIEW_READY。 Stage 5 整體狀態必須由證據推導：Stage 2 非 PASS、仍有 pending_rows，或 fixture 尚有 pending_items，Stage 5 receipt 與 QA sidecar 一律標 `PARTIAL`；不得以 Builder 的 HTML review_ready 欄位覆蓋資料狀態。Workflow 必須保留 Run 產物並略過 Stage 6，不得交付 main/preview。只有 Stage 2 PASS 且無未解項目，且其餘必要 Gate 通過，才可標 `REVIEW_READY`。
 
 ## 輸出
 當次 Run 的 review.html、render-manifest.json、QA sidecar、HTML SHA-256、四類 QA 報告、輸入 receipt 副本及 Stage 5 receipt。
