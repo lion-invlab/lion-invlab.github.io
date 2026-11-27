@@ -224,12 +224,7 @@
           "checked_at": "2026-11-27 12:35 Asia/Taipei"
         }
       ],
-      "supporting_market_rows": [
-        {
-          "group": "global_markets",
-          "name": "費城半導體指數"
-        }
-      ]
+      "supporting_market_rows": []
     },
     "macro": {
       "paragraphs": [
