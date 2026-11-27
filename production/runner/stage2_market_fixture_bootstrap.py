@@ -199,7 +199,9 @@ def populate_fixture(data, payload):
             )
             if obs.get("read_status")=="MARKET_CLOSED" and closure_ok:
                 if group=="sectors":
-                    out["sectors"][name]="-"
+                    # The sector display is the status consumed by the 44-row snapshot
+                    # validator; keep it aligned with the source's explicit CLOSED state.
+                    out["sectors"][name]="休市"
                     src["history_close"]="-"
                     src["change_display"]="休市"
                 else:
