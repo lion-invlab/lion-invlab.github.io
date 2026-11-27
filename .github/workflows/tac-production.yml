@@ -3,8 +3,8 @@ name: TAC main-native production pipeline
 on:
   schedule:
     # Stage 1 starts 15 minutes before the Stage 2 worker: 03:45 Taiwan summer / 04:45 winter.
-    - cron: "45 19 * * 0-4"
-    - cron: "45 20 * * 0-4"
+    - cron: "45 19 * * 1-5"
+    - cron: "45 20 * * 1-5"
   push:
     branches: [main, "refactor/**"]
     paths:
@@ -213,7 +213,7 @@ jobs:
           from zoneinfo import ZoneInfo
           now = datetime.now(timezone.utc)
           ny = now.astimezone(ZoneInfo("America/New_York"))
-          expected_cron = "45 19 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 0-4"
+          expected_cron = "45 19 * * 1-5" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 1-5"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
           should_run = actual_cron == expected_cron
           print(f"should_run={'true' if should_run else 'false'}")
@@ -267,7 +267,18 @@ jobs:
           elif [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
             REPORT_DATE="$REQUESTED_REPORT_DATE"
           else
-            REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
+            REPORT_DATE="$(TZ=Asia/Taipei python - <<'PY'
+          from datetime import date, timedelta
+          today=date.today()
+          if today.weekday()==5:
+              # Saturday production creates the following Monday-dated report.
+              print((today+timedelta(days=2)).isoformat())
+          elif today.weekday() in (1,2,3,4):
+              print(today.isoformat())
+          else:
+              raise SystemExit(f"No scheduled TAC production on Taiwan weekday {today.weekday()}; expected Tuesday-Saturday.")
+          PY
+          )"
           fi
           SUPERSEDES_RUN_ID="$(python - "$REPORT_DATE" <<'PY'
           import json, sys, os
