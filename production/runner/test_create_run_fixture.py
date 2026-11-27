@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from datetime import date
-from create_run_fixture import build
+from create_run_fixture import build, write_run_files
 
 class RunFixtureFactoryTests(unittest.TestCase):
     def test_creates_fresh_blank_first_44_row_fixture(self):
@@ -31,6 +31,26 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertIn("production/config/builder-approval.json",governance["blob_shas"])
         self.assertIn("production/runner/run_stage5.py",governance["blob_shas"])
 
+
+    def test_writes_immutable_stage1_fixture_and_working_copy(self):
+        import hashlib, json, tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as tmp:
+            report=date(2026,11,27); run_id="TAC-2026-11-27-test-immutable-1"
+            result=build(report,run_id,date(2026,11,26))
+            output=Path(tmp)/"production"/"runs"/run_id
+            receipt=write_run_files(output,run_id,result,Path(tmp))
+            stage1=output/"stage1-fixture.json"; working=output/"report-data.json"
+            self.assertEqual(stage1.read_bytes(),working.read_bytes())
+            self.assertEqual(hashlib.sha256(stage1.read_bytes()).hexdigest(),receipt["fixture_sha256"])
+            self.assertEqual(receipt["fixture_path"],f"production/runs/{run_id}/stage1-fixture.json")
+            self.assertEqual(receipt["working_fixture_path"],f"production/runs/{run_id}/report-data.json")
+            self.assertEqual(receipt["screenshot_fields"],0)
+            self.assertEqual(result["run_context"]["screenshot_input"]["status"],"NOT_READ_AT_STAGE1")
+            working_data=json.loads(working.read_text())
+            working_data["run_metadata"]["retry_marker"]="changed"
+            working.write_text(json.dumps(working_data),encoding="utf-8")
+            self.assertEqual(hashlib.sha256(stage1.read_bytes()).hexdigest(),receipt["fixture_sha256"])
 
     def test_defaults_to_previous_calendar_day_for_thursday_market_holiday(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-test-default")

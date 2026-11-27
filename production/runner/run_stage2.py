@@ -43,9 +43,22 @@ def main():
         raise SystemExit("Stage 2 run directory must be a direct, non-symlink child of production/runs")
     context_path=run_dir/"run-context.json"
     fixture_path=run_dir/"report-data.json"
-    if not context_path.is_file() or not fixture_path.is_file():
-        raise SystemExit("Stage 1 run-context.json and report-data.json are required")
+    stage1_fixture_path=run_dir/"stage1-fixture.json"
+    stage1_receipt_path=run_dir/"stage1-receipt.json"
+    if not context_path.is_file() or not stage1_fixture_path.is_file() or not stage1_receipt_path.is_file():
+        raise SystemExit("Stage 1 run-context.json, stage1-fixture.json and stage1-receipt.json are required")
     context=load(context_path)
+    stage1_receipt=load(stage1_receipt_path)
+    stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
+    if stage1_receipt.get("fixture_sha256")!=stage1_fixture_sha256:
+        raise SystemExit("Stage 1 fixture SHA does not match the immutable Stage 1 receipt")
+    if stage1_receipt.get("run_id")!=context.get("run_id"):
+        raise SystemExit("Stage 1 receipt Run ID does not match run-context")
+    if stage1_receipt.get("report_date")!=context.get("report_date") or stage1_receipt.get("trading_date")!=context.get("trading_date"):
+        raise SystemExit("Stage 1 receipt dates do not match run-context")
+    # Same-Run retries always rebuild the mutable Stage 2 working fixture from
+    # the exact blank-first Stage 1 fixture; partial prior writes are discarded.
+    fixture_path.write_bytes(stage1_fixture_path.read_bytes())
     if context.get("run_id")!=run_dir.name:
         raise SystemExit("Run ID does not match run directory")
     report_date=context["report_date"]
@@ -119,7 +132,8 @@ def main():
     summary={
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
-      "run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
+      "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
+      "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
       "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest() if web_bundle.is_file() else None,
       "cnn_observation_sha256":hashlib.sha256(cnn_observation.read_bytes()).hexdigest() if cnn_observation.is_file() else None,
