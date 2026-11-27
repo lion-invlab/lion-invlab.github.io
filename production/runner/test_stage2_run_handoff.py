@@ -26,9 +26,28 @@ def fixture_run(root: Path) -> tuple[Path, dict]:
         "schema_version": "1.0", "run_id": run_id,
         "report_date": "2026-11-27", "trading_date": "2026-11-26",
     }
+    counts = {
+        "global_markets": 17, "bonds": 3, "fx": 6,
+        "energy": 2, "metals": 2, "risk": 3,
+    }
     fixture = {
         "report_date": context["report_date"], "trading_date": context["trading_date"],
+        "sectors": {}, "sector_sources": {},
     }
+    expected_rows = []
+    for group, count in counts.items():
+        fixture[group] = {}
+        for i in range(count):
+            name = f"{group}-instrument-{i}"
+            url = f"https://example.com/{group}/{i}"
+            fixture[group][name] = {"source": {"url": url}}
+            expected_rows.append((group, name, url))
+    for i in range(11):
+        name = f"sector-instrument-{i}"
+        url = f"https://example.com/sectors/{i}"
+        fixture["sectors"][name] = "待擷取"
+        fixture["sector_sources"][name] = {"url": url}
+        expected_rows.append(("sectors", name, url))
     context_sha = write_json(run_dir / "run-context.json", context)
     fixture_sha = write_json(run_dir / "report-data.json", fixture)
     receipt = {
@@ -41,9 +60,10 @@ def fixture_run(root: Path) -> tuple[Path, dict]:
         "schema_version": "1.0", "report_date": context["report_date"],
         "trading_date": context["trading_date"], "captured_at_utc": datetime.now(timezone.utc).isoformat(),
         "observations": [
-            {"group": f"group-{i // 11}", "name": f"instrument-{i}",
-             "target_date": context["trading_date"], "prior_observation_reused": False}
-            for i in range(44)
+            {"group": group, "name": name, "source_url": url,
+             "instrument_identity": name, "target_date": context["trading_date"],
+             "prior_observation_reused": False}
+            for group, name, url in expected_rows
         ],
     }
     obs_sha = write_json(run_dir / "market-history-web-observations.json", observations)
