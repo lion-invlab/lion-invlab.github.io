@@ -46,6 +46,8 @@ def _apply_screenshot_fields(row: dict, observation: dict, screenshot: dict) -> 
         return observation
     fields = screenshot["fields"]
     group, name = row["group"], row["name"]
+    observation["group"] = group
+    observation["name"] = name
     is_fg = group == "risk" and name == "fear_greed"
     value_key, change_key = ("score", "band") if is_fg else ("close", "change")
     identity = screenshot.get("instrument_identity")
