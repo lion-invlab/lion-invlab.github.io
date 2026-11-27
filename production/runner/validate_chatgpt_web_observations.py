@@ -290,26 +290,34 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         target_date = source.get("data_date")
         if raw.get("target_date") != target_date:
             raise ValueError(f"{group}/{name}: target date mismatch")
-        if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING") and raw.get("observed_date") != target_date:
+        tool_read_failure = raw.get("read_status") == "TOOL_READ_FAILURE"
+        if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING", "TOOL_READ_FAILURE") and raw.get("observed_date") != target_date:
             raise ValueError(f"{group}/{name}: observed date mismatch")
-        move_tool_failure = group == "risk" and name == "move" and raw.get("read_status") == "TOOL_READ_FAILURE"
-        if not move_tool_failure and (raw.get("page_title") is None or not str(raw.get("page_title")).strip()):
+        if not tool_read_failure and (raw.get("page_title") is None or not str(raw.get("page_title")).strip()):
             raise ValueError(f"{group}/{name}: page title missing")
-        if not move_tool_failure and (not raw.get("instrument_identity") or not _identity_matches(group, name, raw.get("instrument_identity"))):
+        if not tool_read_failure and (not raw.get("instrument_identity") or not _identity_matches(group, name, raw.get("instrument_identity"))):
             raise ValueError(f"{group}/{name}: instrument identity not independently matched")
+        if tool_read_failure:
+            raw["observed_date"] = None
+            raw["page_title"] = str(raw.get("page_title") or "頁面讀取失敗")
+            raw["instrument_identity"] = str(raw.get("instrument_identity") or source.get("instrument_identity") or source.get("name") or name)
+            raw["observed_value_field"] = str(raw.get("observed_value_field") or "")
+            raw["observed_change_field"] = str(raw.get("observed_change_field") or "")
+            raw["observed_headers"] = list(raw.get("observed_headers") or [])
+            raw["observed_row_text"] = str(raw.get("observed_row_text") or "")
 
         if method == "CHATGPT_WEB_OPEN_HISTORICAL_PAGE":
             value_field = raw.get("observed_value_field")
             change_field = raw.get("observed_change_field")
             headers = set(raw.get("observed_headers") or [])
-            move_tool_failure = group == "risk" and name == "move" and raw.get("read_status") == "TOOL_READ_FAILURE"
-            if not move_tool_failure and (value_field not in VALUE_FIELDS or change_field not in CHANGE_FIELDS):
+            tool_read_failure = raw.get("read_status") == "TOOL_READ_FAILURE"
+            if not tool_read_failure and (value_field not in VALUE_FIELDS or change_field not in CHANGE_FIELDS):
                 raise ValueError(f"{group}/{name}: invalid historical table field mapping")
-            if not move_tool_failure and (value_field not in headers or change_field not in headers):
+            if not tool_read_failure and (value_field not in headers or change_field not in headers):
                 raise ValueError(f"{group}/{name}: mapped columns are absent from observed headers")
-            if not raw.get("web_reader_ref") or not isinstance(raw.get("web_line_start"), int) or not isinstance(raw.get("web_line_end"), int):
+            if not tool_read_failure and (not raw.get("web_reader_ref") or not isinstance(raw.get("web_line_start"), int) or not isinstance(raw.get("web_line_end"), int)):
                 raise ValueError(f"{group}/{name}: direct web reader citation and source line range are required")
-            if raw.get("web_line_start") < 0 or raw.get("web_line_end") < raw.get("web_line_start"):
+            if not tool_read_failure and (raw.get("web_line_start") < 0 or raw.get("web_line_end") < raw.get("web_line_start")):
                 raise ValueError(f"{group}/{name}: invalid direct web reader source line range")
             row_text = str(raw.get("observed_row_text") or "")
             if group == "risk" and name == "fear_greed":
@@ -340,12 +348,12 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             elif raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING", "TOOL_READ_FAILURE"):
                 if raw.get("observed_value") is not None or raw.get("observed_change") is not None:
                     raise ValueError(f"{group}/{name}: no-data/closed/update-pending/read-failure row cannot carry numeric observations")
-                if raw.get("read_status") != "TOOL_READ_FAILURE" and not row_text.strip():
+                if raw.get("read_status") not in ("TOOL_READ_FAILURE",) and not row_text.strip():
                     raise ValueError(f"{group}/{name}: no-data/closed/update-pending page evidence text missing")
                 if raw.get("read_status") == "MARKET_CLOSED" and not raw.get("closure_evidence_url"):
                     raise ValueError(f"{group}/{name}: market closure requires an official holiday evidence URL")
-                if raw.get("read_status") in ("SOURCE_UPDATE_PENDING", "TOOL_READ_FAILURE") and not (group == "risk" and name == "move"):
-                    raise ValueError(f"{group}/{name}: MOVE-only pending/read-failure status used on another row")
+                if raw.get("read_status") == "SOURCE_UPDATE_PENDING" and not (group == "risk" and name == "move"):
+                    raise ValueError(f"{group}/{name}: SOURCE_UPDATE_PENDING is reserved for the MOVE publication-delay case")
             else:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             if group == "risk" and name == "move":
@@ -444,7 +452,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         raw["preexisting_value_comparison"] = (
             "NOT_PERFORMED_BLANK_INPUT" if expected_value is None else "COMPARED_TO_EXISTING_FIXTURE"
         )
-        if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING"):
+        if raw.get("read_status") in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING", "TOOL_READ_FAILURE"):
             value_match = False
             raw_score_match = False
             change_match = False
