@@ -3032,7 +3032,12 @@ def main():
         band = apply_fear_greed_status(status, fg_record.get("value", fg_value))
         klass = fg.select_one(".fg6-class")
         if klass: set_text(klass, band[0])
-        explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
+        explanation = fg_source.get("note") or ""
+        if explanation == STAGE2_BOOTSTRAP_NOTE or not explanation:
+            if fg_source.get("verification_status") == "BACKUP_VERIFIED":
+                explanation = "官方 CNN 當日頁面未能取得可核實讀值，故採用已核准的 FGScore 備援來源。"
+            else:
+                explanation = "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
         explain = fg.select_one(".fg6-explain")
         if explain: set_text(explain, explanation)
         source_detail = fg.select_one(".source-details .source")
@@ -3426,7 +3431,10 @@ def main():
     # Enforce the only permitted write target, even outside GitHub Actions.
     out = resolve_allowed_output_path(report_iso, args.output, candidate_test_output=args.candidate_test_output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(str(soup), encoding="utf-8")
+    rendered_html = str(soup)
+    if STAGE2_BOOTSTRAP_NOTE in rendered_html:
+        raise ValueError("Internal Stage 2 bootstrap note leaked into rendered report HTML")
+    out.write_text(rendered_html, encoding="utf-8")
     print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
