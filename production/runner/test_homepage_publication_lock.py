@@ -36,6 +36,11 @@ class HomepagePublicationLockTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'byte-identical'):
             validate_homepage_lock(lock,'b'*40,'c'*40,'[publish-tac-report:2026-11-30]')
 
+    def test_archive_requires_approved_publication_not_baseline(self):
+        lock={'schema_version':'1.0','status':'BASELINE_LOCKED','index_git_blob_sha':BASE,'report_date':None,'preview_path':None,'preview_git_blob_sha':None,'approved_by_owner':False,'approved_at':None,'approval_note':None}
+        with self.assertRaisesRegex(ValueError,'archive requires an explicitly approved'):
+            validate_homepage_lock(lock,BASE,None,'chore: baseline',require_approved=True)
+
     def test_approved_publication_requires_marker_on_lock_commit(self):
         lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'approved'}
         with self.assertRaisesRegex(ValueError,'exact publish marker'):
