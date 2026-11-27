@@ -31,6 +31,7 @@ GOVERNANCE_PATHS=(
  "production/input/market-screenshot-observations.schema.json",
  "production/config/builder-approval.json",
  "production/runner/PORT_MANIFEST.json",
+ "production/runner/stage_wr_preflight.py",
  "production/runner/create_run_fixture.py",
  "production/runner/run_stage2.py",
  "production/runner/browser_verify_market_history.py",
