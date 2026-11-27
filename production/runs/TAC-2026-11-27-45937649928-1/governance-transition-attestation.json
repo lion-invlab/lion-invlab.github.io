@@ -82,7 +82,7 @@
     "production/config/report-data-template.json": "c1b408ae760640c668904cfc8bd63011ad17049f",
     "production/input/report-content.schema.json": "6fbec5f45b0cf9ec03d74edd4450f5cc13643a55",
     "production/input/market-screenshot-observations.schema.json": "1395c05a2c15015658164b2b3567df1d4b0a1661",
-    "production/config/builder-approval.json": "c6db0a33d3c0ec3fcd80783d5a9aea9b4aeaa928",
+    "production/config/builder-approval.json": "b1cec3aa5540b323c7b01b3fa7f9477d9b3d6ad8",
     "production/runner/PORT_MANIFEST.json": "f1cfdcc1bf0ffdc0de8ec622832edafb79627052",
     "production/runner/create_run_fixture.py": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
     "production/runner/run_stage2.py": "068a6861c9d4eab489f4f0b50a1bbfc0d04748af",
@@ -111,7 +111,7 @@
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
     "production/runner/visual_regression.mjs": "39a1483b34bceba1e3b17c4382dd74c9e996157b",
     "production/runner/interaction_smoke.mjs": "33165eb6b50187449f95fcfc614c576b1c9e2ca9",
-    "production/runner/build_review_html.py": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+    "production/runner/build_review_html.py": "150078dd25796328da5e2eb70bf3845b6367a4f4",
     "production/runner/builder_approval.py": "8213bed709b981fd89c8126d004d034185a941ae",
     ".github/workflows/tac-production.yml": "a85f0934d5d95a81fe72ada9feaf4565633b7df7",
     ".github/workflows/tac-chart3-sp500-increment-merge.yml": "666e13e5c3837ed664cf912cc3e5c9926994aa8f",
@@ -120,7 +120,9 @@
   "changed_paths": [
     ".github/workflows/tac-production.yml",
     "production/MASTER_WR.md",
+    "production/config/builder-approval.json",
     "production/runner/build_market_source_verification_manifest.py",
+    "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
     "production/runner/stage2_market_fixture_bootstrap.py",
     "production/runner/validate_prebuild_stage_inputs.py"
@@ -128,12 +130,14 @@
   "allowed_changed_paths": [
     ".github/workflows/tac-production.yml",
     "production/MASTER_WR.md",
+    "production/config/builder-approval.json",
     "production/runner/build_market_source_verification_manifest.py",
+    "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
     "production/runner/stage2_market_fixture_bootstrap.py",
     "production/runner/validate_prebuild_stage_inputs.py"
   ],
-  "transition_runner_blob_sha": "f877ec8c3d4e190e3dc50d46a5f24131cb58f01d",
+  "transition_runner_blob_sha": "241272d3334e56d938d1c1ef37a443ad37a2404f",
   "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
   "stage1_receipt_sha256": "a3a540239ed50fd4e75dae2b0b6b886f563d21ec430534e4b66fa40caa3871c2",
   "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
@@ -157,9 +161,9 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": 45942147763,
+    "latest_main_validation_run_id": 45942729925,
     "latest_main_validation_conclusion": "success",
-    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45942147763"
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45942729925"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
@@ -170,5 +174,7 @@
     "note": "SIFMA recommends a full U.S. fixed-income market close on 2026-11-26 and an early close at 14:00 EST on 2026-11-27; firms make their own operating decisions."
   },
   "scope": "Only six listed governance files changed to encode SIFMA holiday evidence, pre-build acceptance of that evidence, and exact-Run recovery orchestration. No Stage 1 context, data schema, calendar schema, mother template, mother manifest, Builder, Builder approval, Stage 5 core logic, QA contract, or publish contract changed.",
-  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this attestation is limited to the exact 2026-11-27 Run and the six enumerated file changes."
+  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this attestation is limited to the exact 2026-11-27 Run and the six enumerated file changes.",
+  "builder_blob_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
+  "builder_approval_blob_sha": "b1cec3aa5540b323c7b01b3fa7f9477d9b3d6ad8"
 }
