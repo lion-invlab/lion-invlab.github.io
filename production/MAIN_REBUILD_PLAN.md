@@ -117,7 +117,18 @@
 - Main weekday schedule 只負責啟動 Stage 1，不可在沒有 ChatGPT observation bundle 時自行執行 Stage 2。
 - ChatGPT Stage 2 worker 在 Stage 1 work packet 可讀後接手；ChatGPT Stage 4 worker 在 Stage 3 research bundle 可讀後接手。可由同一 Main continuation automation 分段完成，但每段都必須有 Run ID／SHA gate，不能用「等待」冒充完成。
 - 04:35 Calendar updater 是獨立唯一寫入者；05:30 Chart 3 任務須在確認與 Stage 2 S&P500 writer 不重複後才決定是否保留；不得另建重複早報主排程。
-- `archive_index.yml`、`pages.yml`、`main.yml`、Chart 3 workflow、Simulation-to-Main preview workflow 均列入觸發／寫入衝突盤點。Main E2E 與正式切換前不得任意停用既有流程；Simulation 分支及其檔案保持唯讀。
+- 已逐一讀取 Main 上 24 份 GitHub Actions workflow（本輪 HEAD `b42476f2077f8b9b8a4eb67048e7c5aaecfaacb3`）。觸發／寫入衝突初步結果：
+  - `tac-production.yml`：schedule 直接串 Stage 1→2→3；push 只做 validation 或 build marker，沒有 Stage 2 bundle handoff marker。
+  - `tac-simulation-lab.yml`：只由 Simulation branch push／dispatch 啟動；它會將 QA 通過的三檔審核版寫入 Main `preview/`，因此是 Main Preview 的第二個 writer，切換前必須建立停用／封存方案，但不得修改 Simulation branch。
+  - `pages.yml`：會因 Preview、Chart 3、index 等路徑及 Chart 3 workflow_run 部署整站；部署本身不寫早報資料，但需核對 Stage 6 遠端驗證與並行部署。
+  - `archive_index.yml`：除 index push 外另有每日排程，會自動封存正式首頁；與「正式封存須經使用者核准」存在政策衝突，正式切換前必須處理。
+  - `main.yml`：更新兩個波動率／watchlist 腳本後使用廣泛的 `git add data/`，可能把同一工作目錄中其他資料變更一併提交；需縮小到腳本實際輸出檔案並加寫入隔離。
+  - `tac-chart3-incremental.yml`：只由專用 trigger marker 啟動，寫 Chart 3 FRED／ALFRED 資料；未直接監聽 S&P500 ledger。
+  - `tac-chart3-sp500-increment-merge.yml`：ledger push／dispatch 均可啟動，負責合併 compact S&P500 歷史。
+  - 其他公司資料、視覺 QA、測試及 Simulation 專用 workflow 已列入 24 份清單；目前未發現它們直接成為 Main 早報 Stage 1–6 的第二入口。
+- Stage 2 不只 Runner 有 Playwright fallback：`validate_chatgpt_web_observations.py` 在日期截圖 sidecar 存在時也會轉交 `browser_verify_market_history.py`；Stage 1 bootstrap 與 Runner／validator 仍讀取日期級 sidecar／bundle 路徑。R2 必須同時移除兩處自動瀏覽替代路徑並改為同 Run handoff。
+- GitHub Actions connector 支援 Git Blob 的 base64 建立及 tree／commit／ref 更新，因此二進位截圖證據可透過 Git Data API 寫入 Run 專屬路徑；這解決了「只能用文字 Contents API」的初步疑慮，但實作仍須加上路徑白名單、SHA 回讀及檔案大小限制。
+- Main Stage 4 continuation automation 本輪回讀為 `is_enabled=true`，下次預定 2026-11-30 05:15 Asia/Taipei；先前結果只證明 11/27 Capture 未啟動，不能誤記為目前停用。
 - GitHub push validation、workflow_dispatch validate、CI PASS 均不得冒充 schedule Capture 或 Stage 1–6 E2E。
 - 所有自動化須明確報告實際 event、workflow_run_id、run_id、日期、receipt SHA 與最終狀態；沒有證據就標示未驗證。
 
@@ -167,8 +178,8 @@
 ---
 
 **目前狀態（2026-11-27 08:40 Asia/Taipei）：**
-- R0 全面現況盤點：已確認 Main 唯一規範、雙母版、六階段 Runner、contracts、Workflow、calendar／Chart 3／Pages／archive 等主要責任邊界；R0 尚未全部完成，舊 workflow 的完整 writer／trigger 盤點仍需逐一驗證。
-- R1 日期基準：`create_run_fixture.py` 已採台灣報告日規則；2026-11-27 → 2026-11-26。CI #395（GitHub Run `45916213111`，commit `20511f3dadc2730bc391f8c260e2d99c4fe95c22`）已 success，但該 CI 是 deterministic validation，不是當日 Capture 或 E2E。
+- R0 全面現況盤點：已完成 24 份 workflow 的逐一讀取與初步 trigger／writer 矩陣；發現 Preview 雙 writer、archive 自動封存政策衝突、main.yml 廣泛 data staging，以及 Stage2 雙 Playwright fallback。R0 的盤點已完成，衝突處理列為 R7 切換 Gate，不在 E2E 前任意停用舊流程。
+- R1 日期基準：`create_run_fixture.py` 已採台灣報告日規則；2026-11-27 → 2026-11-26。CI #395（GitHub Run `45916213111`）與更新本計畫的 CI #396（GitHub Run `45918547203`）均已 success；兩者都是 deterministic validation，不是當日 Capture 或 E2E。
 - 11/26 休市證據：Nasdaq／Cboe 官方交易日曆確認美國股票與選擇權市場 11/26 休市；SIFMA 確認美國固定收益市場 11/26 full close。不得將 11/25 價格回填為 11/26。
 - R2 尚未完成：現行 `tac-production.yml` 仍在同一 Capture job 直接呼叫 Stage 2 Runner；Runner 在缺少 ChatGPT bundle 時仍有 Playwright fallback，且 observation bundle／editorial input 仍使用日期級全域路徑，尚未完成 Run-scoped handoff。
 - 11/27 當日尚無成功的 11/26 Stage 2 snapshot、Stage 3 receipt、Stage 4 editorial JSON、Stage 5 QA 或 Stage 6 Preview。舊失敗 Run `TAC-2026-11-27-45912371719-1` 的 trading_date=11/25，不得重用。
