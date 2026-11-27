@@ -399,6 +399,7 @@ jobs:
               "dispatch_mode":(os.environ.get("DISPATCH_MODE") or "schedule"),
               "workflow_run_id":os.environ.get("GITHUB_RUN_ID")},
             "run_id":context["run_id"],"report_date":context["report_date"],
+            "supersedes_run_id":context.get("supersedes_run_id"),
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
             "chart3_handoff":summary.get("chart3_handoff"),
