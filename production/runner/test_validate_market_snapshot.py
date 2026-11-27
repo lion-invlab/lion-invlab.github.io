@@ -69,6 +69,13 @@ def main():
             "screenshot_evidence_path": str(evidence),
             "screenshot_evidence_sha256": hashlib.sha256(evidence.read_bytes()).hexdigest(),
             "screenshot_observation_applied_at": "2026-11-23T07:05:00+08:00",
+            "screenshot_evidence": {
+                "close": {
+                    "data_date": cfd_source["data_date"],
+                    "path": str(evidence),
+                    "sha256": hashlib.sha256(evidence.read_bytes()).hexdigest(),
+                }
+            },
         })
         assert validate_market_snapshot(cfd_screenshot, "2026-11-23")["status"] == "PASS"
 
