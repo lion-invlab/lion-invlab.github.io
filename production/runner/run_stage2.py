@@ -173,6 +173,10 @@ def main():
         "--observations",str(observations_path.relative_to(ROOT)),"--output",str(receipt_path.relative_to(ROOT)),
         "--run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
+    stage2_receipt_doc=load(receipt_path)
+    stage2_receipt_doc["wr_preflight"]=wr_preflight
+    receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    receipt=stage2_receipt_doc
     fixture=load(fixture_path)
     market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     market_snapshot_sha256=hashlib.sha256(json.dumps(market_groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
