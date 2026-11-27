@@ -41,7 +41,7 @@ VALUE_KEYS = {
     "observation_record_sha256","browser_observation_record_sha256","captured_at_tw",
     "backup_web_reader_ref","backup_web_line_start","backup_web_line_end","provenance",
     "history_page_completion_at","history_page_completion_fields","screenshot_fields_applied",
-    "evidence_source_url","verified_source_role","attempt_history","primary_attempt_status","backup_attempt_status",
+    "evidence_source_url","verified_source_role","verified_source_name","verified_source_url","attempt_history","primary_attempt_status","backup_attempt_status",
     "history_close","history_change","screenshot_evidence","screenshot_evidence_path",
     "screenshot_evidence_sha256","screenshot_observation_applied_at",
     "observed_date","closure_evidence_url","closure_evidence_reader_ref","closure_evidence_line_start",
@@ -323,6 +323,9 @@ def populate_fixture(data, payload):
             if backup_verified:
                 src["verified_source_role"]=obs.get("source_role") or "BACKUP_1"
                 src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
+            if group=="risk" and name=="move" and obs.get("source_type")=="TRADINGVIEW_HISTORICAL_PAGE":
+                src["verified_source_name"]="TradingView ICE:MOVE"
+                src["verified_source_url"]=obs.get("source_url")
         src["data_date"]=target_date
         src["checked_at_tw"]=obs.get("finished_at_tw") or obs.get("captured_at_taipei")
         src["read_method"]=obs.get("read_method")
