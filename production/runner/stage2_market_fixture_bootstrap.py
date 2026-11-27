@@ -7,6 +7,7 @@ the browser capture. The apply step writes only values returned by the current r
 """
 from __future__ import annotations
 import argparse, copy, hashlib, json, re
+from datetime import date
 from urllib.parse import urlparse
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from pathlib import Path
@@ -89,8 +90,13 @@ def _assert_universe(data):
         counts[group]=counts.get(group,0)+1
         for key in ("name","url","data_date","quote_type","note"):
             if not source.get(key): raise ValueError(f"{group}/{name}: source.{key} missing")
-        if source["data_date"] != data.get("trading_date"):
-            raise ValueError(f"{group}/{name}: source date does not match trading_date")
+        try:
+            data_date=date.fromisoformat(str(source["data_date"]))
+            report_day=date.fromisoformat(str(data.get("report_date")))
+        except ValueError as exc:
+            raise ValueError(f"{group}/{name}: source data_date/report_date must be ISO dates") from exc
+        if data_date > report_day:
+            raise ValueError(f"{group}/{name}: source data_date cannot be later than report_date")
         if not str(source["url"]).startswith("https://"):
             raise ValueError(f"{group}/{name}: source URL must be HTTPS")
     if counts != COUNTS:
@@ -159,11 +165,17 @@ def populate_fixture(data, payload):
         obs=observations[(group,name)]
         if obs.get("source_url") != src.get("url"):
             raise ValueError(f"{group}/{name}: observation source URL mismatch")
-        if obs.get("target_date") != out["trading_date"]:
-            raise ValueError(f"{group}/{name}: observation target date mismatch")
+        target_date=obs.get("target_date")
+        try:
+            target_day=date.fromisoformat(str(target_date))
+            report_day=date.fromisoformat(str(out["report_date"]))
+        except ValueError as exc:
+            raise ValueError(f"{group}/{name}: observation target_date must be an ISO date") from exc
+        if target_day > report_day:
+            raise ValueError(f"{group}/{name}: observation target_date cannot be later than report_date")
         is_fg=group=="risk" and name=="fear_greed"
         screenshot=obs.get("read_method")=="USER_PROVIDED_SCREENSHOT"
-        valid=(obs.get("status")=="VERIFIED" and obs.get("observed_date")==out["trading_date"]
+        valid=(obs.get("status")=="VERIFIED" and obs.get("observed_date")==target_date
                and obs.get("instrument_identity_status")=="VERIFIED"
                and obs.get("field_mapping_status")=="VERIFIED"
                and obs.get("observed_value") is not None and obs.get("observed_change") is not None
@@ -184,7 +196,7 @@ def populate_fixture(data, payload):
                 and obs.get("read_status")=="MARKET_CLOSED"
                 and obs.get("source_page_fetched") is True
                 and obs.get("source_url")==src.get("url")
-                and obs.get("target_date")==out["trading_date"]
+                and obs.get("target_date")==target_date
                 and obs.get("instrument_identity_status")=="VERIFIED"
                 and obs.get("field_mapping_status")=="VERIFIED"
                 and _official_calendar_url(closure_url)
@@ -311,7 +323,7 @@ def populate_fixture(data, payload):
             if backup_verified:
                 src["verified_source_role"]=obs.get("source_role") or "BACKUP_1"
                 src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
-        src["data_date"]=out["trading_date"]
+        src["data_date"]=target_date
         src["checked_at_tw"]=obs.get("finished_at_tw") or obs.get("captured_at_taipei")
         src["read_method"]=obs.get("read_method")
         src["read_status"]=obs.get("read_status") or "CURRENT_RUN_OBSERVATION_CONFIRMED"
