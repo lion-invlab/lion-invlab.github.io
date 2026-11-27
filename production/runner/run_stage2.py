@@ -92,26 +92,13 @@ def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->
     ).hexdigest()
     return result
 
-def build_chart3_handoff_candidate(run_dir:Path,context:dict,fixture_path:Path,
-                                  stage1_fixture_sha256:str,market_snapshot_sha256:str,sp500:dict)->dict:
-    """Preserve verified S&P 500 input for R3 without invoking the unapproved writer."""
-    run_dir=Path(run_dir).resolve()
-    candidate_path=run_dir/"chart3-sp500-handoff-candidate.json"
-    payload={
-      "schema_version":"1.0","status":"CANDIDATE_NOT_APPENDED",
-      "reason":"R3 Chart 3 writer/merge contract is not yet approved for Run-scoped ingestion.",
-      "run_id":context["run_id"],"report_date":context["report_date"],
-      "trading_date":context["trading_date"],
-      "stage1_fixture_sha256":stage1_fixture_sha256,
-      "market_snapshot_sha256":market_snapshot_sha256,
-      "market_snapshot_path":str(Path(fixture_path).resolve().relative_to(run_dir)),
-      "market_snapshot_file_sha256":hashlib.sha256(Path(fixture_path).read_bytes()).hexdigest(),
-      "symbol":"SP500","source_data":sp500
-    }
-    candidate_path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    return {"status":"DEFERRED_R3_WRITER_NOT_APPROVED",
-            "candidate_path":str(candidate_path.relative_to(run_dir)),
-            "candidate_sha256":hashlib.sha256(candidate_path.read_bytes()).hexdigest()}
+def append_chart3_sp500_increment(fixture_path:Path,output_path:Path|None=None)->dict:
+    """Append only the already-verified Run S&P 500 close using the existing Chart 3 writer."""
+    command=[sys.executable,str(RUNNER/"handoff_sp500_to_chart3.py"),
+             "--data",str(Path(fixture_path).resolve().relative_to(ROOT))]
+    if output_path is not None:
+        command.extend(["--output",str(Path(output_path).resolve())])
+    return run(command)
 
 
 def main():
@@ -254,16 +241,16 @@ def main():
     market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     market_snapshot_sha256=hashlib.sha256(json.dumps(market_groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
     sp500=(fixture.get("global_markets") or {}).get("標普500指數") or {}
-    chart3={"status":"SKIPPED_UNVERIFIED","reason":"S&P 500 cash-index close is not VERIFIED; no Chart 3 handoff candidate created."}
-    candidate_path=None
+    chart3={"status":"SKIPPED_UNVERIFIED","reason":"S&P 500 cash-index close is not VERIFIED; no Chart 3 increment is written."}
+    ledger_path=ROOT/"data/tac-chart3/sp500_daily_increment.jsonl"
     if (sp500.get("source") or {}).get("verification_status")=="VERIFIED":
-        chart3=build_chart3_handoff_candidate(run_dir,context,fixture_path,
-            stage1_fixture_sha256,market_snapshot_sha256,sp500)
-        candidate_path=run_dir/"chart3-sp500-handoff-candidate.json"
+        chart3=append_chart3_sp500_increment(fixture_path)
+        chart3["ledger_path"]=str(ledger_path.relative_to(ROOT))
     elapsed=round(time.monotonic()-started,3)
     observations=load(observations_path)
     output_files=[fixture_path,observations_path,audit_path,manifest_path,receipt_path]
-    if candidate_path and candidate_path.is_file(): output_files.append(candidate_path)
+    if ledger_path.is_file() and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION"):
+        output_files.append(ledger_path)
     summary={
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
