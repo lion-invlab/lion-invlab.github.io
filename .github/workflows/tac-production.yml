@@ -381,7 +381,7 @@ jobs:
           done
           test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 30 minutes."; exit 1; }
           python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
-          import hashlib, json, sys
+          import hashlib, json, subprocess, sys
           from pathlib import Path
           run=Path(sys.argv[1]); observation=Path(sys.argv[2])
           context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
@@ -393,7 +393,9 @@ jobs:
             "stage1_receipt_sha256":receipt_sha,"run_context_sha256":context_sha,"stage1_fixture_sha256":fixture_sha}
           for key,value in expected.items():
             if payload.get(key)!=value: raise SystemExit(f"Stage 2 handoff {key} does not match Stage 1 output")
-          if payload.get("stage2_wr_sha256") != context["governance"]["blob_shas"]["production/stages/STAGE_2_MARKET.md"]:
+          pinned_wr=subprocess.check_output(["git","show",f"{context['main_commit_sha']}:production/stages/STAGE_2_MARKET.md"])
+          pinned_wr_sha=hashlib.sha256(pinned_wr).hexdigest()
+          if payload.get("stage2_wr_sha256") != pinned_wr_sha:
             raise SystemExit("Stage 2 handoff WR SHA differs from Stage 1 pinned Stage 2 WR")
           print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
           PY
