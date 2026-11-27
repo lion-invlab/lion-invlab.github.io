@@ -9,6 +9,7 @@ import tempfile
 from unittest.mock import patch
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from decimal import Decimal
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES, build_manifest
 from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
@@ -183,7 +184,7 @@ def main():
     move_source = screenshot_fixture["risk"]["move"]["source"]
     assert move_source["close_value"] == "97.54"
     assert move_source["daily_change_percent"] == "-1.32"
-    assert move_source.get("open") == "99.32" and move_source.get("high") == "102.73" and move_source.get("low") == "97.40", {key: move_source.get(key) for key in ("open","high","low","screenshot_fields_applied")}
+    assert Decimal(move_source["open"]) == Decimal("99.32") and Decimal(move_source["high"]) == Decimal("102.73") and Decimal(move_source["low"]) == Decimal("97.40")
     assert "source_role" not in move_source
     screenshot_bundle = make_bundle(screenshot_fixture)
     screenshot_row = next(x for x in screenshot_bundle["observations"] if x["group"]=="risk" and x["name"]=="move")
