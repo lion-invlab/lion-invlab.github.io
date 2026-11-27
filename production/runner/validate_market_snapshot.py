@@ -57,7 +57,8 @@ def _screenshot_page_fields_complete(source: dict, data_date: str) -> bool:
                 return False
         if source.get("screenshot_observation_applied_at") is None:
             return False
-    return source.get("data_date") == data_date
+    evidence = source.get("screenshot_evidence") or {}
+    return bool(evidence) and all(item.get("data_date") == data_date for item in evidence.values())
 
 
 def _validate_source(group: str, name: str, source: dict, report_date: str) -> dict:
