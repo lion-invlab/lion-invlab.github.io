@@ -6,7 +6,7 @@ on:
     - cron: "45 19 * * 1-5"
     - cron: "45 20 * * 1-5"
     # Temporary one-time recovery trigger for the missed 2026-11-28 production window; remove after it fires.
-    - cron: "55 22 27 11 *"
+    - cron: "40 22 27 11 *"
   push:
     branches: [main, "refactor/**"]
     paths:
@@ -217,7 +217,7 @@ jobs:
           ny = now.astimezone(ZoneInfo("America/New_York"))
           expected_cron = "45 19 * * 1-5" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 1-5"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
-          one_off_recovery_cron = "55 22 27 11 *"
+          one_off_recovery_cron = "40 22 27 11 *"
           should_run = actual_cron == expected_cron or actual_cron == one_off_recovery_cron
           print(f"should_run={'true' if should_run else 'false'}")
           print(f"actual_cron={actual_cron}")
@@ -261,8 +261,8 @@ jobs:
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
-          DISPATCH_MODE: ${{ inputs.mode || (github.event_name == 'schedule' && github.event.schedule == '55 22 27 11 *' && 'recover') || '' }}
-          SCHEDULE_RECOVER: ${{ github.event_name == 'schedule' && github.event.schedule == '55 22 27 11 *' }}
+          DISPATCH_MODE: ${{ inputs.mode || (github.event_name == 'schedule' && github.event.schedule == '40 22 27 11 *' && 'recover') || '' }}
+          SCHEDULE_RECOVER: ${{ github.event_name == 'schedule' && github.event.schedule == '40 22 27 11 *' }}
         run: |
           set -euo pipefail
           if [ "$DISPATCH_MODE" = "rerun" ] || { [ "$DISPATCH_MODE" = "recover" ] && [ -n "${REQUESTED_REPORT_DATE:-}" ]; }; then
