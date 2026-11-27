@@ -35,13 +35,13 @@ def build_chart3_handoff_candidate(run_dir:Path,context:dict,fixture_path:Path,
       "trading_date":context["trading_date"],
       "stage1_fixture_sha256":stage1_fixture_sha256,
       "market_snapshot_sha256":market_snapshot_sha256,
-      "market_snapshot_path":str(Path(fixture_path).relative_to(ROOT)),
+      "market_snapshot_path":str(Path(fixture_path).resolve().relative_to(run_dir)),
       "market_snapshot_file_sha256":hashlib.sha256(Path(fixture_path).read_bytes()).hexdigest(),
       "symbol":"SP500","source_data":sp500
     }
     candidate_path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     return {"status":"DEFERRED_R3_WRITER_NOT_APPROVED",
-            "candidate_path":str(candidate_path.relative_to(ROOT)),
+            "candidate_path":str(candidate_path.relative_to(run_dir)),
             "candidate_sha256":hashlib.sha256(candidate_path.read_bytes()).hexdigest()}
 
 
