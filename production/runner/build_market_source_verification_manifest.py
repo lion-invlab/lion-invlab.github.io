@@ -348,6 +348,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         record = {
             "source_url": source_url,
             "evidence_source_url": observation.get("evidence_source_url") or observation.get("attempt_url") or source_url,
+            "evidence_source_name": "TradingView ICE:MOVE" if group == "risk" and name == "move" and observation.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE" else source.get("name"),
             "data_endpoint_url": observation.get("data_endpoint_url"),
             "instrument_identity": observation.get("instrument_identity"),
             "screenshot_instrument_identity_status": observation.get("screenshot_instrument_identity_status"),
@@ -439,6 +440,7 @@ def build_manifest(data: dict, report_date: str, browser_observations: dict | No
                 "source_url": source.get("url"),
                 "source_role": "PRIMARY" if group == "bonds" else source.get("source_role", "PRIMARY_AS_CONFIGURED"),
                 "evidence_source_url": observation.get("evidence_source_url") or observation.get("attempt_url") or source.get("url"),
+                "evidence_source_name": "TradingView ICE:MOVE" if group == "risk" and name == "move" and observation.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE" else source.get("name"),
                 "evidence_source_role": observation.get("source_role") or source.get("source_role", "PRIMARY_AS_CONFIGURED"),
                 "source_read_status": observation.get("read_status"),
                 "source_page_title": observation.get("page_title"),
