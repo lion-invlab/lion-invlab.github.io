@@ -15,6 +15,7 @@ MANIFEST = ROOT / "production/config/mother-template-manifest.json"
 QA_CONTRACT = ROOT / "production/contracts/MOTHER_TEMPLATE_QA.md"
 ACTIVE_RULES = ROOT / "production/MASTER_WR.md"
 CANDIDATE_RULES = ROOT / "production/reference/SIM-1.4_SOURCE_BASELINE.md"
+STAGE2_BOOTSTRAP_NOTE = "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
 
 def sha_blob(text: str) -> str:
     b=text.encode("utf-8")
@@ -2521,7 +2522,7 @@ def main():
                             source_node.append(f"合約：{contract_label}｜")
                         source_node.append(f"{source['data_date']}｜")
                         source_node.append(source_link(source["url"], source.get("link_label", "歷史數據")))
-                        if source.get("note"):
+                        if source.get("note") and source.get("note") != STAGE2_BOOTSTRAP_NOTE:
                             source_node.append(f"｜補充：{source['note']}")
                         source_node.append("；")
                 else:
@@ -2649,7 +2650,7 @@ def main():
                     source_node.append(f'{source.get("name")}｜資料日期 {source.get("data_date")}｜')
                     if source.get("url"):
                         source_node.append(source_link(source["url"], "查看原始資料"))
-                    if source.get("note"):
+                    if source.get("note") and source.get("note") != STAGE2_BOOTSTRAP_NOTE:
                         source_node.append("｜" + str(source["note"]))
                 else:
                     reason = "來源或資料日期未核實，母版舊數值及變動率已清除。"
