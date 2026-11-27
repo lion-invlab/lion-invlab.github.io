@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
@@ -75,6 +75,7 @@ def main():
     context=load(context_path)
     wr_preflight=stage_wr_preflight("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
+    require_stage_wr_receipt(stage1_receipt,"STAGE_1")
     stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
     if stage1_receipt.get("fixture_sha256")!=stage1_fixture_sha256:
         raise SystemExit("Stage 1 fixture SHA does not match the immutable Stage 1 receipt")
