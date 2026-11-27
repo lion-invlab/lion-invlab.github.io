@@ -225,7 +225,7 @@ jobs:
     needs: [schedule-window]
     if: ${{ github.ref == 'refs/heads/main' && always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 70
+    timeout-minutes: 40
     permissions:
       contents: write
       actions: write
@@ -355,7 +355,7 @@ jobs:
           set -euo pipefail
           OBSERVATION_PATH="production/input/market-history-web-observations-$REPORT_DATE.json"
           FOUND=false
-          for attempt in $(seq 1 90); do
+          for attempt in $(seq 1 30); do
             git fetch origin main
             if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null; then
               git merge --ff-only origin/main
@@ -364,7 +364,7 @@ jobs:
             fi
             sleep 30
           done
-          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 45 minutes."; exit 1; }
+          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 15 minutes."; exit 1; }
           python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
           import hashlib, json, subprocess, sys
           from pathlib import Path
