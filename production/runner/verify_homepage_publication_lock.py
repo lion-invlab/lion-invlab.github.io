@@ -40,6 +40,8 @@ def validate_homepage_lock(lock:dict,actual_index_blob:str,preview_blob:str|None
             raise ValueError('homepage lock approval commit lacks the exact publish marker')
         if not preview_blob or lock.get('preview_git_blob_sha')!=preview_blob:
             raise ValueError('approved preview Git blob SHA does not match the current review artifact')
+        if actual_index_blob!=preview_blob:
+            raise ValueError('official index.html must be byte-identical to the explicitly approved preview')
         return {'status':'PASS','mode':'APPROVED_PUBLICATION','report_date':report_date,'index_git_blob_sha':actual_index_blob,'preview_git_blob_sha':preview_blob}
     raise ValueError(f'unsupported homepage publication lock status: {status!r}')
 
