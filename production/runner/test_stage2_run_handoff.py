@@ -63,6 +63,28 @@ class RunHandoffTests(unittest.TestCase):
             run=make_run(Path(tmp)); p=run/"market-history-web-observations.json"
             x=json.loads(p.read_text()); x["observations"].pop(); p.write_text(json.dumps(x))
             with self.assertRaisesRegex(ValueError,"exact 44-row"): validate_stage2_run_handoff(run,Path(tmp))
+    def test_accepts_optional_run_bound_cnn_and_screenshot_sidecar(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run=make_run(Path(tmp))
+            base=json.loads((run/"market-history-web-observations.json").read_text())
+            for name in ("cnn-fear-greed-observation.json","market-screenshot-observations.json"):
+                (run/name).write_text(json.dumps({**base,"observations":[]}))
+            out=validate_stage2_run_handoff(run,Path(tmp))
+            self.assertEqual(out["screenshot"],{"row_count":0,"field_count":0})
+            self.assertEqual(set(out["optional_bundle_sha256"]),{
+                "cnn-fear-greed-observation.json","market-screenshot-observations.json"
+            })
+
+    def test_rejects_optional_bundle_without_run_binding(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run=make_run(Path(tmp))
+            (run/"cnn-fear-greed-observation.json").write_text(json.dumps({
+                "schema_version":"1.0","report_date":"2026-11-27","trading_date":"2026-11-26",
+                "captured_at_utc":"2026-11-27T00:51:42Z","observations":[]
+            }))
+            with self.assertRaisesRegex(ValueError,"run_id"):
+                validate_stage2_run_handoff(run,Path(tmp))
+
     def test_rejects_cross_run_screenshot_sidecar(self):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp)); base=json.loads((run/"market-history-web-observations.json").read_text())

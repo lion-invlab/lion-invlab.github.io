@@ -31,6 +31,22 @@
       "items": {
         "$ref": "#/$defs/observation"
       }
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^TAC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+-[0-9]+$"
+    },
+    "stage1_receipt_sha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "run_context_sha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "stage1_fixture_sha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
     }
   },
   "$defs": {
@@ -210,5 +226,22 @@
       },
       "additionalProperties": true
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "run_id"
+        ]
+      },
+      "then": {
+        "required": [
+          "run_id",
+          "stage1_receipt_sha256",
+          "run_context_sha256",
+          "stage1_fixture_sha256"
+        ]
+      }
+    }
+  ]
 }
