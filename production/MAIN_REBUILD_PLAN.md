@@ -18,6 +18,10 @@ Simulation 分支與 SIM-1.4 僅供規格參照，禁止修改。Main 可重建�
 | 5. 組版與 QA | Main Builder | 使用核准母版產生 HTML；只做會阻止錯誤交付的必要檢查：資料日期、欄位完整性、DOM／連結、版面是否破版。 |
 | 6. 審核版交付 | Main Runner | 產出 `preview/YYYY-MM-DD-review.html` 及必要 QA 紀錄，確認 Preview 已部署可讀。等待使用者核准；未核准不得更新首頁或封存正式版。 |
 
+## 一之一、六階段開工前強制讀取各自 WR
+
+Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再執行任何本階段工作。Stage 2–6 另核對 Stage 1 鎖定的 WR Git blob SHA；缺檔、空檔、讀取失敗、未鎖定或版本不符即停止該 Stage。每階段既有 receipt 記錄一次 `wr_preflight` 證據，不另增重複 Gate。Stage 4 的 ChatGPT 編輯工作者必須先讀取 capture receipt 中完整 `stage4_work_instructions.full_text`，並在編輯 JSON 回填精確 `stage4_wr_sha256`；Runner 驗證完整 handoff 文字與 SHA 後才可合併內容。
+
 ## 二、行情擷取的簡單規則
 
 1. 行情共 44 項：17 全球指數、11 檔 S&P 500 產業 ETF、3 項美債殖利率、6 項匯率、4 項商品、3 項風險指標；FedWatch 另列。
