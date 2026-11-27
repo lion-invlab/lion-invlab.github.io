@@ -85,6 +85,18 @@
 6. **Stage 4–6 Build：** 以同 Run build marker 觸發 Runner；Runner 驗證 JSON、執行 Stage 4、Stage 5 Builder／QA、Stage 6 Preview delivery。
 7. **完成條件：** 遠端 Preview HTML bytes、Git blob SHA、QA sidecar、Pages workflow 與公開 URL 全部核對一致；回寫同 Run 最終 receipt。
 
+### 4.3 R2 交接協定（實作時不得偏離）
+
+- Stage 1 完成後只提交 `production/runs/<run_id>/`，狀態為 `AWAITING_CHATGPT_STAGE2`；不得在同一排程 job 內執行 Stage 2／3。
+- ChatGPT Stage 2 將以下輸入全部寫入該 Run 目錄：`market-history-web-observations.json`（恰好 44 列）、`cnn-fear-greed-observation.json`（如有官方 CNN 當日讀取）、`market-screenshot-observations.json`（如有截圖）及截圖原始 bytes。截圖使用 Git Data API base64 blob 寫入，不得只保存無法回讀的本機路徑。
+- 每份 Stage 2 bundle 必須帶 `run_id`、`report_date`、`trading_date`、`stage1_receipt_sha256`、`run_context_sha256`、`stage1_fixture_sha256`、`captured_at_utc`；Runner 必須逐項比對該 Run 目錄內 Stage 1 receipt／context／fixture 的實際 SHA。任何一項不符即拒絕。
+- ChatGPT 提交 Stage 2 bundle 時，commit message 使用唯一 marker：`[stage2-complete:<run_id>]`。Main workflow push trigger 只接受 marker 內的 Run ID，並且只讀該 Run 目錄；不可用 report_date 搜尋「最新」Run。
+- Stage 2 Runner 只執行 schema／Run／SHA／44 列／來源／日期／欄位／截圖 bytes 驗證、fixture population、snapshot freeze、manifest、audit、receipt 及 S&P500 Chart 3 handoff。bundle 缺失、Run 不符或 SHA 不符時立即 fail-closed。
+- Stage 2 不得啟動 `browser_verify_market_history.py`、Playwright、TradingView MOVE backup 或任何自動替代來源。此禁令同時適用於 `run_stage2.py`、`validate_chatgpt_web_observations.py`、`maybe_capture_move_backup` 及其間接呼叫。
+- `stage2_market_fixture_bootstrap.py`、validator、Runner 不得以日期全域路徑讀取或覆寫當日 bundle／截圖 sidecar；所有動態輸入及證據均從該 Run 目錄讀取。
+- Stage 3 完成後，Stage 4 JSON 固定為該 Run 的 `report-content.json`，並綁定同 Run 的 snapshot／research bundle SHA。Build marker 改為 `[build-tac-report:<run_id>]`；禁止只用日期 marker 選擇 Run。
+- GitHub workflow push 事件負責接續 marker；Stage 1 workflow commit 不得自行觸發 Stage 2。ChatGPT 只能在 bundle 完整寫入並回讀 SHA 後提交 marker。
+
 不得以外部模型 API 或額外付費模型作為必要依賴。ChatGPT 是瀏覽器研究與編輯執行者；GitHub Actions 是確定性驗證、編排、渲染、QA 與交付執行者。
 
 ## 5. Stage 1–6 工作規格
@@ -126,7 +138,7 @@
   - `tac-chart3-incremental.yml`：只由專用 trigger marker 啟動，寫 Chart 3 FRED／ALFRED 資料；未直接監聽 S&P500 ledger。
   - `tac-chart3-sp500-increment-merge.yml`：ledger push／dispatch 均可啟動，負責合併 compact S&P500 歷史。
   - 其他公司資料、視覺 QA、測試及 Simulation 專用 workflow 已列入 24 份清單；目前未發現它們直接成為 Main 早報 Stage 1–6 的第二入口。
-- Stage 2 不只 Runner 有 Playwright fallback：`validate_chatgpt_web_observations.py` 在日期截圖 sidecar 存在時也會轉交 `browser_verify_market_history.py`；Stage 1 bootstrap 與 Runner／validator 仍讀取日期級 sidecar／bundle 路徑。R2 必須同時移除兩處自動瀏覽替代路徑並改為同 Run handoff。
+- Stage 2 已確認三個 Playwright／替代讀取路徑：Runner 缺 bundle 時啟動 `browser_verify_market_history.py`；validator 遇日期截圖 sidecar 時轉交同一 browser reader；MOVE 無資料／讀取失敗時再以 Playwright 讀 TradingView。Stage 1 bootstrap 與 Runner／validator 仍讀取日期級 sidecar／bundle 路徑。R2 必須移除全部三個替代路徑，並按 4.3 建立同 Run handoff。
 - GitHub Actions connector 支援 Git Blob 的 base64 建立及 tree／commit／ref 更新，因此二進位截圖證據可透過 Git Data API 寫入 Run 專屬路徑；這解決了「只能用文字 Contents API」的初步疑慮，但實作仍須加上路徑白名單、SHA 回讀及檔案大小限制。
 - Main Stage 4 continuation automation 本輪回讀為 `is_enabled=true`，下次預定 2026-11-30 05:15 Asia/Taipei；先前結果只證明 11/27 Capture 未啟動，不能誤記為目前停用。
 - GitHub push validation、workflow_dispatch validate、CI PASS 均不得冒充 schedule Capture 或 Stage 1–6 E2E。
