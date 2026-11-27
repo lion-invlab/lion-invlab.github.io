@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tac-chart3-sp500-increment-merge
+  group: tac-chart3-data-maintenance
   cancel-in-progress: false
 
 jobs:
