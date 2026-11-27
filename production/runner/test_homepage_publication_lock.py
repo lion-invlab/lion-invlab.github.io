@@ -12,7 +12,7 @@ class HomepagePublicationLockTests(unittest.TestCase):
         self.assertEqual(result['mode'],'BASELINE_LOCKED')
 
     def test_unapproved_index_change_blocks_pages(self):
-        lock={'schema_version':'1.0','status':'BASELINE_LOCKED','index_git_blob_sha':BASE,'report_date':None,'preview_path':None,'preview_git_blob_sha':None,'approved_by_owner':False,'approved_at':None,'approval_note':None}
+        lock={'schema_version':'1.0','status':'BASELINE_LOCKED','index_git_blob_sha':BASE,'report_date':'2026-11-26','preview_path':None,'preview_git_blob_sha':None,'approved_by_owner':False,'previous_homepage':None,'approved_at':None,'approval_note':None}
         with self.assertRaisesRegex(ValueError,'differs from the locked homepage'):
             validate_homepage_lock(lock,'b'*40,None,'publish without approval')
 
