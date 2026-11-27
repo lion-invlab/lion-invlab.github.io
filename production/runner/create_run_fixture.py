@@ -28,6 +28,10 @@ def report_cutoff_taipei(report_date:date)->str:
     production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
     return f"{production_date.isoformat()} {taipei_clock}"
 
+def report_template_key(report_date:date)->str:
+    """Select the Monday mother for Monday-dated reports produced on Saturday."""
+    return "monday" if report_date.weekday()==0 else "weekdays"
+
 def report_target_date(report_date:date)->date:
     """Resolve the shared target date from Taiwan production cadence."""
     offset=3 if report_date.weekday()==0 else 1
@@ -50,7 +54,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     if trading_date>=report_date: raise ValueError("trading_date must precede Taiwan report_date")
     manifest_path=ROOT/"production/config/mother-template-manifest.json"
     manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
-    template_key="monday" if report_date.weekday()==0 else "weekdays"
+    template_key=report_template_key(report_date)
     template=manifest["templates"][template_key]
     mother_path=ROOT/template["path"]
     actual_mother_sha=git_blob(mother_path,main_commit_sha)
