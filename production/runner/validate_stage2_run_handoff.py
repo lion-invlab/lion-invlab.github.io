@@ -37,12 +37,17 @@ def require(condition: bool, message: str) -> None:
 
 
 def run_file(run_dir: Path, name: str) -> Path:
-    require(isinstance(name, str) and name and Path(name).name == name,
-            f"Run artifact must be a direct child filename: {name!r}")
-    path = run_dir / name
-    require(not path.is_symlink(), f"Symlink is not allowed: {name}")
+    require(isinstance(name, str) and name, f"Run artifact path is missing: {name!r}")
+    relative = Path(name)
+    require(not relative.is_absolute() and all(part not in ("", ".", "..") for part in relative.parts),
+            f"Unsafe Run artifact path: {name!r}")
+    path = run_dir / relative
+    cursor = run_dir
+    for part in relative.parts:
+        cursor = cursor / part
+        require(not cursor.is_symlink(), f"Symlink is not allowed in Run artifact path: {name}")
     require(path.is_file(), f"Required Run artifact is missing: {name}")
-    require(path.resolve().parent == run_dir.resolve(),
+    require(path.resolve().is_relative_to(run_dir.resolve()),
             f"Run artifact escaped its Run directory: {name}")
     return path
 
