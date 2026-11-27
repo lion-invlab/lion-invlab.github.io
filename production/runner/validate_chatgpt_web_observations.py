@@ -252,6 +252,42 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
         raw["display_value_match"] = value_match
         raw["display_change_match"] = change_match
         raw["status"] = "VERIFIED" if value_match and raw_score_match and change_match else "OBSERVED_PENDING_VALIDATION"
+        # Direct ChatGPT page observations must carry field-level provenance into
+        # the Run's normalized bundle. The pre-build gate verifies these exact
+        # fields; page title/row text alone is not a sufficient handoff.
+        if raw["status"] == "VERIFIED" and method in (
+            "CHATGPT_WEB_OPEN_HISTORICAL_PAGE", "CNN_OFFICIAL_CURRENT_DASHBOARD"
+        ):
+            field_evidence = dict(raw.get("field_evidence") or {})
+            if method == "CNN_OFFICIAL_CURRENT_DASHBOARD":
+                evidence_source_type = "CNN_OFFICIAL_CURRENT_DASHBOARD"
+            elif group == "risk" and name == "fear_greed" and "fgscore" in str(raw.get("source_url") or "").lower():
+                evidence_source_type = "FGSCORE_CURRENT_DASHBOARD"
+            else:
+                evidence_source_type = "INVESTING_HISTORICAL_PAGE"
+            value_key = "score" if is_fear_greed else "close"
+            change_key = "band" if is_fear_greed else "change"
+            evidence_base = {
+                "source_type": evidence_source_type,
+                "source_url": raw.get("source_url"),
+                "page_title": raw.get("page_title"),
+                "instrument_identity": raw.get("instrument_identity"),
+                "observed_date": raw.get("observed_date"),
+                "web_reader_ref": raw.get("web_reader_ref"),
+                "web_line_start": raw.get("web_line_start"),
+                "web_line_end": raw.get("web_line_end"),
+                "captured_at_utc": raw.get("captured_at_utc") or bundle.get("captured_at_utc"),
+                "observed_row_text": raw.get("observed_row_text"),
+            }
+            for field_key, field_value, field_name in (
+                (value_key, raw.get("observed_value"), raw.get("observed_value_field")),
+                (change_key, raw.get("observed_change"), raw.get("observed_change_field")),
+            ):
+                if field_key not in field_evidence:
+                    field_evidence[field_key] = {
+                        **evidence_base, "field_name": field_name, "value": field_value
+                    }
+            raw["field_evidence"] = field_evidence
         if not raw.get("finished_at_utc"):
             raw["finished_at_utc"] = captured.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
         if not raw.get("finished_at_tw"):
