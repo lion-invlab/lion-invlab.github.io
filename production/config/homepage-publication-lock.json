@@ -1,12 +1,16 @@
 {
   "schema_version": "1.0",
-  "status": "BASELINE_LOCKED",
-  "index_git_blob_sha": "032090e047a363e7654e36c12adadbe859666bc2",
-  "report_date": "2026-11-26",
-  "preview_path": null,
-  "preview_git_blob_sha": null,
-  "approved_by_owner": false,
-  "approved_at": null,
-  "approval_note": null,
-  "previous_homepage": null
+  "status": "APPROVED_PUBLICATION",
+  "index_git_blob_sha": "d34fec01d0f9735e62f5b0c67bfe94a2618fb4f5",
+  "report_date": "2026-11-27",
+  "preview_path": "preview/2026-11-27-review.html",
+  "preview_git_blob_sha": "d34fec01d0f9735e62f5b0c67bfe94a2618fb4f5",
+  "approved_by_owner": true,
+  "approved_at": "2026-11-27",
+  "approval_note": "使用者明確指示「先把審核版上傳首頁」，核准日期 2026-11-27、版本 preview/2026-11-27-review.html；依原樣發布，不改動報告內容。",
+  "previous_homepage": {
+    "report_date": "2026-11-26",
+    "index_git_blob_sha": "032090e047a363e7654e36c12adadbe859666bc2",
+    "status": "BASELINE_LOCKED"
+  }
 }
