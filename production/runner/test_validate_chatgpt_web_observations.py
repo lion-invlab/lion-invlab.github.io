@@ -504,10 +504,20 @@ def main():
     normalized_1127 = validate_bundle(data_1127, "2026-11-27", bundle_1127)
     assert len(normalized_1127["observations"]) == 44
     assert normalized_1127["verified_count"] == 27
-    assert sum(1 for row in normalized_1127["observations"] if row.get("status") == "CLOSED") == 16
     assert normalized_1127["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 1
     assert normalized_1127["prior_observation_reused_count"] == 0
     populated_1127 = populate_fixture(data_1127, normalized_1127)
+    fixture_statuses = [
+        (item.get("source") or {}).get("verification_status")
+        for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk")
+        for item in (populated_1127.get(group) or {}).values()
+    ] + [
+        (source or {}).get("verification_status")
+        for source in (populated_1127.get("sector_sources") or {}).values()
+    ]
+    assert fixture_statuses.count("VERIFIED") == 27, fixture_statuses
+    assert fixture_statuses.count("CLOSED") == 16, fixture_statuses
+    assert fixture_statuses.count("PENDING") == 1, fixture_statuses
     assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
     assert populated_1127["sectors"]["XLE"]["source"]["verification_status"] == "CLOSED"
     assert populated_1127["risk"]["move"]["source"]["verification_status"] == "PENDING"
