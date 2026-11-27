@@ -50,8 +50,11 @@ def main():
         }
         bundle_path = root / "bundle.json"
         bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
+        bundle["observations"][0]["data_date"] = "2026-11-20"
+        bundle_path.write_text(json.dumps(bundle), encoding="utf-8")
         loaded = load_screenshot_bundle(bundle_path, fixture, root)
         assert ("global_markets", "標普500指數") in loaded
+        assert loaded[("global_markets", "標普500指數")]["data_date"] == "2026-11-20"
         assert loaded[("global_markets", "標普500指數")]["fields"]["close"]["evidence_sha256"] == digest
 
         close_image = root / "spx-close.png"
@@ -120,6 +123,7 @@ def main():
         assert row["change_display"] == "-0.42%"
         assert row["source"]["close_value"] == "6812.34"
         assert row["source"]["daily_change_percent"] == "-0.42"
+        assert row["source"]["data_date"] == "2026-11-20"
 
         work_row = {
             "group": "global_markets", "name": "標普500指數",
