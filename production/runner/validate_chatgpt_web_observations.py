@@ -297,6 +297,12 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                     raise ValueError("MOVE TradingView backup must include the exact Investing.com primary attempt URL")
                 if primary.get("read_status") not in ("TOOL_READ_FAILURE","SOURCE_NO_DATA"):
                     raise ValueError("MOVE TradingView backup is allowed only after Investing.com TOOL_READ_FAILURE or SOURCE_NO_DATA")
+                if primary.get("target_date") != raw.get("target_date"):
+                    raise ValueError("MOVE Investing.com primary attempt must refer to the same target_date as the TradingView backup")
+                if primary.get("read_status")=="SOURCE_NO_DATA" and (primary.get("source_page_fetched") is not True or primary.get("observed_date") is not None):
+                    raise ValueError("MOVE SOURCE_NO_DATA primary attempt must prove the readable page had no target-date row")
+                if primary.get("read_status")=="TOOL_READ_FAILURE" and (primary.get("observed_value") is not None or primary.get("observed_change") is not None):
+                    raise ValueError("MOVE failed primary attempt cannot carry numeric observations")
                 if not primary.get("web_reader_ref") or not isinstance(primary.get("web_line_start"),int) or not isinstance(primary.get("web_line_end"),int):
                     raise ValueError("MOVE TradingView backup requires cited evidence of the failed/missing Investing.com primary observation")
                 raw["source_role"]="BACKUP_1"
