@@ -521,7 +521,7 @@ def main():
     assert fixture_statuses.count("CLOSED") == 16, fixture_statuses
     assert fixture_statuses.count("PENDING") == 1, fixture_statuses
     assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
-    assert populated_1127["sectors"]["XLE"]["source"]["verification_status"] == "CLOSED"
+    assert populated_1127["sector_sources"]["XLE"]["verification_status"] == "CLOSED"
     assert populated_1127["risk"]["move"]["source"]["verification_status"] == "PENDING"
     assert populated_1127["risk"]["move"]["source"].get("close_value") is None
     assert populated_1127["trading_date"] == "2026-11-26"
