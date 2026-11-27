@@ -282,7 +282,7 @@ def main():
     assert populated_blank["stage2_market_bootstrap"]["preexisting_market_values_used"] is False
     assert populated_blank["stage2_market_bootstrap"]["verified_count"] == 43
     assert populated_blank["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
-    assert populated_blank["global_markets"]["日經225"]["display"] == "休市"
+    assert populated_blank["global_markets"]["日經225"]["display"] == "-" and populated_blank["global_markets"]["日經225"]["change_display"] == "休市"
 
     # MOVE may be pending publication at the early capture cutoff. It must stay blank,
     # while the other 43 rows remain independently processed.
