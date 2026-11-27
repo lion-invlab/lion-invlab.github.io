@@ -1,4 +1,4 @@
-# TAC Main 早報重建計畫 v2.3（簡化版）
+# TAC Main 早報重建計畫 v2.4（週二至週六製作週期）
 
 **更新日期：2026-11-27**  
 **唯一目標：每天穩定產出當日審核版；先完成早報，不把行情擷取變成資料治理工程。**
@@ -11,7 +11,7 @@ Simulation 分支與 SIM-1.4 僅供規格參照，禁止修改。Main 可重建�
 
 | 階段 | 執行責任 | 工作與交付 |
 |---|---|---|
-| 1. 建立工作資料 | Main Runner | 鎖定台灣報告日、目標交易日、週一／平日母版；建立當日空白資料與唯一 Run。 |
+| 1. 建立工作資料 | Main Runner | 鎖定台灣報告日、目標交易日、週一／週二至週五母版（週六製作週一早報）；建立當日空白資料與唯一 Run。 |
 | 2. 行情擷取 | ChatGPT 讀來源；Runner 寫入 | 44 項行情。當日有效截圖優先；其餘直接讀 Investing.com Historical Data。最多四頁並行。Runner 將當日資料接入本 Run，回填行情並產生一份快照。 |
 | 3. 行事曆 | Main Runner | 讀取當週／上週既有行事曆與財報資料，投影到報告；不在此階段改寫資料庫。 |
 | 4. 新聞與分析 | ChatGPT | 5 則全球焦點、10 則市場熱門、三段總結、市場情緒與必要分析；只使用本 Run 行情與可追溯新聞。 |
@@ -28,7 +28,7 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 2. 使用者當天提供的截圖優先採用，視為該欄位當日報價；截圖只在當天有效，絕不跨日沿用。報告不得出現「依你的截圖」等內部作業描述。
 3. 沒有截圖的欄位，直接開啟對應 Investing.com Historical Data 頁面讀取目標日期資料列；最多四頁並行。不得用搜尋摘要代替歷史表格。
 4. 不繞過 Cloudflare。若頁面或表格無法讀取，標示 `TOOL_READ_FAILURE`；頁面可讀但沒有目標日期資料，標示 `SOURCE_NO_DATA`。只有官方市場日曆能證明休市時才標 `MARKET_CLOSED`。
-5. 只接受報告日對應的目標交易日資料。週二至週五通常以前一日為目標；週一以前一週五為目標。各市場分別判斷，不可用美股休市推定全球市場休市。
+5. 只接受報告日對應的目標交易日資料。週二至週五通常以前一日為目標；週六製作的隔週一報告以前一週五為目標。各市場分別判斷，不可用美股休市推定全球市場休市。
 6. 不補舊行情、不推估缺失值、不把未核實值寫成已確認事實。部分項目未取得，不應阻止其他已完成資料繼續產報。
 7. 當日觀察資料可先存在日期輸入檔；進入 Run 時必須核對報告日、交易日、44 個商品識別及擷取時間，再複製到該 Run。Run 內保留一份原始 observation、一份最終快照即可；不再要求多層 handoff、context hash 鏈或重複 receipt。快照可記錄單一 SHA 供回查。
 
@@ -53,7 +53,7 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 3. **11/27 新 Run 已建立，但不是完整 E2E。** `TAC-2026-11-27-45976396528-1` 的 `supersedes_run_id` 指向舊 Run `TAC-2026-11-27-45937649928-1`；但 GitHub Actions 實際事件為 `push`，不是規範要求的 `workflow_dispatch mode=rerun`，不得把它記成合規 rerun 或完整 E2E。此 Run 的 Stage 2 為 `PARTIAL`：44 項中 26 VERIFIED、17 CLOSED、1 PENDING（CNN Fear & Greed，`SOURCE_NO_DATA`）；Stage 3 為 PASS。S&P 500 現金指數目標日 2026-11-26 為美國感恩節休市，Chart 3 未追加當日資料。Stage 4 編輯內容、Stage 5、Stage 6 均未完成。Run pinned main commit 為 `f6aa1f7626699ca6054b66a97028bddcde70cd25`；後續 Stage 5／6 規範與 Runner 已變更，舊 Run 不得跨版本續跑或回填新規則。
 4. **Stage 5／6 已修正兩項 Gate 矛盾。** 情境分析只有在六領域掃描完整、findings 為空且有具體 `no_material_change_note` 時可標 `NOT_APPLICABLE`；有任何 finding 則保守要求基準／風險／嚴重三情境。Stage 2 非 PASS、仍有 pending_rows 或 fixture pending_items 時，Stage 5 必須標 `PARTIAL`，Workflow 保留 Run 內證據並略過 Stage 6，不可寫入 main/preview。相關 commits：`75c4d68`、`eb488f3`、`0bc0dd3`、`f080ec1`、`ba4322d`。Main push validation Run `46001434146` 對 commit `ba4322db2cd4ff5fe4a204e56deb2eef3dbb529e` 已 SUCCESS；其中 Stage 5 情境 QA 新增測試及現有 deterministic tests 通過。這是程式驗證，不是正式行情 E2E。
 5. **Builder exact-SHA 核准仍是 Stage 5 唯一明確阻塞。** Main Builder 現行 blob SHA `89cedbb36ec75628c813291adf1bd025c589266e`；approval record 仍核准舊 SHA `5d555e40285bf4156740e418664f4833d66956ee`。不得自行改寫核准紀錄或把舊核准套用到新 Builder。取得新 SHA 的明確 Owner 核准後，才可觸發 Stage 4–6 build；否則只可保留候選／部分 Run 證據。
-6. **下一個正常排程 E2E 目標為 2026-11-30（週一）。** 04:35 台灣時間行事曆資料庫更新；04:45 Stage 1 建立唯一 Run 並鎖定 Monday mother／governance；05:00 Stage 2 worker 啟動正式收盤擷取；05:15 為 observation handoff 目標；05:20 為 Stage 1–3 Capture 目標；05:30 為完整審核版交付目標。對應 America/New_York：15:35、15:45、16:00、16:15、16:20、16:30 ET。Chart 3 監控任務 05:30 台灣時間獨立執行。三個排程均已啟用：行事曆 04:35、Main Stage 2–6 05:00、Chart 3 05:30。Main Workflow schedule 是唯一 Stage 1 啟動入口；Stage 2 只提交 observation，不另建 Run。未完成同一 Run Stage 1–6 真實 E2E 前，不宣稱新制正式上線。
+6. **下一個正常排程 E2E 目標為 2026-12-01（週二製作週一收盤行情，report_date=12/01）。2026-11-30（週一）不製作早報；週六 2026-11-28 將製作 report_date=2026-11-30 的週一早報。** 04:35 台灣時間行事曆資料庫更新；04:45 Stage 1 建立唯一 Run 並鎖定 Monday mother／governance；05:00 Stage 2 worker 啟動正式收盤擷取；05:15 為 observation handoff 目標；05:20 為 Stage 1–3 Capture 目標；05:30 為完整審核版交付目標。對應 America/New_York：15:35、15:45、16:00、16:15、16:20、16:30 ET。Chart 3 監控任務 05:30 台灣時間獨立執行。三個排程均已啟用：行事曆 04:35、Main Stage 2–6 05:00、Chart 3 05:30。Main Workflow schedule 是唯一 Stage 1 啟動入口；Stage 2 只提交 observation，不另建 Run。未完成同一 Run Stage 1–6 真實 E2E 前，不宣稱新制正式上線。
 
 每完成一項，只回頭檢查：**是否讓下一個工作日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
 ## 五之一、正式首頁發布鎖（2026-11-27 已啟用）
@@ -71,3 +71,16 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 - 不把 CI 單元測試成功當成早報 E2E 成功。
 - 不修改 Simulation 分支。
 - 未經使用者核准，不更新正式首頁與歷史封存。
+
+
+## 週二至週六正式製作規則（2026-11-27 使用者核准）
+
+| 台灣製作日 | report_date | trading_date | 母版 | 新聞窗口 |
+|---|---|---|---|---|
+| 週二 | 當日週二 | 週一 | Weekday | 週一 12:00 起至製作截點 |
+| 週三 | 當日週三 | 週二 | Weekday | 週二 12:00 起至製作截點 |
+| 週四 | 當日週四 | 週三 | Weekday | 週三 12:00 起至製作截點 |
+| 週五 | 當日週五 | 週四 | Weekday | 週四 12:00 起至製作截點 |
+| 週六 | 隔週一 | 週五 | Monday | 週五 12:00 起至 Stage 4 research bundle 建立當下 |
+
+週六製作時 production_date 與 report_date 必須分離；Run、Preview、母版選擇及正式發布鎖以 report_date 為準。週六、週日的重大新聞如需置換，只能人工明確決定；自動流程不得覆寫已交付版本。排程的 New York BYDAY 為 MO–FR，台灣時區對應 Tue–Sat。
