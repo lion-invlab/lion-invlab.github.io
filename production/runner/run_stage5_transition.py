@@ -3,6 +3,7 @@
 from __future__ import annotations
 import hashlib, json, subprocess, sys
 from pathlib import Path
+from stage_wr_preflight import stage_wr_preflight
 
 ROOT=Path(__file__).resolve().parents[2]
 TRANSITION_ID="SIFMA-MOVE-THANKSGIVING-2026-11-26"
@@ -102,6 +103,14 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
             "builder_blob_sha":approval["builder_blob_sha"]}
 
 def main():
+    import argparse, json
+    ap=argparse.ArgumentParser()
+    ap.add_argument('--run-dir',required=True)
+    args=ap.parse_args()
+    run_dir=Path(args.run_dir)
+    if not run_dir.is_absolute(): run_dir=ROOT/run_dir
+    context=json.loads((run_dir/'run-context.json').read_text(encoding='utf-8'))
+    stage_wr_preflight('STAGE_5',context)
     import builder_approval
     original=builder_approval.verify_governance_snapshot
     def verify(context,root=ROOT):
