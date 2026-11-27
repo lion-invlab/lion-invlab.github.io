@@ -105,7 +105,7 @@
     "production/runner/run_stage4.py": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
     "production/runner/prepare_stage4_research_bundle.py": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969",
     "production/runner/run_stage5.py": "94f50a0b251fa5a0987cc4dee1c967d2decb86ae",
-    "production/runner/run_stage6.py": "713c4bc76408bf0efee7acc1668dd429dd799294",
+    "production/runner/run_stage6.py": "67c54aea43bb1de68ff675d6d393012ed99f2427",
     "production/runner/validate_prebuild_stage_inputs.py": "36f938611090fe6aa984c5d762a52b6afe37aaf9",
     "production/runner/validate_mother_dom_contract.py": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
@@ -165,9 +165,9 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": 45943910409,
+    "latest_main_validation_run_id": 45944232542,
     "latest_main_validation_conclusion": "success",
-    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45943910409"
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45944232542"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
