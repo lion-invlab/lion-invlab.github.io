@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "request": "TAC_MAIN_STAGE4_TO_STAGE6_BUILD",
+  "report_date": "2026-11-27",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "market_snapshot_sha256": "05718ca0d26e29322c9fec38a762801f583f2215a4d50a55d5f5ad5fe3b4383d",
+  "research_bundle_sha256": "f62dd6f784069829042562b03b6999af831ba832c995eed74797eaeebcd5b49d",
+  "editorial_content_blob_sha": "6d126014892d9fceb9296bc7c9d564fbb493b14b",
+  "builder_path": "production/runner/build_review_html.py",
+  "builder_blob_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
+  "builder_approval_blob_sha": "b1cec3aa5540b323c7b01b3fa7f9477d9b3d6ad8",
+  "builder_approval_status": "APPROVED_MAIN",
+  "approved_by_owner": true,
+  "scope": "Same original 2026-11-27 Run only; Stage 4–6; review preview only; never publish main/index.html."
+}
