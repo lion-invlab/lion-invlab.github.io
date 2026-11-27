@@ -1,0 +1,669 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TAC 投資早報｜2026/11/27 獨立審核版</title><style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
+.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
+.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750;white-space:nowrap}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
+.sent{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.sent>.sbox:last-child{grid-column:1/-1}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}
+.calendar-source-collapse{margin-top:6px;font-size:11px;color:var(--muted)}.calendar-source-collapse>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px;opacity:.82}.calendar-source-collapse>summary::-webkit-details-marker{display:none}.calendar-source-collapse>summary:before{content:"▸";font-size:11px;transition:transform .15s}.calendar-source-collapse[open]>summary:before{transform:rotate(90deg)}.calendar-source-collapse .source{padding:5px 0 0 15px}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
+.event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
+.callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
+.newsitem{padding:8px 0;border-bottom:1px solid #eee}.newsitem:last-child{border-bottom:0}.newsitem h3{font-size:16px;line-height:1.4;margin:0 0 5px;font-weight:850}.newsitem p{font-size:11px;color:#555b63;line-height:1.55;margin:0}.newsmeta{font-size:9px;color:var(--muted);margin-top:4px}
+.footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(3,minmax(0,1fr))}.sent>.sbox:last-child{grid-column:1/-1}}@media(max-width:700px){.title{font-size:19px;gap:8px;min-width:0}.title small{font-size:9px;white-space:nowrap;flex-shrink:0}.earnings-health>.title{font-size:clamp(14px,4.1vw,19px);white-space:nowrap;letter-spacing:-.45px;gap:5px}.earnings-health>.title small{display:none}.calendar-card>.title{font-size:17px;white-space:nowrap;letter-spacing:-.4px}.calendar-card>.title small{font-size:8px;letter-spacing:0}.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.sent .sbox{padding:8px 7px;min-width:0}.sent .label{font-size:11px;letter-spacing:0;overflow-wrap:anywhere}.sent .sbox strong{font-size:19px}.sent .sbox .up,.sent .sbox .down,.sent .sbox .warn{font-size:12px}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
+.report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
+.market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
+.market-reason b{color:var(--red)}
+#bonds .row b{white-space:nowrap}
+#bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
+#bonds .bond-head span:first-child{text-align:left}
+#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
+#bonds .prev-rate{color:#737981}
+@media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
+@media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
+.headline-desc{line-height:1.6;margin:7px 0 6px;display:block;overflow:visible;white-space:normal;text-overflow:clip;-webkit-line-clamp:unset;-webkit-box-orient:initial}
+@media(max-width:700px){.headline-desc{line-height:1.6;display:block;overflow:visible;-webkit-line-clamp:unset}}
+
+.sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
+.sector-row .rank{font-weight:800;color:#777;text-align:center}
+.sector-name b{font-size:14px}
+.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
+.sector-pct{text-align:right;font-weight:800}
+.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
+@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
+
+/* Q4 精選基金 Dashboard */
+.fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
+.fund-report-head{margin-bottom:12px}
+.fund-report-title{font-size:23px;line-height:1.3;font-weight:950;color:#fff;letter-spacing:.2px;white-space:nowrap}.red-highlight{color:#ffd35a}
+.fund-report-sub{margin-top:12px;font-size:18px;font-weight:950;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.fund-report-list{display:grid;gap:10px}
+.fund-date-row{display:grid;grid-template-columns:28px 72px minmax(0,1fr) 96px;align-items:center;gap:8px;min-height:66px;padding:9px 14px;border:1px solid #e1e3e6;border-radius:12px;background:#fff;min-width:0}.fund-names{overflow-wrap:anywhere;min-width:0}.fund-status{min-width:0}
+.fund-dot{width:20px;height:20px;border-radius:50%;justify-self:center;box-shadow:0 0 0 6px rgba(0,0,0,.035)}
+.fund-date{font-size:24px;font-weight:950;color:#202328}
+.fund-names{font-size:15px;line-height:1.35;font-weight:850;color:#25292e}
+.fund-status{text-align:right;font-size:18px;font-weight:950;white-space:nowrap}
+.tomorrow{color:#c92f2f}
+.soon{color:#b88600}
+.later{color:#198754}
+.dashboard-link{display:flex;width:100%;height:56px;box-sizing:border-box;align-items:center;justify-content:center;margin-top:14px;padding:0 14px;border-radius:10px;text-align:center;font-size:17px;line-height:1.2;font-weight:950;text-decoration:none}.vol-dashboard-link{color:#ffd400!important;background:#202328}.fund-dashboard-link{color:#fff!important;background:#c62828;border:1px solid #ffd35a}
+.fund-dot.red{background:#c92f2f}
+.fund-dot.yellow{background:#e2ae00}
+.fund-dot.green{background:#198754}
+.mobile-only{display:none}
+.top-warning{font-size:9px;font-weight:600;color:#8a8f96;margin-left:10px;white-space:nowrap;letter-spacing:.1px}
+
+/* 歷史早報固定元件 */
+history-panel{margin-bottom:14px}
+history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+history-field{min-width:0;width:100%}
+history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+history-field input{display:block;width:100%;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:0 10px;font-size:14px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+history-btn.primary{background:var(--red);color:#fff}
+history-btn.secondary{background:#eef0f2;color:#202328}
+history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+history-status.ok{color:#16834c}
+history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important}
+.q4-nav{background:#8b1e1e;color:#fff!important;font-weight:900}
+@media(max-width:700px){.q4-nav{font-size:13px}.fund-date-row{grid-template-columns:18px 58px minmax(0,1fr) auto;gap:6px;padding:9px 8px}.fund-date{font-size:18px}.fund-names{font-size:12px;line-height:1.35}.fund-status{font-size:13px;white-space:nowrap}.fund-report-card{padding:14px 12px}.fund-report-title{font-size:19px}}
+
+/* 歷史早報：固定採用已定稿版面 */
+.history-panel{margin-bottom:14px}
+.history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+.history-field{min-width:0;width:100%;overflow:hidden}
+.history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+.history-field input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:2px 10px 0;font-size:14px;line-height:36px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+.history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+.history-btn.secondary{background:#eef0f2;color:#202328}
+.history-btn.primary{background:var(--red);color:#fff}
+.history-btn.latest{background:#202328;color:#fff}
+.history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+.history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+.history-status.ok{color:#16834c}
+.history-status.err{color:#c62828}
+@media(max-width:700px){
+.history-box{grid-template-columns:1fr 1fr}
+.history-field{grid-column:1/-1}
+.history-btn{width:100%}
+}
+
+/* 行事曆狀態分類與手機版防重疊（V22） */
+.calendar-status-group{margin:12px 0 16px}
+.calendar-status-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 9px;padding:9px 12px;border-radius:8px;background:#f5f6f7;font-size:14px;font-weight:800}
+.calendar-status-heading.published{border-left:4px solid #16803c}
+.calendar-status-heading.today{border-left:4px solid #b42318}
+.calendar-status-heading.upcoming{border-left:4px solid #2563eb}
+.calendar-status-empty{padding:12px 14px;color:#70757a;background:#fafafa;border:1px dashed #d7d7d7;border-radius:8px;font-size:13px}
+.event-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.event-table{width:100%;border-collapse:collapse}
+.event-table td,.event-table th{vertical-align:top;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:640px){.calendar-card .event-table{min-width:720px}.calendar-card .title small{display:block;margin-top:5px}.calendar-card .event-group h4{line-height:1.45}.calendar-card .earnings-note,.calendar-card .source{overflow-wrap:anywhere}}
+
+.earnings-calendar tr.five-star-earnings .earnings-company b,.earnings-calendar tr.five-star-earnings td:nth-child(3)>b{color:#c62828!important}
+/* 本週財報行事曆：固定必備版面 */
+.earnings-block{margin-top:14px}
+.earnings-group-title{font-size:13px;margin:14px 0 6px;font-weight:950}
+.earnings-badge{display:inline-block;border-radius:99px;padding:4px 9px;font-size:10px;font-weight:950;border:1px solid var(--line)}
+.earnings-badge.published{color:#16834c;border-color:#b9dfca;background:#effaf3}
+.earnings-badge.today{color:#b21824;border-color:#f0b8bd;background:#fff2f3}
+.earnings-badge.upcoming{color:#245b8e;border-color:#c6d9e9;background:#eef6fb}
+.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
+.earnings-row:last-child{border-bottom:0}
+.earnings-head{font-size:10px;color:var(--muted);font-weight:850}
+.earnings-cell{font-size:11px;line-height:1.45}
+.earnings-company b{font-size:13px;font-weight:950}
+.earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.earnings-metric{font-variant-numeric:tabular-nums}
+.earnings-metric b{font-weight:950}
+.earnings-reaction{font-size:10px;font-weight:950;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25;white-space:nowrap}.earnings-reaction.up{color:#16834c;border-color:#bfe3cf;background:#eef9f2}.earnings-reaction.down{color:#c62828;border-color:#efc1c1;background:#fff0f0}.earnings-reaction.wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
+.earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
+.earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
+.earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
+.earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
+@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 1fr 70px}}
+@media(max-width:700px){
+  .earnings-row{grid-template-columns:58px 1.05fr 1.35fr;gap:6px 10px;padding:11px 4px;align-items:start}
+  .earnings-head{display:none}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(1){grid-column:1;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(2){grid-column:2;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:3;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:3;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1 / span 2;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:1 / span 2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7){grid-column:3;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"股價反應 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7)::before{content:"重要性 ";color:var(--muted);font-weight:800}
+  .earnings-company b{font-size:12px}
+  .earnings-company small{font-size:9px}
+  .earnings-result{font-size:9px;white-space:normal}
+}
+
+
+.instrument-name{display:block;line-height:1.28}
+.instrument-en{display:block;font-size:.76em;font-weight:500;line-height:1.25;color:#6b7280;margin-top:2px;letter-spacing:.01em}
+
+/* V3: sector card list and calendar tables */
+.sector-row{display:grid;grid-template-columns:34px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:#f6f6f6;min-height:62px}
+.sector-row .rank{font-size:19px;font-weight:850;color:#777;text-align:center}
+.sector-label{min-width:0;display:flex;flex-direction:column;gap:3px}
+.sector-label b{font-size:17px;font-weight:900;color:#202124}
+.sector-label small{font-size:13px;font-weight:500;color:#909399;line-height:1.25}
+.sector-row .r{font-size:20px;font-weight:900;text-align:right;white-space:nowrap}
+.event-group{margin-top:12px}
+.event-group h4{margin:8px 0;font-size:14px}
+.event-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.event-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.45;min-width:820px}
+.event-table th{background:#f6f7f8;color:#626970;font-weight:850;text-align:left;padding:9px 7px;white-space:nowrap;border-bottom:1px solid #ddd}
+.event-table td{padding:9px 7px;border-bottom:1px solid #e8e8e8;vertical-align:top}
+.event-table td small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.event-table td b{font-weight:900}
+.event-table.earnings-calendar td:nth-child(3) b{color:#1769aa;font-weight:900}
+.event-table:not(.earnings-calendar) td:nth-child(4){color:#1769aa;font-weight:850}
+.event-table:not(.earnings-calendar) td:nth-child(4) b{color:#1769aa;font-weight:900}
+.event-table.earnings-calendar{min-width:960px}
+@media(max-width:700px){
+.sector-row{grid-template-columns:30px minmax(0,1fr) 78px;padding:11px 10px;gap:8px;min-height:58px}.sector-label b{font-size:16px}.sector-label small{font-size:12px}.sector-row .r{font-size:18px}
+/* Mobile calendar tables become stacked cards instead of overflowing horizontally */
+.event-table-wrap{overflow:hidden;width:100%;max-width:100%;min-width:0}
+.calendar-card,.event-group{min-width:0;max-width:100%}
+.event-table{box-sizing:border-box}
+.event-table td>*{max-width:100%;overflow-wrap:anywhere}
+.event-table,.event-table.earnings-calendar{width:100%;min-width:0;table-layout:fixed;font-size:12px}
+.event-table thead{display:none}
+.event-table tbody,.event-table tr,.event-table td{display:block;width:100%;min-width:0;max-width:100%}
+.event-table tbody tr{padding:9px 10px;margin:0 0 9px;border:1px solid var(--line);border-radius:9px;background:#fff;overflow-wrap:anywhere;word-break:normal}
+.event-table td{box-sizing:border-box;display:grid;grid-template-columns:minmax(70px,30%) minmax(0,1fr);gap:8px;padding:5px 0;border-bottom:1px solid #f0f1f2;text-align:left;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.event-table td:last-child{border-bottom:0}
+.event-table td:before{font-size:10px;font-weight:850;color:var(--muted);line-height:1.5}
+.event-table:not(.earnings-calendar) td:nth-child(1):before{content:"日期"}
+.event-table:not(.earnings-calendar) td:nth-child(2):before{content:"台灣時間"}
+.event-table:not(.earnings-calendar) td:nth-child(3):before{content:"國家"}
+.event-table:not(.earnings-calendar) td:nth-child(4):before{content:"事件"}
+.event-table:not(.earnings-calendar) td:nth-child(5):before{content:"前值"}
+.event-table:not(.earnings-calendar) td:nth-child(6):before{content:"預估"}
+.event-table:not(.earnings-calendar) td:nth-child(7):before{content:"實際"}
+.event-table:not(.earnings-calendar) td:nth-child(8):before{content:"重要性"}
+/* 上週已公布財報與本週預告財報共用 earnings-calendar class；分開指定，避免標籤覆蓋。 */
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(1):before{content:"日期／發布時段"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(2):before{content:"公司／產業"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(3):before{content:"EPS 實際／預期"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(4):before{content:"營收實際／預期"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(5):before{content:"財報判讀／EPS與營收預估"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(6):before{content:"股價反應／觀察重點"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(7):before{content:"重要性"}
+.event-table.upcoming-earnings td:nth-child(1):before{content:"美國日期"}
+.event-table.upcoming-earnings td:nth-child(2):before{content:"台灣日期／時間"}
+.event-table.upcoming-earnings td:nth-child(3):before{content:"公司／產業"}
+.event-table.upcoming-earnings td:nth-child(4):before{content:"公布時段"}
+.event-table.upcoming-earnings td:nth-child(5):before{content:"EPS／營收預估"}
+.event-table.upcoming-earnings td:nth-child(6):before{content:"觀察重點"}
+.event-table.upcoming-earnings td:nth-child(7):before{content:"重要性"}
+.event-table td small{font-size:10px}
+}
+
+
+.audit-details{margin-top:10px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+.audit-details summary{list-style:none;cursor:pointer;padding:10px 12px;font-size:11px;font-weight:850;color:#666;display:flex;align-items:center;gap:7px}
+.audit-details summary::-webkit-details-marker{display:none}
+.audit-details summary:before{content:"＋";color:var(--red);font-size:16px;font-weight:950}
+.audit-details[open] summary:before{content:"－"}
+.audit-details .audit-content{padding:0 12px 12px;font-size:11px;line-height:1.65;color:#737981}
+
+
+/* V10：市場情緒指標字體加大、資料來源改為收折 */
+#sentiment .sbox .label{font-size:15px;line-height:1.35}
+#sentiment .sbox strong{font-size:27px;margin:5px 0}
+#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:15px;line-height:1.45}
+#sentiment .source-details{margin-top:5px;font-size:11px;color:var(--muted)}
+#sentiment .source-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:750;padding:2px 0}
+#sentiment .source-details summary::-webkit-details-marker{display:none}
+#sentiment .source-details summary:before{content:"＋";font-weight:900;color:var(--red)}
+#sentiment .source-details[open] summary:before{content:"－"}
+#sentiment .source-details .source{font-size:11px;line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
+@media(max-width:700px){#sentiment .sbox .label{font-size:13px;letter-spacing:0;overflow-wrap:normal}#sentiment .sbox strong{font-size:22px}#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:13px}#sentiment .source-details summary{font-size:10px}#sentiment .source-details .source{font-size:10px}}
+
+/* V11: keep energy instrument names on one line on mobile */
+.energy-card .row{grid-template-columns:minmax(0,1.55fr) minmax(78px,.85fr) minmax(64px,.7fr);gap:6px}
+.energy-card .row b{white-space:nowrap;letter-spacing:-.35px}
+@media(max-width:700px){.energy-card .row{grid-template-columns:minmax(0,1.55fr) minmax(76px,.85fr) minmax(62px,.7fr);gap:5px}.energy-card .row b{font-size:14px;white-space:nowrap;letter-spacing:-.55px}.energy-card .row .r{font-size:15px;white-space:nowrap}}
+
+
+/* V12：FedWatch 資料時間收折；Fed/FOMC 欄位採一致三欄對齊 */
+.fedwatch-time{margin-top:8px}
+#fed .card:nth-child(2) .row{display:grid;grid-template-columns:minmax(105px,1fr) minmax(150px,1.2fr) minmax(90px,.7fr);align-items:center;gap:10px}
+#fed .card:nth-child(2) .row>b{white-space:nowrap}
+#fed .card:nth-child(2) .row>.r{text-align:center;white-space:nowrap;min-width:0}
+#fed .card:nth-child(2) .row>.r:last-child{text-align:right}
+@media(max-width:700px){#fed .card:nth-child(2) .row{grid-template-columns:minmax(92px,1fr) minmax(125px,1.15fr) minmax(68px,.65fr);gap:6px;font-size:12px}#fed .card:nth-child(2) .row>b{font-size:12px}#fed .card:nth-child(2) .row>.r{font-size:12px}}
+
+
+/* 上週已公布經濟數據採收折，預設關閉以節省首頁版面 */
+.calendar-collapse{margin:8px 0 12px;border:1px solid var(--line,#dfe3e6);border-radius:14px;padding:10px 12px;background:var(--soft,#fafafa)}
+.calendar-collapse>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;list-style:none;flex-wrap:wrap}
+.calendar-collapse>summary::-webkit-details-marker{display:none}
+.calendar-collapse>summary::after{content:'＋';font-weight:900;color:var(--muted);margin-left:auto}
+.calendar-collapse[open]>summary::after{content:'−'}
+.calendar-collapse .event-group{margin-top:12px}
+.collapse-hint{font-size:12px;color:var(--muted);font-weight:700}
+
+
+.view-collapse{margin:0}.view-collapse>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}.view-collapse>summary::-webkit-details-marker{display:none}.view-collapse>summary:after{content:'＋';font-size:18px;color:#777;flex-shrink:0}.view-collapse[open]>summary:after{content:'−'}.view-collapse .key,.view-collapse .callout{margin-top:12px}.collapse-hint{font-size:11px;color:#7b8186;font-weight:500;white-space:nowrap}.view-collapse-card{align-self:start}
+
+.sector-collapse{margin-top:10px}
+.sector-collapse>summary{cursor:pointer;font-weight:800;color:#333;padding:12px 14px;background:#f5f5f5;border-radius:10px;list-style-position:inside}
+.sector-collapse>.audit-content{padding:10px 0 0}
+
+/* V25：本週財報改為可個別收折卡片 */
+.earnings-accordion-list{display:grid;gap:9px;margin:8px 0 12px;min-width:0}
+.earnings-accordion{border:1px solid var(--line,#dedede);border-radius:12px;background:#fff;overflow:hidden;min-width:0}
+.earnings-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;min-width:0}
+.earnings-accordion>summary::-webkit-details-marker{display:none}
+.earnings-summary-main{min-width:0;flex:1}
+.earnings-summary-dates{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted,#70757a);font-size:12px;font-weight:750;margin-bottom:5px}
+.earnings-company-name{font-size:16px;font-weight:900;color:#1769aa;overflow-wrap:anywhere}
+.earnings-company-name.five-star-company{color:#c62828!important}
+.earnings-company-sub{font-size:12px;color:#777;margin-top:3px;overflow-wrap:anywhere}
+.earnings-stars{font-size:13px;letter-spacing:1px;color:#b17a12;margin-top:5px}
+.earnings-accordion-toggle:before{content:'+';font-size:25px;line-height:1;color:#c62828;font-weight:800}
+.earnings-accordion[open] .earnings-accordion-toggle:before{content:'−'}
+.earnings-accordion-details{border-top:1px solid #e7e7e7;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.earnings-detail-field{background:#f4f8f9;border-radius:9px;padding:11px 12px;min-width:0}
+.earnings-detail-field.wide{grid-column:1/-1}
+.earnings-detail-field label{display:block;font-size:11px;color:#737b80;font-weight:850;margin-bottom:5px}
+.earnings-detail-value{font-size:14px;line-height:1.55;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:640px){.earnings-accordion>summary{padding:12px 11px}.earnings-company-name{font-size:15px}.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
+
+/* TAC three major content panels with native CSS-only tabs */
+.tac-tabset{background:#fff;border:1px solid #dce2e5;border-radius:18px;overflow:hidden;margin:14px 0 18px;box-shadow:0 2px 8px rgba(24,39,50,.04)}
+.tac-section-heading{padding:16px 18px 10px;border-bottom:0}
+.tac-section-heading h2{margin:0;color:#a92332;font-size:clamp(21px,3vw,28px);font-weight:900;line-height:1.25}
+.tac-tab-radio{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;overflow:hidden!important;pointer-events:none!important}
+.tac-tab-nav{display:flex;gap:0;padding:0 18px;background:#fff;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-bottom:1px solid #d9dfe3}
+.tac-tab-nav label{flex:1 0 auto;min-width:0;min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 12px;background:#f1f5f6;border:1px solid #d8dfe3;color:#4d5660;font-weight:850;line-height:1.25;cursor:pointer;white-space:normal}
+.tac-tab-nav label+label{border-left:0}
+.tac-tab-nav label:first-child{border-radius:10px 0 0 0}
+.tac-tab-nav label:last-child{border-radius:0 10px 0 0}
+.tac-tab-panel{display:none;padding:12px 14px 16px}
+.tac-tab-panel>.card{width:100%;max-width:none;margin:0;box-shadow:none;border:0;padding:0;background:transparent}
+.tac-tab-panel>.card>.title{margin-top:0}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{background:#fff!important;color:#b42332!important;border-color:rgba(180,35,50,.12)!important;box-shadow:0 1px 3px rgba(0,0,0,.10),0 0 0 1px rgba(255,255,255,.8) inset!important;font-weight:650!important}
+#tac-news-0:checked~#tac-news-panel-0,#tac-news-1:checked~#tac-news-panel-1,#tac-region-0:checked~#tac-region-panel-0,#tac-region-1:checked~#tac-region-panel-1,#tac-region-2:checked~#tac-region-panel-2,#tac-assets-0:checked~#tac-assets-panel-0,#tac-assets-1:checked~#tac-assets-panel-1,#tac-assets-2:checked~#tac-assets-panel-2,#tac-assets-3:checked~#tac-assets-panel-3,#tac-assets-4:checked~#tac-assets-panel-4{display:block}
+.tac-tab-panel .market-reason{margin-top:12px}
+.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) auto auto}
+/* Mobile-friendly two-row tabs for industry, bonds, FX and commodities: no horizontal scrolling */
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-flow:row;overflow:visible;padding:0 12px;gap:0}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{min-width:0;flex:none;white-space:normal;overflow-wrap:anywhere;font-size:14px;padding:9px 5px;line-height:1.25}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(1){grid-column:span 3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(2){grid-column:span 3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(3){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(4){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(5){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label+label{border-left:1px solid #d8dfe3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(n+3){border-top:0}
+@media(max-width:600px){.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{grid-template-columns:repeat(6,minmax(0,1fr));padding:0 10px}.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{font-size:13px;padding:10px 3px;min-height:44px;flex:none}}
+
+@media(max-width:600px){.tac-section-heading{padding:14px 12px 9px}.tac-tab-nav{padding:0 10px}.tac-tab-nav label{font-size:14px;padding:9px 8px;min-height:46px;flex:1 0 30%}.tac-tabset[aria-label=產業債匯商品] .tac-tab-nav label{flex-basis:34%;font-size:12px}.tac-tab-panel{padding:10px}.tac-tab-panel>.card{padding:0!important}.tac-tab-panel .row b{min-width:0;overflow-wrap:anywhere}}
+
+/* 公債殖利率：數值欄靠右，期限名稱靠左 */
+#bonds .row{display:grid !important;grid-template-columns:minmax(0,1fr) minmax(88px,.72fr) minmax(78px,.62fr) !important;gap:8px !important;width:100%;align-items:center}
+#bonds .row b{text-align:left !important;min-width:0}
+#bonds .row .r{text-align:right !important;justify-self:stretch;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:700px){#bonds .row{grid-template-columns:minmax(0,1fr) minmax(82px,.72fr) minmax(76px,.62fr) !important;gap:6px !important}#bonds .row b{font-size:14px !important}#bonds .row .r{font-size:15px}}
+
+/* 本週經濟行事曆：原生 radio 活頁標籤，預設今日公布；三分類內容均收納在同一活頁容器 */
+.week-econ-tabs{margin-top:12px}
+.week-econ-tabs>input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.week-econ-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.week-econ-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:8px 5px;border:1px solid #d9dfe2;border-radius:9px;background:#eef3f4;color:#505963;font-weight:700;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.week-econ-panels>.calendar-status-group{display:none}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+#week-econ-today:checked~.week-econ-panels>.calendar-status-group:nth-child(1),#week-econ-upcoming:checked~.week-econ-panels>.calendar-status-group:nth-child(2),#week-econ-published:checked~.week-econ-panels>.calendar-status-group:nth-child(3){display:block}
+.week-econ-tabs .calendar-status-heading{display:none}
+@media(max-width:520px){.week-econ-tab-labels{gap:5px}.week-econ-tab-labels label{font-size:14px;min-height:42px;padding:7px 3px}}
+
+
+/* 本週經濟行事曆主標題：與其他主版面標題一致，使用 TAC 酒紅色 */
+.calendar-card > .title:has(+ .week-econ-tabs) {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+@media (max-width: 700px) {
+  .calendar-card > .title:has(+ .week-econ-tabs) {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .calendar-card > .title:has(+ .week-econ-tabs) small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+  }
+}
+
+
+/* 本週財報行事曆：比照經濟行事曆的原生 radio 活頁標籤，預設今日公布 */
+.week-earnings-tabs{margin-top:12px}
+.week-earnings-tabs>input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:8px 5px;border:1px solid #d9dfe2;border-radius:9px;background:#eef3f4;color:#505963;font-weight:700;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.week-earnings-panels>.calendar-status-group{display:none}
+#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+#week-earnings-today:checked~.week-earnings-panels>.calendar-status-group:nth-child(1),#week-earnings-upcoming:checked~.week-earnings-panels>.calendar-status-group:nth-child(2),#week-earnings-published:checked~.week-earnings-panels>.calendar-status-group:nth-child(3){display:block}
+.week-earnings-tabs .calendar-status-heading{display:none}
+@media(max-width:520px){.week-earnings-tab-labels{gap:5px}.week-earnings-tab-labels label{font-size:14px;min-height:42px;padding:7px 3px}}
+
+
+/* V-next：經濟／財報行事曆改為與「全球主要股市」相同的連續式分段活頁，不使用獨立按鈕 */
+.week-econ-tab-labels,.week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 0 12px;border:1px solid #d5dcdf;border-radius:12px;overflow:hidden;background:#eef3f4}
+.week-econ-tab-labels label,.week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;min-height:48px;margin:0;padding:10px 5px;border:0;border-right:1px solid #d5dcdf;border-radius:0;background:#eef3f4;color:#505963;font-size:15px;font-weight:800;line-height:1.25;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
+.week-econ-tab-labels label:last-child,.week-earnings-tab-labels label:last-child{border-right:0}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+@media(max-width:520px){.week-econ-tab-labels,.week-earnings-tab-labels{border-radius:10px}.week-econ-tab-labels label,.week-earnings-tab-labels label{min-height:46px;padding:9px 3px;font-size:14px}}
+
+
+/* 本週財報行事曆標題：字色與字級比照本週經濟行事曆 */
+.calendar-card > .title:has(+ .week-earnings-tabs) {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+@media (max-width: 700px) {
+  .calendar-card > .title:has(+ .week-earnings-tabs) {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .calendar-card > .title:has(+ .week-earnings-tabs) small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+
+/* S&P 500｜本季盈餘健康度：主標題比照本週經濟行事曆，採 TAC 酒紅色與相同字級 */
+.earnings-health > .title {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+}
+@media (max-width: 700px) {
+  .earnings-health > .title {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .earnings-health > .title small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+
+/* 活頁內容去除重複標題：外層活頁標籤保留，內層只保留必要日期／口徑 */
+.tab-panel-meta{font-size:11px;color:var(--muted);text-align:right;line-height:1.45;margin:0 0 8px;overflow-wrap:anywhere}
+
+
+/* 今日觀察重點：三個內容合併為單一卡片，以活頁標籤切換 */
+.today-focus{margin-top:14px}.today-focus-title{color:var(--red)!important}.focus-tabs{margin-top:10px}.focus-tabs>input{position:absolute;opacity:0;pointer-events:none}.focus-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d6dddf;border-radius:12px;overflow:hidden;background:#edf2f3}.focus-tab-labels label{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 6px;text-align:center;font-size:14px;font-weight:850;color:#59616a;cursor:pointer;border-right:1px solid #d6dddf;white-space:nowrap}.focus-tab-labels label:last-child{border-right:0}#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"]{background:#ad2333;color:#fff;box-shadow:inset 0 3px 0 #e4c36c}.focus-panels{padding-top:14px}.focus-panel{display:none;min-width:0}#focus-tab-market:checked~.focus-panels .focus-market,#focus-tab-levels:checked~.focus-panels .focus-levels,#focus-tab-core:checked~.focus-panels .focus-core{display:block}.focus-panel .key,.focus-panel .callout{margin:0;line-height:1.8}@media(max-width:700px){.focus-tab-labels label{font-size:clamp(11px,3.2vw,14px);padding:9px 2px;white-space:nowrap}.today-focus .title{font-size:clamp(21px,5.4vw,28px)!important}}
+
+/* 導覽列：固定功能＋13個正文大版面 */
+.nav{align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.nav a{flex:0 0 auto;white-space:nowrap}
+ .region-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .region-source > summary::marker{color:#B8BEC5;} .region-source > summary::-webkit-details-marker{color:#B8BEC5;}  .sector-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .sector-source > summary::marker{color:#B8BEC5;} .sector-source > summary::-webkit-details-marker{color:#B8BEC5;} /* TAC_NEWS_ZEBRA_V31: alternating backgrounds for news items */
+.newsitem{border-radius:8px;transition:background-color .18s ease;padding:12px 10px}
+.newsitem:nth-child(even){background:#f4f6f9}
+.newsitem:nth-child(odd){background:#fff}
+@media(max-width:700px){.newsitem{padding:11px 9px}}
+/* /TAC_NEWS_ZEBRA_V31 */
+
+
+/* 上週經濟行事曆預設收折 */
+.last-week-calendar-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-calendar-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-calendar-collapse>summary::-webkit-details-marker{display:none}.last-week-calendar-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-calendar-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-calendar-collapse .calendar-status-group{margin-top:10px}
+.last-week-earnings-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-earnings-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-earnings-collapse>summary::-webkit-details-marker{display:none}.last-week-earnings-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-earnings-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-earnings-collapse .calendar-status-group{margin-top:10px}
+
+/* Compact disclosures: align with the small grey triangle source rows */
+main.wrap details.compact-disclosure{margin-top:8px!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;padding:0!important;box-shadow:none!important}
+main.wrap details.compact-disclosure>summary{display:flex!important;align-items:center!important;gap:5px!important;padding:2px 0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;font-size:11px!important;font-weight:800!important;list-style:none!important;box-shadow:none!important}
+main.wrap details.compact-disclosure>summary::-webkit-details-marker{display:none!important}
+main.wrap details.compact-disclosure>summary::marker{content:""!important}
+main.wrap details.compact-disclosure>summary::before{content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;margin:0 1px 0 0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;-webkit-text-fill-color:#747b84!important;font-size:11px!important;font-weight:700!important;line-height:1!important;box-shadow:none!important;transform:none!important}
+main.wrap details.compact-disclosure[open]>summary::before{transform:rotate(90deg)!important}
+main.wrap details.compact-disclosure>summary::after{content:none!important;display:none!important}
+main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!important;background:transparent!important;color:#626a73!important;font-size:11px!important;line-height:1.6!important}
+
+
+/* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
+body.release-ready .data-sync-warning,
+body.release-ready .news-window-warning { display: none !important; }
+
+/* 2026/10/27：美債表格欄位統一，期限、殖利率、bps 三欄垂直對齊 */
+#bonds .tab-panel-meta[style*="grid-template-columns"]{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.55fr) minmax(84px,.62fr) minmax(78px,.68fr)!important;
+  gap:8px!important;
+  text-align:left!important;
+  padding-right:12px!important;
+  box-sizing:border-box!important;
+}
+#bonds .row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.55fr) minmax(84px,.62fr) minmax(78px,.68fr)!important;
+  gap:8px!important;
+  padding-right:12px!important;
+  box-sizing:border-box!important;
+}
+#bonds .row>span:first-child{ text-align:left!important; }
+#bonds .row>strong.r{ text-align:right!important; white-space:nowrap!important; }
+#bonds .row>span:last-child{ text-align:right!important; white-space:nowrap!important; }
+
+/* 匯率、能源、貴金屬報價：第三欄漲跌幅統一靠右 */
+#industry-bonds-fx-commodities #fx .row>span:last-child,
+#industry-bonds-fx-commodities #tac-assets-panel-3 .row>span:last-child,
+#industry-bonds-fx-commodities #tac-assets-panel-4 .row>span:last-child{
+  text-align:right!important;
+  justify-self:stretch!important;
+  white-space:nowrap!important;
+}
+
+/* 經濟行事曆三分類口徑文字統一收折 */
+#calendar .calendar-口徑-collapse{margin:10px 0 4px;color:var(--muted);font-size:11px;line-height:1.65}
+#calendar .calendar-口徑-collapse>summary{cursor:pointer;list-style:disclosure-closed;font-size:11px;font-weight:800;color:#7b838b;padding:4px 0}
+#calendar .calendar-口徑-collapse[open]>summary{list-style:disclosure-open}
+#calendar .calendar-口徑-collapse p{margin:6px 0 0;font-size:11px;line-height:1.65}
+
+/* 本週財報行事曆：今日公布、即將公布、已公布下方說明統一收折 */
+#earnings .earnings-source-collapse{margin:10px 0 4px;color:var(--muted);font-size:11px;line-height:1.65}
+#earnings .earnings-source-collapse>summary{cursor:pointer;list-style:disclosure-closed;font-size:11px;font-weight:800;color:#7b838b;padding:4px 0}
+#earnings .earnings-source-collapse[open]>summary{list-style:disclosure-open}
+#earnings .earnings-source-collapse p{margin:6px 0 0;font-size:11px;line-height:1.65}
+
+/* FedWatch「資料時間與快照口徑」比照週一母版：純文字收折，不使用卡片框 */
+#fed.fed-compact-preview .fedwatch-time{
+  margin:8px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+#fed.fed-compact-preview .fedwatch-time summary{
+  display:flex!important;
+  align-items:center!important;
+  gap:5px!important;
+  padding:2px 0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#77818b!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.5!important;
+  list-style:none!important;
+  cursor:pointer!important;
+}
+#fed.fed-compact-preview .fedwatch-time summary::-webkit-details-marker{display:none!important}
+#fed.fed-compact-preview .fedwatch-time summary:before{
+  content:"▸"!important;
+  display:inline-block!important;
+  color:#77818b!important;
+  font-size:12px!important;
+  line-height:1!important;
+  flex:0 0 auto!important;
+}
+#fed.fed-compact-preview .fedwatch-time[open] summary:before{content:"▾"!important}
+#fed.fed-compact-preview .fedwatch-time .audit-content{
+  padding:5px 0 0!important;
+  font-size:10px!important;
+  line-height:1.6!important;
+  color:#77818b!important;
+}
+#fed.fed-compact-preview .fc-source{
+  margin-top:7px!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+}
+#fed.fed-compact-preview .fc-source a{font-weight:650!important}
+
+/* TAC 全站資料來源／口徑收折統一：比照全球主要股市，左緣對齊、灰色小字、三角形 */
+main.wrap details.source-details,
+main.wrap details.calendar-source-collapse,
+main.wrap details.earnings-source-collapse,
+main.wrap details.calendar-口徑-collapse,
+main.wrap details[style*="margin-top:8px"]{
+  margin-left:0!important;
+}
+main.wrap details.source-details>summary,
+main.wrap details.calendar-source-collapse>summary,
+main.wrap details.earnings-source-collapse>summary,
+main.wrap details.calendar-口徑-collapse>summary,
+main.wrap details[style*="margin-top:8px"]>summary{
+  display:flex!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:5px!important;
+  padding:2px 0!important;
+  margin:0!important;
+  text-align:left!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  font-weight:650!important;
+  color:#747b84!important;
+  -webkit-text-fill-color:#747b84!important;
+  cursor:pointer!important;
+  list-style:none!important;
+}
+main.wrap details.source-details>summary::-webkit-details-marker,
+main.wrap details.calendar-source-collapse>summary::-webkit-details-marker,
+main.wrap details.earnings-source-collapse>summary::-webkit-details-marker,
+main.wrap details.calendar-口徑-collapse>summary::-webkit-details-marker,
+main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
+main.wrap details.source-details>summary::marker,
+main.wrap details.calendar-source-collapse>summary::marker,
+main.wrap details.earnings-source-collapse>summary::marker,
+main.wrap details.calendar-口徑-collapse>summary::marker,
+main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
+main.wrap details.source-details>summary::before,
+main.wrap details.calendar-source-collapse>summary::before,
+main.wrap details.earnings-source-collapse>summary::before,
+main.wrap details.calendar-口徑-collapse>summary::before,
+main.wrap details[style*="margin-top:8px"]>summary::before{
+  content:"▸"!important;
+  display:inline-block!important;
+  flex:0 0 10px!important;
+  width:10px!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  color:#747b84!important;
+  -webkit-text-fill-color:#747b84!important;
+  transform:rotate(0deg)!important;
+  transition:transform .15s ease!important;
+}
+main.wrap details.source-details[open]>summary::before,
+main.wrap details.calendar-source-collapse[open]>summary::before,
+main.wrap details.earnings-source-collapse[open]>summary::before,
+main.wrap details.calendar-口徑-collapse[open]>summary::before,
+main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
+main.wrap details.source-details>summary:after,
+main.wrap details.calendar-source-collapse>summary:after,
+main.wrap details.earnings-source-collapse>summary:after,
+main.wrap details.calendar-口徑-collapse>summary:after,
+main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
+main.wrap details.source-details .source,
+main.wrap details.calendar-source-collapse p,
+main.wrap details.earnings-source-collapse p,
+main.wrap details.calendar-口徑-collapse p{
+  font-size:11px!important;
+  line-height:1.6!important;
+  color:#747b84!important;
+  text-align:left!important;
+}
+/* 明確保留例外：市場情緒 VIX／MOVE／CNN Fear & Greed 與 FedWatch 不套用本次統一 */
+#sentiment details.source-details>summary{display:inline-flex!important;width:auto!important;gap:5px!important;padding:2px 0!important}
+#sentiment details.source-details>summary:before{content:"＋"!important;flex:0 0 auto!important;width:auto!important;transform:none!important}
+#sentiment details.source-details[open]>summary:before{content:"－"!important;transform:none!important}
+#fed details.fedwatch-time>summary{display:block!important;width:auto!important;padding:2px 0!important}
+#fed details.fedwatch-time>summary:before{content:none!important;display:none!important}
+
+/* SIM-1.4 approved five-layer market analysis slot; shared by both simulation mothers */
+#market-analysis{min-width:0;}
+#market-analysis .market-analysis-layer{min-width:0;padding:12px 0;border-top:1px solid var(--line);}
+#market-analysis .market-analysis-layer h3{margin:0 0 7px;font-size:16px;line-height:1.5;font-weight:900;color:#17365d;overflow-wrap:anywhere;}
+#market-analysis .market-analysis-content{min-width:0;font-size:14px;line-height:1.8;color:#3f464d;overflow-wrap:anywhere;word-break:normal;}
+#market-analysis .market-analysis-content p{margin:0 0 9px;}
+#market-analysis .market-analysis-content p:last-child{margin-bottom:0;}
+#market-analysis .market-analysis-sources{margin-top:8px;margin-bottom:0;font-size:11px;line-height:1.55;color:#7b858f;}
+#market-analysis .market-analysis-sources a{color:#5f7488;text-decoration:underline;text-underline-offset:2px;}
+@media(max-width:700px){#market-analysis{padding:14px 13px;}#market-analysis .market-analysis-layer{padding:10px 0;}#market-analysis .market-analysis-layer h3{font-size:15px;}#market-analysis .market-analysis-content{font-size:14px;line-height:1.75;}}
+
+body{background:#f3f4f6;color:#17191d}.wrap{max-width:1180px;margin:auto;padding:24px 18px}.tac-independent{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif}
+.ind-head{background:#fff;padding:22px;border-radius:16px;border-top:5px solid #c62828;margin-bottom:16px}
+.ind-head h1{color:#b42332;margin:0 0 8px}.ind-meta{color:#68707a;font-size:13px}
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+.ind-card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 12px #18202a0c}
+.ind-card h2{font-size:20px;margin:0 0 12px;color:#222}.ind-card h3{font-size:16px;margin:16px 0 6px}
+.ind-dark{background:linear-gradient(135deg,#101b31,#172944);color:#fff}.ind-dark h2{color:#f5d58a}
+.ind-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #e7e9ed;font-size:14px}
+.ind-row:last-child{border:0}.ind-num{font-weight:800;font-variant-numeric:tabular-nums}.up{color:#c62828!important}.down{color:#16834c!important}
+.ind-dark .ind-row{border-color:#ffffff24}.ind-muted{font-size:12px;color:#77808b}.ind-dark .ind-muted{color:#c5cfdd}
+.ind-pill{display:inline-block;border-radius:99px;padding:3px 8px;background:#f2f3f5;color:#555;font-size:12px;margin:2px}
+.ind-note{background:#f8f5ec;border-left:3px solid #c59a43;padding:12px 14px;border-radius:8px;margin-top:12px;font-size:14px;line-height:1.7}
+.ind-card p{line-height:1.75;font-size:14px}.ind-card a{color:#315b8c;text-decoration:none}.ind-card a:hover{text-decoration:underline}
+.ind-warning{background:#fff4e5;border:1px solid #f1d2a8;padding:12px;border-radius:10px;font-size:13px}
+.ind-footer{color:#77808b;font-size:12px;padding:20px 4px}
+@media(max-width:640px){.wrap{padding:12px}.ind-head{padding:17px}.ind-card{padding:15px}}
+</style></head><body><div class="tac-independent wrap">
+<header class="ind-head"><h1>TAC 投資早報 R3｜2026/11/27（五）</h1><div class="ind-meta">獨立手工審核版｜以 11/27 05:25 台灣時間為報告截點｜行情重新擷取，不沿用既有早報或 Fixture</div><p><b>資料口徑：</b>美股因感恩節休市，採 11/25 最近交易日；亞洲及歐洲採 11/26 收盤。凡本次未取得或來源衝突者明確標示，不以舊報告補值。</p></header>
+<article class="ind-card "><h2>總結</h2><h3>美股休市前科技股承壓，跨市場反彈未消除資金疑慮</h3><p>11/25 美股呈現權值科技與傳統／中小型股分歧，AI 投資回報疑慮使科技股承壓；11/26 歐洲股市則受關稅疑慮緩和及金融股回升帶動。兩者並非同一交易日，不能直接視為同步行情。</p><p>亞洲 11/26 市場表現分化，台股與日韓走高，深圳市場明顯回落；美元與美債殖利率仍處高位，風險情緒指標顯示市場尚未完全恢復承擔風險的意願。</p><p>策略上不宜僅因部分市場反彈便追價。應優先觀察 AI 相關企業資本支出轉化為營收與現金流的速度、長端利率變化，以及資金流是否止穩；高估值科技股宜控制部位，配置保持分散。</p></article>
+<article class="ind-card "><h2>盤面觀察重點</h2><p><b>一、風險資產的分歧仍在。</b>11/25 美股科技權值股承壓，標普與那斯達克走弱，但道瓊及羅素 2000 收高，反映賣壓並非全面擴散；市場更像是在重新評估 AI 資本支出回報，而非單純撤出所有股票。</p>
+<p><b>二、亞洲與歐洲的反彈有不同驅動。</b>11/26 歐股在關稅疑慮緩和及 ECB 領導層延續性預期下走高；亞洲市場則呈現區域分化，不能把單一市場上漲解讀為全球風險偏好同步回升。</p>
+<p><b>三、資金情緒仍偏謹慎。</b>Reuters 11/27 報導，全球股票基金截至 11/25 當週淨流出 227.3 億美元，為 14 個月最大週流出；AI 投資回報疑慮與 Fed 官員偏鷹言論壓抑風險承擔。操作上宜控制高估值科技曝險，等待企業獲利與資本支出回報提供更明確證據。</p>
+<div class="ind-muted">來源：<a href="https://www.reuters.com/world/china/global-markets-flows-graphic-2026-11-27/" target="_blank">Reuters｜11/27 全球股票基金資金流</a>；<a href="https://www.reuters.com/business/finance/european-stocks-rally-tech-banks-rebound-tariff-fears-ease-2026-11-26/" target="_blank">Reuters｜11/26 歐股</a>。</div></article>
+<div class="ind-grid"><article class="ind-card ind-dark"><h2>市場情緒｜最新可取得值</h2><div class="ind-row"><span>VIX 恐慌指數<small class="ind-muted"> 11/26</small></span><span class="ind-num down">26.80</span></div><div class="ind-row"><span>MOVE 債市波動率<small class="ind-muted"> 11/25；11/26 美債市場休市</small></span><span class="ind-num ">97.54</span></div><div class="ind-row"><span>CNN Fear & Greed<small class="ind-muted"> 極度恐懼；非官方快照來源</small></span><span class="ind-num ">15 / 100</span></div><div class="ind-note">風險情緒仍處防禦區。VIX 回落不代表風險已解除；MOVE 以美債市場最近交易日為準，感恩節無報價屬正常休市，不列為資料故障。Fear &amp; Greed 本次未取得 CNN 官方原始快照，僅列參考值。</div></article><article class="ind-card "><h2>美國主要指數｜11/25 收盤（11/26 感恩節休市）</h2><div class="ind-row"><span>道瓊工業指數</span><span class="ind-num +">50,182.95</span></div><div class="ind-row"><span>標普 500</span><span class="ind-num down">7,182.78</span></div><div class="ind-row"><span>那斯達克綜合指數</span><span class="ind-num down">23,585.80</span></div><div class="ind-row"><span>羅素 2000</span><span class="ind-num up">2,704.06</span></div><div class="ind-row"><span>費城半導體指數（SOX）<small class="ind-muted"> 未取得可用的本次新抓取收盤值</small></span><span class="ind-num ">待補</span></div><p class="ind-muted">來源：<a href="https://apnews.com/" target="_blank">AP</a>、<a href="https://www.reuters.com/" target="_blank">Reuters</a>。美股 11/26 休市，以上採最近交易日 11/25。</p></article><article class="ind-card "><h2>亞洲主要指數｜11/26 收盤</h2><div class="ind-row"><span>日經 225</span><span class="ind-num +">57,499.16</span></div><div class="ind-row"><span>韓國 KOSPI</span><span class="ind-num +">4,711.21</span></div><div class="ind-row"><span>台灣加權指數</span><span class="ind-num +">39,151.81</span></div><div class="ind-row"><span>香港恆生指數</span><span class="ind-num +">22,226.88</span></div><div class="ind-row"><span>上海綜合指數</span><span class="ind-num +">3,476.88</span></div><div class="ind-row"><span>深圳成分指數</span><span class="ind-num down">10,084.04</span></div><div class="ind-row"><span>新加坡海峽時報</span><span class="ind-num +">4,962.64</span></div><div class="ind-row"><span>澳洲 S&P/ASX 200<small class="ind-muted"> 來源數值衝突，暫不採用</small></span><span class="ind-num ">待補</span></div><p class="ind-muted">台灣證交所歷史資料：<a href="https://www.twse.com.tw/en/indicesReport/MI_5MINS_HIST?date=20261126&response=html" target="_blank">TWSE 11/26 指數資料</a>。</p></article><article class="ind-card "><h2>歐洲主要指數｜11/26 收盤</h2><div class="ind-row"><span>STOXX Europe 600</span><span class="ind-num +">636.98</span></div><div class="ind-row"><span>英國 FTSE 100</span><span class="ind-num +">10,609.30</span></div><div class="ind-row"><span>德國 DAX</span><span class="ind-num +">25,215.52</span></div><div class="ind-row"><span>法國 CAC 40</span><span class="ind-num +">8,108.74</span></div><p class="ind-muted">來源：<a href="https://www.reuters.com/markets/europe/european-stocks-end-higher-easing-tariff-fears-ecb-leadership-continuity-2026-11-26/" target="_blank">Reuters 11/26 歐股收盤</a>。</p></article><article class="ind-card "><h2>標普 500｜11 大產業 ETF</h2><div class="ind-warning">美股 11/26 感恩節休市，11/26 無正常交易。以下不以 11/25 數據冒充 11/26；本次早報欄位標示休市。</div></article><article class="ind-card "><h2>美國公債殖利率｜11/26</h2><div class="ind-row"><span>2 年期</span><span class="ind-num ">4.684%</span></div><div class="ind-row"><span>10 年期</span><span class="ind-num ">4.911%</span></div><div class="ind-row"><span>30 年期</span><span class="ind-num ">5.295%</span></div><p class="ind-muted">日變動：分別 +4.1、+5.2、+4.7 個基點。來源：<a href="https://www.mortgagenewsdaily.com/" target="_blank">Mortgage News Daily</a>。</p></article><article class="ind-card "><h2>匯率｜11/26 參考值</h2><div class="ind-row"><span>美元指數 DXY</span><span class="ind-num ">103.77</span></div><div class="ind-row"><span>美元／新台幣</span><span class="ind-num ">32.955</span></div><div class="ind-row"><span>歐元／美元</span><span class="ind-num ">1.0970</span></div><div class="ind-row"><span>英鎊／美元</span><span class="ind-num ">1.3107</span></div><div class="ind-row"><span>澳幣／美元</span><span class="ind-num ">0.6636</span></div><div class="ind-row"><span>美元／日圓</span><span class="ind-num ">159.26</span></div><p class="ind-muted">各貨幣對收盤時點並非完全一致；美元指數及美元／新台幣優先採 Investing.com 歷史資料，其餘為當日收盤參考值。</p></article><article class="ind-card "><h2>能源與貴金屬｜11/26</h2><div class="ind-row"><span>布蘭特原油<small class="ind-muted"> 不同到期月份報價差異明顯</small></span><span class="ind-num ">合約口徑待統一</span></div><div class="ind-row"><span>WTI 原油<small class="ind-muted"> 美國感恩節休市</small></span><span class="ind-num ">無結算</span></div><div class="ind-row"><span>黃金期貨</span><span class="ind-num +">3,570.20</span></div><div class="ind-row"><span>白銀期貨</span><span class="ind-num +">41.298</span></div><p class="ind-muted">黃金、白銀採 Investing.com 歷史頁當日數值。原油不混用不同月份合約；11/26 WTI 無正常結算。</p></article></div>
+<article class="ind-card "><h2>全球焦點新聞</h2><h3>AI 投資回報疑慮引發全球股票基金大幅流出</h3><p>截至 11/25 當週，全球股票基金淨流出 227.3 億美元，為 14 個月最大週流出；美國股票基金流出 305.7 億美元。市場焦點由 AI 題材成長轉向資本支出能否產生足夠收入與現金流。</p>
+<h3>歐洲股市延續反彈</h3><p>11/26 STOXX 600 上漲，科技與銀行股回升；關稅疑慮緩和及 ECB 領導層延續性預期改善市場情緒。</p>
+<h3>中國市場政策支持帶動 11/27 大幅反彈（盤後資訊）</h3><p>Reuters 報導中國政府釋出擴大國家隊穩市角色訊號，11/27 上海綜合指數大漲。此為 11/27 盤中／收盤後資訊，晚於早報基準時間，不納入 11/27 05:25 版行情判讀，僅列事後更新。</p>
+<div class="ind-muted">來源：<a href="https://www.reuters.com/world/china/global-markets-flows-graphic-2026-11-27/" target="_blank">Reuters</a>、<a href="https://www.reuters.com/markets/europe/european-stocks-extend-recovery-tech-miners-advance-2026-11-27/" target="_blank">Reuters</a>、<a href="https://www.reuters.com/markets/europe/china-stocks-shoot-up-after-beijing-vows-support-2026-11-27/" target="_blank">Reuters</a>。</div></article>
+<article class="ind-card "><h2>本週經濟行事曆</h2><div class="ind-warning">本次未完成逐項重新擷取與核對，故不沿用母版示範行事曆。請以官方行事曆更新後再補入。</div></article>
+<article class="ind-card "><h2>本週財報行事曆</h2><div class="ind-warning">本次未取得可供完整核對的財報共識與實際值資料；不填入舊版 EPS／營收預估。</div></article>
+<article class="ind-card "><h2>CME FedWatch</h2><div class="ind-warning">未取得 11/27 05:25 前的本次 FedWatch 快照。升降息機率與目標利率區間均不沿用舊值。</div></article>
+<footer class="ind-footer">獨立手工編製｜本頁未執行 TAC Pipeline、Stage、Builder 或 QA；不是正式發布版。數據缺漏與來源限制均已明示，需補齊後才能作為正式審核版。</footer></div></body></html>
