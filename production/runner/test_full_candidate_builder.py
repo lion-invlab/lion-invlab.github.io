@@ -3,6 +3,7 @@
 # 2026-11-26 candidate regression: validates the unapproved Builder SHA in isolation only.
 from __future__ import annotations
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -31,6 +32,10 @@ cases = [
     ("2026-11-20", "weekdays", "report-data-2026-11-20.json"),
 ]
 outputs = []
+# Candidate CI exercises the proposed Builder code with the production Main
+# calendar-source execution context. The real checkout remains the candidate ref.
+test_env = os.environ.copy()
+test_env["GITHUB_REF"] = "refs/heads/main"
 for report_date, template_key, source_name in cases:
     source = ROOT / "production" / "testdata" / source_name
     data = json.loads(source.read_text(encoding="utf-8"))
@@ -86,7 +91,7 @@ for report_date, template_key, source_name in cases:
         "--candidate-test-output",
     ]
     print("RUN:", " ".join(command))
-    subprocess.run(command, cwd=ROOT, check=True)
+    subprocess.run(command, cwd=ROOT, env=test_env, check=True)
     if not output_path.exists():
         raise SystemExit(f"candidate Builder did not create {output_path}")
     soup = BeautifulSoup(output_path.read_text(encoding="utf-8"), "html.parser")
@@ -147,7 +152,7 @@ for report_date, template_key, source_name in cases:
         "--mother", str(mother_path.relative_to(ROOT)),
         "--report", str(output_path.relative_to(ROOT)),
         "--template", template_key,
-    ], cwd=ROOT, check=True)
+    ], cwd=ROOT, env=test_env, check=True)
     outputs.append(str(output_path.relative_to(ROOT)))
 
 print(json.dumps({
