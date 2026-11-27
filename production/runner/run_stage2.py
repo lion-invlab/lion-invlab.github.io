@@ -105,7 +105,7 @@ def main():
             "run_context_sha256":handoff["run_context_sha256"],
             "stage1_fixture_sha256":handoff["stage1_fixture_sha256"],
             "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
-        },ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     # Re-run the handoff gate after creating the optional empty CNN packet so
     # every input consumed below is bound to the same Stage 1 receipt.
     handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
