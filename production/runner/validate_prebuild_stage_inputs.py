@@ -171,15 +171,17 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "SYNTHETIC_TEST_ONLY",
     }
     for row in rows:
-        require(row.get("trading_date") == trading_date,
-                f"source manifest contains mixed trading dates: {row.get('name')}")
+        row_data_date=row.get("data_date")
+        require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row_data_date)))
+                and row_data_date <= report_date,
+                f"source manifest data_date is malformed or after report_date: {row.get('name')}")
         if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
             require(row.get("display_value_matches_saved_observation") is True
                     and row.get("observation_provenance") in allowed_provenance,
                     f"verified row lacks current-session evidence: {row.get('name')}")
             record = row.get("browser_observation_record")
             require(isinstance(record, dict) and record.get("source_url")
-                    and record.get("data_date") == trading_date
+                    and record.get("data_date") == row_data_date
                     and record.get("observed_value") is not None
                     and record.get("observed_change") is not None
                     and record.get("checked_at_tw"),
@@ -231,7 +233,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                         and isinstance(record, dict),
                         f"closed row lacks direct page/official holiday evidence: {row.get('name')}")
                 require(record.get("read_status") == "MARKET_CLOSED"
-                        and record.get("target_date") == trading_date
+                        and record.get("target_date") == row_data_date
                         and record.get("source_page_fetched") is True
                         and record.get("prior_observation_reused") is False
                         and record.get("provenance") == "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
@@ -278,8 +280,10 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
         key = (row.get("group"), row.get("name"))
         require(all(key) and key not in keys, f"observation bundle has duplicate or unnamed row: {key}")
         keys.add(key)
-        require(row.get("target_date") == trading_date,
-                f"observation bundle target date mismatch: {key}")
+        target_date=row.get("target_date")
+        require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(target_date)))
+                and target_date <= report_date,
+                f"observation bundle target date malformed or after report date: {key}")
         require(bool(row.get("source_url")), f"observation bundle source URL missing: {key}")
         digest = str(row.get("observation_record_sha256") or "")
         require(re.fullmatch(r"[0-9a-f]{64}", digest) is not None,
@@ -422,7 +426,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         for key, manifest_row in manifest_map.items():
             observation = observation_map[key]
             require(observation.get("source_url") == manifest_row.get("source_url")
-                    and observation.get("target_date") == manifest_row.get("trading_date"),
+                    and observation.get("target_date") == manifest_row.get("data_date"),
                     f"observation bundle source/date mismatch with Manifest: {key}")
             if manifest_row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
                 record = manifest_row.get("browser_observation_record") or {}
