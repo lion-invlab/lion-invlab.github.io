@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 import re
+from datetime import date
 
 
 EXPECTED_COUNTS = {
@@ -66,9 +67,12 @@ def _validate_source(group: str, name: str, source: dict, report_date: str) -> d
         _require(bool(source.get(field)), f"{group}/{name}: source.{field} missing")
     parsed = urlparse(str(source["url"]))
     _require(parsed.scheme == "https" and bool(parsed.netloc), f"{group}/{name}: source URL must be HTTPS")
-    _require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(source["data_date"]))),
-             f"{group}/{name}: source data_date is malformed")
-    _require(source["data_date"] <= report_date,
+    try:
+        data_day=date.fromisoformat(str(source["data_date"]))
+        report_day=date.fromisoformat(str(report_date))
+    except ValueError:
+        _require(False, f"{group}/{name}: source data_date/report_date must be valid ISO dates")
+    _require(data_day <= report_day,
              f"{group}/{name}: source data_date cannot be later than report_date {report_date}")
     raw_verification_time = (
         source.get("checked_at_tw")
