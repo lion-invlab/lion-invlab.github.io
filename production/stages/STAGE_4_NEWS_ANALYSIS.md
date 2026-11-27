@@ -1,5 +1,9 @@
 # Stage 4｜新聞與市場分析
 
+## 開工前必讀
+- Stage 4 編輯工作者在撰寫任何新聞、總結或分析前，必須先讀取本次 Run 的 `capture-stage-receipt.json` 中 `stage4_work_instructions.full_text` 完整內容；不得只讀摘要或只看檔案名稱。
+- 編輯內容 JSON 必須填入 `stage4_wr_sha256`，其值須與 `stage4_work_instructions.sha256` 完全一致。缺少或不一致時，Stage 4 Runner 必須拒絕輸入。
+
 ## 輸入
 Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及其 SHA receipt、核准新聞來源及台灣時間截稿窗口。編輯內容 JSON 必須攜帶 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三個必填綁定欄位；Stage 4 必須重新計算研究包 SHA，與 receipt 及內容逐一比對。
 
