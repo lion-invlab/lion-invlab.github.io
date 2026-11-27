@@ -2,23 +2,23 @@
   "schema_version": "1.0",
   "status": "APPROVED_MAIN",
   "builder_path": "production/runner/build_review_html.py",
-  "builder_blob_sha": "396f0171d02966a1a8f1c4a9d51914b241321f03",
+  "builder_blob_sha": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
-    "workflow_run_id": 45945291647,
-    "head_sha": "f7c43c054764fa4ec4c0e68517588641452b83fd",
+    "workflow_run_id": 45946241895,
+    "head_sha": "b7595ea83e4c408f63ee2afd5cb6c7d0548db4d6",
     "result": "PASS",
-    "scope": "Main-only deterministic validation: compile, Browser QA syntax, dual-mother SHA/Manifest, Stage 2 and pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures including the Stage 2 bootstrap-placeholder suppression regression, and mother DOM contracts.",
-    "limitation": "This confirms deterministic Builder regression and validation only. The same-Run Stage 4–6 build and public preview verification are still pending."
+    "scope": "Main-only deterministic validation: compile, Browser QA syntax, dual-mother SHA/Manifest, Stage 2 and pre-build deterministic tests, Builder/earnings tests, isolated candidate Builder fixtures with regression coverage for all three source-note rendering paths including Fear & Greed backup, final zero-placeholder HTML guard, and mother DOM contracts.",
+    "limitation": "This validates deterministic Builder behavior. The final same-Run Stage 4–6 build and public preview verification remain pending."
   },
   "approved_by_owner": true,
   "approved_at": "2026-11-27",
   "owner_approval_record": {
     "decision": "APPROVED",
-    "approved_builder_blob_sha": "396f0171d02966a1a8f1c4a9d51914b241321f03",
-    "approval_scope": "Main production Builder exact-blob approval, including suppression of the internal blank-first Stage 2 instruction from user-visible source notes and the existing fail-closed FedWatch disclosure. No market probabilities are invented.",
+    "approved_builder_blob_sha": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
+    "approval_scope": "Main production Builder exact-blob approval: removes internal Stage 2 scaffolding from all rendered source-note paths, supplies the verified Chinese explanation for the approved FGScore backup, and rejects any final HTML containing the internal placeholder. No market values or evidence are changed.",
     "approved_at": "2026-11-27",
-    "evidence": "User's broad authorization for Main rebuild and autonomous continuation on 2026-11-26; narrow rendering correction removes internal Stage 2 bootstrap scaffolding from the report without changing market values, source evidence, mother templates, or homepage."
+    "evidence": "User's broad authorization for Main rebuild and autonomous continuation on 2026-11-26; narrow Builder correction is limited to truthful source-note rendering and a final no-placeholder output guard."
   }
 }
