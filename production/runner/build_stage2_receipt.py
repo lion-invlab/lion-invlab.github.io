@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 EXPECTED_GROUPS={"global_markets":17,"sectors":11,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3}
 OFFICIAL_CALENDAR_HOSTS={"nyse.com","nasdaq.com","jpx.co.jp","cao.go.jp","global.krx.co.kr",
     "twse.com.tw","sgx.com","asx.com.au","sse.com.cn","szse.cn","hkex.com.hk",
-    "londonstockexchange.com","deutsche-boerse.com","euronext.com","stoxx.com",
+    "londonstockexchange.com","deutsche-boerse.com","euronext.com","stoxx.com","sifma.org",
     "cmegroup.com","theice.com","cboe.com","ice.com"}
 
 def official_calendar_url(value):

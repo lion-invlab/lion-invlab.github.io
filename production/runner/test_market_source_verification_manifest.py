@@ -137,6 +137,66 @@ def main():
     assert closed_render["global_markets"]["日經225"]["qa_status"] == "market_closed"
     assert closed_overlay["closed_count"] == 1
 
+    # MOVE closure is evidenced independently by SIFMA's official fixed-income holiday notice.
+    move_closed_data = copy.deepcopy(closed_data)
+    move_item = move_closed_data["risk"]["move"]
+    move_item["display"] = "-"
+    move_item["change_display"] = "休市"
+    move_source = move_item["source"]
+    move_source["data_date"] = "2026-11-23"
+    move_closed_observation = {
+        ("risk", "move"): {
+            "read_status": "MARKET_CLOSED",
+            "source_page_fetched": True,
+            "source_url": move_source["url"],
+            "target_date": "2026-11-23",
+            "expected_display_value": "-",
+            "page_title": "ICE BofAML MOVE (MOVE) Historical Data",
+            "instrument_identity_status": "VERIFIED",
+            "instrument_identity": "ICE BofAML MOVE (MOVE)",
+            "field_mapping_status": "VERIFIED",
+            "observed_value_field": "收市",
+            "observed_change_field": "升跌（%）",
+            "observed_headers": ["日期", "收市", "開市", "高", "低", "成交量", "升跌（%）"],
+            "observed_row_text": "2026-11-23 target session is a full US fixed-income market holiday; no MOVE close is expected.",
+            "closure_evidence_url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+            "closure_evidence_text": "SIFMA recommends a full market close on Thursday, November 26, 2026.",
+            "closure_evidence_reader_ref": "SIFMA_TEST_REF",
+            "closure_evidence_line_start": 15,
+            "closure_evidence_line_end": 25,
+            "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+            "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+            "prior_observation_reused": False,
+            "finished_at_utc": "2026-11-23T10:00:00Z",
+            "finished_at_tw": "2026-11-23T18:00:00+08:00",
+        }
+    }
+    move_closed_manifest = build_manifest(move_closed_data, "2026-11-24", move_closed_observation)
+    move_closed_row = next(r for r in move_closed_manifest["rows"] if r["group"] == "risk" and r["name"] == "move")
+    assert move_closed_row["verification_status"] == "CLOSED"
+    assert move_closed_row["market_data_status"] == "CLOSED"
+    assert move_closed_row["evidence_status"] == "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
+    assert move_closed_manifest["closed_count"] == 1
+    assert move_closed_manifest["market_status_counts"]["CLOSED"] == 1
+
+    # A shortened session is still a trading session: never infer CLOSED from the adjacent holiday.
+    early_close_data = copy.deepcopy(data)
+    early_close_data["report_date"] = "2026-11-30"
+    early_close_data["trading_date"] = "2026-11-27"
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for item in (early_close_data.get(group) or {}).values():
+            (item.get("source") or {})["data_date"] = "2026-11-27"
+    for source in (early_close_data.get("sector_sources") or {}).values():
+        source["data_date"] = "2026-11-27"
+    early_close_observations = copy.deepcopy(synthetic_observations)
+    for observation in early_close_observations.values():
+        observation["target_date"] = "2026-11-27"
+        observation["observed_date"] = "2026-11-27"
+    early_close_manifest = build_manifest(early_close_data, "2026-11-30", early_close_observations)
+    early_close_move = next(r for r in early_close_manifest["rows"] if r["group"] == "risk" and r["name"] == "move")
+    assert early_close_move["verification_status"] == "VERIFIED"
+    assert early_close_move["market_data_status"] == "VERIFIED"
+
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
     synthetic_observations = {}

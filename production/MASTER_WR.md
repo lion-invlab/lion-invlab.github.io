@@ -40,6 +40,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 2 每輪先 blank-first 清除 Fixture 中所有舊行情值、舊 Observation、舊截圖證據及舊時間戳，再以當輪有效截圖／Observation 回填。不得沿用前輪 fixture 報價。
 - 狀態至少區分 VERIFIED、BACKUP_VERIFIED、PENDING、MISSING、CLOSED、NOT_APPLICABLE、NOT_TESTED、TOOL_READ_FAILURE、SOURCE_NO_DATA；語意不得混淆。PENDING 不可造成整個流程崩潰，亦不可視為成功。
 - 44 項每項必須有值或明確狀態；單項缺漏不得阻止無依賴項目及其他階段繼續。未核實值不得作為確定事實。
+- MOVE 的市場交易日判斷必須獨立於行情列讀取：使用 SIFMA 官方美國固定收益市場 Holiday Schedule／公告核對目標交易日。官方公告確認全天休市時，MOVE 標記 CLOSED，保留 Investing.com 當輪歷史頁讀取紀錄及 SIFMA 公告 URL、原文定位、讀取時間與 SHA；不得要求休市日存在收盤數值列。提早收市仍屬交易日，必須照常讀取該日 MOVE 收盤，不得沿用前一交易日數值或標記 CLOSED。SIFMA 公告屬市場日曆建議，僅用於相應美國固定收益市場日期判斷，不得擴張為所有資產的休市證據。
 - Stage 2 同步將已核實 S&P 500 現貨正式收盤寫入既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守現有 append／SHA／防重契約；不可另抓第二份 S&P500 報價。
 
 ## 5. Stage 3 行事曆／財報
