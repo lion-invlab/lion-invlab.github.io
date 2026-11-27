@@ -122,13 +122,17 @@
     "test_market_analysis_browser.mjs",
     "interaction_smoke.mjs",
     "visual_regression.mjs",
-    "test_stage56_handoff.py"
+    "test_stage56_handoff.py",
+    "production/runner/test_stage2_run_handoff.py",
+    "production/runner/test_create_run_fixture.py"
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
     "The current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 has exact-blob owner approval recorded in production/config/builder-approval.json (APPROVED_MAIN); real-data Capture and Stage 4-6 E2E remain NOT_VERIFIED.",
     "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed."
+    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
+    "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
+    "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -146,7 +150,7 @@
       "recover",
       "build"
     ],
-    "capture_handoff": "AWAITING_EDITORIAL_INPUT",
+    "capture_handoff": "LEGACY_DATE_SCOPED_INPUT; Run-scoped SHA validator tested but not yet wired; Playwright/TradingView automatic fallback paths remain active",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "APPROVED_MAIN_EXACT_CURRENT_BUILDER_BLOB",
@@ -233,7 +237,18 @@
       "end_to_end": "NOT_YET_TESTED",
       "workflow_blob_sha": "5ffbc27d3a84d8b2580b8edd610b13519954e291"
     },
-    "continuation_worker_enabled": true
+    "continuation_worker_enabled": true,
+    "stage1_fixture": {
+      "status": "IMMUTABLE_STAGE1_FIXTURE_WRITTEN_AND_HASHED",
+      "path": "stage1-fixture.json",
+      "working_copy": "report-data.json",
+      "retry_policy": "run_stage2 resets report-data.json from stage1-fixture.json before each same-Run attempt"
+    },
+    "stage2_run_handoff": {
+      "validator": "production/runner/validate_stage2_run_handoff.py",
+      "status": "TESTED_NOT_WIRED_INTO_RUN_STAGE2",
+      "ci_run": 412
+    }
   },
   "main_native_modules": [
     {
@@ -327,6 +342,18 @@
       "main_blob_sha": "5ffbc27d3a84d8b2580b8edd610b13519954e291",
       "purpose": "Main-native weekday Stage 1-3 schedule capture plus explicit workflow_dispatch recover mode for missed report dates; explicit date, same-date duplicate guard and trigger provenance",
       "status": "MAIN_PATCHED_SCHEDULED_CAPTURE_AND_MANUAL_RECOVERY"
+    },
+    {
+      "path": "production/runner/create_run_fixture.py",
+      "purpose": "Create blank-first Stage 1 Run; write immutable stage1-fixture.json and report-data.json working copy with Stage 1 receipt SHA",
+      "main_blob_sha": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
+      "status": "MAIN_NATIVE_STAGE1_FACTORY"
+    },
+    {
+      "path": "production/runner/validate_stage2_run_handoff.py",
+      "purpose": "Fail-closed Run ID, Stage 1 receipt/run-context/immutable fixture SHA and exact 44-row handoff validator; optional CNN/screenshot bundles are Run-bound",
+      "main_blob_sha": "ee3c61cedb04bdd6d7e028aa93012e76fe741b6f",
+      "status": "TESTED_NOT_YET_WIRED_INTO_RUN_STAGE2"
     }
   ],
   "approval_record": {
