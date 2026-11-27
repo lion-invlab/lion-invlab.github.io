@@ -72,8 +72,9 @@ def main():
             "screenshot_evidence": {
                 "close": {
                     "data_date": cfd_source["data_date"],
-                    "path": str(evidence),
-                    "sha256": hashlib.sha256(evidence.read_bytes()).hexdigest(),
+                    "evidence_path": str(evidence),
+                    "evidence_sha256": hashlib.sha256(evidence.read_bytes()).hexdigest(),
+                    "captured_at": "2026-11-23T07:05:00+08:00",
                 }
             },
         })
