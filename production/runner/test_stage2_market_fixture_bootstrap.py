@@ -97,7 +97,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(result["bonds"]["bonds_0"]["change_display"],"-1.9 bp")
         self.assertEqual(result["sectors"]["XLE"],"+0.50%")
         self.assertEqual(result["energy"]["energy_0"]["contract_label"],"energy_0_CONTRACT_1")
-        self.assertEqual(result["metals"]["metals_0"]["contract_label"],"METALS_CONTRACT_1")
+        self.assertEqual(result["metals"]["metals_0"]["contract_label"],"metals_0_CONTRACT_1")
         self.assertEqual(result["risk"]["fear_greed"]["display"],"15")
         self.assertEqual(result["risk"]["fear_greed"]["change_display"],"極度恐懼")
         self.assertEqual(blank["global_markets"]["global_markets_0"]["display"],"待擷取")
