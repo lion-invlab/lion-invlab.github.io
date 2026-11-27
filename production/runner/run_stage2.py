@@ -89,11 +89,42 @@ def main():
     manifest_path=run_dir/"market-source-verification-manifest.json"
     receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     started=time.monotonic()
-    # Stage 2 accepts only this Run's SHA-bound evidence packet. Never fall back
-    # to date-global observations, Playwright, TradingView, or a prior Run artifact.
+    # Import the current report-date observation into this Run. The source file
+    # is accepted only when its two dates and exact 44-row universe match Stage 1.
+    # This is a simple date binding, not a second evidence/receipt workflow.
+    web_bundle=run_dir/"market-history-web-observations.json"
+    if not web_bundle.is_file():
+        source_bundle=ROOT/"production"/"input"/f"market-history-web-observations-{report_date}.json"
+        if not source_bundle.is_file():
+            raise SystemExit(f"Missing current-date market observations: {source_bundle}")
+        payload=load(source_bundle)
+        if payload.get("report_date")!=report_date or payload.get("trading_date")!=context.get("trading_date"):
+            raise SystemExit("Date-global observations do not match this Run's report/trading dates")
+        from datetime import datetime, timezone
+        captured=datetime.fromisoformat(str(payload.get("captured_at_utc","")).replace("Z","+00:00"))
+        age=(datetime.now(timezone.utc)-captured).total_seconds()
+        if age < -300 or age > 24*3600:
+            raise SystemExit("Current-date observations are outside the 24-hour freshness window")
+        expected=set()
+        stage1_fixture=load(stage1_fixture_path)
+        for group in ("global_markets","bonds","fx","energy","metals","risk"):
+            expected.update((group,str(name)) for name in (stage1_fixture.get(group) or {}))
+        expected.update(("sectors",str(name)) for name in (stage1_fixture.get("sectors") or {}))
+        rows=payload.get("observations")
+        keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
+        if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
+            raise SystemExit("Current-date observations do not match the exact 44-row Stage 1 universe")
+        if any(x.get("target_date")!=context.get("trading_date") for x in rows):
+            raise SystemExit("An observation target_date does not match this Run's trading_date")
+        payload.update({
+            "run_id":context["run_id"],
+            "stage1_receipt_sha256":hashlib.sha256(stage1_receipt_path.read_bytes()).hexdigest(),
+            "run_context_sha256":hashlib.sha256(context_path.read_bytes()).hexdigest(),
+            "stage1_fixture_sha256":stage1_fixture_sha256
+        })
+        web_bundle.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
         "--run-dir",str(run_dir.relative_to(ROOT))])
-    web_bundle=run_dir/"market-history-web-observations.json"
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
@@ -158,7 +189,8 @@ def main():
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
-      "stage2_handoff":handoff,\n      "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest(),
+      "stage2_handoff":handoff,
+      "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest(),
       "cnn_observation_sha256":hashlib.sha256(cnn_observation.read_bytes()).hexdigest() if cnn_observation.is_file() else None,
       "historical_page_read_count":observations.get("historical_page_read_count"),
       "screenshot_only_count":observations.get("screenshot_only_count"),
