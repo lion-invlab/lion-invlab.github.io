@@ -9,7 +9,10 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-RUN_ROOT = Path("production/runs")
+from jsonschema import Draft202012Validator, FormatChecker
+
+ROOT = Path(__file__).resolve().parents[2]
+RUN_ROOT = ROOT / "production/runs"
 EXPECTED_OBSERVATIONS = "market-history-web-observations.json"
 EXPECTED_CNN = "cnn-fear-greed-observation.json"
 EXPECTED_SCREENSHOTS = "market-screenshot-observations.json"
@@ -60,6 +63,14 @@ def verify(run_dir: Path, bundle_path: Path) -> dict:
     fixture, fixture_sha = load_json(fixture_path)
     receipt, receipt_sha = load_json(receipt_path)
     bundle, _ = load_json(bundle_path)
+    schema_path = ROOT / "production/input/stage2-chatgpt-handoff.schema.json"
+    schema, _ = load_json(schema_path)
+    errors = sorted(
+        Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(bundle),
+        key=lambda error: list(error.absolute_path),
+    )
+    require(not errors, "Stage 2 handoff schema validation failed: " +
+            "; ".join(error.message for error in errors[:8]))
 
     run_id = run_dir.name
     report_date = context.get("report_date")
