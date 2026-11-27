@@ -462,46 +462,27 @@ def main():
     else:
         raise AssertionError("missing source observation must be rejected")
 
-    # Real 2026-11-27 handoff fixture: all 44 rows must bind to the 2026-11-26 target date.
+    # 2026-11-27 rerun regression: Stage 1 must build a fresh blank-first
+    # fixture for the Thanksgiving trading date. Real browser observations are
+    # operator input and must never be checked into source-controlled test data.
     from create_run_fixture import build as build_run_fixture
     run_1127 = build_run_fixture(datetime(2026, 11, 27).date(), "TAC-2026-11-27-BUNDLE-TEST")
     data_1127 = run_1127["market_fixture"]
-    bundle_1127 = json.loads(Path("production/input/market-history-web-observations-2026-11-27.json").read_text(encoding="utf-8"))
-    normalized_1127 = validate_bundle(data_1127, "2026-11-27", bundle_1127)
-    assert len(normalized_1127["observations"]) == 44
-    assert normalized_1127["verified_count"] == 27
-    move_1127 = next(row for row in normalized_1127["observations"] if row.get("group") == "risk" and row.get("name") == "move")
-    # 2026-11-26 was the full SIFMA Thanksgiving closure; this is not a delayed publication day.
-    assert move_1127["read_status"] == "MARKET_CLOSED"
-    assert move_1127["market_calendar_status"] == "CLOSED"
-    assert normalized_1127["prior_observation_reused_count"] == 0
-    populated_1127 = populate_fixture(data_1127, normalized_1127)
-    fixture_statuses = [
-        (item.get("source") or {}).get("verification_status")
-        for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk")
-        for item in (populated_1127.get(group) or {}).values()
-    ] + [
-        (source or {}).get("verification_status")
-        for source in (populated_1127.get("sector_sources") or {}).values()
-    ]
-    assert fixture_statuses.count("VERIFIED") == 26, fixture_statuses
-    assert fixture_statuses.count("BACKUP_VERIFIED") == 1, fixture_statuses
-    # Five US equity indices, eleven sector ETFs and MOVE were closed on Thanksgiving 2026-11-26.
-    assert fixture_statuses.count("CLOSED") == 17, fixture_statuses
-    assert fixture_statuses.count("PENDING") == 1, fixture_statuses
-    assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
-    assert populated_1127["sector_sources"]["XLE"]["verification_status"] == "CLOSED"
-    # Regression: every officially closed sector must expose the same CLOSED display state.
-    for sector_name, sector_source in populated_1127["sector_sources"].items():
-        if sector_source.get("verification_status") == "CLOSED":
-            assert populated_1127["sectors"][sector_name] == "休市", (sector_name, populated_1127["sectors"][sector_name])
-            assert sector_source.get("change_display") == "休市", (sector_name, sector_source.get("change_display"))
-    assert populated_1127["risk"]["move"]["source"]["verification_status"] == "PENDING"
-    assert populated_1127["risk"]["move"]["source"].get("close_value") is None
-    assert populated_1127["trading_date"] == "2026-11-26"
+    assert data_1127["report_date"] == "2026-11-27"
+    assert data_1127["trading_date"] == "2026-11-26"
+    assert len(data_1127["global_markets"]) + len(data_1127["bonds"]) + len(data_1127["fx"]) + len(data_1127["energy"]) + len(data_1127["metals"]) + len(data_1127["risk"]) + len(data_1127["sectors"]) == 44
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for item in data_1127[group].values():
+            assert item["source"]["data_date"] == "2026-11-26"
+            assert item.get("display") == "待擷取"
+    for source in data_1127["sector_sources"].values():
+        assert source["data_date"] == "2026-11-26"
+    assert data_1127["risk"]["move"]["source"]["verification_status"] == "PENDING"
+    assert data_1127["risk"]["move"]["source"].get("close_value") is None
 
-    print("PASS: 43 current-session historical page observations reconcile to exact fixture values and dates")
-    print("PASS: one official market closure is explicitly recorded; no numeric market row is silently reused")
+
+    print("PASS: 2026-11-27 rerun Stage 1 fixture is blank-first and bound to 2026-11-26")
+    print("PASS: no prior market values are carried into the rerun fixture")
     print("PASS: CNN Business current dashboard is the official primary source; FGScore remains a separately pinned backup")
     print("PASS: wrong URL, stale capture, missing rows and numeric mismatches cannot pass")
 
