@@ -164,7 +164,8 @@ jobs:
             test_market_analysis_slots \
             test_fear_greed_marker \
             test_builder_approval \
-            test_stage56_handoff
+            test_stage56_handoff \
+            test_stage5_scenario_qa
 
       - name: Run full candidate Builder against isolated test fixtures
         env:
