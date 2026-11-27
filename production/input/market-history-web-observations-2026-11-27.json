@@ -3,7 +3,7 @@
   "report_date": "2026-11-27",
   "trading_date": "2026-11-26",
   "captured_at_utc": "2026-11-27T09:34:42Z",
-  "stage2_wr_sha256": "c51856282191f266e73d1a7f7d43910df073bbb869e98cb7eb7890d56b9273af",
+  "stage2_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
   "observations": [
     {
       "group": "global_markets",
@@ -1773,6 +1773,6 @@
     "web_line_start": 387,
     "web_line_end": 415,
     "reason": "The page's displayed probabilities were last updated Nov 27, 2026 04:05 AM EST (16:05 Taiwan), which is after the 2026-11-27 05:25 Taiwan report cutoff. No timestamped pre-cutoff snapshot is exposed; current or previous-day probabilities are not reused.",
-    "stage2_wr_sha256": "c51856282191f266e73d1a7f7d43910df073bbb869e98cb7eb7890d56b9273af"
+    "stage2_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a"
   }
 }
