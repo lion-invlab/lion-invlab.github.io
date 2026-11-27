@@ -110,7 +110,7 @@
     "production/runner/validate_mother_dom_contract.py": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
     "production/runner/visual_regression.mjs": "39a1483b34bceba1e3b17c4382dd74c9e996157b",
-    "production/runner/interaction_smoke.mjs": "33165eb6b50187449f95fcfc614c576b1c9e2ca9",
+    "production/runner/interaction_smoke.mjs": "b532e0692f51d0263195e34b0443adc0b0dffa56",
     "production/runner/build_review_html.py": "150078dd25796328da5e2eb70bf3845b6367a4f4",
     "production/runner/builder_approval.py": "8213bed709b981fd89c8126d004d034185a941ae",
     ".github/workflows/tac-production.yml": "a85f0934d5d95a81fe72ada9feaf4565633b7df7",
@@ -124,6 +124,7 @@
     "production/runner/build_market_source_verification_manifest.py",
     "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
+    "production/runner/interaction_smoke.mjs",
     "production/runner/stage2_market_fixture_bootstrap.py",
     "production/runner/validate_prebuild_stage_inputs.py"
   ],
@@ -134,10 +135,11 @@
     "production/runner/build_market_source_verification_manifest.py",
     "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
+    "production/runner/interaction_smoke.mjs",
     "production/runner/stage2_market_fixture_bootstrap.py",
     "production/runner/validate_prebuild_stage_inputs.py"
   ],
-  "transition_runner_blob_sha": "241272d3334e56d938d1c1ef37a443ad37a2404f",
+  "transition_runner_blob_sha": "deb4831df9d079d043e69cee27e367659d2ce6d4",
   "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
   "stage1_receipt_sha256": "a3a540239ed50fd4e75dae2b0b6b886f563d21ec430534e4b66fa40caa3871c2",
   "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
@@ -161,9 +163,9 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": 45942729925,
+    "latest_main_validation_run_id": 45943081167,
     "latest_main_validation_conclusion": "success",
-    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45942729925"
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45943081167"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
