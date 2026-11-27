@@ -374,8 +374,8 @@ def verification_fields(source: dict, display, change_display, observation: dict
         }
         canonical = json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
         record_hash = hashlib.sha256(canonical).hexdigest()
-    # Verification tier follows the fixture-configured source priority; the observation role
-    # describes the endpoint used for evidence and must not silently promote a configured backup.
+    # Verification tier follows configured priority for all rows. The sole exception is
+    # MOVE, where a validated exact TradingView observation explicitly records BACKUP_1.
     source_role = (
         observation.get("source_role") if group == "risk" and name == "move" and observation.get("source_role")
         else source.get("source_role") or observation.get("source_role", "PRIMARY")
