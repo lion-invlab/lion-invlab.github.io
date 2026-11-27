@@ -7,7 +7,7 @@
   "groups": {
     "data_content": {
       "status": "PASS",
-      "prebuild_receipt_sha256": "54c30ca8e3f5f4cd7c7f31c6447573ce4a56951c772e83a1fab78280a4056b84",
+      "prebuild_receipt_sha256": "9f59052c08b15a4c96c5e25fd503c9ee6ee71239cc4c215931bc70828fdbc5e8",
       "stage2_receipt_sha256": "f0d60e091fa9b2769fd16cca7d31e6480a399d051717b2e5215e5baf64fe614d",
       "stage2_summary_sha256": "bd273377842a1fe459ebb82df18f40ddd2475262a6bf7ac8b95dc59e55e3f6c5",
       "stage3_receipt_sha256": "5ac6f7406415833145131c4e8b347e59645431e56d328ca467f329ade41f1bf8",
@@ -178,27 +178,20 @@
     "run_integration": {
       "status": "PASS",
       "same_run_id": true,
-      "html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
-      "render_manifest_sha256": "e59a105ccd40f339f2d7cd77874436358437eaaaeab9120df61bb31f2007a995"
+      "html_sha256": "b4cbb6222517917b709ecdd27bb1b0f706a6fc65eb2a59dd35f492aa01ef75ac",
+      "render_manifest_sha256": "5ea0c761c78c503aaefd9221e3ecf4b7d62c97db95920bd7b65e9e1909e89762"
     }
   },
   "html": {
     "path": "production/runs/TAC-2026-11-27-45937649928-1/review.html",
-    "sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab"
+    "sha256": "b4cbb6222517917b709ecdd27bb1b0f706a6fc65eb2a59dd35f492aa01ef75ac"
   },
-  "tested_at_utc": "2026-11-27T05:29:34.925020+00:00",
+  "tested_at_utc": "2026-11-27T05:33:52.435825+00:00",
   "delivery": {
-    "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
+    "status": "PAGES_DEPLOY_PENDING",
     "branch": "main",
     "path": "preview/2026-11-27-review.html",
     "run_id": "TAC-2026-11-27-45937649928-1",
-    "html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
-    "payload_commit_sha": "6bc186727181785c3c1e73328f8c3ac16f756dc1",
-    "pages_workflow_run_id": 45946122657,
-    "pages_workflow_conclusion": "success",
-    "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
-    "public_url_verified": true,
-    "public_html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
-    "verified_at_utc": "2026-11-27T05:30:27.538360+00:00"
+    "html_sha256": "b4cbb6222517917b709ecdd27bb1b0f706a6fc65eb2a59dd35f492aa01ef75ac"
   }
 }

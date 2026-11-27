@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
+  "status": "PAGES_DEPLOY_PENDING",
   "report_date": "2026-11-27",
   "run_id": "TAC-2026-11-27-45937649928-1",
   "source": {
@@ -17,16 +17,16 @@
     "delivery_receipt": "preview/2026-11-27-review.delivery.json"
   },
   "html": {
-    "sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
-    "git_blob_sha": "d9fbbbb80e7171f41d889a6f60aabe55f44a771b"
+    "sha256": "b4cbb6222517917b709ecdd27bb1b0f706a6fc65eb2a59dd35f492aa01ef75ac",
+    "git_blob_sha": "1bb7d1fc44595f88fead36fbba7dad777c856342"
   },
   "qa": {
-    "sha256": "ac36c9485a7b3ef4f8147f0519589890b0bf677f92df46bcb0dc4533c3b1f148",
-    "remote_git_blob_sha": "1e685ac1562aeb29be69e78d0f8856a1edfbb039"
+    "sha256": "f3bef4172c76caee309cd2ea0b4f692768c0d79c007a8a651f7b7eac5df4b521",
+    "source_qa_sha256": "db55f4f84b731967172c3b445811ffb7e5b5905cf820f5e3a3558bafec783348"
   },
-  "builder_sha": "396f0171d02966a1a8f1c4a9d51914b241321f03",
-  "prebuild_receipt_sha256": "54c30ca8e3f5f4cd7c7f31c6447573ce4a56951c772e83a1fab78280a4056b84",
-  "stage5_receipt_sha256": "35e02779fdf41ac0e31f59ecd319776ac1256add1b7db0b2a59ababcbd2d6d0f",
+  "builder_sha": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
+  "prebuild_receipt_sha256": "9f59052c08b15a4c96c5e25fd503c9ee6ee71239cc4c215931bc70828fdbc5e8",
+  "stage5_receipt_sha256": "a4171447875f59b5512de72738d37c567727881ed8aba1e3097d73130b64cd71",
   "protected_paths_unchanged": true,
   "protected_paths": [
     "index.html",
@@ -38,13 +38,9 @@
   ],
   "formal_homepage_modified": false,
   "history_archive_modified": false,
-  "payload_commit_sha": "6bc186727181785c3c1e73328f8c3ac16f756dc1",
-  "pages_deployment_commit_sha": "6bc186727181785c3c1e73328f8c3ac16f756dc1",
-  "pages_workflow_run_id": 45946122657,
-  "pages_workflow_conclusion": "success",
-  "public_url_verified": true,
-  "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
-  "public_http_status": 200,
-  "public_html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
-  "finalized_at_utc": "2026-11-27T05:30:27.539177+00:00"
+  "payload_commit_sha": "PENDING",
+  "pages_deployment_commit_sha": "PENDING",
+  "pages_workflow_run_id": null,
+  "pages_workflow_conclusion": null,
+  "public_url_verified": false
 }
