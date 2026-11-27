@@ -18,18 +18,15 @@ def sha256(path:Path)->str:
 def git_blob(path:Path, commit_sha:str="HEAD")->str:
     return subprocess.check_output(["git","rev-parse",f"{commit_sha}:{path.relative_to(ROOT).as_posix()}"],cwd=ROOT,text=True).strip()
 
-def last_nyse_session(report_date:date)->date:
-    try:
-        import pandas_market_calendars as mcal
-    except ImportError as exc:
-        raise RuntimeError("pandas-market-calendars is required for Stage 1 trading-date resolution") from exc
-    cal=mcal.get_calendar("NYSE")
-    end=report_date-timedelta(days=1)
-    start=end-timedelta(days=14)
-    schedule=cal.schedule(start_date=start.isoformat(),end_date=end.isoformat())
-    if schedule.empty:
-        raise RuntimeError(f"No completed NYSE session found before Taiwan report date {report_date}")
-    return schedule.index[-1].date()
+def report_target_date(report_date:date)->date:
+    """
+    Resolve the report's shared target date from the Taiwan production cadence,
+    not from NYSE sessions. Tuesday-Friday reports target the prior calendar
+    day; Monday reports target the prior Friday. Each instrument's own market
+    calendar is evaluated later in Stage 2 and holidays are recorded as CLOSED.
+    """
+    offset=3 if report_date.weekday()==0 else 1
+    return report_date-timedelta(days=offset)
 
 def week_id(day:date)->str:
     iso=day.isocalendar()
@@ -43,7 +40,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday()>4:
         raise ValueError(f"Weekend report date is not allowed: {report_date}")
-    trading_date=trading_date or last_nyse_session(report_date)
+    trading_date=trading_date or report_target_date(report_date)
     if trading_date>=report_date:
         raise ValueError("trading_date must precede Taiwan report_date")
     manifest_path=ROOT/"production/config/mother-template-manifest.json"
