@@ -1,5 +1,13 @@
 # Stage 2｜44 項行情及獨立 FedWatch
 
+## 開工前強制 WR Preflight
+- Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
+- Stage 1 以當前 main HEAD 的本階段 WR 為基準；Stage 2–6 必須同時核對 Stage 1 `governance.blob_shas`、鎖定 commit 與當前 WR Git blob SHA。
+- 缺檔、空檔、無法完整 UTF-8 讀取、Run 未鎖定該 WR、SHA 不一致，均立即 FAIL-CLOSED；不得跳過、fallback 或繼續工作。
+- 本階段輸出收據必須包含 `wr_preflight`，至少記錄 `wr_path`、`wr_loaded`、`wr_sha256`、`wr_git_blob_sha`、`stage1_pinned_git_blob_sha`、讀取位元組數及 PASS 狀態。沒有該證據不得宣告本階段完成。
+ 
+Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／修改行情 fixture 或讀取行情。
+
 ## 輸入
 Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_POLICY.md`、選定母版欄位、當日使用者截圖 sidecar（若存在）。
 
