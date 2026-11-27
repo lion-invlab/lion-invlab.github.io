@@ -80,7 +80,8 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
     if approval.get("builder_blob_sha")!=pinned.get("production/runner/build_review_html.py") or actual.get("production/runner/build_review_html.py")!=approval.get("builder_blob_sha"):
         raise ValueError("approved Builder exact blob changed during governance transition")
     mother=(context.get("mother") or {})
-    if actual.get(mother.get("path"))!=mother.get("blob_sha") or actual.get("production/config/mother-template-manifest.json")!=pinned.get("production/config/mother-template-manifest.json"):
+    mother_blob=subprocess.check_output(["git","rev-parse",f"HEAD:{mother.get('path')}"],cwd=root,text=True).strip()
+    if mother_blob!=mother.get("blob_sha") or actual.get("production/config/mother-template-manifest.json")!=pinned.get("production/config/mother-template-manifest.json"):
         raise ValueError("approved mother template or manifest changed during governance transition")
     evidence=att.get("evidence") or {}
     if evidence.get("stage2_regression_run_id")!=45939345818 or evidence.get("stage2_regression_conclusion")!="success":
