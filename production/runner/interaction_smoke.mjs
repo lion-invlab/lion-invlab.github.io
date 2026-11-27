@@ -161,6 +161,8 @@ try {
     return { selector, before, after, restored, ancestor_was_open: ancestorBefore };
   }
 
+  // The first published earnings accordion is intentionally hidden until its tab is selected.
+  await page.locator('#earnings label[for="week-earnings-published"]').click();
   const detailsTests = [
     await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"),
     await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"),
