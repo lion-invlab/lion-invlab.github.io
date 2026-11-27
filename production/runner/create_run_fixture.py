@@ -45,6 +45,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     stage1_wr = stage_wr_preflight("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday() not in (0,1,2,3,4): raise ValueError(f"Report date must be Monday (produced Saturday) or Tuesday-Friday: {report_date}")
+    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
     trading_date=trading_date or report_target_date(report_date)
     if trading_date>=report_date: raise ValueError("trading_date must precede Taiwan report_date")
     manifest_path=ROOT/"production/config/mother-template-manifest.json"
@@ -79,7 +80,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
         json.loads(path.read_text(encoding="utf-8"))
         calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path,main_commit_sha)})
     run_context={
-      "schema_version":"1.0","run_id":run_id,"report_date":report_date.isoformat(),
+      "schema_version":"1.0","run_id":run_id,"production_date":production_date.isoformat(),"report_date":report_date.isoformat(),
       "supersedes_run_id":supersedes_run_id,
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
