@@ -33,6 +33,65 @@ def validate_stage2_worker_wr_attestation(payload:dict,wr_preflight:dict)->dict:
         raise ValueError("Stage 2 ChatGPT capture is missing the exact Stage 2 WR read attestation")
     return {"status":"PASS","stage2_wr_sha256":supplied,"expected_wr_sha256":expected}
 
+FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
+FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
+
+def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->dict:
+    """Validate the independent FedWatch snapshot without blocking the 44 market rows."""
+    if not isinstance(payload,dict):
+        raise ValueError("Stage 2 capture is missing the independent FedWatch observation object")
+    if payload.get("stage2_wr_sha256") != wr_preflight.get("wr_sha256"):
+        raise ValueError("FedWatch observation is missing the exact Stage 2 WR read attestation")
+    if payload.get("report_date") != context.get("report_date") or payload.get("trading_date") != context.get("trading_date"):
+        raise ValueError("FedWatch observation dates do not match the current Run")
+    if payload.get("source_url") != FEDWATCH_SOURCE_URL or payload.get("source_name") != FEDWATCH_SOURCE_NAME:
+        raise ValueError("FedWatch must be read from the approved Investing.com Fed Rate Monitor page")
+    if not payload.get("captured_at_utc"):
+        raise ValueError("FedWatch observation captured_at_utc is required")
+    status=payload.get("status")
+    if status not in ("VERIFIED","SOURCE_NO_DATA","TOOL_READ_FAILURE"):
+        raise ValueError(f"Unsupported FedWatch observation status: {status!r}")
+    probabilities=payload.get("probabilities")
+    if not isinstance(probabilities,list):
+        raise ValueError("FedWatch probabilities must be an array")
+    if status == "VERIFIED":
+        for field in ("target_meeting","current_target_range","updated_at_tw","web_reader_ref"):
+            if not isinstance(payload.get(field),str) or not payload[field].strip():
+                raise ValueError(f"Verified FedWatch observation requires {field}")
+        start,end=payload.get("web_line_start"),payload.get("web_line_end")
+        if not isinstance(start,int) or isinstance(start,bool) or not isinstance(end,int) or isinstance(end,bool) or start<1 or end<start:
+            raise ValueError("Verified FedWatch observation requires a valid direct web reader line range")
+        if not 1 <= len(probabilities) <= 8:
+            raise ValueError("Verified FedWatch observation must retain 1–8 observed rate outcomes")
+        total=0.0
+        allowed={"hold","cut","hike","維持不變","升息","降息"}
+        for item in probabilities:
+            if not isinstance(item,dict) or item.get("outcome") not in allowed:
+                raise ValueError("FedWatch outcome must be explicitly classified as hold, cut or hike")
+            if not isinstance(item.get("rate_range"),str) or not item["rate_range"].strip():
+                raise ValueError("FedWatch rate_range is required for every outcome")
+            value=item.get("probability")
+            if isinstance(value,bool) or not isinstance(value,(int,float)) or not 0 <= value <= 100:
+                raise ValueError("FedWatch probability must be numeric and between 0 and 100")
+            total += float(value)
+        if abs(total-100.0)>0.2:
+            raise ValueError(f"FedWatch observed probabilities total {total:.3f}, not 100%")
+    else:
+        if probabilities:
+            raise ValueError("Unverified FedWatch status must not carry unverified probability values")
+        if not isinstance(payload.get("reason"),str) or not payload["reason"].strip():
+            raise ValueError("Unavailable FedWatch observation requires a concrete reason")
+    result={key:payload.get(key) for key in (
+        "status","source_name","source_url","report_date","trading_date","captured_at_utc",
+        "target_meeting","current_target_range","updated_at_tw","probabilities",
+        "web_reader_ref","web_line_start","web_line_end","reason","stage2_wr_sha256"
+    )}
+    result["probabilities"]=probabilities
+    result["observation_sha256"]=hashlib.sha256(
+        json.dumps(payload,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+    ).hexdigest()
+    return result
+
 def build_chart3_handoff_candidate(run_dir:Path,context:dict,fixture_path:Path,
                                   stage1_fixture_sha256:str,market_snapshot_sha256:str,sp500:dict)->dict:
     """Preserve verified S&P 500 input for R3 without invoking the unapproved writer."""
@@ -142,6 +201,7 @@ def main():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
     web_payload=load(web_bundle)
     worker_wr_attestation=validate_stage2_worker_wr_attestation(web_payload,wr_preflight)
+    fedwatch_observation=validate_fedwatch_observation(web_payload.get("fedwatch"),wr_preflight,context)
     if not cnn_observation.is_file():
         cnn_observation.write_text(json.dumps({
             "schema_version":"1.0", "run_id":context["run_id"],
@@ -169,6 +229,7 @@ def main():
         "--observations",str(observations_path.relative_to(ROOT)),
         "--output",str(manifest_path.relative_to(ROOT))])
     fixture=load(fixture_path)
+    fixture["fedwatch"]=fedwatch_observation
     metadata=fixture.setdefault("run_metadata",{})
     metadata.update({
       "market_audit_path":str(audit_path.relative_to(ROOT)),
@@ -186,6 +247,7 @@ def main():
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["wr_preflight"]=wr_preflight
     stage2_receipt_doc["worker_wr_attestation"]=worker_wr_attestation
+    stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
     fixture=load(fixture_path)
@@ -208,6 +270,9 @@ def main():
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "wr_preflight":wr_preflight,
       "worker_wr_attestation":worker_wr_attestation,
+      "fedwatch_status":fedwatch_observation["status"],
+      "fedwatch_observation_sha256":fedwatch_observation["observation_sha256"],
+      "fedwatch_target_meeting":fedwatch_observation.get("target_meeting"),
       "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
       "stage2_handoff":handoff,
