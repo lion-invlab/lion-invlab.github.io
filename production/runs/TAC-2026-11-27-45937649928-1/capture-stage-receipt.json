@@ -3,31 +3,26 @@
   "status": "AWAITING_EDITORIAL_INPUT",
   "capture_trigger": {
     "event_name": "push",
-    "dispatch_mode": "schedule",
-    "workflow_run_id": "45937649928"
+    "dispatch_mode": "resume_existing_run",
+    "workflow_run_id": "45939546192",
+    "original_capture_workflow_run_id": "45937649928",
+    "resume_existing_run": true
   },
   "run_id": "TAC-2026-11-27-45937649928-1",
   "report_date": "2026-11-27",
-  "market_snapshot_sha256": "41ac628e643d0f0a1ace05283c48f366c95ad4b6048d681c769b75ef33dcdda1",
-  "stage2_status": "PARTIAL",
-  "stage2_pending_rows": [
-    {
-      "group": "risk",
-      "name": "move",
-      "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-      "read_status": "SOURCE_UPDATE_PENDING"
-    }
-  ],
+  "market_snapshot_sha256": "05718ca0d26e29322c9fec38a762801f583f2215a4d50a55d5f5ad5fe3b4383d",
+  "stage2_status": "PASS",
+  "stage2_pending_rows": [],
   "chart3_handoff": {
     "status": "SKIPPED_UNVERIFIED",
     "reason": "S&P 500 cash-index close is not VERIFIED; no Chart 3 handoff candidate created."
   },
   "research_bundle_path": "production/runs/TAC-2026-11-27-45937649928-1/stage4-research-bundle.json",
-  "research_bundle_sha256": "2fc66275d108dee7087576be77d35ee4d63f5bf6dea0ddd635ce02d3a35d9037",
-  "research_bundle_unresolved_market_rows": 1,
+  "research_bundle_sha256": "0512c18ea54cf78590f84422d232d5face441ce387b38de303ada097565bbee9",
+  "research_bundle_unresolved_market_rows": 0,
   "chart3_merge_workflow_run_id": "NOT_REQUIRED",
   "current_week": "2026-W48",
   "previous_week": "2026-W47",
   "editorial_input_path": "production/input/report-content-2026-11-27.json",
-  "next_action": "Read stage4-research-bundle.json; generate Stage 4 editorial content bound to run_id, market_snapshot_sha256 and research_bundle_sha256; run the Main Stage 4-6 continuation for this exact Run."
+  "next_action": "Read the regenerated exact-Run research bundle; generate Stage 4 editorial content bound to current snapshot and bundle SHA."
 }

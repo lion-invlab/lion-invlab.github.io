@@ -6,7 +6,7 @@
   "trading_date": "2026-11-26",
   "timezone": "Asia/Taipei",
   "main_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
-  "market_snapshot_sha256": "41ac628e643d0f0a1ace05283c48f366c95ad4b6048d681c769b75ef33dcdda1",
+  "market_snapshot_sha256": "05718ca0d26e29322c9fec38a762801f583f2215a4d50a55d5f5ad5fe3b4383d",
   "news_window": {
     "start_taipei": "2026-11-26T12:00",
     "target_cutoff_taipei": "2026-11-27T05:25",
@@ -493,16 +493,24 @@
       {
         "group": "risk",
         "name": "move",
-        "display": "待核實",
-        "change_display": "待核實",
-        "verification_status": "PENDING",
+        "display": "-",
+        "change_display": "休市",
+        "verification_status": "CLOSED",
         "data_date": "2026-11-26",
         "quote_type": "displayed_close",
         "source_name": "Investing.com｜ICE BofAML MOVE 歷史資料",
         "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "instrument_identity": "ICE BofAML MOVE (MOVE)",
-        "market_data_status": "SOURCE_UPDATE_PENDING",
-        "stage2_verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
+        "market_data_status": "CLOSED",
+        "stage2_verification_status": "CLOSED",
+        "closure_evidence": {
+          "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+          "reader_ref": "turn528755view0",
+          "line_start": 15,
+          "line_end": 18,
+          "target_date": "2026-11-26",
+          "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
+        }
       },
       {
         "group": "risk",
@@ -761,27 +769,11 @@
         }
       }
     ],
-    "unresolved_rows": [
-      {
-        "group": "risk",
-        "name": "move",
-        "display": "待核實",
-        "change_display": "待核實",
-        "verification_status": "PENDING",
-        "data_date": "2026-11-26",
-        "quote_type": "displayed_close",
-        "source_name": "Investing.com｜ICE BofAML MOVE 歷史資料",
-        "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
-        "instrument_identity": "ICE BofAML MOVE (MOVE)",
-        "market_data_status": "SOURCE_UPDATE_PENDING",
-        "stage2_verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
-      }
-    ],
+    "unresolved_rows": [],
     "market_status_counts": {
       "VERIFIED": 26,
-      "CLOSED": 16,
-      "BACKUP_VERIFIED": 1,
-      "SOURCE_UPDATE_PENDING": 1
+      "CLOSED": 17,
+      "BACKUP_VERIFIED": 1
     },
     "source_data": {
       "global_markets": {
@@ -2120,15 +2112,15 @@
           }
         },
         "move": {
-          "display": "待核實",
-          "change_display": "待核實",
+          "display": "-",
+          "change_display": "休市",
           "source": {
             "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
             "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
             "data_date": "2026-11-26",
             "quote_type": "displayed_close",
             "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
-            "verification_status": "PENDING",
+            "verification_status": "CLOSED",
             "instrument_identity": "ICE BofAML MOVE (MOVE)",
             "_stage2_format": {
               "close": {
@@ -2147,7 +2139,17 @@
               }
             },
             "source_page_fetched": true,
-            "read_status": "SOURCE_UPDATE_PENDING"
+            "read_status": "MARKET_CLOSED",
+            "market_calendar_evidence": {
+              "status": "CLOSED",
+              "source_type": "OFFICIAL",
+              "date": "2026-11-26",
+              "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+              "reader_ref": "turn528755view0",
+              "line_start": 15,
+              "line_end": 18,
+              "evidence": "SIFMA recommends a full market close on Thursday, November 26 and an early close at 2:00 p.m., EST, on Friday, November 27, 2026."
+            }
           }
         },
         "fear_greed": {
@@ -4616,21 +4618,29 @@
           "升跌（%）"
         ],
         "captured_at_utc": "2026-11-27T00:51:42Z",
-        "finished_at_utc": "2026-11-27T00:51:42Z",
+        "finished_at_utc": "2026-11-27T04:20:00Z",
         "web_reader_ref": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "web_line_start": 47,
         "web_line_end": 60,
-        "source_role": "PRIMARY_AND_BACKUP_PENDING",
+        "source_role": "PRIMARY",
         "prior_observation_reused": false,
         "source_page_fetched": true,
         "instrument_identity_status": "VERIFIED",
         "field_mapping_status": "VERIFIED",
-        "observed_date": "2026-11-25",
-        "observed_row_text": "2026-11-25 | Last visible daily observation; 2026-11-26 target-date row is not present on the readable Investing.com MOVE history page; page indicates delayed data.",
-        "read_status": "SOURCE_UPDATE_PENDING",
+        "observed_date": null,
+        "observed_row_text": "SIFMA confirms a full U.S. fixed-income market close on Thursday, November 26, 2026; the Investing.com MOVE historical page was readable but contains no target-date close row.",
+        "read_status": "MARKET_CLOSED",
         "observed_value": null,
         "observed_change": null,
         "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "status": "OBSERVED_PENDING_VALIDATION",
+        "closure_evidence_url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+        "closure_evidence_text": "SIFMA recommends a full market close on Thursday, November 26 and an early close at 2:00 p.m., EST, on Friday, November 27, 2026.",
+        "closure_evidence_reader_ref": "turn528755view0",
+        "closure_evidence_line_start": 15,
+        "closure_evidence_line_end": 18,
+        "closure_evidence_sha256": "WEB_OPEN_REF:turn528755view0:L15-L18",
+        "finished_at_tw": "2026-11-27T12:20:00+08:00",
         "http_status": null,
         "preexisting_value_comparison": "NOT_PERFORMED_BLANK_INPUT",
         "expected_display_value": null,
@@ -4639,12 +4649,10 @@
         "expected_change_display": null,
         "display_value_match": false,
         "display_change_match": false,
-        "status": "OBSERVED_PENDING_VALIDATION",
-        "finished_at_tw": "2026-11-27T08:51:42+08:00",
         "capture_session": "TAC-CHATGPT-WEB-READ",
         "attempt_count": 1,
         "verification_round": 1,
-        "observation_record_sha256": "2bc7308eb2310716c8f13c3d9d5f027d5cc014d3d2ef2c22c25e8e5e951b2491"
+        "observation_record_sha256": "5fadd9fcd50b564e04d09f2cb962ef53ae4fa2ff206002fa501f0b54a5d7b3a6"
       },
       {
         "group": "risk",
@@ -5396,25 +5404,24 @@
     "trading_date": "2026-11-26",
     "verification_scope": "CURRENT_REPORT_SESSION_FIELD_LEVEL_SOURCE_OBSERVATIONS",
     "source_pages_fetched": true,
-    "displayed_values_reconciled": false,
-    "displayed_values_independently_reconciled": false,
+    "displayed_values_reconciled": true,
+    "displayed_values_independently_reconciled": true,
     "screenshot_row_count": 0,
     "screenshot_field_count": 0,
     "mixed_field_row_count": 0,
     "historical_page_only_row_count": 27,
     "prior_observation_reused_count": 0,
-    "prior_observation_missing_time_count": 1,
+    "prior_observation_missing_time_count": 0,
     "row_count": 44,
     "market_status_counts": {
       "VERIFIED": 26,
-      "CLOSED": 16,
-      "BACKUP_VERIFIED": 1,
-      "SOURCE_UPDATE_PENDING": 1
+      "CLOSED": 17,
+      "BACKUP_VERIFIED": 1
     },
-    "pending_count": 1,
-    "closed_count": 16,
+    "pending_count": 0,
+    "closed_count": 17,
     "verified_count": 27,
-    "browser_observation_records_complete": false,
+    "browser_observation_records_complete": true,
     "observation_record_hash_missing_count": 0,
     "raw_response_sha256_saved_count": 0,
     "rows": [
@@ -8097,16 +8104,16 @@
       {
         "group": "risk",
         "name": "move",
-        "display": "待核實",
-        "change_display": "待核實",
+        "display": "-",
+        "change_display": "休市",
         "trading_date": "2026-11-26",
         "quote_type": "displayed_close",
         "source_name": "Investing.com｜ICE BofAML MOVE 歷史資料",
         "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "source_role": "PRIMARY_AS_CONFIGURED",
         "evidence_source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
-        "evidence_source_role": "PRIMARY_AND_BACKUP_PENDING",
-        "source_read_status": "SOURCE_UPDATE_PENDING",
+        "evidence_source_role": "PRIMARY",
+        "source_read_status": "MARKET_CLOSED",
         "source_page_title": "ICE BofAML MOVE (MOVE) Historical Data",
         "source_instrument_identity": "ICE BofAML MOVE (MOVE)",
         "source_attempts": [],
@@ -8115,22 +8122,46 @@
         "cross_check_role": null,
         "checked_at_tw": null,
         "source_record_updated_at_tw": null,
-        "verification_status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-        "market_data_status": "SOURCE_UPDATE_PENDING",
+        "verification_status": "CLOSED",
+        "market_data_status": "CLOSED",
         "source_page_fetched": true,
-        "display_value_reconciled": false,
-        "display_value_matches_saved_observation": false,
-        "observation_provenance": "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
+        "display_value_reconciled": true,
+        "display_value_matches_saved_observation": true,
+        "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
-        "evidence_status": "SOURCE_UPDATE_PENDING",
-        "browser_observation_record": null,
-        "observation_record_sha256": null,
-        "captured_at_tw": "2026-11-27T08:51:42+08:00",
-        "observed_at_tw": null,
-        "evidence_method": null,
+        "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
+        "browser_observation_record": {
+          "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+          "target_date": "2026-11-26",
+          "expected_display_value": "-",
+          "instrument_identity": "ICE BofAML MOVE (MOVE)",
+          "instrument_identity_status": "VERIFIED",
+          "field_mapping_status": "VERIFIED",
+          "observed_row_text": "SIFMA confirms a full U.S. fixed-income market close on Thursday, November 26, 2026; the Investing.com MOVE historical page was readable but contains no target-date close row.",
+          "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+          "read_status": "MARKET_CLOSED",
+          "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+          "source_page_fetched": true,
+          "closure_evidence_url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+          "closure_evidence_reader_ref": "turn528755view0",
+          "closure_evidence_line_start": 15,
+          "closure_evidence_line_end": 18,
+          "checked_at_tw": "2026-11-27T12:20:00+08:00",
+          "prior_observation_reused": false,
+          "source_observation_record_sha256": "5fadd9fcd50b564e04d09f2cb962ef53ae4fa2ff206002fa501f0b54a5d7b3a6"
+        },
+        "observation_record_sha256": "facc4716bbbb5fc30a25b98deb2cd3bd417bc1446f90b72a9382226b9613f665",
+        "captured_at_tw": "2026-11-27T12:20:00+08:00",
+        "observed_at_tw": "2026-11-27T12:20:00+08:00",
+        "evidence_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE+OFFICIAL_HOLIDAY_CALENDAR",
         "verified_close": null,
         "verified_change": null,
-        "notes": "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。"
+        "closure_evidence_url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+        "closure_evidence_text": "SIFMA recommends a full market close on Thursday, November 26 and an early close at 2:00 p.m., EST, on Friday, November 27, 2026.",
+        "closure_evidence_reader_ref": "turn528755view0",
+        "closure_evidence_line_start": 15,
+        "closure_evidence_line_end": 18,
+        "notes": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
       },
       {
         "group": "risk",
@@ -8796,7 +8827,7 @@
         "notes": "待擷取來源歷史資料列並逐項核對；目前僅有 Fixture 內來源中繼資料。"
       }
     ],
-    "warning": "本次來源欄位觀察：27 項已核實、16 項休市、1 項待核實；其中 0 項含使用者截圖欄位（0 欄），27 項完全由歷史頁核實；舊 Fixture 觀察紀錄不納入驗證。"
+    "warning": "本次來源欄位觀察：27 項已核實、17 項休市、0 項待核實；其中 0 項含使用者截圖欄位（0 欄），27 項完全由歷史頁核實；舊 Fixture 觀察紀錄不納入驗證。"
   },
   "market_snapshot_audit": {
     "status": "PASS",
@@ -9350,8 +9381,8 @@
         "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "verified_at_tw": null,
         "timestamp_status": "MISSING",
-        "display": "待核實",
-        "change_display": "待核實"
+        "display": "-",
+        "change_display": "休市"
       },
       {
         "group": "risk",
@@ -9392,7 +9423,7 @@
     "stage2_receipt": {
       "schema_version": "1.0",
       "receipt_type": "TAC_STAGE2_MARKET_SNAPSHOT",
-      "status": "PARTIAL",
+      "status": "PASS",
       "freeze_point": "STAGE2_MARKET_SNAPSHOT_LOCKED",
       "downstream_market_access": "READ_ONLY",
       "preexisting_market_values_used": false,
@@ -9400,32 +9431,24 @@
       "branch": "main",
       "commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
       "workflow_run_id": "45937649928",
-      "batch_id": "d30ebfcffaab1b783e55a3ff",
+      "batch_id": "da5814a20f0afdc197e1fa93",
       "report_date": "2026-11-27",
       "trading_date": "2026-11-26",
-      "generated_at_utc": "2026-11-27T04:04:47.059101+00:00",
+      "generated_at_utc": "2026-11-27T04:23:35.241606+00:00",
       "row_count": 44,
       "verified_count": 27,
-      "pending_count": 1,
-      "closed_count": 16,
+      "pending_count": 0,
+      "closed_count": 17,
       "market_status_counts": {
         "VERIFIED": 26,
-        "CLOSED": 16,
-        "BACKUP_VERIFIED": 1,
-        "SOURCE_UPDATE_PENDING": 1
+        "CLOSED": 17,
+        "BACKUP_VERIFIED": 1
       },
-      "pending_rows": [
-        {
-          "group": "risk",
-          "name": "move",
-          "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-          "read_status": "SOURCE_UPDATE_PENDING"
-        }
-      ],
+      "pending_rows": [],
       "manifest_status": "PARTIAL",
       "source_pages_fetched": true,
-      "displayed_values_reconciled": false,
-      "displayed_values_independently_reconciled": false,
+      "displayed_values_reconciled": true,
+      "displayed_values_independently_reconciled": true,
       "screenshot_row_count": 0,
       "screenshot_field_count": 0,
       "mixed_field_row_count": 0,
@@ -9433,19 +9456,19 @@
       "input_files": {
         "fixture": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
-          "sha256": "4f2e197649808f280bbd5259ecd554a4e68d7c5a4295aff34c8b2795acc7656e"
+          "sha256": "c3669dc4cd4019526831b58866cb21841b0f92270bd45c3d5719e479f44947a3"
         },
         "audit": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-snapshot-audit.json",
-          "sha256": "3d9b236a7541f5afbc27f49e6ce6dfa2d26d8a68ab4529f7611bac341396da29"
+          "sha256": "bdc4f205f186291bf437ab574f1645376aaf6c98bd3f0e1b4d6e4785750a1e09"
         },
         "manifest": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-          "sha256": "72e75edf5b1806f1259e5bdd8398115eb58039f38941169e426aa78447b7417f"
+          "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
         },
         "observations": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
-          "sha256": "6b82fd6c8adc2e58be297dfa880a7ef9281d27dafec25db74c9fb43bd9567c17"
+          "sha256": "d29949e1b0a8f0e6f6a00b1d54a69dad7c093b8d582491c10c3f91fc1b603467"
         }
       },
       "rows": [
@@ -9880,15 +9903,20 @@
         {
           "group": "risk",
           "name": "move",
-          "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
-          "market_data_status": "SOURCE_UPDATE_PENDING",
+          "status": "CLOSED",
+          "market_data_status": "CLOSED",
           "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
           "trading_date": "2026-11-26",
-          "observation_row_sha256": "2bc7308eb2310716c8f13c3d9d5f027d5cc014d3d2ef2c22c25e8e5e951b2491",
-          "manifest_record_sha256": null,
+          "observation_row_sha256": "5fadd9fcd50b564e04d09f2cb962ef53ae4fa2ff206002fa501f0b54a5d7b3a6",
+          "manifest_record_sha256": "facc4716bbbb5fc30a25b98deb2cd3bd417bc1446f90b72a9382226b9613f665",
           "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
           "source_page_fetched": true,
-          "closure_evidence": null
+          "closure_evidence": {
+            "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+            "reader_ref": "turn528755view0",
+            "line_start": 15,
+            "line_end": 18
+          }
         },
         {
           "group": "risk",
@@ -10107,7 +10135,7 @@
     "stage2_summary": {
       "schema_version": "1.0",
       "stage": "STAGE_2_MARKET",
-      "market_snapshot_sha256": "41ac628e643d0f0a1ace05283c48f366c95ad4b6048d681c769b75ef33dcdda1",
+      "market_snapshot_sha256": "05718ca0d26e29322c9fec38a762801f583f2215a4d50a55d5f5ad5fe3b4383d",
       "status": "PARTIAL",
       "run_id": "TAC-2026-11-27-45937649928-1",
       "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
@@ -10116,7 +10144,7 @@
       "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
       "concurrency": 4,
       "timeout_ms": 15000,
-      "elapsed_seconds": 0.3,
+      "elapsed_seconds": 0.226,
       "stage2_handoff": {
         "status": "PASS",
         "run_id": "TAC-2026-11-27-45937649928-1",
@@ -10127,7 +10155,7 @@
         "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
         "stage1_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/stage1-fixture.json",
         "working_fixture_path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
-        "bundle_sha256": "04e20be4f7ab8024fcfe1858bb3e240c37389a123745b42496c3e740c88e7deb",
+        "bundle_sha256": "7a7f1eb90015a8e19395e0dfe39533d3ad71b530387f8ea56fa5ece4873ce6d1",
         "optional_bundle_sha256": {
           "cnn-fear-greed-observation.json": "9e5c9078757c6b9246fab5a585eb20a750b0bedf7935a42dfbc7518b63042e05"
         },
@@ -10136,7 +10164,7 @@
           "field_count": 0
         }
       },
-      "web_observation_bundle_sha256": "04e20be4f7ab8024fcfe1858bb3e240c37389a123745b42496c3e740c88e7deb",
+      "web_observation_bundle_sha256": "7a7f1eb90015a8e19395e0dfe39533d3ad71b530387f8ea56fa5ece4873ce6d1",
       "cnn_observation_sha256": "9e5c9078757c6b9246fab5a585eb20a750b0bedf7935a42dfbc7518b63042e05",
       "historical_page_read_count": null,
       "screenshot_only_count": null,
@@ -10146,13 +10174,12 @@
         "OBSERVED_PENDING_VALIDATION": 17
       },
       "verified_count": 27,
-      "pending_count": 1,
-      "closed_count": 16,
+      "pending_count": 0,
+      "closed_count": 17,
       "market_status_counts": {
         "VERIFIED": 26,
-        "CLOSED": 16,
-        "BACKUP_VERIFIED": 1,
-        "SOURCE_UPDATE_PENDING": 1
+        "CLOSED": 17,
+        "BACKUP_VERIFIED": 1
       },
       "chart3_handoff": {
         "status": "SKIPPED_UNVERIFIED",
@@ -10161,23 +10188,23 @@
       "outputs": {
         "report-data.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
-          "sha256": "4f2e197649808f280bbd5259ecd554a4e68d7c5a4295aff34c8b2795acc7656e"
+          "sha256": "c3669dc4cd4019526831b58866cb21841b0f92270bd45c3d5719e479f44947a3"
         },
         "market-history-browser-observations.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
-          "sha256": "6b82fd6c8adc2e58be297dfa880a7ef9281d27dafec25db74c9fb43bd9567c17"
+          "sha256": "d29949e1b0a8f0e6f6a00b1d54a69dad7c093b8d582491c10c3f91fc1b603467"
         },
         "market-snapshot-audit.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-snapshot-audit.json",
-          "sha256": "3d9b236a7541f5afbc27f49e6ce6dfa2d26d8a68ab4529f7611bac341396da29"
+          "sha256": "bdc4f205f186291bf437ab574f1645376aaf6c98bd3f0e1b4d6e4785750a1e09"
         },
         "market-source-verification-manifest.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-          "sha256": "72e75edf5b1806f1259e5bdd8398115eb58039f38941169e426aa78447b7417f"
+          "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
         },
         "stage2-market-snapshot-receipt.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
-          "sha256": "78d47d1ea3fe0b305fd7beadd7e6091a60a21b6b4fbc4a8c7c6ab582680ee1f2"
+          "sha256": "1a02374d7f9a2a0dd3738c2ca06cb321d78e03dc132fc9fd02fb7bd72bba0fc4"
         }
       }
     },
@@ -14241,27 +14268,27 @@
     },
     "report-data.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/report-data.json",
-      "sha256": "4f2e197649808f280bbd5259ecd554a4e68d7c5a4295aff34c8b2795acc7656e"
+      "sha256": "c3669dc4cd4019526831b58866cb21841b0f92270bd45c3d5719e479f44947a3"
     },
     "stage2-market-snapshot-receipt.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
-      "sha256": "78d47d1ea3fe0b305fd7beadd7e6091a60a21b6b4fbc4a8c7c6ab582680ee1f2"
+      "sha256": "1a02374d7f9a2a0dd3738c2ca06cb321d78e03dc132fc9fd02fb7bd72bba0fc4"
     },
     "stage2-run-summary.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-run-summary.json",
-      "sha256": "fa5cf04d62d28e9c2b3ea1af5254eac5c7e75f4f927a00e7f1c1c62332443ec7"
+      "sha256": "8cf0f27af9ab07c0242ab2e1a629a8ee4365fde83d64de02db900b2f7a41d0c5"
     },
     "market-history-browser-observations.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
-      "sha256": "6b82fd6c8adc2e58be297dfa880a7ef9281d27dafec25db74c9fb43bd9567c17"
+      "sha256": "d29949e1b0a8f0e6f6a00b1d54a69dad7c093b8d582491c10c3f91fc1b603467"
     },
     "market-source-verification-manifest.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-      "sha256": "72e75edf5b1806f1259e5bdd8398115eb58039f38941169e426aa78447b7417f"
+      "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
     },
     "market-snapshot-audit.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-snapshot-audit.json",
-      "sha256": "3d9b236a7541f5afbc27f49e6ce6dfa2d26d8a68ab4529f7611bac341396da29"
+      "sha256": "bdc4f205f186291bf437ab574f1645376aaf6c98bd3f0e1b4d6e4785750a1e09"
     },
     "stage3-calendar-receipt.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage3-calendar-receipt.json",
@@ -14288,5 +14315,5 @@
       "sha256": "47a7aa7f95b54265a71e2eff7e76dcbe738694803b886727cecc2cf181d58181"
     }
   },
-  "generated_at_utc": "2026-11-27T04:04:47Z"
+  "generated_at_utc": "2026-11-27T04:23:35Z"
 }

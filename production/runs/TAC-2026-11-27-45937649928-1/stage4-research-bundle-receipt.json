@@ -3,10 +3,10 @@
   "run_id": "TAC-2026-11-27-45937649928-1",
   "report_date": "2026-11-27",
   "trading_date": "2026-11-26",
-  "market_snapshot_sha256": "41ac628e643d0f0a1ace05283c48f366c95ad4b6048d681c769b75ef33dcdda1",
+  "market_snapshot_sha256": "05718ca0d26e29322c9fec38a762801f583f2215a4d50a55d5f5ad5fe3b4383d",
   "input_count": 14,
   "bundle_path": "production/runs/TAC-2026-11-27-45937649928-1/stage4-research-bundle.json",
-  "bundle_sha256": "2fc66275d108dee7087576be77d35ee4d63f5bf6dea0ddd635ce02d3a35d9037",
+  "bundle_sha256": "0512c18ea54cf78590f84422d232d5face441ce387b38de303ada097565bbee9",
   "market_rows": 44,
-  "unresolved_market_rows": 1
+  "unresolved_market_rows": 0
 }

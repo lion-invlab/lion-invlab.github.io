@@ -911,15 +911,15 @@
       }
     },
     "move": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "-",
+      "change_display": "休市",
       "source": {
         "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
         "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-26",
         "quote_type": "displayed_close",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
-        "verification_status": "PENDING",
+        "verification_status": "CLOSED",
         "instrument_identity": "ICE BofAML MOVE (MOVE)",
         "_stage2_format": {
           "close": {
@@ -938,7 +938,17 @@
           }
         },
         "source_page_fetched": true,
-        "read_status": "SOURCE_UPDATE_PENDING"
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+          "reader_ref": "turn528755view0",
+          "line_start": 15,
+          "line_end": 18,
+          "evidence": "SIFMA recommends a full market close on Thursday, November 26 and an early close at 2:00 p.m., EST, on Friday, November 27, 2026."
+        }
       }
     },
     "fear_greed": {
@@ -1516,16 +1526,14 @@
   },
   "last_week_calendar_impact_overrides": [],
   "stage2_market_bootstrap": {
-    "status": "PARTIAL",
+    "status": "POPULATED",
     "preexisting_market_values_used": false,
     "row_count": 44,
     "verified_count": 27,
-    "pending_count": 1,
-    "pending_rows": [
-      "risk/move"
-    ],
+    "pending_count": 0,
+    "pending_rows": [],
     "report_date": "2026-11-27",
     "trading_date": "2026-11-26",
-    "observation_bundle_sha256": "6b82fd6c8adc2e58be297dfa880a7ef9281d27dafec25db74c9fb43bd9567c17"
+    "observation_bundle_sha256": "d29949e1b0a8f0e6f6a00b1d54a69dad7c093b8d582491c10c3f91fc1b603467"
   }
 }
