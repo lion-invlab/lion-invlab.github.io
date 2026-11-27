@@ -31,6 +31,11 @@ class HomepagePublicationLockTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'preview Git blob SHA'):
             validate_homepage_lock(lock,'b'*40,'c'*40,'[publish-tac-report:2026-11-30]')
 
+    def test_approved_index_must_be_identical_to_approved_preview(self):
+        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'approved'}
+        with self.assertRaisesRegex(ValueError,'byte-identical'):
+            validate_homepage_lock(lock,'b'*40,'c'*40,'[publish-tac-report:2026-11-30]')
+
     def test_approved_publication_requires_marker_on_lock_commit(self):
         lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'approved'}
         with self.assertRaisesRegex(ValueError,'exact publish marker'):
