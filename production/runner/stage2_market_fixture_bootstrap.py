@@ -244,6 +244,11 @@ def populate_fixture(data, payload):
         raw_close=obs["observed_value"]; raw_change=obs["observed_change"]
         if group in ("energy","metals"):
             contract_label=str(obs.get("contract_label") or "").strip()
+            if not contract_label:
+                row_text=str(obs.get("observed_row_text") or "")
+                match=re.search(r"\\s-\\s(.+?)\\s*\\|\\s*[-+]?\\d",row_text)
+                if match:
+                    contract_label=match.group(1).strip()
             if contract_label:
                 item["contract_label"]=contract_label
         close_num=_decimal(raw_close); src["close_value"]=float(close_num)
