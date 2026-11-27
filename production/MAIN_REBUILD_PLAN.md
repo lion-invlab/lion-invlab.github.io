@@ -1,4 +1,4 @@
-# TAC Main 早報重建計畫 v2.2（簡化版）
+# TAC Main 早報重建計畫 v2.3（簡化版）
 
 **更新日期：2026-11-27**  
 **唯一目標：每天穩定產出當日審核版；先完成早報，不把行情擷取變成資料治理工程。**
@@ -50,10 +50,10 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 
 1. **11/27 審核版已依使用者明確核准正式發布。** 使用者於 2026-11-27 16:19（台灣時間）指示「先把審核版上傳首頁」。正式發布 commit `ed7bd1e3d51865afa789af3bb2df8787550575f0` 將 `preview/2026-11-27-review.html` 原樣複製至 `index.html`；兩者 Git blob SHA 均為 `d34fec01d0f9735e62f5b0c67bfe94a2618fb4f5`。Pages run `45966951824`、Archive run `45966951834` 均成功；前一版 11/26 首頁 blob `032090e047a363e7654e36c12adadbe859666bc2` 已由 Archive workflow 核對，未重複封存。`homepage-publication-lock.json` 現為 `APPROVED_PUBLICATION`，previous_homepage 指向 11/26。中間曾因不完整的記憶查詢產生暫時回復 commit `f7f48ddc47aaf2829a0025c4fd21c2caf6641fc3`；已由上述明確核准發布 commit 覆蓋，**目前 11/27 正式首頁正確，不得回退**。
 2. **舊 Run 僅作歷史證據。** `TAC-2026-11-27-45937649928-1` 建立時使用舊 governance pin，缺少新制 Stage WR worker attestation；不得把新規則回填至舊 receipt，也不得再執行舊的 MOVE holiday resume job。舊 observation 與 editorial 不得作為新 Run 的合格輸入。
-3. **依使用者 11/27 最新指示，先重跑 11/27 真實 E2E。** 已核准唯一 predecessor 為 `TAC-2026-11-27-45937649928-1`。先移除舊日期全域行情 observation、舊 editorial JSON、舊 build request 與 trigger marker；舊 Preview 三檔副本保存在 `production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/`；原核准 Preview 三檔保留在 `preview/`，供首頁發布鎖與既有 `index.html` 核對。新 rerun 交付使用 `preview/2026-11-27-rerun-review.*`。舊 Run receipts 與完整行情資料保留為稽核證據，不可當新輸入；正式首頁與發布鎖不變。
-4. **11/27 使用明確 rerun 入口。** `workflow_dispatch mode=rerun` 只接受 2026-11-27 及唯一 predecessor 上述 Run，從 Stage 1 建立新 blank-first Run，綁定 `supersedes_run_id`。Stage 2 重新擷取 44 項與 FedWatch，禁止沿用舊 observation／截圖／報價；Stage 3 唯讀投影 W48／W47；Stage 4 重新讀取完整 Stage 4 WR 並回填 `stage4_wr_sha256`；Stage 5／6 只使用新 Run，交付新的 `-rerun` Preview 三檔。不得自動改動正式首頁或封存。
-5. **完成 11/27 E2E 後，再以 2026-11-30（週一）驗收正常排程。** Stage 1 鎖定 Monday mother 與 governance；Stage 2 完成 44 項與 FedWatch；Stage 3 唯讀投影 W48／W47；Stage 4–6 同一 Run 完整交付。
-6. **排程整合最後驗收。** 以 America/New_York 時區統一 DST：行事曆 15:35 ET（台灣冬令 04:35／夏令 03:35）；既有 Main Stage 2–6 喚醒任務 16:00 ET（台灣冬令 05:00／夏令 04:00）先擷取 44 項及 FedWatch，再等待 Main Capture；Main Capture 16:30 ET（台灣冬令 05:30／夏令 04:30）；Chart 3 16:30 ET 獨立執行。Stage 1 cutoff 固定為 16:25 ET，台灣時間隨 DST 為 05:25／04:25。Stage 2 只提交 observation，不觸發 Run；Main Workflow schedule 是唯一 Stage 1 啟動入口。未完成真實 E2E 前，不宣稱新制已正式上線。
+3. **11/27 新 Run 已建立，但不是完整 E2E。** `TAC-2026-11-27-45976396528-1` 的 `supersedes_run_id` 指向舊 Run `TAC-2026-11-27-45937649928-1`；但 GitHub Actions 實際事件為 `push`，不是規範要求的 `workflow_dispatch mode=rerun`，不得把它記成合規 rerun 或完整 E2E。此 Run 的 Stage 2 為 `PARTIAL`：44 項中 26 VERIFIED、17 CLOSED、1 PENDING（CNN Fear & Greed，`SOURCE_NO_DATA`）；Stage 3 為 PASS。S&P 500 現金指數目標日 2026-11-26 為美國感恩節休市，Chart 3 未追加當日資料。Stage 4 編輯內容、Stage 5、Stage 6 均未完成。Run pinned main commit 為 `f6aa1f7626699ca6054b66a97028bddcde70cd25`；後續 Stage 5／6 規範與 Runner 已變更，舊 Run 不得跨版本續跑或回填新規則。
+4. **Stage 5／6 已修正兩項 Gate 矛盾。** 情境分析只有在六領域掃描完整、findings 為空且有具體 `no_material_change_note` 時可標 `NOT_APPLICABLE`；有任何 finding 則保守要求基準／風險／嚴重三情境。Stage 2 非 PASS、仍有 pending_rows 或 fixture pending_items 時，Stage 5 必須標 `PARTIAL`，Workflow 保留 Run 內證據並略過 Stage 6，不可寫入 main/preview。相關 commits：`75c4d68`、`eb488f3`、`0bc0dd3`、`f080ec1`、`ba4322d`。Main push validation Run `46001434146` 對 commit `ba4322db2cd4ff5fe4a204e56deb2eef3dbb529e` 已 SUCCESS；其中 Stage 5 情境 QA 新增測試及現有 deterministic tests 通過。這是程式驗證，不是正式行情 E2E。
+5. **Builder exact-SHA 核准仍是 Stage 5 唯一明確阻塞。** Main Builder 現行 blob SHA `89cedbb36ec75628c813291adf1bd025c589266e`；approval record 仍核准舊 SHA `5d555e40285bf4156740e418664f4833d66956ee`。不得自行改寫核准紀錄或把舊核准套用到新 Builder。取得新 SHA 的明確 Owner 核准後，才可觸發 Stage 4–6 build；否則只可保留候選／部分 Run 證據。
+6. **下一個正常排程 E2E 目標為 2026-11-30（週一）。** 04:35 台灣時間行事曆資料庫更新；04:45 Stage 1 建立唯一 Run 並鎖定 Monday mother／governance；05:00 Stage 2 worker 啟動正式收盤擷取；05:15 為 observation handoff 目標；05:20 為 Stage 1–3 Capture 目標；05:30 為完整審核版交付目標。對應 America/New_York：15:35、15:45、16:00、16:15、16:20、16:30 ET。Chart 3 監控任務 05:30 台灣時間獨立執行。三個排程均已啟用：行事曆 04:35、Main Stage 2–6 05:00、Chart 3 05:30。Main Workflow schedule 是唯一 Stage 1 啟動入口；Stage 2 只提交 observation，不另建 Run。未完成同一 Run Stage 1–6 真實 E2E 前，不宣稱新制正式上線。
 
 每完成一項，只回頭檢查：**是否讓下一個工作日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
 ## 五之一、正式首頁發布鎖（2026-11-27 已啟用）
