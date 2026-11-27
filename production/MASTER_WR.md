@@ -46,7 +46,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 ## 4. Stage 2 行情核心規則
 - 固定 44 項：全球主要市場 17（含 SOX）、11 大產業 ETF 11、公債殖利率 3、外匯 6、能源及貴金屬 4、風險情緒 3（VIX、MOVE、CNN Fear & Greed）。FedWatch 獨立，不計入 44。
 - 使用者提供且能辨識商品、日期及數值的截圖優先於全部 44 項的網頁讀取，不限 MOVE。已提供欄位直接採用，不重抓、不覆蓋；缺欄才補讀。
-- 未由截圖提供的欄位，直接用瀏覽器開啟指定 Investing.com 商品 Historical Data 頁，讀取實際歷史表格及目標交易日列。不得以搜尋摘要、第三方 API、Yahoo 或其他來源替代指定的 Investing.com 首選；不得繞過 Cloudflare。
+- 未由截圖提供的欄位，直接用瀏覽器開啟指定 Investing.com 商品 Historical Data 頁，讀取實際歷史表格及目標交易日列。不得以搜尋摘要、第三方 API、Yahoo 或其他來源替代指定的 Investing.com 首選；不得繞過 Cloudflare。唯一例外為 MOVE：Investing.com 頁面不可讀或目標日期列不存在時，依 SOURCE_POLICY 與 Stage 2 WR 使用核准的 TradingView ICE:MOVE 備援；必須保留 TradingView 來源身分與當次證據，且僅限 risk.move，不適用其他 43 項。
 - 同一批最多 4 個不同歷史頁面並行（concurrency=4）；每頁獨立核對標的、日期、欄位、收盤口徑及 Observation。不得藉提高並行數規避網站限制。
 - 已核實值立即鎖定；下游 Stage 3–6 唯讀。不得重抓已鎖定項目。
 - Stage 2 每輪先 blank-first 清除 Fixture 中所有舊行情值、舊 Observation、舊截圖證據及舊時間戳，再以當輪有效截圖／Observation 回填。不得沿用前輪 fixture 報價。
