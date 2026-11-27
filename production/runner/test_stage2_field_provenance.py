@@ -167,6 +167,48 @@ def main():
     assert move_result["observation_record_sha256"] is None
     assert move_result["source_page_fetched"] is False
 
+    # A separately evidenced, exact TradingView ICE:MOVE observation is accepted
+    # as BACKUP_VERIFIED only for MOVE; the primary Investing.com URL remains pinned.
+    tv_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
+    move_source_for_backup = copy.deepcopy(move_source)
+    move_source_for_backup["approved_backup_urls"] = [tv_url]
+    move_backup_observation = {
+        "status": "VERIFIED",
+        "source_url": tv_url,
+        "evidence_source_url": tv_url,
+        "source_role": "BACKUP_1",
+        "source_type": "TRADINGVIEW_HISTORICAL_PAGE",
+        "target_date": move_source["data_date"],
+        "observed_date": move_source["data_date"],
+        "instrument_identity": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
+        "instrument_identity_status": "VERIFIED",
+        "field_mapping_status": "VERIFIED",
+        "observed_value": move_source["close_value"],
+        "observed_change": move_source["daily_change_percent"],
+        "observed_value_field": "Price",
+        "observed_change_field": "Change %",
+        "display_value_match": True,
+        "display_change_match": True,
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "source_page_fetched": True,
+        "finished_at_utc": "2026-11-23T14:00:00Z",
+        "finished_at_tw": "2026-11-23T22:00:00+08:00",
+        "field_evidence": {
+            "close": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url},
+            "change": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url},
+        },
+    }
+    move_backup_result = verification_fields(
+        move_source_for_backup, data["risk"]["move"]["display"],
+        data["risk"]["move"]["change_display"], move_backup_observation, "risk", "move"
+    )
+    assert move_backup_result["verification_status"] == "BACKUP_VERIFIED"
+    assert move_backup_result["market_data_status"] == "BACKUP_VERIFIED"
+    assert move_backup_result["browser_observation_record"]["source_role"] == "BACKUP_1"
+    assert move_backup_result["browser_observation_record"]["evidence_source_url"] == tv_url
+
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: MOVE Investing.com read failure remains pending until a cited, date-matched TradingView backup is supplied")
     print("PASS: mixed screenshot/history-page fields retain independent provenance")
