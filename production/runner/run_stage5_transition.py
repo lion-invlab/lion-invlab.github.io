@@ -46,6 +46,18 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
     ctx_sha=sha(run_dir/"run-context.json")
     if att.get("run_context_sha256")!=ctx_sha:
         raise ValueError("governance transition run-context SHA mismatch")
+    for att_key, file_name in (
+        ("stage1_receipt_sha256","stage1-receipt.json"),
+        ("stage1_fixture_sha256","stage1-fixture.json"),
+        ("stage2_receipt_sha256","stage2-market-snapshot-receipt.json"),
+        ("stage2_summary_sha256","stage2-run-summary.json"),
+        ("stage3_receipt_sha256","stage3-calendar-receipt.json"),
+        ("stage4_bundle_receipt_sha256","stage4-research-bundle-receipt.json"),
+        ("market_manifest_sha256","market-source-verification-manifest.json"),
+        ("market_observations_sha256","market-history-browser-observations.json"),
+    ):
+        if att.get(att_key)!=sha(run_dir/file_name):
+            raise ValueError("governance transition artifact SHA mismatch: "+file_name)
     stage1=json.loads((run_dir/"stage1-receipt.json").read_text(encoding="utf-8"))
     stage2=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
     stage2_summary=json.loads((run_dir/"stage2-run-summary.json").read_text(encoding="utf-8"))
