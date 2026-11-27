@@ -17,7 +17,7 @@ MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/con
 2. 週一選 Monday template，讀取本週及上週 ISO-week JSON；週二至週五選 Weekday template，只讀本週 JSON。
 3. 記錄 main 起始 commit、MASTER WR／六份 Stage WR／全部共用 contracts／Manifest／母版／QA blob SHA，另固定 Builder approval record、Builder、Stage Runner／依賴模組、PORT_MANIFEST 與 tac-production.yml 的 blob SHA，以及週 JSON 路徑與 SHA。以 governance.blob_shas 固定清單保存；所有版本均固定於同一個起始 main commit，不得混用執行途中更新的 HEAD。
 4. 驗證模板 SHA 與 Manifest 完全一致、週別情境正確、JSON 可解析、schema/日期合理。不得 fallback 到 main 舊母版、首頁、歷史報告或前次 preview。
-5. 建立唯一 Run ID 與 run-context；記錄保護範圍及當次輸出路徑。Run context 必須包含後續 Stage 可直接使用的固定 report_date、trading_date、mother key/path/blob SHA、Manifest SHA、calendar commit、週 JSON SHA 及 governance blob SHA 清單。
+5. 建立唯一 Run ID 與 run-context；記錄保護範圍及當次輸出路徑。Run context 必須包含固定 report_date、共用日期錨點 trading_date、report cutoff、mother key/path/blob SHA、Manifest SHA、calendar commit、週 JSON SHA 及 governance blob SHA 清單。trading_date 只供 Run／行事曆日期錨定，不代表 44 項商品必須採用同一個市場 data_date；Stage 1 Fixture 的 data_date 是空白建置用暫定值，Stage 2 必須逐項替換為實際 target_date。
 
 ## 輸出
 run-context.json、Stage 1 fixture、report-data、基準 SHA 清單、calendar read receipt、Stage 1 receipt（含 run-context SHA 與 governance file count），並在 Stage 2 啟動前提交遠端。
