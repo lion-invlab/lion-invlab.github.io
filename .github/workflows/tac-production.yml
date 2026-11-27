@@ -5,6 +5,8 @@ on:
     # Stage 1 starts 15 minutes before the Stage 2 worker: 03:45 Taiwan summer / 04:45 winter.
     - cron: "45 19 * * 1-5"
     - cron: "45 20 * * 1-5"
+    # Temporary one-time recovery trigger for the missed 2026-11-28 production window; remove after it fires.
+    - cron: "55 22 27 11 *"
   push:
     branches: [main, "refactor/**"]
     paths:
@@ -215,7 +217,8 @@ jobs:
           ny = now.astimezone(ZoneInfo("America/New_York"))
           expected_cron = "45 19 * * 1-5" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 1-5"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
-          should_run = actual_cron == expected_cron
+          one_off_recovery_cron = "55 22 27 11 *"
+          should_run = actual_cron == expected_cron or actual_cron == one_off_recovery_cron
           print(f"should_run={'true' if should_run else 'false'}")
           print(f"actual_cron={actual_cron}")
           print(f"expected_cron={expected_cron}")
@@ -258,12 +261,23 @@ jobs:
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
-          DISPATCH_MODE: ${{ inputs.mode }}
+          DISPATCH_MODE: ${{ inputs.mode || (github.event_name == 'schedule' && github.event.schedule == '55 22 27 11 *' && 'recover') || '' }}
+          SCHEDULE_RECOVER: ${{ github.event_name == 'schedule' && github.event.schedule == '55 22 27 11 *' }}
         run: |
           set -euo pipefail
-          if [ "$DISPATCH_MODE" = "recover" ] || [ "$DISPATCH_MODE" = "rerun" ]; then
+          if [ "$DISPATCH_MODE" = "rerun" ] || { [ "$DISPATCH_MODE" = "recover" ] && [ -n "${REQUESTED_REPORT_DATE:-}" ]; }; then
             [ -n "${REQUESTED_REPORT_DATE:-}" ] || { echo "::error::Manual recovery/rerun requires an explicit Taiwan report_date (YYYY-MM-DD)."; exit 1; }
             REPORT_DATE="$REQUESTED_REPORT_DATE"
+          elif [ "$DISPATCH_MODE" = "recover" ] && [ "${SCHEDULE_RECOVER:-false}" = "true" ]; then
+            REPORT_DATE="$(TZ=Asia/Taipei python - <<'PY'
+          from datetime import date, timedelta
+          today=date.today()
+          if today.weekday()==5:
+              print((today+timedelta(days=2)).isoformat())
+          else:
+              raise SystemExit("One-off recovery trigger is valid only on Taiwan Saturday.")
+          PY
+          )"
           elif [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
             REPORT_DATE="$REQUESTED_REPORT_DATE"
           else
@@ -294,15 +308,16 @@ jobs:
               context=json.loads(context_path.read_text(encoding="utf-8"))
               if context.get("report_date") == target:
                   matches.append(context_path.parent)
+          matches.sort(key=lambda p: json.loads((p/"run-context.json").read_text(encoding="utf-8")).get("started_at",""))
           supersedes=""
           if matches:
               mode=os.environ.get("DISPATCH_MODE")
               if mode not in ("recover","rerun"):
                   raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
-              if len(matches) != 1:
-                  raise SystemExit(f"Cannot supersede {len(matches)} prior Runs for {target}; manual reconciliation required.")
-              prior=matches[0]
+              prior=matches[-1]
               if mode == "rerun":
+                  if len(matches) != 1:
+                      raise SystemExit(f"Explicit rerun requires exactly one prior Run; found {len(matches)}.")
                   expected={"2026-11-27":"TAC-2026-11-27-45937649928-1"}
                   if expected.get(target) != prior.name:
                       raise SystemExit(f"Explicit rerun is not authorized for this report date/prior Run: {target} / {prior.name}")
