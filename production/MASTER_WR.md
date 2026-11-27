@@ -31,7 +31,10 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 下游 Stage 必須驗證所有直接上游 receipt 的 `wr_preflight` 證據：Stage 2 驗 Stage 1；Stage 3 驗 Stage 2；Stage 4 驗 Stage 2、3；Stage 5 驗 Stage 2–4；Stage 6 驗 Stage 5。路徑、Stage key、Git blob SHA、Stage 1 pinned commit 任一缺漏或不符即拒絕交接。
 
 ## 3. 唯一正式母版規則
-- 週一使用 Monday template；週二至週五使用 Weekday template；週末不自動製作。
+- 正式早報製作日為台灣週二至週六；週一、週日不自動製作。
+- 週二至週五：report_date=製作當日，trading_date=前一個市場交易日，使用 Weekday template。
+- 週六：production_date=週六，report_date=隔週一，trading_date=週五，使用 Monday template；週六早報包含「上週」經濟與財報回顧，並投影報告週及前一週 JSON。
+- 所有 Run、編輯 JSON、Preview 檔名、發布鎖均以 report_date 為唯一日期錨點；production_date 僅作實際製作時間／新聞截點紀錄。
 - 母版 SHA 必須與新 Manifest 一致；不符即停止，不 fallback。
 - Builder 使用真正 DOM parser，只能更新核准槽位；不得以 regex／字串切片改 HTML。
 - 母版 CSS、JS、DOM、互動、響應式、字體、顏色、間距不得由 Builder 注入或重建。
@@ -58,7 +61,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 ## 5. Stage 3 行事曆／財報
 - 唯一資料來源為 `data/calendar/weeks/YYYY-Www.json`；早報嚴格唯讀。
 - 工作日 04:35 行事曆排程為 JSON 唯一 writer；Stage 3 不得修補、merge、upsert 或回寫。
-- Stage 3 以 Stage 1 鎖定的同一 main commit 讀取本週 JSON；只有週一需要上週回顧時，才讀取前一週 JSON。週二至週五不得為了產生空白回顧而讀取前一週資料。
+- Stage 3 以 Stage 1 鎖定的同一 main commit 讀取 report_date 所屬週 JSON；report_date 為週一（週六製作）時另讀前一週 JSON供回顧。週二至週五不得為了產生空白回顧而讀取前一週資料。
 - 財報 EPS 與 Revenue 分開選源：Yahoo Finance Average Estimate 第一順位；缺值／不可讀／期間不符依序 Investing.com、LSEG I/B/E/S、FactSet Estimates。各指標取得第一個可用平均預期後停止該指標搜尋。
 - 已公布事件必須顯示實際值、共識及判讀；財報另呈現 EPS／Revenue 與預期比較及股價反應。資料不足如實標示。
 
@@ -97,7 +100,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 同一 report_date 不可有兩個並行正式 Run。
 - 每個 Stage 完成即保存輸出 SHA 與狀態；失敗只從最後有效 Stage 恢復。
 - 已鎖定行情不重抓；下游只讀快照。無關項目不因單項失敗停工。
-- **早報時間預算（台灣時間，冬令）**：04:45 Stage 1 啟動，05:00 Stage 2 開始正式收盤擷取；05:15 前完成 Stage 2 observation handoff 是目標，05:20 前完成 Stage 1–3 Capture 是目標，05:30 前交付審核版是整體 30 分鐘效率目標。夏令時間整體平移一小時（03:45／04:00／04:15／04:20／04:30）。這些是執行預算與告警節點，不是允許以盤中價、舊值或未核准來源補數的硬性通關條件；逾時時保留已核實資料、對未完成欄位如實標示，並立即繼續可獨立完成的下游工作。
+- **早報時間預算（台灣時間，冬令；週二至週六製作）**：04:45 Stage 1 啟動，05:00 Stage 2 開始正式收盤擷取；05:15 前完成 Stage 2 observation handoff 是目標，05:20 前完成 Stage 1–3 Capture 是目標，05:30 前交付審核版是整體 30 分鐘效率目標。夏令時間整體平移一小時（03:45／04:00／04:15／04:20／04:30）。這些是執行預算與告警節點，不是允許以盤中價、舊值或未核准來源補數的硬性通關條件；逾時時保留已核實資料、對未完成欄位如實標示，並立即繼續可獨立完成的下游工作。
 - Stage 1→Stage 2 handoff 正常預留 15 分鐘；Stage 2 worker 05:00（夏令 04:00）喚醒時，Stage 1 應已完成。僅允許額外 5 分鐘短暫交接容錯；不得等待 70 分鐘。
 - Stage 2 observation handoff 自 worker 喚醒起以 15 分鐘為目標；Main Capture 對 observation 的輪詢上限 15 分鐘。Capture job 總 timeout 35 分鐘，作為故障保護而非正常工作時間。不得讓等待耗盡整份早報時間。
 - Stage 4–6 `build-and-deliver` job timeout 為 30 分鐘，僅作執行故障保護；它不是額外增加的正常製作時間，也不得把整體 05:30 審核版目標延後。
@@ -112,7 +115,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 六階段真實 E2E、兩種母版、44 項逐市場日期行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 增量交接與非阻塞派送、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
 
 ## 13. 手動補救入口（Missed Schedule Recovery）
-- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；Stage 1 排程為台灣夏令 03:45／冬令 04:45（15:45 ET），其職責僅為建立唯一 Run、鎖定版本與發布 handoff，**不得擷取或判定美股正式收盤行情**。Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET），此時美股才正式收盤，Stage 2 自此時點起才可擷取當日美股收盤資料。報告資料截點另固定為美東 16:25，台灣夏令 04:25／冬令 05:25；此為收盤後資料截點，不是 Stage 1 或 Stage 2 排程時間。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
+- 正常主流程仍只由 `.github/workflows/tac-production.yml` 的 schedule 啟動 Stage 1 → Stage 2 → Stage 3；台灣週二至週六製作（對應 New York 週一至週五），週一與週日不啟動；Stage 1 排程為台灣週二至週六夏令 03:45／冬令 04:45（15:45 ET，New York 週一至週五），其職責僅為建立唯一 Run、鎖定版本與發布 handoff，**不得擷取或判定美股正式收盤行情**。Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET），此時美股才正式收盤，Stage 2 自此時點起才可擷取當日美股收盤資料。報告資料截點另固定為美東 16:25，台灣夏令 04:25／冬令 05:25；週六製作隔週一報告時，該截點對應週五美東 16:25／台灣週六 04:25（夏令）或 05:25（冬令）。此為收盤後資料截點，不是 Stage 1 或 Stage 2 排程時間。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
 - 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
 - `recover` 必須從 Stage 1 建立全新 blank-first Run，依序執行 Stage 2（44 項、截圖優先、四頁並行）及 Stage 3；保留同一 Run 的 Chart 3 增量、所有 receipts 與 research bundle。不得使用 fixture、前日行情或過期截圖。
 - 啟動前檢查同一 report_date 是否已有 Run。一般 `recover` 僅允許替代未交付 Run；已有 Stage 5／6 或 Preview 時 fail-closed。
@@ -123,3 +126,15 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 1–3 完成後，由 Main ChatGPT continuation worker 接手同一 Run 的 Stage 4–6。手動補救後可立即執行 continuation 的 `run_now`；worker 必須驗證 recover receipt 與全部 Run/SHA 綁定，不得重新執行 Stage 1–3。
 - 手動補救僅交付 Main Preview；不自動更新 `index.html`、不封存正式歷史、不修改 Simulation。正式首頁仍需使用者另行核准。
 - 一次 BLOCKED 不得自動停用 continuation automation；排程喚醒應維持啟用，確保下一個工作日正常接續。
+
+
+## 14. 2026-11-27 使用者核准的正式製作週期變更
+- 生效規則：每週二至週六製作早報；週一與週日不執行正式製作。
+- 週二製作：週一市場行情，report_date 週二，Weekday template。
+- 週三製作：週二市場行情，report_date 週三，Weekday template。
+- 週四製作：週三市場行情，report_date 週四，Weekday template。
+- 週五製作：週四市場行情，report_date 週五，Weekday template。
+- 週六製作：週五市場行情，report_date 為隔週一，Monday template；母版內上週經濟／財報區塊保留，行事曆投影需讀報告週與前一週。
+- 週六新聞窗口：起點為週五 12:00 台灣時間；截止點是 Stage 4 research bundle 建立當下實際時間（Asia/Taipei），不可沿用舊週一時間或固定週六時間。週六／週日如發生重大新聞，只有經人工明確決定後才可置換；不得自動修改已交付 Preview。
+- production_date 與 report_date 必須分開保存。週六 production_date 是週六，report_date 是隔週一；Stage 1 Run ID、所有日期化檔案與正式發布鎖均以 report_date 命名。
+- Stage 2 target date 與每個商品的實際 market data_date 仍依市場交易日曆核對；本規則只定義共用交易日錨點，不可用它覆蓋各商品個別日期。
