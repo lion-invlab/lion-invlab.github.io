@@ -166,7 +166,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                     or not closure["url"] or not closure["reader_ref"]
                     or not isinstance(closure["line_start"],int)
                     or not isinstance(closure["line_end"],int)
-                    or closure["target_date"] != context["trading_date"]
+                    or closure["target_date"] != row["data_date"]
                     or closure["provenance"] != "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
                     or not isinstance(receipt_closure,dict)
                     or receipt_closure.get("url") != closure["url"]
