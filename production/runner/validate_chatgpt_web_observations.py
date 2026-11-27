@@ -323,21 +323,27 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             if group == "risk" and name == "fear_greed" and not tool_read_failure:
                 if source.get("source_role") not in ("BACKUP_1", "BACKUP", "SECONDARY"):
                     raise ValueError("CNN Fear & Greed web-page fallback is allowed only when fixture pins an explicit backup source")
-                if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
-                    raise ValueError("Fear & Greed backup page was not read successfully")
-                from datetime import date as _date
-                _d = _date.fromisoformat(target_date)
-                date_markers = (
-                    target_date,
-                    _d.strftime("%b %d, %Y"),
-                    _d.strftime("%B %d, %Y"),
-                    f"{_d.year}年{_d.month}月{_d.day}日",
-                    f"{_d.year}/{_d.month}/{_d.day}",
-                )
-                if not any(marker in row_text for marker in date_markers):
-                    raise ValueError("Fear & Greed backup row does not contain the target date")
                 if value_field != "Score" or change_field != "Band":
                     raise ValueError("Fear & Greed backup must map Score and Band columns")
+                if raw.get("read_status") == "PAGE_CONTENT_READ_SUCCESS":
+                    from datetime import date as _date
+                    _d = _date.fromisoformat(target_date)
+                    date_markers = (
+                        target_date,
+                        _d.strftime("%b %d, %Y"),
+                        _d.strftime("%B %d, %Y"),
+                        f"{_d.year}年{_d.month}月{_d.day}日",
+                        f"{_d.year}/{_d.month}/{_d.day}",
+                    )
+                    if not any(marker in row_text for marker in date_markers):
+                        raise ValueError("Fear & Greed backup row does not contain the target date")
+                elif raw.get("read_status") == "SOURCE_NO_DATA":
+                    if raw.get("observed_value") is not None or raw.get("observed_change") is not None:
+                        raise ValueError("Fear & Greed SOURCE_NO_DATA cannot carry an undated score or band")
+                    if not row_text.strip():
+                        raise ValueError("Fear & Greed SOURCE_NO_DATA requires an explanation of the missing dated reading")
+                else:
+                    raise ValueError("Fear & Greed backup must be a dated historical row or explicit SOURCE_NO_DATA")
             elif raw.get("read_status") == "PAGE_CONTENT_READ_SUCCESS":
                 from datetime import date as _date
                 _d = _date.fromisoformat(target_date)
