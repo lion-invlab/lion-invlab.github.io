@@ -639,8 +639,8 @@ jobs:
           handoff=capture.get("chart3_handoff") or {}
           status=handoff.get("status")
           ledger=Path("data/tac-chart3/sp500_daily_increment.jsonl")
-          if status not in ("APPENDED","NOOP_IDENTICAL_OBSERVATION") or not ledger.is_file() or not ledger.stat().st_size:
-              print(json.dumps({"status":"NOOP","reason":"No pending verified S&P 500 increment","handoff_status":status}))
+          if not ledger.is_file() or not ledger.stat().st_size:
+              print(json.dumps({"status":"NOOP","reason":"Chart 3 increment ledger is empty","handoff_status":status}))
               raise SystemExit(0)
           repo="lion-invlab/lion-invlab.github.io"
           old=json.loads(subprocess.check_output(["gh","api",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30"],text=True))
