@@ -131,5 +131,22 @@ class BuilderOutputGuardTests(unittest.TestCase):
             builder.resolve_allowed_output_path("2026-11-23", "preview/2026-11-23-review.html")
 
 
+    def test_missing_fedwatch_snapshot_discloses_full_distribution_unavailable(self):
+        markup = """
+        <div id="fed">
+          <div class="fc-prob"><div class="fc-prob-label"><span class="fc-dot"></span><span>Hold</span></div><strong>93.4%</strong><div class="fc-range">old</div></div>
+          <div class="fc-prob"><div class="fc-prob-label"><span class="fc-dot"></span><span>Hike</span></div><strong>6.6%</strong><div class="fc-range">old</div></div>
+          <div class="fc-split-bar"><span></span><span></span></div>
+          <div class="fc-split-legend"><span><i></i> Hold <b>93.4%</b></span><span><i></i> Hike <b>6.6%</b></span></div>
+        </div>
+        """
+        soup = BeautifulSoup(markup, "html.parser")
+        fed = soup.select_one("#fed")
+        disclosure = builder.populate_fedwatch_two_slots(fed, {"fedwatch": {"probabilities": []}})
+        self.assertIn("完整分布", disclosure)
+        self.assertIn("未取得可驗證機率資料", disclosure)
+        self.assertTrue(fed.select_one(".fc-split-bar").has_attr("hidden"))
+        self.assertEqual([x.get_text(strip=True) for x in fed.select(".fc-prob strong")], ["待核實", "待核實"])
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

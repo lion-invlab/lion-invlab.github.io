@@ -12,6 +12,8 @@ ALLOWED_CHANGED_PATHS=sorted([
  "production/runner/build_stage2_receipt.py",
  "production/runner/build_market_source_verification_manifest.py",
  "production/runner/validate_prebuild_stage_inputs.py",
+ "production/runner/build_review_html.py",
+ "production/config/builder-approval.json",
  ".github/workflows/tac-production.yml",
 ])
 
@@ -77,8 +79,10 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
     if stage4.get("market_snapshot_sha256_before")!=stage2_summary.get("market_snapshot_sha256") or stage4.get("market_snapshot_sha256_after")!=stage2_summary.get("market_snapshot_sha256"):
         raise ValueError("Stage 4 must preserve the frozen Stage 2 market snapshot")
     approval=require_approved_builder(root)
-    if approval.get("builder_blob_sha")!=pinned.get("production/runner/build_review_html.py") or actual.get("production/runner/build_review_html.py")!=approval.get("builder_blob_sha"):
-        raise ValueError("approved Builder exact blob changed during governance transition")
+    if att.get("builder_blob_sha")!=approval.get("builder_blob_sha") or actual.get("production/runner/build_review_html.py")!=approval.get("builder_blob_sha"):
+        raise ValueError("approved Builder exact blob does not match the transition attestation")
+    if att.get("builder_approval_blob_sha")!=actual.get("production/config/builder-approval.json"):
+        raise ValueError("Builder approval record blob SHA mismatch")
     mother=(context.get("mother") or {})
     mother_blob=subprocess.check_output(["git","rev-parse",f"HEAD:{mother.get('path')}"],cwd=root,text=True).strip()
     if mother_blob!=mother.get("blob_sha") or actual.get("production/config/mother-template-manifest.json")!=pinned.get("production/config/mother-template-manifest.json"):

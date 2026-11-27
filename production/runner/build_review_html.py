@@ -115,7 +115,7 @@ def populate_fedwatch_two_slots(fed, data):
         return message
 
     if not outcomes:
-        return pending("未取得 05:25 前可用快照")
+        return pending("未取得 05:25 前可用快照；完整分布：本次未取得可驗證機率資料，故不列示各利率區間比例。")
     if len(outcomes) != 2:
         detail = "；".join(
             f'{item.get("outcome", "unknown")} {item.get("rate_range", "區間待核實")} {float(item.get("probability", 0)):.1f}%'

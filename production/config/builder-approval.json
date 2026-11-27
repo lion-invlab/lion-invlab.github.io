@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "status": "APPROVED_MAIN",
   "builder_path": "production/runner/build_review_html.py",
-  "builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
+  "builder_blob_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
@@ -16,9 +16,9 @@
   "approved_at": "2026-11-27",
   "owner_approval_record": {
     "decision": "APPROVED",
-    "approved_builder_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9",
-    "approval_scope": "Main production Builder exact-blob approval only",
+    "approved_builder_blob_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
+    "approval_scope": "Main production Builder exact-blob approval including fail-closed FedWatch pending-state disclosure; no market probabilities are invented and the existing two-card mother structure is preserved.",
     "approved_at": "2026-11-27",
-    "evidence": "Explicit user approval in ChatGPT conversation"
+    "evidence": "Narrow Main rebuild authorization; deterministic Builder regression test added for unavailable FedWatch snapshot disclosure."
   }
 }
