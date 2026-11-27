@@ -199,6 +199,14 @@ def main():
             "close": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url},
             "change": {"source_type": "TRADINGVIEW_HISTORICAL_PAGE", "source_url": tv_url},
         },
+        "primary_attempt": {
+            "source_url": move_source["url"],
+            "target_date": move_source["data_date"],
+            "read_status": "TOOL_READ_FAILURE",
+            "web_reader_ref": "INVESTING_MOVE_PRIMARY_FAILURE_TEST",
+            "web_line_start": 20,
+            "web_line_end": 25,
+        },
     }
     move_backup_result = verification_fields(
         move_source_for_backup, data["risk"]["move"]["display"],
@@ -219,6 +227,7 @@ def main():
     assert move_manifest_row["evidence_source_url"] == tv_url
     assert move_manifest_row["evidence_source_name"] == "TradingView ICE:MOVE"
     assert move_manifest_row["evidence_source_role"] == "BACKUP_1"
+    assert move_manifest_row["browser_observation_record"]["primary_attempt"]["source_url"] == move_source["url"]
 
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: MOVE Investing.com read failure remains pending until a cited, date-matched TradingView backup is supplied")
