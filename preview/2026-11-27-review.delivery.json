@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "PAGES_DEPLOY_PENDING",
+  "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
   "report_date": "2026-11-27",
   "run_id": "TAC-2026-11-27-45937649928-1",
   "source": {
@@ -21,8 +21,8 @@
     "git_blob_sha": "efa7fde68616e6708d084d6ab35c621f4fc92cbb"
   },
   "qa": {
-    "sha256": "1c29c36f541699294e5e4ad0eb98ea9c704d00a46398f39fcd520894a1c06bc7",
-    "source_qa_sha256": "c568cad1ad86fbe710e98e1270887206412f89ddfdaacfca416d97e51a06bea6"
+    "sha256": "a6943817e0db8466eedbd6f7b315ac442e96176d95fcf171c1630682580aea0d",
+    "remote_git_blob_sha": "d76e292d71ed4aba8396b5015f99504351746238"
   },
   "builder_sha": "150078dd25796328da5e2eb70bf3845b6367a4f4",
   "prebuild_receipt_sha256": "2f412fa93ea05dc4c243ef4f3868818e2292571f330d1928cf4126226bbbb02d",
@@ -38,9 +38,13 @@
   ],
   "formal_homepage_modified": false,
   "history_archive_modified": false,
-  "payload_commit_sha": "PENDING",
-  "pages_deployment_commit_sha": "PENDING",
-  "pages_workflow_run_id": null,
-  "pages_workflow_conclusion": null,
-  "public_url_verified": false
+  "payload_commit_sha": "6295af20a33d2f747a3c96bc1a6321496891b315",
+  "pages_deployment_commit_sha": "6295af20a33d2f747a3c96bc1a6321496891b315",
+  "pages_workflow_run_id": 45944498723,
+  "pages_workflow_conclusion": "success",
+  "public_url_verified": true,
+  "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
+  "public_http_status": 200,
+  "public_html_sha256": "777f45ef5511faa4f125da5d3cbcadc0254512a118cb90ad79cc1f8b6071e051",
+  "finalized_at_utc": "2026-11-27T05:14:10.195000+00:00"
 }
