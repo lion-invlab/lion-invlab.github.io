@@ -221,7 +221,10 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                         require(evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT",
                                 f"screenshot-only required field has non-screenshot provenance: {row.get('name')}/{field}")
                     else:
-                        require(evidence.get("source_type") in ("USER_PROVIDED_SCREENSHOT", "INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"),
+                        allowed_types = {"USER_PROVIDED_SCREENSHOT", "INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"}
+                        if row.get("group") == "risk" and row.get("name") == "move":
+                            allowed_types.add("TRADINGVIEW_HISTORICAL_PAGE")
+                        require(evidence.get("source_type") in allowed_types,
                                 f"mixed field has unknown source provenance: {row.get('name')}/{field}")
                 for evidence in evidence_fields.values():
                     if evidence.get("source_type") == "USER_PROVIDED_SCREENSHOT":
@@ -321,6 +324,24 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
             require(value_key in evidence and change_key in evidence,
                     f"verified observation missing field-level provenance: {key}")
             types = {item.get("source_type") for item in evidence.values() if isinstance(item, dict)}
+            if "TRADINGVIEW_HISTORICAL_PAGE" in types:
+                tv_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
+                primary = row.get("primary_attempt") or {}
+                require(key == ("risk", "move"),
+                        f"TradingView source is restricted to risk/move: {key}")
+                require(row.get("source_role") == "BACKUP_1"
+                        and (row.get("source_url") == tv_url or row.get("evidence_source_url") == tv_url)
+                        and all(item.get("source_url") == tv_url for item in evidence.values()
+                                if item.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE"),
+                        "MOVE TradingView evidence URL or backup role is invalid")
+                require(primary.get("source_url", "").startswith("https://")
+                        and "investing.com/" in primary.get("source_url", "")
+                        and primary.get("target_date") == row.get("target_date")
+                        and primary.get("read_status") in ("TOOL_READ_FAILURE", "SOURCE_NO_DATA")
+                        and bool(primary.get("web_reader_ref"))
+                        and isinstance(primary.get("web_line_start"), int)
+                        and isinstance(primary.get("web_line_end"), int),
+                        "MOVE TradingView observation lacks same-date Investing.com primary-failure evidence")
             if row.get("read_method") == "USER_PROVIDED_SCREENSHOT":
                 require(row.get("source_page_fetched") is False,
                         f"screenshot-only observation falsely claims a page read: {key}")
@@ -333,7 +354,10 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
                 mixed += 1
                 require("USER_PROVIDED_SCREENSHOT" in types,
                         f"mixed observation missing screenshot field provenance: {key}")
-                require(bool(types & {"INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"}),
+                allowed_page_types = {"INVESTING_HISTORICAL_PAGE", "CNN_OFFICIAL_API"}
+                if key == ("risk", "move"):
+                    allowed_page_types.add("TRADINGVIEW_HISTORICAL_PAGE")
+                require(bool(types & allowed_page_types),
                         f"mixed observation missing page/official-source field provenance: {key}")
             else:
                 require(row.get("source_page_fetched") is True,
