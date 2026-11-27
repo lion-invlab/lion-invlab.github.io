@@ -586,7 +586,7 @@ jobs:
       - name: Stage 5 — build exact mother and run full QA
         run: |
           set -euo pipefail
-          python production/runner/run_stage5_transition.py --run-dir "$RUN_DIR"
+          python production/runner/run_stage5.py --run-dir "$RUN_DIR"
           test -s "$RUN_DIR/stage5-render-qa-receipt.json"
       - name: Stage 6 — deliver three preview files and verify Pages
         env:
