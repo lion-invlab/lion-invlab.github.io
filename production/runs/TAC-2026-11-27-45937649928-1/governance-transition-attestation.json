@@ -133,7 +133,7 @@
     "production/runner/stage2_market_fixture_bootstrap.py",
     "production/runner/validate_prebuild_stage_inputs.py"
   ],
-  "transition_runner_blob_sha": "99fbe025e26779a075f3bdc9765000a9ebae9fe8",
+  "transition_runner_blob_sha": "f877ec8c3d4e190e3dc50d46a5f24131cb58f01d",
   "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
   "stage1_receipt_sha256": "a3a540239ed50fd4e75dae2b0b6b886f563d21ec430534e4b66fa40caa3871c2",
   "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
