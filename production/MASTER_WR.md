@@ -2,7 +2,8 @@
 
 版本：1.2（2026-11-27）
 正式分支：main
-規則來源：SIM-1.4 技術規範（來源 branch `simulation/tac-process-lab-2026-11-06`，來源 WR SHA `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`）
+規則來源：SIM-1.4 技術規範（正式生效版；來源 branch `simulation/tac-process-lab-2026-11-06`，來源 WR SHA `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`）
+正式生效標示：SIM-1.4（正式生效版）｜ACTIVE／正式生效
 main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件的執行附件。Simulation 原始檔只讀，不作執行依賴。
 
 ## 1. 核心裁決

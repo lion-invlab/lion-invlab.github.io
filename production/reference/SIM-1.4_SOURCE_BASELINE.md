@@ -1,6 +1,6 @@
-# TAC 投資早報｜統一模擬工作規範 SIM-1.4（正式生效版）
+# TAC 投資早報｜SIM-1.4 SOURCE BASELINE（SUPERSEDED IN MAIN）
 
-> **狀態：ACTIVE／正式生效。生效日期：2026-11-22。** 本文件為 TAC 投資早報 simulation branch 唯一有效工作規範。SIM-1.3 已封存為歷史版，不再與本版並列有效。SIM-1.4 生效不代表 Builder 已獲核准、審核版已 REVIEW_READY 或正式首頁已獲發布授權。本版允許 Stage 6 在所有 REVIEW_READY Gate 通過後，將審核版 HTML、QA sidecar 及 delivery receipt 寫入 main/preview 白名單；仍嚴格禁止修改 main/index.html、正式母版、正式 Manifest、正式行事曆 JSON 及其他 main 路徑。
+> **狀態：SUPERSEDED（Main 專案參考副本）；不得作為執行規則。** Main 唯一正式生產規範為 `production/MASTER_WR.md`，其技術來源為 SIM-1.4。此副本保留來源原文及歷史脈絡；Simulation 分支仍保有其原始 SIM-1.4 正式規範，不受本 Main 副本標示影響。本版允許 Stage 6 在所有 REVIEW_READY Gate 通過後，將審核版 HTML、QA sidecar 及 delivery receipt 寫入 main/preview 白名單；仍嚴格禁止修改 main/index.html、正式母版、正式 Manifest、正式行事曆 JSON 及其他 main 路徑。
 
 - 專案：TAC 投資早報
 - Repository：`lion-invlab/lion-invlab.github.io`
