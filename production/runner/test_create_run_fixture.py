@@ -54,6 +54,10 @@ class RunFixtureFactoryTests(unittest.TestCase):
             working.write_text(json.dumps(working_data),encoding="utf-8")
             self.assertEqual(hashlib.sha256(stage1.read_bytes()).hexdigest(),receipt["fixture_sha256"])
 
+    def test_records_explicit_superseded_run_without_mutating_it(self):
+        result=build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26),supersedes_run_id="TAC-2026-11-27-old-1")
+        self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
+
     def test_defaults_to_previous_calendar_day_for_thursday_market_holiday(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-test-default")
         self.assertEqual(result["run_context"]["trading_date"],"2026-11-26")
