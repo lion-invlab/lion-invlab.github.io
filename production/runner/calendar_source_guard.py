@@ -121,7 +121,7 @@ def load_authoritative_calendar(report_date: str, expected_commit: str | None = 
         )
         main_commit = run_git("rev-parse", MAIN_REF)
     current = _load_week(main_commit, report_day)
-    previous = _load_week(main_commit, report_day - timedelta(days=7))
+    previous = _load_week(main_commit, report_day - timedelta(days=7)) if report_day.weekday()==0 else None
     return {"main_commit_sha": main_commit, "current": current, "previous": previous}
 
 
@@ -274,7 +274,8 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
 
 def project_calendar_data(bundle: dict) -> dict:
     current = bundle["current"]["payload"]
-    previous = bundle["previous"]["payload"]
+    previous_item = bundle.get("previous")
+    previous = previous_item["payload"] if previous_item else None
     return {
         "calendar": {
             "week_id": current["week_id"],
@@ -288,18 +289,18 @@ def project_calendar_data(bundle: dict) -> dict:
             "week_end": current["week_end"],
             "events": _earnings_records(current),
         },
-        "last_week_calendar": {
+        "last_week_calendar": ({
             "week_id": previous["week_id"],
             "week_start": previous["week_start"],
             "week_end": previous["week_end"],
             "events": _economic_records(previous),
-        },
-        "last_week_earnings": {
+        } if previous else {"week_id": None, "week_start": None, "week_end": None, "events": []}),
+        "last_week_earnings": ({
             "week_id": previous["week_id"],
             "week_start": previous["week_start"],
             "week_end": previous["week_end"],
             "events": _earnings_records(previous),
-        },
+        } if previous else {"week_id": None, "week_start": None, "week_end": None, "events": []}),
     }
 
 
