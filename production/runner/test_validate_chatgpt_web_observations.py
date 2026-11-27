@@ -183,7 +183,7 @@ def main():
     move_source = screenshot_fixture["risk"]["move"]["source"]
     assert move_source["close_value"] == "97.54"
     assert move_source["daily_change_percent"] == "-1.32"
-    assert move_source["open"] == "99.32" and move_source["high"] == "102.73" and move_source["low"] == "97.40"
+    assert move_source.get("open") == "99.32" and move_source.get("high") == "102.73" and move_source.get("low") == "97.40", {key: move_source.get(key) for key in ("open","high","low","screenshot_fields_applied")}
     assert "source_role" not in move_source
     screenshot_bundle = make_bundle(screenshot_fixture)
     screenshot_row = next(x for x in screenshot_bundle["observations"] if x["group"]=="risk" and x["name"]=="move")
