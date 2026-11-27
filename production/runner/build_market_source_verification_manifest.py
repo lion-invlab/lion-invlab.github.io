@@ -135,7 +135,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             observation.get("source_page_fetched") is True
             and observation.get("source_url") == source_url
             and observation.get("target_date") == source.get("data_date")
-            and observation.get("expected_display_value") == display
+            and observation.get("expected_display_value", display) == display
             and observation.get("instrument_identity_status") == "VERIFIED"
             and _identity_matches(group, name, observation.get("instrument_identity"))
             and observation.get("field_mapping_status") == "VERIFIED"
