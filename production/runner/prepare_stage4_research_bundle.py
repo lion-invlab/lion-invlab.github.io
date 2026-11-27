@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, json
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT=Path(__file__).resolve().parents[2]
 MARKET_GROUPS=("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")
