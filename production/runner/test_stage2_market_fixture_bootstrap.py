@@ -232,7 +232,7 @@ class BootstrapTests(unittest.TestCase):
                     "closure_evidence_reader_ref":"turn1view0","closure_evidence_line_start":10,
                     "closure_evidence_line_end":12})
         result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
-        self.assertEqual(result["sectors"]["XLE"],"-")
+        self.assertEqual(result["sectors"]["XLE"],"休市")
         self.assertEqual(result["sector_sources"]["XLE"]["history_close"],"-")
         self.assertEqual(result["sector_sources"]["XLE"]["change_display"],"休市")
         self.assertEqual(result["sector_sources"]["XLE"]["verification_status"],"CLOSED")
