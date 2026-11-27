@@ -27,7 +27,7 @@ def main():
     wr_preflight=stage_wr_preflight("STAGE_3",context)
     stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
-    require_stage_wr_receipt(json.loads(stage2_receipt_path.read_text(encoding="utf-8")),"STAGE_2")
+    require_stage_wr_receipt(json.loads(stage2_receipt_path.read_text(encoding="utf-8")),"STAGE_2",context)
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
