@@ -638,7 +638,7 @@ jobs:
           capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
           handoff=capture.get("chart3_handoff") or {}
           status=handoff.get("status")
-          ledger=Path(handoff.get("ledger_path") or "data/tac-chart3/sp500_daily_increment.jsonl")
+          ledger=Path("data/tac-chart3/sp500_daily_increment.jsonl")
           if status not in ("APPENDED","NOOP_IDENTICAL_OBSERVATION") or not ledger.is_file() or not ledger.stat().st_size:
               print(json.dumps({"status":"NOOP","reason":"No pending verified S&P 500 increment","handoff_status":status}))
               raise SystemExit(0)
