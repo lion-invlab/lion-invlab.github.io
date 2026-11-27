@@ -57,7 +57,7 @@ class Stage4ContentTests(unittest.TestCase):
         x["core_observation"]["details"]="週末市場回顧與本週觀察補充段落。"
         for item in x["focus_news"]+x["headlines"]:
             item["published_at_tw"]="2026-11-27 13:00"
-        bundle={"news_window":{"target_cutoff_taipei":"2026-11-28T05:12:00+08:00"}}
+        bundle={"news_window":{"target_cutoff_taipei":"2026-11-28 05:12"}}
         result=validate_content(x,ctx,self.data,bundle)
         self.assertEqual(result["cutoff"].strftime("%Y-%m-%d %H:%M"),"2026-11-28 05:12")
         x["news_cutoff_taipei"]="2026-11-28 05:15"
