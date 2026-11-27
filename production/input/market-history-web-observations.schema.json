@@ -7,6 +7,7 @@
     "report_date",
     "trading_date",
     "captured_at_utc",
+    "stage2_wr_sha256",
     "observations"
   ],
   "properties": {
@@ -23,6 +24,10 @@
     },
     "captured_at_utc": {
       "type": "string"
+    },
+    "stage2_wr_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     },
     "observations": {
       "type": "array",
