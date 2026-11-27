@@ -10,7 +10,7 @@ from pathlib import Path
 
 from build_market_source_verification_manifest import build_manifest
 from validate_market_snapshot import validate_market_snapshot
-from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_observation_bundle, validate_stage4
+from validate_prebuild_stage_inputs import build_receipt, validate_branch, validate_market_inputs, validate_observation_bundle, validate_stage4, is_official_calendar_url
 from build_review_html import apply_market_source_verification_manifest
 
 FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
@@ -49,6 +49,8 @@ def calendar_item(week_id: str, start: str, end: str, econ: int, earnings: int, 
 
 
 def main() -> None:
+    assert is_official_calendar_url("https://www.sifma.org/resources/general/holiday-schedule/")
+    assert not is_official_calendar_url("https://example.com/holiday-schedule")
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
     report_date = "2026-11-23"
     audit = validate_market_snapshot(data, report_date)

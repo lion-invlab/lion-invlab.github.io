@@ -30,7 +30,7 @@ OFFICIAL_CALENDAR_HOSTS = {
     "nyse.com", "nasdaq.com", "jpx.co.jp", "cao.go.jp", "global.krx.co.kr",
     "twse.com.tw", "sgx.com", "asx.com.au", "sse.com.cn", "szse.cn",
     "hkex.com.hk", "londonstockexchange.com", "deutsche-boerse.com",
-    "euronext.com", "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com",
+    "euronext.com", "stoxx.com", "cmegroup.com", "theice.com", "cboe.com", "ice.com", "sifma.org",
 }
 
 def is_official_calendar_url(value: str) -> bool:
