@@ -2,6 +2,7 @@
 import json, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
+from builder_approval import current_governance_blob_shas
 RUNNER=ROOT/"production/runner"
 
 class Stage3CalendarTests(unittest.TestCase):
@@ -11,7 +12,8 @@ class Stage3CalendarTests(unittest.TestCase):
         (ROOT/"production/runs").mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(prefix="TAC-2026-11-26-stage3-",dir=ROOT/"production/runs") as td:
             run_dir=Path(td)
-            context={"run_id":run_dir.name,"report_date":"2026-11-26","main_commit_sha":commit}
+            context={"run_id":run_dir.name,"report_date":"2026-11-26","main_commit_sha":commit,
+                "governance":{"commit_sha":commit,"blob_shas":current_governance_blob_shas(ROOT,commit)}}
             (run_dir/"run-context.json").write_text(json.dumps(context),encoding="utf-8")
             subprocess.run([sys.executable,str(RUNNER/"run_stage3.py"),"--run-dir",str(run_dir.relative_to(ROOT))],cwd=ROOT,check=True,capture_output=True,text=True)
             receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
