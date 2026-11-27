@@ -352,6 +352,8 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 # MOVE is pinned to its approved Investing.com source. No external
                 # historical-page fallback is permitted; only current-run user
                 # screenshot fields may take precedence through the screenshot path.
+                if raw.get("source_url") != source.get("url"):
+                    raise ValueError("MOVE source_url must remain the pinned Investing.com URL")
                 if raw.get("attempt_url"):
                     raise ValueError("MOVE alternate-source attempt_url is not permitted")
                 if raw.get("evidence_source_url") not in (None, raw.get("source_url")):
