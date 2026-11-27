@@ -6,11 +6,12 @@
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
-    "workflow_run_id": null,
-    "head_sha": null,
-    "result": "GATED_BY_MAIN_VALIDATION_WORKFLOW",
-    "scope": "The exact approved Builder blob is validated by validate-main-production on the merge commit; build-and-deliver must wait for that job to succeed.",
-    "limitation": "Owner approval of the exact Builder SHA is not a substitute for automated validation. No Stage 5–6 build may proceed unless Main validation succeeds."
+    "workflow_run_id": 45955248269,
+    "head_sha": "004dace3b7c6bbfddc56b129d6f57ed97f8e345f",
+    "result": "PASS",
+    "scope": "Main validate-main-production completed successfully for this exact Builder SHA. Passed production-module compilation, browser QA syntax checks, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, full isolated candidate Builder validation, and mother-owned DOM contract verification.",
+    "url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45955248269",
+    "limitation": "This is the Main code-validation result. Same-Run Stage 4–6 production acceptance is separately established by the current build-and-deliver run."
   },
   "approved_by_owner": true,
   "approved_at": "2026-11-27",

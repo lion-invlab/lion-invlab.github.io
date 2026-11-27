@@ -82,7 +82,7 @@
     "production/config/report-data-template.json": "c1b408ae760640c668904cfc8bd63011ad17049f",
     "production/input/report-content.schema.json": "6fbec5f45b0cf9ec03d74edd4450f5cc13643a55",
     "production/input/market-screenshot-observations.schema.json": "1395c05a2c15015658164b2b3567df1d4b0a1661",
-    "production/config/builder-approval.json": "d887d7c5a5f439d92e5c98cab8e6470d17bd8fe4",
+    "production/config/builder-approval.json": "32f3c4ad4c465ef15c6dd23339d7e8e4ed9d0ad7",
     "production/runner/PORT_MANIFEST.json": "f1cfdcc1bf0ffdc0de8ec622832edafb79627052",
     "production/runner/create_run_fixture.py": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
     "production/runner/run_stage2.py": "068a6861c9d4eab489f4f0b50a1bbfc0d04748af",
@@ -169,16 +169,18 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": null,
-    "latest_main_validation_conclusion": "PENDING_NEW_BUILDER_VALIDATION",
-    "latest_main_validation_url": null,
+    "latest_main_validation_run_id": 45955248269,
+    "latest_main_validation_conclusion": "success",
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45955248269",
     "prior_main_validation_run_id": 45944232542,
     "prior_main_validation_conclusion": "success",
     "prior_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45944232542",
     "stage5_qa_hardening": {
-      "status": "INCLUDED_IN_THIS_ATTESTED_SAME_RUN_TRANSITION",
-      "scope": "Existing Stage 5 content QA records and enforces summary/sentiment/five-layer/source/political-scan/transmission/scenario metrics and rejects Simulation/internal-training review labels."
-    }
+      "status": "MAIN_VALIDATION_PASS",
+      "validation_run_id": 45955248269,
+      "scope": "Exact approved Builder and Stage 5 QA modules passed Main validation; same-Run Stage 4–6 execution follows."
+    },
+    "latest_main_validation_head_sha": "004dace3b7c6bbfddc56b129d6f57ed97f8e345f"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
@@ -191,5 +193,5 @@
   "scope": "Twelve enumerated governance files changed from the original Stage 1 snapshot. In addition to the SIFMA full-close evidence, MOVE classification, same-Run recovery and safe Stage 6 replacement, this compatible transition aligns the Stage 5 WR with the exact approved Main Builder and hardens the existing Stage 5 QA path: three distinct summary paragraphs, substantive non-duplicative sentiment, five sourced analysis layers, six-domain political scan, policy-transmission evidence, explicit base/risk/severe scenario coverage and Main-only review labels. No Stage 1–3 market/calendar data, mother template, mother manifest, formal homepage or Simulation branch is changed. The Main Builder sidebar update now replaces only the two existing direct text nodes around the template's <br> element, preserving the approved DOM child structure.",
   "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26 and provided the 2026-11-27 Main execution mandate requiring Stage 5 content QA and Main review output. The exact Builder blob is approved for text-slot-only Main branding correction and scenario evidence calculation; automated validate-main-production remains mandatory before Stage 5–6. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes and protected-path attestations verify. Simulation and main/index.html remain excluded.",
   "builder_blob_sha": "5d555e40285bf4156740e418664f4833d66956ee",
-  "builder_approval_blob_sha": "d887d7c5a5f439d92e5c98cab8e6470d17bd8fe4"
+  "builder_approval_blob_sha": "32f3c4ad4c465ef15c6dd23339d7e8e4ed9d0ad7"
 }
