@@ -1,0 +1,264 @@
+{
+  "schema_version": "1.0",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "status": "REVIEW_READY",
+  "groups": {
+    "data_content": {
+      "status": "PASS",
+      "prebuild_receipt_sha256": "6b60108f389c7fac7c8a9c2f3a54b33426e65dd2313c482e9abc1ece443d3c18",
+      "stage2_receipt_sha256": "f0d60e091fa9b2769fd16cca7d31e6480a399d051717b2e5215e5baf64fe614d",
+      "stage2_summary_sha256": "bd273377842a1fe459ebb82df18f40ddd2475262a6bf7ac8b95dc59e55e3f6c5",
+      "stage3_receipt_sha256": "5ac6f7406415833145131c4e8b347e59645431e56d328ca467f329ade41f1bf8",
+      "stage4_receipt_sha256": "8e4aacf390d6c23a9fb8c2dca2693ca1fc79484fc51f80c500eb85c49e2ae606",
+      "chart3_handoff_status": "SKIPPED_UNVERIFIED",
+      "chart3_handoff_required": false,
+      "unresolved_rows": [],
+      "pending_items": [
+        {
+          "item": "FedWatch／Investing.com Fed Rate Monitor",
+          "status": "NOT_IN_CAPTURE_SNAPSHOT",
+          "reason": "原Run的FedWatch欄位為空；截稿後頁面機率不納入11/27審核版，避免時間穿越。"
+        },
+        {
+          "item": "HPE、ADSK、HPQ本週財報共識比較",
+          "status": "CONSENSUS_NOT_AVAILABLE",
+          "reason": "Stage 3記錄實際EPS與營收，但共識估值未取得，故不推算beat/miss。"
+        },
+        {
+          "item": "美股11/26現貨指數及11檔產業ETF",
+          "status": "CLOSED",
+          "reason": "感恩節休市，沒有當日現貨收盤值。"
+        },
+        {
+          "item": "MOVE",
+          "status": "CLOSED",
+          "reason": "SIFMA確認11/26美國固定收益市場全天休市；不沿用前一日數值。"
+        }
+      ],
+      "editorial_content_status": "PASS",
+      "summary_points_count": 3,
+      "sentiment_char_count": 281,
+      "market_analysis_layer_count": 5,
+      "market_analysis_source_count_by_layer": {
+        "macro": 3,
+        "political": 3,
+        "markets": 3,
+        "policy_industry": 4,
+        "strategy": 5
+      },
+      "political_geopolitical_scan": "PASS",
+      "political_domains_checked": [
+        "us_policy",
+        "us_china",
+        "geopolitics",
+        "trade_sanctions",
+        "major_economies",
+        "energy_resources"
+      ],
+      "political_event_status_classifications": [
+        "announced_not_implemented",
+        "political_statement",
+        "reported_incident_no_confirmed_supply_disruption",
+        "formally_effective",
+        "announced_not_implemented",
+        "reported_incident_no_confirmed_supply_disruption"
+      ],
+      "policy_transmission_completeness": 6,
+      "scenario_analysis_coverage": 3,
+      "scenario_analysis_status": "PASS"
+    },
+    "html_structure": {
+      "status": "PASS",
+      "artifact_validator": "PASS",
+      "mother_dom_contract": "PASS",
+      "main_branding_status": "PASS",
+      "main_review_labels": {
+        ".top-warning": "⚠️ Main 審核版｜正式首頁尚未更新",
+        ".tac-side-foot": "TAC 投資早報 Main 審核版｜正式首頁尚未更新",
+        ".data-sync-warning": "Main 審核版｜報告日期 2026-11-27｜本版依同一 Run 鎖定資料與核准來源製作，並非即時行情畫面。本頁為 Main 專用審核版，正式首頁尚未更新；正式發布須經使用者明確核准。 來源或日期不足的行情依其狀態標示，不得以待補資料冒充已核實。",
+        "footer.footer": "TAC 投資早報｜2026/11/27（五）審核版｜行情資料基準 2026-11-26｜本版依同一 Run 鎖定資料與核准來源製作，並非即時行情畫面；本頁為 Main 專用審核版，正式首頁尚未更新；正式發布須經使用者明確核准。。資訊整理，不構成投資建議。"
+      }
+    },
+    "visual_interaction": {
+      "status": "PASS",
+      "visual_report": "production/runs/TAC-2026-11-27-45937649928-1/visual/visual-regression.json",
+      "interaction_report": "production/runs/TAC-2026-11-27-45937649928-1/interaction-smoke.json",
+      "interaction_summary": {
+        "status": "PASS",
+        "nav_count": 10,
+        "nav_targets": [
+          "#overview",
+          "#sentiment",
+          "#news-scan",
+          "#global-markets",
+          "#industry-bonds-fx-commodities",
+          "#calendar",
+          "#earnings",
+          "#sp500-earnings-health",
+          "#fed",
+          "#view"
+        ],
+        "details_tests": [
+          {
+            "selector": "details.earnings-accordion",
+            "before": false,
+            "after": true,
+            "restored": false,
+            "ancestor_was_open": null
+          },
+          {
+            "selector": "details.econ-event",
+            "before": false,
+            "after": true,
+            "restored": false,
+            "ancestor_was_open": null
+          },
+          {
+            "selector": "details.sector-collapse",
+            "before": false,
+            "after": true,
+            "restored": false,
+            "ancestor_was_open": null
+          }
+        ],
+        "focus_news_links": 5,
+        "headline_links": 10,
+        "investing_links": 110,
+        "cnyes_links": 10,
+        "fear_greed_marker_test": {
+          "displayed_score": 15,
+          "rendered_position_pct": 15,
+          "synthetic_tests": [
+            {
+              "score": 20,
+              "rendered_position_pct": 20
+            },
+            {
+              "score": 40,
+              "rendered_position_pct": 40
+            },
+            {
+              "score": 75,
+              "rendered_position_pct": 75
+            }
+          ]
+        },
+        "fed_official_agenda_layout": [
+          {
+            "viewport_width": 1440,
+            "document_width": 1440,
+            "agenda_left": 263,
+            "agenda_right": 1385,
+            "agenda_width": 1122,
+            "row_width": 1096,
+            "row_client_width": 1096,
+            "row_scroll_width": 1096,
+            "date_right": 370,
+            "date_bottom": 1003.40625,
+            "content_left": 378,
+            "content_top": 967.40625,
+            "content_width": 994,
+            "content_client_width": 994,
+            "content_scroll_width": 994
+          },
+          {
+            "viewport_width": 412,
+            "document_width": 412,
+            "agenda_left": 44,
+            "agenda_right": 368,
+            "agenda_width": 324,
+            "row_width": 298,
+            "row_client_width": 298,
+            "row_scroll_width": 298,
+            "date_right": 355,
+            "date_bottom": 3806.84375,
+            "content_left": 57,
+            "content_top": 3809.84375,
+            "content_width": 298,
+            "content_client_width": 298,
+            "content_scroll_width": 298
+          },
+          {
+            "viewport_width": 390,
+            "document_width": 390,
+            "agenda_left": 44,
+            "agenda_right": 346,
+            "agenda_width": 302,
+            "row_width": 276,
+            "row_client_width": 276,
+            "row_scroll_width": 276,
+            "date_right": 333,
+            "date_bottom": 3877.28125,
+            "content_left": 57,
+            "content_top": 3880.28125,
+            "content_width": 276,
+            "content_client_width": 276,
+            "content_scroll_width": 276
+          },
+          {
+            "viewport_width": 360,
+            "document_width": 360,
+            "agenda_left": 44,
+            "agenda_right": 316,
+            "agenda_width": 272,
+            "row_width": 246,
+            "row_client_width": 246,
+            "row_scroll_width": 246,
+            "date_right": 303,
+            "date_bottom": 3989.4375,
+            "content_left": 57,
+            "content_top": 3992.4375,
+            "content_width": 246,
+            "content_client_width": 246,
+            "content_scroll_width": 246
+          },
+          {
+            "viewport_width": 320,
+            "document_width": 320,
+            "agenda_left": 44,
+            "agenda_right": 276,
+            "agenda_width": 232,
+            "row_width": 206,
+            "row_client_width": 206,
+            "row_scroll_width": 206,
+            "date_right": 263,
+            "date_bottom": 4271.515625,
+            "content_left": 57,
+            "content_top": 4274.515625,
+            "content_width": 206,
+            "content_client_width": 206,
+            "content_scroll_width": 206
+          }
+        ],
+        "page_errors": []
+      }
+    },
+    "run_integration": {
+      "status": "PASS",
+      "same_run_id": true,
+      "html_sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd",
+      "render_manifest_sha256": "fac5782f9b642e5f3bdc8e93781bbd9ef6c2d0a81c451cfee429b4ef101b8deb"
+    }
+  },
+  "html": {
+    "path": "production/runs/TAC-2026-11-27-45937649928-1/review.html",
+    "sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd"
+  },
+  "tested_at_utc": "2026-11-27T07:27:15.349047+00:00",
+  "delivery": {
+    "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
+    "branch": "main",
+    "path": "preview/2026-11-27-review.html",
+    "run_id": "TAC-2026-11-27-45937649928-1",
+    "html_sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd",
+    "payload_commit_sha": "c760dcbfbd811ef5bc1d4182a4054b4b013889a7",
+    "pages_workflow_run_id": 45958562956,
+    "pages_workflow_conclusion": "success",
+    "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
+    "public_url_verified": true,
+    "public_html_sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd",
+    "verified_at_utc": "2026-11-27T07:28:07.408712+00:00"
+  }
+}

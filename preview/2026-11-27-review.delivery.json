@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
+  "report_date": "2026-11-27",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "source": {
+    "repository": "lion-invlab/lion-invlab.github.io",
+    "branch": "main",
+    "run_path": "production/runs/TAC-2026-11-27-45937649928-1/review.html",
+    "workflow_run_id": "45937649928",
+    "workflow_run_attempt": "1",
+    "trigger_commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336"
+  },
+  "targets": {
+    "html": "preview/2026-11-27-review.html",
+    "qa": "preview/2026-11-27-review.qa.json",
+    "delivery_receipt": "preview/2026-11-27-review.delivery.json"
+  },
+  "html": {
+    "sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd",
+    "git_blob_sha": "d34fec01d0f9735e62f5b0c67bfe94a2618fb4f5"
+  },
+  "qa": {
+    "sha256": "b172ef526719051cc652ae54bdd5884b10b63fcc88e95bfa687ac660ee2f2cc1",
+    "remote_git_blob_sha": "1a232c14b099af45ee8620bc5205a0514dcd0212"
+  },
+  "builder_sha": "5d555e40285bf4156740e418664f4833d66956ee",
+  "prebuild_receipt_sha256": "6b60108f389c7fac7c8a9c2f3a54b33426e65dd2313c482e9abc1ece443d3c18",
+  "stage5_receipt_sha256": "6b2c52c0057970eecdd22b7fb69d3bde5abc730cf6b7c84fca6e636509619fa0",
+  "protected_paths_unchanged": true,
+  "protected_paths": [
+    "index.html",
+    "data/calendar/weeks",
+    "production/templates/monday-mother-template.html",
+    "production/templates/weekday-mother-template.html",
+    "production/config/mother-template-manifest.json",
+    "data/calendar/weeks"
+  ],
+  "formal_homepage_modified": false,
+  "history_archive_modified": false,
+  "payload_commit_sha": "c760dcbfbd811ef5bc1d4182a4054b4b013889a7",
+  "pages_deployment_commit_sha": "c760dcbfbd811ef5bc1d4182a4054b4b013889a7",
+  "pages_workflow_run_id": 45958562956,
+  "pages_workflow_conclusion": "success",
+  "public_url_verified": true,
+  "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
+  "public_http_status": 200,
+  "public_html_sha256": "bb9f7dcf3caf115bb0685cdca7d8ff4cce61472516bfd882c8adae5c383852cd",
+  "finalized_at_utc": "2026-11-27T07:28:07.409602+00:00"
+}
