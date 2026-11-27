@@ -1,6 +1,6 @@
 # TAC 投資早報｜共通規則與行事曆資料庫維護 WR
 
-版本：5.18（2026-11-27｜Main Pipeline 權責分離）
+版本：5.19（2026-11-27｜Chart 3 合併延後至早報交付後）
 建立日期：2026-10-28
 本次整併日期：2026-11-04
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -247,7 +247,7 @@
 3. **必要欄位：** 每筆交接須包含 `report_date`、`trading_date`、`close`、`status=verified`，以及來源 `name`、`url`、`observed_at`、`data_date`、`quote_type`、`instrument`。`data_date` 必須等於 `trading_date`；標的須明確為 S&P 500 現貨價格指數，報價口徑須為正式每日收盤，不得使用 CFD、期貨或其他代理商品。未核實、待核實、暫缺或來源資料日期不符時不得寫入。
 4. **唯一寫入路徑：** 使用 `.github/scripts/append_tac_sp500_daily_increment.py` 將已核實的單筆交接追加至 `data/tac-chart3/sp500_daily_increment.jsonl`。輸入 handoff JSON 僅為執行時暫存資料，不另建持久化每日行情檔或平行資料庫。既有 Schema 的 `source.observed_at` 欄位已足以承載來源查核時間，不另改造 44 項市場資料 Schema。
 5. **追加與防重規則：** 一個交易日只保留一筆有效觀測，日期必須嚴格遞增；完全相同的同日觀測重跑時回報 no-op，不重複追加。同日收盤價、來源或標的資訊衝突時必須停止並回報，不得覆寫既有紀錄或自行選值。每筆記錄保存 SHA-256；讀取既有帳本時先驗證雜湊、日期唯一性及排序。
-6. **歷史底稿保護：** 此流程只追加新交易日資料，不重新下載、不重建、不壓縮、不覆蓋既有 `sp500_daily_close_1927-2026.compact.json` 或 `sp500_daily_close_1993-2026.compact.json`。歷史底稿與每日增量帳分開保存；後續合併或五序列同步發布，必須依 Chart 3 專用驗收流程另行執行，不代表本次早報寫入即已發布 Chart 3。
+6. **歷史底稿保護：** 此流程只追加新交易日資料，不重新下載、不重建、不壓縮、不覆蓋既有 `sp500_daily_close_1927-2026.compact.json` 或 `sp500_daily_close_1993-2026.compact.json`。歷史底稿與每日增量帳分開保存；S&P 500 增量合併只在 Main 早報 Stage 6 成功交付、整條 production workflow 完成後自動觸發，不得由增量帳 push 直接觸發，也不得阻塞早報 Stage 2–6。五序列同步發布仍須依 Chart 3 專用驗收流程另行執行；早報寫入或單一 S&P 500 合併均不代表 Chart 3 已完整發布。
 7. **來源忠實性與 Yahoo 歷史收盤備援：** 保留當日早報實際採用的來源名稱與網址，不得把不同來源混寫成同一來源。S&P 500 優先直接查核 Investing.com 香港站歷史資料頁 `https://hk.investing.com/indices/us-spx-500-historical-data`；若該頁明確標示 CFD／衍生報價，或無法確認為 S&P 500 現貨價格指數正式每日收盤，不得將其寫入現貨增量帳，改用 Yahoo Finance `^GSPC` 歷史資料頁 `https://finance.yahoo.com/quote/%5EGSPC/history/` 作備援。備援必須直接讀取指定交易日 `Historical Prices` 表格的 `Close` 欄，不得採用 `Adj Close`、即時報價標頭或搜尋摘要；核對 `Date`、`Open`、`High`、`Low`、`Close`，確認標的為 S&P 500 現金價格指數及資料日期相符，並記錄實際來源名稱、網址、查核時間與 `quote_type=daily_close`。若 Yahoo 歷史列未載入或口徑仍無法確認，維持未交接，不得猜值或補造時間戳。
 8. **未完成處理：** 若當次未能取得精確 `observed_at`、標的身分或正式收盤口徑，該筆保持未交接並記錄原因；不得補造時間戳或回填舊快照。此交接不新增每日排程、不啟動行情爬蟲、不改動既有 ChatGPT 早報與行事曆排程。
 
@@ -530,3 +530,8 @@
 - 取消 320px 極窄視窗的例行及發布必要測試，不再因未測 320px 阻擋審核版交付。
 - 統一標準視窗尺寸為 360px、390px、412px、768px、1440px；未能實際測試的尺寸仍須如實標示未測試，不得宣稱通過。
 - 同步更新唯一詳細驗收附件 `母版專區/母版結構驗收清單.md`；不修改母版、Manifest、首頁或其他受保護資產。
+
+### 版本 5.19（2026-11-27｜Chart 3 合併延後至早報交付後）
+- 明定 Stage 2 只追加 S&P 500 已核實收盤至增量帳；不直接觸發 Chart 3 合併。
+- Chart 3 S&P 500 合併改由 Main production workflow 成功完成事件觸發，確保 Stage 6 先完成，Chart 3 不阻塞早報交付。
+- 五序列同步發布仍維持獨立 Chart 3 驗收，不以單一 S&P 500 增量合併冒充完整發布。
