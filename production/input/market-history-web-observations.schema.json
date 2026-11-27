@@ -291,7 +291,10 @@
           "format": "date"
         },
         "observed_date": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date"
         },
         "page_title": {
@@ -427,6 +430,10 @@
         "closure_evidence_line_end": {
           "type": "integer",
           "minimum": 0
+        },
+        "contract_label": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": true

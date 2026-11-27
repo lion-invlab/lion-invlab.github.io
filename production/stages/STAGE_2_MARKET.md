@@ -12,6 +12,7 @@ Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／�
 - 在讀取任何使用者截圖、Investing.com Historical Data 頁或建立 observation 前，必須先完整讀取 Main 的 `production/stages/STAGE_2_MARKET.md`；不得只看摘要。
 - `production/input/market-history-web-observations-YYYY-MM-DD.json` 根層必須包含 `stage2_wr_sha256`，值為本文件完整 UTF-8 bytes 的 SHA-256。
 - 同日期 `mode=rerun` 時，必須先移除舊日期 observation bundle，再重新讀取本文件並新建 bundle；不得從舊 Run、舊 observation、舊截圖、舊 FedWatch 或舊網頁讀取紀錄複製欄位。所有 44 列的 `prior_observation_reused` 必須為 false，`captured_at_utc` 必須記錄本輪實際擷取時間；Stage 2 不得使用 `--reuse-observations`。
+- 能源與金屬期貨（WTI、Brent、Gold、Silver）必須從 Investing.com 歷史頁標題擷取當前選定合約的完整 `contract_label`（含合約月份與頁面顯示代碼），寫入該 observation 的 `contract_label`；`page_title` 必須保留完整商品標題。不得自行推算月份、只填通用商品名稱，或用前一 Run 的合約標籤。Stage 2 populate fixture 會將本輪 `contract_label` 寫入報告資料，供快照驗證與商品名稱顯示。
 - 同一 bundle 根層另須包含獨立的 `fedwatch` 物件（不計入 44 列）：`status`、`source_name`、`source_url`、`report_date`、`trading_date`、`captured_at_utc`、`target_meeting`、`current_target_range`、`updated_at_tw`、`probabilities`、`web_reader_ref`、`web_line_start`、`web_line_end`、`reason`、`stage2_wr_sha256`。主來源固定 Investing.com Fed Rate Monitor；已核實時逐一記錄頁面顯示的 outcome、rate_range、probability，機率總和須為 100%；無法讀取或沒有可用資料時，明確標示 TOOL_READ_FAILURE／SOURCE_NO_DATA，probabilities 留空並寫明原因，不得沿用舊機率或推估。
 - Stage 2 Runner 必須將 FedWatch 物件寫入 Run 的 `report-data.json`，並將狀態及 observation SHA 寫入 Stage 2 receipt／summary；不得讓模板中的空 `fedwatch: {}` 靜默流入 Builder。
 - Stage 2 Runner 會將該值與本次 Run 的 Stage 1 pinned WR 版本及自身 preflight SHA 比對；缺漏或不符即拒絕 44 項觀察輸入，不進入行情合併。

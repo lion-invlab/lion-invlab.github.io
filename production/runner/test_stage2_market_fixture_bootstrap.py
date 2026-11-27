@@ -102,6 +102,16 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(result["risk"]["fear_greed"]["change_display"],"極度恐懼")
         self.assertEqual(blank["global_markets"]["global_markets_0"]["display"],"待擷取")
 
+    def test_current_run_contract_label_is_taken_from_observation(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        for row in rows:
+            if row["group"]=="energy" and row["name"]=="energy_0":
+                row["contract_label"]="2027年1月 (OIL)"
+                row["observed_row_text"]="2026年11月25日 | 100.00 | +0.50% | WTI原油期貨 - 2027年1月 (OIL)"
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        self.assertEqual(result["energy"]["energy_0"]["contract_label"],"2027年1月 (OIL)")
+
     def test_partial_screenshot_value_survives_page_read_failure(self):
         blank=blank_fixture(fixture())
         key=("risk","move")
