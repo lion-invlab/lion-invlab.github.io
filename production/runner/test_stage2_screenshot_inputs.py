@@ -167,7 +167,7 @@ def main():
         assert mixed["observed_value"] == "6,812.34"
         assert mixed["observed_change"] == "-0.42"
         assert mixed["field_evidence"]["close"]["source_type"] == "USER_PROVIDED_SCREENSHOT"
-        assert mixed["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE"
+        assert mixed["field_evidence"]["change"]["source_type"] == "INVESTING_HISTORICAL_PAGE", {"screenshot_fields": list(partial[("global_markets", "標普500指數")]["fields"]), "field_evidence": mixed["field_evidence"]}
         completed_fixture = apply_screenshot_values_to_fixture(copy.deepcopy(fixture), partial)
         apply_page_completions_to_fixture(completed_fixture, [mixed], partial)
         completed_row = completed_fixture["global_markets"]["標普500指數"]
