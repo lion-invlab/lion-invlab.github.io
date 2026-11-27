@@ -251,8 +251,11 @@ def verification_fields(source: dict, display, change_display, observation: dict
     change_field = str(observation.get("observed_change_field") or "")
     is_fear_greed = group == "risk" and name == "fear_greed"
     is_cnn_official = is_fear_greed and (
-        read_method == "CNN_OFFICIAL_CURRENT_DASHBOARD"
-        or provenance == "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION"
+        read_method in ("CNN_OFFICIAL_CURRENT_DASHBOARD", "CNN_OFFICIAL_PREVIOUS_CLOSE")
+        or provenance in (
+            "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION",
+            "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
+        )
     )
     fear_greed_backup = (
         is_fear_greed
@@ -264,6 +267,11 @@ def verification_fields(source: dict, display, change_display, observation: dict
         field_ok = (
             value_field in ("Score", "Current Score")
             and change_field in ("Band", "Current Band")
+        )
+    elif is_fear_greed and read_method == "CNN_OFFICIAL_PREVIOUS_CLOSE":
+        field_ok = (
+            value_field == "fear_and_greed.previous_close"
+            and change_field == "derived_from_fear_and_greed.previous_close_using_cnn_bands"
         )
     elif is_fear_greed and fear_greed_backup:
         field_ok = value_field == "Score" and change_field == "Band"
@@ -297,6 +305,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
         "CURRENT_RUN_BROWSER_OBSERVATION",
         "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION",
+        "CURRENT_CNN_OFFICIAL_API_OBSERVATION",
         "CURRENT_USER_PROVIDED_SCREENSHOT",
         "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
         "SYNTHETIC_TEST_ONLY",
