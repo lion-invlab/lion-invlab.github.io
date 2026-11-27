@@ -2,9 +2,9 @@ name: TAC main-native production pipeline
 
 on:
   schedule:
-    # Dual UTC triggers: 04:05 Taiwan time in U.S. daylight time; 05:05 in U.S. standard time.
-    - cron: "5 20 * * 0-4"
-    - cron: "5 21 * * 0-4"
+    # Dual UTC triggers: 04:30 Taiwan time in U.S. daylight time; 05:30 in U.S. standard time.
+    - cron: "30 20 * * 0-4"
+    - cron: "30 21 * * 0-4"
   push:
     branches: [main]
     paths:
@@ -193,7 +193,7 @@ jobs:
           from zoneinfo import ZoneInfo
           now = datetime.now(timezone.utc)
           ny = now.astimezone(ZoneInfo("America/New_York"))
-          expected_cron = "5 20 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "5 21 * * 0-4"
+          expected_cron = "30 20 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "30 21 * * 0-4"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
           should_run = actual_cron == expected_cron
           print(f"should_run={'true' if should_run else 'false'}")
