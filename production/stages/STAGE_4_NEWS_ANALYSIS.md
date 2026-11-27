@@ -1,6 +1,8 @@
 # Stage 4｜新聞與市場分析
 
 ## 開工前必讀
+- Stage 4 Runner 必須先完整讀取本文件，並以 Stage 1 governance pin 核對 Git blob SHA；完成 preflight 前不得讀取／合併編輯輸入或產生分析輸出。
+- Stage 4 receipt 必須記錄完整 WR 讀取位元組數、SHA-256、Git blob SHA 及 Stage 1 pinned SHA；任何缺漏或不符均停止。
 - Stage 4 編輯工作者在撰寫任何新聞、總結或分析前，必須先讀取本次 Run 的 `capture-stage-receipt.json` 中 `stage4_work_instructions.full_text` 完整內容；不得只讀摘要或只看檔案名稱。
 - 編輯內容 JSON 必須填入 `stage4_wr_sha256`，其值須與 `stage4_work_instructions.sha256` 完全一致。缺少或不一致時，Stage 4 Runner 必須拒絕輸入。
 
