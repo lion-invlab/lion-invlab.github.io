@@ -227,9 +227,6 @@ def main():
     assert mixed_dow["target_date"] == "2026-11-19"
     assert mixed_dow["observed_date"] == "2026-11-19"
     assert mixed_result["trading_date"] == mixed_data["trading_date"]
-    assert mixed_dow["target_date"] == "2026-11-19"
-    assert mixed_result["trading_date"] == mixed_data["trading_date"]
-
     # A delayed retry may replace only MOVE; the other 43 frozen observations
     # must remain byte-for-byte equivalent after canonical JSON serialization.
     pending_base = copy.deepcopy(bundle)
