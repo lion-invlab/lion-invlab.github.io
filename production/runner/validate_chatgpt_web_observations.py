@@ -616,8 +616,9 @@ def main() -> None:
             if not (row.get("group") == "risk" and row.get("name") == "fear_greed")
         ] + [cnn_rows[0]]
     result = validate_bundle(data, args.report_date, bundle)
-    # MOVE remains the pinned Investing.com observation. If its row is absent
-    # or pending, preserve that status; never substitute TradingView.
+    # MOVE uses the pinned Investing.com primary first. Only a documented
+    # primary TOOL_READ_FAILURE/SOURCE_NO_DATA permits the exact approved
+    # TradingView ICE:MOVE backup; the other 43 rows remain Investing.com-only.
     result["row_count"]=len(result["observations"])
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
