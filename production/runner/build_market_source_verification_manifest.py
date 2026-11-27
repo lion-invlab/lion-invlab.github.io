@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build an explicit 44-row source-verification worklist from the report fixture.
+# CLOSED rows must carry the same explicit market_data_status used by the manifest summary.
 
 This is a tracking manifest only. It does not fetch source pages or claim that
 displayed values have been independently reconciled.
