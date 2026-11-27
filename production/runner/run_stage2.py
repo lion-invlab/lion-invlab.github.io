@@ -28,6 +28,7 @@ def main():
     ap.add_argument("--run-dir",required=True)
     ap.add_argument("--timeout-ms",type=int,default=15000)
     ap.add_argument("--concurrency",type=int,default=4)
+    ap.add_argument("--reuse-observations",action="store_true",help="Reuse exact browser observations restored from a failed capture artifact; do not reopen source pages.")
     args=ap.parse_args()
     if not 1<=args.concurrency<=4: raise SystemExit("--concurrency must be between 1 and 4")
     run_dir=Path(args.run_dir)
@@ -57,7 +58,14 @@ def main():
     cnn_observation=ROOT/f"production/input/cnn-fear-greed-observation-{report_date}.json"
     screenshot_sidecar=ROOT/f"production/input/market-screenshot-observations-{report_date}.json"
     input_mode="SCREENSHOT_FIRST_BROWSER_FALLBACK" if screenshot_sidecar.is_file() else "PLAYWRIGHT_BROWSER_FALLBACK"
-    if web_bundle.is_file():
+    if args.reuse_observations:
+        if not observations_path.is_file():
+            raise SystemExit("--reuse-observations requires the original market-history-browser-observations.json")
+        original=load(observations_path)
+        if original.get("report_date") != report_date:
+            raise SystemExit("Reused browser observations report_date does not match the original Run.")
+        input_mode="REUSED_ORIGINAL_CAPTURE_ARTIFACT"
+    elif web_bundle.is_file():
         if not cnn_observation.is_file():
             cnn_observation=run_dir/"cnn-observation-empty.json"
             cnn_observation.write_text(json.dumps({"observations":[]},ensure_ascii=False)+"\n",encoding="utf-8")
