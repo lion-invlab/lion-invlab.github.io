@@ -9,7 +9,7 @@ import json
 import tempfile
 from pathlib import Path
 
-from build_market_source_verification_manifest import verification_fields
+from build_market_source_verification_manifest import build_manifest, verification_fields
 
 
 FIXTURE = Path("production/testdata/report-data-2026-11-23.json")
@@ -208,6 +208,17 @@ def main():
     assert move_backup_result["market_data_status"] == "BACKUP_VERIFIED"
     assert move_backup_result["browser_observation_record"]["source_role"] == "BACKUP_1"
     assert move_backup_result["browser_observation_record"]["evidence_source_url"] == tv_url
+    move_manifest = build_manifest(
+        data, data["report_date"], {("risk", "move"): move_backup_observation}
+    )
+    move_manifest_row = next(
+        row for row in move_manifest["rows"]
+        if row["group"] == "risk" and row["name"] == "move"
+    )
+    assert move_manifest_row["verification_status"] == "BACKUP_VERIFIED"
+    assert move_manifest_row["evidence_source_url"] == tv_url
+    assert move_manifest_row["evidence_source_name"] == "TradingView ICE:MOVE"
+    assert move_manifest_row["evidence_source_role"] == "BACKUP_1"
 
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: MOVE Investing.com read failure remains pending until a cited, date-matched TradingView backup is supplied")
