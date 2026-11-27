@@ -479,7 +479,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         require(len(payload.get("events", {}).get("earnings", [])) == item.get("earnings_count"),
                 f"{label} earnings event count mismatch")
         require(item.get("path") == f"data/calendar/weeks/{item.get('week_id')}.json",
-                f"{label} calendar path is not canonical")
+                f"{label} calendar path is not the canonical ISO-week database path")
     if previous is not None:
         require(current.get("week_id") != previous.get("week_id"),
                 "current and previous calendar week must be distinct")
