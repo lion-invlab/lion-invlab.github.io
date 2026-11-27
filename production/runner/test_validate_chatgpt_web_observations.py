@@ -463,6 +463,24 @@ def main():
     else:
         raise AssertionError("missing source observation must be rejected")
 
+    # Real 2026-11-27 handoff fixture: all 44 rows must bind to the 2026-11-26 target date.
+    from create_run_fixture import build as build_run_fixture
+    run_1127 = build_run_fixture(datetime(2026, 11, 27).date(), "TAC-2026-11-27-BUNDLE-TEST")
+    data_1127 = run_1127["market_fixture"]
+    bundle_1127 = json.loads(Path("production/input/market-history-web-observations-2026-11-27.json").read_text(encoding="utf-8"))
+    normalized_1127 = validate_bundle(data_1127, "2026-11-27", bundle_1127)
+    assert len(normalized_1127["observations"]) == 44
+    assert normalized_1127["verified_count"] == 27
+    assert sum(1 for row in normalized_1127["observations"] if row.get("status") == "CLOSED") == 16
+    assert normalized_1127["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 1
+    assert normalized_1127["prior_observation_reused_count"] == 0
+    populated_1127 = populate_fixture(data_1127, normalized_1127)
+    assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
+    assert populated_1127["sectors"]["XLE"]["source"]["verification_status"] == "CLOSED"
+    assert populated_1127["risk"]["move"]["source"]["verification_status"] == "PENDING"
+    assert populated_1127["risk"]["move"]["source"].get("close_value") is None
+    assert populated_1127["trading_date"] == "2026-11-26"
+
     print("PASS: 43 current-session historical page observations reconcile to exact fixture values and dates")
     print("PASS: one official market closure is explicitly recorded; no numeric market row is silently reused")
     print("PASS: CNN official previous_close uses its raw decimal; FGScore fallback uses its separately pinned rounded integer")
