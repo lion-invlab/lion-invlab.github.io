@@ -8,7 +8,8 @@
     "trading_date",
     "captured_at_utc",
     "stage2_wr_sha256",
-    "observations"
+    "observations",
+    "fedwatch"
   ],
   "properties": {
     "schema_version": {
@@ -52,6 +53,205 @@
     "stage1_fixture_sha256": {
       "type": "string",
       "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "fedwatch": {
+      "type": "object",
+      "required": [
+        "status",
+        "source_name",
+        "source_url",
+        "report_date",
+        "trading_date",
+        "captured_at_utc",
+        "probabilities",
+        "stage2_wr_sha256",
+        "reason",
+        "target_meeting",
+        "current_target_range",
+        "updated_at_tw",
+        "web_reader_ref",
+        "web_line_start",
+        "web_line_end"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "VERIFIED",
+            "SOURCE_NO_DATA",
+            "TOOL_READ_FAILURE"
+          ]
+        },
+        "source_name": {
+          "const": "Investing.com Fed Rate Monitor"
+        },
+        "source_url": {
+          "const": "https://www.investing.com/central-banks/fed-rate-monitor"
+        },
+        "report_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "trading_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "captured_at_utc": {
+          "type": "string"
+        },
+        "target_meeting": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "current_target_range": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at_tw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "probabilities": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "outcome",
+              "rate_range",
+              "probability"
+            ],
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "hold",
+                  "cut",
+                  "hike",
+                  "維持不變",
+                  "升息",
+                  "降息"
+                ]
+              },
+              "rate_range": {
+                "type": "string",
+                "minLength": 1
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "web_reader_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "web_line_start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "web_line_end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stage2_wr_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "VERIFIED"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "probabilities": {
+                "minItems": 1
+              },
+              "target_meeting": {
+                "type": "string"
+              },
+              "current_target_range": {
+                "type": "string"
+              },
+              "updated_at_tw": {
+                "type": "string"
+              },
+              "web_reader_ref": {
+                "type": "string"
+              },
+              "web_line_start": {
+                "type": "integer"
+              },
+              "web_line_end": {
+                "type": "integer"
+              },
+              "reason": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "SOURCE_NO_DATA",
+                  "TOOL_READ_FAILURE"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "probabilities": {
+                "maxItems": 0
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": true
     }
   },
   "$defs": {
