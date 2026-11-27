@@ -179,24 +179,6 @@ def main():
     assert move_closed_manifest["closed_count"] == 1
     assert move_closed_manifest["market_status_counts"]["CLOSED"] == 1
 
-    # A shortened session is still a trading session: never infer CLOSED from the adjacent holiday.
-    early_close_data = copy.deepcopy(data)
-    early_close_data["report_date"] = "2026-11-30"
-    early_close_data["trading_date"] = "2026-11-27"
-    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
-        for item in (early_close_data.get(group) or {}).values():
-            (item.get("source") or {})["data_date"] = "2026-11-27"
-    for source in (early_close_data.get("sector_sources") or {}).values():
-        source["data_date"] = "2026-11-27"
-    early_close_observations = copy.deepcopy(synthetic_observations)
-    for observation in early_close_observations.values():
-        observation["target_date"] = "2026-11-27"
-        observation["observed_date"] = "2026-11-27"
-    early_close_manifest = build_manifest(early_close_data, "2026-11-30", early_close_observations)
-    early_close_move = next(r for r in early_close_manifest["rows"] if r["group"] == "risk" and r["name"] == "move")
-    assert early_close_move["verification_status"] == "VERIFIED"
-    assert early_close_move["market_data_status"] == "VERIFIED"
-
     # Synthetic-only positive case: this validates the manifest contract,
     # not real source evidence and must never be used for report production.
     synthetic_observations = {}
@@ -250,6 +232,24 @@ def main():
             "finished_at_utc": "2026-11-23T11:00:00Z", "finished_at_tw": "2026-11-23T19:00:00+08:00",
             "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
         }
+    # A shortened session is still a trading session: never infer CLOSED from the adjacent holiday.
+    early_close_data = copy.deepcopy(data)
+    early_close_data["report_date"] = "2026-11-30"
+    early_close_data["trading_date"] = "2026-11-27"
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for item in (early_close_data.get(group) or {}).values():
+            (item.get("source") or {})["data_date"] = "2026-11-27"
+    for source in (early_close_data.get("sector_sources") or {}).values():
+        source["data_date"] = "2026-11-27"
+    early_close_observations = copy.deepcopy(synthetic_observations)
+    for observation in early_close_observations.values():
+        observation["target_date"] = "2026-11-27"
+        observation["observed_date"] = "2026-11-27"
+    early_close_manifest = build_manifest(early_close_data, "2026-11-30", early_close_observations)
+    early_close_move = next(r for r in early_close_manifest["rows"] if r["group"] == "risk" and r["name"] == "move")
+    assert early_close_move["verification_status"] == "VERIFIED"
+    assert early_close_move["market_data_status"] == "VERIFIED"
+
     # One closed exchange plus 43 verified quotes is PARTIAL, never PASS.
     partial_data = copy.deepcopy(closed_data)
     partial_data["global_markets"]["日經225"]["display"] = "-"
