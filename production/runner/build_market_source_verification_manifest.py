@@ -315,7 +315,16 @@ def verification_fields(source: dict, display, change_display, observation: dict
     verified = (
         observation.get("status") == "VERIFIED"
         and page_read_ok
-        and observation.get("source_url") == source_url
+        and (
+            observation.get("source_url") == source_url
+            or (
+                group == "risk" and name == "move"
+                and observation.get("source_url") in (source.get("approved_backup_urls") or [])
+                and observation.get("source_role") == "BACKUP_1"
+                and observation.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE"
+                and observation.get("evidence_source_url") == observation.get("source_url")
+            )
+        )
         and observation.get("target_date") == data_date
         and observation.get("observed_date") == data_date
         and identity_ok
@@ -365,7 +374,10 @@ def verification_fields(source: dict, display, change_display, observation: dict
         record_hash = hashlib.sha256(canonical).hexdigest()
     # Verification tier follows the fixture-configured source priority; the observation role
     # describes the endpoint used for evidence and must not silently promote a configured backup.
-    source_role = source.get("source_role") or observation.get("source_role", "PRIMARY")
+    source_role = (
+        observation.get("source_role") if group == "risk" and name == "move" and observation.get("source_role")
+        else source.get("source_role") or observation.get("source_role", "PRIMARY")
+    )
     verification_status = (
         "BACKUP_VERIFIED" if verified and source_role in ("BACKUP_1", "BACKUP", "SECONDARY")
         else "VERIFIED" if verified
