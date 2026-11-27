@@ -105,13 +105,23 @@ def verify(run_dir: Path, bundle_path: Path) -> dict:
             "market observations dates do not match this Run")
     rows = observations.get("observations")
     require(isinstance(rows, list) and len(rows) == 44, "market observations must contain exactly 44 rows")
+    from stage2_market_fixture_bootstrap import _rows
+    expected_sources = {(group, name): source.get("url") for group, name, _item, source in _rows(fixture)}
     keys = [(x.get("group"), x.get("name")) for x in rows]
     require(len(set(keys)) == 44 and all(g and n for g, n in keys),
             "market observations contain duplicate or unnamed rows")
-    require(all(x.get("target_date") == trading_date for x in rows),
-            "market observation target_date differs from this Run trading_date")
-    require(all(x.get("prior_observation_reused") is not True for x in rows),
-            "cross-Run or prior observation reuse is forbidden")
+    require(set(keys) == set(expected_sources),
+            "market observations do not match this Run's exact 44-instrument universe")
+    for row in rows:
+        key = (row.get("group"), row.get("name"))
+        require(row.get("target_date") == trading_date,
+                f"market observation target_date differs from this Run trading_date: {key}")
+        require(row.get("source_url") == expected_sources[key],
+                f"market observation source URL differs from the pinned fixture: {key}")
+        require(bool(str(row.get("instrument_identity") or "").strip()),
+                f"market observation instrument identity is missing: {key}")
+        require(row.get("prior_observation_reused") is not True,
+                f"cross-Run or prior observation reuse is forbidden: {key}")
 
     cnn_name = bundle.get("cnn_observation_path")
     cnn_hash = bundle.get("cnn_observation_sha256")
