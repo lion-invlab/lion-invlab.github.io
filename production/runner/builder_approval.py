@@ -34,6 +34,7 @@ GOVERNANCE_PATHS=(
  "production/runner/stage_wr_preflight.py",
  "production/runner/test_stage_wr_preflight.py",
  "production/runner/test_stage2_fedwatch.py",
+ "production/runner/test_stage2_field_provenance.py",
  "production/runner/verify_homepage_publication_lock.py",
  "production/runner/test_homepage_publication_lock.py",
  "production/config/homepage-publication-lock.json",
