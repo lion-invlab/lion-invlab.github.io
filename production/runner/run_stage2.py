@@ -122,7 +122,7 @@ def main():
             "run_context_sha256":hashlib.sha256(context_path.read_bytes()).hexdigest(),
             "stage1_fixture_sha256":stage1_fixture_sha256
         })
-        web_bundle.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        web_bundle.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
         "--run-dir",str(run_dir.relative_to(ROOT))])
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
