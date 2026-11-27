@@ -25,7 +25,8 @@ def report_cutoff_taipei(report_date:date)->str:
     ny_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     ny_cutoff=datetime.combine(ny_date,time(16,25),NY_TZ)
     taipei_clock="04:25" if ny_cutoff.dst() and ny_cutoff.dst().total_seconds() else "05:25"
-    return f"{report_date.isoformat()} {taipei_clock}"
+    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
+    return f"{production_date.isoformat()} {taipei_clock}"
 
 def report_target_date(report_date:date)->date:
     """Resolve the shared target date from Taiwan production cadence."""
