@@ -451,8 +451,10 @@ jobs:
     permissions:
       contents: write
       actions: write
+    # Stage 4-6 delivery writes main/preview while Chart 3 writes data/tac-chart3.
+    # Share the Chart 3 data-maintenance lock to avoid concurrent main pushes.
     concurrency:
-      group: tac-main-production-build
+      group: tac-chart3-data-maintenance
       cancel-in-progress: false
     steps:
       - name: Checkout main only with full history
