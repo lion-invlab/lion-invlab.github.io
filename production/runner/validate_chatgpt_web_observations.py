@@ -393,6 +393,8 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raise ValueError(f"{group}/{name}: unsupported historical page read status {raw.get('read_status')!r}")
             if group == "risk" and name == "move":
                 tradingview_url="https://www.tradingview.com/symbols/ICE-MOVE/"
+                if raw.get("attempt_url"):
+                    raise ValueError("MOVE alternate attempt_url is not accepted; use the structured primary_attempt evidence object")
                 if raw.get("source_url")==source.get("url"):
                     if raw.get("source_role") in ("BACKUP","BACKUP_1","BACKUP_2","SECONDARY"):
                         raise ValueError("MOVE Investing.com primary observation cannot be labelled as backup")
