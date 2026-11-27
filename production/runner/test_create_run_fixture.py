@@ -31,6 +31,20 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertIn("production/config/builder-approval.json",governance["blob_shas"])
         self.assertIn("production/runner/run_stage5.py",governance["blob_shas"])
 
+
+    def test_defaults_to_previous_calendar_day_for_thursday_market_holiday(self):
+        result=build(date(2026,11,27),"TAC-2026-11-27-test-default")
+        self.assertEqual(result["run_context"]["trading_date"],"2026-11-26")
+        for group in ("global_markets","bonds","fx","energy","metals","risk"):
+            for item in result["market_fixture"][group].values():
+                self.assertEqual(item["source"]["data_date"],"2026-11-26")
+        for source in result["market_fixture"]["sector_sources"].values():
+            self.assertEqual(source["data_date"],"2026-11-26")
+
+    def test_monday_targets_previous_friday(self):
+        result=build(date(2026,11,30),"TAC-2026-11-30-test-default")
+        self.assertEqual(result["run_context"]["trading_date"],"2026-11-27")
+
     def test_rejects_weekend_report_date(self):
         with self.assertRaises(ValueError):
             build(date(2026,11,28),"TAC-2026-11-28-test-1",date(2026,11,27))
