@@ -230,6 +230,7 @@ def main():
     bundle_path=run_dir/"stage4-research-bundle.json"
     if not bundle_receipt_path.is_file():
         raise ValueError("Stage 4 research bundle receipt is missing")
+    bundle=read_json(bundle_path)
     bundle_binding=validate_research_bundle_binding(editorial,context,read_json(bundle_receipt_path),bundle_path)
     before=market_snapshot_digest(data)
     window=validate_content(editorial,context,data,bundle)
