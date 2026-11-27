@@ -2141,7 +2141,8 @@ def main():
     # The generated report now includes source-checked five-index S2/S1/P/R1/R2 levels.
     for stale_meta in soup.find_all("meta", attrs={"name": "tac-correction-test"}):
         stale_meta.decompose()
-    provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": {k:v for k,v in calendar_source["previous"].items() if k != "payload"}, "mode": "READ_ONLY"}
+    previous_calendar = calendar_source.get("previous")
+    provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": ({k:v for k,v in previous_calendar.items() if k != "payload"} if previous_calendar else None), "mode": "READ_ONLY"}
     head_node = soup.select_one("head")
     if head_node is None: raise ValueError("HTML head missing; cannot record authoritative calendar provenance")
     head_node.append(Comment(" TAC_CALENDAR_SOURCE " + json.dumps(provenance, ensure_ascii=False, separators=(",", ":"))))
@@ -3436,8 +3437,8 @@ def main():
         "calendar_main_commit_sha": calendar_source["main_commit_sha"],
         "calendar_current_path": calendar_source["current"]["path"],
         "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
-        "calendar_previous_path": calendar_source["previous"]["path"],
-        "calendar_previous_blob_sha": calendar_source["previous"]["blob_sha"],
+        "calendar_previous_path": previous_calendar["path"] if previous_calendar else None,
+        "calendar_previous_blob_sha": previous_calendar["blob_sha"] if previous_calendar else None,
         "mode": "candidate-validation-only" if args.candidate_test_output else "main-production",
         "review_ready": not bool(data.get("review_ready_blockers", [])),
         "review_ready_blockers": data.get("review_ready_blockers", []),
@@ -3458,7 +3459,7 @@ def main():
     if STAGE2_BOOTSTRAP_NOTE in rendered_html:
         raise ValueError("Internal Stage 2 bootstrap note leaked into rendered report HTML")
     out.write_text(rendered_html, encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":(calendar_source["previous"]["blob_sha"] if calendar_source.get("previous") else None),"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()
