@@ -60,8 +60,8 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
 
     def test_report_cutoff_tracks_new_york_dst(self):
-        self.assertEqual(report_cutoff_taipei(date(2026,11,30)),"2026-11-30 05:25")
-        self.assertEqual(report_cutoff_taipei(date(2026,7,6)),"2026-07-06 04:25")
+        self.assertEqual(report_cutoff_taipei(date(2026,11,30)),"2026-11-28 05:25")
+        self.assertEqual(report_cutoff_taipei(date(2026,7,6)),"2026-07-04 04:25")
 
     def test_defaults_to_previous_calendar_day_for_thursday_market_holiday(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-test-default")
@@ -77,7 +77,14 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertEqual(result["run_context"]["trading_date"],"2026-11-20")
         self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),2)
 
-    def test_rejects_weekend_report_date(self):
+    def test_saturday_production_uses_monday_report_and_monday_mother(self):
+        result=build(date(2026,11,30),"TAC-2026-11-30-saturday-production")
+        self.assertEqual(result["run_context"]["trading_date"],"2026-11-27")
+        self.assertEqual(result["run_context"]["mother"]["key"],"monday")
+        self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),2)
+        self.assertEqual(result["market_fixture"]["trading_date"],"2026-11-27")
+
+    def test_rejects_saturday_report_date(self):
         with self.assertRaises(ValueError):
             build(date(2026,11,28),"TAC-2026-11-28-test-1",date(2026,11,27))
 
