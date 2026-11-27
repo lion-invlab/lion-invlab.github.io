@@ -186,6 +186,8 @@ class BootstrapTests(unittest.TestCase):
             source["data_date"]="2026-11-26"
         blank=blank_fixture(original)
         rows=observation_rows(blank)
+        for observation in rows:
+            observation["target_date"]="2026-11-26"
         row=next(x for x in rows if (x["group"],x["name"])==("risk","move"))
         row.update({
             "status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
