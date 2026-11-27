@@ -246,7 +246,7 @@ def populate_fixture(data, payload):
             contract_label=str(obs.get("contract_label") or "").strip()
             if not contract_label:
                 row_text=str(obs.get("observed_row_text") or "")
-                match=re.search(r"\\s-\\s(.+?)\\s*\\|\\s*[-+]?\\d",row_text)
+                match=re.search(r"\s-\s(.+?)\s*\|\s*[-+]?\d",row_text)
                 if match:
                     contract_label=match.group(1).strip()
             if contract_label:
