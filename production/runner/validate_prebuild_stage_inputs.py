@@ -170,11 +170,20 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "CURRENT_USER_PROVIDED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
     }
+    fixture_sources={}
+    for group in ("global_markets","bonds","fx","energy","metals","risk"):
+        for name,item in (data.get(group) or {}).items():
+            fixture_sources[(group,name)]=(item.get("source") or {})
+    for name,source in (data.get("sector_sources") or {}).items():
+        fixture_sources[("sectors",name)]=source
     for row in rows:
         row_data_date=row.get("data_date")
         require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row_data_date)))
                 and row_data_date <= report_date,
                 f"source manifest data_date is malformed or after report_date: {row.get('name')}")
+        fixture_source=fixture_sources.get((row.get("group"),row.get("name"))) or {}
+        require(row_data_date==fixture_source.get("data_date"),
+                f"source manifest data_date differs from Fixture: {row.get('name')}")
         if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
             require(row.get("display_value_matches_saved_observation") is True
                     and row.get("observation_provenance") in allowed_provenance,
