@@ -25,8 +25,24 @@ def make_run(root):
       "stage1_fixture_sha256":digest(stage1_fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
     rows=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk","sectors"):
-        rows.extend({"group":group,"name":name} for name in fixture[group])
-    (run/"market-history-web-observations.json").write_text(json.dumps({**binding,"observations":rows}))
+        rows.extend({
+            "group":group,"name":name,"source_url":"https://www.investing.com/",
+            "target_date":trading,"observed_date":trading,"page_title":name,
+            "instrument_identity":name,"read_method":"BROWSER_HISTORICAL_DATA",
+            "observed_value_field":"Price","observed_change_field":"Change %",
+            "observed_headers":["Date","Price","Change %"],"observed_row_text":f"{trading} | {name}",
+            "read_status":"PAGE_CONTENT_READ_SUCCESS","captured_at_utc":binding["captured_at_utc"],
+            "finished_at_utc":binding["captured_at_utc"]
+        } for name in fixture[group])
+    fedwatch={
+        "status":"SOURCE_NO_DATA","source_name":"Investing.com Fed Rate Monitor",
+        "source_url":"https://www.investing.com/central-banks/fed-rate-monitor",
+        "report_date":report,"trading_date":trading,"captured_at_utc":binding["captured_at_utc"],
+        "target_meeting":None,"current_target_range":None,"updated_at_tw":None,
+        "probabilities":[],"web_reader_ref":None,"web_line_start":None,"web_line_end":None,
+        "reason":"Test fixture only","stage2_wr_sha256":"a"*64
+    }
+    (run/"market-history-web-observations.json").write_text(json.dumps({**binding,"observations":rows,"fedwatch":fedwatch}))
     return run
 
 class RunHandoffTests(unittest.TestCase):
