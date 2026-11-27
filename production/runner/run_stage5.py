@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 from builder_approval import require_approved_builder, verify_governance_snapshot
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
@@ -74,6 +74,9 @@ def main():
     stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
+    require_stage_wr_receipt(stage2_doc,"STAGE_2")
+    require_stage_wr_receipt(stage3_doc,"STAGE_3")
+    require_stage_wr_receipt(stage4_doc,"STAGE_4")
     if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id") not in (str(context.get("workflow_run_id")),context["run_id"]):
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
