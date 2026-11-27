@@ -2,7 +2,7 @@
 """Create a fresh main-branch Run context and immutable blank-first Stage 1 fixture."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, uuid
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -12,12 +12,20 @@ from stage_wr_preflight import stage_wr_preflight
 
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
+NY_TZ=ZoneInfo("America/New_York")
 
 def sha256(path:Path)->str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def git_blob(path:Path, commit_sha:str="HEAD")->str:
     return subprocess.check_output(["git","rev-parse",f"{commit_sha}:{path.relative_to(ROOT).as_posix()}"],cwd=ROOT,text=True).strip()
+
+def report_cutoff_taipei(report_date:date)->str:
+    """16:25 New York close-window cutoff converted to Taiwan local time for this report date."""
+    ny_date=report_date-timedelta(days=1)
+    ny_cutoff=datetime.combine(ny_date,time(16,25),NY_TZ)
+    taipei_clock="04:25" if ny_cutoff.dst() and ny_cutoff.dst().total_seconds() else "05:25"
+    return f"{report_date.isoformat()} {taipei_clock}"
 
 def report_target_date(report_date:date)->date:
     """Resolve the shared target date from Taiwan production cadence."""
@@ -51,7 +59,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     data["report_date"]=report_date.isoformat()
     data["trading_date"]=trading_date.isoformat()
     data["timezone"]="Asia/Taipei"
-    data["report_cutoff_taipei"]=f"{report_date.isoformat()} 05:25"
+    data["report_cutoff_taipei"]=report_cutoff_taipei(report_date)
     for group in ("global_markets","bonds","fx","energy","metals","risk"):
         for item in (data.get(group) or {}).values():
             item.setdefault("source",{})["data_date"]=trading_date.isoformat()
