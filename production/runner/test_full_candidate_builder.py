@@ -128,6 +128,11 @@ for report_date, template_key, source_name in cases:
     if not match:
         raise SystemExit(f"{template_key}: candidate Builder provenance JSON malformed")
     provenance = json.loads(match.group(1))
+    if template_key == "weekdays":
+        if provenance.get("calendar_previous_path") is not None or provenance.get("calendar_previous_blob_sha") is not None:
+            raise SystemExit("weekday Builder provenance must not invent a previous-week calendar")
+    elif not provenance.get("calendar_previous_path") or not provenance.get("calendar_previous_blob_sha"):
+        raise SystemExit("Monday Builder provenance must retain the previous-week calendar evidence")
     if provenance.get("summary_source_receipt") != {"visible_sources": False}:
         raise SystemExit(f"{template_key}: summary source-removal receipt missing")
     analysis_receipt = provenance.get("market_analysis_slot_receipt", {})
