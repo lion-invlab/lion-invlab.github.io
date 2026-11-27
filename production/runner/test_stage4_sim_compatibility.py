@@ -14,6 +14,7 @@ class Stage4SimCompatibilityTests(unittest.TestCase):
         content["run_id"]=context["run_id"]
         content["market_snapshot_sha256"]=market_snapshot_digest(data)
         content["research_bundle_sha256"]="a"*64
+        content["stage4_wr_sha256"]="f"*64
         result=validate_content(content,context,data)
         self.assertEqual(result["news_counts"],{"focus_news":5,"headlines":10})
         self.assertEqual(len(content["political_scan"]["findings"]),6)
