@@ -190,7 +190,7 @@ def main():
     assert move_source["close_value"] == "97.54"
     assert move_source["daily_change_percent"] == "-1.32"
     assert Decimal(move_source["open"]) == Decimal("99.32") and Decimal(move_source["high"]) == Decimal("102.73") and Decimal(move_source["low"]) == Decimal("97.40")
-    assert "source_role" not in move_source
+    assert move_source["source_role"] == "PRIMARY"
     screenshot_bundle = make_bundle(screenshot_fixture)
     screenshot_row = next(x for x in screenshot_bundle["observations"] if x["group"]=="risk" and x["name"]=="move")
     screenshot_row.update({
