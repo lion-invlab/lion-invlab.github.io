@@ -145,8 +145,9 @@ def main():
     if provenance.get("review_ready") is not True:
         raise SystemExit("Builder has not approved REVIEW_READY: "+json.dumps(provenance.get("review_ready_blockers",[]),ensure_ascii=False))
     builder_analysis_receipt=provenance.get("market_analysis_slot_receipt") or {}
-    builder_scenario_coverage=builder_analysis_receipt.get("scenario_analysis_coverage")
-    builder_scenario_status=builder_analysis_receipt.get("scenario_analysis_status")
+    builder_scan_receipt=builder_analysis_receipt.get("political_scan") or {}
+    builder_scenario_coverage=builder_scan_receipt.get("scenario_analysis_coverage")
+    builder_scenario_status=builder_scan_receipt.get("scenario_analysis_status")
     if builder_scenario_coverage!=scenario_coverage or builder_scenario_status!="PASS":
         raise SystemExit("Builder scenario-coverage receipt is incomplete or differs from the current Stage 4 editorial input")
     forbidden_branding=("模擬審核版","Simulation隔離區","資料僅供內部教育訓練使用","僅供內部教育訓練使用")
