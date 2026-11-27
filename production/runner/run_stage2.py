@@ -175,7 +175,7 @@ def main():
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["wr_preflight"]=wr_preflight
-    receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
     fixture=load(fixture_path)
     market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
