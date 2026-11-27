@@ -32,6 +32,213 @@ def expected_sources(data: dict) -> dict:
     return rows
 
 
+def persist_fixture(path: Path, data: dict, *, no_fixture_write: bool = False) -> bool:
+    """Persist the working Fixture only for production runs, never diagnostic runs."""
+    if no_fixture_write:
+        return False
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + chr(10), encoding="utf-8")
+    return True
+
+
+def _apply_screenshot_fields(row: dict, observation: dict, screenshot: dict) -> dict:
+    """Overlay user screenshot fields; page reads may fill only fields absent from the screenshot."""
+    if not screenshot:
+        return observation
+    fields = screenshot["fields"]
+    group, name = row["group"], row["name"]
+    is_fg = group == "risk" and name == "fear_greed"
+    value_key, change_key = ("score", "band") if is_fg else ("close", "change")
+    identity = screenshot.get("instrument_identity")
+    identity_ok = _identity_matches(group, name, identity)
+    required = (value_key, change_key)
+    screenshot_only = all(key in fields for key in required)
+    source_url = screenshot.get("source_url")
+    approved_primary = set(row.get("approved_primary_urls") or [])
+    approved_backup = set(row.get("approved_backup_urls") or [])
+    if source_url == row.get("source_url") or source_url in approved_primary:
+        screenshot_role = "PRIMARY"
+    elif source_url in approved_backup:
+        screenshot_role = "BACKUP_1" if "fgscore" in str(source_url).lower() else "BACKUP_2"
+    else:
+        raise ValueError(f"{group}/{name}: screenshot URL is not approved")
+
+    screenshot_evidence = {}
+    for key, item in fields.items():
+        screenshot_evidence[key] = {
+            "source_type": "USER_PROVIDED_SCREENSHOT",
+            "source_url": source_url,
+            "evidence_path": item["evidence_path"],
+            "evidence_sha256": item["evidence_sha256"],
+            "captured_at": item["captured_at"],
+            "quote_timestamp": item.get("quote_timestamp"),
+            "field_name": item["field_name"],
+            "value": item["value"],
+            "instrument_identity": identity,
+            "observed_date": screenshot.get("data_date"),
+        }
+
+    expected_value = row.get("expected_value")
+    expected_change = row.get("expected_change")
+    if screenshot_only:
+        value = fields[value_key]["value"]
+        change = fields[change_key]["value"]
+        value_match = expected_value is None or _numeric_match(value, expected_value, rounded_integer=is_fg)
+        change_match = (
+            (not expected_change or str(change).strip().casefold() == str(expected_change).strip().casefold())
+            if is_fg else
+            (expected_change is None or _numeric_match(change, expected_change))
+        )
+        observation.update({
+            "status": "VERIFIED" if identity_ok and value_match and change_match else "OBSERVED_PENDING_FIELD_MAPPING",
+            "source_url": source_url,
+            "evidence_source_url": source_url,
+            "source_role": screenshot_role,
+            "target_date": row.get("target_date") or observation.get("target_date"),
+            "observed_date": screenshot.get("data_date"),
+            "page_title": "User-provided screenshot from approved source",
+            "instrument_identity": identity,
+            "instrument_identity_status": "VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "screenshot_instrument_identity_status": "VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "field_mapping_status": "VERIFIED",
+            "observed_value": value,
+            "observed_change": change,
+            "observed_value_field": fields[value_key]["field_name"],
+            "observed_change_field": fields[change_key]["field_name"],
+            "observed_value_key": value_key,
+            "observed_change_key": change_key,
+            "observed_headers": [fields[key]["field_name"] for key in fields],
+            "observed_row_text": f'{screenshot.get("data_date")} | ' + " | ".join(
+                f'{item["field_name"]}: {item["value"]}' for item in fields.values()
+            ),
+            "display_value_match": value_match,
+            "display_change_match": change_match,
+            "read_method": "USER_PROVIDED_SCREENSHOT",
+            "provenance": "CURRENT_USER_PROVIDED_SCREENSHOT",
+            "read_status": "USER_PROVIDED_SCREENSHOT_CONFIRMED",
+            "source_page_fetched": False,
+            "http_status": None,
+            "web_reader_ref": None,
+            "web_line_start": None,
+            "web_line_end": None,
+            "field_evidence": screenshot_evidence,
+            "screenshot_evidence_path": screenshot.get("evidence_path"),
+            "screenshot_evidence_sha256": screenshot.get("evidence_sha256"),
+            "finished_at_utc": screenshot.get("captured_at"),
+            "finished_at_tw": screenshot.get("captured_at"),
+        })
+        return observation
+
+    missing_value = value_key not in fields
+    missing_change = change_key not in fields
+    page_ok = (
+        identity_ok
+        and observation.get("source_page_fetched") is True
+        and observation.get("instrument_identity_status") == "VERIFIED"
+        and observation.get("field_mapping_status") == "VERIFIED"
+        and (not missing_value or observation.get("observed_value") is not None)
+        and (not missing_change or observation.get("observed_change") is not None)
+    )
+    if not page_ok:
+        observation.update({
+            "source_url": source_url,
+            "evidence_source_url": source_url,
+            "source_role": screenshot_role,
+            "target_date": row.get("target_date") or observation.get("target_date"),
+            "observed_date": screenshot.get("data_date"),
+            "instrument_identity": identity,
+            "instrument_identity_status": "VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "screenshot_instrument_identity_status": "VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+            "field_mapping_status": "PENDING_FIELD_HEADER_MAPPING",
+            "read_method": "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE",
+            "provenance": "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
+            "read_status": "MIXED_FIELD_OBSERVATIONS_PENDING",
+            "source_page_fetched": False,
+            "field_evidence": screenshot_evidence,
+            "status": "OBSERVED_PENDING_FIELD_MAPPING",
+        })
+        return observation
+
+    page_value = observation.get("observed_value")
+    page_change = observation.get("observed_change")
+    page_url = observation.get("evidence_source_url") or observation.get("source_url")
+    if is_fg:
+        page_source_type = (
+            "CNN_OFFICIAL_CURRENT_DASHBOARD"
+            if observation.get("read_method") == "CNN_OFFICIAL_CURRENT_DASHBOARD"
+            else "FGSCORE_HISTORICAL_PAGE"
+        )
+    else:
+        page_source_type = "INVESTING_HISTORICAL_PAGE"
+
+    evidence = dict(screenshot_evidence)
+    if value_key in fields:
+        observation["observed_value"] = fields[value_key]["value"]
+        observation["observed_value_field"] = fields[value_key]["field_name"]
+        observation["display_value_match"] = (
+            expected_value is None or _numeric_match(fields[value_key]["value"], expected_value, rounded_integer=is_fg)
+        )
+    else:
+        evidence[value_key] = {
+            "source_type": page_source_type, "source_url": page_url,
+            "page_title": observation.get("page_title"),
+            "instrument_identity": observation.get("instrument_identity"),
+            "observed_date": observation.get("observed_date"),
+            "web_reader_ref": observation.get("web_reader_ref"),
+            "web_line_start": observation.get("web_line_start"),
+            "web_line_end": observation.get("web_line_end"),
+            "field_name": observation.get("observed_value_field"),
+            "value": page_value, "observed_at": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
+        }
+        observation["display_value_match"] = (
+            expected_value is None or _numeric_match(page_value, expected_value, rounded_integer=is_fg)
+        )
+    if change_key in fields:
+        observation["observed_change"] = fields[change_key]["value"]
+        observation["observed_change_field"] = fields[change_key]["field_name"]
+        observation["display_change_match"] = (
+            (not expected_change or str(fields[change_key]["value"]).strip().casefold() == str(expected_change).strip().casefold())
+            if is_fg else
+            (expected_change is None or _numeric_match(fields[change_key]["value"], expected_change))
+        )
+    else:
+        evidence[change_key] = {
+            "source_type": page_source_type, "source_url": page_url,
+            "page_title": observation.get("page_title"),
+            "instrument_identity": observation.get("instrument_identity"),
+            "observed_date": observation.get("observed_date"),
+            "web_reader_ref": observation.get("web_reader_ref"),
+            "web_line_start": observation.get("web_line_start"),
+            "web_line_end": observation.get("web_line_end"),
+            "field_name": observation.get("observed_change_field"),
+            "value": page_change, "observed_at": observation.get("finished_at_tw") or observation.get("finished_at_utc"),
+        }
+        observation["display_change_match"] = (
+            (not expected_change or str(page_change).strip().casefold() == str(expected_change).strip().casefold())
+            if is_fg else
+            (expected_change is None or _numeric_match(page_change, expected_change))
+        )
+    observation.update({
+        "observed_value_key": value_key,
+        "observed_change_key": change_key,
+        "screenshot_instrument_identity_status": "VERIFIED" if identity_ok else "NOT_INDEPENDENTLY_VERIFIED",
+        "read_method": "MIXED_SCREENSHOT_AND_HISTORICAL_PAGE",
+        "provenance": "CURRENT_RUN_MIXED_FIELD_OBSERVATION",
+        "read_status": "MIXED_FIELD_OBSERVATIONS_CONFIRMED",
+        "source_page_fetched": True,
+        "field_evidence": evidence,
+    })
+    observation["status"] = (
+        "VERIFIED"
+        if observation.get("instrument_identity_status") == "VERIFIED"
+        and identity_ok
+        and observation.get("field_mapping_status") == "VERIFIED"
+        and observation.get("display_value_match") is True
+        and observation.get("display_change_match") is True
+        else "OBSERVED_PENDING_FIELD_MAPPING"
+    )
+    return observation
+
+
 def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
     if bundle.get("report_date") != report_date:
         raise ValueError("web observation bundle report_date mismatch")
