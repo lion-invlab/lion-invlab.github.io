@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 
 from stage2_market_fixture_bootstrap import blank_fixture
 from builder_approval import current_governance_blob_shas
+from stage_wr_preflight import stage_wr_preflight
 
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
@@ -32,6 +33,7 @@ def previous_week_start(day:date)->date:
     return monday-timedelta(days=7)
 
 def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
+    stage1_wr = stage_wr_preflight("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday()>4: raise ValueError(f"Weekend report date is not allowed: {report_date}")
     trading_date=trading_date or report_target_date(report_date)
@@ -80,7 +82,8 @@ def build(report_date:date, run_id:str, trading_date:date|None=None)->dict:
       "calendar_read_receipts":calendar_receipts,
       "screenshot_input":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2"},
       "stage2_bootstrap":data["stage2_market_bootstrap"],
-      "market_universe_count":44
+      "market_universe_count":44,
+      "stage_wr_preflight":stage1_wr
     }
     return {"run_context":run_context,"market_fixture":data}
 
@@ -113,7 +116,8 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "governance_commit_sha":context["governance"]["commit_sha"],
              "governance_file_count":len(context["governance"]["blob_shas"]),
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
-             "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]}}
+             "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
+             "wr_preflight":context["stage_wr_preflight"]}
     (output/"stage1-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     return receipt
 
