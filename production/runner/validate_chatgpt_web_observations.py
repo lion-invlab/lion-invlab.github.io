@@ -287,9 +287,15 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 raw["evidence_source_url"]=raw.get("source_url")
             elif method=="CNN_OFFICIAL_CURRENT_DASHBOARD":
                 raw["source_role"]="PRIMARY"
-        target_date = source.get("data_date")
-        if raw.get("target_date") != target_date:
-            raise ValueError(f"{group}/{name}: target date mismatch")
+        target_date = raw.get("target_date")
+        try:
+            from datetime import date as _date
+            target_day = _date.fromisoformat(str(target_date))
+            report_day = _date.fromisoformat(report_date)
+        except ValueError as exc:
+            raise ValueError(f"{group}/{name}: target_date must be an ISO date") from exc
+        if target_day > report_day:
+            raise ValueError(f"{group}/{name}: target_date cannot be later than report_date")
         tool_read_failure = raw.get("read_status") == "TOOL_READ_FAILURE"
         if raw.get("read_status") not in ("SOURCE_NO_DATA", "MARKET_CLOSED", "SOURCE_UPDATE_PENDING", "TOOL_READ_FAILURE") and raw.get("observed_date") != target_date:
             raise ValueError(f"{group}/{name}: observed date mismatch")

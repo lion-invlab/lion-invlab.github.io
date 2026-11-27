@@ -33,7 +33,8 @@ def main():
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
     if bundle["main_commit_sha"]!=pinned:
         raise SystemExit("Calendar main commit differs from Stage 1 pinned commit")
-    for label in ("current","previous"):
+    labels=("current","previous") if bundle.get("previous") is not None else ("current",)
+    for label in labels:
         item=bundle[label]
         if item.get("commit_sha")!=pinned or item.get("branch")!="main":
             raise SystemExit(f"{label} calendar week is not from pinned main commit")
@@ -53,10 +54,12 @@ def main():
                       "blob_sha":bundle["current"]["blob_sha"],
                       "economic_count":bundle["current"]["economic_count"],
                       "earnings_count":bundle["current"]["earnings_count"]},
-      "previous_week":{"week_id":bundle["previous"]["week_id"],"path":bundle["previous"]["path"],
-                       "blob_sha":bundle["previous"]["blob_sha"],
-                       "economic_count":bundle["previous"]["economic_count"],
-                       "earnings_count":bundle["previous"]["earnings_count"]},
+      "previous_week":({
+          "week_id":bundle["previous"]["week_id"],"path":bundle["previous"]["path"],
+          "blob_sha":bundle["previous"]["blob_sha"],
+          "economic_count":bundle["previous"]["economic_count"],
+          "earnings_count":bundle["previous"]["earnings_count"]
+      } if bundle.get("previous") is not None else None),
       "source_json_read_only":True,"projection_is_in_memory":True,
       "wr_preflight":wr_preflight,"outputs":outputs
     }

@@ -107,7 +107,7 @@
 - 每日掃描六領域：美國政策與政治；美中競爭；中東／俄烏／台海／朝鮮半島；國際貿易、關稅、制裁與出口管制；日本／歐洲／中國及重要新興市場政治；能源與戰略資源。
 - 每項重大事件必須記錄原始來源、發布時間／時區、適用範圍及狀態分類：正式生效／執行、已宣布但尚未實施、政治人物立場或談話、市場預期、未核實消息。不得把表態當成政策、宣布當成生效或預期當成事實。
 - 對重大事件逐環節驗收「事件 → 政策／執行 → 產業／企業 → 宏觀經濟 → 金融市場 → 投資策略」傳導；證據不足的環節必須標示未知，不得自行補鏈。
-- 必須建立基準、風險、嚴重三種情境，逐項列出觸發條件、傳導路徑、受影響資產、領先指標、策略及失效條件。若證據不足以建立某情境，標示缺證與影響，不得虛構。
+- 僅對重大且具可辨識市場影響的事件建立基準、風險、嚴重三種情境，逐項列出觸發條件、傳導路徑、受影響資產、領先指標、策略及失效條件。當日沒有符合條件的重大事件時，scenario_analysis_coverage 記錄 NOT_APPLICABLE 及原因；不得為了通過 QA 硬湊情境。適用事件若證據不足，標示缺證與影響，不得虛構。
 - 沒有重大且已核實的新變化時，允許明確記錄當日未發現足以改變市場定價的重大政治／地緣政治變化；不得為湊篇幅硬寫政治敘事。掃描是否完成與當日是否有重大事件是兩個獨立狀態。
 - QA sidecar 必須記錄 `political_geopolitical_scan`、`political_domains_checked`、`political_event_status_classifications`、`policy_transmission_completeness`、`scenario_analysis_coverage`。未執行標 `NOT_TESTED`；來源或證據不足標 `PARTIAL`；不得默認 PASS。
 
@@ -120,10 +120,10 @@
 - [ ] 盤面觀察重點仍留在原 `#view`，內容精簡，與五層文章不整段重複。
 - [ ] Builder 僅填入核准槽位既有節點；不得重建母版 DOM，不得自行追加 CSS／JS；缺錨點、重複錨點或父層／順序不符即 FAIL。
 - [ ] 桌機及 320／360／390／412px 手機版均檢查標題換行、段落寬度、行距、卡片間距及橫向溢位；五層文章不得擠壓行情、財報或 Fed 官員行程卡片。
-- [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、五層標題順序、總結卡與文章分離檢查、政治掃描六領域完成狀態、政策分類、傳導鏈、三種情境及各 viewport 測試結果。
+- [ ] QA sidecar 記錄兩份母版 SHA、文章槽位 selector、五層標題順序、總結卡與文章分離檢查、政治掃描六領域完成狀態、政策分類、傳導鏈、情境適用性／覆蓋狀態及各 viewport 測試結果。
 - [ ] 文章內容 QA 必須同時檢查 Fixture 與最終 HTML，確保五層文字一致、來源證據可追溯，且未以未核實政治消息作為確定事實。
 - [ ] 政治掃描六領域代碼完整：`us_policy`、`us_china`、`geopolitics`、`trade_sanctions`、`major_economies`、`energy_resources`；重大事件分類只允許 `formally_effective`、`announced_not_implemented`、`political_statement`、`market_expectation`、`unverified`。
-- [ ] 每項重大政治事件均具 policy／industry／macro／markets／strategy 五段傳導及 baseline／risk／severe 三情境；缺證環節必須標「未知」，未執行不得默認通過。
+- [ ] 每項重大政治事件均具 policy／industry／macro／markets／strategy 五段傳導及 baseline／risk／severe 三情境；缺證環節必須標「未知」。當日沒有重大政治事件時，scenario_analysis_coverage 可為 NOT_APPLICABLE，但六領域掃描仍須完成並留存證據。
 
 ### A2.2a 全球主要股市三區評論綁定
 

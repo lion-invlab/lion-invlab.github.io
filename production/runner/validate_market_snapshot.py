@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse
 import re
+from datetime import date
 
 
 EXPECTED_COUNTS = {
@@ -28,7 +29,7 @@ def _require(condition: bool, message: str) -> None:
 
 
 
-def _screenshot_page_fields_complete(source: dict, trading_date: str) -> bool:
+def _screenshot_page_fields_complete(source: dict, data_date: str) -> bool:
     screenshot_fields = set(source.get("screenshot_fields_applied") or [])
     page_fields = set(source.get("history_page_completion_fields") or [])
     if not all(field in screenshot_fields or field in page_fields for field in ("close", "change")):
@@ -57,16 +58,22 @@ def _screenshot_page_fields_complete(source: dict, trading_date: str) -> bool:
                 return False
         if source.get("screenshot_observation_applied_at") is None:
             return False
-    return source.get("data_date") == trading_date
+    evidence = source.get("screenshot_evidence") or {}
+    return bool(evidence) and all(item.get("data_date") == data_date for item in evidence.values())
 
 
-def _validate_source(group: str, name: str, source: dict, trading_date: str) -> dict:
+def _validate_source(group: str, name: str, source: dict, report_date: str) -> dict:
     for field in ("name", "url", "data_date", "quote_type", "note"):
         _require(bool(source.get(field)), f"{group}/{name}: source.{field} missing")
     parsed = urlparse(str(source["url"]))
     _require(parsed.scheme == "https" and bool(parsed.netloc), f"{group}/{name}: source URL must be HTTPS")
-    _require(source["data_date"] == trading_date,
-             f"{group}/{name}: source date {source['data_date']} != trading_date {trading_date}")
+    try:
+        data_day=date.fromisoformat(str(source["data_date"]))
+        report_day=date.fromisoformat(str(report_date))
+    except ValueError:
+        _require(False, f"{group}/{name}: source data_date/report_date must be valid ISO dates")
+    _require(data_day <= report_day,
+             f"{group}/{name}: source data_date cannot be later than report_date {report_date}")
     raw_verification_time = (
         source.get("checked_at_tw")
         or source.get("checked_at")
@@ -111,7 +118,7 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
             _require(len(values) == expected, f"sectors count {len(values)} != {expected}")
             for name, value in values.items():
                 source = sources[name]
-                row = _validate_source(group, name, source, trading_date)
+                row = _validate_source(group, name, source, report_date)
                 _require(source.get("quote_type") == "ETF_daily_close",
                          f"sectors/{name}: quote_type must be ETF_daily_close")
                 _require(source.get("change_display") == value,
@@ -133,7 +140,7 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
             for name, item in values.items():
                 _require(isinstance(item, dict), f"{group}/{name}: row must be an object")
                 source = item.get("source") or {}
-                row = _validate_source(group, name, source, trading_date)
+                row = _validate_source(group, name, source, report_date)
                 display = item.get("display")
                 _require(display is not None and str(display).strip() != "",
                          f"{group}/{name}: display missing")
@@ -145,7 +152,7 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
                     quote_type = str(source.get("quote_type", "")).lower()
                     if "cfd" in quote_type:
                         if display != "待核實" or item.get("change_display") != "待核實":
-                            _require(_screenshot_page_fields_complete(source, trading_date),
+                            _require(_screenshot_page_fields_complete(source, source.get("data_date")),
                                      f"global_markets/{name}: CFD reference must be suppressed unless date-matched screenshot/page fields are complete")
 
                 if group in ("energy", "metals"):
@@ -172,7 +179,8 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
 
     _require(len(rows) == EXPECTED_TOTAL, f"total indicator rows {len(rows)} != {EXPECTED_TOTAL}")
     dates = sorted({row["data_date"] for row in rows})
-    _require(dates == [trading_date], f"44-row common-date mismatch: {dates} != {[trading_date]}")
+    _require(all(day <= report_date for day in dates),
+             f"market data contains a date later than report_date {report_date}: {dates}")
 
     timestamped = sum(1 for row in rows if row["timestamp_status"] == "EXACT_TIME")
     date_only = sum(1 for row in rows if row["timestamp_status"] == "DATE_ONLY")
@@ -188,7 +196,7 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
         "checks_performed": [
             "44-row group counts",
             "per-row HTTPS source metadata",
-            "common trading date",
+            "per-instrument data date not later than report date",
             "quote-type constraints",
             "sector display/source change identity",
             "commodity history/display identity",
@@ -203,7 +211,7 @@ def validate_market_snapshot(data: dict, report_date: str) -> dict:
         "trading_date": trading_date,
         "indicator_count": len(rows),
         "group_counts": counts,
-        "common_data_dates": dates,
+        "observed_data_dates": dates,
         "source_metadata_complete_count": len(rows),
         "per_item_timestamp_count": timestamped,
         "per_item_date_only_count": date_only,

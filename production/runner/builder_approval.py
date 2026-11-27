@@ -61,7 +61,6 @@ GOVERNANCE_PATHS=(
  "production/runner/run_stage4.py",
  "production/runner/prepare_stage4_research_bundle.py",
  "production/runner/run_stage5.py",
- "production/runner/run_stage5_transition.py",
  "production/runner/run_stage6.py",
  "production/runner/validate_prebuild_stage_inputs.py",
  "production/runner/validate_mother_dom_contract.py",

@@ -20,13 +20,29 @@ def make_run(root):
     working_fp.write_text(json.dumps(fixture,sort_keys=True))
     rp.write_text(json.dumps({"status":"PASS","run_id":run_id,"report_date":report,"trading_date":trading,
       "run_context_sha256":digest(cp),"fixture_sha256":digest(stage1_fp)},sort_keys=True))
-    binding={"schema_version":"1.0","run_id":run_id,"report_date":report,"trading_date":trading,
+    binding={"schema_version":"1.1","run_id":run_id,"report_date":report,"trading_date":trading,"stage2_wr_sha256":"a"*64,
       "stage1_receipt_sha256":digest(rp),"run_context_sha256":digest(cp),
       "stage1_fixture_sha256":digest(stage1_fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
     rows=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk","sectors"):
-        rows.extend({"group":group,"name":name} for name in fixture[group])
-    (run/"market-history-web-observations.json").write_text(json.dumps({**binding,"observations":rows}))
+        rows.extend({
+            "group":group,"name":name,"source_url":"https://www.investing.com/",
+            "target_date":trading,"observed_date":trading,"page_title":name,
+            "instrument_identity":name,"read_method":"BROWSER_HISTORICAL_DATA",
+            "observed_value_field":"Price","observed_change_field":"Change %",
+            "observed_headers":["Date","Price","Change %"],"observed_row_text":f"{trading} | {name}",
+            "read_status":"PAGE_CONTENT_READ_SUCCESS","captured_at_utc":binding["captured_at_utc"],
+            "finished_at_utc":binding["captured_at_utc"]
+        } for name in fixture[group])
+    fedwatch={
+        "status":"SOURCE_NO_DATA","source_name":"Investing.com Fed Rate Monitor",
+        "source_url":"https://www.investing.com/central-banks/fed-rate-monitor",
+        "report_date":report,"trading_date":trading,"captured_at_utc":binding["captured_at_utc"],
+        "target_meeting":None,"current_target_range":None,"updated_at_tw":None,
+        "probabilities":[],"web_reader_ref":None,"web_line_start":None,"web_line_end":None,
+        "reason":"Test fixture only","stage2_wr_sha256":"a"*64
+    }
+    (run/"market-history-web-observations.json").write_text(json.dumps({**binding,"observations":rows,"fedwatch":fedwatch}))
     return run
 
 class RunHandoffTests(unittest.TestCase):
@@ -79,8 +95,11 @@ class RunHandoffTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp))
             base=json.loads((run/"market-history-web-observations.json").read_text())
-            for name in ("cnn-fear-greed-observation.json","market-screenshot-observations.json"):
-                (run/name).write_text(json.dumps({**base,"observations":[]}))
+            (run/"cnn-fear-greed-observation.json").write_text(json.dumps({**base,"observations":[]}))
+            screenshot={key:base[key] for key in ("schema_version","run_id","report_date","trading_date","captured_at_utc",
+                "stage1_receipt_sha256","run_context_sha256","stage1_fixture_sha256")}
+            screenshot["observations"]=[]
+            (run/"market-screenshot-observations.json").write_text(json.dumps(screenshot))
             out=validate_stage2_run_handoff(run,Path(tmp))
             self.assertEqual(out["screenshot"],{"row_count":0,"field_count":0})
             self.assertEqual(set(out["optional_bundle_sha256"]),{
@@ -91,7 +110,7 @@ class RunHandoffTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             run=make_run(Path(tmp))
             (run/"cnn-fear-greed-observation.json").write_text(json.dumps({
-                "schema_version":"1.0","report_date":"2026-11-27","trading_date":"2026-11-26",
+                "schema_version":"1.1","report_date":"2026-11-27","trading_date":"2026-11-26",
                 "captured_at_utc":"2026-11-27T00:51:42Z","observations":[]
             }))
             with self.assertRaisesRegex(ValueError,"run_id"):

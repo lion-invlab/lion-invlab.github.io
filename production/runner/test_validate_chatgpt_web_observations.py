@@ -213,6 +213,20 @@ def main():
     assert Decimal(screenshot_move_source["open"]) == Decimal("99.32") and Decimal(screenshot_move_source["high"]) == Decimal("102.73") and Decimal(screenshot_move_source["low"]) == Decimal("97.40")
     bundle = make_bundle(data)
 
+    # Per-instrument dates may differ from the shared Run anchor when exchanges
+    # have different holiday calendars.
+    mixed_data = copy.deepcopy(data)
+    mixed_data["global_markets"]["道瓊工業指數"]["source"]["data_date"] = "2026-11-19"
+    mixed_bundle = make_bundle(mixed_data)
+    dow_row = next(x for x in mixed_bundle["observations"] if x["name"] == "道瓊工業指數")
+    dow_row["target_date"] = "2026-11-19"
+    dow_row["observed_date"] = "2026-11-19"
+    dow_row["observed_row_text"] = f"Nov 19, 2026 | {dow_row['observed_value']} | {dow_row['observed_change']}"
+    mixed_result = validate_bundle(mixed_data, "2026-11-24", mixed_bundle)
+    mixed_dow = next(x for x in mixed_result["observations"] if x["name"] == "道瓊工業指數")
+    assert mixed_dow["target_date"] == "2026-11-19"
+    assert mixed_dow["observed_date"] == "2026-11-19"
+    assert mixed_result["trading_date"] == mixed_data["trading_date"]
     # A delayed retry may replace only MOVE; the other 43 frozen observations
     # must remain byte-for-byte equivalent after canonical JSON serialization.
     pending_base = copy.deepcopy(bundle)

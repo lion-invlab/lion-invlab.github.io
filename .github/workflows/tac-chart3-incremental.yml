@@ -1,11 +1,12 @@
 name: TAC Chart 3 incremental update (main branch trigger)
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/scripts/tac_chart3_incremental_trigger.py"
+  workflow_dispatch:
+  # Run only after the Main report's build-and-deliver workflow has finished.
+  # This keeps the shared Chart 3 data lock out of Stage 4-6 execution.
+  workflow_run:
+    workflows: ["TAC main-native production pipeline"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -16,6 +17,7 @@ concurrency:
 
 jobs:
   update:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main' && contains(github.event.workflow_run.head_commit.message, '[build-tac-report:')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -49,8 +51,8 @@ jobs:
             echo "No new vintage or current data; baseline checkpoint left unchanged."
           else
             git commit -m "data(chart3): incremental FRED-ALFRED vintage update"
-            # Main Stage 2 may append the S&P 500 ledger while this job runs.
-            # Rebase this Chart 3 data commit and retry to preserve both updates.
+            # S&P 500 merge and ALFRED updates share this data-maintenance lock.
+            # Rebase remains a defensive safeguard for unrelated Main writers.
             git fetch origin main
             git rebase origin/main
             PUSHED=false

@@ -9,11 +9,15 @@
     "captured_at_utc",
     "stage2_wr_sha256",
     "observations",
-    "fedwatch"
+    "fedwatch",
+    "run_id",
+    "stage1_receipt_sha256",
+    "run_context_sha256",
+    "stage1_fixture_sha256"
   ],
   "properties": {
     "schema_version": {
-      "const": "1.0"
+      "const": "1.1"
     },
     "report_date": {
       "type": "string",
@@ -438,22 +442,5 @@
       },
       "additionalProperties": true
     }
-  },
-  "allOf": [
-    {
-      "if": {
-        "required": [
-          "run_id"
-        ]
-      },
-      "then": {
-        "required": [
-          "run_id",
-          "stage1_receipt_sha256",
-          "run_context_sha256",
-          "stage1_fixture_sha256"
-        ]
-      }
-    }
-  ]
+  }
 }

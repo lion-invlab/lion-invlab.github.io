@@ -1,14 +1,21 @@
-# TAC 投資早報｜正式工作規則
+# TAC 投資早報｜共通規則與行事曆資料庫維護 WR
 
-版本：5.17（2026-11-19｜S&P 500 Yahoo Finance 歷史收盤備援）
+版本：5.20（2026-11-27｜Main 排程權威與 Chart 3 非阻塞交接）
 建立日期：2026-10-28
 本次整併日期：2026-11-04
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
 
+## 適用範圍與規則權威（2026-11-27 起）
+- 本文件保留 TAC 共通資料原則及「行事曆資料庫更新任務」的維護規則；不再作為 Main 每日早報 Pipeline 的執行流程權威。
+- Main 每日早報唯一生產規範為 `production/MASTER_WR.md`，六份 Stage WR 與 contracts 為其執行附件；Main 的 Stage 順序、交接、Runner、QA、Preview 及發布均以該規範為準。
+- Simulation 僅在 `simulation/tac-process-lab-2026-11-06` 分支使用 `simulation-lab/TAC_WORK_RULES_SIM.md`；不得將 Simulation 流程混入 Main。
+- 本文件中原本描述「Main 早報由單一 ChatGPT 依六步驟直接製作」、禁止 Main Runner／Workflow／Snapshot 的條文，均屬舊流程歷史規則，不得覆蓋 `production/MASTER_WR.md`。
+
+
 ## A. 規則權威、責任與基本原則
 
 ### A1. 唯一權威來源
-1. 本檔（GitHub main 根目錄 `TAC_WORK_RULES.md`）是唯一正式工作規則。每次工作開始前必須重新讀取 main 最新內容，不得以聊天記憶、舊交接摘要、舊版副本或其他同名檔案取代。
+1. 本檔是 TAC 共通資料原則及行事曆資料庫更新任務的正式工作規則；Main 每日早報生產以 `production/MASTER_WR.md` 為唯一權威。行事曆資料庫更新開始前仍須重新讀取本檔最新內容。
 2. 使用者最新明確指示優先於本檔；但不得把一般討論、假設或助理建議視為已核准變更。若明確指示改變長期規則，先更新本檔並記錄，再依新規則執行。
 3. `母版專區/mother-template-manifest.json` 是核准母版路徑與 SHA 的唯一登記來源；本檔定義製作規則，Manifest 定義實際核准檔案。兩者不一致時停止母版渲染，不得自行猜選或更新 SHA。
 4. `母版專區/母版結構驗收清單.md` 是每日 HTML 結構、功能與視覺 QA 的唯一詳細執行清單。它是技術驗收附件，不是第二份 Work Rules；本檔只定義 QA Gate、通過門檻及權責，不重複抄錄清單。
@@ -16,9 +23,9 @@
 
 ### A1-補充｜單一執行者與版本確認
 
-1. 每次早報由 ChatGPT 單一執行者直接負責。開工時重新讀取 GitHub main 最新 TAC_WORK_RULES.md、Manifest、核准母版及當週行事曆 JSON，記錄本次採用的 WR 版本與讀取時間。
-2. 不再要求建立 WR Lock、下載 lock artifact、讀取 Issue #319 relay，亦不以 GitHub Actions、Snapshot、Assembler、Renderer 或 Orchestrator 成功作為早報開工前提。
-3. 允許每日工作日 04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。每日 05:25 早報仍由 ChatGPT 單一執行者負責，但對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於早報工作紀錄與預覽 HTML。不得要求使用者逐步輸入「繼續」。
+1. 本文件的單一執行者原則僅適用於本文件所管轄的行事曆資料庫維護與一般研究工作；Main 每日早報必須依 `production/MASTER_WR.md` 使用六 Stage Pipeline、Runner、Snapshot 與必要 QA。
+2. 行事曆資料庫更新仍由其唯一排程任務負責；不得將此任務誤認為 Main 早報 Stage 1 或 Stage 3 的替代流程。
+3. 允許每日工作日 04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。Main 早報 Stage 1–6 的排程時間與執行入口，唯一依據為 `production/MASTER_WR.md`；本共通 WR 不再另行定義 Main 早報固定 05:25 啟動時間。早報各 Stage 對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於 Run 工作紀錄與審核版。不得要求使用者逐步輸入「繼續」。
 4. 歷史 Snapshot、lock、workflow artifact 及舊版流程紀錄只作歷史資料，不得冒充當次行情或當次執行證據。
 5. **六步驟成果交接的唯一工作錨點：** 使用既有 `TAC_SESSION_STATE.md` 保存當次報告的活動狀態、各步驟輸入／輸出索引、完成狀態、未結事項、下一步及可恢復位置；使用既有 `TAC_WORK_LOG.md` 記錄重要查核結果、關鍵來源證據、決策、修正及完成驗收。兩者分工不得互換：Session State 是目前進度與恢復錨點，Work Log 是重要工作證據與決策紀錄。不得另建每日 Snapshot、行情資料庫、新聞資料庫、第二份工作台帳或新的流程協調器。
 6. 每一步完成時，必須先把該步驟的成果摘要、來源／版本識別、項目狀態、待處理原因及下游使用方式更新至 Session State；涉及正式資料更新、關鍵來源裁決、錯誤修正或 QA 結果時，同步寫入 Work Log。下一步開始前必須讀取這些紀錄及其指向的正式來源，逐項確認已接收所需成果；不得只依前一步口頭宣稱完成。
@@ -76,7 +83,9 @@
 - 工具欄說明泡泡須在使用者首次捲動／觸控移動時立即提前消失，不等待原定 6.5 秒；泡泡消失不得連帶移除工具欄呼吸燈／高亮提示，呼吸燈仍依原定時間持續（除非使用者點擊或母版原始行為另有定義）。此行為若存在於所選母版，須在預覽中保留並分別驗收泡泡及呼吸燈；未實測不得宣稱實機通過。
 - 不得以 CSS 臨時覆蓋掩飾 DOM 缺失，不得為統一 selector 重寫母版原有不同實作。
 
-## C. 每日唯一生產流程（六步驟）
+## C. 舊版人工早報流程（已退役，不適用 Main）
+
+本節保留歷史參考；Main 每日早報不得依本節執行，必須遵循 `production/MASTER_WR.md`。
 
 這是每日唯一主流程。其他章節只提供各步驟需要遵循的內容規格，不另形成第二套流程。
 
@@ -120,7 +129,7 @@
 
 ### 第三步｜讀取行事曆資料庫並核實事件
 1. 唯一資料路徑為 `data/calendar/weeks/YYYY-Www.json`（ISO week）。禁止使用 `data/calendar/weekly/` 或其他替代路徑。讀取 main 分支本週 JSON；週一另讀取必要的上週 JSON。
-2. **責任分工（2026-11-12 使用者明確指示）：** 04:35 排程是行事曆週資料庫唯一維護者與唯一寫入者。05:25 早報只讀取本週及必要的上週 JSON，核實當日必要事件並記錄讀取 SHA；不得對 JSON 執行任何增刪改、merge/upsert 或回寫。若發現新事件、實際值、來源／時間修正或資料矛盾，只能記錄於早報工作紀錄及預覽 HTML，標示待下次 04:35 資料庫更新，不得直接修補。不得另建平行資料庫。
+2. **責任分工：** 04:35 排程是行事曆週資料庫唯一維護者與唯一寫入者。Main 早報 Stage 1–6 的排程、啟動時間及資料交接，唯一依據為 `production/MASTER_WR.md`；Stage 3 只讀取 Stage 1 鎖定的 Main commit 所含本週 JSON，僅週一另讀上週 JSON，不得對 JSON 執行任何增刪改、merge/upsert 或回寫。若發現新事件、實際值、來源／時間修正或資料矛盾，只能記錄於同一 Run 工作紀錄及審核版，標示待下次 04:35 資料庫更新，不得直接修補。不得另建平行資料庫。
 3. `coverage.economic`／`coverage.earnings` 的 `incomplete` 是動態進行中狀態，可能因事件尚未發生、實際值尚未公布而正常存在；不得單憑 incomplete 判定故障或阻止當日早報。未到公布時間的 actual=null 屬正常，不得預填或推估。只有檔案不存在、JSON/schema 損壞、核心事件集合明顯缺失、來源／更新資訊異常或當日必要事件無法可靠呈現，才列為資料問題。
 4. 逐筆核對報告日期、事件識別碼、原始發布日期時間、台灣時間、國家／公司、事件類型、發布狀態、實際值、預期值、前值（適用時）、來源及目標分頁。已公布事件核對實際值；未來事件核對日期、時間、預期值及來源。
 5. 依 TAC 星等與星期情境篩選：本週經濟／財報行事曆只呈現 TAC 四星、五星；週一上週兩區只呈現五星。所有國家／經濟體同一標準，不得機械換算外部一至三星。
@@ -238,7 +247,7 @@
 3. **必要欄位：** 每筆交接須包含 `report_date`、`trading_date`、`close`、`status=verified`，以及來源 `name`、`url`、`observed_at`、`data_date`、`quote_type`、`instrument`。`data_date` 必須等於 `trading_date`；標的須明確為 S&P 500 現貨價格指數，報價口徑須為正式每日收盤，不得使用 CFD、期貨或其他代理商品。未核實、待核實、暫缺或來源資料日期不符時不得寫入。
 4. **唯一寫入路徑：** 使用 `.github/scripts/append_tac_sp500_daily_increment.py` 將已核實的單筆交接追加至 `data/tac-chart3/sp500_daily_increment.jsonl`。輸入 handoff JSON 僅為執行時暫存資料，不另建持久化每日行情檔或平行資料庫。既有 Schema 的 `source.observed_at` 欄位已足以承載來源查核時間，不另改造 44 項市場資料 Schema。
 5. **追加與防重規則：** 一個交易日只保留一筆有效觀測，日期必須嚴格遞增；完全相同的同日觀測重跑時回報 no-op，不重複追加。同日收盤價、來源或標的資訊衝突時必須停止並回報，不得覆寫既有紀錄或自行選值。每筆記錄保存 SHA-256；讀取既有帳本時先驗證雜湊、日期唯一性及排序。
-6. **歷史底稿保護：** 此流程只追加新交易日資料，不重新下載、不重建、不壓縮、不覆蓋既有 `sp500_daily_close_1927-2026.compact.json` 或 `sp500_daily_close_1993-2026.compact.json`。歷史底稿與每日增量帳分開保存；後續合併或五序列同步發布，必須依 Chart 3 專用驗收流程另行執行，不代表本次早報寫入即已發布 Chart 3。
+6. **歷史底稿保護：** 此流程只追加新交易日資料，不重新下載、不重建、不壓縮、不覆蓋既有 `sp500_daily_close_1927-2026.compact.json` 或 `sp500_daily_close_1993-2026.compact.json`。歷史底稿與每日增量帳分開保存；S&P 500 增量合併只在 Main 早報 Stage 6 成功交付、整條 production workflow 完成後自動觸發，不得由增量帳 push 直接觸發，也不得阻塞早報 Stage 2–6。五序列同步發布仍須依 Chart 3 專用驗收流程另行執行；早報寫入或單一 S&P 500 合併均不代表 Chart 3 已完整發布。
 7. **來源忠實性與 Yahoo 歷史收盤備援：** 保留當日早報實際採用的來源名稱與網址，不得把不同來源混寫成同一來源。S&P 500 優先直接查核 Investing.com 香港站歷史資料頁 `https://hk.investing.com/indices/us-spx-500-historical-data`；若該頁明確標示 CFD／衍生報價，或無法確認為 S&P 500 現貨價格指數正式每日收盤，不得將其寫入現貨增量帳，改用 Yahoo Finance `^GSPC` 歷史資料頁 `https://finance.yahoo.com/quote/%5EGSPC/history/` 作備援。備援必須直接讀取指定交易日 `Historical Prices` 表格的 `Close` 欄，不得採用 `Adj Close`、即時報價標頭或搜尋摘要；核對 `Date`、`Open`、`High`、`Low`、`Close`，確認標的為 S&P 500 現金價格指數及資料日期相符，並記錄實際來源名稱、網址、查核時間與 `quote_type=daily_close`。若 Yahoo 歷史列未載入或口徑仍無法確認，維持未交接，不得猜值或補造時間戳。
 8. **未完成處理：** 若當次未能取得精確 `observed_at`、標的身分或正式收盤口徑，該筆保持未交接並記錄原因；不得補造時間戳或回填舊快照。此交接不新增每日排程、不啟動行情爬蟲、不改動既有 ChatGPT 早報與行事曆排程。
 
@@ -338,10 +347,10 @@
 
 ## H. 自動化退場與單一路徑
 
-- 早報不依賴舊版夏令 05:00 排程；冬令 05:25 由 ChatGPT 單一執行者依使用者指定的排程執行。行事曆資料庫每日工作日 04:35 預更新排程獨立運作，只更新唯一週 JSON，不產製早報或 HTML。
-- 04:35 排程是資料庫預更新，不是當日資料定稿。它必須重新讀取 main 最新 WR，依正式 schema 對 `data/calendar/weeks/YYYY-Www.json` 執行可重複的增量 merge/upsert；保留穩定 event ID、已核實 actual、原始來源及完整 audit。不得以空值、舊來源或未核實值覆蓋較新且已核實的資料，不得刪除既有事件或重建平行資料庫。寫入後必須 fetch 回讀並驗證 JSON、事件 ID 唯一性、日期、來源、狀態、coverage、audit 及 SHA。
-- 05:25 早報執行者必須重新讀取同一週 JSON，針對 04:35 後新公布的經濟數據、財報實績、共識修訂及時間異動重新查證；本流程對 JSON 嚴格唯讀，禁止增量寫回、merge/upsert、修補或覆蓋。任何新資料、缺漏或矛盾只記錄在早報工作紀錄與預覽 HTML，標示待下次 04:35 更新。早報記錄讀取 SHA；若讀取期間版本變更則重新 fetch 最新版本後再呈現，但仍不得寫入。
-- 兩流程不得同時寫入同一週 JSON；04:35 預更新必須在 05:25 開始前結束。若未完成或回讀驗證失敗，05:25 執行者不得盲目覆蓋，應讀取當前版本、完成必要查證後序列更新，或標示阻塞。不得建立平行資料庫或額外中繼資料庫。
+- Main 早報 Stage 1–6 的排程與啟動時間唯一依據為 `production/MASTER_WR.md`；本共通 WR 不再規定固定 05:25 早報啟動時間。冬令 Main Stage 1／Stage 2 時間及後續交接依 Master WR 執行。
+- 04:35 行事曆排程是資料庫預更新，也是週 JSON 唯一 writer。它必須重新讀取 main 最新 WR，依正式 schema 對 `data/calendar/weeks/YYYY-Www.json` 執行可重複的增量 merge/upsert；保留穩定 event ID、已核實 actual、原始來源及完整 audit。不得以空值、舊來源或未核實值覆蓋較新且已核實的資料，不得刪除既有事件或重建平行資料庫。寫入後必須 fetch 回讀並驗證 JSON、事件 ID 唯一性、日期、來源、狀態、coverage、audit 及 SHA。
+- Main Stage 3 以 Stage 1 鎖定的 Main commit 唯讀讀取本週 JSON；僅週一另讀取前一週。不得在 Stage 3 或後續 Stage 對週 JSON 執行增量寫回、merge/upsert、修補或覆蓋。若發現新資料、缺漏或矛盾，只記錄於同一 Run 工作紀錄及審核版，留待下一次 04:35 更新。
+- 04:35 資料庫更新與早報 Stage 3 不得同時寫入同一週 JSON；早報對週 JSON 永遠唯讀。不得以 05:25 舊時點作為排程依賴，也不得建立平行資料庫或額外中繼資料庫。
 - 舊 WR Lock、Snapshot、collector、assembler、renderer、validator、workflow artifact 及其程式／資料均保留作歷史參考或必要的歷史資料讀取；不得作為當日正式行情或早報產製的強制前置關卡。
 - GitHub Actions 保留母版保護檢查、Pages 預覽／正式網站部署，以及獨立的 `archive_index.yml` 歷史封存任務。歷史封存只新增／核對 `history/`，並明確驗證 `index.html` 未被修改；它不是早報產製或 QA 關卡。母版保護檢查不代替每日內容 QA；Pages 部署成功也不代表內容已審核。其他 TAC 報價擷取、WR Lock、Snapshot handoff、結構 Gate、關鍵價位排程、手動 key-level 測試及來源探測 workflow 均退出每日生產流程。
 - 審核版一律先寫入 preview/YYYY-MM-DD.html；只有使用者明確核准指定審核版後，才可更新 index.html。任何自動部署不得視為使用者已授權正式發布。
@@ -521,3 +530,12 @@
 - 取消 320px 極窄視窗的例行及發布必要測試，不再因未測 320px 阻擋審核版交付。
 - 統一標準視窗尺寸為 360px、390px、412px、768px、1440px；未能實際測試的尺寸仍須如實標示未測試，不得宣稱通過。
 - 同步更新唯一詳細驗收附件 `母版專區/母版結構驗收清單.md`；不修改母版、Manifest、首頁或其他受保護資產。
+
+### 版本 5.19（2026-11-27｜Chart 3 合併延後至早報交付後）
+- 明定 Stage 2 只追加 S&P 500 已核實收盤至增量帳；不直接觸發 Chart 3 合併。
+- Chart 3 S&P 500 合併改由 Main production workflow 成功完成事件觸發，確保 Stage 6 先完成，Chart 3 不阻塞早報交付。
+- 五序列同步發布仍維持獨立 Chart 3 驗收，不以單一 S&P 500 增量合併冒充完整發布。
+
+### 版本 5.20（2026-11-27｜Main 排程權威與 Chart 3 非阻塞交接）
+- 明確指定 Main Stage 1–6 的排程時間唯一依據為 `production/MASTER_WR.md`，移除共通 WR 舊版 05:25 固定啟動時間歧義。
+- 明定 S&P 500 增量合併在 Stage 6 成功交付後觸發；增量帳 push 不直接啟動合併。

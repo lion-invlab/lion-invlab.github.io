@@ -1922,6 +1922,11 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
     verified = pending = closed = 0
     for row in rows:
         group, name = row["group"], row["name"]
+        source = (data.get("sector_sources", {}).get(name) if group == "sectors"
+                  else (data.get(group, {}).get(name, {}).get("source") or {}))
+        row_data_date = (source or {}).get("data_date")
+        if row.get("data_date") != row_data_date:
+            raise ValueError(f"market source manifest data_date differs from fixture: {name}")
         state = row.get("verification_status")
         if state in {"VERIFIED", "BACKUP_VERIFIED"}:
             if row.get("display_value_matches_saved_observation") is not True:
@@ -1931,7 +1936,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
         if state == "CLOSED":
             closed += 1
             # Any of the 44 contracted instruments may legitimately have a
-            # market holiday on the common report trading_date. The official
+            # market holiday on this instrument's expected session date. The official
             # closure evidence is validated upstream in the source manifest.
             if row.get("evidence_status") != "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE":
                 raise ValueError(f"closed market row lacks verified official holiday evidence: {name}")
@@ -1939,7 +1944,7 @@ def apply_market_source_verification_manifest(data: dict, source_manifest: dict)
             if not isinstance(browser_record, dict):
                 raise ValueError(f"closed market row lacks its browser evidence record: {name}")
             if (browser_record.get("read_status") != "MARKET_CLOSED"
-                    or browser_record.get("target_date") != trading_date
+                    or browser_record.get("target_date") != row_data_date
                     or browser_record.get("source_page_fetched") is not True
                     or browser_record.get("prior_observation_reused") is not False
                     or not browser_record.get("closure_evidence_url")
@@ -2136,7 +2141,8 @@ def main():
     # The generated report now includes source-checked five-index S2/S1/P/R1/R2 levels.
     for stale_meta in soup.find_all("meta", attrs={"name": "tac-correction-test"}):
         stale_meta.decompose()
-    provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": {k:v for k,v in calendar_source["previous"].items() if k != "payload"}, "mode": "READ_ONLY"}
+    previous_calendar = calendar_source.get("previous")
+    provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": ({k:v for k,v in previous_calendar.items() if k != "payload"} if previous_calendar else None), "mode": "READ_ONLY"}
     head_node = soup.select_one("head")
     if head_node is None: raise ValueError("HTML head missing; cannot record authoritative calendar provenance")
     head_node.append(Comment(" TAC_CALENDAR_SOURCE " + json.dumps(provenance, ensure_ascii=False, separators=(",", ":"))))
@@ -3431,8 +3437,8 @@ def main():
         "calendar_main_commit_sha": calendar_source["main_commit_sha"],
         "calendar_current_path": calendar_source["current"]["path"],
         "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
-        "calendar_previous_path": calendar_source["previous"]["path"],
-        "calendar_previous_blob_sha": calendar_source["previous"]["blob_sha"],
+        "calendar_previous_path": previous_calendar["path"] if previous_calendar else None,
+        "calendar_previous_blob_sha": previous_calendar["blob_sha"] if previous_calendar else None,
         "mode": "candidate-validation-only" if args.candidate_test_output else "main-production",
         "review_ready": not bool(data.get("review_ready_blockers", [])),
         "review_ready_blockers": data.get("review_ready_blockers", []),
@@ -3453,7 +3459,7 @@ def main():
     if STAGE2_BOOTSTRAP_NOTE in rendered_html:
         raise ValueError("Internal Stage 2 bootstrap note leaked into rendered report HTML")
     out.write_text(rendered_html, encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":(calendar_source["previous"]["blob_sha"] if calendar_source.get("previous") else None),"sections_updated":["title","summary","market_analysis","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()

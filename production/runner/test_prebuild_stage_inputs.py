@@ -52,6 +52,8 @@ def main() -> None:
     assert is_official_calendar_url("https://www.sifma.org/resources/general/holiday-schedule/")
     assert not is_official_calendar_url("https://example.com/holiday-schedule")
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    # One instrument last traded on an earlier session; the global anchor stays unchanged.
+    data["global_markets"]["道瓊工業指數"]["source"]["data_date"] = "2026-11-19"
     report_date = "2026-11-23"
     audit = validate_market_snapshot(data, report_date)
     manifest = build_manifest(data, report_date)
@@ -83,6 +85,29 @@ def main() -> None:
     assert pending_receipt["stage_2_market"]["audit_sha256"] == "2" * 64
     assert pending_receipt["stage_2_market"]["manifest_sha256"] == "3" * 64
     assert pending_receipt["stage_2_market"]["numeric_values_reconciled_count"] == 0
+
+    # Weekday Stage 3 intentionally reads only the current week. Pre-build
+    # must accept that exact contract and must not require or synthesize W47.
+    weekday_data = copy.deepcopy(data)
+    weekday_data["report_date"] = "2026-11-24"
+    weekday_audit = validate_market_snapshot(weekday_data, "2026-11-24")
+    weekday_manifest = build_manifest(weekday_data, "2026-11-24")
+    weekday_bundle = {
+        "main_commit_sha": commit,
+        "current": calendar_item("2026-W48", "2026-11-23", "2026-11-29", 27, 11, commit),
+        "previous": None,
+    }
+    weekday_receipt = build_receipt(
+        data=weekday_data, fixture_sha256="1" * 64,
+        audit=weekday_audit, audit_sha256="2" * 64,
+        manifest=weekday_manifest, manifest_sha256="3" * 64,
+        calendar_bundle=weekday_bundle,
+        repository="lion-invlab/lion-invlab.github.io",
+        branch="main",
+        workflow_run_id="45010119943", workflow_run_attempt="1",
+    )
+    assert weekday_receipt["status"] == "PASS"
+    assert weekday_receipt["stage_3_calendar"]["previous"] is None
 
     # Builder must not leak fixture-carried quote values when current-run source
     # observations are unavailable.
@@ -124,7 +149,7 @@ def main() -> None:
             "observation_provenance": "CURRENT_RUN_BROWSER_OBSERVATION",
             "observation_record_sha256": "a" * 64,
             "browser_observation_record": {
-                "source_url": row["source_url"], "data_date": data["trading_date"],
+                "source_url": row["source_url"], "data_date": row["data_date"],
                 "observed_value": "100.00", "observed_change": "1.00",
                 "checked_at_tw": "2026-11-23T11:00:00Z",
             },
@@ -142,7 +167,7 @@ def main() -> None:
         source_type = "CNN_OFFICIAL_API" if is_fg else "INVESTING_HISTORICAL_PAGE"
         observation_rows.append({
             "group": row["group"], "name": row["name"],
-            "source_url": row["source_url"], "target_date": data["trading_date"],
+            "source_url": row["source_url"], "target_date": row["data_date"],
             "status": "VERIFIED", "read_method": "PLAYWRIGHT_RENDERED_HISTORY_TABLE", "source_page_fetched": True,
             "observed_value": "100.00", "observed_change": "1.00",
             "observed_value_key": value_key, "observed_change_key": change_key,
@@ -295,8 +320,9 @@ def main() -> None:
     assert partial_receipt["status"] == "PASS"
     assert partial_receipt["stage_2_market"]["pending_observation_count"] == 1
     assert partial_receipt["stage_2_market"]["closed_count"] == 1
-    expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
-                 "refusing non-simulation branch")
+    validate_branch("lion-invlab/lion-invlab.github.io", "main")
+    expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "simulation/test-branch"),
+                 "refusing non-main branch")
 
     wrong_audit = copy.deepcopy(audit)
     wrong_audit["trading_date"] = "2026-11-19"
@@ -308,10 +334,10 @@ def main() -> None:
     expect_error(lambda: validate_market_inputs(data, audit, missing_obs, report_date),
                  "verified row observation hash invalid")
 
-    mixed_dates = copy.deepcopy(synthetic)
-    mixed_dates["rows"][0]["trading_date"] = "2026-11-19"
-    expect_error(lambda: validate_market_inputs(data, audit, mixed_dates, report_date),
-                 "source manifest contains mixed trading dates")
+    future_row_date = copy.deepcopy(synthetic)
+    future_row_date["rows"][0]["data_date"] = "2026-11-24"
+    expect_error(lambda: validate_market_inputs(data, audit, future_row_date, report_date),
+                 "after report_date")
 
     missing_domain = copy.deepcopy(data)
     missing_domain["political_scan"]["domains_checked"].remove("geopolitics")

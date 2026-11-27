@@ -67,7 +67,9 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
         source["data_date"]=trading_date.isoformat()
     # Stage 1 is always blank-first. User screenshots belong to the Run-scoped Stage 2 handoff.
     data=blank_fixture(data,apply_screenshots=False)
-    weeks=[week_id(report_date),week_id(previous_week_start(report_date))]
+    weeks=[week_id(report_date)]
+    if report_date.weekday()==0:
+        weeks.append(week_id(previous_week_start(report_date)))
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"

@@ -1,6 +1,6 @@
 # TAC 投資早報 R3｜MASTER WORK RULES
 
-版本：1.4（2026-11-27）
+版本：1.6（2026-11-27｜Chart 3 延後至早報交付後合併）
 正式分支：main
 規則來源：SIM-1.4 技術規範（正式生效版；來源 branch `simulation/tac-process-lab-2026-11-06`，來源 WR SHA `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`）
 正式生效標示：SIM-1.4（正式生效版）｜ACTIVE／正式生效
@@ -20,13 +20,13 @@ main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件
 
 ## 2. 唯一每日流程
 Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Stage 3 行事曆與財報 → Stage 4 新聞與市場分析 → Stage 5 唯一 HTML Builder 與 QA → Stage 6 main/preview 審核版交付與驗證。
-六階段是同一條流程，不是六次獨立審批。每階段保留必要輸入、輸出與交接，不重複建立等價收據或重抓已鎖定資料。
+六階段是同一條流程，不是六次獨立審批。每階段保留必要輸入、輸出與交接，不重複建立等價收據或重抓已鎖定資料。Stage 1 必須先建立並提交當日 Run；Stage 2 worker 只有在讀取該 Run 的 run-context、fixture 與 Stage 1 receipt 後才可擷取。Stage 2 不得在 Stage 1 前預擷取。
 
 ## 2A. 六階段強制 WR 開工前讀取
 - 六個 Stage 一律先讀取自己的完整 Stage WR，後執行本階段工作；不得只依賴 MASTER_WR 摘要、前次對話記憶、Workflow step 名稱或 Runner 註解。
 - 唯一執行器為 `production/runner/stage_wr_preflight.py`；各 Stage 入口必須先呼叫對應 Stage key。Stage 1 讀取自身 WR 並留存證據；Stage 2–6 另核對 Stage 1 governance snapshot 中該 WR 的 Git blob SHA。
 - Preflight 必須讀取完整 UTF-8 文件、確認非空、計算 SHA-256 並核對 Git blob。缺失、讀取失敗、未鎖定、版本漂移或收據缺少 `wr_preflight` 均 FAIL-CLOSED，不得開始或宣告完成。
-- Stage 4 編輯工作者在撰寫內容前，必須先讀取當次 capture receipt 內完整 `stage4_work_instructions.full_text`；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。僅由 Python Runner 事後讀取 WR 不代表編輯工作者已遵守。
+- Stage 4 編輯工作者在撰寫內容前，必須先完整讀取當次 Run 鎖定的 Stage 4 WR；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。不得以摘要、前次對話或 Runner 事後讀取取代編輯工作者開工前讀取。
 - 每階段收據必須記錄 WR 路徑、完整讀取狀態、SHA-256、Git blob SHA、Stage 1 pinned SHA 及讀取位元組數。無證據不得 PASS。
 - 下游 Stage 必須驗證所有直接上游 receipt 的 `wr_preflight` 證據：Stage 2 驗 Stage 1；Stage 3 驗 Stage 2；Stage 4 驗 Stage 2、3；Stage 5 驗 Stage 2–4；Stage 6 驗 Stage 5。路徑、Stage key、Git blob SHA、Stage 1 pinned commit 任一缺漏或不符即拒絕交接。
 
@@ -48,20 +48,22 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 已核實值立即鎖定；下游 Stage 3–6 唯讀。不得重抓已鎖定項目。
 - Stage 2 每輪先 blank-first 清除 Fixture 中所有舊行情值、舊 Observation、舊截圖證據及舊時間戳，再以當輪有效截圖／Observation 回填。不得沿用前輪 fixture 報價。
 - 狀態至少區分 VERIFIED、BACKUP_VERIFIED、PENDING、MISSING、CLOSED、NOT_APPLICABLE、NOT_TESTED、TOOL_READ_FAILURE、SOURCE_NO_DATA；語意不得混淆。PENDING 不可造成整個流程崩潰，亦不可視為成功。
+- 共用 trading_date 只作為 Run 日期錨點；44 項每列的 target_date／data_date 依各商品所屬市場交易日曆及截止時間，採用最近一個已完成交易時段的實際日期。不同市場允許不同 data_date；不得把美股休市日的前一交易日收盤錯標為休市日，也不得把舊值標成新日期。
+- Stage 2 Observation bundle 必須帶入同一 Run 的 run_id、Stage 1 receipt SHA、run-context SHA、Stage 1 fixture SHA；Runner 只驗證，不得事後替 Stage 2 worker 補綁或修復交接身分。
 - 44 項每項必須有值或明確狀態；單項缺漏不得阻止無依賴項目及其他階段繼續。未核實值不得作為確定事實。
 - MOVE 的市場交易日判斷必須獨立於行情列讀取：使用 SIFMA 官方美國固定收益市場 Holiday Schedule／公告核對目標交易日。官方公告確認全天休市時，MOVE 標記 CLOSED，保留 Investing.com 當輪歷史頁讀取紀錄及 SIFMA 公告 URL、原文定位、讀取時間與 SHA；不得要求休市日存在收盤數值列。提早收市仍屬交易日，必須照常讀取該日 MOVE 收盤，不得沿用前一交易日數值或標記 CLOSED。SIFMA 公告屬市場日曆建議，僅用於相應美國固定收益市場日期判斷，不得擴張為所有資產的休市證據。
 - CLOSED 行的 `display_value_reconciled` 代表休市狀態與日曆證據已核實；`display_value_matches_saved_observation` 必須為 false，因休市列沒有可比較的數值。不得把休市狀態核實誤寫成報價數值相符。
-- Stage 2 同步將已核實 S&P 500 現貨正式收盤寫入既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守現有 append／SHA／防重契約；不可另抓第二份 S&P500 報價。
+- Stage 2 只將已核實 S&P 500 現貨正式收盤追加並提交至既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守 append／SHA／防重契約；不可另抓第二份 S&P500 報價，也不得 dispatch 或等待歷史合併。Chart 3 merge workflow 只由 Main production workflow 成功完成事件觸發（即 Stage 6 已成功交付後），不得由增量帳 push 直接觸發；它是非阻塞支線，失敗不得阻止早報主線。
 
 ## 5. Stage 3 行事曆／財報
 - 唯一資料來源為 `data/calendar/weeks/YYYY-Www.json`；早報嚴格唯讀。
 - 工作日 04:35 行事曆排程為 JSON 唯一 writer；Stage 3 不得修補、merge、upsert 或回寫。
-- Stage 3 以 Stage 1 鎖定的同一 main commit 讀取本週及前一週 JSON，以完成跨週來源收據；只有週一將上週事件投影至可見回顧區塊，週二至週五不呈現上週回顧。
+- Stage 3 以 Stage 1 鎖定的同一 main commit 讀取本週 JSON；只有週一需要上週回顧時，才讀取前一週 JSON。週二至週五不得為了產生空白回顧而讀取前一週資料。
 - 財報 EPS 與 Revenue 分開選源：Yahoo Finance Average Estimate 第一順位；缺值／不可讀／期間不符依序 Investing.com、LSEG I/B/E/S、FactSet Estimates。各指標取得第一個可用平均預期後停止該指標搜尋。
 - 已公布事件必須顯示實際值、共識及判讀；財報另呈現 EPS／Revenue 與預期比較及股價反應。資料不足如實標示。
 
 ## 6. Stage 4 新聞與分析
-- Capture 的 Stage 3 後自動產生 `stage4-research-bundle.json`，彙整完整 44 項行情／來源狀態、未核實列、FedWatch、當週／上週行事曆與財報、Stage 1–3 receipts、所有輸入 SHA，以及使用者截圖 sidecar／圖片證據 SHA。
+- Stage 3 後自動產生 `stage4-research-bundle.json`，彙整完整 44 項行情／來源狀態（保留每項自己的 data_date）、未核實列、FedWatch、當週行事曆與財報（僅週一另含上週）、Stage 1–3 receipts、必要輸入 SHA，以及當日截圖 sidecar／圖片證據 SHA。
 - 編輯內容必須綁定同一 Run 的 `run_id`、`market_snapshot_sha256` 與 `research_bundle_sha256`；Stage 4 與 build workflow 逐一驗證，禁止跨 Run 或使用過期行情。
 - 全球焦點新聞 5 則；市場熱門頭條 10 則；核對原始發布時間、時區、URL 與共同時間窗口。
 - 總結小卡、五層深度解析、盤面觀察重點分層，不互相複製。
@@ -86,7 +88,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 9. Chart 3 與資料寫入權
 - 正式 Chart 3 資料路徑為 `data/tac-chart3/`，不可另建 `data/chart3/`。
-- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 FRED/ALFRED 既有更新與 S&P500 merge workflow 必須避免重複寫入同一資料，需先明確拆分責任。
+- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 S&P500 merge workflow 僅在早報 Stage 6 成功後讀取非空增量帳並合併，與 Stage 4–6 不並行。FRED/ALFRED 更新只負責其既有宏觀序列；各流程須以既有資料維護鎖避免同時寫入 Main。
 - Calendar updater 是週 JSON 唯一 writer；Stage 3 唯讀。
 - Stage 5 是本次 HTML 唯一 writer；Stage 6 是交付 sidecar 唯一 writer。
 
@@ -102,14 +104,14 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 每次改規則／欄位／模板／程式／Workflow／排程，必須回頭檢查所有上下游：Stage WR、contracts、Manifest、Builder selector、Schema、測試、唯一寫入者、Workflow 觸發、Pages、archive、排程及 Chart 3。寫入後回讀 GitHub，核對 commit、blob SHA 及內容。未測試不得宣稱通過。
 
 ## 12. 全域上線定義
-六階段真實 E2E、兩種母版、44 項行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 同步、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
+六階段真實 E2E、兩種母版、44 項逐市場日期行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 增量交接與非阻塞派送、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
 
 ## 13. 手動補救入口（Missed Schedule Recovery）
-- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
+- 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；Stage 1 排程為台灣夏令 03:45／冬令 04:45（15:45 ET），Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET）。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
 - 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
 - `recover` 必須從 Stage 1 建立全新 blank-first Run，依序執行 Stage 2（44 項、截圖優先、四頁並行）及 Stage 3；保留同一 Run 的 Chart 3 增量、所有 receipts 與 research bundle。不得使用 fixture、前日行情或過期截圖。
 - 啟動前檢查同一 report_date 是否已有 Run。一般 `recover` 僅允許替代未交付 Run；已有 Stage 5／6 或 Preview 時 fail-closed。
-- **使用者明確要求同一日期重新完整 E2E 時，才可使用 `mode=rerun`。** 必須填入精確 report_date；目前只核准 2026-11-27 的既有 Run `TAC-2026-11-27-45937649928-1` 作為 superseded predecessor。 若無法使用 workflow_dispatch，唯一等效入口為 Main push commit message 明確包含 `[rerun-tac-report:2026-11-27]`；Workflow 必須解析該日期並以 `DISPATCH_MODE=rerun` 執行，不得把一般 push 或 capture marker 當成 rerun。必須恰有一個既有 Run，新的 Run 記錄 `supersedes_run_id`；不得建立並行 Run。
+- **使用者明確要求同一日期重新完整 E2E 時，才可使用 `workflow_dispatch mode=rerun`。** 必須填入精確 report_date，且只能 supersede 一個明確指定的既有 Run；不得以 push marker、一般 commit 或其他自動觸發方式建立 rerun。必須恰有一個既有 Run，新的 Run 記錄 `supersedes_run_id`；不得建立並行 Run。
 - `rerun` 前清除該日期可被 Runner 當成輸入的日期化行情 observation bundle、舊 editorial JSON、舊 build request 及舊 trigger marker。既有 Preview 三檔副本保存於 `production/superseded/<report_date>/<old_run_id>/preview/`；原核准的 `preview/<report_date>-review.*` 必須留在原路徑，以維持首頁發布鎖與既有 `index.html` 一致。新 rerun 只能交付至獨立的 `preview/<report_date>-rerun-review.*`，不得覆蓋原版。舊 Run 目錄及其中 receipts／行情證據完整保留為不可重用的歷史稽核資料；不得從舊 Run 複製任何行情、FedWatch、新聞或編輯內容。正式首頁 `index.html`、首頁發布鎖及正式歷史封存不變。
 - `rerun` 必須建立全新 blank-first Stage 1；Stage 2 重新讀取當輪完整 WR 後，重新擷取全部 44 項與 FedWatch。不得使用 `--reuse-observations`、舊 Run Observation、舊截圖、舊新聞或舊 FedWatch；每列記錄本次讀取時間並標示 `prior_observation_reused=false`。Stage 3–6 必須只使用新 Run 的資料。
 - Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、supersedes_run_id、market snapshot SHA 與 research bundle SHA。手動補救／重跑只接受 `event=workflow_dispatch` 且 mode 與實際執行一致的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成新 Capture 證據。

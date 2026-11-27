@@ -133,12 +133,14 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
         for field in ("open", "high", "low"):
             if field in fields:
                 source[field] = _plain_number(fields[field]["value"])
+        source["data_date"] = row["data_date"]
         source["screenshot_observation_applied_at"] = row["captured_at"]
         source["screenshot_evidence"] = {
             field: {
                 "evidence_path": evidence["evidence_path"],
                 "evidence_sha256": evidence["evidence_sha256"],
                 "captured_at": evidence["captured_at"],
+                "data_date": row["data_date"],
                 "quote_timestamp": evidence.get("quote_timestamp"),
             }
             for field, evidence in fields.items()
@@ -239,7 +241,7 @@ def apply_page_completions_to_fixture(fixture: dict, observations: list[dict],
 
         source["history_page_completion_at"] = observation.get("finished_at_tw") or observation.get("finished_at_utc")
         source["history_page_completion_fields"] = [field for field in (value_key, change_key) if field not in fields]
-        observation["observed_date"] = fixture.get("trading_date")
+        observation["observed_date"] = observation.get("target_date")
         observation["display_value_match"] = True
         observation["display_change_match"] = True
         observation["status"] = "VERIFIED"
@@ -271,8 +273,14 @@ def load_screenshot_bundle(bundle_path: str | Path, fixture: dict,
             source = (fixture.get("sector_sources") or {}).get(name)
         if not source:
             raise ValueError(f"Screenshot observation does not map to fixture row: {key}")
-        if row.get("data_date") != fixture.get("trading_date"):
-            raise ValueError(f"{key}: screenshot data_date does not match trading_date")
+        try:
+            from datetime import date
+            screenshot_day=date.fromisoformat(str(row.get("data_date")))
+            report_day=date.fromisoformat(str(fixture.get("report_date")))
+        except ValueError as exc:
+            raise ValueError(f"{key}: screenshot data_date must be an ISO date") from exc
+        if screenshot_day > report_day:
+            raise ValueError(f"{key}: screenshot data_date cannot be later than report_date")
         approved_urls={source.get("url"),*(source.get("approved_primary_urls") or []),*(source.get("approved_backup_urls") or [])}
         if row.get("source_url") not in approved_urls:
             raise ValueError(f"{key}: screenshot source_url is not in the approved source list")

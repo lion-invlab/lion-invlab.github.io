@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+from datetime import date
 import subprocess
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -170,16 +171,31 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         "CURRENT_USER_PROVIDED_SCREENSHOT",
         "SYNTHETIC_TEST_ONLY",
     }
+    fixture_sources={}
+    for group in ("global_markets","bonds","fx","energy","metals","risk"):
+        for name,item in (data.get(group) or {}).items():
+            fixture_sources[(group,name)]=(item.get("source") or {})
+    for name,source in (data.get("sector_sources") or {}).items():
+        fixture_sources[("sectors",name)]=source
     for row in rows:
-        require(row.get("trading_date") == trading_date,
-                f"source manifest contains mixed trading dates: {row.get('name')}")
+        row_data_date=row.get("data_date")
+        try:
+            row_day=date.fromisoformat(str(row_data_date))
+            report_day=date.fromisoformat(str(report_date))
+        except ValueError:
+            require(False,f"source manifest data_date/report_date must be valid ISO dates: {row.get('name')}")
+        require(row_day <= report_day,
+                f"source manifest data_date is after report_date: {row.get('name')}")
+        fixture_source=fixture_sources.get((row.get("group"),row.get("name"))) or {}
+        require(row_data_date==fixture_source.get("data_date"),
+                f"source manifest data_date differs from Fixture: {row.get('name')}")
         if row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
             require(row.get("display_value_matches_saved_observation") is True
                     and row.get("observation_provenance") in allowed_provenance,
                     f"verified row lacks current-session evidence: {row.get('name')}")
             record = row.get("browser_observation_record")
             require(isinstance(record, dict) and record.get("source_url")
-                    and record.get("data_date") == trading_date
+                    and record.get("data_date") == row_data_date
                     and record.get("observed_value") is not None
                     and record.get("observed_change") is not None
                     and record.get("checked_at_tw"),
@@ -231,7 +247,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                         and isinstance(record, dict),
                         f"closed row lacks direct page/official holiday evidence: {row.get('name')}")
                 require(record.get("read_status") == "MARKET_CLOSED"
-                        and record.get("target_date") == trading_date
+                        and record.get("target_date") == row_data_date
                         and record.get("source_page_fetched") is True
                         and record.get("prior_observation_reused") is False
                         and record.get("provenance") == "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
@@ -278,8 +294,14 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
         key = (row.get("group"), row.get("name"))
         require(all(key) and key not in keys, f"observation bundle has duplicate or unnamed row: {key}")
         keys.add(key)
-        require(row.get("target_date") == trading_date,
-                f"observation bundle target date mismatch: {key}")
+        target_date=row.get("target_date")
+        try:
+            target_day=date.fromisoformat(str(target_date))
+            report_day=date.fromisoformat(str(report_date))
+        except ValueError:
+            require(False,f"observation target_date/report_date must be valid ISO dates: {key}")
+        require(target_day <= report_day,
+                f"observation target_date is after report_date: {key}")
         require(bool(row.get("source_url")), f"observation bundle source URL missing: {key}")
         digest = str(row.get("observation_record_sha256") or "")
         require(re.fullmatch(r"[0-9a-f]{64}", digest) is not None,
@@ -422,7 +444,7 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
         for key, manifest_row in manifest_map.items():
             observation = observation_map[key]
             require(observation.get("source_url") == manifest_row.get("source_url")
-                    and observation.get("target_date") == manifest_row.get("trading_date"),
+                    and observation.get("target_date") == manifest_row.get("data_date"),
                     f"observation bundle source/date mismatch with Manifest: {key}")
             if manifest_row.get("verification_status") in ("VERIFIED", "BACKUP_VERIFIED"):
                 record = manifest_row.get("browser_observation_record") or {}
@@ -434,10 +456,18 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                 "observation bundle SHA-256 missing or malformed")
 
     current = calendar_bundle.get("current") or {}
-    previous = calendar_bundle.get("previous") or {}
-    require(bool(calendar_bundle.get("main_commit_sha")), "authoritative main commit SHA missing")
-    for label, item in (("current", current), ("previous", previous)):
-        require(item.get("branch") == "main", f"{label} calendar did not come from main")
+    previous = calendar_bundle.get("previous")
+    require(bool(calendar_bundle.get("main_commit_sha")), "authoritative main calendar commit SHA missing")
+    report_day = date.fromisoformat(str(data.get("report_date") or ""))
+    monday_report = report_day.weekday() == 0
+    require((previous is not None) == monday_report,
+            "previous calendar must be present only for Monday reports")
+    calendar_items = [("current", current)]
+    if previous is not None:
+        calendar_items.append(("previous", previous))
+    for label, item in calendar_items:
+        require(isinstance(item, dict) and item.get("branch") == "main",
+                f"{label} calendar did not come from main")
         require(item.get("commit_sha") == calendar_bundle["main_commit_sha"],
                 f"{label} calendar commit is not the pinned main commit")
         require(item.get("blob_sha"), f"{label} calendar blob SHA missing")
@@ -448,11 +478,11 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                 f"{label} economic event count mismatch")
         require(len(payload.get("events", {}).get("earnings", [])) == item.get("earnings_count"),
                 f"{label} earnings event count mismatch")
-    require(current.get("week_id") != previous.get("week_id"),
-            "current and previous calendar week must be distinct")
-    for item in (current, previous):
         require(item.get("path") == f"data/calendar/weeks/{item.get('week_id')}.json",
-                "calendar path is not the canonical ISO-week database path")
+                f"{label} calendar path is not the canonical ISO-week database path")
+    if previous is not None:
+        require(current.get("week_id") != previous.get("week_id"),
+                "current and previous calendar week must be distinct")
 
     require(re.fullmatch(r"[0-9a-f]{64}", fixture_sha256 or "") is not None,
             "fixture SHA-256 missing or malformed")
@@ -491,9 +521,9 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
             "current": {k: current.get(k) for k in
                         ("path", "blob_sha", "week_id", "week_start", "week_end",
                          "economic_count", "earnings_count")},
-            "previous": {k: previous.get(k) for k in
-                         ("path", "blob_sha", "week_id", "week_start", "week_end",
-                          "economic_count", "earnings_count")},
+            "previous": ({k: previous.get(k) for k in
+                          ("path", "blob_sha", "week_id", "week_start", "week_end",
+                           "economic_count", "earnings_count")} if previous is not None else None),
             "mode": "READ_ONLY_PINNED_MAIN_COMMIT",
         },
         "stage_4_news_and_analysis": stage4,
