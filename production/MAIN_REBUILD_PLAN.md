@@ -1,4 +1,4 @@
-# TAC Main 早報重建計畫 v2.1（簡化版）
+# TAC Main 早報重建計畫 v2.2（簡化版）
 
 **更新日期：2026-11-27**  
 **唯一目標：每天穩定產出當日審核版；先完成早報，不把行情擷取變成資料治理工程。**
@@ -48,7 +48,7 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 
 ## 五、當前執行順序（2026-11-27 狀態校正）
 
-1. **保留 11/27 已交付成果。** `preview/2026-11-27-review.html`、QA 與 delivery 三檔均存在；QA 為 `REVIEW_READY`，四類 QA 均 PASS，Pages 公開 URL 回讀 HTTP 200 且 SHA 一致。正式首頁與歷史封存未修改。此成果已交付，不得重做、覆蓋或另建同日 Run。
+1. **11/27 審核版已依使用者明確核准正式發布。** 使用者於 2026-11-27 16:19（台灣時間）指示「先把審核版上傳首頁」。正式發布 commit `ed7bd1e3d51865afa789af3bb2df8787550575f0` 將 `preview/2026-11-27-review.html` 原樣複製至 `index.html`；兩者 Git blob SHA 均為 `d34fec01d0f9735e62f5b0c67bfe94a2618fb4f5`。Pages run `45966951824`、Archive run `45966951834` 均成功；前一版 11/26 首頁 blob `032090e047a363e7654e36c12adadbe859666bc2` 已由 Archive workflow 核對，未重複封存。`homepage-publication-lock.json` 現為 `APPROVED_PUBLICATION`，previous_homepage 指向 11/26。中間曾因不完整的記憶查詢產生暫時回復 commit `f7f48ddc47aaf2829a0025c4fd21c2caf6641fc3`；已由上述明確核准發布 commit 覆蓋，**目前 11/27 正式首頁正確，不得回退**。
 2. **舊 Run 僅作歷史證據。** `TAC-2026-11-27-45937649928-1` 建立時使用舊 governance pin，缺少新制 Stage WR worker attestation；不得把新規則回填至舊 receipt，也不得再執行舊的 MOVE holiday resume job。舊 observation 與 editorial 不得作為新 Run 的合格輸入。
 3. **保留受控復原機制，但只用於未交付日期。** `workflow_dispatch mode=recover` 僅可在當日恰有一個舊 Run、且沒有 Stage 5／6 receipt 或公開 Preview 三檔時建立替代 Run；新 Run 記錄 `supersedes_run_id`，舊 Run 完全保留。多個舊 Run 或已有交付成果時停止，不自動覆蓋。
 4. **補齊下一個工作日的 Stage 2 輸入鏈。** 新 observation bundle 必須先由擷取工作者完整讀取本版 `STAGE_2_MARKET.md`，並在根層寫入精確 `stage2_wr_sha256`；再由 Main Capture workflow 建立 Stage 1–3。舊日期 observation 不得沿用或事後補簽。
@@ -56,6 +56,14 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 6. **排程整合最後驗收。** 以 America/New_York 時區統一 DST：行事曆 15:35 ET（台灣冬令 04:35／夏令 03:35）；既有 Main Stage 2–6 喚醒任務 16:00 ET（台灣冬令 05:00／夏令 04:00）先擷取 44 項及 FedWatch，再等待 Main Capture；Main Capture 16:30 ET（台灣冬令 05:30／夏令 04:30）；Chart 3 16:30 ET 獨立執行。Stage 1 cutoff 固定為 16:25 ET，台灣時間隨 DST 為 05:25／04:25。Stage 2 只提交 observation，不觸發 Run；Main Workflow schedule 是唯一 Stage 1 啟動入口。未完成真實 E2E 前，不宣稱新制已正式上線。
 
 每完成一項，只回頭檢查：**是否讓下一個工作日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
+## 五之一、正式首頁發布鎖（2026-11-27 已啟用）
+
+- Builder 的 `approved_by_owner=true` 只代表 Builder exact-blob 核准，不等於報告發布核准；`REVIEW_READY` 與 Stage 6 DELIVERED 也不等於首頁發布核准。
+- `production/config/homepage-publication-lock.json` 是正式首頁唯一發布狀態；目前為 `APPROVED_PUBLICATION`，綁定 11/27 report_date、Preview blob、index blob 及 11/26 previous_homepage 快照。
+- Pages workflow 與 Archive workflow 均先執行 `verify_homepage_publication_lock.py`；首頁必須與獲核准 Preview 位元組完全相同。未核准的 index 變更無法部署。
+- Archive 不再每日自動執行；只在明確 `[publish-tac-report:YYYY-MM-DD]` 且 lock 核准時執行，封存來源只能是 `previous_homepage` 指定的精確 blob。
+- 正式首頁發布後，Stage 6 仍只交付審核版；沒有新的使用者核准，不得改動下一個報告日的首頁。
+
 ## 六、明確不做
 
 - 不再建立多層 handoff receipt、重複 SHA 綁定、過度細分 Gate。
