@@ -79,18 +79,26 @@ def stage_wr_preflight(stage: str, context: dict | None = None) -> dict:
         "rules_text_loaded": bool(full_text.strip()),
     }
 
-def require_stage_wr_receipt(receipt: dict, expected_stage: str) -> dict:
-    """Reject a handoff whose producer did not prove its own WR preflight."""
+def require_stage_wr_receipt(receipt: dict, expected_stage: str, context: dict) -> dict:
+    """Reject a handoff unless its producer proved the exact Stage 1-pinned WR."""
     evidence = receipt.get("wr_preflight") if isinstance(receipt, dict) else None
     if not isinstance(evidence, dict):
         raise SystemExit(f"{expected_stage} handoff blocked: producer WR preflight evidence is missing")
+    path = STAGE_WR_PATHS.get(expected_stage)
+    governance = context.get("governance") or {}
+    pinned_map = governance.get("blob_shas") or {}
+    pinned_commit = context.get("main_commit_sha")
+    pinned_blob = pinned_map.get(path) if path else None
+    sha256_value = evidence.get("wr_sha256")
     if (evidence.get("status") != "PASS"
             or evidence.get("stage") != expected_stage
             or evidence.get("wr_loaded") is not True
             or evidence.get("rules_text_loaded") is not True
-            or not evidence.get("wr_path")
-            or not evidence.get("wr_sha256")
-            or not evidence.get("wr_git_blob_sha")
-            or not evidence.get("stage1_pinned_git_blob_sha")):
-        raise SystemExit(f"{expected_stage} handoff blocked: producer WR preflight evidence is incomplete or invalid")
+            or evidence.get("wr_path") != path
+            or not isinstance(sha256_value, str) or len(sha256_value) != 64
+            or evidence.get("wr_git_blob_sha") != pinned_blob
+            or evidence.get("stage1_pinned_git_blob_sha") != pinned_blob
+            or evidence.get("stage1_pinned_commit") != pinned_commit
+            or not pinned_blob or not pinned_commit):
+        raise SystemExit(f"{expected_stage} handoff blocked: producer WR evidence is incomplete or differs from Stage 1 governance pin")
     return evidence
