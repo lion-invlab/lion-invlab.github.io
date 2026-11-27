@@ -92,6 +92,29 @@ def main() -> None:
         result = validator.verify(run_dir, run_dir / "stage2-chatgpt-handoff.json")
         assert result["status"] == "PASS" and result["observation_count"] == 44
 
+        # Screenshot bytes must be present under this Run and hash exactly.
+        screenshots_dir = run_dir / "screenshots"
+        screenshots_dir.mkdir()
+        screenshot_bytes = b"same-run screenshot evidence"
+        screenshot_path = screenshots_dir / "move.png"
+        screenshot_path.write_bytes(screenshot_bytes)
+        screenshot_sha = hashlib.sha256(screenshot_bytes).hexdigest()
+        screenshot_sidecar = {
+            "report_date": "2026-11-27", "trading_date": "2026-11-26",
+            "observations": [],
+        }
+        sidecar_sha = write_json(run_dir / "market-screenshot-observations.json", screenshot_sidecar)
+        with_screenshot = copy.deepcopy(bundle)
+        with_screenshot.update({
+            "screenshot_observations_path": "market-screenshot-observations.json",
+            "screenshot_observations_sha256": sidecar_sha,
+            "screenshot_evidence": [{"path": "screenshots/move.png", "sha256": screenshot_sha}],
+        })
+        write_json(run_dir / "stage2-chatgpt-handoff.json", with_screenshot)
+        result = validator.verify(run_dir, run_dir / "stage2-chatgpt-handoff.json")
+        assert result["screenshot_evidence_count"] == 1
+        write_json(run_dir / "stage2-chatgpt-handoff.json", bundle)
+
         bad = copy.deepcopy(bundle)
         bad["run_id"] = "TAC-2026-11-27-other-1"
         write_json(run_dir / "stage2-chatgpt-handoff.json", bad)
