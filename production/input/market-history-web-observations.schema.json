@@ -291,7 +291,7 @@
           "format": "date"
         },
         "observed_date": {
-          "type": "string",
+          "type": ["string", "null"],
           "format": "date"
         },
         "page_title": {
