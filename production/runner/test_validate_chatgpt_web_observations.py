@@ -391,6 +391,8 @@ def main():
     assert move_tv_normalized["source_role"] == "BACKUP_1"
     assert move_tv_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
     assert move_tv_normalized["field_evidence"]["change"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+    tv_prebuild = validate_observation_bundle(move_tv_result, "2026-11-24", "2026-11-23")
+    assert tv_prebuild["row_count"] == 44 and tv_prebuild["page_only_row_count"] == 44
 
     # Unstructured or premature alternate-source claims remain rejected.
     for invalid_fields in (
