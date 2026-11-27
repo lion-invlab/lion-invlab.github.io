@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# [capture-tac-report:2026-11-27] Re-run after persisted Stage 2 receipt summary binding.
 """Execute Stage 2 from a Stage 1 run directory and freeze the 44-row snapshot."""
 from __future__ import annotations
 import argparse, hashlib, json, subprocess, sys, time
