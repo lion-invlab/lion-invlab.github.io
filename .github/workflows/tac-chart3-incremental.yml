@@ -49,5 +49,18 @@ jobs:
             echo "No new vintage or current data; baseline checkpoint left unchanged."
           else
             git commit -m "data(chart3): incremental FRED-ALFRED vintage update"
-            git push origin HEAD:main
+            # Main Stage 2 may append the S&P 500 ledger while this job runs.
+            # Rebase this Chart 3 data commit and retry to preserve both updates.
+            git fetch origin main
+            git rebase origin/main
+            PUSHED=false
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:main; then
+                PUSHED=true
+                break
+              fi
+              git fetch origin main
+              git rebase origin/main
+            done
+            test "$PUSHED" = true
           fi
