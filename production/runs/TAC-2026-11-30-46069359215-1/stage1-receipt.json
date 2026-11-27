@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "run_id": "TAC-2026-11-30-46069359215-1",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "fixture_path": "production/runs/TAC-2026-11-30-46069359215-1/stage1-fixture.json",
+  "working_fixture_path": "production/runs/TAC-2026-11-30-46069359215-1/report-data.json",
+  "fixture_sha256": "e117a487fdf3f667e608ea8adaed1293664db5e96afa209ca32f17c77381b62f",
+  "run_context_sha256": "8e1309bb0dae7dcd7df6d97ff06fac04a9efcb9b535fa23b9dba6db2c86df9f2",
+  "governance_commit_sha": "4802eb1ba1ace75fd545cb0699488423444875a3",
+  "governance_file_count": 63,
+  "market_rows": 44,
+  "preexisting_market_values_used": false,
+  "screenshot_fields": 0,
+  "screenshot_input_receipt": {
+    "status": "NOT_READ_AT_STAGE1",
+    "handoff_stage": "STAGE2",
+    "fields": []
+  },
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_1",
+    "wr_path": "production/stages/STAGE_1_CONTEXT.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 4093,
+    "wr_sha256": "5e96170c2e98259a6afceae25557bb9c36493151de414e8a982a736b47f4a7bc",
+    "wr_git_blob_sha": "eca489f3cf374b2157efe62205c2292ebec59da3",
+    "stage1_pinned_git_blob_sha": "eca489f3cf374b2157efe62205c2292ebec59da3",
+    "stage1_pinned_commit": "4802eb1ba1ace75fd545cb0699488423444875a3",
+    "rules_text_loaded": true
+  },
+  "supersedes_run_id": null
+}
