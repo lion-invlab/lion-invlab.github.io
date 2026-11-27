@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TAC Main Stage 2 Run-scoped ChatGPT handoff manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "stage",
+    "run_id",
+    "report_date",
+    "trading_date",
+    "stage1_receipt_sha256",
+    "run_context_sha256",
+    "stage1_fixture_sha256",
+    "captured_at_utc",
+    "market_observations_path",
+    "market_observations_sha256",
+    "screenshot_evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "stage": {
+      "const": "STAGE2_CHATGPT_INPUT"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "report_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "trading_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "stage1_receipt_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "run_context_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stage1_fixture_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "captured_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "market_observations_path": {
+      "const": "market-history-web-observations.json"
+    },
+    "market_observations_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cnn_observation_path": {
+      "const": "cnn-fear-greed-observation.json"
+    },
+    "cnn_observation_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "screenshot_observations_path": {
+      "const": "market-screenshot-observations.json"
+    },
+    "screenshot_observations_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "screenshot_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "cnn_observation_path"
+        ]
+      },
+      "then": {
+        "required": [
+          "cnn_observation_sha256"
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "cnn_observation_sha256"
+        ]
+      },
+      "then": {
+        "required": [
+          "cnn_observation_path"
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "screenshot_observations_path"
+        ]
+      },
+      "then": {
+        "required": [
+          "screenshot_observations_sha256"
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "screenshot_observations_sha256"
+        ]
+      },
+      "then": {
+        "required": [
+          "screenshot_observations_path"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false
+}
