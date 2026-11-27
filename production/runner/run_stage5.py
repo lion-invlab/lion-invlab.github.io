@@ -81,6 +81,27 @@ def main():
     except ValueError as exc:
         raise SystemExit(str(exc))
     fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
+    summary_points=fixture_doc.get("summary_points") or []
+    if len(summary_points)!=3:
+        raise SystemExit("Stage 5 editorial QA requires exactly three summary paragraphs")
+    summary_texts=[str(item.get("text") or "").strip() for item in summary_points]
+    if any(not item for item in summary_texts) or len(set(summary_texts))!=3:
+        raise SystemExit("Stage 5 editorial QA found empty or duplicated summary paragraphs")
+    sentiment_text=str(fixture_doc.get("sentiment") or "").strip()
+    if len(sentiment_text)<80 or sentiment_text in summary_texts:
+        raise SystemExit("Stage 5 editorial QA requires a substantive, distinct market-sentiment interpretation")
+    analysis_payload=fixture_doc.get("market_analysis") or {}
+    expected_layer_keys={"political","policy_industry","macro","markets","strategy"}
+    if set(analysis_payload)!=expected_layer_keys:
+        raise SystemExit("Stage 5 editorial QA requires all five distinct analysis layers")
+    source_count_by_layer={key:len((analysis_payload.get(key) or {}).get("sources") or []) for key in expected_layer_keys}
+    if any(count<1 for count in source_count_by_layer.values()):
+        raise SystemExit("Stage 5 editorial QA requires traceable sources in all five analysis layers")
+    strategy_paragraphs=(analysis_payload.get("strategy") or {}).get("paragraphs") or []
+    scenario_labels=("基準情境","風險情境","嚴重情境")
+    scenario_coverage=sum(1 for label in scenario_labels if any(label in str(p) for p in strategy_paragraphs))
+    if scenario_coverage!=3:
+        raise SystemExit(f"Stage 5 editorial QA requires base/risk/severe scenarios; coverage={scenario_coverage}/3")
     sp500_item=(fixture_doc.get("global_markets") or {}).get("標普500指數") or {}
     sp500_verified=(sp500_item.get("source") or {}).get("verification_status")=="VERIFIED"
     chart3_handoff=stage2_summary_doc.get("chart3_handoff") or {}
@@ -123,10 +144,42 @@ def main():
     provenance=json.loads(match.group(1))
     if provenance.get("review_ready") is not True:
         raise SystemExit("Builder has not approved REVIEW_READY: "+json.dumps(provenance.get("review_ready_blockers",[]),ensure_ascii=False))
+    builder_analysis_receipt=provenance.get("market_analysis_slot_receipt") or {}
+    builder_scenario_coverage=builder_analysis_receipt.get("scenario_analysis_coverage")
+    builder_scenario_status=builder_analysis_receipt.get("scenario_analysis_status")
+    if builder_scenario_coverage!=scenario_coverage or builder_scenario_status!="PASS":
+        raise SystemExit("Builder scenario-coverage receipt is incomplete or differs from the current Stage 4 editorial input")
+    forbidden_branding=("模擬審核版","Simulation隔離區","資料僅供內部教育訓練使用","僅供內部教育訓練使用")
+    main_branding={}
+    for selector in (".top-warning",".tac-side-foot",".data-sync-warning","footer.footer"):
+        nodes=soup.select(selector)
+        if not nodes:
+            raise SystemExit("Main review branding slot missing: "+selector)
+        rendered=" ".join(node.get_text(" ",strip=True) for node in nodes)
+        if any(token in rendered for token in forbidden_branding):
+            raise SystemExit("Main review HTML contains Simulation/internal-training branding: "+selector)
+        main_branding[selector]=rendered
+    if "Main 審核版" not in main_branding[".top-warning"]:
+        raise SystemExit("Main review top-warning label missing")
     html_sha=sha(output)
     report_arg=str(output.relative_to(ROOT))
-    execute([sys.executable,str(RUNNER/"validate_review_artifact.py"),
+    artifact_validation_text=execute([sys.executable,str(RUNNER/"validate_review_artifact.py"),
         "--report",report_arg,"--report-date",report_date],run_dir/"qa-artifact-validator.log")
+    try:
+        artifact_validation=json.loads(artifact_validation_text)
+    except json.JSONDecodeError as exc:
+        raise SystemExit("Stage 5 artifact validator did not return a machine-readable QA receipt") from exc
+    if artifact_validation.get("status")!="PASS":
+        raise SystemExit("Stage 5 artifact validator did not PASS")
+    political_domains=artifact_validation.get("political_domains_checked") or []
+    political_classes=artifact_validation.get("political_event_status_classifications") or []
+    political_findings=(fixture_doc.get("political_scan") or {}).get("findings") or []
+    if artifact_validation.get("political_geopolitical_scan")!="PASS" or len(political_domains)!=6:
+        raise SystemExit("Stage 5 political/geopolitical scan QA is incomplete")
+    if len(political_classes)!=len(political_findings) or artifact_validation.get("policy_transmission_completeness")!=len(political_findings):
+        raise SystemExit("Stage 5 policy-transmission QA does not cover all classified findings")
+    if artifact_validation.get("scenario_analysis_coverage")!=3:
+        raise SystemExit("Stage 5 scenario-analysis QA must cover base, risk, and severe scenarios")
     execute([sys.executable,str(RUNNER/"validate_mother_dom_contract.py"),
         "--mother",str((ROOT/context["mother"]["path"]).relative_to(ROOT)),
         "--report",report_arg,"--template",template_key],run_dir/"qa-dom-contract.log")
@@ -160,8 +213,8 @@ def main():
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "status":"REVIEW_READY","groups":{
-        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified,"unresolved_rows":stage2_doc.get("pending_rows",[])},
-        "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS"},
+        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":artifact_validation["scenario_analysis_coverage"],"scenario_analysis_status":builder_scenario_status},
+        "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS","main_branding_status":"PASS","main_review_labels":main_branding},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
         "run_integration":{"status":"PASS","same_run_id":True,"html_sha256":html_sha,"render_manifest_sha256":sha(render_path)}
       },
@@ -174,6 +227,7 @@ def main():
       "stage4_receipt_sha256":sha(stage4),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
       "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
       "render_manifest_sha256":sha(render_path),"qa_sidecar_sha256":sha(qa_path),
+      "scenario_analysis_coverage":artifact_validation["scenario_analysis_coverage"],"scenario_analysis_status":builder_scenario_status,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"editorial_content_status":"PASS",
       "elapsed_seconds":round(time.monotonic()-start,3)}
     receipt_path=run_dir/"stage5-render-qa-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

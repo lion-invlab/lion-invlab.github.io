@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 5 wrapper: allow only the attested SIFMA holiday-evidence transition for the exact 2026-11-27 Run."""
+"""Stage 5 wrapper: allow the attested SIFMA and same-Run Stage 5 QA transition for 2026-11-27."""
 from __future__ import annotations
 import hashlib, json, subprocess, sys
 from pathlib import Path
@@ -15,7 +15,9 @@ ALLOWED_CHANGED_PATHS=sorted([
  "production/runner/build_review_html.py",
  "production/config/builder-approval.json",
  "production/runner/interaction_smoke.mjs",
+ "production/runner/run_stage5.py",
  "production/runner/run_stage6.py",
+ "production/stages/STAGE_5_RENDER_QA.md",
  ".github/workflows/tac-production.yml",
 ])
 
@@ -41,7 +43,7 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
     actual=current_governance_blob_shas(root)
     mismatches=sorted(path for path in GOVERNANCE_PATHS if pinned.get(path)!=actual.get(path))
     if mismatches!=ALLOWED_CHANGED_PATHS or att.get("changed_paths")!=ALLOWED_CHANGED_PATHS:
-        raise ValueError("governance transition changed-file set is not the exact approved SIFMA-only allowlist")
+        raise ValueError("governance transition changed-file set is not the exact approved SIFMA and Stage 5 QA allowlist")
     if att.get("current_blob_shas")!=actual:
         raise ValueError("governance transition current governance blob map mismatch")
     wrapper_sha=subprocess.check_output(["git","rev-parse","HEAD:production/runner/run_stage5_transition.py"],cwd=root,text=True).strip()
