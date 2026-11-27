@@ -176,10 +176,16 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                 raise ValueError(f"Stage 4 closed row lacks matching official closure evidence: {key}")
             row["closure_evidence"]=closure
     unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
+    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
-    cutoff_target=datetime.combine(report_date,time(5,25)).isoformat(timespec="minutes")
-    cutoff_latest=datetime.combine(report_date,time(5,55)).isoformat(timespec="minutes")
+    if report_date.weekday()==0:
+        # Monday-dated report is produced on Saturday; capture the news cutoff at actual Stage 4 research-bundle creation.
+        cutoff_target=datetime.now(ZoneInfo("Asia/Taipei")).replace(second=0,microsecond=0).isoformat(timespec="minutes")
+        cutoff_latest=cutoff_target
+    else:
+        cutoff_target=datetime.combine(production_date,time(5,25)).isoformat(timespec="minutes")
+        cutoff_latest=datetime.combine(production_date,time(5,55)).isoformat(timespec="minutes")
     inputs={label:{"path":str(path.relative_to(root)),"sha256":sha(path)}
             for label,path in required.items() if path.is_file()}
     bundle={
@@ -190,7 +196,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
       "market_snapshot_sha256":snapshot_sha,
       "news_window":{"start_taipei":window_start,"target_cutoff_taipei":cutoff_target,
                      "latest_allowed_cutoff_taipei":cutoff_latest,
-                     "rule":"Monday starts Friday 12:00; Tue-Fri starts previous calendar day 12:00; original publication time is mandatory."},
+                     "production_date":production_date.isoformat(),"rule":"Monday-dated report is produced Saturday: start Friday 12:00 and cutoff at actual Stage 4 research-bundle creation time on Saturday. Tue-Fri reports start previous calendar day 12:00 and use the production-day cutoff. Original publication time is mandatory."},
       "market_snapshot":{"row_count":len(rows),"rows":rows,"unresolved_rows":unresolved,
                          "market_status_counts":market_status_counts,
                          "source_data":{key:data.get(key) for key in MARKET_GROUPS},
