@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
+from stage_wr_preflight import stage_wr_preflight
+
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 
@@ -71,6 +73,7 @@ def main():
     if not context_path.is_file() or not stage1_fixture_path.is_file() or not stage1_receipt_path.is_file():
         raise SystemExit("Stage 1 run-context.json, stage1-fixture.json and stage1-receipt.json are required")
     context=load(context_path)
+    wr_preflight=stage_wr_preflight("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
     stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
     if stage1_receipt.get("fixture_sha256")!=stage1_fixture_sha256:
@@ -188,6 +191,7 @@ def main():
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
+      "wr_preflight":wr_preflight,
       "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
       "stage2_handoff":handoff,
