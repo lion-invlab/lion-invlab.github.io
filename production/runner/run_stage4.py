@@ -54,6 +54,20 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
         raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
+def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)->None:
+    instructions=capture.get("stage4_work_instructions") or {}
+    full_text=instructions.get("full_text")
+    if capture.get("status")!="AWAITING_EDITORIAL_INPUT" or not isinstance(full_text,str) or not full_text.strip():
+        raise ValueError("Stage 4 full-WR handoff is missing or incomplete")
+    full_sha=sha_bytes(full_text.encode("utf-8"))
+    if (instructions.get("path")!="production/stages/STAGE_4_NEWS_ANALYSIS.md"
+            or instructions.get("sha256")!=wr_preflight.get("wr_sha256")
+            or full_sha!=wr_preflight.get("wr_sha256")
+            or instructions.get("git_blob_sha")!=wr_preflight.get("wr_git_blob_sha")):
+        raise ValueError("Stage 4 full-WR handoff does not match the pinned current Stage 4 WR")
+    if editorial.get("stage4_wr_sha256")!=wr_preflight.get("wr_sha256"):
+        raise ValueError("Stage 4 editorial input is missing the exact full-WR read attestation")
+
 def validate_content(content:dict,context:dict,data:dict)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
@@ -189,8 +203,13 @@ def main():
     content_path=Path(args.content) if args.content else ROOT/f"production/input/report-content-{context['report_date']}.json"
     if not content_path.is_absolute():content_path=ROOT/content_path
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
-    if editorial.get("stage4_wr_sha256") != wr_preflight["wr_sha256"]:
-        raise SystemExit("Stage 4 editorial input is missing the exact full-WR read attestation; refusing to start editorial merge.")
+    capture_path=run_dir/"capture-stage-receipt.json"
+    if not capture_path.is_file():
+        raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
+    try:
+        validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
+    except ValueError as exc:
+        raise SystemExit(str(exc))
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
     bundle_receipt_path=run_dir/"stage4-research-bundle-receipt.json"
     bundle_path=run_dir/"stage4-research-bundle.json"
