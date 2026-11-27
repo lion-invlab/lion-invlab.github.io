@@ -191,7 +191,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
             for label,path in required.items() if path.is_file()}
     bundle={
       "schema_version":"1.0","bundle_type":"TAC_STAGE4_EDITORIAL_RESEARCH",
-      "run_id":context["run_id"],"report_date":context["report_date"],
+      "run_id":context["run_id"],"production_date":production_date.isoformat(),"report_date":context["report_date"],
       "trading_date":context["trading_date"],"timezone":"Asia/Taipei",
       "main_commit_sha":context["main_commit_sha"],
       "market_snapshot_sha256":snapshot_sha,
