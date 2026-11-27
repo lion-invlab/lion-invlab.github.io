@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
+from stage_wr_preflight import stage_wr_preflight
 
 ROOT=Path(__file__).resolve().parents[2]
 
@@ -23,6 +24,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+    wr_preflight=stage_wr_preflight("STAGE_3",context)
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
@@ -52,7 +54,8 @@ def main():
                        "blob_sha":bundle["previous"]["blob_sha"],
                        "economic_count":bundle["previous"]["economic_count"],
                        "earnings_count":bundle["previous"]["earnings_count"]},
-      "source_json_read_only":True,"projection_is_in_memory":True,"outputs":outputs
+      "source_json_read_only":True,"projection_is_in_memory":True,
+      "wr_preflight":wr_preflight,"outputs":outputs
     }
     rp=run_dir/"stage3-calendar-receipt.json"
     rp.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
