@@ -6,6 +6,7 @@ import copy
 import hashlib
 import json
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 import validate_stage2_run_handoff as validator
@@ -38,7 +39,7 @@ def fixture_run(root: Path) -> tuple[Path, dict]:
     receipt_sha = write_json(run_dir / "stage1-receipt.json", receipt)
     observations = {
         "schema_version": "1.0", "report_date": context["report_date"],
-        "trading_date": context["trading_date"], "captured_at_utc": "2026-11-27T00:00:00Z",
+        "trading_date": context["trading_date"], "captured_at_utc": datetime.now(timezone.utc).isoformat(),
         "observations": [
             {"group": f"group-{i // 11}", "name": f"instrument-{i}",
              "target_date": context["trading_date"], "prior_observation_reused": False}
