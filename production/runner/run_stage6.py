@@ -76,7 +76,7 @@ def main():
     render_doc=json.loads(render_path.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4_path.read_text(encoding="utf-8"))
     try:
-        validate_stage5_handoff(stage5,qa_doc,render_doc,context,sha(html_raw),sha(render_path),stage4_doc,sha(stage4_path))
+        validate_stage5_handoff(stage5,qa_doc,render_doc,context,sha(html_raw),sha(render_path.read_bytes()),stage4_doc,sha(stage4_path.read_bytes()))
     except ValueError as exc:
         raise SystemExit(str(exc))
     if sha(qa_source_raw)!=stage5.get("qa_sidecar_sha256"):

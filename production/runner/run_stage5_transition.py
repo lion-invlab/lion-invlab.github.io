@@ -15,6 +15,7 @@ ALLOWED_CHANGED_PATHS=sorted([
  "production/runner/build_review_html.py",
  "production/config/builder-approval.json",
  "production/runner/interaction_smoke.mjs",
+ "production/runner/run_stage6.py",
  ".github/workflows/tac-production.yml",
 ])
 
