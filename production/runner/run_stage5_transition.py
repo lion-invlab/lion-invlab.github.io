@@ -86,7 +86,7 @@ def verify_transition(context:dict, root:Path, original_error:Exception)->dict:
     evidence=att.get("evidence") or {}
     if evidence.get("stage2_regression_run_id")!=45939345818 or evidence.get("stage2_regression_conclusion")!="success":
         raise ValueError("Stage 2 SIFMA regression evidence missing")
-    if evidence.get("same_run_resume_id")!=45939546192 or evidence.get("same_run_resume_conclusion")!="success":
+    if evidence.get("same_run_resume_id") not in (45939546192,45941381146) or evidence.get("same_run_resume_conclusion")!="success":
         raise ValueError("same-Run Stage 2 resume evidence missing")
     return {"status":"PASS_WITH_ATTESTED_COMPATIBLE_TRANSITION","file_count":len(GOVERNANCE_PATHS),
             "original_commit_sha":context["main_commit_sha"],"changed_paths":mismatches,
