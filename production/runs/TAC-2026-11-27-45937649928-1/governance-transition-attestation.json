@@ -82,7 +82,7 @@
     "production/config/report-data-template.json": "c1b408ae760640c668904cfc8bd63011ad17049f",
     "production/input/report-content.schema.json": "6fbec5f45b0cf9ec03d74edd4450f5cc13643a55",
     "production/input/market-screenshot-observations.schema.json": "1395c05a2c15015658164b2b3567df1d4b0a1661",
-    "production/config/builder-approval.json": "e4f2ad934e648ad7bf869acfa3fd211756247eb6",
+    "production/config/builder-approval.json": "94e1f3136ecfac7170c7594e0de347b57a809e63",
     "production/runner/PORT_MANIFEST.json": "f1cfdcc1bf0ffdc0de8ec622832edafb79627052",
     "production/runner/create_run_fixture.py": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
     "production/runner/run_stage2.py": "068a6861c9d4eab489f4f0b50a1bbfc0d04748af",
@@ -111,7 +111,7 @@
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
     "production/runner/visual_regression.mjs": "39a1483b34bceba1e3b17c4382dd74c9e996157b",
     "production/runner/interaction_smoke.mjs": "b532e0692f51d0263195e34b0443adc0b0dffa56",
-    "production/runner/build_review_html.py": "396f0171d02966a1a8f1c4a9d51914b241321f03",
+    "production/runner/build_review_html.py": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
     "production/runner/builder_approval.py": "8213bed709b981fd89c8126d004d034185a941ae",
     ".github/workflows/tac-production.yml": "a85f0934d5d95a81fe72ada9feaf4565633b7df7",
     ".github/workflows/tac-chart3-sp500-increment-merge.yml": "666e13e5c3837ed664cf912cc3e5c9926994aa8f",
@@ -177,8 +177,8 @@
     "line_end": 18,
     "note": "SIFMA recommends a full U.S. fixed-income market close on 2026-11-26 and an early close at 14:00 EST on 2026-11-27; firms make their own operating decisions."
   },
-  "scope": "Only the ten enumerated governance files changed from the original Stage 1 snapshot: they encode SIFMA full-close evidence, its classification and receipt handoff, exact-Run recovery, a narrow Builder correction suppressing the internal blank-first Stage 2 instruction from visible source notes, and safe Stage 6 replacement of a fully verified preview only when its existing Run ID/date exactly match. Stage 1 context, data schema, calendar schema, mother templates, mother manifest, Stage 5 core logic, QA contract, and publish contract remain unchanged.",
-  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this compatible transition remains limited to the exact 2026-11-27 Run and the enumerated governance changes. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes, and protected-path attestations all verify. Simulation and main/index.html remain excluded.",
-  "builder_blob_sha": "396f0171d02966a1a8f1c4a9d51914b241321f03",
-  "builder_approval_blob_sha": "e4f2ad934e648ad7bf869acfa3fd211756247eb6"
+  "scope": "Only the ten enumerated governance files changed from the original Stage 1 snapshot: they encode SIFMA full-close evidence, its classification and receipt handoff, exact-Run recovery, a narrow Builder correction that replaces the Fear & Greed backup scaffold with truthful Chinese source disclosure and rejects any final HTML containing Stage 2 scaffolding, plus safe Stage 6 replacement only when the existing preview triplet proves the exact same Run ID/date and hashes. Stage 1 context, data schema, calendar schema, mother templates, mother manifest, Stage 5 core logic, QA contract, and publish contract remain unchanged.",
+  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this compatible transition remains limited to the exact 2026-11-27 Run and enumerated governance changes. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes, and protected-path attestations all verify. Simulation and main/index.html remain excluded.",
+  "builder_blob_sha": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
+  "builder_approval_blob_sha": "94e1f3136ecfac7170c7594e0de347b57a809e63"
 }
