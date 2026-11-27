@@ -135,7 +135,7 @@ class BootstrapTests(unittest.TestCase):
         original["risk"]["move"]["source"]["source_role"]="PRIMARY"
         original["risk"]["fear_greed"]["source"]["source_role"]="BACKUP_1"
         blank=blank_fixture(original)
-        self.assertNotIn("source_role",blank["risk"]["move"]["source"])
+        self.assertEqual(blank["risk"]["move"]["source"]["source_role"],"PRIMARY")
         self.assertEqual(blank["risk"]["fear_greed"]["source"]["source_role"],"BACKUP_1")
         rows=observation_rows(blank)
         move=next(x for x in rows if (x["group"],x["name"])==("risk","move"))
