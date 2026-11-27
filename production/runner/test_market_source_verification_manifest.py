@@ -116,6 +116,15 @@ def main():
     nikkei_row = next(r for r in closed_manifest["rows"]
                       if r["group"] == "global_markets" and r["name"] == "日經225")
     assert nikkei_row["verification_status"] == "CLOSED"
+    # Regression: browser readers may explicitly serialize an unknown expected display as null.
+    # The manifest must reconcile against the already-populated fixture display ("-"), not reject closure.
+    null_expected_observations = copy.deepcopy(closed_observations)
+    null_expected_observations[("global_markets", "日經225")]["expected_display_value"] = None
+    null_expected_manifest = build_manifest(closed_data, "2026-11-24", null_expected_observations)
+    null_expected_row = next(r for r in null_expected_manifest["rows"]
+                             if r["group"] == "global_markets" and r["name"] == "日經225")
+    assert null_expected_row["verification_status"] == "CLOSED"
+    assert null_expected_row["browser_observation_record"]["expected_display_value"] == "-"
     assert nikkei_row["evidence_status"] == "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
     assert closed_manifest["verified_count"] == 0
     assert closed_manifest["closed_count"] == 1
