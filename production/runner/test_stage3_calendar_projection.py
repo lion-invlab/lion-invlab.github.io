@@ -3,6 +3,7 @@ import json, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 from builder_approval import current_governance_blob_shas
+from stage_wr_preflight import stage_wr_preflight
 RUNNER=ROOT/"production/runner"
 
 class Stage3CalendarTests(unittest.TestCase):
@@ -15,6 +16,8 @@ class Stage3CalendarTests(unittest.TestCase):
             context={"run_id":run_dir.name,"report_date":"2026-11-26","main_commit_sha":commit,
                 "governance":{"commit_sha":commit,"blob_shas":current_governance_blob_shas(ROOT,commit)}}
             (run_dir/"run-context.json").write_text(json.dumps(context),encoding="utf-8")
+            stage2_wr=stage_wr_preflight("STAGE_2",context)
+            (run_dir/"stage2-market-snapshot-receipt.json").write_text(json.dumps({"status":"PASS","wr_preflight":stage2_wr}),encoding="utf-8")
             subprocess.run([sys.executable,str(RUNNER/"run_stage3.py"),"--run-dir",str(run_dir.relative_to(ROOT))],cwd=ROOT,check=True,capture_output=True,text=True)
             receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
             self.assertEqual(receipt["status"],"PASS")
