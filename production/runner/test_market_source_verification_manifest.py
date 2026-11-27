@@ -116,6 +116,8 @@ def main():
     nikkei_row = next(r for r in closed_manifest["rows"]
                       if r["group"] == "global_markets" and r["name"] == "日經225")
     assert nikkei_row["verification_status"] == "CLOSED"
+    assert nikkei_row["display_value_reconciled"] is True
+    assert nikkei_row["display_value_matches_saved_observation"] is False
     # Regression: browser readers may explicitly serialize an unknown expected display as null.
     # The manifest must reconcile against the already-populated fixture display ("-"), not reject closure.
     null_expected_observations = copy.deepcopy(closed_observations)
@@ -183,6 +185,7 @@ def main():
     assert move_closed_row["verification_status"] == "CLOSED"
     assert move_closed_row["market_data_status"] == "CLOSED"
     assert move_closed_row["evidence_status"] == "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
+    assert move_closed_row["display_value_matches_saved_observation"] is False
     assert move_closed_manifest["closed_count"] == 1
     assert move_closed_manifest["market_status_counts"]["CLOSED"] == 1
 

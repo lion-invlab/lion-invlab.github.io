@@ -179,7 +179,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             "market_data_status": "CLOSED" if closure_verified else "PENDING",
             "source_page_fetched": observation.get("source_page_fetched") is True,
             "display_value_reconciled": closure_verified,
-            "display_value_matches_saved_observation": closure_verified,
+            "display_value_matches_saved_observation": False,
             "observation_provenance": provenance if closure_verified else "NO_COMPLETE_CURRENT_RUN_OBSERVATION",
             "raw_response_sha256": observation.get("raw_response_sha256") if closure_verified else None,
             "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE" if closure_verified else "MARKET_CLOSED_UNVERIFIED",
