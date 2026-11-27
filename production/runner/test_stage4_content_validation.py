@@ -11,7 +11,7 @@ def sample():
     def news(i):
         return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25 13:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei","publisher":"Test publisher","updated_at_source":"原文未標示","updated_at_source":"Nov 25 2026 1:10 PM"}
     return {
-      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","research_bundle_sha256":"a"*64,"report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
+      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","research_bundle_sha256":"a"*64,"stage4_wr_sha256":"f"*64,"report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
       "summary_title":"市場測試主題與風險觀察","summary_points":[{"label":f"重點{i}","text":"這是一段長度足夠的測試總結文字，用來驗證三段摘要格式。"} for i in range(3)],
       "focus_news":[news(i) for i in range(5)],"headlines":[news(i+10) for i in range(10)],
       "sentiment":"市場情緒測試文字長度足夠。Fear & Greed 待核實，不沿用舊值。",
