@@ -246,6 +246,36 @@ def main():
     pending_merged_move = next(x for x in pending_merged["observations"] if x["group"]=="risk" and x["name"]=="move")
     assert pending_merged_move["observed_value"] is None and pending_merged_move["observed_change"] is None
     assert pending_merged_move["status"] == "SOURCE_UPDATE_PENDING"
+    # TOOL_READ_FAILURE is a valid per-row outcome for every market instrument,
+    # not a MOVE-only special case; unavailable page evidence stays non-numeric.
+    tool_failure_bundle = copy.deepcopy(bundle)
+    failed_row = tool_failure_bundle["observations"][0]
+    failed_row.update({
+        "read_status": "TOOL_READ_FAILURE",
+        "status": "TOOL_READ_FAILURE",
+        "observed_date": None,
+        "page_title": "",
+        "instrument_identity": "",
+        "observed_value": None,
+        "observed_change": None,
+        "observed_value_field": None,
+        "observed_change_field": None,
+        "observed_headers": [],
+        "observed_row_text": "",
+        "web_reader_ref": None,
+        "web_line_start": None,
+        "web_line_end": None,
+    })
+    tool_failure_result = validate_bundle(data, "2026-11-24", tool_failure_bundle)
+    failed_normalized = next(
+        row for row in tool_failure_result["observations"]
+        if (row["group"], row["name"]) == (failed_row["group"], failed_row["name"])
+    )
+    assert failed_normalized["read_status"] == "TOOL_READ_FAILURE"
+    assert failed_normalized["status"] == "OBSERVED_PENDING_VALIDATION"
+    assert failed_normalized["source_page_fetched"] is False
+    assert failed_normalized["observed_value"] is None and failed_normalized["observed_change"] is None
+
     result = validate_bundle(data, "2026-11-24", bundle)
     assert len(result["observations"]) == 44
     assert result["verified_count"] == 43
