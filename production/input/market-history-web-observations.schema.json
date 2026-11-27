@@ -438,6 +438,15 @@
         "contract_label": {
           "type": "string",
           "minLength": 1
+        },
+        "source_type": {
+          "enum": [
+            "INVESTING_HISTORICAL_PAGE",
+            "TRADINGVIEW_HISTORICAL_PAGE",
+            "CNN_OFFICIAL_CURRENT_DASHBOARD",
+            "FGSCORE_HISTORICAL_PAGE",
+            "USER_PROVIDED_SCREENSHOT"
+          ]
         }
       },
       "additionalProperties": true
