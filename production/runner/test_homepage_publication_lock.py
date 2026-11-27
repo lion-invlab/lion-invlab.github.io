@@ -7,7 +7,7 @@ PREVIEW='a'*40
 
 class HomepagePublicationLockTests(unittest.TestCase):
     def test_baseline_homepage_is_allowed_unchanged(self):
-        lock={'schema_version':'1.0','status':'BASELINE_LOCKED','index_git_blob_sha':BASE,'report_date':None,'preview_path':None,'preview_git_blob_sha':None,'approved_by_owner':False,'approved_at':None,'approval_note':None}
+        lock={'schema_version':'1.0','status':'BASELINE_LOCKED','index_git_blob_sha':BASE,'report_date':'2026-11-26','preview_path':None,'preview_git_blob_sha':None,'approved_by_owner':False,'previous_homepage':None,'approved_at':None,'approval_note':None}
         result=validate_homepage_lock(lock,BASE,None,'chore: lock homepage baseline')
         self.assertEqual(result['mode'],'BASELINE_LOCKED')
 
@@ -17,17 +17,17 @@ class HomepagePublicationLockTests(unittest.TestCase):
             validate_homepage_lock(lock,'b'*40,None,'publish without approval')
 
     def test_approved_publication_requires_exact_marker_and_preview_sha(self):
-        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'User explicitly approved 2026-11-30 preview.'}
+        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'User explicitly approved 2026-11-30 preview.','previous_homepage':{'report_date':'2026-11-26','index_git_blob_sha':BASE,'status':'BASELINE_LOCKED'}}
         result=validate_homepage_lock(lock,'b'*40,PREVIEW,'publish(tac): [publish-tac-report:2026-11-30]')
         self.assertEqual(result['mode'],'APPROVED_PUBLICATION')
 
     def test_approved_publication_without_user_approval_blocks(self):
-        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':False,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'no'}
+        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':False,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'no','previous_homepage':{'report_date':'2026-11-26','index_git_blob_sha':BASE,'status':'BASELINE_LOCKED'}}
         with self.assertRaisesRegex(ValueError,'explicit approved_by_owner'):
             validate_homepage_lock(lock,'b'*40,PREVIEW,'[publish-tac-report:2026-11-30]')
 
     def test_approved_publication_requires_matching_preview(self):
-        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'approved'}
+        lock={'schema_version':'1.0','status':'APPROVED_PUBLICATION','index_git_blob_sha':'b'*40,'report_date':'2026-11-30','preview_path':'preview/2026-11-30-review.html','preview_git_blob_sha':PREVIEW,'approved_by_owner':True,'approved_at':'2026-11-30T05:40:00+08:00','approval_note':'approved','previous_homepage':{'report_date':'2026-11-26','index_git_blob_sha':BASE,'status':'BASELINE_LOCKED'}}
         with self.assertRaisesRegex(ValueError,'preview Git blob SHA'):
             validate_homepage_lock(lock,'b'*40,'c'*40,'[publish-tac-report:2026-11-30]')
 
