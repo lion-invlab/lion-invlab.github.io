@@ -515,6 +515,8 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
                 evidence_source_type = "CNN_OFFICIAL_CURRENT_DASHBOARD"
             elif group == "risk" and name == "fear_greed" and "fgscore" in str(raw.get("source_url") or "").lower():
                 evidence_source_type = "FGSCORE_CURRENT_DASHBOARD"
+            elif group == "risk" and name == "move" and "tradingview.com" in str(raw.get("source_url") or "").casefold():
+                evidence_source_type = "TRADINGVIEW_HISTORICAL_PAGE"
             else:
                 evidence_source_type = "INVESTING_HISTORICAL_PAGE"
             value_key = "score" if is_fear_greed else "close"
