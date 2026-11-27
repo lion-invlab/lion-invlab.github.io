@@ -140,6 +140,7 @@ def apply_screenshot_values_to_fixture(fixture: dict, screenshot_inputs: dict) -
                 "evidence_path": evidence["evidence_path"],
                 "evidence_sha256": evidence["evidence_sha256"],
                 "captured_at": evidence["captured_at"],
+                "data_date": row["data_date"],
                 "quote_timestamp": evidence.get("quote_timestamp"),
             }
             for field, evidence in fields.items()
