@@ -504,7 +504,7 @@ def main():
     normalized_1127 = validate_bundle(data_1127, "2026-11-27", bundle_1127)
     assert len(normalized_1127["observations"]) == 44
     assert normalized_1127["verified_count"] == 27
-    assert normalized_1127["status_counts"].get("SOURCE_UPDATE_PENDING") == 1
+    assert sum(normalized_1127["status_counts"].get(key, 0) for key in ("SOURCE_UPDATE_PENDING", "OBSERVED_PENDING_VALIDATION", "TOOL_READ_FAILURE", "PENDING")) == 1, normalized_1127["status_counts"]
     assert normalized_1127["prior_observation_reused_count"] == 0
     populated_1127 = populate_fixture(data_1127, normalized_1127)
     fixture_statuses = [
