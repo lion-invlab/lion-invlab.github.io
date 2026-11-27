@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+from datetime import date
 import subprocess
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -178,9 +179,13 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
         fixture_sources[("sectors",name)]=source
     for row in rows:
         row_data_date=row.get("data_date")
-        require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row_data_date)))
-                and row_data_date <= report_date,
-                f"source manifest data_date is malformed or after report_date: {row.get('name')}")
+        try:
+            row_day=date.fromisoformat(str(row_data_date))
+            report_day=date.fromisoformat(str(report_date))
+        except ValueError:
+            require(False,f"source manifest data_date/report_date must be valid ISO dates: {row.get('name')}")
+        require(row_day <= report_day,
+                f"source manifest data_date is after report_date: {row.get('name')}")
         fixture_source=fixture_sources.get((row.get("group"),row.get("name"))) or {}
         require(row_data_date==fixture_source.get("data_date"),
                 f"source manifest data_date differs from Fixture: {row.get('name')}")
@@ -290,9 +295,13 @@ def validate_observation_bundle(bundle: dict, report_date: str, trading_date: st
         require(all(key) and key not in keys, f"observation bundle has duplicate or unnamed row: {key}")
         keys.add(key)
         target_date=row.get("target_date")
-        require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(target_date)))
-                and target_date <= report_date,
-                f"observation bundle target date malformed or after report date: {key}")
+        try:
+            target_day=date.fromisoformat(str(target_date))
+            report_day=date.fromisoformat(str(report_date))
+        except ValueError:
+            require(False,f"observation target_date/report_date must be valid ISO dates: {key}")
+        require(target_day <= report_day,
+                f"observation target_date is after report_date: {key}")
         require(bool(row.get("source_url")), f"observation bundle source URL missing: {key}")
         digest = str(row.get("observation_record_sha256") or "")
         require(re.fullmatch(r"[0-9a-f]{64}", digest) is not None,
