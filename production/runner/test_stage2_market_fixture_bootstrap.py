@@ -261,5 +261,6 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["source"]["verification_status"],"CLOSED")
         self.assertEqual(item["source"]["market_calendar_evidence"]["status"],"CLOSED")
 
+ # 11/27 Main capture trigger after closed-state and contract-label fixes.
 if __name__=="__main__":
     unittest.main()
