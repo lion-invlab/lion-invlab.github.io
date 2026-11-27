@@ -124,7 +124,8 @@
     "visual_regression.mjs",
     "test_stage56_handoff.py",
     "production/runner/test_stage2_run_handoff.py",
-    "production/runner/test_create_run_fixture.py"
+    "production/runner/test_create_run_fixture.py",
+    "production/runner/test_stage2_chart3_guard.py"
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
@@ -132,7 +133,8 @@
     "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
     "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
-    "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending."
+    "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
+    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -248,6 +250,12 @@
       "validator": "production/runner/validate_stage2_run_handoff.py",
       "status": "TESTED_NOT_WIRED_INTO_RUN_STAGE2",
       "ci_run": 412
+    },
+    "chart3_sp500_handoff": {
+      "status": "DEFERRED_R3_WRITER_NOT_APPROVED",
+      "candidate": "chart3-sp500-handoff-candidate.json",
+      "behavior": "Verified S&P 500 data is preserved with Run ID and Stage 1/market snapshot SHA; no append to Chart 3 ledger until R3 writer/merge contract is approved",
+      "ci_run": 418
     }
   },
   "main_native_modules": [
@@ -354,6 +362,12 @@
       "purpose": "Fail-closed Run ID, Stage 1 receipt/run-context/immutable fixture SHA and exact 44-row handoff validator; optional CNN/screenshot bundles are Run-bound",
       "main_blob_sha": "ee3c61cedb04bdd6d7e028aa93012e76fe741b6f",
       "status": "TESTED_NOT_YET_WIRED_INTO_RUN_STAGE2"
+    },
+    {
+      "path": "production/runner/test_stage2_chart3_guard.py",
+      "purpose": "Verify verified S&P 500 is preserved as a Run-scoped candidate and not appended by the unapproved R3 writer",
+      "main_blob_sha": "ec9bd33ab086225cde2265bf0b0269db72cc0a7c",
+      "status": "VALIDATION_TEST"
     }
   ],
   "approval_record": {
