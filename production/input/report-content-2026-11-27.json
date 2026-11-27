@@ -171,7 +171,7 @@
       "publisher": "鉅亨研報"
     }
   ],
-  "sentiment": "VIX單日下跌5.27%至26.80，顯示避險需求暫時降溫；但Fear & Greed僅15、仍處Extreme Fear，反映投資人風險承擔意願沒有同步回升。這組背離訊號意味著波動率下降可能只是短線回補，不能直接視為資金重新承擔風險。美股現貨休市，缺少科技權值、成交廣度與信用市場的交叉確認；復市後若VIX續降、恐懼貪婪指數回升、科技股上漲家數擴大且AI融資成本未升，才提高風險部位；反之維持防禦。Fear & Greed採FGScore核准備援來源，非CNN官方頁直讀；MOVE因美國固定收益市場休市列CLOSED，FedWatch未在同一Run快照，故不引用截稿後機率。",
+  "sentiment": "VIX單日下跌5.27%至26.80，顯示避險需求暫時降溫；但Fear & Greed僅15、仍處極度恐懼區，反映投資人風險承擔意願沒有同步回升。這組背離訊號意味著波動率下降可能只是短線回補，不能直接視為資金重新承擔風險。美股現貨休市，缺少科技權值、成交廣度與信用市場的交叉確認；復市後若VIX續降、恐懼貪婪指數回升、科技股上漲家數擴大且AI融資成本未升，才提高風險部位；反之維持防禦。Fear & Greed採FGScore核准備援來源，非CNN官方頁直讀；MOVE因美國固定收益市場休市列CLOSED，FedWatch未在同一Run快照，故不引用截稿後機率。",
   "market_sentiment": "風險情緒仍偏防禦：VIX回落但Fear & Greed維持極度恐懼；美股現貨休市使反彈缺少當日現貨確認。先保留流動性，待美股復市後檢驗AI權值股、信用風險與市場廣度。",
   "market_analysis": {
     "political": {
@@ -228,14 +228,14 @@
           "url": "https://www.lse.co.uk/news/BARC/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-ib6emac9jqden7q.html",
           "status": "已核對原始發布時間與內容",
           "published_at": "2026-11-26 15:23 UTC",
-          "checked_at": "2026-11-27 14:39 Asia/Taipei"
+          "checked_at": "2026-11-27 14:56 Asia/Taipei"
         },
         {
           "label": "Bank of England｜Financial Stability Report November 2026",
           "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
           "status": "官方金融穩定報告核對",
           "published_at": "2026-11-26",
-          "checked_at": "2026-11-27 14:39 Asia/Taipei"
+          "checked_at": "2026-11-27 14:56 Asia/Taipei"
         }
       ],
       "supporting_market_rows": []
@@ -331,7 +331,7 @@
     },
     "strategy": {
       "paragraphs": [
-        "基準情境：亞洲反彈有廣度，但尚未確認機構資金全面回流。鉅亨盤後資料顯示台股上漲家數1,215家、57檔漲停，成交值縮至8,174.68億元，台積電反而收跌0.23%；這代表中小型電子與題材股反彈較強，權值股尚未同步確認。外資買賣超未在本次Run的可核實資料中，不推測機構淨流向。操作上維持核心部位與現金，不追高；觸發加碼條件是美股復市後科技權值與市場廣度同步改善、VIX續降，且台股守住39,000點與前一交易日低點36,681.9點。若跌破前低或美股科技股放量轉弱，基準情境失效，應降低高Beta曝險。",
+        "基準情境：亞洲反彈有廣度，但尚未確認機構資金全面回流。鉅亨盤後資料顯示台股上漲家數1,215家、57檔漲停，成交值縮至8,174.68億元，台積電反而收跌0.23%；這代表中小型電子與題材股反彈較強，權值股尚未同步確認。外資買賣超未在本次Run的可核實資料中，不推測機構淨流向。操作上維持核心部位與現金，不追高；觸發加碼條件是美股復市後科技權值與市場廣度同步改善、VIX續降，且台股守住39,000點與前一交易日低點36,681.9點。若跌破前低或美股科技股放量轉弱，基準情境失效，應降低高波動曝險。",
         "風險情境：若美國301關稅方案擴大實施範圍，或晶片許可延誤亞洲資料中心建置，再疊加AI業者債券融資規模快速擴張、融資結構不透明，科技股估值可能先受資金成本與專案回收期壓縮。觸發條件是正式關稅範圍擴大、晶片交付或資料中心專案延遲，或AI融資利差與再融資成本上升；行動是降低高槓桿算力租賃與高估值供應鏈曝險，保留現金。若關稅仍停留在有限提案、晶片供應未受實質延誤且融資條件穩定，則此風險情境失效。",
         "嚴重情境：若荷姆茲海峽航運持續受阻、Jazan煉油設施停工擴大並出現可驗證的出口或供應量下降，油價風險溢價可能轉化為持續性能源通膨，推高利率並壓縮股票估值。觸發條件是航運流量持續下降、煉油設施停工擴大及布蘭特油價維持高檔；行動是降低景氣循環與高耗能企業曝險、提高流動性，不追逐已急漲的原油。若航運恢復、設施復工且供應未實質中斷，嚴重情境失效，能源風險溢價可能回吐。"
       ],
@@ -362,14 +362,14 @@
           "url": "https://www.lse.co.uk/news/BARC/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-ib6emac9jqden7q.html",
           "status": "已核對原始發布時間與內容",
           "published_at": "2026-11-26 15:23 UTC",
-          "checked_at": "2026-11-27 14:39 Asia/Taipei"
+          "checked_at": "2026-11-27 14:56 Asia/Taipei"
         },
         {
           "label": "Bank of England｜Financial Stability Report November 2026",
           "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
           "status": "官方金融穩定報告核對",
           "published_at": "2026-11-26",
-          "checked_at": "2026-11-27 14:39 Asia/Taipei"
+          "checked_at": "2026-11-27 14:56 Asia/Taipei"
         }
       ],
       "supporting_market_rows": [
