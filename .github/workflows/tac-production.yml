@@ -353,6 +353,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Stage 1 starts at 15:45 ET; the Stage 2 worker is scheduled at 16:00 ET.
+          # Do not spend the worker's 15-minute handoff window before it wakes.
+          while [ "$(TZ=America/New_York date +%H%M)" -lt 1600 ]; do
+            sleep 15
+          done
+          echo "Stage 2 worker window opened at $(TZ=America/New_York date --iso-8601=seconds)"
           OBSERVATION_PATH="production/input/market-history-web-observations-$REPORT_DATE.json"
           FOUND=false
           for attempt in $(seq 1 30); do
