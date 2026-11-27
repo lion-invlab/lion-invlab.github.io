@@ -101,4 +101,12 @@ def require_stage_wr_receipt(receipt: dict, expected_stage: str, context: dict) 
             or evidence.get("stage1_pinned_commit") != pinned_commit
             or not pinned_blob or not pinned_commit):
         raise SystemExit(f"{expected_stage} handoff blocked: producer WR evidence is incomplete or differs from Stage 1 governance pin")
+    if expected_stage == "STAGE_2":
+        worker = receipt.get("worker_wr_attestation") or {}
+        if worker.get("status") != "PASS" or worker.get("stage2_wr_sha256") != evidence.get("wr_sha256"):
+            raise SystemExit("STAGE_2 handoff blocked: ChatGPT worker WR attestation is missing or mismatched")
+    if expected_stage == "STAGE_4":
+        worker = receipt.get("editorial_worker_wr_attestation") or {}
+        if worker.get("status") != "PASS" or worker.get("stage4_wr_sha256") != evidence.get("wr_sha256"):
+            raise SystemExit("STAGE_4 handoff blocked: editorial worker WR attestation is missing or mismatched")
     return evidence
