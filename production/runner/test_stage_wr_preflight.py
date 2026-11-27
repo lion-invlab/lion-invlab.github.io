@@ -63,6 +63,15 @@ class StageWRPreflightTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 stage_wr_preflight.stage_wr_preflight("STAGE_3", context)
 
+    def test_upstream_receipt_requires_valid_wr_proof(self):
+        evidence = {"status":"PASS","stage":"STAGE_2","wr_loaded":True,"rules_text_loaded":True,
+                    "wr_path":"production/stages/STAGE_2_MARKET.md","wr_sha256":"c"*64,
+                    "wr_git_blob_sha":"d"*40,"stage1_pinned_git_blob_sha":"d"*40}
+        result = stage_wr_preflight.require_stage_wr_receipt({"wr_preflight":evidence},"STAGE_2")
+        self.assertEqual(result,evidence)
+        with self.assertRaises(SystemExit):
+            stage_wr_preflight.require_stage_wr_receipt({"wr_preflight":{}},"STAGE_2")
+
     def test_unknown_stage_blocks(self):
         with self.assertRaises(ValueError):
             stage_wr_preflight.stage_wr_preflight("STAGE_7")
