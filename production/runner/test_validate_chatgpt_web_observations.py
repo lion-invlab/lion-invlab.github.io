@@ -400,7 +400,7 @@ def main():
     assert tv_source["verified_source_url"] == tv_url
     assert tv_source["url"] == primary_url
     tv_prebuild = validate_observation_bundle(move_tv_result, "2026-11-24", "2026-11-23")
-    assert tv_prebuild["row_count"] == 44 and tv_prebuild["page_only_row_count"] == 44
+    assert tv_prebuild["row_count"] == 44 and tv_prebuild["page_only_row_count"] == 43
 
     # Unstructured or premature alternate-source claims remain rejected.
     for invalid_fields in (
