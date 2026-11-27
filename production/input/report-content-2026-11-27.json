@@ -1,0 +1,607 @@
+{
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "news_cutoff_taipei": "2026-11-27 05:25",
+  "summary_title": "亞洲歐洲反彈，但關稅與AI供應鏈風險未消",
+  "summary_points": [
+    {
+      "label": "盤面｜亞洲歐洲反彈，美股感恩節休市",
+      "text": "11/26亞洲與歐洲股市普遍回升，台灣加權指數上漲2.50%、日經225上漲1.40%、德國DAX上漲2.08%；美國股市及S&P 500十一大產業ETF因感恩節休市，沒有當日收盤，不能以11/25數字替代。"
+    },
+    {
+      "label": "政策｜301提案緩和部分關稅疑慮，AI出口限制升高",
+      "text": "美方對14個經濟體提出301關稅方案，台灣政府重申15%不疊加及部分科技品豁免，但最終適用範圍仍待公聽程序；另一方面，先進晶片出口限制已影響東南亞伺服器出貨，資料中心投資與融資風險同步升高。"
+    },
+    {
+      "label": "策略｜不追假期反彈，等待美股復市確認",
+      "text": "假期低量下的反彈尚未證明趨勢反轉，且台股上漲同時外資仍大幅賣超。維持核心部位、分批調整，優先選擇現金流與訂單能見度較高的企業，避免槓桿追逐高估值AI題材。"
+    }
+  ],
+  "focus_news": [
+    {
+      "title": "美國301調查出爐 工總提三大建言籲落實談判避免產業不確定性",
+      "summary": "美國貿易代表署提出對台灣等14個經濟體採取301關稅措施的建議方案，但最終適用範圍與稅率仍待後續程序。工總提醒企業盤點HS Code、原產地、第三國轉運、供應鏈來源及既有232／301措施。政策風險已由單一關稅擴大到供應鏈透明度、法遵與市場布局。",
+      "url": "https://news.cnyes.com/news/id/6672052",
+      "published_at_source": "2026-11-26 12:01",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 12:01",
+      "publisher": "鉅亨網",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "聯準會褐皮書：美國消費近乎持平，資料中心拉長晶片交期",
+      "summary": "聯準會12個轄區中有8個回報經濟活動小幅至溫和成長，4個大致持平；家庭消費近乎持平，價格敏感度升高。資料中心建設推升電力設備、晶片及零組件需求，部分企業提前下單，晶片交期拉長；薪資增速略加快，物價仍溫和上升。10月PCE年增3.8%、核心PCE年增3.3%，顯示通膨降溫仍不穩定。",
+      "url": "https://news.cnyes.com/news/id/6672727",
+      "published_at_source": "2026-11-26 14:00",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 14:00",
+      "publisher": "優分析 UAnalyze（鉅亨網授權轉載）",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "鋼鐵50%重稅免驚！龔明鑫重申：談判保住15%不疊加，水五金、車用零組件受惠",
+      "summary": "經濟部長表示，台美先前談判形成的15%不疊加共識未變，半導體及部分資通訊產品仍在優惠／豁免架構內。鋼鐵、水五金及汽車零組件等傳統產業可望受惠，但原產地認定、第三國轉運及產品豁免條件仍須逐項確認。這是政府對談判結果的說明，不代表USTR提案已完成法定程序。",
+      "url": "https://news.cnyes.com/news/id/6672933",
+      "published_at_source": "2026-11-26 16:24",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 16:24",
+      "publisher": "鉅亨網",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "ECB October meeting accounts show broad support for a rate hike",
+      "summary": "歐洲央行10月會議紀錄顯示，當時已有相當多決策者支持升息，反映部分官員對通膨回落速度及政策風險仍有疑慮。市場因此重新評估12月17日會議的政策路徑，短端利率預期對數據與官員談話更敏感；這不是已作出的12月決策。",
+      "url": "https://www.investing.com/news/economy-news/ecb-already-had-large-support-for-rate-hike-in-oct-accounts-show-5052492",
+      "published_at_source": "Nov 26, 2026 07:44 AM ET",
+      "source_timezone": "America/New_York",
+      "published_at_tw": "2026-11-26 20:44",
+      "publisher": "Investing.com（Reuters）",
+      "updated_at_source": "Nov 26, 2026 07:48 AM ET",
+      "updated_at_tw": "2026-11-26 20:48"
+    },
+    {
+      "title": "Bank of England warns of growing financial risks as AI borrowing surges",
+      "summary": "英格蘭銀行金融穩定報告指出，AI基礎設施投資快速擴張，相關企業融資規模、資金來源及相互投資關係日益複雜，可能放大估值修正與信用市場衝擊。若算力需求、租用率或現金流未能跟上資本支出，負債較高的雲端及資料中心業者將更容易面臨再融資壓力。",
+      "url": "https://www.investing.com/news/economy-news/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-5052592",
+      "published_at_source": "Nov 26, 2026 10:29 AM ET",
+      "source_timezone": "America/New_York",
+      "published_at_tw": "2026-11-26 23:29",
+      "publisher": "Investing.com（Reuters）",
+      "updated_at_source": "Nov 26, 2026 10:30 AM ET",
+      "updated_at_tw": "2026-11-26 23:30"
+    }
+  ],
+  "headlines": [
+    {
+      "title": "〈陸股盤後〉美擬對14國課產能過剩關稅，三大指數漲跌互見",
+      "summary": "中國A股三大指數收盤分歧，上證指數收3,476.88點、小漲0.01%，深證成指收10,084.04點、下跌0.02%。市場消化美方301調查提案，中國商務部重申反對，最終稅率與產品範圍仍待後續程序。",
+      "url": "https://news.cnyes.com/news/id/6671900",
+      "published_at_source": "2026-11-26 16:30",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 16:30",
+      "publisher": "鉅亨網",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "美國擬對中國等經濟體加徵301關稅，中國商務部、外交部回應",
+      "summary": "中國商務部稱美方301調查是單邊主義，並指其違反世貿組織規則；外交部也反對以產能過剩為由進行政治操弄。中方呼籲透過平等協商處理，並保留採取必要措施的權利，後續需留意是否出現具體反制。",
+      "url": "https://news.cnyes.com/news/id/6672859",
+      "published_at_source": "2026-11-26 15:29",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 15:29",
+      "publisher": "鉅亨網",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "台股重登39K，外資期貨、現貨仍偏空並再自台積電提款近390億元",
+      "summary": "加權指數反彈956.38點，收39,151.81點，成交值約8,174.68億元；但外資仍賣超491.81億元，並賣超台積電18,134張、金額約389.84億元。指數反彈與機構資金回流並不同步，需觀察後續成交量與外資部位是否改善。",
+      "url": "https://news.cnyes.com/news/id/6672995",
+      "published_at_source": "2026-11-26 17:28",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 17:28",
+      "publisher": "鉅亨網",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "台股強彈956點重返3萬9！關稅真的沒問題？底部到了嗎？",
+      "summary": "券商分析認為，301調查對台提出15%不疊加方案，半導體及資通訊等主力科技產品仍有豁免安排，短線利空有所淡化。不過月線仍下彎，短期可能在40,000至42,000點區間震盪；若再跌破前低36,681.9點，止跌判斷將受到挑戰。此為分析師觀點，並非保證性價位預測。",
+      "url": "https://news.cnyes.com/news/id/6672846",
+      "published_at_source": "2026-11-26 14:58",
+      "source_timezone": "Asia/Taipei",
+      "published_at_tw": "2026-11-26 14:58",
+      "publisher": "鉅亨網（摩爾證券投顧專家觀點）",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "Nvidia halts server shipments to four Southeast Asian countries, FT reports",
+      "summary": "Reuters報導，Nvidia要求製造夥伴暫停向馬來西亞、新加坡、泰國及印尼出貨搭載其晶片的伺服器，原因是美國新出口規則要求相關先進晶片取得許可。暫停期間尚不明朗，Dell與Supermicro等組裝供應商也受到影響，可能延後當地資料中心建置及訂單認列。",
+      "url": "https://www.reuters.com/world/asia-pacific/nvidia-halts-server-shipments-to-four-southeast-asian-countries-ft-reports-2026-11-26/",
+      "published_at_source": "2026-11-26 05:09 AM UTC",
+      "source_timezone": "UTC",
+      "published_at_tw": "2026-11-26 13:09",
+      "publisher": "Reuters",
+      "updated_at_source": "Updated ago（未提供明確時間）"
+    },
+    {
+      "title": "US chip curbs will slow Asia data-center investment, Fitch says",
+      "summary": "Fitch認為，美國晶片出口限制將使亞太資料中心投資更具選擇性，資金將偏向能確保晶片供應、客戶資格及收入來源多元的專案。高度依賴Nvidia GPU、利用率要求高且槓桿偏高的Neocloud業者風險最大，融資方也可能提高審查並延後放款。",
+      "url": "https://www.reuters.com/world/asia-pacific/us-chip-curbs-will-slow-asia-data-center-investment-fitch-says-2026-11-26/",
+      "published_at_source": "2026-11-26 11:18 AM UTC",
+      "source_timezone": "UTC",
+      "published_at_tw": "2026-11-26 19:18",
+      "publisher": "Reuters",
+      "updated_at_source": "Updated ago（未提供明確時間）"
+    },
+    {
+      "title": "US Marlboro maker Altria explores Imperial cash bid, possible carve-up",
+      "summary": "Altria表示正在評估對Imperial Brands提出全現金收購，也與第三方討論部分業務交易；另有報導稱Japan Tobacco也評估可能交易。Imperial股價一度大漲13.8%，惟公司表示尚未收到正式收購提案，交易仍屬評估階段。",
+      "url": "https://www.reuters.com/markets/europe/japan-tobacco-explores-potential-deal-uks-imperial-brands-bloomberg-news-reports-2026-11-26/",
+      "published_at_source": "2026-11-26 12:42 PM UTC",
+      "source_timezone": "UTC",
+      "published_at_tw": "2026-11-26 20:42",
+      "publisher": "Reuters",
+      "updated_at_source": "Updated ago（未提供明確時間）"
+    },
+    {
+      "title": "Newsquawk Daily European Opening News — 26 November 2026",
+      "summary": "亞洲股市跟隨前一交易日美股尾盤反彈；美國市場因感恩節休市。韓國央行升息25個基點至3.25%，決策並非全票一致；日本央行委員田村表示若通膨風險升高，不排除加快升息或一次升50個基點。原油則因胡塞武裝攻擊沙烏地能源設施與港口而走強。",
+      "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-opening-news---26th-november-2026",
+      "published_at_source": "2026-11-26 06:32 UTC",
+      "source_timezone": "UTC",
+      "published_at_tw": "2026-11-26 14:32",
+      "publisher": "Newsquawk",
+      "updated_at_source": "未顯示更新時間"
+    },
+    {
+      "title": "European shares rally as benign US tariffs and Thanksgiving lull offer relief",
+      "summary": "Investing.com報導，歐洲股市延續反彈，STOXX 600上漲約1.8%，DAX、CAC 40及FTSE 100同步走高。市場將較溫和的關稅方案視為短線緩和訊號，但感恩節期間跨大西洋成交量偏低，仍須等待美股復市後確認風險偏好。",
+      "url": "https://www.investing.com/news/stock-market-news/european-shares-as-benign-us-tariffs-and-thanksgiving-lull-offer-relief-5052089",
+      "published_at_source": "Nov 26, 2026 03:05 AM ET",
+      "source_timezone": "America/New_York",
+      "published_at_tw": "2026-11-26 16:05",
+      "publisher": "Investing.com",
+      "updated_at_source": "Nov 26, 2026 12:18 PM ET",
+      "updated_at_tw": "2026-11-27 01:18"
+    },
+    {
+      "title": "World shares advance as US closes for Thanksgiving; AI stocks help lift markets",
+      "summary": "美國感恩節休市期間，亞洲與歐洲股市延續反彈，科技股回穩支撐市場氣氛；但油價受到中東能源設施與航運風險支撐。報導也提醒，假期流動性較薄，單日反彈尚不足以確認美股科技股賣壓已經結束。",
+      "url": "https://apnews.com/article/stocks-markets-ai-oil-bonds-320cd8c9c286a7773797bf2f478ef314",
+      "published_at_source": "Nov 26, 2026 12:21 AM ET",
+      "source_timezone": "America/New_York",
+      "published_at_tw": "2026-11-26 13:21",
+      "publisher": "Associated Press",
+      "updated_at_source": "未顯示更新時間"
+    }
+  ],
+  "sentiment": "風險偏好短線回升，但感恩節假期使市場流動性偏薄。VIX下跌，歐亞股市反彈；然而MOVE因美國固定收益市場休市而無當日值，Fear & Greed未取得可對應11/26的日期列，FedWatch亦沒有截稿前可核對的機率快照。",
+  "market_sentiment": "風險偏好短線修復、但尚未確認趨勢反轉。歐亞股市回升與VIX下跌提供正面訊號，台股外資賣超、AI晶片出口限制及能源地緣風險則構成反向壓力；假期低量下不宜追高。",
+  "market_analysis": {
+    "political": {
+      "paragraphs": [
+        "美國USTR依301條款公布「結構性產能過剩」調查結果，提出對台灣、中國、印度、歐盟等14個經濟體採取關稅措施的方案；台灣政府表示既有談判的15%不疊加共識仍在，半導體及部分資通訊產品維持豁免安排。惟這仍是調查與提案階段，書面意見期限為2027年1月5日，公聽會預定1月25日開始，最終稅率、產品範圍及原產地規則尚未定案。",
+        "中國商務部與外交部公開反對美方301調查，稱其為單邊主義並要求回到協商；目前可確認的是政策立場升高，尚未看到與本次提案直接對應的具體反制措施。企業短線應盤點HS Code、原產地、第三國轉運、232／301重疊及豁免條件。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網｜工總對美國301調查提出三大建言",
+          "url": "https://news.cnyes.com/news/id/6672052",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 12:01 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "鉅亨網｜台灣15%不疊加與產業豁免說明",
+          "url": "https://news.cnyes.com/news/id/6672933",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 16:24 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "鉅亨網｜中國商務部、外交部回應301調查",
+          "url": "https://news.cnyes.com/news/id/6672859",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 15:29 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        }
+      ]
+    },
+    "policy_industry": {
+      "paragraphs": [
+        "美國先進晶片出口許可規則已對馬來西亞、新加坡、泰國及印尼的伺服器出貨造成實際干擾，Nvidia要求製造夥伴暫停相關伺服器出貨，暫停期間與最終合規條件仍不明。Fitch認為，亞太資料中心投資將轉向晶片來源、客戶資格及收入更確定的專案，Neocloud業者因GPU利用率與融資依賴度高而承受較大壓力。",
+        "AI需求仍在，但產業評價不能只看資本支出成長。英格蘭銀行提醒AI融資規模與資金鏈日益複雜，若算力租用率、客戶收入或現金流未跟上建置成本，估值修正可能傳導至高槓桿雲端業者、資料中心融資及相關債券。供應鏈受惠股應優先檢查實際訂單、交付能力、客戶集中度與自由現金流。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜Nvidia暫停向四個東南亞國家出貨伺服器",
+          "url": "https://www.reuters.com/world/asia-pacific/nvidia-halts-server-shipments-to-four-southeast-asian-countries-ft-reports-2026-11-26/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 05:09 UTC",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Reuters｜Fitch評估美國晶片限制將拖慢亞洲資料中心投資",
+          "url": "https://www.reuters.com/world/asia-pacific/us-chip-curbs-will-slow-asia-data-center-investment-fitch-says-2026-11-26/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 11:18 UTC",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Investing.com｜英格蘭銀行AI融資風險警示",
+          "url": "https://www.investing.com/news/economy-news/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-5052592",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 10:29 AM ET",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        }
+      ]
+    },
+    "macro": {
+      "paragraphs": [
+        "聯準會褐皮書顯示12個轄區有8個經濟活動小幅至溫和成長、4個持平，消費支出近乎不變，家庭對價格更敏感；薪資與福利漲幅較前期加快，物價仍溫和上升。10月PCE年增3.8%、核心PCE年增3.3%，加上關稅及能源成本，顯示通膨回落仍有不確定性。",
+        "歐洲央行10月會議紀錄顯示，部分決策者當時已支持升息，市場對12月政策路徑重新敏感；英格蘭銀行則聚焦AI融資與金融穩定風險。亞洲方面，韓國央行升息25個基點至3.25%，日本央行委員田村提出若通膨風險升高可加快升息甚至一次升50個基點，區域利率與匯率波動風險仍在。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網／優分析｜聯準會11月褐皮書與10月PCE",
+          "url": "https://news.cnyes.com/news/id/6672727",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 14:00 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Investing.com｜ECB 10月會議紀錄顯示升息支持度",
+          "url": "https://www.investing.com/news/economy-news/ecb-already-had-large-support-for-rate-hike-in-oct-accounts-show-5052492",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 07:44 AM ET",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Investing.com｜BoE金融穩定報告與AI融資風險",
+          "url": "https://www.investing.com/news/economy-news/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-5052592",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 10:29 AM ET",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Newsquawk｜韓國央行升息與日本央行鷹派訊號",
+          "url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-opening-news---26th-november-2026",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 06:32 UTC",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        }
+      ]
+    },
+    "markets": {
+      "paragraphs": [
+        "11/26亞洲市場普遍反彈，日經225上漲1.40%、韓國KOSPI上漲0.29%、台灣加權指數上漲2.50%，香港與新加坡同步走高；中國A股則漲跌互見。台股指數大漲，但外資仍賣超491.81億元並賣超台積電約389.84億元，顯示反彈尚未獲得機構資金全面確認。",
+        "歐洲股市同步回升，STOXX Europe 600上漲1.75%、DAX上漲2.08%、CAC 40上漲1.61%、FTSE 100上漲1.75%。美國11/26感恩節休市，道瓊、標普、那斯達克、羅素2000、費城半導體及S&P 500十一大產業ETF均無當日現金市場收盤，故不沿用11/25價格或計算標普關鍵價位。",
+        "VIX歷史頁列示26.80、下跌5.27%；WTI與Brent期貨分別上漲1.48%及2.07%，黃金與白銀同步上漲。美元指數持平，美元兌台幣下跌0.67%、新台幣相對走強；MOVE因固定收益市場假期沒有當日值，Fear & Greed與FedWatch均未取得符合截稿時間的有效數值。"
+      ],
+      "sources": [
+        {
+          "label": "Investing.com｜歐洲股市因關稅疑慮緩和而反彈",
+          "url": "https://www.investing.com/news/stock-market-news/european-shares-as-benign-us-tariffs-and-thanksgiving-lull-offer-relief-5052089",
+          "status": "VERIFIED",
+          "published_at": "Nov 26, 2026 03:05 AM ET",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "鉅亨網｜台股收盤與外資／台積電資金流向",
+          "url": "https://news.cnyes.com/news/id/6672995",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 17:28 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "NYSE｜2026年交易所假期行事曆",
+          "url": "https://www.nyse.com/markets/hours-calendars",
+          "status": "OFFICIAL",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Nasdaq｜2026年美股假期行事曆",
+          "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+          "status": "OFFICIAL",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "SIFMA｜2026年固定收益市場假期表",
+          "url": "https://www.sifma.org/resources/guides-playbooks/holiday-schedule",
+          "status": "OFFICIAL",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "global_markets",
+          "name": "日經225"
+        },
+        {
+          "group": "global_markets",
+          "name": "韓國 KOSPI"
+        },
+        {
+          "group": "global_markets",
+          "name": "台灣加權指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "新加坡海峽時報指數 STI"
+        },
+        {
+          "group": "global_markets",
+          "name": "澳洲 S&P/ASX 200"
+        },
+        {
+          "group": "global_markets",
+          "name": "上海綜合指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "深證成指"
+        },
+        {
+          "group": "global_markets",
+          "name": "香港恆生指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "英國 FTSE 100"
+        },
+        {
+          "group": "global_markets",
+          "name": "德國 DAX"
+        },
+        {
+          "group": "global_markets",
+          "name": "法國 CAC 40"
+        },
+        {
+          "group": "global_markets",
+          "name": "STOXX Europe 600"
+        },
+        {
+          "group": "fx",
+          "name": "美元指數"
+        },
+        {
+          "group": "fx",
+          "name": "美元／新台幣"
+        },
+        {
+          "group": "fx",
+          "name": "歐元／美元"
+        },
+        {
+          "group": "fx",
+          "name": "英鎊／美元"
+        },
+        {
+          "group": "fx",
+          "name": "澳幣／美元"
+        },
+        {
+          "group": "fx",
+          "name": "美元／日圓"
+        },
+        {
+          "group": "energy",
+          "name": "WTI原油期貨"
+        },
+        {
+          "group": "energy",
+          "name": "Brent原油期貨"
+        },
+        {
+          "group": "metals",
+          "name": "黃金期貨 GC"
+        },
+        {
+          "group": "metals",
+          "name": "白銀期貨 SI"
+        },
+        {
+          "group": "risk",
+          "name": "vix"
+        }
+      ]
+    },
+    "strategy": {
+      "paragraphs": [
+        "基本面並未全面轉弱：FactSet截至11/20的Q3 2026資料顯示93%的標普500企業已公布，EPS優於預期比率84%、營收優於預期74%，混合EPS年增32.9%、營收年增14.6%；但EPS surprise為3.5%，低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其餘493家公司的34.7%，獲利成長來源擴散，投資重點應由單一AI龍頭轉向現金流、訂單品質與資本支出回報。",
+        "操作上維持核心持股，不因假期低量反彈追價；高估值AI硬體、依賴單一晶片供應或外部融資的企業採分批布局並設定曝險上限。等待美股復市後觀察科技權值成交量、伺服器交付與信用利差；若台股再跌破前一交易日低點36,681.9點，應視為反彈結構轉弱訊號，降低高Beta部位並保留現金。"
+      ],
+      "sources": [
+        {
+          "label": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
+          "url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
+          "status": "VERIFIED",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "Reuters｜Fitch對亞洲資料中心融資與投資選擇性的評估",
+          "url": "https://www.reuters.com/world/asia-pacific/us-chip-curbs-will-slow-asia-data-center-investment-fitch-says-2026-11-26/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 11:18 UTC",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        },
+        {
+          "label": "鉅亨網｜台股外資賣超與前低觀察",
+          "url": "https://news.cnyes.com/news/id/6672995",
+          "status": "VERIFIED",
+          "published_at": "2026-11-26 17:28 Asia/Taipei",
+          "checked_at": "2026-11-27 17:53 Asia/Taipei"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "global_markets",
+          "name": "台灣加權指數"
+        },
+        {
+          "group": "risk",
+          "name": "vix"
+        },
+        {
+          "group": "energy",
+          "name": "WTI原油期貨"
+        },
+        {
+          "group": "metals",
+          "name": "黃金期貨 GC"
+        }
+      ]
+    }
+  },
+  "political_scan": {
+    "checked_at": "2026-11-27 17:53 Asia/Taipei",
+    "domains_checked": [
+      "us_policy",
+      "us_china",
+      "geopolitics",
+      "trade_sanctions",
+      "major_economies",
+      "energy_resources"
+    ],
+    "findings": [
+      {
+        "title": "USTR提出對14個經濟體採取301關稅措施的建議方案，台灣為15%不疊加",
+        "domain": "us_policy",
+        "classification": "announced_not_yet_effective",
+        "source_url": "https://news.cnyes.com/news/id/6672052",
+        "published_at": "2026-11-26 12:01 Asia/Taipei",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "最終稅率與產品範圍仍待公聽及後續程序，企業需先盤點HS Code、原產地與既有232／301措施，避免將提案誤認為已生效成本。"
+      },
+      {
+        "title": "中國商務部與外交部公開反對美方301調查",
+        "domain": "us_china",
+        "classification": "political_statement",
+        "source_url": "https://news.cnyes.com/news/id/6672859",
+        "published_at": "2026-11-26 15:29 Asia/Taipei",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "中方表態提高貿易摩擦風險，但截至截稿未見與本次提案直接對應的具體反制措施；後續觀察雙邊協商與供應鏈限制。"
+      },
+      {
+        "title": "胡塞武裝宣稱攻擊沙烏地能源設施與港口，另有油輪附近不明爆炸通報",
+        "domain": "geopolitics",
+        "classification": "reported_incident_no_confirmed_supply_disruption",
+        "source_url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-opening-news---26th-november-2026",
+        "published_at": "2026-11-26 06:32 UTC",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "事件推升中東航運與能源設施風險溢價；目前通報未確認油輪受損或環境污染，需區分攻擊聲明與實際供應中斷。"
+      },
+      {
+        "title": "301調查後續書面意見截止2027年1月5日，公聽會預定1月25日開始",
+        "domain": "trade_sanctions",
+        "classification": "announced_not_yet_effective",
+        "source_url": "https://news.cnyes.com/news/id/6671900",
+        "published_at": "2026-11-26 16:30 Asia/Taipei",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "程序尚未完成，企業短線應管理政策不確定性與原產地合規，不宜將建議稅率直接套用為已生效稅負。"
+      },
+      {
+        "title": "韓國央行升息25個基點至3.25%，日本央行委員釋出更快升息可能",
+        "domain": "major_economies",
+        "classification": "formally_effective",
+        "source_url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-opening-news---26th-november-2026",
+        "published_at": "2026-11-26 06:32 UTC",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "亞洲政策利率分化可能影響韓元、日圓與區域資金成本；若日本通膨預期再升，日圓利差交易可能加速調整。"
+      },
+      {
+        "title": "沙烏地能源設施與港口遭攻擊，原油供應風險升高但尚無已確認停產",
+        "domain": "energy_resources",
+        "classification": "reported_incident_no_confirmed_supply_disruption",
+        "source_url": "https://www.newsquawk.com/headlines/newsquawk-daily-european-opening-news---26th-november-2026",
+        "published_at": "2026-11-26 06:32 UTC",
+        "checked_at": "2026-11-27 17:53 Asia/Taipei",
+        "transmission": "若Ras Tanura等設施或紅海／波斯灣航線實際受阻，油價與通膨預期可能再上行；目前先反映風險溢價，不視為已發生供應中斷。"
+      }
+    ],
+    "no_material_change_note": "六個領域均完成掃描；除上述事件外，截稿前未確認其他已正式生效且足以改變全球資產定價的新制度性措施。"
+  },
+  "core_observation": {
+    "heading": "盤面觀察重點",
+    "text": "本次反彈由亞洲與歐洲市場帶動，但台股外資仍大幅賣超，美股又因感恩節休市，尚無法用美國現貨市場確認風險偏好是否真正反轉。政策面要分清301提案與已生效措施，產業面則需追蹤AI晶片供應、資料中心融資及能源地緣風險。",
+    "details": "觀察順序：美股復市後的科技股成交量與廣度 → 301公聽程序及豁免範圍 → AI伺服器交付與資料中心融資 → 中東能源設施及航運是否出現實際中斷。",
+    "points": [
+      {
+        "label": "反彈品質",
+        "text": "台股上漲956.38點，但外資仍賣超491.81億元、台積電遭賣超約389.84億元；指數上漲不等於機構資金回流。"
+      },
+      {
+        "label": "關稅落地程度",
+        "text": "15%不疊加仍屬301調查提案與政府談判說明，書面意見期限為2027/1/5、公聽會預定1/25，最終範圍尚未定案。"
+      },
+      {
+        "label": "AI資本支出回報",
+        "text": "四個東南亞市場伺服器出貨暫停，Fitch預期資料中心投資更具選擇性；需追蹤晶片取得、訂單交付、GPU利用率與融資成本。"
+      },
+      {
+        "label": "風險控制",
+        "text": "美股與十一大產業ETF休市，反彈須等美股復市確認；不追高、不加槓桿，若台股再跌破36,681.9點，應降低高Beta曝險。"
+      }
+    ]
+  },
+  "observation": {
+    "text": "11/26全球盤勢呈現歐亞反彈、政策風險暫時緩和，但台股外資仍賣超、AI晶片出口限制與中東能源風險未解除。美股休市使美國現貨市場缺乏當日確認，操作應以風險控制與等待復市驗證為主。"
+  },
+  "key_levels": {
+    "items": []
+  },
+  "market_comments": {
+    "global_markets": [
+      "亞洲市場普遍反彈：日經225上漲1.40%、KOSPI上漲0.29%、台灣加權指數上漲2.50%、新加坡STI上漲0.65%、澳洲ASX 200上漲0.82%；香港恆生上漲1.19%，上海小漲0.01%、深圳小跌0.02%。台股雖強彈，但外資仍大幅賣超，反彈品質尚待確認。",
+      "歐洲市場同步回升：STOXX Europe 600上漲1.75%、德國DAX上漲2.08%、法國CAC 40上漲1.61%、英國FTSE 100上漲1.75%。關稅方案較預期溫和及科技股回穩支撐風險偏好，但感恩節期間跨大西洋成交量偏低。",
+      "美國11/26因感恩節休市，道瓊、標普500、那斯達克、羅素2000、費城半導體及S&P 500十一大產業ETF均無當日現金市場收盤。不得沿用11/25收盤數字作為11/26行情，標普500關鍵價位本日留空。"
+    ],
+    "sectors": "S&P 500十一大產業ETF於11/26均因感恩節休市，沒有當日歷史收盤列；本日不排序、不沿用11/25漲跌幅。",
+    "bonds": "Investing.com 2年、10年及30年期美債殖利率歷史頁均列示11/26數值，分別為4.654%、4.869%、5.252%；但SIFMA公告美國固定收益市場當日全天休市，因此這些僅按來源頁面列示值保留，不能描述為官方現券市場結算價，需待下一交易日核對。",
+    "fx": "美元指數103.67、持平；美元兌新台幣32.955、下跌0.67%；歐元兌美元1.0969、下跌0.03%；英鎊兌美元1.3112、下跌0.02%；澳幣兌美元0.6635、上漲0.11%；美元兌日圓159.26、上漲0.05%。",
+    "energy": "WTI 2027年1月合約報84.92美元、上漲1.48%；Brent 2027年1月合約報96.57美元、上漲2.07%。中東能源設施與航運事件推升供應風險溢價，但目前未確認實際停產或航道中斷。",
+    "metals": "黃金2027年1月合約報3,580.20美元、上漲1.26%；白銀2027年1月合約報41.270美元、上漲3.03%。美元持平與避險需求支撐貴金屬，但仍須觀察利率預期變化。",
+    "risk": "VIX報26.80、下跌5.27%；MOVE因美國固定收益市場感恩節休市，11/26無當日值。CNN Fear & Greed來源頁僅顯示相對日期，無法確認11/26對應分數；FedWatch最新更新晚於05:25台灣時間截稿點，兩者均不沿用舊值。"
+  },
+  "warning_note": "美股及S&P 500十一大產業ETF於11/26感恩節休市；MOVE亦因美國固定收益市場休市而無當日值。美債殖利率頁面雖列出11/26數值，SIFMA卻確認固定收益市場全天休市，因此僅列為Investing.com來源頁面參考，不視為官方現券市場收盤。Fear & Greed及FedWatch未取得符合截稿時間的有效數值。",
+  "quality_note": "本次以2026/11/26為交易基準日重新擷取44項行情：26項取得日期列數值、17項依官方假期證據標示休市、Fear & Greed 1項無法取得日期明確的歷史值。FedWatch亦無截稿前可核對快照；沒有沿用舊Run行情、截圖、新聞或編輯內容。",
+  "pending_items": [
+    "CNN Fear & Greed：FGScore頁面僅顯示Now與1 day ago，未提供可確認為2026/11/26的日期列，故不採用分數。",
+    "CME FedWatch：Investing.com Fed Rate Monitor最新更新時間晚於2026/11/27 05:25台灣時間截稿點，未採用較晚機率或舊Run數值。"
+  ],
+  "news_window_taipei": "2026-11-26 12:00–2026-11-27 05:25（Asia/Taipei）",
+  "source_evidence_note": "Global Focus News限定鉅亨網與Investing.com宏觀政策來源；所有新聞依來源刊載時間換算台灣時間並限制於指定截稿窗口。新聞頁面未顯示明確更新時間者，保留原刊載時間並註明未顯示，不以截稿後更新內容回填。",
+  "earnings_health": {
+    "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
+    "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
+    "as_of_date": "2026-11-20",
+    "period": "Q3 2026",
+    "reported_pct": "93%",
+    "eps_beat_pct": "84%",
+    "revenue_beat_pct": "74%",
+    "blended_eps_yoy": "+32.9%",
+    "blended_revenue_yoy": "+14.6%",
+    "eps_surprise": "+3.5%",
+    "revenue_surprise": "+2.2%",
+    "forward_pe": "17.1 倍",
+    "eps_beat_avg_5y": "78%",
+    "eps_beat_avg_10y": "77%",
+    "revenue_beat_avg_5y": "70%",
+    "revenue_beat_avg_10y": "68%",
+    "eps_surprise_avg_5y": "7.5%",
+    "eps_surprise_avg_10y": "8.0%",
+    "revenue_surprise_avg_5y": "1.8%",
+    "forward_pe_avg_5y": "19.8 倍",
+    "forward_pe_avg_10y": "19.1 倍",
+    "prior_blended_eps_yoy": "+31.9%",
+    "prior_blended_revenue_yoy": "+14.4%",
+    "mag7_eps_growth": "+27.0%",
+    "other_493_eps_growth": "+34.7%",
+    "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
+  },
+  "run_id": "TAC-2026-11-27-45976396528-1",
+  "market_snapshot_sha256": "c4fd26ba2dcd82760e2553b3511241668f413da73eba47f17fe8186eaac18dee",
+  "stage4_wr_sha256": "53fcb3fabde282e6be52a5425584a4ee3f5a6b7f067bbd479075e7bc2cb87a27",
+  "research_bundle_sha256": "48b62cdebbfedc67dc2850e4205fc3b21e21337d046ff2aee1d6c56b2dd4cbe8"
+}
