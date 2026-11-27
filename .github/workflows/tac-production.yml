@@ -249,7 +249,7 @@ jobs:
           else
             REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
           fi
-          python - "$REPORT_DATE" <<'PY'
+          SUPERSEDES_RUN_ID="$(python - "$REPORT_DATE" <<'PY'
           import json, sys, os
           from pathlib import Path
           from datetime import date
@@ -286,14 +286,15 @@ jobs:
                       or any(path.exists() for path in delivered_files)):
                       raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; recover is prohibited.")
               supersedes=prior.name
-          print(f"supersedes_run_id={supersedes or 'NONE'}")
+          print(supersedes)
           PY
+          )"
           RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
-          echo "SUPERSEDES_RUN_ID=$supersedes" >> "$GITHUB_ENV"
+          echo "SUPERSEDES_RUN_ID=$SUPERSEDES_RUN_ID" >> "$GITHUB_ENV"
       - name: Stage 1 — create a fresh blank-first Run
         run: |
           set -euo pipefail
