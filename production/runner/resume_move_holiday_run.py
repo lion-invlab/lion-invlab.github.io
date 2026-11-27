@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Resume the exact 2026-11-27 Main Run with official SIFMA MOVE holiday evidence."""
+"""[resume-tac-report:2026-11-27] Resume the exact Main Run with official SIFMA MOVE holiday evidence."""
 from __future__ import annotations
 import argparse, json, os, subprocess, sys
 from pathlib import Path
