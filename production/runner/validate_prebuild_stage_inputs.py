@@ -456,10 +456,18 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                 "observation bundle SHA-256 missing or malformed")
 
     current = calendar_bundle.get("current") or {}
-    previous = calendar_bundle.get("previous") or {}
-    require(bool(calendar_bundle.get("main_commit_sha")), "authoritative main commit SHA missing")
-    for label, item in (("current", current), ("previous", previous)):
-        require(item.get("branch") == "main", f"{label} calendar did not come from main")
+    previous = calendar_bundle.get("previous")
+    require(bool(calendar_bundle.get("main_commit_sha")), "authoritative main calendar commit SHA missing")
+    report_day = date.fromisoformat(str(data.get("report_date") or ""))
+    monday_report = report_day.weekday() == 0
+    require((previous is not None) == monday_report,
+            "previous calendar must be present only for Monday reports")
+    calendar_items = [("current", current)]
+    if previous is not None:
+        calendar_items.append(("previous", previous))
+    for label, item in calendar_items:
+        require(isinstance(item, dict) and item.get("branch") == "main",
+                f"{label} calendar did not come from main")
         require(item.get("commit_sha") == calendar_bundle["main_commit_sha"],
                 f"{label} calendar commit is not the pinned main commit")
         require(item.get("blob_sha"), f"{label} calendar blob SHA missing")
@@ -470,11 +478,11 @@ def build_receipt(*, data: dict, fixture_sha256: str, audit: dict,
                 f"{label} economic event count mismatch")
         require(len(payload.get("events", {}).get("earnings", [])) == item.get("earnings_count"),
                 f"{label} earnings event count mismatch")
-    require(current.get("week_id") != previous.get("week_id"),
-            "current and previous calendar week must be distinct")
-    for item in (current, previous):
         require(item.get("path") == f"data/calendar/weeks/{item.get('week_id')}.json",
-                "calendar path is not the canonical ISO-week database path")
+                f"{label} calendar path is not canonical")
+    if previous is not None:
+        require(current.get("week_id") != previous.get("week_id"),
+                "current and previous calendar week must be distinct")
 
     require(re.fullmatch(r"[0-9a-f]{64}", fixture_sha256 or "") is not None,
             "fixture SHA-256 missing or malformed")
