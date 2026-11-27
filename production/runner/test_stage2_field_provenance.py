@@ -127,9 +127,14 @@ def main():
         and node.func.id == "observe_once"
     ]
     assert len(observe_once_calls) == 1
-    assert "tradingview.com" not in browser_source.casefold()
     assert "--move-backup-only" not in browser_source
-    # MOVE must remain pending when the approved Investing.com page cannot be read; no TradingView substitution.
+    validator_source = Path("production/runner/validate_chatgpt_web_observations.py").read_text(encoding="utf-8")
+    assert "https://www.tradingview.com/symbols/ICE-MOVE/" in validator_source
+    assert "TRADINGVIEW_HISTORICAL_PAGE" in validator_source
+    assert "MOVE TradingView backup is allowed only after Investing.com TOOL_READ_FAILURE or SOURCE_NO_DATA" in validator_source
+    move_template = json.loads(Path("production/config/report-data-template.json").read_text(encoding="utf-8"))
+    assert move_template["risk"]["move"]["source"]["approved_backup_urls"] == ["https://www.tradingview.com/symbols/ICE-MOVE/"]
+    # MOVE remains pending on a failed primary read unless a separately evidenced, date-matched TradingView backup is supplied.
     move_source = data["risk"]["move"]["source"]
     move_observation = {
         "status": "OBSERVED_PENDING_VALIDATION",
@@ -163,7 +168,7 @@ def main():
     assert move_result["source_page_fetched"] is False
 
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
-    print("PASS: MOVE Investing.com read failure remains pending; no TradingView fallback is accepted")
+    print("PASS: MOVE Investing.com read failure remains pending until a cited, date-matched TradingView backup is supplied")
     print("PASS: mixed screenshot/history-page fields retain independent provenance")
     print("PASS: malformed screenshot evidence SHA cannot pass Stage 2 verification")
     from test_stage2_screenshot_inputs import main as test_screenshot_inputs
