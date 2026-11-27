@@ -37,7 +37,7 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 - **ChatGPT：** 讀取網頁／截圖、整理新聞、撰寫市場分析；不自行宣稱網頁讀取成功。
 - **Main Runner：** 建立 Run、匯入並檢查資料日期與商品清單、回填快照、呼叫 Builder、部署 Preview。
 - **行事曆 updater：** 唯一更新 `data/calendar/weeks/`；早報流程只讀。
-- **Chart 3：** 保留既有 FRED／ALFRED 更新流程。S&P 500 日資料只在來源已核實且寫入規則確認後更新；不可因此阻擋早報。
+- **Chart 3：** ALFRED 四序列由 Chart 3 任務唯一更新；S&P 500 現金指數收盤由 Main Stage 2 唯一擷取與寫入，沿用既有 handoff／append writer 追加 `data/tac-chart3/sp500_daily_increment.jsonl`，再由 S&P 500 merge workflow 更新 compact histories。ALFRED 與 S&P 500 merge workflows 共用 `tac-chart3-data-maintenance` concurrency group；Main Stage 2 ledger／Run receipts 提交具 rebase retry，Stage 4–6 交付與 Chart 3 資料寫入共用鎖。未核實行情不寫入、不另抓第二份 S&P 500 報價，也不得阻擋其他早報工作。
 - **正式首頁：** 只有使用者核准後才能更新 `index.html` 或正式封存。
 
 ## 四、資料狀態與顯示
