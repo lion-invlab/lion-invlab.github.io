@@ -6,6 +6,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def approved_mother_templates():
+    manifest_path = ROOT / "母版專區" / "mother-template-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    templates = manifest["templates"]
+    return [
+        (key, ROOT / entry["path"])
+        for key, entry in templates.items()
+    ]
 sys.path.insert(0, str(ROOT / "simulation-lab" / "runner"))
 from bs4 import BeautifulSoup
 from build_review_html import reject_cfd_cash_index_quotes, classify_calendar_group, earnings_status_label, normalize_market_label, populate_fed_weekly_agenda, populate_fedwatch_two_slots, populate_summary_points_preserving_dom, set_market_observation, set_text_preserving_child_elements, set_calendar_status_heading, update_contract_link_label
@@ -64,11 +74,11 @@ def test_fed_agenda_slots():
             "source_url": "https://www.federalreserve.gov/newsevents.htm",
         },
     ]
-    for filename in ("monday-mother-template.html", "weekday-mother-template.html"):
-        html = (ROOT / "simulation-lab" / "baseline" / filename).read_text(encoding="utf-8")
+    for template_name, template_path in approved_mother_templates():
+        html = template_path.read_text(encoding="utf-8")
         soup = BeautifulSoup(html, "html.parser")
         box = soup.select_one("#fed .fc-fomc-weekly-events")
-        assert box is not None, filename
+        assert box is not None, template_name
         observation_slot = soup.select_one("#fed .fc-fomc-observation")
         assert observation_slot is not None and "fc-fomc-weekly-events" not in observation_slot.get("class", [])
         observation_before = (observation_slot.name, tuple(observation_slot.get("class", [])), observation_slot.get_text(" ", strip=True))
@@ -139,8 +149,8 @@ def test_structured_market_observation():
 
 
 def test_fedwatch_two_card_contract():
-    for filename in ("monday-mother-template.html", "weekday-mother-template.html"):
-        html = (ROOT / "simulation-lab" / "baseline" / filename).read_text(encoding="utf-8")
+    for template_name, template_path in approved_mother_templates():
+        html = template_path.read_text(encoding="utf-8")
         soup = BeautifulSoup(html, "html.parser")
         panel = soup.select_one("#fed .fed-live-watch")
         assert panel is not None
