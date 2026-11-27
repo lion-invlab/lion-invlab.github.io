@@ -67,7 +67,7 @@
     "production/stages/STAGE_2_MARKET.md": "0c4e70c6e3e5addee7984a80b45d1553646accce",
     "production/stages/STAGE_3_CALENDAR.md": "992e97e980ceb05bb31001396703cbe4d7cd38cd",
     "production/stages/STAGE_4_NEWS_ANALYSIS.md": "67629c41ae6a71cbfc47c4c0227a672e3e7d486e",
-    "production/stages/STAGE_5_RENDER_QA.md": "58c97781b9eb4b090d0d075af47f45d171abfb2f",
+    "production/stages/STAGE_5_RENDER_QA.md": "dd8ab91d4a5703b5be71c7508f51ef9d34935553",
     "production/stages/STAGE_6_DELIVERY.md": "36b967332d13a449e48fea33227ba640d5050f87",
     "production/contracts/DATA_SCHEMA.md": "c50e8e99f90cf9364b87fbb9f676ade7fa4d4e62",
     "production/contracts/HANDOFF_CONTRACT.md": "bcfae545634374673607d7d588789c277947d309",
@@ -82,7 +82,7 @@
     "production/config/report-data-template.json": "c1b408ae760640c668904cfc8bd63011ad17049f",
     "production/input/report-content.schema.json": "6fbec5f45b0cf9ec03d74edd4450f5cc13643a55",
     "production/input/market-screenshot-observations.schema.json": "1395c05a2c15015658164b2b3567df1d4b0a1661",
-    "production/config/builder-approval.json": "94e1f3136ecfac7170c7594e0de347b57a809e63",
+    "production/config/builder-approval.json": "f2d4f474a5c1e4a7d301738db502b8dd49bfc3d3",
     "production/runner/PORT_MANIFEST.json": "f1cfdcc1bf0ffdc0de8ec622832edafb79627052",
     "production/runner/create_run_fixture.py": "4a042331deb0050c97b17895e07d77fd1c81d3f7",
     "production/runner/run_stage2.py": "068a6861c9d4eab489f4f0b50a1bbfc0d04748af",
@@ -104,14 +104,14 @@
     "production/runner/consensus_snapshot_store.py": "3bdabe5a3e301777f022b07e0b89297964d5b8c8",
     "production/runner/run_stage4.py": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
     "production/runner/prepare_stage4_research_bundle.py": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969",
-    "production/runner/run_stage5.py": "94f50a0b251fa5a0987cc4dee1c967d2decb86ae",
+    "production/runner/run_stage5.py": "2226010b070cde6204bf3afcdbd74b5f3a95aead",
     "production/runner/run_stage6.py": "303011000e99bf9c7ca0c84c4e6fdaea7e2bea98",
     "production/runner/validate_prebuild_stage_inputs.py": "36f938611090fe6aa984c5d762a52b6afe37aaf9",
     "production/runner/validate_mother_dom_contract.py": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
     "production/runner/visual_regression.mjs": "39a1483b34bceba1e3b17c4382dd74c9e996157b",
     "production/runner/interaction_smoke.mjs": "b532e0692f51d0263195e34b0443adc0b0dffa56",
-    "production/runner/build_review_html.py": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
+    "production/runner/build_review_html.py": "c09e93947d91d29d2220fde2e4110c79eca5392c",
     "production/runner/builder_approval.py": "8213bed709b981fd89c8126d004d034185a941ae",
     ".github/workflows/tac-production.yml": "a85f0934d5d95a81fe72ada9feaf4565633b7df7",
     ".github/workflows/tac-chart3-sp500-increment-merge.yml": "666e13e5c3837ed664cf912cc3e5c9926994aa8f",
@@ -125,9 +125,11 @@
     "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
     "production/runner/interaction_smoke.mjs",
+    "production/runner/run_stage5.py",
     "production/runner/run_stage6.py",
     "production/runner/stage2_market_fixture_bootstrap.py",
-    "production/runner/validate_prebuild_stage_inputs.py"
+    "production/runner/validate_prebuild_stage_inputs.py",
+    "production/stages/STAGE_5_RENDER_QA.md"
   ],
   "allowed_changed_paths": [
     ".github/workflows/tac-production.yml",
@@ -137,11 +139,13 @@
     "production/runner/build_review_html.py",
     "production/runner/build_stage2_receipt.py",
     "production/runner/interaction_smoke.mjs",
+    "production/runner/run_stage5.py",
     "production/runner/run_stage6.py",
     "production/runner/stage2_market_fixture_bootstrap.py",
-    "production/runner/validate_prebuild_stage_inputs.py"
+    "production/runner/validate_prebuild_stage_inputs.py",
+    "production/stages/STAGE_5_RENDER_QA.md"
   ],
-  "transition_runner_blob_sha": "34f65da29d5a4bdc9bf75330f9ba719a62349814",
+  "transition_runner_blob_sha": "fb4acacedd259bba845080f3207c35f6fb60785b",
   "run_context_sha256": "821bcebcaf784b610a6c2e745aa48bbdf759abea5cef2b91aa64e6a5bab8d003",
   "stage1_receipt_sha256": "a3a540239ed50fd4e75dae2b0b6b886f563d21ec430534e4b66fa40caa3871c2",
   "stage1_fixture_sha256": "a84dea47adcaf4a556ff80d85c0d2718c40277f21695b80a531f5a07b6b89387",
@@ -165,9 +169,16 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": 45944232542,
-    "latest_main_validation_conclusion": "success",
-    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45944232542"
+    "latest_main_validation_run_id": null,
+    "latest_main_validation_conclusion": "PENDING_NEW_BUILDER_VALIDATION",
+    "latest_main_validation_url": null,
+    "prior_main_validation_run_id": 45944232542,
+    "prior_main_validation_conclusion": "success",
+    "prior_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45944232542",
+    "stage5_qa_hardening": {
+      "status": "INCLUDED_IN_THIS_ATTESTED_SAME_RUN_TRANSITION",
+      "scope": "Existing Stage 5 content QA records and enforces summary/sentiment/five-layer/source/political-scan/transmission/scenario metrics and rejects Simulation/internal-training review labels."
+    }
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
@@ -177,8 +188,8 @@
     "line_end": 18,
     "note": "SIFMA recommends a full U.S. fixed-income market close on 2026-11-26 and an early close at 14:00 EST on 2026-11-27; firms make their own operating decisions."
   },
-  "scope": "Only the ten enumerated governance files changed from the original Stage 1 snapshot: they encode SIFMA full-close evidence, its classification and receipt handoff, exact-Run recovery, a narrow Builder correction that replaces the Fear & Greed backup scaffold with truthful Chinese source disclosure and rejects any final HTML containing Stage 2 scaffolding, plus safe Stage 6 replacement only when the existing preview triplet proves the exact same Run ID/date and hashes. Stage 1 context, data schema, calendar schema, mother templates, mother manifest, Stage 5 core logic, QA contract, and publish contract remain unchanged.",
-  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this compatible transition remains limited to the exact 2026-11-27 Run and enumerated governance changes. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes, and protected-path attestations all verify. Simulation and main/index.html remain excluded.",
-  "builder_blob_sha": "60ad79d1be1e8310f0a7727daa30cbaa7c9a599d",
-  "builder_approval_blob_sha": "94e1f3136ecfac7170c7594e0de347b57a809e63"
+  "scope": "Twelve enumerated governance files changed from the original Stage 1 snapshot. In addition to the SIFMA full-close evidence, MOVE classification, same-Run recovery and safe Stage 6 replacement, this compatible transition aligns the Stage 5 WR with the exact approved Main Builder and hardens the existing Stage 5 QA path: three distinct summary paragraphs, substantive non-duplicative sentiment, five sourced analysis layers, six-domain political scan, policy-transmission evidence, explicit base/risk/severe scenario coverage and Main-only review labels. No Stage 1–3 market/calendar data, mother template, mother manifest, formal homepage or Simulation branch is changed.",
+  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26 and provided the 2026-11-27 Main execution mandate requiring Stage 5 content QA and Main review output. The exact Builder blob is approved for text-slot-only Main branding correction and scenario evidence calculation; automated validate-main-production remains mandatory before Stage 5–6. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes and protected-path attestations verify. Simulation and main/index.html remain excluded.",
+  "builder_blob_sha": "c09e93947d91d29d2220fde2e4110c79eca5392c",
+  "builder_approval_blob_sha": "f2d4f474a5c1e4a7d301738db502b8dd49bfc3d3"
 }
