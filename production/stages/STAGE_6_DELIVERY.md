@@ -9,7 +9,7 @@
 Stage 6 必須先完整讀取本文件及完成 WR Preflight，才可建立 worktree、寫入 preview 或啟動 Pages 驗證。
 
 ## 輸入
-Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、pre-build receipt、Builder／母版 provenance。
+Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、pre-build receipt、Builder／母版 provenance。 若 Stage 5 receipt／QA sidecar 為 `PARTIAL`，只保留 Run 內 HTML 與 QA 證據供內部檢視，不建立 main/preview 三檔、不啟動 Pages；Workflow 應明確略過 Stage 6。Stage 6 只接受 `REVIEW_READY`。
 
 ## 執行
 1. 從 main 最新 HEAD 建立獨立 worktree；一般 Run 只寫 `preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。若 Run context 含 `supersedes_run_id`（使用者明確核准的同日期 rerun），改寫入獨立的 `preview/YYYY-MM-DD-rerun-review.html`、`.qa.json`、`.delivery.json`；不得覆蓋原已核准 Preview，確保首頁發布鎖仍可核對原版。
