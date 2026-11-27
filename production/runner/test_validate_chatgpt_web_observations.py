@@ -394,7 +394,8 @@ def main():
     tv_populated = populate_fixture(copy.deepcopy(blank_data), move_tv_result)
     tv_source = tv_populated["risk"]["move"]["source"]
     assert tv_source["verification_status"] == "BACKUP_VERIFIED"
-    assert tv_source["source_role"] == "BACKUP_1"
+    assert tv_source["source_role"] == "PRIMARY"
+    assert tv_source["verified_source_role"] == "BACKUP_1"
     assert tv_source["verified_source_name"] == "TradingView ICE:MOVE"
     assert tv_source["verified_source_url"] == tv_url
     assert tv_source["url"] == primary_url
