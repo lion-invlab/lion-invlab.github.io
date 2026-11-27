@@ -11,5 +11,5 @@
   "builder_approval_blob_sha": "e4f2ad934e648ad7bf869acfa3fd211756247eb6",
   "builder_approval_status": "APPROVED_MAIN",
   "approved_by_owner": true,
-  "scope": "Same original 2026-11-27 Run only; Stage 4–6; review preview only; never publish main/index.html."
+  "scope": "Same original 2026-11-27 Run only; Stage 4–6; review preview only; replace an existing preview only when its complete HTML/QA/delivery triplet proves the exact same Run ID and report date; never publish main/index.html."
 }
