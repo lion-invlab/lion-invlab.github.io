@@ -11,6 +11,15 @@ from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
+def determine_stage5_status(stage2_doc:dict, fixture_doc:dict)->str:
+    """Never promote unresolved market/editorial inputs to REVIEW_READY."""
+    pending_rows=stage2_doc.get("pending_rows") or []
+    pending_items=fixture_doc.get("pending_items") or []
+    if stage2_doc.get("status")!="PASS" or pending_rows or pending_items:
+        return "PARTIAL"
+    return "REVIEW_READY"
+
+
 def evaluate_scenario_qa(fixture_doc:dict, strategy_paragraphs:list, builder_scan_receipt:dict, artifact_validation:dict)->dict:
     """Require three scenarios when political findings exist; allow evidenced N/A on a no-material-change scan."""
     scan=fixture_doc.get("political_scan") or {}
@@ -237,9 +246,10 @@ def main():
     }
     render_path=run_dir/"render-manifest.json"
     render_path.write_text(json.dumps(render_manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    stage5_status=determine_stage5_status(stage2_doc,fixture_doc)
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
-      "status":"REVIEW_READY","groups":{
+      "status":stage5_status,"groups":{
         "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"wr_preflight":wr_preflight,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS","main_branding_status":"PASS","main_review_labels":main_branding},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
@@ -250,7 +260,7 @@ def main():
     }
     qa_path=run_dir/"qa-sidecar.json"
     qa_path.write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    receipt={"status":"REVIEW_READY","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
+    receipt={"status":stage5_status,"run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "wr_preflight":wr_preflight,
       "stage4_receipt_sha256":sha(stage4),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
       "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
