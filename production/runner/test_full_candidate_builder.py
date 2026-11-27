@@ -34,6 +34,10 @@ outputs = []
 for report_date, template_key, source_name in cases:
     source = ROOT / "production" / "testdata" / source_name
     data = json.loads(source.read_text(encoding="utf-8"))
+    # Regression: blank-first Stage 2 scaffolding must never leak into report copy.
+    placeholder_note = "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward."
+    next(iter(data["global_markets"].values()))["source"]["note"] = placeholder_note
+    next(iter(data["risk"].values()))["source"]["note"] = placeholder_note
     # Synthetic cross-date candidate fixtures must not replay report-date-specific calendar overrides.
     # Those overrides are validated against their own W48 source IDs and are irrelevant to the Builder layout regression.
     data.pop("calendar_impact_overrides", None)
@@ -77,6 +81,9 @@ for report_date, template_key, source_name in cases:
     if not output_path.exists():
         raise SystemExit(f"candidate Builder did not create {output_path}")
     soup = BeautifulSoup(output_path.read_text(encoding="utf-8"), "html.parser")
+    rendered_html = output_path.read_text(encoding="utf-8")
+    if placeholder_note in rendered_html:
+        raise SystemExit(f"{template_key}: internal Stage 2 bootstrap note leaked into report HTML")
     article = soup.select_one("#market-analysis")
     if article is None:
         raise SystemExit(f"{template_key}: candidate Builder output missing #market-analysis")
