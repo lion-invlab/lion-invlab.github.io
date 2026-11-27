@@ -189,6 +189,8 @@ def main():
     content_path=Path(args.content) if args.content else ROOT/f"production/input/report-content-{context['report_date']}.json"
     if not content_path.is_absolute():content_path=ROOT/content_path
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
+    if editorial.get("stage4_wr_sha256") != wr_preflight["wr_sha256"]:
+        raise SystemExit("Stage 4 editorial input is missing the exact full-WR read attestation; refusing to start editorial merge.")
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
     bundle_receipt_path=run_dir/"stage4-research-bundle-receipt.json"
     bundle_path=run_dir/"stage4-research-bundle.json"
