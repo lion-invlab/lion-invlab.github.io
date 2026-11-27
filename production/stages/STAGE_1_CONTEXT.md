@@ -1,4 +1,5 @@
 # Stage 1｜開工基準與母版鎖定
+- Stage 1 必須依 report_date 前一個 New York 交易日的 16:25 ET 截止點設定 report_cutoff_taipei；換算台灣時間為美國冬令 05:25、夏令 04:25。必須依 report_date 前一日的 America/New_York DST 狀態計算，不得全年硬編碼 05:25。
 
 ## 開工前強制 WR Preflight
 - Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
