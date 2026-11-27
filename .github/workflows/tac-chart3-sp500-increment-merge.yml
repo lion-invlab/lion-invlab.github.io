@@ -1,14 +1,9 @@
 name: TAC Chart 3 merge verified S&P 500 daily increments
 
 on:
+  # Invoked only after the daily report is delivered. The increment ledger
+  # commit itself must not start this merge in parallel with Stage 4-6.
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "data/tac-chart3/sp500_daily_increment.jsonl"
-      - ".github/scripts/merge_tac_sp500_daily_increment.py"
-      - ".github/scripts/test_merge_tac_sp500_daily_increment.py"
-      - ".github/workflows/tac-chart3-sp500-increment-merge.yml"
 
 permissions:
   contents: write
