@@ -12,7 +12,7 @@ Stage 6 必須先完整讀取本文件及完成 WR Preflight，才可建立 work
 Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、pre-build receipt、Builder／母版 provenance。
 
 ## 執行
-1. 從 main 最新 HEAD 建立獨立 worktree；只寫三個日期化路徑：`preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。
+1. 從 main 最新 HEAD 建立獨立 worktree；一般 Run 只寫 `preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。若 Run context 含 `supersedes_run_id`（使用者明確核准的同日期 rerun），改寫入獨立的 `preview/YYYY-MM-DD-rerun-review.html`、`.qa.json`、`.delivery.json`；不得覆蓋原已核准 Preview，確保首頁發布鎖仍可核對原版。
 2. HTML 原始 bytes 不得重組或改寫。QA sidecar 作交付副本，保留建置來源 branch／Run／attempt，新增 delivery_branch=main、main report path、delivery commit 等欄位。
 3. Delivery receipt 記錄 report_date、來源分支／路徑、三個 main 目標路徑、HTML／QA SHA-256 與 Git blob SHA、workflow_run_id／attempt、trigger commit、Builder SHA、pre-build receipt SHA，以及首頁／calendar／母版／Manifest 未修改聲明。
 4. 寫入前後檢查 staged／committed path set 僅三檔；禁止 force-push。遇 main HEAD 競爭可安全 rebase 後重驗白名單與 SHA；衝突或權限拒絕停止。

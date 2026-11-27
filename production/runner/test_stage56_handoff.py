@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from run_stage5 import validate_stage4_handoff
-from run_stage6 import validate_stage5_handoff
+from run_stage6 import validate_stage5_handoff, allowed_paths
 
 CONTEXT={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
 
@@ -33,6 +33,21 @@ class Stage56HandoffTests(unittest.TestCase):
     def test_stage5_rejects_changed_market_snapshot(self):
         with self.assertRaisesRegex(ValueError,"Stage 2 frozen snapshot"):
             validate_stage4_handoff(stage4(),{"market_snapshot_sha256":"0"*64},CONTEXT)
+
+    def test_stage6_rerun_uses_separate_preview_triplet(self):
+        rerun_context={**CONTEXT,"supersedes_run_id":"TAC-2026-11-27-45937649928-1"}
+        self.assertEqual(allowed_paths("2026-11-27",rerun_context),[
+            "preview/2026-11-27-rerun-review.html",
+            "preview/2026-11-27-rerun-review.qa.json",
+            "preview/2026-11-27-rerun-review.delivery.json",
+        ])
+
+    def test_stage6_normal_run_keeps_standard_preview_triplet(self):
+        self.assertEqual(allowed_paths("2026-11-27",CONTEXT),[
+            "preview/2026-11-27-review.html",
+            "preview/2026-11-27-review.qa.json",
+            "preview/2026-11-27-review.delivery.json",
+        ])
 
     def test_stage6_accepts_exact_stage5_and_stage4_evidence(self):
         s5=stage5()

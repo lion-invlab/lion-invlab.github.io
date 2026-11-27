@@ -10,8 +10,13 @@ from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 ROOT=Path(__file__).resolve().parents[2]
 REPO="lion-invlab/lion-invlab.github.io"
-def allowed_paths(report_date):
-    return [f"preview/{report_date}-review.html",f"preview/{report_date}-review.qa.json",f"preview/{report_date}-review.delivery.json"]
+def allowed_paths(report_date, context=None):
+    # An owner-authorized same-date rerun gets its own preview namespace.
+    # The originally approved preview remains intact for the homepage publication lock.
+    suffix="-rerun" if context and context.get("supersedes_run_id") else ""
+    return [f"preview/{report_date}{suffix}-review.html",
+            f"preview/{report_date}{suffix}-review.qa.json",
+            f"preview/{report_date}{suffix}-review.delivery.json"]
 PROTECTED=("index.html","data/calendar/weeks","production/templates/monday-mother-template.html",
  "production/templates/weekday-mother-template.html","production/config/mother-template-manifest.json")
 
@@ -123,7 +128,7 @@ def main():
         raise SystemExit(str(exc))
     if sha(qa_source_raw)!=stage5.get("qa_sidecar_sha256"):
         raise SystemExit("Stage 5 QA sidecar SHA changed after QA")
-    report_path,qa_path,delivery_path=allowed_paths(report_date)
+    report_path,qa_path,delivery_path=allowed_paths(report_date,context)
     if git(["branch","--show-current"])!="main":raise SystemExit("Stage 6 must execute from main checkout")
     git(["fetch","origin","main"])
     base=git(["rev-parse","origin/main"])

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "report_date": "2026-11-27",
   "superseded_run_id": "TAC-2026-11-27-45937649928-1",
-  "reason": "Owner-authorized full E2E rerun. Prior preview moved out of active preview path; old Run evidence preserved and must not be reused.",
+  "reason": "Owner-authorized full E2E rerun. An archive copy of the prior preview triplet is retained here; the original approved preview remains at its active locked path for homepage integrity. The new rerun must deliver to the separate -rerun preview path. Old Run evidence is preserved and must not be reused.",
   "preserved": {
     "run_evidence_path": "production/runs/TAC-2026-11-27-45937649928-1/",
     "formal_homepage": "index.html",
@@ -18,16 +18,19 @@
   "moved_preview": [
     {
       "from": "preview/2026-11-27-review.html",
-      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.html"
+      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.html",
+      "action": "ARCHIVE_COPY; original path restored and remains locked"
     },
     {
       "from": "preview/2026-11-27-review.qa.json",
-      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.qa.json"
+      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.qa.json",
+      "action": "ARCHIVE_COPY; original path restored and remains locked"
     },
     {
       "from": "preview/2026-11-27-review.delivery.json",
-      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.delivery.json"
+      "to": "production/superseded/2026-11-27/TAC-2026-11-27-45937649928-1/preview/2026-11-27-review.delivery.json",
+      "action": "ARCHIVE_COPY; original path restored and remains locked"
     }
   ],
-  "new_run_requirement": "Use workflow_dispatch mode=rerun for 2026-11-27 only; create a fresh blank-first Run and reacquire all 44 observations plus FedWatch. No prior observation, screenshot, editorial or build request may be reused."
+  "new_run_requirement": "Use workflow_dispatch mode=rerun for 2026-11-27 only; create a fresh blank-first Run and reacquire all 44 observations plus FedWatch. No prior observation, screenshot, editorial or build request may be reused. Stage 6 must deliver to preview/2026-11-27-rerun-review.*; preserve original preview and homepage."
 }
