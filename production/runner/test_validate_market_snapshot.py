@@ -32,7 +32,7 @@ def main():
     assert result["displayed_values_independently_reconciled"] is False
     assert "not evidence of live source-value verification" in " ".join(result["limitations"])
     assert result["indicator_count"] == 44
-    assert result["common_data_dates"] == ["2026-11-20"]
+    assert result["observed_data_dates"] == ["2026-11-20"]
     assert result["per_item_timestamp_count"] == 44
     assert result["per_item_date_only_count"] == 0
     assert result["per_item_timestamp_gap"] == 0
@@ -46,9 +46,13 @@ def main():
     del missing_url["global_markets"]["道瓊工業指數"]["source"]["url"]
     expect_error(lambda: validate_market_snapshot(missing_url, "2026-11-23"), "source.url missing")
 
-    wrong_date = copy.deepcopy(base)
-    wrong_date["fx"]["美元／日圓"]["source"]["data_date"] = "2026-11-19"
-    expect_error(lambda: validate_market_snapshot(wrong_date, "2026-11-23"), "source date")
+    mixed_dates = copy.deepcopy(base)
+    mixed_dates["fx"]["美元／日圓"]["source"]["data_date"] = "2026-11-19"
+    assert validate_market_snapshot(mixed_dates, "2026-11-23")["status"] == "PASS"
+
+    future_date = copy.deepcopy(base)
+    future_date["fx"]["美元／日圓"]["source"]["data_date"] = "2026-11-24"
+    expect_error(lambda: validate_market_snapshot(future_date, "2026-11-23"), "cannot be later than report_date")
 
     cfd_numeric = copy.deepcopy(base)
     cfd_numeric["global_markets"]["標普500指數"]["source"]["quote_type"] = "cfd_index_reference_series"
@@ -112,7 +116,7 @@ def main():
     del missing_etf_source["sector_sources"]["XLK"]
     expect_error(lambda: validate_market_snapshot(missing_etf_source, "2026-11-23"), "key mismatch")
 
-    print("PASS: 44 indicator count, common date, CFD suppression, commodity identity, pending commodity/sector suppression, closed sector state and ETF source map")
+    print("PASS: 44 indicator count, per-instrument dates, CFD suppression, commodity identity, pending commodity/sector suppression, closed sector state and ETF source map")
 
 
 if __name__ == "__main__":
