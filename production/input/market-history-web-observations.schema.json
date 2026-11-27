@@ -442,6 +442,5 @@
       },
       "additionalProperties": true
     }
-  },
-  "allOf": []
+  }
 }
