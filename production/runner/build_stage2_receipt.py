@@ -64,7 +64,10 @@ def validate_inputs(data,audit,manifest,observations,report_date):
         digest=row.get("observation_record_sha256")
         if digest!=canonical_sha({k:v for k,v in row.items() if k!="observation_record_sha256"}):
             raise ValueError(f"observation canonical SHA mismatch: {row.get('group')}/{row.get('name')}")
-        if row.get("target_date")!=trading_date: raise ValueError(f"observation target date mismatch: {row.get('name')}")
+        from datetime import date
+        try: target_day=date.fromisoformat(str(row.get("target_date")))
+        except ValueError as exc: raise ValueError(f"observation target date malformed: {row.get('name')}") from exc
+        if target_day>date.fromisoformat(report_date): raise ValueError(f"observation target date is after report date: {row.get('name')}")
     manifest_rows=manifest.get("rows") or []
     manifest_map={(r.get("group"),r.get("name")):r for r in manifest_rows}
     if len(manifest_rows)!=44 or len(manifest_map)!=44: raise ValueError("manifest must contain 44 unique rows")
@@ -99,16 +102,18 @@ def validate_inputs(data,audit,manifest,observations,report_date):
     row_receipts=[]; pending_rows=[]
     for key,obs in obs_map.items():
         mr=manifest_map[key]; group,name=key; item,src=fixture_map[key]
+        row_data_date=src.get("data_date")
+        if obs.get("target_date")!=row_data_date: raise ValueError(f"{group}/{name}: observation target date differs from fixture data_date")
         if obs.get("source_url")!=src.get("url") or mr.get("source_url")!=src.get("url"):
             raise ValueError(f"{group}/{name}: source URL differs across fixture/observation/manifest")
-        if mr.get("trading_date")!=trading_date: raise ValueError(f"{group}/{name}: manifest trading date mismatch")
+        if mr.get("data_date")!=row_data_date: raise ValueError(f"{group}/{name}: manifest data date mismatch")
         record=mr.get("browser_observation_record")
         status=mr.get("verification_status")
         if record is not None:
             if mr.get("observation_record_sha256")!=canonical_sha(record):
                 raise ValueError(f"{group}/{name}: manifest record SHA mismatch")
             record_date=record.get("data_date") or record.get("target_date")
-            if record.get("source_url")!=obs.get("source_url") or record_date!=trading_date:
+            if record.get("source_url")!=obs.get("source_url") or record_date!=row_data_date:
                 raise ValueError(f"{group}/{name}: manifest record does not bind to observation")
             if num(record.get("observed_value"))!=num(obs.get("observed_value")):
                 raise ValueError(f"{group}/{name}: manifest observed value differs from observation bundle")
@@ -129,7 +134,7 @@ def validate_inputs(data,audit,manifest,observations,report_date):
             if (mr.get("evidence_status")!="MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
                     or closure.get("read_status")!="MARKET_CLOSED"
                     or closure.get("source_url")!=obs.get("source_url")
-                    or closure.get("target_date")!=trading_date
+                    or closure.get("target_date")!=row_data_date
                     or closure.get("source_page_fetched") is not True
                     or closure.get("prior_observation_reused") is not False
                     or closure.get("provenance")!="CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
@@ -141,7 +146,7 @@ def validate_inputs(data,audit,manifest,observations,report_date):
                     or closure.get("closure_evidence_line_end")<closure.get("closure_evidence_line_start")):
                 raise ValueError(f"{group}/{name}: official closure evidence record incomplete")
             if (obs.get("source_page_fetched") is not True
-                    or obs.get("target_date")!=trading_date
+                    or obs.get("target_date")!=row_data_date
                     or obs.get("prior_observation_reused") is not False):
                 raise ValueError(f"{group}/{name}: closure observation does not bind current target date")
         else:
@@ -157,7 +162,7 @@ def validate_inputs(data,audit,manifest,observations,report_date):
         row_receipts.append({
             "group":group,"name":name,"status":status,
             "market_data_status":mr.get("market_data_status") or ("VERIFIED" if status=="VERIFIED" else "BACKUP_VERIFIED" if status=="BACKUP_VERIFIED" else "CLOSED" if status=="CLOSED" else "PENDING"),
-            "source_url":src.get("url"),"trading_date":trading_date,
+            "source_url":src.get("url"),"data_date":row_data_date,
             "observation_row_sha256":obs.get("observation_record_sha256"),
             "manifest_record_sha256":mr.get("observation_record_sha256"),
             "read_method":obs.get("read_method"),
