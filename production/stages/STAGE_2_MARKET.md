@@ -8,6 +8,11 @@
  
 Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／修改行情 fixture 或讀取行情。
 
+## Stage 2 ChatGPT 擷取工作者開工前必讀
+- 在讀取任何使用者截圖、Investing.com Historical Data 頁或建立 observation 前，必須先完整讀取 Main 的 `production/stages/STAGE_2_MARKET.md`；不得只看摘要。
+- `production/input/market-history-web-observations-YYYY-MM-DD.json` 根層必須包含 `stage2_wr_sha256`，值為本文件完整 UTF-8 bytes 的 SHA-256。
+- Stage 2 Runner 會將該值與本次 Run 的 Stage 1 pinned WR 版本及自身 preflight SHA 比對；缺漏或不符即拒絕 44 項觀察輸入，不進入行情合併。
+
 ## 輸入
 Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_POLICY.md`、選定母版欄位、當日使用者截圖 sidecar（若存在）。
 
