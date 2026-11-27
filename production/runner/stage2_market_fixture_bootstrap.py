@@ -329,7 +329,12 @@ def populate_fixture(data, payload):
                     src["quote_type"]="third_party_provider_index"
                     src["instrument_identity"]="CNN Fear & Greed Index provider score"
                     src["name"]="FGScore | CNN Provider Index" if "fgscore.com" in obs.get("source_url","") else "Financial Context | CNN Provider Index"
-            src["source_role"]=obs.get("source_role") or src.get("source_role") or "PRIMARY"
+            is_move_tradingview_backup = (
+                group=="risk" and name=="move"
+                and obs.get("source_type")=="TRADINGVIEW_HISTORICAL_PAGE"
+            )
+            if not is_move_tradingview_backup:
+                src["source_role"]=obs.get("source_role") or src.get("source_role") or "PRIMARY"
             if backup_verified:
                 src["verified_source_role"]=obs.get("source_role") or "BACKUP_1"
                 src["evidence_source_url"]=obs.get("evidence_source_url") or obs.get("attempt_url")
