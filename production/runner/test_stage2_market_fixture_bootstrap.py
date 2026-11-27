@@ -83,6 +83,10 @@ class BootstrapTests(unittest.TestCase):
     def test_apply_populates_from_observations_and_keeps_missing_pending(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank,pending=("risk","move"))
+        for row in rows:
+            if row["group"] in ("energy","metals"):
+                row.pop("contract_label",None)
+                row["observed_row_text"]=f"Test Futures - {row['name']}_CONTRACT_1 | 100.00 | +0.50%"
         payload={"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows}
         result=populate_fixture(blank,payload)
         self.assertEqual(result["stage2_market_bootstrap"]["verified_count"],43)
