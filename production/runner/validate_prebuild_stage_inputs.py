@@ -209,6 +209,7 @@ def validate_market_inputs(data: dict, audit: dict, manifest: dict, report_date:
                 primary = record.get("primary_attempt") or {}
                 require(row.get("group") == "risk" and row.get("name") == "move"
                         and row.get("evidence_source_url") == tv_url
+                        and row.get("evidence_source_name") == "TradingView ICE:MOVE"
                         and row.get("evidence_source_role") == "BACKUP_1",
                         "TradingView evidence is restricted to the approved MOVE BACKUP_1 source")
                 require(primary.get("source_url") == record.get("source_url")
