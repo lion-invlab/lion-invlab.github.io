@@ -1,6 +1,6 @@
 # TAC 投資早報 R3｜MASTER WORK RULES
 
-版本：1.3（2026-11-27）
+版本：1.4（2026-11-27）
 正式分支：main
 規則來源：SIM-1.4 技術規範（正式生效版；來源 branch `simulation/tac-process-lab-2026-11-06`，來源 WR SHA `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`）
 正式生效標示：SIM-1.4（正式生效版）｜ACTIVE／正式生效
@@ -81,7 +81,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 審核版三檔：`preview/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`。
 - 寫入前後僅允許日期化三檔；HTML bytes 不得重組；QA sidecar 綁定來源與 Builder provenance；delivery receipt 記錄 SHA、Run、attempt、commit。
 - 寫入 main 後遠端回讀三檔，核對 Git blob SHA／SHA-256；使用既有 Pages workflow 部署並實際驗證公開 URL。
-- 審核版交付不等於正式發布。只有使用者另行核准明確日期／版本後才更新 `index.html` 並封存 history。
+- 審核版交付不等於正式發布。Builder exact-blob approval、REVIEW_READY、Stage 6 DELIVERED 均不代表首頁發布核准。正式發布必須有使用者對明確 report_date／Preview 版本的獨立核准，並更新 `production/config/homepage-publication-lock.json` 為 APPROVED_PUBLICATION、綁定 Preview／index Git blob SHA 與精確 `[publish-tac-report:YYYY-MM-DD]` commit marker；Pages 與 archive workflow 先驗證 lock，否則禁止部署或封存。未核准時 lock 必須保持 BASELINE_LOCKED。
 - 舊 `archive_index.yml` 自動封存與新核准流程衝突，正式切換前必須整併／停用自動封存觸發，防止未核准封存或錯誤日期封存。
 
 ## 9. Chart 3 與資料寫入權
