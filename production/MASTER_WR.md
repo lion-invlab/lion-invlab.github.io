@@ -22,6 +22,13 @@ main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件
 Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Stage 3 行事曆與財報 → Stage 4 新聞與市場分析 → Stage 5 唯一 HTML Builder 與 QA → Stage 6 main/preview 審核版交付與驗證。
 六階段是同一條流程，不是六次獨立審批。每階段保留必要輸入、輸出與交接，不重複建立等價收據或重抓已鎖定資料。
 
+## 2A. 六階段強制 WR 開工前讀取
+- 六個 Stage 一律先讀取自己的完整 Stage WR，後執行本階段工作；不得只依賴 MASTER_WR 摘要、前次對話記憶、Workflow step 名稱或 Runner 註解。
+- 唯一執行器為 `production/runner/stage_wr_preflight.py`；各 Stage 入口必須先呼叫對應 Stage key。Stage 1 讀取自身 WR 並留存證據；Stage 2–6 另核對 Stage 1 governance snapshot 中該 WR 的 Git blob SHA。
+- Preflight 必須讀取完整 UTF-8 文件、確認非空、計算 SHA-256 並核對 Git blob。缺失、讀取失敗、未鎖定、版本漂移或收據缺少 `wr_preflight` 均 FAIL-CLOSED，不得開始或宣告完成。
+- Stage 4 編輯工作者在撰寫內容前，必須先讀取當次 capture receipt 內完整 `stage4_work_instructions.full_text`；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。僅由 Python Runner 事後讀取 WR 不代表編輯工作者已遵守。
+- 每階段收據必須記錄 WR 路徑、完整讀取狀態、SHA-256、Git blob SHA、Stage 1 pinned SHA 及讀取位元組數。無證據不得 PASS。
+
 ## 3. 唯一正式母版規則
 - 週一使用 Monday template；週二至週五使用 Weekday template；週末不自動製作。
 - 母版 SHA 必須與新 Manifest 一致；不符即停止，不 fallback。
