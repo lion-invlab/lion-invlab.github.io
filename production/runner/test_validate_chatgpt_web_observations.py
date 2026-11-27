@@ -471,7 +471,9 @@ def main():
     assert len(normalized_1127["observations"]) == 44
     assert normalized_1127["verified_count"] == 27
     move_1127 = next(row for row in normalized_1127["observations"] if row.get("group") == "risk" and row.get("name") == "move")
-    assert move_1127["read_status"] == "SOURCE_UPDATE_PENDING"
+    # 2026-11-26 was the full SIFMA Thanksgiving closure; this is not a delayed publication day.
+    assert move_1127["read_status"] == "MARKET_CLOSED"
+    assert move_1127["market_calendar_status"] == "CLOSED"
     assert normalized_1127["prior_observation_reused_count"] == 0
     populated_1127 = populate_fixture(data_1127, normalized_1127)
     fixture_statuses = [
