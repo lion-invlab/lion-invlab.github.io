@@ -130,6 +130,7 @@ def main():
         assert json.loads(diagnostic_path.read_text(encoding="utf-8")) == {"changed": True}
 
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    data["risk"]["move"]["source"]["approved_backup_urls"] = ["https://www.tradingview.com/symbols/ICE-MOVE/"]
 
     # Investing.com HK's native Traditional Chinese historical table headers
     # must be accepted as screenshot field labels, including the clipped-width
@@ -352,12 +353,50 @@ def main():
     assert pending_fixture["risk"]["move"]["source"].get("close_value") is None
     assert pending_fixture["risk"]["move"]["source"]["verification_status"] == "PENDING"
 
-    # MOVE must reject every alternate historical-page source and keep the
-    # approved Investing.com URL as its only page evidence source.
+    # MOVE may use only the exact approved TradingView ICE:MOVE backup after
+    # a cited same-date Investing.com primary failure/no-row observation.
+    move_tv_bundle = copy.deepcopy(bundle)
+    move_tv_row = next(x for x in move_tv_bundle["observations"]
+                       if x["group"] == "risk" and x["name"] == "move")
+    tv_url = "https://www.tradingview.com/symbols/ICE-MOVE/"
+    primary_url = data["risk"]["move"]["source"]["url"]
+    move_tv_row.update({
+        "source_url": tv_url,
+        "evidence_source_url": tv_url,
+        "source_role": "BACKUP_1",
+        "source_type": "TRADINGVIEW_HISTORICAL_PAGE",
+        "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index — ICE:MOVE Index Chart — TradingView",
+        "instrument_identity": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
+        "observed_row_text": f"{move_tv_row['target_date']} | {move_tv_row['observed_value']} | {move_tv_row['observed_change']}",
+        "observed_headers": ["Date", "Price", "Change %"],
+        "observed_value_field": "Price",
+        "observed_change_field": "Change %",
+        "primary_attempt": {
+            "source_url": primary_url,
+            "target_date": move_tv_row["target_date"],
+            "read_status": "TOOL_READ_FAILURE",
+            "source_page_fetched": False,
+            "observed_date": None,
+            "observed_value": None,
+            "observed_change": None,
+            "web_reader_ref": "INVESTING_MOVE_PRIMARY_FAILURE_TEST",
+            "web_line_start": 20,
+            "web_line_end": 25,
+        },
+    })
+    move_tv_result = validate_bundle(blank_data, "2026-11-24", move_tv_bundle)
+    move_tv_normalized = next(x for x in move_tv_result["observations"]
+                              if x["group"] == "risk" and x["name"] == "move")
+    assert move_tv_normalized["status"] == "VERIFIED"
+    assert move_tv_normalized["source_role"] == "BACKUP_1"
+    assert move_tv_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+    assert move_tv_normalized["field_evidence"]["change"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
+
+    # Unstructured or premature alternate-source claims remain rejected.
     for invalid_fields in (
-        {"source_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
-        {"attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
-        {"evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
+        {"source_url": tv_url},
+        {"attempt_url": tv_url},
+        {"evidence_source_url": tv_url},
         {"source_role": "BACKUP_1"},
     ):
         invalid_bundle = copy.deepcopy(bundle)
@@ -371,7 +410,7 @@ def main():
                 "source" in str(exc).casefold() or "pinned" in str(exc).casefold() or "approved" in str(exc).casefold()
             )
         else:
-            raise AssertionError(f"Unapproved MOVE alternate-source evidence was accepted: {invalid_fields}")
+            raise AssertionError(f"Unapproved or premature MOVE alternate-source evidence was accepted: {invalid_fields}")
 
     # Exercise the exact production CLI path: blank the supplied fixture, validate the
     # date-matched direct page bundle, and write only current observations back in place.
