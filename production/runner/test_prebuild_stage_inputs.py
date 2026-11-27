@@ -86,6 +86,29 @@ def main() -> None:
     assert pending_receipt["stage_2_market"]["manifest_sha256"] == "3" * 64
     assert pending_receipt["stage_2_market"]["numeric_values_reconciled_count"] == 0
 
+    # Weekday Stage 3 intentionally reads only the current week. Pre-build
+    # must accept that exact contract and must not require or synthesize W47.
+    weekday_data = copy.deepcopy(data)
+    weekday_data["report_date"] = "2026-11-24"
+    weekday_audit = validate_market_snapshot(weekday_data, "2026-11-24")
+    weekday_manifest = build_manifest(weekday_data, "2026-11-24")
+    weekday_bundle = {
+        "main_commit_sha": commit,
+        "current": calendar_item("2026-W48", "2026-11-23", "2026-11-29", 27, 11, commit),
+        "previous": None,
+    }
+    weekday_receipt = build_receipt(
+        data=weekday_data, fixture_sha256="1" * 64,
+        audit=weekday_audit, audit_sha256="2" * 64,
+        manifest=weekday_manifest, manifest_sha256="3" * 64,
+        calendar_bundle=weekday_bundle,
+        repository="lion-invlab/lion-invlab.github.io",
+        branch="main",
+        workflow_run_id="45010119943", workflow_run_attempt="1",
+    )
+    assert weekday_receipt["status"] == "PASS"
+    assert weekday_receipt["stage_3_calendar"]["previous"] is None
+
     # Builder must not leak fixture-carried quote values when current-run source
     # observations are unavailable.
     pending_data = copy.deepcopy(data)
