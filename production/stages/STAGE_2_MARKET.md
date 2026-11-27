@@ -29,7 +29,7 @@ Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_P
 6. 建立 44 列 Observation、source manifest、metadata audit、fixture 及 Stage 2 receipt，綁定 workflow_run_id、attempt、report/trading date、batch_id 與 SHA-256。各列狀態計數必須完整覆蓋 44 項且總數等於 44；不得把 PENDING、MISSING、CLOSED、TOOL_READ_FAILURE 或 SOURCE_NO_DATA 併記成 VERIFIED。Observation SHA 是標準化觀察紀錄 SHA，不得冒充原始 HTTP response SHA。
 7. FedWatch 獨立讀取 Investing.com Fed Rate Monitor，記錄當下時間、會議日期、現行利率區間、各目標區間機率及來源；CME 僅作方法／交叉核對。
 7a. MOVE 是 ICE BofAML 美國公債市場選擇權波動度指數；行情只允許本列固定的 Investing.com MOVE Historical Data 主來源，或本次當日有效且通過 screenshot sidecar 契約的使用者截圖。禁止 TradingView、其他替代來源或前一交易日數值回填。若 SIFMA 官方美國固定收益市場行事曆確認休市，MOVE 無報價是正常情況，標 MARKET_CLOSED；若市場開市但 Investing.com 表格不可讀，標 TOOL_READ_FAILURE。延遲重試只可重新讀取同一固定 Investing.com URL，且只能更新 risk:move，其他 43 列必須逐位元保持不變。
-8. 將本輪已核實 S&P 500 現貨正式收盤交接至既有 `data/tac-chart3/sp500_daily_increment.jsonl`。沿用既有 append 程式、SHA、防重、日期遞增及衝突停止規則；不得另抓第二份報價、不得重建歷史底稿。
+8. 將本輪已核實 S&P 500 現貨正式收盤交接至既有 `data/tac-chart3/sp500_daily_increment.jsonl`。沿用既有 append 程式、SHA、防重、日期遞增及衝突停止規則；不得另抓第二份報價、不得重建歷史底稿。Stage 2 只負責追加並提交增量帳，不得自行 dispatch 或等待 Chart 3 合併；Chart 3 merge workflow 僅在 Main 早報 Stage 6 成功、整條 production workflow 完成後觸發，屬非阻塞支線。
 9. 截圖純輸入、截圖與歷史頁混合、純歷史頁及官方觀察均逐欄記錄來源。截圖來源仍依商品契約標示 Investing.com 對應商品頁；不得在報告正文寫「依使用者截圖」。
 
 ## 輸出
