@@ -14,7 +14,7 @@ Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／�
 - `report_cutoff_taipei` 是資料截點而非排程啟動時間：美東 16:25，台灣夏令 04:25／冬令 05:25。各商品仍須依自身市場已完成交易時段、實際歷史表格日期及資料可讀性判定；不得把 04:45 盤中值當收盤，也不得因 05:00 到點就把尚未更新的歷史表格當成已核實收盤。尚未出現收盤列時，只能維持 PENDING 並依本 WR 刷新同一來源，或在交付期限到達時如實標示來源狀態；不得用盤中價、舊值或未核准來源替代。
 
 ## Stage 2 ChatGPT 擷取工作者開工前必讀
-- 在讀取任何使用者截圖、Investing.com Historical Data 頁或建立 observation 前，必須先完整讀取本 WR；隨後等待同一 report_date 的 Stage 1 Run 已提交 `run-context.json`、`stage1-fixture.json`、`stage1-receipt.json`。讀取三檔並計算 SHA 後，才可開始擷取。Stage 2 worker 於 05:00（夏令 04:00）啟動時，Stage 1 handoff 正常應已在前 15 分鐘完成。只允許最多 5 分鐘短暫交接容錯；若 5 分鐘內仍無唯一且完整的 Stage 1 handoff，立即標記 BLOCKED、附上排程／Run 證據並停止本輪預擷取，不得等待 70 分鐘，也不得以其他 Run 代替。
+- 在讀取任何使用者截圖、Investing.com Historical Data 頁或建立 observation 前，必須先完整讀取本 WR；隨後等待同一 report_date 的 Stage 1 Run 已提交 `run-context.json`、`stage1-fixture.json`、`stage1-receipt.json`。讀取三檔並計算 SHA 後，才可開始擷取。Stage 2 worker 於 05:00（夏令 04:00）啟動時，Stage 1 handoff 正常應已在前 15 分鐘完成。只允許最多 5 分鐘短暫交接容錯；若 5 分鐘內仍無唯一且完整的 Stage 1 handoff，立即標記 BLOCKED、附上排程／Run 證據並停止本輪預擷取，不得延長此 5 分鐘容錯，也不得以其他 Run 代替。
 - `production/input/market-history-web-observations-YYYY-MM-DD.json` 根層必須包含 `stage2_wr_sha256`，值為本文件完整 UTF-8 bytes 的 SHA-256。
 - 同日期 `mode=rerun` 時，必須先移除舊日期 observation bundle，再重新讀取本文件並新建 bundle；不得從舊 Run、舊 observation、舊截圖、舊 FedWatch 或舊網頁讀取紀錄複製欄位。所有 44 列的 `prior_observation_reused` 必須為 false，`captured_at_utc` 必須記錄本輪實際擷取時間；Stage 2 不得使用 `--reuse-observations`。
 - 能源與金屬期貨（WTI、Brent、Gold、Silver）必須從 Investing.com 歷史頁標題擷取當前選定合約的完整 `contract_label`（含合約月份與頁面顯示代碼），寫入該 observation 的 `contract_label`；`page_title` 必須保留完整商品標題。不得自行推算月份、只填通用商品名稱，或用前一 Run 的合約標籤。Stage 2 populate fixture 會將本輪 `contract_label` 寫入報告資料，供快照驗證與商品名稱顯示。
