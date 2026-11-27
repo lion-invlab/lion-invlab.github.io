@@ -157,9 +157,9 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": 45941225598,
+    "latest_main_validation_run_id": 45941687689,
     "latest_main_validation_conclusion": "success",
-    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941225598"
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941687689"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
