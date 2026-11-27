@@ -522,6 +522,7 @@ def main():
     assert fixture_statuses.count("PENDING") == 1, fixture_statuses
     assert populated_1127["global_markets"]["道瓊工業指數"]["source"]["verification_status"] == "CLOSED"
     assert populated_1127["sector_sources"]["XLE"]["verification_status"] == "CLOSED"
+    # Regression: every officially closed sector must expose the same CLOSED display state.
     for sector_name, sector_source in populated_1127["sector_sources"].items():
         if sector_source.get("verification_status") == "CLOSED":
             assert populated_1127["sectors"][sector_name] == "休市", (sector_name, populated_1127["sectors"][sector_name])
