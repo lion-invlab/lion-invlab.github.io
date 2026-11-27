@@ -23,6 +23,28 @@ def run(cmd:list[str])->dict:
             except json.JSONDecodeError: pass
         return {"stdout":proc.stdout.strip()}
 
+def build_chart3_handoff_candidate(run_dir:Path,context:dict,fixture_path:Path,
+                                  stage1_fixture_sha256:str,market_snapshot_sha256:str,sp500:dict)->dict:
+    """Preserve verified S&P 500 input for R3 without invoking the unapproved writer."""
+    run_dir=Path(run_dir).resolve()
+    candidate_path=run_dir/"chart3-sp500-handoff-candidate.json"
+    payload={
+      "schema_version":"1.0","status":"CANDIDATE_NOT_APPENDED",
+      "reason":"R3 Chart 3 writer/merge contract is not yet approved for Run-scoped ingestion.",
+      "run_id":context["run_id"],"report_date":context["report_date"],
+      "trading_date":context["trading_date"],
+      "stage1_fixture_sha256":stage1_fixture_sha256,
+      "market_snapshot_sha256":market_snapshot_sha256,
+      "market_snapshot_path":str(Path(fixture_path).relative_to(ROOT)),
+      "market_snapshot_file_sha256":hashlib.sha256(Path(fixture_path).read_bytes()).hexdigest(),
+      "symbol":"SP500","source_data":sp500
+    }
+    candidate_path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    return {"status":"DEFERRED_R3_WRITER_NOT_APPROVED",
+            "candidate_path":str(candidate_path.relative_to(ROOT)),
+            "candidate_sha256":hashlib.sha256(candidate_path.read_bytes()).hexdigest()}
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--run-dir",required=True)
@@ -116,19 +138,19 @@ def main():
         "--run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     fixture=load(fixture_path)
-    sp500=(fixture.get("global_markets") or {}).get("標普500指數") or {}
-    chart3={"status":"SKIPPED_UNVERIFIED","reason":"S&P 500 cash-index close is not VERIFIED; no Chart 3 ledger write attempted."}
-    if (sp500.get("source") or {}).get("verification_status")=="VERIFIED":
-        try:
-            chart3=run([sys.executable,str(RUNNER/"handoff_sp500_to_chart3.py"),
-                "--data",str(fixture_path.relative_to(ROOT)),
-                "--output","data/tac-chart3/sp500_daily_increment.jsonl"])
-        except Exception as exc:
-            chart3={"status":"BLOCKED","reason":str(exc)}
-    elapsed=round(time.monotonic()-started,3)
-    observations=load(observations_path)
     market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     market_snapshot_sha256=hashlib.sha256(json.dumps(market_groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    sp500=(fixture.get("global_markets") or {}).get("標普500指數") or {}
+    chart3={"status":"SKIPPED_UNVERIFIED","reason":"S&P 500 cash-index close is not VERIFIED; no Chart 3 handoff candidate created."}
+    candidate_path=None
+    if (sp500.get("source") or {}).get("verification_status")=="VERIFIED":
+        chart3=build_chart3_handoff_candidate(run_dir,context,fixture_path,
+            stage1_fixture_sha256,market_snapshot_sha256,sp500)
+        candidate_path=run_dir/"chart3-sp500-handoff-candidate.json"
+    elapsed=round(time.monotonic()-started,3)
+    observations=load(observations_path)
+    output_files=[fixture_path,observations_path,audit_path,manifest_path,receipt_path]
+    if candidate_path and candidate_path.is_file(): output_files.append(candidate_path)
     summary={
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
@@ -144,7 +166,7 @@ def main():
       "verified_count":receipt.get("verified_count"),"pending_count":receipt.get("pending_count"),
       "closed_count":receipt.get("closed_count"),"market_status_counts":receipt.get("market_status_counts"),"chart3_handoff":chart3,
       "outputs":{p.name:{"path":str(p.relative_to(ROOT)),"sha256":__import__("hashlib").sha256(p.read_bytes()).hexdigest()}
-                 for p in (fixture_path,observations_path,audit_path,manifest_path,receipt_path)}
+                 for p in output_files}
     }
     (run_dir/"stage2-run-summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2))
