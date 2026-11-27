@@ -320,8 +320,9 @@ def main() -> None:
     assert partial_receipt["status"] == "PASS"
     assert partial_receipt["stage_2_market"]["pending_observation_count"] == 1
     assert partial_receipt["stage_2_market"]["closed_count"] == 1
-    expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "main"),
-                 "refusing non-simulation branch")
+    validate_branch("lion-invlab/lion-invlab.github.io", "main")
+    expect_error(lambda: validate_branch("lion-invlab/lion-invlab.github.io", "simulation/tac-process-lab-2026-11-06"),
+                 "refusing non-main branch")
 
     wrong_audit = copy.deepcopy(audit)
     wrong_audit["trading_date"] = "2026-11-19"
