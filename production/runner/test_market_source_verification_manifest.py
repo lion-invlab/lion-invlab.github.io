@@ -143,22 +143,30 @@ def main():
             assert _identity_matches("global_markets", "澳洲 S&P/ASX 200", "S&P/ASX200")
             identity = IDENTITY_ALIASES.get(name, [name])[0]
             is_cnn = group == "risk" and name == "fear_greed"
+            if is_cnn:
+                value = source.get("source_score_value") or source.get("score_value")
+                change = source.get("source_band") or source.get("band")
+                cnn_url = (source.get("approved_primary_urls") or [source.get("url")])[0]
             synthetic_observations[(group, name)] = {
                 "status": "VERIFIED", "http_status": 200, "source_page_fetched": True,
-                "read_status": "API_RESPONSE_READ_SUCCESS" if is_cnn else "PAGE_CONTENT_READ_SUCCESS",
-                "source_url": source.get("url"), "target_date": source.get("data_date"),
+                "read_status": "PAGE_CONTENT_READ_SUCCESS",
+                "source_url": cnn_url if is_cnn else source.get("url"), "target_date": source.get("data_date"),
                 "observed_date": source.get("data_date"), "instrument_identity_status": "VERIFIED",
                 "field_mapping_status": "VERIFIED", "display_value_match": True,
                 "display_change_match": True, "observed_value": value, "observed_change": change,
                 "instrument_identity": identity,
-                "observed_value_field": "fear_and_greed.previous_close" if is_cnn else "Price",
-                "observed_change_field": "derived_from_fear_and_greed.previous_close_using_cnn_bands" if is_cnn else "Change %",
+                "observed_value_field": "Current Score" if is_cnn else "Price",
+                "observed_change_field": "Current Band" if is_cnn else "Change %",
+                "observed_headers": ["Current Score", "Current Band"] if is_cnn else ["Price", "Change %"],
+                "observed_row_text": f'{source.get("data_date")} | {value} | {change}',
+                "page_title": "CNN Business Fear & Greed Index" if is_cnn else "Synthetic historical data page",
+                "web_reader_ref": "CNN_TEST_REF" if is_cnn else "SYNTHETIC_TEST_REF",
+                "web_line_start": 1, "web_line_end": 5,
+                "source_timestamp_utc": f'{source.get("data_date")}T11:00:00Z' if is_cnn else None,
+                "source_role": "PRIMARY" if is_cnn else source.get("source_role", "PRIMARY"),
                 "finished_at_utc": "2026-11-23T11:00:00Z", "finished_at_tw": "2026-11-23T19:00:00+08:00",
-                "read_method": "SYNTHETIC_TEST_ONLY", "provenance": "SYNTHETIC_TEST_ONLY",
-                "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" if is_cnn else None,
-                "previous_close_target_date": source.get("data_date") if is_cnn else None,
-                "source_timestamp_utc": "2026-11-23T11:00:00+00:00" if is_cnn else None,
-                "raw_response_sha256": "b" * 64 if is_cnn else None,
+                "read_method": "CNN_OFFICIAL_CURRENT_DASHBOARD" if is_cnn else "SYNTHETIC_TEST_ONLY",
+                "provenance": "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION" if is_cnn else "SYNTHETIC_TEST_ONLY",
             }
     for name, source_display in (data.get("sectors") or {}).items():
         source = (data.get("sector_sources") or {}).get(name) or {}
@@ -175,8 +183,8 @@ def main():
         }
     # One closed exchange plus 43 verified quotes is PARTIAL, never PASS.
     partial_data = copy.deepcopy(closed_data)
-    partial_data["global_markets"]["日經225"]["display"] = "休市"
-    partial_data["global_markets"]["日經225"]["change_display"] = "—"
+    partial_data["global_markets"]["日經225"]["display"] = "-"
+    partial_data["global_markets"]["日經225"]["change_display"] = "休市"
     partial_observations = copy.deepcopy(synthetic_observations)
     for observation in partial_observations.values():
         observation["target_date"] = "2026-11-23"
