@@ -2,13 +2,22 @@ name: TAC main-native production pipeline
 
 on:
   schedule:
-    # Dual UTC triggers: 04:30 Taiwan time in U.S. daylight time; 05:30 in U.S. standard time.
-    - cron: "30 20 * * 0-4"
-    - cron: "30 21 * * 0-4"
+    # Stage 1 starts 15 minutes before the Stage 2 worker: 03:45 Taiwan summer / 04:45 winter.
+    - cron: "45 19 * * 0-4"
+    - cron: "45 20 * * 0-4"
   push:
     branches: [main]
     paths:
-      - "production/**"
+      # Run artifacts and date-scoped editorial inputs are data, not code changes.
+      # They must not launch the 35-minute production validation suite.
+      - "production/MASTER_WR.md"
+      - "production/runner/**"
+      - "production/stages/**"
+      - "production/contracts/**"
+      - "production/config/**"
+      - "production/templates/**"
+      - "production/input/*.schema.json"
+      - "production/input/STAGE4_README.md"
       - ".github/workflows/tac-production.yml"
   workflow_dispatch:
     inputs:
@@ -194,7 +203,7 @@ jobs:
           from zoneinfo import ZoneInfo
           now = datetime.now(timezone.utc)
           ny = now.astimezone(ZoneInfo("America/New_York"))
-          expected_cron = "30 20 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "30 21 * * 0-4"
+          expected_cron = "45 19 * * 0-4" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 0-4"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
           should_run = actual_cron == expected_cron
           print(f"should_run={'true' if should_run else 'false'}")
@@ -306,7 +315,64 @@ jobs:
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/report-data.json"
           test -s "$RUN_DIR/stage1-receipt.json"
-      - name: Stage 2 — capture 44 market indicators with four-page concurrency
+      - name: Publish Stage 1 handoff before Stage 2 starts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git merge --ff-only origin/main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR/run-context.json" "$RUN_DIR/stage1-fixture.json" "$RUN_DIR/report-data.json" "$RUN_DIR/stage1-receipt.json"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          test "${#STAGED[@]}" -eq 4
+          for path in "${STAGED[@]}"; do
+            [[ "$path" == "$RUN_DIR/"* ]] || { echo "Unexpected Stage 1 path: $path" >&2; exit 1; }
+          done
+          git commit -m "data(tac-production): initialize Stage 1 $REPORT_DATE $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+      - name: Wait for exact Stage 2 worker handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          OBSERVATION_PATH="production/input/market-history-web-observations-$REPORT_DATE.json"
+          FOUND=false
+          for attempt in $(seq 1 60); do
+            git fetch origin main
+            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null; then
+              git merge --ff-only origin/main
+              FOUND=true
+              break
+            fi
+            sleep 30
+          done
+          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 30 minutes."; exit 1; }
+          python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
+          import hashlib, json, sys
+          from pathlib import Path
+          run=Path(sys.argv[1]); observation=Path(sys.argv[2])
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
+          payload=json.loads(observation.read_text(encoding="utf-8"))
+          receipt_sha=hashlib.sha256((run/"stage1-receipt.json").read_bytes()).hexdigest()
+          context_sha=hashlib.sha256((run/"run-context.json").read_bytes()).hexdigest()
+          fixture_sha=hashlib.sha256((run/"stage1-fixture.json").read_bytes()).hexdigest()
+          expected={"run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
+            "stage1_receipt_sha256":receipt_sha,"run_context_sha256":context_sha,"stage1_fixture_sha256":fixture_sha}
+          for key,value in expected.items():
+            if payload.get(key)!=value: raise SystemExit(f"Stage 2 handoff {key} does not match Stage 1 output")
+          if payload.get("stage2_wr_sha256") != context["governance"]["blob_shas"]["production/stages/STAGE_2_MARKET.md"]:
+            raise SystemExit("Stage 2 handoff WR SHA differs from Stage 1 pinned Stage 2 WR")
+          print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
+          PY
+      - name: Stage 2 — validate and freeze 44 market indicators
         run: |
           set -euo pipefail
           python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
@@ -348,27 +414,11 @@ jobs:
           CHART3_COMMIT="$(git rev-parse HEAD)"
           BEFORE_IDS="$(gh api "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30" --jq '[.workflow_runs[].id]')"
           gh api -X POST "repos/lion-invlab/lion-invlab.github.io/actions/workflows/tac-chart3-sp500-increment-merge.yml/dispatches" -f ref=main
-          export CHART3_COMMIT BEFORE_IDS
-          python - <<'PY'
-          import json, os, subprocess, time
-          repo="lion-invlab/lion-invlab.github.io"
-          old=set(json.loads(os.environ["BEFORE_IDS"]))
-          target=os.environ["CHART3_COMMIT"]
-          deadline=time.time()+1800
-          selected=None
-          while time.time()<deadline:
-              raw=subprocess.check_output(["gh","api",f"repos/{repo}/actions/workflows/tac-chart3-sp500-increment-merge.yml/runs?branch=main&per_page=30"],text=True)
-              matches=[r for r in json.loads(raw).get("workflow_runs",[]) if r.get("id") not in old and r.get("head_sha")==target and r.get("event")=="workflow_dispatch"]
-              if matches:
-                  selected=sorted(matches,key=lambda r:r.get("created_at",""),reverse=True)[0]
-                  if selected.get("status")=="completed": break
-              time.sleep(15)
-          if not selected or selected.get("status")!="completed" or selected.get("conclusion")!="success":
-              raise SystemExit("Chart 3 S&P 500 merge workflow did not complete successfully")
-          with open(os.environ["GITHUB_ENV"],"a") as f: f.write(f"CHART3_MERGE_RUN_ID={selected['id']}\n")
-          print(json.dumps({"status":"PASS","chart3_commit":target,"merge_run_id":selected["id"]}))
-          PY
-      - name: Fetch latest main after Chart 3 merge
+          # Chart 3 is an independent data branch. Dispatch it and continue
+          # Stage 3 without waiting for its merge workflow.
+          echo "CHART3_MERGE_RUN_ID=DISPATCHED_ASYNC" >> "$GITHUB_ENV"
+          echo "Chart 3 merge dispatched asynchronously; it does not gate the report."
+      - name: Fetch latest main after Chart 3 dispatch
         run: |
           git fetch origin main
           git merge --ff-only origin/main
