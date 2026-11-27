@@ -22,7 +22,7 @@ def make_run(root):
       "run_context_sha256":digest(cp),"fixture_sha256":digest(stage1_fp)},sort_keys=True))
     binding={"schema_version":"1.0","run_id":run_id,"report_date":report,"trading_date":trading,
       "stage1_receipt_sha256":digest(rp),"run_context_sha256":digest(cp),
-      "stage1_fixture_sha256":digest(fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
+      "stage1_fixture_sha256":digest(stage1_fp),"captured_at_utc":"2026-11-27T00:51:42Z"}
     rows=[]
     for group in ("global_markets","bonds","fx","energy","metals","risk","sectors"):
         rows.extend({"group":group,"name":name} for name in fixture[group])
