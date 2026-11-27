@@ -175,6 +175,33 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["display"],"97.54")
         self.assertEqual(item["change_display"],"-1.32%")
 
+    def test_move_closed_uses_sifma_fixed_income_calendar(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=next(x for x in rows if (x["group"],x["name"])==("risk","move"))
+        row.update({
+            "status":"MARKET_CLOSED","read_status":"MARKET_CLOSED",
+            "observed_value":None,"observed_change":None,
+            "source_page_fetched":True,"provenance":"CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
+            "read_method":"CHATGPT_WEB_OPEN_HISTORICAL_PAGE","prior_observation_reused":False,
+            "instrument_identity":"ICE BofAML MOVE (MOVE)","instrument_identity_status":"VERIFIED",
+            "field_mapping_status":"VERIFIED","observed_value_field":"收市","observed_change_field":"升跌（%）",
+            "observed_headers":["日期","收市","開市","高","低","成交量","升跌（%）"],
+            "observed_row_text":"Target date is a SIFMA full fixed-income market holiday; no MOVE close is expected.",
+            "finished_at_utc":"2026-11-26T22:00:00Z",
+            "closure_evidence_url":"https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
+            "closure_evidence_text":"SIFMA recommends a full US fixed-income market close on November 26, 2026.",
+            "closure_evidence_reader_ref":"SIFMA_TEST_REF","closure_evidence_line_start":15,
+            "closure_evidence_line_end":25,
+        })
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        item=result["risk"]["move"]
+        self.assertEqual(item["display"],"-")
+        self.assertEqual(item["change_display"],"休市")
+        self.assertEqual(item["source"]["verification_status"],"CLOSED")
+        self.assertEqual(item["source"]["market_calendar_evidence"]["status"],"CLOSED")
+        self.assertIn("sifma.org",item["source"]["market_calendar_evidence"]["url"])
+
     def test_rejects_wrong_date_and_duplicate_or_missing_rows(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
