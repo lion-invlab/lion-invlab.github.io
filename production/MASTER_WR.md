@@ -108,8 +108,11 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
 - 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
 - `recover` 必須從 Stage 1 建立全新 blank-first Run，依序執行 Stage 2（44 項、截圖優先、四頁並行）及 Stage 3；保留同一 Run 的 Chart 3 增量、所有 receipts 與 research bundle。不得使用 fixture、前日行情或過期截圖。
-- 啟動前檢查同一 report_date 是否已有 Run。若已存在完整 Capture receipt 或部分 Run，必須 fail-closed，禁止另建第二個 Run；先檢查並處理原 Run，不可混合兩個 Run 的資料。現行 recover 入口不宣稱自動續跑部分 Run。
-- Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、market snapshot SHA 與 research bundle SHA。手動補救只接受 `event=workflow_dispatch` 且 `mode=recover` 的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成補救證據。
+- 啟動前檢查同一 report_date 是否已有 Run。一般 `recover` 僅允許替代未交付 Run；已有 Stage 5／6 或 Preview 時 fail-closed。
+- **使用者明確要求同一日期重新完整 E2E 時，才可使用 `mode=rerun`。** 必須填入精確 report_date；目前只核准 2026-11-27 的既有 Run `TAC-2026-11-27-45937649928-1` 作為 superseded predecessor。必須恰有一個既有 Run，新的 Run 記錄 `supersedes_run_id`；不得建立並行 Run。
+- `rerun` 前清除該日期可被 Runner 當成輸入的日期化行情 observation bundle、舊 editorial JSON、舊 build request 及舊 trigger marker；既有 Preview 三檔移至 `production/superseded/<report_date>/<old_run_id>/preview/` 保存，不留在活動 `preview/` 路徑。舊 Run 目錄及其中 receipts／行情證據完整保留為不可重用的歷史稽核資料；不得從舊 Run 複製任何行情、FedWatch、新聞或編輯內容。正式首頁 `index.html`、首頁發布鎖及正式歷史封存不變。
+- `rerun` 必須建立全新 blank-first Stage 1；Stage 2 重新讀取當輪完整 WR 後，重新擷取全部 44 項與 FedWatch。不得使用 `--reuse-observations`、舊 Run Observation、舊截圖、舊新聞或舊 FedWatch；每列記錄本次讀取時間並標示 `prior_observation_reused=false`。Stage 3–6 必須只使用新 Run 的資料。
+- Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、supersedes_run_id、market snapshot SHA 與 research bundle SHA。手動補救／重跑只接受 `event=workflow_dispatch` 且 mode 與實際執行一致的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成新 Capture 證據。
 - Stage 1–3 完成後，由 Main ChatGPT continuation worker 接手同一 Run 的 Stage 4–6。手動補救後可立即執行 continuation 的 `run_now`；worker 必須驗證 recover receipt 與全部 Run/SHA 綁定，不得重新執行 Stage 1–3。
 - 手動補救僅交付 Main Preview；不自動更新 `index.html`、不封存正式歷史、不修改 Simulation。正式首頁仍需使用者另行核准。
 - 一次 BLOCKED 不得自動停用 continuation automation；排程喚醒應維持啟用，確保下一個工作日正常接續。

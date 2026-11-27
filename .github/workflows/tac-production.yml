@@ -17,7 +17,7 @@ on:
         required: true
         default: validate
         type: choice
-        options: [validate, capture, recover, build]
+        options: [validate, capture, recover, rerun, build]
       report_date:
         description: "台灣報告日期 YYYY-MM-DD"
         required: false
@@ -205,7 +205,7 @@ jobs:
 
   capture-and-calendar:
     needs: [schedule-window]
-    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'capture' || inputs.mode == 'recover')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[capture-tac-report:')) ) }}
+    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'capture' || inputs.mode == 'recover' || inputs.mode == 'rerun')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[capture-tac-report:')) ) }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     permissions:
@@ -260,20 +260,26 @@ jobs:
                   matches.append(context_path.parent)
           supersedes=""
           if matches:
-              if os.environ.get("DISPATCH_MODE") != "recover":
-                  raise SystemExit(f"Run already exists for {target}; only explicit recover may supersede an undelivered Run.")
+              mode=os.environ.get("DISPATCH_MODE")
+              if mode not in ("recover","rerun"):
+                  raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
               if len(matches) != 1:
-                  raise SystemExit(f"Cannot auto-supersede {len(matches)} prior Runs for {target}; manual reconciliation required.")
+                  raise SystemExit(f"Cannot supersede {len(matches)} prior Runs for {target}; manual reconciliation required.")
               prior=matches[0]
-              delivered_files=[
-                  Path("preview")/f"{target}-review.html",
-                  Path("preview")/f"{target}-review.qa.json",
-                  Path("preview")/f"{target}-review.delivery.json"
-              ]
-              if ((prior/"stage5-render-qa-receipt.json").exists()
-                  or (prior/"stage6-delivery-receipt.json").exists()
-                  or any(path.exists() for path in delivered_files)):
-                  raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; automatic supersession is prohibited.")
+              if mode == "rerun":
+                  expected={"2026-11-27":"TAC-2026-11-27-45937649928-1"}
+                  if expected.get(target) != prior.name:
+                      raise SystemExit(f"Explicit rerun is not authorized for this report date/prior Run: {target} / {prior.name}")
+              else:
+                  delivered_files=[
+                      Path("preview")/f"{target}-review.html",
+                      Path("preview")/f"{target}-review.qa.json",
+                      Path("preview")/f"{target}-review.delivery.json"
+                  ]
+                  if ((prior/"stage5-render-qa-receipt.json").exists()
+                      or (prior/"stage6-delivery-receipt.json").exists()
+                      or any(path.exists() for path in delivered_files)):
+                      raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; recover is prohibited.")
               supersedes=prior.name
           print(f"supersedes_run_id={supersedes or 'NONE'}")
           PY
