@@ -196,8 +196,8 @@ def main():
     fixture_path=run_dir/"report-data.json"
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
     stage3_receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage2_receipt,"STAGE_2")
-    require_stage_wr_receipt(stage3_receipt,"STAGE_3")
+    require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
+    require_stage_wr_receipt(stage3_receipt,"STAGE_3",context)
     if stage2_receipt.get("workflow_run_id") not in (context.get("workflow_run_id"),context.get("run_id")):
         raise ValueError("Stage 2 receipt workflow_run_id does not match this Run")
     if stage3_receipt.get("run_id")!=context.get("run_id"):
