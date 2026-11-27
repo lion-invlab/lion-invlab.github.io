@@ -101,6 +101,7 @@ jobs:
         run: |
           python -m unittest -v \
             test_create_run_fixture \
+            test_stage_wr_preflight \
             test_stage3_calendar_projection \
             test_prepare_stage4_research_bundle \
             test_stage4_content_validation \
