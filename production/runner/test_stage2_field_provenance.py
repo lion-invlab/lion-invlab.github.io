@@ -136,12 +136,13 @@ def main():
         move_source, data["risk"]["move"]["display"],
         data["risk"]["move"]["change_display"], move_observation, "risk", "move"
     )
-    move_record = move_result["browser_observation_record"]
+    # A failed read must not be serialized as a verified browser-observation record.
+    # The primary source identity remains in the fixture; the unverified attempt is pending.
     assert move_result["verification_status"] == "PENDING_CURRENT_RUN_BROWSER_OBSERVATION"
-    assert move_record["source_role"] == "PRIMARY"
-    assert move_record["evidence_source_url"] == move_source["url"]
-    assert move_record.get("attempt_url") is None
-    assert move_record["read_status"] == "TOOL_READ_FAILURE"
+    assert move_result["market_data_status"] == "TOOL_READ_FAILURE"
+    assert move_result["browser_observation_record"] is None
+    assert move_result["observation_record_sha256"] is None
+    assert move_result["source_page_fetched"] is False
 
     print("PASS: screenshot-only fields are accepted without claiming a browser page read")
     print("PASS: MOVE Investing.com read failure remains pending; no TradingView fallback is accepted")
