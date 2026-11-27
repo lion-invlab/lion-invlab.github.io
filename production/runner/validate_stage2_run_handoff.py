@@ -69,6 +69,8 @@ def validate_stage2_run_handoff(run_dir: str|Path, repo_root: str|Path|None=None
         need(path.is_file() and not path.is_symlink(),f"Missing or symlinked Run bundle: {name}")
         payload=read(path)
         need(bool(payload.get("schema_version")),f"{name} schema_version missing")
+        if name in {WEB,"market-screenshot-observations.json"}:
+            need(payload.get("schema_version")=="1.1",f"{name} schema_version must be 1.1")
         for field in FIELDS: need(payload.get(field)==binding[field],f"{name} {field} does not match Stage 1")
         need(bool(payload.get("captured_at_utc")),f"{name} captured_at_utc missing")
         rows=payload.get("observations")
