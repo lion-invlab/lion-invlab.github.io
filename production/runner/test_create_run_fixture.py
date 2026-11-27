@@ -42,8 +42,8 @@ class RunFixtureFactoryTests(unittest.TestCase):
             self.assertEqual(source["data_date"],"2026-11-26")
 
     def test_monday_targets_previous_friday(self):
-        result=build(date(2026,11,30),"TAC-2026-11-30-test-default")
-        self.assertEqual(result["run_context"]["trading_date"],"2026-11-27")
+        result=build(date(2026,11,23),"TAC-2026-11-23-test-default")
+        self.assertEqual(result["run_context"]["trading_date"],"2026-11-20")
 
     def test_rejects_weekend_report_date(self):
         with self.assertRaises(ValueError):
