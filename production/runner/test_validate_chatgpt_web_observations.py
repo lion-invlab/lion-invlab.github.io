@@ -415,21 +415,32 @@ def main():
         assert len(normalized["observations"]) == 44
         assert written["global_markets"]["日經225"]["source"]["verification_status"] == "CLOSED"
 
-    # CNN official previous_close is raw decimal precision and must match its own pinned raw value.
+    # CNN Business current dashboard is the official primary source; no API endpoint is accepted.
     cnn_official = copy.deepcopy(bundle)
     cnn_fg = next(x for x in cnn_official["observations"] if x["group"] == "risk" and x["name"] == "fear_greed")
+    fg_source = data["risk"]["fear_greed"]["source"]
+    official_score = fg_source.get("source_score_value")
+    official_band = fg_source.get("source_band") or fg_source.get("band")
     cnn_fg.update({
-        "read_method": "CNN_OFFICIAL_PREVIOUS_CLOSE",
-        "data_endpoint_url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata",
-        "http_status": 200,
-        "raw_response_sha256": "a" * 64,
-        "observed_value_field": "fear_and_greed.previous_close",
-        "observed_change_field": "derived_from_fear_and_greed.previous_close_using_cnn_bands",
-        "previous_close_target_date": "2026-11-23",
-        "source_timestamp_utc": "2026-11-24T01:59:53+00:00",
-        "observed_value": "16.9658627087199",
-        "observed_change": "extreme fear",
+        "read_method": "CNN_OFFICIAL_CURRENT_DASHBOARD",
+        "source_url": fg_source["url"],
+        "source_role": "PRIMARY",
+        "page_title": "CNN Business Fear & Greed Index",
+        "instrument_identity": "CNN Fear & Greed Index",
+        "observed_value": official_score,
+        "observed_change": official_band,
+        "observed_value_field": "Score",
+        "observed_change_field": "Band",
+        "observed_headers": ["Score", "Band"],
+        "observed_row_text": f"Current CNN score {official_score} | {official_band}",
+        "web_reader_ref": "CNN_TEST_REF",
+        "web_line_start": 5,
+        "web_line_end": 10,
+        "observed_date": fg_source.get("data_date"),
+        "read_status": "CNN_CURRENT_DASHBOARD_READ_SUCCESS",
+        "source_page_fetched": True,
         "status": "VERIFIED",
+        "http_status": None,
     })
     cnn_result = validate_bundle(data, "2026-11-24", cnn_official)
     assert cnn_result["verified_count"] == 43
@@ -439,7 +450,7 @@ def main():
 
     wrong_cnn_raw = copy.deepcopy(cnn_official)
     wrong_cnn_fg = next(x for x in wrong_cnn_raw["observations"] if x["group"] == "risk" and x["name"] == "fear_greed")
-    wrong_cnn_fg["observed_value"] = "17"
+    wrong_cnn_fg["observed_value"] = str(float(official_score) + 1)
     wrong_cnn_result = validate_bundle(data, "2026-11-24", wrong_cnn_raw)
     assert wrong_cnn_result["verified_count"] == 42
     assert wrong_cnn_result["status_counts"].get("OBSERVED_PENDING_VALIDATION") == 2
@@ -504,7 +515,7 @@ def main():
 
     print("PASS: 43 current-session historical page observations reconcile to exact fixture values and dates")
     print("PASS: one official market closure is explicitly recorded; no numeric market row is silently reused")
-    print("PASS: CNN official previous_close uses its raw decimal; FGScore fallback uses its separately pinned rounded integer")
+    print("PASS: CNN Business current dashboard is the official primary source; FGScore remains a separately pinned backup")
     print("PASS: wrong URL, stale capture, missing rows and numeric mismatches cannot pass")
 
 
