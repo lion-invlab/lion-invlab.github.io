@@ -78,3 +78,19 @@ def stage_wr_preflight(stage: str, context: dict | None = None) -> dict:
         "stage1_pinned_commit": pinned_commit,
         "rules_text_loaded": bool(full_text.strip()),
     }
+
+def require_stage_wr_receipt(receipt: dict, expected_stage: str) -> dict:
+    """Reject a handoff whose producer did not prove its own WR preflight."""
+    evidence = receipt.get("wr_preflight") if isinstance(receipt, dict) else None
+    if not isinstance(evidence, dict):
+        raise SystemExit(f"{expected_stage} handoff blocked: producer WR preflight evidence is missing")
+    if (evidence.get("status") != "PASS"
+            or evidence.get("stage") != expected_stage
+            or evidence.get("wr_loaded") is not True
+            or evidence.get("rules_text_loaded") is not True
+            or not evidence.get("wr_path")
+            or not evidence.get("wr_sha256")
+            or not evidence.get("wr_git_blob_sha")
+            or not evidence.get("stage1_pinned_git_blob_sha")):
+        raise SystemExit(f"{expected_stage} handoff blocked: producer WR preflight evidence is incomplete or invalid")
+    return evidence
