@@ -7,8 +7,6 @@ on:
     paths:
       - "index.html"
   workflow_dispatch:
-  schedule:
-    - cron: "10 17 * * 0-4"
 
 permissions:
   contents: write
@@ -19,6 +17,7 @@ concurrency:
 
 jobs:
   archive:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[publish-tac-report:')) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,9 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Enforce official homepage publication lock
-        run: python3 production/runner/verify_homepage_publication_lock.py
-        with:
-          fetch-depth: 0
+        run: python3 production/runner/verify_homepage_publication_lock.py --require-approved
 
       - name: Archive previous TAC report
         shell: bash
@@ -37,14 +34,8 @@ jobs:
           set -euo pipefail
           test -s index.html
 
-          TODAY=$(TZ=Asia/Taipei date +%u)
-          if [ "$TODAY" -eq 1 ]; then
-            ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "3 days ago" +%Y-%m-%d)
-          else
-            ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "yesterday" +%Y-%m-%d)
-          fi
+          ARCHIVE_DATE=$(python3 -c 'import json; from datetime import date,timedelta; published=date.fromisoformat(json.load(open("production/config/homepage-publication-lock.json",encoding="utf-8"))["report_date"]); print((published-timedelta(days=3 if published.weekday()==0 else 1)).isoformat())')
 
-          echo "Taiwan weekday: $TODAY"
           echo "Archive date: ${ARCHIVE_DATE}"
           export ARCHIVE_DATE
 
