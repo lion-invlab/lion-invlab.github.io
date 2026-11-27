@@ -169,17 +169,18 @@
     "same_run_resume_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45941381146",
     "stage4_rebuild_run_id": 45940200004,
     "stage4_rebuild_stage4_status": "PASS",
-    "latest_main_validation_run_id": null,
-    "latest_main_validation_conclusion": "PENDING_STAGE5_RUNNER_REVALIDATION",
-    "latest_main_validation_url": null,
+    "latest_main_validation_run_id": 45955597641,
+    "latest_main_validation_conclusion": "success",
+    "latest_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45955597641",
     "prior_main_validation_run_id": 45955248269,
     "prior_main_validation_conclusion": "success",
     "prior_main_validation_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45955248269",
     "stage5_qa_hardening": {
-      "status": "PENDING_STAGE5_RUNNER_REVALIDATION",
-      "scope": "Builder receipt confirms all three scenarios; Stage 5 Runner now reads scenario coverage from the nested political_scan receipt and must pass Main validation before same-Run Stage 4–6 retry."
+      "status": "MAIN_VALIDATION_PASS",
+      "validation_run_id": 45955597641,
+      "scope": "The exact Stage 5 Runner now reads scenario_analysis_coverage and scenario_analysis_status from market_analysis_slot_receipt.political_scan; Main module compilation, deterministic tests, candidate Builder and mother-owned DOM contract all passed."
     },
-    "latest_main_validation_head_sha": null
+    "latest_main_validation_head_sha": "18f845232a5039ec688e966f06a3befe4a8989ca"
   },
   "closure_evidence": {
     "source_type": "SIFMA fixed-income market holiday recommendation",
