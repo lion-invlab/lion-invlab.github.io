@@ -2,24 +2,24 @@
   "schema_version": "1.0",
   "status": "APPROVED_MAIN",
   "builder_path": "production/runner/build_review_html.py",
-  "builder_blob_sha": "5d555e40285bf4156740e418664f4833d66956ee",
+  "builder_blob_sha": "89cedbb36ec75628c813291adf1bd025c589266e",
   "source_sim_builder_blob_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
   "mother_manifest_path": "production/config/mother-template-manifest.json",
   "validation_evidence": {
-    "workflow_run_id": 45955248269,
-    "head_sha": "004dace3b7c6bbfddc56b129d6f57ed97f8e345f",
+    "workflow_run_id": 46001434146,
+    "head_sha": "ba4322db2cd4ff5fe4a204e56deb2eef3dbb529e",
     "result": "PASS",
-    "scope": "Main validate-main-production completed successfully for this exact Builder SHA. Passed production-module compilation, browser QA syntax checks, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, full isolated candidate Builder validation, and mother-owned DOM contract verification.",
-    "url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/45955248269",
-    "limitation": "This is the Main code-validation result. Same-Run Stage 4–6 production acceptance is separately established by the current build-and-deliver run."
+    "scope": "Main validate-main-production completed successfully for the exact current Builder blob SHA 89cedbb36ec75628c813291adf1bd025c589266e. Passed production-module compilation, browser QA syntax checks, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, Stage 5 scenario QA tests, isolated candidate Builder validation, and mother-owned DOM contract verification.",
+    "url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/46001434146",
+    "limitation": "This is Main code-validation evidence only. It does not establish a same-Run live market-data E2E or Stage 4–6 production acceptance."
   },
   "approved_by_owner": true,
   "approved_at": "2026-11-27",
   "owner_approval_record": {
     "decision": "APPROVED",
-    "approved_builder_blob_sha": "5d555e40285bf4156740e418664f4833d66956ee",
-    "approval_scope": "Main production Builder exact-blob approval: replace Simulation/internal-training labels in existing approved DOM text slots with Main review labels while preserving child elements and line breaks, and calculate explicit base/risk/severe scenario coverage in the existing market-analysis evidence receipt. No market values, sources, mother-template structure or formal homepage content are changed.",
+    "approved_builder_blob_sha": "89cedbb36ec75628c813291adf1bd025c589266e",
+    "approval_scope": "Owner explicitly approved the exact current Main production Builder blob SHA 89cedbb36ec75628c813291adf1bd025c589266e in the conversation on 2026-11-27. Approval covers this exact Builder blob only; it does not approve later Builder changes or waive mandatory validation and production QA gates.",
     "approved_at": "2026-11-27",
-    "evidence": "User's broad authorization for the Main rebuild and autonomous continuation on 2026-11-26, reaffirmed by the 2026-11-27 Main rebuild instructions requiring Main-specific review output and Stage 5 content QA. The merge-triggered Main validation workflow remains mandatory before Stage 5–6."
+    "evidence": "Explicit user approval in the conversation following the exact SHA approval request."
   }
 }
