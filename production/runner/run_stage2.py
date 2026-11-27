@@ -89,32 +89,33 @@ def main():
     manifest_path=run_dir/"market-source-verification-manifest.json"
     receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     started=time.monotonic()
-    web_bundle=ROOT/f"production/input/market-history-web-observations-{report_date}.json"
-    cnn_observation=ROOT/f"production/input/cnn-fear-greed-observation-{report_date}.json"
-    screenshot_sidecar=ROOT/f"production/input/market-screenshot-observations-{report_date}.json"
-    input_mode="SCREENSHOT_FIRST_BROWSER_FALLBACK" if screenshot_sidecar.is_file() else "PLAYWRIGHT_BROWSER_FALLBACK"
-    if args.reuse_observations:
-        if not observations_path.is_file():
-            raise SystemExit("--reuse-observations requires the original market-history-browser-observations.json")
-        original=load(observations_path)
-        if original.get("report_date") != report_date:
-            raise SystemExit("Reused browser observations report_date does not match the original Run.")
-        input_mode="REUSED_ORIGINAL_CAPTURE_ARTIFACT"
-    elif web_bundle.is_file():
-        if not cnn_observation.is_file():
-            cnn_observation=run_dir/"cnn-observation-empty.json"
-            cnn_observation.write_text(json.dumps({"observations":[]},ensure_ascii=False)+"\n",encoding="utf-8")
-        run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
-            "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
-            "--input",str(web_bundle.relative_to(ROOT)),
-            "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
-            "--output",str(observations_path.relative_to(ROOT))])
-        input_mode="SCREENSHOT_FIRST_BROWSER_COMPLETION" if screenshot_sidecar.is_file() else "CHATGPT_WEB_DIRECT_PAGE_OBSERVATIONS"
-    else:
-        run([sys.executable,str(RUNNER/"browser_verify_market_history.py"),
-            "--fixture",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
-            "--output",str(observations_path.relative_to(ROOT)),
-            "--timeout-ms",str(args.timeout_ms),"--concurrency",str(args.concurrency)])
+    # Stage 2 accepts only this Run's SHA-bound evidence packet. Never fall back
+    # to date-global observations, Playwright, TradingView, or a prior Run artifact.
+    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
+        "--run-dir",str(run_dir.relative_to(ROOT))])
+    web_bundle=run_dir/"market-history-web-observations.json"
+    cnn_observation=run_dir/"cnn-fear-greed-observation.json"
+    if not web_bundle.is_file():
+        raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
+    if not cnn_observation.is_file():
+        cnn_observation.write_text(json.dumps({
+            "schema_version":"1.0", "run_id":context["run_id"],
+            "report_date":report_date, "trading_date":context["trading_date"],
+            "stage1_receipt_sha256":handoff["stage1_receipt_sha256"],
+            "run_context_sha256":handoff["run_context_sha256"],
+            "stage1_fixture_sha256":handoff["stage1_fixture_sha256"],
+            "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
+        },ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    # Re-run the handoff gate after creating the optional empty CNN packet so
+    # every input consumed below is bound to the same Stage 1 receipt.
+    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
+        "--run-dir",str(run_dir.relative_to(ROOT))])
+    run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
+        "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
+        "--input",str(web_bundle.relative_to(ROOT)),
+        "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
+        "--output",str(observations_path.relative_to(ROOT)),"--no-fixture-write"])
+    input_mode="RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS"
     audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--output",str(audit_path.relative_to(ROOT))])
@@ -157,7 +158,7 @@ def main():
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "report_date":report_date,"trading_date":context["trading_date"],
       "input_mode":input_mode,"concurrency":args.concurrency,"timeout_ms":args.timeout_ms,"elapsed_seconds":elapsed,
-      "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest() if web_bundle.is_file() else None,
+      "stage2_handoff":handoff,\n      "web_observation_bundle_sha256":hashlib.sha256(web_bundle.read_bytes()).hexdigest(),
       "cnn_observation_sha256":hashlib.sha256(cnn_observation.read_bytes()).hexdigest() if cnn_observation.is_file() else None,
       "historical_page_read_count":observations.get("historical_page_read_count"),
       "screenshot_only_count":observations.get("screenshot_only_count"),
