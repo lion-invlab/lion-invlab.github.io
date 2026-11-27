@@ -22,7 +22,7 @@ def git_blob(path:Path, commit_sha:str="HEAD")->str:
 
 def report_cutoff_taipei(report_date:date)->str:
     """16:25 New York close-window cutoff converted to Taiwan local time for this report date."""
-    ny_date=report_date-timedelta(days=1)
+    ny_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     ny_cutoff=datetime.combine(ny_date,time(16,25),NY_TZ)
     taipei_clock="04:25" if ny_cutoff.dst() and ny_cutoff.dst().total_seconds() else "05:25"
     return f"{report_date.isoformat()} {taipei_clock}"
@@ -43,7 +43,7 @@ def previous_week_start(day:date)->date:
 def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_run_id:str|None=None)->dict:
     stage1_wr = stage_wr_preflight("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
-    if report_date.weekday()>4: raise ValueError(f"Weekend report date is not allowed: {report_date}")
+    if report_date.weekday() not in (0,1,2,3,4): raise ValueError(f"Report date must be Monday (produced Saturday) or Tuesday-Friday: {report_date}")
     trading_date=trading_date or report_target_date(report_date)
     if trading_date>=report_date: raise ValueError("trading_date must precede Taiwan report_date")
     manifest_path=ROOT/"production/config/mother-template-manifest.json"
