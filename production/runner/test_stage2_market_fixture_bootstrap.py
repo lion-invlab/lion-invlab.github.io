@@ -222,6 +222,18 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(item["source"]["market_calendar_evidence"]["status"],"CLOSED")
         self.assertIn("sifma.org",item["source"]["market_calendar_evidence"]["url"])
 
+    def test_per_instrument_target_dates_are_preserved(self):
+        blank=blank_fixture(fixture())
+        rows=observation_rows(blank)
+        row=rows[0]
+        group,name=row["group"],row["name"]
+        row["target_date"]="2026-11-24"
+        row["observed_date"]="2026-11-24"
+        result=populate_fixture(blank,{"report_date":"2026-11-26","trading_date":"2026-11-25","observations":rows})
+        source=result[group][name]["source"]
+        self.assertEqual(source["data_date"],"2026-11-24")
+        self.assertEqual(result["trading_date"],"2026-11-25")
+
     def test_rejects_wrong_date_and_duplicate_or_missing_rows(self):
         blank=blank_fixture(fixture())
         rows=observation_rows(blank)
