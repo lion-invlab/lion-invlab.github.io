@@ -78,10 +78,26 @@ class StageWRPreflightTests(unittest.TestCase):
                     "wr_path":"production/stages/STAGE_2_MARKET.md","wr_sha256":"c"*64,
                     "wr_git_blob_sha":"d"*40,"stage1_pinned_git_blob_sha":"d"*40,"stage1_pinned_commit":"commit"}
         context = {"main_commit_sha":"commit","governance":{"blob_shas":{stage_wr_preflight.STAGE_WR_PATHS["STAGE_2"]:"d"*40}}}
-        result = stage_wr_preflight.require_stage_wr_receipt({"wr_preflight":evidence},"STAGE_2",context)
+        receipt = {"wr_preflight":evidence,"worker_wr_attestation":{"status":"PASS","stage2_wr_sha256":evidence["wr_sha256"]}}
+        result = stage_wr_preflight.require_stage_wr_receipt(receipt,"STAGE_2",context)
         self.assertEqual(result,evidence)
         with self.assertRaises(SystemExit):
-            stage_wr_preflight.require_stage_wr_receipt({"wr_preflight":{}},"STAGE_2",context)
+            stage_wr_preflight.require_stage_wr_receipt({"wr_preflight":{}}, "STAGE_2", context)
+
+    def test_stage4_upstream_requires_editorial_worker_wr_proof(self):
+        path = stage_wr_preflight.STAGE_WR_PATHS["STAGE_4"]
+        digest = "c" * 64
+        blob = "e" * 40
+        context = {"main_commit_sha":"commit","governance":{"blob_shas":{path:blob}}}
+        evidence = {"status":"PASS","stage":"STAGE_4","wr_loaded":True,"rules_text_loaded":True,
+                    "wr_path":path,"wr_sha256":digest,"wr_git_blob_sha":blob,
+                    "stage1_pinned_git_blob_sha":blob,"stage1_pinned_commit":"commit"}
+        receipt = {"wr_preflight":evidence,
+                   "editorial_worker_wr_attestation":{"status":"PASS","stage4_wr_sha256":digest}}
+        self.assertEqual(stage_wr_preflight.require_stage_wr_receipt(receipt,"STAGE_4",context),evidence)
+        receipt["editorial_worker_wr_attestation"]["stage4_wr_sha256"] = "f" * 64
+        with self.assertRaises(SystemExit):
+            stage_wr_preflight.require_stage_wr_receipt(receipt,"STAGE_4",context)
 
     def test_unknown_stage_blocks(self):
         with self.assertRaises(ValueError):
