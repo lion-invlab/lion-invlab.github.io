@@ -123,9 +123,11 @@ def blank_fixture(source, apply_screenshots=True):
             item["change_display"]="待擷取"
         for key in VALUE_KEYS:
             src.pop(key,None)
-        # source_role is observation provenance, not a reusable quote value.
-        # Keep only the pinned Fear & Greed backup role from its source contract.
-        if not (group=="risk" and name=="fear_greed"):
+        # Keep the configured primary role for MOVE separate from the
+        # per-observation verified_source_role used by its TradingView fallback.
+        if group=="risk" and name=="move":
+            src["source_role"]="PRIMARY"
+        elif not (group=="risk" and name=="fear_greed"):
             src.pop("source_role",None)
         src["verification_status"]="PENDING"
         src["source_page_fetched"]=False
