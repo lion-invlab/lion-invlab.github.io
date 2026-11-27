@@ -105,7 +105,7 @@
     "production/runner/run_stage4.py": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
     "production/runner/prepare_stage4_research_bundle.py": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969",
     "production/runner/run_stage5.py": "94f50a0b251fa5a0987cc4dee1c967d2decb86ae",
-    "production/runner/run_stage6.py": "67c54aea43bb1de68ff675d6d393012ed99f2427",
+    "production/runner/run_stage6.py": "303011000e99bf9c7ca0c84c4e6fdaea7e2bea98",
     "production/runner/validate_prebuild_stage_inputs.py": "36f938611090fe6aa984c5d762a52b6afe37aaf9",
     "production/runner/validate_mother_dom_contract.py": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
     "production/runner/validate_review_artifact.py": "bc9920452bf075e862cf257796d1abdf71525195",
@@ -177,8 +177,8 @@
     "line_end": 18,
     "note": "SIFMA recommends a full U.S. fixed-income market close on 2026-11-26 and an early close at 14:00 EST on 2026-11-27; firms make their own operating decisions."
   },
-  "scope": "Only the ten enumerated governance files changed from the original Stage 1 snapshot: they encode SIFMA full-close evidence, its classification and receipt handoff, exact-Run recovery, the compatible Stage 5 transition, and a narrow Builder correction suppressing the internal blank-first Stage 2 instruction from visible source notes. Stage 1 context, data schema, calendar schema, mother templates, mother manifest, Stage 5 core logic, QA contract, and publish contract remain unchanged.",
-  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this compatible transition remains limited to the exact 2026-11-27 Run and the enumerated governance changes. Simulation and main/index.html remain excluded.",
+  "scope": "Only the ten enumerated governance files changed from the original Stage 1 snapshot: they encode SIFMA full-close evidence, its classification and receipt handoff, exact-Run recovery, a narrow Builder correction suppressing the internal blank-first Stage 2 instruction from visible source notes, and safe Stage 6 replacement of a fully verified preview only when its existing Run ID/date exactly match. Stage 1 context, data schema, calendar schema, mother templates, mother manifest, Stage 5 core logic, QA contract, and publish contract remain unchanged.",
+  "owner_authorization": "User authorized broad Main rebuild and autonomous continuation on 2026-11-26; this compatible transition remains limited to the exact 2026-11-27 Run and the enumerated governance changes. Same-Run preview replacement is permitted only after existing HTML, QA sidecar, delivery receipt, Run ID, date, hashes, and protected-path attestations all verify. Simulation and main/index.html remain excluded.",
   "builder_blob_sha": "396f0171d02966a1a8f1c4a9d51914b241321f03",
   "builder_approval_blob_sha": "e4f2ad934e648ad7bf869acfa3fd211756247eb6"
 }
