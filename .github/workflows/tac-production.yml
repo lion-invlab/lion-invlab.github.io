@@ -629,7 +629,7 @@ jobs:
           python - <<'PY'
           import json, os, re, subprocess, time
           from pathlib import Path
-          match=re.search(r"\\[build-tac-report:(\\d{4}-\\d{2}-\\d{2})\\]",os.environ["TRIGGER_COMMIT_MESSAGE"])
+          match=re.search(r"\[build-tac-report:(\d{4}-\d{2}-\d{2})\]",os.environ["TRIGGER_COMMIT_MESSAGE"])
           if not match: raise SystemExit("Chart 3 post-delivery job requires the exact report-date marker")
           report_date=match.group(1)
           content_path=Path(f"production/input/report-content-{report_date}.json")
