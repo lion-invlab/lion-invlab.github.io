@@ -53,14 +53,14 @@ class Stage4ContentTests(unittest.TestCase):
         ctx={"run_id":"TAC-2026-11-30-saturday-run","report_date":"2026-11-30","trading_date":"2026-11-27"}
         x["run_id"]=ctx["run_id"];x["report_date"]=ctx["report_date"];x["trading_date"]=ctx["trading_date"]
         x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
-        x["news_cutoff_taipei"]="2026-11-28T05:12:00+08:00"
+        x["news_cutoff_taipei"]="2026-11-28 05:12"
         x["core_observation"]["details"]="週末市場回顧與本週觀察補充段落。"
         for item in x["focus_news"]+x["headlines"]:
             item["published_at_tw"]="2026-11-27 13:00"
         bundle={"news_window":{"target_cutoff_taipei":"2026-11-28T05:12:00+08:00"}}
         result=validate_content(x,ctx,self.data,bundle)
-        self.assertEqual(result["cutoff"].isoformat(),"2026-11-28T05:12:00+08:00")
-        x["news_cutoff_taipei"]="2026-11-28T05:15:00+08:00"
+        self.assertEqual(result["cutoff"].strftime("%Y-%m-%d %H:%M"),"2026-11-28 05:12")
+        x["news_cutoff_taipei"]="2026-11-28 05:15"
         with self.assertRaisesRegex(ValueError,"exactly match the Saturday Stage 4 bundle cutoff"):
             validate_content(x,ctx,self.data,bundle)
 
