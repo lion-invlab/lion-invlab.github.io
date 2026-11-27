@@ -71,7 +71,7 @@ def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)-
             "full_text_sha256":full_sha,"handoff_path":instructions["path"],
             "handoff_git_blob_sha":instructions["git_blob_sha"]}
 
-def validate_content(content:dict,context:dict,data:dict)->dict:
+def validate_content(content:dict,context:dict,data:dict,bundle:dict|None=None)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator.check_schema(schema)
@@ -91,6 +91,10 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
         # Monday report is produced Saturday; cutoff must be the exact Stage 4 capture cutoff.
         if cutoff.date()!=production_date:
             raise ValueError("Monday-dated report news_cutoff_taipei must be on its Saturday production date")
+        if bundle is not None:
+            expected_bundle_cutoff=parse_tw(bundle["news_window"]["target_cutoff_taipei"])
+            if cutoff!=expected_bundle_cutoff:
+                raise ValueError("Monday-dated report news_cutoff_taipei must exactly match the Saturday Stage 4 bundle cutoff")
     else:
         expected_date=datetime.combine(production_date,time(5,25),TZ)
         if cutoff.date()!=production_date or cutoff>expected_date+timedelta(minutes=30):
@@ -228,7 +232,7 @@ def main():
         raise ValueError("Stage 4 research bundle receipt is missing")
     bundle_binding=validate_research_bundle_binding(editorial,context,read_json(bundle_receipt_path),bundle_path)
     before=market_snapshot_digest(data)
-    window=validate_content(editorial,context,data)
+    window=validate_content(editorial,context,data,bundle)
     data.update({
       "summary_title":editorial["summary_title"],
       "summary_points":editorial["summary_points"],
