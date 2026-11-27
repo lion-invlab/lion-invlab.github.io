@@ -91,6 +91,10 @@ def make_bundle(data):
             }
             if is_closed:
                 row["closure_evidence_url"] = CLOSURE_URL
+                row["closure_evidence_text"] = "Official Japan public-holiday calendar identifies 2026-11-23 as Labor Thanksgiving Day."
+                row["closure_evidence_reader_ref"] = "CLOSURE_TEST_REF"
+                row["closure_evidence_line_start"] = 10
+                row["closure_evidence_line_end"] = 12
             rows.append(row)
     for name, source in (data.get("sector_sources") or {}).items():
         is_hk = "hk.investing.com" in str(source.get("url") or "")
