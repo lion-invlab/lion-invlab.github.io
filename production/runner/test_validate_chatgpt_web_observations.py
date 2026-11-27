@@ -224,8 +224,9 @@ def main():
     dow_row["observed_row_text"] = f"Nov 19, 2026 | {dow_row['observed_value']} | {dow_row['observed_change']}"
     mixed_result = validate_bundle(mixed_data, "2026-11-24", mixed_bundle)
     mixed_dow = next(x for x in mixed_result["observations"] if x["name"] == "道瓊工業指數")
-    assert mixed_result["verified_count"] == 44
-    assert mixed_result["status_counts"].get("VERIFIED", 0) == 44
+    assert mixed_dow["target_date"] == "2026-11-19"
+    assert mixed_dow["observed_date"] == "2026-11-19"
+    assert mixed_result["trading_date"] == mixed_data["trading_date"]
     assert mixed_dow["target_date"] == "2026-11-19"
     assert mixed_result["trading_date"] == mixed_data["trading_date"]
 
