@@ -6,21 +6,9 @@ on:
     - cron: "30 20 * * 0-4"
     - cron: "30 21 * * 0-4"
   push:
-    branches: [main]
+    branches: [main, "refactor/**"]
     paths:
       # Run artifacts and date-scoped editorial inputs are data, not code changes.
-      - "production/MASTER_WR.md"
-      - "production/runner/**"
-      - "production/stages/**"
-      - "production/contracts/**"
-      - "production/config/**"
-      - "production/templates/**"
-      - "production/input/*.schema.json"
-      - "production/input/STAGE4_README.md"
-      - ".github/workflows/tac-production.yml"
-  pull_request:
-    branches: [main]
-    paths:
       - "production/MASTER_WR.md"
       - "production/runner/**"
       - "production/stages/**"
@@ -52,21 +40,21 @@ concurrency:
 
 jobs:
   validate-main-production:
-    if: ${{ (github.event_name == 'push' && !contains(github.event.head_commit.message, '[build-tac-report:')) || github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
+    if: ${{ (github.event_name == 'push' && !contains(github.event.head_commit.message, '[build-tac-report:')) || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
       - name: Checkout the requested production ref
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
 
       - name: Record production-ref provenance
         shell: bash
         env:
-          VALIDATION_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
-          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          VALIDATION_BRANCH: ${{ github.ref_name }}
+          EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
           case "$VALIDATION_BRANCH" in
@@ -232,7 +220,7 @@ jobs:
 
   capture-and-calendar:
     needs: [schedule-window]
-    if: ${{ always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'capture' || inputs.mode == 'recover' || inputs.mode == 'rerun')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[capture-tac-report:') || contains(github.event.head_commit.message, '[rerun-tac-report:'))) ) }}
+    if: ${{ github.ref == 'refs/heads/main' && always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'capture' || inputs.mode == 'recover' || inputs.mode == 'rerun')) || (github.event_name == 'push' && (contains(github.event.head_commit.message, '[capture-tac-report:') || contains(github.event.head_commit.message, '[rerun-tac-report:'))) ) }}
     runs-on: ubuntu-latest
     timeout-minutes: 70
     permissions:
@@ -485,7 +473,7 @@ jobs:
           retention-days: 30
 
   build-and-deliver:
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report:')) }}
+    if: ${{ github.ref == 'refs/heads/main' && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report:'))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     permissions:
