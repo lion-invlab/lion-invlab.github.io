@@ -19,54 +19,54 @@
   ],
   "focus_news": [
     {
-      "title": "感恩節期間全球股市回升，AI與關稅疑慮仍未消退",
-      "summary": "美國股市因感恩節休市，亞洲與歐洲股市週四上漲，AI相關股票支撐部分市場；但投資人仍關注美國對中國、日本、歐盟等貿易夥伴的新關稅提案。美股期貨上漲不能代替現貨收盤確認。",
-      "url": "https://abcnews.com/Business/wireStory/global-stocks-rise-tech-shares-rebound-us-closes-138462620",
-      "published_at_tw": "2026-11-26 13:21",
-      "published_at_source": "2026-11-26 00:21",
-      "source_timezone": "America/New_York",
+      "title": "美國301調查出爐，工總籲台美積極談判降低產業不確定性",
+      "summary": "美國貿易代表署提出對台灣等14個經濟體課徵15%不疊加關稅的方案。工總認為既有台美談判成果仍有保障，但美方審查已擴及製造回流、供應鏈安全與產業競爭力，呼籲政府持續溝通、企業檢視供應鏈風險。",
+      "url": "https://news.cnyes.com/news/id/6672052",
+      "published_at_tw": "2026-11-26 12:01",
+      "published_at_source": "2026-11-26 12:01",
+      "source_timezone": "Asia/Taipei",
       "updated_at_source": "來源頁未另列更新時間；採原始發布時間",
-      "publisher": "Associated Press"
+      "publisher": "鉅亨網"
     },
     {
-      "title": "關稅提案低於最壞預期，歐亞市場反彈但AI疑慮仍在",
-      "summary": "美國對14個貿易夥伴的新關稅提案，市場解讀不會與7月措施全面疊加，且可能延至2027年2至3月實施，歐洲與亞洲股市因此回升；但AI資本支出回報與信用風險仍在。",
-      "url": "https://www.lse.co.uk/news/global-markets-stocks-climb-as-traders-shrug-off-latest-us-tariff-salvo-7cgyyl4ethkce63.html",
-      "published_at_tw": "2026-11-26 20:10",
-      "published_at_source": "2026-11-26 12:10",
-      "source_timezone": "UTC",
+      "title": "中國商務部、外交部回應美國擬對14個經濟體加徵301關稅",
+      "summary": "美方公布製造業結構性產能過剩調查結果後，中國商務部批評措施屬單邊主義，外交部也表達反對。新關稅仍屬提案，後續需觀察公聽會程序、正式稅率與中方是否提出具體反制。",
+      "url": "https://news.cnyes.com/news/id/6672859",
+      "published_at_tw": "2026-11-26 15:29",
+      "published_at_source": "2026-11-26 15:29",
+      "source_timezone": "Asia/Taipei",
       "updated_at_source": "來源頁未另列更新時間；採原始發布時間",
-      "publisher": "Reuters"
+      "publisher": "鉅亨網"
     },
     {
-      "title": "美國晶片管制使亞洲資料中心投資更具選擇性",
-      "summary": "惠譽認為，美國對部分先進晶片出貨新增許可要求，將使亞太資料中心投資放慢並轉向晶片供應較可靠、客戶更分散的專案；仰賴中國客戶、昂貴GPU高使用率與外部融資的雲端運算業者承壓較大。",
-      "url": "https://www.reuters.com/world/asia-pacific/us-chip-curbs-will-slow-asia-data-center-investment-fitch-says-2026-11-26/",
-      "published_at_tw": "2026-11-26 19:18",
-      "published_at_source": "2026-11-26 11:18",
-      "source_timezone": "UTC",
+      "title": "日本抗議美國301關稅提案，巴西稱措施不合法",
+      "summary": "日本否認美方對其結構性產能過剩的指控，並對15%關稅提案表達遺憾；巴西也批評美方單方面措施，稱將採取對等回應。各國反應顯示關稅議題仍可能延伸為雙邊談判與報復風險。",
+      "url": "https://news.cnyes.com/news/id/6672124",
+      "published_at_tw": "2026-11-26 14:30",
+      "published_at_source": "2026-11-26 14:30",
+      "source_timezone": "Asia/Taipei",
       "updated_at_source": "來源頁未另列更新時間；採原始發布時間",
-      "publisher": "Reuters"
+      "publisher": "鉅亨網"
     },
     {
-      "title": "沙國Jazan煉油廠遇襲，一名工人死亡且部分作業暫停",
-      "summary": "沙烏地能源部表示，Jazan煉油廠遭空中投射物擊中，一名工人死亡、多人受傷，火勢已受控，部分作業暫停檢查；目前證據支持局部設施受損，尚不足以推論沙國整體原油出口中斷。",
-      "url": "https://www.reuters.com/world/middle-east/saudi-led-coalition-says-houthis-attacked-aramcos-jazan-refinery-2026-11-26/",
-      "published_at_tw": "2026-11-27 00:05",
-      "published_at_source": "2026-11-26 16:05",
-      "source_timezone": "UTC",
+      "title": "De Cos成為接任歐洲央行總裁主要人選，仍待正式任命",
+      "summary": "知情人士指出，荷蘭政府轉而支持西班牙經濟學家De Cos，歐元區多數國家已形成共識；仍須經大使會議及歐盟領袖程序確認。市場初步視為政策延續，但歐洲央行利率路徑仍取決於通膨與能源風險。",
+      "url": "https://news.cnyes.com/news/id/6673268",
+      "published_at_tw": "2026-11-26 22:05",
+      "published_at_source": "2026-11-26 22:05",
+      "source_timezone": "Asia/Taipei",
       "updated_at_source": "來源頁未另列更新時間；採原始發布時間",
-      "publisher": "Reuters"
+      "publisher": "鉅亨網"
     },
     {
-      "title": "De Cos接任歐洲央行總裁人選浮現，市場初步視為政策延續",
-      "summary": "荷蘭轉而支持西班牙前央行總裁Pablo Hernández de Cos，使其成為接替拉加德的主要人選。市場反應有限，分析人士多認為其風格務實；未來利率方向仍取決於通膨、能源價格與歐元區財政風險。",
-      "url": "https://www.reuters.com/markets/europe/view-spains-de-cos-set-be-nominated-by-eu-leaders-next-ecb-chief-2026-11-26/",
-      "published_at_tw": "2026-11-26 22:20",
-      "published_at_source": "2026-11-26 14:20",
-      "source_timezone": "UTC",
+      "title": "亞洲股市普遍反彈，關稅憂慮緩和但AI投資疑慮未消",
+      "summary": "11/26亞洲股市普遍上漲，台灣加權指數走強，市場認為美國對14個貿易夥伴的新關稅提案低於最壞預期，且不與7月措施全面疊加；但AI投資回報與科技股信用風險仍未解除。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1778234",
+      "published_at_tw": "2026-11-26 17:00",
+      "published_at_source": "2026-11-26 17:00",
+      "source_timezone": "Asia/Taipei",
       "updated_at_source": "來源頁未另列更新時間；採原始發布時間",
-      "publisher": "Reuters"
+      "publisher": "Investing.com"
     }
   ],
   "headlines": [
