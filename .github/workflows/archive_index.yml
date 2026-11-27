@@ -34,16 +34,18 @@ jobs:
           set -euo pipefail
           test -s index.html
 
-          ARCHIVE_DATE=$(python3 -c 'import json; from datetime import date,timedelta; published=date.fromisoformat(json.load(open("production/config/homepage-publication-lock.json",encoding="utf-8"))["report_date"]); print((published-timedelta(days=3 if published.weekday()==0 else 1)).isoformat())')
+          ARCHIVE_DATE=$(python3 -c 'import json; print(json.load(open("production/config/homepage-publication-lock.json",encoding="utf-8"))["previous_homepage"]["report_date"])')
+          ARCHIVE_BLOB_SHA=$(python3 -c 'import json; print(json.load(open("production/config/homepage-publication-lock.json",encoding="utf-8"))["previous_homepage"]["index_git_blob_sha"])')
 
-          echo "Archive date: ${ARCHIVE_DATE}"
-          export ARCHIVE_DATE
+          echo "Previous approved homepage date: ${ARCHIVE_DATE}"
+          export ARCHIVE_DATE ARCHIVE_BLOB_SHA
 
           python - <<'PY'
           import os, re, subprocess
           from pathlib import Path
 
           expected = os.environ["ARCHIVE_DATE"]
+          expected_blob = os.environ["ARCHIVE_BLOB_SHA"]
           expected_slash = expected.replace("-", "/")
 
           commits = subprocess.check_output(
@@ -54,6 +56,9 @@ jobs:
           found = None
           for commit in commits:
               try:
+                  blob = subprocess.check_output(["git", "rev-parse", f"{commit}:index.html"], text=True).strip()
+                  if blob != expected_blob:
+                      continue
                   html = subprocess.check_output(
                       ["git", "show", f"{commit}:index.html"],
                       text=True,
