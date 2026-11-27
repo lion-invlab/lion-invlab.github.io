@@ -104,7 +104,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 每次改規則／欄位／模板／程式／Workflow／排程，必須回頭檢查所有上下游：Stage WR、contracts、Manifest、Builder selector、Schema、測試、唯一寫入者、Workflow 觸發、Pages、archive、排程及 Chart 3。寫入後回讀 GitHub，核對 commit、blob SHA 及內容。未測試不得宣稱通過。
 
 ## 12. 全域上線定義
-六階段真實 E2E、兩種母版、44 項行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 同步、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
+六階段真實 E2E、兩種母版、44 項逐市場日期行情與 FedWatch、行事曆／財報／新聞／五層分析、Chart 3 增量交接與非阻塞派送、四類 QA、main preview 遠端回讀、Pages 公開驗證、核准後正式發布／封存、排程切換及 Simulation 未受修改均有證據，方可標正式上線。
 
 ## 13. 手動補救入口（Missed Schedule Recovery）
 - 正常主流程仍只由 weekday `schedule` 啟動 Stage 1 → Stage 2 → Stage 3；Stage 1 排程為台灣夏令 03:45／冬令 04:45（15:45 ET），Stage 2 worker 為台灣夏令 04:00／冬令 05:00（16:00 ET）。Stage 1 須先提交 Run handoff，Stage 2 worker 才接手。手動補救不是第二個每日排程，也不得由 Stage 4 直接建立 Run。
