@@ -421,7 +421,20 @@ jobs:
             [[ "$path" == "$RUN_DIR/"* ]] || { echo "Unexpected staged path: $path" >&2; exit 1; }
           done
           git commit -m "data(tac-production): capture Stage 1-3 $REPORT_DATE $RUN_ID"
-          git push origin HEAD:main
+          # Chart 3 may publish a disjoint data commit during Stage 3.
+          # Rebase this Run-only commit and retry instead of losing the capture.
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              PUSHED=true
+              break
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
       - name: Upload Stage 1-3 Run evidence
         if: always()
         uses: actions/upload-artifact@v4
