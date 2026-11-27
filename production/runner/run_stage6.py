@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup
 
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 ROOT=Path(__file__).resolve().parents[2]
 REPO="lion-invlab/lion-invlab.github.io"
@@ -108,6 +108,7 @@ def main():
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_6",context)
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
+    require_stage_wr_receipt(stage5,"STAGE_5")
     report_date=context["report_date"]
     html=run_dir/"review.html";qa=run_dir/"qa-sidecar.json"
     render_path=run_dir/"render-manifest.json";stage4_path=run_dir/"stage4-analysis-receipt.json"
