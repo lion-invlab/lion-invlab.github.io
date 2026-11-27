@@ -211,7 +211,10 @@ def main():
     assert positive["prior_observation_reused_count"] == 0
     assert positive["source_pages_fetched"] is True
     assert positive["displayed_values_independently_reconciled"] is True
-    assert all(r["observation_provenance"] == "SYNTHETIC_TEST_ONLY" for r in positive["rows"])
+    cnn_manifest_rows = [r for r in positive["rows"] if r.get("group") == "risk" and r.get("name") == "fear_greed"]
+    non_cnn_manifest_rows = [r for r in positive["rows"] if not (r.get("group") == "risk" and r.get("name") == "fear_greed")]
+    assert all(r["observation_provenance"] == "SYNTHETIC_TEST_ONLY" for r in non_cnn_manifest_rows)
+    assert len(cnn_manifest_rows) == 1 and cnn_manifest_rows[0]["observation_provenance"] == "CURRENT_CNN_OFFICIAL_DASHBOARD_OBSERVATION"
     assert all(len(r["observation_record_sha256"]) == 64 for r in positive["rows"])
     print("PASS: 44 unique rows; all fixture-carried observations remain pending and cannot pass Stage 2")
     print("PASS: no false claim of current-run source-page fetching or independent numeric reconciliation")
