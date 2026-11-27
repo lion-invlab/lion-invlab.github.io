@@ -166,4 +166,10 @@
 
 ---
 
-**目前狀態：** Stage 1 日期解析修正已提交；對應 deterministic CI 曾因測試使用不存在的 W49 calendar fixture 而失敗，已修正測試日期並重新執行。新 CI 結果尚待回讀。Stage 2 handoff、完整 11/27 真實資料及審核版尚未完成；不得宣稱早報已產出。
+**目前狀態（2026-11-27 08:40 Asia/Taipei）：**
+- R0 全面現況盤點：已確認 Main 唯一規範、雙母版、六階段 Runner、contracts、Workflow、calendar／Chart 3／Pages／archive 等主要責任邊界；R0 尚未全部完成，舊 workflow 的完整 writer／trigger 盤點仍需逐一驗證。
+- R1 日期基準：`create_run_fixture.py` 已採台灣報告日規則；2026-11-27 → 2026-11-26。CI #395（GitHub Run `45916213111`，commit `20511f3dadc2730bc391f8c260e2d99c4fe95c22`）已 success，但該 CI 是 deterministic validation，不是當日 Capture 或 E2E。
+- 11/26 休市證據：Nasdaq／Cboe 官方交易日曆確認美國股票與選擇權市場 11/26 休市；SIFMA 確認美國固定收益市場 11/26 full close。不得將 11/25 價格回填為 11/26。
+- R2 尚未完成：現行 `tac-production.yml` 仍在同一 Capture job 直接呼叫 Stage 2 Runner；Runner 在缺少 ChatGPT bundle 時仍有 Playwright fallback，且 observation bundle／editorial input 仍使用日期級全域路徑，尚未完成 Run-scoped handoff。
+- 11/27 當日尚無成功的 11/26 Stage 2 snapshot、Stage 3 receipt、Stage 4 editorial JSON、Stage 5 QA 或 Stage 6 Preview。舊失敗 Run `TAC-2026-11-27-45912371719-1` 的 trading_date=11/25，不得重用。
+- 下一個唯一工程主軸：完成 R2 的兩段式 Run-scoped handoff（Stage 1 commit → ChatGPT Stage 2 bundle → Runner Stage 2/3 → ChatGPT Stage 4 JSON → Runner Stage 4–6），同步更新 schema、validator、Runner、Workflow、contracts、tests、README、PORT_MANIFEST；移除 Stage 2 Playwright fallback。未完成前不得宣稱 11/27 早報已產出.
