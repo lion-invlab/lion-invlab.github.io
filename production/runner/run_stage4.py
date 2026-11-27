@@ -86,9 +86,15 @@ def validate_content(content:dict,context:dict,data:dict)->dict:
     if content.get("market_snapshot_sha256")!=current_snapshot_sha:
         raise ValueError("Stage 4 content was not bound to this exact frozen Stage 2 market snapshot")
     cutoff=parse_tw(content["news_cutoff_taipei"])
-    expected_date=datetime.combine(report_date,time(5,25),TZ)
-    if cutoff.date()!=report_date or cutoff>expected_date+timedelta(minutes=30):
-        raise ValueError("news_cutoff_taipei must be on report_date and no later than 05:55 Taiwan time")
+    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
+    if report_date.weekday()==0:
+        # Monday report is produced Saturday; cutoff must be the exact Stage 4 capture cutoff.
+        if cutoff.date()!=production_date:
+            raise ValueError("Monday-dated report news_cutoff_taipei must be on its Saturday production date")
+    else:
+        expected_date=datetime.combine(production_date,time(5,25),TZ)
+        if cutoff.date()!=production_date or cutoff>expected_date+timedelta(minutes=30):
+            raise ValueError("news_cutoff_taipei must be on production date and no later than 05:55 Taiwan time")
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0),TZ)
     news_counts={}
