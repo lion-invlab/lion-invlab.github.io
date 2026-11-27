@@ -1,4 +1,4 @@
-# DATA SCHEMA v1.1
+# DATA SCHEMA v1.2
 
 All stage artifacts are scoped to one Run ID and report date. Times use ISO-8601 with explicit timezone; report timezone is Asia/Taipei. Null is null, never zero.
 
