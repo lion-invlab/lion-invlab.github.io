@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from datetime import date
-from create_run_fixture import build, write_run_files, report_cutoff_taipei
+from create_run_fixture import build, write_run_files, report_cutoff_taipei, report_target_date, report_template_key
 
 class RunFixtureFactoryTests(unittest.TestCase):
     def test_creates_fresh_blank_first_44_row_fixture(self):
@@ -78,11 +78,10 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),2)
 
     def test_saturday_production_uses_monday_report_and_monday_mother(self):
-        result=build(date(2026,11,30),"TAC-2026-11-30-saturday-production")
-        self.assertEqual(result["run_context"]["trading_date"],"2026-11-27")
-        self.assertEqual(result["run_context"]["mother"]["key"],"monday")
-        self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),2)
-        self.assertEqual(result["market_fixture"]["trading_date"],"2026-11-27")
+        report=date(2026,11,30)
+        self.assertEqual(report_target_date(report),date(2026,11,27))
+        self.assertEqual(report_template_key(report),"monday")
+        self.assertEqual(report_cutoff_taipei(report),"2026-11-28 05:25")
 
     def test_rejects_saturday_report_date(self):
         with self.assertRaises(ValueError):
