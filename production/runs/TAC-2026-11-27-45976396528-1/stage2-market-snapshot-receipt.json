@@ -1,0 +1,744 @@
+{
+  "schema_version": "1.0",
+  "receipt_type": "TAC_STAGE2_MARKET_SNAPSHOT",
+  "status": "PARTIAL",
+  "freeze_point": "STAGE2_MARKET_SNAPSHOT_LOCKED",
+  "downstream_market_access": "READ_ONLY",
+  "preexisting_market_values_used": false,
+  "repository": "lion-invlab/lion-invlab.github.io",
+  "branch": "main",
+  "commit_sha": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+  "workflow_run_id": "45976396528",
+  "batch_id": "a5f95384ae372e34af5182eb",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "generated_at_utc": "2026-11-27T09:47:06.935560+00:00",
+  "row_count": 44,
+  "verified_count": 26,
+  "pending_count": 1,
+  "closed_count": 17,
+  "market_status_counts": {
+    "VERIFIED": 26,
+    "CLOSED": 17,
+    "SOURCE_NO_DATA": 1
+  },
+  "pending_rows": [
+    {
+      "group": "risk",
+      "name": "fear_greed",
+      "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+      "read_status": "SOURCE_NO_DATA"
+    }
+  ],
+  "manifest_status": "PARTIAL",
+  "source_pages_fetched": true,
+  "displayed_values_reconciled": false,
+  "displayed_values_independently_reconciled": false,
+  "screenshot_row_count": 0,
+  "screenshot_field_count": 0,
+  "mixed_field_row_count": 0,
+  "historical_page_only_row_count": 26,
+  "input_files": {
+    "fixture": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/report-data.json",
+      "sha256": "1fcec9c49bd26527bafd467c779320178cf05196e0472cf8bca3a938f1551e83"
+    },
+    "audit": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-snapshot-audit.json",
+      "sha256": "65a5009f3fdfd379cde616f05a31a176fa88edf18fc81a0cc3898f0c4c3c3363"
+    },
+    "manifest": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-source-verification-manifest.json",
+      "sha256": "b9bb2b9d3e949ce7e74c97fa3e1e6ab6e8ed12b76f1aecaf28e11272c8a6c72c"
+    },
+    "observations": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-history-browser-observations.json",
+      "sha256": "0f2bd97b8916fe62b81cbcb49c116c6a4984b0ba969d24e5535acffb93d27618"
+    }
+  },
+  "rows": [
+    {
+      "group": "bonds",
+      "name": "10年期美債殖利率",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "b7c2a4f1aeb1aa150b92413a377dc5805d85deef1fbf725c771c58e9dc72209b",
+      "manifest_record_sha256": "8f20213b44619152f8d979b3377a7ee7376adb562cb3c0f63e2bd5dcf851b063",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "bonds",
+      "name": "2年期美債殖利率",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "0948c0c2acfd6256707a55eb110654d8b8879506d86c0ef49b738f0c78b5dec7",
+      "manifest_record_sha256": "4f7d0c1873a3688de41173f9937560f820f9fbac1bd819f002010e763fad9859",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "bonds",
+      "name": "30年期美債殖利率",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "a864d95121f0bdc97656f0e3194e7d1f2190deea77c354fa639f4116370d96e1",
+      "manifest_record_sha256": "f8e035cab5bec790fdb0620fe6a9e49c895875f27d91b852f5b8f5cfb525bf4e",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "energy",
+      "name": "Brent原油期貨",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "f133c3975f9b7cdf2df0f29d79b3566391c5dcb133c9e6457aa5078aa1244c79",
+      "manifest_record_sha256": "42e18859fb06b19d0ce03d0cb45ba8c41ab94a130871913576e38a02da75ce4d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "energy",
+      "name": "WTI原油期貨",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "d3577e8b21b0b7e084c2924db64ee89968f8e8899b8ad88917926d8def9d630b",
+      "manifest_record_sha256": "8613c2a43d9a2e6d7df24afc210c6f58a7c18f763d08e7254e5765621e6b128a",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "歐元／美元",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "8db30449ad4d29474dce445263890e76af48f1cbfb2660f5dcac8bc65506c546",
+      "manifest_record_sha256": "5ebec971c00f4614dfbf9c6ab43cf81a014285f707400f7d01ade269cbc4055f",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "澳幣／美元",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "8eabe108df37ad61df4ffacba199710b261efa716903c8b964988793222316c4",
+      "manifest_record_sha256": "02fa5de1a7664b83f654656584a3180f7dc842c1d8bbf7159275516558b2f908",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "美元指數",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/usdollar-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "02ccf9c36f106bea6979feb869191c4bb798149ea65b699435d295da687727f6",
+      "manifest_record_sha256": "16eb1b0f36f022a5b2ffd93963bb7bf45b13033bc185e242dc20f4bea336ca6d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "美元／新台幣",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "ed6159d60b9de33629e40b1edf7f3855170dc76b9e0534ff3269a8138b58f395",
+      "manifest_record_sha256": "ef72b44236a31d230d3045c644f2b021b54d00df315490caea0a2c2d563b297d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "美元／日圓",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/currencies/usd-jpy-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "15bb9e2986725edaa53fea6e357ab6787c01faf6ca124fd11380b0390dda728c",
+      "manifest_record_sha256": "548730ea545afa8bb64ec13228a61442cf96d588a8239f9e6a397b3b5ede2790",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "fx",
+      "name": "英鎊／美元",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "5fdcc82841d0949f2b833ae9ca85e1dbb60429a9e7da11285f29767853d7a1e3",
+      "manifest_record_sha256": "555eadfd8f370eea71f422736cc885b53bc2a3696b1f488ca659dfbcc5fb4549",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "STOXX Europe 600",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/stoxx-600-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "ce43233c935363ee6b51c59c8b73598f1aacdf362dcf805f3ffb4663b1ca8ffe",
+      "manifest_record_sha256": "f0788190488d54c548f8339c6cbac16522318ba511f069264f149100f1c4a37d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "上海綜合指數",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "838ba547403788dc9e38bb25171f8e0d86b916f433e8cfd2c50f5492f6d530d1",
+      "manifest_record_sha256": "021110fdb08e0e4652f1236b7b856cd3d248e684c7fab6f449c32742c13b736e",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "台灣加權指數",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "7874a5b52aee502a4168ea829a0a437e3aff758f8590692d5f0e0bd3380fa651",
+      "manifest_record_sha256": "45807ba294e86e4038ea5044a5213d409c32956cf4b0ad1691cf04518d57cdd8",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "德國 DAX",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/germany-30-historical-data?cid=23657",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "b1780f41e90a35ae7ccfcc2738b31535ecd24f728e2f221280226592d4a592a3",
+      "manifest_record_sha256": "22d28cae50cff957e48568f96a5dd09b9e4fa494783ab706719179db1e9f3aa1",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "新加坡海峽時報指數 STI",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "8995530407008373651519ddcb8a26ec7adc39e7958e38b9de877d26c687d4d8",
+      "manifest_record_sha256": "98e6a76475b6e994a3de7ad3e1ab5e0035ad3157fe1349fd29bcec84a4f8610e",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "日經225",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "2a393d5ea6ccc6a276eba22dc17c9601e7514adba40797bd82d03306418865b1",
+      "manifest_record_sha256": "fa7052b546fb34bfb892bd0b8b8b3781d1bc7dc36c896ec0825dff77f76dafce",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "標普500指數",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "fd2434da948c00fd11efefdb20a22762cff4367578fef6eb316ea716ae8e1f98",
+      "manifest_record_sha256": "5a0ba2ec9dd672a654bab6b040bb5802acaf13913cf61f33179a7919f7e1c0ba",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "法國 CAC 40",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/france-40-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "642d57594a6aab7669e77814d2f94532195936af945a4f923cb19ef8b78d8870",
+      "manifest_record_sha256": "a39dc439472def9b4f0e8a40033ed1ab94e48e04e696af4bef6e5c1eb22cd842",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "深證成指",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/szse-component-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "bd2303f1b9b1b47da5849b32c3dc387146751999b395e4cb65e2ce689a80bf9b",
+      "manifest_record_sha256": "ce44c92a5fdd3860f2b555e5ade0d67c298ff4ce31ff08dc18bffbf20d854e4d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "澳洲 S&P/ASX 200",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/aus-200-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "4f097b9a1514b5924bc22265d204021c8403481efc09d7d2a0a762d16e8aca44",
+      "manifest_record_sha256": "d395aad1f135f2e5f924a29e4aba23c10e9378f4d94d92667e46fcd5a9dceebd",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "羅素2000指數",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "5dc87a39622379f84bb6964561eed9abc1104f4c8c67973a8ee0f820ecc2d1f5",
+      "manifest_record_sha256": "de9c86af3874e915d1301114d6915667f63f33049300195950da3d74257337fb",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "英國 FTSE 100",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/uk-100-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "890702c12b65f724da8e7bb11a3fae5d4eba095766446488356549362929b32b",
+      "manifest_record_sha256": "e8714045a29ed1eb88799670a8a6f9e8c0a1d175e010b611bf1776d8db74a8d3",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "費城半導體指數",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "7e597948cddd418e2c05af61f179ec5bdce7d3d91631ca86d238b9e3b1dc8d9a",
+      "manifest_record_sha256": "a0ad10b84f2d837440327b3542c28c08663c4099c0a395c8f78fa5af92217a1a",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+        "reader_ref": "turn370836view1",
+        "line_start": 12,
+        "line_end": 24
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "道瓊工業指數",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/indices/us-30-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "4839ee5273b985e3a8bf5bb9a1b58500be73d6248f036325bd7318e813bc5edd",
+      "manifest_record_sha256": "71c78a478d51ac12634e2ca5bb7b77e8ddb80302c8218c09abe2ce040fe7e5bd",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "那斯達克綜合指數",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "1b4846b5144b96dd67420a3aacaf0f5bf15209001615c4890b5e0dd8b08ebfe4",
+      "manifest_record_sha256": "83efe7a6964bac67170f1021686a60de0b178f6182ee5452044bef373251fe2c",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+        "reader_ref": "turn370836view1",
+        "line_start": 12,
+        "line_end": 24
+      }
+    },
+    {
+      "group": "global_markets",
+      "name": "韓國 KOSPI",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/indices/kospi-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "80bdfcf3ca7231d8b0bcf329d31b63c8e14b7fa88779ef3caea7b3b274ba921e",
+      "manifest_record_sha256": "00c93419baeca40680d9a84ff0b20e5793157c153ce44ec17b7b77f14d4f6e19",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "global_markets",
+      "name": "香港恆生指數",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/hang-sen-40-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "91013a3aac950c70068c1580bcd08e63826b0f2128de978feb5a9d2620619f1a",
+      "manifest_record_sha256": "ad24d50f594926250b3d01baf28d5484bd3092d3d4f380188bb3a2489cc5d83d",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "metals",
+      "name": "白銀期貨 SI",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "a4bb6a19c005d779ecb66014d5f6148eaf9c66bfc497d27d1329fd6d93b3fda6",
+      "manifest_record_sha256": "44376ac6b0dd464e32a1fe4660ddab167a7f81b845625ee9a414f3c88b2abefd",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "metals",
+      "name": "黃金期貨 GC",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "4adbd2f150fc897afee093125cdd25d436adbebe5086e1338a1a33384d4fa059",
+      "manifest_record_sha256": "370fad86a9849945ffb76282ab60811e994b1579a30f4c5b03817b141e68dc1c",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "risk",
+      "name": "fear_greed",
+      "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+      "market_data_status": "SOURCE_NO_DATA",
+      "source_url": "https://fgscore.com/en/markets/sp500",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "b3a095d3587fffc053901e3dfe34bc14f19fcef693b79092f84a465edb6a0544",
+      "manifest_record_sha256": null,
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "risk",
+      "name": "move",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "fba5c90e1e312a814f76f785bab6c5c1aa64cfb5373cf271addcb01471829648",
+      "manifest_record_sha256": "db88a89a92bd883345bc8c4f506fcee9096e0f7b51caac85ad03044537dbd9bf",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.sifma.org/resources/guides-playbooks/holiday-schedule",
+        "reader_ref": "turn370836view2",
+        "line_start": 72,
+        "line_end": 76
+      }
+    },
+    {
+      "group": "risk",
+      "name": "vix",
+      "status": "VERIFIED",
+      "market_data_status": "VERIFIED",
+      "source_url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "fc5da2d88b105339e9a94f2b8c6c099b00c09435fc1bd5c2b63e9a1612f9878f",
+      "manifest_record_sha256": "4b0efa820e7d6c32d091f0840ed81287d88f1af08412b405a2ba37b0dcee8838",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": null
+    },
+    {
+      "group": "sectors",
+      "name": "XLB",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "10f72f839670f3ff4f35e2013274de68b6ebc63a3f26e9218baf00f583d87464",
+      "manifest_record_sha256": "b6f8cdb44b7e68ec7288bf21ef94e57ac54735861f148203b55a6bb0ebb285dc",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLC",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "964237650c07cbaf3fc09399638cdb217dbf762ab9b9aeb7baa48bfb46bfcb0f",
+      "manifest_record_sha256": "62a3d5f664cea9f798c0241cfd3010624cf7d3e9fa6623665b2cf716dd28d5a7",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLE",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "22717d1804386fb3d21ce68ab9c6a0f4257c7c816ac79a4a57666230b6edd239",
+      "manifest_record_sha256": "08a381a1869614947b8909e5e41cca4f7a7ff3f22f0651a61e98d2e981002fd1",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLF",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "6de01d519fb6bf468e8e61853ea8a7203d6245c6f027169fba0a601a77685734",
+      "manifest_record_sha256": "fb1680f1693322ba25bb0b1b3d3e8f6bc771720dd5e6a1373885be52903c39aa",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLI",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "d82c1b55a8f0dccaca1dd042a3383fa40b4abf7dcb5abebda564706b99d9cff6",
+      "manifest_record_sha256": "1f13191e4c1e149b186ca3e55f91b0ebb89fa461ac53875dc9e791bdf6bb0881",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLK",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "d3850de55e77b18e324d626b799713d5912bf3c4fc949d112508d1b4acf02cc5",
+      "manifest_record_sha256": "361728f50cdb0026efb69471dad784a8fb3ea06f490dd43cc5c2740e9e3569f7",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLP",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "6cafa55c76ebd74794dea339c161d5ec2c3eae03b22b4a6fd364255e53f0a9b6",
+      "manifest_record_sha256": "a0835b4ebbe9132003b73bf600c1c1ea48b6d80ebae1ac29cbc1f96bcfe6a7ce",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLRE",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "315c376c4e492f054db5c32700ca36b0a79a2cce0c4b45d6ef661df0e821fb4c",
+      "manifest_record_sha256": "9fa70e24bcb35f138602b9e4eac7932ee8d6b7ed24db6df24ac93b7e6c357764",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLU",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "dea5bcf3251f37ed13d636d7283d0fa6a628cc3382b181e75925514c6f3aef50",
+      "manifest_record_sha256": "9ea31edcc2f55a4956f3075282f817ab181855d96f18357a337c3c1a34a87cd7",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLV",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "79006d8d5ad291d75b5e6e7a2e210f067e3dd8122c583e267285ac98bdaec2a4",
+      "manifest_record_sha256": "a1cf7334df5dc12c6b03ac2e4ab186011b9d792cc0ddca8cfeec38dcda402554",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    },
+    {
+      "group": "sectors",
+      "name": "XLY",
+      "status": "CLOSED",
+      "market_data_status": "CLOSED",
+      "source_url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+      "trading_date": "2026-11-26",
+      "observation_row_sha256": "e4fdf1affb6c15e12d8a78cb90f88695c0bb63ede337582559e054ab786a7bf4",
+      "manifest_record_sha256": "1bf74317278208d4959f577f7724e6e7622d34c9142bbd899987b86a6622dea9",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "source_page_fetched": true,
+      "closure_evidence": {
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23
+      }
+    }
+  ],
+  "warning": "PARTIAL means pending rows remain explicitly unresolved. This receipt freezes only the Stage 2 market snapshot; it is not a Stage 3-4 prebuild receipt or REVIEW_READY approval.",
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_2",
+    "wr_path": "production/stages/STAGE_2_MARKET.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 9818,
+    "wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
+    "wr_git_blob_sha": "60524618b7652d8ff7e590609a456ccccbb9c5dd",
+    "stage1_pinned_git_blob_sha": "60524618b7652d8ff7e590609a456ccccbb9c5dd",
+    "stage1_pinned_commit": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+    "rules_text_loaded": true
+  },
+  "worker_wr_attestation": {
+    "status": "PASS",
+    "stage2_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
+    "expected_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a"
+  },
+  "fedwatch_observation": {
+    "status": "SOURCE_NO_DATA",
+    "target_meeting": null,
+    "current_target_range": null,
+    "updated_at_tw": null,
+    "observation_sha256": "59d1c038eae537b910945c7dcbbc7e507779a6c9f852dc481c9c664a4e8972f1"
+  }
+}

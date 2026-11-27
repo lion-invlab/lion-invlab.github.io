@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_3_CALENDAR",
+  "status": "PASS",
+  "run_id": "TAC-2026-11-27-45976396528-1",
+  "report_date": "2026-11-27",
+  "main_commit_sha": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+  "current_week": {
+    "week_id": "2026-W48",
+    "path": "data/calendar/weeks/2026-W48.json",
+    "blob_sha": "fdcdc3a4a2870b988a00458b6947a24005443076",
+    "economic_count": 27,
+    "earnings_count": 11
+  },
+  "previous_week": {
+    "week_id": "2026-W47",
+    "path": "data/calendar/weeks/2026-W47.json",
+    "blob_sha": "727ea2be1c04688d3c4f98d36c452561bbab6821",
+    "economic_count": 25,
+    "earnings_count": 23
+  },
+  "source_json_read_only": true,
+  "projection_is_in_memory": true,
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_3",
+    "wr_path": "production/stages/STAGE_3_CALENDAR.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 2797,
+    "wr_sha256": "45cc19a8a210aee471f797c2314377b88b1325300e9eaa6963f2321fd0fc6754",
+    "wr_git_blob_sha": "bef1950e1a47cd79ddf4f579e4baa74dc4db8999",
+    "stage1_pinned_git_blob_sha": "bef1950e1a47cd79ddf4f579e4baa74dc4db8999",
+    "stage1_pinned_commit": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+    "rules_text_loaded": true
+  },
+  "outputs": {
+    "calendar.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/calendar.json",
+      "sha256": "23ed8f25c27c6f645bd0055271dee4c852af48dbd1e494043f8c679057c38ae9"
+    },
+    "earnings.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/earnings.json",
+      "sha256": "072ffc08560361e8dc6bc15230b2a5b6fdbd3f4bed4a82cc23cc456f4b6c14c4"
+    },
+    "last-week-calendar.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/last-week-calendar.json",
+      "sha256": "eb87a898b4dfe3eb9b37cd5960dc0624d3c00e3fc894f7b1151e21dddb53a4b1"
+    },
+    "last-week-earnings.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/last-week-earnings.json",
+      "sha256": "06b680bc7a0b1a0058239f6be133b585f2319c7f497ed68fe578bb0a004d23f0"
+    },
+    "calendar-source-bundle.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/calendar-source-bundle.json",
+      "sha256": "c9d1fd16f51715baba8e186fb6d6660dafd9bda872e81e7d1d7a2a4b6aa15cb3"
+    }
+  }
+}

@@ -1,0 +1,1550 @@
+{
+  "report_date": "2026-11-27",
+  "timezone": "Asia/Taipei",
+  "trading_date": "2026-11-26",
+  "summary": "",
+  "sentiment": "",
+  "focus_news": [],
+  "headlines": [],
+  "global_markets": {
+    "道瓊工業指數": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com HK｜Dow Jones 30 歷史資料",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "CLOSED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Dow Jones Industrial Average (DJI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.nyse.com/trade/hours-calendars",
+          "reader_ref": "turn370836view0",
+          "line_start": 7,
+          "line_end": 23,
+          "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+        }
+      }
+    },
+    "標普500指數": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com｜S&P 500 歷史資料頁",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "CLOSED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "S&P 500 (SPX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.nyse.com/trade/hours-calendars",
+          "reader_ref": "turn370836view0",
+          "line_start": 7,
+          "line_end": 23,
+          "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+        }
+      }
+    },
+    "那斯達克綜合指數": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com HK｜Nasdaq Composite 歷史資料",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "CLOSED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Nasdaq Composite (IXIC)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+          "reader_ref": "turn370836view1",
+          "line_start": 12,
+          "line_end": 24,
+          "evidence": "Nasdaq 2026 U.S. Stock Market Holiday Schedule: Thanksgiving Day, November 26, 2026 — Closed."
+        }
+      }
+    },
+    "羅素2000指數": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com CA｜Russell 2000 Historical Data (RUT, NYSE)",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "verification_status": "CLOSED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Russell 2000 (RUT)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.nyse.com/trade/hours-calendars",
+          "reader_ref": "turn370836view0",
+          "line_start": 7,
+          "line_end": 23,
+          "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+        }
+      }
+    },
+    "費城半導體指數": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com HK｜PHLX Semiconductor 歷史資料",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "CLOSED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "PHLX Semiconductor (SOX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 1,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.nasdaq.com/market-activity/stock-market-holiday-schedule",
+          "reader_ref": "turn370836view1",
+          "line_start": 12,
+          "line_end": 24,
+          "evidence": "Nasdaq 2026 U.S. Stock Market Holiday Schedule: Thanksgiving Day, November 26, 2026 — Closed."
+        }
+      }
+    },
+    "日經225": {
+      "display": "57,809.00",
+      "change_display": "+1.40%",
+      "source": {
+        "name": "Investing.com｜Nikkei 225 歷史數據（Real-time derived）",
+        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Nikkei 225 (N225)",
+        "source_page_fetched": true,
+        "close_value": 57809.0,
+        "daily_change_percent": 1.4,
+        "history_close": 57809.0,
+        "history_change": 1.4,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 57809,
+        "observed_change": 1.4,
+        "browser_observation_record_sha256": "2a393d5ea6ccc6a276eba22dc17c9601e7514adba40797bd82d03306418865b1"
+      }
+    },
+    "韓國 KOSPI": {
+      "display": "4,711.21",
+      "change_display": "+0.29%",
+      "source": {
+        "name": "Investing.com HK｜KOSPI 歷史資料",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "KOSPI (KS11)",
+        "source_page_fetched": true,
+        "close_value": 4711.21,
+        "daily_change_percent": 0.29,
+        "history_close": 4711.21,
+        "history_change": 0.29,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4711.21,
+        "observed_change": 0.29,
+        "browser_observation_record_sha256": "80bdfcf3ca7231d8b0bcf329d31b63c8e14b7fa88779ef3caea7b3b274ba921e"
+      }
+    },
+    "台灣加權指數": {
+      "display": "39,151.81",
+      "change_display": "+2.50%",
+      "source": {
+        "name": "Investing.com HK｜Taiwan Weighted 歷史資料",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Taiwan Weighted (TWII)",
+        "source_page_fetched": true,
+        "close_value": 39151.81,
+        "daily_change_percent": 2.5,
+        "history_close": 39151.81,
+        "history_change": 2.5,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 39151.81,
+        "observed_change": 2.5,
+        "browser_observation_record_sha256": "7874a5b52aee502a4168ea829a0a437e3aff758f8590692d5f0e0bd3380fa651"
+      }
+    },
+    "新加坡海峽時報指數 STI": {
+      "display": "4,962.64",
+      "change_display": "+0.65%",
+      "source": {
+        "name": "Investing.com HK｜Singapore Straits Times 歷史資料",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "FTSE Straits Times Singapore (STI)",
+        "source_page_fetched": true,
+        "close_value": 4962.64,
+        "daily_change_percent": 0.65,
+        "history_close": 4962.64,
+        "history_change": 0.65,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4962.64,
+        "observed_change": 0.65,
+        "browser_observation_record_sha256": "8995530407008373651519ddcb8a26ec7adc39e7958e38b9de877d26c687d4d8"
+      }
+    },
+    "澳洲 S&P/ASX 200": {
+      "display": "8,763.80",
+      "change_display": "+0.82%",
+      "source": {
+        "name": "Investing.com HK｜S&P/ASX 200 歷史資料",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "S&P/ASX 200 (AXJO)",
+        "source_page_fetched": true,
+        "close_value": 8763.8,
+        "daily_change_percent": 0.82,
+        "history_close": 8763.8,
+        "history_change": 0.82,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 8763.8,
+        "observed_change": 0.82,
+        "browser_observation_record_sha256": "4f097b9a1514b5924bc22265d204021c8403481efc09d7d2a0a762d16e8aca44"
+      }
+    },
+    "上海綜合指數": {
+      "display": "3,476.88",
+      "change_display": "+0.01%",
+      "source": {
+        "name": "Investing.com HK｜Shanghai Composite 歷史資料",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Shanghai Composite (SSEC)",
+        "source_page_fetched": true,
+        "close_value": 3476.88,
+        "daily_change_percent": 0.01,
+        "history_close": 3476.88,
+        "history_change": 0.01,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 3476.88,
+        "observed_change": 0.01,
+        "browser_observation_record_sha256": "838ba547403788dc9e38bb25171f8e0d86b916f433e8cfd2c50f5492f6d530d1"
+      }
+    },
+    "深證成指": {
+      "display": "10,084.04",
+      "change_display": "-0.02%",
+      "source": {
+        "name": "Investing.com HK｜SZSE Component 歷史資料",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "SZSE Component (SZI)",
+        "source_page_fetched": true,
+        "close_value": 10084.04,
+        "daily_change_percent": -0.02,
+        "history_close": 10084.04,
+        "history_change": -0.02,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 10084.04,
+        "observed_change": -0.02,
+        "browser_observation_record_sha256": "bd2303f1b9b1b47da5849b32c3dc387146751999b395e4cb65e2ce689a80bf9b"
+      }
+    },
+    "香港恆生指數": {
+      "display": "22,226.88",
+      "change_display": "+1.19%",
+      "source": {
+        "name": "Investing.com｜Hang Seng 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/hang-sen-40-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Hang Seng (HSI)",
+        "source_page_fetched": true,
+        "close_value": 22226.88,
+        "daily_change_percent": 1.19,
+        "history_close": 22226.88,
+        "history_change": 1.19,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 22226.88,
+        "observed_change": 1.19,
+        "browser_observation_record_sha256": "91013a3aac950c70068c1580bcd08e63826b0f2128de978feb5a9d2620619f1a"
+      }
+    },
+    "英國 FTSE 100": {
+      "display": "10,609.30",
+      "change_display": "+1.75%",
+      "source": {
+        "name": "Investing.com｜FTSE 100 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/uk-100-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "FTSE 100 (FTSE)",
+        "source_page_fetched": true,
+        "close_value": 10609.3,
+        "daily_change_percent": 1.75,
+        "history_close": 10609.3,
+        "history_change": 1.75,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 10609.3,
+        "observed_change": 1.75,
+        "browser_observation_record_sha256": "890702c12b65f724da8e7bb11a3fae5d4eba095766446488356549362929b32b"
+      }
+    },
+    "德國 DAX": {
+      "display": "25,215.52",
+      "change_display": "+2.08%",
+      "source": {
+        "name": "Investing.com｜DAX 歷史數據（Xetra）",
+        "url": "https://www.investing.com/indices/germany-30-historical-data?cid=23657",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "DAX (GDAXI)",
+        "source_page_fetched": true,
+        "close_value": 25215.52,
+        "daily_change_percent": 2.08,
+        "history_close": 25215.52,
+        "history_change": 2.08,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 25215.52,
+        "observed_change": 2.08,
+        "browser_observation_record_sha256": "b1780f41e90a35ae7ccfcc2738b31535ecd24f728e2f221280226592d4a592a3"
+      }
+    },
+    "法國 CAC 40": {
+      "display": "8,108.74",
+      "change_display": "+1.61%",
+      "source": {
+        "name": "Investing.com HK｜CAC 40 歷史資料",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "CAC 40 (FCHI)",
+        "source_page_fetched": true,
+        "close_value": 8108.74,
+        "daily_change_percent": 1.61,
+        "history_close": 8108.74,
+        "history_change": 1.61,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 8108.74,
+        "observed_change": 1.61,
+        "browser_observation_record_sha256": "642d57594a6aab7669e77814d2f94532195936af945a4f923cb19ef8b78d8870"
+      }
+    },
+    "STOXX Europe 600": {
+      "display": "636.98",
+      "change_display": "+1.75%",
+      "source": {
+        "name": "Investing.com｜STOXX 600 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/stoxx-600-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "STOXX 600 (STOXX)",
+        "source_page_fetched": true,
+        "close_value": 636.98,
+        "daily_change_percent": 1.75,
+        "history_close": 636.98,
+        "history_change": 1.75,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 636.98,
+        "observed_change": 1.75,
+        "browser_observation_record_sha256": "ce43233c935363ee6b51c59c8b73598f1aacdf362dcf805f3ffb4663b1ca8ffe"
+      }
+    }
+  },
+  "sectors": {
+    "XLP": "休市",
+    "XLV": "休市",
+    "XLE": "休市",
+    "XLU": "休市",
+    "XLRE": "休市",
+    "XLF": "休市",
+    "XLB": "休市",
+    "XLC": "休市",
+    "XLY": "休市",
+    "XLI": "休市",
+    "XLK": "休市"
+  },
+  "bonds": {
+    "2年期美債殖利率": {
+      "display": "4.654%",
+      "source": {
+        "name": "Investing.com｜2年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+        "verification_status": "VERIFIED",
+        "instrument_identity": "United States 2-Year Bond Yield",
+        "source_page_fetched": true,
+        "close_value": 4.654,
+        "daily_change_percent": 0.41,
+        "history_close": 4.654,
+        "history_change": 0.41,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4.654,
+        "observed_change": 0.41,
+        "browser_observation_record_sha256": "0948c0c2acfd6256707a55eb110654d8b8879506d86c0ef49b738f0c78b5dec7"
+      },
+      "change_display": "+1.9 bp"
+    },
+    "10年期美債殖利率": {
+      "display": "4.869%",
+      "source": {
+        "name": "Investing.com｜10年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+        "verification_status": "VERIFIED",
+        "instrument_identity": "United States 10-Year Bond Yield",
+        "source_page_fetched": true,
+        "close_value": 4.869,
+        "daily_change_percent": 0.43,
+        "history_close": 4.869,
+        "history_change": 0.43,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4.869,
+        "observed_change": 0.43,
+        "browser_observation_record_sha256": "b7c2a4f1aeb1aa150b92413a377dc5805d85deef1fbf725c771c58e9dc72209b"
+      },
+      "change_display": "+2.1 bp"
+    },
+    "30年期美債殖利率": {
+      "display": "5.252%",
+      "source": {
+        "name": "Investing.com｜30年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+        "verification_status": "VERIFIED",
+        "instrument_identity": "United States 30-Year Bond Yield",
+        "source_page_fetched": true,
+        "close_value": 5.252,
+        "daily_change_percent": 0.32,
+        "history_close": 5.252,
+        "history_change": 0.32,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 5.252,
+        "observed_change": 0.32,
+        "browser_observation_record_sha256": "a864d95121f0bdc97656f0e3194e7d1f2190deea77c354fa639f4116370d96e1"
+      },
+      "change_display": "+1.7 bp"
+    }
+  },
+  "fx": {
+    "美元指數": {
+      "display": "103.67",
+      "change_display": "0.00%",
+      "source": {
+        "name": "Investing.com Global｜US Dollar Index 歷史資料",
+        "url": "https://www.investing.com/indices/usdollar-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "US Dollar Index (DXY)",
+        "source_page_fetched": true,
+        "close_value": 103.67,
+        "daily_change_percent": 0.0,
+        "history_close": 103.67,
+        "history_change": 0.0,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 103.67,
+        "observed_change": 0,
+        "browser_observation_record_sha256": "02ccf9c36f106bea6979feb869191c4bb798149ea65b699435d295da687727f6"
+      }
+    },
+    "美元／新台幣": {
+      "display": "32.955",
+      "change_display": "-0.67%",
+      "source": {
+        "name": "Investing.com HK｜USD/TWD 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "spot_daily_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "USD/TWD",
+        "source_page_fetched": true,
+        "close_value": 32.955,
+        "daily_change_percent": -0.67,
+        "history_close": 32.955,
+        "history_change": -0.67,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 32.955,
+        "observed_change": -0.67,
+        "browser_observation_record_sha256": "ed6159d60b9de33629e40b1edf7f3855170dc76b9e0534ff3269a8138b58f395"
+      }
+    },
+    "歐元／美元": {
+      "display": "1.0969",
+      "change_display": "-0.03%",
+      "source": {
+        "name": "Investing.com HK｜EUR/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "spot_daily_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "EUR/USD",
+        "source_page_fetched": true,
+        "close_value": 1.0969,
+        "daily_change_percent": -0.03,
+        "history_close": 1.0969,
+        "history_change": -0.03,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 1.0969,
+        "observed_change": -0.03,
+        "browser_observation_record_sha256": "8db30449ad4d29474dce445263890e76af48f1cbfb2660f5dcac8bc65506c546"
+      }
+    },
+    "英鎊／美元": {
+      "display": "1.3112",
+      "change_display": "-0.02%",
+      "source": {
+        "name": "Investing.com HK｜GBP/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "spot_daily_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "GBP/USD",
+        "source_page_fetched": true,
+        "close_value": 1.3112,
+        "daily_change_percent": -0.02,
+        "history_close": 1.3112,
+        "history_change": -0.02,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 1.3112,
+        "observed_change": -0.02,
+        "browser_observation_record_sha256": "5fdcc82841d0949f2b833ae9ca85e1dbb60429a9e7da11285f29767853d7a1e3"
+      }
+    },
+    "澳幣／美元": {
+      "display": "0.6635",
+      "change_display": "+0.11%",
+      "source": {
+        "name": "Investing.com HK｜AUD/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "spot_daily_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "AUD/USD",
+        "source_page_fetched": true,
+        "close_value": 0.6635,
+        "daily_change_percent": 0.11,
+        "history_close": 0.6635,
+        "history_change": 0.11,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 0.6635,
+        "observed_change": 0.11,
+        "browser_observation_record_sha256": "8eabe108df37ad61df4ffacba199710b261efa716903c8b964988793222316c4"
+      }
+    },
+    "美元／日圓": {
+      "display": "159.26",
+      "change_display": "+0.05%",
+      "source": {
+        "name": "Investing.com HK｜USD/JPY 歷史資料",
+        "url": "https://www.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "spot_daily_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "USD/JPY",
+        "source_page_fetched": true,
+        "close_value": 159.26,
+        "daily_change_percent": 0.05,
+        "history_close": 159.26,
+        "history_change": 0.05,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 159.26,
+        "observed_change": 0.05,
+        "browser_observation_record_sha256": "15bb9e2986725edaa53fea6e357ab6787c01faf6ca124fd11380b0390dda728c"
+      }
+    }
+  },
+  "energy": {
+    "WTI原油期貨": {
+      "display": "84.92",
+      "change_display": "+1.48%",
+      "source": {
+        "name": "Investing.com HK｜WTI原油期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+        "data_date": "2026-11-26",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "WTI Crude Oil Futures",
+        "source_page_fetched": true,
+        "close_value": 84.92,
+        "daily_change_percent": 1.48,
+        "history_close": "84.92",
+        "history_change": "+1.48%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 84.92,
+        "observed_change": 1.48,
+        "browser_observation_record_sha256": "d3577e8b21b0b7e084c2924db64ee89968f8e8899b8ad88917926d8def9d630b"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+      "display_name": "WTI 原油期貨",
+      "contract_label": "2027年1月 (OIL)"
+    },
+    "Brent原油期貨": {
+      "display": "96.57",
+      "change_display": "+2.07%",
+      "source": {
+        "name": "Investing.com HK｜Brent期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+        "data_date": "2026-11-26",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "VERIFIED",
+        "instrument_identity": "Brent Oil Futures",
+        "source_page_fetched": true,
+        "close_value": 96.57,
+        "daily_change_percent": 2.07,
+        "history_close": "96.57",
+        "history_change": "+2.07%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 96.57,
+        "observed_change": 2.07,
+        "browser_observation_record_sha256": "f133c3975f9b7cdf2df0f29d79b3566391c5dcb133c9e6457aa5078aa1244c79"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+      "display_name": "Brent 原油期貨",
+      "contract_label": "2027年1月 (LCOG7)"
+    }
+  },
+  "metals": {
+    "黃金期貨 GC": {
+      "display": "3,580.20",
+      "change_display": "+1.26%",
+      "source": {
+        "name": "Investing.com HK｜黃金期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+        "data_date": "2026-11-26",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Gold Futures",
+        "source_page_fetched": true,
+        "close_value": 3580.2,
+        "daily_change_percent": 1.26,
+        "history_close": "3,580.20",
+        "history_change": "+1.26%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 3580.2,
+        "observed_change": 1.26,
+        "browser_observation_record_sha256": "4adbd2f150fc897afee093125cdd25d436adbebe5086e1338a1a33384d4fa059"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+      "display_name": "黃金期貨",
+      "contract_label": "2027年1月 (GCZ6)"
+    },
+    "白銀期貨 SI": {
+      "display": "41.270",
+      "change_display": "+3.03%",
+      "source": {
+        "name": "Investing.com HK｜白銀期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+        "data_date": "2026-11-26",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Silver Futures",
+        "source_page_fetched": true,
+        "close_value": 41.27,
+        "daily_change_percent": 3.03,
+        "history_close": "41.270",
+        "history_change": "+3.03%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 41.27,
+        "observed_change": 3.03,
+        "browser_observation_record_sha256": "a4bb6a19c005d779ecb66014d5f6148eaf9c66bfc497d27d1329fd6d93b3fda6"
+      },
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+      "display_name": "白銀期貨",
+      "contract_label": "2027年1月 (SIZ6)"
+    }
+  },
+  "risk": {
+    "vix": {
+      "display": "26.80",
+      "change_display": "-5.27%",
+      "source": {
+        "name": "Investing.com Global｜CBOE Volatility Index 歷史資料",
+        "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
+        "data_date": "2026-11-26",
+        "quote_type": "cash_index_close",
+        "verification_status": "VERIFIED",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "CBOE Volatility Index (VIX)",
+        "source_page_fetched": true,
+        "close_value": 26.8,
+        "daily_change_percent": -5.27,
+        "history_close": 26.8,
+        "history_change": -5.27,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-27T17:34:42+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 26.8,
+        "observed_change": -5.27,
+        "browser_observation_record_sha256": "fc5da2d88b105339e9a94f2b8c6c099b00c09435fc1bd5c2b63e9a1612f9878f"
+      }
+    },
+    "move": {
+      "display": "-",
+      "change_display": "休市",
+      "source": {
+        "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
+        "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+        "data_date": "2026-11-26",
+        "quote_type": "displayed_close",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "CLOSED",
+        "instrument_identity": "ICE BofAML MOVE (MOVE)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": true,
+        "read_status": "MARKET_CLOSED",
+        "market_calendar_evidence": {
+          "status": "CLOSED",
+          "source_type": "OFFICIAL",
+          "date": "2026-11-26",
+          "url": "https://www.sifma.org/resources/guides-playbooks/holiday-schedule",
+          "reader_ref": "turn370836view2",
+          "line_start": 72,
+          "line_end": 76,
+          "evidence": "SIFMA Holiday Schedule: Thanksgiving Day, Thursday November 26, 2026; U.S. dollar-denominated fixed income markets closed."
+        }
+      }
+    },
+    "fear_greed": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "source": {
+        "name": "FGScore｜CNN Business Fear & Greed 備援歷史頁",
+        "url": "https://fgscore.com/en/markets/sp500",
+        "data_date": "2026-11-26",
+        "quote_type": "third_party_provider_index",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "PENDING",
+        "source_role": "BACKUP_1",
+        "instrument_identity": "CNN Fear & Greed Index (provider index)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 0,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 0,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          }
+        },
+        "approved_primary_urls": [
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://www.cnn.com/markets/fear-and-greed"
+        ],
+        "approved_backup_urls": [
+          "https://fgscore.com/en/markets/sp500",
+          "https://staging.fcontext.com/en/fear-and-greed"
+        ],
+        "source_page_fetched": true,
+        "read_status": "SOURCE_NO_DATA"
+      }
+    }
+  },
+  "fedwatch": {
+    "status": "SOURCE_NO_DATA",
+    "source_name": "Investing.com Fed Rate Monitor",
+    "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
+    "report_date": "2026-11-27",
+    "trading_date": "2026-11-26",
+    "captured_at_utc": "2026-11-27T09:34:42Z",
+    "target_meeting": null,
+    "current_target_range": null,
+    "updated_at_tw": null,
+    "probabilities": [],
+    "web_reader_ref": "turn464090view0",
+    "web_line_start": 387,
+    "web_line_end": 415,
+    "reason": "The page's displayed probabilities were last updated Nov 27, 2026 04:05 AM EST (16:05 Taiwan), which is after the 2026-11-27 05:25 Taiwan report cutoff. No timestamped pre-cutoff snapshot is exposed; current or previous-day probabilities are not reused.",
+    "stage2_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
+    "observation_sha256": "59d1c038eae537b910945c7dcbbc7e507779a6c9f852dc481c9c664a4e8972f1"
+  },
+  "observation": {},
+  "calendar": {},
+  "earnings": {},
+  "summary_title": "",
+  "market_comments": "",
+  "last_week_calendar": {},
+  "last_week_earnings": {},
+  "summary_points": [],
+  "warning_note": "",
+  "sector_sources": {
+    "XLE": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLE",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLF": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLF",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLK": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLK",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLI": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLI",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLC": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLC",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLB": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLB",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLU": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLU",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLRE": {
+      "name": "Investing.com Global｜State Street Real Estate Select Sector SPDR ETF (XLRE) historical data",
+      "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLRE",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLY": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLY",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLP": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLP",
+      "_stage2_format": {
+        "close": {
+          "decimals": 1,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    },
+    "XLV": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+      "data_date": "2026-11-26",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "CLOSED",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLV",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": true,
+      "history_close": "-",
+      "change_display": "休市",
+      "read_status": "MARKET_CLOSED",
+      "market_calendar_evidence": {
+        "status": "CLOSED",
+        "source_type": "OFFICIAL",
+        "date": "2026-11-26",
+        "url": "https://www.nyse.com/trade/hours-calendars",
+        "reader_ref": "turn370836view0",
+        "line_start": 7,
+        "line_end": 23,
+        "evidence": "NYSE 2026 holiday calendar: Thanksgiving Day, Thursday November 26, 2026."
+      }
+    }
+  },
+  "key_levels": {},
+  "core_observation": "",
+  "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
+  "market_sentiment": {},
+  "quality_note": "",
+  "report_cutoff_taipei": "2026-11-27 05:25",
+  "news_window_taipei": "",
+  "key_levels_overrides": [],
+  "review_notice": "本頁為Simulation隔離區審核版，非正式首頁；需使用者核准後才可進行任何正式發布。",
+  "pending_items": [],
+  "review_ready_blockers": [],
+  "earnings_health": {
+    "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
+    "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
+    "as_of_date": "2026-11-20",
+    "period": "Q3 2026",
+    "reported_pct": "93%",
+    "eps_beat_pct": "84%",
+    "revenue_beat_pct": "74%",
+    "blended_eps_yoy": "+32.9%",
+    "blended_revenue_yoy": "+14.6%",
+    "eps_surprise": "+3.5%",
+    "revenue_surprise": "+2.2%",
+    "forward_pe": "17.1 倍",
+    "eps_beat_avg_5y": "78%",
+    "eps_beat_avg_10y": "77%",
+    "revenue_beat_avg_5y": "70%",
+    "revenue_beat_avg_10y": "68%",
+    "eps_surprise_avg_5y": "7.5%",
+    "eps_surprise_avg_10y": "8.0%",
+    "revenue_surprise_avg_5y": "1.8%",
+    "forward_pe_avg_5y": "19.8 倍",
+    "forward_pe_avg_10y": "19.1 倍",
+    "prior_blended_eps_yoy": "+31.9%",
+    "prior_blended_revenue_yoy": "+14.4%",
+    "mag7_eps_growth": "+27.0%",
+    "other_493_eps_growth": "+34.7%",
+    "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
+  },
+  "report_layer_earnings_actuals": [],
+  "news_cutoff_taipei": "",
+  "report_layer_earnings_status": [],
+  "last_week_economic_overrides": [],
+  "last_week_earnings_actuals": [],
+  "market_analysis": {
+    "political": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "policy_industry": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "macro": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "markets": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "strategy": {
+      "paragraphs": [],
+      "sources": []
+    }
+  },
+  "political_scan": {
+    "domains_checked": [],
+    "findings": [],
+    "checked_at": ""
+  },
+  "news_window": {},
+  "run_metadata": {
+    "run_id": "TAC-2026-11-27-45976396528-1",
+    "run_dir": "production/runs/TAC-2026-11-27-45976396528-1",
+    "fixture_path": "production/runs/TAC-2026-11-27-45976396528-1/report-data.json",
+    "stage1_fixture_path": "production/runs/TAC-2026-11-27-45976396528-1/stage1-fixture.json",
+    "main_commit_sha": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+    "market_audit_path": "production/runs/TAC-2026-11-27-45976396528-1/market-snapshot-audit.json",
+    "market_manifest_path": "production/runs/TAC-2026-11-27-45976396528-1/market-source-verification-manifest.json",
+    "observations_path": "production/runs/TAC-2026-11-27-45976396528-1/market-history-browser-observations.json",
+    "stage2_receipt_path": "production/runs/TAC-2026-11-27-45976396528-1/stage2-market-snapshot-receipt.json"
+  },
+  "last_week_calendar_impact_overrides": [],
+  "stage2_market_bootstrap": {
+    "status": "PARTIAL",
+    "preexisting_market_values_used": false,
+    "row_count": 44,
+    "verified_count": 26,
+    "pending_count": 1,
+    "pending_rows": [
+      "risk/fear_greed"
+    ],
+    "report_date": "2026-11-27",
+    "trading_date": "2026-11-26",
+    "observation_bundle_sha256": "0f2bd97b8916fe62b81cbcb49c116c6a4984b0ba969d24e5535acffb93d27618"
+  }
+}

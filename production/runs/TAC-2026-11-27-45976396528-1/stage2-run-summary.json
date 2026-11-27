@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_2_MARKET",
+  "market_snapshot_sha256": "c4fd26ba2dcd82760e2553b3511241668f413da73eba47f17fe8186eaac18dee",
+  "status": "PARTIAL",
+  "run_id": "TAC-2026-11-27-45976396528-1",
+  "stage1_fixture_sha256": "167ca8c656e68f5971f48212d7a5c6047177b50d7f0b69fd63e5788dfd117ea1",
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_2",
+    "wr_path": "production/stages/STAGE_2_MARKET.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 9818,
+    "wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
+    "wr_git_blob_sha": "60524618b7652d8ff7e590609a456ccccbb9c5dd",
+    "stage1_pinned_git_blob_sha": "60524618b7652d8ff7e590609a456ccccbb9c5dd",
+    "stage1_pinned_commit": "f6aa1f7626699ca6054b66a97028bddcde70cd25",
+    "rules_text_loaded": true
+  },
+  "worker_wr_attestation": {
+    "status": "PASS",
+    "stage2_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a",
+    "expected_wr_sha256": "c23af6b578a864edf00ebf919606231cbfe364fbc1ff3e933f13b226b1607b1a"
+  },
+  "fedwatch_status": "SOURCE_NO_DATA",
+  "fedwatch_observation_sha256": "59d1c038eae537b910945c7dcbbc7e507779a6c9f852dc481c9c664a4e8972f1",
+  "fedwatch_target_meeting": null,
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
+  "concurrency": 4,
+  "timeout_ms": 15000,
+  "elapsed_seconds": 0.226,
+  "stage2_handoff": {
+    "status": "PASS",
+    "run_id": "TAC-2026-11-27-45976396528-1",
+    "report_date": "2026-11-27",
+    "trading_date": "2026-11-26",
+    "stage1_receipt_sha256": "70fe925dc4278aafb753f782d78846dc6bf63f170a75e56e36171e98759c3422",
+    "run_context_sha256": "ffcf09cb25e7420ae633ac00db60d01417e3988afeb60807069895f3defb1bbf",
+    "stage1_fixture_sha256": "167ca8c656e68f5971f48212d7a5c6047177b50d7f0b69fd63e5788dfd117ea1",
+    "stage1_fixture_path": "production/runs/TAC-2026-11-27-45976396528-1/stage1-fixture.json",
+    "working_fixture_path": "production/runs/TAC-2026-11-27-45976396528-1/report-data.json",
+    "bundle_sha256": "5515c5596c196bf6ec82a7eb033dc550f0945daa3753f185d1f09ab4647a60b3",
+    "optional_bundle_sha256": {
+      "cnn-fear-greed-observation.json": "f44f4f3acc6f1f7fb1a3a72a8a033ef76815d9865998cef15b636fb314f29387"
+    },
+    "screenshot": {
+      "row_count": 0,
+      "field_count": 0
+    }
+  },
+  "web_observation_bundle_sha256": "5515c5596c196bf6ec82a7eb033dc550f0945daa3753f185d1f09ab4647a60b3",
+  "cnn_observation_sha256": "f44f4f3acc6f1f7fb1a3a72a8a033ef76815d9865998cef15b636fb314f29387",
+  "historical_page_read_count": null,
+  "screenshot_only_count": null,
+  "mixed_field_count": null,
+  "status_counts": {
+    "VERIFIED": 26,
+    "OBSERVED_PENDING_VALIDATION": 18
+  },
+  "verified_count": 26,
+  "pending_count": 1,
+  "closed_count": 17,
+  "market_status_counts": {
+    "VERIFIED": 26,
+    "CLOSED": 17,
+    "SOURCE_NO_DATA": 1
+  },
+  "chart3_handoff": {
+    "status": "SKIPPED_UNVERIFIED",
+    "reason": "S&P 500 cash-index close is not VERIFIED; no Chart 3 increment is written."
+  },
+  "outputs": {
+    "report-data.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/report-data.json",
+      "sha256": "1fcec9c49bd26527bafd467c779320178cf05196e0472cf8bca3a938f1551e83"
+    },
+    "market-history-browser-observations.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-history-browser-observations.json",
+      "sha256": "0f2bd97b8916fe62b81cbcb49c116c6a4984b0ba969d24e5535acffb93d27618"
+    },
+    "market-snapshot-audit.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-snapshot-audit.json",
+      "sha256": "65a5009f3fdfd379cde616f05a31a176fa88edf18fc81a0cc3898f0c4c3c3363"
+    },
+    "market-source-verification-manifest.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/market-source-verification-manifest.json",
+      "sha256": "b9bb2b9d3e949ce7e74c97fa3e1e6ab6e8ed12b76f1aecaf28e11272c8a6c72c"
+    },
+    "stage2-market-snapshot-receipt.json": {
+      "path": "production/runs/TAC-2026-11-27-45976396528-1/stage2-market-snapshot-receipt.json",
+      "sha256": "82e64e890bc43055c7567c360c612c58002541eb1017b6d8dbe0e5cd00d15ce9"
+    }
+  }
+}

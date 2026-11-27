@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "run_id": "TAC-2026-11-27-45976396528-1",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "market_snapshot_sha256": "c4fd26ba2dcd82760e2553b3511241668f413da73eba47f17fe8186eaac18dee",
+  "input_count": 14,
+  "bundle_path": "production/runs/TAC-2026-11-27-45976396528-1/stage4-research-bundle.json",
+  "bundle_sha256": "48b62cdebbfedc67dc2850e4205fc3b21e21337d046ff2aee1d6c56b2dd4cbe8",
+  "market_rows": 44,
+  "unresolved_market_rows": 1
+}
