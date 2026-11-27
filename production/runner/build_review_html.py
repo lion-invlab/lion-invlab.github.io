@@ -1720,7 +1720,7 @@ POLITICAL_CLASSIFICATIONS = {
 
 
 def validate_political_scan(data):
-    """Validate dated, sourced political findings; the five-layer analysis carries transmission detail."""
+    """Validate dated political findings and explicit base/risk/severe scenario coverage."""
     scan = data.get("political_scan")
     if not isinstance(scan, dict):
         raise ValueError("Fixture is missing required political_scan evidence object")
@@ -1751,6 +1751,15 @@ def validate_political_scan(data):
             raise ValueError(f"political_scan.findings[{index}] requires a transmission explanation")
     if not findings and not str(scan.get("no_material_change_note") or "").strip():
         raise ValueError("empty political_scan.findings requires no_material_change_note")
+    strategy = ((data.get("market_analysis") or {}).get("strategy") or {})
+    strategy_paragraphs = strategy.get("paragraphs") or []
+    required_scenarios = ("基準情境", "風險情境", "嚴重情境")
+    scenarios_covered = [
+        label for label in required_scenarios
+        if any(label in str(paragraph) for paragraph in strategy_paragraphs)
+    ]
+    scenario_coverage = len(scenarios_covered)
+    scenario_status = "PASS" if scenario_coverage == 3 else ("PARTIAL" if scenario_coverage else "NOT_TESTED")
     return {
         "status": "PASS",
         "checked_at": checked_at,
@@ -1758,10 +1767,11 @@ def validate_political_scan(data):
         "finding_count": len(findings),
         "event_status_classifications": classifications,
         "policy_transmission_completeness": len(findings),
-        "scenario_analysis_coverage": 0,
+        "scenario_analysis_coverage": scenario_coverage,
+        "scenario_analysis_status": scenario_status,
+        "scenario_labels_covered": scenarios_covered,
         "no_material_change_note": str(scan.get("no_material_change_note") or ""),
     }
-
 
 def populate_market_analysis_preserving_dom(soup, data, manifest):
     """Populate five mother-owned analysis nodes; validate evidence but never render citations."""
@@ -2360,18 +2370,22 @@ def main():
     for node in soup.select(".top .status, header .status, .status"):
         if node.get_text(strip=True):
             set_text(node, f"{report_label}（{report_weekday}）｜{'週一審核版' if monday else '週二至週五審核版'}；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
-    review_notice = str(data.get("review_notice", "")).strip()
+    review_notice = "本頁為 Main 專用審核版，正式首頁尚未更新；正式發布須經使用者明確核准。"
     scope_note = (
         f"五項關鍵價位採 {key_levels_date_label} 同日現金指數 OHLC 人工覆核，依傳統樞紐點公式計算 S2/S1/P/R1/R2；"
         f"其餘44項行情、新聞與行事曆為 {report_cutoff} 查核快照"
         if is_live_key_levels else
-        "本版使用固定資料快照，未宣稱即時全自動更新"
+        "本版依同一 Run 鎖定資料與核准來源製作，並非即時行情畫面"
     )
+    for node in soup.select(".top-warning"):
+        set_text(node, "⚠️ Main 審核版｜正式首頁尚未更新")
+    for node in soup.select(".tac-side-foot"):
+        set_text(node, "TAC 投資早報｜Main 審核版")
     for warning in soup.select(".data-sync-warning"):
-        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 來源或日期不足的行情不列入主畫面，並列入待補資料清單；本檔未發布至正式首頁。" )
+        set_text(warning, f"Main 審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 來源或日期不足的行情依其狀態標示，不得以待補資料冒充已核實。")
     footer = soup.select_one("footer.footer")
     if footer:
-        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜{scope_note}；{review_notice}。資訊整理與教育用途，不構成投資建議。")
+        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜{scope_note}；{review_notice}。資訊整理，不構成投資建議。")
     # Remove duplicate timezone suffix from preformatted window label.
     news_window_label = news_window_label.replace("（台灣時間）", "")
     # The three Today Focus tabs are updated atomically below; do not clear their approved DOM here.
