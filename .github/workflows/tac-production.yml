@@ -467,7 +467,7 @@ jobs:
             "research_bundle_sha256":json.loads((run/"stage4-research-bundle-receipt.json").read_text())["bundle_sha256"],
             "research_bundle_unresolved_market_rows":json.loads((run/"stage4-research-bundle-receipt.json").read_text())["unresolved_market_rows"],
             "chart3_merge_workflow_run_id":os.environ.get("CHART3_MERGE_RUN_ID","NOT_REQUIRED"),
-            "current_week":stage3["current_week"]["week_id"],"previous_week":stage3["previous_week"]["week_id"],
+            "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
             "editorial_input_path":f"production/input/report-content-{context['report_date']}.json",
             "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
           (run/"capture-stage-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
