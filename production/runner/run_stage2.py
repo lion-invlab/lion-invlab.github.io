@@ -172,14 +172,24 @@ def main():
         keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
         if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
             raise SystemExit("Current-date observations do not match the exact 44-row Stage 1 universe")
-        if any(x.get("target_date")!=context.get("trading_date") for x in rows):
-            raise SystemExit("An observation target_date does not match this Run's trading_date")
-        payload.update({
+        from datetime import date
+        report_day=date.fromisoformat(report_date)
+        for row in rows:
+            try:
+                target_day=date.fromisoformat(str(row.get("target_date")))
+            except ValueError as exc:
+                raise SystemExit(f"Invalid per-instrument target_date: {row.get('name')}") from exc
+            if target_day > report_day:
+                raise SystemExit(f"Observation target_date is later than report_date: {row.get('name')}")
+        expected_binding={
             "run_id":context["run_id"],
             "stage1_receipt_sha256":hashlib.sha256(stage1_receipt_path.read_bytes()).hexdigest(),
             "run_context_sha256":hashlib.sha256(context_path.read_bytes()).hexdigest(),
-            "stage1_fixture_sha256":stage1_fixture_sha256
-        })
+            "stage1_fixture_sha256":stage1_fixture_sha256,
+        }
+        for key,value in expected_binding.items():
+            if payload.get(key)!=value:
+                raise SystemExit(f"Stage 2 worker bundle {key} is missing or differs from Stage 1; Runner will not attach or repair handoff identity.")
         web_bundle.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
         "--run-dir",str(run_dir.relative_to(ROOT))])
