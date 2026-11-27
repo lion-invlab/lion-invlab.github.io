@@ -188,10 +188,17 @@
   },
   "tested_at_utc": "2026-11-27T05:29:34.925020+00:00",
   "delivery": {
-    "status": "PAGES_DEPLOY_PENDING",
+    "status": "DELIVERED_AND_PUBLICLY_VERIFIED",
     "branch": "main",
     "path": "preview/2026-11-27-review.html",
     "run_id": "TAC-2026-11-27-45937649928-1",
-    "html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab"
+    "html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
+    "payload_commit_sha": "6bc186727181785c3c1e73328f8c3ac16f756dc1",
+    "pages_workflow_run_id": 45946122657,
+    "pages_workflow_conclusion": "success",
+    "preview_url": "https://lion-invlab.github.io/preview/2026-11-27-review.html",
+    "public_url_verified": true,
+    "public_html_sha256": "fead920dfade87801239d67bb3109fd8b5de476178b00ca09ab6caf15880d8ab",
+    "verified_at_utc": "2026-11-27T05:30:27.538360+00:00"
   }
 }
