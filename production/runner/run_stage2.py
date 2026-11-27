@@ -147,9 +147,9 @@ def main():
     manifest_path=run_dir/"market-source-verification-manifest.json"
     receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     started=time.monotonic()
-    # Import the current report-date observation into this Run. The source file
-    # is accepted only when its two dates and exact 44-row universe match Stage 1.
-    # This is a simple date binding, not a second evidence/receipt workflow.
+    # Import the observation only after Stage 1 is committed. The shared
+    # report/trading anchors bind the Run; each row carries its own actual
+    # market-session target_date and the worker supplies Stage 1 SHA bindings.
     web_bundle=run_dir/"market-history-web-observations.json"
     if not web_bundle.is_file():
         source_bundle=ROOT/"production"/"input"/f"market-history-web-observations-{report_date}.json"
