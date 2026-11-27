@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "status": "AUTHORIZED_SAME_RUN_REGENERATION",
+  "run_id": "TAC-2026-11-27-45937649928-1",
+  "report_date": "2026-11-27",
+  "trading_date": "2026-11-26",
+  "reason": "Correct CLOSED-row display_value_matches_saved_observation semantics in the Stage 2 manifest builder; regenerate only the derived Stage 2 manifest, receipt, summary, and Stage 4 research bundle.",
+  "observation_policy": "Reuse the exact immutable current-Run 44-row market-history-web-observations.json. Do not reopen or recapture sources; do not change any of the 44 observation records or numeric market values.",
+  "expected_invariants": [
+    "run_id unchanged",
+    "stage1 receipt and fixture unchanged",
+    "44 observation record hashes unchanged",
+    "market snapshot values unchanged",
+    "MOVE remains CLOSED with SIFMA evidence",
+    "all 44 rows resolved with zero pending"
+  ],
+  "created_at_tw": "2026-11-27T12:40:00+08:00"
+}
