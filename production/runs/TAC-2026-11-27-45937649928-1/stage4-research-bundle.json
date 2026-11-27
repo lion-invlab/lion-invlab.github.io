@@ -6997,7 +6997,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -7332,7 +7332,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -7485,7 +7485,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -7547,7 +7547,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -7609,7 +7609,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8126,7 +8126,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8269,7 +8269,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8321,7 +8321,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8373,7 +8373,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8425,7 +8425,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8477,7 +8477,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8529,7 +8529,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8581,7 +8581,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8633,7 +8633,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8685,7 +8685,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8737,7 +8737,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -8789,7 +8789,7 @@
         "market_data_status": "CLOSED",
         "source_page_fetched": true,
         "display_value_reconciled": true,
-        "display_value_matches_saved_observation": true,
+        "display_value_matches_saved_observation": false,
         "observation_provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
         "raw_response_sha256": null,
         "evidence_status": "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE",
@@ -9431,10 +9431,10 @@
       "branch": "main",
       "commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
       "workflow_run_id": "45937649928",
-      "batch_id": "da5814a20f0afdc197e1fa93",
+      "batch_id": "4e4f6ab3e3ca881f91f60701",
       "report_date": "2026-11-27",
       "trading_date": "2026-11-26",
-      "generated_at_utc": "2026-11-27T04:23:35.241606+00:00",
+      "generated_at_utc": "2026-11-27T04:41:34.194134+00:00",
       "row_count": 44,
       "verified_count": 27,
       "pending_count": 0,
@@ -9464,7 +9464,7 @@
         },
         "manifest": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-          "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
+          "sha256": "8370cf907b1339011238cab5296f9ccf21f66cf39e6e5eec10d772d545cd07a7"
         },
         "observations": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
@@ -10144,7 +10144,7 @@
       "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
       "concurrency": 4,
       "timeout_ms": 15000,
-      "elapsed_seconds": 0.226,
+      "elapsed_seconds": 0.212,
       "stage2_handoff": {
         "status": "PASS",
         "run_id": "TAC-2026-11-27-45937649928-1",
@@ -10200,11 +10200,11 @@
         },
         "market-source-verification-manifest.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-          "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
+          "sha256": "8370cf907b1339011238cab5296f9ccf21f66cf39e6e5eec10d772d545cd07a7"
         },
         "stage2-market-snapshot-receipt.json": {
           "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
-          "sha256": "1a02374d7f9a2a0dd3738c2ca06cb321d78e03dc132fc9fd02fb7bd72bba0fc4"
+          "sha256": "f0d60e091fa9b2769fd16cca7d31e6480a399d051717b2e5215e5baf64fe614d"
         }
       }
     },
@@ -14272,11 +14272,11 @@
     },
     "stage2-market-snapshot-receipt.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
-      "sha256": "1a02374d7f9a2a0dd3738c2ca06cb321d78e03dc132fc9fd02fb7bd72bba0fc4"
+      "sha256": "f0d60e091fa9b2769fd16cca7d31e6480a399d051717b2e5215e5baf64fe614d"
     },
     "stage2-run-summary.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-run-summary.json",
-      "sha256": "8cf0f27af9ab07c0242ab2e1a629a8ee4365fde83d64de02db900b2f7a41d0c5"
+      "sha256": "bd273377842a1fe459ebb82df18f40ddd2475262a6bf7ac8b95dc59e55e3f6c5"
     },
     "market-history-browser-observations.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",
@@ -14284,7 +14284,7 @@
     },
     "market-source-verification-manifest.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-      "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
+      "sha256": "8370cf907b1339011238cab5296f9ccf21f66cf39e6e5eec10d772d545cd07a7"
     },
     "market-snapshot-audit.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-snapshot-audit.json",
@@ -14315,5 +14315,5 @@
       "sha256": "47a7aa7f95b54265a71e2eff7e76dcbe738694803b886727cecc2cf181d58181"
     }
   },
-  "generated_at_utc": "2026-11-27T04:23:35Z"
+  "generated_at_utc": "2026-11-27T04:41:34Z"
 }

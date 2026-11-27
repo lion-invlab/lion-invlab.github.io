@@ -9,10 +9,10 @@
   "branch": "main",
   "commit_sha": "c337b44d9187e79e420aa06e58121f95b5fd5336",
   "workflow_run_id": "45937649928",
-  "batch_id": "da5814a20f0afdc197e1fa93",
+  "batch_id": "4e4f6ab3e3ca881f91f60701",
   "report_date": "2026-11-27",
   "trading_date": "2026-11-26",
-  "generated_at_utc": "2026-11-27T04:23:35.241606+00:00",
+  "generated_at_utc": "2026-11-27T04:41:34.194134+00:00",
   "row_count": 44,
   "verified_count": 27,
   "pending_count": 0,
@@ -42,7 +42,7 @@
     },
     "manifest": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-      "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
+      "sha256": "8370cf907b1339011238cab5296f9ccf21f66cf39e6e5eec10d772d545cd07a7"
     },
     "observations": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-history-browser-observations.json",

@@ -10,7 +10,7 @@
   "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
   "concurrency": 4,
   "timeout_ms": 15000,
-  "elapsed_seconds": 0.226,
+  "elapsed_seconds": 0.212,
   "stage2_handoff": {
     "status": "PASS",
     "run_id": "TAC-2026-11-27-45937649928-1",
@@ -66,11 +66,11 @@
     },
     "market-source-verification-manifest.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/market-source-verification-manifest.json",
-      "sha256": "f7b8443327f68301944a45ac323022733ced5716da21007184d4570a46388fec"
+      "sha256": "8370cf907b1339011238cab5296f9ccf21f66cf39e6e5eec10d772d545cd07a7"
     },
     "stage2-market-snapshot-receipt.json": {
       "path": "production/runs/TAC-2026-11-27-45937649928-1/stage2-market-snapshot-receipt.json",
-      "sha256": "1a02374d7f9a2a0dd3738c2ca06cb321d78e03dc132fc9fd02fb7bd72bba0fc4"
+      "sha256": "f0d60e091fa9b2769fd16cca7d31e6480a399d051717b2e5215e5baf64fe614d"
     }
   }
 }

@@ -4,7 +4,7 @@
   "capture_trigger": {
     "event_name": "push",
     "dispatch_mode": "resume_existing_run",
-    "workflow_run_id": "45939546192",
+    "workflow_run_id": "45941381146",
     "original_capture_workflow_run_id": "45937649928",
     "resume_existing_run": true
   },
@@ -18,7 +18,7 @@
     "reason": "S&P 500 cash-index close is not VERIFIED; no Chart 3 handoff candidate created."
   },
   "research_bundle_path": "production/runs/TAC-2026-11-27-45937649928-1/stage4-research-bundle.json",
-  "research_bundle_sha256": "0512c18ea54cf78590f84422d232d5face441ce387b38de303ada097565bbee9",
+  "research_bundle_sha256": "f62dd6f784069829042562b03b6999af831ba832c995eed74797eaeebcd5b49d",
   "research_bundle_unresolved_market_rows": 0,
   "chart3_merge_workflow_run_id": "NOT_REQUIRED",
   "current_week": "2026-W48",
