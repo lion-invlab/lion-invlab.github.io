@@ -32,6 +32,7 @@ class RunFixtureFactoryTests(unittest.TestCase):
         self.assertIn("production/runner/run_stage5.py",governance["blob_shas"])
         self.assertIn("production/runner/stage_wr_preflight.py",governance["blob_shas"])
         self.assertTrue(result["run_context"]["stage_wr_preflight"]["wr_loaded"])
+        self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),1)
 
 
     def test_writes_immutable_stage1_fixture_and_working_copy(self):
@@ -74,6 +75,7 @@ class RunFixtureFactoryTests(unittest.TestCase):
     def test_monday_targets_previous_friday(self):
         result=build(date(2026,11,23),"TAC-2026-11-23-test-default")
         self.assertEqual(result["run_context"]["trading_date"],"2026-11-20")
+        self.assertEqual(len(result["run_context"]["calendar_read_receipts"]),2)
 
     def test_rejects_weekend_report_date(self):
         with self.assertRaises(ValueError):
