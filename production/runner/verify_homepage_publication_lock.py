@@ -24,7 +24,9 @@ def validate_homepage_lock(lock:dict,actual_index_blob:str,preview_blob:str|None
     if status=='BASELINE_LOCKED':
         if lock.get('approved_by_owner') is not False:
             raise ValueError('baseline homepage lock must not imply publication approval')
-        if any(lock.get(k) is not None for k in ('report_date','preview_path','preview_git_blob_sha','approved_at','approval_note')):
+        if not re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}',str(lock.get('report_date') or '')):
+            raise ValueError('baseline homepage lock must identify the preserved homepage report_date')
+        if any(lock.get(k) is not None for k in ('preview_path','preview_git_blob_sha','approved_at','approval_note','previous_homepage')):
             raise ValueError('baseline lock must not contain a publication approval record')
         return {'status':'PASS','mode':'BASELINE_LOCKED','index_git_blob_sha':actual_index_blob}
     if status=='APPROVED_PUBLICATION':
@@ -44,7 +46,16 @@ def validate_homepage_lock(lock:dict,actual_index_blob:str,preview_blob:str|None
             raise ValueError('approved preview Git blob SHA does not match the current review artifact')
         if actual_index_blob!=preview_blob:
             raise ValueError('official index.html must be byte-identical to the explicitly approved preview')
-        return {'status':'PASS','mode':'APPROVED_PUBLICATION','report_date':report_date,'index_git_blob_sha':actual_index_blob,'preview_git_blob_sha':preview_blob}
+        previous=lock.get('previous_homepage')
+        if not isinstance(previous,dict):
+            raise ValueError('approved publication must preserve the previous locked homepage snapshot')
+        previous_date=str(previous.get('report_date') or '')
+        previous_blob=str(previous.get('index_git_blob_sha') or '')
+        if not re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}',previous_date) or previous_date==report_date:
+            raise ValueError('previous_homepage must identify a different valid report date')
+        if not re.fullmatch(r'[0-9a-f]{40}',previous_blob) or previous.get('status') not in ('BASELINE_LOCKED','APPROVED_PUBLICATION'):
+            raise ValueError('previous_homepage snapshot must carry a valid prior locked Git blob SHA and status')
+        return {'status':'PASS','mode':'APPROVED_PUBLICATION','report_date':report_date,'index_git_blob_sha':actual_index_blob,'preview_git_blob_sha':preview_blob,'previous_homepage':previous}
     raise ValueError(f'unsupported homepage publication lock status: {status!r}')
 
 def main()->None:
