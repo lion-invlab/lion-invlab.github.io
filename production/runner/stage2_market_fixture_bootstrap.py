@@ -163,7 +163,17 @@ def populate_fixture(data, payload):
     verified=0; pending=[]
     for group,name,item,src in _rows(out):
         obs=observations[(group,name)]
-        if obs.get("source_url") != src.get("url"):
+        observed_source_url = obs.get("source_url")
+        approved_backup_urls = src.get("approved_backup_urls") or []
+        is_move_tradingview_backup = (
+            group == "risk" and name == "move"
+            and observed_source_url == "https://www.tradingview.com/symbols/ICE-MOVE/"
+            and observed_source_url in approved_backup_urls
+            and obs.get("source_role") == "BACKUP_1"
+            and obs.get("source_type") == "TRADINGVIEW_HISTORICAL_PAGE"
+            and obs.get("evidence_source_url") == observed_source_url
+        )
+        if observed_source_url != src.get("url") and not is_move_tradingview_backup:
             raise ValueError(f"{group}/{name}: observation source URL mismatch")
         target_date=obs.get("target_date")
         try:
