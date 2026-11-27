@@ -177,7 +177,7 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                 raise ValueError(f"Stage 4 closed row lacks matching official closure evidence: {key}")
             row["closure_evidence"]=closure
     unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
-    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
+    production_date=date.fromisoformat(context.get("production_date") or (report_date-timedelta(days=2) if report_date.weekday()==0 else report_date).isoformat())
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
     if report_date.weekday()==0:
