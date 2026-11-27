@@ -49,6 +49,14 @@ class StageWRPreflightTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             stage_wr_preflight.stage_wr_preflight("STAGE_3", context)
 
+    def test_valid_stage1_pinned_blob_passes(self):
+        context = {"main_commit_sha": "commit", "governance": {
+            "commit_sha": "commit", "blob_shas": {self.rel: self.blob}}}
+        with patch.object(stage_wr_preflight, "_git_blob", side_effect=[self.blob, self.blob]):
+            result = stage_wr_preflight.stage_wr_preflight("STAGE_3", context)
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["stage1_pinned_git_blob_sha"], self.blob)
+
     def test_blob_mismatch_blocks_stage(self):
         context = {"main_commit_sha": "commit", "governance": {"commit_sha": "commit", "blob_shas": {self.rel: "b" * 40}}}
         with patch.object(stage_wr_preflight, "_git_blob", side_effect=[self.blob, "b" * 40]):
