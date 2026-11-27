@@ -25,7 +25,7 @@
 
 1. 本文件的單一執行者原則僅適用於本文件所管轄的行事曆資料庫維護與一般研究工作；Main 每日早報必須依 `production/MASTER_WR.md` 使用六 Stage Pipeline、Runner、Snapshot 與必要 QA。
 2. 行事曆資料庫更新仍由其唯一排程任務負責；不得將此任務誤認為 Main 早報 Stage 1 或 Stage 3 的替代流程。
-3. 允許每日工作日 04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。Main 早報 Stage 1–6 的排程時間與執行入口，唯一依據為 `production/MASTER_WR.md`；本共通 WR 不再另行定義 Main 早報固定 05:25 啟動時間。早報各 Stage 對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於 Run 工作紀錄與審核版。不得要求使用者逐步輸入「繼續」。
+3. 允許每個早報製作日（台灣週二至週六）04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。Main 早報 Stage 1–6 的排程時間與執行入口，唯一依據為 `production/MASTER_WR.md`；本共通 WR 不再另行定義 Main 早報固定 05:25 啟動時間。早報各 Stage 對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於 Run 工作紀錄與審核版。不得要求使用者逐步輸入「繼續」。
 4. 歷史 Snapshot、lock、workflow artifact 及舊版流程紀錄只作歷史資料，不得冒充當次行情或當次執行證據。
 5. **六步驟成果交接的唯一工作錨點：** 使用既有 `TAC_SESSION_STATE.md` 保存當次報告的活動狀態、各步驟輸入／輸出索引、完成狀態、未結事項、下一步及可恢復位置；使用既有 `TAC_WORK_LOG.md` 記錄重要查核結果、關鍵來源證據、決策、修正及完成驗收。兩者分工不得互換：Session State 是目前進度與恢復錨點，Work Log 是重要工作證據與決策紀錄。不得另建每日 Snapshot、行情資料庫、新聞資料庫、第二份工作台帳或新的流程協調器。
 6. 每一步完成時，必須先把該步驟的成果摘要、來源／版本識別、項目狀態、待處理原因及下游使用方式更新至 Session State；涉及正式資料更新、關鍵來源裁決、錯誤修正或 QA 結果時，同步寫入 Work Log。下一步開始前必須讀取這些紀錄及其指向的正式來源，逐項確認已接收所需成果；不得只依前一步口頭宣稱完成。
@@ -129,7 +129,7 @@
 
 ### 第三步｜讀取行事曆資料庫並核實事件
 1. 唯一資料路徑為 `data/calendar/weeks/YYYY-Www.json`（ISO week）。禁止使用 `data/calendar/weekly/` 或其他替代路徑。讀取 main 分支本週 JSON；週一另讀取必要的上週 JSON。
-2. **責任分工：** 04:35 排程是行事曆週資料庫唯一維護者與唯一寫入者。Main 早報 Stage 1–6 的排程、啟動時間及資料交接，唯一依據為 `production/MASTER_WR.md`；Stage 3 只讀取 Stage 1 鎖定的 Main commit 所含本週 JSON，僅 report_date 為週一時（包括週六製作的隔週一早報）另讀上週 JSON，不得對 JSON 執行任何增刪改、merge/upsert 或回寫。若發現新事件、實際值、來源／時間修正或資料矛盾，只能記錄於同一 Run 工作紀錄及審核版，標示待下次 04:35 資料庫更新，不得直接修補。不得另建平行資料庫。
+2. **責任分工：** 台灣週二至週六 04:35 排程是行事曆週資料庫唯一維護者與唯一寫入者；週六須依隔週一 report_date 更新報告週及前一週必要資料。Main 早報 Stage 1–6 的排程、啟動時間及資料交接，唯一依據為 `production/MASTER_WR.md`；Stage 3 只讀取 Stage 1 鎖定的 Main commit 所含本週 JSON，僅 report_date 為週一時（包括週六製作的隔週一早報）另讀上週 JSON，不得對 JSON 執行任何增刪改、merge/upsert 或回寫。若發現新事件、實際值、來源／時間修正或資料矛盾，只能記錄於同一 Run 工作紀錄及審核版，標示待下次 04:35 資料庫更新，不得直接修補。不得另建平行資料庫。
 3. `coverage.economic`／`coverage.earnings` 的 `incomplete` 是動態進行中狀態，可能因事件尚未發生、實際值尚未公布而正常存在；不得單憑 incomplete 判定故障或阻止當日早報。未到公布時間的 actual=null 屬正常，不得預填或推估。只有檔案不存在、JSON/schema 損壞、核心事件集合明顯缺失、來源／更新資訊異常或當日必要事件無法可靠呈現，才列為資料問題。
 4. 逐筆核對報告日期、事件識別碼、原始發布日期時間、台灣時間、國家／公司、事件類型、發布狀態、實際值、預期值、前值（適用時）、來源及目標分頁。已公布事件核對實際值；未來事件核對日期、時間、預期值及來源。
 5. 依 TAC 星等與星期情境篩選：本週經濟／財報行事曆只呈現 TAC 四星、五星；週一上週兩區只呈現五星。所有國家／經濟體同一標準，不得機械換算外部一至三星。
@@ -348,7 +348,7 @@
 ## H. 自動化退場與單一路徑
 
 - Main 早報 Stage 1–6 的排程與啟動時間唯一依據為 `production/MASTER_WR.md`；本共通 WR 不再規定固定 05:25 早報啟動時間。冬令 Main Stage 1／Stage 2 時間及後續交接依 Master WR 執行。
-- 04:35 行事曆排程是資料庫預更新，也是週 JSON 唯一 writer。它必須重新讀取 main 最新 WR，依正式 schema 對 `data/calendar/weeks/YYYY-Www.json` 執行可重複的增量 merge/upsert；保留穩定 event ID、已核實 actual、原始來源及完整 audit。不得以空值、舊來源或未核實值覆蓋較新且已核實的資料，不得刪除既有事件或重建平行資料庫。寫入後必須 fetch 回讀並驗證 JSON、事件 ID 唯一性、日期、來源、狀態、coverage、audit 及 SHA。
+- 台灣週二至週六 04:35 行事曆排程是資料庫預更新，也是週 JSON 唯一 writer。它必須重新讀取 main 最新 WR，依正式 schema 對 `data/calendar/weeks/YYYY-Www.json` 執行可重複的增量 merge/upsert；保留穩定 event ID、已核實 actual、原始來源及完整 audit。不得以空值、舊來源或未核實值覆蓋較新且已核實的資料，不得刪除既有事件或重建平行資料庫。寫入後必須 fetch 回讀並驗證 JSON、事件 ID 唯一性、日期、來源、狀態、coverage、audit 及 SHA。
 - Main Stage 3 以 Stage 1 鎖定的 Main commit 唯讀讀取本週 JSON；僅 report_date 為週一時（含週六製作）另讀取前一週。不得在 Stage 3 或後續 Stage 對週 JSON 執行增量寫回、merge/upsert、修補或覆蓋。若發現新資料、缺漏或矛盾，只記錄於同一 Run 工作紀錄及審核版，留待下一次 04:35 更新。
 - 04:35 資料庫更新與早報 Stage 3 不得同時寫入同一週 JSON；早報對週 JSON 永遠唯讀。不得以 05:25 舊時點作為排程依賴，也不得建立平行資料庫或額外中繼資料庫。
 - 舊 WR Lock、Snapshot、collector、assembler、renderer、validator、workflow artifact 及其程式／資料均保留作歷史參考或必要的歷史資料讀取；不得作為當日正式行情或早報產製的強制前置關卡。
