@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 
 ROOT=Path(__file__).resolve().parents[2]
 
@@ -25,6 +25,9 @@ def main():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_3",context)
+    stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
+    if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
+    require_stage_wr_receipt(json.loads(stage2_receipt_path.read_text(encoding="utf-8")),"STAGE_2")
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
