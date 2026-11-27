@@ -12,6 +12,36 @@
   "events": {
     "economic": [
       {
+        "id": "current-cn-ratingdog-manufacturing-202611",
+        "event_date": "2026-11-30T00:00:00+08:00",
+        "region": "中國",
+        "event_name": "中國 RatingDog 製造業 PMI（11月）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC 4 星：中國 RatingDog 製造業 PMI（11月） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
+        "previous": "10月 52.0",
+        "forecast": "Reuters 調查預期 51.5",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "私人調查若仍高於 50，代表製造業擴張延續，但回落至 51.5 會顯示動能放緩；與官方 PMI 差距亦值得觀察。",
+        "source": {
+          "name": "Reuters｜中國官方與 RatingDog PMI 11 月預覽",
+          "url": "https://www.reuters.com/markets/asia/chinas-factory-slump-likely-extends-november-despite-solid-exports-2026-11-27/",
+          "publisher": "Reuters",
+          "published_at": null,
+          "observed_at": "2026-11-28T04:30:42+08:00",
+          "notes": "Reuters 11/27 報導指出私人 RatingDog 製造業 PMI 預期由 52 降至 51.5，並稱數據於下週初公布；確切發布時刻未由官方日程回讀，故 time_known=false。",
+          "secondary_refs": [
+            "https://www.investing.com/economic-calendar/china-manufacturing-pmi-594"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "指數點",
+        "data_reference": "RatingDog Manufacturing PMI, November 2026",
+        "time_known": false
+      },
+      {
         "id": "current-cn-nbs-pmi-202611",
         "event_date": "2026-11-30T09:30:00+08:00",
         "region": "中國",
@@ -73,6 +103,36 @@
         "time_known": true
       },
       {
+        "id": "current-us-spglobal-manufacturing-202611",
+        "event_date": "2026-12-01T00:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國 S&P Global 製造業 PMI（11月終值）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC 4 星：美國 S&P Global 製造業 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
+        "previous": "11月初值 51.8（待終值發布前回讀確認）",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "終值若下修，將與 ISM 製造業調查形成交叉訊號；需留意新訂單與就業分項。",
+        "source": {
+          "name": "S&P Global｜PMI 發布日程",
+          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
+          "publisher": "S&P Global",
+          "published_at": null,
+          "observed_at": "2026-11-28T04:30:42+08:00",
+          "notes": "12/1 為美國 11 月製造業 PMI 終值發布日；本輪未能讀取官方發布日程 PDF 的精確時刻，故只記日期。市場預期未取得。",
+          "secondary_refs": [
+            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "指數點",
+        "data_reference": "S&P Global US Manufacturing PMI Final, November 2026",
+        "time_known": false
+      },
+      {
         "id": "current-jp-unemployment-202610",
         "event_date": "2026-12-01T07:30:00+08:00",
         "region": "日本",
@@ -103,64 +163,34 @@
         "time_known": true
       },
       {
-        "id": "current-cn-ratingdog-manufacturing-202611",
-        "event_date": "2026-11-30T00:00:00+08:00",
-        "region": "中國",
-        "event_name": "中國 RatingDog 製造業 PMI（11月）",
-        "importance_stars": 4,
+        "id": "current-eurozone-hicp-flash-202611",
+        "event_date": "2026-12-01T22:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區 11 月 HICP 閃估",
+        "importance_stars": 5,
         "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC 4 星：中國 RatingDog 製造業 PMI（11月） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
-        "previous": "10月 52.0",
-        "forecast": "Reuters 調查預期 51.5",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "私人調查若仍高於 50，代表製造業擴張延續，但回落至 51.5 會顯示動能放緩；與官方 PMI 差距亦值得觀察。",
-        "source": {
-          "name": "Reuters｜中國官方與 RatingDog PMI 11 月預覽",
-          "url": "https://www.reuters.com/markets/asia/chinas-factory-slump-likely-extends-november-despite-solid-exports-2026-11-27/",
-          "publisher": "Reuters",
-          "published_at": null,
-          "observed_at": "2026-11-28T04:30:42+08:00",
-          "notes": "Reuters 11/27 報導指出私人 RatingDog 製造業 PMI 預期由 52 降至 51.5，並稱數據於下週初公布；確切發布時刻未由官方日程回讀，故 time_known=false。",
-          "secondary_refs": [
-            "https://www.investing.com/economic-calendar/china-manufacturing-pmi-594"
-          ]
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true,
-        "data_unit": "指數點",
-        "data_reference": "RatingDog Manufacturing PMI, November 2026",
-        "time_known": false
-      },
-      {
-        "id": "current-us-spglobal-manufacturing-202611",
-        "event_date": "2026-12-01T00:00:00+08:00",
-        "region": "美國",
-        "event_name": "美國 S&P Global 製造業 PMI（11月終值）",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC 4 星：美國 S&P Global 製造業 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
-        "previous": "11月初值 51.8（待終值發布前回讀確認）",
+        "importance_basis_source": "TAC 5 星：歐元區 11 月 HICP 閃估 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
+        "previous": "10月年增 4.0%；月增 0.5%",
         "forecast": null,
         "actual": null,
         "status": "upcoming",
-        "impact_judgment": "終值若下修，將與 ISM 製造業調查形成交叉訊號；需留意新訂單與就業分項。",
+        "impact_judgment": "通膨若再高於 4%，將強化 ECB 12 月政策緊縮預期；若回落，需觀察能源與服務通膨是否同步降溫。",
         "source": {
-          "name": "S&P Global｜PMI 發布日程",
-          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
-          "publisher": "S&P Global",
+          "name": "ECB／Eurostat｜Euro area HICP flash estimate schedule",
+          "url": "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
+          "publisher": "European Central Bank / Eurostat",
           "published_at": null,
           "observed_at": "2026-11-28T04:30:42+08:00",
-          "notes": "12/1 為美國 11 月製造業 PMI 終值發布日；本輪未能讀取官方發布日程 PDF 的精確時刻，故只記日期。市場預期未取得。",
+          "notes": "ECB 統計日程列 12/1 15:00 CET（台灣 22:00）；本輪未取得可核實市場共識，forecast 保持 null。",
           "secondary_refs": [
-            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
+            "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1797202800000&type=dayGridWeek"
           ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
-        "data_unit": "指數點",
-        "data_reference": "S&P Global US Manufacturing PMI Final, November 2026",
-        "time_known": false
+        "data_unit": "% y/y；% m/m",
+        "data_reference": "Euro area HICP Flash Estimate November 2026",
+        "time_known": true
       },
       {
         "id": "current-us-ism-manufacturing-202611",
@@ -254,36 +284,6 @@
         "time_known": true
       },
       {
-        "id": "current-eurozone-hicp-flash-202611",
-        "event_date": "2026-12-01T22:00:00+08:00",
-        "region": "歐元區",
-        "event_name": "歐元區 11 月 HICP 閃估",
-        "importance_stars": 5,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC 5 星：歐元區 11 月 HICP 閃估 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
-        "previous": "10月年增 4.0%；月增 0.5%",
-        "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "通膨若再高於 4%，將強化 ECB 12 月政策緊縮預期；若回落，需觀察能源與服務通膨是否同步降溫。",
-        "source": {
-          "name": "ECB／Eurostat｜Euro area HICP flash estimate schedule",
-          "url": "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
-          "publisher": "European Central Bank / Eurostat",
-          "published_at": null,
-          "observed_at": "2026-11-28T04:30:42+08:00",
-          "notes": "ECB 統計日程列 12/1 15:00 CET（台灣 22:00）；本輪未取得可核實市場共識，forecast 保持 null。",
-          "secondary_refs": [
-            "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1797202800000&type=dayGridWeek"
-          ]
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true,
-        "data_unit": "% y/y；% m/m",
-        "data_reference": "Euro area HICP Flash Estimate November 2026",
-        "time_known": true
-      },
-      {
         "id": "current-eurozone-unemployment-202610",
         "event_date": "2026-12-02T00:00:00+08:00",
         "region": "歐元區",
@@ -374,6 +374,66 @@
         "time_known": true
       },
       {
+        "id": "current-us-spglobal-services-202611",
+        "event_date": "2026-12-03T00:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國 S&P Global 服務業 PMI（11月終值）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC 4 星：美國 S&P Global 服務業 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
+        "previous": "11月初值 54.7",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "服務業仍是美國經濟主要支撐，終值若下修，需觀察新業務、就業及價格分項。",
+        "source": {
+          "name": "S&P Global｜US Services PMI release schedule",
+          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
+          "publisher": "S&P Global",
+          "published_at": null,
+          "observed_at": "2026-11-28T04:30:42+08:00",
+          "notes": "12/3 為美國 11 月服務業 PMI 終值發布日；本輪未能回讀官方精確時刻與市場共識，故只記日期。",
+          "secondary_refs": [
+            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "指數點",
+        "data_reference": "S&P Global US Services PMI Final November 2026",
+        "time_known": false
+      },
+      {
+        "id": "current-us-spglobal-composite-202611",
+        "event_date": "2026-12-03T00:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國 S&P Global 綜合 PMI（11月終值）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC 4 星：美國 S&P Global 綜合 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
+        "previous": "11月初值 54.6",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "綜合 PMI 可觀察製造業與服務業合併動能；若服務業下修幅度較大，可能抵銷製造業的韌性。",
+        "source": {
+          "name": "S&P Global｜US Composite PMI release schedule",
+          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
+          "publisher": "S&P Global",
+          "published_at": null,
+          "observed_at": "2026-11-28T04:30:42+08:00",
+          "notes": "12/3 為美國 11 月綜合 PMI 終值發布日；本輪未能回讀官方精確時刻與市場共識，故只記日期。",
+          "secondary_refs": [
+            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "指數點",
+        "data_reference": "S&P Global US Composite PMI Final November 2026",
+        "time_known": false
+      },
+      {
         "id": "current-jp-composite-pmi-202611",
         "event_date": "2026-12-03T08:30:00+08:00",
         "region": "日本",
@@ -462,66 +522,6 @@
         "data_unit": "千人",
         "data_reference": "US Initial Jobless Claims week ending November 28 2026",
         "time_known": true
-      },
-      {
-        "id": "current-us-spglobal-services-202611",
-        "event_date": "2026-12-03T00:00:00+08:00",
-        "region": "美國",
-        "event_name": "美國 S&P Global 服務業 PMI（11月終值）",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC 4 星：美國 S&P Global 服務業 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
-        "previous": "11月初值 54.7",
-        "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "服務業仍是美國經濟主要支撐，終值若下修，需觀察新業務、就業及價格分項。",
-        "source": {
-          "name": "S&P Global｜US Services PMI release schedule",
-          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
-          "publisher": "S&P Global",
-          "published_at": null,
-          "observed_at": "2026-11-28T04:30:42+08:00",
-          "notes": "12/3 為美國 11 月服務業 PMI 終值發布日；本輪未能回讀官方精確時刻與市場共識，故只記日期。",
-          "secondary_refs": [
-            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
-          ]
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true,
-        "data_unit": "指數點",
-        "data_reference": "S&P Global US Services PMI Final November 2026",
-        "time_known": false
-      },
-      {
-        "id": "current-us-spglobal-composite-202611",
-        "event_date": "2026-12-03T00:00:00+08:00",
-        "region": "美國",
-        "event_name": "美國 S&P Global 綜合 PMI（11月終值）",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC 4 星：美國 S&P Global 綜合 PMI（11月終值） 為本週主要宏觀數據，影響主要央行政策、景氣或全球風險資產定價。",
-        "previous": "11月初值 54.6",
-        "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "綜合 PMI 可觀察製造業與服務業合併動能；若服務業下修幅度較大，可能抵銷製造業的韌性。",
-        "source": {
-          "name": "S&P Global｜US Composite PMI release schedule",
-          "url": "https://www.pmi.spglobal.com/Public/Home/PressRelease",
-          "publisher": "S&P Global",
-          "published_at": null,
-          "observed_at": "2026-11-28T04:30:42+08:00",
-          "notes": "12/3 為美國 11 月綜合 PMI 終值發布日；本輪未能回讀官方精確時刻與市場共識，故只記日期。",
-          "secondary_refs": [
-            "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates"
-          ]
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true,
-        "data_unit": "指數點",
-        "data_reference": "S&P Global US Composite PMI Final November 2026",
-        "time_known": false
       },
       {
         "id": "current-us-factory-orders-202610",
@@ -3889,131 +3889,66 @@
         "no_judgment_engine_version_written": true,
         "only_w48_and_w49_week_json_modified": true
       }
+    },
+    {
+      "at": "2026-11-28T04:30:42+08:00",
+      "action": "W49 economic event chronology correction",
+      "week": "2026-W49",
+      "before": {
+        "path": "data/calendar/weeks/2026-W49.json",
+        "blob_sha": "03aaa4c2a97b94c3a3481d3bc26de038ffee1570",
+        "economic_event_order": "initial source-discovery order",
+        "economic_events": 22,
+        "main_head": "861751ecbdb7aa69ca6d532f74a379f2868474a3"
+      },
+      "after": {
+        "path": "data/calendar/weeks/2026-W49.json",
+        "economic_event_order": "ascending event_date (Asia/Taipei)",
+        "economic_events": 22,
+        "first_event": "current-cn-ratingdog-manufacturing-202611",
+        "last_event": "current-ca-employment-202611"
+      },
+      "files_modified": [
+        "data/calendar/weeks/2026-W49.json"
+      ],
+      "run_status": "event array sorted chronologically; no event content, estimates, or sources changed",
+      "preservation_checks": {
+        "event_ids_unchanged": true,
+        "event_content_unchanged": true,
+        "attempts_unchanged": true,
+        "coverage_unchanged": true,
+        "schema_version_1_retained": true
+      }
     }
   ],
   "last_update_audit": {
     "at": "2026-11-28T04:30:42+08:00",
-    "action": "週六雙週更新：以 2026-11-30 Monday report_date 獨立查詢並建立 W49 經濟及財報行事曆",
+    "action": "W49 economic event chronology correction",
     "week": "2026-W49",
     "before": {
-      "exists": false,
       "path": "data/calendar/weeks/2026-W49.json",
-      "main_head": "7eea1808aa121e8117c74b82c74ba3d2e8294679",
-      "schema_version": 1
+      "blob_sha": "03aaa4c2a97b94c3a3481d3bc26de038ffee1570",
+      "economic_event_order": "initial source-discovery order",
+      "economic_events": 22,
+      "main_head": "861751ecbdb7aa69ca6d532f74a379f2868474a3"
     },
     "after": {
-      "exists": true,
       "path": "data/calendar/weeks/2026-W49.json",
+      "economic_event_order": "ascending event_date (Asia/Taipei)",
       "economic_events": 22,
-      "earnings_events": 13,
-      "economic_status": "incomplete",
-      "earnings_status": "incomplete",
-      "updated_at": "2026-11-28T04:30:42+08:00",
-      "schema_version": 1,
-      "eps_attempts_added": 52,
-      "revenue_attempts_added": 52,
-      "eps_attempts_total": 52,
-      "revenue_attempts_total": 52,
-      "eps_adopted": 0,
-      "revenue_adopted": 0,
-      "eps_snapshots_added": 0,
-      "revenue_snapshots_added": 0
-    },
-    "economic_actuals_updated": [],
-    "economic_event_status_updates": [],
-    "economic_forecast_coverage": {
-      "total_events": 22,
-      "forecast_applicable": 22,
-      "forecast_available": 5,
-      "forecast_missing_numeric": 17,
-      "forecast_not_applicable": 0,
-      "actuals_pending": 22
-    },
-    "earnings_consensus_recheck": {
-      "companies": 13,
-      "eps_attempts_added": 52,
-      "revenue_attempts_added": 52,
-      "eps_attempts_total": 52,
-      "revenue_attempts_total": 52,
-      "per_metric_source_level_counts": {
-        "1": 13,
-        "2": 13,
-        "3": 13,
-        "4": 13
-      },
-      "per_metric_outcomes": {
-        "level1_unreadable": 13,
-        "level2_missing_required_fields": 10,
-        "level2_unreadable": 3,
-        "level3_unavailable": 13,
-        "level4_unavailable": 13
-      },
-      "adopted": {
-        "eps": 0,
-        "revenue": 0
-      },
-      "unresolved_tickers": [
-        "RBRK",
-        "MRVL",
-        "GTLB",
-        "MDB",
-        "OKTA",
-        "NTAP",
-        "CRM",
-        "SNOW",
-        "KR",
-        "DG",
-        "ULTA",
-        "VEEV",
-        "DOCU"
-      ]
-    },
-    "excluded_earnings_events": [
-      {
-        "ticker": "ZS",
-        "reason": "Q1 FY2027 results were already reported on 2026-11-23; next event is outside W49.",
-        "source_url": "https://www.investing.com/equities/zscaler-inc-earnings"
-      },
-      {
-        "ticker": "CPRT",
-        "reason": "The Copart page found under the alleged Q1 FY2027 date still displays the old Q4 FY2026 September 10 release and does not confirm a December 1 event.",
-        "source_url": "https://www.copart.com/content/us/en/press-releases/copart-to-release-first-quarter-2027-results"
-      }
-    ],
-    "wr_provenance": {
-      "main_version": "5.20（2026-11-27｜Main 排程權威與 Chart 3 非阻塞交接）",
-      "main_blob_sha": "adb7283eab78d0039df69ab632c0b028b51484bc",
-      "main_branch_head": "7eea1808aa121e8117c74b82c74ba3d2e8294679",
-      "main_read_at": "2026-11-28T04:30:42+08:00",
-      "simulation_version": "SIM-1.4（正式生效版）",
-      "simulation_blob_sha": "d60965f0a61159dd8a94c31d7a7f2b6d083e6363",
-      "simulation_branch": "simulation/tac-process-lab-2026-11-06",
-      "simulation_read_at": "2026-11-28T04:30:42+08:00",
-      "simulation_note": "SIM-1.4 First Available Wins：Yahoo Finance Average Estimate → Investing.com → LSEG I/B/E/S → FactSet Estimates；EPS／Revenue 分開查找。本輪另依本任務明列的 data_as_of、財報期間及 basis／definition 比較條件判斷是否採用。"
-    },
-    "schema_provenance": {
-      "main_calendar_schema": "main 分支未找到獨立 calendar schema 檔；依 main WR v5.20 與 W48 schema_version=1 的根結構及 events/coverage/audit 欄位建立 W49。",
-      "main_source_registry": "coverage.economic.source_refs、coverage.earnings.source_refs 及各 event source／secondary_refs。",
-      "market_snapshot_schema_blob_sha": "f891725f1403e53038042e562d2dc36553778761",
-      "schema_version_retained": 1
+      "first_event": "current-cn-ratingdog-manufacturing-202611",
+      "last_event": "current-ca-employment-202611"
     },
     "files_modified": [
-      "data/calendar/weeks/2026-W48.json",
       "data/calendar/weeks/2026-W49.json"
     ],
-    "run_status": "W49_created_from_independent_source_queries; no W48 events copied; subsequent daily runs should incrementally complete pending forecasts and schedules",
+    "run_status": "event array sorted chronologically; no event content, estimates, or sources changed",
     "preservation_checks": {
-      "schema_version_1_retained": true,
-      "event_ids_unique": true,
-      "no_w48_event_copied": true,
-      "all_economic_actuals_null_for_upcoming_events": true,
-      "all_earnings_actuals_null_for_upcoming_events": true,
-      "each_earnings_metric_has_four_ordered_attempts": true,
-      "no_selected_consensus_source_without_adopted_attempt": true,
-      "no_new_pit_snapshots": true,
-      "no_beat_miss_inline_recalculation": true,
-      "no_judgment_engine_version_written": true,
-      "only_w48_and_w49_week_json_modified": true
+      "event_ids_unchanged": true,
+      "event_content_unchanged": true,
+      "attempts_unchanged": true,
+      "coverage_unchanged": true,
+      "schema_version_1_retained": true
     }
   }
 }
