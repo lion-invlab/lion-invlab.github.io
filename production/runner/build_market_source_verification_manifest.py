@@ -175,6 +175,7 @@ def verification_fields(source: dict, display, change_display, observation: dict
             closure_hash = hashlib.sha256(canonical).hexdigest()
         return {
             "verification_status": "CLOSED" if closure_verified else "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+            "market_data_status": "CLOSED" if closure_verified else "PENDING",
             "source_page_fetched": observation.get("source_page_fetched") is True,
             "display_value_reconciled": closure_verified,
             "display_value_matches_saved_observation": closure_verified,
