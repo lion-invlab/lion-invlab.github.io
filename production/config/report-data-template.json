@@ -1011,10 +1011,7 @@
         "source_page_fetched": false,
         "approved_backup_urls": [
           "https://www.tradingview.com/symbols/ICE-MOVE/"
-        ],
-        "backup_source_roles": {
-          "https://www.tradingview.com/symbols/ICE-MOVE/": "BACKUP_1"
-        }
+        ]
       }
     },
     "fear_greed": {
