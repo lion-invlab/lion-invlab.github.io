@@ -320,7 +320,7 @@ def validate_bundle(data: dict, report_date: str, bundle: dict) -> dict:
             if not tool_read_failure and (raw.get("web_line_start") < 0 or raw.get("web_line_end") < raw.get("web_line_start")):
                 raise ValueError(f"{group}/{name}: invalid direct web reader source line range")
             row_text = str(raw.get("observed_row_text") or "")
-            if group == "risk" and name == "fear_greed":
+            if group == "risk" and name == "fear_greed" and not tool_read_failure:
                 if source.get("source_role") not in ("BACKUP_1", "BACKUP", "SECONDARY"):
                     raise ValueError("CNN Fear & Greed web-page fallback is allowed only when fixture pins an explicit backup source")
                 if raw.get("read_status") != "PAGE_CONTENT_READ_SUCCESS":
