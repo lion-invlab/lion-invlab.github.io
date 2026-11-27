@@ -594,14 +594,22 @@ jobs:
           python production/runner/run_stage4.py --run-dir "$RUN_DIR" --content "$CONTENT_FILE"
           test -s "$RUN_DIR/stage4-analysis-receipt.json"
       - name: Stage 5 — build exact mother and run full QA
+        id: stage5
         run: |
           set -euo pipefail
           python production/runner/run_stage5.py --run-dir "$RUN_DIR"
           test -s "$RUN_DIR/stage5-render-qa-receipt.json"
+          STATUS="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["status"])' "$RUN_DIR/stage5-render-qa-receipt.json")"
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          echo "Stage 5 result: $STATUS"
       - name: Stage 6 — deliver three preview files and verify Pages
+        if: ${{ steps.stage5.outputs.status == 'REVIEW_READY' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python production/runner/run_stage6.py --run-dir "$RUN_DIR"
+      - name: Stage 6 — preserve PARTIAL artifact without publishing
+        if: ${{ steps.stage5.outputs.status == 'PARTIAL' }}
+        run: echo "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview delivery."
       - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
