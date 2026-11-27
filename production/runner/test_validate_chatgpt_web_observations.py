@@ -311,6 +311,7 @@ def main():
     # MOVE must reject every alternate historical-page source and keep the
     # approved Investing.com URL as its only page evidence source.
     for invalid_fields in (
+        {"source_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
         {"attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
         {"evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
         {"source_role": "BACKUP_1"},
@@ -322,7 +323,9 @@ def main():
         try:
             validate_bundle(blank_data, "2026-11-24", invalid_bundle)
         except ValueError as exc:
-            assert "MOVE" in str(exc) and ("alternate" in str(exc) or "pinned" in str(exc))
+            assert "MOVE" in str(exc) and (
+                "alternate" in str(exc) or "pinned" in str(exc) or "approved" in str(exc)
+            )
         else:
             raise AssertionError(f"Unapproved MOVE alternate-source evidence was accepted: {invalid_fields}")
 
