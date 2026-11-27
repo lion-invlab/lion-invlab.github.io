@@ -12,7 +12,7 @@ from pathlib import Path
 from decimal import Decimal
 
 from build_market_source_verification_manifest import IDENTITY_ALIASES, build_manifest
-from validate_chatgpt_web_observations import main as validator_main, validate_bundle, merge_move_backup_observation
+from validate_chatgpt_web_observations import main as validator_main, validate_bundle
 from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 from validate_chatgpt_web_observations import persist_fixture
 from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
@@ -294,7 +294,7 @@ def main():
         "observed_date": None,
         "observed_value": None,
         "observed_change": None,
-        "observed_row_text": "Investing.com and TradingView history pages were readable; target session row not yet posted.",
+        "observed_row_text": "Investing.com historical page was readable; target session row not yet posted.",
     })
     move_pending_result = validate_bundle(blank_data, "2026-11-24", move_pending_bundle)
     assert move_pending_result["verified_count"] == 42
@@ -308,90 +308,23 @@ def main():
     assert pending_fixture["risk"]["move"]["source"].get("close_value") is None
     assert pending_fixture["risk"]["move"]["source"]["verification_status"] == "PENDING"
 
-    # A target-date TradingView ICE:MOVE historical row is the sole permitted backup.
-    move_backup_bundle = copy.deepcopy(bundle)
-    move_backup = next(x for x in move_backup_bundle["observations"]
-                       if x["group"] == "risk" and x["name"] == "move")
-    move_source = data["risk"]["move"]["source"]
-    backup_close = move_source.get("close_value") or move_source.get("history_close")
-    backup_change = move_source.get("daily_change_percent") or move_source.get("history_change")
-    move_backup.update({
-        "attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
-        "source_role": "BACKUP_1",
-        "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
-        "instrument_identity": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
-        "observed_value": backup_close,
-        "observed_change": backup_change,
-        "observed_value_field": "Price",
-        "observed_change_field": "Change %",
-        "observed_headers": ["Date", "Price", "Change %"],
-        "observed_row_text": "Nov 23, 2026 | " + str(backup_close) + " | " + str(backup_change),
-        "read_status": "PAGE_CONTENT_READ_SUCCESS",
-        "observed_date": move_source.get("data_date"),
-    })
-    move_backup_result = validate_bundle(blank_data, "2026-11-24", move_backup_bundle)
-    move_backup_normalized = next(x for x in move_backup_result["observations"]
-                                  if x["group"] == "risk" and x["name"] == "move")
-    move_backup_normalized["attempt_history"] = [
-        {"round": 1, "source_role": "PRIMARY", "request_url": move_source.get("url"), "status": "TARGET_DATE_NOT_FOUND", "read_status": "SOURCE_UPDATE_PENDING"},
-        {"round": 2, "source_role": "BACKUP_1", "request_url": "https://www.tradingview.com/symbols/ICE-MOVE/", "status": "VERIFIED"},
-    ]
-    assert move_backup_normalized["status"] == "VERIFIED"
-    assert move_backup_normalized["source_role"] == "BACKUP_1"
-    assert move_backup_normalized["field_evidence"]["close"]["source_type"] == "TRADINGVIEW_HISTORICAL_PAGE"
-    assert move_backup_normalized["field_evidence"]["change"]["source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
-    backup_fixture = populate_fixture(blank_data, move_backup_result)
-    assert backup_fixture["risk"]["move"]["source"]["verification_status"] == "BACKUP_VERIFIED"
-    assert backup_fixture["risk"]["move"]["source"]["verified_source_role"] == "BACKUP_1"
-    assert backup_fixture["risk"]["move"]["source"]["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
-
-    # The production web-bundle path performs only a one-row TradingView read when
-    # Investing.com reports SOURCE_NO_DATA; the other 43 normalized observations stay untouched.
-    primary_missing_bundle = copy.deepcopy(bundle)
-    primary_missing = next(x for x in primary_missing_bundle["observations"]
-                           if x["group"] == "risk" and x["name"] == "move")
-    primary_missing.update({"read_status": "SOURCE_NO_DATA", "observed_date": None,
-                            "observed_value": None, "observed_change": None,
-                            "observed_row_text": "Investing.com historical page readable; target row absent."})
-    primary_missing_result = validate_bundle(blank_data, "2026-11-24", primary_missing_bundle)
-    merged_backup = merge_move_backup_observation(copy.deepcopy(primary_missing_result),
-                                                  copy.deepcopy(move_backup_normalized), "SOURCE_NO_DATA")
-    merged_move = next(x for x in merged_backup["observations"]
-                       if x["group"] == "risk" and x["name"] == "move")
-    assert merged_backup["move_backup_attempted"] is True
-    assert merged_backup["verified_count"] == 43
-    assert merged_move["source_role"] == "BACKUP_1"
-    assert merged_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
-    manifest_from_backup = build_manifest(data, "2026-11-24",
-        {(row["group"], row["name"]): row for row in merged_backup["observations"]})
-    manifest_move = next(x for x in manifest_from_backup["rows"]
-                         if x["group"] == "risk" and x["name"] == "move")
-    assert manifest_move["evidence_source_url"] == "https://www.tradingview.com/symbols/ICE-MOVE/"
-    assert manifest_move["evidence_source_role"] == "BACKUP_1"
-    assert [x["source_role"] for x in manifest_move["source_attempts"]] == ["PRIMARY", "BACKUP_1"]
-    assert manifest_move["source_attempts"][0]["status"] == "TARGET_DATE_NOT_FOUND"
-    assert manifest_move["source_attempts"][0]["read_status"] == "SOURCE_UPDATE_PENDING"
-
-    # A readable TradingView page without the target session must remain SOURCE_UPDATE_PENDING,
-    # retaining its page evidence rather than being mislabeled as a tool failure.
-    tv_pending = {
-        "group": "risk", "name": "move", "source_url": move_source.get("url"),
-        "target_date": move_source.get("data_date"), "status": "SOURCE_UPDATE_PENDING",
-        "read_status": "SOURCE_UPDATE_PENDING", "source_role": "BACKUP_1",
-        "evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/",
-        "source_page_fetched": True, "page_title": "ICE BofAML U.S. Bond Market Option Volatility Estimate Index",
-        "page_body_excerpt": "History page loaded; target date not posted.",
-        "attempt_history": [{"round": 1, "source_role": "BACKUP_1", "status": "TARGET_DATE_NOT_FOUND"}],
-        "observed_value": None, "observed_change": None, "observed_date": None,
-    }
-    merged_pending_backup = merge_move_backup_observation(copy.deepcopy(primary_missing_result),
-                                                          tv_pending, "SOURCE_NO_DATA")
-    pending_backup_row = next(x for x in merged_pending_backup["observations"]
-                              if x["group"] == "risk" and x["name"] == "move")
-    assert pending_backup_row["status"] == "SOURCE_UPDATE_PENDING"
-    assert pending_backup_row["read_status"] == "SOURCE_UPDATE_PENDING"
-    assert pending_backup_row["page_title"].startswith("ICE BofAML")
-    assert pending_backup_row["attempt_history"][0]["source_role"] == "BACKUP_1"
+    # MOVE must reject every alternate historical-page source and keep the
+    # approved Investing.com URL as its only page evidence source.
+    for invalid_fields in (
+        {"attempt_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
+        {"evidence_source_url": "https://www.tradingview.com/symbols/ICE-MOVE/"},
+        {"source_role": "BACKUP_1"},
+    ):
+        invalid_bundle = copy.deepcopy(bundle)
+        invalid_move = next(x for x in invalid_bundle["observations"]
+                            if x["group"] == "risk" and x["name"] == "move")
+        invalid_move.update(invalid_fields)
+        try:
+            validate_bundle(blank_data, "2026-11-24", invalid_bundle)
+        except ValueError as exc:
+            assert "MOVE" in str(exc) and ("alternate" in str(exc) or "pinned" in str(exc))
+        else:
+            raise AssertionError(f"Unapproved MOVE alternate-source evidence was accepted: {invalid_fields}")
 
     # Exercise the exact production CLI path: blank the supplied fixture, validate the
     # date-matched direct page bundle, and write only current observations back in place.
