@@ -1,6 +1,6 @@
 # TAC 投資早報 R3｜MASTER WORK RULES
 
-版本：1.5（2026-11-27）
+版本：1.6（2026-11-27｜Chart 3 延後至早報交付後合併）
 正式分支：main
 規則來源：SIM-1.4 技術規範（正式生效版；來源 branch `simulation/tac-process-lab-2026-11-06`，來源 WR SHA `d60965f0a61159dd8a94c31d7a7f2b6d083e6363`）
 正式生效標示：SIM-1.4（正式生效版）｜ACTIVE／正式生效
@@ -53,7 +53,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 44 項每項必須有值或明確狀態；單項缺漏不得阻止無依賴項目及其他階段繼續。未核實值不得作為確定事實。
 - MOVE 的市場交易日判斷必須獨立於行情列讀取：使用 SIFMA 官方美國固定收益市場 Holiday Schedule／公告核對目標交易日。官方公告確認全天休市時，MOVE 標記 CLOSED，保留 Investing.com 當輪歷史頁讀取紀錄及 SIFMA 公告 URL、原文定位、讀取時間與 SHA；不得要求休市日存在收盤數值列。提早收市仍屬交易日，必須照常讀取該日 MOVE 收盤，不得沿用前一交易日數值或標記 CLOSED。SIFMA 公告屬市場日曆建議，僅用於相應美國固定收益市場日期判斷，不得擴張為所有資產的休市證據。
 - CLOSED 行的 `display_value_reconciled` 代表休市狀態與日曆證據已核實；`display_value_matches_saved_observation` 必須為 false，因休市列沒有可比較的數值。不得把休市狀態核實誤寫成報價數值相符。
-- Stage 2 同步將已核實 S&P 500 現貨正式收盤寫入既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守現有 append／SHA／防重契約；不可另抓第二份 S&P500 報價。Chart 3 merge workflow 為非阻塞支線，Stage 2–3 不得等待它完成；其失敗不得阻止早報主線。
+- Stage 2 只將已核實 S&P 500 現貨正式收盤追加並提交至既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守 append／SHA／防重契約；不可另抓第二份 S&P500 報價，也不得 dispatch 或等待歷史合併。Chart 3 merge workflow 只由 Main production workflow 成功完成事件觸發（即 Stage 6 已成功交付後），不得由增量帳 push 直接觸發；它是非阻塞支線，失敗不得阻止早報主線。
 
 ## 5. Stage 3 行事曆／財報
 - 唯一資料來源為 `data/calendar/weeks/YYYY-Www.json`；早報嚴格唯讀。
@@ -88,7 +88,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 9. Chart 3 與資料寫入權
 - 正式 Chart 3 資料路徑為 `data/tac-chart3/`，不可另建 `data/chart3/`。
-- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 FRED/ALFRED 既有更新與 S&P500 merge workflow 必須避免重複寫入同一資料，需先明確拆分責任。
+- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 S&P500 merge workflow 僅在早報 Stage 6 成功後讀取非空增量帳並合併，與 Stage 4–6 不並行。FRED/ALFRED 更新只負責其既有宏觀序列；各流程須以既有資料維護鎖避免同時寫入 Main。
 - Calendar updater 是週 JSON 唯一 writer；Stage 3 唯讀。
 - Stage 5 是本次 HTML 唯一 writer；Stage 6 是交付 sidecar 唯一 writer。
 
