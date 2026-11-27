@@ -50,6 +50,44 @@ def validate_stage5_handoff(stage5:dict, qa_doc:dict, render_doc:dict, context:d
             or binding.get("research_bundle_sha256")!=stage5.get("research_bundle_sha256")):
         raise ValueError("Stage 5 editorial evidence does not match Stage 4 receipt")
 
+def validate_existing_preview_triplet(worktree:Path, report_path:str, qa_path:str, delivery_path:str, context:dict)->bool:
+    """Allow replacement only when all existing preview files prove the exact same delivered Run."""
+    paths=(report_path,qa_path,delivery_path)
+    targets={ "html":report_path, "qa":qa_path, "delivery_receipt":delivery_path }
+    files=[worktree/path for path in paths]
+    present=[path.is_file() for path in files]
+    if not any(present):
+        return False
+    if not all(present):
+        raise SystemExit("existing dated preview triplet is incomplete; refusing replacement")
+    html_raw=(worktree/report_path).read_bytes()
+    qa_doc=json.loads((worktree/qa_path).read_text(encoding="utf-8"))
+    delivery_doc=json.loads((worktree/delivery_path).read_text(encoding="utf-8"))
+    expected_run=context.get("run_id")
+    expected_date=context.get("report_date")
+    if (delivery_doc.get("status")!="DELIVERED_AND_PUBLICLY_VERIFIED"
+            or delivery_doc.get("run_id")!=expected_run
+            or delivery_doc.get("report_date")!=expected_date
+            or delivery_doc.get("targets")!=targets
+            or delivery_doc.get("public_url_verified") is not True):
+        raise SystemExit("existing dated preview belongs to another Run/date or is not fully verified; refusing replacement")
+    if (delivery_doc.get("html",{}).get("sha256")!=sha(html_raw)
+            or delivery_doc.get("html",{}).get("git_blob_sha")!=blob(html_raw)):
+        raise SystemExit("existing preview HTML does not match its delivery receipt; refusing replacement")
+    if (delivery_doc.get("formal_homepage_modified") is not False
+            or delivery_doc.get("history_archive_modified") is not False):
+        raise SystemExit("existing preview receipt does not prove protected paths unchanged; refusing replacement")
+    if (qa_doc.get("status")!="REVIEW_READY" or qa_doc.get("run_id")!=expected_run
+            or qa_doc.get("report_date")!=expected_date):
+        raise SystemExit("existing QA sidecar is not bound to the same Run/date; refusing replacement")
+    qa_delivery=qa_doc.get("delivery") or {}
+    if (qa_delivery.get("status")!="DELIVERED_AND_PUBLICLY_VERIFIED"
+            or qa_delivery.get("run_id")!=expected_run
+            or qa_delivery.get("html_sha256")!=sha(html_raw)
+            or qa_delivery.get("public_url_verified") is not True):
+        raise SystemExit("existing QA delivery attestation is not same-Run/publicly verified; refusing replacement")
+    return True
+
 def write_json(path:Path,data:dict):
     path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
@@ -93,10 +131,12 @@ def main():
         git(["config","user.email","41898282+github-actions[bot]@users.noreply.github.com"],worktree)
         protected_before={p:git(["rev-parse",f"HEAD:{p}"],worktree) for p in PROTECTED if p!="data/calendar/weeks"}
         calendar_tree_before=git(["rev-parse","HEAD:data/calendar/weeks"],worktree)
+        same_run_replacement=validate_existing_preview_triplet(worktree,report_path,qa_path,delivery_path,context)
         for path in (report_path,qa_path,delivery_path):
             target=worktree/path
             target.parent.mkdir(parents=True,exist_ok=True)
-            if target.exists():raise SystemExit(f"dated preview target already exists: {path}; refusing overwrite")
+            if target.exists() and not same_run_replacement:
+                raise SystemExit(f"dated preview target already exists: {path}; refusing overwrite")
         (worktree/report_path).write_bytes(html_raw)
         qa_doc["delivery"]={"status":"PAGES_DEPLOY_PENDING","branch":"main","path":report_path,
             "run_id":context["run_id"],"html_sha256":sha(html_raw)}
