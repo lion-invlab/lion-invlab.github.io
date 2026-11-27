@@ -36,7 +36,9 @@ class Stage4ContentTests(unittest.TestCase):
             "sha256":digest,"git_blob_sha":blob}}
         editorial = {"stage4_wr_sha256":digest}
         preflight = {"wr_sha256":digest,"wr_git_blob_sha":blob}
-        validate_stage4_wr_handoff(capture,editorial,preflight)
+        attestation = validate_stage4_wr_handoff(capture,editorial,preflight)
+        self.assertEqual(attestation["status"],"PASS")
+        self.assertEqual(attestation["stage4_wr_sha256"],digest)
         editorial["stage4_wr_sha256"] = "b" * 64
         with self.assertRaisesRegex(ValueError,"attestation"):
             validate_stage4_wr_handoff(capture,editorial,preflight)
