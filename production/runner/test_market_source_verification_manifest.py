@@ -108,8 +108,8 @@ def main():
             "provenance": "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION",
             "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
             "prior_observation_reused": False,
-            "finished_at_utc": "2026-11-23T10:00:00Z",
-            "finished_at_tw": "2026-11-23T18:00:00+08:00",
+            "finished_at_utc": "2026-11-27T00:00:00Z",
+            "finished_at_tw": "2026-11-27T08:00:00+08:00",
         }
     }
     closed_manifest = build_manifest(closed_data, "2026-11-24", closed_observations)
@@ -140,6 +140,13 @@ def main():
     # MOVE closure is evidenced independently by SIFMA's official fixed-income holiday notice.
     move_closed_data = copy.deepcopy(closed_data)
     move_item = move_closed_data["risk"]["move"]
+    move_closed_data["report_date"] = "2026-11-27"
+    move_closed_data["trading_date"] = "2026-11-26"
+    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+        for item in (move_closed_data.get(group) or {}).values():
+            (item.get("source") or {})["data_date"] = "2026-11-26"
+    for source in (move_closed_data.get("sector_sources") or {}).values():
+        source["data_date"] = "2026-11-26"
     move_item["display"] = "-"
     move_item["change_display"] = "休市"
     move_source = move_item["source"]
@@ -149,7 +156,7 @@ def main():
             "read_status": "MARKET_CLOSED",
             "source_page_fetched": True,
             "source_url": move_source["url"],
-            "target_date": "2026-11-23",
+            "target_date": "2026-11-26",
             "expected_display_value": "-",
             "page_title": "ICE BofAML MOVE (MOVE) Historical Data",
             "instrument_identity_status": "VERIFIED",
@@ -158,7 +165,7 @@ def main():
             "observed_value_field": "收市",
             "observed_change_field": "升跌（%）",
             "observed_headers": ["日期", "收市", "開市", "高", "低", "成交量", "升跌（%）"],
-            "observed_row_text": "2026-11-23 target session is a full US fixed-income market holiday; no MOVE close is expected.",
+            "observed_row_text": "2026-11-26 target session is a full US fixed-income market holiday; no MOVE close is expected.",
             "closure_evidence_url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendations-in-the-u-s-the-u-k-and-japan-for-thanksgiving-day-2026",
             "closure_evidence_text": "SIFMA recommends a full market close on Thursday, November 26, 2026.",
             "closure_evidence_reader_ref": "SIFMA_TEST_REF",
@@ -171,7 +178,7 @@ def main():
             "finished_at_tw": "2026-11-23T18:00:00+08:00",
         }
     }
-    move_closed_manifest = build_manifest(move_closed_data, "2026-11-24", move_closed_observation)
+    move_closed_manifest = build_manifest(move_closed_data, "2026-11-27", move_closed_observation)
     move_closed_row = next(r for r in move_closed_manifest["rows"] if r["group"] == "risk" and r["name"] == "move")
     assert move_closed_row["verification_status"] == "CLOSED"
     assert move_closed_row["market_data_status"] == "CLOSED"
