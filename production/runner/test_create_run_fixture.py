@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from datetime import date
-from create_run_fixture import build, write_run_files
+from create_run_fixture import build, write_run_files, report_cutoff_taipei
 
 class RunFixtureFactoryTests(unittest.TestCase):
     def test_creates_fresh_blank_first_44_row_fixture(self):
@@ -57,6 +57,10 @@ class RunFixtureFactoryTests(unittest.TestCase):
     def test_records_explicit_superseded_run_without_mutating_it(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26),supersedes_run_id="TAC-2026-11-27-old-1")
         self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
+
+    def test_report_cutoff_tracks_new_york_dst(self):
+        self.assertEqual(report_cutoff_taipei(date(2026,11,30)),"2026-11-30 05:25")
+        self.assertEqual(report_cutoff_taipei(date(2026,7,6)),"2026-07-06 04:25")
 
     def test_defaults_to_previous_calendar_day_for_thursday_market_holiday(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-test-default")
