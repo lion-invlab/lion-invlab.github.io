@@ -206,7 +206,7 @@
     "policy_industry": {
       "paragraphs": [
         "美國晶片出口管制自11月19日起，對部分輸往馬來西亞、新加坡、印尼與泰國的受管制晶片，以及向中國企業提供大量運算能力的境外資料中心，新增許可要求。惠譽認為這會使亞洲資料中心投資更具選擇性，並擴大實體資料中心持有人與高槓桿算力租賃業者之間的風險差異。",
-        "英格蘭銀行11/26金融穩定報告進一步指出，AI資料中心融資結構日益複雜、循環且不透明， hyperscalers 今年債券發行規模可能超過3,050億美元，壓力可能由單一融資環節傳導至其他市場。現有可追溯資料未提供各業者預付款與長約、私募信貸曝險、信用利差、到期再融資及現金流覆蓋率，因此只能確認融資規模與透明度風險升高，不能推論系統性危機；評估AI供應鏈應由GPU需求轉向檢視設備利用率、客戶集中度、資本支出回報與融資品質。"
+        "英格蘭銀行11/26金融穩定報告指出，AI融資正快速擴展至公開債券、私募信貸及更複雜的循環安排，超大型雲端業者2026年債券發行預計超過3,050億美元；資料中心資本支出由私募信貸承擔的估計約7,000億美元（2026–2028），另有研究估計約1.4兆美元AI資本支出可能由另類資本提供。報告亦指出，部分低評級AI借款人的信用利差明顯擴大、企業再融資壓力上升；但單一企業的長約、預付款、現金流覆蓋與到期債務分布仍缺乏完整公開揭露，因此應追蹤資金成本、利差擴散、專案回收期與再融資能力，不能僅憑債券發行規模推論系統性危機。"
       ],
       "sources": [
         {
@@ -228,14 +228,14 @@
           "url": "https://www.lse.co.uk/news/BARC/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-ib6emac9jqden7q.html",
           "status": "已核對原始發布時間與內容",
           "published_at": "2026-11-26 15:23 UTC",
-          "checked_at": "2026-11-27 12:35 Asia/Taipei"
+          "checked_at": "2026-11-27 14:39 Asia/Taipei"
         },
         {
           "label": "Bank of England｜Financial Stability Report November 2026",
-          "url": "https://www.bankofengland.co.uk/-/media/boe/files/financial-stability-report/2026/financial-stability-report-november-2026",
+          "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
           "status": "官方金融穩定報告核對",
           "published_at": "2026-11-26",
-          "checked_at": "2026-11-27 12:35 Asia/Taipei"
+          "checked_at": "2026-11-27 14:39 Asia/Taipei"
         }
       ],
       "supporting_market_rows": []
@@ -362,14 +362,14 @@
           "url": "https://www.lse.co.uk/news/BARC/bank-of-england-sees-growing-financial-risks-as-ai-borrowing-surges-ib6emac9jqden7q.html",
           "status": "已核對原始發布時間與內容",
           "published_at": "2026-11-26 15:23 UTC",
-          "checked_at": "2026-11-27 12:35 Asia/Taipei"
+          "checked_at": "2026-11-27 14:39 Asia/Taipei"
         },
         {
           "label": "Bank of England｜Financial Stability Report November 2026",
-          "url": "https://www.bankofengland.co.uk/-/media/boe/files/financial-stability-report/2026/financial-stability-report-november-2026",
+          "url": "https://www.bankofengland.co.uk/financial-stability-report/2026/november-2026",
           "status": "官方金融穩定報告核對",
           "published_at": "2026-11-26",
-          "checked_at": "2026-11-27 12:35 Asia/Taipei"
+          "checked_at": "2026-11-27 14:39 Asia/Taipei"
         }
       ],
       "supporting_market_rows": [
