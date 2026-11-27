@@ -1,5 +1,7 @@
 # Stage 1｜開工基準與母版鎖定
-- Stage 1 必須依 report_date 前一個 New York 交易日的 16:25 ET 截止點設定 report_cutoff_taipei；換算台灣時間為美國冬令 05:25、夏令 04:25。必須依 report_date 前一日的 America/New_York DST 狀態計算，不得全年硬編碼 05:25。
+- 正式製作日為台灣週二至週六；週一、週日不自動製作。週二至週五 report_date=製作當日；週六製作時 report_date=隔週一（production_date+2 days），trading_date=週五，使用 Monday mother。週六不是 report_date，不得以週六日期命名 Preview。
+- 週二至週五使用 Weekday mother；週六生產的週一早報使用 Monday mother，讀取報告週及前一週 ISO-week 行事曆資料。
+- report_cutoff_taipei 代表實際生產日的收盤後資料截點。週二至週五按 report_date 前一個 New York 日期 16:25 ET 換算；週六生產的週一早報則按 report_date 前第三個 New York 日期（週五）16:25 ET 換算，對應台灣週六 05:25 冬令／04:25 夏令。
 
 ## 開工前強制 WR Preflight
 - Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
@@ -13,8 +15,8 @@ Stage 1 自身必須先完整讀取本文件，完成 WR Preflight 後才可建�
 MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/config/mother-template-manifest.json、雙母版、MOTHER_TEMPLATE_QA、報告日期及 main 行事曆 JSON。Stage 1 讀取自身規範是執行依據，不構成前置 Stage 依賴。
 
 ## 執行
-1. 以 Asia/Taipei 確定 report_date、星期及最近已完成交易日；週末不自動製作。
-2. 週一選 Monday template，讀取本週及上週 ISO-week JSON；週二至週五選 Weekday template，只讀本週 JSON。
+1. 以 Asia/Taipei 確定 production_date 與 report_date：週二至週五 report_date=當日；週六 report_date=隔週一；週一、週日不得由正常排程啟動。依 report_date 決定最近已完成交易日。
+2. 週一 report_date（由週六製作）選 Monday template，讀取報告週及前一週 ISO-week JSON；週二至週五選 Weekday template，只讀報告週 JSON。
 3. 記錄 main 起始 commit、MASTER WR／六份 Stage WR／全部共用 contracts／Manifest／母版／QA blob SHA，另固定 Builder approval record、Builder、Stage Runner／依賴模組、PORT_MANIFEST 與 tac-production.yml 的 blob SHA，以及週 JSON 路徑與 SHA。以 governance.blob_shas 固定清單保存；所有版本均固定於同一個起始 main commit，不得混用執行途中更新的 HEAD。
 4. 驗證模板 SHA 與 Manifest 完全一致、週別情境正確、JSON 可解析、schema/日期合理。不得 fallback 到 main 舊母版、首頁、歷史報告或前次 preview。
 5. 建立唯一 Run ID 與 run-context；記錄保護範圍及當次輸出路徑。Run context 必須包含固定 report_date、共用日期錨點 trading_date、report cutoff、mother key/path/blob SHA、Manifest SHA、calendar commit、週 JSON SHA 及 governance blob SHA 清單。trading_date 只供 Run／行事曆日期錨定，不代表 44 項商品必須採用同一個市場 data_date；Stage 1 Fixture 的 data_date 是空白建置用暫定值，Stage 2 必須逐項替換為實際 target_date。
