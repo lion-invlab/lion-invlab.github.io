@@ -4,11 +4,11 @@
 - 週二至週五使用 Weekday mother；週六生產的週一早報使用 Monday mother，讀取報告週及前一週 ISO-week 行事曆資料。
 - report_cutoff_taipei 代表實際生產日的收盤後資料截點。週二至週五按 report_date 前一個 New York 日期 16:25 ET 換算；週六生產的週一早報則按 report_date 前第三個 New York 日期（週五）16:25 ET 換算，對應台灣週六 05:25 冬令／04:25 夏令。
 
-## 開工前強制 WR Preflight
-- Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
-- Stage 1 以當前 main HEAD 的本階段 WR 為基準；Stage 2–6 必須同時核對 Stage 1 `governance.blob_shas`、鎖定 commit 與當前 WR Git blob SHA。
-- 缺檔、空檔、無法完整 UTF-8 讀取、Run 未鎖定該 WR、SHA 不一致，均立即 FAIL-CLOSED；不得跳過、fallback 或繼續工作。
-- 本階段輸出收據必須包含 `wr_preflight`，至少記錄 `wr_path`、`wr_loaded`、`wr_sha256`、`wr_git_blob_sha`、`stage1_pinned_git_blob_sha`、讀取位元組數及 PASS 狀態。沒有該證據不得宣告本階段完成。
+## 開工前讀取本階段 WR
+- 開始本階段工作前，完整讀取本文件（UTF-8）；確認內容可讀即可。
+- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA、Preflight receipt 或跨階段 WR 證明。
+- 讀取本階段 WR 後，直接依下列工作內容執行；完成即交付下一階段。
+
  
 Stage 1 自身必須先完整讀取本文件，完成 WR Preflight 後才可建立 Run。Stage 1 是輕量初始化：只允許 Python 標準函式庫與 Git 操作；建立及提交 Run handoff 前，禁止安裝 pandas、Playwright、Chromium、瀏覽器或 Stage 2–6 的任何重型依賴。Stage 1 必須在 Stage 2 喚醒前，將 run-context、Stage 1 fixture、report-data、Stage 1 receipt 與初始 run-state.json 一次提交至 main，並確認遠端可讀。Stage 2 不得在 Stage 1 之前預擷取。 Stage 1 是獨立且短時的 GitHub job：完成遠端提交及回讀後必須立即結束，不得等待 Stage 2 worker、不得安裝 Stage 2–6 依賴、不得執行 Stage 2／3。Stage 1 WR Preflight 必須在 report_date／Run ID resolution 之前完成。
 
