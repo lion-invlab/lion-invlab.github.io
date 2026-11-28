@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "run_id": "TAC-2026-11-30-46135975317",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "fixture_path": "production/runs/TAC-2026-11-30-46135975317/stage1-fixture.json",
+  "working_fixture_path": "production/runs/TAC-2026-11-30-46135975317/report-data.json",
+  "fixture_sha256": "7473d008da3bcff9ba17a9423d220b7da6e63acf2dd36264bf7bef0fac8deaed",
+  "run_context_sha256": "4fa20138722fb605a1c4e97109da959e9a6efd2cefcd99e68c456f71df03037f",
+  "governance_commit_sha": "9592a01b6451f423f6d29bb3983620b3c2a357b9",
+  "governance_file_count": 68,
+  "market_rows": 44,
+  "preexisting_market_values_used": false,
+  "screenshot_fields": 0,
+  "screenshot_input_receipt": {
+    "status": "NOT_READ_AT_STAGE1",
+    "handoff_stage": "STAGE2",
+    "fields": []
+  },
+  "wr_loaded": {
+    "status": "PASS",
+    "stage": "STAGE_1",
+    "wr_path": "production/stages/STAGE_1_CONTEXT.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 4530,
+    "rules_text_loaded": true
+  },
+  "supersedes_run_id": "TAC-2026-11-30-46124045922",
+  "legacy_prior_run_ids": [
+    "TAC-2026-11-30-46069359215-1",
+    "TAC-2026-11-30-46074632631-1"
+  ]
+}
