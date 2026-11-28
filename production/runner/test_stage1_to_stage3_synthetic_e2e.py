@@ -202,7 +202,8 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             })
             editorial["core_observation"] = {
                 "heading": "本週三大觀察焦點",
-                "text": "以下三點為合成資料，僅驗證今日核心觀察模組的三個固定項目。",
+                "text": "以下內容僅為合成 E2E 資料，用來驗證週一版核心觀察區塊。",
+                "details": "週一版揭露：市場數值、事件與策略文字皆由固定合成 Fixture 產生，不代表 2026/11/27 真實市場行情或實際投資建議。",
                 "points": [
                     {"label": "① 市場廣度", "text": "觀察指數反彈是否擴散至更多產業與成分股。"},
                     {"label": "② 利率定價", "text": "追蹤公債殖利率與風險資產估值的互動。"},
