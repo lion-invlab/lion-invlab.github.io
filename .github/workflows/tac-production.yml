@@ -645,7 +645,7 @@ jobs:
                       raise SystemExit(f"Existing Stage 4 work-instructions file {key} mismatch; refusing overwrite.")
               print("Existing Stage 4 work-instructions file verified; no rewrite.")
           else:
-              receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+              instructions_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
           PY
       - name: Commit only this Run's Stage 3 research handoff
