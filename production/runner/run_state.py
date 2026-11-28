@@ -169,7 +169,7 @@ def transition_state(
     if new_status not in STAGE_STATUS:
         raise ValueError(f"Unknown stage status: {new_status}")
     allowed = set(_ALLOWED[expected_status])
-    if recovery and expected_status == "FAILED":
+    if recovery and expected_status in {"FAILED", "SUBMITTED"}:
         allowed.add("READY")
     if new_status not in allowed:
         raise ValueError(f"Illegal stage transition: {stage} {expected_status} -> {new_status}")
@@ -190,7 +190,16 @@ def transition_state(
     target = result["stages"][stage]
     timestamp = now or utc_now()
     target["status"] = new_status
-    if new_status == "RUNNING":
+    if new_status == "READY":
+        target["started_at"] = None
+        target["completed_at"] = None
+        target["input_sha256"] = None
+        target["output_sha256"] = None
+        target["receipt_path"] = None
+        target["error_code"] = None
+        target["lease_owner"] = None
+        target["lease_expires_at"] = None
+    elif new_status == "RUNNING":
         target["attempt"] += 1
         target["started_at"] = timestamp
         target["completed_at"] = None
