@@ -15,9 +15,9 @@ def allowed_paths(report_date, context=None):
     # An owner-authorized same-date rerun gets its own preview namespace.
     # The originally approved preview remains intact for the homepage publication lock.
     suffix="-rerun" if context and context.get("supersedes_run_id") else ""
-    return [f"preview/{report_date}{suffix}-review.html",
-            f"preview/{report_date}{suffix}-review.qa.json",
-            f"preview/{report_date}{suffix}-review.delivery.json"]
+    return [f"preview/main/{report_date}{suffix}-review.html",
+            f"preview/main/{report_date}{suffix}-review.qa.json",
+            f"preview/main/{report_date}{suffix}-review.delivery.json"]
 PROTECTED=("index.html","data/calendar/weeks","production/templates/monday-mother-template.html",
  "production/templates/weekday-mother-template.html","production/config/mother-template-manifest.json")
 
