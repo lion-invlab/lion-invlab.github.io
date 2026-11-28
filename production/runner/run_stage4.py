@@ -261,7 +261,7 @@ def main():
     timestamp_repairs=normalize_news_publication_times(editorial)
     capture_path=run_dir/"stage4-work-instructions.json"
     if not capture_path.is_file():
-        raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
+        raise SystemExit("Stage 4 work-instructions handoff is missing; refusing to start editorial merge.")
     try:
         stage4_instructions_loaded=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_loaded)
     except ValueError as exc:
