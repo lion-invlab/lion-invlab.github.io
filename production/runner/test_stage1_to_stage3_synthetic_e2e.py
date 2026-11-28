@@ -66,6 +66,9 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                     if old_source.get(field) is not None:
                         source[field] = old_source[field]
             bundle = make_bundle(synthetic_seed)
+            for row in bundle["observations"]:
+                if row.get("group") in ("energy", "metals"):
+                    row["contract_label"] = sample_data[row["group"]][row["name"]].get("contract_label")
             bundle.update({
                 "schema_version": "1.1",
                 "run_id": run_id,
