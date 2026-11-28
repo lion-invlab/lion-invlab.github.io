@@ -206,15 +206,52 @@ try {
   if (await agenda.count() !== 1 || !(await agenda.isVisible())) {
     throw new Error("本週聯準會官員行程 block missing or hidden");
   }
-  const agendaEvent = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])').first();
-  if (await agendaEvent.count() !== 1) throw new Error("verified Fed official agenda event missing");
-  const agendaText = (await agendaEvent.innerText()).replace(/\\s+/g, " ").trim();
-  if (!agendaText.includes("已發表｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
-    throw new Error("Fed official agenda date/name content mismatch: " + agendaText);
+  // Validate the agenda against this Run's authoritative current-week calendar.
+  // Do not hard-code a prior week's speaker/date: a genuinely empty current week
+  // must render the approved empty state rather than replaying stale events.
+  const calendarPath = path.join(path.dirname(htmlPath), "calendar.json");
+  if (!fs.existsSync(calendarPath)) throw new Error("Run-scoped calendar.json missing for Fed agenda QA");
+  const calendarDoc = JSON.parse(fs.readFileSync(calendarPath, "utf8"));
+  const weekStart = String(calendarDoc.week_start || "").slice(0, 10);
+  const weekEnd = String(calendarDoc.week_end || "").slice(0, 10);
+  const speakerPattern = /Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams/i;
+  const expectedFedEvents = (calendarDoc.events || []).filter(event => {
+    const eventDate = String(event.date || "").slice(0, 10);
+    return speakerPattern.test(String(event.name || ""))
+      && weekStart <= eventDate && eventDate <= weekEnd
+      && String(event.status || "upcoming").toLowerCase() !== "cancelled";
+  }).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const agendaRows = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])');
+  const actualAgendaCount = await agendaRows.count();
+  if (actualAgendaCount !== expectedFedEvents.length) {
+    throw new Error(`Fed agenda row count mismatch: expected=${expectedFedEvents.length}, actual=${actualAgendaCount}`);
   }
-  const agendaSource = agendaEvent.locator("a.fc-fomc-weekly-event-source[href]");
-  if (await agendaSource.count() !== 1 || !(await agendaSource.getAttribute("href")).startsWith("https://")) {
-    throw new Error("Fed official agenda source link missing or invalid");
+  const agendaEmpty = agenda.locator(".fc-fomc-weekly-events-empty");
+  if (expectedFedEvents.length === 0) {
+    if (!(await agendaEmpty.isVisible())) throw new Error("Fed agenda empty-state missing for a week with no verified official events");
+  } else {
+    if (await agendaEmpty.isVisible()) throw new Error("Fed agenda empty-state visible despite verified official events");
+    for (let i = 0; i < expectedFedEvents.length; i++) {
+      const expected = expectedFedEvents[i];
+      const row = agendaRows.nth(i);
+      const rowText = (await row.innerText()).replace(/\\s+/g, " ").trim();
+      const iso = String(expected.date || "");
+      const datePart = iso.slice(0, 10);
+      const [year, month, day] = datePart.split("-").map(Number);
+      const weekday = ["日", "一", "二", "三", "四", "五", "六"][new Date(Date.UTC(year, month - 1, day)).getUTCDay()];
+      const time = iso.match(/T(\\d{2}:\\d{2})/)?.[1] || "00:00";
+      const status = ["released", "published", "completed"].includes(String(expected.status || "").toLowerCase()) ? "已發表" : "預定";
+      const expectedDateLabel = `${status}｜${month}/${day} ${weekday} ${time}`;
+      if (!rowText.includes(expectedDateLabel) || !rowText.includes(String(expected.name || ""))) {
+        throw new Error("Fed agenda event content mismatch: " + rowText);
+      }
+      const agendaSource = row.locator("a.fc-fomc-weekly-event-source[href]");
+      const href = await agendaSource.getAttribute("href");
+      if (await agendaSource.count() !== 1 || !String(href || "").startsWith("https://")
+          || href !== String(expected.source_url || "")) {
+        throw new Error("Fed agenda source link missing or mismatched");
+      }
+    }
   }
 
   const fedAgendaLayouts = [];
