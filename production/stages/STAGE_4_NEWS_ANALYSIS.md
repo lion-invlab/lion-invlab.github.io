@@ -46,6 +46,6 @@ Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run
 ## Main Run state contract v1.2
 - Stage 4 必須確認同一 Run 的 Stage 3=PASS、Stage 4=READY，並重新核對 Stage 3 receipt、Research Bundle、Stage 2 market snapshot 的 SHA 與 Run ID。
 - 編輯工作者先以 compare-and-swap 將 Stage 4 從 READY 改為 RUNNING；完成內容後寫入唯一路徑 production/runs/<run_id>/stage4-editorial-content.json。禁止寫入或讀取 production/input/report-content-YYYY-MM-DD.json 日期共用檔。
-- 編輯內容至少包含 run_id、report_date、market_snapshot_sha256、research_bundle_sha256、stage4_wr_sha256。計算完整 JSON bytes SHA-256 後，將 Stage 4 狀態改為 SUBMITTED，並將 output_sha256 設為該檔案 SHA；狀態檔更新須以先前讀取的 Git blob SHA compare-and-swap，不得盲目覆寫。
+- 編輯內容至少包含 run_id、report_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256、stage4_wr_sha256。計算完整 JSON bytes SHA-256 後，將 Stage 4 狀態改為 SUBMITTED，並將 output_sha256 設為該檔案 SHA；狀態檔更新須以先前讀取的 Git blob SHA compare-and-swap，不得盲目覆寫。
 - Stage 4 提交該 editorial JSON 的 Git commit message 必須包含 [tac-stage4-submit:<run_id>]，此 marker 只作為 GitHub delivery workflow 的喚醒訊號；真正開工條件仍是同一 Run 的 Stage 3 PASS、Stage 4 SUBMITTED 及 SHA 完全相符。
 - Stage 4 Runner 驗證 WR、研究包、行情快照、內容 schema 及狀態後，寫出 stage4-analysis-receipt.json，再將 Stage 4 由 SUBMITTED 改為 PASS、Stage 5 設為 READY。缺少 Stage 3 PASS 或 SHA 不符時不得進入 Stage 5。
