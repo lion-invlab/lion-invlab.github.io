@@ -447,15 +447,7 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
     },
-    "stage4_wr_sha256": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
-    },
     "research_bundle_sha256": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
-    },
-    "stage3_receipt_sha256": {
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
     }
