@@ -119,6 +119,7 @@ jobs:
             test_create_run_fixture \
             test_run_state \
             test_accept_stage_submission \
+            test_production_workflow_structure \
             test_stage_wr_preflight \
             test_stage2_fedwatch \
             test_homepage_publication_lock \
