@@ -657,10 +657,7 @@ jobs:
       contents: write
       actions: write
     # Stage 4-6 is the second half of the same scheduled Run; no push-triggered continuation.
-    # Share the Chart 3 data-maintenance lock so downstream Chart 3 starts only after delivery.
-    concurrency:
-      group: tac-chart3-data-maintenance
-      cancel-in-progress: false
+    # Chart 3 is downstream and owns its separate data-maintenance lock.
     steps:
       - name: Checkout main only with full history
         uses: actions/checkout@v4
