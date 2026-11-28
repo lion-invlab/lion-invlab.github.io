@@ -27,6 +27,9 @@
 
 ### P0-A｜Workflow concurrency 不符合可靠排隊語義
 
+**隔離分支已完成第一輪修正並通過 deterministic CI：** 移除整份 workflow 的 branch-global concurrency，改由 Stage 1 短 job 使用 report_date reservation group；排程先輸出台灣 report_date，手動 recover/rerun 必須明確提供 report_date。相同日期的 Stage 1 reservation 共用 group，不同日期及 validate job 不再被同一 branch group 全面阻塞。相關 workflow structure regression tests 在 run `46110453179` PASS。這只驗證結構，不代表已做真實併發 Run 測試。
+
+
 **已取得實際重現證據：** 本輪隔離分支連續提交 validation commits 時，workflow runs `46110310886`、`46110304909`、`46110280778` 被標記為 `cancelled`，較新的 pending run 取代先前 pending run；目前 run `46110318791` 正在執行。這證明 branch-global concurrency 不是 FIFO queue，並非純理論風險。該測試只觸發 validate job，Stage 1–6 production jobs 均 skipped，未啟動正式生產。
 
 
@@ -43,6 +46,9 @@ concurrency:
 **處理方向：** 移除整份 workflow 的 branch-global concurrency；把唯一 Run reservation 收斂到 Stage 1 短 job，使用報告日期識別的 reservation；在建立 Run 前仍須以 Main 最新狀態驗證唯一候選。若平台不能提供可證明的原子 reservation，必須以 fast-forward-only Git commit 作競爭仲裁，push 衝突後重新讀取並重新判定，禁止盲目重試或 force push。此項尚未實作。
 
 ### P0-B｜Stage 1 Run reservation 目前不是完整的原子 Active Run 仲裁
+
+**已補入一項 fail-closed 保護：** recover/rerun 選出既有 Run 後，現在會透過 GitHub Actions API 查核該 Run 原始 workflow_run_id 的狀態；若原 workflow 尚未 completed，拒絕啟動第二條同日期流程；API 無法查核或缺少 workflow_run_id 也拒絕繼續。Stage 1 job 因此增加 `actions: read` 權限。此改動已提交，待最新 CI 驗證；仍需 synthetic concurrent-dispatch 測試確認競爭邊界。
+
 
 Stage 1 會掃描既有 Run、判斷 legacy/stateful、決定 supersedes，再建立新 Run。單靠先讀取再建立，若兩個 dispatch 併發，仍需證明競爭者不能同時通過檢查。
 
@@ -111,6 +117,11 @@ Stage 1 會掃描既有 Run、判斷 legacy/stateful、決定 supersedes，再�
 6. 通過後才申請真實 11/30 fresh-data E2E；不更動首頁及正式排程。
 
 ## 6. 本輪程式修正與 CI 證據
+
+- 已把 Stage 2–6 Runner 及 ChatGPT submission acceptance 共用的 run-state 寫入集中至 `run_state.write_state_atomic()`；寫入前 JSON round-trip 驗證，使用同目錄唯一暫存檔、fsync、`os.replace`，拒絕 symlink。Stage 2–6 不再直接 `write_text(run-state.json)`。
+- Stage 5 初始 RUNNING 狀態寫入的雙重跳脫錯誤已修正；回歸測試已改測共用 atomic writer。
+- deterministic validation run `46110557515`（涵蓋 Stage 2–6 共用 state writer 及 Stage 3 最後一處直接寫入修正）已 SUCCESS；`46110539124` 的 shared-writer 回歸測試亦 SUCCESS。
+- 中途兩個 commit 的 CI 因測試仍引用舊 helper 名稱而失敗（`46110522700`、`46110526181`）；已修正測試 import，後續完整測試成功。這些失敗已明確保留，不以後續成功抹去歷史。
 
 - 發現 Main Stage 5 在進入 RUNNING 時曾以雙重跳脫的 `\\\\n` 寫入 run-state JSON，可能留下 JSON 不可解析的檔案。
 - 隔離分支已改為 `write_state_json()`：先序列化並以 `json.loads` 自我驗證，再透過暫存檔 `replace` 原子替換。
