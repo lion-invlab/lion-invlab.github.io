@@ -20,6 +20,9 @@ assert "group: tac-main-stage1-${{ inputs.report_date || needs['schedule-window'
 assert "report_date: ${{ steps.dst.outputs.report_date }}" in workflow
 assert 'if [ "$DISPATCH_MODE" = "rerun" ] || [ "$DISPATCH_MODE" = "recover" ]; then' in stage1
 assert "Manual recovery/rerun requires an explicit Taiwan report_date" in stage1
+assert "actions: read" in stage1
+assert "assert_prior_workflow_inactive(prior)" in stage1
+assert "Prior workflow" in stage1
 
 # Stage 1 must create, publish, and exit before any Stage 2 dependency is installed.
 assert "timeout-minutes: 10" in stage1
