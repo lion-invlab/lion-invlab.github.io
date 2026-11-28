@@ -152,6 +152,23 @@ class RunStateTests(unittest.TestCase):
         self.assertEqual(recovered["stages"]["STAGE_1"]["status"], "PASS")
         self.assertEqual(recovered["stages"]["STAGE_2"]["status"], "READY")
 
+    def test_recovery_from_unvalidated_submitted_stage2_requires_explicit_flag(self):
+        state = step(self.state, "STAGE_2", "READY", "RUNNING",
+                     lease_owner="worker", lease_expires_at="2026-11-28T00:15:00Z")
+        state = step(state, "STAGE_2", "RUNNING", "SUBMITTED",
+                     input_sha256="a" * 64, output_sha256="b" * 64,
+                     receipt_path="market-history-web-observations.json")
+        with self.assertRaisesRegex(ValueError, "Illegal stage transition"):
+            step(state, "STAGE_2", "SUBMITTED", "READY")
+        recovered = transition_state(state, stage="STAGE_2",
+            expected_version=state["state_version"], expected_status="SUBMITTED",
+            new_status="READY", recovery=True)
+        item = recovered["stages"]["STAGE_2"]
+        self.assertEqual(item["status"], "READY")
+        self.assertEqual(item["attempt"], 1)
+        self.assertIsNone(item["output_sha256"])
+        self.assertIsNone(item["receipt_path"])
+
     def test_partial_stage_is_terminal_and_cannot_be_reopened(self):
         state = step(self.state, "STAGE_2", "READY", "RUNNING",
                      lease_owner="worker", lease_expires_at="2026-11-28T00:15:00Z")
