@@ -122,7 +122,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
       "screenshot_input":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2"},
       "stage2_bootstrap":data["stage2_market_bootstrap"],
       "market_universe_count":44,
-      "stage_wr_preflight":stage1_wr
+      "stage_wr_loaded":stage1_wr
     }
     return {"run_context":run_context,"market_fixture":data}
 
@@ -160,7 +160,7 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "governance_file_count":len(context["governance"]["blob_shas"]),
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
              "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
-             "wr_preflight":context["stage_wr_preflight"],
+             "wr_loaded":context["stage_wr_preflight"],
              "supersedes_run_id":context.get("supersedes_run_id"),"legacy_prior_run_ids":context.get("legacy_prior_run_ids",[])}
     receipt_path=output/"stage1-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
