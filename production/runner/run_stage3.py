@@ -2,9 +2,11 @@
 """Stage 3: read-only calendar and earnings projection from the Stage 1 pinned main commit."""
 from __future__ import annotations
 import argparse, hashlib, json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 
@@ -25,9 +27,24 @@ def main():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_3",context)
+    state_path=run_dir/"run-state.json"
+    state=json.loads(state_path.read_text(encoding="utf-8"))
+    validate_state(state,expected_run_id=context["run_id"])
+    if state["stages"]["STAGE_2"]["status"] not in ("PASS","PARTIAL"):
+        raise SystemExit("Stage 3 requires Stage 2 PASS/PARTIAL in the authoritative Run state")
+    if state["stages"]["STAGE_3"]["status"]!="READY":
+        raise SystemExit("Stage 3 is not READY in the authoritative Run state")
+    state=transition_state(state,stage="STAGE_3",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage3",
+        lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=10)).isoformat().replace("+00:00","Z"),
+        input_sha256=hashlib.sha256((run_dir/"stage2-market-snapshot-receipt.json").read_bytes()).hexdigest())
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
-    require_stage_wr_receipt(json.loads(stage2_receipt_path.read_text(encoding="utf-8")),"STAGE_2",context)
+    stage2_receipt=json.loads(stage2_receipt_path.read_text(encoding="utf-8"))
+    require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
+    if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
+        raise SystemExit("Stage 3 Stage 2 receipt identity/status does not match the current Run")
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
@@ -61,7 +78,7 @@ def main():
           "earnings_count":bundle["previous"]["earnings_count"]
       } if bundle.get("previous") is not None else None),
       "source_json_read_only":True,"projection_is_in_memory":True,
-      "wr_preflight":wr_preflight,"outputs":outputs
+      "wr_preflight":wr_preflight,"stage2_receipt_sha256":sha(stage2_receipt_path),"state_version_before":state["state_version"],"outputs":outputs
     }
     rp=run_dir/"stage3-calendar-receipt.json"
     rp.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
