@@ -515,11 +515,11 @@ jobs:
           git add -- "$RUN_DIR"
           if [ -f "$LEDGER" ]; then git add -- "$LEDGER"; fi
           mapfile -t STAGED < <(git diff --cached --name-only)
-          if [ "\${#STAGED[@]}" -eq 0 ]; then
+          if [ "${#STAGED[@]}" -eq 0 ]; then
             echo "Stage 2 already PASS/PARTIAL; no new snapshot or Chart 3 increment to persist."
             exit 0
           fi
-          for file in "\${STAGED[@]}"; do
+          for file in "${STAGED[@]}"; do
             case "$file" in "$RUN_DIR"/*|"$LEDGER") ;; *) echo "::error::Unexpected Stage 2 output path: $file"; exit 1 ;; esac
           done
           git commit -m "data(tac): persist Stage 2 snapshot and optional S&P 500 increment $RUN_ID"
