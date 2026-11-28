@@ -137,16 +137,14 @@ def main():
             or handoff_stage2_doc.get("report_date")!=report_date
             or handoff_stage2_doc.get("trading_date")!=context["trading_date"]):
         raise SystemExit("Stage 5 received a missing or mismatched Stage 2 handoff receipt")
-    execute([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
-        "--data",str(fixture.relative_to(ROOT)),"--report-date",report_date,
-        "--output",str(audit.relative_to(ROOT))],run_dir/"qa-market-snapshot.log")
     execute([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
         "--report-date",report_date,"--data",str(fixture.relative_to(ROOT)),
-        "--audit",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
+        "--audit-output",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
         "--observations",str(observations.relative_to(ROOT)),"--output",str(stage2.relative_to(ROOT)),
         "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"],
-        run_dir/"qa-stage2-receipt.log")
+        run_dir/"qa-stage2-market-receipt.log")
+    if not audit.is_file():raise SystemExit("Stage 5 market QA did not create market-snapshot-audit.json")
     stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
     if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("run_id")!=context["run_id"]:
         raise SystemExit("Stage 5 full Stage 2 QA receipt is not bound to this Run")
