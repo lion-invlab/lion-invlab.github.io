@@ -118,7 +118,9 @@ def main():
     validate_state(state,expected_run_id=context["run_id"])
     if state["stages"]["STAGE_5"]["status"]!="PASS":
         raise SystemExit("Stage 6 requires Stage 5 PASS in the authoritative Run state")
-    if state["stages"]["STAGE_6"]["status"]=="DEFERRED":
+    if state["stages"]["STAGE_6"]["status"]=="FAILED":
+        state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="FAILED",new_status="READY",recovery=True)
+    elif state["stages"]["STAGE_6"]["status"]=="DEFERRED":
         state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="DEFERRED",new_status="READY")
     if state["stages"]["STAGE_6"]["status"]!="READY":
         raise SystemExit("Stage 6 is not READY in the authoritative Run state")
