@@ -163,11 +163,19 @@ try {
 
   // The first published earnings accordion is intentionally hidden until its tab is selected.
   await page.locator('#earnings label[for="week-earnings-published"]').click();
-  const detailsTests = [
-    await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"),
-    await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"),
-    await toggleDetails("details.sector-collapse")
-  ];
+  const detailsTests = [];
+  detailsTests.push(await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"));
+
+  // Economic and earnings calendars are separate tab panels. Activate the
+  // economic panel before asserting visibility/toggling its event disclosure.
+  const economicNav = nav.filter({ hasText: "本週經濟行事曆" });
+  if (await economicNav.count() !== 1) throw new Error("經濟行事曆 navigation anchor missing");
+  await economicNav.evaluate(el => el.click());
+  if (await page.evaluate(() => location.hash) !== "#calendar") {
+    throw new Error("navigation click did not move to #calendar");
+  }
+  detailsTests.push(await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"));
+  detailsTests.push(await toggleDetails("details.sector-collapse"));
 
   const focusLinks = await page.locator("#global-focus .newsmeta a[href]").evaluateAll(
     nodes => nodes.map(a => a.href)
