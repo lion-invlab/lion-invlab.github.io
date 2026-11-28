@@ -155,4 +155,4 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 1 是唯一正常 Run creator。Stage 1 必須先以標準函式庫建立並提交完整 handoff，再安裝重型依賴。相同 workflow retry 沿用相同 Run ID；recover 沿用既有 Run ID；只有明確 rerun 建立新 Run。
 - Stage 2 與 Stage 4 的日期共用檔 production/input/market-history-web-observations-YYYY-MM-DD.json 及 production/input/report-content-YYYY-MM-DD.json 不再是正式輸入來源；任何新 Run 不得讀取或寫入這些舊路徑。
 - 不依賴 GitHub connector push 喚醒第二個 Workflow；該觸發行為未獲證實。Stage 4–6 是同一正式 schedule／recover workflow run 的第二個 job，等待同一 Run 的 editorial JSON、Stage 4 SUBMITTED state 與 SHA。Marker 僅作稽核標籤。Build job 必須再次驗證 exact run_id、run-state、提交內容 SHA、Stage 3 receipt 與 Research Bundle SHA。
-- Chart 3 是下游非阻塞支線。Stage 2 增量 append 或 Chart 3 merge 失敗不得改變 Stage 2 PASS/PARTIAL，也不得阻止 Stage 5/6。
+- Chart 3 是下游非阻塞支線。Chart 3 workflow_run 以 workflow_run_id 對應唯一 Main Run，只在同一 Run 的 Stage 2=PASS/PARTIAL 且 Stage 3=PASS 時接手；不依賴 push marker。Stage 2 增量 append 或 Chart 3 merge 失敗不得改變 Stage 2 PASS/PARTIAL，也不得阻止 Stage 4–6。
