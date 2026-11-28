@@ -481,8 +481,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Wait against this Run's trading_date. A late recovery after that
-          # date's close must proceed immediately, not wait for tomorrow's close.
+          # Wait for this Run's trading_date close.
+          # A late recovery after that date's close proceeds immediately.
           python production/runner/wait_for_trading_date_close.py "$RUN_DIR/run-context.json"
           OBSERVATION_PATH="$RUN_DIR/market-history-web-observations.json"
           FOUND=false
