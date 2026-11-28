@@ -144,14 +144,9 @@
     "production/runner/test_run_state.py"
   ],
   "not_yet_production_ready": [
-    "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
-    "The current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 has exact-blob owner approval recorded in production/config/builder-approval.json (APPROVED_MAIN); real-data Capture and Stage 4-6 E2E remain NOT_VERIFIED.",
-    "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
-    "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
-    "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
-    "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
-    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database.",
-    "Per-Run state machine and all six Stage Runner state transitions are implemented on the isolated rebuild branch; final workflow integration, automated ChatGPT handoff prompt update, and full E2E validation remain pending."
+    "The Main E2E architecture, six Stage Runner state transitions, Run-scoped handoffs, and same-workflow Stage 1-6 orchestration are implemented on the isolated rebuild branch.",
+    "Cutover remains gated: merge of the rebuild PR, update of the live ChatGPT automation task to the pinned production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md, explicit approval to activate the formal Main schedule, and a first full production E2E acceptance run.",
+    "No live automation prompt, schedule, formal production capture, Main homepage index.html, or Simulation branch has been changed."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -403,5 +398,6 @@
     "validation_run_id": 45908064532,
     "validation_result": "PASS",
     "validation_scope": "Main-only deterministic validation; real-data Capture and Stage 4-6 E2E not run"
-  }
+  },
+  "architecture_version": "MAIN_E2E_v1.2_2026-11-28"
 }
