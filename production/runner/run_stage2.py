@@ -288,11 +288,11 @@ def main():
     state=load(state_path)
     stage2_status="PASS" if summary["status"]=="PASS" else "PARTIAL"
     state=transition_state(state,stage="STAGE_2",expected_version=state["state_version"],expected_status="SUBMITTED",new_status=stage2_status,
-        now=__import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat().replace("+00:00","Z"),
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),
         input_sha256=web_bundle_sha256,output_sha256=hashlib.sha256(receipt_path.read_bytes()).hexdigest(),
         receipt_path=str(receipt_path.relative_to(ROOT)))
     state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    summary["run_state"]={"state_version":state["state_version"],"stage2_status":state2_status if False else state["stages"]["STAGE_2"]["status"],"next_stage":state["current_stage"]}
+    summary["run_state"]={"state_version":state["state_version"],"stage2_status":state["stages"]["STAGE_2"]["status"],"next_stage":state["current_stage"]}
     summary["outputs"]["run-state.json"]={"path":str(state_path.relative_to(ROOT)),"sha256":hashlib.sha256(state_path.read_bytes()).hexdigest()}
     summary_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2))
