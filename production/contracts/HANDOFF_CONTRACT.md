@@ -27,7 +27,7 @@ Date-global files in production/input/ are not valid production handoff sources.
 
 - Stage 2 Observation uses the already-running capture job polling the Run-scoped bundle and Stage 2 SUBMITTED state; it does not depend on a push-triggered workflow.
 - Stage 4 submission marker: [tac-stage4-submit:<run_id>] is an audit label in the editorial JSON commit message, not a trigger. The already-running build-and-deliver job polls for the file, Stage 4 SUBMITTED state, and matching output SHA.
-- A marker is only a wake-up hint. The authoritative condition is the exact Run state and submitted artifact SHA; duplicate or delayed events must be idempotent.
+- A marker is an audit label only; it does not wake a workflow. The authoritative condition is the exact Run state and submitted artifact SHA; the already-running job polls that state.
 - No Stage handoff depends on a GitHub connector push triggering another workflow; that behavior is not established and must not be assumed. Stage 4–6 is the second job in the same scheduled / recover workflow run and waits for the Run-scoped editorial JSON plus Stage 4 SUBMITTED state. The marker is an audit label only. Stage 6 uses explicit Pages workflow_dispatch; Chart 3 uses workflow_run after the production workflow completes.
 - A worker that finds its prerequisite absent records or returns DEFERRED and exits without creating a Run, changing another Run, disabling itself, or treating the absence as a market-data failure.
 - On receive, validate run_id, report_date, schema, state_version, receipt SHA and required fields. Never use a same-named artifact from a different Run.
