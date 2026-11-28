@@ -37,16 +37,16 @@ class Stage56HandoffTests(unittest.TestCase):
     def test_stage6_rerun_uses_separate_preview_triplet(self):
         rerun_context={**CONTEXT,"supersedes_run_id":"TAC-2026-11-27-45937649928-1"}
         self.assertEqual(allowed_paths("2026-11-27",rerun_context),[
-            "preview/2026-11-27-rerun-review.html",
-            "preview/2026-11-27-rerun-review.qa.json",
-            "preview/2026-11-27-rerun-review.delivery.json",
+            "preview/main/2026-11-27-rerun-review.html",
+            "preview/main/2026-11-27-rerun-review.qa.json",
+            "preview/main/2026-11-27-rerun-review.delivery.json",
         ])
 
     def test_stage6_normal_run_keeps_standard_preview_triplet(self):
         self.assertEqual(allowed_paths("2026-11-27",CONTEXT),[
-            "preview/2026-11-27-review.html",
-            "preview/2026-11-27-review.qa.json",
-            "preview/2026-11-27-review.delivery.json",
+            "preview/main/2026-11-27-review.html",
+            "preview/main/2026-11-27-review.qa.json",
+            "preview/main/2026-11-27-review.delivery.json",
         ])
 
     def test_stage6_accepts_exact_stage5_and_stage4_evidence(self):
