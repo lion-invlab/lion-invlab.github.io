@@ -52,7 +52,7 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 2. **舊 Run 僅作歷史證據。** `TAC-2026-11-27-45937649928-1` 建立時使用舊 governance pin，缺少新制 Stage WR worker attestation；不得把新規則回填至舊 receipt，也不得再執行舊的 MOVE holiday resume job。舊 observation 與 editorial 不得作為新 Run 的合格輸入。
 3. **11/27 新 Run 已建立，但不是完整 E2E。** `TAC-2026-11-27-45976396528-1` 的 `supersedes_run_id` 指向舊 Run `TAC-2026-11-27-45937649928-1`；但 GitHub Actions 實際事件為 `push`，不是規範要求的 `workflow_dispatch mode=rerun`，不得把它記成合規 rerun 或完整 E2E。此 Run 的 Stage 2 為 `PARTIAL`：44 項中 26 VERIFIED、17 CLOSED、1 PENDING（CNN Fear & Greed，`SOURCE_NO_DATA`）；Stage 3 為 PASS。S&P 500 現金指數目標日 2026-11-26 為美國感恩節休市，Chart 3 未追加當日資料。Stage 4 編輯內容、Stage 5、Stage 6 均未完成。Run pinned main commit 為 `f6aa1f7626699ca6054b66a97028bddcde70cd25`；後續 Stage 5／6 規範與 Runner 已變更，舊 Run 不得跨版本續跑或回填新規則。
 4. **Stage 5／6 已修正兩項 Gate 矛盾。** 情境分析只有在六領域掃描完整、findings 為空且有具體 `no_material_change_note` 時可標 `NOT_APPLICABLE`；有任何 finding 則保守要求基準／風險／嚴重三情境。Stage 2 非 PASS、仍有 pending_rows 或 fixture pending_items 時，Stage 5 必須標 `PARTIAL`，Workflow 保留 Run 內證據並略過 Stage 6，不可寫入 main/preview。相關 commits：`75c4d68`、`eb488f3`、`0bc0dd3`、`f080ec1`、`ba4322d`。Main push validation Run `46001434146` 對 commit `ba4322db2cd4ff5fe4a204e56deb2eef3dbb529e` 已 SUCCESS；其中 Stage 5 情境 QA 新增測試及現有 deterministic tests 通過。這是程式驗證，不是正式行情 E2E。
-5. **Builder exact-SHA 核准仍是 Stage 5 唯一明確阻塞。** Main Builder 現行 blob SHA `89cedbb36ec75628c813291adf1bd025c589266e`；approval record 仍核准舊 SHA `5d555e40285bf4156740e418664f4833d66956ee`。不得自行改寫核准紀錄或把舊核准套用到新 Builder。取得新 SHA 的明確 Owner 核准後，才可觸發 Stage 4–6 build；否則只可保留候選／部分 Run 證據。
+5. **Builder exact-SHA 核准已完成，不再是 Stage 5 阻塞。** Main Builder 現行 blob SHA `89cedbb36ec75628c813291adf1bd025c589266e`，`production/config/builder-approval.json` 的 `APPROVED_MAIN`、`approved_by_owner=true` 及 `approved_builder_blob_sha` 均與此 SHA 一致；核准紀錄明確對應此版本。此核准不代表真實行情 E2E 或 Stage 5／6 生產驗收已通過；任何 Builder 程式變更仍須重新核准 exact blob SHA。
 6. **下一個正常排程 E2E 目標為 2026-11-28（週六製作、report_date=2026-11-30，行情基準日為週五 11/27）。2026-11-30（週一）不製作早報；若週六流程未完成，下一個正常製作日為 2026-12-01（週二，report_date=12/01，行情基準日為週一 11/30）。** 04:35 台灣時間行事曆資料庫更新；04:45 Stage 1 建立唯一 Run 並鎖定 Monday mother／governance；05:00 Stage 2 worker 啟動正式收盤擷取；05:15 為 observation handoff 目標；05:20 為 Stage 1–3 Capture 目標；05:30 為完整審核版交付目標。對應 America/New_York：15:35、15:45、16:00、16:15、16:20、16:30 ET。Chart 3 監控任務 05:30 台灣時間獨立執行。三個排程均已啟用：行事曆 04:35、Main Stage 2–6 05:00、Chart 3 05:30。Main Workflow schedule 是唯一 Stage 1 啟動入口；Stage 2 只提交 observation，不另建 Run。未完成同一 Run Stage 1–6 真實 E2E 前，不宣稱新制正式上線。
 
 每完成一項，只回頭檢查：**是否讓下一個工作日審核版更接近完成？是否有新規則反而阻止產報？** 若有，移除不必要步驟，不再擴增關卡。
@@ -84,3 +84,13 @@ Stage 1–6 每個 Runner 入口均須先完整讀取本階段自己的 WR，再
 | 週六 | 隔週一 | 週五 | Monday | 週五 12:00 起至 Stage 4 research bundle 建立當下 |
 
 週六製作時 production_date 與 report_date 必須分離；Run、Preview、母版選擇及正式發布鎖以 report_date 為準。週六、週日的重大新聞如需置換，只能人工明確決定；自動流程不得覆寫已交付版本。排程的 New York BYDAY 為 MO–FR，台灣時區對應 Tue–Sat。
+
+
+## 七、2026-11-28 Main 重建分支最新狀態（取代前述過期排程／驗收描述）
+
+1. **Stage 2 日期綁定收盤等待已修正。** 原 Workflow 只比較當下 New York HHMM 與 16:00，沒有使用 Run 的 `trading_date`；隔日 Recover 因而可能多等至下一個交易日 16:00。重建分支已改為讀取同一 Run 的 `run-context.json`，等待該 Run 交易日 16:00 America/New_York；若目標收盤時間已過則立即進入 Observation handoff polling。新增五項單元測試及 Workflow 結構斷言。程式提交：`63466c1677c7b86f5bfd10e98ff1fccd90f9f348`。
+2. **最新程式驗證已通過。** GitHub Actions Run `46120016304`（commit `63466c1`）SUCCESS；Stage 2／pre-build deterministic suite 106 tests PASS（含五項新收盤等待測試），Builder／earnings suite 52 tests PASS，isolated candidate Builder、雙母版 DOM contract 亦 PASS。這是重建分支程式驗證；push validation 中正式 Stage 1、2/3、4–6 production jobs 均 SKIPPED，不能記為真實行情 E2E。
+3. **11/28 當日手動啟動 Run 尚未完成。** Main workflow_dispatch Run `46108156744` 建立 Run `TAC-2026-11-30-46108156744`，Stage 1 PASS、Stage 2 READY；Stage 2/3 job 因 15 分鐘內沒有收到該 Run 的 Observation bundle 而失敗，Stage 3–6 未執行。其前一 Run `TAC-2026-11-30-46105765414` 已被 supersede，資料不得跨 Run 沿用。
+4. **真正原因是跨平台喚醒缺口，不是行情讀取失敗。** ChatGPT Stage 2–6 排程已於當日 05:00 台灣時間執行並因當時尚無 Stage 1 Run 而 DEFERRED；12:34 才手動建立新的 Stage 1 Run，GitHub Actions 不會自動再次喚醒 ChatGPT Automation。Automation 仍啟用，下一次排程為 2026-12-01 05:00 台灣時間。不得為解決此缺口擅改排程；晚到的手動 Recover 必須先明確啟動該 Automation 的單次執行，再以 `workflow_dispatch mode=recover` 沿用同一 Run。這次尚未啟動正式擷取或 Recover。
+5. **未完成事項與保護範圍。** 仍需解決／驗收晚到 Recover 的 worker 喚醒操作，並完成同一 Run Stage 1–6 真實 E2E，確認 Stage 6 三檔 Preview、Pages 部署及公開 URL 驗證。重建期間未修改正式 `main`、正式首頁／封存、排程或 Simulation；未產生本次 Run 的 Stage 2 Observation，也未宣稱 11/30 審核版完成。
+6. **下一個正常排程日為 2026-12-01（週二）。** 正常路徑仍是 04:35 行事曆資料庫更新、04:45 Stage 1、05:00 ChatGPT Stage 2 worker、其後 Stage 3–6 同一 Run 串接。11/28 修正目前只在重建分支，未切換至正式生產。
