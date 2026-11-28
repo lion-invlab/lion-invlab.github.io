@@ -174,6 +174,15 @@ try {
   if (await page.evaluate(() => location.hash) !== "#calendar") {
     throw new Error("navigation click did not move to #calendar");
   }
+  // The report-date "today" group can legitimately be empty. Switch to the
+  // upcoming group, which is part of the same authoritative week, before
+  // selecting its first visible event accordion.
+  const upcomingEconomicTab = page.locator('#calendar label[for="week-econ-upcoming"]');
+  if (await upcomingEconomicTab.count() !== 1) throw new Error("經濟行事曆即將公布分頁缺失");
+  await upcomingEconomicTab.click();
+  if (!(await page.locator("#calendar .week-econ-panels > .calendar-status-group:nth-child(2)").isVisible())) {
+    throw new Error("經濟行事曆即將公布分頁未顯示");
+  }
   detailsTests.push(await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"));
   detailsTests.push(await toggleDetails("details.sector-collapse"));
 
