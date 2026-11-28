@@ -152,6 +152,22 @@ class RunStateTests(unittest.TestCase):
         self.assertEqual(recovered["stages"]["STAGE_1"]["status"], "PASS")
         self.assertEqual(recovered["stages"]["STAGE_2"]["status"], "READY")
 
+    def test_workflow_recovery_attempt_is_recorded_without_changing_run_id(self):
+        state=initial_run_state(self.context)
+        original_run_id=state["run_id"]
+        same_attempt=register_workflow_run(state,"1001",1)
+        self.assertEqual(same_attempt["state_version"],state["state_version"])
+        retried=register_workflow_run(same_attempt,"1001",2)
+        self.assertEqual(retried["run_id"],original_run_id)
+        self.assertEqual(retried["workflow_run_id"],"1001")
+        self.assertEqual(retried["workflow_run_attempt"],2)
+        self.assertIn({"workflow_run_id":"1001","attempt":1},retried["workflow_run_history"])
+        recovered=register_workflow_run(retried,"2002",1)
+        self.assertEqual(recovered["run_id"],original_run_id)
+        self.assertEqual(recovered["workflow_run_id"],"2002")
+        self.assertIn({"workflow_run_id":"2002","attempt":1},recovered["workflow_run_history"])
+        self.assertEqual(recovered["state_version"],retried["state_version"]+1)
+
     def test_partial_stage_is_terminal_and_cannot_be_reopened(self):
         state = step(self.state, "STAGE_2", "READY", "RUNNING",
                      lease_owner="worker", lease_expires_at="2026-11-28T00:15:00Z")
