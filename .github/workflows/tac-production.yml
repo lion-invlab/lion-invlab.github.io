@@ -320,7 +320,15 @@ jobs:
                   validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
                   print("")
                   sys.exit(0)
-              stateful=[p for p in matches if (p/"run-state.json").is_file()]
+              # A later Run explicitly supersedes its predecessor. Superseded
+              # Runs remain immutable evidence and must never be selected for recovery.
+              superseded_ids=set()
+              for context_path in matches:
+                  context=json.loads(context_path.read_text(encoding="utf-8"))
+                  superseded=context.get("supersedes_run_id")
+                  if superseded:
+                      superseded_ids.add(superseded)
+              stateful=[p for p in matches if (p/"run-state.json").is_file() and p.name not in superseded_ids]
               if not stateful:
                   if mode=="recover":
                       raise SystemExit("No stateful Run exists to recover; legacy Runs are read-only and never reused.")
