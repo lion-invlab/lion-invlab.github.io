@@ -381,3 +381,66 @@ The current Main baseline's `run_stage2.py` and the rebuild branch's `run_stage2
 6. Add an isolated end-to-end test harness using synthetic fixtures; no live market capture and no schedule activation during architecture development.
 7. Run Main-only deterministic tests and both mother-template test paths; preserve Main homepage, current Preview, calendar DB, Chart 3 data and Simulation.
 8. Produce a draft PR and a precise acceptance report. Do not merge or activate schedules without owner approval.
+
+
+## 14. Final root cause of the 2026-11-28 Stage 1 failure — confirmed from both schedule runs
+
+The full workflow run list and both relevant job logs are now available. The earlier schedule-window finding was only the first of two events; it was not the complete incident explanation.
+
+### Schedule event A — summer UTC cron, correctly rejected
+- Workflow run: `46096657083`
+- Event: `schedule`
+- `github.event.schedule`: `45 19 * * 1-5`
+- New York was on winter time; the selector expected `45 20 * * 1-5`.
+- `schedule-window` succeeded with `should_run=false`; Capture was skipped.
+- This was the wrong seasonal cron event and was correctly rejected.
+
+### Schedule event B — winter UTC cron, reached Stage 1 but failed before creating a Run
+- Workflow run: `46100523727`
+- Event: `schedule`
+- `schedule-window`: SUCCESS; `capture-and-calendar`: FAILURE.
+- Failure step: `Resolve report date and unique Run ID`.
+- Exact error: `Run already exists for 2026-11-30; use the explicitly authorized recover/rerun mode.`
+- Stage 1 create and publish steps were SKIPPED. Therefore the correct winter schedule did fire; Stage 1 did not create a new Run because the resolver treated old, unstateful Run directories as authoritative conflicts.
+
+### The two blocking legacy Run directories
+
+Both directories were inspected from Main and have the same report_date but no `run-state.json`:
+- `TAC-2026-11-30-46069359215-1`: created by `workflow_dispatch` run 46069359215, which failed.
+- `TAC-2026-11-30-46074632631-1`: created by `workflow_dispatch` run 46074632631, which failed on attempt 2.
+
+Each contains only `run-context.json`, `stage1-fixture.json`, `report-data.json`, and `stage1-receipt.json`. Neither has an authoritative six-stage state ledger, Stage 2/3 completion, or a complete recoverable Run. The ChatGPT Stage 2 automation correctly refused to treat these manual-dispatch leftovers as the scheduled Stage 1 Run.
+
+**Actual root cause:** failed legacy manual-dispatch attempts left same-report-date Stage 1 fixture directories without `run-state.json`; the Main schedule resolver rejected any matching `run-context.json` directory instead of distinguishing legacy artifacts from authoritative stateful Runs. The correct winter schedule did run. The failure is in Run selection/legacy collision handling, not in a missing winter cron.
+
+### Fix implemented in the isolated refactor branch
+
+- The Stage 1 resolver now treats a Run as authoritative only when its `run-state.json` exists and validates. Legacy directories without state are never resumed, overwritten, or consumed.
+- A fresh scheduled Run may be created when the only same-date matches are legacy/unstateful directories.
+- `create_run_fixture.py` records those IDs in `run-context.json.legacy_prior_run_ids` for traceability; it does not mutate or delete them.
+- Added deterministic `collect_legacy_prior_run_ids` helper and unit test proving that only same-date, non-current, unstateful Run directories are recorded as legacy.
+- The workflow's Stage 1 resolver in the refactor branch applies the same distinction: old legacy Runs do not block a new schedule Run; a stateful Run still requires explicit recover/rerun policy.
+
+This resolves the exact collision observed on 11/28 without reusing the failed Runs or changing the live schedule.
+
+## 15. Additional code changes now under isolated CI validation
+
+Branch: `refactor/tac-main-e2e-architecture-20261128`
+
+- Added `production/runner/accept_stage_submission.py`: a single GitHub-owned acceptance step for ChatGPT Stage 2 and Stage 4 artifacts. It verifies exact Run identity and upstream SHA bindings, then performs READY → RUNNING → SUBMITTED and writes `run-state.json` atomically.
+- Updated the Stage 2 and Stage 4 WRs plus `HANDOFF_CONTRACT.md`: ChatGPT workers submit only their Run-scoped artifact and sidecars; the GitHub production workflow is the sole writer of `run-state.json`. This removes a second writer and avoids a state/artifact commit race.
+- Updated the Stage 2 and Stage 4 workflow handoff steps to call the acceptance runner and persist state before invoking Stage 2/4 validators.
+- Restored the 16:00 ET gate before the Stage 2 observation polling window; otherwise the 15-minute timeout could expire before the 16:00 ET worker wake.
+- Added deterministic tests for Stage 2 44-row identity, Stage 4 Research Bundle/Stage 3/WR binding, and the legacy Run classifier.
+- Added the new acceptance runner and test to the governance blob pin list and PORT_MANIFEST.
+- Updated the schedule manifest to the approved Tue–Sat Taiwan cadence while leaving `cutover_status=NOT_CUT_OVER`; no live schedule was changed.
+
+### Cutover dependency not yet applied
+
+The currently enabled ChatGPT automation prompt is still the old Main prompt. It instructs Stage 2 to write a date-global observation file and Stage 4 to write a date-global editorial file / build marker. Before this branch can become the active production path, that prompt must be updated to:
+1. write `production/runs/<run_id>/market-history-web-observations.json` for Stage 2;
+2. write `production/runs/<run_id>/stage4-editorial-content.json` for Stage 4;
+3. never write `run-state.json`; GitHub's acceptance runner is the only state writer;
+4. treat the Stage 4 marker as an optional audit label, not a workflow trigger.
+
+The active automation prompt and its schedule have not been changed. This is a required, explicit cutover step after the code and CI pass; do not merge/activate the branch before it is coordinated.
