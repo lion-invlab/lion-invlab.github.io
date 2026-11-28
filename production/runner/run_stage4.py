@@ -259,7 +259,7 @@ def main():
     content_sha256=sha(content_path)
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
     timestamp_repairs=normalize_news_publication_times(editorial)
-    capture_path=run_dir/"capture-stage-receipt.json"
+    capture_path=run_dir/"stage4-work-instructions.json"
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
     try:
