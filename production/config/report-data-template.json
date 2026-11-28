@@ -162,13 +162,13 @@
       "display": "待擷取",
       "change_display": "待擷取",
       "source": {
-        "name": "Investing.com｜Nikkei 225 歷史數據（Real-time derived）",
-        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "name": "Nikkei Indexes 官方｜Nikkei 225 Historical Data",
+        "url": "https://indexes.nikkei.co.jp/en/nkave/archives/data",
         "data_date": "2026-11-25",
-        "quote_type": "cash_index_close",
+        "quote_type": "official_cash_index_close",
         "instrument_type": "cash_index",
         "verification_status": "PENDING",
-        "note": "Stage 2 must populate this row from current-run evidence; no previous numeric value or screenshot record is carried forward.",
+        "note": "Official Nikkei Indexes daily OHLC historical table; daily percentage change is read from the matching official Daily Summary page. Investing.com CFD is not an acceptable substitute.",
         "instrument_identity": "Nikkei 225 (N225)",
         "_stage2_format": {
           "close": {
@@ -186,7 +186,8 @@
             "plus": false
           }
         },
-        "source_page_fetched": false
+        "source_page_fetched": false,
+        "summary_url": "https://indexes.nikkei.co.jp/en/nkave/archives/summary?dt={MMDDYYYY}&idx=nk225"
       }
     },
     "韓國 KOSPI": {
