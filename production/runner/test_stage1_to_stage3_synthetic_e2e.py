@@ -153,6 +153,10 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             (run_dir / "capture-stage-receipt.json").write_text(json.dumps(capture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
             editorial = sample_stage4_content()
+            for key in ("summary_title", "summary_points", "focus_news", "headlines", "sentiment",
+                        "market_analysis", "political_scan", "core_observation", "observation",
+                        "key_levels", "market_comments", "warning_note", "quality_note"):
+                editorial[key] = copy.deepcopy(sample_data[key])
             editorial.update({
                 "run_id": run_id,
                 "report_date": context["report_date"],
@@ -162,16 +166,14 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "stage3_receipt_sha256": digest(run_dir / "stage3-calendar-receipt.json"),
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
                 "news_cutoff_taipei": "2026-11-24 05:25",
-                "sentiment": "Fear & Greed FGScore 備援 17；此為合成 E2E 測試敘述，不代表即時市場判斷。",
             })
             for item in editorial["focus_news"] + editorial["headlines"]:
                 item["published_at_tw"] = "2026-11-23 13:00"
                 item["published_at_source"] = "Nov 23, 2026 1:00 PM"
                 item["updated_at_source"] = "Nov 23, 2026 1:10 PM"
             editorial["political_scan"]["checked_at"] = "2026-11-24T05:00:00+08:00"
-            editorial["market_analysis"]["markets"]["paragraphs"] = [
-                "合成市場分析：Fear & Greed FGScore 備援 17；內容僅驗證同一 Run 的分析交接。"
-            ]
+            for finding in editorial["political_scan"]["findings"]:
+                finding["checked_at"] = "2026-11-24T05:00:00+08:00"
             for layer in editorial["market_analysis"].values():
                 for source in layer["sources"]:
                     source["checked_at"] = "2026-11-24T05:00:00+08:00"
