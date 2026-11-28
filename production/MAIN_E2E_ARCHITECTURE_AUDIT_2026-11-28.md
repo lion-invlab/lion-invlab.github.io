@@ -444,3 +444,50 @@ The currently enabled ChatGPT automation prompt is still the old Main prompt. It
 4. treat the Stage 4 marker as an optional audit label, not a workflow trigger.
 
 The active automation prompt and its schedule have not been changed. This is a required, explicit cutover step after the code and CI pass; do not merge/activate the branch before it is coordinated.
+
+
+## 16. 24-workflow ownership and write-path audit
+
+All 24 workflow files in `.github/workflows/` were inventoried. The following is the operational ownership map; it distinguishes report-critical writers from independent data and QA pipelines.
+
+| Workflow | Trigger family | Write/deploy scope | Main E2E relationship |
+|---|---|---|---|
+| `archive_index.yml` | weekday schedule, main `index.html` push, manual | `history/` only; requires approved homepage publication lock | Does not write homepage or preview |
+| `chart2-preview-browser-qa.yml` | manual, PR, selected push paths | QA artifacts only | Non-blocking QA |
+| `chart3-preview-visual-qa.yml` | manual, workflow_run, PR, selected push paths | QA artifacts only | Non-blocking QA |
+| `company_nasdaq100.yml` | manual, schedule | `data/nasdaq100_volatility.json` | Independent data writer; not Stage 2 source |
+| `company_profiles.yml` | manual, Saturday schedule | `data/company_profiles.json` | Independent data writer |
+| `company_profiles_nasdaq100.yml` | manual, Saturday schedule | `data/company_profiles.json` | Second writer to same file; see P2 risk below |
+| `main.yml` | manual, weekday schedule | legacy volatility/watchlist data under `data/` | Legacy yfinance writer; never Stage 2 fallback |
+| `mother-template-guard.yml` | main push, PR, manual | read-only guard | Retain |
+| `pages.yml` | selected main push, manual, Chart 3 workflow_run | GitHub Pages deployment only | Shared deploy service; serialized by `pages` concurrency |
+| `simulation-workflow-lint.yml` | Simulation workflow push paths | read-only lint | Does not alter Simulation |
+| `tac-chart3-bootstrap.yml` | manual | Chart 3 baseline under `data/tac-chart3/` | Manual initialization only |
+| `tac-chart3-incremental.yml` | manual, workflow_run | FRED/ALFRED Chart 3 series under `data/tac-chart3/` | Downstream; shares data-maintenance concurrency with merge |
+| `tac-chart3-ingest.yml` | manual | ingest artifacts; no production report handoff | Separate Chart 3 ingest |
+| `tac-chart3-sp500-increment-merge.yml` | manual, workflow_run | merges verified S&P 500 increment into Chart 3 history/manifest | Downstream consumer; must not refetch S&P 500 |
+| `tac-chart3-stress-analysis-tests.yml` | selected push paths | test artifacts only | Non-blocking QA |
+| `tac-five-site-browser-poc.yml` | manual | browser evidence artifacts only | POC; not Main Stage 2 |
+| `tac-market-source-capture.yml` | manual | isolated capture evidence artifacts | Simulation experiment; not Main Stage 2 |
+| `tac-production.yml` | seasonal UTC schedule, selected code push, manual recover/rerun | Run evidence, S&P 500 increment ledger, Main preview namespace | Sole Main production owner |
+| `tac-simulation-lab.yml` | Simulation branch push, manual | Simulation branch evidence and legacy `preview/` triplet; explicit Pages dispatch | Separate Simulation owner; no Main homepage write |
+| `tac-simulation-run-monitor.yml` | every-5-minute schedule, Simulation push, manual | monitor/report only | No Run ownership or report writes |
+| `tac-sp500-increment-qa.yml` | selected data push/workflow events | QA artifacts only | Validates Chart 3 increment; no data write |
+| `us-mmf-chart-visual-qa.yml` | selected push/workflow events | QA artifacts only | Independent QA |
+| `us-mmf-public-data-qa.yml` | schedule/manual | QA artifacts only | Independent QA |
+| `volatility-sticky-columns.yml` | selected push/PR | QA artifacts only | Independent UI QA |
+
+### Writer collision resolution
+
+- **Main Preview vs Simulation Preview:** the Main Stage 6 runner uses `preview/main/<date>-review.*`; the Simulation workflow continues to use `preview/<date>-review.*`. This isolates the two writers. Pages is a shared deployment service, not a file writer, and serializes deployments.
+- **S&P 500 / Chart 3:** Stage 2 is the only source writer for the daily S&P 500 increment. Chart 3 merge is a downstream consumer. Chart 3 FRED/ALFRED incremental updates and S&P 500 merge share `tac-chart3-data-maintenance` concurrency. Chart 3 failure remains non-blocking for Stage 4–6.
+- **Official homepage:** TAC Main Stage 6 is restricted to the Main preview triplet. The official `index.html` remains protected by the homepage publication lock. `archive_index.yml` reads approved homepage versions and writes only `history/`.
+- **Legacy data:** `main.yml` and company data workflows continue to write separate `data/` files. Main Stage 2 does not read these outputs and cannot use them as fallback.
+
+### Remaining non-critical writer risk
+
+`company_profiles.yml` and `company_profiles_nasdaq100.yml` both write `data/company_profiles.json` under separate workflow concurrency groups, scheduled 20 minutes apart on Taiwan Sunday morning. This is a potential lost-update race for company profile data, but it is outside the TAC Stage 1–6 critical path and does not write report Run, Preview, calendar or Chart 3 S&P 500 increment artifacts. It is recorded as P2 and is not expanded into the Main rebuild scope.
+
+### Main preview / Pages contract
+
+The Main preview namespace is nested at `preview/main/`; the Pages workflow's legacy `preview/*.html` push path filter does not match nested files. Stage 6 therefore explicitly dispatches `pages.yml` after committing its three-file Main preview triplet, waits for the exact Pages workflow run, then reads the public Main preview URL and verifies the report date. This is intentional and must remain explicit.
