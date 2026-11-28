@@ -330,6 +330,12 @@ jobs:
           PY
           )"
           RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID"
+          RESUME_EXISTING=false
+          if [ "$DISPATCH_MODE" = "recover" ] && [ -n "$SUPERSEDES_RUN_ID" ]; then
+            RUN_ID="$SUPERSEDES_RUN_ID"
+            RESUME_EXISTING=true
+            SUPERSEDES_RUN_ID=""
+          fi
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
@@ -338,10 +344,12 @@ jobs:
       - name: Stage 1 — create a fresh blank-first Run
         run: |
           set -euo pipefail
-          if [ -n "${SUPERSEDES_RUN_ID:-}" ]; then
-            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID" --supersedes-run-id "$SUPERSEDES_RUN_ID"
+          if [ "$RESUME_EXISTING" = "true" ]; then
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID" --resume-existing
+          elif [ -n "${SUPERSEDES_RUN_ID:-}" ]; then
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID" --supersedes-run-id "$SUPERSEDES_RUN_ID"
           else
-            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID"
           fi
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/report-data.json"
