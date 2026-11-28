@@ -172,9 +172,13 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 item["published_at_tw"] = "2026-11-23 13:00"
                 item["published_at_source"] = "Nov 23, 2026 1:00 PM"
                 item["updated_at_source"] = "Nov 23, 2026 1:10 PM"
+                item["publisher"] = item.get("publisher") or "Synthetic E2E source"
+            editorial["market_comments"]["global_markets"] = editorial["market_comments"]["global_markets"][:3]
             editorial["political_scan"]["checked_at"] = "2026-11-24T05:00:00+08:00"
             for finding in editorial["political_scan"]["findings"]:
                 finding["checked_at"] = "2026-11-24T05:00:00+08:00"
+                if isinstance(finding.get("transmission"), dict):
+                    finding["transmission"] = "；".join(str(value) for value in finding["transmission"].values())
             for layer in editorial["market_analysis"].values():
                 for source in layer["sources"]:
                     source["checked_at"] = "2026-11-24T05:00:00+08:00"
