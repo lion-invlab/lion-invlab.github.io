@@ -169,6 +169,15 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
                 "news_cutoff_taipei": "2026-11-24 05:25",
             })
+            editorial["core_observation"] = {
+                "heading": "本週三大觀察焦點",
+                "text": "以下三點為合成資料，僅驗證今日核心觀察模組的三個固定項目。",
+                "points": [
+                    {"label": "① 市場廣度", "text": "觀察指數反彈是否擴散至更多產業與成分股。"},
+                    {"label": "② 利率定價", "text": "追蹤公債殖利率與風險資產估值的互動。"},
+                    {"label": "③ 風險控制", "text": "依波動度與信用條件調整部位及槓桿。"},
+                ],
+            }
             editorial["observation"] = {
                 "heading": "盤面觀察重點",
                 "text": "合成測試觀察：市場反彈、產業輪動與風險指標僅用於驗證五個固定觀察槽位的完整交接。",
@@ -217,7 +226,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                     "p": str(pivot.quantize(q, rounding=ROUND_HALF_UP)),
                     "r1": str(r1.quantize(q, rounding=ROUND_HALF_UP)),
                     "r2": str(r2.quantize(q, rounding=ROUND_HALF_UP)),
-                    "source_name": "Synthetic E2E fixture only; not a real market observation",
+                    "source_name": "Investing.com｜合成測試資料，非實際行情",
                     "url": source_url,
                 })
             editorial["key_levels"] = {
