@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import unittest
-from run_stage4 import validate_content, market_snapshot_digest, validate_research_bundle_binding, validate_stage4_wr_handoff
+from run_stage4 import validate_content, market_snapshot_digest, validate_research_bundle_binding, validate_stage4_wr_handoff, normalize_news_publication_times
 import json, tempfile
 from pathlib import Path
 
@@ -23,6 +23,13 @@ def sample():
     }
 
 class Stage4ContentTests(unittest.TestCase):
+    def test_source_timezone_is_authoritative_for_taipei_publication_time(self):
+        content={"focus_news":[{"published_at_source":"2026-11-27 07:24 PM AEDT",
+                                "source_timezone":"Australia/Sydney",
+                                "published_at_tw":"2026-11-28 16:24"}],"headlines":[]}
+        repairs=normalize_news_publication_times(content)
+        self.assertEqual(content["focus_news"][0]["published_at_tw"],"2026-11-27 16:24")
+        self.assertEqual(len(repairs),1)
     def setUp(self):
         self.context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
         self.data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"待核實","source":{"verification_status":"PENDING"}}}}
