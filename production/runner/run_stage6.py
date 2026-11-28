@@ -112,7 +112,7 @@ def main():
     run_dir=run_dir.resolve()
     if run_dir.parent!=runs.resolve():raise SystemExit("Stage 6 run directory must be a direct child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=load_stage_wr("STAGE_6",context)
+    wr_loaded=load_stage_wr("STAGE_6",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
