@@ -22,7 +22,7 @@ MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/con
 5. 建立唯一 Run ID 與 run-context；Run ID 固定為 TAC-{report_date}-{workflow_run_id}，不得包含 workflow_run_attempt。相同 GitHub workflow retry 必須沿用同一 Run ID；只有明確 rerun（新 workflow_run_id）才建立新 Run。記錄保護範圍及當次輸出路徑。Run context 必須包含固定 report_date、共用日期錨點 trading_date、report cutoff、mother key/path/blob SHA、Manifest SHA、calendar commit、週 JSON SHA 及 governance blob SHA 清單。trading_date 只供 Run／行事曆日期錨定，不代表 44 項商品必須採用同一個市場 data_date；Stage 1 Fixture 的 data_date 是空白建置用暫定值，Stage 2 必須逐項替換為實際 target_date。
 
 ## 輸出
-run-context.json、Stage 1 fixture、report-data、基準 SHA 清單、calendar read receipt、Stage 1 receipt（含 run-context SHA 與 governance file count）、run-state.json（Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED），並在 Stage 2 啟動前提交遠端。
+run-context.json（含 legacy_prior_run_ids，只記錄無 run-state 的舊 Run ID，不讀取其資料）、Stage 1 fixture、report-data、基準 SHA 清單、calendar read receipt、Stage 1 receipt（含 run-context SHA 與 governance file count）、run-state.json（Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED），並在 Stage 2 啟動前提交遠端。
 
 ## 驗收與交接
 必要路徑、SHA、日期、星期情境全部正確才 PASS。將固定日期、交易日、44 項欄位清單、母版及來源規格交給 Stage 2。Stage 1 不修改母版、Manifest 或 calendar JSON。
