@@ -66,7 +66,7 @@ jobs:
       - name: Record production-ref provenance
         shell: bash
         env:
-          VALIDATION_BRANCH: ${{ github.ref_name }}
+          VALIDATION_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
