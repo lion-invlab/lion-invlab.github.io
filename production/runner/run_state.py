@@ -226,6 +226,8 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
         raise ValueError("run-state must contain exactly six canonical stages")
     if stages["STAGE_1"]["status"] != "PASS":
         raise ValueError("Stage 1 must remain PASS for every initialized Run")
+    if sum(1 for s in STAGES if stages[s]["status"] == "RUNNING") > 1:
+        raise ValueError("Only one stage may be RUNNING for a Run at a time")
     partial_stages = [s for s in STAGES if stages[s]["status"] == "PARTIAL"]
     if any(s not in {"STAGE_2", "STAGE_5"} for s in partial_stages):
         raise ValueError("Only Stage 2 and Stage 5 may be PARTIAL")
