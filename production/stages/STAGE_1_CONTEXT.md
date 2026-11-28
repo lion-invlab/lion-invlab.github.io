@@ -1,5 +1,5 @@
 # Stage 1｜開工基準與母版鎖定
-版本：Main E2E v1.2（2026-11-28）
+版本：Main E2E v1.3（2026-11-28）
 - 正式製作日為台灣週二至週六；週一、週日不自動製作。週二至週五 report_date=製作當日；週六製作時 report_date=隔週一（production_date+2 days），trading_date=週五，使用 Monday mother。週六不是 report_date，不得以週六日期命名 Preview。
 - 週二至週五使用 Weekday mother；週六生產的週一早報使用 Monday mother，讀取報告週及前一週 ISO-week 行事曆資料。
 - report_cutoff_taipei 代表實際生產日的收盤後資料截點。週二至週五按 report_date 前一個 New York 日期 16:25 ET 換算；週六生產的週一早報則按 report_date 前第三個 New York 日期（週五）16:25 ET 換算，對應台灣週六 05:25 冬令／04:25 夏令。
@@ -10,7 +10,7 @@
 - 缺檔、空檔、無法完整 UTF-8 讀取、Run 未鎖定該 WR、SHA 不一致，均立即 FAIL-CLOSED；不得跳過、fallback 或繼續工作。
 - 本階段輸出收據必須包含 `wr_preflight`，至少記錄 `wr_path`、`wr_loaded`、`wr_sha256`、`wr_git_blob_sha`、`stage1_pinned_git_blob_sha`、讀取位元組數及 PASS 狀態。沒有該證據不得宣告本階段完成。
  
-Stage 1 自身必須先完整讀取本文件，完成 WR Preflight 後才可建立 Run。Stage 1 是輕量初始化：只允許 Python 標準函式庫與 Git 操作；建立及提交 Run handoff 前，禁止安裝 pandas、Playwright、Chromium、瀏覽器或 Stage 2–6 的任何重型依賴。Stage 1 必須在 Stage 2 喚醒前，將 run-context、Stage 1 fixture、report-data、Stage 1 receipt 與初始 run-state.json 一次提交至 main，並確認遠端可讀。Stage 2 不得在 Stage 1 之前預擷取。
+Stage 1 自身必須先完整讀取本文件，完成 WR Preflight 後才可建立 Run。Stage 1 是輕量初始化：只允許 Python 標準函式庫與 Git 操作；建立及提交 Run handoff 前，禁止安裝 pandas、Playwright、Chromium、瀏覽器或 Stage 2–6 的任何重型依賴。Stage 1 必須在 Stage 2 喚醒前，將 run-context、Stage 1 fixture、report-data、Stage 1 receipt 與初始 run-state.json 一次提交至 main，並確認遠端可讀。Stage 2 不得在 Stage 1 之前預擷取。 Stage 1 是獨立且短時的 GitHub job：完成遠端提交及回讀後必須立即結束，不得等待 Stage 2 worker、不得安裝 Stage 2–6 依賴、不得執行 Stage 2／3。Stage 1 WR Preflight 必須在 report_date／Run ID resolution 之前完成。
 
 ## 輸入
 MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/config/mother-template-manifest.json、雙母版、MOTHER_TEMPLATE_QA、報告日期及 main 行事曆 JSON。Stage 1 讀取自身規範是執行依據，不構成前置 Stage 依賴。
