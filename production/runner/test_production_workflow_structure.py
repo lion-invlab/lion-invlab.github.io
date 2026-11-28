@@ -89,18 +89,16 @@ assert "sleep 30" in stage4_resolve
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in stage4_resolve
 assert "Stage 4 worker did not publish the exact Run-scoped editorial artifact within 15 minutes." in stage4_resolve
 
-# Editorial acceptance is performed by the dedicated Stage 4 execution step,
-# not by the earlier handoff polling step. Assert the checks against that exact
-# executable block so the contract test cannot pass on unrelated comments.
-stage4_exec_end = build.index("      - name: Persist Stage 4 receipt and state")
-stage4_exec = build[stage4_exec_start:stage4_exec_end]
-assert 'assert context["run_id"]==run_dir.name==content["run_id"]' in build
-assert 'assert context["report_date"]==report_date==content["report_date"]' in stage4_resolve
-assert 'assert state["stages"]["STAGE_3"]["status"]=="PASS"' in stage4_resolve
-assert 'assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in stage4_resolve
-assert 'assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]' in stage4_resolve
-assert 'assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]' in stage4_resolve
-assert 'assert content["stage4_wr_sha256"]==stage4_wr_sha' in stage4_resolve
+# Stage 4 evidence checks are part of the executable validator inside the handoff step.
+stage4_validator_start = stage4_resolve.index('          python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<\'PY\'')
+stage4_validator = stage4_resolve[stage4_validator_start:]
+assert 'assert context["run_id"]==run_dir.name==content["run_id"]' in stage4_validator
+assert 'assert context["report_date"]==report_date==content["report_date"]' in stage4_validator
+assert 'assert state["stages"]["STAGE_3"]["status"]=="PASS"' in stage4_validator
+assert 'assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in stage4_validator
+assert 'assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]' in stage4_validator
+assert 'assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]' in stage4_validator
+assert 'assert content["stage4_wr_sha256"]==stage4_wr_sha' in stage4_validator
 
 
 
