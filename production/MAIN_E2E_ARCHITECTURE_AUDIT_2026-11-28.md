@@ -439,7 +439,7 @@ Branch: `refactor/tac-main-e2e-architecture-20261128`
 
 ### Validation result
 
-GitHub Actions validation run `46104298636` on commit `4b5e612fa2ee3e56e05b85784a093b00e95b34b4` completed SUCCESS for the prior handoff implementation. The later Stage 1 job split and WR preflight ordering are under a new isolated validation run `46104811908`. The validation job passed: Python compile, browser QA syntax, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, isolated candidate Builder, and mother-owned DOM checks. Subsequent branch changes were documentation-only (audit wording and removal of superseded prompt v1.2); no runtime code changed after this successful validation.
+GitHub Actions validation run `46104298636` on commit `4b5e612fa2ee3e56e05b85784a093b00e95b34b4` completed SUCCESS for the prior handoff implementation. The later Stage 1 job split, Stage 1 WR preflight ordering, Stage 2/3 downstream boundary, 45-minute Stage 2/3 timeout, and workflow-structure regression test passed in validation run `46104850103` on commit `c52a0e341027a8e12da4ef10715c4b326dacc29c`. The validation job passed: Python compile, browser QA syntax, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, isolated candidate Builder, and mother-owned DOM checks. Subsequent branch changes were documentation-only (audit wording and removal of superseded prompt v1.2); no runtime code changed after this successful validation.
 
 ### Cutover dependency not yet applied
 
