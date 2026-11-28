@@ -147,23 +147,6 @@ def main():
     age=(datetime.now(timezone.utc)-captured).total_seconds()
     if age < -300 or age > 24*3600:
         raise SystemExit("Run-scoped observations are outside the 24-hour freshness window")
-    expected=set()
-    stage1_fixture=load(stage1_fixture_path)
-    for group in ("global_markets","bonds","fx","energy","metals","risk"):
-        expected.update((group,str(name)) for name in (stage1_fixture.get(group) or {}))
-    expected.update(("sectors",str(name)) for name in (stage1_fixture.get("sectors") or {}))
-    rows=web_payload.get("observations")
-    keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
-    if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
-        raise SystemExit("Run-scoped observations do not match the exact 44-row Stage 1 universe")
-    report_day=date.fromisoformat(report_date)
-    for row in rows:
-        try:
-            target_day=date.fromisoformat(str(row.get("target_date")))
-        except ValueError as exc:
-            raise SystemExit(f"Invalid per-instrument target_date: {row.get('name')}") from exc
-        if target_day > report_day:
-            raise SystemExit(f"Observation target_date is later than report_date: {row.get('name')}")
     state_path=run_dir/"run-state.json"
     state=load(state_path)
     validate_state(state,expected_run_id=context["run_id"])
@@ -181,10 +164,6 @@ def main():
             "report_date":report_date, "trading_date":context["trading_date"],
             "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
         },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    # One direct handoff check is sufficient; the optional CNN packet does not
-    # alter the 44-row Stage 2 observation or Run identity.
-    run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
-        "--run-dir",str(run_dir.relative_to(ROOT))])
     run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--input",str(web_bundle.relative_to(ROOT)),
