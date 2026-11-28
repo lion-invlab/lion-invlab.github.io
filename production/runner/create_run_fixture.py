@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 from stage2_market_fixture_bootstrap import blank_fixture
 from builder_approval import current_governance_blob_shas
 from stage_wr_preflight import stage_wr_preflight
+from run_state import initial_run_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
@@ -19,6 +20,14 @@ def sha256(path:Path)->str:
 
 def git_blob(path:Path, commit_sha:str="HEAD")->str:
     return subprocess.check_output(["git","rev-parse",f"{commit_sha}:{path.relative_to(ROOT).as_posix()}"],cwd=ROOT,text=True).strip()
+
+def stable_run_id(report_date:date, workflow_run_id:str)->str:
+    """A workflow retry keeps the same Run ID; a new workflow invocation creates a new Run."""
+    token=str(workflow_run_id or "").strip()
+    if not token:
+        raise ValueError("workflow_run_id is required for a stable production Run ID")
+    prefix=f"TAC-{report_date.isoformat()}-"
+    return token if token.startswith(prefix) else prefix+token
 
 def report_cutoff_taipei(report_date:date)->str:
     """16:25 New York close-window cutoff converted to Taiwan local time for this report date."""
@@ -76,6 +85,8 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     weeks=[week_id(report_date)]
     if report_date.weekday()==0:
         weeks.append(week_id(previous_week_start(report_date)))
+    legacy_prior_run_ids=sorted(p.name for p in (ROOT/"production/runs").glob(f"TAC-{report_date.isoformat()}-*")
+                                if p.is_dir() and p.name!=run_id and (p/"run-context.json").is_file() and not (p/"run-state.json").is_file())
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"
@@ -85,7 +96,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
         calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path,main_commit_sha)})
     run_context={
       "schema_version":"1.0","run_id":run_id,"production_date":production_date.isoformat(),"report_date":report_date.isoformat(),
-      "supersedes_run_id":supersedes_run_id,
+      "supersedes_run_id":supersedes_run_id,"legacy_prior_run_ids":legacy_prior_run_ids,
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
       "repository":"lion-invlab/lion-invlab.github.io","branch":"main",
@@ -114,6 +125,10 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
     output=Path(output)
     if not output.is_absolute(): output=repo_root/output
     output.mkdir(parents=True,exist_ok=True)
+    protected=("run-context.json","stage1-fixture.json","report-data.json","stage1-receipt.json","run-state.json")
+    existing=[name for name in protected if (output/name).exists()]
+    if existing:
+        raise FileExistsError("Refusing to overwrite an existing Run handoff: "+", ".join(existing))
     rel=lambda p:str(Path(p).resolve().relative_to(repo_root))
     data=result["market_fixture"]
     data.setdefault("run_metadata",{}).update({
@@ -140,8 +155,12 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
              "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
              "wr_preflight":context["stage_wr_preflight"],
-             "supersedes_run_id":context.get("supersedes_run_id")}
-    (output/"stage1-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+             "supersedes_run_id":context.get("supersedes_run_id"),"legacy_prior_run_ids":context.get("legacy_prior_run_ids",[])}
+    receipt_path=output/"stage1-receipt.json"
+    receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    state=initial_run_state(context,receipt,sha256(receipt_path))
+    state_path=output/"run-state.json"
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     return receipt
 
 def main():
@@ -151,11 +170,11 @@ def main():
     ap.add_argument("--run-id")
     ap.add_argument("--output-dir")
     ap.add_argument("--supersedes-run-id")
+    ap.add_argument("--resume-existing",action="store_true",help="Resume an exact existing Run without rewriting its Stage 1 files.")
     args=ap.parse_args()
     report_date=date.fromisoformat(args.report_date)
     run_token=args.run_id or os.environ.get("GITHUB_RUN_ID") or uuid.uuid4().hex[:12]
-    attempt=os.environ.get("GITHUB_RUN_ATTEMPT","1")
-    run_id=f"TAC-{report_date.isoformat()}-{run_token}-{attempt}"
+    run_id=stable_run_id(report_date,run_token)
     output=Path(args.output_dir) if args.output_dir else ROOT/"production/runs"/run_id
     if not output.is_absolute(): output=ROOT/output
     runs_lexical=ROOT/"production/runs"
@@ -164,6 +183,22 @@ def main():
     if output.resolve().parent!=runs_lexical.resolve() or not output.name.startswith(f"TAC-{report_date.isoformat()}-"):
         raise SystemExit("Output must be a direct child of production/runs named TAC-<report_date>-<run_id>")
     if output.is_symlink(): raise SystemExit("Run output directory must not be a symlink")
+    if output.exists():
+        required=("run-context.json","stage1-fixture.json","report-data.json","stage1-receipt.json","run-state.json")
+        missing=[name for name in required if not (output/name).is_file()]
+        if missing:
+            raise SystemExit("Existing Run is incomplete; refusing to overwrite or invent a new Run: "+", ".join(missing))
+        existing_context=json.loads((output/"run-context.json").read_text(encoding="utf-8"))
+        existing_state=json.loads((output/"run-state.json").read_text(encoding="utf-8"))
+        validate_state(existing_state,expected_run_id=run_id)
+        expected_workflow=os.environ.get("GITHUB_RUN_ID",run_token)
+        if (existing_context.get("run_id")!=run_id
+                or existing_context.get("report_date")!=report_date.isoformat()
+                or (not args.resume_existing and str(existing_context.get("workflow_run_id"))!=str(expected_workflow))):
+            raise SystemExit("Existing Run identity does not match this workflow retry/recovery; refusing to overwrite.")
+        existing_receipt=json.loads((output/"stage1-receipt.json").read_text(encoding="utf-8"))
+        print(json.dumps({**existing_receipt,"resume_existing_run":True,"run_state_version":existing_state["state_version"]},ensure_ascii=False,indent=2))
+        return
     result=build(report_date,run_id,date.fromisoformat(args.trading_date) if args.trading_date else None,args.supersedes_run_id)
     receipt=write_run_files(output,run_id,result,ROOT)
     print(json.dumps(receipt,ensure_ascii=False,indent=2))

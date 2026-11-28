@@ -14,8 +14,69 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  resolve-main-run:
+    if: ${{ github.event_name == 'workflow_run' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      should_run: ${{ steps.resolve.outputs.should_run }}
+      run_id: ${{ steps.resolve.outputs.run_id }}
+    steps:
+      - name: Checkout Main for exact Run lookup
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Resolve production Run that completed this workflow
+        id: resolve
+        env:
+          PRODUCTION_WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
+          PRODUCTION_HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          def out(should_run, run_id=""):
+              with open(os.environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
+                  f.write(f"should_run={str(should_run).lower()}\n")
+                  f.write(f"run_id={run_id}\n")
+          if os.environ.get("PRODUCTION_HEAD_BRANCH") != "main":
+              out(False); raise SystemExit(0)
+          workflow_run_id=str(os.environ["PRODUCTION_WORKFLOW_RUN_ID"])
+          matches=[]
+          for p in Path("production/runs").glob("TAC-*/run-context.json"):
+              run=p.parent
+              state_path=run/"run-state.json"
+              if not state_path.is_file():
+                  continue
+              state=json.loads(state_path.read_text(encoding="utf-8"))
+              if str(state.get("workflow_run_id")) == workflow_run_id:
+                  matches.append(run)
+          if not matches:
+              print(f"No Main Run for completed workflow_run_id={workflow_run_id}; this was not a production capture run.")
+              out(False); raise SystemExit(0)
+          if len(matches)!=1:
+              raise SystemExit(f"Integrity error: {len(matches)} Main Runs match workflow_run_id={workflow_run_id}.")
+          run=matches[0]
+          state_path=run/"run-state.json"
+          if not state_path.is_file():
+              raise SystemExit(f"Integrity error: {run.name} has no authoritative run-state.json.")
+          state=json.loads(state_path.read_text(encoding="utf-8"))
+          stages=state.get("stages",{})
+          stage2=stages.get("STAGE_2",{}).get("status")
+          stage3=stages.get("STAGE_3",{}).get("status")
+          if state.get("run_id")!=run.name or stage2 not in ("PASS","PARTIAL") or stage3!="PASS":
+              print(f"Run {run.name} did not complete Stage 2/3; Chart 3 branch will be skipped.")
+              out(False); raise SystemExit(0)
+          if not (run/"stage2-market-snapshot-receipt.json").is_file() or not (run/"stage3-calendar-receipt.json").is_file():
+              raise SystemExit(f"Integrity error: {run.name} is PASS for Stage 2/3 but a required receipt is missing.")
+          print(f"Chart 3 handoff accepted for exact Main Run {run.name} (Stage2={stage2}, Stage3=PASS).")
+          out(True,run.name)
+          PY
   merge-and-commit:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main' && contains(github.event.workflow_run.head_commit.message, '[build-tac-report:')) }}
+    needs: [resolve-main-run]
+    if: ${{ always() && (github.event_name == 'workflow_dispatch' || needs['resolve-main-run'].outputs.should_run == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

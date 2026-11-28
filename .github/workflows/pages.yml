@@ -6,11 +6,9 @@ on:
       - main
     paths:
       - "cfd-dashboard/**"
-      - "preview/*.html"
       - "history/**"
       - "research/**"
       - "interactive-charts/**"
-      - "data/tac-chart3/**"
       - "index.html"
       - "special-reports.html"
       - "scripts/build-special-reports-index.py"
@@ -20,6 +18,7 @@ on:
     workflows:
       - "TAC Chart 3 incremental update (main branch trigger)"
       - "TAC Chart 3 merge verified S&P 500 daily increments"
+      - "TAC Chart 3 bootstrap baseline from completed run"
     branches:
       - main
     types:

@@ -5,13 +5,11 @@ on:
     # Stage 1 starts 15 minutes before the Stage 2 worker: 03:45 Taiwan summer / 04:45 winter.
     - cron: "45 19 * * 1-5"
     - cron: "45 20 * * 1-5"
-    # Temporary one-time recovery trigger for the missed 2026-11-28 production window; remove after it fires.
-    - cron: "00 23 27 11 *"
   push:
     branches: [main, "refactor/**"]
     paths:
-      # Run artifacts and date-scoped editorial inputs are data, not code changes.
-      # They must not launch the 35-minute production validation suite.
+      # Push events validate Main code and contracts only; production delivery is one scheduled / recover workflow run.
+      # Run-scoped Stage artifacts are consumed by the active capture and delivery jobs, not push triggers.
       - "production/MASTER_WR.md"
       - "production/runner/**"
       - "production/stages/**"
@@ -19,7 +17,6 @@ on:
       - "production/config/**"
       - "production/templates/**"
       - "production/input/*.schema.json"
-      - "production/input/report-content-*.json"
       - "production/input/STAGE4_README.md"
       - ".github/workflows/tac-production.yml"
   workflow_dispatch:
@@ -44,7 +41,7 @@ concurrency:
 
 jobs:
   validate-main-production:
-    if: ${{ (github.event_name == 'push' && !contains(github.event.head_commit.message, '[build-tac-report:')) || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -120,6 +117,7 @@ jobs:
         run: |
           python -m unittest -v \
             test_create_run_fixture \
+            test_run_state \
             test_stage_wr_preflight \
             test_stage2_fedwatch \
             test_homepage_publication_lock \
@@ -217,8 +215,7 @@ jobs:
           ny = now.astimezone(ZoneInfo("America/New_York"))
           expected_cron = "45 19 * * 1-5" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 1-5"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
-          one_off_recovery_cron = "00 23 27 11 *"
-          should_run = actual_cron == expected_cron or actual_cron == one_off_recovery_cron
+          should_run = actual_cron == expected_cron
           print(f"should_run={'true' if should_run else 'false'}")
           print(f"actual_cron={actual_cron}")
           print(f"expected_cron={expected_cron}")
@@ -226,6 +223,9 @@ jobs:
           PY
 
   capture-and-calendar:
+    outputs:
+      run_id: ${{ steps.resolve.outputs.run_id }}
+      report_date: ${{ steps.resolve.outputs.report_date }}
     needs: [schedule-window]
     if: ${{ github.ref == 'refs/heads/main' && always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
@@ -247,10 +247,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install Stage 1-3 dependencies
-        run: |
-          python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
-          python -m playwright install --with-deps chromium
       - name: Refresh main before locking Stage 1 inputs
         run: |
           set -euo pipefail
@@ -258,26 +254,16 @@ jobs:
           git merge --ff-only origin/main
 
       - name: Resolve report date and unique Run ID
+        id: resolve
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
-          DISPATCH_MODE: ${{ inputs.mode || (github.event_name == 'schedule' && github.event.schedule == '00 23 27 11 *' && 'recover') || '' }}
-          SCHEDULE_RECOVER: ${{ github.event_name == 'schedule' && github.event.schedule == '00 23 27 11 *' }}
+          DISPATCH_MODE: ${{ inputs.mode || '' }}
         run: |
           set -euo pipefail
           if [ "$DISPATCH_MODE" = "rerun" ] || { [ "$DISPATCH_MODE" = "recover" ] && [ -n "${REQUESTED_REPORT_DATE:-}" ]; }; then
             [ -n "${REQUESTED_REPORT_DATE:-}" ] || { echo "::error::Manual recovery/rerun requires an explicit Taiwan report_date (YYYY-MM-DD)."; exit 1; }
             REPORT_DATE="$REQUESTED_REPORT_DATE"
-          elif [ "$DISPATCH_MODE" = "recover" ] && [ "${SCHEDULE_RECOVER:-false}" = "true" ]; then
-            REPORT_DATE="$(TZ=Asia/Taipei python - <<'PY'
-          from datetime import date, timedelta
-          today=date.today()
-          if today.weekday()==5:
-              print((today+timedelta(days=2)).isoformat())
-          else:
-              raise SystemExit("One-off recovery trigger is valid only on Taiwan Saturday.")
-          PY
-          )"
           elif [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
             REPORT_DATE="$REQUESTED_REPORT_DATE"
           else
@@ -310,48 +296,110 @@ jobs:
                   matches.append(context_path.parent)
           matches.sort(key=lambda p: json.loads((p/"run-context.json").read_text(encoding="utf-8")).get("started_at",""))
           supersedes=""
+          sys.path.insert(0, "production/runner")
+          from run_state import validate_state
           if matches:
               mode=os.environ.get("DISPATCH_MODE")
+              stable_id=f"TAC-{target}-{os.environ.get('GITHUB_RUN_ID','')}"
+              same=next((p for p in matches if p.name==stable_id),None)
+              if same is not None:
+                  state_path=same/"run-state.json"
+                  if not state_path.is_file():
+                      raise SystemExit(f"Existing same-workflow Run {same.name} has no authoritative run-state; refusing overwrite.")
+                  validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
+                  print("")
+                  sys.exit(0)
+              stateful=[p for p in matches if (p/"run-state.json").is_file()]
+              if not stateful:
+                  if mode=="recover":
+                      raise SystemExit("No stateful Run exists to recover; legacy Runs are read-only and never reused.")
+                  print("")
+                  sys.exit(0)
               if mode not in ("recover","rerun"):
-                  raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
-              prior=matches[-1]
-              if mode == "rerun":
-                  if len(matches) != 1:
-                      raise SystemExit(f"Explicit rerun requires exactly one prior Run; found {len(matches)}.")
-                  expected={"2026-11-27":"TAC-2026-11-27-45937649928-1"}
-                  if expected.get(target) != prior.name:
-                      raise SystemExit(f"Explicit rerun is not authorized for this report date/prior Run: {target} / {prior.name}")
-              else:
+                  raise SystemExit(f"A stateful Run already exists for {target}; explicit recover/rerun mode is required.")
+              if mode == "recover":
+                  eligible=[]
+                  for candidate in stateful:
+                      state=json.loads((candidate/"run-state.json").read_text(encoding="utf-8"))
+                      validate_state(state,expected_run_id=candidate.name)
+                      if state.get("overall_status") not in ("RUNNING","PARTIAL","FAILED"):
+                          continue
+                      stages=state.get("stages") or {}
+                      if stages.get("STAGE_5",{}).get("status") in ("PASS","PARTIAL") or stages.get("STAGE_6",{}).get("status")=="PASS":
+                          continue
+                      preview=[Path("preview")/f"{target}-review.html",Path("preview")/f"{target}-review.qa.json",Path("preview")/f"{target}-review.delivery.json"]
+                      if any(path.exists() for path in preview):
+                          continue
+                      eligible.append(candidate)
+                  if len(eligible)!=1:
+                      raise SystemExit(f"Recovery requires exactly one valid unfinished Run with run-state; found {len(eligible)}.")
+                  prior=eligible[0]
                   delivered_files=[
-                      Path("preview")/f"{target}-review.html",
-                      Path("preview")/f"{target}-review.qa.json",
-                      Path("preview")/f"{target}-review.delivery.json"
+                      Path("preview/main")/f"{target}-review.html",
+                      Path("preview/main")/f"{target}-review.qa.json",
+                      Path("preview/main")/f"{target}-review.delivery.json"
                   ]
                   if ((prior/"stage5-render-qa-receipt.json").exists()
                       or (prior/"stage6-delivery-receipt.json").exists()
                       or any(path.exists() for path in delivered_files)):
                       raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; recover is prohibited.")
+              else:
+                  if len(stateful)!=1:
+                      raise SystemExit(f"Explicit rerun requires exactly one stateful prior Run; found {len(stateful)}.")
+                  prior=stateful[0]
               supersedes=prior.name
           print(supersedes)
           PY
           )"
-          RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          RUN_ID="TAC-$REPORT_DATE-$GITHUB_RUN_ID"
+          RESUME_EXISTING=false
+          if [ "$DISPATCH_MODE" = "recover" ] && [ -n "$SUPERSEDES_RUN_ID" ]; then
+            RUN_ID="$SUPERSEDES_RUN_ID"
+            RESUME_EXISTING=true
+            SUPERSEDES_RUN_ID=""
+          fi
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
+          echo "report_date=$REPORT_DATE" >> "$GITHUB_OUTPUT"
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
           echo "SUPERSEDES_RUN_ID=$SUPERSEDES_RUN_ID" >> "$GITHUB_ENV"
-      - name: Stage 1 — create a fresh blank-first Run
+          echo "RESUME_EXISTING=$RESUME_EXISTING" >> "$GITHUB_ENV"
+      - name: Stage 1 — create or resume the exact Run
         run: |
           set -euo pipefail
-          if [ -n "${SUPERSEDES_RUN_ID:-}" ]; then
-            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID" --supersedes-run-id "$SUPERSEDES_RUN_ID"
+          if [ "$RESUME_EXISTING" = "true" ]; then
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID" --resume-existing
+          elif [ -n "${SUPERSEDES_RUN_ID:-}" ]; then
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID" --supersedes-run-id "$SUPERSEDES_RUN_ID"
           else
-            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$GITHUB_RUN_ID"
+            python production/runner/create_run_fixture.py --report-date "$REPORT_DATE" --run-id "$RUN_ID"
           fi
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/report-data.json"
           test -s "$RUN_DIR/stage1-receipt.json"
+          test -s "$RUN_DIR/run-state.json"
+      - name: Register current GitHub workflow attempt in Run state
+        env:
+          CURRENT_WORKFLOW_RUN_ID: ${{ github.run_id }}
+          CURRENT_WORKFLOW_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python - "$RUN_DIR/run-state.json" <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0,"production/runner")
+          from run_state import register_workflow_run
+          path=Path(sys.argv[1])
+          state=json.loads(path.read_text(encoding="utf-8"))
+          updated=register_workflow_run(state,os.environ["CURRENT_WORKFLOW_RUN_ID"],int(os.environ["CURRENT_WORKFLOW_RUN_ATTEMPT"]))
+          if updated != state:
+              temp=path.with_suffix(".json.tmp")
+              temp.write_text(json.dumps(updated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+              temp.replace(path)
+          print(json.dumps({"run_id":updated["run_id"],"workflow_run_id":updated["workflow_run_id"],
+              "workflow_run_attempt":updated["workflow_run_attempt"],"state_version":updated["state_version"]},indent=2))
+          PY
       - name: Publish Stage 1 handoff before Stage 2 starts
         shell: bash
         run: |
@@ -360,9 +408,13 @@ jobs:
           git merge --ff-only origin/main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- "$RUN_DIR/run-context.json" "$RUN_DIR/stage1-fixture.json" "$RUN_DIR/report-data.json" "$RUN_DIR/stage1-receipt.json"
+          git add -- "$RUN_DIR/run-context.json" "$RUN_DIR/stage1-fixture.json" "$RUN_DIR/report-data.json" "$RUN_DIR/stage1-receipt.json" "$RUN_DIR/run-state.json"
+          if git diff --cached --quiet; then
+            echo "Stage 1 Run already exists and is unchanged; no duplicate handoff commit."
+            exit 0
+          fi
           mapfile -t STAGED < <(git diff --cached --name-only)
-          test "${#STAGED[@]}" -eq 4
+          test "${#STAGED[@]}" -eq 5
           for path in "${STAGED[@]}"; do
             [[ "$path" == "$RUN_DIR/"* ]] || { echo "Unexpected Stage 1 path: $path" >&2; exit 1; }
           done
@@ -376,7 +428,30 @@ jobs:
             git rebase origin/main
           done
           test "$PUSHED" = true
+      - name: Inspect authoritative Run state before resuming
+        id: run-state
+        run: |
+          python - "$RUN_DIR" <<'PY'
+          import json,sys
+          from pathlib import Path
+          sys.path.insert(0,"production/runner")
+          from run_state import validate_state
+          run=Path(sys.argv[1])
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          validate_state(state,expected_run_id=context["run_id"])
+          with open(__import__("os").environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
+              f.write(f"stage2_status={state['stages']['STAGE_2']['status']}\n")
+              f.write(f"stage3_status={state['stages']['STAGE_3']['status']}\n")
+          print(json.dumps({"run_id":state["run_id"],"state_version":state["state_version"],
+              "stage2":state["stages"]["STAGE_2"]["status"],"stage3":state["stages"]["STAGE_3"]["status"]},indent=2))
+          PY
+      - name: Install Stage 2-3 dependencies after Stage 1 handoff
+        run: |
+          python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
+          python -m playwright install --with-deps chromium
       - name: Wait for exact Stage 2 worker handoff
+        if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -386,14 +461,27 @@ jobs:
             sleep 15
           done
           echo "Stage 2 worker window opened at $(TZ=America/New_York date --iso-8601=seconds)"
-          OBSERVATION_PATH="production/input/market-history-web-observations-$REPORT_DATE.json"
+          OBSERVATION_PATH="$RUN_DIR/market-history-web-observations.json"
           FOUND=false
           for attempt in $(seq 1 30); do
             git fetch origin main
-            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null; then
+            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null && git cat-file -e "origin/main:$RUN_DIR/run-state.json" 2>/dev/null; then
               git merge --ff-only origin/main
-              FOUND=true
-              break
+              if python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          run=Path(sys.argv[1]); observation=Path(sys.argv[2])
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(observation.read_bytes()).hexdigest()
+          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
+              raise SystemExit(1)
+          if state["stages"]["STAGE_2"].get("output_sha256")!=digest:
+              raise SystemExit(1)
+          PY
+              then
+                FOUND=true
+                break
+              fi
             fi
             sleep 30
           done
@@ -407,6 +495,7 @@ jobs:
           receipt_sha=hashlib.sha256((run/"stage1-receipt.json").read_bytes()).hexdigest()
           context_sha=hashlib.sha256((run/"run-context.json").read_bytes()).hexdigest()
           fixture_sha=hashlib.sha256((run/"stage1-fixture.json").read_bytes()).hexdigest()
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
           expected={"run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
             "stage1_receipt_sha256":receipt_sha,"run_context_sha256":context_sha,"stage1_fixture_sha256":fixture_sha}
           for key,value in expected.items():
@@ -415,52 +504,66 @@ jobs:
           pinned_wr_sha=hashlib.sha256(pinned_wr).hexdigest()
           if payload.get("stage2_wr_sha256") != pinned_wr_sha:
             raise SystemExit("Stage 2 handoff WR SHA differs from Stage 1 pinned Stage 2 WR")
+          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
+            raise SystemExit("Stage 2 state is not SUBMITTED")
+          if state["stages"]["STAGE_2"].get("output_sha256")!=hashlib.sha256(observation.read_bytes()).hexdigest():
+            raise SystemExit("Stage 2 state submission SHA does not match observation file")
           print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
           PY
       - name: Stage 2 — validate and freeze 44 market indicators
+        if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
           test -s "$RUN_DIR/stage2-market-snapshot-receipt.json"
           test -s "$RUN_DIR/stage2-run-summary.json"
-      # The Chart 3 merge workflow listens for this production workflow's successful completion; never dispatch it from Stage 2.
-      - name: Commit only verified S&P 500 Chart 3 increment for post-delivery merge
+      - name: Persist Stage 2 snapshot and optional Chart 3 increment
         shell: bash
         run: |
           set -euo pipefail
           LEDGER="data/tac-chart3/sp500_daily_increment.jsonl"
-          if ! git status --porcelain -- "$LEDGER" | grep -q .; then
-            echo "No new verified S&P 500 increment; Chart 3 handoff is a no-op."
-            echo "CHART3_MERGE_STATUS=NOT_REQUIRED" >> "$GITHUB_ENV"
-            exit 0
+          CHART3_STATUS="$(python - "$RUN_DIR/stage2-run-summary.json" <<'PY'
+          import json,sys
+          summary=json.load(open(sys.argv[1],encoding="utf-8"))
+          print((summary.get("chart3_handoff") or {}).get("status","NOT_REQUIRED"))
+          PY
+          )"
+          if [ "$CHART3_STATUS" = "APPENDED" ] || [ "$CHART3_STATUS" = "NOOP_IDENTICAL_OBSERVATION" ] || [ "$CHART3_STATUS" = "PASS" ]; then
+            echo "CHART3_MERGE_STATUS=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
+          else
+            echo "CHART3_MERGE_STATUS=$CHART3_STATUS" >> "$GITHUB_ENV"
+            if git ls-files --error-unmatch "$LEDGER" >/dev/null 2>&1; then
+              git restore --source=HEAD --staged --worktree -- "$LEDGER"
+            else
+              rm -f "$LEDGER"
+            fi
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Keep the verified increment in Main, but defer Chart 3's independent
-          # history merge until after Stage 6 has delivered the daily report.
-          git add -- "$LEDGER"
+          git add -- "$RUN_DIR"
+          if { [ "$CHART3_STATUS" = "APPENDED" ] || [ "$CHART3_STATUS" = "NOOP_IDENTICAL_OBSERVATION" ] || [ "$CHART3_STATUS" = "PASS" ]; } && [ -f "$LEDGER" ]; then git add -- "$LEDGER"; fi
           mapfile -t STAGED < <(git diff --cached --name-only)
-          test "${#STAGED[@]}" -eq 1 && test "${STAGED[0]}" = "$LEDGER"
-          git commit -m "data(chart3): verified S&P 500 increment $REPORT_DATE"
+          if [ "${#STAGED[@]}" -eq 0 ]; then
+            echo "Stage 2 already PASS/PARTIAL; no new snapshot or Chart 3 increment to persist."
+            exit 0
+          fi
+          for file in "${STAGED[@]}"; do
+            case "$file" in "$RUN_DIR"/*|"$LEDGER") ;; *) echo "::error::Unexpected Stage 2 output path: $file"; exit 1 ;; esac
+          done
+          git commit -m "data(tac): persist Stage 2 snapshot and optional S&P 500 increment $RUN_ID"
           git fetch origin main
           git rebase origin/main
           PUSHED=false
           for attempt in 1 2 3 4 5; do
-            if git push origin HEAD:main; then
-              PUSHED=true
-              break
-            fi
+            if git push origin HEAD:main; then PUSHED=true; break; fi
             git fetch origin main
             git rebase origin/main
           done
           test "$PUSHED" = true
-          echo "CHART3_MERGE_STATUS=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
-          echo "Verified Chart 3 increment committed; merge deferred until Stage 6 completes."
-      - name: Fetch latest main after Chart 3 increment commit
-        run: |
           git fetch origin main
           git merge --ff-only origin/main
       - name: Stage 3 — read-only pinned calendar and earnings projection
+        if: ${{ steps.run-state.outputs.stage3_status != 'PASS' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage3.py --run-dir "$RUN_DIR"
@@ -486,6 +589,9 @@ jobs:
           wr_text=wr_bytes.decode("utf-8")
           wr_sha256=__import__("hashlib").sha256(wr_bytes).hexdigest()
           wr_blob_sha=subprocess.check_output(["git","rev-parse",f"HEAD:{wr_path.as_posix()}"],text=True).strip()
+          pinned_wr_blob=(context.get("governance_blob_shas") or {}).get(wr_path.as_posix())
+          if not pinned_wr_blob or wr_blob_sha!=pinned_wr_blob:
+              raise SystemExit("Stage 4 WR Git blob SHA differs from Stage 1 governance pin.")
           receipt={"schema_version":"1.0","status":"AWAITING_EDITORIAL_INPUT",
             "stage4_work_instructions":{"path":wr_path.as_posix(),"sha256":wr_sha256,
               "git_blob_sha":wr_blob_sha,"full_text":wr_text},
@@ -495,6 +601,7 @@ jobs:
             "run_id":context["run_id"],"report_date":context["report_date"],
             "supersedes_run_id":context.get("supersedes_run_id"),
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
+            "stage3_receipt_sha256":__import__("hashlib").sha256((run/"stage3-calendar-receipt.json").read_bytes()).hexdigest(),
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
             "chart3_handoff":summary.get("chart3_handoff"),
             "research_bundle_path":f"{run.as_posix()}/stage4-research-bundle.json",
@@ -503,61 +610,74 @@ jobs:
             "chart3_merge_workflow_run_id":None,
             "chart3_merge_status":os.environ.get("CHART3_MERGE_STATUS","NOT_REQUIRED"),
             "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
-            "editorial_input_path":f"production/input/report-content-{context['report_date']}.json",
-            "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
-          (run/"capture-stage-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
+            "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
+            "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, stage3_receipt_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
+          receipt_path=run/"capture-stage-receipt.json"
+          if receipt_path.exists():
+              existing=json.loads(receipt_path.read_text(encoding="utf-8"))
+              checks={
+                "run_id":context["run_id"],
+                "report_date":context["report_date"],
+                "market_snapshot_sha256":summary["market_snapshot_sha256"],
+                "stage3_receipt_sha256":receipt["stage3_receipt_sha256"],
+                "research_bundle_sha256":receipt["research_bundle_sha256"],
+              }
+              for key,value in checks.items():
+                  if existing.get(key)!=value:
+                      raise SystemExit(f"Existing capture-stage-receipt {key} mismatch; refusing overwrite.")
+              if existing.get("stage4_work_instructions",{}).get("sha256")!=wr_sha256:
+                  raise SystemExit("Existing capture-stage-receipt Stage 4 WR SHA mismatch; refusing overwrite.")
+              print("Existing exact capture-stage-receipt verified; no rewrite.")
+          else:
+              receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
           PY
-      - name: Commit only this Run's Stage 1-3 evidence
+      - name: Commit only this Run's Stage 3 research handoff
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin main
-          git merge --ff-only origin/main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "$RUN_DIR"
           mapfile -t STAGED < <(git diff --cached --name-only)
-          test "${#STAGED[@]}" -gt 0
+          if [ "${#STAGED[@]}" -eq 0 ]; then
+            echo "Stage 3 already PASS and capture handoff is unchanged."
+            exit 0
+          fi
           for path in "${STAGED[@]}"; do
-            [[ "$path" == "$RUN_DIR/"* ]] || { echo "Unexpected staged path: $path" >&2; exit 1; }
+            [[ "$path" == "$RUN_DIR/"* ]] || { echo "::error::Unexpected Stage 3 path: $path"; exit 1; }
           done
-          git commit -m "data(tac-production): capture Stage 1-3 $REPORT_DATE $RUN_ID"
-          # Chart 3 may publish a disjoint data commit during Stage 3.
-          # Rebase this Run-only commit and retry instead of losing the capture.
+          git commit -m "data(tac): persist Stage 3 calendar and research handoff $RUN_ID"
           git fetch origin main
           git rebase origin/main
           PUSHED=false
           for attempt in 1 2 3 4 5; do
-            if git push origin HEAD:main; then
-              PUSHED=true
-              break
-            fi
+            if git push origin HEAD:main; then PUSHED=true; break; fi
             git fetch origin main
             git rebase origin/main
           done
           test "$PUSHED" = true
-      - name: Upload Stage 1-3 Run evidence
+          git fetch origin main
+          git merge --ff-only origin/main
+      - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-main-capture-${{ github.run_id }}-${{ github.run_attempt }}
+          name: tac-main-run-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ env.RUN_DIR }}/
           if-no-files-found: warn
           retention-days: 30
 
   build-and-deliver:
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report:') }}
+    needs: [schedule-window, capture-and-calendar]
+    if: ${{ always() && github.ref == 'refs/heads/main' && needs['capture-and-calendar'].result == 'success' && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: write
       actions: write
-    # Stage 4-6 delivery writes main/preview while Chart 3 writes data/tac-chart3.
-    # Share the Chart 3 data-maintenance lock to avoid concurrent main pushes.
-    concurrency:
-      group: tac-chart3-data-maintenance
-      cancel-in-progress: false
+    # Stage 4-6 is the second half of the same scheduled Run; no push-triggered continuation.
+    # Chart 3 is downstream and owns its separate data-maintenance lock.
     steps:
       - name: Checkout main only with full history
         uses: actions/checkout@v4
@@ -579,35 +699,84 @@ jobs:
           python -m playwright install --with-deps chromium
           npm install --no-save playwright
           npx playwright install chromium
-      - name: Resolve report date and exact captured Run
+      - name: Resolve exact Run and wait for Stage 4 submission
+        id: resolve
         shell: bash
         env:
-          TRIGGER_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          CAPTURE_RUN_ID: ${{ needs['capture-and-calendar'].outputs.run_id }}
+          CAPTURE_REPORT_DATE: ${{ needs['capture-and-calendar'].outputs.report_date }}
         run: |
           set -euo pipefail
-          if [[ "${TRIGGER_COMMIT_MESSAGE:-}" =~ \[build-tac-report:([0-9]{4}-[0-9]{2}-[0-9]{2})\] ]]; then
-            REPORT_DATE="${BASH_REMATCH[1]}"
-          else
-            echo "::error::Build requires the single [build-tac-report:YYYY-MM-DD] commit marker."; exit 1
-          fi
-          [[ "$REPORT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
-          CONTENT_FILE="production/input/report-content-$REPORT_DATE.json"
-          test -s "$CONTENT_FILE"
-          RUN_ID="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["run_id"])' "$CONTENT_FILE")"
+          RUN_ID="$CAPTURE_RUN_ID"
+          REPORT_DATE="$CAPTURE_REPORT_DATE"
+          test -n "$RUN_ID"
+          test -n "$REPORT_DATE"
           RUN_DIR="production/runs/$RUN_ID"
-          for file in run-context.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
+          CONTENT_FILE="$RUN_DIR/stage4-editorial-content.json"
+          test -s "$RUN_DIR/run-context.json"
+          READY=false
+          for attempt in $(seq 1 30); do
+            git fetch origin main
+            git merge --ff-only origin/main
+            if [ -s "$CONTENT_FILE" ] && [ -s "$RUN_DIR/run-state.json" ] && python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          content_path=Path(sys.argv[1]); run=Path(sys.argv[2]); report_date=sys.argv[3]
+          content=json.loads(content_path.read_text(encoding="utf-8"))
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
+          if context.get("run_id")!=run.name or context.get("report_date")!=report_date: raise SystemExit(1)
+          if content.get("run_id")!=run.name or content.get("report_date")!=report_date: raise SystemExit(1)
+          stage4=state.get("stages",{}).get("STAGE_4",{})
+          if stage4.get("status")=="SUBMITTED" and stage4.get("output_sha256")==digest: raise SystemExit(0)
+          if stage4.get("status")=="PASS" and stage4.get("input_sha256")==digest: raise SystemExit(0)
+          raise SystemExit(1)
+          PY
+            then
+              READY=true
+              break
+            fi
+            sleep 30
+          done
+          test "$READY" = true
+          for file in run-context.json run-state.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
           python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
-          import json,sys
-          content=json.load(open(sys.argv[1],encoding="utf-8")); run_dir=sys.argv[2]; date=sys.argv[3]
-          context=json.load(open(run_dir+"/run-context.json",encoding="utf-8"))
-          summary=json.load(open(run_dir+"/stage2-run-summary.json",encoding="utf-8"))
-          capture=json.load(open(run_dir+"/capture-stage-receipt.json",encoding="utf-8"))
-          bundle=json.load(open(run_dir+"/stage4-research-bundle-receipt.json",encoding="utf-8"))
-          assert content["report_date"]==date==context["report_date"]
-          assert content["run_id"]==context["run_id"]
+          import hashlib,json,sys
+          from pathlib import Path
+          content_path=Path(sys.argv[1]); run_dir=Path(sys.argv[2]); report_date=sys.argv[3]
+          content=json.loads(content_path.read_text(encoding="utf-8"))
+          context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+          state=json.loads((run_dir/"run-state.json").read_text(encoding="utf-8"))
+          summary=json.loads((run_dir/"stage2-run-summary.json").read_text(encoding="utf-8"))
+          capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
+          bundle=json.loads((run_dir/"stage4-research-bundle-receipt.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
+          stage3_sha=hashlib.sha256((run_dir/"stage3-calendar-receipt.json").read_bytes()).hexdigest()
+          assert context["run_id"]==run_dir.name==content["run_id"]
+          assert context["report_date"]==report_date==content["report_date"]
+          assert state["run_id"]==context["run_id"]
+          assert state["stages"]["STAGE_3"]["status"]=="PASS"
+          assert state["stages"]["STAGE_4"]["status"] in ("SUBMITTED","PASS")
+          if state["stages"]["STAGE_4"]["status"]=="SUBMITTED":
+              assert state["stages"]["STAGE_4"]["output_sha256"]==digest
+          else:
+              assert state["stages"]["STAGE_4"]["input_sha256"]==digest
+              assert (run_dir/"stage4-analysis-receipt.json").is_file()
+          if state["stages"]["STAGE_5"]["status"] in ("PASS","PARTIAL"):
+              assert (run_dir/"stage5-render-qa-receipt.json").is_file()
+          if state["stages"]["STAGE_6"]["status"]=="PASS":
+              assert (run_dir/"stage6-delivery-receipt.json").is_file()
           assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]
           assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
-          print("PASS: Stage 4 editorial content is bound to exact captured Run, market snapshot and research bundle.")
+          assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]
+          stage4_wr_sha=capture["stage4_work_instructions"]["sha256"]
+          assert content["stage4_wr_sha256"]==stage4_wr_sha
+          with open(__import__("os").environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
+              f.write(f"stage4_status={state['stages']['STAGE_4']['status']}\n")
+              f.write(f"stage5_status={state['stages']['STAGE_5']['status']}\n")
+              f.write(f"stage6_status={state['stages']['STAGE_6']['status']}\n")
+          print("PASS: Stage 4 submission and all research evidence share the exact Run and SHA bindings.")
           PY
           git cat-file -e "HEAD:$RUN_DIR/run-context.json"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
@@ -615,12 +784,38 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
       - name: Stage 4 — validate and merge current editorial research
+        id: stage4
+        if: ${{ steps.resolve.outputs.stage4_status != 'PASS' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage4.py --run-dir "$RUN_DIR" --content "$CONTENT_FILE"
           test -s "$RUN_DIR/stage4-analysis-receipt.json"
+      - name: Persist Stage 4 receipt and state
+        if: ${{ always() && steps.stage4.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 4 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 4 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Stage 5 — build exact mother and run full QA
         id: stage5
+        if: ${{ steps.resolve.outputs.stage5_status != 'PASS' && steps.resolve.outputs.stage5_status != 'PARTIAL' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage5.py --run-dir "$RUN_DIR"
@@ -628,14 +823,61 @@ jobs:
           STATUS="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["status"])' "$RUN_DIR/stage5-render-qa-receipt.json")"
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "Stage 5 result: $STATUS"
+      - name: Persist Stage 5 QA receipt and state
+        if: ${{ always() && steps.stage5.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 5 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 5 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Stage 6 — deliver three preview files and verify Pages
-        if: ${{ steps.stage5.outputs.status == 'REVIEW_READY' }}
+        id: stage6
+        if: ${{ (steps.resolve.outputs.stage5_status == 'PASS' || steps.stage5.outputs.status == 'REVIEW_READY') && steps.resolve.outputs.stage6_status != 'PASS' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python production/runner/run_stage6.py --run-dir "$RUN_DIR"
       - name: Stage 6 — preserve PARTIAL artifact without publishing
-        if: ${{ steps.stage5.outputs.status == 'PARTIAL' }}
+        if: ${{ steps.resolve.outputs.stage5_status == 'PARTIAL' || steps.stage5.outputs.status == 'PARTIAL' }}
         run: echo "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview delivery."
+      - name: Persist Stage 6 delivery receipt and final state
+        if: ${{ always() && steps.stage6.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 6 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 6 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
