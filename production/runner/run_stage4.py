@@ -2,16 +2,13 @@
 """Stage 4: validate current-run editorial research and merge it without changing market data."""
 from __future__ import annotations
 import argparse, hashlib, json
-from datetime import date, datetime, time, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
-from jsonschema import Draft202012Validator, FormatChecker
 
 from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
-TZ=ZoneInfo("Asia/Taipei")
 LAYERS=("political","policy_industry","macro","markets","strategy")
 DOMAINS=("us_policy","us_china","geopolitics","trade_sanctions","major_economies","energy_resources")
 
@@ -21,190 +18,9 @@ def sha(path:Path)->str:return sha_bytes(path.read_bytes())
 def read_json(path:Path)->dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
-def parse_tw(value:str)->datetime:
-    raw=str(value).strip()
-    try:
-        dt=datetime.fromisoformat(raw.replace("Z","+00:00"))
-    except ValueError:
-        try:
-            dt=datetime.strptime(raw,"%Y-%m-%d %H:%M")
-        except ValueError:
-            dt=datetime.strptime(raw,"%Y/%m/%d %H:%M")
-    if dt.tzinfo is None:dt=dt.replace(tzinfo=TZ)
-    return dt.astimezone(TZ)
-
 def market_snapshot_digest(data:dict)->str:
     groups={k:data.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     return sha_bytes(json.dumps(groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode())
-
-def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bundle_path:Path)->dict:
-    if receipt.get("status")!="PASS" or receipt.get("run_id")!=context.get("run_id") or receipt.get("report_date")!=context.get("report_date"):
-        raise ValueError("Stage 4 research bundle receipt is not bound to this Run")
-    if receipt.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256"):
-        raise ValueError("Stage 4 research bundle market snapshot SHA differs from editorial content")
-    if content.get("research_bundle_sha256")!=receipt.get("bundle_sha256"):
-        raise ValueError("Stage 4 editorial content research_bundle_sha256 differs from capture receipt")
-    if not bundle_path.is_file() or sha(bundle_path)!=receipt.get("bundle_sha256"):
-        raise ValueError("Stage 4 research bundle bytes do not match its receipt SHA-256")
-    bundle=json.loads(bundle_path.read_text(encoding="utf-8"))
-    if (bundle.get("run_id")!=context.get("run_id")
-            or bundle.get("report_date")!=context.get("report_date")
-            or bundle.get("trading_date")!=context.get("trading_date")
-            or receipt.get("trading_date")!=context.get("trading_date")
-            or bundle.get("market_snapshot_sha256")!=content.get("market_snapshot_sha256")):
-        raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
-    return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
-
-def normalize_news_publication_times(content:dict)->list[dict]:
-    """Recompute Taiwan publication timestamps from preserved source time and IANA timezone."""
-    changes=[]
-    for section in ("focus_news","headlines"):
-        for index,item in enumerate(content.get(section,[])):
-            raw=str(item.get("published_at_source") or "").strip()
-            zone=str(item.get("source_timezone") or "").strip()
-            if not raw or not zone:
-                continue
-            tz=ZoneInfo(zone)
-            parsed=None
-            candidates=[raw]
-            parts=raw.rsplit(" ",1)
-            if len(parts)==2:
-                candidates.append(parts[0])
-            for candidate in candidates:
-                for fmt in ("%Y-%m-%d %H:%M","%Y-%m-%d %I:%M %p","%b %d %Y %I:%M %p"):
-                    try:
-                        parsed=datetime.strptime(candidate,fmt)
-                        break
-                    except ValueError:
-                        pass
-                if parsed is not None:
-                    break
-            if parsed is None:
-                raise ValueError(f"{section}[{index}] source publication timestamp cannot be parsed: {raw!r}")
-            expected=parsed.replace(tzinfo=tz).astimezone(TZ).strftime("%Y-%m-%d %H:%M")
-            supplied=str(item.get("published_at_tw") or "").strip()
-            if supplied!=expected:
-                changes.append({"section":section,"index":index,"source":raw,"timezone":zone,
-                                "previous_taipei":supplied,"normalized_taipei":expected})
-                item["published_at_tw"]=expected
-    return changes
-
-def validate_content(content:dict,context:dict,data:dict,bundle:dict|None=None)->dict:
-    current_snapshot_sha=market_snapshot_digest(data)
-    schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
-    Draft202012Validator.check_schema(schema)
-    errors=sorted(Draft202012Validator(schema,format_checker=FormatChecker()).iter_errors(content),key=lambda e:list(e.path))
-    if errors:
-        raise ValueError("Stage 4 JSON Schema errors: "+"; ".join(f"{'/'.join(map(str,e.path))}: {e.message}" for e in errors[:20]))
-    report_date=date.fromisoformat(context["report_date"])
-    if content.get("run_id")!=context["run_id"]:
-        raise ValueError("Stage 4 content Run ID differs from the Stage 1 Run")
-    if content["report_date"]!=context["report_date"] or content["trading_date"]!=context["trading_date"]:
-        raise ValueError("Stage 4 content report_date/trading_date differs from Stage 1 Run context")
-    if content.get("market_snapshot_sha256")!=current_snapshot_sha:
-        raise ValueError("Stage 4 content was not bound to this exact frozen Stage 2 market snapshot")
-    cutoff=parse_tw(content["news_cutoff_taipei"])
-    production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
-    if report_date.weekday()==0:
-        # Monday report is produced Saturday; cutoff must be the exact Stage 4 capture cutoff.
-        if cutoff.date()!=production_date:
-            raise ValueError("Monday-dated report news_cutoff_taipei must be on its Saturday production date")
-        if bundle is not None:
-            expected_bundle_cutoff=parse_tw(bundle["news_window"]["target_cutoff_taipei"])
-            if cutoff!=expected_bundle_cutoff:
-                raise ValueError("Monday-dated report news_cutoff_taipei must exactly match the Saturday Stage 4 bundle cutoff")
-    else:
-        expected_date=datetime.combine(production_date,time(5,25),TZ)
-        if cutoff.date()!=production_date or cutoff>expected_date+timedelta(minutes=30):
-            raise ValueError("news_cutoff_taipei must be on production date and no later than 05:55 Taiwan time")
-    window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
-    window_start=datetime.combine(window_start_date,time(12,0),TZ)
-    news_counts={}
-    all_urls=set()
-    for key,expected in (("focus_news",5),("headlines",10)):
-        seen=set()
-        for idx,item in enumerate(content[key]):
-            url=item["url"]
-            if url in seen or url in all_urls:raise ValueError(f"Duplicate URL across report news sections: {url}")
-            seen.add(url);all_urls.add(url)
-            published=parse_tw(item["published_at_tw"])
-            if not window_start<=published<=cutoff:
-                raise ValueError(f"{key}[{idx}] published_at_tw is outside the report window: {item['published_at_tw']}")
-        news_counts[key]=expected
-    if len(content["political_scan"]["domains_checked"])!=6 or tuple(content["political_scan"]["domains_checked"])!=DOMAINS:
-        raise ValueError("Political scan must check the six required domains in canonical order")
-    if not content["political_scan"]["findings"] and not str(content["political_scan"].get("no_material_change_note") or "").strip():
-        raise ValueError("Empty political scan requires no_material_change_note")
-    for idx,finding in enumerate(content["political_scan"]["findings"]):
-        source_url=str(finding.get("source_url") or "")
-        if finding.get("domain") not in DOMAINS or not finding.get("transmission") or not source_url.startswith("https://"):
-            raise ValueError(f"Political scan finding {idx} requires a recognized domain, HTTPS source and transmission")
-        if not finding.get("published_at") or not finding.get("checked_at"):
-            raise ValueError(f"Political scan finding {idx} requires publication and check timestamps")
-    for layer in LAYERS:
-        for idx,evidence in enumerate(content["market_analysis"][layer]["sources"]):
-            if not evidence.get("label") or not evidence.get("status") or not evidence.get("url"):
-                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires label, URL and status")
-            if not evidence.get("url","").startswith("https://"):
-                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires HTTPS source URL")
-            if not evidence.get("published_at") and not evidence.get("checked_at"):
-                raise ValueError(f"market_analysis.{layer}.sources[{idx}] requires published_at or checked_at")
-    if report_date.weekday()!=0 and len(content["core_observation"].get("points",[]))!=4:
-        raise ValueError("Weekday core_observation requires exactly four follow-up points")
-    if report_date.weekday()==0 and not content["core_observation"].get("details"):
-        raise ValueError("Monday core_observation requires a disclosure details paragraph")
-    fg=(data.get("risk") or {}).get("fear_greed") or {}
-    fg_source=fg.get("source") or {}
-    fg_status=str(fg_source.get("verification_status") or "").upper()
-    fg_display=str(fg.get("display") or "")
-    market_text=" ".join(content["market_analysis"]["markets"]["paragraphs"])
-    if fg_status=="VERIFIED":
-        score=fg_source.get("source_score_value")
-        if score is None:raise ValueError("Verified CNN current dashboard requires source_score_value")
-        canonical=str(int(float(score)+0.5))
-        if canonical!=fg_display or f"Fear & Greed {fg_display}" not in content["sentiment"]:
-            raise ValueError("Sentiment must reflect the verified current CNN Fear & Greed score")
-        if f"Fear & Greed {fg_display}" not in market_text:
-            raise ValueError("Markets analysis must reflect the verified current CNN Fear & Greed score")
-    elif fg_status=="BACKUP_VERIFIED":
-        score=fg_source.get("backup_source_score_value")
-        provider="FGScore" if "fgscore.com" in str(fg_source.get("url","")) else "Financial Context"
-        if score is None or str(int(float(score)+0.5))!=fg_display:
-            raise ValueError("Verified Fear & Greed backup score does not match display")
-        if provider not in content["sentiment"] or "備援" not in content["sentiment"] or fg_display not in content["sentiment"]:
-            raise ValueError("Sentiment must disclose Fear & Greed provider backup and score")
-        if provider not in market_text or "備援" not in market_text or fg_display not in market_text:
-            raise ValueError("Markets analysis must disclose Fear & Greed provider backup and score")
-    elif fg_status in ("PENDING","TOOL_READ_FAILURE","SOURCE_NO_DATA","DATE_MISMATCH"):
-        if fg_display!="待核實" or "Fear & Greed" not in content["sentiment"] or "待核實" not in content["sentiment"] or "不沿用" not in content["sentiment"]:
-            raise ValueError("Unresolved Fear & Greed must be disclosed as 待核實 and must reject stale carry-forward")
-        if "Fear & Greed" not in market_text or not any(x in market_text for x in ("待核實","未能核實")):
-            raise ValueError("Markets analysis must disclose unresolved Fear & Greed")
-    else:
-        raise ValueError(f"Unsupported Fear & Greed verification status: {fg_status!r}")
-    level_items=content["key_levels"]["items"]
-    if len(level_items) not in (0,5):raise ValueError("key_levels.items must be empty or contain exactly five cash-index items")
-    if len(level_items)==5:
-        required=("name","url","s2","s1","p","r1","r2","trading_date","quote_type")
-        for idx,item in enumerate(level_items):
-            missing=[k for k in required if not item.get(k)]
-            if missing:raise ValueError(f"key_levels.items[{idx}] missing fields: {missing}")
-            if item["trading_date"]!=context["trading_date"] or item["quote_type"]!="cash_index":
-                raise ValueError(f"key_levels.items[{idx}] must use same-day cash-index OHLC")
-    for layer in LAYERS:
-        for row in content["market_analysis"][layer].get("supporting_market_rows",[]):
-            group,name=row["group"],row["name"]
-            if group=="sectors":
-                item=(data.get("sector_sources") or {}).get(name)
-                source=item or {}
-            else:
-                item=(data.get(group) or {}).get(name)
-                source=(item or {}).get("source") or {} if isinstance(item,dict) else {}
-            if item is None:raise ValueError(f"Unknown supporting market row: {group}/{name}")
-            status=source.get("verification_status")
-            if status not in ("VERIFIED","BACKUP_VERIFIED"):
-                raise ValueError(f"Analysis layer {layer} cites non-verified market row {group}/{name}: {status}")
-    return {"window_start":window_start,"cutoff":cutoff,"news_counts":news_counts}
 
 def read_json(path:Path)->dict:
     return json.loads(path.read_text(encoding="utf-8"))
