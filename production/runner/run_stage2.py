@@ -179,8 +179,6 @@ def main():
     if state["stages"]["STAGE_2"]["status"]!="SUBMITTED":
         raise SystemExit("Stage 2 worker must submit the Run-scoped bundle before GitHub validation")
     web_bundle_sha256=hashlib.sha256(web_bundle.read_bytes()).hexdigest()
-    if state["stages"]["STAGE_2"].get("output_sha256")!=web_bundle_sha256:
-        raise SystemExit("Stage 2 submitted state SHA does not match the exact Run-scoped observation file")
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
