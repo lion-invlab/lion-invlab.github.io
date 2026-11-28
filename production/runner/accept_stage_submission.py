@@ -148,7 +148,7 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
                                      None)
     return state, {"stage": "STAGE_2", "status": "SUBMITTED",
                    "artifact_path": str(artifact.relative_to(ROOT)),
-                   "artifact_sha256": artifact_sha, "wr_sha256": wr["wr_sha256"]}
+                   "artifact_sha256": artifact_sha}
 
 
 def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict]:
@@ -194,7 +194,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
                                      digest(stage3_receipt_path))
     return state, {"stage": "STAGE_4", "status": "SUBMITTED",
                    "artifact_path": str(artifact.relative_to(ROOT)),
-                   "artifact_sha256": artifact_sha, "wr_sha256": wr["wr_sha256"]}
+                   "artifact_sha256": artifact_sha}
 
 
 def accept_stage_submission(run_dir: str | Path, stage: str) -> dict:
