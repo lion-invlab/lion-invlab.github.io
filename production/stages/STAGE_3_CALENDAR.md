@@ -7,7 +7,7 @@
 - 讀取本階段 WR 後，直接依下列工作內容執行；完成即交付下一階段。
 
  
-Stage 3 必須先完整讀取本文件及完成 WR Preflight，才可讀取或投影行事曆／財報資料。
+Stage 3 完整讀取本文件後，直接讀取並投影行事曆／財報資料。
 
 ## 輸入
 Stage 1 當週 JSON commit 與 blob SHA；僅週一另含上週 JSON commit 與 blob SHA；Stage 2 凍結行情快照、`production/MASTER_WR.md`、`production/contracts/DATA_SCHEMA.md` 與 `production/contracts/SOURCE_POLICY.md`。SIM-1.4 僅為技術規範來源，不是 main 執行期依賴。
