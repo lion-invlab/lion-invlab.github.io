@@ -245,7 +245,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             except Exception as exc:
                 diagnostics = []
                 for log_path in run_dir.glob("*validator.log"):
-                    diagnostics.append(f"\\n--- {log_path.name} ---\\n{log_path.read_text(encoding='utf-8', errors='replace')}")
+                    diagnostics.append(f"\n--- {log_path.name} ---\n{log_path.read_text(encoding='utf-8', errors='replace')}")
                 raise AssertionError(f"Stage 5 synthetic E2E failed: {exc}" + "".join(diagnostics)) from exc
             state = json.loads((run_dir / "run-state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["stages"]["STAGE_5"]["status"], "PASS")
