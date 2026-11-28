@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tac-chart3-bootstrap
+  group: tac-chart3-data-maintenance
   cancel-in-progress: false
 
 jobs:
