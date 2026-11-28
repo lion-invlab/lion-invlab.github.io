@@ -317,7 +317,6 @@ def main():
       "news_counts":window["news_counts"],"publication_timestamp_normalizations":timestamp_repairs,"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
-      "stage3_receipt_sha256":stage3_receipt_sha256,
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
