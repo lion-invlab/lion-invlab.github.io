@@ -81,7 +81,7 @@ def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->
     result={key:payload.get(key) for key in (
         "status","source_name","source_url","report_date","trading_date","captured_at_utc",
         "target_meeting","current_target_range","updated_at_tw","probabilities",
-        "web_reader_ref","web_line_start","web_line_end","reason","stage2_wr_sha256"
+        "web_reader_ref","web_line_start","web_line_end","reason"
     )}
     result["probabilities"]=probabilities
     result["observation_sha256"]=hashlib.sha256(
