@@ -9,7 +9,7 @@ Current schedule is not changed by this document.
 
 The currently enabled automation prompt still uses the old date-global Stage 2 and Stage 4 paths and the old build marker. The Main refactor workflow now accepts only exact Run-scoped artifacts. Leaving the prompt unchanged would make a successful worker output invisible to the active workflow.
 
-The active task must not be edited until the Main code branch is approved for cutover. This document is the exact change specification for that cutover.
+The prepared replacement is `production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md`. The active task must not be edited until the Main code branch is approved for cutover. This document records the cutover constraints and schedule-reliability decision.
 
 ## 2. Stage 2 worker instructions
 
