@@ -585,7 +585,7 @@ jobs:
             "chart3_merge_status":os.environ.get("CHART3_MERGE_STATUS","NOT_REQUIRED"),
             "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
             "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
-            "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
+            "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, stage3_receipt_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
           receipt_path=run/"capture-stage-receipt.json"
           if receipt_path.exists():
               existing=json.loads(receipt_path.read_text(encoding="utf-8"))
