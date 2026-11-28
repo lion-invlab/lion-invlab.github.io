@@ -4,7 +4,7 @@
 
 - Repository: `lion-invlab/lion-invlab.github.io`
 - Audited branch: `main`
-- Audit branch: `rebuild/tac-main-e2e-architecture-20261128`
+- Audit/refactor branch: `refactor/tac-main-e2e-architecture-20261128` (originated from `rebuild/tac-main-e2e-architecture-20261128`)
 - Simulation reference: `simulation/tac-process-lab-2026-11-06` (read-only; this audit did not read or write its runtime assets)
 - This document records a read-only audit. No production code, workflow, schedule, automation prompt, Main homepage, Preview, calendar data, Chart 3 data, or Simulation file was changed.
 - This audit branch is documentation-only. It is not a production branch and must not be merged as a production activation.
