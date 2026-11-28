@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "AWAITING_EDITORIAL_INPUT",
+  "stage4_work_instructions": {
+    "path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
+    "sha256": "5e23f24f4568d8358744446572b8ae55f54b585327333fce6dc2c649792b9079",
+    "git_blob_sha": "d140689989cb9dd4c92200d56e615eddbdaf6edb",
+    "full_text": "# Stage 4｜新聞與市場分析\n版本：Main E2E v1.3（2026-11-28）\n\n## 開工前必讀\n- Stage 4 Runner 必須先完整讀取本文件，並以 Stage 1 governance pin 核對 Git blob SHA；完成 preflight 前不得讀取／合併編輯輸入或產生分析輸出。\n- Stage 4 receipt 必須記錄完整 WR 讀取位元組數、SHA-256、Git blob SHA 及 Stage 1 pinned SHA；任何缺漏或不符均停止。\n- Stage 4 編輯工作者在撰寫任何新聞、總結或分析前，必須先讀取本次 Run 的 `capture-stage-receipt.json` 中 `stage4_work_instructions.full_text` 完整內容；不得只讀摘要或只看檔案名稱。\n- 編輯內容 JSON 必須填入 `stage4_wr_sha256`，其值須與 `stage4_work_instructions.sha256` 完全一致。缺少或不一致時，Stage 4 Runner 必須拒絕輸入。\n\n## 輸入\nStage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及其 SHA receipt、核准新聞來源及台灣時間截稿窗口。編輯內容 JSON 必須攜帶 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三個必填綁定欄位；Stage 4 必須重新計算研究包 SHA，與 receipt 及內容逐一比對。\n\n## 新聞\n- Global Focus News 目標 5 則，主要來自鉅亨網及 Investing.com，聚焦總體經濟、政策與全球宏觀事件。\n- Market Hot Headlines 目標 10 則，聚焦市場、企業及產業事件；每則摘要約 3–4 行，不重複指數報價清單。\n- 以原始發布時間及時區判斷是否落在同一報告窗口；不得以頁面更新時間冒充發布時間。每則保留 HTTPS 原文 URL、發布時間、查核時間、來源及摘要。\n- 週六製作的週一早報：新聞窗口自週五 12:00 台灣時間起，截止於 Stage 4 research bundle 建立當下的實際台灣時間；編輯內容的 news_cutoff_taipei 必須與 bundle cutoff 完全一致，不得使用週一 05:25 或週六固定預設時間。\n- 週六、週日如另有重大新聞，僅能由使用者／人工明確決定是否置換週六已收錄新聞或修訂分析；不得自動把週日後續新聞寫入已交付的週一早報，也不得自動覆蓋已交付 Preview。\n\n## 三層分析交付\n1. **總結小卡：** 讀者 30 秒掌握市場主軸、核心矛盾、主要風險及明確立場。週一使用上週回顧與本週展望；週二至週五三段式回顧上一實際交易日並展望。避免逐項抄行情。\n2. **市場深度解析：** 固定五層順序，不合併、不調換：\n   - 政治與地緣政治局勢；\n   - 政策傳導與企業／產業鏈影響；\n   - 宏觀經濟傳導；\n   - 金融市場定價、情緒與風險；\n   - 機構資金動向與投資策略。\n3. **盤面觀察重點／今日觀察：** 精簡列出可驗證訊號、確認條件及失效條件，不複製五層文章。\n\n## 政治掃描\n每日完成六領域：美國政策與政治、美中競爭、中東／俄烏／台海／朝鮮半島等地緣政治、貿易關稅制裁與出口管制、日本／歐洲／中國及主要經濟體政治、能源與戰略資源。區分正式生效、已宣布未實施、政治表態、市場預期及未核實消息。無重大已核實變化可明確說明，不硬湊。重大事件盡可能交代政策→產業企業→宏觀→市場→策略傳導；無證據環節標未知。\n\n## 分析品質\n- 事實、推論、情境及策略分開；每項重大判斷說明傳導機制、受影響資產、定價及投資動作。\n- 建議必須具體回答先做什麼、優先降低何種風險、何種條件分批加碼、何種情況重新防禦及失效條件。\n- 總結、五層文章與盤面觀察不得重複貼文。繁體中文，專業術語首次出現以中文解釋。\n- 五層文章及總結的來源證據留在內部資料／收據；這兩個可見區域不得顯示來源列／連結／收折來源區。其他行情、新聞、行事曆來源標示照母版保留。\n- AI 融資鏈成為市場主軸時，檢查可查證投資／採購承諾、預付款、長約、債務、私募信貸、融資成本、信用利差、現金流及再融資能力；嚴格區分融資收緊、信用重新定價、個別違約及系統性崩解，無證據不得下結論。\n\n## 局部更新\n只修改總結或五層文章文字時，使用 DOM 局部更新器，只改指定文字槽位，保留非目標 DOM/CSS/JS/互動及 provenance，輸出局部更新收據；不得重跑行情、行事曆、新聞或完整 Builder。資料來源變動或版面結構變動才執行受影響模組及完整組裝。\n\n## 輸出\n5 則焦點新聞、10 則熱門頭條、三段 summary_points、五層 market_analysis、六領域 political_scan、盤面觀察重點及完整來源證據。交給 Stage 5。\n\n\n## Main Run state contract v1.3\n- Stage 4 必須確認同一 Run 的 Stage 3=PASS、Stage 4=READY，並重新核對 Stage 3 receipt、Research Bundle、Stage 2 market snapshot 的 SHA 與 Run ID。ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 4=DEFERRED 且 Stage 3 PASS 時可提交同一 Run 的 editorial JSON，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時只核對既有 SHA；PASS 時直接結束；FAILED 只等待已核准的 GitHub recover 流程。若已存在完整且 SHA 正確的 editorial JSON，重試只重送既有檔案，不得重新研究或改寫。\n- ChatGPT Stage 4 worker 只負責完成並提交唯一路徑 `production/runs/<run_id>/stage4-editorial-content.json`，禁止寫入或讀取 `production/input/report-content-YYYY-MM-DD.json` 日期共用檔；worker 不得修改 run-state.json。\n- 編輯內容至少包含 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256、stage4_wr_sha256。worker 提交並回讀完整 JSON bytes SHA-256 後，由 Main GitHub workflow 呼叫 `accept_stage_submission.py --stage STAGE_4`，驗證 Stage 3 PASS、Run／日期／快照／Research Bundle／WR SHA，並由唯一 state writer 將 Stage 4 依 READY → RUNNING → SUBMITTED 更新；output_sha256 必須等於該檔案 SHA。\n- Stage 4 editorial JSON commit message 可使用 `[tac-stage4-submit:<run_id>]` 作為稽核標籤，但它不是 Workflow 觸發器。正式排程的同一 workflow run 會在 Stage 3 完成後等待該檔案，並由 handoff acceptor 寫入 Stage 4 SUBMITTED 狀態及 SHA，再自動執行 Stage 4–6。\n- Stage 4 Runner 驗證 WR、研究包、行情快照、內容 schema 及狀態後，寫出 stage4-analysis-receipt.json，再將 Stage 4 由 SUBMITTED 改為 PASS、Stage 5 設為 READY。缺少 Stage 3 PASS 或 SHA 不符時不得進入 Stage 5。ChatGPT worker 不得自行推進 PASS。\n"
+  },
+  "capture_trigger": {
+    "event_name": "workflow_dispatch",
+    "dispatch_mode": "recover",
+    "workflow_run_id": "46122858810"
+  },
+  "run_id": "TAC-2026-11-30-46108156744",
+  "report_date": "2026-11-30",
+  "supersedes_run_id": "TAC-2026-11-30-46105765414",
+  "market_snapshot_sha256": "e5713635d8663de5ffd8b7200426a4e8957e1bd99996267c19d96f282ba1e763",
+  "stage3_receipt_sha256": "0d85d6e521ca46ffd0a535a45f5925e81d4ca9e903d7b46c28514f4aa62c8219",
+  "stage2_status": "PARTIAL",
+  "stage2_pending_rows": [
+    {
+      "group": "risk",
+      "name": "fear_greed",
+      "status": "PENDING_CURRENT_RUN_BROWSER_OBSERVATION",
+      "read_status": "SOURCE_NO_DATA"
+    }
+  ],
+  "chart3_handoff": {
+    "status": "NOOP_IDENTICAL_OBSERVATION",
+    "report_date": "2026-11-30",
+    "observation_date": "2026-11-27",
+    "close": 7297.49,
+    "source_name": "Investing.com｜S&P 500 歷史資料頁",
+    "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
+    "observed_at": "2026-11-28T12:08:37.824000+08:00",
+    "ledger_sha256": "a71fcfad0c330e89fe306cf919dafe2c768a6b8811cfd86cc4e070a83c781530",
+    "output": "data/tac-chart3/sp500_daily_increment.jsonl",
+    "ledger_path": "data/tac-chart3/sp500_daily_increment.jsonl"
+  },
+  "research_bundle_path": "production/runs/TAC-2026-11-30-46108156744/stage4-research-bundle.json",
+  "research_bundle_sha256": "d1662a50f88e5ee734e07546625a232e74693bd73092f7e7482da02c21b6b16e",
+  "research_bundle_unresolved_market_rows": 1,
+  "chart3_merge_workflow_run_id": null,
+  "chart3_merge_status": "DEFERRED_UNTIL_AFTER_DELIVERY",
+  "current_week": "2026-W49",
+  "previous_week": "2026-W48",
+  "editorial_input_path": "production/runs/TAC-2026-11-30-46108156744/stage4-editorial-content.json",
+  "next_action": "FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, stage3_receipt_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."
+}
