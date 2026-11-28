@@ -86,7 +86,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Main 審核版三檔：`preview/main/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`；Simulation 保留既有 `preview/` 根層路徑，兩者不得共用檔名或覆寫。
 - 寫入前後僅允許日期化三檔；HTML bytes 不得重組；QA sidecar 綁定來源與 Builder provenance；delivery receipt 記錄 SHA、Run、attempt、commit。
 - 寫入 main 後遠端回讀三檔，核對 Git blob SHA／SHA-256；使用既有 Pages workflow 部署並實際驗證公開 URL。
-- 審核版交付不等於正式發布。Builder exact-blob approval、REVIEW_READY、Stage 6 DELIVERED 均不代表首頁發布核准。正式發布必須有使用者對明確 report_date／Preview 版本的獨立核准，並更新 `production/config/homepage-publication-lock.json` 為 APPROVED_PUBLICATION、綁定 Preview／index Git blob SHA 與精確 `[publish-tac-report:YYYY-MM-DD]` commit marker；Pages 與 archive workflow 先驗證 lock，否則禁止部署或封存。未核准時 lock 必須保持 BASELINE_LOCKED。
+- 審核版交付不等於正式發布。Builder exact-blob approval、REVIEW_READY、Stage 6 DELIVERED_AND_PUBLICLY_VERIFIED receipt 均不代表首頁發布核准。正式發布必須有使用者對明確 report_date／Preview 版本的獨立核准，並更新 `production/config/homepage-publication-lock.json` 為 APPROVED_PUBLICATION、綁定 Preview／index Git blob SHA 與精確 `[publish-tac-report:YYYY-MM-DD]` commit marker；Pages 與 archive workflow 先驗證 lock，否則禁止部署或封存。未核准時 lock 必須保持 BASELINE_LOCKED。
 - 舊 `archive_index.yml` 自動封存與新核准流程衝突，正式切換前必須整併／停用自動封存觸發，防止未核准封存或錯誤日期封存。
 
 ## 9. Chart 3 與資料寫入權
@@ -125,7 +125,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、supersedes_run_id、market snapshot SHA 與 research bundle SHA。手動補救／重跑只接受 `event=workflow_dispatch` 且 mode 與實際執行一致的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成新 Capture 證據。
 - 同一個 Main ChatGPT automation invocation 內，Stage 2 與 Stage 4 是兩個獨立的狀態檢查點：Stage 2 提交 Observation 後，等待同一 Run 的 GitHub Stage 2 驗證及 Stage 3 PASS；再讀取 Stage 4 完整 WR 與 Research Bundle，執行 Stage 4 並提交 editorial JSON。Stage 4 提交 editorial JSON 後，同一正式 workflow run 的 build-and-deliver job 會輪詢接續。若 Stage 3 未完成，worker 必須回報 DEFERRED 並保留同一 Run；不得自行建立 Run 或跳過 Stage 3。Stage 1–3 的 workflow_dispatch recover 會依 run-state 跳過已 PASS 階段；Stage 4–6 的 job retry 依 run-state 跳過已 PASS／PARTIAL 階段，只重做尚未完成階段。所有 retry/resume 沿用原 run_id。
 - 手動補救僅交付 Main Preview；不自動更新 `index.html`、不封存正式歷史、不修改 Simulation。正式首頁仍需使用者另行核准。
-- 一次 BLOCKED 不得自動停用 continuation automation；排程喚醒應維持啟用，確保下一個工作日正常接續。
+- 一次 DEFERRED／FAILED 不得自動停用 ChatGPT automation；既有排程必須維持啟用，讓同一 Run 可安全恢復或下一個工作日正常接續。
 
 
 ## 14. 2026-11-27 使用者核准的正式製作週期變更
