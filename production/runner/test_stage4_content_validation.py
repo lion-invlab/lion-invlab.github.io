@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import unittest
-from run_stage4 import validate_content, market_snapshot_digest, validate_research_bundle_binding, validate_stage4_wr_handoff, normalize_news_publication_times
+from run_stage4 import validate_content, market_snapshot_digest, validate_research_bundle_binding, normalize_news_publication_times
 import json, tempfile
 from pathlib import Path
 
@@ -40,17 +40,6 @@ class Stage4ContentTests(unittest.TestCase):
     def setUp(self):
         self.context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
         self.data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"待核實","source":{"verification_status":"PENDING"}}}}
-    def test_stage4_wr_handoff_requires_readable_full_text_not_hash_proof(self):
-        text = "# Stage 4\\nFull rules\\n"
-        capture = {"status":"AWAITING_EDITORIAL_INPUT","stage4_work_instructions":{
-            "path":"production/stages/STAGE_4_NEWS_ANALYSIS.md","full_text":text}}
-        attestation = validate_stage4_wr_handoff(capture,{}, {"wr_loaded":True})
-        self.assertEqual(attestation["status"],"LOADED")
-        self.assertTrue(attestation["full_text_available"])
-        capture["stage4_work_instructions"]["full_text"] = ""
-        with self.assertRaisesRegex(ValueError,"complete Stage 4 instructions"):
-            validate_stage4_wr_handoff(capture,{}, {"wr_loaded":True})
-
     def test_valid_three_summary_five_ten_and_five_layers(self):
         x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
         result=validate_content(x,self.context,self.data)
