@@ -632,7 +632,7 @@ jobs:
             "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
             "next_action":"Read the complete stage4_work_instructions.full_text, then read stage4-research-bundle.json and produce the news and analysis for this exact Run. Deliver the editorial content directly to Stage 5 through the normal Stage 4 handoff."}
           instructions_path=run/"stage4-work-instructions.json"
-          if receipt_path.exists():
+          if instructions_path.exists():
               existing=json.loads(instructions_path.read_text(encoding="utf-8"))
               checks={
                 "run_id":context["run_id"],
