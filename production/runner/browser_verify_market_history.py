@@ -339,7 +339,8 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     out.update({"source_page_fetched":True,"status":"OBSERVED_PENDING_FIELD_MAPPING",
                                 "error":"NIKKEI_SUMMARY_IDENTITY_OR_DATE_NOT_CONFIRMED","summary_url":summary_url})
                     return out
-                pct=re.search(r"([+-]\\d+(?:\\.\\d+)?)\\s*%",summary_body)
+                summary_section=summary_body.split("Nikkei Stock Average (Nikkei 225)",1)[-1]
+                pct=re.search(r"([+-]\\d+(?:\\.\\d+)?)\\s*%",summary_section)
                 if not pct:
                     out.update({"source_page_fetched":True,"status":"OBSERVED_PENDING_FIELD_MAPPING",
                                 "error":"NIKKEI_DAILY_CHANGE_NOT_FOUND","summary_url":summary_url})
