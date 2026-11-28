@@ -274,6 +274,7 @@ def main():
             "html_sha256":sha(html_raw),"qa_sha256":sha(qa_final),
             "delivery_receipt_sha256":sha((worktree/delivery_path).read_bytes()),
             "delivered_at_utc":datetime.now(timezone.utc).isoformat()}
+        final_receipt["overall_status"]="AWAITING_APPROVAL"
         final_receipt_path=run_dir/"stage6-delivery-receipt.json"
         write_json(final_receipt_path,final_receipt)
         state=json.loads(state_path.read_text(encoding="utf-8"))
@@ -281,7 +282,6 @@ def main():
             now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest(),
             output_sha256=sha(final_receipt_path),receipt_path=str(final_receipt_path.relative_to(ROOT)))
         state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-        final_receipt["overall_status"]=state["overall_status"]
         print(json.dumps(final_receipt,ensure_ascii=False,indent=2))
     finally:
         subprocess.run(["git","worktree","remove","--force",str(worktree)],cwd=ROOT,capture_output=True,text=True)
