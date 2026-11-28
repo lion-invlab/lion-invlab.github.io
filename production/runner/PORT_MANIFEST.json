@@ -141,12 +141,13 @@
     "production/runner/test_stage2_run_handoff.py",
     "production/runner/test_create_run_fixture.py",
     "production/runner/test_stage2_chart3_guard.py",
-    "production/runner/test_run_state.py"
+    "production/runner/test_run_state.py",
+    "production/runner/test_main_workflow_contract.py"
   ],
   "not_yet_production_ready": [
-    "The Main E2E architecture, six Stage Runner state transitions, Run-scoped handoffs, and same-workflow Stage 1-6 orchestration are implemented on the isolated rebuild branch.",
-    "Cutover remains gated: merge of the rebuild PR, update of the live ChatGPT automation task to the pinned production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md, explicit approval to activate the formal Main schedule, and a first full production E2E acceptance run.",
-    "No live automation prompt, schedule, formal production capture, Main homepage index.html, or Simulation branch has been changed."
+    "Main E2E Stage 1-6 orchestration, Run-state v1.2, Run-scoped Stage 2/4 handoffs, Legacy Run isolation, Main Preview isolation, and Chart 3 exact Run binding are implemented on the isolated rebuild branch.",
+    "Cutover gates: merge draft PR #364, update the live ChatGPT Automation task to the pinned bootstrap for production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md, obtain approval to activate the formal Main schedule, and complete the first full production E2E acceptance run.",
+    "No live automation prompt, schedule, formal production capture, Main homepage index.html, or Simulation branch has been changed. Python/YAML/Actions CI has not yet been executed."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
