@@ -46,9 +46,13 @@ jobs:
           workflow_run_id=str(os.environ["PRODUCTION_WORKFLOW_RUN_ID"])
           matches=[]
           for p in Path("production/runs").glob("TAC-*/run-context.json"):
-              context=json.loads(p.read_text(encoding="utf-8"))
-              if str(context.get("workflow_run_id")) == workflow_run_id:
-                  matches.append(p.parent)
+              run=p.parent
+              state_path=run/"run-state.json"
+              if not state_path.is_file():
+                  continue
+              state=json.loads(state_path.read_text(encoding="utf-8"))
+              if str(state.get("workflow_run_id")) == workflow_run_id:
+                  matches.append(run)
           if not matches:
               print(f"No Main Run for completed workflow_run_id={workflow_run_id}; this was not a production capture run.")
               out(False); raise SystemExit(0)
