@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_4_NEWS_ANALYSIS",
+  "status": "PASS",
+  "run_id": "TAC-2026-11-30-46140655954",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "news_counts": {
+    "focus_news": 5,
+    "headlines": 11
+  },
+  "publication_timestamp_normalizations": [],
+  "summary_points": 3,
+  "analysis_layers": [
+    "political",
+    "policy_industry",
+    "macro",
+    "markets",
+    "strategy"
+  ],
+  "political_domains": [
+    "us_policy",
+    "us_china",
+    "geopolitics",
+    "trade_sanctions",
+    "major_economies",
+    "energy_resources"
+  ],
+  "market_snapshot_sha256_before": "daae994c3708609d9b72b525e74e3255890ab084b47b298ec29c32cf05bc1806",
+  "market_snapshot_sha256_after": "daae994c3708609d9b72b525e74e3255890ab084b47b298ec29c32cf05bc1806",
+  "market_snapshot_unchanged": true,
+  "editorial_run_binding": {
+    "run_id": "TAC-2026-11-30-46140655954",
+    "market_snapshot_sha256": "daae994c3708609d9b72b525e74e3255890ab084b47b298ec29c32cf05bc1806",
+    "research_bundle_sha256": "464b9a3456b3a927e31b1a4393983d7bdef498ff154e0baf6c433812165519f9"
+  },
+  "research_bundle": {
+    "sha256": "464b9a3456b3a927e31b1a4393983d7bdef498ff154e0baf6c433812165519f9"
+  },
+  "editorial_input": {
+    "path": "production/runs/TAC-2026-11-30-46140655954/stage4-editorial-content.json",
+    "sha256": "e0a1e3584e74d2f61d9fd0e0123269d005e272d0747677d8c5ed9c36bee98249",
+    "parse_status": "PARSED",
+    "parse_error": null
+  },
+  "stage_wr_loaded": {
+    "status": "PASS",
+    "stage": "STAGE_4",
+    "wr_path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 6523,
+    "rules_text_loaded": true
+  },
+  "state_version_before": 8,
+  "research_bundle_sha256": "464b9a3456b3a927e31b1a4393983d7bdef498ff154e0baf6c433812165519f9",
+  "outputs": {
+    "analysis-data.json": "6384dd21471c610d723273bf9b16f487f55ec8dcd9df22785d79824ba6ec73c3",
+    "report-data.json": "02c316db72e0d3916e6dd96add8e1d56a545cb30df911766e4700dc2dc307b5a"
+  }
+}

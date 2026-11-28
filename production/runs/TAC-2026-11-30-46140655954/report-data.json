@@ -2,10 +2,204 @@
   "report_date": "2026-11-30",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-27",
-  "summary": "",
-  "sentiment": "",
-  "focus_news": [],
-  "headlines": [],
+  "summary": "盤面主軸｜美股半日市由晶片與大型科技股領漲，標普500上漲1.60%、那斯達克上漲2.31%、費城半導體指數上漲4.69%，VIX回落至23.81。這是急跌後的風險偏好修復，不足以單憑一個交易日確認趨勢反轉；AI資本支出回報、信用利差與利率仍是反彈能否延續的關鍵。\\n\\n政策與景氣｜中國官方釋出穩市訊號，帶動上證與深證強彈，但11月官方製造業PMI市場預估仍僅49.4，內需與成本壓力尚未解除。美國AI晶片出口管制亦使資料中心訂單、供應鏈地點與融資條件重新分化，政策利多與政策風險同時存在。\\n\\n下週觀察｜週一先看中國官方與RatingDog製造業PMI，週五美國非農就業將影響12月Fed定價。Investing.com Fed Rate Monitor最新頁面顯示12月9日會議維持4.00%–4.25%的機率95.8%；若就業與通膨訊號再度偏熱，殖利率上行可能壓縮高估值資產的反彈空間。",
+  "sentiment": "市場情緒由極端避險轉向急跌後回補，但尚未回到低波動、廣泛參與的健康風險偏好。VIX降至23.81、科技與半導體領漲，代表短線賣壓緩和；然而10年期美債殖利率升至4.934%，AI相關信用風險與融資成本仍未同步解除。現階段應視為反彈修復，而非新一輪全面追價訊號。",
+  "focus_news": [
+    {
+      "title": "中國官方承諾加大國家隊穩市角色，A股急彈",
+      "summary": "中國國務院釋出更明確的市場穩定訊號，中央匯金等國家隊投資者將扮演更積極角色。上證指數收漲約3.7%，科創與AI相關指數漲幅更大；但政策訊號不等於資金規模已確定，長期反彈仍取決於內需、企業獲利與後續措施。",
+      "url": "https://www.reuters.com/markets/europe/view-china-markets-surge-beijing-unleashes-national-team-2026-11-27/",
+      "published_at_tw": "2026-11-27 14:23",
+      "published_at_source": "2026-11-27 06:23 UTC",
+      "source_timezone": "UTC",
+      "source": "Reuters",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "2026-11-27",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "中國製造業PMI預估連續第二個月低於50",
+      "summary": "Reuters調查預估11月官方製造業PMI為49.4，略高於10月49.3，但仍落在收縮區間。出口仍有支撐，國內需求疲弱與生產成本偏高則限制製造商改善，週一公布的官方數據將檢驗政策托底是否開始傳導至實體經濟。",
+      "url": "https://www.reuters.com/markets/asia/chinas-factory-slump-likely-extends-november-despite-solid-exports-2026-11-27/",
+      "published_at_tw": "2026-11-27 15:15",
+      "published_at_source": "2026-11-27 07:15 UTC",
+      "source_timezone": "UTC",
+      "source": "Reuters",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "2026-11-27",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "美股半日市收高，晶片股帶動標普創一年多最大單週漲幅",
+      "summary": "感恩節後美股恢復交易，標普500上漲1.60%、那斯達克上漲2.31%，費城半導體指數上漲4.69%。美光、邁威爾與SanDisk領漲，反彈擴及大型雲端與金融股；但AI資料中心資本支出的回報與融資成本仍是市場未解問題。",
+      "url": "https://news.cnyes.com/news/id/6674265",
+      "published_at_tw": "2026-11-28 03:30",
+      "published_at_source": "2026-11-28 03:30",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜優分析",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "2026-11-28 03:30",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "高盛示警股市反彈未解除AI融資與信用風險",
+      "summary": "高盛指出，AI相關交易集中度仍高，避險基金已降低AI淨曝險；股市回升之際，超大型雲端服務商CDS利差仍處高檔，反映股票與信用市場對風險的評價並不一致。後續應追蹤融資成本、再融資能力及現金流，而非只看指數反彈。",
+      "url": "https://news.cnyes.com/news/id/6674377",
+      "published_at_tw": "2026-11-28 15:10",
+      "published_at_source": "2026-11-28 15:10",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "2026-11-28 15:10",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "瑞銀評估美國AI晶片出口管制，供應鏈影響呈現分化",
+      "summary": "瑞銀認為，東南亞資料中心約占全球AI GPU運算量5%至10%，受限制的非美營運產能約3至4GW，整體直接影響可控，但品牌伺服器與部分代工廠曝險較高。美國新規仍會改變訂單流向、交付地點與算力融資條件，不能將需求強勁等同所有供應商受惠。",
+      "url": "https://news.cnyes.com/news/id/6674396",
+      "published_at_tw": "2026-11-28 18:10",
+      "published_at_source": "2026-11-28 18:10",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "2026-11-28 18:10",
+      "updated_at_tw": "原文未標示"
+    }
+  ],
+  "headlines": [
+    {
+      "title": "美股盤前普漲，AI交易賣壓暫歇",
+      "summary": "那斯達克期貨一度上漲約2.8%，輝達、超微與記憶體股領漲；但市場仍在衡量資料中心大舉舉債後的收入回收速度。",
+      "url": "https://news.cnyes.com/news/id/6673963",
+      "published_at_tw": "2026-11-27 18:05",
+      "published_at_source": "2026-11-27 18:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "那斯達克100期貨漲近3%，AI晶片股盤前反彈",
+      "summary": "優分析報導美股感恩節休市後恢復交易，盤前買盤回流AI與半導體族群；市場焦點仍在估值修正後的反彈能否獲得企業獲利與資本支出回報支持。",
+      "url": "https://news.cnyes.com/news/id/6674065",
+      "published_at_tw": "2026-11-27 20:00",
+      "published_at_source": "2026-11-27 20:00",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜優分析",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "半導體、儲存與光通訊股盤前同步走強",
+      "summary": "記憶體、硬碟、光通訊與算力租賃概念股普遍上漲，顯示資金回補不只集中在大型晶片設計公司；仍需留意短線回補與基本面新增訂單的差別。",
+      "url": "https://news.cnyes.com/news/id/6674074",
+      "published_at_tw": "2026-11-27 20:05",
+      "published_at_source": "2026-11-27 20:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "美股開盤衝高後漲幅收窄，輝達一度轉跌",
+      "summary": "美股開盤初段主要指數走高，但輝達盤中轉跌、晶片股走勢分化，顯示市場並非單向追價；資金仍在重新評估AI交易的擁擠程度與個股風險。",
+      "url": "https://news.cnyes.com/news/id/6674200",
+      "published_at_tw": "2026-11-28 00:05",
+      "published_at_source": "2026-11-28 00:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "安森美半導體盤中走高，市場買盤擴及功率元件",
+      "summary": "鉅亨盤中速報顯示安森美股價上漲，反映半導體反彈擴散至功率元件；單一個股盤中漲幅不代表產業需求全面回升，仍須觀察訂單與庫存。",
+      "url": "https://news.cnyes.com/news/id/6674216",
+      "published_at_tw": "2026-11-28 00:49",
+      "published_at_source": "2026-11-28 00:49",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "那斯達克盤中V形回升，Anthropic與儲存股領漲",
+      "summary": "盤中科技股買盤回流，費城半導體指數漲幅擴大，Anthropic、SanDisk與光通訊股走強；盤中急彈顯示風險偏好改善，但價格波動仍大。",
+      "url": "https://news.cnyes.com/news/id/6674233",
+      "published_at_tw": "2026-11-28 02:05",
+      "published_at_source": "2026-11-28 02:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "美股盤後部分晶片股回吐漲幅",
+      "summary": "RootData整理的盤後交易顯示，邁威爾、應用材料與Arm等晶片股盤後下跌，提醒投資人區分正式收盤表現與盤後報價，避免將盤後波動混入日線收盤。",
+      "url": "https://news.cnyes.com/news/id/6674258",
+      "published_at_tw": "2026-11-28 03:00",
+      "published_at_source": "2026-11-28 03:00",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜RootData",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "Anthropic單日上漲近11%，大型科技股普遍收高",
+      "summary": "BlockBeats整理的美股收盤數據顯示Anthropic漲10.98%，SK海力士與博通亦上漲；個別新上市AI公司波動較大，不宜直接外推至整體AI商業化獲利。",
+      "url": "https://news.cnyes.com/news/id/6674359",
+      "published_at_tw": "2026-11-28 10:05",
+      "published_at_source": "2026-11-28 10:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "Datasection失去大型AI算力訂單，下修全年營收指引",
+      "summary": "日本雲算力服務商Datasection據報失去一筆與騰訊相關、價值約800億日圓的訂單，全年營收指引大幅下修。事件凸顯出口管制、客戶集中與融資條件如何傳導至資料中心營運商。",
+      "url": "https://news.cnyes.com/news/id/6674351",
+      "published_at_tw": "2026-11-28 10:05",
+      "published_at_source": "2026-11-28 10:05",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網｜律動財經",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "台積電A14設計套件就緒，量產時程仍在2028年下半年",
+      "summary": "台積電A14 PDK 0.9版準備就緒，客戶可啟動設計導入；公司規劃2027年下半年風險試產、2028年下半年量產。這是技術路線進度，不應誤讀為新製程已進入量產。",
+      "url": "https://news.cnyes.com/news/id/6674317",
+      "published_at_tw": "2026-11-28 10:57",
+      "published_at_source": "2026-11-28 10:57",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    },
+    {
+      "title": "OpenAI反訴蘋果，AI硬體市場競爭延伸至供應商與人才",
+      "summary": "OpenAI指控蘋果施壓供應商並限制人才流動，蘋果則對相關指控提出反駁；案件仍屬訴訟主張階段，後續須等待法院程序與雙方證據。",
+      "url": "https://news.cnyes.com/news/id/6674380",
+      "published_at_tw": "2026-11-28 12:10",
+      "published_at_source": "2026-11-28 12:10",
+      "source_timezone": "Asia/Taipei",
+      "source": "鉅亨網",
+      "checked_at_tw": "2026-11-28 19:40",
+      "updated_at_source": "原文未標示",
+      "updated_at_tw": "原文未標示"
+    }
+  ],
   "global_markets": {
     "道瓊工業指數": {
       "display": "50,774.94",
@@ -935,15 +1129,39 @@
     "reason": null,
     "observation_sha256": "3a035a7b181d023ec8f303144dc175ea95d8eb710c48a392a728e87e4e5d8969"
   },
-  "observation": {},
+  "observation": [
+    "確認美股反彈是否延續至非科技產業，而非僅由晶片與大型科技股支撐。",
+    "追蹤美國10年期殖利率與Fed利率預期是否再度上修。",
+    "觀察中國官方製造業PMI是否仍低於50，以及民間調查與官方數據的差距。",
+    "檢查AI雲端業者CDS利差與資料中心融資條件是否改善。"
+  ],
   "calendar": {},
   "earnings": {},
-  "summary_title": "",
-  "market_comments": "",
+  "summary_title": "反彈修復風險偏好，但AI融資與利率定價仍是市場約束",
+  "market_comments": {
+    "overall": "急跌後反彈，風險偏好改善但尚未確認趨勢反轉。",
+    "equities": "科技與半導體領漲，市場廣度仍待後續交易日確認。",
+    "rates": "美債殖利率走高，市場仍需消化通膨與Fed政策風險。",
+    "credit": "AI相關融資與雲端信用利差是反彈品質的重要觀察點。",
+    "commodities": "原油回落、貴金屬上漲，反映供需與避險需求分歧。"
+  },
   "last_week_calendar": {},
   "last_week_earnings": {},
-  "summary_points": [],
-  "warning_note": "",
+  "summary_points": [
+    {
+      "label": "盤面主軸",
+      "text": "美股半日市由晶片與大型科技股領漲，標普500上漲1.60%、那斯達克上漲2.31%、費城半導體指數上漲4.69%，VIX回落至23.81。這是急跌後的風險偏好修復，不足以單憑一個交易日確認趨勢反轉；AI資本支出回報、信用利差與利率仍是反彈能否延續的關鍵。"
+    },
+    {
+      "label": "政策與景氣",
+      "text": "中國官方釋出穩市訊號，帶動上證與深證強彈，但11月官方製造業PMI市場預估仍僅49.4，內需與成本壓力尚未解除。美國AI晶片出口管制亦使資料中心訂單、供應鏈地點與融資條件重新分化，政策利多與政策風險同時存在。"
+    },
+    {
+      "label": "下週觀察",
+      "text": "週一先看中國官方與RatingDog製造業PMI，週五美國非農就業將影響12月Fed定價。Investing.com Fed Rate Monitor最新頁面顯示12月9日會議維持4.00%–4.25%的機率95.8%；若就業與通膨訊號再度偏熱，殖利率上行可能壓縮高估值資產的反彈空間。"
+    }
+  ],
+  "warning_note": "本報告新聞採用時間窗截至2026/11/28 19:40（台灣時間）；週末後續新聞不納入本次週一早報。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1188,13 +1406,39 @@
       "browser_observation_record_sha256": "429cfa2a0792c4a38d7f222b71d1bd71c2ea1ab9673c466ab85742e9334460c5"
     }
   },
-  "key_levels": {},
-  "core_observation": "",
+  "key_levels": [
+    {
+      "name": "S&P 500",
+      "value": "7,297.49",
+      "context": "11/27收盤；觀察反彈能否守住本週回升區間"
+    },
+    {
+      "name": "NASDAQ Composite",
+      "value": "24,129.50",
+      "context": "11/27收盤；觀察半導體領漲是否擴散"
+    },
+    {
+      "name": "VIX",
+      "value": "23.81",
+      "context": "仍高於常態低波動區，需觀察能否持續回落"
+    },
+    {
+      "name": "US 10Y",
+      "value": "4.934%",
+      "context": "殖利率續升將壓抑長久期資產估值"
+    }
+  ],
+  "core_observation": [
+    "美股反彈由半導體領漲，但需要確認漲勢能否延伸至更廣泛產業與中小型股。",
+    "10年期美債殖利率升至4.934%，若續升將對高估值與長久期資產形成壓力。",
+    "中國穩市政策改善短線信心，週一官方PMI是政策是否傳導至實體需求的第一個檢驗。",
+    "AI產業風險焦點由單純估值轉向資本支出回報、信用利差、債務與再融資能力。"
+  ],
   "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
-  "market_sentiment": {},
-  "quality_note": "",
+  "market_sentiment": "市場情緒由極端避險轉向急跌後回補，但尚未回到低波動、廣泛參與的健康風險偏好。VIX降至23.81、科技與半導體領漲，代表短線賣壓緩和；然而10年期美債殖利率升至4.934%，AI相關信用風險與融資成本仍未同步解除。現階段應視為反彈修復，而非新一輪全面追價訊號。",
+  "quality_note": "FedWatch本輪已重新開啟Investing.com Fed Rate Monitor頁面確認：12/9會議維持4.00%–4.25%機率95.8%，降至3.75%–4.00%機率4.2%，更新時間2026/11/28 12:35 AM EST；原始頁面行號390–416。",
   "report_cutoff_taipei": "2026-11-28 05:25",
-  "news_window_taipei": "",
+  "news_window_taipei": "2026-11-27 12:00 – 2026-11-28 19:40",
   "key_levels_overrides": [],
   "review_notice": "本頁為Simulation隔離區審核版，非正式首頁；需使用者核准後才可進行任何正式發布。",
   "pending_items": [],
@@ -1228,36 +1472,159 @@
     "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
   },
   "report_layer_earnings_actuals": [],
-  "news_cutoff_taipei": "",
+  "news_cutoff_taipei": "2026-11-28 19:40",
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [],
   "last_week_earnings_actuals": [],
   "market_analysis": {
     "political": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "美國貿易代表署11月25日就14個經濟體的製造業結構性產能過剩調查作出認定，並提出差異化的第301條關稅方案，涵蓋中國、台灣、日本、韓國、歐盟及東南亞多國。這是正式調查認定與擬議措施，不等於新關稅已生效；公眾意見與後續程序仍未完成。對市場而言，政策不確定性會先影響企業提前拉貨、供應鏈配置與資本支出決策，再逐步反映於成本與利潤率。",
+        "中國國務院公開要求國家隊投資者加強穩市角色，中央匯金等國有資本的訊號有助短期穩定流動性與信心，但政府尚未公布可投入股市的具體資金規模。這項政策承諾可降低急跌時的流動性風險，卻不能直接解決房地產、消費與民間投資疲弱，也不能單獨構成中國股市基本面反轉。"
+      ],
+      "sources": [
+        {
+          "label": "USTR｜14個經濟體第301條調查認定與擬議措施",
+          "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/november/ustr-makes-determinations-and-proposes-actions-14-section-301-investigations-relating-structural",
+          "published_at": "2026-11-25",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "Reuters｜北京加強國家隊穩市角色",
+          "url": "https://www.reuters.com/markets/europe/view-china-markets-surge-beijing-unleashes-national-team-2026-11-27/",
+          "published_at": "2026-11-27 06:23 UTC",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        }
+      ]
     },
     "policy_industry": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "美國高階GPU出口許可規則使AI算力需求出現地理與客戶分層。瑞銀評估，東南亞資料中心約占全球AI GPU運算量5%至10%，非美營運商可能受影響的產能約3至4GW，整體直接衝擊有限，但部分品牌伺服器與一線代工廠曝險較高。供應鏈受益者將更取決於客戶所在地、晶片取得資格、可交付機櫃與融資能力，而非只看AI總需求。",
+        "台積電A14設計套件就緒代表客戶可開始設計導入，風險試產與量產仍分別預計在2027年下半年及2028年下半年。這是中長期技術競爭力的正面進展，短期營收貢獻仍需經過設計定案、驗證、良率爬坡與客戶採用，不能提前視為量產收入。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網｜瑞銀評估美國出口管制對AI晶片供應鏈影響",
+          "url": "https://news.cnyes.com/news/id/6674396",
+          "published_at": "2026-11-28 18:10 Asia/Taipei",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "鉅亨網｜台積電A14 PDK就緒與量產時程",
+          "url": "https://news.cnyes.com/news/id/6674317",
+          "published_at": "2026-11-28 10:57 Asia/Taipei",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        }
+      ]
     },
     "macro": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "中國11月官方製造業PMI的Reuters調查中位數預估為49.4，較10月49.3略升但仍低於50的景氣榮枯線。出口對電子與汽車製造仍有支撐，國內消費疲弱及生產成本偏高則限制企業擴張；若週一公布值仍低於50，代表穩市政策尚未有效轉化為廣泛的需求改善。",
+        "美國第三季成長率上修與10月通膨加快，使市場對12月政策的敏感度升高；目前Investing.com Fed Rate Monitor對12月9日會議的即時分布為維持4.00%–4.25%機率95.8%、降至3.75%–4.00%機率4.2%。這代表該頁當下主要定價為利率維持，而不是降息；下週就業數據將是重新定價的重要觸發點。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜中國11月製造業PMI預估與內需狀況",
+          "url": "https://www.reuters.com/markets/asia/chinas-factory-slump-likely-extends-november-despite-solid-exports-2026-11-27/",
+          "published_at": "2026-11-27 07:15 UTC",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "Investing.com｜Fed Rate Monitor Tool，12月9日會議",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "published_at": "2026-11-28 12:35 AM EST",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        }
+      ]
     },
     "markets": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "美股半日市由半導體與大型科技股帶動，標普500收7,297.49點、上漲1.60%，那斯達克收24,129.50點、上漲2.31%，費城半導體指數上漲4.69%。11個產業ETF全數收紅，科技、非必需消費與通訊服務領先，顯示反彈已從少數大型股擴散，但單日廣度仍不足以證明資金已持續撤離防禦部位。",
+        "風險指標同步改善，VIX下跌11.16%至23.81，MOVE下跌2.30%至95.30；但美國2年、10年與30年期殖利率分別升至4.704%、4.934%及5.323%，10年期單日上升約6.5個基點。股市反彈與長端殖利率走高並存，表示市場降低了短期恐慌，卻未放棄對通膨與Fed偏緊政策的定價。",
+        "高盛指出股市反彈與超大型雲端服務商信用違約交換利差擴大並存，AI股票持倉降溫也未必代表融資風險已解除。這種股票與信用市場訊號分歧，意味著風險不只在估值，而在AI基礎設施投資的債務成本、現金流回收與再融資條件。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網｜美股收盤與半導體反彈",
+          "url": "https://news.cnyes.com/news/id/6674265",
+          "published_at": "2026-11-28 03:30 Asia/Taipei",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "Investing.com｜Fed Rate Monitor當日更新與市場行情",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "published_at": "2026-11-28 12:35 AM EST",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "鉅亨網｜高盛示警AI交易與信用市場風險",
+          "url": "https://news.cnyes.com/news/id/6674377",
+          "published_at": "2026-11-28 15:10 Asia/Taipei",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        }
+      ]
     },
     "strategy": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "操作上先保留核心部位，不因單日急彈追價；優先降低高槓桿、現金流尚未驗證且高度依賴外部融資的AI基建曝險。新增資金採分批方式，先觀察市場廣度是否延續、VIX能否繼續回落、長端殖利率是否停止急升，以及雲端服務商與AI供應鏈信用利差是否收斂。",
+        "基準情境：若中國政策支持延續、PMI未進一步惡化，美國就業沒有明顯過熱，市場可在高波動中逐步修復；配置以獲利可見、資產負債表穩健的半導體、設備與大型平台為主，回檔分批而非追逐單日強勢股。風險情境：若美國就業或通膨再度偏熱、殖利率續升，降低高本益比與長久期成長股，保留現金並提高防禦資產比重。嚴重情境：若AI融資與雲端信用利差持續惡化、再融資受阻並傳導至供應鏈訂單，優先退出高槓桿與資金缺口大的標的，暫停加碼並以流動性與本金保全為先。",
+        "失效條件是股市反彈只由少數權值股推動、信用市場持續惡化或殖利率再創波段高點；在這些訊號未改善前，不把短線超跌反彈視為新多頭確認。週一先核對中國官方PMI與RatingDog PMI，週五美國非農就業發布後再調整Fed路徑與風險預算。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網｜高盛：AI集中交易、信用利差與槓桿風險",
+          "url": "https://news.cnyes.com/news/id/6674377",
+          "published_at": "2026-11-28 15:10 Asia/Taipei",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "Reuters｜中國PMI與需求風險",
+          "url": "https://www.reuters.com/markets/asia/chinas-factory-slump-likely-extends-november-despite-solid-exports-2026-11-27/",
+          "published_at": "2026-11-27 07:15 UTC",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        },
+        {
+          "label": "Investing.com｜Fed Rate Monitor Tool",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "published_at": "2026-11-28 12:35 AM EST",
+          "checked_at": "2026-11-28 19:40",
+          "status": "已發布／可查證"
+        }
+      ]
     }
   },
   "political_scan": {
-    "domains_checked": [],
-    "findings": [],
-    "checked_at": ""
+    "checked_at": "2026-11-28T19:40:00+08:00",
+    "domains_checked": [
+      "us_policy",
+      "us_china",
+      "geopolitics",
+      "trade_sanctions",
+      "major_economies",
+      "energy_resources"
+    ],
+    "findings": [
+      {
+        "title": "美國對14個經濟體作出結構性產能過剩第301條調查認定並提出擬議關稅",
+        "domain": "us_policy",
+        "classification": "正式調查認定已公布；關稅為擬議措施，尚未生效",
+        "published_at": "2026-11-25",
+        "checked_at": "2026-11-28T19:40:00+08:00",
+        "source_url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/november/ustr-makes-determinations-and-proposes-actions-14-section-301-investigations-relating-structural",
+        "transmission": "若後續措施落地，可能提高中國、台灣、日本、韓國、歐盟與東南亞供應鏈對美出口成本，促使企業提前拉貨、轉移產能或調整資本支出；目前仍處公眾意見與後續程序階段，不應將擬議稅率當成已生效成本。"
+      }
+    ]
   },
   "news_window": {},
   "run_metadata": {
