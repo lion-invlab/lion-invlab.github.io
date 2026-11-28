@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_3_CALENDAR",
+  "status": "PASS",
+  "run_id": "TAC-2026-11-30-46140655954",
+  "report_date": "2026-11-30",
+  "main_commit_sha": "5fde6c3a9f484614e6f27e45d1b526846cfa2b91",
+  "current_week": {
+    "week_id": "2026-W49",
+    "path": "data/calendar/weeks/2026-W49.json",
+    "blob_sha": "5a0ffcc9992bc74daf3a73395cda6b01bcc36bab",
+    "economic_count": 22,
+    "earnings_count": 13
+  },
+  "previous_week": {
+    "week_id": "2026-W48",
+    "path": "data/calendar/weeks/2026-W48.json",
+    "blob_sha": "09d150595373cdbc468c6b0639c26214fe2e1c97",
+    "economic_count": 27,
+    "earnings_count": 11
+  },
+  "source_json_read_only": true,
+  "projection_is_in_memory": true,
+  "stage_wr_loaded": {
+    "status": "PASS",
+    "stage": "STAGE_3",
+    "wr_path": "production/stages/STAGE_3_CALENDAR.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 3186,
+    "rules_text_loaded": true
+  },
+  "state_version_before": 5,
+  "outputs": {
+    "calendar.json": {
+      "path": "production/runs/TAC-2026-11-30-46140655954/calendar.json",
+      "sha256": "9aa88ad783024ed5a44f02ac38da75b351385423c6fd6b5314be401980b1c458"
+    },
+    "earnings.json": {
+      "path": "production/runs/TAC-2026-11-30-46140655954/earnings.json",
+      "sha256": "91ae01bedcb2d07bde1afbaa24c420fdebd204a889f3e8fd653b1c4e8d053655"
+    },
+    "last-week-calendar.json": {
+      "path": "production/runs/TAC-2026-11-30-46140655954/last-week-calendar.json",
+      "sha256": "a7b2cfced1664ab035f37a36b53594786bc347a8d737b171762040e5052ad21c"
+    },
+    "last-week-earnings.json": {
+      "path": "production/runs/TAC-2026-11-30-46140655954/last-week-earnings.json",
+      "sha256": "2c90648e4335d97766a9e8aede6d4bbe4d0ce64e9b44060a3bdb59153e4d7157"
+    },
+    "calendar-source-bundle.json": {
+      "path": "production/runs/TAC-2026-11-30-46140655954/calendar-source-bundle.json",
+      "sha256": "1e863192d3fa87a8cffd3677e9b8f33c5c3bb4d3a3b00c4bb9678e5d94e2c514"
+    }
+  }
+}
