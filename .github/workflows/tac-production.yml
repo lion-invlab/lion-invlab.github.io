@@ -509,11 +509,16 @@ jobs:
             echo "CHART3_MERGE_STATUS=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
           else
             echo "CHART3_MERGE_STATUS=$CHART3_STATUS" >> "$GITHUB_ENV"
+            if git ls-files --error-unmatch "$LEDGER" >/dev/null 2>&1; then
+              git restore --source=HEAD --staged --worktree -- "$LEDGER"
+            else
+              rm -f "$LEDGER"
+            fi
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "$RUN_DIR"
-          if [ -f "$LEDGER" ]; then git add -- "$LEDGER"; fi
+          if { [ "$CHART3_STATUS" = "APPENDED" ] || [ "$CHART3_STATUS" = "NOOP_IDENTICAL_OBSERVATION" ] || [ "$CHART3_STATUS" = "PASS" ]; } && [ -f "$LEDGER" ]; then git add -- "$LEDGER"; fi
           mapfile -t STAGED < <(git diff --cached --name-only)
           if [ "${#STAGED[@]}" -eq 0 ]; then
             echo "Stage 2 already PASS/PARTIAL; no new snapshot or Chart 3 increment to persist."
