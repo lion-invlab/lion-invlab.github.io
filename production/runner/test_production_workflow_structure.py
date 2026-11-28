@@ -42,7 +42,7 @@ assert "if: ${{ always() && needs['stage1-create-run'].result == 'success' }}" i
 assert "needs: [stage1-create-run]" in stage2
 assert "needs['stage1-create-run'].outputs.run_id" in stage2 or "needs.stage1-create-run.outputs.run_id" in stage2
 assert "needs['stage1-create-run'].outputs.run_dir" in stage2 or "needs.stage1-create-run.outputs.run_dir" in stage2
-assert "timeout-minutes: 45" in stage2
+assert "timeout-minutes: 35" in stage2
 assert "Wait for exact Run-scoped Stage 2 worker handoff" in stage2
 assert "market-history-web-observations.json" in stage2
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_2" in stage2
