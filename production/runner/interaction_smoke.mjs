@@ -204,8 +204,16 @@ try {
     nodes => nodes.map(a => a.href)
   );
   if (focusLinks.length !== 5) throw new Error(`expected 5 focus news links, got ${focusLinks.length}`);
-  if (!focusLinks.every(url => url.startsWith("https://hk.investing.com/") || url.includes(".cnyes.com/"))) {
-    throw new Error("focus news contains a source outside Investing.com HK / Cnyes");
+  const primaryFocusSources = focusLinks.filter(url =>
+    url.startsWith("https://hk.investing.com/") ||
+    url.startsWith("https://cnyes.com/") ||
+    url.includes(".cnyes.com/")
+  );
+  // Stage 4 WR says focus news should come primarily from Cnyes and Investing.com,
+  // not exclusively. Preserve the majority-source requirement while allowing a
+  // minority of corroborating macro sources such as CNA.
+  if (primaryFocusSources.length < 3) {
+    throw new Error(`focus news must be primarily Investing.com HK / Cnyes: ${primaryFocusSources.length}/${focusLinks.length}`);
   }
 
   const headlineLinks = await page.locator("#headlines .newsmeta a[href]").evaluateAll(
