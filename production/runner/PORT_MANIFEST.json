@@ -37,7 +37,7 @@
     {
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
-      "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_RECEIPT_BINDING",
+      "status": "MAIN_STAGE2_HANDOFF_AND_STAGE5_FINAL_QA_RECEIPT",
       "main_blob_sha": "f3943620a8af0bad07834873969675509e3bb359"
     },
     {
@@ -283,7 +283,7 @@
     },
     {
       "file": "run_stage2.py",
-      "purpose": "Main-native Stage 2 Run-scoped observation ingestion, single data transformation and status handoff",
+      "purpose": "Main-native Stage 2 Run-scoped observation ingestion and lightweight handoff; full market QA deferred to Stage 5",
       "main_blob_sha": "0bf9fb1c88ddfafeee7f152f9a77a89c22d9d189",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
@@ -295,7 +295,7 @@
     },
     {
       "file": "build_stage2_receipt.py",
-      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "purpose": "Create a lightweight Stage 2 handoff receipt; Stage 5 invokes full market validation and writes a separate QA receipt",
       "main_blob_sha": "d33788b65552e72bef46289cd258cff0f7baba1a",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
