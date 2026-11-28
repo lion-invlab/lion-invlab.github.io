@@ -37,6 +37,7 @@ GOVERNANCE_PATHS=(
  "production/runner/run_state.py",
  "production/runner/accept_stage_submission.py",
  "production/runner/test_accept_stage_submission.py",
+ "production/runner/test_production_workflow_structure.py",
  "production/runner/test_run_state.py",
  "production/runner/test_stage2_fedwatch.py",
  "production/runner/test_stage2_field_provenance.py",
