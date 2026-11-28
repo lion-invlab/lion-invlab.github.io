@@ -186,6 +186,8 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                         "market_analysis", "political_scan", "core_observation", "observation",
                         "key_levels", "market_comments", "warning_note", "quality_note"):
                 editorial[key] = copy.deepcopy(sample_data[key])
+            research_bundle = json.loads((run_dir / "stage4-research-bundle.json").read_text(encoding="utf-8"))
+            news_cutoff = research_bundle["news_window"]["target_cutoff_taipei"]
             editorial.update({
                 "run_id": run_id,
                 "report_date": context["report_date"],
@@ -194,7 +196,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "research_bundle_sha256": bundle_receipt["bundle_sha256"],
                 "stage3_receipt_sha256": digest(run_dir / "stage3-calendar-receipt.json"),
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
-                "news_cutoff_taipei": f"{context['production_date']} 05:25",
+                "news_cutoff_taipei": news_cutoff,
             })
             editorial["core_observation"] = {
                 "heading": "本週三大觀察焦點",
