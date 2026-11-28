@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Per-Run stage state machine for TAC Main production.
 
+CI validation branch probe: execute the complete deterministic Main test suite.
+
 This module is deliberately storage-agnostic. The caller must persist the
 returned state with compare-and-swap semantics (GitHub Contents API expected
 blob SHA, or a fast-forward-only git push from the observed main HEAD).
