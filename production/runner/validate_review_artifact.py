@@ -414,13 +414,24 @@ def main():
     if not re.fullmatch(r"[0-9a-f]{40}", main_commit):
         raise SystemExit("authoritative main calendar commit SHA missing")
     current_path = provenance.get("calendar_current_path", "")
-    previous_path = provenance.get("calendar_previous_path", "")
-    current_payload = json.loads(git_show(main_commit, current_path))
-    previous_payload = json.loads(git_show(main_commit, previous_path))
-    if git_blob_sha(git_show(main_commit, current_path)) != provenance.get("calendar_current_blob_sha"):
+    previous_path = provenance.get("calendar_previous_path")
+    current_raw = git_show(main_commit, current_path)
+    current_payload = json.loads(current_raw)
+    if git_blob_sha(current_raw) != provenance.get("calendar_current_blob_sha"):
         raise SystemExit("current calendar database SHA mismatch")
-    if git_blob_sha(git_show(main_commit, previous_path)) != provenance.get("calendar_previous_blob_sha"):
-        raise SystemExit("previous calendar database SHA mismatch")
+    previous_blob_sha = provenance.get("calendar_previous_blob_sha")
+    previous_payload = None
+    if previous_path:
+        if not previous_blob_sha:
+            raise SystemExit("previous calendar path is present without its pinned blob SHA")
+        previous_raw = git_show(main_commit, previous_path)
+        previous_payload = json.loads(previous_raw)
+        if git_blob_sha(previous_raw) != previous_blob_sha:
+            raise SystemExit("previous calendar database SHA mismatch")
+    elif provenance.get("template_key") == "monday":
+        raise SystemExit("Monday template requires the previous-week calendar path and SHA")
+    elif previous_blob_sha:
+        raise SystemExit("previous calendar SHA is present without its path")
     expected_econ = len(current_payload["events"]["economic"])
     expected_earnings = len(current_payload["events"]["earnings"])
     actual_econ = len(soup.select("#calendar .econ-event"))
