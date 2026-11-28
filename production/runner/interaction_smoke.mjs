@@ -183,7 +183,7 @@ try {
   if (!(await page.locator("#calendar .week-econ-panels > .calendar-status-group:nth-child(2)").isVisible())) {
     throw new Error("經濟行事曆即將公布分頁未顯示");
   }
-  detailsTests.push(await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"));
+  detailsTests.push(await toggleDetails("#calendar .week-econ-panels > .calendar-status-group:nth-child(2) details.econ-event", ".econ-toggle"));
   detailsTests.push(await toggleDetails("details.sector-collapse"));
 
   const focusLinks = await page.locator("#global-focus .newsmeta a[href]").evaluateAll(
