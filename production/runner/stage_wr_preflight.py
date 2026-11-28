@@ -45,7 +45,7 @@ def stage_wr_preflight(stage: str, context: dict | None = None) -> dict:
         raise SystemExit(f"{stage}: Work Rules file contains no readable instructions: {path}")
 
     evidence = {
-        "status": "LOADED",
+        "status": "PASS",
         "stage": stage,
         "wr_path": path,
         "wr_loaded": True,
