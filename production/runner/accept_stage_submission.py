@@ -154,15 +154,11 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     content = read_json(artifact)
     stage3_receipt_path = run_dir / "stage3-calendar-receipt.json"
     capture_path = run_dir / "capture-stage-receipt.json"
-    bundle_receipt_path = run_dir / "stage4-research-bundle-receipt.json"
-    summary_path = run_dir / "stage2-run-summary.json"
-    for path in (stage3_receipt_path, capture_path, bundle_receipt_path, summary_path):
+    for path in (stage3_receipt_path, capture_path):
         if path.is_symlink() or not path.is_file():
             raise ValueError(f"Stage 4 upstream handoff missing or symlinked: {path.name}")
     stage3 = read_json(stage3_receipt_path)
     capture = read_json(capture_path)
-    bundle_receipt = read_json(bundle_receipt_path)
-    summary = read_json(summary_path)
     if stage3.get("status") != "PASS" or stage3.get("run_id") != context["run_id"]:
         raise ValueError("Stage 4 requires the exact Run's PASS Stage 3 receipt")
     if state["stages"]["STAGE_3"]["status"] != "PASS":
@@ -185,7 +181,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
             raise ValueError(f"Stage 4 editorial artifact {key} does not match the exact Run handoff")
     artifact_sha = digest(artifact)
     state = _transition_to_submitted(state, "STAGE_4", context, artifact_sha, artifact,
-                                     digest(stage3_receipt_path))
+                                     None)
     return state, {"stage": "STAGE_4", "status": "SUBMITTED",
                    "artifact_path": str(artifact.relative_to(ROOT)),
                    "artifact_sha256": artifact_sha}
