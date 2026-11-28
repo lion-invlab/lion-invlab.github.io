@@ -184,13 +184,17 @@ class Stage56HandoffTests(unittest.TestCase):
 
     def test_stage6_public_preview_rejects_wrong_date_bytes_and_run(self):
         from run_stage6 import verify_public_preview
+        expected=b"<meta name='report-date' content='2026-11-30'>RUN-MONDAY-1"
+        wrong_run=b"<meta name='report-date' content='2026-11-30'>WRONG-RUN"
+        wrong_bytes=b"<meta name='report-date' content='2026-11-30'>OTHER-RUN"
+        wrong_date=b"<meta name='report-date' content='2026-11-29'>RUN-MONDAY-1"
         cases=[
-            (200,b"<meta name='report-date' content='2026-11-29'>RUN-MONDAY-1","date"),
-            (200,b"<meta name='report-date' content='2026-11-30'>OTHER-RUN","bytes"),
-            (200,b"<meta name='report-date' content='2026-11-30'>WRONG-RUN","Run ID"),
-            (404,b"<meta name='report-date' content='2026-11-30'>RUN-MONDAY-1","HTTP/date"),
+            (200,wrong_date,expected,"HTTP/date"),
+            (200,wrong_bytes,expected,"bytes"),
+            (200,wrong_run,wrong_run,"Run ID"),
+            (404,expected,expected,"HTTP/date"),
         ]
-        for status,body,message in cases:
+        for status,body,expected_html,message in cases:
             with self.subTest(message=message):
                 class FakeResponse:
                     def __enter__(self):return self
@@ -199,8 +203,7 @@ class Stage56HandoffTests(unittest.TestCase):
                 FakeResponse.status=status
                 with self.assertRaisesRegex(SystemExit,message):
                     verify_public_preview("https://example.test/review.html","2026-11-30","RUN-MONDAY-1",
-                                          b"<meta name='report-date' content='2026-11-30'>RUN-MONDAY-1",
-                                          lambda request,timeout:FakeResponse())
+                                          expected_html,lambda request,timeout:FakeResponse())
 
     def test_stage6_accepts_only_complete_same_run_verified_existing_triplet(self):
         import hashlib, json, tempfile
