@@ -302,6 +302,10 @@ jobs:
               raise SystemExit("Invalid report_date; expected YYYY-MM-DD.")
           matches=[]
           for context_path in Path("production/runs").glob("TAC-*/run-context.json"):
+              # Legacy Run directories may contain a directory with this reserved name.
+              # Only actual files are authoritative Run contexts.
+              if not context_path.is_file():
+                  continue
               context=json.loads(context_path.read_text(encoding="utf-8"))
               if context.get("report_date") == target:
                   matches.append(context_path.parent)
