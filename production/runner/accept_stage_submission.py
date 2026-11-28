@@ -70,8 +70,8 @@ def _transition_to_submitted(state: dict, stage: str, context: dict,
         # only when the previous submission failed before a snapshot receipt
         # or summary was persisted. The serialized GitHub Runner owns this reset.
         if (stage == "STAGE_2"
-                and not (run_dir / "stage2-market-snapshot-receipt.json").exists()
-                and not (run_dir / "stage2-run-summary.json").exists()):
+                and not (artifact_path.parent / "stage2-market-snapshot-receipt.json").exists()
+                and not (artifact_path.parent / "stage2-run-summary.json").exists()):
             state = transition_state(state, stage=stage,
                 expected_version=state["state_version"], expected_status="SUBMITTED",
                 new_status="READY", recovery=True)
