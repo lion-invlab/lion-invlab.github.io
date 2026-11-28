@@ -228,6 +228,11 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "items": synthetic_levels,
             }
             editorial["market_analysis"]["markets"]["paragraphs"].append("Fear & Greed 指數採 FGScore 備援來源，讀值 17；此為合成測試資料的來源揭露。")
+            editorial["market_analysis"]["strategy"]["paragraphs"].extend([
+                "基準情境：維持核心持倉並觀察市場廣度、現金流與信用條件。",
+                "風險情境：若波動率及信用利差同步上升，降低高Beta與槓桿曝險。",
+                "嚴重情境：若政策與流動性風險擴大，優先保留現金並分散單一市場風險。",
+            ])
             editorial["political_scan"]["checked_at"] = "2026-11-24T05:00:00+08:00"
             for finding in editorial["political_scan"]["findings"]:
                 finding["checked_at"] = "2026-11-24T05:00:00+08:00"
