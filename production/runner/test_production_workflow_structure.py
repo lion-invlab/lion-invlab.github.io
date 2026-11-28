@@ -75,7 +75,7 @@ assert "production/input/report-content-" not in workflow
 # New York time-of-day (which caused next-day recoveries to wait another day).
 assert "wait_for_trading_date_close.py \"$RUN_DIR/run-context.json\"" in stage2
 assert "date +%H%M" not in stage2
-assert "trading_date-bound close wait" in stage2
+assert "Wait for this Run's trading_date close" in stage2
 
 print("PASS: Stage 1 exits after Run handoff; Stage 2/3 and Stage 4/6 are downstream jobs.")
 
