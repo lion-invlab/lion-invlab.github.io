@@ -3,7 +3,7 @@
 
 ## 開工前讀取本階段 WR
 - 開始工作前完整讀取本文件，確認可讀後直接執行新聞整理及市場分析。
-- 不要求 WR、Git blob SHA、Preflight receipt、worker attestation 或上游 WR 證明。
+- 不要求 WR、Git blob SHA、worker attestation 或上游 WR 證明。
 - Stage 4 使用同一 Run 的 Stage 2 行情及 Stage 3 行事曆／財報成果；完成新聞與分析後直接交付 Stage 5。
 
 ## 輸入
