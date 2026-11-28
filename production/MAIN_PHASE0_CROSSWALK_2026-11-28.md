@@ -109,17 +109,18 @@ Stage 1 會掃描既有 Run、判斷 legacy/stateful、決定 supersedes，再�
 
 ## 5. 下一個施工順序
 
-1. 完成 tac-production 的 Stage 1 reservation 與 concurrency 修正設計。
-2. 逐一比對 run_state、acceptance helper、Stage 2/3/4/5/6 runner 的 state writer 與 SHA contract。
-3. 建立 synthetic worker handoff harness，模擬 ChatGPT Stage 2/4 artifacts，不抓真實行情、不改 Automation。
-4. 將新 build branch 加入 validation trigger，讓每次提交可執行 deterministic Main tests。
-5. 先通過單元／契約測試，再做兩種母版的完整 synthetic Stage 1–6 E2E。
-6. 通過後才申請真實 11/30 fresh-data E2E；不更動首頁及正式排程。
+1. 完成 Stage 1 report-date concurrency reservation，並在 recover/rerun 前查核舊 workflow 已 completed；結構驗證已 PASS，仍需真實併發合成測試。
+2. 已集中 Stage 2–6 及 Stage 2/4 acceptance 的 run-state 寫入至共用 atomic writer；deterministic CI 已 PASS。
+3. 下一步建立 synthetic worker handoff harness，模擬 ChatGPT Stage 2/4 artifacts，不抓真實行情、不改 Automation。
+4. 新 build branch 已納入 validation trigger；修正後版本已連續取得 SUCCESS。
+5. 完成兩種母版的完整 synthetic Stage 1–6 E2E，並驗證 DEFERRED／重複觸發／中斷恢復。
+6. 通過後才進入真實 11/30 fresh-data E2E；不更動首頁及正式排程。
 
 ## 6. 本輪程式修正與 CI 證據
 
 - 已把 Stage 2–6 Runner 及 ChatGPT submission acceptance 共用的 run-state 寫入集中至 `run_state.write_state_atomic()`；寫入前 JSON round-trip 驗證，使用同目錄唯一暫存檔、fsync、`os.replace`，拒絕 symlink。Stage 2–6 不再直接 `write_text(run-state.json)`。
 - Stage 5 初始 RUNNING 狀態寫入的雙重跳脫錯誤已修正；回歸測試已改測共用 atomic writer。
+- Latest Workflow reservation/recovery validation runs `46110665198` and `46110672513` both SUCCESS; 99 deterministic tests ran in the latter, including the Stage 5 state persistence and report-date reservation workflow structure tests. Production Stage 1–6 jobs were skipped because these were push validation events.
 - deterministic validation run `46110557515`（涵蓋 Stage 2–6 共用 state writer 及 Stage 3 最後一處直接寫入修正）已 SUCCESS；`46110539124` 的 shared-writer 回歸測試亦 SUCCESS。
 - 中途兩個 commit 的 CI 因測試仍引用舊 helper 名稱而失敗（`46110522700`、`46110526181`）；已修正測試 import，後續完整測試成功。這些失敗已明確保留，不以後續成功抹去歷史。
 
