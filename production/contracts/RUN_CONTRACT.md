@@ -7,7 +7,7 @@
 - An explicitly authorized rerun is a new workflow_dispatch invocation and therefore a new workflow_run_id and Run ID. It records supersedes_run_id and preserves every prior Run, receipt, HTML, QA artifact and Preview unchanged.
 - One Run directory is the only permanent evidence container for that Run: production/runs/<run_id>/. It contains run-context.json, stage1-fixture.json, mutable report-data.json, one run-state.json, and one receipt per completed Stage. Do not create a second state database or duplicate evidence ledger.
 - One active Stage per Run at a time. A Run may have only one owner holding a RUNNING lease. Stage claim and state transitions must use compare-and-swap against the exact previously read run-state blob SHA. GitHub Contents API updates must pass the current file SHA; Git commits must be fast-forward-only. A stale state version or non-fast-forward push must reload and re-evaluate, never force-push or blindly replay a transition.
-- Stage 1 creation is serialized by a single global Stage 1 concurrency group. Before creating a Run, it scans Main for an existing Run with the same report_date. If one exists, normal schedule execution must not create another. A same-workflow retry resumes its deterministic Run ID. Explicit recover selects an exact existing Run with valid run-state; if more than one eligible candidate exists, fail closed rather than guessing.
+- Stage 1 creation is serialized by a single global Stage 1 concurrency group. Before creating a Run, it scans Main for existing Runs with the same report_date. A stateful Run blocks an unapproved second Run; same-workflow retry resumes its deterministic Run ID. Legacy Runs without run-state.json are read-only historical evidence: a fresh blank-first Run may be created, but their IDs must be recorded in run-context.legacy_prior_run_ids and no data may be read or reused. Explicit recover selects an exact existing Run with valid run-state; if more than one eligible candidate exists, fail closed rather than guessing.
 - Stage 1 is the only normal Run creator. Stage 2/4 workers and Stage 3/5/6 jobs never create a Run.
 
 ## Per-Run state machine
@@ -26,7 +26,7 @@
   5. Stage 5 PASS → Stage 6 READY → RUNNING → PASS; Stage 5 PARTIAL → Stage 6 SKIPPED.
 - Every transition increments state_version and records the exact input/output SHA and receipt path. A consumer cannot start until its required upstream stage has a valid receipt and the state transition has made it READY.
 - A RUNNING claim includes lease_owner and lease_expires_at. Expired leases may be reclaimed only after checking the last worker attempt and exact Run artifacts; a live lease cannot be stolen. DEFERRED means prerequisites are absent or a worker is not yet eligible; it is not a failure and must not disable the worker.
-- Recovery from FAILED/PARTIAL requires an explicit recovery transition to READY for that same Run. PASS stages are immutable and are never repeated. Retry/resume preserves run_id; explicit rerun creates a new run_id.
+- Recovery from FAILED requires an explicit recovery transition to READY for that same Run. PARTIAL is a terminal outcome and cannot be reopened. PASS stages are immutable and are never repeated. Retry/resume preserves run_id; explicit rerun creates a new run_id.
 
 ## WR governance and receipts
 
@@ -39,6 +39,6 @@
 ## Run completion and publication
 
 - REVIEW_READY means report content and required QA passed.
-- DELIVERED means Stage 6 has committed the exact three Preview files, remote bytes and Git blob SHAs were verified, Pages deployment completed for the exact payload commit, and the public Preview URL was opened and checked.
+- Stage 6 receipt status DELIVERED_AND_PUBLICLY_VERIFIED means Stage 6 has committed the exact three Preview files, remote bytes and Git blob SHAs were verified, Pages deployment completed for the exact payload commit, and the public Preview URL was opened and checked. The overall Run state remains AWAITING_APPROVAL.
 - AWAITING_APPROVAL is the final automated state. It is not authorization to update index.html or archive formal history.
 - PUBLISHED requires separate user approval for the exact report_date and Preview version, followed by formal homepage and archive completion.
