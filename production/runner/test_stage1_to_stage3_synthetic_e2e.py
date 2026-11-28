@@ -194,7 +194,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "research_bundle_sha256": bundle_receipt["bundle_sha256"],
                 "stage3_receipt_sha256": digest(run_dir / "stage3-calendar-receipt.json"),
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
-                "news_cutoff_taipei": f"{report_date.isoformat()} 05:25",
+                "news_cutoff_taipei": f"{context['production_date']} 05:25",
             })
             editorial["core_observation"] = {
                 "heading": "本週三大觀察焦點",
@@ -260,7 +260,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             editorial["key_levels"] = {
                 "baseline_date": context["trading_date"],
                 "trading_date": context["trading_date"],
-                "captured_at_taipei": f"{report_date.isoformat()} 05:00:00",
+                "captured_at_taipei": f"{context['production_date']} 05:00:00",
                 "formula": "Synthetic test fixture: pivot levels calculated from deterministic OHLC derived from synthetic close values.",
                 "items": synthetic_levels,
             }
@@ -270,14 +270,14 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "風險情境：若波動率及信用利差同步上升，降低高Beta與槓桿曝險。",
                 "嚴重情境：若政策與流動性風險擴大，優先保留現金並分散單一市場風險。",
             ])
-            editorial["political_scan"]["checked_at"] = f"{report_date.isoformat()}T05:00:00+08:00"
+            editorial["political_scan"]["checked_at"] = f"{context['production_date']}T05:00:00+08:00"
             for finding in editorial["political_scan"]["findings"]:
-                finding["checked_at"] = "2026-11-24T05:00:00+08:00"
+                finding["checked_at"] = f"{context['production_date']}T05:00:00+08:00"
                 if isinstance(finding.get("transmission"), dict):
                     finding["transmission"] = "；".join(str(value) for value in finding["transmission"].values())
             for layer in editorial["market_analysis"].values():
                 for source in layer["sources"]:
-                    source["checked_at"] = "2026-11-24T05:00:00+08:00"
+                    source["checked_at"] = f"{context['production_date']}T05:00:00+08:00"
             editorial_path = run_dir / "stage4-editorial-content.json"
             editorial_path.write_text(json.dumps(editorial, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             submitted4 = accept_stage_submission(run_dir, "STAGE_4")
