@@ -24,7 +24,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 2A. Stage WR 讀取與交接原則
 - Stage 1–4 開工前各自完整讀取自己的 Stage WR，確認可讀後立即執行工作。
-- Stage 1–4 不做跨階段 WR SHA pinning、Preflight receipt、worker attestation 或上游 WR receipt 驗證。
+- Stage 1–4 只完整讀取各自 WR，不提交 WR SHA／Git blob SHA 證明，不做跨階段 WR receipt 驗證。
 - Stage 1–4 的交接以同一 Run 及實際工作成果為準；不得因缺少重複證明而阻塞下一階段。
 - Stage 5 執行完整 QA；Stage 6 依 Stage 5 結果交付審核版。Stage 5–6 保留各自真正需要的 QA 與交付條件。
 
@@ -75,7 +75,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 總結／五層文字局部修正使用 DOM 局部更新器；不重跑行情、行事曆、新聞或完整 Builder，並保留非目標 DOM 指紋。
 
 ## 7. Stage 5 Builder 與 QA
-- Builder 只接受同一 Run 的 Stage 1–4 輸出、PASS 的 pre-build receipt、正式 Manifest、QA Contract 與 Stage 1 governance SHA snapshot；main Builder 必須通過 exact blob SHA owner approval。
+- Builder 只接受同一 Run 的 Stage 1–4 輸出、正式 Manifest、QA Contract 與 Stage 1 governance SHA snapshot；main Builder 必須通過 exact blob SHA owner approval。
 - 目前 SIM-1.4 核准 Builder 的來源 SHA 為 `6bf6eb2f5ae29774addf696c541c5b806953c7a3`，但其路徑與執行環境仍是 Simulation 專用；main 必須先完成路徑／依賴適配、測試與使用者核准前的技術驗證，不得直接把該 SHA 宣稱為 main Runner 已可用。
 - QA 四類：資料／內容、HTML 結構、視覺與互動、Run／交付整合。只跑必要且有區別的檢查，不無限加 Gate。
 - 未測試標 NOT_TESTED；不把缺值變成 0 或虛構成功。必要 Gate FAIL 不得 REVIEW_READY；非核心欄位缺漏可 PARTIAL 並繼續可完成工作。
@@ -143,7 +143,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md 的完整內容，並核對其版本／SHA；此分支只建立提示詞文件，不修改線上任務或排程。
 - 初始狀態由 Stage 1 與 run-context、fixture、Stage 1 receipt 同一 commit 提交：Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED。
 - 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL，且 PARTIAL 是終態，不得重新開啟。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、AWAITING_APPROVAL、PUBLISHED。Stage 5 PASS=REVIEW_READY；Stage 6 PASS=AWAITING_APPROVAL；DELIVERED_AND_PUBLICLY_VERIFIED 僅為 Stage 6 receipt status。
-- Stage 2 ChatGPT worker 僅提交 production/runs/<run_id>/market-history-web-observations.json 與必要 sidecar，不得 claim 或修改 run-state.json。GitHub workflow 的 accept_stage_submission.py 驗證 exact Run／Stage 1／WR／44 rows／FedWatch／SHA 後，由唯一 state writer 將 Stage 2 READY → RUNNING → SUBMITTED；Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
+- Stage 2 ChatGPT worker 僅提交 production/runs/<run_id>/market-history-web-observations.json 與必要 sidecar，不得 claim 或修改 run-state.json。GitHub workflow 的 accept_stage_submission.py 驗證 exact Run／Stage 1／WR／44 rows／FedWatch／SHA 後，由唯一 state writer 將 Stage 2 READY → RUNNING → SUBMITTED；Stage 2 Runner 依同一 Run 的 44 項資料及狀態完成行情快照，然後改為 PASS/PARTIAL。
 - Stage 3 只在 Stage 2 PASS/PARTIAL 後啟動；完成後將 Stage 3 改 PASS、Stage 4 設 READY。
 - Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、trading_date、market_snapshot_sha256 與 research_bundle_sha256。ChatGPT worker 僅提交完整內容並回讀 SHA，不得 claim 或修改 run-state.json；同一正式 workflow run 的 build-and-deliver job 呼叫 accept_stage_submission.py，由唯一 state writer 將 Stage 4 READY → RUNNING → SUBMITTED，再由 GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。Marker 僅作可選稽核標籤，不觸發 Workflow。
 - Stage 5 PASS 對應 QA receipt REVIEW_READY，Stage 5 PARTIAL 必須使 Stage 6=SKIPPED。Stage 2 PARTIAL 不得被 Stage 5 或 HTML Builder 覆蓋為 PASS。
