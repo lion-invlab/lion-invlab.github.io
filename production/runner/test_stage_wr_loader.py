@@ -35,7 +35,7 @@ class StageWRPreflightTests(unittest.TestCase):
     def test_missing_wr_blocks_work(self):
         (self.root/self.rel).unlink()
         with self.assertRaises(SystemExit):
-            stage_wr_loader.stage_wr_loader("STAGE_3")
+            stage_wr_loader.load_stage_wr("STAGE_3")
 
     def test_empty_wr_blocks_work(self):
         (self.root/self.rel).write_bytes(b"")
