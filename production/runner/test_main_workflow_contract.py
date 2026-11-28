@@ -13,6 +13,7 @@ class MainWorkflowContractTests(unittest.TestCase):
         self.assertIn("needs: [schedule-window, capture-and-calendar]",workflow)
         self.assertIn("needs['capture-and-calendar'].result == 'success'",workflow)
         self.assertIn("Resolve exact Run and wait for Stage 4 submission",workflow)
+        self.assertIn("Register current GitHub workflow attempt in Run state",workflow)
         self.assertNotIn("github.event_name == 'push' && contains(github.event.head_commit.message, '[tac-stage4-submit:')",workflow)
 
     def test_editorial_commit_is_not_a_workflow_trigger(self):
@@ -42,6 +43,8 @@ class MainWorkflowContractTests(unittest.TestCase):
             self.assertIn('"STAGE_2"',workflow)
             self.assertIn('"STAGE_3"',workflow)
             self.assertIn("resolve-main-run",workflow)
+            self.assertIn('state.get("workflow_run_id")',workflow)
+            self.assertNotIn('context.get("workflow_run_id")',workflow)
             self.assertNotIn("contains(github.event.workflow_run.head_commit.message, '[tac-stage4-submit:')",workflow)
 
     def test_chart3_bootstrap_shares_data_maintenance_lock(self):
