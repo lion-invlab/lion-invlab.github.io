@@ -54,6 +54,18 @@ def previous_week_start(day:date)->date:
     monday=day-timedelta(days=day.weekday())
     return monday-timedelta(days=7)
 
+def collect_legacy_prior_run_ids(runs_root:Path, report_date:date, run_id:str)->list[str]:
+    """Return same-report-date legacy Runs that have no authoritative run-state."""
+    prefix=f"TAC-{report_date.isoformat()}-"
+    result=[]
+    for path in Path(runs_root).glob(prefix+"*"):
+        if (path.is_dir() and path.name!=run_id
+                and (path/"run-context.json").is_file()
+                and not (path/"run-state.json").is_file()):
+            result.append(path.name)
+    return sorted(result)
+
+
 def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_run_id:str|None=None)->dict:
     stage1_wr = stage_wr_preflight("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
@@ -85,8 +97,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     weeks=[week_id(report_date)]
     if report_date.weekday()==0:
         weeks.append(week_id(previous_week_start(report_date)))
-    legacy_prior_run_ids=sorted(p.name for p in (ROOT/"production/runs").glob(f"TAC-{report_date.isoformat()}-*")
-                                if p.is_dir() and p.name!=run_id and (p/"run-context.json").is_file() and not (p/"run-state.json").is_file())
+    legacy_prior_run_ids=collect_legacy_prior_run_ids(ROOT/"production/runs",report_date,run_id)
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"
