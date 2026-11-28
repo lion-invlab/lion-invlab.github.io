@@ -239,8 +239,14 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             self.assertTrue(stage4_receipt["market_snapshot_unchanged"])
             self.assertEqual(stage4_receipt["editorial_run_binding"]["run_id"], run_id)
 
-            with patch.object(sys, "argv", ["run_stage5.py", "--run-dir", str(run_dir.relative_to(ROOT))]):
-                run_stage5.main()
+            try:
+                with patch.object(sys, "argv", ["run_stage5.py", "--run-dir", str(run_dir.relative_to(ROOT))]):
+                    run_stage5.main()
+            except Exception as exc:
+                diagnostics = []
+                for log_path in run_dir.glob("*validator.log"):
+                    diagnostics.append(f"\\n--- {log_path.name} ---\\n{log_path.read_text(encoding='utf-8', errors='replace')}")
+                raise AssertionError(f"Stage 5 synthetic E2E failed: {exc}" + "".join(diagnostics)) from exc
             state = json.loads((run_dir / "run-state.json").read_text(encoding="utf-8"))
             self.assertEqual(state["stages"]["STAGE_5"]["status"], "PASS")
             self.assertEqual(state["last_passed_stage"], "STAGE_5")
