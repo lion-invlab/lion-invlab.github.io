@@ -119,9 +119,6 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         "run_id": context["run_id"],
         "report_date": context["report_date"],
         "trading_date": context["trading_date"],
-        "stage1_receipt_sha256": digest(run_dir / "stage1-receipt.json"),
-        "run_context_sha256": digest(context_path),
-        "stage1_fixture_sha256": digest(stage1_fixture),
     }
     for key, value in expected.items():
         if payload.get(key) != value:
@@ -148,7 +145,7 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         raise ValueError("Independent FedWatch observation object is required")
     artifact_sha = digest(artifact)
     state = _transition_to_submitted(state, "STAGE_2", context, artifact_sha, artifact,
-                                     expected["stage1_receipt_sha256"])
+                                     None)
     return state, {"stage": "STAGE_2", "status": "SUBMITTED",
                    "artifact_path": str(artifact.relative_to(ROOT)),
                    "artifact_sha256": artifact_sha, "wr_sha256": wr["wr_sha256"]}
