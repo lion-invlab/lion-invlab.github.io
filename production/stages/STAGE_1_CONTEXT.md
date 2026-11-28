@@ -6,11 +6,11 @@
 
 ## 開工前讀取本階段 WR
 - 開始本階段工作前，完整讀取本文件（UTF-8）；確認內容可讀即可。
-- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA、Preflight receipt 或跨階段 WR 證明。
+- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA 或跨階段 WR 證明。
 - 讀取本階段 WR 後，直接依下列工作內容執行；完成即交付下一階段。
 
  
-Stage 1 自身必須先完整讀取本文件，完整讀取本文件後即可建立 Run。Stage 1 是輕量初始化：只允許 Python 標準函式庫與 Git 操作；建立及提交 Run handoff 前，禁止安裝 pandas、Playwright、Chromium、瀏覽器或 Stage 2–6 的任何重型依賴。Stage 1 必須在 Stage 2 喚醒前，將 run-context、Stage 1 fixture、report-data、Stage 1 receipt 與初始 run-state.json 一次提交至 main，並確認遠端可讀。Stage 2 不得在 Stage 1 之前預擷取。 Stage 1 是獨立且短時的 GitHub job：完成遠端提交及回讀後必須立即結束，不得等待 Stage 2 worker、不得安裝 Stage 2–6 依賴、不得執行 Stage 2／3。Stage 1 只需先讀取本文件，不設獨立 Preflight 關卡。
+Stage 1 自身必須先完整讀取本文件，完整讀取本文件後即可建立 Run。Stage 1 是輕量初始化：只允許 Python 標準函式庫與 Git 操作；建立及提交 Run handoff 前，禁止安裝 pandas、Playwright、Chromium、瀏覽器或 Stage 2–6 的任何重型依賴。Stage 1 必須在 Stage 2 喚醒前，將 run-context、Stage 1 fixture、report-data、Stage 1 receipt 與初始 run-state.json 一次提交至 main，並確認遠端可讀。Stage 2 不得在 Stage 1 之前預擷取。 Stage 1 是獨立且短時的 GitHub job：完成遠端提交及回讀後必須立即結束，不得等待 Stage 2 worker、不得安裝 Stage 2–6 依賴、不得執行 Stage 2／3。Stage 1 只需先讀取本文件，
 
 ## 輸入
 MASTER_WR、Stage 1 本身及 Stage 2–6 WR、共用 contracts、production/config/mother-template-manifest.json、雙母版、MOTHER_TEMPLATE_QA、報告日期及 main 行事曆 JSON。Stage 1 讀取自身規範是執行依據，不構成前置 Stage 依賴。
