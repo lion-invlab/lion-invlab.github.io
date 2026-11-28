@@ -96,7 +96,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 5 是本次 HTML 唯一 writer；Stage 6 是交付 sidecar 唯一 writer。
 
 ## 10. Run、恢復與效率
-- 每次唯一 Run ID 固定為 TAC-{report_date}-{workflow_run_id}，不得包含 workflow_run_attempt。綁定 report_date、Asia/Taipei、起始 main commit，以及 MASTER／六份 Stage WR／contracts／schemas／Manifest／母版／QA／Builder approval／Builder／Stage runners／依賴／Workflow 的 governance blob SHA。Retry／Resume 沿用原 Run ID；只有明確 rerun（新 workflow_run_id）才建立新 Run。Stage 5 必須比對全清單，禁止跨版本 Run。
+- 每次唯一 Run ID 固定為 TAC-{report_date}-{initial_workflow_run_id}，不得包含 workflow_run_attempt。initial_workflow_run_id 永久保存在不可變 run-context；run-state.workflow_run_id 代表目前／最近一次 workflow execution，並以 workflow_run_history 保留每次 attempt／recover。Retry／Resume 沿用原 Run ID；recover 即使是新的 workflow_dispatch workflow_run_id 也必須沿用同一 Run ID；只有明確 rerun 才建立新 Run。綁定 report_date、Asia/Taipei、起始 main commit，以及 MASTER／六份 Stage WR／contracts／schemas／Manifest／母版／QA／Builder approval／Builder／Stage runners／依賴／Workflow 的 governance blob SHA。Stage 5 必須比對全清單，禁止跨版本 Run。
 - 同一 report_date 不可有兩個並行正式 Run。
 - 每個 Stage 完成即保存輸出 SHA 與狀態；失敗只從最後有效 Stage 恢復。
 - 已鎖定行情不重抓；下游只讀快照。無關項目不因單項失敗停工。
