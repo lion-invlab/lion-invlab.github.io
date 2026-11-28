@@ -2,6 +2,7 @@
 """Synthetic integration test: Stage 1 -> Stage 2 worker submission/validation -> Stage 3."""
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -48,8 +49,23 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
 
             wr = stage_wr_preflight("STAGE_2", context)
             sample_data = json.loads((ROOT / "production/testdata/report-data-2026-11-24.json").read_text(encoding="utf-8"))
-            sample_data["risk"]["move"]["source"]["approved_backup_urls"] = ["https://www.tradingview.com/symbols/ICE-MOVE/"]
-            bundle = make_bundle(sample_data)
+            synthetic_seed = copy.deepcopy(json.loads((run_dir / "stage1-fixture.json").read_text(encoding="utf-8")))
+            # Keep current Main source policy/URLs from the blank-first Stage 1 fixture;
+            # import only synthetic numeric values from the historical test fixture.
+            for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
+                for name, item in synthetic_seed[group].items():
+                    old_source = (sample_data.get(group, {}).get(name) or {}).get("source") or {}
+                    source = item.setdefault("source", {})
+                    for field in ("close_value", "history_close", "score_value", "backup_source_score_value",
+                                  "daily_change_percent", "history_change", "band"):
+                        if old_source.get(field) is not None:
+                            source[field] = old_source[field]
+            for name, source in synthetic_seed["sector_sources"].items():
+                old_source = (sample_data.get("sector_sources") or {}).get(name) or {}
+                for field in ("history_close", "history_change"):
+                    if old_source.get(field) is not None:
+                        source[field] = old_source[field]
+            bundle = make_bundle(synthetic_seed)
             bundle.update({
                 "schema_version": "1.1",
                 "run_id": run_id,
