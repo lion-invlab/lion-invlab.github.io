@@ -31,6 +31,7 @@ class StageWRPreflightTests(unittest.TestCase):
         self.assertEqual(result["wr_bytes_read"],len(self.raw))
         self.assertTrue(result["rules_text_loaded"])
         self.assertNotIn("wr_git_blob_sha",result)
+        self.assertNotIn("wr_sha256",result)
 
     def test_missing_wr_blocks_work(self):
         (self.root/self.rel).unlink()
