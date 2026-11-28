@@ -290,6 +290,75 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     "status":"VERIFIED" if score_match and band_match else "OBSERVED_PENDING_FIELD_MAPPING",
                 })
                 return out
+            if row["group"]=="global_markets" and row["name"]=="日經225":
+                history_url=row["source_url"]
+                response=await page.goto(history_url,wait_until="domcontentloaded",timeout=timeout)
+                out.update({"navigation_http_status":response.status if response else None,
+                            "http_status":response.status if response else None,
+                            "page_title":await page.title(),"final_url":page.url,
+                            "source_page_fetched":False,"source_role":"PRIMARY",
+                            "read_method":"NIKKEI_OFFICIAL_HISTORICAL_AND_DAILY_SUMMARY"})
+                if not response or response.status<200 or response.status>=400:
+                    out.update({"status":"TOOL_READ_FAILURE","error":"NIKKEI_OFFICIAL_HISTORY_PAGE_UNREADABLE"})
+                    return out
+                body=await page.locator("body").inner_text()
+                if "Nikkei" not in out["page_title"] and "Nikkei 225" not in body:
+                    out.update({"status":"OBSERVED_PENDING_FIELD_MAPPING","error":"NIKKEI_HISTORY_IDENTITY_NOT_CONFIRMED"})
+                    return out
+                target_dt=datetime.strptime(target,"%Y-%m-%d")
+                date_label=target_dt.strftime("%b/%d/%Y")
+                rows=await page.locator("table tr").all_inner_texts()
+                selected=None
+                for line in rows:
+                    cells=[x.strip() for x in re.split(r"\\s{2,}|\\t",line) if x.strip()]
+                    if target_dt.strftime("%b/%d/%Y").lower() in line.lower() or target_dt.strftime("%b %d, %Y").lower() in line.lower():
+                        nums=re.findall(r"(?<![A-Za-z])[-+]?\\d[\\d,]*(?:\\.\\d+)?",line)
+                        if len(nums)>=4:
+                            selected={"row_text":line,"open":nums[-4],"high":nums[-3],"low":nums[-2],"close":nums[-1]}
+                            break
+                if selected is None:
+                    out.update({"source_page_fetched":True,"status":"SOURCE_NO_DATA",
+                                "read_status":"SOURCE_NO_DATA","page_body_excerpt":body[:1200]})
+                    return out
+                mmddyyyy=target_dt.strftime("%m%d%Y")
+                summary_url=f"https://indexes.nikkei.co.jp/en/nkave/archives/summary?dt={mmddyyyy}&idx=nk225"
+                summary=await context.new_page()
+                try:
+                    summary_response=await summary.goto(summary_url,wait_until="domcontentloaded",timeout=timeout)
+                    summary_body=await summary.locator("body").inner_text()
+                    summary_title=await summary.title()
+                finally:
+                    await summary.close()
+                if not summary_response or summary_response.status<200 or summary_response.status>=400:
+                    out.update({"source_page_fetched":True,"status":"TOOL_READ_FAILURE",
+                                "error":"NIKKEI_OFFICIAL_DAILY_SUMMARY_UNREADABLE","summary_url":summary_url})
+                    return out
+                if "Nikkei 225" not in summary_body or target_dt.strftime("%b %d, %Y").lower() not in summary_body.lower():
+                    out.update({"source_page_fetched":True,"status":"OBSERVED_PENDING_FIELD_MAPPING",
+                                "error":"NIKKEI_SUMMARY_IDENTITY_OR_DATE_NOT_CONFIRMED","summary_url":summary_url})
+                    return out
+                pct=re.search(r"([+-]\\d+(?:\\.\\d+)?)\\s*%",summary_body)
+                if not pct:
+                    out.update({"source_page_fetched":True,"status":"OBSERVED_PENDING_FIELD_MAPPING",
+                                "error":"NIKKEI_DAILY_CHANGE_NOT_FOUND","summary_url":summary_url})
+                    return out
+                out.update({"source_page_fetched":True,"instrument_identity":"Nikkei Stock Average (Nikkei 225)",
+                    "instrument_identity_status":"VERIFIED","observed_date":target,
+                    "observed_value":selected["close"],"observed_change":pct.group(1),
+                    "observed_value_field":"Official Nikkei Indexes Historical Data Close",
+                    "observed_change_field":"Official Nikkei Indexes Daily Summary change percent",
+                    "observed_ohlc":{k:selected[k] for k in ("open","high","low","close")},
+                    "observed_row_text":selected["row_text"],"summary_url":summary_url,
+                    "summary_page_title":summary_title,"summary_http_status":summary_response.status,
+                    "field_mapping_status":"VERIFIED","status":"VERIFIED",
+                    "display_value_match":row.get("expected_value") is None or number_token(selected["close"])==number_token(row.get("expected_value")),
+                    "display_change_match":row.get("expected_change") is None or number_token(pct.group(1))==number_token(row.get("expected_change")),
+                    "field_evidence":{
+                      "close":{"source_type":"NIKKEI_OFFICIAL_HISTORICAL_PAGE","source_url":history_url,"field_name":"Close","value":selected["close"]},
+                      "change":{"source_type":"NIKKEI_OFFICIAL_DAILY_SUMMARY","source_url":summary_url,"field_name":"Daily change percent","value":pct.group(1)}}})
+                if not out["display_value_match"] or not out["display_change_match"]:
+                    out["status"]="OBSERVED_PENDING_FIELD_MAPPING"
+                return out
             request_url=row.get("request_url") or row["source_url"]
             out["attempt_url"]=request_url
             response=await page.goto(request_url,wait_until="domcontentloaded",timeout=timeout)
