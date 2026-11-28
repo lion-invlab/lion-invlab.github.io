@@ -393,13 +393,38 @@ jobs:
           for attempt in $(seq 1 30); do
             git fetch origin main
             if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null; then
-              git merge --ff-only origin/main
-              FOUND=true
-              break
+              git show "origin/main:$OBSERVATION_PATH" > "$RUNNER_TEMP/stage2-observation-candidate.json"
+              if python - "$RUN_DIR" "$RUNNER_TEMP/stage2-observation-candidate.json" <<'PY'
+          import hashlib, json, subprocess, sys
+          from pathlib import Path
+          run=Path(sys.argv[1]); candidate=Path(sys.argv[2])
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
+          payload=json.loads(candidate.read_text(encoding="utf-8"))
+          expected={
+            "run_id":context["run_id"],
+            "report_date":context["report_date"],
+            "trading_date":context["trading_date"],
+            "stage1_receipt_sha256":hashlib.sha256((run/"stage1-receipt.json").read_bytes()).hexdigest(),
+            "run_context_sha256":hashlib.sha256((run/"run-context.json").read_bytes()).hexdigest(),
+            "stage1_fixture_sha256":hashlib.sha256((run/"stage1-fixture.json").read_bytes()).hexdigest(),
+          }
+          for key,value in expected.items():
+            if payload.get(key)!=value:
+              raise SystemExit(1)
+          pinned_wr=subprocess.check_output(["git","show",f"{context['main_commit_sha']}:production/stages/STAGE_2_MARKET.md"])
+          if payload.get("stage2_wr_sha256")!=hashlib.sha256(pinned_wr).hexdigest():
+            raise SystemExit(1)
+          PY
+              then
+                git merge --ff-only origin/main
+                FOUND=true
+                break
+              fi
+              echo "Ignoring date-global Observation that is not bound to Run $RUN_ID; continue waiting."
             fi
             sleep 30
           done
-          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 15 minutes."; exit 1; }
+          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish a Run-bound observation bundle within 15 minutes."; exit 1; }
           python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
           import hashlib, json, subprocess, sys
           from pathlib import Path
