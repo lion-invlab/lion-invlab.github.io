@@ -12,11 +12,11 @@
 
 ## 每次喚醒必做 Preflight
 
-1. 只讀 Main branch；完整讀取 `production/MASTER_WR.md`、`production/contracts/RUN_CONTRACT.md`、`production/contracts/HANDOFF_CONTRACT.md`、`production/contracts/STATUS_ENUM.json`。
+1. 只讀 Main branch；先讀取本文件 `production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md` 並確認版本為 v1.2；再完整讀取 `production/MASTER_WR.md`、`production/contracts/RUN_CONTRACT.md`、`production/contracts/HANDOFF_CONTRACT.md`、`production/contracts/STATUS_ENUM.json`。
 2. 完整讀取 `production/stages/STAGE_2_MARKET.md`。開始 Stage 4 前，另完整讀取 `production/stages/STAGE_4_NEWS_ANALYSIS.md`，並讀取同一 Run 的 `capture-stage-receipt.json` 中 `stage4_work_instructions.full_text`。
 3. 讀取 `production/runner/run_state.py`、`production/input/report-content.schema.json` 及當次 Run 的 governance pin；不得只看摘要。
 4. 取得 Main 最新 commit，尋找與本次排程 report_date 相符的唯一正式 Run。必須以 `run-state.json` 的 `run_id` 為唯一身分；不可用日期共用檔、舊 Run、Fixture 或 Preview 推測當次 Run。
-5. 核對 `run-context.json`、`stage1-fixture.json`、`report-data.json`、`stage1-receipt.json`、`run-state.json` 的 report_date、trading_date、run_id、SHA 及 Stage 1 PASS。Stage 2 WR SHA 必須等於 Stage 1 governance pin。
+5. 核對 `run-context.json`、`stage1-fixture.json`、`report-data.json`、`stage1-receipt.json`、`run-state.json` 的 report_date、trading_date、run_id、SHA 及 Stage 1 PASS。計算本文件的 Git blob SHA，必須等於 `run-context.governance_blob_shas["production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md"]`；Stage 2 WR SHA 亦必須等於 Stage 1 governance pin。任一不符即 DEFERRED，不得使用未 pin 的規則繼續。
 6. 若沒有唯一且完整的 Stage 1 handoff，最多自動重讀 5 分鐘。仍不存在時，將本次 Stage 2 設為 DEFERRED（若已存在 Run），保留原 Run ID，不得建立 Run、不得換用其他 Run、不得停用 Automation 或改排程；清楚回報原因。
 
 ## Stage 2｜44 項行情與 FedWatch
