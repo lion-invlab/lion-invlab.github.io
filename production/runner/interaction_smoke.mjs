@@ -174,16 +174,30 @@ try {
   if (await page.evaluate(() => location.hash) !== "#calendar") {
     throw new Error("navigation click did not move to #calendar");
   }
-  // The report-date "today" group can legitimately be empty. Switch to the
-  // upcoming group, which is part of the same authoritative week, before
-  // selecting its first visible event accordion.
-  const upcomingEconomicTab = page.locator('#calendar label[for="week-econ-upcoming"]');
-  if (await upcomingEconomicTab.count() !== 1) throw new Error("經濟行事曆即將公布分頁缺失");
-  await upcomingEconomicTab.click();
-  if (!(await page.locator("#calendar .week-econ-panels > .calendar-status-group:nth-child(2)").isVisible())) {
-    throw new Error("經濟行事曆即將公布分頁未顯示");
+  // Historical report dates can legitimately have all events marked released
+  // in the current read-only calendar DB. Exercise all three tabs, then toggle
+  // a card from the first non-empty authoritative status group; never assume
+  // that "upcoming" contains a card for a retrospective fixture.
+  const economicGroups = page.locator("#calendar .week-econ-panels > .calendar-status-group");
+  if (await economicGroups.count() !== 3) throw new Error("經濟行事曆必須保留三個狀態分頁");
+  const economicTabs = ["today", "upcoming", "published"];
+  let economicCardGroup = -1;
+  for (let i = 0; i < economicTabs.length; i++) {
+    const tab = page.locator('#calendar label[for="week-econ-' + economicTabs[i] + '"]');
+    if (await tab.count() !== 1) throw new Error("經濟行事曆分頁缺失：" + economicTabs[i]);
+    await tab.click();
+    const group = economicGroups.nth(i);
+    if (!(await group.isVisible())) throw new Error("經濟行事曆分頁未顯示：" + economicTabs[i]);
+    if (economicCardGroup < 0 && await group.locator("details.econ-event").count() > 0) {
+      economicCardGroup = i;
+    }
   }
-  detailsTests.push(await toggleDetails("#calendar .week-econ-panels > .calendar-status-group:nth-child(2) details.econ-event", ".econ-toggle"));
+  if (economicCardGroup < 0) throw new Error("三個經濟行事曆分頁均沒有可供互動驗收的事件卡");
+  await page.locator('#calendar label[for="week-econ-' + economicTabs[economicCardGroup] + '"]').click();
+  detailsTests.push(await toggleDetails(
+    "#calendar .week-econ-panels > .calendar-status-group:nth-child(" + (economicCardGroup + 1) + ") details.econ-event",
+    ".econ-toggle"
+  ));
   detailsTests.push(await toggleDetails("details.sector-collapse"));
 
   const focusLinks = await page.locator("#global-focus .newsmeta a[href]").evaluateAll(
