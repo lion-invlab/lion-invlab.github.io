@@ -58,6 +58,18 @@ def validate_stage5_handoff(stage5:dict, qa_doc:dict, render_doc:dict, context:d
             or binding.get("research_bundle_sha256")!=stage5.get("research_bundle_sha256")):
         raise ValueError("Stage 5 editorial evidence does not match Stage 4 receipt")
 
+
+def validate_preview_change_set(changed_paths, report_path: str, qa_path: str, delivery_path: str) -> None:
+    """Require the Stage 6 payload commit to contain exactly its three approved preview paths."""
+    expected = {report_path, qa_path, delivery_path}
+    actual = list(changed_paths)
+    if len(actual) != 3 or len(set(actual)) != 3 or set(actual) != expected:
+        raise ValueError(f"Stage 6 payload path allowlist violation: {actual}")
+    if any(path == "index.html" or path.startswith("history/") or
+           path.startswith("data/calendar/weeks/") or path.startswith("production/templates/") or
+           path == "production/config/mother-template-manifest.json" for path in actual):
+        raise ValueError(f"Stage 6 protected path modification rejected: {actual}")
+
 def validate_existing_preview_triplet(worktree:Path, report_path:str, qa_path:str, delivery_path:str, context:dict)->bool:
     """Allow replacement only when all existing preview files prove the exact same delivered Run."""
     paths=(report_path,qa_path,delivery_path)
@@ -191,14 +203,18 @@ def main():
         write_json(worktree/delivery_path,delivery)
         git(["add","--",report_path,qa_path,delivery_path],worktree)
         staged=git(["diff","--cached","--name-only"],worktree).splitlines()
-        if set(staged)!=set((report_path,qa_path,delivery_path)) or len(staged)!=3:
-            raise SystemExit(f"Stage 6 payload path allowlist violation: {staged}")
+        try:
+            validate_preview_change_set(staged,report_path,qa_path,delivery_path)
+        except ValueError as exc:
+            raise SystemExit(str(exc))
         git(["commit","-m",f"docs(preview): deliver TAC review {report_date}"],worktree)
         payload_commit=git(["rev-parse","HEAD"],worktree)
         git(["push","origin","HEAD:main"],worktree)
         payload_changed=git(["diff","--name-only",base,payload_commit],worktree).splitlines()
-        if set(payload_changed)!=set((report_path,qa_path,delivery_path)) or len(payload_changed)!=3:
-            raise SystemExit(f"Stage 6 payload commit changed files outside allowlist: {payload_changed}")
+        try:
+            validate_preview_change_set(payload_changed,report_path,qa_path,delivery_path)
+        except ValueError as exc:
+            raise SystemExit(f"Stage 6 payload commit changed files outside allowlist: {exc}")
         for path,expected in ((report_path,html_raw),(qa_path,qa_bytes),(delivery_path,(worktree/delivery_path).read_bytes())):
             actual=subprocess.run(["git","show",f"{payload_commit}:{path}"],cwd=worktree,check=True,capture_output=True).stdout
             if actual!=expected:raise SystemExit(f"Payload commit bytes mismatch: {path}")

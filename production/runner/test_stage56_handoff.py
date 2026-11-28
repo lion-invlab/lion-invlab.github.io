@@ -74,6 +74,60 @@ class Stage56HandoffTests(unittest.TestCase):
             validate_stage5_handoff(s5,qa,render,CONTEXT,"c"*64,"e"*64,stage4(),"1"*64)
 
 
+
+    def test_stage6_payload_change_set_accepts_only_three_preview_files(self):
+        from run_stage6 import validate_preview_change_set
+        expected = allowed_paths(CONTEXT["report_date"], CONTEXT)
+        validate_preview_change_set(expected, *expected)
+
+    def test_stage6_payload_change_set_rejects_homepage_calendar_archive_and_template(self):
+        from run_stage6 import validate_preview_change_set
+        expected = allowed_paths(CONTEXT["report_date"], CONTEXT)
+        for protected in ("index.html", "history/2026-11-26.html",
+                          "data/calendar/weeks/2026-W48.json",
+                          "production/templates/monday-mother-template.html",
+                          "production/config/mother-template-manifest.json"):
+            with self.subTest(protected=protected):
+                with self.assertRaisesRegex(ValueError, "allowlist violation"):
+                    validate_preview_change_set([*expected[:2], protected], *expected)
+
+    def test_stage6_payload_change_set_rejects_missing_duplicate_and_unexpected_paths(self):
+        from run_stage6 import validate_preview_change_set
+        expected = allowed_paths(CONTEXT["report_date"], CONTEXT)
+        cases = ([*expected[:2]], [expected[0], expected[0], expected[2]],
+                 [*expected[:2], "preview/main/other-review.html"])
+        for paths in cases:
+            with self.subTest(paths=paths):
+                with self.assertRaisesRegex(ValueError, "allowlist violation"):
+                    validate_preview_change_set(paths, *expected)
+
+    def test_stage6_preview_payload_does_not_mutate_protected_files_in_isolated_tree(self):
+        import tempfile
+        from pathlib import Path
+        from run_stage6 import validate_preview_change_set
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            protected = {
+                "index.html": b"official homepage baseline",
+                "data/calendar/weeks/2026-W48.json": b"calendar baseline",
+                "production/templates/monday-mother-template.html": b"monday mother baseline",
+                "production/templates/weekday-mother-template.html": b"weekday mother baseline",
+                "production/config/mother-template-manifest.json": b"manifest baseline",
+                "history/2026-11-26.html": b"history baseline",
+            }
+            for rel, raw in protected.items():
+                target = root / rel
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(raw)
+            expected = allowed_paths(CONTEXT["report_date"], CONTEXT)
+            (root / expected[0]).parent.mkdir(parents=True, exist_ok=True)
+            (root / expected[0]).write_bytes(b"synthetic review bytes")
+            (root / expected[1]).write_bytes(b'{"status":"REVIEW_READY"}')
+            (root / expected[2]).write_bytes(b'{"status":"PAGES_DEPLOY_PENDING"}')
+            validate_preview_change_set(expected, *expected)
+            for rel, raw in protected.items():
+                self.assertEqual((root / rel).read_bytes(), raw, rel)
+
     def test_stage6_accepts_only_complete_same_run_verified_existing_triplet(self):
         import hashlib, json, tempfile
         from pathlib import Path
