@@ -570,6 +570,7 @@ jobs:
             "run_id":context["run_id"],"report_date":context["report_date"],
             "supersedes_run_id":context.get("supersedes_run_id"),
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
+            "stage3_receipt_sha256":__import__("hashlib").sha256((run/"stage3-calendar-receipt.json").read_bytes()).hexdigest(),
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
             "chart3_handoff":summary.get("chart3_handoff"),
             "research_bundle_path":f"{run.as_posix()}/stage4-research-bundle.json",
@@ -587,6 +588,7 @@ jobs:
                 "run_id":context["run_id"],
                 "report_date":context["report_date"],
                 "market_snapshot_sha256":summary["market_snapshot_sha256"],
+                "stage3_receipt_sha256":receipt["stage3_receipt_sha256"],
                 "research_bundle_sha256":receipt["research_bundle_sha256"],
               }
               for key,value in checks.items():
