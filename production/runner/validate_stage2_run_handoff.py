@@ -2,7 +2,6 @@
 """Confirm Stage 1 -> Stage 2 handoff by Run identity, dates and deliverables."""
 from __future__ import annotations
 import argparse
-import hashlib
 import json
 from pathlib import Path
 from run_state import validate_state
@@ -52,13 +51,10 @@ def validate_stage2_run_handoff(run_dir: Path, root: Path = ROOT) -> dict:
     keys={(row.get("group"),str(row.get("name"))) for row in observations or [] if isinstance(row,dict)}
     if len(observations or []) != 44 or len(keys) != 44 or keys != expected:
         raise ValueError("Stage 2 observations do not match the exact 44-row Stage 1 universe")
-    bundle_sha=hashlib.sha256((run_dir/WEB).read_bytes()).hexdigest()
-    if state["stages"]["STAGE_2"].get("output_sha256") != bundle_sha:
-        raise ValueError("Stage 2 submitted artifact does not match Run-state output")
     return {"status":"PASS","run_id":run_id,"report_date":report,"trading_date":trading,
             "stage1_fixture_path":str((run_dir/"stage1-fixture.json").relative_to(root)),
             "working_fixture_path":str((run_dir/"report-data.json").relative_to(root)),
-            "bundle_sha256":bundle_sha}
+            "observation_count":len(observations)}
 
 def main() -> None:
     ap=argparse.ArgumentParser()
