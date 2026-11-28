@@ -3,11 +3,11 @@
   "calendar_database": {
     "local_time": "04:35",
     "days": [
-      "MO",
       "TU",
       "WE",
       "TH",
-      "FR"
+      "FR",
+      "SA"
     ],
     "workflow": "existing calendar updater",
     "writes": [
@@ -16,31 +16,53 @@
     "exclusive_writer": true
   },
   "daily_report": {
-    "local_time": "05:25",
-    "days": [
-      "MO",
+    "timezone": "Asia/Taipei",
+    "production_days": [
       "TU",
       "WE",
       "TH",
-      "FR"
+      "FR",
+      "SA"
     ],
+    "stage1_start_local": {
+      "winter": "04:45",
+      "summer": "03:45"
+    },
+    "stage2_worker_local": {
+      "winter": "05:00",
+      "summer": "04:00"
+    },
+    "preview_delivery_target_local": {
+      "winter": "05:30",
+      "summer": "04:30"
+    },
     "workflow": ".github/workflows/tac-production.yml",
-    "entrypoint": "production/runner/run_daily_report.py",
-    "exclusive_writer": true,
-    "report_date_timezone": "Asia/Taipei"
+    "stage1_entrypoint": "production/runner/create_run_fixture.py",
+    "stages": [
+      "Stage 1",
+      "Stage 2",
+      "Stage 3",
+      "Stage 4",
+      "Stage 5",
+      "Stage 6"
+    ],
+    "production_date_timezone": "Asia/Taipei",
+    "report_date_timezone": "Asia/Taipei",
+    "saturday_rule": "Saturday production_date creates next Monday report_date, uses Monday mother and reads report week plus previous week calendar JSON.",
+    "exclusive_writer": true
   },
   "chart3": {
     "local_time": "05:30",
     "days": [
-      "MO",
       "TU",
       "WE",
       "TH",
-      "FR"
+      "FR",
+      "SA"
     ],
-    "workflow": "existing Chart 3 updater",
-    "scope": "FRED/ALFRED series update only; must not compete with Stage 2 S&P 500 increment writer"
+    "workflow": "TAC Chart 3 downstream workflow and monitor",
+    "scope": "Downstream only; Stage 2 is the sole S&P 500 daily increment writer. Chart 3 merge/monitor must not block Stage 4-6 or compete with the Stage 2 writer."
   },
   "cutover_status": "NOT_CUT_OVER",
-  "rule": "Do not change or enable schedules until Phase 5 real-data E2E passes and Phase 6 cutover is explicitly executed."
+  "rule": "This file documents the approved Taiwan production cadence. Do not change live GitHub schedules, enable/switch formal production, or publish the homepage until deterministic validation, real-data E2E, and explicit owner cutover approval are complete."
 }
