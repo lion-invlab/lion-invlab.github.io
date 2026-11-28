@@ -3,7 +3,7 @@ import json, os, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 from builder_approval import current_governance_blob_shas
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_loader import load_stage_wr
 RUNNER=ROOT/"production/runner"
 
 class Stage3CalendarTests(unittest.TestCase):
@@ -24,9 +24,8 @@ class Stage3CalendarTests(unittest.TestCase):
             (run_dir/"stage1-receipt.json").write_text(json.dumps(stage1_receipt),encoding="utf-8")
             import hashlib
             state=initial_run_state(context,stage1_receipt,hashlib.sha256((run_dir/"stage1-receipt.json").read_bytes()).hexdigest())
-            stage2_wr=stage_wr_preflight("STAGE_2",context)
-            stage2_receipt={"status":"PASS","run_id":run_dir.name,"wr_preflight":stage2_wr,
-                "worker_wr_attestation":{"status":"PASS","stage2_wr_sha256":stage2_wr["wr_sha256"]}}
+            stage2_wr=load_stage_wr("STAGE_2",context)
+            stage2_receipt={"status":"PASS","run_id":run_dir.name,"stage_wr_loaded":stage2_wr}
             (run_dir/"stage2-market-snapshot-receipt.json").write_text(json.dumps(stage2_receipt),encoding="utf-8")
             state=transition_state(state,stage="STAGE_2",expected_version=state["state_version"],expected_status="READY",
                 new_status="RUNNING",lease_owner="test-stage2",lease_expires_at="2026-11-28T00:10:00Z")
