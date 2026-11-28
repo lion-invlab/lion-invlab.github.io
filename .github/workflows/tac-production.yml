@@ -462,7 +462,7 @@ jobs:
       run_id: ${{ needs['stage1-create-run'].outputs.run_id }}
       report_date: ${{ needs['stage1-create-run'].outputs.report_date }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 35
     permissions:
       contents: write
     concurrency:
