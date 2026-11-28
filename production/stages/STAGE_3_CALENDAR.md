@@ -3,7 +3,7 @@
 
 ## 開工前讀取本階段 WR
 - 開始本階段工作前，完整讀取本文件（UTF-8）；確認內容可讀即可。
-- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA、Preflight receipt 或跨階段 WR 證明。
+- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA 或跨階段 WR 證明。
 - 讀取本階段 WR 後，直接依下列工作內容執行；完成即交付下一階段。
 
  
