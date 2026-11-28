@@ -1,5 +1,5 @@
 # Stage 2｜44 項行情及獨立 FedWatch
-版本：Main E2E v1.2（2026-11-28）
+版本：Main E2E v1.3（2026-11-28）
 
 ## 開工前強制 WR Preflight
 - Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
@@ -21,7 +21,7 @@ Stage 2 必須先完整讀取本文件及完成 WR Preflight，才可建立／�
 - 能源與金屬期貨（WTI、Brent、Gold、Silver）必須從 Investing.com 歷史頁標題擷取當前選定合約的完整 `contract_label`（含合約月份與頁面顯示代碼），寫入該 observation 的 `contract_label`；`page_title` 必須保留完整商品標題。不得自行推算月份、只填通用商品名稱，或用前一 Run 的合約標籤。Stage 2 populate fixture 會將本輪 `contract_label` 寫入報告資料，供快照驗證與商品名稱顯示。
 - Observation bundle 根層必須包含同一 Run 的 `run_id`、`stage1_receipt_sha256`、`run_context_sha256`、`stage1_fixture_sha256`；另包含獨立的 `fedwatch` 物件（不計入 44 列）：`status`、`source_name`、`source_url`、`report_date`、`trading_date`、`captured_at_utc`、`target_meeting`、`current_target_range`、`updated_at_tw`、`probabilities`、`web_reader_ref`、`web_line_start`、`web_line_end`、`reason`、`stage2_wr_sha256`。主來源固定 Investing.com Fed Rate Monitor；已核實時逐一記錄頁面顯示的 outcome、rate_range、probability，機率總和須為 100%；無法讀取或沒有可用資料時，明確標示 TOOL_READ_FAILURE／SOURCE_NO_DATA，probabilities 留空並寫明原因，不得沿用舊機率或推估。
 - Stage 2 Runner 必須將 FedWatch 物件寫入 Run 的 `report-data.json`，並將狀態及 observation SHA 寫入 Stage 2 receipt／summary；不得讓模板中的空 `fedwatch: {}` 靜默流入 Builder。
-- ChatGPT Stage 2 worker 只負責提交 Run-scoped Observation 與必要 sidecar，並回讀確認檔案 SHA；不得直接修改 run-state.json。唯一 Main GitHub production workflow 在取得最新 Main 後呼叫 `accept_stage_submission.py --stage STAGE_2`，驗證同一 Run 的 Stage 1 三檔 SHA、Stage 2 WR SHA、Schema、44 個唯一列及 FedWatch，然後由單一 writer 將 Stage 2 依 READY → RUNNING → SUBMITTED 寫入 run-state.json，output_sha256 必須等於 Observation 完整 bytes SHA。Stage 2 Runner 只接受同一 Run 的 SUBMITTED 狀態及完全相符的 Observation SHA；完成驗證及凍結後，由 Runner 將 Stage 2 改為 PASS 或 PARTIAL，並記錄 Stage 2 receipt SHA。Stage 2 Runner 會將本文件 SHA 與 Stage 1 pinned WR 版本比對；缺漏或不符即拒絕 44 項觀察輸入，不進入行情合併。 將同一 Run 的 Stage 2 狀態由 READY 改為 RUNNING；Observation 與必要 sidecar 全部提交後，計算 Observation SHA，再將 Stage 2 改為 SUBMITTED，並將該 SHA 寫入 run-state.json。Stage 2 Runner 只接受同一 Run 的 SUBMITTED 狀態及完全相符的 Observation SHA；完成驗證及凍結後，由 Runner 將 Stage 2 改為 PASS 或 PARTIAL，並記錄 Stage 2 receipt SHA。Stage 2 Runner 會將本文件 SHA 與 Stage 1 pinned WR 版本比對；缺漏或不符即拒絕 44 項觀察輸入，不進入行情合併。
+- ChatGPT Stage 2 worker 只負責提交 Run-scoped Observation 與必要 sidecar，並回讀確認檔案 SHA；不得直接修改 run-state.json。唯一 Main GitHub production workflow 在取得最新 Main 後呼叫 `accept_stage_submission.py --stage STAGE_2`，驗證同一 Run 的 Stage 1 三檔 SHA、Stage 2 WR SHA、Schema、44 個唯一列及 FedWatch，然後由單一 writer 將 Stage 2 依 READY → RUNNING → SUBMITTED 寫入 run-state.json，output_sha256 必須等於 Observation 完整 bytes SHA。Stage 2 Runner 只接受同一 Run 的 SUBMITTED 狀態及完全相符的 Observation SHA；完成驗證及凍結後，由 Runner 將 Stage 2 改為 PASS 或 PARTIAL，並記錄 Stage 2 receipt SHA。Stage 2 Runner 會將本文件 SHA 與 Stage 1 pinned WR 版本比對；缺漏或不符即拒絕 44 項觀察輸入，不進入行情合併。
 
 ## 輸入
 Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_POLICY.md`、選定母版欄位、當日使用者截圖 sidecar（若存在）。
@@ -56,10 +56,10 @@ market fixture、44-row Observation bundle、source manifest、metadata audit、
 - Fixture bootstrap 與 Source Verification Manifest 必須採用同一套 `closure_evidence_*` 欄位，不得一端要求 `market_calendar_*` 別名而另一端只產生 `closure_evidence_*`。
 - Schema 已列明上述欄位；測試需涵蓋無證據、非官方網域及完整官方證據三種情境。
 
-## Main Run state contract v1.2
+## Main Run state contract v1.3
 - Stage 2 只能操作 Stage 1 明確建立的同一 run_id；不得以 report_date 單獨識別 Run，不得自行建立新 Run。
-- Stage 2=READY 時以 compare-and-swap claim RUNNING，寫入 attempt、started_at、lease_owner、lease_expires_at、input_sha256 及 state_version。若為 DEFERRED，依 state machine 回 READY；若 RUNNING，必須先確認 lease 到期才能接管；FAILED 僅能在 Stage 3 尚未啟動時以 recovery=true 回 READY。
-- Stage 2 Observation 唯一路徑為 `production/runs/<run_id>/market-history-web-observations.json`；所有截圖、CNN sidecar 與原圖亦須位於同一 Run 目錄。ChatGPT worker 提交後讀回並計算 SHA；由 Main GitHub workflow 的 handoff acceptor 更新 Stage 2 為 SUBMITTED，output_sha256 必須等於 Observation 完整 bytes SHA。、CNN sidecar 與原圖亦須位於同一 Run 目錄。提交後讀回並計算 SHA，再將 Stage 2 改為 SUBMITTED，output_sha256 必須等於 Observation 完整 bytes SHA。
+- ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 2=READY 時可擷取；Stage 2=DEFERRED 且同一 Run 前置條件已具備時可提交 Observation，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時只驗證既有 SHA；PASS/PARTIAL 時不得重做；FAILED 只等待已核准的 GitHub recover 流程。
+- Stage 2 Observation 唯一路徑為 `production/runs/<run_id>/market-history-web-observations.json`；所有截圖、CNN sidecar 與原圖亦須位於同一 Run 目錄。ChatGPT worker 提交後讀回並計算 SHA；由 Main GitHub workflow 的 handoff acceptor 更新 Stage 2 為 SUBMITTED，output_sha256 必須等於 Observation 完整 bytes SHA。
 - Stage 2 Runner 只接受相同 Run 的 SUBMITTED，驗證成功後才改 PASS/PARTIAL 並寫入 receipt SHA。ChatGPT worker 不得修改任何 Stage 狀態；若 Runner 尚未完成，不得重抓或自行推進狀態。
 - PARTIAL 是終態，不得重新開啟；未核實欄位必須保留明確狀態，不得以其他 Run 或舊日期資料補值。
 - Stage 2 完成後由 GitHub capture job 自動接續 Stage 3；worker 只讀取狀態等待 Stage 3 PASS，不得自行執行 Stage 3、改寫行事曆 DB 或建立第二套 receipt。
