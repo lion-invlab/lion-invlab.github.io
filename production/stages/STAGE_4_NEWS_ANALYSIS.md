@@ -1,4 +1,5 @@
 # Stage 4｜新聞與市場分析
+版本：Main E2E v1.2（2026-11-28）
 
 ## 開工前必讀
 - Stage 4 Runner 必須先完整讀取本文件，並以 Stage 1 governance pin 核對 Git blob SHA；完成 preflight 前不得讀取／合併編輯輸入或產生分析輸出。
