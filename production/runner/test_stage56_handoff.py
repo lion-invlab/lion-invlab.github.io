@@ -128,6 +128,80 @@ class Stage56HandoffTests(unittest.TestCase):
             for rel, raw in protected.items():
                 self.assertEqual((root / rel).read_bytes(), raw, rel)
 
+
+    def test_stage6_pages_wait_selects_only_new_dispatch_for_exact_payload_commit(self):
+        from run_stage6 import wait_for_pages_success
+        old_ids={10,11}
+        docs=[
+            {"workflow_runs":[
+                {"id":10,"head_sha":"payload","event":"workflow_dispatch","status":"completed","conclusion":"success"},
+                {"id":12,"head_sha":"other","event":"workflow_dispatch","status":"completed","conclusion":"success"},
+                {"id":13,"head_sha":"payload","event":"push","status":"completed","conclusion":"success"},
+                {"id":14,"head_sha":"payload","event":"workflow_dispatch","status":"in_progress"},
+            ]},
+            {"workflow_runs":[
+                {"id":14,"head_sha":"payload","event":"workflow_dispatch","status":"completed","conclusion":"success",
+                 "created_at":"2026-11-28T06:00:00Z"}
+            ]}
+        ]
+        sleeps=[]
+        result=wait_for_pages_success(old_ids,"payload",lambda:docs.pop(0),sleeps.append,timeout_seconds=30,poll_seconds=5)
+        self.assertEqual(result["id"],14)
+        self.assertEqual(sleeps,[5])
+
+    def test_stage6_pages_wait_rejects_failed_dispatch(self):
+        from run_stage6 import wait_for_pages_success
+        with self.assertRaisesRegex(SystemExit,"without success"):
+            wait_for_pages_success(set(),"payload",lambda:{"workflow_runs":[
+                {"id":21,"head_sha":"payload","event":"workflow_dispatch","status":"completed","conclusion":"failure"}
+            ]},lambda _:None,timeout_seconds=30)
+
+    def test_stage6_pages_wait_times_out_without_matching_dispatch(self):
+        from run_stage6 import wait_for_pages_success
+        ticks=iter([0,0,0,2,2,2,4,4,4])
+        with self.assertRaisesRegex(SystemExit,"timeout"):
+            wait_for_pages_success(set(),"payload",lambda:{"workflow_runs":[]},lambda _:None,
+                                   timeout_seconds=3,poll_seconds=1,clock=lambda:next(ticks))
+
+    def test_stage6_public_preview_verifies_http_date_bytes_and_run(self):
+        from run_stage6 import verify_public_preview
+        from io import BytesIO
+        html=b"<html><head><meta name='report-date' content='2026-11-30'></head><body>RUN-MONDAY-1</body></html>"
+        class FakeResponse:
+            status=200
+            def __enter__(self):return self
+            def __exit__(self,*args):return False
+            def read(self):return html
+        seen={}
+        def opener(request,timeout):
+            seen["url"]=request.full_url
+            seen["timeout"]=timeout
+            return FakeResponse()
+        result=verify_public_preview("https://example.test/review.html","2026-11-30","RUN-MONDAY-1",html,opener)
+        self.assertEqual(result["http_status"],200)
+        self.assertEqual(result["html_sha256"],__import__("hashlib").sha256(html).hexdigest())
+        self.assertEqual(seen["timeout"],30)
+
+    def test_stage6_public_preview_rejects_wrong_date_bytes_and_run(self):
+        from run_stage6 import verify_public_preview
+        cases=[
+            (200,b"<meta name='report-date' content='2026-11-29'>RUN-MONDAY-1","date"),
+            (200,b"<meta name='report-date' content='2026-11-30'>OTHER-RUN","bytes"),
+            (200,b"<meta name='report-date' content='2026-11-30'>WRONG-RUN","Run ID"),
+            (404,b"<meta name='report-date' content='2026-11-30'>RUN-MONDAY-1","HTTP/date"),
+        ]
+        for status,body,message in cases:
+            with self.subTest(message=message):
+                class FakeResponse:
+                    def __enter__(self):return self
+                    def __exit__(self,*args):return False
+                    def read(self):return body
+                FakeResponse.status=status
+                with self.assertRaisesRegex(SystemExit,message):
+                    verify_public_preview("https://example.test/review.html","2026-11-30","RUN-MONDAY-1",
+                                          b"<meta name='report-date' content='2026-11-30'>RUN-MONDAY-1",
+                                          lambda request,timeout:FakeResponse())
+
     def test_stage6_accepts_only_complete_same_run_verified_existing_triplet(self):
         import hashlib, json, tempfile
         from pathlib import Path

@@ -31,6 +31,43 @@ def gh(args:list[str],env:dict)->dict:
     p=subprocess.run(["gh","api",*args],cwd=ROOT,text=True,capture_output=True,env=env)
     if p.returncode:raise RuntimeError(f"gh api {' '.join(args)} failed: {p.stderr.strip()}")
     return json.loads(p.stdout or "{}")
+
+def wait_for_pages_success(old_ids, payload_commit, list_runs, sleep_fn, timeout_seconds=1200,
+                           poll_seconds=15, clock=time.monotonic):
+    """Wait for the Pages workflow dispatched for this exact payload commit."""
+    deadline=clock()+timeout_seconds
+    while clock()<deadline:
+        doc=list_runs()
+        matches=[x for x in doc.get("workflow_runs",[])
+                 if x.get("id") not in old_ids
+                 and x.get("head_sha")==payload_commit
+                 and x.get("event")=="workflow_dispatch"]
+        if matches:
+            run=sorted(matches,key=lambda x:x.get("created_at",""),reverse=True)[0]
+            if run.get("status")=="completed":
+                if run.get("conclusion")!="success":
+                    raise SystemExit("Pages deployment completed without success")
+                return run
+        sleep_fn(poll_seconds)
+    raise SystemExit("Pages deployment did not complete successfully before timeout")
+
+
+def verify_public_preview(preview_url, report_date, run_id, expected_html, opener):
+    """Verify public response status, report date, byte identity, and Run provenance."""
+    request=urllib.request.Request(
+        preview_url,headers={"User-Agent":"TAC-Stage6-Preview-Verification/1.0"})
+    with opener(request,timeout=30) as response:
+        public_bytes=response.read()
+        public_html=public_bytes.decode("utf-8","replace")
+        public_meta=BeautifulSoup(public_html,"html.parser").select_one('meta[name="report-date"]')
+        if response.status!=200 or public_meta is None or public_meta.get("content")!=report_date:
+            raise SystemExit("Public preview HTTP/date verification failed")
+        if sha(public_bytes)!=sha(expected_html):
+            raise SystemExit("Public preview HTML bytes do not match Stage 5 artifact")
+        if run_id not in public_html:
+            raise SystemExit("Public preview does not expose expected Run ID provenance")
+        return {"http_status":response.status,"html_sha256":sha(public_bytes),"html_bytes":public_bytes}
+
 def validate_stage5_handoff(stage5:dict, qa_doc:dict, render_doc:dict, context:dict,
                             html_sha256:str, render_sha256:str, stage4_doc:dict,
                             stage4_sha256:str)->None:
@@ -230,27 +267,14 @@ def main():
         before=gh([f"repos/{REPO}/actions/workflows/pages.yml/runs?branch=main&per_page=20"],env)
         old_ids={x["id"] for x in before.get("workflow_runs",[])}
         subprocess.run(["gh","api","-X","POST",f"repos/{REPO}/actions/workflows/pages.yml/dispatches","-f","ref=main"],cwd=ROOT,env=env,check=True,capture_output=True,text=True)
-        deadline=time.time()+a.pages_timeout_seconds
-        pages_run=None
-        while time.time()<deadline:
-            doc=gh([f"repos/{REPO}/actions/workflows/pages.yml/runs?branch=main&per_page=20"],env)
-            matches=[x for x in doc.get("workflow_runs",[]) if x["id"] not in old_ids and x.get("head_sha")==payload_commit and x.get("event")=="workflow_dispatch"]
-            if matches:
-                pages_run=sorted(matches,key=lambda x:x.get("created_at",""),reverse=True)[0]
-                if pages_run.get("status")=="completed":break
-            time.sleep(15)
-        if not pages_run or pages_run.get("status")!="completed" or pages_run.get("conclusion")!="success":
-            raise SystemExit("Pages deployment did not complete successfully before timeout")
+        pages_run=wait_for_pages_success(
+            old_ids,payload_commit,
+            lambda:gh([f"repos/{REPO}/actions/workflows/pages.yml/runs?branch=main&per_page=20"],env),
+            time.sleep,timeout_seconds=a.pages_timeout_seconds)
         preview_url=f"https://lion-invlab.github.io/{report_path}"
-        req=urllib.request.Request(preview_url,headers={"User-Agent":"TAC-Stage6-Preview-Verification/1.0"})
-        with urllib.request.urlopen(req,timeout=30) as response:
-            public_bytes=response.read()
-            public_html=public_bytes.decode("utf-8","replace")
-            public_meta=BeautifulSoup(public_html,"html.parser").select_one('meta[name="report-date"]')
-            if response.status!=200 or public_meta is None or public_meta.get("content")!=report_date:
-                raise SystemExit("Public preview HTTP/date verification failed")
-            if sha(public_bytes)!=sha(html_raw):raise SystemExit("Public preview HTML bytes do not match Stage 5 artifact")
-            if context["run_id"] not in public_html:raise SystemExit("Public preview does not expose expected Run ID provenance")
+        public_result=verify_public_preview(
+            preview_url,report_date,context["run_id"],html_raw,urllib.request.urlopen)
+        public_bytes=public_result["html_bytes"]
         qa_doc["delivery"].update({"status":"DELIVERED_AND_PUBLICLY_VERIFIED","payload_commit_sha":payload_commit,
             "pages_workflow_run_id":pages_run["id"],"pages_workflow_conclusion":pages_run["conclusion"],
             "preview_url":preview_url,"public_url_verified":True,"public_html_sha256":sha(public_bytes),
