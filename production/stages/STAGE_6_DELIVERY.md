@@ -22,3 +22,10 @@ Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、pre
 
 ## 輸出
 main/preview 三檔、遠端回讀 SHA、Pages workflow run、公開 URL 驗證證據、delivery receipt。
+
+
+## Main Run state contract v1.2
+- Stage 6 必須確認同一 Run 的 Stage 5=PASS、QA receipt=REVIEW_READY，且 Stage 6=READY。Stage 5 PARTIAL 時 Stage 6 必須 SKIPPED，不得建立 Preview 三檔或啟動 Pages。
+- Stage 6 Runner 以 compare-and-swap 將 Stage 6 改為 RUNNING；只有在三檔 Preview bytes／Git blob SHA、Pages deployment 對應 commit 及公開 URL 全部核實後，才寫入 stage6-delivery-receipt.json 並將 Stage 6 改為 PASS。
+- Stage 6 PASS 的 Run overall_status 固定為 AWAITING_APPROVAL；不得自動改為 PUBLISHED。Stage 6 完成後，必須把 Stage 4–6 receipts、delivery receipt 及最終 run-state.json 提交回同一 Run 目錄，確保遠端可讀。
+- Retry／Resume 必須沿用原 run_id 並從最後有效 PASS stage 接續；不得覆寫已完成 Stage receipt 或既有 Preview。只有明確核准 rerun 才可建立新 Run 與獨立 rerun Preview 路徑。
