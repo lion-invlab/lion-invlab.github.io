@@ -2,6 +2,7 @@
 """Stage 5: pre-build receipt, main Builder, structural/visual QA, and immutable review artifact."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys, time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
