@@ -649,14 +649,15 @@ jobs:
           retention-days: 30
 
   build-and-deliver:
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && contains(github.event.head_commit.message, '[tac-stage4-submit:') }}
+    needs: [schedule-window, capture-and-calendar]
+    if: ${{ github.ref == 'refs/heads/main' && needs.capture-and-calendar.result == 'success' && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
       contents: write
       actions: write
-    # Stage 4-6 delivery writes main/preview while Chart 3 writes data/tac-chart3.
-    # Share the Chart 3 data-maintenance lock to avoid concurrent main pushes.
+    # Stage 4-6 is the second half of the same scheduled Run; no push-triggered continuation.
+    # Share the Chart 3 data-maintenance lock so downstream Chart 3 starts only after delivery.
     concurrency:
       group: tac-chart3-data-maintenance
       cancel-in-progress: false
@@ -681,39 +682,38 @@ jobs:
           python -m playwright install --with-deps chromium
           npm install --no-save playwright
           npx playwright install chromium
-      - name: Resolve report date and exact captured Run
+      - name: Resolve exact Run and wait for Stage 4 submission
         id: resolve
         shell: bash
         env:
-          TRIGGER_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          CAPTURE_RUN_ID: ${{ needs.capture-and-calendar.outputs.run_id }}
+          CAPTURE_REPORT_DATE: ${{ needs.capture-and-calendar.outputs.report_date }}
         run: |
           set -euo pipefail
-          if [[ "${TRIGGER_COMMIT_MESSAGE:-}" =~ \[tac-stage4-submit:(TAC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+)\] ]]; then
-            RUN_ID="${BASH_REMATCH[1]}"
-          else
-            echo "::error::Build requires the exact [tac-stage4-submit:TAC-YYYY-MM-DD-RUNID] marker."; exit 1
-          fi
+          RUN_ID="$CAPTURE_RUN_ID"
+          REPORT_DATE="$CAPTURE_REPORT_DATE"
+          test -n "$RUN_ID"
+          test -n "$REPORT_DATE"
           RUN_DIR="production/runs/$RUN_ID"
           CONTENT_FILE="$RUN_DIR/stage4-editorial-content.json"
           test -s "$RUN_DIR/run-context.json"
-          test -s "$RUN_DIR/run-state.json"
-          test -s "$CONTENT_FILE"
           READY=false
-          for attempt in $(seq 1 10); do
+          for attempt in $(seq 1 30); do
             git fetch origin main
             git merge --ff-only origin/main
-            if python - "$CONTENT_FILE" "$RUN_DIR" <<'PY'
+            if [ -s "$CONTENT_FILE" ] && [ -s "$RUN_DIR/run-state.json" ] && python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
           import hashlib,json,sys
           from pathlib import Path
-          content_path=Path(sys.argv[1]); run=Path(sys.argv[2])
-          if not (run/"run-state.json").is_file(): raise SystemExit(1)
+          content_path=Path(sys.argv[1]); run=Path(sys.argv[2]); report_date=sys.argv[3]
           content=json.loads(content_path.read_text(encoding="utf-8"))
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
           state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
           digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
-          if state.get("stages",{}).get("STAGE_4",{}).get("status")=="SUBMITTED":
-              if state["stages"]["STAGE_4"].get("output_sha256")==digest: raise SystemExit(0)
-          if state.get("stages",{}).get("STAGE_4",{}).get("status")=="PASS":
-              if state["stages"]["STAGE_4"].get("input_sha256")==digest: raise SystemExit(0)
+          if context.get("run_id")!=run.name or context.get("report_date")!=report_date: raise SystemExit(1)
+          if content.get("run_id")!=run.name or content.get("report_date")!=report_date: raise SystemExit(1)
+          stage4=state.get("stages",{}).get("STAGE_4",{})
+          if stage4.get("status")=="SUBMITTED" and stage4.get("output_sha256")==digest: raise SystemExit(0)
+          if stage4.get("status")=="PASS" and stage4.get("input_sha256")==digest: raise SystemExit(0)
           raise SystemExit(1)
           PY
             then
@@ -723,7 +723,6 @@ jobs:
             sleep 30
           done
           test "$READY" = true
-          REPORT_DATE="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["report_date"])' "$RUN_DIR/run-context.json")"
           for file in run-context.json run-state.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
           python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
           import hashlib,json,sys
