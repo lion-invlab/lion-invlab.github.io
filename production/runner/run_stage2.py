@@ -27,15 +27,7 @@ def run(cmd:list[str])->dict:
             except json.JSONDecodeError: pass
         return {"stdout":proc.stdout.strip()}
 
-def validate_stage2_stage2_instructions_loaded(payload:dict,wr_loaded:dict)->dict:
-    """Record that the Stage 2 worker received its instructions; do not gate on a WR hash."""
-    return {"status":"LOADED","stage":"STAGE_2","wr_path":wr_preflight.get("wr_path"),
-            "wr_loaded":wr_preflight.get("wr_loaded") is True}
-
-FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
-FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
-
-def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->dict:
+def validate_fedwatch_observation(payload:dict,context:dict)->dict:
     """Validate the independent FedWatch snapshot without blocking the 44 market rows."""
     if not isinstance(payload,dict):
         raise ValueError("Stage 2 capture is missing the independent FedWatch observation object")
@@ -123,7 +115,7 @@ def main():
     if not context_path.is_file() or not stage1_fixture_path.is_file() or not stage1_receipt_path.is_file():
         raise SystemExit("Stage 1 run-context.json, stage1-fixture.json and stage1-receipt.json are required")
     context=load(context_path)
-    wr_preflight=load_stage_wr("STAGE_2",context)
+    wr_loaded=load_stage_wr("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
         stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
     if stage1_receipt.get("run_id")!=context.get("run_id"):
@@ -225,7 +217,6 @@ def main():
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["stage_wr_loaded"]=wr_preflight
-    stage2_receipt_doc["worker_wr_attestation"]=worker_wr_attestation
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
@@ -251,7 +242,6 @@ def main():
       "status":"PASS" if receipt.get("status")=="PASS" else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "stage_wr_loaded":wr_preflight,
-      "worker_wr_attestation":worker_wr_attestation,
       "fedwatch_status":fedwatch_observation["status"],
       "fedwatch_observation_sha256":fedwatch_observation["observation_sha256"],
       "fedwatch_target_meeting":fedwatch_observation.get("target_meeting"),
