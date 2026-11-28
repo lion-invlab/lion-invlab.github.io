@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from run_stage5 import write_state_json
+from run_state import write_state_atomic
 
 
 class Stage5StatePersistenceTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class Stage5StatePersistenceTests(unittest.TestCase):
         }
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "run-state.json"
-            write_state_json(path, state)
+            write_state_atomic(path, state)
             self.assertEqual(json.loads(path.read_text(encoding="utf-8")), state)
             self.assertTrue(path.read_bytes().endswith(b"\n"))
 
