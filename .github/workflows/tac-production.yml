@@ -255,7 +255,7 @@ jobs:
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
-          DISPATCH_MODE: ${{ inputs.mode || (github.event_name == 'schedule' && github.event.schedule == '00 23 27 11 *' && 'recover') || '' }}
+          DISPATCH_MODE: ${{ inputs.mode || '' }}
         run: |
           set -euo pipefail
           if [ "$DISPATCH_MODE" = "rerun" ] || { [ "$DISPATCH_MODE" = "recover" ] && [ -n "${REQUESTED_REPORT_DATE:-}" ]; }; then
@@ -295,6 +295,16 @@ jobs:
           supersedes=""
           if matches:
               mode=os.environ.get("DISPATCH_MODE")
+              stable_id=f"TAC-{target}-{os.environ.get('GITHUB_RUN_ID','')}"
+              same=next((p for p in matches if p.name==stable_id),None)
+              if same is not None:
+                  state_path=same/"run-state.json"
+                  if not state_path.is_file():
+                      raise SystemExit(f"Existing same-workflow Run {same.name} has no authoritative run-state; refusing overwrite.")
+                  from run_state import validate_state
+                  validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
+                  print("")
+                  sys.exit(0)
               if mode not in ("recover","rerun"):
                   raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
               prior=matches[-1]
