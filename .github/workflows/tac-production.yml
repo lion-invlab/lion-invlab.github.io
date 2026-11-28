@@ -696,6 +696,41 @@ jobs:
       - name: Stage 6 — preserve PARTIAL artifact without publishing
         if: ${{ steps.stage5.outputs.status == 'PARTIAL' }}
         run: echo "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview delivery."
+      - name: Commit complete Stage 4-6 Run evidence and final state
+        if: ${{ always() && steps.stage4.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then
+            echo "No new Run evidence to persist."
+            exit 0
+          fi
+          for file in "${STAGED[@]}"; do
+            case "$file" in
+              "$RUN_DIR"/*) ;;
+              *) echo "::error::Run evidence commit path escaped exact Run directory: $file"; exit 1 ;;
+            esac
+          done
+          git commit -m "chore(tac): persist Stage 4-6 Run evidence $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              PUSHED=true
+              break
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
+          echo "Persisted exact Run evidence and state for $RUN_ID."
       - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
