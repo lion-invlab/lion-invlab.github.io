@@ -239,7 +239,9 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
         downstream_status = stages[downstream]["status"]
         if downstream_status != "NOT_STARTED":
             for upstream, allowed_statuses in requirements.items():
-                if stages[upstream]["status"] not in allowed_statuses:
+                upstream_status = stages[upstream]["status"]
+                skipped_after_partial = downstream == "STAGE_6" and downstream_status == "SKIPPED" and upstream_status == "PARTIAL"
+                if upstream_status not in allowed_statuses and not skipped_after_partial:
                     raise ValueError(f"{downstream} cannot advance before {upstream} reaches {sorted(allowed_statuses)}")
     if stages["STAGE_5"]["status"] == "PARTIAL" and stages["STAGE_6"]["status"] != "SKIPPED":
         raise ValueError("Stage 5 PARTIAL must explicitly skip Stage 6")
