@@ -443,7 +443,7 @@ The currently enabled ChatGPT automation prompt is still the old Main prompt. It
 3. never write `run-state.json`; GitHub's acceptance runner is the only state writer;
 4. treat the Stage 4 marker as an optional audit label, not a workflow trigger.
 
-The active automation prompt and its schedule have not been changed. This is a required, explicit cutover step after the code and CI pass; do not merge/activate the branch before it is coordinated.
+A revised prompt is prepared at `production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md`; it now matches the artifact-only worker / single GitHub state-writer contract. The active automation prompt and its schedule have not been changed. Applying v1.3 remains a required cutover step after the code and CI pass; do not merge/activate the branch before it is coordinated.
 
 
 ## 16. 24-workflow ownership and write-path audit
