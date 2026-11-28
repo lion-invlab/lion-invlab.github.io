@@ -26,8 +26,8 @@ assert "actions: write" not in stage1
 
 # Stage 2/3 consumes only the successful Stage 1 outputs and owns the bounded wait.
 assert "needs: [stage1-create-run]" in stage2
-assert "needs.stage1-create-run.outputs.run_id" in stage2
-assert "needs.stage1-create-run.outputs.run_dir" in stage2
+assert "needs['stage1-create-run'].outputs.run_id" in stage2 or "needs.stage1-create-run.outputs.run_id" in stage2
+assert "needs['stage1-create-run'].outputs.run_dir" in stage2 or "needs.stage1-create-run.outputs.run_dir" in stage2
 assert "timeout-minutes: 45" in stage2
 assert "Wait for exact Run-scoped Stage 2 worker handoff" in stage2
 assert "market-history-web-observations.json" in stage2
@@ -35,7 +35,7 @@ assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_2" in st
 
 # Stage 4-6 cannot begin unless Stage 2/3 completed in the same workflow Run.
 assert "needs: [stage2-and-stage3]" in build
-assert "needs.stage2-and-stage3.outputs.run_id" in build
+assert "needs['stage2-and-stage3'].outputs.run_id" in build or "needs.stage2-and-stage3.outputs.run_id" in build
 assert "stage4-editorial-content.json" in build
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in build
 
