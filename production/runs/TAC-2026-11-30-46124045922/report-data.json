@@ -8,159 +8,134 @@
   "headlines": [],
   "global_markets": {
     "道瓊工業指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "50,774.94",
+      "change_display": "+1.18%",
       "source": {
         "name": "Investing.com HK｜Dow Jones 30 歷史資料",
         "url": "https://hk.investing.com/indices/us-30-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Dow Jones Industrial Average (DJI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 50774.94,
+        "daily_change_percent": 1.18,
+        "history_close": 50774.94,
+        "history_change": 1.18,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 50774.94,
+        "observed_change": 1.18,
+        "browser_observation_record_sha256": "95a583e4126f458ae3055b0e1446d8194f3c2c7a0498d5f35b64658e199cc997"
       }
     },
     "標普500指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "7,297.49",
+      "change_display": "+1.60%",
       "source": {
         "name": "Investing.com｜S&P 500 歷史資料頁",
         "url": "https://www.investing.com/indices/us-spx-500-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "S&P 500 (SPX)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 7297.49,
+        "daily_change_percent": 1.6,
+        "history_close": 7297.49,
+        "history_change": 1.6,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 7297.49,
+        "observed_change": 1.6,
+        "browser_observation_record_sha256": "de0df47ff274de88b47ee98452c2d36b9b908c0cd9ceb0d4e81b32de45e43e54"
       }
     },
     "那斯達克綜合指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "24,129.50",
+      "change_display": "+2.31%",
       "source": {
         "name": "Investing.com HK｜Nasdaq Composite 歷史資料",
         "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Nasdaq Composite (IXIC)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 24129.5,
+        "daily_change_percent": 2.31,
+        "history_close": 24129.5,
+        "history_change": 2.31,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 24129.5,
+        "observed_change": 2.31,
+        "browser_observation_record_sha256": "5d464f4e59c8cf8c05a32b41cd97ce1617c4121e14aa3c0f5555732f67e2799a"
       }
     },
     "羅素2000指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "2,750.30",
+      "change_display": "+1.71%",
       "source": {
         "name": "Investing.com CA｜Russell 2000 Historical Data (RUT, NYSE)",
         "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Russell 2000 (RUT)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 2750.3,
+        "daily_change_percent": 1.71,
+        "history_close": 2750.3,
+        "history_change": 1.71,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 2750.3,
+        "observed_change": 1.71,
+        "browser_observation_record_sha256": "07bcb0b4a99463b2caed99b2b69739e5900ab3aebc5241fcc8830e1cf202eabd"
       }
     },
     "費城半導體指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "9,186.7",
+      "change_display": "+4.69%",
       "source": {
         "name": "Investing.com HK｜PHLX Semiconductor 歷史資料",
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "PHLX Semiconductor (SOX)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 1,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 9186.7,
+        "daily_change_percent": 4.69,
+        "history_close": 9186.7,
+        "history_change": 4.69,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 9186.7,
+        "observed_change": 4.69,
+        "browser_observation_record_sha256": "fe86f854da233193714e4cebb84954df89a9ea15e1383b881be9e448903cb3f9"
       }
     },
     "日經225": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "待核實",
+      "change_display": "待核實",
       "source": {
         "name": "Investing.com｜Nikkei 225 歷史數據（Real-time derived）",
         "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
@@ -186,360 +161,306 @@
             "plus": false
           }
         },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "read_status": "SOURCE_NO_DATA"
       }
     },
     "韓國 KOSPI": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "4,915.68",
+      "change_display": "+4.34%",
       "source": {
         "name": "Investing.com HK｜KOSPI 歷史資料",
         "url": "https://hk.investing.com/indices/kospi-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "KOSPI (KS11)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 4915.68,
+        "daily_change_percent": 4.34,
+        "history_close": 4915.68,
+        "history_change": 4.34,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4915.68,
+        "observed_change": 4.34,
+        "browser_observation_record_sha256": "77f5c05b405036ee9748688e62d0aee61d33ca482dffadbb3c4ca7363469d880"
       }
     },
     "台灣加權指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "39,308.08",
+      "change_display": "+0.40%",
       "source": {
         "name": "Investing.com HK｜Taiwan Weighted 歷史資料",
         "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Taiwan Weighted (TWII)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 39308.08,
+        "daily_change_percent": 0.4,
+        "history_close": 39308.08,
+        "history_change": 0.4,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 39308.08,
+        "observed_change": 0.4,
+        "browser_observation_record_sha256": "dc9976395190977971793f4fb09498b6b4c6e801253dea41ef19e69312352104"
       }
     },
     "新加坡海峽時報指數 STI": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "4,995.23",
+      "change_display": "+0.66%",
       "source": {
         "name": "Investing.com HK｜Singapore Straits Times 歷史資料",
         "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "FTSE Straits Times Singapore (STI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 4995.23,
+        "daily_change_percent": 0.66,
+        "history_close": 4995.23,
+        "history_change": 0.66,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4995.23,
+        "observed_change": 0.66,
+        "browser_observation_record_sha256": "3e826113d2f101a1935485fb2b527eb5e0bd16bf0abbeeb46886e05030fc91b9"
       }
     },
     "澳洲 S&P/ASX 200": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "8,833.60",
+      "change_display": "+0.80%",
       "source": {
         "name": "Investing.com HK｜S&P/ASX 200 歷史資料",
         "url": "https://hk.investing.com/indices/aus-200-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "S&P/ASX 200 (AXJO)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 8833.6,
+        "daily_change_percent": 0.8,
+        "history_close": 8833.6,
+        "history_change": 0.8,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 8833.6,
+        "observed_change": 0.8,
+        "browser_observation_record_sha256": "13f18e47ba35bb7b594d53404ea2d06d6a867ad1ca12d2265dd706d890176e19"
       }
     },
     "上海綜合指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "3,606.49",
+      "change_display": "+3.73%",
       "source": {
         "name": "Investing.com HK｜Shanghai Composite 歷史資料",
         "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Shanghai Composite (SSEC)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 3606.49,
+        "daily_change_percent": 3.73,
+        "history_close": 3606.49,
+        "history_change": 3.73,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 3606.49,
+        "observed_change": 3.73,
+        "browser_observation_record_sha256": "612934bf75d530d775aa26012c6bbbc3b2443a6a04ca3af799aaca31f1c4006d"
       }
     },
     "深證成指": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "10,814.02",
+      "change_display": "+7.24%",
       "source": {
         "name": "Investing.com HK｜SZSE Component 歷史資料",
         "url": "https://hk.investing.com/indices/szse-component-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "SZSE Component (SZI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 10814.02,
+        "daily_change_percent": 7.24,
+        "history_close": 10814.02,
+        "history_change": 7.24,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 10814.02,
+        "observed_change": 7.24,
+        "browser_observation_record_sha256": "9e0e33eded552438a0dc491dfb00b8b465bc52c69cdaca92086eb8e2915a100b"
       }
     },
     "香港恆生指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "22,694.77",
+      "change_display": "+2.11%",
       "source": {
         "name": "Investing.com｜Hang Seng 歷史數據（Real-time derived）",
         "url": "https://www.investing.com/indices/hang-sen-40-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Hang Seng (HSI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 22694.77,
+        "daily_change_percent": 2.11,
+        "history_close": 22694.77,
+        "history_change": 2.11,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 22694.77,
+        "observed_change": 2.11,
+        "browser_observation_record_sha256": "ea041d23754131dad0c1097568c9eb380df8707df03e188fc899974d44e8c5bb"
       }
     },
     "英國 FTSE 100": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "10,698.81",
+      "change_display": "+0.84%",
       "source": {
         "name": "Investing.com｜FTSE 100 歷史數據（Real-time derived）",
         "url": "https://www.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "FTSE 100 (FTSE)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 10698.81,
+        "daily_change_percent": 0.84,
+        "history_close": 10698.81,
+        "history_change": 0.84,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 10698.81,
+        "observed_change": 0.84,
+        "browser_observation_record_sha256": "ab5f302cdc380abff0f7d69c749b0e03eb447d1669915e51407e86cad6d8397a"
       }
     },
     "德國 DAX": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "25,441.24",
+      "change_display": "+0.90%",
       "source": {
         "name": "Investing.com｜DAX 歷史數據（Xetra）",
         "url": "https://www.investing.com/indices/germany-30-historical-data?cid=23657",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "DAX (GDAXI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 25441.24,
+        "daily_change_percent": 0.9,
+        "history_close": 25441.24,
+        "history_change": 0.9,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 25441.24,
+        "observed_change": 0.9,
+        "browser_observation_record_sha256": "c59cc374efa7ad9ec5cc7fd526d721e18b7d6c98fed4b8bb791819c198998c88"
       }
     },
     "法國 CAC 40": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "8,156.09",
+      "change_display": "+0.58%",
       "source": {
         "name": "Investing.com HK｜CAC 40 歷史資料",
         "url": "https://hk.investing.com/indices/france-40-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "CAC 40 (FCHI)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 8156.09,
+        "daily_change_percent": 0.58,
+        "history_close": 8156.09,
+        "history_change": 0.58,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 8156.09,
+        "observed_change": 0.58,
+        "browser_observation_record_sha256": "811c0c0989e99dbc03ec492e6e34acde13611929345269d72c0f3652fc093810"
       }
     },
     "STOXX Europe 600": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "643.85",
+      "change_display": "+1.08%",
       "source": {
         "name": "Investing.com｜STOXX 600 歷史數據（Real-time derived）",
         "url": "https://www.investing.com/indices/stoxx-600-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
         "instrument_type": "cash_index",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "STOXX 600 (STOXX)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 643.85,
+        "daily_change_percent": 1.08,
+        "history_close": 643.85,
+        "history_change": 1.08,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 643.85,
+        "observed_change": 1.08,
+        "browser_observation_record_sha256": "4782a8baf7e5c6d1cf9ec2d018949de895332fc796547826fae365938befc182"
       }
     }
   },
   "sectors": {
-    "XLP": "待擷取",
-    "XLV": "待擷取",
-    "XLE": "待擷取",
-    "XLU": "待擷取",
-    "XLRE": "待擷取",
-    "XLF": "待擷取",
-    "XLB": "待擷取",
-    "XLC": "待擷取",
-    "XLY": "待擷取",
-    "XLI": "待擷取",
-    "XLK": "待擷取"
+    "XLP": "+0.41%",
+    "XLV": "+0.28%",
+    "XLE": "+1.26%",
+    "XLU": "+0.28%",
+    "XLRE": "+0.64%",
+    "XLF": "+1.15%",
+    "XLB": "+1.84%",
+    "XLC": "+1.99%",
+    "XLY": "+2.11%",
+    "XLI": "+1.60%",
+    "XLK": "+2.80%"
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "待擷取",
+      "display": "4.704%",
       "source": {
         "name": "Investing.com｜2年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
@@ -547,30 +468,25 @@
         "quote_type": "treasury_yield",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "instrument_identity": "United States 2-Year Bond Yield",
-        "_stage2_format": {
-          "close": {
-            "decimals": 3,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          },
-          "change": {
-            "decimals": 1,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 4.704,
+        "daily_change_percent": 1.07,
+        "history_close": 4.704,
+        "history_change": 1.07,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4.704,
+        "observed_change": 1.07,
+        "browser_observation_record_sha256": "02bdeb032c4e688877d08541157e1614bac1378de7201475aa89f89b852955c6"
       },
-      "change_display": "待擷取"
+      "change_display": "+5.0 bp"
     },
     "10年期美債殖利率": {
-      "display": "待擷取",
+      "display": "4.934%",
       "source": {
         "name": "Investing.com｜10年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
@@ -578,30 +494,25 @@
         "quote_type": "treasury_yield",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "instrument_identity": "United States 10-Year Bond Yield",
-        "_stage2_format": {
-          "close": {
-            "decimals": 3,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          },
-          "change": {
-            "decimals": 1,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 4.934,
+        "daily_change_percent": 1.33,
+        "history_close": 4.934,
+        "history_change": 1.33,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 4.934,
+        "observed_change": 1.33,
+        "browser_observation_record_sha256": "2368cc27e95c75af1ce71fe0b0756261f7523d8586b08c91005f1ad1c8daaf5d"
       },
-      "change_display": "待擷取"
+      "change_display": "+6.5 bp"
     },
     "30年期美債殖利率": {
-      "display": "待擷取",
+      "display": "5.323%",
       "source": {
         "name": "Investing.com｜30年期美債殖利率歷史資料",
         "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
@@ -609,248 +520,209 @@
         "quote_type": "treasury_yield",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "instrument_identity": "United States 30-Year Bond Yield",
-        "_stage2_format": {
-          "close": {
-            "decimals": 3,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          },
-          "change": {
-            "decimals": 1,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 5.323,
+        "daily_change_percent": 1.35,
+        "history_close": 5.323,
+        "history_change": 1.35,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 5.323,
+        "observed_change": 1.35,
+        "browser_observation_record_sha256": "c9de49be23ade01f34a787371ce046e38156a29fb1a1290c3147f20ad3d6fa67"
       },
-      "change_display": "待擷取"
+      "change_display": "+7.1 bp"
     }
   },
   "fx": {
     "美元指數": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "104.01",
+      "change_display": "+0.34%",
       "source": {
         "name": "Investing.com Global｜US Dollar Index 歷史資料",
         "url": "https://www.investing.com/indices/usdollar-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "provider_index_reference_series",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "US Dollar Index (DXY)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 104.01,
+        "daily_change_percent": 0.34,
+        "history_close": 104.01,
+        "history_change": 0.34,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 104.01,
+        "observed_change": 0.34,
+        "browser_observation_record_sha256": "edb29fb6909bf6f0b0539d3e848a30e1eb070cf21aa8aabd92bb1acf5e90d84a"
       }
     },
     "美元／新台幣": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "32.999",
+      "change_display": "+0.13%",
       "source": {
         "name": "Investing.com HK｜USD/TWD 歷史資料",
         "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "spot_daily_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "USD/TWD",
-        "_stage2_format": {
-          "close": {
-            "decimals": 3,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 32.999,
+        "daily_change_percent": 0.13,
+        "history_close": 32.999,
+        "history_change": 0.13,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 32.999,
+        "observed_change": 0.13,
+        "browser_observation_record_sha256": "1bbf339c112556b89a5e91625d63bf98c405d2753aa7594d82ee1320136b86cc"
       }
     },
     "歐元／美元": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "1.0935",
+      "change_display": "-0.31%",
       "source": {
         "name": "Investing.com HK｜EUR/USD 歷史資料",
         "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "spot_daily_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "EUR/USD",
-        "_stage2_format": {
-          "close": {
-            "decimals": 4,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 1.0935,
+        "daily_change_percent": -0.31,
+        "history_close": 1.0935,
+        "history_change": -0.31,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 1.0935,
+        "observed_change": -0.31,
+        "browser_observation_record_sha256": "2d2bb42fc14c10b0e73fef89b579c45da12771df1fd5ce7447a8a949c0be961d"
       }
     },
     "英鎊／美元": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "1.3099",
+      "change_display": "-0.10%",
       "source": {
         "name": "Investing.com HK｜GBP/USD 歷史資料",
         "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "spot_daily_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "GBP/USD",
-        "_stage2_format": {
-          "close": {
-            "decimals": 4,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 1.3099,
+        "daily_change_percent": -0.1,
+        "history_close": 1.3099,
+        "history_change": -0.1,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 1.3099,
+        "observed_change": -0.1,
+        "browser_observation_record_sha256": "25b5d385a2e20dbcd3361168c19fefe47591afaef9199bd52104524b7711e099"
       }
     },
     "澳幣／美元": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "0.6648",
+      "change_display": "+0.20%",
       "source": {
         "name": "Investing.com HK｜AUD/USD 歷史資料",
         "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "spot_daily_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "AUD/USD",
-        "_stage2_format": {
-          "close": {
-            "decimals": 4,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 0.6648,
+        "daily_change_percent": 0.2,
+        "history_close": 0.6648,
+        "history_change": 0.2,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 0.6648,
+        "observed_change": 0.2,
+        "browser_observation_record_sha256": "e3eec96803536183f677f2da7bb9817a137fa2a71bf4d11203ead4266aefe455"
       }
     },
     "美元／日圓": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "159.56",
+      "change_display": "+0.19%",
       "source": {
         "name": "Investing.com HK｜USD/JPY 歷史資料",
         "url": "https://www.investing.com/currencies/usd-jpy-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "spot_daily_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "USD/JPY",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 159.56,
+        "daily_change_percent": 0.19,
+        "history_close": 159.56,
+        "history_change": 0.19,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 159.56,
+        "observed_change": 0.19,
+        "browser_observation_record_sha256": "c1508dd4fb83be244fc38b39588d80322922a0b9e5f5d0ca4904fa442da926e3"
       }
     }
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "83.08",
+      "change_display": "-2.17%",
       "source": {
         "name": "Investing.com HK｜WTI原油期貨歷史數據",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-27",
         "quote_type": "investing_historical_close",
         "link_label": "Investing.com 歷史數據",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "WTI Crude Oil Futures",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 83.08,
+        "daily_change_percent": -2.17,
+        "history_close": "83.08",
+        "history_change": "-2.17%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 83.08,
+        "observed_change": -2.17,
+        "browser_observation_record_sha256": "066882577e8ad2fd37bdbc02e14dac55780b5f3b5014189bfc3427de96746742"
       },
       "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
-      "display_name": "WTI 原油期貨"
+      "display_name": "WTI 原油期貨",
+      "contract_label": "WTI原油期貨 - 2027年1月 (OIL)"
     },
     "Brent原油期貨": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "95.44",
+      "change_display": "-1.17%",
       "source": {
         "name": "Investing.com HK｜Brent期貨歷史數據",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
@@ -858,191 +730,152 @@
         "quote_type": "investing_historical_close",
         "link_label": "Investing.com 歷史數據",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "instrument_identity": "Brent Oil Futures",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 95.44,
+        "daily_change_percent": -1.17,
+        "history_close": "95.44",
+        "history_change": "-1.17%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 95.44,
+        "observed_change": -1.17,
+        "browser_observation_record_sha256": "721b51efd5766af2a80ef5a0e29833ecc6a94814106ca6b30dcc397ee104f4bf"
       },
       "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
-      "display_name": "Brent 原油期貨"
+      "display_name": "Brent 原油期貨",
+      "contract_label": "倫敦布倫特原油期貨 - 2027年1月 (LCOG7)"
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "3,655.30",
+      "change_display": "+2.10%",
       "source": {
         "name": "Investing.com HK｜黃金期貨歷史數據",
         "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
         "data_date": "2026-11-27",
         "quote_type": "investing_historical_close",
         "link_label": "Investing.com 歷史數據",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Gold Futures",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": true,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 3655.3,
+        "daily_change_percent": 2.1,
+        "history_close": "3,655.30",
+        "history_change": "+2.10%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 3655.3,
+        "observed_change": 2.1,
+        "browser_observation_record_sha256": "f33d2a1f6e74267a5de44c99d53aae32d06baa3cd73b6318c27dd38a3827cfee"
       },
       "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
-      "display_name": "黃金期貨"
+      "display_name": "黃金期貨",
+      "contract_label": "黃金期貨 - 2027年1月 (GCZ6)"
     },
     "白銀期貨 SI": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "43.368",
+      "change_display": "+5.08%",
       "source": {
         "name": "Investing.com HK｜白銀期貨歷史數據",
         "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
         "data_date": "2026-11-27",
         "quote_type": "investing_historical_close",
         "link_label": "Investing.com 歷史數據",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "Silver Futures",
-        "_stage2_format": {
-          "close": {
-            "decimals": 3,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 43.368,
+        "daily_change_percent": 5.08,
+        "history_close": "43.368",
+        "history_change": "+5.08%",
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 43.368,
+        "observed_change": 5.08,
+        "browser_observation_record_sha256": "2f1a87415711cc468b3e8974b6a255c7a1b104d1f66243d3fab9e20ca4d49235"
       },
       "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
-      "display_name": "白銀期貨"
+      "display_name": "白銀期貨",
+      "contract_label": "白銀期貨 - 2027年1月 (SIZ6)"
     }
   },
   "risk": {
     "vix": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "23.81",
+      "change_display": "-11.16%",
       "source": {
         "name": "Investing.com Global｜CBOE Volatility Index 歷史資料",
         "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
         "data_date": "2026-11-27",
         "quote_type": "cash_index_close",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
         "instrument_identity": "CBOE Volatility Index (VIX)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": true
-          }
-        },
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 23.81,
+        "daily_change_percent": -11.16,
+        "history_close": 23.81,
+        "history_change": -11.16,
+        "source_role": "PRIMARY",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 23.81,
+        "observed_change": -11.16,
+        "browser_observation_record_sha256": "5e232746c7eb2f6a012e168cc9caf68d69e7705b4375b42c8ea40738830acaad"
       }
     },
     "move": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "95.30",
+      "change_display": "-2.30%",
       "source": {
         "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
         "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-27",
         "quote_type": "displayed_close",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
-        "verification_status": "PENDING",
+        "verification_status": "VERIFIED",
         "instrument_identity": "ICE BofAML MOVE (MOVE)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 2,
-            "commas": false,
-            "prefix": "",
-            "suffix": "%",
-            "plus": false
-          }
-        },
         "approved_backup_urls": [
           "https://www.tradingview.com/symbols/ICE-MOVE/"
         ],
         "source_role": "PRIMARY",
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 95.3,
+        "daily_change_percent": -2.3,
+        "history_close": 95.3,
+        "history_change": -2.3,
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 95.3,
+        "observed_change": -2.3,
+        "browser_observation_record_sha256": "9626ae7823877e43c43ce3a6b1825f2846583f25e6bcc7d9e76b2f667e918db5"
       }
     },
     "fear_greed": {
-      "display": "待擷取",
-      "change_display": "待擷取",
+      "display": "25",
+      "change_display": "Fear",
       "source": {
-        "name": "FGScore｜CNN Business Fear & Greed 備援歷史頁",
+        "name": "FGScore | CNN Provider Index",
         "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-27",
         "quote_type": "third_party_provider_index",
         "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
-        "verification_status": "PENDING",
+        "verification_status": "BACKUP_VERIFIED",
         "source_role": "BACKUP_1",
         "instrument_identity": "CNN Fear & Greed Index (provider index)",
-        "_stage2_format": {
-          "close": {
-            "decimals": 0,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          },
-          "change": {
-            "decimals": 0,
-            "commas": false,
-            "prefix": "",
-            "suffix": "",
-            "plus": false
-          }
-        },
         "approved_primary_urls": [
           "https://edition.cnn.com/markets/fear-and-greed",
           "https://www.cnn.com/markets/fear-and-greed"
@@ -1051,11 +884,64 @@
           "https://fgscore.com/en/markets/sp500",
           "https://staging.fcontext.com/en/fear-and-greed"
         ],
-        "source_page_fetched": false
+        "source_page_fetched": true,
+        "close_value": 25.0,
+        "daily_change_percent": null,
+        "history_close": 25,
+        "score_value": 25,
+        "source_score_value": null,
+        "cnn_target_date_score": 25,
+        "band": "Fear",
+        "history_change": null,
+        "verified_source_role": "BACKUP_1",
+        "evidence_source_url": "https://fgscore.com/en/markets/sp500",
+        "checked_at_tw": "2026-11-28T16:06:32+08:00",
+        "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+        "read_status": "PAGE_CONTENT_READ_SUCCESS",
+        "observed_value": 25,
+        "observed_change": "Fear",
+        "browser_observation_record_sha256": "72781cbeebce0f4da388256159f4285a8e01037fda1ea4a210efe23d1ba2f192",
+        "score_band": "Fear",
+        "observation_record_status": "VERIFIED",
+        "display_value_matches_saved_observation": true,
+        "verified_at_tw": "2026-11-28T16:06:32+08:00",
+        "backup_source_score_value": 25,
+        "cross_check": {
+          "status": "DATE_MAPPING_UNRESOLVED",
+          "note": "Official CNN current dashboard was unavailable; approved CNN provider-index backup used."
+        }
       }
     }
   },
-  "fedwatch": {},
+  "fedwatch": {
+    "status": "VERIFIED",
+    "source_name": "Investing.com Fed Rate Monitor",
+    "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
+    "report_date": "2026-11-30",
+    "trading_date": "2026-11-27",
+    "captured_at_utc": "2026-11-28T08:06:32Z",
+    "target_meeting": "2026-12-09",
+    "current_target_range": "4.00 - 4.25",
+    "updated_at_tw": "2026-11-28 13:35 Asia/Taipei",
+    "probabilities": [
+      {
+        "outcome": "cut",
+        "rate_range": "3.75 - 4.00",
+        "probability": 4.2
+      },
+      {
+        "outcome": "hold",
+        "rate_range": "4.00 - 4.25",
+        "probability": 95.8
+      }
+    ],
+    "web_reader_ref": "turn571964view0",
+    "web_line_start": 387,
+    "web_line_end": 415,
+    "reason": null,
+    "stage2_wr_sha256": "6788d4c0e9c7ac40485caeeada9447df7a9194cb18a7e04e0d84daee27f29957",
+    "observation_sha256": "a8c6a3d67a6c06795812a97db0d2d30ed3dbe4ddfdf69f643c6a7c2c1d4cb80d"
+  },
   "observation": {},
   "calendar": {},
   "earnings": {},
@@ -1071,286 +957,242 @@
       "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLE",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 61.67,
+      "daily_change_percent": 1.26,
+      "history_close": 61.67,
+      "history_change": 1.26,
+      "change_display": "+1.26%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 61.67,
+      "observed_change": 1.26,
+      "browser_observation_record_sha256": "05de295d8c89ab864ec462ddeabbc027af2f297741947ccc8fc558d1b2be4d5b"
     },
     "XLF": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLF",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 57.16,
+      "daily_change_percent": 1.15,
+      "history_close": 57.16,
+      "history_change": 1.15,
+      "change_display": "+1.15%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 57.16,
+      "observed_change": 1.15,
+      "browser_observation_record_sha256": "e519e307e398efb224cdf7a8a61b4172aeebb9a35d158c221a879343df4c7414"
     },
     "XLK": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLK",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": false
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 160.15,
+      "daily_change_percent": 2.8,
+      "history_close": 160.15,
+      "history_change": 2.8,
+      "change_display": "+2.80%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 160.15,
+      "observed_change": 2.8,
+      "browser_observation_record_sha256": "7a43f3c49751fc7baeda58c859462621f780f3070727ae73e7ffd1c795acdfa2"
     },
     "XLI": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLI",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 165.56,
+      "daily_change_percent": 1.6,
+      "history_close": 165.56,
+      "history_change": 1.6,
+      "change_display": "+1.60%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 165.56,
+      "observed_change": 1.6,
+      "browser_observation_record_sha256": "7b87dc4741294ff8d845c1a4f54391b6b11fd3f8c8d187ae8f142f0f563aa66c"
     },
     "XLC": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLC",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 107.48,
+      "daily_change_percent": 1.99,
+      "history_close": 107.48,
+      "history_change": 1.99,
+      "change_display": "+1.99%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 107.48,
+      "observed_change": 1.99,
+      "browser_observation_record_sha256": "7b8d6ad21734b64ce52546c7521f04a25b88ea8046b6bee9913f28dd0120a83f"
     },
     "XLB": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLB",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 52.15,
+      "daily_change_percent": 1.84,
+      "history_close": 52.15,
+      "history_change": 1.84,
+      "change_display": "+1.84%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 52.15,
+      "observed_change": 1.84,
+      "browser_observation_record_sha256": "3d209c1f6ef4f9b4bf88ba98e0ab9842e3a1d0eaa3f190ca20e2431e6aa8e67f"
     },
     "XLU": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLU",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 43.73,
+      "daily_change_percent": 0.28,
+      "history_close": 43.73,
+      "history_change": 0.28,
+      "change_display": "+0.28%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 43.73,
+      "observed_change": 0.28,
+      "browser_observation_record_sha256": "3e8e443ef383a96e5f3735f3220a4a9a638123918597e8567c55063b853bdc22"
     },
     "XLRE": {
       "name": "Investing.com Global｜State Street Real Estate Select Sector SPDR ETF (XLRE) historical data",
       "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLRE",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 44.14,
+      "daily_change_percent": 0.64,
+      "history_close": 44.14,
+      "history_change": 0.64,
+      "change_display": "+0.64%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 44.14,
+      "observed_change": 0.64,
+      "browser_observation_record_sha256": "5577ae4758478506aec1f9abff712529c57ca00471ce17b15a9277449cb5fac9"
     },
     "XLY": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLY",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": false
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 119.97,
+      "daily_change_percent": 2.11,
+      "history_close": 119.97,
+      "history_change": 2.11,
+      "change_display": "+2.11%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 119.97,
+      "observed_change": 2.11,
+      "browser_observation_record_sha256": "9d1369224028b5102ce80c299b42b088df012a0ebbec1a350bcf4e932e93c4f5"
     },
     "XLP": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLP",
-      "_stage2_format": {
-        "close": {
-          "decimals": 1,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": true
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 92.68,
+      "daily_change_percent": 0.41,
+      "history_close": 92.68,
+      "history_change": 0.41,
+      "change_display": "+0.41%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 92.68,
+      "observed_change": 0.41,
+      "browser_observation_record_sha256": "57e1837eb60cf8c092a76bb17d91276617e4da4050163603b76f352b997d6fa4"
     },
     "XLV": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
       "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
       "data_date": "2026-11-27",
       "quote_type": "ETF_daily_close",
-      "verification_status": "PENDING",
+      "verification_status": "VERIFIED",
       "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
       "instrument_identity": "XLV",
-      "_stage2_format": {
-        "close": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "",
-          "plus": false
-        },
-        "change": {
-          "decimals": 2,
-          "commas": false,
-          "prefix": "",
-          "suffix": "%",
-          "plus": false
-        }
-      },
-      "source_page_fetched": false
+      "source_page_fetched": true,
+      "close_value": 184.2,
+      "daily_change_percent": 0.28,
+      "history_close": 184.2,
+      "history_change": 0.28,
+      "change_display": "+0.28%",
+      "source_role": "PRIMARY",
+      "checked_at_tw": "2026-11-28T16:06:32+08:00",
+      "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
+      "read_status": "PAGE_CONTENT_READ_SUCCESS",
+      "observed_value": 184.2,
+      "observed_change": 0.28,
+      "browser_observation_record_sha256": "d287b64fea803ac40e643dec43e552c95374cc6841835cc0923402a3c2e33eb3"
     }
   },
   "key_levels": {},
@@ -1430,16 +1272,24 @@
     "run_dir": "production/runs/TAC-2026-11-30-46124045922",
     "fixture_path": "production/runs/TAC-2026-11-30-46124045922/report-data.json",
     "stage1_fixture_path": "production/runs/TAC-2026-11-30-46124045922/stage1-fixture.json",
-    "main_commit_sha": "2339fe7ae9bec1a7600a03820a78f53ea5ec3991"
+    "main_commit_sha": "2339fe7ae9bec1a7600a03820a78f53ea5ec3991",
+    "market_audit_path": "production/runs/TAC-2026-11-30-46124045922/market-snapshot-audit.json",
+    "market_manifest_path": "production/runs/TAC-2026-11-30-46124045922/market-source-verification-manifest.json",
+    "observations_path": "production/runs/TAC-2026-11-30-46124045922/market-history-browser-observations.json",
+    "stage2_receipt_path": "production/runs/TAC-2026-11-30-46124045922/stage2-market-snapshot-receipt.json"
   },
   "last_week_calendar_impact_overrides": [],
   "stage2_market_bootstrap": {
-    "status": "BLANK_INPUT",
+    "status": "PARTIAL",
     "preexisting_market_values_used": false,
-    "screenshot_row_count": 0,
-    "screenshot_field_count": 0,
     "row_count": 44,
+    "verified_count": 43,
+    "pending_count": 1,
+    "pending_rows": [
+      "global_markets/日經225"
+    ],
     "report_date": "2026-11-30",
-    "trading_date": "2026-11-27"
+    "trading_date": "2026-11-27",
+    "observation_bundle_sha256": "cb2c909da47bdcffe9b6965ee8a7052bddab1ea803671eab45f3fe1ec251821d"
   }
 }

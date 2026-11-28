@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_2_MARKET",
+  "market_snapshot_sha256": "04d1a79f4b68a75432bba47a1081fde41a6d98aead6a39ef09f3bd64b0a1baa3",
+  "status": "PARTIAL",
+  "run_id": "TAC-2026-11-30-46124045922",
+  "stage1_fixture_sha256": "b34730f1a2e485491feba444857c385d8ce9067f4763ced81d0781a0fc89227b",
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_2",
+    "wr_path": "production/stages/STAGE_2_MARKET.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 15647,
+    "wr_sha256": "6788d4c0e9c7ac40485caeeada9447df7a9194cb18a7e04e0d84daee27f29957",
+    "wr_git_blob_sha": "e16f4390559688d455be75372d9efbe02c398030",
+    "stage1_pinned_git_blob_sha": "e16f4390559688d455be75372d9efbe02c398030",
+    "stage1_pinned_commit": "2339fe7ae9bec1a7600a03820a78f53ea5ec3991",
+    "rules_text_loaded": true
+  },
+  "worker_wr_attestation": {
+    "status": "PASS",
+    "stage2_wr_sha256": "6788d4c0e9c7ac40485caeeada9447df7a9194cb18a7e04e0d84daee27f29957",
+    "expected_wr_sha256": "6788d4c0e9c7ac40485caeeada9447df7a9194cb18a7e04e0d84daee27f29957"
+  },
+  "fedwatch_status": "VERIFIED",
+  "fedwatch_observation_sha256": "a8c6a3d67a6c06795812a97db0d2d30ed3dbe4ddfdf69f643c6a7c2c1d4cb80d",
+  "fedwatch_target_meeting": "2026-12-09",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "input_mode": "RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS",
+  "concurrency": 4,
+  "timeout_ms": 15000,
+  "elapsed_seconds": 0.364,
+  "stage2_handoff": {
+    "status": "PASS",
+    "run_id": "TAC-2026-11-30-46124045922",
+    "report_date": "2026-11-30",
+    "trading_date": "2026-11-27",
+    "stage1_receipt_sha256": "604d3662ed60dd4a2046ffe8dd61797509ee0a43e7d5afd8ff91b72d17786f2a",
+    "run_context_sha256": "85aee36322058c6dbb445423339c1b09b213fa5fcbc97f072cd580767ff1dc7d",
+    "stage1_fixture_sha256": "b34730f1a2e485491feba444857c385d8ce9067f4763ced81d0781a0fc89227b",
+    "run_state_version": 3,
+    "stage2_submission_sha256": "3a1ee5a174fccacc8ff6d8b5b4122d606a05b2ed3acc022b8005efa349c9b079",
+    "stage1_fixture_path": "production/runs/TAC-2026-11-30-46124045922/stage1-fixture.json",
+    "working_fixture_path": "production/runs/TAC-2026-11-30-46124045922/report-data.json",
+    "bundle_sha256": "3a1ee5a174fccacc8ff6d8b5b4122d606a05b2ed3acc022b8005efa349c9b079",
+    "optional_bundle_sha256": {
+      "cnn-fear-greed-observation.json": "f0250703b262e1cc9c8c43ab43eb5bf69a84eebd26717d07b53977320156b8bd"
+    },
+    "screenshot": {
+      "row_count": 0,
+      "field_count": 0
+    }
+  },
+  "web_observation_bundle_sha256": "3a1ee5a174fccacc8ff6d8b5b4122d606a05b2ed3acc022b8005efa349c9b079",
+  "cnn_observation_sha256": "f0250703b262e1cc9c8c43ab43eb5bf69a84eebd26717d07b53977320156b8bd",
+  "historical_page_read_count": null,
+  "screenshot_only_count": null,
+  "mixed_field_count": null,
+  "status_counts": {
+    "VERIFIED": 43,
+    "OBSERVED_PENDING_VALIDATION": 1
+  },
+  "verified_count": 43,
+  "pending_count": 1,
+  "closed_count": 0,
+  "market_status_counts": {
+    "VERIFIED": 42,
+    "SOURCE_NO_DATA": 1,
+    "BACKUP_VERIFIED": 1
+  },
+  "chart3_handoff": {
+    "status": "NOOP_IDENTICAL_OBSERVATION",
+    "report_date": "2026-11-30",
+    "observation_date": "2026-11-27",
+    "close": 7297.49,
+    "source_name": "Investing.com｜S&P 500 歷史資料頁",
+    "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
+    "observed_at": "2026-11-28T12:08:37.824000+08:00",
+    "ledger_sha256": "a71fcfad0c330e89fe306cf919dafe2c768a6b8811cfd86cc4e070a83c781530",
+    "output": "data/tac-chart3/sp500_daily_increment.jsonl",
+    "ledger_path": "data/tac-chart3/sp500_daily_increment.jsonl"
+  },
+  "outputs": {
+    "report-data.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/report-data.json",
+      "sha256": "57a5ada3e6b9268adec707a49c675cfef0e0a8804a90be9e033de06d8a882c13"
+    },
+    "market-history-browser-observations.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/market-history-browser-observations.json",
+      "sha256": "cb2c909da47bdcffe9b6965ee8a7052bddab1ea803671eab45f3fe1ec251821d"
+    },
+    "market-snapshot-audit.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/market-snapshot-audit.json",
+      "sha256": "7c5c82857997e2ad3fc01dc425619a2060a3a22c49f4756fd55b87df152934f9"
+    },
+    "market-source-verification-manifest.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/market-source-verification-manifest.json",
+      "sha256": "44843482a2ed729d2ecbd48578683d8e7504c55f8a715549c29179748688bf3e"
+    },
+    "stage2-market-snapshot-receipt.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/stage2-market-snapshot-receipt.json",
+      "sha256": "4b2a059c73efc551c9d037a9d485e10ce0757fd2b3ee3f4ef42256b106d687cf"
+    },
+    "sp500_daily_increment.jsonl": {
+      "path": "data/tac-chart3/sp500_daily_increment.jsonl",
+      "sha256": "a71fcfad0c330e89fe306cf919dafe2c768a6b8811cfd86cc4e070a83c781530"
+    },
+    "run-state.json": {
+      "path": "production/runs/TAC-2026-11-30-46124045922/run-state.json",
+      "sha256": "8f4a2b91276dbc136eb8b4c2e2e872fb2e4ee81005490be74761388603a614dd"
+    }
+  },
+  "run_state": {
+    "state_version": 4,
+    "stage2_status": "PARTIAL",
+    "next_stage": "STAGE_3"
+  }
+}
