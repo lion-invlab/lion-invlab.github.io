@@ -188,7 +188,7 @@ def build_receipt(args):
     paths={"fixture":args.data,"audit":args.audit,"manifest":args.manifest,"observations":args.observations}
     hashes={key:sha_file(path) for key,path in paths.items()}
     run_id=str(args.run_id or "LOCAL")
-    workflow_run_id=str(args.workflow_run_id or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
+    workflow_run_id=str(getattr(args,"workflow_run_id",None) or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
     commit=str(args.commit_sha or os.environ.get("GITHUB_SHA") or "UNKNOWN")
     branch=str(args.branch or os.environ.get("GITHUB_REF_NAME") or "main")
     batch_seed="|".join([args.report_date,data["trading_date"],run_id,commit,*[hashes[k] for k in ("fixture","audit","manifest","observations")]])
