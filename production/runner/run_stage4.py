@@ -55,16 +55,6 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
         raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
-def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_loaded:dict)->dict:
-    """Ensure the Stage 4 instruction text is present; no WR hash attestation is required."""
-    instructions=capture.get("stage4_work_instructions") or {}
-    full_text=instructions.get("full_text")
-    if (capture.get("status")!="AWAITING_EDITORIAL_INPUT"
-            or instructions.get("path")!="production/stages/STAGE_4_NEWS_ANALYSIS.md"
-            or not isinstance(full_text,str) or not full_text.strip()):
-        raise ValueError("Stage 4 handoff is missing the complete Stage 4 instructions")
-    return {"status":"LOADED","stage4_wr_path":instructions["path"],"full_text_available":True}
-
 def normalize_news_publication_times(content:dict)->list[dict]:
     """Recompute Taiwan publication timestamps from preserved source time and IANA timezone."""
     changes=[]
