@@ -713,6 +713,31 @@ jobs:
           test -s "$RUN_DIR/run-context.json"
           test -s "$RUN_DIR/run-state.json"
           test -s "$CONTENT_FILE"
+          READY=false
+          for attempt in $(seq 1 10); do
+            git fetch origin main
+            git merge --ff-only origin/main
+            if python - "$CONTENT_FILE" "$RUN_DIR" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          content_path=Path(sys.argv[1]); run=Path(sys.argv[2])
+          if not (run/"run-state.json").is_file(): raise SystemExit(1)
+          content=json.loads(content_path.read_text(encoding="utf-8"))
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
+          if state.get("stages",{}).get("STAGE_4",{}).get("status")=="SUBMITTED":
+              if state["stages"]["STAGE_4"].get("output_sha256")==digest: raise SystemExit(0)
+          if state.get("stages",{}).get("STAGE_4",{}).get("status")=="PASS":
+              if state["stages"]["STAGE_4"].get("input_sha256")==digest: raise SystemExit(0)
+          raise SystemExit(1)
+          PY
+            then
+              READY=true
+              break
+            fi
+            sleep 30
+          done
+          test "$READY" = true
           REPORT_DATE="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["report_date"])' "$RUN_DIR/run-context.json")"
           for file in run-context.json run-state.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
           python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
