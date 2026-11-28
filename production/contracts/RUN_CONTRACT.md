@@ -16,7 +16,7 @@
 - run-state includes schema_version, state_version, run_id, production_date, report_date, trading_date, main_commit_sha, workflow_run_id, created_at, updated_at, current_stage, last_passed_stage, overall_status, and a six-entry stages object.
 - Each stage entry includes status, attempt, started_at, completed_at, input_sha256, output_sha256, receipt_path, error_code, lease_owner and lease_expires_at.
 - Stage statuses: NOT_STARTED, READY, RUNNING, SUBMITTED, PASS, DEFERRED, PARTIAL, FAILED, SKIPPED. Only Stage 2 and Stage 4 (ChatGPT-owned submissions) may use SUBMITTED. Only Stage 2 and Stage 5 may use PARTIAL. Stage 5 PARTIAL must set Stage 6 SKIPPED.
-- Overall statuses: RUNNING, PARTIAL, FAILED, REVIEW_READY, DELIVERED, AWAITING_APPROVAL, PUBLISHED. Stage 6 completion means DELIVERED / AWAITING_APPROVAL; it never means PUBLISHED.
+- Overall statuses: RUNNING, PARTIAL, FAILED, REVIEW_READY, AWAITING_APPROVAL, PUBLISHED. Stage 5 PASS means REVIEW_READY; Stage 6 PASS means AWAITING_APPROVAL; it never means PUBLISHED. DELIVERED_AND_PUBLICLY_VERIFIED is the Stage 6 receipt status, not a separate overall state.
 - Initial state is created atomically with Stage 1 handoff: Stage 1=PASS, Stage 2=READY, Stage 3–6=NOT_STARTED.
 - Legal sequence:
   1. Stage 2 READY → RUNNING → SUBMITTED; GitHub validates the exact observation bundle and receipt, then promotes Stage 2 to PASS or PARTIAL.
