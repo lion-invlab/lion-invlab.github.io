@@ -23,7 +23,7 @@ def step(state, stage, old, new, **kwargs):
 
 class RunStateTests(unittest.TestCase):
     def setUp(self):
-        self.state = initial_run_state(CTX, S1, now="2026-11-28T00:00:00Z")
+        self.state = initial_run_state(CTX, S1, "c" * 64, now="2026-11-28T00:00:00Z")
 
     def test_initial_state_starts_at_stage2_after_stage1_pass(self):
         self.assertEqual(self.state["stages"]["STAGE_1"]["status"], "PASS")
