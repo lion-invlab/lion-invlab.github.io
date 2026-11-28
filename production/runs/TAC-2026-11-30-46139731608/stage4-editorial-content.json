@@ -1,0 +1,507 @@
+{
+  "run_id": "TAC-2026-11-30-46139731608",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "market_snapshot_sha256": "ae9cae1fe7ba6f0d1baaddf3a89fda6c9c754233678d5c6159e5fcff0c08bedb",
+  "research_bundle_sha256": "426e4724e489c395f98b3d6b8f56d1b24a9347a86b245f8e018c360a33ec1458",
+  "summary_title": "AI反彈擴散，信用風險仍未解除",
+  "summary_points": [
+    {
+      "label": "反彈主軸",
+      "text": "感恩節後半日市美股全面收高，Nasdaq上漲2.31%、費半上漲4.69%，11大產業ETF全數收紅；但半日市流動性偏低，Nasdaq新低家數仍高於新高，尚不能視為趨勢反轉。"
+    },
+    {
+      "label": "政策與區域",
+      "text": "中國穩市措施推動A股、港股及韓股強勢反彈，滬深交易所並將下調融資保證金門檻；台灣加權僅上漲0.40%，區域市場表現仍受政策與資金流差異主導。"
+    },
+    {
+      "label": "風險底色",
+      "text": "VIX與MOVE回落，但Fear & Greed仍處25的恐懼區；美債殖利率上行、AI信用利差偏寬，市場焦點正由股價反彈轉向資本支出回報、融資成本與Fed政策路徑。"
+    }
+  ],
+  "focus_news": [
+    {
+      "title": "中國國務院加碼穩市，中央匯金類平準基金與長期資金入市成焦點",
+      "summary": "國務院常務會議提出加大國家隊穩市力度、優化中央匯金類平準基金功能，並鼓勵保險、年金及社保等中長期資金入市。政策可改善短期流動性與風險偏好，但後續仍須觀察企業獲利、回購與長期資金實際流入。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+      "published_at_source": "2026-11-27 16:39",
+      "published_at_tw": "2026-11-27 16:39",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "OPEC+傳同意2027年第一季維持產量目標不變，配額分歧仍待解",
+      "summary": "消息人士稱OPEC+原則上同意明年第一季維持產量目標不變，11月29日會議將討論2027年產量框架。伊拉克要求提高產能評估，內部配額協商與中東航運風險，使油市同時面臨供應過剩與突發中斷兩種力量。",
+      "url": "https://news.cnyes.com/news/id/6673959",
+      "published_at_source": "2026-11-27 18:05",
+      "published_at_tw": "2026-11-27 18:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "美國就業報告將檢驗Fed緊縮風險，12月政策定價出現訊息落差",
+      "summary": "路透預期美國11月非農新增約9萬人、失業率4.1%，12月4日就業報告將成為12月8–9日Fed會議前的重要依據。較早的路透報導描述市場升息預期偏高，但本次較晚的FedWatch快照顯示維持4.00%–4.25%機率95.8%，應以最新定價觀察後續變化。",
+      "url": "https://www.reuters.com/business/wall-st-week-ahead-sliding-stock-market-confronts-jobs-data-rate-view-next-tests-2026-11-27/",
+      "published_at_source": "2026-11-27 11:02 UTC",
+      "published_at_tw": "2026-11-27 19:02",
+      "source_timezone": "UTC",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "美國先進AI晶片管制增加亞洲資料中心與算力融資不確定性",
+      "summary": "美國限制先進AI晶片遠端存取的政策持續影響跨境雲端算力供應，亞洲資料中心業者可能面臨客戶資格、設備配置與融資條件重新評估。政策傳導將延伸至晶片供應商、雲端租賃商及資料中心建置商。",
+      "url": "https://hk.investing.com/news/economy-news/article-1779527",
+      "published_at_source": "2026-11-27 18:05",
+      "published_at_tw": "2026-11-27 18:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "高盛警告AI資本支出與信用市場分歧擴大，融資成本成後續風險",
+      "summary": "高盛指出大型雲端服務商CDS利差升至歷史最寬，信用市場並未跟隨股市反彈同步改善。AI投資若持續依賴債務融資，市場將更重視現金流、資本回收期與融資成本，而非只看晶片需求成長。",
+      "url": "https://news.cnyes.com/news/id/6674377",
+      "published_at_source": "2026-11-28 15:10",
+      "published_at_tw": "2026-11-28 15:10",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    }
+  ],
+  "headlines": [
+    {
+      "title": "美股感恩節後半日市反彈，三大指數週線同步走強",
+      "summary": "道瓊上漲1.18%、標普500上漲1.60%、Nasdaq上漲2.31%；三大指數單週分別上漲5.46%、5.60%與6.68%。不過半日市成交量僅約109.7億股，且Nasdaq新低家數仍高於新高，反彈仍需後續交易日確認。",
+      "url": "https://www.reuters.com/business/wall-st-futures-surge-investors-return-holiday-2026-11-27/",
+      "published_at_source": "2026-11-27 07:34 UTC",
+      "published_at_tw": "2026-11-27 15:34",
+      "source_timezone": "UTC",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "費半上漲4.7%，Micron與Marvell領漲晶片族群",
+      "summary": "Micron上漲7.6%、Marvell上漲7.3%，費城半導體指數上漲4.7%；Nvidia尾盤收漲0.8%。買盤回流反映超跌修復，但AI資料中心資本支出與融資回報疑慮尚未解除。",
+      "url": "https://www.reuters.com/business/wall-st-futures-surge-investors-return-holiday-2026-11-27/",
+      "published_at_source": "2026-11-27 07:34 UTC",
+      "published_at_tw": "2026-11-27 15:34",
+      "source_timezone": "UTC",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "中國穩市政策帶動A股午後急拉，創業板單日大漲11.61%",
+      "summary": "國務院常務會議提出加大國家隊穩市力度、優化中央匯金類平準基金功能，並鼓勵長期資金入市及上市公司分紅回購。上證收漲3.73%、深證成指漲7.24%，市場將觀察政策是否轉化為持續資金流與企業獲利改善。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+      "published_at_source": "2026-11-27 16:39",
+      "published_at_tw": "2026-11-27 16:39",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "滬深交易所11月30日起下調融資保證金最低比例",
+      "summary": "融資保證金最低比例將由100%降至80%，提高投資者融資交易能力。短期有助改善市場流動性與風險偏好，但槓桿資金回流也可能放大高波動個股的漲跌。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+      "published_at_source": "2026-11-27 16:39",
+      "published_at_tw": "2026-11-27 16:39",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "高盛示警AI擁擠交易退潮，股市反彈與信用市場訊號背離",
+      "summary": "高盛指出大型雲端服務商CDS利差在感恩節前夕升至歷史最寬，AI基礎建設愈依賴債務融資，市場愈需要檢驗資本支出回報。股價反彈不代表信用風險同步消退，融資成本與現金流將成為下一階段關鍵。",
+      "url": "https://news.cnyes.com/news/id/6674377",
+      "published_at_source": "2026-11-28 15:10",
+      "published_at_tw": "2026-11-28 15:10",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "OPEC+傳原則同意2027年第一季維持產量目標不變",
+      "summary": "消息人士指出，OPEC+原則上同意明年第一季維持產量目標不變，正式政策仍待11月29日會議確認。伊拉克爭取提高產能評估，配額分配與中東航運風險將共同影響明年供應預期。",
+      "url": "https://news.cnyes.com/news/id/6673959",
+      "published_at_source": "2026-11-27 18:05",
+      "published_at_tw": "2026-11-27 18:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "路透：美國11月就業報告將成Fed 12月決策前的重要測試",
+      "summary": "路透調查預期11月非農新增約9萬人、失業率4.1%，就業報告預計12月4日公布。強勁數據可能強化緊縮立場；但本次較晚取得的FedWatch快照顯示12月9日維持利率機率95.8%，與較早報導的升息敘事存在落差。",
+      "url": "https://www.reuters.com/business/wall-st-week-ahead-sliding-stock-market-confronts-jobs-data-rate-view-next-tests-2026-11-27/",
+      "published_at_source": "2026-11-27 11:02 UTC",
+      "published_at_tw": "2026-11-27 19:02",
+      "source_timezone": "UTC",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "美國AI晶片出口限制持續牽動亞洲資料中心融資",
+      "summary": "Investing.com整理指出，美國對先進AI晶片遠端存取的限制，使亞洲資料中心融資與晶片供應鏈面臨額外不確定性。政策影響不只落在晶片出口，也可能透過雲端算力租賃、資料中心投資與設備訂單傳導。",
+      "url": "https://hk.investing.com/news/economy-news/article-1779527",
+      "published_at_source": "2026-11-27 18:05",
+      "published_at_tw": "2026-11-27 18:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "高盛：CCC級高收益債利差突破1200個基點，AI債務風險升高",
+      "summary": "高盛指出低評級借款人承受高利率與再融資壓力，美元CCC級高收益債利差已突破1200個基點。若AI基礎設施融資需求持續擴大，信用市場可能先於股票市場反映資金成本與違約風險。",
+      "url": "https://news.cnyes.com/news/id/6674356",
+      "published_at_source": "2026-11-28 10:05",
+      "published_at_tw": "2026-11-28 10:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    },
+    {
+      "title": "宏觀焦點轉向高成長與黏著通膨並存，市場重新評估利率路徑",
+      "summary": "鉅亨整理指出，美國第三季GDP增速上修至4.3%，10月核心PCE年增3.3%；強勁成長與通膨黏著提高政策不確定性。FedWatch較晚快照則顯示12月維持利率機率95.8%，投資人需留意新聞敘事與最新期貨定價並非完全一致。",
+      "url": "https://news.cnyes.com/news/id/6674352",
+      "published_at_source": "2026-11-28 10:05",
+      "published_at_tw": "2026-11-28 10:05",
+      "source_timezone": "Asia/Taipei",
+      "updated_at_source": "原文未標示絕對更新時間",
+      "updated_at_tw": "原文未標示",
+      "checked_at_tw": "2026-11-28T19:32:41+08:00"
+    }
+  ],
+  "sentiment": "市場風險偏好在超跌買盤與中國政策支持下明顯回升，半導體與成長股領漲，VIX及MOVE同步回落；然而Fear & Greed僅25，仍位於恐懼區。美債殖利率全線上升，美元偏強，AI大型雲端服務商信用利差卻未隨股市改善，顯示股票市場的反彈尚未獲得信用市場完整確認。短線可參與有獲利與現金流支撐的修復行情，但應避免追逐高槓桿、低能見度的AI資本支出概念。",
+  "market_sentiment": "市場風險偏好在超跌買盤與中國政策支持下明顯回升，半導體與成長股領漲，VIX及MOVE同步回落；然而Fear & Greed僅25，仍位於恐懼區。美債殖利率全線上升，美元偏強，AI大型雲端服務商信用利差卻未隨股市改善，顯示股票市場的反彈尚未獲得信用市場完整確認。短線可參與有獲利與現金流支撐的修復行情，但應避免追逐高槓桿、低能見度的AI資本支出概念。",
+  "market_analysis": {
+    "political": {
+      "paragraphs": [
+        "中國政策訊號是本週末最直接的區域流動性催化劑：國務院提出強化國家隊穩市、優化中央匯金類平準基金、引導保險與年金等長期資金入市，並鼓勵上市公司分紅回購；滬深交易所另將於11月30日把融資保證金最低比例由100%降至80%。這些措施先改善交易資金與風險偏好，對股價的支撐可能快於實體經濟基本面改善，後續需看成交、融資餘額與企業回購是否落地。",
+        "能源地緣風險與產油國供給政策形成雙向拉扯。OPEC+消息人士稱2027年第一季產量目標原則上維持不變，但伊拉克爭取提高產能評估；同時中東能源設施與航運風險仍在。市場不能只用單一供應過剩敘事估油價，11月29日會議的配額協商及荷姆茲海峽運輸狀況，將決定供應風險溢價能否持續。"
+      ],
+      "sources": [
+        {
+          "label": "Investing.com｜中國國務院穩市政策與A股收市",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T16:39:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "鉅亨網｜OPEC+原則同意2027年Q1維持產量目標",
+          "url": "https://news.cnyes.com/news/id/6673959",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T18:05:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜美國AI晶片管制與油市風險",
+          "url": "https://hk.investing.com/news/economy-news/article-1779527",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T18:05:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        }
+      ]
+    },
+    "policy_industry": {
+      "paragraphs": [
+        "AI產業鏈的政策傳導已由晶片出口延伸到算力租賃與資料中心融資。美國對先進AI晶片遠端存取的限制，使海外資料中心的客戶資格、設備調度與資金提供者必須重新評估；對晶片供應商而言，需求不只取決於算力建置速度，也取決於終端客戶能否合法取得算力、融資是否可持續，以及資本支出能否轉化為可收現的營收。",
+        "中國穩市措施短期有利券商、科技與高Beta資產的交易需求，但融資保證金門檻下降同時提高槓桿敏感度。產業判斷應區分政策流動性帶來的估值修復，與企業訂單、毛利率及現金流帶來的獲利成長；對AI供應鏈尤其要追蹤雲端客戶資本支出與信用利差，而不是只看股價反彈。"
+      ],
+      "sources": [
+        {
+          "label": "Investing.com｜AI晶片出口限制與亞洲資料中心融資",
+          "url": "https://hk.investing.com/news/economy-news/article-1779527",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T18:05:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "鉅亨網｜高盛警示AI擁擠交易與信用風險",
+          "url": "https://news.cnyes.com/news/id/6674377",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T15:10:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜中國市場融資保證金政策",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T16:39:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        }
+      ]
+    },
+    "macro": {
+      "paragraphs": [
+        "美國宏觀背景呈現成長強、通膨黏的組合：鉅亨整理指出第三季GDP增速上修至4.3%，10月核心PCE年增3.3%；路透調查預期11月非農新增約9萬人、失業率4.1%。強勁成長有助企業營收，但若勞動與物價數據再次偏熱，將延長高利率環境並提高長久期資產的折現壓力。",
+        "本次較晚取得的Investing.com Fed Rate Monitor快照顯示，12月9日會議維持4.00%–4.25%機率95.8%，降至3.75%–4.00%機率4.2%；這與較早路透文章所描述的升息預期存在時間差與訊息落差。以本次快照作為最新定價基準，市場主情境仍是按兵不動，但就業、服務業價格與Fed官員談話仍可能快速改變風險分布。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜美國11月就業報告與Fed政策觀察",
+          "url": "https://www.reuters.com/business/wall-st-week-ahead-sliding-stock-market-confronts-jobs-data-rate-view-next-tests-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T11:02:00Z",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "鉅亨網｜本週宏觀焦點與美國成長、通膨",
+          "url": "https://news.cnyes.com/news/id/6674352",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T10:05:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜Fed Rate Monitor 12月9日會議機率",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T13:35:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        }
+      ]
+    },
+    "markets": {
+      "paragraphs": [
+        "11月27日美股感恩節後半日市全面反彈，道瓊、標普500、Nasdaq分別上漲1.18%、1.60%、2.31%，費半上漲4.69%；11大產業ETF全數收紅，XLK以2.80%領漲。亞洲市場由中國資產領跑，上證上漲3.73%、深證上漲7.24%、KOSPI上漲4.34%，而台灣加權僅上漲0.40%，區域資金與政策催化呈現明顯差異。",
+        "價格型風險指標降溫但並未解除警戒：VIX回落11.16%至23.81、MOVE回落2.30%至95.30，CNN Fear & Greed核准備援讀值為25（Fear）。同時美債2年、10年、30年殖利率分別上升5.0、6.5、7.1個基點，美元指數上漲0.34%；黃金與白銀反彈，油價則下跌，反映股市修復與利率、信用、地緣風險仍在拉鋸。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜美股11月27日收盤與市場廣度",
+          "url": "https://www.reuters.com/business/wall-st-futures-surge-investors-return-holiday-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T07:34:00Z",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜中國及亞洲市場收市",
+          "url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T16:39:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜VIX歷史資料",
+          "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
+          "status": "VERIFIED",
+          "published_at": null,
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜MOVE歷史資料",
+          "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+          "status": "VERIFIED",
+          "published_at": null,
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "鉅亨網｜高盛信用風險觀察",
+          "url": "https://news.cnyes.com/news/id/6674377",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T15:10:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        }
+      ]
+    },
+    "strategy": {
+      "paragraphs": [
+        "基準情境：AI與半導體超跌反彈延續，政策支持與季節性資金流入有助指數維持修復；但VIX仍在23.81、Fear & Greed為25，且信用利差未同步改善。操作上以分批布局、優先選擇訂單能見度高、現金流與資產負債表較穩健的半導體及大型平台企業，不以單日急漲作為追價理由。",
+        "風險情境：若美國就業與服務業價格偏熱，市場重新提高升息或長期高利率機率，10年期殖利率可能再測高位；若AI資料中心融資成本與CDS持續擴大，股價反彈可能遭信用市場否定。應降低高槓桿、尚未證明現金流的AI基建曝險，並以VIX、MOVE、10年期殖利率及大型雲端服務商信用利差作為風險調整訊號。",
+        "嚴重情境：若中東航運或能源設施再受重大干擾，油價風險溢價快速擴大，同時AI融資市場出現違約或再融資壓力，可能形成能源通膨、利率上行與信用緊縮的共振。此時應優先保留現金與流動性，降低高Beta與長久期部位，等待信用利差、波動率與市場廣度同步穩定後再恢復風險部位。"
+      ],
+      "sources": [
+        {
+          "label": "鉅亨網｜高盛AI信用市場風險",
+          "url": "https://news.cnyes.com/news/id/6674377",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T15:10:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Reuters｜美國就業與Fed政策路徑",
+          "url": "https://www.reuters.com/business/wall-st-week-ahead-sliding-stock-market-confronts-jobs-data-rate-view-next-tests-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T11:02:00Z",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "鉅亨網｜OPEC+產量政策",
+          "url": "https://news.cnyes.com/news/id/6673959",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T18:05:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        },
+        {
+          "label": "Investing.com｜Fed Rate Monitor",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T13:35:00+08:00",
+          "checked_at": "2026-11-28T19:32:41+08:00"
+        }
+      ]
+    }
+  },
+  "political_scan": {
+    "checked_at": "2026-11-28T19:32:41+08:00",
+    "domains_checked": [
+      "us_policy",
+      "us_china",
+      "geopolitics",
+      "trade_sanctions",
+      "major_economies",
+      "energy_resources"
+    ],
+    "findings": [
+      {
+        "title": "中國國務院提出加碼穩市與長期資金入市措施",
+        "domain": "major_economies",
+        "classification": "official_policy_announced",
+        "source_url": "https://hk.investing.com/news/stock-market-news/article-1779481",
+        "published_at": "2026-11-27T16:39:00+08:00",
+        "checked_at": "2026-11-28T19:32:41+08:00",
+        "transmission": "政策先透過國家隊、中央匯金類平準基金、長期資金與分紅回購改善流動性與估值情緒；若缺乏企業獲利改善，價格支撐可能主要停留在資金面。"
+      },
+      {
+        "title": "美國先進AI晶片遠端存取限制持續影響亞洲算力供應鏈",
+        "domain": "us_china",
+        "classification": "policy_in_force_ongoing_transmission",
+        "source_url": "https://hk.investing.com/news/economy-news/article-1779527",
+        "published_at": "2026-11-27T18:05:00+08:00",
+        "checked_at": "2026-11-28T19:32:41+08:00",
+        "transmission": "出口限制將透過雲端算力租賃、資料中心客戶資格、設備配置與融資條件傳導，可能改變晶片需求的地區分布及AI基建投資回報。"
+      },
+      {
+        "title": "中東能源設施與航運風險持續進入油市定價",
+        "domain": "geopolitics",
+        "classification": "geopolitical_risk_ongoing",
+        "source_url": "https://hk.investing.com/news/economy-news/article-1779527",
+        "published_at": "2026-11-27T18:05:00+08:00",
+        "checked_at": "2026-11-28T19:32:41+08:00",
+        "transmission": "若荷姆茲海峽運輸或沙國能源設施再受干擾，原油供應風險溢價可能上升，進而影響通膨預期、債券殖利率及能源進口國成本。"
+      },
+      {
+        "title": "OPEC+傳原則同意2027年第一季維持產量目標不變",
+        "domain": "energy_resources",
+        "classification": "reported_consensus_pending_formal_confirmation",
+        "source_url": "https://news.cnyes.com/news/id/6673959",
+        "published_at": "2026-11-27T18:05:00+08:00",
+        "checked_at": "2026-11-28T19:32:41+08:00",
+        "transmission": "短期維持配額有助限制供應增量，但伊拉克爭取更高產能評估、成員間配額分歧及地緣供應風險，使2027年實際供給仍具不確定性。"
+      },
+      {
+        "title": "美國12月Fed決策與就業數據成為政策預期焦點",
+        "domain": "us_policy",
+        "classification": "market_expectation_not_official_fed_decision",
+        "source_url": "https://www.reuters.com/business/wall-st-week-ahead-sliding-stock-market-confronts-jobs-data-rate-view-next-tests-2026-11-27/",
+        "published_at": "2026-11-27T11:02:00Z",
+        "checked_at": "2026-11-28T19:32:41+08:00",
+        "transmission": "就業與通膨數據將影響政策利率預期及長端殖利率；本次較晚FedWatch快照顯示維持利率機率95.8%，並非官方決策，須持續追蹤數據與官員訊號。"
+      }
+    ]
+  },
+  "core_observation": {
+    "heading": "週一開盤核心觀察",
+    "text": "AI與半導體反彈已帶動美股及亞洲科技市場修復，但恐懼指數仍低、信用利差未同步改善；中國政策提供短期流動性催化，Fed利率定價與市場媒體敘事則出現落差。週一應優先觀察中國官方PMI、融資保證金新制落地，以及美國就業與AI信用風險是否改變市場對利率與資本回報的判斷。",
+    "details": "本次市場基準為2026年11月27日收盤；美股為感恩節後半日市，成交量偏低。日經225使用Investing.com歷史頁，商品標示為Real-time derived，僅按來源口徑呈現，不宣稱交易所官方現貨。Fear & Greed採核准FGScore備援，CNN官方頁與graphdata未取得可讀內容。"
+  },
+  "observation": {
+    "heading": "盤面觀察重點",
+    "text": "一、半導體領漲：SOX +4.69%、XLK +2.80%，但AI融資與信用利差仍是反彈能否延續的關鍵。二、區域分化：中國政策催化帶動滬深與港韓市場，台股僅小幅上漲。三、利率壓力：美債殖利率全線上行，FedWatch較晚快照仍以維持利率為主。四、風險未清：VIX與MOVE回落，但Fear & Greed 25仍在恐懼區，應避免以單日反彈追價。"
+  },
+  "key_levels": {
+    "baseline_date": "2026-11-27",
+    "formula": "傳統樞紐點法：P=(H+L+C)/3；S1=2P−H；S2=P−(H−L)；R1=2P−L；R2=P+(H−L)。以下依Investing.com同日歷史頁OHLC計算，僅作技術觀察，不代表預測。",
+    "items": [
+      {
+        "name": "道瓊工業指數",
+        "ohlc": "H 50,830.19／L 50,398.29／C 50,774.94",
+        "s2": "50,235.91",
+        "s1": "50,505.42",
+        "p": "50,667.81",
+        "r1": "50,937.32",
+        "r2": "51,099.71",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "source_name": "Investing.com HK｜Dow Jones 30 Historical Data"
+      },
+      {
+        "name": "標普500指數",
+        "ohlc": "H 7,304.10／L 7,211.46／C 7,297.49",
+        "s2": "7,178.38",
+        "s1": "7,237.93",
+        "p": "7,271.02",
+        "r1": "7,330.57",
+        "r2": "7,363.66",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data",
+        "source_name": "Investing.com｜S&P 500 Historical Data"
+      },
+      {
+        "name": "那斯達克綜合指數",
+        "ohlc": "H 24,149.09／L 23,690.60／C 24,129.50",
+        "s2": "23,531.24",
+        "s1": "23,830.37",
+        "p": "23,989.73",
+        "r1": "24,288.86",
+        "r2": "24,448.22",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "source_name": "Investing.com HK｜Nasdaq Composite Historical Data"
+      },
+      {
+        "name": "羅素2000指數",
+        "ohlc": "H 2,751.42／L 2,721.39／C 2,750.30",
+        "s2": "2,711.01",
+        "s1": "2,730.65",
+        "p": "2,741.04",
+        "r1": "2,760.68",
+        "r2": "2,771.07",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "source_name": "Investing.com｜US Small Cap 2000 Historical Data"
+      },
+      {
+        "name": "費城半導體指數",
+        "ohlc": "H 9,213.60／L 8,789.30／C 9,186.70",
+        "s2": "8,638.90",
+        "s1": "8,912.80",
+        "p": "9,063.20",
+        "r1": "9,337.10",
+        "r2": "9,487.50",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "source_name": "Investing.com HK｜PHLX Semiconductor Historical Data"
+      }
+    ]
+  },
+  "market_comments": {
+    "global_markets": [
+      "美股：道瓊+1.18%、標普500 +1.60%、Nasdaq +2.31%，費半+4.69%；11大產業ETF全數上漲，科技領漲。惟美股為感恩節後半日市，成交量低於一般交易日，且Nasdaq新低家數仍高於新高。",
+      "亞洲：上證+3.73%、深證+7.24%、KOSPI +4.34%、日經225 +2.11%，中國穩市政策成為區域催化；台灣加權+0.40%，相對落後，需觀察政策資金是否擴散至台股權值與半導體供應鏈。",
+      "歐洲：STOXX Europe 600 +1.08%、DAX +0.90%、FTSE 100 +0.84%、CAC 40 +0.58%，風險偏好改善，但後續仍受美國利率路徑、能源價格及AI資本支出疑慮牽動。"
+    ],
+    "sectors": "11大產業ETF全數收紅，XLK +2.80%領漲，XLY +2.11%、XLC +1.99%、XLB +1.84%、XLI +1.60%跟進；防禦型XLP +0.41%、XLU與XLV各+0.28%漲幅較小，顯示反彈由成長與週期類股領導。",
+    "bonds": "美國2年、10年、30年殖利率分別收4.704%、4.934%、5.323%，單日上升5.0、6.5、7.1個基點；長端升幅較大，反映期限溢酬與通膨／政策不確定性仍在。",
+    "fx": "美元指數上漲0.34%至104.01；USD/TWD 32.999、USD/JPY 159.56上升，EUR/USD與GBP/USD下跌，AUD/USD上升，美元走勢偏強但非全面單邊。",
+    "energy": "WTI收83.08美元、下跌2.17%；Brent收95.44美元、下跌1.17%。中東供應風險仍在，但油價回落顯示市場同時衡量全球供應過剩、OPEC+配額與地緣風險。",
+    "metals": "黃金收3,655.30美元、上漲2.10%；白銀收43.368美元、上漲5.08%。貴金屬反彈反映避險與超跌修復需求，但與股市同漲，較像風險資產修復伴隨保險需求，而非單純全面避險。"
+  },
+  "news_cutoff_taipei": "2026-11-28 19:29",
+  "news_window_taipei": "2026-11-27 12:00–2026-11-28 19:29（台灣時間）",
+  "warning_note": "美股2026/11/27為感恩節後半日市，流動性與成交量低於一般交易日；當日反彈不宜直接外推為趨勢反轉。",
+  "quality_note": "44項行情全部來自本Run新建Observation；CNN Fear & Greed使用核准FGScore備援（25／Fear），CNN官方頁及graphdata未取得可讀內容。FedWatch採本次較晚快照：維持4.00%–4.25%機率95.8%，降至3.75%–4.00%機率4.2%。",
+  "pending_items": []
+}
