@@ -14,6 +14,13 @@ stage1 = workflow[stage1_start:stage2_start]
 stage2 = workflow[stage2_start:build_start]
 build = workflow[build_start:]
 
+# Reservation is scoped to the report date, not the whole workflow/branch.
+assert "concurrency:\n  group: tac-main-production-" not in workflow
+assert "group: tac-main-stage1-${{ inputs.report_date || needs['schedule-window'].outputs.report_date || github.run_id }}" in stage1
+assert "report_date: ${{ steps.dst.outputs.report_date }}" in workflow
+assert 'if [ "$DISPATCH_MODE" = "rerun" ] || [ "$DISPATCH_MODE" = "recover" ]; then' in stage1
+assert "Manual recovery/rerun requires an explicit Taiwan report_date" in stage1
+
 # Stage 1 must create, publish, and exit before any Stage 2 dependency is installed.
 assert "timeout-minutes: 10" in stage1
 assert "Stage 1 — create or resume the exact Run" in stage1
