@@ -650,7 +650,7 @@ jobs:
 
   build-and-deliver:
     needs: [schedule-window, capture-and-calendar]
-    if: ${{ always() && github.ref == 'refs/heads/main' && needs.capture-and-calendar.result == 'success' && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
+    if: ${{ always() && github.ref == 'refs/heads/main' && needs['capture-and-calendar'].result == 'success' && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -683,8 +683,8 @@ jobs:
         id: resolve
         shell: bash
         env:
-          CAPTURE_RUN_ID: ${{ needs.capture-and-calendar.outputs.run_id }}
-          CAPTURE_REPORT_DATE: ${{ needs.capture-and-calendar.outputs.report_date }}
+          CAPTURE_RUN_ID: ${{ needs['capture-and-calendar'].outputs.run_id }}
+          CAPTURE_REPORT_DATE: ${{ needs['capture-and-calendar'].outputs.report_date }}
         run: |
           set -euo pipefail
           RUN_ID="$CAPTURE_RUN_ID"
