@@ -32,11 +32,10 @@ class FedWatchObservationTests(unittest.TestCase):
 
     def test_missing_observation_blocks_silent_empty_fedwatch(self):
         with self.assertRaisesRegex(ValueError,"missing the independent FedWatch"):
-            validate_fedwatch_observation(None,{"wr_sha256":WR_SHA},CONTEXT)
+            validate_fedwatch_observation(None,{},CONTEXT)
 
-    def test_worker_wr_digest_is_not_a_fedwatch_gate(self):
+    def test_fedwatch_validation_does_not_require_worker_attestation(self):
         payload=valid_payload()
-        payload["stage2_wr_sha256"]="b"*64
         result=validate_fedwatch_observation(payload,{},CONTEXT)
         self.assertEqual(result["status"],"VERIFIED")
 
@@ -44,18 +43,18 @@ class FedWatchObservationTests(unittest.TestCase):
         payload=valid_payload()
         payload["trading_date"]="2026-11-26"
         with self.assertRaisesRegex(ValueError,"dates do not match"):
-            validate_fedwatch_observation(payload,{"wr_sha256":WR_SHA},CONTEXT)
+            validate_fedwatch_observation(payload,{},CONTEXT)
 
     def test_probability_distribution_must_sum_to_100(self):
         payload=valid_payload()
         payload["probabilities"][0]["probability"]=60
         with self.assertRaisesRegex(ValueError,"not 100%"):
-            validate_fedwatch_observation(payload,{"wr_sha256":WR_SHA},CONTEXT)
+            validate_fedwatch_observation(payload,{},CONTEXT)
 
     def test_unavailable_status_carries_no_unverified_probabilities(self):
         payload=valid_payload()
         payload.update({"status":"TOOL_READ_FAILURE","target_meeting":None,"current_target_range":None,"updated_at_tw":None,"probabilities":[],"web_reader_ref":None,"web_line_start":None,"web_line_end":None,"reason":"Investing.com Fed Rate Monitor could not be read."})
-        result=validate_fedwatch_observation(payload,{"wr_sha256":WR_SHA},CONTEXT)
+        result=validate_fedwatch_observation(payload,{},CONTEXT)
         self.assertEqual(result["status"],"TOOL_READ_FAILURE")
         self.assertEqual(result["probabilities"],[])
 
@@ -63,7 +62,7 @@ class FedWatchObservationTests(unittest.TestCase):
         payload=valid_payload()
         payload.update({"status":"SOURCE_NO_DATA","reason":"No current meeting distribution was available."})
         with self.assertRaisesRegex(ValueError,"must not carry unverified"):
-            validate_fedwatch_observation(payload,{"wr_sha256":WR_SHA},CONTEXT)
+            validate_fedwatch_observation(payload,{},CONTEXT)
 
 if __name__=="__main__":
     unittest.main()
