@@ -15,7 +15,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from run_state import transition_state, validate_state
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_loader import load_stage_wr
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE_ARTIFACTS = {
@@ -127,7 +127,7 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         raise ValueError("Stage 2 observation schema_version must be 1.1")
     if not payload.get("captured_at_utc"):
         raise ValueError("Stage 2 captured_at_utc is required")
-    wr = stage_wr_preflight("STAGE_2", context)
+    wr = load_stage_wr("STAGE_2", context)
     observations = payload.get("observations")
     if not isinstance(observations, list) or len(observations) != 44:
         raise ValueError("Stage 2 artifact must contain exactly 44 observations")
