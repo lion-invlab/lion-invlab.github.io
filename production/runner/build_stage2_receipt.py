@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from urllib.parse import urlparse
+from validate_market_snapshot import validate_market_snapshot
 
 EXPECTED_GROUPS={"global_markets":17,"sectors":11,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3}
 OFFICIAL_CALENDAR_HOSTS={"nyse.com","nasdaq.com","jpx.co.jp","cao.go.jp","global.krx.co.kr",
@@ -227,11 +228,14 @@ def build_handoff_receipt(args):
 
 def build_receipt(args):
     data=json.loads(Path(args.data).read_text(encoding="utf-8"))
-    audit=json.loads(Path(args.audit).read_text(encoding="utf-8"))
+    audit=validate_market_snapshot(data,args.report_date)
     manifest=json.loads(Path(args.manifest).read_text(encoding="utf-8"))
     observations=json.loads(Path(args.observations).read_text(encoding="utf-8"))
     counts=validate_inputs(data,audit,manifest,observations,args.report_date)
-    paths={"fixture":args.data,"audit":args.audit,"manifest":args.manifest,"observations":args.observations}
+    audit_path=Path(args.audit_output)
+    audit_path.parent.mkdir(parents=True,exist_ok=True)
+    audit_path.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    paths={"fixture":args.data,"audit":args.audit_output,"manifest":args.manifest,"observations":args.observations}
     hashes={key:sha_file(path) for key,path in paths.items()}
     run_id=str(args.run_id or "LOCAL")
     workflow_run_id=str(getattr(args,"workflow_run_id",None) or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
@@ -265,7 +269,7 @@ def build_receipt(args):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--report-date",required=True); p.add_argument("--data",required=True)
-    p.add_argument("--audit"); p.add_argument("--manifest",required=True)
+    p.add_argument("--audit-output"); p.add_argument("--manifest",required=True)
     p.add_argument("--observations",required=True); p.add_argument("--output",required=True)
     p.add_argument("--run-id"); p.add_argument("--workflow-run-id"); p.add_argument("--commit-sha"); p.add_argument("--branch")
     p.add_argument("--handoff-only",action="store_true")
@@ -273,7 +277,7 @@ def main():
     if a.handoff_only:
         receipt=build_handoff_receipt(a)
     else:
-        if not a.audit: p.error("--audit is required for full Stage 5 QA receipt generation")
+        if not a.audit_output: p.error("--audit-output is required for full Stage 5 QA receipt generation")
         receipt=build_receipt(a)
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
