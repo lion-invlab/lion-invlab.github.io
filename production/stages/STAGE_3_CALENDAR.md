@@ -25,3 +25,10 @@ calendar-data.json、earnings-data.json、event/source references、未核實項
 
 ## 驗收與交接
 事件 ID 唯一、日期／時區正確、JSON SHA 一致、已公布值有來源、EPS／Revenue 獨立判讀。交給 Stage 4 與 Stage 5；不改動來源 JSON。
+
+
+## Main Run state contract v1.2
+- Stage 3 必須讀取同一 Run 的 run-state.json；Stage 2 必須已由 GitHub validator 標記 PASS 或 PARTIAL，Stage 2 receipt 的 run_id 必須等於 run-context.run_id。Stage 2 SUBMITTED 尚未驗證時，不得開始 Stage 3。
+- Stage 3 只可在 Stage 3=READY 時，以 compare-and-swap 將狀態改為 RUNNING，記錄 lease、Stage 2 receipt SHA 與 calendar input SHA。
+- Stage 3 完成並寫出 stage3-calendar-receipt.json 後，將 Stage 3 改為 PASS，記錄 receipt SHA，並將 Stage 4 設為 READY。Receipt 與 state 必須在同一 Run 證據提交中保存。
+- Stage 3 不建立 Run、不重抓行情、不改寫週 JSON、不以日期共用檔作輸入；任何前置狀態或 Run ID 不符均 FAIL-CLOSED。
