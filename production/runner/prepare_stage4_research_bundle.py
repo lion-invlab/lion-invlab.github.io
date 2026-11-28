@@ -116,7 +116,8 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
     required={label:path for label,path in required_candidates.items()
               if path.is_file() and not path.is_symlink()}
     missing_inputs=[label for label,path in required_candidates.items()
-                    if not path.is_file() or path.is_symlink()]
+                    if (not path.is_file() or path.is_symlink())
+                    and not (label.startswith("last-week-") and report_date.weekday()!=0)]
     screenshot_evidence=[]
     screenshot_info=context.get("screenshot_input") or {}
     if screenshot_info.get("present"):
@@ -129,9 +130,14 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                     evidence=Path(str(field.get("evidence_path") or row.get("evidence_path") or ""))
                     if not evidence.is_absolute():
                         evidence=root/evidence
-                    if evidence.is_file() and not evidence.is_symlink():
+                    try:
+                        resolved=evidence.resolve(strict=True)
+                        resolved.relative_to(root.resolve())
+                    except (OSError,ValueError):
+                        resolved=None
+                    if resolved is not None and resolved.is_file():
                         screenshot_evidence.append({"group":row.get("group"),"name":row.get("name"),
-                            "field":field_name,"path":str(evidence.relative_to(root)),
+                            "field":field_name,"path":str(resolved.relative_to(root.resolve())),
                             "sha256":field.get("evidence_sha256") or row.get("evidence_sha256"),
                             "captured_at":field.get("captured_at") or row.get("captured_at")})
                     else:
