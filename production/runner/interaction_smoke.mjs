@@ -245,15 +245,31 @@ try {
   if (await agenda.count() !== 1 || !(await agenda.isVisible())) {
     throw new Error("本週聯準會官員行程 block missing or hidden");
   }
-  const agendaEvent = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])').first();
-  if (await agendaEvent.count() !== 1) throw new Error("verified Fed official agenda event missing");
-  const agendaText = (await agendaEvent.innerText()).replace(/\\s+/g, " ").trim();
-  if (!agendaText.includes("已發表｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
-    throw new Error("Fed official agenda date/name content mismatch: " + agendaText);
-  }
-  const agendaSource = agendaEvent.locator("a.fc-fomc-weekly-event-source[href]");
-  if (await agendaSource.count() !== 1 || !(await agendaSource.getAttribute("href")).startsWith("https://")) {
-    throw new Error("Fed official agenda source link missing or invalid");
+  const reportDate = document.querySelector('meta[name="report-date"]')?.getAttribute("content") || "";
+  const agendaEvents = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])');
+  const agendaEventCount = await agendaEvents.count();
+  if (reportDate === "2026-11-24") {
+    if (agendaEventCount !== 1) throw new Error("verified Fed official agenda event missing");
+    const agendaEvent = agendaEvents.first();
+    const agendaText = (await agendaEvent.innerText()).replace(/\s+/g, " ").trim();
+    if (!agendaText.includes("已發表｜11/24 二 05:00") || !agendaText.includes("John Williams")) {
+      throw new Error("Fed official agenda date/name content mismatch: " + agendaText);
+    }
+    const agendaSource = agendaEvent.locator("a.fc-fomc-weekly-event-source[href]");
+    if (await agendaSource.count() !== 1 || !(await agendaSource.getAttribute("href")).startsWith("https://")) {
+      throw new Error("Fed official agenda source link missing or invalid");
+    }
+  } else {
+    const allAgendaText = (await agenda.innerText()).replace(/\s+/g, " ").trim();
+    if (allAgendaText.includes("11/24 二 05:00") || allAgendaText.includes("John Williams")) {
+      throw new Error("stale prior-week Fed official agenda event leaked into " + reportDate);
+    }
+    for (let i = 0; i < agendaEventCount; i++) {
+      const source = agendaEvents.nth(i).locator("a.fc-fomc-weekly-event-source[href]");
+      if (await source.count() !== 1 || !(await source.getAttribute("href")).startsWith("https://")) {
+        throw new Error("Fed official agenda source link missing or invalid");
+      }
+    }
   }
 
   const fedAgendaLayouts = [];
@@ -265,6 +281,13 @@ try {
     const metrics = await agenda.evaluate(node => {
       const rect = node.getBoundingClientRect();
       const row = node.querySelector('.fc-fomc-weekly-event:not([data-fed-event-template="true"])');
+      if (!row) return {
+        viewport_width: window.innerWidth, document_width: document.documentElement.scrollWidth,
+        agenda_left: rect.left, agenda_right: rect.right, agenda_width: rect.width,
+        row_width: 0, row_client_width: 0, row_scroll_width: 0,
+        date_right: 0, date_bottom: 0, content_left: 0, content_top: 0,
+        content_width: 0, content_client_width: 0, content_scroll_width: 0
+      };
       const rowRect = row.getBoundingClientRect();
       const date = row.querySelector(".fc-fomc-weekly-event-date");
       const content = row.querySelector(":scope > div:last-child");
@@ -292,12 +315,13 @@ try {
       throw new Error(`Fed agenda overflows viewport ${width}px: ${JSON.stringify(metrics)}`);
     }
     const stackedAtNarrowWidth = width <= 412;
-    const dateContentOrderValid = stackedAtNarrowWidth
+    const hasEventRow = metrics.row_width > 0;
+    const dateContentOrderValid = !hasEventRow || (stackedAtNarrowWidth
       ? metrics.date_bottom <= metrics.content_top + 1 && metrics.content_width >= 150
-      : metrics.date_right <= metrics.content_left + 1;
+      : metrics.date_right <= metrics.content_left + 1);
     if (metrics.row_scroll_width > metrics.row_client_width + 1 ||
         metrics.content_scroll_width > metrics.content_client_width + 1 ||
-        !dateContentOrderValid || metrics.content_width < 50) {
+        !dateContentOrderValid || (hasEventRow && metrics.content_width < 50)) {
       throw new Error(`Fed agenda columns are squeezed or overflow at ${width}px: ${JSON.stringify(metrics)}`);
     }
     await page.screenshot({ path: `${visualDir}/fed-fomc-${width}.png`, fullPage: true });
