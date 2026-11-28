@@ -1343,8 +1343,8 @@
       "page_title": "USD to JPY Historical Exchange Rate Data - Investing.com",
       "instrument_identity": "USD/JPY",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
-      "observed_value_field": "收市",
-      "observed_change_field": "升跌（%）",
+      "observed_value_field": "Price",
+      "observed_change_field": "Change %",
       "observed_headers": [
         "Date",
         "Price",
