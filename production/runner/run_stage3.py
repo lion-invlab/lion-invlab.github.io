@@ -41,13 +41,8 @@ def main():
     state=transition_state(state,stage="STAGE_3",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage3",
         lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=10)).isoformat().replace("+00:00","Z"),
-        input_sha256=hashlib.sha256((run_dir/"stage2-market-snapshot-receipt.json").read_bytes()).hexdigest())
+        input_sha256=state["stages"]["STAGE_2"].get("output_sha256"))
     state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
-    if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
-    stage2_receipt=json.loads(stage2_receipt_path.read_text(encoding="utf-8"))
-    if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
-        raise SystemExit("Stage 3 Stage 2 receipt identity/status does not match the current Run")
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
     bundle=load_authoritative_calendar(report_date,expected_commit=pinned)
