@@ -176,6 +176,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                     {"label": "① 市場廣度", "text": "觀察指數反彈是否擴散至更多產業與成分股。"},
                     {"label": "② 利率定價", "text": "追蹤公債殖利率與風險資產估值的互動。"},
                     {"label": "③ 風險控制", "text": "依波動度與信用條件調整部位及槓桿。"},
+                    {"label": "④ 跨市場訊號", "text": "比較美元、商品與亞洲市場走勢是否一致。"},
                 ],
             }
             editorial["observation"] = {
