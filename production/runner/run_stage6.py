@@ -270,7 +270,7 @@ def main():
             raise SystemExit("Calendar database tree changed during Stage 6")
         final_receipt={"schema_version":"1.0","status":"DELIVERED_AND_PUBLICLY_VERIFIED",
             "run_id":context["run_id"],"report_date":report_date,
-            "wr_loaded":wr_preflight,
+            "wr_loaded":wr_loaded,
             "payload_commit_sha":payload_commit,"pages_deployment_commit_sha":payload_commit,
             "final_receipt_commit_sha":final_receipt_commit,
             "pages_workflow_run_id":pages_run["id"],"pages_workflow_conclusion":pages_run["conclusion"],
