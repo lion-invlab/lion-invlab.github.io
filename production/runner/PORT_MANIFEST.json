@@ -141,7 +141,7 @@
     "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
     "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
     "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database.",
-    "Per-Run state machine and stable retry identity are implemented on the isolated rebuild branch; state transitions are not yet wired through all six production Stage runners or a cutover workflow."
+    "Per-Run state machine and all six Stage Runner state transitions are implemented on the isolated rebuild branch; final workflow integration, automated ChatGPT handoff prompt update, and full E2E validation remain pending."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
