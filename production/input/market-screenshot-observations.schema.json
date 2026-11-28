@@ -9,7 +9,7 @@
     "observations",
     "schema_version",
     "run_id",
-    "captured_at_utc",
+    "captured_at_utc"
   ],
   "properties": {
     "schema_version": {
@@ -414,7 +414,7 @@
           "run_id",
           "report_date",
           "trading_date",
-          "captured_at_utc",
+          "captured_at_utc"
         ]
       }
     }
