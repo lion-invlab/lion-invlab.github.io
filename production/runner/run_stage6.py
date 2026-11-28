@@ -7,7 +7,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
-from run_state import transition_state, validate_state
+from run_state import transition_state, validate_state, write_state_atomic
 
 ROOT=Path(__file__).resolve().parents[2]
 REPO="lion-invlab/lion-invlab.github.io"
@@ -128,7 +128,7 @@ def main():
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage6",
         lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
         input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest())
-    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    write_state_atomic(state_path,state)
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
     require_stage_wr_receipt(stage5,"STAGE_5",context)
     report_date=context["report_date"]
@@ -287,7 +287,7 @@ def main():
         state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="RUNNING",new_status="PASS",
             now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest(),
             output_sha256=sha(final_receipt_path),receipt_path=str(final_receipt_path.relative_to(ROOT)))
-        state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        write_state_atomic(state_path,state)
         print(json.dumps(final_receipt,ensure_ascii=False,indent=2))
     finally:
         subprocess.run(["git","worktree","remove","--force",str(worktree)],cwd=ROOT,capture_output=True,text=True)
