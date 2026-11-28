@@ -235,7 +235,7 @@ def main():
         "--report-date",report_date,"--data",str(fixture_path.relative_to(ROOT)),
         "--audit",str(audit_path.relative_to(ROOT)),"--manifest",str(manifest_path.relative_to(ROOT)),
         "--observations",str(observations_path.relative_to(ROOT)),"--output",str(receipt_path.relative_to(ROOT)),
-        "--run-id",str(context["run_id"]),
+        "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["wr_preflight"]=wr_preflight
