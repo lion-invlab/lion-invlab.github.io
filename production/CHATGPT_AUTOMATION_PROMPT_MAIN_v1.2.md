@@ -52,7 +52,7 @@
 - 只有同一 Run 的 Stage 3=PASS 且 Stage 4=READY，才可開始。
 - 讀取 `stage3-calendar-receipt.json`、`stage4-research-bundle.json`、`stage4-research-bundle-receipt.json`、Stage 2 凍結行情／FedWatch、`capture-stage-receipt.json`；重新計算並核對 run_id、report_date、market snapshot SHA、Research Bundle SHA、Stage 3 receipt SHA 及 Stage 4 WR SHA。
 - 若 Stage 4=SUBMITTED，驗證現有 editorial JSON SHA，不得重新產生；若 Stage 4=PASS，直接結束 Stage 4。
-- Stage 4=DEFERRED 可依 state machine 回 READY；RUNNING 只能在 lease 到期後恢復。不得搶占有效 lease。
+- Stage 4=DEFERRED 可依 state machine 回 READY；Stage 4=FAILED 可使用 recovery=true 回 READY；RUNNING 只能在 lease 到期後恢復。若 editorial JSON 已完整且 SHA 綁定正確，重試只重送既有內容，不得重做新聞研究或改寫已提交內容。不得搶占有效 lease。
 - 以 compare-and-swap 將 Stage 4 READY 改為 RUNNING，記錄 lease、state_version 與 input SHA。
 
 ### 內容要求
