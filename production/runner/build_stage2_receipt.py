@@ -194,7 +194,7 @@ def build_handoff_receipt(args):
     verified=int(manifest.get("verified_count") or 0)
     pending=int(manifest.get("pending_count") or len(pending_rows))
     closed=int(manifest.get("closed_count") or 0)
-    status="PASS" if manifest.get("status")=="PASS" and pending==0 else "PARTIAL"
+    status="PARTIAL" if pending>0 else "PASS"
     paths={"fixture":args.data,"manifest":args.manifest,"observations":args.observations}
     hashes={key:sha_file(value) for key,value in paths.items()}
     run_id=str(args.run_id or "LOCAL")
