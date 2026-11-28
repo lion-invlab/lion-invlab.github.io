@@ -301,7 +301,8 @@ jobs:
                   state_path=same/"run-state.json"
                   if not state_path.is_file():
                       raise SystemExit(f"Existing same-workflow Run {same.name} has no authoritative run-state; refusing overwrite.")
-                  from run_state import validate_state
+                  sys.path.insert(0, "production/runner")
+              from run_state import validate_state
                   validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
                   print("")
                   sys.exit(0)
