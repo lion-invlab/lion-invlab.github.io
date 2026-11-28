@@ -5,7 +5,7 @@
 - 開始交付前完整讀取本文件。
 - Stage 6 只接收 Stage 5 REVIEW_READY 的 HTML 與 QA sidecar。
 - 本階段 WR 依同一 Run 的 Stage 1 governance snapshot 綁定；缺檔、空檔或版本不符時停止交付。
-- 不要求 Stage 1–4 提交 WR SHA、Preflight receipt 或 worker attestation。
+- 不要求 Stage 1–4 提交 WR SHA 或 worker attestation。
  
 Stage 6 完整讀取本文件後，才可建立 worktree、寫入 preview 或啟動 Pages 驗證。
 
