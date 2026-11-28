@@ -422,10 +422,10 @@ jobs:
 
   stage2-and-stage3:
     needs: [stage1-create-run]
-    if: ${{ needs.stage1-create-run.result == 'success' && needs.stage1-create-run.outputs.run_id != '' }}
+    if: ${{ needs['stage1-create-run'].result == 'success' && needs['stage1-create-run'].outputs.run_id != '' }}
     outputs:
-      run_id: ${{ needs.stage1-create-run.outputs.run_id }}
-      report_date: ${{ needs.stage1-create-run.outputs.report_date }}
+      run_id: ${{ needs['stage1-create-run'].outputs.run_id }}
+      report_date: ${{ needs['stage1-create-run'].outputs.report_date }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -434,9 +434,9 @@ jobs:
       group: tac-main-production-build
       cancel-in-progress: false
     env:
-      RUN_ID: ${{ needs.stage1-create-run.outputs.run_id }}
-      REPORT_DATE: ${{ needs.stage1-create-run.outputs.report_date }}
-      RUN_DIR: ${{ needs.stage1-create-run.outputs.run_dir }}
+      RUN_ID: ${{ needs['stage1-create-run'].outputs.run_id }}
+      REPORT_DATE: ${{ needs['stage1-create-run'].outputs.report_date }}
+      RUN_DIR: ${{ needs['stage1-create-run'].outputs.run_dir }}
     steps:
       - name: Checkout main for Stage 2 and Stage 3
         uses: actions/checkout@v4
@@ -675,7 +675,7 @@ jobs:
 
   build-and-deliver:
     needs: [stage2-and-stage3]
-    if: ${{ needs.stage2-and-stage3.result == 'success' && needs.stage2-and-stage3.outputs.run_id != '' }}
+    if: ${{ needs['stage2-and-stage3'].result == 'success' && needs['stage2-and-stage3'].outputs.run_id != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -708,8 +708,8 @@ jobs:
         id: resolve
         shell: bash
         env:
-          CAPTURE_RUN_ID: ${{ needs.stage2-and-stage3.outputs.run_id }}
-          CAPTURE_REPORT_DATE: ${{ needs.stage2-and-stage3.outputs.report_date }}
+          CAPTURE_RUN_ID: ${{ needs['stage2-and-stage3'].outputs.run_id }}
+          CAPTURE_REPORT_DATE: ${{ needs['stage2-and-stage3'].outputs.report_date }}
         run: |
           set -euo pipefail
           RUN_ID="$CAPTURE_RUN_ID"
