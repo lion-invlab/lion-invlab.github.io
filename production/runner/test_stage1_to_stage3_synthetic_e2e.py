@@ -187,7 +187,9 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                         "key_levels", "market_comments", "warning_note", "quality_note"):
                 editorial[key] = copy.deepcopy(sample_data[key])
             research_bundle = json.loads((run_dir / "stage4-research-bundle.json").read_text(encoding="utf-8"))
-            news_cutoff = research_bundle["news_window"]["target_cutoff_taipei"]
+            news_cutoff_raw = research_bundle["news_window"]["target_cutoff_taipei"]
+            # Preserve the exact Research Bundle instant while matching the editorial schema.
+            news_cutoff = datetime.fromisoformat(news_cutoff_raw).strftime("%Y-%m-%d %H:%M")
             editorial.update({
                 "run_id": run_id,
                 "report_date": context["report_date"],
