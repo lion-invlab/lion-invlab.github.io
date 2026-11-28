@@ -9,13 +9,9 @@ class Stage4SimCompatibilityTests(unittest.TestCase):
     def test_current_sim14_editorial_fixture_matches_main_stage4_contract(self):
         path=ROOT/"production/testdata/report-content-2026-11-26.json"
         content=json.loads(path.read_text(encoding="utf-8"))
-        # The retained SIM-1.4 sample predates the Main ISO-8601 timestamp contract.
+        # Preserve the SIM-1.4 YYYY-MM-DD HH:MM news timestamps; only cutoff is ISO-8601 in Main schema.
         if "T" not in content.get("news_cutoff_taipei",""):
-            content["news_cutoff_taipei"]=content["news_cutoff_taipei"].replace(" ","T")+("+08:00" if len(content["news_cutoff_taipei"].split(":"))==3 else ":00+08:00")
-        for item in content.get("focus_news",[])+content.get("headlines",[]):
-            value=item.get("published_at_tw","")
-            if value and "T" not in value:
-                item["published_at_tw"]=value.replace(" ","T")+("+08:00" if len(value.split(":"))==3 else ":00+08:00")
+            content["news_cutoff_taipei"]=content["news_cutoff_taipei"].replace(" ","T")+":00+08:00"
         context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
         data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"15","source":{"verification_status":"BACKUP_VERIFIED","url":"https://fgscore.com/","backup_source_score_value":15}}},"sectors":{},"sector_sources":{}}
         content["run_id"]=context["run_id"]
