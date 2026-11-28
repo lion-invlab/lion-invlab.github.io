@@ -221,7 +221,7 @@ def main():
     p.add_argument("--report-date",required=True); p.add_argument("--data",required=True)
     p.add_argument("--audit",required=True); p.add_argument("--manifest",required=True)
     p.add_argument("--observations",required=True); p.add_argument("--output",required=True)
-    p.add_argument("--run-id"); p.add_argument("--commit-sha"); p.add_argument("--branch")
+    p.add_argument("--run-id"); p.add_argument("--workflow-run-id"); p.add_argument("--commit-sha"); p.add_argument("--branch")
     a=p.parse_args(); receipt=build_receipt(a)
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
