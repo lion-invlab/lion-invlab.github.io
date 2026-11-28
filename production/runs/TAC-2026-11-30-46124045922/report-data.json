@@ -1,0 +1,1445 @@
+{
+  "report_date": "2026-11-30",
+  "timezone": "Asia/Taipei",
+  "trading_date": "2026-11-27",
+  "summary": "",
+  "sentiment": "",
+  "focus_news": [],
+  "headlines": [],
+  "global_markets": {
+    "道瓊工業指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Dow Jones 30 歷史資料",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Dow Jones Industrial Average (DJI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "標普500指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜S&P 500 歷史資料頁",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "S&P 500 (SPX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "那斯達克綜合指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Nasdaq Composite 歷史資料",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Nasdaq Composite (IXIC)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "羅素2000指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com CA｜Russell 2000 Historical Data (RUT, NYSE)",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Russell 2000 (RUT)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "費城半導體指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜PHLX Semiconductor 歷史資料",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "PHLX Semiconductor (SOX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 1,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "日經225": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜Nikkei 225 歷史數據（Real-time derived）",
+        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Nikkei 225 (N225)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "韓國 KOSPI": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜KOSPI 歷史資料",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "KOSPI (KS11)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "台灣加權指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Taiwan Weighted 歷史資料",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Taiwan Weighted (TWII)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "新加坡海峽時報指數 STI": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Singapore Straits Times 歷史資料",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "FTSE Straits Times Singapore (STI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "澳洲 S&P/ASX 200": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜S&P/ASX 200 歷史資料",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "S&P/ASX 200 (AXJO)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "上海綜合指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Shanghai Composite 歷史資料",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Shanghai Composite (SSEC)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "深證成指": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜SZSE Component 歷史資料",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "SZSE Component (SZI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "香港恆生指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜Hang Seng 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/hang-sen-40-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Hang Seng (HSI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "英國 FTSE 100": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜FTSE 100 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/uk-100-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "FTSE 100 (FTSE)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "德國 DAX": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜DAX 歷史數據（Xetra）",
+        "url": "https://www.investing.com/indices/germany-30-historical-data?cid=23657",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "DAX (GDAXI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "法國 CAC 40": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜CAC 40 歷史資料",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "CAC 40 (FCHI)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "STOXX Europe 600": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜STOXX 600 歷史數據（Real-time derived）",
+        "url": "https://www.investing.com/indices/stoxx-600-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "instrument_type": "cash_index",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "STOXX 600 (STOXX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    }
+  },
+  "sectors": {
+    "XLP": "待擷取",
+    "XLV": "待擷取",
+    "XLE": "待擷取",
+    "XLU": "待擷取",
+    "XLRE": "待擷取",
+    "XLF": "待擷取",
+    "XLB": "待擷取",
+    "XLC": "待擷取",
+    "XLY": "待擷取",
+    "XLI": "待擷取",
+    "XLK": "待擷取"
+  },
+  "bonds": {
+    "2年期美債殖利率": {
+      "display": "待擷取",
+      "source": {
+        "name": "Investing.com｜2年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield",
+        "verification_status": "PENDING",
+        "instrument_identity": "United States 2-Year Bond Yield",
+        "_stage2_format": {
+          "close": {
+            "decimals": 3,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          },
+          "change": {
+            "decimals": 1,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      },
+      "change_display": "待擷取"
+    },
+    "10年期美債殖利率": {
+      "display": "待擷取",
+      "source": {
+        "name": "Investing.com｜10年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield",
+        "verification_status": "PENDING",
+        "instrument_identity": "United States 10-Year Bond Yield",
+        "_stage2_format": {
+          "close": {
+            "decimals": 3,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          },
+          "change": {
+            "decimals": 1,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      },
+      "change_display": "待擷取"
+    },
+    "30年期美債殖利率": {
+      "display": "待擷取",
+      "source": {
+        "name": "Investing.com｜30年期美債殖利率歷史資料",
+        "url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "treasury_yield",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_url": "https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield",
+        "verification_status": "PENDING",
+        "instrument_identity": "United States 30-Year Bond Yield",
+        "_stage2_format": {
+          "close": {
+            "decimals": 3,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          },
+          "change": {
+            "decimals": 1,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      },
+      "change_display": "待擷取"
+    }
+  },
+  "fx": {
+    "美元指數": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com Global｜US Dollar Index 歷史資料",
+        "url": "https://www.investing.com/indices/usdollar-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "provider_index_reference_series",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "US Dollar Index (DXY)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "美元／新台幣": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜USD/TWD 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "spot_daily_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "USD/TWD",
+        "_stage2_format": {
+          "close": {
+            "decimals": 3,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "歐元／美元": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜EUR/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "spot_daily_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "EUR/USD",
+        "_stage2_format": {
+          "close": {
+            "decimals": 4,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "英鎊／美元": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜GBP/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "spot_daily_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "GBP/USD",
+        "_stage2_format": {
+          "close": {
+            "decimals": 4,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "澳幣／美元": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜AUD/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "spot_daily_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "AUD/USD",
+        "_stage2_format": {
+          "close": {
+            "decimals": 4,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "美元／日圓": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜USD/JPY 歷史資料",
+        "url": "https://www.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "spot_daily_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "USD/JPY",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "source_page_fetched": false
+      }
+    }
+  },
+  "energy": {
+    "WTI原油期貨": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜WTI原油期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+        "data_date": "2026-11-27",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "WTI Crude Oil Futures",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      },
+      "instrument_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+      "display_name": "WTI 原油期貨"
+    },
+    "Brent原油期貨": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜Brent期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+        "data_date": "2026-11-27",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "PENDING",
+        "instrument_identity": "Brent Oil Futures",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      },
+      "instrument_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1240095",
+      "display_name": "Brent 原油期貨"
+    }
+  },
+  "metals": {
+    "黃金期貨 GC": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜黃金期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+        "data_date": "2026-11-27",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Gold Futures",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": true,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      },
+      "instrument_url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+      "display_name": "黃金期貨"
+    },
+    "白銀期貨 SI": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com HK｜白銀期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+        "data_date": "2026-11-27",
+        "quote_type": "investing_historical_close",
+        "link_label": "Investing.com 歷史數據",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "Silver Futures",
+        "_stage2_format": {
+          "close": {
+            "decimals": 3,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      },
+      "instrument_url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+      "display_name": "白銀期貨"
+    }
+  },
+  "risk": {
+    "vix": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com Global｜CBOE Volatility Index 歷史資料",
+        "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
+        "data_date": "2026-11-27",
+        "quote_type": "cash_index_close",
+        "verification_status": "PENDING",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "instrument_identity": "CBOE Volatility Index (VIX)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": true
+          }
+        },
+        "source_page_fetched": false
+      }
+    },
+    "move": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "Investing.com｜ICE BofAML MOVE 歷史資料",
+        "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+        "data_date": "2026-11-27",
+        "quote_type": "displayed_close",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "PENDING",
+        "instrument_identity": "ICE BofAML MOVE (MOVE)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 2,
+            "commas": false,
+            "prefix": "",
+            "suffix": "%",
+            "plus": false
+          }
+        },
+        "approved_backup_urls": [
+          "https://www.tradingview.com/symbols/ICE-MOVE/"
+        ],
+        "source_role": "PRIMARY",
+        "source_page_fetched": false
+      }
+    },
+    "fear_greed": {
+      "display": "待擷取",
+      "change_display": "待擷取",
+      "source": {
+        "name": "FGScore｜CNN Business Fear & Greed 備援歷史頁",
+        "url": "https://fgscore.com/en/markets/sp500",
+        "data_date": "2026-11-27",
+        "quote_type": "third_party_provider_index",
+        "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+        "verification_status": "PENDING",
+        "source_role": "BACKUP_1",
+        "instrument_identity": "CNN Fear & Greed Index (provider index)",
+        "_stage2_format": {
+          "close": {
+            "decimals": 0,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          },
+          "change": {
+            "decimals": 0,
+            "commas": false,
+            "prefix": "",
+            "suffix": "",
+            "plus": false
+          }
+        },
+        "approved_primary_urls": [
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://www.cnn.com/markets/fear-and-greed"
+        ],
+        "approved_backup_urls": [
+          "https://fgscore.com/en/markets/sp500",
+          "https://staging.fcontext.com/en/fear-and-greed"
+        ],
+        "source_page_fetched": false
+      }
+    }
+  },
+  "fedwatch": {},
+  "observation": {},
+  "calendar": {},
+  "earnings": {},
+  "summary_title": "",
+  "market_comments": "",
+  "last_week_calendar": {},
+  "last_week_earnings": {},
+  "summary_points": [],
+  "warning_note": "",
+  "sector_sources": {
+    "XLE": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLE",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLF": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLF",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLK": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLK",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLI": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLI",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLC": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLC",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLB": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLB",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLU": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLU",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLRE": {
+      "name": "Investing.com Global｜State Street Real Estate Select Sector SPDR ETF (XLRE) historical data",
+      "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLRE",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLY": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLY",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLP": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLP",
+      "_stage2_format": {
+        "close": {
+          "decimals": 1,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": true
+        }
+      },
+      "source_page_fetched": false
+    },
+    "XLV": {
+      "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+      "data_date": "2026-11-27",
+      "quote_type": "ETF_daily_close",
+      "verification_status": "PENDING",
+      "note": "Stage 2 must populate this row from current-date evidence; no prior numeric value or screenshot record is carried forward.",
+      "instrument_identity": "XLV",
+      "_stage2_format": {
+        "close": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "",
+          "plus": false
+        },
+        "change": {
+          "decimals": 2,
+          "commas": false,
+          "prefix": "",
+          "suffix": "%",
+          "plus": false
+        }
+      },
+      "source_page_fetched": false
+    }
+  },
+  "key_levels": {},
+  "core_observation": "",
+  "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
+  "market_sentiment": {},
+  "quality_note": "",
+  "report_cutoff_taipei": "2026-11-28 05:25",
+  "news_window_taipei": "",
+  "key_levels_overrides": [],
+  "review_notice": "本頁為Simulation隔離區審核版，非正式首頁；需使用者核准後才可進行任何正式發布。",
+  "pending_items": [],
+  "review_ready_blockers": [],
+  "earnings_health": {
+    "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
+    "source_url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
+    "as_of_date": "2026-11-20",
+    "period": "Q3 2026",
+    "reported_pct": "93%",
+    "eps_beat_pct": "84%",
+    "revenue_beat_pct": "74%",
+    "blended_eps_yoy": "+32.9%",
+    "blended_revenue_yoy": "+14.6%",
+    "eps_surprise": "+3.5%",
+    "revenue_surprise": "+2.2%",
+    "forward_pe": "17.1 倍",
+    "eps_beat_avg_5y": "78%",
+    "eps_beat_avg_10y": "77%",
+    "revenue_beat_avg_5y": "70%",
+    "revenue_beat_avg_10y": "68%",
+    "eps_surprise_avg_5y": "7.5%",
+    "eps_surprise_avg_10y": "8.0%",
+    "revenue_surprise_avg_5y": "1.8%",
+    "forward_pe_avg_5y": "19.8 倍",
+    "forward_pe_avg_10y": "19.1 倍",
+    "prior_blended_eps_yoy": "+31.9%",
+    "prior_blended_revenue_yoy": "+14.4%",
+    "mag7_eps_growth": "+27.0%",
+    "other_493_eps_growth": "+34.7%",
+    "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
+  },
+  "report_layer_earnings_actuals": [],
+  "news_cutoff_taipei": "",
+  "report_layer_earnings_status": [],
+  "last_week_economic_overrides": [],
+  "last_week_earnings_actuals": [],
+  "market_analysis": {
+    "political": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "policy_industry": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "macro": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "markets": {
+      "paragraphs": [],
+      "sources": []
+    },
+    "strategy": {
+      "paragraphs": [],
+      "sources": []
+    }
+  },
+  "political_scan": {
+    "domains_checked": [],
+    "findings": [],
+    "checked_at": ""
+  },
+  "news_window": {},
+  "run_metadata": {
+    "run_id": "TAC-2026-11-30-46124045922",
+    "run_dir": "production/runs/TAC-2026-11-30-46124045922",
+    "fixture_path": "production/runs/TAC-2026-11-30-46124045922/report-data.json",
+    "stage1_fixture_path": "production/runs/TAC-2026-11-30-46124045922/stage1-fixture.json",
+    "main_commit_sha": "2339fe7ae9bec1a7600a03820a78f53ea5ec3991"
+  },
+  "last_week_calendar_impact_overrides": [],
+  "stage2_market_bootstrap": {
+    "status": "BLANK_INPUT",
+    "preexisting_market_values_used": false,
+    "screenshot_row_count": 0,
+    "screenshot_field_count": 0,
+    "row_count": 44,
+    "report_date": "2026-11-30",
+    "trading_date": "2026-11-27"
+  }
+}
