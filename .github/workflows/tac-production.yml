@@ -428,6 +428,7 @@ jobs:
           python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
           python -m playwright install --with-deps chromium
       - name: Wait for exact Stage 2 worker handoff
+        if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -487,49 +488,54 @@ jobs:
           print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
           PY
       - name: Stage 2 — validate and freeze 44 market indicators
+        if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage2.py --run-dir "$RUN_DIR" --concurrency 4
           test -s "$RUN_DIR/stage2-market-snapshot-receipt.json"
           test -s "$RUN_DIR/stage2-run-summary.json"
-      # The Chart 3 merge workflow listens for this production workflow's successful completion; never dispatch it from Stage 2.
-      - name: Commit only verified S&P 500 Chart 3 increment for post-delivery merge
+      - name: Persist Stage 2 snapshot and optional Chart 3 increment
         shell: bash
         run: |
           set -euo pipefail
           LEDGER="data/tac-chart3/sp500_daily_increment.jsonl"
-          if ! git status --porcelain -- "$LEDGER" | grep -q .; then
-            echo "No new verified S&P 500 increment; Chart 3 handoff is a no-op."
-            echo "CHART3_MERGE_STATUS=NOT_REQUIRED" >> "$GITHUB_ENV"
-            exit 0
+          CHART3_STATUS="$(python - "$RUN_DIR/stage2-run-summary.json" <<'PY'
+          import json,sys
+          summary=json.load(open(sys.argv[1],encoding="utf-8"))
+          print((summary.get("chart3_handoff") or {}).get("status","NOT_REQUIRED"))
+          PY
+          )"
+          if [ "$CHART3_STATUS" = "APPENDED" ] || [ "$CHART3_STATUS" = "NOOP_IDENTICAL_OBSERVATION" ] || [ "$CHART3_STATUS" = "PASS" ]; then
+            echo "CHART3_MERGE_STATUS=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
+          else
+            echo "CHART3_MERGE_STATUS=$CHART3_STATUS" >> "$GITHUB_ENV"
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Keep the verified increment in Main, but defer Chart 3's independent
-          # history merge until after Stage 6 has delivered the daily report.
-          git add -- "$LEDGER"
+          git add -- "$RUN_DIR"
+          if [ -f "$LEDGER" ]; then git add -- "$LEDGER"; fi
           mapfile -t STAGED < <(git diff --cached --name-only)
-          test "${#STAGED[@]}" -eq 1 && test "${STAGED[0]}" = "$LEDGER"
-          git commit -m "data(chart3): verified S&P 500 increment $REPORT_DATE"
+          if [ "\${#STAGED[@]}" -eq 0 ]; then
+            echo "Stage 2 already PASS/PARTIAL; no new snapshot or Chart 3 increment to persist."
+            exit 0
+          fi
+          for file in "\${STAGED[@]}"; do
+            case "$file" in "$RUN_DIR"/*|"$LEDGER") ;; *) echo "::error::Unexpected Stage 2 output path: $file"; exit 1 ;; esac
+          done
+          git commit -m "data(tac): persist Stage 2 snapshot and optional S&P 500 increment $RUN_ID"
           git fetch origin main
           git rebase origin/main
           PUSHED=false
           for attempt in 1 2 3 4 5; do
-            if git push origin HEAD:main; then
-              PUSHED=true
-              break
-            fi
+            if git push origin HEAD:main; then PUSHED=true; break; fi
             git fetch origin main
             git rebase origin/main
           done
           test "$PUSHED" = true
-          echo "CHART3_MERGE_STATUS=DEFERRED_UNTIL_AFTER_DELIVERY" >> "$GITHUB_ENV"
-          echo "Verified Chart 3 increment committed; merge deferred until Stage 6 completes."
-      - name: Fetch latest main after Chart 3 increment commit
-        run: |
           git fetch origin main
           git merge --ff-only origin/main
       - name: Stage 3 — read-only pinned calendar and earnings projection
+        if: ${{ steps.run-state.outputs.stage3_status != 'PASS' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage3.py --run-dir "$RUN_DIR"
