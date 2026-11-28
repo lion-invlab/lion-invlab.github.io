@@ -167,7 +167,6 @@ def main():
             "run_id":context["run_id"],"html_sha256":sha(html_raw)}
         qa_bytes=(json.dumps(qa_doc,ensure_ascii=False,indent=2)+"\n").encode()
         (worktree/qa_path).write_bytes(qa_bytes)
-        prebuild=run_dir/"prebuild-input-receipt.json"
         render=json.loads((run_dir/"render-manifest.json").read_text(encoding="utf-8"))
         builder_blob=render.get("builder_blob_sha")
         if not builder_blob:raise SystemExit("render-manifest missing Builder blob SHA")
@@ -180,7 +179,7 @@ def main():
             "html":{"sha256":sha(html_raw),"git_blob_sha":blob(html_raw)},
             "qa":{"sha256":sha(qa_bytes),"source_qa_sha256":sha(qa_source_raw)},
             "builder_sha":builder_blob,
-             "stage_wr_loaded":wr_loaded,"prebuild_receipt_sha256":sha(prebuild.read_bytes()),
+             "stage_wr_loaded":wr_loaded,
             "stage5_receipt_sha256":sha((run_dir/"stage5-render-qa-receipt.json").read_bytes()),
             "protected_paths_unchanged":True,"protected_paths":list(PROTECTED)+["data/calendar/weeks"],
             "formal_homepage_modified":False,"history_archive_modified":False,
