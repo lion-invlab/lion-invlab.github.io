@@ -51,7 +51,6 @@ def stage_wr_preflight(stage: str, context: dict | None = None) -> dict:
         "wr_loaded": True,
         "wr_read_mode": "FULL_UTF8_FILE_READ",
         "wr_bytes_read": len(raw),
-        "wr_sha256": hashlib.sha256(raw).hexdigest(),
         "rules_text_loaded": True,
     }
 
@@ -60,6 +59,7 @@ def stage_wr_preflight(stage: str, context: dict | None = None) -> dict:
     if stage in {"STAGE_1", "STAGE_2", "STAGE_3", "STAGE_4"}:
         return evidence
 
+    evidence["wr_sha256"] = hashlib.sha256(raw).hexdigest()
     current_blob = _git_blob("HEAD", path)
     pinned_commit = None
     pinned_blob = current_blob
