@@ -30,3 +30,11 @@ Stage 5 不寫 preview、index.html、history、calendar JSON、母版或正式 
 
 ## Main Builder approval gate
 `production/config/builder-approval.json` 必須為 `APPROVED_MAIN`、`approved_by_owner: true`，且記錄的 Builder blob SHA 必須等於當前 `production/runner/build_review_html.py`。任何 Builder 程式修改均使原核准失效，必須重新核准 exact blob SHA。
+
+
+## Main Run state contract v1.2
+- Stage 5 必須確認同一 Run 的 Stage 4=PASS，且 Stage 5=READY；Stage 2/3/4 receipts、market snapshot、Research Bundle、editorial content、Builder approval 及母版 SHA 必須全部綁定相同 run_id。
+- Stage 5 Runner 先以 compare-and-swap 將 Stage 5 改為 RUNNING，完成 QA 後寫入 stage5-render-qa-receipt.json，再將 Stage 5 狀態更新為 PASS 或 PARTIAL，記錄 receipt SHA。
+- Stage 5 的 PASS 對應 QA receipt REVIEW_READY；PARTIAL 對應 QA receipt PARTIAL。若 Stage 2 為 PARTIAL，Stage 5 不得標 PASS，即使 HTML 可成功組裝也必須 PARTIAL，Stage 6 設為 SKIPPED。
+- Chart 3 S&P 500 增量是非阻塞下游支線；Chart 3 append／merge／監控失敗不得單獨阻止 Stage 5 QA 或早報交付。Stage 5 必須記錄 Chart 3 handoff 狀態，但不得把它列為 Stage 6 前置 Gate。
+- Stage 5 不建立 Run、不重抓行情、不讀日期共用 Stage 4 檔案、不改寫正式母版或 Manifest。
