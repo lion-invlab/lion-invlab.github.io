@@ -9,9 +9,10 @@
 Stage 5 完整讀取本文件後，直接執行 Builder 與完整 QA。
 
 ## 輸入
-核准雙母版、production Manifest、Stage 2–4 同一 Run 輸出、MOTHER_TEMPLATE_QA、QA_CONTRACT、Stage 1 governance.blob_shas 完整快照，以及 main Builder 精確版本及其核准狀態。
+核准雙母版、production Manifest、Stage 2–4 同一 Run 輸出（Stage 2 handoff receipt 與 Stage 5 市場 QA receipt 分開保存）、MOTHER_TEMPLATE_QA、QA_CONTRACT、Stage 1 governance.blob_shas 完整快照，以及 main Builder 精確版本及其核准狀態。
 
 ## 執行
+0. Stage 2 只交付 Run-scoped handoff receipt、44 項資料轉換結果及來源 Manifest，不執行完整市場快照 QA。Stage 5 是唯一執行市場快照 QA 的階段：先呼叫 `validate_market_snapshot.py` 產生 `market-snapshot-audit.json`，再以完整模式呼叫 `build_stage2_receipt.py`，輸出獨立的 `stage2-market-snapshot-qa.json`。handoff receipt 保留不覆寫；市場資料、44 列、來源日期、狀態與證據完整性只在 Stage 5 驗證一次。
 1. 比對 Stage 1 governance.blob_shas 與當前 main 的所有規範、Manifest、Builder approval、Builder、Stage Runner、依賴模組及 Workflow blob SHA；任何差異均停止，避免跨版本 Run。並核對 Builder approval record 的 exact blob SHA 與 APPROVED_MAIN 狀態。
 2. SIM-1.4 Builder 僅為 Main 移植的技術來源，來源 SHA `6bf6eb2f5ae29774addf696c541c5b806953c7a3`；Main 執行只能使用 `production/runner/build_review_html.py`。目前 Main Builder exact blob `5d555e40285bf4156740e418664f4833d66956ee` 已於 2026-11-27 獲 Owner 明確核准，核准紀錄為 `APPROVED_MAIN`。此核准僅對應該精確 blob，不代表真實資料 E2E 或 Stage 5／6 QA 已通過；任何 Builder 程式修改都必須重新核准 exact blob SHA。
 3. Builder 只接受同一 Run 的完整輸入；核對 run_id、report_date、Fixture／Manifest／calendar 日期與內容。任何跨 Run、跨日期或 SHA 不符均停止。
