@@ -9,9 +9,9 @@ LAYERS=("political","policy_industry","macro","markets","strategy")
 
 def sample():
     def news(i):
-        return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25 13:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei","publisher":"Test publisher","updated_at_source":"原文未標示","updated_at_source":"Nov 25 2026 1:10 PM"}
+        return {"id":f"n{i}","title":f"測試新聞標題{i}","summary":"這是一段足夠長的測試摘要，用來驗證新聞內容欄位、時間窗口與來源網址均可正確通過。","url":f"https://example.com/news/{i}","published_at_tw":"2026-11-25T13:00:00+08:00","published_at_source":"Nov 25 2026 1:00 PM","source_timezone":"Asia/Taipei","publisher":"Test publisher","updated_at_source":"原文未標示","updated_at_source":"Nov 25 2026 1:10 PM"}
     return {
-      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","research_bundle_sha256":"a"*64,"stage3_receipt_sha256":"b"*64,"stage4_wr_sha256":"f"*64,"report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26 05:25",
+      "run_id":"TAC-2026-11-26-test-1","market_snapshot_sha256":"PLACEHOLDER","research_bundle_sha256":"a"*64,"stage3_receipt_sha256":"b"*64,"stage4_wr_sha256":"f"*64,"report_date":"2026-11-26","trading_date":"2026-11-25","news_cutoff_taipei":"2026-11-26T05:25:00+08:00",
       "summary_title":"市場測試主題與風險觀察","summary_points":[{"label":f"重點{i}","text":"這是一段長度足夠的測試總結文字，用來驗證三段摘要格式。"} for i in range(3)],
       "focus_news":[news(i) for i in range(5)],"headlines":[news(i+10) for i in range(10)],
       "sentiment":"市場情緒測試文字長度足夠。Fear & Greed 待核實，不沿用舊值。",
@@ -60,14 +60,14 @@ class Stage4ContentTests(unittest.TestCase):
         ctx={"run_id":"TAC-2026-11-30-saturday-run","report_date":"2026-11-30","trading_date":"2026-11-27"}
         x["run_id"]=ctx["run_id"];x["report_date"]=ctx["report_date"];x["trading_date"]=ctx["trading_date"]
         x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
-        x["news_cutoff_taipei"]="2026-11-28 05:12"
+        x["news_cutoff_taipei"]="2026-11-28T05:12:00+08:00"
         x["core_observation"]["details"]="週末市場回顧與本週觀察補充段落。"
         for item in x["focus_news"]+x["headlines"]:
             item["published_at_tw"]="2026-11-27 13:00"
         bundle={"news_window":{"target_cutoff_taipei":"2026-11-28 05:12"}}
         result=validate_content(x,ctx,self.data,bundle)
         self.assertEqual(result["cutoff"].strftime("%Y-%m-%d %H:%M"),"2026-11-28 05:12")
-        x["news_cutoff_taipei"]="2026-11-28 05:15"
+        x["news_cutoff_taipei"]="2026-11-28T05:15:00+08:00"
         with self.assertRaisesRegex(ValueError,"exactly match the Saturday Stage 4 bundle cutoff"):
             validate_content(x,ctx,self.data,bundle)
 
