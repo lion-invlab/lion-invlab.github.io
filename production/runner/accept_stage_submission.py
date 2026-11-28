@@ -15,7 +15,6 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from run_state import transition_state, validate_state
-from stage_wr_loader import load_stage_wr
 
 ROOT = Path(__file__).resolve().parents[2]
 STAGE_ARTIFACTS = {
@@ -127,7 +126,6 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         raise ValueError("Stage 2 observation schema_version must be 1.1")
     if not payload.get("captured_at_utc"):
         raise ValueError("Stage 2 captured_at_utc is required")
-    wr = load_stage_wr("STAGE_2", context)
     observations = payload.get("observations")
     if not isinstance(observations, list) or len(observations) != 44:
         raise ValueError("Stage 2 artifact must contain exactly 44 observations")
@@ -170,9 +168,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     if state["stages"]["STAGE_3"]["status"] != "PASS":
         raise ValueError("Stage 4 cannot be accepted before Stage 3 state is PASS")
     instructions = capture.get("stage4_work_instructions") or {}
-    wr = load_stage_wr("STAGE_4", context)
     full_wr_text = instructions.get("full_text")
-    full_wr_sha = hashlib.sha256(full_wr_text.encode("utf-8")).hexdigest() if isinstance(full_wr_text, str) else None
     if (capture.get("status") != "AWAITING_EDITORIAL_INPUT"
             or capture.get("run_id") != context["run_id"]
             or capture.get("report_date") != context["report_date"]
@@ -183,8 +179,6 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         "run_id": context["run_id"],
         "report_date": context["report_date"],
         "trading_date": context["trading_date"],
-        "market_snapshot_sha256": summary.get("market_snapshot_sha256"),
-        "research_bundle_sha256": bundle_receipt.get("bundle_sha256"),
     }
     for key, value in expected.items():
         if not value or content.get(key) != value:
