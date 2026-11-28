@@ -162,7 +162,7 @@ def transition_state(
     if new_status not in STAGE_STATUS:
         raise ValueError(f"Unknown stage status: {new_status}")
     allowed = set(_ALLOWED[expected_status])
-    if recovery and expected_status in {"FAILED", "PARTIAL"}:
+    if recovery and expected_status == "FAILED":
         allowed.add("READY")
     if new_status not in allowed:
         raise ValueError(f"Illegal stage transition: {stage} {expected_status} -> {new_status}")
