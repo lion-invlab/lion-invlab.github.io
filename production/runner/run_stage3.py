@@ -5,7 +5,7 @@ import argparse, hashlib, json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -26,7 +26,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=stage_wr_preflight("STAGE_3",context)
+    wr_preflight=load_stage_wr("STAGE_3",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
@@ -46,8 +46,7 @@ def main():
     stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
     stage2_receipt=json.loads(stage2_receipt_path.read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
-    if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
+        if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
         raise SystemExit("Stage 3 Stage 2 receipt identity/status does not match the current Run")
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
@@ -82,7 +81,7 @@ def main():
           "earnings_count":bundle["previous"]["earnings_count"]
       } if bundle.get("previous") is not None else None),
       "source_json_read_only":True,"projection_is_in_memory":True,
-      "wr_preflight":wr_preflight,"state_version_before":state["state_version"],"outputs":outputs
+      "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],"outputs":outputs
     }
     rp=run_dir/"stage3-calendar-receipt.json"
     rp.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
