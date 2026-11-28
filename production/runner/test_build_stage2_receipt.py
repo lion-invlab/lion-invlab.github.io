@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import copy, hashlib, json, tempfile
+import copy, hashlib, json, tempfile, subprocess, sys
 from pathlib import Path
 from types import SimpleNamespace
 from build_stage2_receipt import build_receipt, canonical_sha
@@ -59,9 +59,10 @@ def main():
         write_json(paths["manifest"],manifest);write_json(paths["obs"],obs)
         args=SimpleNamespace(report_date="2026-11-26",data=str(paths["data"]),audit=str(paths["audit"]),
             manifest=str(paths["manifest"]),observations=str(paths["obs"]),output=str(Path(tmp)/"receipt.json"),
-            run_id="12345",commit_sha="a"*40,branch="main")
+            run_id="12345",workflow_run_id="46105765414",commit_sha="a"*40,branch="main")
         receipt=build_receipt(args)
         assert receipt["status"]=="PARTIAL"
+        assert receipt["workflow_run_id"]=="46105765414"
         assert receipt["row_count"]==44 and receipt["verified_count"]==43 and receipt["pending_count"]==1
         assert receipt["pending_rows"][0]["name"]=="move"
         assert sum(receipt["market_status_counts"].values())==44
@@ -95,6 +96,9 @@ def main():
         except ValueError as exc: assert "observation canonical SHA mismatch" in str(exc)
         else: raise AssertionError("observation canonical SHA mismatch must fail")
 
+    help_result=subprocess.run([sys.executable,str(Path(__file__).with_name("build_stage2_receipt.py")),"--help"],capture_output=True,text=True,check=True)
+    assert "--workflow-run-id" in help_result.stdout
+    print("PASS: Stage 2 receipt CLI accepts and preserves the exact Stage 1 workflow_run_id")
     print("PASS: Stage 2 receipt binds 44-row blank-input fixture, audit, manifest and observation SHA")
     print("PASS: PARTIAL status reconciles 43 verified + 1 pending")
     print("PASS: bad manifest SHA, bad observation SHA and stale pending MOVE value are rejected")
