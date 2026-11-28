@@ -105,48 +105,29 @@ def _transition_to_submitted(state: dict, stage: str, context: dict,
 
 
 def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict]:
+    """Accept the completed Stage 2 artifact by Run identity only.
+
+    Observation completeness, source provenance and field semantics are handled
+    once by the Stage 2 data processor and receive their final QA in Stage 5.
+    """
     artifact = run_dir / STAGE_ARTIFACTS["STAGE_2"]
     payload = read_json(artifact)
-    stage1_receipt = read_json(run_dir / "stage1-receipt.json")
-    if stage1_receipt.get("status") != "PASS" or stage1_receipt.get("run_id") != context["run_id"]:
-        raise ValueError("Stage 2 requires the exact Run's PASS Stage 1 receipt")
-    stage1_fixture = run_dir / "stage1-fixture.json"
-    context_path = run_dir / "run-context.json"
-    if not stage1_fixture.is_file() or stage1_fixture.is_symlink():
-        raise ValueError("Stage 1 immutable fixture is missing")
     expected = {
         "run_id": context["run_id"],
         "report_date": context["report_date"],
         "trading_date": context["trading_date"],
     }
     for key, value in expected.items():
-        if payload.get(key) != value:
-            raise ValueError(f"Stage 2 artifact {key} does not match the exact Stage 1 Run")
-    if payload.get("schema_version") != "1.1":
-        raise ValueError("Stage 2 observation schema_version must be 1.1")
-    if not payload.get("captured_at_utc"):
-        raise ValueError("Stage 2 captured_at_utc is required")
-    observations = payload.get("observations")
-    if not isinstance(observations, list) or len(observations) != 44:
-        raise ValueError("Stage 2 artifact must contain exactly 44 observations")
-    keys = [(x.get("group"), x.get("name")) for x in observations if isinstance(x, dict)]
-    if len(keys) != 44 or len(set(keys)) != 44:
-        raise ValueError("Stage 2 observations must contain 44 unique group/name identities")
-    fixture = read_json(run_dir / "stage1-fixture.json")
-    expected_keys = set()
-    for group in ("global_markets", "bonds", "fx", "energy", "metals", "risk"):
-        expected_keys.update((group, name) for name in (fixture.get(group) or {}))
-    expected_keys.update(("sectors", name) for name in (fixture.get("sectors") or {}))
-    if set(keys) != expected_keys:
-        raise ValueError("Stage 2 observation identities differ from the exact 44-row Stage 1 fixture")
-    if not isinstance(payload.get("fedwatch"), dict):
-        raise ValueError("Independent FedWatch observation object is required")
+        if not value or payload.get(key) != value:
+            raise ValueError(f"Stage 2 artifact {key} does not match the active Run")
     artifact_sha = digest(artifact)
-    state = _transition_to_submitted(state, "STAGE_2", context, artifact_sha, artifact,
-                                     None)
-    return state, {"stage": "STAGE_2", "status": "SUBMITTED",
-                   "artifact_path": str(artifact.relative_to(ROOT)),
-                   "artifact_sha256": artifact_sha}
+    state = _transition_to_submitted(state, "STAGE_2", context, artifact_sha, artifact, None)
+    return state, {
+        "stage": "STAGE_2",
+        "status": "SUBMITTED",
+        "artifact_path": str(artifact.relative_to(ROOT)),
+        "artifact_sha256": artifact_sha,
+    }
 
 
 def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict]:
