@@ -21,6 +21,8 @@ from datetime import datetime, timezone
 def write_state_atomic(path: Path, state: dict) -> None:
     """Validate and atomically replace one Run's authoritative state file."""
     path = Path(path)
+    if path.is_symlink():
+        raise ValueError("run-state.json must not be a symlink")
     path.parent.mkdir(parents=True, exist_ok=True)
     raw = (json.dumps(state, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     json.loads(raw.decode("utf-8"))
@@ -31,6 +33,14 @@ def write_state_atomic(path: Path, state: dict) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temp_name, path)
+        try:
+            directory_fd = os.open(path.parent, os.O_RDONLY)
+            try:
+                os.fsync(directory_fd)
+            finally:
+                os.close(directory_fd)
+        except OSError:
+            pass
     finally:
         if os.path.exists(temp_name):
             os.unlink(temp_name)
