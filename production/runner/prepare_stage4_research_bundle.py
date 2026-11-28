@@ -48,57 +48,58 @@ def market_rows(data:dict)->tuple[list[dict],list[dict]]:
             unresolved.append(row)
     return rows,unresolved
 
+def read_optional(path:Path, default):
+    if path.is_symlink() or not path.is_file():
+        return default
+    return read_json(path)
+
 def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
     context=read_json(run_dir/"run-context.json")
-    stage1=read_json(run_dir/"stage1-receipt.json")
     data=read_json(run_dir/"report-data.json")
-    stage2=read_json(run_dir/"stage2-market-snapshot-receipt.json")
-    stage2_summary=read_json(run_dir/"stage2-run-summary.json")
-    stage3=read_json(run_dir/"stage3-calendar-receipt.json")
-    if context.get("run_id")!=run_dir.name or stage1.get("run_id")!=context.get("run_id") or stage1.get("status")!="PASS":
-        raise ValueError("Research bundle Stage 1 receipt/Run ID differs from its run directory")
+    run_id=context.get("run_id")
+    if run_id!=run_dir.name:
+        raise ValueError("Run ID does not match the Run directory")
     report_date=date.fromisoformat(context["report_date"])
     if data.get("report_date")!=context["report_date"] or data.get("trading_date")!=context["trading_date"]:
-        raise ValueError("Research bundle fixture dates differ from Stage 1 context")
-    if stage2.get("status") not in ("PASS","PARTIAL") or stage2.get("workflow_run_id") not in (context.get("workflow_run_id"),context["run_id"]) or stage2_summary.get("run_id")!=context["run_id"]:
-        raise ValueError("Research bundle Stage 2 receipt/summary is not bound to this Run")
-    if stage2.get("report_date")!=context["report_date"] or stage2.get("trading_date")!=context["trading_date"]:
-        raise ValueError("Research bundle Stage 2 receipt dates differ from Stage 1 context")
-    if stage2_summary.get("report_date")!=context["report_date"] or stage2_summary.get("trading_date")!=context["trading_date"]:
-        raise ValueError("Research bundle Stage 2 summary dates differ from Stage 1 context")
-    if stage3.get("status")!="PASS" or stage3.get("run_id")!=context["run_id"] or stage3.get("report_date")!=context["report_date"] or stage3.get("main_commit_sha")!=context["main_commit_sha"]:
-        raise ValueError("Research bundle Stage 3 receipt is not bound to the pinned Run")
-    manifest=read_json(run_dir/"market-source-verification-manifest.json")
+        raise ValueError("Run dates do not match the working report data")
+
+    # Stage 4 assembles the available upstream deliverables. It does not
+    # re-run Stage 1-3 receipts, SHA chains or cross-stage QA. Missing inputs
+    # are carried forward for Stage 5 to classify.
+    stage1=read_optional(run_dir/"stage1-receipt.json",{})
+    stage2=read_optional(run_dir/"stage2-market-snapshot-receipt.json",{})
+    stage2_summary=read_optional(run_dir/"stage2-run-summary.json",{})
+    stage3=read_optional(run_dir/"stage3-calendar-receipt.json",{})
+    manifest=read_optional(run_dir/"market-source-verification-manifest.json",{"rows":[]})
     manifest_rows={(row.get("group"),row.get("name")):row for row in (manifest.get("rows") or [])}
     receipt_rows={(row.get("group"),row.get("name")):row for row in (stage2.get("rows") or [])}
-    if len(manifest_rows)!=44 or len(receipt_rows)!=44 or set(manifest_rows)!=set(receipt_rows):
-        raise ValueError("Research bundle Stage 2 manifest/receipt must bind the exact 44 market rows")
+    rows,unresolved=market_rows(data)
     market_status_counts={}
-    for key,receipt_row in receipt_rows.items():
-        manifest_row=manifest_rows[key]
-        state=manifest_row.get("market_data_status") or ("VERIFIED" if manifest_row.get("verification_status")=="VERIFIED" else "BACKUP_VERIFIED" if manifest_row.get("verification_status")=="BACKUP_VERIFIED" else "CLOSED" if manifest_row.get("verification_status")=="CLOSED" else "PENDING")
-        if receipt_row.get("market_data_status")!=state:
-            raise ValueError(f"Research bundle Stage 2 row status differs from manifest: {key}")
-        market_status_counts[state]=market_status_counts.get(state,0)+1
-    if stage2.get("market_status_counts")!=market_status_counts or stage2_summary.get("market_status_counts")!=market_status_counts:
-        raise ValueError("Research bundle Stage 2 market status counts differ across receipt/summary/manifest")
-    stage2_inputs=stage2.get("input_files") or {}
-    required_stage2_inputs={"fixture","audit","manifest","observations"}
-    if not required_stage2_inputs.issubset(stage2_inputs):
-        raise ValueError("Research bundle Stage 2 receipt is missing required input SHA references")
-    for label in required_stage2_inputs:
-        ref=stage2_inputs[label]
-        if not isinstance(ref,dict) or not ref.get("path") or not ref.get("sha256"):
-            raise ValueError(f"Research bundle Stage 2 input reference is malformed: {label}")
-        input_path=root/ref["path"]
-        if not input_path.is_file() or sha(input_path)!=ref["sha256"]:
-            raise ValueError(f"Research bundle Stage 2 input SHA mismatch: {label}")
-    snapshot_sha=market_digest(data)
-    if stage2_summary.get("market_snapshot_sha256")!=snapshot_sha:
-        raise ValueError("Research bundle market snapshot digest differs from Stage 2 receipt")
-    required={
+    for row in rows:
+        key=(row["group"],row["name"])
+        manifest_row=manifest_rows.get(key,{})
+        receipt_row=receipt_rows.get(key,{})
+        status=receipt_row.get("market_data_status") or manifest_row.get("market_data_status")
+        if not status:
+            verification=row.get("verification_status")
+            status=verification if verification in ("VERIFIED","BACKUP_VERIFIED","CLOSED") else "PENDING"
+        row["market_data_status"]=status
+        row["stage2_verification_status"]=receipt_row.get("status") or row.get("verification_status") or "MISSING"
+        closure=(manifest_row.get("browser_observation_record") or {})
+        if status=="CLOSED" and closure:
+            row["closure_evidence"]={
+                "url":closure.get("closure_evidence_url"),
+                "reader_ref":closure.get("closure_evidence_reader_ref"),
+                "line_start":closure.get("closure_evidence_line_start"),
+                "line_end":closure.get("closure_evidence_line_end"),
+                "target_date":closure.get("target_date"),
+                "provenance":closure.get("provenance")
+            }
+        market_status_counts[status]=market_status_counts.get(status,0)+1
+    unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
+
+    required_candidates={
       "run-context.json":run_dir/"run-context.json",
-      "stage1-receipt.json":run_dir/"stage1-receipt.json",
       "report-data.json":run_dir/"report-data.json",
       "stage2-market-snapshot-receipt.json":run_dir/"stage2-market-snapshot-receipt.json",
       "stage2-run-summary.json":run_dir/"stage2-run-summary.json",
@@ -112,71 +113,38 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
       "last-week-calendar.json":run_dir/"last-week-calendar.json",
       "last-week-earnings.json":run_dir/"last-week-earnings.json"
     }
-    for label,path in required.items():
-        if not path.is_file():
-            if label.startswith("last-week-") and report_date.weekday()!=0:
-                continue
-            raise FileNotFoundError(f"Research bundle input missing: {path.relative_to(root)}")
+    required={label:path for label,path in required_candidates.items()
+              if path.is_file() and not path.is_symlink()}
+    missing_inputs=[label for label,path in required_candidates.items()
+                    if (not path.is_file() or path.is_symlink())
+                    and not (label.startswith("last-week-") and report_date.weekday()!=0)]
     screenshot_evidence=[]
     screenshot_info=context.get("screenshot_input") or {}
     if screenshot_info.get("present"):
-        sidecar=root/screenshot_info["path"]
-        if not sidecar.is_file() or sha(sidecar)!=screenshot_info.get("sha256"):
-            raise ValueError("Stage 1 screenshot sidecar is missing or its SHA differs from the pinned context")
-        required["market-screenshot-sidecar"]=sidecar
-        sidecar_doc=read_json(sidecar)
-        for row in sidecar_doc.get("observations") or []:
-            for field_name,field in (row.get("fields") or {}).items():
-                evidence=Path(str(field.get("evidence_path") or row.get("evidence_path") or ""))
-                if not evidence.is_absolute():
-                    evidence=root/evidence
-                try:
-                    resolved=evidence.resolve(strict=True)
-                    resolved.relative_to(root.resolve())
-                except (OSError,ValueError):
-                    raise ValueError(f"Screenshot evidence file is missing or outside repository: {evidence}")
-                evidence_sha=str(field.get("evidence_sha256") or row.get("evidence_sha256") or "").lower()
-                if sha(resolved)!=evidence_sha:
-                    raise ValueError(f"Screenshot evidence SHA mismatch: {resolved}")
-                screenshot_evidence.append({"group":row.get("group"),"name":row.get("name"),
-                    "field":field_name,"path":str(resolved.relative_to(root.resolve())),
-                    "sha256":evidence_sha,"captured_at":field.get("captured_at") or row.get("captured_at")})
-                required[f"screenshot:{row.get('group')}:{row.get('name')}:{field_name}"]=resolved
-    rows,unresolved=market_rows(data)
-    receipt_rows={(row.get("group"),row.get("name")):row for row in (stage2.get("rows") or [])}
-    for row in rows:
-        key=(row["group"],row["name"])
-        row["market_data_status"]=receipt_rows[key]["market_data_status"]
-        row["stage2_verification_status"]=receipt_rows[key]["status"]
-        if row["stage2_verification_status"] == "CLOSED":
-            # Bind closure evidence to this exact row; never reuse the final
-            # manifest/receipt loop variables from the earlier count pass.
-            manifest_row=manifest_rows[key]
-            receipt_row=receipt_rows[key]
-            browser_record=manifest_row.get("browser_observation_record") or {}
-            closure={
-                "url":browser_record.get("closure_evidence_url"),
-                "reader_ref":browser_record.get("closure_evidence_reader_ref"),
-                "line_start":browser_record.get("closure_evidence_line_start"),
-                "line_end":browser_record.get("closure_evidence_line_end"),
-                "target_date":browser_record.get("target_date"),
-                "provenance":browser_record.get("provenance"),
-            }
-            receipt_closure=receipt_row.get("closure_evidence")
-            if (manifest_row.get("evidence_status") != "MARKET_CLOSED_OFFICIAL_HOLIDAY_EVIDENCE"
-                    or not closure["url"] or not closure["reader_ref"]
-                    or not isinstance(closure["line_start"],int)
-                    or not isinstance(closure["line_end"],int)
-                    or closure["target_date"] != row["data_date"]
-                    or closure["provenance"] != "CURRENT_CHATGPT_WEB_OPEN_OBSERVATION"
-                    or not isinstance(receipt_closure,dict)
-                    or receipt_closure.get("url") != closure["url"]
-                    or receipt_closure.get("reader_ref") != closure["reader_ref"]
-                    or receipt_closure.get("line_start") != closure["line_start"]
-                    or receipt_closure.get("line_end") != closure["line_end"]):
-                raise ValueError(f"Stage 4 closed row lacks matching official closure evidence: {key}")
-            row["closure_evidence"]=closure
-    unresolved=[row for row in rows if row["market_data_status"] not in ("VERIFIED","BACKUP_VERIFIED","CLOSED")]
+        sidecar=root/screenshot_info.get("path","")
+        if sidecar.is_file() and not sidecar.is_symlink():
+            required["market-screenshot-sidecar"]=sidecar
+            sidecar_doc=read_json(sidecar)
+            for row in sidecar_doc.get("observations") or []:
+                for field_name,field in (row.get("fields") or {}).items():
+                    evidence=Path(str(field.get("evidence_path") or row.get("evidence_path") or ""))
+                    if not evidence.is_absolute():
+                        evidence=root/evidence
+                    try:
+                        resolved=evidence.resolve(strict=True)
+                        resolved.relative_to(root.resolve())
+                    except (OSError,ValueError):
+                        resolved=None
+                    if resolved is not None and resolved.is_file():
+                        screenshot_evidence.append({"group":row.get("group"),"name":row.get("name"),
+                            "field":field_name,"path":str(resolved.relative_to(root.resolve())),
+                            "sha256":field.get("evidence_sha256") or row.get("evidence_sha256"),
+                            "captured_at":field.get("captured_at") or row.get("captured_at")})
+                    else:
+                        missing_inputs.append(f"screenshot:{row.get('group')}:{row.get('name')}:{field_name}")
+        else:
+            missing_inputs.append("market-screenshot-sidecar")
+    snapshot_sha=market_digest(data)
     production_date=date.fromisoformat(context.get("production_date") or (report_date-timedelta(days=2) if report_date.weekday()==0 else report_date).isoformat())
     window_start_date=report_date-timedelta(days=3 if report_date.weekday()==0 else 1)
     window_start=datetime.combine(window_start_date,time(12,0)).isoformat(timespec="minutes")
@@ -202,18 +170,19 @@ def build_bundle(run_dir:Path,root:Path=ROOT)->dict:
                          "market_status_counts":market_status_counts,
                          "source_data":{key:data.get(key) for key in MARKET_GROUPS},
                          "fedwatch":data.get("fedwatch")},
-      "source_observations":read_json(run_dir/"market-history-browser-observations.json"),
+      "source_observations":read_optional(run_dir/"market-history-browser-observations.json",{}),
       "source_verification_manifest":manifest,
-      "market_snapshot_audit":read_json(run_dir/"market-snapshot-audit.json"),
+      "market_snapshot_audit":read_optional(run_dir/"market-snapshot-audit.json",{}),
       "run_provenance":{"stage1_receipt":stage1,"stage2_receipt":stage2,
                         "stage2_summary":stage2_summary,"stage3_receipt":stage3},
       "summary_source_data":{"global_markets":data.get("global_markets"),
                              "market_comments":data.get("market_comments"),
                              "earnings_health":data.get("earnings_health")},
-      "calendar":{"current_week":read_json(run_dir/"calendar.json"),
-                  "previous_week":read_json(run_dir/"last-week-calendar.json") if (run_dir/"last-week-calendar.json").is_file() else None},
-      "earnings":{"current_week":read_json(run_dir/"earnings.json"),
-                  "previous_week":read_json(run_dir/"last-week-earnings.json") if (run_dir/"last-week-earnings.json").is_file() else None},
+      "missing_inputs":missing_inputs,
+      "calendar":{"current_week":read_optional(run_dir/"calendar.json",{}),
+                  "previous_week":read_optional(run_dir/"last-week-calendar.json",None)},
+      "earnings":{"current_week":read_optional(run_dir/"earnings.json",{}),
+                  "previous_week":read_optional(run_dir/"last-week-earnings.json",None)},
       "editorial_contract":{
         "summary_points":3,"focus_news":5,"headlines":10,"market_analysis_layers":["political","policy_industry","macro","markets","strategy"],
         "political_scan_domains":list(POLITICAL_DOMAINS),"weekday_core_observation_points":4,

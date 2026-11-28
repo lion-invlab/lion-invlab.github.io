@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 from stage2_market_fixture_bootstrap import blank_fixture
 from builder_approval import current_governance_blob_shas
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_loader import load_stage_wr
 from run_state import initial_run_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -67,7 +67,7 @@ def collect_legacy_prior_run_ids(runs_root:Path, report_date:date, run_id:str)->
 
 
 def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_run_id:str|None=None)->dict:
-    stage1_wr = stage_wr_preflight("STAGE_1")
+    stage1_wr = load_stage_wr("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday() not in (0,1,2,3,4): raise ValueError(f"Report date must be Monday (produced Saturday) or Tuesday-Friday: {report_date}")
     production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
@@ -122,13 +122,8 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
       "screenshot_input":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2"},
       "stage2_bootstrap":data["stage2_market_bootstrap"],
       "market_universe_count":44,
-      "stage_wr_preflight":stage1_wr
+      "stage_wr_loaded":stage1_wr
     }
-    stage1_wr["stage1_pinned_commit"] = main_commit_sha
-    stage1_pinned_blob = run_context["governance"]["blob_shas"].get(stage1_wr["wr_path"])
-    if stage1_wr["wr_git_blob_sha"] != stage1_pinned_blob:
-        raise ValueError("Stage 1 WR changed while creating its governance snapshot")
-    stage1_wr["stage1_pinned_git_blob_sha"] = stage1_pinned_blob
     return {"run_context":run_context,"market_fixture":data}
 
 def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dict:
@@ -165,7 +160,7 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "governance_file_count":len(context["governance"]["blob_shas"]),
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
              "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
-             "wr_preflight":context["stage_wr_preflight"],
+             "wr_loaded":context["stage_wr_loaded"],
              "supersedes_run_id":context.get("supersedes_run_id"),"legacy_prior_run_ids":context.get("legacy_prior_run_ids",[])}
     receipt_path=output/"stage1-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

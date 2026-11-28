@@ -5,11 +5,14 @@ from __future__ import annotations
 import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
+
+FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
+FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
 
 def load(path:Path):
     return json.loads(path.read_text(encoding="utf-8"))
@@ -27,22 +30,10 @@ def run(cmd:list[str])->dict:
             except json.JSONDecodeError: pass
         return {"stdout":proc.stdout.strip()}
 
-def validate_stage2_worker_wr_attestation(payload:dict,wr_preflight:dict)->dict:
-    supplied=payload.get("stage2_wr_sha256") if isinstance(payload,dict) else None
-    expected=wr_preflight.get("wr_sha256")
-    if not supplied or supplied!=expected:
-        raise ValueError("Stage 2 ChatGPT capture is missing the exact Stage 2 WR read attestation")
-    return {"status":"PASS","stage2_wr_sha256":supplied,"expected_wr_sha256":expected}
-
-FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
-FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
-
-def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->dict:
+def validate_fedwatch_observation(payload:dict,context:dict)->dict:
     """Validate the independent FedWatch snapshot without blocking the 44 market rows."""
     if not isinstance(payload,dict):
         raise ValueError("Stage 2 capture is missing the independent FedWatch observation object")
-    if payload.get("stage2_wr_sha256") != wr_preflight.get("wr_sha256"):
-        raise ValueError("FedWatch observation is missing the exact Stage 2 WR read attestation")
     if payload.get("report_date") != context.get("report_date") or payload.get("trading_date") != context.get("trading_date"):
         raise ValueError("FedWatch observation dates do not match the current Run")
     if payload.get("source_url") != FEDWATCH_SOURCE_URL or payload.get("source_name") != FEDWATCH_SOURCE_NAME:
@@ -85,7 +76,7 @@ def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->
     result={key:payload.get(key) for key in (
         "status","source_name","source_url","report_date","trading_date","captured_at_utc",
         "target_meeting","current_target_range","updated_at_tw","probabilities",
-        "web_reader_ref","web_line_start","web_line_end","reason","stage2_wr_sha256"
+        "web_reader_ref","web_line_start","web_line_end","reason"
     )}
     result["probabilities"]=probabilities
     result["observation_sha256"]=hashlib.sha256(
@@ -127,12 +118,9 @@ def main():
     if not context_path.is_file() or not stage1_fixture_path.is_file() or not stage1_receipt_path.is_file():
         raise SystemExit("Stage 1 run-context.json, stage1-fixture.json and stage1-receipt.json are required")
     context=load(context_path)
-    wr_preflight=stage_wr_preflight("STAGE_2",context)
+    wr_loaded=load_stage_wr("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
-    require_stage_wr_receipt(stage1_receipt,"STAGE_1",context)
     stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
-    if stage1_receipt.get("fixture_sha256")!=stage1_fixture_sha256:
-        raise SystemExit("Stage 1 fixture SHA does not match the immutable Stage 1 receipt")
     if stage1_receipt.get("run_id")!=context.get("run_id"):
         raise SystemExit("Stage 1 receipt Run ID does not match run-context")
     if stage1_receipt.get("report_date")!=context.get("report_date") or stage1_receipt.get("trading_date")!=context.get("trading_date"):
@@ -162,61 +150,29 @@ def main():
     age=(datetime.now(timezone.utc)-captured).total_seconds()
     if age < -300 or age > 24*3600:
         raise SystemExit("Run-scoped observations are outside the 24-hour freshness window")
-    expected=set()
-    stage1_fixture=load(stage1_fixture_path)
-    for group in ("global_markets","bonds","fx","energy","metals","risk"):
-        expected.update((group,str(name)) for name in (stage1_fixture.get(group) or {}))
-    expected.update(("sectors",str(name)) for name in (stage1_fixture.get("sectors") or {}))
-    rows=web_payload.get("observations")
-    keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
-    if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
-        raise SystemExit("Run-scoped observations do not match the exact 44-row Stage 1 universe")
-    report_day=date.fromisoformat(report_date)
-    for row in rows:
-        try:
-            target_day=date.fromisoformat(str(row.get("target_date")))
-        except ValueError as exc:
-            raise SystemExit(f"Invalid per-instrument target_date: {row.get('name')}") from exc
-        if target_day > report_day:
-            raise SystemExit(f"Observation target_date is later than report_date: {row.get('name')}")
     state_path=run_dir/"run-state.json"
     state=load(state_path)
     validate_state(state,expected_run_id=context["run_id"])
     if state["stages"]["STAGE_2"]["status"]!="SUBMITTED":
         raise SystemExit("Stage 2 worker must submit the Run-scoped bundle before GitHub validation")
     web_bundle_sha256=hashlib.sha256(web_bundle.read_bytes()).hexdigest()
-    if state["stages"]["STAGE_2"].get("output_sha256")!=web_bundle_sha256:
-        raise SystemExit("Stage 2 submitted state SHA does not match the exact Run-scoped observation file")
-    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
-        "--run-dir",str(run_dir.relative_to(ROOT))])
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
     web_payload=load(web_bundle)
-    worker_wr_attestation=validate_stage2_worker_wr_attestation(web_payload,wr_preflight)
-    fedwatch_observation=validate_fedwatch_observation(web_payload.get("fedwatch"),wr_preflight,context)
+    fedwatch_observation=validate_fedwatch_observation(web_payload.get("fedwatch"),context)
     if not cnn_observation.is_file():
         cnn_observation.write_text(json.dumps({
             "schema_version":"1.0", "run_id":context["run_id"],
             "report_date":report_date, "trading_date":context["trading_date"],
-            "stage1_receipt_sha256":handoff["stage1_receipt_sha256"],
-            "run_context_sha256":handoff["run_context_sha256"],
-            "stage1_fixture_sha256":handoff["stage1_fixture_sha256"],
             "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
         },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    # Re-run the handoff gate after creating the optional empty CNN packet so
-    # every input consumed below is bound to the same Stage 1 receipt.
-    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
-        "--run-dir",str(run_dir.relative_to(ROOT))])
     run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--input",str(web_bundle.relative_to(ROOT)),
         "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
         "--output",str(observations_path.relative_to(ROOT))])
-    input_mode="RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS"
-    audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
-        "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
-        "--output",str(audit_path.relative_to(ROOT))])
+    input_mode="RUN_SCOPED_CHATGPT_WEB_OBSERVATIONS"
     manifest=run([sys.executable,str(RUNNER/"build_market_source_verification_manifest.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--observations",str(observations_path.relative_to(ROOT)),
@@ -233,13 +189,12 @@ def main():
     fixture_path.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=run([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
         "--report-date",report_date,"--data",str(fixture_path.relative_to(ROOT)),
-        "--audit",str(audit_path.relative_to(ROOT)),"--manifest",str(manifest_path.relative_to(ROOT)),
+        "--manifest",str(manifest_path.relative_to(ROOT)),
         "--observations",str(observations_path.relative_to(ROOT)),"--output",str(receipt_path.relative_to(ROOT)),
         "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
-        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
+        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main","--handoff-only"])
     stage2_receipt_doc=load(receipt_path)
-    stage2_receipt_doc["wr_preflight"]=wr_preflight
-    stage2_receipt_doc["worker_wr_attestation"]=worker_wr_attestation
+    stage2_receipt_doc["stage_wr_loaded"]=wr_loaded
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
@@ -257,15 +212,14 @@ def main():
         chart3["ledger_path"]=str(ledger_path.relative_to(ROOT))
     elapsed=round(time.monotonic()-started,3)
     observations=load(observations_path)
-    output_files=[fixture_path,observations_path,audit_path,manifest_path,receipt_path]
+    output_files=[fixture_path,observations_path,manifest_path,receipt_path]
     if ledger_path.is_file() and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION"):
         output_files.append(ledger_path)
     summary={
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
-      "wr_preflight":wr_preflight,
-      "worker_wr_attestation":worker_wr_attestation,
+      "stage_wr_loaded":wr_loaded,
       "fedwatch_status":fedwatch_observation["status"],
       "fedwatch_observation_sha256":fedwatch_observation["observation_sha256"],
       "fedwatch_target_meeting":fedwatch_observation.get("target_meeting"),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 5: pre-build receipt, main Builder, structural/visual QA, and immutable review artifact."""
+"""Stage 5: main Builder, complete QA, and immutable review artifact."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys, time
 from datetime import datetime, timedelta, timezone
@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 from builder_approval import require_approved_builder, verify_governance_snapshot
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -46,22 +46,31 @@ def evaluate_scenario_qa(fixture_doc:dict, strategy_paragraphs:list, builder_sca
     return {"coverage":coverage,"status":"PASS","reason":"Political findings are present; all three required scenarios were verified."}
 
 
-def validate_stage4_handoff(stage4_doc:dict, stage2_summary_doc:dict, context:dict)->dict:
+def validate_stage4_handoff(stage4_doc:dict, stage2_summary_doc:dict, context:dict,
+                            editorial_doc:dict, actual_bundle_sha256:str)->dict:
     if (stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context.get("run_id")
             or stage4_doc.get("report_date")!=context.get("report_date")
             or stage4_doc.get("trading_date")!=context.get("trading_date")
             or stage4_doc.get("market_snapshot_unchanged") is not True):
-        raise ValueError("Stage 4 receipt status/run/date/frozen-market identity mismatch")
+        raise ValueError("Stage 4 output status/run/date/frozen-market identity mismatch")
     binding=stage4_doc.get("editorial_run_binding") or {}
     bundle=stage4_doc.get("research_bundle") or {}
     if (binding.get("run_id")!=context.get("run_id")
             or binding.get("market_snapshot_sha256")!=stage4_doc.get("market_snapshot_sha256_before")
             or stage4_doc.get("market_snapshot_sha256_before")!=stage4_doc.get("market_snapshot_sha256_after")
             or not binding.get("research_bundle_sha256")
-            or binding.get("research_bundle_sha256")!=bundle.get("sha256")):
-        raise ValueError("Stage 4 editorial Run/snapshot/research-bundle binding is incomplete or inconsistent")
+            or binding.get("research_bundle_sha256")!=bundle.get("sha256")
+            or binding.get("research_bundle_sha256")!=actual_bundle_sha256):
+        raise ValueError("Stage 5 QA found inconsistent Stage 4 research-bundle/snapshot provenance")
     if stage2_summary_doc.get("market_snapshot_sha256")!=binding.get("market_snapshot_sha256"):
-        raise ValueError("Stage 4 market snapshot SHA differs from the Stage 2 frozen snapshot")
+        raise ValueError("Stage 4 market snapshot differs from the Stage 2 frozen snapshot")
+    expected={"run_id":context.get("run_id"),"report_date":context.get("report_date"),
+              "trading_date":context.get("trading_date"),
+              "market_snapshot_sha256":binding.get("market_snapshot_sha256"),
+              "research_bundle_sha256":binding.get("research_bundle_sha256")}
+    for key,value in expected.items():
+        if not value or editorial_doc.get(key)!=value:
+            raise ValueError(f"Stage 5 QA found missing or mismatched Stage 4 editorial binding: {key}")
     return binding
 
 def execute(cmd:list[str],log_path:Path)->str:
@@ -84,7 +93,7 @@ def main():
     if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=stage_wr_preflight("STAGE_5",context)
+    wr_loaded=load_stage_wr("STAGE_5",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
@@ -115,25 +124,43 @@ def main():
     audit=run_dir/"market-snapshot-audit.json"
     manifest=run_dir/"market-source-verification-manifest.json"
     observations=run_dir/"market-history-browser-observations.json"
-    stage2=run_dir/"stage2-market-snapshot-receipt.json"
+    stage2_handoff=run_dir/"stage2-market-snapshot-receipt.json"
+    stage2=run_dir/"stage2-market-snapshot-qa.json"
     stage2_summary=run_dir/"stage2-run-summary.json"
     stage3=run_dir/"stage3-calendar-receipt.json"
     stage4=run_dir/"stage4-analysis-receipt.json"
-    for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4):
+    for p in (fixture,manifest,observations,stage2_handoff,stage2_summary,stage3,stage4):
         if not p.is_file():raise SystemExit(f"Stage 5 missing required input: {p.relative_to(ROOT)}")
+    handoff_stage2_doc=json.loads(stage2_handoff.read_text(encoding="utf-8"))
+    if (handoff_stage2_doc.get("qa_status")!="PENDING_STAGE5"
+            or handoff_stage2_doc.get("run_id")!=context["run_id"]
+            or handoff_stage2_doc.get("report_date")!=report_date
+            or handoff_stage2_doc.get("trading_date")!=context["trading_date"]):
+        raise SystemExit("Stage 5 received a missing or mismatched Stage 2 handoff receipt")
+    execute([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
+        "--report-date",report_date,"--data",str(fixture.relative_to(ROOT)),
+        "--audit-output",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
+        "--observations",str(observations.relative_to(ROOT)),"--output",str(stage2.relative_to(ROOT)),
+        "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
+        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"],
+        run_dir/"qa-stage2-market-receipt.log")
+    if not audit.is_file():raise SystemExit("Stage 5 market QA did not create market-snapshot-audit.json")
     stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("run_id")!=context["run_id"]:
+        raise SystemExit("Stage 5 full Stage 2 QA receipt is not bound to this Run")
     stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage2_doc,"STAGE_2",context)
-    require_stage_wr_receipt(stage3_doc,"STAGE_3",context)
-    require_stage_wr_receipt(stage4_doc,"STAGE_4",context)
+    editorial_path=run_dir/"stage4-editorial-content.json"
+    editorial_doc=json.loads(editorial_path.read_text(encoding="utf-8"))
+    research_bundle_path=run_dir/"stage4-research-bundle.json"
+    actual_bundle_sha=sha(research_bundle_path)
     if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
     try:
-        editorial_binding=validate_stage4_handoff(stage4_doc,stage2_summary_doc,context)
+        editorial_binding=validate_stage4_handoff(stage4_doc,stage2_summary_doc,context,editorial_doc,actual_bundle_sha)
     except ValueError as exc:
         raise SystemExit(str(exc))
     fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
@@ -159,15 +186,6 @@ def main():
     chart3_handoff=stage2_summary_doc.get("chart3_handoff") or {}
     chart3_status=chart3_handoff.get("status","UNKNOWN")
     start=time.monotonic()
-    prebuild=run_dir/"prebuild-input-receipt.json"
-    execute([sys.executable,str(RUNNER/"validate_prebuild_stage_inputs.py"),
-        "--report-date",report_date,"--data",str(fixture.relative_to(ROOT)),
-        "--audit",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
-        "--observations",str(observations.relative_to(ROOT)),"--output",str(prebuild.relative_to(ROOT)),
-        "--run-id",str(context["run_id"]),
-        "--run-attempt",str(context.get("workflow_run_attempt","1"))],run_dir/"qa-prebuild.log")
-    prebuild_doc=json.loads(prebuild.read_text(encoding="utf-8"))
-    if prebuild_doc.get("status")!="PASS":raise SystemExit("Pre-build input receipt did not PASS")
     template_key=context["mother"]["key"]
     output=run_dir/"review.html"
     expected_master_sha=context["mother"]["blob_sha"]
@@ -252,11 +270,11 @@ def main():
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
       "builder_approval":builder_approval,
       "governance_snapshot":governance_snapshot,
-      "wr_preflight":wr_preflight,
+      "stage_wr_loaded":wr_loaded,
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
-      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4,prebuild)},
+      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2_handoff,stage2,stage2_summary,stage3,stage4)},
       "output":{"path":str(output.relative_to(ROOT)),"sha256":html_sha},
       "visual_report_sha256":sha(visual_report),"interaction_report_sha256":sha(interaction_json)
     }
@@ -266,7 +284,7 @@ def main():
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "status":stage5_status,"groups":{
-        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"wr_preflight":wr_preflight,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":False,"chart3_handoff_non_blocking":True,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
+        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"stage2_receipt_sha256":sha(stage2),"stage2_handoff_receipt_sha256":sha(stage2_handoff),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage_wr_loaded":wr_loaded,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":False,"chart3_handoff_non_blocking":True,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS","main_branding_status":"PASS","main_review_labels":main_branding},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
         "run_integration":{"status":"PASS","same_run_id":True,"html_sha256":html_sha,"render_manifest_sha256":sha(render_path)}
@@ -277,8 +295,8 @@ def main():
     qa_path=run_dir/"qa-sidecar.json"
     qa_path.write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={"status":stage5_status,"run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
-      "wr_preflight":wr_preflight,
-      "stage4_receipt_sha256":sha(stage4),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
+      "stage_wr_loaded":wr_loaded,
+      "stage4_receipt_sha256":sha(stage4),"stage2_qa_receipt_sha256":sha(stage2),"stage2_handoff_receipt_sha256":sha(stage2_handoff),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
       "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
       "render_manifest_sha256":sha(render_path),"qa_sidecar_sha256":sha(qa_path),
       "scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"],"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"editorial_content_status":"PASS",

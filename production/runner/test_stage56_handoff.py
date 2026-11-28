@@ -13,6 +13,11 @@ def stage4():
                                      "research_bundle_sha256":"b"*64},
             "research_bundle":{"sha256":"b"*64}}
 
+def editorial():
+    return {"run_id":CONTEXT["run_id"],"report_date":CONTEXT["report_date"],
+            "trading_date":CONTEXT["trading_date"],"market_snapshot_sha256":"a"*64,
+            "research_bundle_sha256":"b"*64}
+
 def stage5():
     return {"status":"REVIEW_READY","run_id":CONTEXT["run_id"],"report_date":CONTEXT["report_date"],
             "trading_date":CONTEXT["trading_date"],"html_sha256":"c"*64,"qa_sidecar_sha256":"d"*64,
@@ -22,17 +27,17 @@ def stage5():
 
 class Stage56HandoffTests(unittest.TestCase):
     def test_stage5_accepts_exact_stage4_run_dates_and_snapshot(self):
-        result=validate_stage4_handoff(stage4(),{"market_snapshot_sha256":"a"*64},CONTEXT)
+        result=validate_stage4_handoff(stage4(),{"market_snapshot_sha256":"a"*64},CONTEXT,editorial(),"b"*64)
         self.assertEqual(result["research_bundle_sha256"],"b"*64)
 
     def test_stage5_rejects_wrong_trading_date(self):
         doc=stage4();doc["trading_date"]="2026-11-24"
         with self.assertRaisesRegex(ValueError,"identity mismatch"):
-            validate_stage4_handoff(doc,{"market_snapshot_sha256":"a"*64},CONTEXT)
+            validate_stage4_handoff(doc,{"market_snapshot_sha256":"a"*64},CONTEXT,editorial(),"b"*64)
 
     def test_stage5_rejects_changed_market_snapshot(self):
         with self.assertRaisesRegex(ValueError,"Stage 2 frozen snapshot"):
-            validate_stage4_handoff(stage4(),{"market_snapshot_sha256":"0"*64},CONTEXT)
+            validate_stage4_handoff(stage4(),{"market_snapshot_sha256":"0"*64},CONTEXT,editorial(),"b"*64)
 
     def test_stage6_rerun_uses_separate_preview_triplet(self):
         rerun_context={**CONTEXT,"supersedes_run_id":"TAC-2026-11-27-45937649928-1"}

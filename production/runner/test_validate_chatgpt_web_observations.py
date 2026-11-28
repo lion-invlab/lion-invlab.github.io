@@ -17,7 +17,6 @@ from stage2_market_fixture_bootstrap import blank_fixture, populate_fixture
 from validate_chatgpt_web_observations import persist_fixture
 from stage2_screenshot_inputs import apply_screenshot_values_to_fixture, load_screenshot_bundle
 from stage2_move_retry import merge_move_retry_observation
-from validate_prebuild_stage_inputs import validate_observation_bundle
 
 FIXTURE = Path("production/testdata/report-data-2026-11-24.json")
 CLOSURE_URL = "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html"
@@ -298,21 +297,6 @@ def main():
     assert result["prior_observation_reused_count"] == 0
     assert result["displayed_values_independently_reconciled"] is False
 
-    # The normalized direct-web bundle is also the Stage 4 pre-build input.
-    # Every VERIFIED page row must carry field-level evidence, not merely a
-    # page title and row excerpt.
-    prebuild_summary = validate_observation_bundle(result, "2026-11-24", "2026-11-23")
-    assert prebuild_summary["row_count"] == 44
-    assert prebuild_summary["page_only_row_count"] == 43
-    assert prebuild_summary["screenshot_only_row_count"] == 0
-    assert prebuild_summary["mixed_field_row_count"] == 0
-    verified_rows = [row for row in result["observations"] if row["status"] == "VERIFIED"]
-    assert all({"close", "change"}.issubset(row.get("field_evidence", {}))
-               for row in verified_rows if not (row["group"] == "risk" and row["name"] == "fear_greed"))
-    fear_greed_row = next(row for row in verified_rows
-                          if row["group"] == "risk" and row["name"] == "fear_greed")
-    assert {"score", "band"}.issubset(fear_greed_row["field_evidence"])
-
     # The same direct observations must also populate a zero-value market input;
     # they must not be compared against stale numeric values from the base fixture.
     blank_data = blank_fixture(copy.deepcopy(data))
@@ -399,9 +383,6 @@ def main():
     assert tv_source["verified_source_name"] == "TradingView ICE:MOVE"
     assert tv_source["verified_source_url"] == tv_url
     assert tv_source["url"] == primary_url
-    tv_prebuild = validate_observation_bundle(move_tv_result, "2026-11-24", "2026-11-23")
-    assert tv_prebuild["row_count"] == 44 and tv_prebuild["page_only_row_count"] == 43
-
     # Unstructured or premature alternate-source claims remain rejected.
     for invalid_fields in (
         {"source_url": tv_url},

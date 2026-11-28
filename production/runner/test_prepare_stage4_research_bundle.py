@@ -112,16 +112,18 @@ class Stage4ResearchBundleTests(unittest.TestCase):
             self.assertEqual(len(bundle["screenshot_evidence"]),1)
             self.assertEqual(bundle["screenshot_evidence"][0]["sha256"],evidence_sha)
             self.assertIn("market-screenshot-sidecar",bundle["input_refs"])
-            # A different row's evidence must not be accepted as this row's proof.
+            # Stage 4 assembles the available inputs. Cross-receipt consistency
+            # belongs to the single Stage 5 QA pass, not this bundle builder.
             stage2_path=run/"stage2-market-snapshot-receipt.json"
             stage2_doc=json.loads(stage2_path.read_text(encoding="utf-8"))
             closed_receipt=next(row for row in stage2_doc["rows"]
                                 if row["group"]=="global_markets" and row["name"]=="指數1")
             closed_receipt["closure_evidence"]["reader_ref"]="wrong-row-reader-ref"
             stage2_path.write_text(json.dumps(stage2_doc),encoding="utf-8")
-            with self.assertRaisesRegex(ValueError,"matching official closure evidence"):
-                build_bundle(run,root)
-    def test_rejects_cross_run_stage3_receipt(self):
+            rebuilt=build_bundle(run,root)
+            self.assertEqual(rebuilt["run_id"],run.name)
+            self.assertEqual(rebuilt["market_snapshot"]["row_count"],44)
+    def test_carries_cross_run_stage3_receipt_to_stage5_instead_of_blocking_stage4(self):
         with tempfile.TemporaryDirectory() as td:
             root=Path(td); run=root/"TAC-2026-11-26-test-1"; run.mkdir()
             data={"report_date":"2026-11-26","trading_date":"2026-11-25"}
@@ -133,7 +135,9 @@ class Stage4ResearchBundleTests(unittest.TestCase):
                 "stage3-calendar-receipt.json":{"status":"PASS","run_id":"other","main_commit_sha":"abc"}
             }.items():
                 (run/name).write_text(json.dumps(doc),encoding="utf-8")
-            with self.assertRaisesRegex(ValueError,"Stage 3 receipt"):
-                build_bundle(run,root)
+            bundle=build_bundle(run,root)
+            self.assertEqual(bundle["run_id"],run.name)
+            self.assertEqual(bundle["run_provenance"]["stage3_receipt"]["run_id"],"other")
+            self.assertIn("calendar.json",bundle["missing_inputs"])
 
 if __name__=="__main__":unittest.main()

@@ -18,7 +18,7 @@ build = workflow[build_start:]
 assert "timeout-minutes: 10" in stage1
 assert "Stage 1 — create or resume the exact Run" in stage1
 assert "Publish Stage 1 handoff before Stage 2 starts" in stage1
-assert stage1.index("Stage 1 WR preflight before report-date or Run resolution") < stage1.index("Resolve report date and unique Run ID")
+assert stage1.index("Read complete Stage 1 WR before report-date or Run resolution") < stage1.index("Resolve report date and unique Run ID")
 assert "run_dir: ${{ steps.resolve.outputs.run_dir }}" in stage1
 assert "python -m pip install" not in stage1
 assert "playwright" not in stage1
@@ -38,7 +38,7 @@ assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_2" in st
 assert "if: ${{ always() && needs['stage2-and-stage3'].result == 'success' }}" in build
 assert "needs: [stage2-and-stage3]" in build
 assert "needs['stage2-and-stage3'].outputs.run_id" in build or "needs.stage2-and-stage3.outputs.run_id" in build
-assert 'pinned_wr_blob=((context.get("governance") or {}).get("blob_shas") or {}).get(wr_path.as_posix())' in stage2
+assert 'wr_text=wr_bytes.decode("utf-8")' in stage2
 assert "stage4-editorial-content.json" in build
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in build
 

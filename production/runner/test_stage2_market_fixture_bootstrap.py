@@ -10,11 +10,12 @@ def fixture():
         data[group]={}
         for i in range(count):
             name=(("vix","move","fear_greed")[i] if group=="risk" else f"{group}_{i}")
+            source_url=f"https://example.com/{group}/{i}"
             data[group][name]={"display":"1,234.50" if group!="bonds" else "4.652%",
-                **({"contract_label": f"{group.upper()}_CONTRACT_1"} if group in ("energy","metals") else {}),
+                **({"contract_label": f"{group.upper()}_CONTRACT_1","instrument_url":source_url} if group in ("energy","metals") else {}),
                 "change_display":"-0.25%" if group!="bonds" else "-1.9 bp",
-                "source":{"name":name,"url":f"https://example.com/{group}/{i}","data_date":"2026-11-25",
-                    "quote_type":"treasury_yield" if group=="bonds" else "spot_daily_close",
+                "source":{"name":name,"url":source_url,"data_date":"2026-11-25",
+                    "quote_type":"treasury_yield" if group=="bonds" else ("investing_historical_close" if group in ("energy","metals") else "spot_daily_close"),
                     "note":"test source","close_value":1234.5,"daily_change_percent":-0.25,
                     "history_close":1234.5,"history_change":-0.25,
                     "score_value":15 if name=="fear_greed" else None,"band":"極度恐懼" if name=="fear_greed" else None}}

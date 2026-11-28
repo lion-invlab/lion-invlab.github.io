@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from urllib.parse import urlparse
+from validate_market_snapshot import validate_market_snapshot
 
 EXPECTED_GROUPS={"global_markets":17,"sectors":11,"bonds":3,"fx":6,"energy":2,"metals":2,"risk":3}
 OFFICIAL_CALENDAR_HOSTS={"nyse.com","nasdaq.com","jpx.co.jp","cao.go.jp","global.krx.co.kr",
@@ -179,13 +180,62 @@ def validate_inputs(data,audit,manifest,observations,report_date):
             "market_status_counts":market_status_counts,
             "row_receipts":row_receipts,"pending_rows":pending_rows}
 
+def build_handoff_receipt(args):
+    """Create a non-QA Stage 2 handoff summary; complete market QA runs in Stage 5."""
+    data=json.loads(Path(args.data).read_text(encoding="utf-8"))
+    manifest=json.loads(Path(args.manifest).read_text(encoding="utf-8"))
+    observations=json.loads(Path(args.observations).read_text(encoding="utf-8"))
+    rows=manifest.get("rows") or []
+    pending_rows=[]
+    for row in rows:
+        status=str(row.get("verification_status") or row.get("market_data_status") or "PENDING").upper()
+        if status not in ("VERIFIED","BACKUP_VERIFIED","CLOSED"):
+            pending_rows.append({"group":row.get("group"),"name":row.get("name"),
+                                 "status":status,"read_status":row.get("read_status")})
+    verified=int(manifest.get("verified_count") or 0)
+    pending=int(manifest.get("pending_count") or len(pending_rows))
+    closed=int(manifest.get("closed_count") or 0)
+    status="PARTIAL" if pending>0 else "PASS"
+    paths={"fixture":args.data,"manifest":args.manifest,"observations":args.observations}
+    hashes={key:sha_file(value) for key,value in paths.items()}
+    run_id=str(args.run_id or "LOCAL")
+    workflow_run_id=str(getattr(args,"workflow_run_id",None) or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
+    commit=str(args.commit_sha or os.environ.get("GITHUB_SHA") or "UNKNOWN")
+    branch=str(args.branch or os.environ.get("GITHUB_REF_NAME") or "main")
+    batch_seed="|".join([args.report_date,str(data.get("trading_date") or ""),run_id,commit,
+                         *[hashes[k] for k in ("fixture","manifest","observations")]])
+    batch_id=hashlib.sha256(batch_seed.encode()).hexdigest()[:24]
+    return {
+        "schema_version":"1.0","receipt_type":"TAC_STAGE2_MARKET_HANDOFF",
+        "status":status,"qa_status":"PENDING_STAGE5","freeze_point":"STAGE2_MARKET_SNAPSHOT_CAPTURED",
+        "downstream_market_access":"READ_ONLY","preexisting_market_values_used":False,
+        "repository":"lion-invlab/lion-invlab.github.io","branch":branch,
+        "commit_sha":commit,"run_id":run_id,"workflow_run_id":workflow_run_id,"batch_id":batch_id,
+        "report_date":args.report_date,"trading_date":data.get("trading_date"),
+        "generated_at_utc":datetime.now(timezone.utc).isoformat(),
+        "row_count":manifest.get("row_count",len(rows)),
+        "verified_count":verified,"pending_count":pending,"closed_count":closed,
+        "market_status_counts":manifest.get("market_status_counts") or {},
+        "manifest_status":manifest.get("status"),
+        "source_pages_fetched":manifest.get("source_pages_fetched"),
+        "displayed_values_reconciled":manifest.get("displayed_values_reconciled"),
+        "displayed_values_independently_reconciled":False,
+        "input_files":{key:{"path":paths[key],"sha256":hashes[key]} for key in paths},
+        "pending_rows":pending_rows,"rows":rows,
+        "warning":"Stage 2 handoff only. Full 44-row metadata, source and snapshot QA is performed once by Stage 5."
+    }
+
+
 def build_receipt(args):
     data=json.loads(Path(args.data).read_text(encoding="utf-8"))
-    audit=json.loads(Path(args.audit).read_text(encoding="utf-8"))
+    audit=validate_market_snapshot(data,args.report_date)
     manifest=json.loads(Path(args.manifest).read_text(encoding="utf-8"))
     observations=json.loads(Path(args.observations).read_text(encoding="utf-8"))
     counts=validate_inputs(data,audit,manifest,observations,args.report_date)
-    paths={"fixture":args.data,"audit":args.audit,"manifest":args.manifest,"observations":args.observations}
+    audit_path=Path(args.audit_output)
+    audit_path.parent.mkdir(parents=True,exist_ok=True)
+    audit_path.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    paths={"fixture":args.data,"audit":args.audit_output,"manifest":args.manifest,"observations":args.observations}
     hashes={key:sha_file(path) for key,path in paths.items()}
     run_id=str(args.run_id or "LOCAL")
     workflow_run_id=str(getattr(args,"workflow_run_id",None) or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
@@ -219,10 +269,16 @@ def build_receipt(args):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--report-date",required=True); p.add_argument("--data",required=True)
-    p.add_argument("--audit",required=True); p.add_argument("--manifest",required=True)
+    p.add_argument("--audit-output"); p.add_argument("--manifest",required=True)
     p.add_argument("--observations",required=True); p.add_argument("--output",required=True)
     p.add_argument("--run-id"); p.add_argument("--workflow-run-id"); p.add_argument("--commit-sha"); p.add_argument("--branch")
-    a=p.parse_args(); receipt=build_receipt(a)
+    p.add_argument("--handoff-only",action="store_true")
+    a=p.parse_args()
+    if a.handoff_only:
+        receipt=build_handoff_receipt(a)
+    else:
+        if not a.audit_output: p.error("--audit-output is required for full Stage 5 QA receipt generation")
+        receipt=build_receipt(a)
     out=Path(a.output); out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":str(out),"status":receipt["status"],"batch_id":receipt["batch_id"],

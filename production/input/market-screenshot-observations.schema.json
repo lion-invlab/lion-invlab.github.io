@@ -9,10 +9,7 @@
     "observations",
     "schema_version",
     "run_id",
-    "captured_at_utc",
-    "stage1_receipt_sha256",
-    "run_context_sha256",
-    "stage1_fixture_sha256"
+    "captured_at_utc"
   ],
   "properties": {
     "schema_version": {
@@ -25,18 +22,6 @@
     "captured_at_utc": {
       "type": "string",
       "format": "date-time"
-    },
-    "stage1_receipt_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
-    },
-    "run_context_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
-    },
-    "stage1_fixture_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
     },
     "report_date": {
       "type": "string",
@@ -417,10 +402,7 @@
           "run_id",
           "report_date",
           "trading_date",
-          "captured_at_utc",
-          "stage1_receipt_sha256",
-          "run_context_sha256",
-          "stage1_fixture_sha256"
+          "captured_at_utc"
         ]
       }
     }

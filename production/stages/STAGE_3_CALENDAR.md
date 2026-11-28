@@ -1,13 +1,13 @@
 # Stage 3｜行事曆與財報事件
 版本：Main E2E v1.2（2026-11-28）
 
-## 開工前強制 WR Preflight
-- Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
-- Stage 1 以當前 main HEAD 的本階段 WR 為基準；Stage 2–6 必須同時核對 Stage 1 `governance.blob_shas`、鎖定 commit 與當前 WR Git blob SHA。
-- 缺檔、空檔、無法完整 UTF-8 讀取、Run 未鎖定該 WR、SHA 不一致，均立即 FAIL-CLOSED；不得跳過、fallback 或繼續工作。
-- 本階段輸出收據必須包含 `wr_preflight`，至少記錄 `wr_path`、`wr_loaded`、`wr_sha256`、`wr_git_blob_sha`、`stage1_pinned_git_blob_sha`、讀取位元組數及 PASS 狀態。沒有該證據不得宣告本階段完成。
+## 開工前讀取本階段 WR
+- 開始本階段工作前，完整讀取本文件（UTF-8）；確認內容可讀即可。
+- 這是工作指令，不是額外驗收關卡。不得要求 Stage 1–4 提交 WR SHA、Git blob SHA 或跨階段 WR 證明。
+- 讀取本階段 WR 後，直接依下列工作內容執行；完成即交付下一階段。
+
  
-Stage 3 必須先完整讀取本文件及完成 WR Preflight，才可讀取或投影行事曆／財報資料。
+Stage 3 完整讀取本文件後，直接讀取並投影行事曆／財報資料。
 
 ## 輸入
 Stage 1 當週 JSON commit 與 blob SHA；僅週一另含上週 JSON commit 與 blob SHA；Stage 2 凍結行情快照、`production/MASTER_WR.md`、`production/contracts/DATA_SCHEMA.md` 與 `production/contracts/SOURCE_POLICY.md`。SIM-1.4 僅為技術規範來源，不是 main 執行期依賴。
@@ -22,14 +22,14 @@ Stage 1 當週 JSON commit 與 blob SHA；僅週一另含上週 JSON commit 與 
 7. 05:25 後發現的事件修正只記錄於當次 run 與審核版，不回寫週 JSON，交由下一次 04:35 唯一 writer 處理。
 
 ## 輸出
-calendar-data.json、earnings-data.json、event/source references、未核實項目及唯讀 SHA receipt。
+calendar-data.json、earnings-data.json、event/source references 及未核實項目。
 
 ## 驗收與交接
 事件 ID 唯一、日期／時區正確、JSON SHA 一致、已公布值有來源、EPS／Revenue 獨立判讀。交給 Stage 4 與 Stage 5；不改動來源 JSON。
 
 
 ## Main Run state contract v1.2
-- Stage 3 必須讀取同一 Run 的 run-state.json；Stage 2 必須已由 GitHub validator 標記 PASS 或 PARTIAL，Stage 2 receipt 的 run_id 必須等於 run-context.run_id。Stage 2 SUBMITTED 尚未驗證時，不得開始 Stage 3。
-- Stage 3 只可在 Stage 3=READY 時，以 compare-and-swap 將狀態改為 RUNNING，記錄 lease、Stage 2 receipt SHA 與 calendar input SHA。
-- Stage 3 完成並寫出 stage3-calendar-receipt.json 後，將 Stage 3 改為 PASS，記錄 receipt SHA，並將 Stage 4 設為 READY。Receipt 與 state 必須在同一 Run 證據提交中保存。
-- Stage 3 不建立 Run、不重抓行情、不改寫週 JSON、不以日期共用檔作輸入；任何前置狀態或 Run ID 不符均 FAIL-CLOSED。
+- Stage 3 必須讀取同一 Run 的 run-state.json；僅依 Stage 2 狀態為 PASS 或 PARTIAL 判定前一階段已完成。Stage 2 狀態尚未完成時，不得開始 Stage 3；不再重讀或驗證 Stage 2 receipt、SHA 或重複的 Run 身分。
+- Stage 3 只在 Stage 2 完成後讀取同一 Run 的行情成果與行事曆資料，執行唯讀投影。
+- Stage 3 完成 calendar-data.json 與 earnings-data.json 後，標記完成並交付 Stage 4。可保留一份簡短執行摘要，但不得以 receipt SHA 作為 Stage 4 的交接門檻。
+- Stage 3 不建立 Run、不重抓行情、不改寫週 JSON、不以日期共用檔作輸入；Run ID 或日期不符時停止，避免混用不同 Run。

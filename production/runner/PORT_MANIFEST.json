@@ -37,7 +37,7 @@
     {
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
-      "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_RECEIPT_BINDING",
+      "status": "MAIN_STAGE2_HANDOFF_AND_STAGE5_FINAL_QA_RECEIPT",
       "main_blob_sha": "f3943620a8af0bad07834873969675509e3bb359"
     },
     {
@@ -77,12 +77,6 @@
       "main_blob_sha": "3bdabe5a3e301777f022b07e0b89297964d5b8c8"
     },
     {
-      "file": "validate_prebuild_stage_inputs.py",
-      "source_sha": "730b25a2f8f3a2f555008fb9c5bd1deb5ecf9bd1",
-      "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_PREBUILD_GATE",
-      "main_blob_sha": "4f39c0d03511e861843e5837d2b0364b8c6e140b"
-    },
-    {
       "file": "build_review_html.py",
       "source_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
       "status": "CANDIDATE_PENDING_NEW_EXACT_BLOB_APPROVAL",
@@ -109,6 +103,11 @@
       "file": "run_state.py",
       "status": "MAIN_NATIVE_PER_RUN_STATE_MACHINE",
       "main_blob_sha": "ea6de8f39a9b06e67d5dacde97b588ebeda13658"
+    },
+    {
+      "file": "stage_wr_loader.py",
+      "status": "MAIN_NATIVE_FULL_FILE_STAGE_WR_LOADER",
+      "main_blob_sha": "01a1a2cf91f17cc5f3ddaa97c887eae8e295d3f8"
     }
   ],
   "validation_tests_copied": [
@@ -122,7 +121,6 @@
     "test_stage2_field_provenance.py",
     "test_browser_http_classification.py",
     "test_sp500_chart3_handoff.py",
-    "test_prebuild_stage_inputs.py",
     "test_earnings_judgment_engine.py",
     "test_earnings_schema_audit.py",
     "test_earnings_card_dom_preservation.py",
@@ -138,7 +136,6 @@
     "interaction_smoke.mjs",
     "visual_regression.mjs",
     "test_stage56_handoff.py",
-    "production/runner/test_stage2_run_handoff.py",
     "production/runner/test_create_run_fixture.py",
     "production/runner/test_stage2_chart3_guard.py",
     "production/runner/test_run_state.py",
@@ -150,10 +147,8 @@
     "The current Main Builder blob 3e5a971d6d0a3ad3d41881b542580308276021f9 has exact-blob owner approval recorded in production/config/builder-approval.json (APPROVED_MAIN); real-data Capture and Stage 4-6 E2E remain NOT_VERIFIED.",
     "Stage 5 runtime approval gate has not been exercised against the current Builder blob.",
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
-    "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
-    "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
     "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database.",
-    "Per-Run state machine and all six Stage Runner state transitions are implemented on the isolated rebuild branch; final workflow integration, automated ChatGPT handoff prompt update, and full E2E validation remain pending."
+    "The six-stage runners and Main workflow are integrated on the isolated rebuild branch; production schedule cutover and real-data Stage 1–6 E2E remain pending."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -171,7 +166,7 @@
       "recover",
       "build"
     ],
-    "capture_handoff": "LEGACY_DATE_SCOPED_INPUT; Run-scoped SHA validator tested but not yet wired; Playwright/TradingView automatic fallback paths remain active",
+    "capture_handoff": "RUN_SCOPED_OBSERVATION; ACCEPTANCE_RUN_ID_AND_DATES_ONLY; STAGE2_SINGLE_DATA_TRANSFORM; STAGE5_FINAL_QA",
     "real_data_e2e": "NOT_RUN",
     "production_schedule": "NOT_CUT_OVER",
     "builder_approval": "APPROVED_MAIN_EXACT_CURRENT_BUILDER_BLOB",
@@ -184,13 +179,6 @@
     },
     "workflow_schedule": "WEEKDAYS_STAGE1_START_04:05_TAIPEI_US_EDT_OR_05:05_US_EST; STAGES_1_TO_3",
     "stage4_content_producer": "CHATGPT_CONTINUATION_AUTOMATION_NO_EXTERNAL_LLM_API; RUN_BOUND_EDITORIAL_JSON; E2E_NOT_VERIFIED",
-    "stage4_validation_hardening": {
-      "run_stage4_blob_sha": "0e30c83ad54876f5450866fe2bd11eaf218494b4",
-      "test_stage4_content_validation_blob_sha": "85df5222d97fea88acaf02517ae0cd7f17357a71",
-      "ci_run_id": 45905788264,
-      "ci_status": "PASS",
-      "ci_head_sha": "4ca8bf89ed55664a493dcad96022a44061cb077d"
-    },
     "orchestration_model": {
       "master_entrypoint": ".github/workflows/tac-production.yml schedule",
       "master_starts_at": "Stage 1",
@@ -265,11 +253,6 @@
       "working_copy": "report-data.json",
       "retry_policy": "run_stage2 resets report-data.json from stage1-fixture.json before each same-Run attempt"
     },
-    "stage2_run_handoff": {
-      "validator": "production/runner/validate_stage2_run_handoff.py",
-      "status": "TESTED_NOT_WIRED_INTO_RUN_STAGE2",
-      "ci_run": 412
-    },
     "chart3_sp500_handoff": {
       "status": "DEFERRED_R3_WRITER_NOT_APPROVED",
       "candidate": "chart3-sp500-handoff-candidate.json",
@@ -300,26 +283,20 @@
     },
     {
       "file": "run_stage2.py",
-      "purpose": "Main-native Stage 2/4 run-bound status and provenance handling",
+      "purpose": "Main-native Stage 2 Run-scoped observation ingestion and lightweight handoff; full market QA deferred to Stage 5",
       "main_blob_sha": "0bf9fb1c88ddfafeee7f152f9a77a89c22d9d189",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "run_stage4.py",
-      "purpose": "Stage 4 Run/date/research bundle handoff receipt",
+      "purpose": "Stage 4 Run-scoped editorial merge; full editorial QA is owned by Stage 5",
       "main_blob_sha": "2adbc6c6e955acd13ad6f8d0ff73c52dffabb898",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
       "file": "build_stage2_receipt.py",
-      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
+      "purpose": "Create a lightweight Stage 2 handoff receipt; Stage 5 invokes full market validation and writes a separate QA receipt",
       "main_blob_sha": "d33788b65552e72bef46289cd258cff0f7baba1a",
-      "status": "MAIN_PATCHED_STAGE_HANDOFF"
-    },
-    {
-      "file": "validate_prebuild_stage_inputs.py",
-      "purpose": "Main-native Stage 2/4 status and run-bound handoff",
-      "main_blob_sha": "48a2b0d109f9e91ca9c9ade5d82bd433b2bd1fb6",
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
@@ -353,12 +330,6 @@
       "status": "MAIN_PATCHED_STAGE_HANDOFF"
     },
     {
-      "file": "test_stage4_content_validation.py",
-      "purpose": "Stage 4 exact Run/date/research bundle binding regression test",
-      "main_blob_sha": "895256641f3e333669c3b193e9670991726bb535",
-      "status": "MAIN_PATCHED_STAGE_HANDOFF"
-    },
-    {
       "file": "test_stage56_handoff.py",
       "purpose": "Positive and negative regression tests for Stage 5/6 exact Run/date/SHA handoff",
       "main_blob_sha": "856eef7621b3d3af31560f32aadb228a0ee26d58",
@@ -377,12 +348,6 @@
       "status": "MAIN_NATIVE_STAGE1_FACTORY"
     },
     {
-      "path": "production/runner/validate_stage2_run_handoff.py",
-      "purpose": "Fail-closed Run ID, Stage 1 receipt/run-context/immutable fixture SHA and exact 44-row handoff validator; optional CNN/screenshot bundles are Run-bound",
-      "main_blob_sha": "ee3c61cedb04bdd6d7e028aa93012e76fe741b6f",
-      "status": "TESTED_NOT_YET_WIRED_INTO_RUN_STAGE2"
-    },
-    {
       "path": "production/runner/test_stage2_chart3_guard.py",
       "purpose": "Verify verified S&P 500 is preserved as a Run-scoped candidate and not appended by the unapproved R3 writer",
       "main_blob_sha": "ec9bd33ab086225cde2265bf0b0269db72cc0a7c",
@@ -392,6 +357,10 @@
       "file": "accept_stage_submission.py",
       "purpose": "Validate Run-bound ChatGPT Stage 2/4 artifacts and advance authoritative state from the serialized GitHub workflow",
       "status": "MAIN_PATCHED_SINGLE_STATE_WRITER"
+    },
+    {
+      "file": "stage_wr_loader.py",
+      "purpose": "Load the complete Stage 1–6 WR file directly; no cross-stage WR SHA preflight"
     }
   ],
   "approval_record": {

@@ -22,13 +22,11 @@ main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件
 Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Stage 3 行事曆與財報 → Stage 4 新聞與市場分析 → Stage 5 唯一 HTML Builder 與 QA → Stage 6 main/preview 審核版交付與驗證。
 六階段是同一條流程，不是六次獨立審批。每階段保留必要輸入、輸出與交接，不重複建立等價收據或重抓已鎖定資料。Stage 1 必須先建立並提交當日 Run；Stage 2 worker 只有在讀取該 Run 的 run-context、fixture 與 Stage 1 receipt 後才可擷取。Stage 2 不得在 Stage 1 前預擷取。
 
-## 2A. 六階段強制 WR 開工前讀取
-- 六個 Stage 一律先讀取自己的完整 Stage WR，後執行本階段工作；不得只依賴 MASTER_WR 摘要、前次對話記憶、Workflow step 名稱或 Runner 註解。
-- 唯一執行器為 `production/runner/stage_wr_preflight.py`；各 Stage 入口必須先呼叫對應 Stage key。Stage 1 讀取自身 WR 並留存證據；Stage 2–6 另核對 Stage 1 governance snapshot 中該 WR 的 Git blob SHA。
-- Preflight 必須讀取完整 UTF-8 文件、確認非空、計算 SHA-256 並核對 Git blob。缺失、讀取失敗、未鎖定、版本漂移或收據缺少 `wr_preflight` 均 FAIL-CLOSED，不得開始或宣告完成。
-- Stage 4 編輯工作者在撰寫內容前，必須先完整讀取當次 Run 鎖定的 Stage 4 WR；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。不得以摘要、前次對話或 Runner 事後讀取取代編輯工作者開工前讀取。
-- 每階段收據必須記錄 WR 路徑、完整讀取狀態、SHA-256、Git blob SHA、Stage 1 pinned SHA 及讀取位元組數。無證據不得 PASS。
-- 下游 Stage 必須驗證所有直接上游 receipt 的 `wr_preflight` 證據：Stage 2 驗 Stage 1；Stage 3 驗 Stage 2；Stage 4 驗 Stage 2、3；Stage 5 驗 Stage 2–4；Stage 6 驗 Stage 5。路徑、Stage key、Git blob SHA、Stage 1 pinned commit 任一缺漏或不符即拒絕交接。
+## 2A. Stage WR 讀取與交接原則
+- Stage 1–4 開工前各自完整讀取自己的 Stage WR，確認可讀後立即執行工作。
+- Stage 1–4 只完整讀取各自 WR，不提交 WR SHA／Git blob SHA 證明，不做跨階段 WR receipt 驗證。
+- Stage 1–4 的交接以同一 Run 及實際工作成果為準；不得因缺少重複證明而阻塞下一階段。
+- Stage 5 執行完整 QA；Stage 6 依 Stage 5 結果交付審核版。Stage 5–6 保留各自真正需要的 QA 與交付條件。
 
 ## 3. 唯一正式母版規則
 - 正式早報製作日為台灣週二至週六；週一、週日不自動製作。
@@ -52,7 +50,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 2 每輪先 blank-first 清除 Fixture 中所有舊行情值、舊 Observation、舊截圖證據及舊時間戳，再以當輪有效截圖／Observation 回填。不得沿用前輪 fixture 報價。
 - 狀態至少區分 VERIFIED、BACKUP_VERIFIED、PENDING、MISSING、CLOSED、NOT_APPLICABLE、NOT_TESTED、TOOL_READ_FAILURE、SOURCE_NO_DATA；語意不得混淆。PENDING 不可造成整個流程崩潰，亦不可視為成功。
 - 共用 trading_date 只作為 Run 日期錨點；44 項每列的 target_date／data_date 依各商品所屬市場交易日曆及截止時間，採用最近一個已完成交易時段的實際日期。不同市場允許不同 data_date；不得把美股休市日的前一交易日收盤錯標為休市日，也不得把舊值標成新日期。
-- Stage 2 Observation bundle 必須帶入同一 Run 的 run_id、Stage 1 receipt SHA、run-context SHA、Stage 1 fixture SHA；Runner 只驗證，不得事後替 Stage 2 worker 補綁或修復交接身分。
+- Stage 2 Observation bundle 以同一 Run 的 run_id、report_date、trading_date 為交接識別；Runner 只驗證，不得事後替 Stage 2 worker 補綁或修復交接身分。
 - 44 項每項必須有值或明確狀態；單項缺漏不得阻止無依賴項目及其他階段繼續。未核實值不得作為確定事實。
 - MOVE 的市場交易日判斷必須獨立於行情列讀取：使用 SIFMA 官方美國固定收益市場 Holiday Schedule／公告核對目標交易日。官方公告確認全天休市時，MOVE 標記 CLOSED，保留 Investing.com 當輪歷史頁讀取紀錄及 SIFMA 公告 URL、原文定位、讀取時間與 SHA；不得要求休市日存在收盤數值列。提早收市仍屬交易日，必須照常讀取該日 MOVE 收盤，不得沿用前一交易日數值或標記 CLOSED。SIFMA 公告屬市場日曆建議，僅用於相應美國固定收益市場日期判斷，不得擴張為所有資產的休市證據。
 - CLOSED 行的 `display_value_reconciled` 代表休市狀態與日曆證據已核實；`display_value_matches_saved_observation` 必須為 false，因休市列沒有可比較的數值。不得把休市狀態核實誤寫成報價數值相符。
@@ -77,7 +75,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 總結／五層文字局部修正使用 DOM 局部更新器；不重跑行情、行事曆、新聞或完整 Builder，並保留非目標 DOM 指紋。
 
 ## 7. Stage 5 Builder 與 QA
-- Builder 只接受同一 Run 的 Stage 1–4 輸出、PASS 的 pre-build receipt、正式 Manifest、QA Contract 與 Stage 1 governance SHA snapshot；main Builder 必須通過 exact blob SHA owner approval。
+- Builder 只接受同一 Run 的 Stage 1–4 輸出、正式 Manifest、QA Contract 與 Stage 1 governance SHA snapshot；main Builder 必須通過 exact blob SHA owner approval。
 - 目前 SIM-1.4 核准 Builder 的來源 SHA 為 `6bf6eb2f5ae29774addf696c541c5b806953c7a3`，但其路徑與執行環境仍是 Simulation 專用；main 必須先完成路徑／依賴適配、測試與使用者核准前的技術驗證，不得直接把該 SHA 宣稱為 main Runner 已可用。
 - QA 四類：資料／內容、HTML 結構、視覺與互動、Run／交付整合。只跑必要且有區別的檢查，不無限加 Gate。
 - 未測試標 NOT_TESTED；不把缺值變成 0 或虛構成功。必要 Gate FAIL 不得 REVIEW_READY；非核心欄位缺漏可 PARTIAL 並繼續可完成工作。
@@ -145,14 +143,14 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md 的完整內容，並核對其版本／SHA；此分支只建立提示詞文件，不修改線上任務或排程。
 - 初始狀態由 Stage 1 與 run-context、fixture、Stage 1 receipt 同一 commit 提交：Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED。
 - 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL，且 PARTIAL 是終態，不得重新開啟。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、AWAITING_APPROVAL、PUBLISHED。Stage 5 PASS=REVIEW_READY；Stage 6 PASS=AWAITING_APPROVAL；DELIVERED_AND_PUBLICLY_VERIFIED 僅為 Stage 6 receipt status。
-- Stage 2 ChatGPT worker 僅提交 production/runs/<run_id>/market-history-web-observations.json 與必要 sidecar，不得 claim 或修改 run-state.json。GitHub workflow 的 accept_stage_submission.py 驗證 exact Run／Stage 1／WR／44 rows／FedWatch／SHA 後，由唯一 state writer 將 Stage 2 READY → RUNNING → SUBMITTED；Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
+- Stage 2 ChatGPT worker 僅提交 production/runs/<run_id>/market-history-web-observations.json 與必要 sidecar，不得 claim 或修改 run-state.json。GitHub workflow 的 accept_stage_submission.py 驗證 exact Run／Stage 1／WR／44 rows／FedWatch／SHA 後，由唯一 state writer 將 Stage 2 READY → RUNNING → SUBMITTED；Stage 2 Runner 依同一 Run 的 44 項資料及狀態完成行情快照，然後改為 PASS/PARTIAL。
 - Stage 3 只在 Stage 2 PASS/PARTIAL 後啟動；完成後將 Stage 3 改 PASS、Stage 4 設 READY。
-- Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256 與 stage4_wr_sha256。ChatGPT worker 僅提交完整內容並回讀 SHA，不得 claim 或修改 run-state.json；同一正式 workflow run 的 build-and-deliver job 呼叫 accept_stage_submission.py，由唯一 state writer 將 Stage 4 READY → RUNNING → SUBMITTED，再由 GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。Marker 僅作可選稽核標籤，不觸發 Workflow。
+- Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、trading_date、market_snapshot_sha256 與 research_bundle_sha256。ChatGPT worker 僅提交完整內容並回讀 SHA，不得 claim 或修改 run-state.json；同一正式 workflow run 的 build-and-deliver job 呼叫 accept_stage_submission.py，由唯一 state writer 將 Stage 4 READY → RUNNING → SUBMITTED，再由 GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。Marker 僅作可選稽核標籤，不觸發 Workflow。
 - Stage 5 PASS 對應 QA receipt REVIEW_READY，Stage 5 PARTIAL 必須使 Stage 6=SKIPPED。Stage 2 PARTIAL 不得被 Stage 5 或 HTML Builder 覆蓋為 PASS。
 - Stage 6 只接受 Stage 5 PASS；公開 Preview 驗證成功後改 Stage 6 PASS、overall_status=AWAITING_APPROVAL。這不代表已獲准更新 index.html 或正式 history。
 - 每次狀態更新必須帶 expected state_version、expected previous status、input/output SHA 與 receipt path。Main production workflow 是唯一 run-state writer，依 workflow concurrency 序列化各階段狀態更新，並以原子檔案替換及 fast-forward-only git push 持久化；ChatGPT worker 僅寫入各自 Run-scoped artifact。若未來引入第二個 state writer，必須使用已讀取 blob SHA compare-and-swap。遇到 stale state version 或 non-fast-forward，重新讀取狀態後決定，不得 force-push 或盲目覆寫。
 - RUNNING 必須記錄 lease_owner 與 lease_expires_at。未到期 lease 不可被其他 worker 接管；逾期恢復前先核對該 Run 最後一個 receipt 與實際產物。DEFERRED 不是 FAILED，不得停用 automation。
-- Stage 1 是唯一正常 Run creator。Stage 1 必須先以標準函式庫建立並提交完整 handoff，再安裝重型依賴。相同 workflow retry 沿用相同 Run ID；recover 沿用既有 Run ID；只有明確 rerun 建立新 Run。ChatGPT worker 不建立 Run，也不寫 run-state.json。 Stage 1 必須是獨立短時 job：先執行 Stage 1 WR Preflight，再做 report_date／Run resolution；提交及回讀 handoff 後立即退出。Stage 1 job 不等待 Stage 2、不安裝 Stage 2–6 依賴；Stage 2/3 是另一個 downstream job。
+- Stage 1 是唯一正常 Run creator。Stage 1 必須先以標準函式庫建立並提交完整 handoff，再安裝重型依賴。相同 workflow retry 沿用相同 Run ID；recover 沿用既有 Run ID；只有明確 rerun 建立新 Run。ChatGPT worker 不建立 Run，也不寫 run-state.json。 Stage 1 必須是獨立短時 job：先完整讀取 Stage 1 WR，再做 report_date／Run resolution；提交及回讀 handoff 後立即退出。Stage 1 job 不等待 Stage 2、不安裝 Stage 2–6 依賴；Stage 2/3 是另一個 downstream job。
 - Stage 2 與 Stage 4 的日期共用檔 production/input/market-history-web-observations-YYYY-MM-DD.json 及 production/input/report-content-YYYY-MM-DD.json 不再是正式輸入來源；任何新 Run 不得讀取或寫入這些舊路徑。
-- 不依賴 GitHub connector push 喚醒第二個 Workflow；該觸發行為未獲證實。Stage 4–6 是同一正式 schedule／recover workflow run 的第二個 job，等待同一 Run 的 editorial JSON、Stage 4 SUBMITTED state 與 SHA。Marker 僅作稽核標籤。Build job 必須再次驗證 exact run_id、run-state、提交內容 SHA、Stage 3 receipt 與 Research Bundle SHA。
+- 不依賴 GitHub connector push 喚醒第二個 Workflow；該觸發行為未獲證實。Stage 4–6 是同一正式 schedule／recover workflow run 的第二個 job，等待同一 Run 的 editorial JSON、Stage 4 SUBMITTED state 與 SHA。Marker 僅作稽核標籤。Build job 依同一 Run ID 與日期接收 Stage 4 內容，Stage 5 再集中驗收資料與內容品質。
 - Chart 3 是下游非阻塞支線。Chart 3 workflow_run 以 workflow_run_id 對應唯一 Main Run，只在同一 Run 的 Stage 2=PASS/PARTIAL 且 Stage 3=PASS 時接手；不依賴 push marker。Stage 2 增量 append 或 Chart 3 merge 失敗不得改變 Stage 2 PASS/PARTIAL，也不得阻止 Stage 4–6。

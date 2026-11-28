@@ -1,6 +1,6 @@
-# DATA SCHEMA v1.2
+# DATA SCHEMA v1.3
 
-All stage artifacts are scoped to one Run ID and report date. Times use ISO-8601 with explicit timezone; report timezone is Asia/Taipei. Null is null, never zero.
+All stage artifacts are scoped to one Run ID and report date. Stage 1–4 use Run ID and report/trading dates for handoff; WR SHA attestations and repeated upstream receipt hashes are not required. Times use ISO-8601 with explicit timezone; report timezone is Asia/Taipei. Null is null, never zero.
 
 ## Stage 2 market fixture
 The exact 44 item IDs and order are derived from the selected SIM-1.4 mother template and production Manifest; no parallel hand-maintained list may diverge. Count groups: 17 global indices (SOX included), 11 sector ETFs, 3 Treasury yields, 6 FX, 4 commodities, 3 risk/sentiment indicators (VIX, MOVE, CNN Fear & Greed). FedWatch is independent.
@@ -25,4 +25,4 @@ Five Global Focus News and ten Market Hot Headlines. Each item includes canonica
 Render manifest binds all input SHAs, mother path/blob SHA, Manifest SHA, QA contract SHA, Builder SHA, report_date, Run ID, output HTML SHA-256 and QA results. Delivery receipt binds HTML/QA Git blob SHA and SHA-256, main commit, Pages deployment and public URL verification.
 
 ## Screenshot sidecar
-The exact parser contract is `production/input/market-screenshot-observations.schema.json`. Root keys: schema_version, run_id, report_date, trading_date, captured_at_utc, stage1_receipt_sha256, run_context_sha256, stage1_fixture_sha256, observations. Each observation keys: group, name, data_date, source_url, instrument_identity, fields. Each field key is one of close/change/open/high/low/score/band and its object carries value, field_name, evidence_path, evidence_sha256, captured_at and optional quote_timestamp. The original image must be stored under `production/input/screenshots/YYYY-MM-DD/`; parser recomputes the hash and requires the fixture source URL and that instrument's data_date to match exactly; data_date need not equal the Run-level trading_date.
+The exact parser contract is `production/input/market-screenshot-observations.schema.json`. Root keys: schema_version, run_id, report_date, trading_date, captured_at_utc, observations. Each screenshot field retains its own evidence path/hash/capture time; no Stage 1 receipt or fixture SHA chain is required. Each observation keys: group, name, data_date, source_url, instrument_identity, fields. Each field key is one of close/change/open/high/low/score/band and its object carries value, field_name, evidence_path, evidence_sha256, captured_at and optional quote_timestamp. The original image must be stored under `production/input/screenshots/YYYY-MM-DD/`; parser recomputes the hash and requires the fixture source URL and that instrument's data_date to match exactly; data_date need not equal the Run-level trading_date.
