@@ -131,27 +131,11 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
 
 
 def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict]:
+    """Accept Stage 4 editorial work by Run identity after Stage 3 completes."""
     artifact = run_dir / STAGE_ARTIFACTS["STAGE_4"]
     content = read_json(artifact)
-    stage3_receipt_path = run_dir / "stage3-calendar-receipt.json"
-    capture_path = run_dir / "stage4-work-instructions.json"
-    for path in (stage3_receipt_path, capture_path):
-        if path.is_symlink() or not path.is_file():
-            raise ValueError(f"Stage 4 upstream handoff missing or symlinked: {path.name}")
-    stage3 = read_json(stage3_receipt_path)
-    capture = read_json(capture_path)
-    if stage3.get("status") != "PASS" or stage3.get("run_id") != context["run_id"]:
-        raise ValueError("Stage 4 requires the exact Run's PASS Stage 3 receipt")
     if state["stages"]["STAGE_3"]["status"] != "PASS":
-        raise ValueError("Stage 4 cannot be accepted before Stage 3 state is PASS")
-    instructions = capture.get("stage4_work_instructions") or {}
-    full_wr_text = instructions.get("full_text")
-    if (capture.get("status") != "AWAITING_EDITORIAL_INPUT"
-            or capture.get("run_id") != context["run_id"]
-            or capture.get("report_date") != context["report_date"]
-            or instructions.get("path") != "production/stages/STAGE_4_NEWS_ANALYSIS.md"
-            or not isinstance(full_wr_text, str) or not full_wr_text.strip()):
-        raise ValueError("Stage 4 work-instructions handoff is missing or belongs to a different Run")
+        raise ValueError("Stage 4 can start only after Stage 3 completes")
     expected = {
         "run_id": context["run_id"],
         "report_date": context["report_date"],
@@ -159,13 +143,15 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     }
     for key, value in expected.items():
         if not value or content.get(key) != value:
-            raise ValueError(f"Stage 4 editorial artifact {key} does not match the exact Run handoff")
+            raise ValueError(f"Stage 4 editorial artifact {key} does not match the active Run")
     artifact_sha = digest(artifact)
-    state = _transition_to_submitted(state, "STAGE_4", context, artifact_sha, artifact,
-                                     None)
-    return state, {"stage": "STAGE_4", "status": "SUBMITTED",
-                   "artifact_path": str(artifact.relative_to(ROOT)),
-                   "artifact_sha256": artifact_sha}
+    state = _transition_to_submitted(state, "STAGE_4", context, artifact_sha, artifact, None)
+    return state, {
+        "stage": "STAGE_4",
+        "status": "SUBMITTED",
+        "artifact_path": str(artifact.relative_to(ROOT)),
+        "artifact_sha256": artifact_sha,
+    }
 
 
 def accept_stage_submission(run_dir: str | Path, stage: str) -> dict:
