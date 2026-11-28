@@ -23,18 +23,6 @@
       "type": "string",
       "format": "date-time"
     },
-    "stage1_receipt_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
-    },
-    "run_context_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
-    },
-    "stage1_fixture_sha256": {
-      "type": "string",
-      "pattern": "^[a-fA-F0-9]{64}$"
-    },
     "report_date": {
       "type": "string",
       "format": "date"
