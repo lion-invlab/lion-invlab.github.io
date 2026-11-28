@@ -73,8 +73,8 @@ assert "production/input/market-history-web-observations-" not in workflow
 assert "production/input/report-content-" not in workflow
 print("PASS: Stage 1 exits after Run handoff; Stage 2/3 and Stage 4/6 are downstream jobs.")
 
-// Stage 4 editorial handoff must be tied to the same Run created by Stage 1,
-// not a date-global file or a separately-created workflow run.
+# Stage 4 editorial handoff must be tied to the same Run created by Stage 1,
+# not a date-global file or a separately-created workflow run.
 assert "timeout-minutes: 45" in build
 assert "Resolve exact Run and accept Stage 4 worker submission" in build
 resolve_start = build.index("      - name: Resolve exact Run and accept Stage 4 worker submission")
@@ -89,8 +89,8 @@ assert "sleep 30" in stage4_resolve
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in stage4_resolve
 assert "Stage 4 worker did not publish the exact Run-scoped editorial artifact within 15 minutes." in stage4_resolve
 
-// Editorial acceptance must verify Stage 3 PASS and all evidence hashes before
-// Stage 4 execution; the downstream Builder and delivery remain one job chain.
+# Editorial acceptance must verify Stage 3 PASS and all evidence hashes before
+# Stage 4 execution; the downstream Builder and delivery remain one job chain.
 assert 'state["stages"]["STAGE_3"]["status"]=="PASS"' in build
 assert 'content["run_id"]==context["run_id"]' in build
 assert 'content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in build
