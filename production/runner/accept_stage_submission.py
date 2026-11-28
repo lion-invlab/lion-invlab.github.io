@@ -64,9 +64,20 @@ def _transition_to_submitted(state: dict, stage: str, context: dict,
                              input_sha: str) -> dict:
     current = state["stages"][stage]["status"]
     if current == "SUBMITTED":
-        if state["stages"][stage].get("output_sha256") != artifact_sha:
-            raise ValueError(f"{stage} already SUBMITTED with a different artifact SHA")
-        return state
+        if state["stages"][stage].get("output_sha256") == artifact_sha:
+            return state
+        # A Stage 2 worker may submit a corrected Run-bound observation packet
+        # only when the previous submission failed before a snapshot receipt
+        # or summary was persisted. The serialized GitHub Runner owns this reset.
+        if (stage == "STAGE_2"
+                and not (run_dir / "stage2-market-snapshot-receipt.json").exists()
+                and not (run_dir / "stage2-run-summary.json").exists()):
+            state = transition_state(state, stage=stage,
+                expected_version=state["state_version"], expected_status="SUBMITTED",
+                new_status="READY", recovery=True)
+            current = "READY"
+        else:
+            raise ValueError(f"{stage} already SUBMITTED with a different artifact SHA and is not safely recoverable")
     if current in {"PASS", "PARTIAL"}:
         # Runners replace output_sha256 with their receipt SHA on completion;
         # input_sha256 remains the accepted ChatGPT artifact SHA.
