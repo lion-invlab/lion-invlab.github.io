@@ -68,7 +68,9 @@ def _transition_to_submitted(state: dict, stage: str, context: dict,
             raise ValueError(f"{stage} already SUBMITTED with a different artifact SHA")
         return state
     if current in {"PASS", "PARTIAL"}:
-        if state["stages"][stage].get("output_sha256") == artifact_sha:
+        # Runners replace output_sha256 with their receipt SHA on completion;
+        # input_sha256 remains the accepted ChatGPT artifact SHA.
+        if state["stages"][stage].get("input_sha256") == artifact_sha:
             return state
         raise ValueError(f"{stage} is already complete with a different artifact")
     if current == "DEFERRED":
@@ -96,6 +98,8 @@ def accept_stage2(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     artifact = run_dir / STAGE_ARTIFACTS["STAGE_2"]
     payload = read_json(artifact)
     stage1_receipt = read_json(run_dir / "stage1-receipt.json")
+    if stage1_receipt.get("status") != "PASS" or stage1_receipt.get("run_id") != context["run_id"]:
+        raise ValueError("Stage 2 requires the exact Run's PASS Stage 1 receipt")
     stage1_fixture = run_dir / "stage1-fixture.json"
     context_path = run_dir / "run-context.json"
     if not stage1_fixture.is_file() or stage1_fixture.is_symlink():
