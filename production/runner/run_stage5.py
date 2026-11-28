@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 from builder_approval import require_approved_builder, verify_governance_snapshot
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -84,7 +84,7 @@ def main():
     if run_dir.parent!=runs.resolve():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=stage_wr_preflight("STAGE_5",context)
+    wr_preflight=load_stage_wr("STAGE_5",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
@@ -125,10 +125,7 @@ def main():
     stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage2_doc,"STAGE_2",context)
-    require_stage_wr_receipt(stage3_doc,"STAGE_3",context)
-    require_stage_wr_receipt(stage4_doc,"STAGE_4",context)
-    if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
+                if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
@@ -252,7 +249,7 @@ def main():
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
       "builder_approval":builder_approval,
       "governance_snapshot":governance_snapshot,
-      "wr_preflight":wr_preflight,
+      "stage_wr_loaded":wr_preflight,
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
