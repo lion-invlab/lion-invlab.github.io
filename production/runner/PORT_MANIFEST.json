@@ -141,7 +141,8 @@
     "production/runner/test_stage2_run_handoff.py",
     "production/runner/test_create_run_fixture.py",
     "production/runner/test_stage2_chart3_guard.py",
-    "production/runner/test_run_state.py"
+    "production/runner/test_run_state.py",
+    "production/runner/test_accept_stage_submission.py"
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
@@ -385,6 +386,11 @@
       "purpose": "Verify verified S&P 500 is preserved as a Run-scoped candidate and not appended by the unapproved R3 writer",
       "main_blob_sha": "ec9bd33ab086225cde2265bf0b0269db72cc0a7c",
       "status": "VALIDATION_TEST"
+    },
+    {
+      "file": "accept_stage_submission.py",
+      "purpose": "Validate Run-bound ChatGPT Stage 2/4 artifacts and advance authoritative state from the serialized GitHub workflow",
+      "status": "MAIN_PATCHED_SINGLE_STATE_WRITER"
     }
   ],
   "approval_record": {
