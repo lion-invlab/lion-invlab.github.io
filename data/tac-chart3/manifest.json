@@ -3661,28 +3661,28 @@
   },
   "sp500_data": {
     "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
-    "git_blob_sha1": "25e0ad9f9be248804e264975fed97ce4a75ae797",
-    "dataset_sha256": "a1b5a202e5039a50270d9456eef1c2c99c3bf35dfd36fdc85dee5049c26523be",
+    "git_blob_sha1": "c734695a90efc9bea80b744bc7166f863953d6e9",
+    "dataset_sha256": "dbf7dfea9ce53af4cc0ffab31a02fffaa5e735c15f2b0d75e291cc5f5a192767",
     "start": "1927-12-30",
-    "end": "2026-11-20",
-    "rows": 24840,
+    "end": "2026-11-27",
+    "rows": 24841,
     "encoding": "zlib+base64",
     "long_history_source": "FJA pinned repository commit f50e4612d69cf14e4ac8a20b7a42d29f0f081825; repository README identifies SP500.csv source as Yahoo Finance.",
     "long_history_license": "Repository contains MIT LICENSE for repository contents; upstream Yahoo Finance data rights/terms are separate and remain unverified for redistribution.",
-    "recent_snapshot_source": "Validated recent compact baseline through 2026-11-20; appended only verified TAC daily-report S&P 500 cash-index observations through 2026-11-20.",
+    "recent_snapshot_source": "Validated recent compact baseline through 2026-11-27; appended only verified TAC daily-report S&P 500 cash-index observations through 2026-11-27.",
     "merge_rule": "Use FJA observations strictly before 1993-12-31; retain validated recent compact observations and append only SHA-256-verified daily increments; no interpolation or forward-fill.",
     "boundary_overlap_date": "1993-12-31",
     "boundary_abs_difference_points": 0,
     "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate.",
     "increment_ledger": {
       "path": "data/tac-chart3/sp500_daily_increment.jsonl",
-      "sha256": "acdcb4c8974c54e176033cc3d3f6389a9200ddc63e6efc401097ea9c79e42037",
+      "sha256": "a71fcfad0c330e89fe306cf919dafe2c768a6b8811cfd86cc4e070a83c781530",
       "first": "2026-11-11",
-      "last": "2026-11-20",
-      "rows": 7,
-      "source_name": "Investing.com｜S&P 500 歷史數據（Real-time derived）",
+      "last": "2026-11-27",
+      "rows": 8,
+      "source_name": "Investing.com｜S&P 500 歷史資料頁",
       "source_url": "https://www.investing.com/indices/us-spx-500-historical-data",
-      "observed_at": "2026-11-22T17:15:52+08:00"
+      "observed_at": "2026-11-28T12:08:37.824000+08:00"
     }
   },
   "drawdown_validation": {
