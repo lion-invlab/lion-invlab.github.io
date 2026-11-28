@@ -2,12 +2,14 @@
 """Stage 5: pre-build receipt, main Builder, structural/visual QA, and immutable review artifact."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys, time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 from builder_approval import require_approved_builder, verify_governance_snapshot
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from run_state import transition_state, validate_state
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
@@ -83,6 +85,22 @@ def main():
         raise SystemExit("Stage 5 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_5",context)
+    state_path=run_dir/"run-state.json"
+    state=json.loads(state_path.read_text(encoding="utf-8"))
+    validate_state(state,expected_run_id=context["run_id"])
+    if state["stages"]["STAGE_4"]["status"]!="PASS":
+        raise SystemExit("Stage 5 requires Stage 4 PASS in the authoritative Run state")
+    if state["stages"]["STAGE_5"]["status"]=="FAILED":
+        state=transition_state(state,stage="STAGE_5",expected_version=state["state_version"],expected_status="FAILED",new_status="READY",recovery=True)
+    elif state["stages"]["STAGE_5"]["status"]=="DEFERRED":
+        state=transition_state(state,stage="STAGE_5",expected_version=state["state_version"],expected_status="DEFERRED",new_status="READY")
+    if state["stages"]["STAGE_5"]["status"]!="READY":
+        raise SystemExit("Stage 5 is not READY in the authoritative Run state")
+    state=transition_state(state,stage="STAGE_5",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage5",
+        lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
+        input_sha256=hashlib.sha256((run_dir/"stage4-analysis-receipt.json").read_bytes()).hexdigest())
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     try:
         governance_snapshot=verify_governance_snapshot(context,ROOT)
     except (ValueError, OSError, subprocess.CalledProcessError) as exc:
@@ -110,7 +128,7 @@ def main():
     require_stage_wr_receipt(stage2_doc,"STAGE_2",context)
     require_stage_wr_receipt(stage3_doc,"STAGE_3",context)
     require_stage_wr_receipt(stage4_doc,"STAGE_4",context)
-    if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id") not in (str(context.get("workflow_run_id")),context["run_id"]):
+    if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
@@ -140,15 +158,13 @@ def main():
     sp500_verified=(sp500_item.get("source") or {}).get("verification_status")=="VERIFIED"
     chart3_handoff=stage2_summary_doc.get("chart3_handoff") or {}
     chart3_status=chart3_handoff.get("status","UNKNOWN")
-    if sp500_verified and chart3_status not in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS"):
-        raise SystemExit("Verified S&P 500 requires a successful Chart 3 handoff; got "+str(chart3_status))
     start=time.monotonic()
     prebuild=run_dir/"prebuild-input-receipt.json"
     execute([sys.executable,str(RUNNER/"validate_prebuild_stage_inputs.py"),
         "--report-date",report_date,"--data",str(fixture.relative_to(ROOT)),
         "--audit",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
         "--observations",str(observations.relative_to(ROOT)),"--output",str(prebuild.relative_to(ROOT)),
-        "--run-id",str(context.get("workflow_run_id","LOCAL")),
+        "--run-id",str(context["run_id"]),
         "--run-attempt",str(context.get("workflow_run_attempt","1"))],run_dir/"qa-prebuild.log")
     prebuild_doc=json.loads(prebuild.read_text(encoding="utf-8"))
     if prebuild_doc.get("status")!="PASS":raise SystemExit("Pre-build input receipt did not PASS")
@@ -250,7 +266,7 @@ def main():
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "status":stage5_status,"groups":{
-        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"wr_preflight":wr_preflight,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":sp500_verified,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
+        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"prebuild_receipt_sha256":sha(prebuild),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"wr_preflight":wr_preflight,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":False,"chart3_handoff_non_blocking":True,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS","main_branding_status":"PASS","main_review_labels":main_branding},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
         "run_integration":{"status":"PASS","same_run_id":True,"html_sha256":html_sha,"render_manifest_sha256":sha(render_path)}
@@ -269,6 +285,13 @@ def main():
       "elapsed_seconds":round(time.monotonic()-start,3)}
     receipt_path=run_dir/"stage5-render-qa-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    state=json.loads(state_path.read_text(encoding="utf-8"))
+    state_status="PASS" if stage5_status=="REVIEW_READY" else "PARTIAL"
+    state=transition_state(state,stage="STAGE_5",expected_version=state["state_version"],expected_status="RUNNING",new_status=state_status,
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),
+        input_sha256=hashlib.sha256((sha(stage4)+sha(stage2)+sha(fixture)).encode()).hexdigest(),
+        output_sha256=sha(receipt_path),receipt_path=str(receipt_path.relative_to(ROOT)))
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
 
 if __name__=="__main__":main()

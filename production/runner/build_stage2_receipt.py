@@ -187,7 +187,8 @@ def build_receipt(args):
     counts=validate_inputs(data,audit,manifest,observations,args.report_date)
     paths={"fixture":args.data,"audit":args.audit,"manifest":args.manifest,"observations":args.observations}
     hashes={key:sha_file(path) for key,path in paths.items()}
-    run_id=str(args.run_id or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
+    run_id=str(args.run_id or "LOCAL")
+    workflow_run_id=str(getattr(args,"workflow_run_id",None) or os.environ.get("GITHUB_RUN_ID") or "LOCAL")
     commit=str(args.commit_sha or os.environ.get("GITHUB_SHA") or "UNKNOWN")
     branch=str(args.branch or os.environ.get("GITHUB_REF_NAME") or "main")
     batch_seed="|".join([args.report_date,data["trading_date"],run_id,commit,*[hashes[k] for k in ("fixture","audit","manifest","observations")]])
@@ -198,7 +199,7 @@ def build_receipt(args):
         "status":status,"freeze_point":"STAGE2_MARKET_SNAPSHOT_LOCKED",
         "downstream_market_access":"READ_ONLY","preexisting_market_values_used":False,
         "repository":"lion-invlab/lion-invlab.github.io","branch":branch,
-        "commit_sha":commit,"workflow_run_id":run_id,"batch_id":batch_id,
+        "commit_sha":commit,"run_id":run_id,"workflow_run_id":workflow_run_id,"batch_id":batch_id,
         "report_date":args.report_date,"trading_date":data["trading_date"],
         "generated_at_utc":datetime.now(timezone.utc).isoformat(),
         "row_count":44,**{k:v for k,v in counts.items() if k!="row_receipts"},

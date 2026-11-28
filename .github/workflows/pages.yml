@@ -6,11 +6,9 @@ on:
       - main
     paths:
       - "cfd-dashboard/**"
-      - "preview/*.html"
       - "history/**"
       - "research/**"
       - "interactive-charts/**"
-      - "data/tac-chart3/**"
       - "index.html"
       - "special-reports.html"
       - "scripts/build-special-reports-index.py"

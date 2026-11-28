@@ -2,12 +2,13 @@
 import hashlib, json, tempfile, unittest
 from pathlib import Path
 from validate_stage2_run_handoff import validate_stage2_run_handoff
+from run_state import initial_run_state, transition_state
 
 def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
 def make_run(root):
     report,trading="2026-11-27","2026-11-26"
-    run_id="TAC-2026-11-27-123456789-1"
+    run_id="TAC-2026-11-27-123456789"
     run=root/"production"/"runs"/run_id; run.mkdir(parents=True)
     fixture={"report_date":report,"trading_date":trading,"run_metadata":{"run_id":run_id},
       "global_markets":{f"i{i}":{} for i in range(17)},"bonds":{f"b{i}":{} for i in range(3)},
@@ -42,7 +43,14 @@ def make_run(root):
         "probabilities":[],"web_reader_ref":None,"web_line_start":None,"web_line_end":None,
         "reason":"Test fixture only","stage2_wr_sha256":"a"*64
     }
-    (run/"market-history-web-observations.json").write_text(json.dumps({**binding,"observations":rows,"fedwatch":fedwatch}))
+    web=run/"market-history-web-observations.json"
+    web.write_text(json.dumps({**binding,"observations":rows,"fedwatch":fedwatch}))
+    context=json.loads(cp.read_text())
+    stage1_receipt=json.loads(rp.read_text())
+    state=initial_run_state(context,stage1_receipt,digest(rp),now="2026-11-27T00:00:00Z")
+    state=transition_state(state,stage="STAGE_2",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",now="2026-11-27T00:01:00Z",lease_owner="chatgpt-stage2",lease_expires_at="2026-11-27T00:16:00Z")
+    state=transition_state(state,stage="STAGE_2",expected_version=state["state_version"],expected_status="RUNNING",new_status="SUBMITTED",now="2026-11-27T00:02:00Z",output_sha256=digest(web))
+    (run/"run-state.json").write_text(json.dumps(state))
     return run
 
 class RunHandoffTests(unittest.TestCase):

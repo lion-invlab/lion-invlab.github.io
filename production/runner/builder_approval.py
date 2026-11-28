@@ -10,6 +10,7 @@ APPROVAL_PATH=ROOT/"production/config/builder-approval.json"
 BUILDER_PATH="production/runner/build_review_html.py"
 GOVERNANCE_PATHS=(
  "production/MASTER_WR.md",
+ "production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md",
  "production/stages/STAGE_1_CONTEXT.md",
  "production/stages/STAGE_2_MARKET.md",
  "production/stages/STAGE_3_CALENDAR.md",
@@ -33,6 +34,11 @@ GOVERNANCE_PATHS=(
  "production/runner/PORT_MANIFEST.json",
  "production/runner/stage_wr_preflight.py",
  "production/runner/test_stage_wr_preflight.py",
+ "production/runner/run_state.py",
+ "production/runner/accept_stage_submission.py",
+ "production/runner/test_accept_stage_submission.py",
+ "production/runner/test_production_workflow_structure.py",
+ "production/runner/test_run_state.py",
  "production/runner/test_stage2_fedwatch.py",
  "production/runner/test_stage2_field_provenance.py",
  "production/runner/verify_homepage_publication_lock.py",
@@ -47,6 +53,9 @@ GOVERNANCE_PATHS=(
  "production/runner/stage2_market_fixture_bootstrap.py",
  "production/runner/validate_chatgpt_web_observations.py",
  "production/runner/build_stage2_receipt.py",
+ "production/runner/validate_stage2_run_handoff.py",
+ "production/runner/test_stage2_run_handoff.py",
+ "production/runner/test_create_run_fixture.py",
  "production/runner/build_market_source_verification_manifest.py",
  "production/runner/validate_market_snapshot.py",
  "production/runner/stage2_move_retry.py",
@@ -71,6 +80,7 @@ GOVERNANCE_PATHS=(
  "production/runner/builder_approval.py",
  ".github/workflows/tac-production.yml",
  ".github/workflows/tac-chart3-sp500-increment-merge.yml",
+ ".github/workflows/tac-chart3-incremental.yml",
  ".github/workflows/pages.yml",
 )
 

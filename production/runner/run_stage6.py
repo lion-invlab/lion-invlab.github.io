@@ -2,11 +2,12 @@
 """Stage 6: commit only the dated preview triplet, deploy Pages, then finalize delivery evidence."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, time, urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup
 
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 REPO="lion-invlab/lion-invlab.github.io"
@@ -14,9 +15,9 @@ def allowed_paths(report_date, context=None):
     # An owner-authorized same-date rerun gets its own preview namespace.
     # The originally approved preview remains intact for the homepage publication lock.
     suffix="-rerun" if context and context.get("supersedes_run_id") else ""
-    return [f"preview/{report_date}{suffix}-review.html",
-            f"preview/{report_date}{suffix}-review.qa.json",
-            f"preview/{report_date}{suffix}-review.delivery.json"]
+    return [f"preview/main/{report_date}{suffix}-review.html",
+            f"preview/main/{report_date}{suffix}-review.qa.json",
+            f"preview/main/{report_date}{suffix}-review.delivery.json"]
 PROTECTED=("index.html","data/calendar/weeks","production/templates/monday-mother-template.html",
  "production/templates/weekday-mother-template.html","production/config/mother-template-manifest.json")
 
@@ -112,6 +113,22 @@ def main():
     if run_dir.parent!=runs.resolve():raise SystemExit("Stage 6 run directory must be a direct child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_6",context)
+    state_path=run_dir/"run-state.json"
+    state=json.loads(state_path.read_text(encoding="utf-8"))
+    validate_state(state,expected_run_id=context["run_id"])
+    if state["stages"]["STAGE_5"]["status"]!="PASS":
+        raise SystemExit("Stage 6 requires Stage 5 PASS in the authoritative Run state")
+    if state["stages"]["STAGE_6"]["status"]=="FAILED":
+        state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="FAILED",new_status="READY",recovery=True)
+    elif state["stages"]["STAGE_6"]["status"]=="DEFERRED":
+        state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="DEFERRED",new_status="READY")
+    if state["stages"]["STAGE_6"]["status"]!="READY":
+        raise SystemExit("Stage 6 is not READY in the authoritative Run state")
+    state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage6",
+        lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
+        input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest())
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
     require_stage_wr_receipt(stage5,"STAGE_5",context)
     report_date=context["report_date"]
@@ -263,7 +280,14 @@ def main():
             "html_sha256":sha(html_raw),"qa_sha256":sha(qa_final),
             "delivery_receipt_sha256":sha((worktree/delivery_path).read_bytes()),
             "delivered_at_utc":datetime.now(timezone.utc).isoformat()}
-        write_json(run_dir/"stage6-delivery-receipt.json",final_receipt)
+        final_receipt["overall_status"]="AWAITING_APPROVAL"
+        final_receipt_path=run_dir/"stage6-delivery-receipt.json"
+        write_json(final_receipt_path,final_receipt)
+        state=json.loads(state_path.read_text(encoding="utf-8"))
+        state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="RUNNING",new_status="PASS",
+            now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest(),
+            output_sha256=sha(final_receipt_path),receipt_path=str(final_receipt_path.relative_to(ROOT)))
+        state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         print(json.dumps(final_receipt,ensure_ascii=False,indent=2))
     finally:
         subprocess.run(["git","worktree","remove","--force",str(worktree)],cwd=ROOT,capture_output=True,text=True)

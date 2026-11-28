@@ -2,12 +2,13 @@
 """Stage 4: validate current-run editorial research and merge it without changing market data."""
 from __future__ import annotations
 import argparse, hashlib, json
-from datetime import date, datetime, time, timedelta
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 TZ=ZoneInfo("Asia/Taipei")
@@ -206,18 +207,37 @@ def main():
         raise SystemExit("Stage 4 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
     wr_preflight=stage_wr_preflight("STAGE_4",context)
+    state_path=run_dir/"run-state.json"
+    state=read_json(state_path)
+    validate_state(state,expected_run_id=context["run_id"])
+    if state["stages"]["STAGE_3"]["status"]!="PASS" or state["stages"]["STAGE_4"]["status"]!="SUBMITTED":
+        raise SystemExit("Stage 4 requires Stage 3 PASS and Stage 4 SUBMITTED in the authoritative Run state")
     fixture_path=run_dir/"report-data.json"
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
-    stage3_receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
+    stage3_receipt_path=run_dir/"stage3-calendar-receipt.json"
+    stage3_receipt=json.loads(stage3_receipt_path.read_text(encoding="utf-8"))
     require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
     require_stage_wr_receipt(stage3_receipt,"STAGE_3",context)
-    if stage2_receipt.get("workflow_run_id") not in (context.get("workflow_run_id"),context.get("run_id")):
-        raise ValueError("Stage 2 receipt workflow_run_id does not match this Run")
-    if stage3_receipt.get("run_id")!=context.get("run_id"):
-        raise ValueError("Stage 3 receipt run identity mismatch")
-    content_path=Path(args.content) if args.content else ROOT/f"production/input/report-content-{context['report_date']}.json"
+    if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
+        raise ValueError("Stage 2 receipt Run ID/status does not match this Run")
+    if stage2_receipt.get("workflow_run_id")!=context.get("workflow_run_id"):
+        raise ValueError("Stage 2 receipt workflow_run_id does not match the Stage 1 Run context")
+    if stage3_receipt.get("run_id")!=context.get("run_id") or stage3_receipt.get("status")!="PASS":
+        raise ValueError("Stage 3 receipt run identity/status mismatch")
+    content_path=Path(args.content) if args.content else run_dir/"stage4-editorial-content.json"
     if not content_path.is_absolute():content_path=ROOT/content_path
+    content_path=content_path.resolve()
+    if content_path.parent!=run_dir or content_path.name!="stage4-editorial-content.json" or content_path.is_symlink():
+        raise SystemExit("Stage 4 content must be the exact Run-scoped stage4-editorial-content.json file")
+    if not content_path.is_file():
+        raise SystemExit("Missing Run-scoped Stage 4 editorial content; date-global fallback is prohibited")
+    content_sha256=sha(content_path)
+    if state["stages"]["STAGE_4"].get("output_sha256")!=content_sha256:
+        raise SystemExit("Stage 4 submitted state SHA does not match the exact Run-scoped editorial content")
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
+    stage3_receipt_sha256=sha(stage3_receipt_path)
+    if editorial.get("stage3_receipt_sha256")!=stage3_receipt_sha256:
+        raise ValueError("Stage 4 content Stage 3 receipt SHA does not match this Run")
     capture_path=run_dir/"capture-stage-receipt.json"
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
@@ -271,16 +291,22 @@ def main():
       "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
+      "stage3_receipt_sha256":stage3_receipt_sha256,
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
-      "wr_preflight":wr_preflight,
+      "wr_preflight":wr_preflight,"state_version_before":state["state_version"],
       "editorial_worker_wr_attestation":editorial_wr_attestation,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
     receipt_path=run_dir/"stage4-analysis-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    state=read_json(state_path)
+    state=transition_state(state,stage="STAGE_4",expected_version=state["state_version"],expected_status="SUBMITTED",new_status="PASS",
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=content_sha256,
+        output_sha256=sha(receipt_path),receipt_path=str(receipt_path.relative_to(ROOT)))
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
 
 if __name__=="__main__":main()

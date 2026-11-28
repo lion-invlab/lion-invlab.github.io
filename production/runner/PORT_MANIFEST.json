@@ -8,92 +8,107 @@
       "file": "stage2_market_fixture_bootstrap.py",
       "source_sha": "c53e8be42ace16f64df99cd7107da375162e9d8b",
       "status": "MAIN_PATCHED_UNIFIED_OFFICIAL_CLOSURE_EVIDENCE_CONTRACT",
-      "main_blob_sha": "c71d1fd5cf3226907c09243a7a75c14af8db4e24"
+      "main_blob_sha": "13df8c2313e49ffe4172474622294f238becf916"
     },
     {
       "file": "stage2_screenshot_inputs.py",
       "source_sha": "77bde8ff2a35b91ad3deab1a435d86104f0ef70e",
       "status": "MAIN_PATCHED_TAIWAN_REPORT_DATE_SCREENSHOT_EXPIRY",
-      "main_blob_sha": "8d254826569b65c901dbff32eb14a2ebc4c49dda"
+      "main_blob_sha": "6e376ecbf862c1be090aaacab06dbc22e40f95aa"
     },
     {
       "file": "browser_verify_market_history.py",
       "source_sha": "5336a323a4074687f89b4623f6866d48b74a478d",
-      "status": "COPIED_WITH_DEFAULT_CONCURRENCY_4"
+      "status": "COPIED_WITH_DEFAULT_CONCURRENCY_4",
+      "main_blob_sha": "03e9271ca5df55ce9efcf0a36a14452d04df4739"
     },
     {
       "file": "validate_chatgpt_web_observations.py",
       "source_sha": "5651432ae3104546c4365c7d5d9fd27b728b6531",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "d9537336a6f03b76ad9133c1f8e312c2ef2a5e84"
     },
     {
       "file": "build_market_source_verification_manifest.py",
       "source_sha": "08d5dda5f380664dca670af5516ed076631cb4a5",
       "status": "MAIN_PATCHED_OFFICIAL_CALENDAR_HOST_ALLOWLIST",
-      "main_blob_sha": "b2ed6b66adda87f97c8144807d36105fa208f504"
+      "main_blob_sha": "8c57b29b9f04e41316efbee404138708467bac83"
     },
     {
       "file": "build_stage2_receipt.py",
       "source_sha": "9a653eba802b4f771d4a2429bd04fb1bb06eaad6",
       "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_RECEIPT_BINDING",
-      "main_blob_sha": "239f9e6aa028a159791b5f63d50b2b8b02afd03a"
+      "main_blob_sha": "f3943620a8af0bad07834873969675509e3bb359"
     },
     {
       "file": "validate_market_snapshot.py",
       "source_sha": "1c51e42d2cd56d80637d7a0dc912858305ceba06",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "f32b9a0866e2bde2ff213e1aa7a6f1335a8471c5"
     },
     {
       "file": "handoff_sp500_to_chart3.py",
       "source_sha": "650102bdfad0ee01817f9774bfa0acf9950f7495",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "513b2424861cbc1046ca93adf935a9f00014a176"
     },
     {
       "file": "calendar_source_guard.py",
       "source_sha": "eaf0db26eb4e94cb971e7a44b2f320599d409b14",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "ff829c47617ddc169782fdfb11618e4040c4669d"
     },
     {
       "file": "earnings_judgment.py",
       "source_sha": "47a8ba3fdbd9f0a2cc61975d9a814adeaa5570f9",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "47a8ba3fdbd9f0a2cc61975d9a814adeaa5570f9"
     },
     {
       "file": "collect_earnings_price_reactions.py",
       "source_sha": "bec40b7d012ab6e84f435af48efa17048c559739",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "7d70bfffa79af5cda4952535e0d9b5bebacc8abb"
     },
     {
       "file": "consensus_snapshot_store.py",
       "source_sha": "3bdabe5a3e301777f022b07e0b89297964d5b8c8",
-      "status": "COPIED_UNCHANGED"
+      "status": "COPIED_UNCHANGED",
+      "main_blob_sha": "3bdabe5a3e301777f022b07e0b89297964d5b8c8"
     },
     {
       "file": "validate_prebuild_stage_inputs.py",
       "source_sha": "730b25a2f8f3a2f555008fb9c5bd1deb5ecf9bd1",
       "status": "MAIN_PATCHED_OFFICIAL_CLOSURE_PREBUILD_GATE",
-      "main_blob_sha": "7ef4e3c8b4d8cc62650a3b2ae06bf91587733283"
+      "main_blob_sha": "4f39c0d03511e861843e5837d2b0364b8c6e140b"
     },
     {
       "file": "build_review_html.py",
       "source_sha": "6bf6eb2f5ae29774addf696c541c5b806953c7a3",
       "status": "CANDIDATE_PENDING_NEW_EXACT_BLOB_APPROVAL",
-      "main_blob_sha": "3e5a971d6d0a3ad3d41881b542580308276021f9"
+      "main_blob_sha": "89cedbb36ec75628c813291adf1bd025c589266e"
     },
     {
       "file": "validate_dual_mothers.py",
       "source_sha": "269e0616e894f2b369f81642026605d024bae589",
-      "status": "PATHS_ADAPTED"
+      "status": "PATHS_ADAPTED",
+      "main_blob_sha": "dcb8cf080cca8728d940456823f1618e65587ecd"
     },
     {
       "file": "validate_mother_dom_contract.py",
       "source_sha": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e",
-      "status": "COPIED_WITH_PATHS_ADAPTED"
+      "status": "COPIED_WITH_PATHS_ADAPTED",
+      "main_blob_sha": "3e8cb5d0e81c5c9f98492eb65904550f3f10bf2e"
     },
     {
       "file": "prepare_stage4_research_bundle.py",
       "status": "MAIN_PATCHED_PER_ROW_CLOSURE_EVIDENCE_BINDING",
-      "main_blob_sha": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969"
+      "main_blob_sha": "2c2f85321fb53c1f1acea8f6158233be5cdb0968"
+    },
+    {
+      "file": "run_state.py",
+      "status": "MAIN_NATIVE_PER_RUN_STATE_MACHINE",
+      "main_blob_sha": "ea6de8f39a9b06e67d5dacde97b588ebeda13658"
     }
   ],
   "validation_tests_copied": [
@@ -125,7 +140,10 @@
     "test_stage56_handoff.py",
     "production/runner/test_stage2_run_handoff.py",
     "production/runner/test_create_run_fixture.py",
-    "production/runner/test_stage2_chart3_guard.py"
+    "production/runner/test_stage2_chart3_guard.py",
+    "production/runner/test_run_state.py",
+    "production/runner/test_accept_stage_submission.py",
+    "production/runner/test_production_workflow_structure.py"
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
@@ -134,7 +152,8 @@
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
     "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
     "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
-    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database."
+    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database.",
+    "Per-Run state machine and all six Stage Runner state transitions are implemented on the isolated rebuild branch; final workflow integration, automated ChatGPT handoff prompt update, and full E2E validation remain pending."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
@@ -368,6 +387,11 @@
       "purpose": "Verify verified S&P 500 is preserved as a Run-scoped candidate and not appended by the unapproved R3 writer",
       "main_blob_sha": "ec9bd33ab086225cde2265bf0b0269db72cc0a7c",
       "status": "VALIDATION_TEST"
+    },
+    {
+      "file": "accept_stage_submission.py",
+      "purpose": "Validate Run-bound ChatGPT Stage 2/4 artifacts and advance authoritative state from the serialized GitHub workflow",
+      "status": "MAIN_PATCHED_SINGLE_STATE_WRITER"
     }
   ],
   "approval_record": {
@@ -386,5 +410,8 @@
     "validation_run_id": 45908064532,
     "validation_result": "PASS",
     "validation_scope": "Main-only deterministic validation; real-data Capture and Stage 4-6 E2E not run"
-  }
+  },
+  "governance_artifacts": [
+    "production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md"
+  ]
 }
