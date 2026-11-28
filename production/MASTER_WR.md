@@ -56,7 +56,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 44 項每項必須有值或明確狀態；單項缺漏不得阻止無依賴項目及其他階段繼續。未核實值不得作為確定事實。
 - MOVE 的市場交易日判斷必須獨立於行情列讀取：使用 SIFMA 官方美國固定收益市場 Holiday Schedule／公告核對目標交易日。官方公告確認全天休市時，MOVE 標記 CLOSED，保留 Investing.com 當輪歷史頁讀取紀錄及 SIFMA 公告 URL、原文定位、讀取時間與 SHA；不得要求休市日存在收盤數值列。提早收市仍屬交易日，必須照常讀取該日 MOVE 收盤，不得沿用前一交易日數值或標記 CLOSED。SIFMA 公告屬市場日曆建議，僅用於相應美國固定收益市場日期判斷，不得擴張為所有資產的休市證據。
 - CLOSED 行的 `display_value_reconciled` 代表休市狀態與日曆證據已核實；`display_value_matches_saved_observation` 必須為 false，因休市列沒有可比較的數值。不得把休市狀態核實誤寫成報價數值相符。
-- Stage 2 只將已核實 S&P 500 現貨正式收盤追加並提交至既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守 append／SHA／防重契約；不可另抓第二份 S&P500 報價，也不得 dispatch 或等待歷史合併。Chart 3 merge workflow 只由 Main production workflow 成功完成事件觸發（即 Stage 6 已成功交付後），不得由增量帳 push 直接觸發；它是非阻塞支線，失敗不得阻止早報主線。
+- Stage 2 只將已核實 S&P 500 現貨正式收盤追加並提交至既有 `data/tac-chart3/sp500_daily_increment.jsonl`，遵守 append／SHA／防重契約；不可另抓第二份 S&P500 報價，也不得 dispatch 或等待歷史合併。Chart 3 merge workflow 由 Main production workflow completed 事件觸發，依 workflow_run_id 對應唯一 Run，確認 Stage 2=PASS/PARTIAL、Stage 3=PASS 後接手；不要求 Stage 4–6 已成功交付，也不得由增量帳 push 直接觸發。它是非阻塞支線，失敗不得阻止早報主線。
 
 ## 5. Stage 3 行事曆／財報
 - 唯一資料來源為 `data/calendar/weeks/YYYY-Www.json`；早報嚴格唯讀。
@@ -91,7 +91,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 9. Chart 3 與資料寫入權
 - 正式 Chart 3 資料路徑為 `data/tac-chart3/`，不可另建 `data/chart3/`。
-- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 S&P500 merge workflow 僅在早報 Stage 6 成功後讀取非空增量帳並合併，與 Stage 4–6 不並行。FRED/ALFRED 更新只負責其既有宏觀序列；各流程須以既有資料維護鎖避免同時寫入 Main。
+- Stage 2 是 S&P 500 每日增量唯一早報寫入者；Chart 3 S&P500 merge workflow 在 Main production workflow 結束後，依唯一 workflow_run_id 與 Stage 2/3 receipt 驗證結果讀取非空增量帳並合併，與 Stage 4–6 不並行。FRED/ALFRED 更新只負責其既有宏觀序列；Chart 3 自己的資料維護鎖只序列化 Chart 3 工作，不得阻塞早報 Stage 4–6。
 - Calendar updater 是週 JSON 唯一 writer；Stage 3 唯讀。
 - Stage 5 是本次 HTML 唯一 writer；Stage 6 是交付 sidecar 唯一 writer。
 
@@ -119,11 +119,11 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - 若當日 schedule 未產生有效 Capture，授權操作者可在 GitHub Actions 的 `tac-production.yml` 使用 `workflow_dispatch`，選擇 `mode=recover`，並明確填入台灣報告日期 `YYYY-MM-DD`。不得使用 `validate` 或一般 `build` 代替補救。
 - `recover` 必須選取唯一一個具有效 run-state.json 的未完成 Run，沿用原 run_id，從最後一個有效 PASS stage 接續；不得建立新 Run、重做已 PASS 階段或重抓已鎖定資料。只有一個有效候選時才可自動接續；候選為零或多於一個時 FAIL-CLOSED，保留全部 Run，不得猜測。若同一 workflow retry，必須直接沿用由 workflow_run_id 決定的原 Run ID。
 - 啟動前檢查同一 report_date 是否已有 Run。具 run-state.json 的既有 Run 會阻止未授權的新 Run；無 run-state.json 的 Legacy Run 僅記錄於新 run-context.legacy_prior_run_ids，不讀取、不複製、不覆寫。一般 `recover` 僅允許接續唯一未交付 Run；已有 Stage 5／6 或 Preview 時 fail-closed。
-- **使用者明確要求同一日期重新完整 E2E 時，才可使用 `workflow_dispatch mode=rerun`。** 必須填入精確 report_date，且只能 supersede 一個明確指定的既有 Run；不得以 push marker、一般 commit 或其他自動觸發方式建立 rerun。必須恰有一個既有 Run，新的 Run 使用新的 workflow_run_id 並記錄 `supersedes_run_id`；不得建立並行 Run。
+- **使用者明確要求同一日期重新完整 E2E 時，才可使用 `workflow_dispatch mode=rerun`。** 必須填入精確 report_date，且只能 supersede 一個明確指定的既有 Run；不得以 push marker、一般 commit 或其他自動觸發方式建立 rerun。若恰有一個具 run-state 的既有 Run，新的 Run 使用新的 workflow_run_id 並記錄 `supersedes_run_id`；若只有無 run-state 的 Legacy Runs，建立全新 Run 並記錄完整 `legacy_prior_run_ids`，不得讀取或重用其資料。具 run-state 的既有 Run 多於一個時 fail-closed；不得建立並行 Run。
 - `rerun` 不刪除任何舊 Run、Observation、截圖、FedWatch、editorial JSON、receipt 或 Preview。所有新輸入都寫入新 Run 的 `production/runs/<new_run_id>/`，舊 Run 保持唯讀稽核證據，不得跨 Run 複製資料。既有 Main Preview 三檔副本保存於 `production/superseded/<report_date>/<old_run_id>/preview/`；原核准的 `preview/main/<report_date>-review.*` 必須留在原路徑，以維持 Main Preview 稽核一致。新 rerun 只能交付至獨立的 `preview/main/<report_date>-rerun-review.*`，不得覆蓋原版。Simulation 的 `preview/` 根層輸出保持不變。正式首頁 `index.html`、首頁發布鎖及正式歷史封存不變。
 - `rerun` 必須建立全新 blank-first Stage 1；Stage 2 重新讀取當輪完整 WR 後，重新擷取全部 44 項與 FedWatch。不得使用 `--reuse-observations`、舊 Run Observation、舊截圖、舊新聞或舊 FedWatch；每列記錄本次讀取時間並標示 `prior_observation_reused=false`。Stage 3–6 必須只使用新 Run 的資料。
 - Capture receipt 必須記錄觸發事件、dispatch mode、workflow_run_id、run_id、report_date、supersedes_run_id、market snapshot SHA 與 research bundle SHA。手動補救／重跑只接受 `event=workflow_dispatch` 且 mode 與實際執行一致的成功 Capture；不得把 push validation、一般 capture、舊 Run 或 build Run 當成新 Capture 證據。
-- 同一個 Main ChatGPT automation invocation 內，Stage 2 與 Stage 4 是兩個獨立的狀態檢查點：Stage 2 提交 Observation 後，等待同一 Run 的 GitHub Stage 2 驗證及 Stage 3 PASS；再讀取 Stage 4 完整 WR 與 Research Bundle，執行 Stage 4 並提交 editorial JSON。Stage 4 提交 editorial JSON 後，同一正式 workflow run 的 build-and-deliver job 會輪詢接續。若 Stage 3 未完成，worker 必須回報 DEFERRED 並保留同一 Run；不得自行建立 Run 或跳過 Stage 3。Stage 1–3 的 workflow_dispatch recover 會依 run-state 跳過已 PASS 階段；Stage 4–6 的 job retry 依 run-state 跳過已 PASS／PARTIAL 階段，只重做尚未完成階段。所有 retry/resume 沿用原 run_id。所有 retry/resume 沿用原 run_id。
+- 同一個 Main ChatGPT automation invocation 內，Stage 2 與 Stage 4 是兩個獨立的狀態檢查點：Stage 2 提交 Observation 後，等待同一 Run 的 GitHub Stage 2 驗證及 Stage 3 PASS；再讀取 Stage 4 完整 WR 與 Research Bundle，執行 Stage 4 並提交 editorial JSON。Stage 4 提交 editorial JSON 後，同一正式 workflow run 的 build-and-deliver job 會輪詢接續。若 Stage 3 未完成，worker 必須回報 DEFERRED 並保留同一 Run；不得自行建立 Run 或跳過 Stage 3。Stage 1–3 的 workflow_dispatch recover 會依 run-state 跳過已 PASS 階段；Stage 4–6 的 job retry 依 run-state 跳過已 PASS／PARTIAL 階段，只重做尚未完成階段。所有 retry/resume 沿用原 run_id。
 - 手動補救僅交付 Main Preview；不自動更新 `index.html`、不封存正式歷史、不修改 Simulation。正式首頁仍需使用者另行核准。
 - 一次 BLOCKED 不得自動停用 continuation automation；排程喚醒應維持啟用，確保下一個工作日正常接續。
 
