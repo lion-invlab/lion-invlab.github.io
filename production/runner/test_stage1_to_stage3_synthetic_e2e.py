@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synthetic integration test: Stage 1 -> Stage 2 worker submission/validation -> Stage 3."""
+"""Synthetic integration test: one Run through Stage 5 and Stage 6 pre-delivery handoff."""
 from __future__ import annotations
 
 import copy
@@ -25,6 +25,7 @@ import run_stage3
 import prepare_stage4_research_bundle
 import run_stage4
 import run_stage5
+import run_stage6
 from test_stage4_content_validation import sample as sample_stage4_content
 from test_validate_chatgpt_web_observations import make_bundle
 
@@ -32,7 +33,7 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 class Stage1To3SyntheticE2ETests(unittest.TestCase):
-    def test_stage1_to_stage4_uses_one_run_and_no_live_market_or_calendar_writes(self):
+    def test_stage1_to_stage6_pre_delivery_uses_one_run_and_no_live_market_or_calendar_writes(self):
         report_date = date(2026, 11, 24)
         token = os.environ.get("GITHUB_RUN_ID") or str(900000000 + os.getpid())
         run_id = stable_run_id(report_date, token)
@@ -280,6 +281,32 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             self.assertEqual(stage5_receipt["status"], "REVIEW_READY")
             self.assertTrue((run_dir / "review.html").is_file())
             self.assertTrue((run_dir / "qa-sidecar.json").is_file())
+
+            # Stage 6 pre-delivery integration: validate its own pinned WR and
+            # the exact Stage 5 HTML/QA/render/Stage 4 receipt bindings without
+            # creating a Git worktree, publishing Pages, or mutating Run state.
+            stage6_wr = stage_wr_preflight("STAGE_6", context)
+            self.assertEqual(stage6_wr["status"], "PASS")
+            from stage_wr_preflight import require_stage_wr_receipt
+            require_stage_wr_receipt(stage5_receipt, "STAGE_5", context)
+            qa_doc = json.loads((run_dir / "qa-sidecar.json").read_text(encoding="utf-8"))
+            render_doc = json.loads((run_dir / "render-manifest.json").read_text(encoding="utf-8"))
+            run_stage6.validate_stage5_handoff(
+                stage5_receipt, qa_doc, render_doc, context,
+                digest(run_dir / "review.html"), digest(run_dir / "render-manifest.json"),
+                stage4_receipt, digest(run_dir / "stage4-analysis-receipt.json")
+            )
+            self.assertEqual(
+                run_stage6.allowed_paths(context["report_date"], context),
+                [
+                    f"preview/main/{context['report_date']}-review.html",
+                    f"preview/main/{context['report_date']}-review.qa.json",
+                    f"preview/main/{context['report_date']}-review.delivery.json",
+                ]
+            )
+            state_after_stage6_preflight = json.loads((run_dir / "run-state.json").read_text(encoding="utf-8"))
+            self.assertEqual(state_after_stage6_preflight["stages"]["STAGE_6"]["status"], "READY")
+            self.assertFalse((run_dir / "stage6-delivery-receipt.json").exists())
         finally:
             import shutil
             shutil.rmtree(run_dir, ignore_errors=True)
