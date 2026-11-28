@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from datetime import date
-from create_run_fixture import build, write_run_files, report_cutoff_taipei, report_target_date, report_template_key
+from create_run_fixture import build, write_run_files, report_cutoff_taipei, report_target_date, report_template_key, stable_run_id
 
 class RunFixtureFactoryTests(unittest.TestCase):
     def test_creates_fresh_blank_first_44_row_fixture(self):
@@ -49,6 +49,11 @@ class RunFixtureFactoryTests(unittest.TestCase):
             self.assertEqual(receipt["fixture_path"],f"production/runs/{run_id}/stage1-fixture.json")
             self.assertEqual(receipt["working_fixture_path"],f"production/runs/{run_id}/report-data.json")
             self.assertEqual(receipt["screenshot_fields"],0)
+            state=json.loads((output/"run-state.json").read_text())
+            self.assertEqual(state["run_id"],run_id)
+            self.assertEqual(state["stages"]["STAGE_1"]["status"],"PASS")
+            self.assertEqual(state["stages"]["STAGE_2"]["status"],"READY")
+            self.assertEqual(state["stages"]["STAGE_1"]["output_sha256"],hashlib.sha256((output/"stage1-receipt.json").read_bytes()).hexdigest())
             self.assertEqual(result["run_context"]["screenshot_input"]["status"],"NOT_READ_AT_STAGE1")
             working_data=json.loads(working.read_text())
             working_data["run_metadata"]["retry_marker"]="changed"
@@ -58,6 +63,10 @@ class RunFixtureFactoryTests(unittest.TestCase):
     def test_records_explicit_superseded_run_without_mutating_it(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26),supersedes_run_id="TAC-2026-11-27-old-1")
         self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
+
+    def test_workflow_retry_attempt_does_not_change_run_id(self):
+        self.assertEqual(stable_run_id(date(2026,11,30),"46069359215"),"TAC-2026-11-30-46069359215")
+        self.assertEqual(stable_run_id(date(2026,11,30),"TAC-2026-11-30-46069359215"),"TAC-2026-11-30-46069359215")
 
     def test_report_cutoff_tracks_new_york_dst(self):
         self.assertEqual(report_cutoff_taipei(date(2026,11,30)),"2026-11-28 05:25")
