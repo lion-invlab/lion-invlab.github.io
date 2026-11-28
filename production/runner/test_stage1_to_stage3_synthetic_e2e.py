@@ -83,8 +83,11 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             for row in bundle["observations"]:
                 row["report_date"] = context["report_date"]
                 row["trading_date"] = context["trading_date"]
-                if row.get("data_date") is not None:
-                    row["data_date"] = context["trading_date"]
+                target_date = row.get("target_date") or row.get("observed_date")
+                if target_date and row.get("read_status") == "PAGE_CONTENT_READ_SUCCESS":
+                    target = date.fromisoformat(target_date)
+                    date_label = f"{target.year}年{target.month}月{target.day}日" if "hk.investing.com" in str(row.get("source_url") or "") else target.strftime("%b %d, %Y")
+                    row["observed_row_text"] = f"{date_label} | {row.get('observed_value')} | {row.get('observed_change')}"
                 if row.get("group") in ("energy", "metals"):
                     row["contract_label"] = sample_data[row["group"]][row["name"]].get("contract_label")
             bundle.update({
