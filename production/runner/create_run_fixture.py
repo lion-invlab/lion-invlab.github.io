@@ -168,6 +168,7 @@ def main():
     ap.add_argument("--run-id")
     ap.add_argument("--output-dir")
     ap.add_argument("--supersedes-run-id")
+    ap.add_argument("--resume-existing",action="store_true",help="Resume an exact existing Run without rewriting its Stage 1 files.")
     args=ap.parse_args()
     report_date=date.fromisoformat(args.report_date)
     run_token=args.run_id or os.environ.get("GITHUB_RUN_ID") or uuid.uuid4().hex[:12]
@@ -191,8 +192,8 @@ def main():
         expected_workflow=os.environ.get("GITHUB_RUN_ID",run_token)
         if (existing_context.get("run_id")!=run_id
                 or existing_context.get("report_date")!=report_date.isoformat()
-                or str(existing_context.get("workflow_run_id"))!=str(expected_workflow)):
-            raise SystemExit("Existing Run identity does not match this workflow retry; refusing to overwrite.")
+                or (not args.resume_existing and str(existing_context.get("workflow_run_id"))!=str(expected_workflow))):
+            raise SystemExit("Existing Run identity does not match this workflow retry/recovery; refusing to overwrite.")
         existing_receipt=json.loads((output/"stage1-receipt.json").read_text(encoding="utf-8"))
         print(json.dumps({**existing_receipt,"resume_existing_run":True,"run_state_version":existing_state["state_version"]},ensure_ascii=False,indent=2))
         return
