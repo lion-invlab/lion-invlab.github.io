@@ -153,7 +153,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     artifact = run_dir / STAGE_ARTIFACTS["STAGE_4"]
     content = read_json(artifact)
     stage3_receipt_path = run_dir / "stage3-calendar-receipt.json"
-    capture_path = run_dir / "capture-stage-receipt.json"
+    capture_path = run_dir / "stage4-work-instructions.json"
     for path in (stage3_receipt_path, capture_path):
         if path.is_symlink() or not path.is_file():
             raise ValueError(f"Stage 4 upstream handoff missing or symlinked: {path.name}")
