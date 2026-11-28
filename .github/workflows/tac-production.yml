@@ -628,6 +628,29 @@ jobs:
           test "$PUSHED" = true
           git fetch origin main
           git merge --ff-only origin/main
+      - name: Persist Stage 6 delivery receipt and final state
+        if: ${{ always() && steps.stage6.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 6 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 6 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Upload complete Run evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -728,12 +751,38 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
       - name: Stage 4 — validate and merge current editorial research
+        id: stage4
+        if: ${{ steps.resolve.outputs.stage4_status != 'PASS' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage4.py --run-dir "$RUN_DIR" --content "$CONTENT_FILE"
           test -s "$RUN_DIR/stage4-analysis-receipt.json"
+      - name: Persist Stage 4 receipt and state
+        if: ${{ always() && steps.stage4.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 4 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 4 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Stage 5 — build exact mother and run full QA
         id: stage5
+        if: ${{ steps.resolve.outputs.stage5_status != 'PASS' && steps.resolve.outputs.stage5_status != 'PARTIAL' }}
         run: |
           set -euo pipefail
           python production/runner/run_stage5.py --run-dir "$RUN_DIR"
@@ -741,13 +790,37 @@ jobs:
           STATUS="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["status"])' "$RUN_DIR/stage5-render-qa-receipt.json")"
           echo "status=$STATUS" >> "$GITHUB_OUTPUT"
           echo "Stage 5 result: $STATUS"
+      - name: Persist Stage 5 QA receipt and state
+        if: ${{ always() && steps.stage5.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR"
+          mapfile -t STAGED < <(git diff --cached --name-only)
+          if [ "${#STAGED[@]}" -eq 0 ]; then echo "No new Stage 5 Run evidence."; exit 0; fi
+          for file in "${STAGED[@]}"; do case "$file" in "$RUN_DIR"/*) ;; *) echo "::error::Unexpected Run evidence path: $file"; exit 1 ;; esac; done
+          git commit -m "chore(tac): persist Stage 5 receipts and state $RUN_ID"
+          git fetch origin main
+          git rebase origin/main
+          PUSHED=false
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then PUSHED=true; break; fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          test "$PUSHED" = true
+          git fetch origin main
+          git merge --ff-only origin/main
       - name: Stage 6 — deliver three preview files and verify Pages
-        if: ${{ steps.stage5.outputs.status == 'REVIEW_READY' }}
+        id: stage6
+        if: ${{ (steps.resolve.outputs.stage5_status == 'PASS' || steps.stage5.outputs.status == 'REVIEW_READY') && steps.resolve.outputs.stage6_status != 'PASS' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python production/runner/run_stage6.py --run-dir "$RUN_DIR"
       - name: Stage 6 — preserve PARTIAL artifact without publishing
-        if: ${{ steps.stage5.outputs.status == 'PARTIAL' }}
+        if: ${{ steps.resolve.outputs.stage5_status == 'PARTIAL' || steps.stage5.outputs.status == 'PARTIAL' }}
         run: echo "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview delivery."
       - name: Upload complete Run evidence
         if: always()
