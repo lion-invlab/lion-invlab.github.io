@@ -17,7 +17,6 @@ on:
       - "production/config/**"
       - "production/templates/**"
       - "production/input/*.schema.json"
-      - "production/runs/**/stage4-editorial-content.json"
       - "production/input/STAGE4_README.md"
       - ".github/workflows/tac-production.yml"
   workflow_dispatch:
@@ -224,6 +223,9 @@ jobs:
           PY
 
   capture-and-calendar:
+    outputs:
+      run_id: ${{ steps.resolve.outputs.run_id }}
+      report_date: ${{ steps.resolve.outputs.report_date }}
     needs: [schedule-window]
     if: ${{ github.ref == 'refs/heads/main' && always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
@@ -252,6 +254,7 @@ jobs:
           git merge --ff-only origin/main
 
       - name: Resolve report date and unique Run ID
+        id: resolve
         shell: bash
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
@@ -357,6 +360,8 @@ jobs:
           fi
           RUN_DIR="production/runs/$RUN_ID"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
+          echo "report_date=$REPORT_DATE" >> "$GITHUB_OUTPUT"
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
           echo "SUPERSEDES_RUN_ID=$SUPERSEDES_RUN_ID" >> "$GITHUB_ENV"
