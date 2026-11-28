@@ -198,6 +198,14 @@ def main():
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
+    handoff={
+      "status":receipt.get("status"),
+      "run_id":context["run_id"],
+      "report_date":report_date,
+      "trading_date":context["trading_date"],
+      "receipt_path":str(receipt_path.relative_to(ROOT)),
+      "receipt_sha256":hashlib.sha256(receipt_path.read_bytes()).hexdigest()
+    }
     fixture=load(fixture_path)
     market_groups={k:fixture.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     market_snapshot_sha256=hashlib.sha256(json.dumps(market_groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode()).hexdigest()
