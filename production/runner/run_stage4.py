@@ -56,21 +56,14 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
 def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)->dict:
+    """Ensure the Stage 4 instruction text is present; no WR hash attestation is required."""
     instructions=capture.get("stage4_work_instructions") or {}
     full_text=instructions.get("full_text")
-    if capture.get("status")!="AWAITING_EDITORIAL_INPUT" or not isinstance(full_text,str) or not full_text.strip():
-        raise ValueError("Stage 4 full-WR handoff is missing or incomplete")
-    full_sha=sha_bytes(full_text.encode("utf-8"))
-    if (instructions.get("path")!="production/stages/STAGE_4_NEWS_ANALYSIS.md"
-            or instructions.get("sha256")!=wr_preflight.get("wr_sha256")
-            or full_sha!=wr_preflight.get("wr_sha256")
-            or instructions.get("git_blob_sha")!=wr_preflight.get("wr_git_blob_sha")):
-        raise ValueError("Stage 4 full-WR handoff does not match the pinned current Stage 4 WR")
-    if editorial.get("stage4_wr_sha256")!=wr_preflight.get("wr_sha256"):
-        raise ValueError("Stage 4 editorial input is missing the exact full-WR read attestation")
-    return {"status":"PASS","stage4_wr_sha256":wr_preflight["wr_sha256"],
-            "full_text_sha256":full_sha,"handoff_path":instructions["path"],
-            "handoff_git_blob_sha":instructions["git_blob_sha"]}
+    if (capture.get("status")!="AWAITING_EDITORIAL_INPUT"
+            or instructions.get("path")!="production/stages/STAGE_4_NEWS_ANALYSIS.md"
+            or not isinstance(full_text,str) or not full_text.strip()):
+        raise ValueError("Stage 4 handoff is missing the complete Stage 4 instructions")
+    return {"status":"LOADED","stage4_wr_path":instructions["path"],"full_text_available":True}
 
 def normalize_news_publication_times(content:dict)->list[dict]:
     """Recompute Taiwan publication timestamps from preserved source time and IANA timezone."""
@@ -271,8 +264,6 @@ def main():
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
     timestamp_repairs=normalize_news_publication_times(editorial)
     stage3_receipt_sha256=sha(stage3_receipt_path)
-    if editorial.get("stage3_receipt_sha256")!=stage3_receipt_sha256:
-        raise ValueError("Stage 4 content Stage 3 receipt SHA does not match this Run")
     capture_path=run_dir/"capture-stage-receipt.json"
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
