@@ -107,6 +107,32 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         self.assertEqual(state["stages"]["STAGE_2"]["output_sha256"],
                          sha(self.run / "market-history-web-observations.json"))
 
+    def test_stage2_reaccepts_corrected_bundle_only_before_snapshot_receipt(self):
+        fixture = json.loads((self.run / "stage1-fixture.json").read_text(encoding="utf-8"))
+        rows = [{"group": group, "name": name} for group, items in fixture.items() for name in items]
+        payload = {
+            "schema_version": "1.1", "run_id": self.context["run_id"],
+            "report_date": self.context["report_date"], "trading_date": self.context["trading_date"],
+            "stage1_receipt_sha256": sha(self.run / "stage1-receipt.json"),
+            "run_context_sha256": sha(self.run / "run-context.json"),
+            "stage1_fixture_sha256": sha(self.run / "stage1-fixture.json"),
+            "stage2_wr_sha256": self.wr["wr_sha256"],
+            "captured_at_utc": "2026-11-28T00:06:00Z",
+            "observations": rows, "fedwatch": {"stage2_wr_sha256": self.wr["wr_sha256"]},
+        }
+        artifact = self.run / "market-history-web-observations.json"
+        put(artifact, payload)
+        with patch.object(acceptor, "stage_wr_preflight", return_value=self.wr):
+            acceptor.accept_stage_submission(self.run, "STAGE_2")
+            payload["observations"][0]["correction_revision"] = 2
+            put(artifact, payload)
+            result = acceptor.accept_stage_submission(self.run, "STAGE_2")
+        state = json.loads((self.run / "run-state.json").read_text(encoding="utf-8"))
+        self.assertEqual(result["status"], "SUBMITTED")
+        self.assertEqual(state["stages"]["STAGE_2"]["status"], "SUBMITTED")
+        self.assertEqual(state["stages"]["STAGE_2"]["attempt"], 2)
+        self.assertEqual(state["stages"]["STAGE_2"]["output_sha256"], sha(artifact))
+
     def test_stage2_rejects_43_rows(self):
         payload = {"schema_version": "1.1", "run_id": self.context["run_id"],
             "report_date": self.context["report_date"], "trading_date": self.context["trading_date"],
