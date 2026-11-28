@@ -21,8 +21,13 @@ def _git_blob(ref: str, path: str) -> str:
         stderr=subprocess.STDOUT
     ).strip()
 
-def load_stage_wr(stage: str, context: dict | None = None) -> dict:
-    """Read the full local WR; only Stage 5-6 retain their own governance lock."""
+def load_stage_wr(stage: str, context: dict | None = None, *, include_rules_text: bool = False) -> dict:
+    """Read the full local WR; optionally return the instructions to the actual executor.
+
+    wr_loaded alone only proves file I/O; it does NOT prove rule compliance.
+    Callers executing human/LLM work must request include_rules_text=True and
+    supply the returned rules_text as the operative instructions.
+    """
     if stage not in STAGE_WR_PATHS:
         raise ValueError(f"Unknown Stage WR key: {stage}")
     path = STAGE_WR_PATHS[stage]
@@ -48,6 +53,9 @@ def load_stage_wr(stage: str, context: dict | None = None) -> dict:
         "wr_bytes_read": len(raw),
         "rules_text_loaded": True,
     }
+
+    if include_rules_text:
+        evidence["rules_text"] = full_text
 
     # Stage 1-4 must read their own instructions, then get on with the work.
     # No cross-stage SHA pin, receipt chain or worker attestation is a handoff gate.
