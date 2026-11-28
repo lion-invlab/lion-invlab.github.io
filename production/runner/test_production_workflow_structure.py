@@ -72,3 +72,28 @@ assert "capture-and-calendar" not in workflow
 assert "production/input/market-history-web-observations-" not in workflow
 assert "production/input/report-content-" not in workflow
 print("PASS: Stage 1 exits after Run handoff; Stage 2/3 and Stage 4/6 are downstream jobs.")
+
+// Stage 4 editorial handoff must be tied to the same Run created by Stage 1,
+// not a date-global file or a separately-created workflow run.
+assert "timeout-minutes: 45" in build
+assert "Resolve exact Run and accept Stage 4 worker submission" in build
+resolve_start = build.index("      - name: Resolve exact Run and accept Stage 4 worker submission")
+stage4_exec_start = build.index("      - name: Stage 4 — validate and merge current editorial research")
+stage4_resolve = build[resolve_start:stage4_exec_start]
+assert "CAPTURE_RUN_ID: ${{ needs['stage2-and-stage3'].outputs.run_id }}" in stage4_resolve
+assert "CAPTURE_REPORT_DATE: ${{ needs['stage2-and-stage3'].outputs.report_date }}" in stage4_resolve
+assert 'RUN_DIR="production/runs/$RUN_ID"' in stage4_resolve
+assert 'CONTENT_FILE="$RUN_DIR/stage4-editorial-content.json"' in stage4_resolve
+assert 'for attempt in $(seq 1 30); do' in stage4_resolve
+assert "sleep 30" in stage4_resolve
+assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in stage4_resolve
+assert "Stage 4 worker did not publish the exact Run-scoped editorial artifact within 15 minutes." in stage4_resolve
+
+// Editorial acceptance must verify Stage 3 PASS and all evidence hashes before
+// Stage 4 execution; the downstream Builder and delivery remain one job chain.
+assert 'state["stages"]["STAGE_3"]["status"]=="PASS"' in build
+assert 'content["run_id"]==context["run_id"]' in build
+assert 'content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in build
+assert 'content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]' in build
+assert 'content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]' in build
+assert 'content["stage4_wr_sha256"]==stage4_wr_sha' in build
