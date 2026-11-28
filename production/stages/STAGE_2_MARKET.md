@@ -29,7 +29,7 @@ Stage 1 run-context、`production/MASTER_WR.md`、`production/contracts/SOURCE_P
 ## 執行順序
 1. 建立本輪 blank-first market fixture：清除所有舊 close/change/score/OHLC、舊 Observation、截圖紀錄、evidence hash/time 與含舊數字的備註；保留欄位身分、來源 URL、quote_type、日期及非行情內容。不得沿用舊 fixture 數值。
 2. 當次截圖 sidecar 固定路徑為 `production/runs/<run_id>/market-screenshot-observations.json`；原始圖片封存在 `production/runs/<run_id>/screenshots/`。先讀取 sidecar 並驗證 report_date、trading_date、run_id、Stage 1 三項 SHA、商品身分、正式 Investing.com URL、欄位標籤、圖片路徑與 SHA-256。不得讀取日期共用 sidecar 或其他 Run 的截圖。使用者提供且可辨識商品、日期及數值的截圖優先於全部 44 項行情，不限 MOVE。已提供欄位直接採用，不重抓、不覆蓋；缺欄才補讀。
-3. 對仍需讀取的項目，瀏覽器直接開啟 Investing.com 對應商品 Historical Data 頁，讀取實際歷史數據表格及指定交易日列。不得以搜尋摘要、第三方 API、Yahoo Finance 或其他未核准來源取代；不得繞過 Cloudflare。
+3. 對仍需讀取的項目，瀏覽器直接開啟核准來源的 Historical Data 頁，讀取實際歷史數據表格及指定交易日列。一般項目仍使用 Investing.com；唯一例外為日經225，必須使用 Nikkei Indexes 官方 Historical Data 頁讀取現貨指數 OHLC／Close，並開啟同日期官方 Daily Summary 頁讀取 Change%。兩頁均須核對 Nikkei Stock Average (Nikkei 225) 與同一目標日期。不得讀取或接受 Investing.com 的 Nikkei CFD 作為現貨指數；不得以搜尋摘要、Yahoo Finance、第三方 API 或其他未核准來源取代；不得繞過 Cloudflare。
 4. 同時最多開啟 4 個不同歷史資料頁（concurrency=4）。每頁獨立記錄商品／合約、日期、Close／Price、Change／Change %、必要 OHLC、URL、查核時間、讀取方法與狀態。不得縮短 timeout 或提高並行數規避限制。已完整由截圖提供欄位的頁面不開啟。
 5. 第一輪完整掃描 44 項；符合標的、交易日、欄位、口徑及證據者立即鎖定。後續只刷新 PENDING／缺欄／有具體疑義項目；不重抓已鎖定值。頁面表格可讀但無目標日期列為 SOURCE_NO_DATA；工具無法讀取頁面／表格列為 TOOL_READ_FAILURE。只有同時附上指定交易日、官方交易日曆來源 URL、官方來源類型及可回查證據，才可標記 MARKET_CLOSED；單憑歷史表格沒有該日期列，或只回傳 MARKET_CLOSED 字串，不得推定休市。正式休市列的數值欄顯示「-」，變動欄顯示「休市」；不得兩欄都顯示休市。
 6. 建立 44 列 Observation、source manifest、metadata audit、fixture 及 Stage 2 receipt，綁定 workflow_run_id、attempt、report/trading date、batch_id 與 SHA-256。各列狀態計數必須完整覆蓋 44 項且總數等於 44；不得把 PENDING、MISSING、CLOSED、TOOL_READ_FAILURE 或 SOURCE_NO_DATA 併記成 VERIFIED。Observation SHA 是標準化觀察紀錄 SHA，不得冒充原始 HTTP response SHA。
