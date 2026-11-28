@@ -423,7 +423,7 @@ Each contains only `run-context.json`, `stage1-fixture.json`, `report-data.json`
 
 This resolves the exact collision observed on 11/28 without reusing the failed Runs or changing the live schedule.
 
-## 15. Additional code changes now under isolated CI validation
+## 15. Additional code changes and isolated CI validation
 
 Branch: `refactor/tac-main-e2e-architecture-20261128`
 
@@ -434,6 +434,10 @@ Branch: `refactor/tac-main-e2e-architecture-20261128`
 - Added deterministic tests for Stage 2 44-row identity, Stage 4 Research Bundle/Stage 3/WR binding, and the legacy Run classifier.
 - Added the new acceptance runner and test to the governance blob pin list and PORT_MANIFEST.
 - Updated the schedule manifest to the approved Tue–Sat Taiwan cadence while leaving `cutover_status=NOT_CUT_OVER`; no live schedule was changed.
+
+### Validation result
+
+GitHub Actions validation run `46104298636` on commit `4b5e612fa2ee3e56e05b85784a093b00e95b34b4` completed SUCCESS. The validation job passed: Python compile, browser QA syntax, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, isolated candidate Builder, and mother-owned DOM checks. Subsequent branch changes were documentation-only (audit wording and removal of superseded prompt v1.2); no runtime code changed after this successful validation.
 
 ### Cutover dependency not yet applied
 
