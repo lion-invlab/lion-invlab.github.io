@@ -23,6 +23,7 @@ import run_stage2
 import run_stage3
 import prepare_stage4_research_bundle
 import run_stage4
+import run_stage5
 from test_stage4_content_validation import sample as sample_stage4_content
 from test_validate_chatgpt_web_observations import make_bundle
 
@@ -190,6 +191,16 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             stage4_receipt = json.loads((run_dir / "stage4-analysis-receipt.json").read_text(encoding="utf-8"))
             self.assertTrue(stage4_receipt["market_snapshot_unchanged"])
             self.assertEqual(stage4_receipt["editorial_run_binding"]["run_id"], run_id)
+
+            with patch.object(sys, "argv", ["run_stage5.py", "--run-dir", str(run_dir.relative_to(ROOT))]):
+                run_stage5.main()
+            state = json.loads((run_dir / "run-state.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["stages"]["STAGE_5"]["status"], "PASS")
+            self.assertEqual(state["last_passed_stage"], "STAGE_5")
+            stage5_receipt = json.loads((run_dir / "stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
+            self.assertEqual(stage5_receipt["status"], "REVIEW_READY")
+            self.assertTrue((run_dir / "review.html").is_file())
+            self.assertTrue((run_dir / "qa-sidecar.json").is_file())
         finally:
             import shutil
             shutil.rmtree(run_dir, ignore_errors=True)
