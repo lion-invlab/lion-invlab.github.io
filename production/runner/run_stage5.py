@@ -124,13 +124,14 @@ def main():
     audit=run_dir/"market-snapshot-audit.json"
     manifest=run_dir/"market-source-verification-manifest.json"
     observations=run_dir/"market-history-browser-observations.json"
-    stage2=run_dir/"stage2-market-snapshot-receipt.json"
+    stage2_handoff=run_dir/"stage2-market-snapshot-receipt.json"
+    stage2=run_dir/"stage2-market-snapshot-qa.json"
     stage2_summary=run_dir/"stage2-run-summary.json"
     stage3=run_dir/"stage3-calendar-receipt.json"
     stage4=run_dir/"stage4-analysis-receipt.json"
-    for p in (fixture,manifest,observations,stage2,stage2_summary,stage3,stage4):
+    for p in (fixture,manifest,observations,stage2_handoff,stage2_summary,stage3,stage4):
         if not p.is_file():raise SystemExit(f"Stage 5 missing required input: {p.relative_to(ROOT)}")
-    handoff_stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    handoff_stage2_doc=json.loads(stage2_handoff.read_text(encoding="utf-8"))
     if (handoff_stage2_doc.get("qa_status")!="PENDING_STAGE5"
             or handoff_stage2_doc.get("run_id")!=context["run_id"]
             or handoff_stage2_doc.get("report_date")!=report_date
@@ -275,7 +276,7 @@ def main():
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
-      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4)},
+      "input_sha256":{p.name:sha(p) for p in (fixture,audit,manifest,observations,stage2_handoff,stage2,stage2_summary,stage3,stage4)},
       "output":{"path":str(output.relative_to(ROOT)),"sha256":html_sha},
       "visual_report_sha256":sha(visual_report),"interaction_report_sha256":sha(interaction_json)
     }
@@ -285,7 +286,7 @@ def main():
     qa={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "status":stage5_status,"groups":{
-        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"stage2_receipt_sha256":sha(stage2),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage_wr_loaded":wr_loaded,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":False,"chart3_handoff_non_blocking":True,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
+        "data_content":{"status":stage2_doc.get("status","PARTIAL"),"stage2_receipt_sha256":sha(stage2),"stage2_handoff_receipt_sha256":sha(stage2_handoff),"stage2_summary_sha256":sha(stage2_summary),"stage3_receipt_sha256":sha(stage3),"stage_wr_loaded":wr_loaded,"stage4_receipt_sha256":sha(stage4),"chart3_handoff_status":chart3_status,"chart3_handoff_required":False,"chart3_handoff_non_blocking":True,"unresolved_rows":stage2_doc.get("pending_rows",[]),"pending_items":fixture_doc.get("pending_items",[]),"editorial_content_status":"PASS","summary_points_count":len(summary_points),"sentiment_char_count":len(sentiment_text),"market_analysis_layer_count":len(analysis_payload),"market_analysis_source_count_by_layer":source_count_by_layer,"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"political_domains_checked":political_domains,"political_event_status_classifications":political_classes,"policy_transmission_completeness":artifact_validation["policy_transmission_completeness"],"scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"]},
         "html_structure":{"status":"PASS","artifact_validator":"PASS","mother_dom_contract":"PASS","main_branding_status":"PASS","main_review_labels":main_branding},
         "visual_interaction":{"status":"PASS","visual_report":str(visual_report.relative_to(ROOT)),"interaction_report":str(interaction_json.relative_to(ROOT)),"interaction_summary":interaction},
         "run_integration":{"status":"PASS","same_run_id":True,"html_sha256":html_sha,"render_manifest_sha256":sha(render_path)}
@@ -297,7 +298,7 @@ def main():
     qa_path.write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={"status":stage5_status,"run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
       "stage_wr_loaded":wr_loaded,
-      "stage4_receipt_sha256":sha(stage4),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
+      "stage4_receipt_sha256":sha(stage4),"stage2_qa_receipt_sha256":sha(stage2),"stage2_handoff_receipt_sha256":sha(stage2_handoff),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
       "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
       "render_manifest_sha256":sha(render_path),"qa_sidecar_sha256":sha(qa_path),
       "scenario_analysis_coverage":scenario_qa["coverage"],"scenario_analysis_status":scenario_qa["status"],"scenario_analysis_reason":scenario_qa["reason"],"political_geopolitical_scan":artifact_validation["political_geopolitical_scan"],"editorial_content_status":"PASS",
