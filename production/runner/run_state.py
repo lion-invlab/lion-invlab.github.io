@@ -12,7 +12,29 @@ state blob SHA becomes mandatory.
 from __future__ import annotations
 
 import copy
+import json
+import os
+import tempfile
+from pathlib import Path
 from datetime import datetime, timezone
+
+def write_state_atomic(path: Path, state: dict) -> None:
+    """Validate and atomically replace one Run's authoritative state file."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw = (json.dumps(state, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+    json.loads(raw.decode("utf-8"))
+    fd, temp_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(raw)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_name, path)
+    finally:
+        if os.path.exists(temp_name):
+            os.unlink(temp_name)
+
 
 SCHEMA_VERSION = "1.0"
 STAGES = ("STAGE_1", "STAGE_2", "STAGE_3", "STAGE_4", "STAGE_5", "STAGE_6")
