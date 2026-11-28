@@ -56,11 +56,6 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 self.assertEqual(context["mother"]["key"], "monday")
             else:
                 self.assertEqual(context["mother"]["key"], "weekdays")
-            if report_date.weekday() == 0:
-                self.assertEqual(context["production_date"], "2026-11-28")
-                self.assertEqual(context["mother"]["key"], "monday")
-            else:
-                self.assertEqual(context["mother"]["key"], "weekdays")
 
             wr = stage_wr_preflight("STAGE_2", context)
             sample_data = json.loads((ROOT / f"production/testdata/report-data-{sample_date.isoformat()}.json").read_text(encoding="utf-8"))
@@ -81,7 +76,13 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                     if old_source.get(field) is not None:
                         source[field] = old_source[field]
             bundle = make_bundle(synthetic_seed)
+            # make_bundle derives dates from a sample template; each synthetic row
+            # must carry the exact current Run dates before Stage 2 accepts it.
             for row in bundle["observations"]:
+                row["report_date"] = context["report_date"]
+                row["trading_date"] = context["trading_date"]
+                if row.get("data_date") is not None:
+                    row["data_date"] = context["trading_date"]
                 if row.get("group") in ("energy", "metals"):
                     row["contract_label"] = sample_data[row["group"]][row["name"]].get("contract_label")
             bundle.update({
