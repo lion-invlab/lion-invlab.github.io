@@ -233,7 +233,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 4 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=load_stage_wr("STAGE_4",context)
+    wr_loaded=load_stage_wr("STAGE_4",context)
     state_path=run_dir/"run-state.json"
     state=read_json(state_path)
     validate_state(state,expected_run_id=context["run_id"])
@@ -318,7 +318,7 @@ def main():
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
       "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],
-      "editorial_stage2_instructions_loaded":editorial_wr_attestation,
+      "stage4_instructions_loaded":stage4_instructions_loaded,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
