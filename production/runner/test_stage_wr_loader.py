@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import stage_wr_loader
 
-class StageWRPreflightTests(unittest.TestCase):
+class StageWRLoaderTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory()
         self.root=Path(self.tmp.name)
@@ -40,7 +40,7 @@ class StageWRPreflightTests(unittest.TestCase):
     def test_empty_wr_blocks_work(self):
         (self.root/self.rel).write_bytes(b"")
         with self.assertRaises(SystemExit):
-            stage_wr_loader.stage_wr_loader("STAGE_3")
+            stage_wr_loader.load_stage_wr("STAGE_3")
 
 
     def test_stage5_and_stage6_keep_governance_pin(self):
@@ -51,12 +51,12 @@ class StageWRPreflightTests(unittest.TestCase):
         blob="a"*40
         context={"main_commit_sha":"commit","governance":{"commit_sha":"commit","blob_shas":{path:blob}}}
         with patch.object(stage_wr_loader,"_git_blob",side_effect=[blob,blob]):
-            result=stage_wr_loader.stage_wr_loader("STAGE_5",context)
+            result=stage_wr_loader.load_stage_wr("STAGE_5",context)
         self.assertEqual(result["status"],"PASS")
         self.assertEqual(result["stage1_pinned_git_blob_sha"],blob)
 
     def test_unknown_stage_blocks(self):
         with self.assertRaises(ValueError):
-            stage_wr_loader.stage_wr_loader("STAGE_7")
+            stage_wr_loader.load_stage_wr("STAGE_7")
 
 if __name__=="__main__": unittest.main()
