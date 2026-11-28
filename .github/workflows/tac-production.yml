@@ -133,7 +133,7 @@ jobs:
             test_accept_stage_submission \
             test_production_workflow_structure \
             test_stage2_close_wait \
-            test_stage_wr_preflight \
+            test_stage_wr_loader \
             test_stage2_fedwatch \
             test_homepage_publication_lock \
             test_stage3_calendar_projection \
