@@ -25,10 +25,10 @@ Date-global files in production/input/ are not valid production handoff sources.
 
 ## Submission events and worker behavior
 
-- Stage 2 submission marker: [tac-stage2-submit:<run_id>].
-- Stage 4 submission marker: [tac-stage4-submit:<run_id>].
+- Stage 2 Observation uses the already-running capture job polling the Run-scoped bundle and Stage 2 SUBMITTED state; it does not depend on a push-triggered workflow.
+- Stage 4 submission marker: [tac-stage4-submit:<run_id>], committed with stage4-editorial-content.json after the file is read back. The delivery job then waits for Stage 4 SUBMITTED and matching output SHA.
 - A marker is only a wake-up hint. The authoritative condition is the exact Run state and submitted artifact SHA; duplicate or delayed events must be idempotent.
-- Do not assume a GITHUB_TOKEN push triggers another workflow. Before using push as the continuation mechanism, verify the actual GitHub App / connector token event behavior on an isolated non-production branch. If push events are not emitted, use a supported explicit dispatch mechanism or another approved checkpoint; do not use long polling as a substitute.
+- An isolated refactor-branch test confirmed that a GitHub connector content push triggers the configured GitHub Actions push workflow. Stage 4 uses that exact Run-scoped content commit plus marker as its wake-up event. The build job must still poll briefly for the subsequent Stage 4 SUBMITTED state commit and exact content SHA. Do not assume GitHub Actions GITHUB_TOKEN pushes trigger another push workflow; Stage 6 uses explicit Pages workflow_dispatch and Chart 3 uses workflow_run.
 - A worker that finds its prerequisite absent records or returns DEFERRED and exits without creating a Run, changing another Run, disabling itself, or treating the absence as a market-data failure.
 - On receive, validate run_id, report_date, schema, state_version, receipt SHA and required fields. Never use a same-named artifact from a different Run.
 - Downstream consumers cannot promote PENDING/MISSING/TOOL_READ_FAILURE/SOURCE_NO_DATA to VERIFIED. Preserve uncertainty.
