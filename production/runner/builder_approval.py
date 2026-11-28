@@ -52,6 +52,7 @@ GOVERNANCE_PATHS=(
  "production/runner/build_stage2_receipt.py",
  "production/runner/validate_stage2_run_handoff.py",
  "production/runner/test_stage2_run_handoff.py",
+ "production/runner/test_main_workflow_contract.py",
  "production/runner/test_create_run_fixture.py",
  "production/runner/build_market_source_verification_manifest.py",
  "production/runner/validate_market_snapshot.py",
