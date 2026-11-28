@@ -220,8 +220,8 @@ def main():
     require_stage_wr_receipt(stage3_receipt,"STAGE_3",context)
     if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
         raise ValueError("Stage 2 receipt Run ID/status does not match this Run")
-    if stage2_receipt.get("workflow_run_id")!=context.get("workflow_run_id"):
-        raise ValueError("Stage 2 receipt workflow_run_id does not match the Stage 1 Run context")
+    if stage2_receipt.get("workflow_run_id")!=state.get("workflow_run_id"):
+        raise ValueError("Stage 2 receipt workflow_run_id does not match the current Run workflow attempt")
     if stage3_receipt.get("run_id")!=context.get("run_id") or stage3_receipt.get("status")!="PASS":
         raise ValueError("Stage 3 receipt run identity/status mismatch")
     content_path=Path(args.content) if args.content else run_dir/"stage4-editorial-content.json"
