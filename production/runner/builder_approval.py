@@ -10,7 +10,7 @@ APPROVAL_PATH=ROOT/"production/config/builder-approval.json"
 BUILDER_PATH="production/runner/build_review_html.py"
 GOVERNANCE_PATHS=(
  "production/MASTER_WR.md",
- "production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md",
+ "production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md",
  "production/stages/STAGE_1_CONTEXT.md",
  "production/stages/STAGE_2_MARKET.md",
  "production/stages/STAGE_3_CALENDAR.md",
