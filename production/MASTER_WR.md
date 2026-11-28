@@ -22,13 +22,11 @@ main 唯一生產規範：本文件；六份 Stage WR 與 contracts 為本文件
 Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Stage 3 行事曆與財報 → Stage 4 新聞與市場分析 → Stage 5 唯一 HTML Builder 與 QA → Stage 6 main/preview 審核版交付與驗證。
 六階段是同一條流程，不是六次獨立審批。每階段保留必要輸入、輸出與交接，不重複建立等價收據或重抓已鎖定資料。Stage 1 必須先建立並提交當日 Run；Stage 2 worker 只有在讀取該 Run 的 run-context、fixture 與 Stage 1 receipt 後才可擷取。Stage 2 不得在 Stage 1 前預擷取。
 
-## 2A. 六階段強制 WR 開工前讀取
-- 六個 Stage 一律先讀取自己的完整 Stage WR，後執行本階段工作；不得只依賴 MASTER_WR 摘要、前次對話記憶、Workflow step 名稱或 Runner 註解。
-- 唯一執行器為 `production/runner/stage_wr_preflight.py`；各 Stage 入口必須先呼叫對應 Stage key。Stage 1 讀取自身 WR 並留存證據；Stage 2–6 另核對 Stage 1 governance snapshot 中該 WR 的 Git blob SHA。
-- Preflight 必須讀取完整 UTF-8 文件、確認非空、計算 SHA-256 並核對 Git blob。缺失、讀取失敗、未鎖定、版本漂移或收據缺少 `wr_preflight` 均 FAIL-CLOSED，不得開始或宣告完成。
-- Stage 4 編輯工作者在撰寫內容前，必須先完整讀取當次 Run 鎖定的 Stage 4 WR；編輯 JSON 必須回填精確 `stage4_wr_sha256`，Runner 逐位元組驗證。不得以摘要、前次對話或 Runner 事後讀取取代編輯工作者開工前讀取。
-- 每階段收據必須記錄 WR 路徑、完整讀取狀態、SHA-256、Git blob SHA、Stage 1 pinned SHA 及讀取位元組數。無證據不得 PASS。
-- 下游 Stage 必須驗證所有直接上游 receipt 的 `wr_preflight` 證據：Stage 2 驗 Stage 1；Stage 3 驗 Stage 2；Stage 4 驗 Stage 2、3；Stage 5 驗 Stage 2–4；Stage 6 驗 Stage 5。路徑、Stage key、Git blob SHA、Stage 1 pinned commit 任一缺漏或不符即拒絕交接。
+## 2A. Stage WR 讀取與交接原則
+- Stage 1–4 開工前各自完整讀取自己的 Stage WR，確認可讀後立即執行工作。
+- Stage 1–4 不做跨階段 WR SHA pinning、Preflight receipt、worker attestation 或上游 WR receipt 驗證。
+- Stage 1–4 的交接以同一 Run 及實際工作成果為準；不得因缺少重複證明而阻塞下一階段。
+- Stage 5 執行完整 QA；Stage 6 依 Stage 5 結果交付審核版。Stage 5–6 保留各自真正需要的 QA 與交付條件。
 
 ## 3. 唯一正式母版規則
 - 正式早報製作日為台灣週二至週六；週一、週日不自動製作。
