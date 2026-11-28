@@ -195,9 +195,6 @@ def main():
         cnn_observation.write_text(json.dumps({
             "schema_version":"1.0", "run_id":context["run_id"],
             "report_date":report_date, "trading_date":context["trading_date"],
-            "stage1_receipt_sha256":handoff["stage1_receipt_sha256"],
-            "run_context_sha256":handoff["run_context_sha256"],
-            "stage1_fixture_sha256":handoff["stage1_fixture_sha256"],
             "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
         },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     # Re-run the handoff gate after creating the optional empty CNN packet so
@@ -209,7 +206,7 @@ def main():
         "--input",str(web_bundle.relative_to(ROOT)),
         "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
         "--output",str(observations_path.relative_to(ROOT))])
-    input_mode="RUN_SCOPED_SHA_BOUND_CHATGPT_WEB_OBSERVATIONS"
+    input_mode="RUN_SCOPED_CHATGPT_WEB_OBSERVATIONS"
     audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--output",str(audit_path.relative_to(ROOT))])
