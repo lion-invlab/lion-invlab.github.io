@@ -14,7 +14,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from run_state import transition_state, validate_state
+from run_state import transition_state, validate_state, write_state_atomic
 from stage_wr_preflight import stage_wr_preflight
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -35,28 +35,6 @@ def read_json(path: Path) -> dict:
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def write_state_atomic(path: Path, state: dict) -> None:
-    if path.is_symlink():
-        raise ValueError("run-state.json must not be a symlink")
-    raw = (json.dumps(state, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    temp = path.with_name(".run-state.json.tmp")
-    if temp.exists() or temp.is_symlink():
-        temp.unlink()
-    with temp.open("xb") as handle:
-        handle.write(raw)
-        handle.flush()
-        os.fsync(handle.fileno())
-    os.replace(temp, path)
-    try:
-        fd = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(fd)
-        finally:
-            os.close(fd)
-    except OSError:
-        pass
 
 
 def _transition_to_submitted(state: dict, stage: str, context: dict,
