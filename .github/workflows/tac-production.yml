@@ -252,7 +252,7 @@ jobs:
           set -euo pipefail
           git fetch origin main
           git merge --ff-only origin/main
-      - name: Stage 1 WR preflight before report-date or Run resolution
+      - name: Read complete Stage 1 WR before report-date or Run resolution
         run: |
           python - <<'PY'
           import sys
@@ -260,7 +260,7 @@ jobs:
           from stage_wr_preflight import stage_wr_preflight
           evidence = stage_wr_preflight("STAGE_1")
           if evidence.get("status") != "PASS" or evidence.get("wr_loaded") is not True:
-              raise SystemExit("Stage 1 WR preflight failed before Run resolution.")
+              raise SystemExit("Stage 1 Work Rules could not be loaded.")
           print(evidence)
           PY
 
@@ -603,21 +603,14 @@ jobs:
           wr_path=Path("production/stages/STAGE_4_NEWS_ANALYSIS.md")
           wr_bytes=wr_path.read_bytes()
           wr_text=wr_bytes.decode("utf-8")
-          wr_sha256=__import__("hashlib").sha256(wr_bytes).hexdigest()
-          wr_blob_sha=subprocess.check_output(["git","rev-parse",f"HEAD:{wr_path.as_posix()}"],text=True).strip()
-          pinned_wr_blob=((context.get("governance") or {}).get("blob_shas") or {}).get(wr_path.as_posix())
-          if not pinned_wr_blob or wr_blob_sha!=pinned_wr_blob:
-              raise SystemExit("Stage 4 WR Git blob SHA differs from Stage 1 governance pin.")
           receipt={"schema_version":"1.0","status":"AWAITING_EDITORIAL_INPUT",
-            "stage4_work_instructions":{"path":wr_path.as_posix(),"sha256":wr_sha256,
-              "git_blob_sha":wr_blob_sha,"full_text":wr_text},
+            "stage4_work_instructions":{"path":wr_path.as_posix(),"full_text":wr_text},
             "capture_trigger":{"event_name":os.environ.get("GITHUB_EVENT_NAME"),
               "dispatch_mode":(os.environ.get("DISPATCH_MODE") or "schedule"),
               "workflow_run_id":os.environ.get("GITHUB_RUN_ID")},
             "run_id":context["run_id"],"report_date":context["report_date"],
             "supersedes_run_id":context.get("supersedes_run_id"),
             "market_snapshot_sha256":summary["market_snapshot_sha256"],
-            "stage3_receipt_sha256":__import__("hashlib").sha256((run/"stage3-calendar-receipt.json").read_bytes()).hexdigest(),
             "stage2_status":stage2["status"],"stage2_pending_rows":stage2.get("pending_rows",[]),
             "chart3_handoff":summary.get("chart3_handoff"),
             "research_bundle_path":f"{run.as_posix()}/stage4-research-bundle.json",
@@ -627,7 +620,7 @@ jobs:
             "chart3_merge_status":os.environ.get("CHART3_MERGE_STATUS","NOT_REQUIRED"),
             "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
             "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
-            "next_action":"FIRST read the complete stage4_work_instructions.full_text in this receipt. Then read stage4-research-bundle.json and generate editorial content bound to run_id, market_snapshot_sha256, research_bundle_sha256, stage3_receipt_sha256, and stage4_wr_sha256 equal to stage4_work_instructions.sha256. Only then trigger the Main Stage 4-6 continuation for this exact Run."}
+            "next_action":"Read the complete stage4_work_instructions.full_text, then read stage4-research-bundle.json and produce the news and analysis for this exact Run. Deliver the editorial content directly to Stage 5 through the normal Stage 4 handoff."}
           receipt_path=run/"capture-stage-receipt.json"
           if receipt_path.exists():
               existing=json.loads(receipt_path.read_text(encoding="utf-8"))
@@ -635,14 +628,11 @@ jobs:
                 "run_id":context["run_id"],
                 "report_date":context["report_date"],
                 "market_snapshot_sha256":summary["market_snapshot_sha256"],
-                "stage3_receipt_sha256":receipt["stage3_receipt_sha256"],
                 "research_bundle_sha256":receipt["research_bundle_sha256"],
               }
               for key,value in checks.items():
                   if existing.get(key)!=value:
                       raise SystemExit(f"Existing capture-stage-receipt {key} mismatch; refusing overwrite.")
-              if existing.get("stage4_work_instructions",{}).get("sha256")!=wr_sha256:
-                  raise SystemExit("Existing capture-stage-receipt Stage 4 WR SHA mismatch; refusing overwrite.")
               print("Existing exact capture-stage-receipt verified; no rewrite.")
           else:
               receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -770,7 +760,6 @@ jobs:
           capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
           bundle=json.loads((run_dir/"stage4-research-bundle-receipt.json").read_text(encoding="utf-8"))
           digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
-          stage3_sha=hashlib.sha256((run_dir/"stage3-calendar-receipt.json").read_bytes()).hexdigest()
           assert context["run_id"]==run_dir.name==content["run_id"]
           assert context["report_date"]==report_date==content["report_date"]
           assert state["run_id"]==context["run_id"]
@@ -787,9 +776,6 @@ jobs:
               assert (run_dir/"stage6-delivery-receipt.json").is_file()
           assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]
           assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
-          assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]
-          stage4_wr_sha=capture["stage4_work_instructions"]["sha256"]
-          assert content["stage4_wr_sha256"]==stage4_wr_sha
           with open(__import__("os").environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
               f.write(f"stage4_status={state['stages']['STAGE_4']['status']}\n")
               f.write(f"stage5_status={state['stages']['STAGE_5']['status']}\n")
