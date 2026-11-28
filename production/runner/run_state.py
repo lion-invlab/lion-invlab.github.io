@@ -106,6 +106,8 @@ def _derive(state: dict) -> None:
     failed = [s for s in STAGES if stages[s]["status"] == "FAILED"]
     state["current_stage"] = active[0] if active else (failed[0] if failed else None)
     if stages["STAGE_6"]["status"] == "PASS":
+        if stages["STAGE_2"]["status"] != "PASS" or stages["STAGE_5"]["status"] != "PASS":
+            raise ValueError("Stage 6 delivery requires complete Stage 2 and Stage 5 PASS")
         state["overall_status"] = "AWAITING_APPROVAL"
     elif any(stages[s]["status"] == "FAILED" for s in STAGES):
         state["overall_status"] = "FAILED"
@@ -234,8 +236,8 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
     dependencies = {
         "STAGE_3": {"STAGE_2": {"PASS", "PARTIAL"}},
         "STAGE_4": {"STAGE_3": {"PASS"}},
-        "STAGE_5": {"STAGE_4": {"PASS"}},
-        "STAGE_6": {"STAGE_5": {"PASS"}},
+        "STAGE_5": {"STAGE_2": {"PASS"}, "STAGE_4": {"PASS"}},
+        "STAGE_6": {"STAGE_2": {"PASS"}, "STAGE_5": {"PASS"}},
     }
     for downstream, requirements in dependencies.items():
         downstream_status = stages[downstream]["status"]
@@ -243,7 +245,8 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
             for upstream, allowed_statuses in requirements.items():
                 upstream_status = stages[upstream]["status"]
                 skipped_after_partial = downstream == "STAGE_6" and downstream_status == "SKIPPED" and upstream_status == "PARTIAL"
-                if upstream_status not in allowed_statuses and not skipped_after_partial:
+                stage5_partial = downstream == "STAGE_5" and downstream_status == "PARTIAL" and upstream == "STAGE_2" and upstream_status == "PARTIAL"
+                if upstream_status not in allowed_statuses and not skipped_after_partial and not stage5_partial:
                     raise ValueError(f"{downstream} cannot advance before {upstream} reaches {sorted(allowed_statuses)}")
     if stages["STAGE_5"]["status"] == "PARTIAL" and stages["STAGE_6"]["status"] != "SKIPPED":
         raise ValueError("Stage 5 PARTIAL must explicitly skip Stage 6")
