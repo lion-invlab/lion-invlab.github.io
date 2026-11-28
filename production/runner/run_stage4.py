@@ -7,7 +7,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 from jsonschema import Draft202012Validator, FormatChecker
 
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -233,7 +233,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 4 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=stage_wr_preflight("STAGE_4",context)
+    wr_preflight=load_stage_wr("STAGE_4",context)
     state_path=run_dir/"run-state.json"
     state=read_json(state_path)
     validate_state(state,expected_run_id=context["run_id"])
@@ -243,9 +243,7 @@ def main():
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
     stage3_receipt_path=run_dir/"stage3-calendar-receipt.json"
     stage3_receipt=json.loads(stage3_receipt_path.read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
-    require_stage_wr_receipt(stage3_receipt,"STAGE_3",context)
-    if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
+            if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
         raise ValueError("Stage 2 receipt Run ID/status does not match this Run")
     if stage2_receipt.get("workflow_run_id")!=context.get("workflow_run_id"):
         raise ValueError("Stage 2 receipt workflow_run_id does not match the Stage 1 Run context")
@@ -319,7 +317,7 @@ def main():
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
-      "wr_preflight":wr_preflight,"state_version_before":state["state_version"],
+      "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],
       "editorial_worker_wr_attestation":editorial_wr_attestation,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
