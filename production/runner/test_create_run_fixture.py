@@ -64,6 +64,27 @@ class RunFixtureFactoryTests(unittest.TestCase):
         result=build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26),supersedes_run_id="TAC-2026-11-27-old-1")
         self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
 
+    def test_legacy_runs_are_recorded_but_never_reused_or_mutated(self):
+        import json, tempfile
+        from pathlib import Path
+        import create_run_fixture as factory
+        with tempfile.TemporaryDirectory() as tmp:
+            runs_root=Path(tmp)
+            legacy=runs_root/"TAC-2026-11-27-legacy-1"
+            legacy.mkdir()
+            (legacy/"run-context.json").write_text(json.dumps({"run_id":legacy.name}),encoding="utf-8")
+            protected=legacy/"stage1-fixture.json"
+            protected.write_text("LEGACY DATA MUST NOT BE READ OR REUSED",encoding="utf-8")
+            original_runs=factory.RUNS
+            factory.RUNS=runs_root
+            try:
+                result=factory.build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26))
+            finally:
+                factory.RUNS=original_runs
+            self.assertEqual(result["run_context"]["legacy_prior_run_ids"],[legacy.name])
+            self.assertEqual(protected.read_text(encoding="utf-8"),"LEGACY DATA MUST NOT BE READ OR REUSED")
+            self.assertFalse((legacy/"run-state.json").exists())
+
     def test_workflow_retry_attempt_does_not_change_run_id(self):
         self.assertEqual(stable_run_id(date(2026,11,30),"46069359215"),"TAC-2026-11-30-46069359215")
         self.assertEqual(stable_run_id(date(2026,11,30),"TAC-2026-11-30-46069359215"),"TAC-2026-11-30-46069359215")
