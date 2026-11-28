@@ -362,7 +362,8 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
           echo "SUPERSEDES_RUN_ID=$SUPERSEDES_RUN_ID" >> "$GITHUB_ENV"
-      - name: Stage 1 — create a fresh blank-first Run
+          echo "RESUME_EXISTING=$RESUME_EXISTING" >> "$GITHUB_ENV"
+      - name: Stage 1 — create or resume the exact Run
         run: |
           set -euo pipefail
           if [ "$RESUME_EXISTING" = "true" ]; then
