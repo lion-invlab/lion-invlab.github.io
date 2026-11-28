@@ -430,66 +430,41 @@ jobs:
         run: |
           python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
           python -m playwright install --with-deps chromium
-      - name: Wait for exact Stage 2 worker handoff
+      - name: Wait for exact Run-scoped Stage 2 worker handoff
         if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         shell: bash
         run: |
           set -euo pipefail
-          # Stage 1 starts at 15:45 ET; the Stage 2 worker is scheduled at 16:00 ET.
-          # Do not spend the worker's 15-minute handoff window before it wakes.
-          while [ "$(TZ=America/New_York date +%H%M)" -lt 1600 ]; do
-            sleep 15
-          done
-          echo "Stage 2 worker window opened at $(TZ=America/New_York date --iso-8601=seconds)"
           OBSERVATION_PATH="$RUN_DIR/market-history-web-observations.json"
           FOUND=false
           for attempt in $(seq 1 30); do
             git fetch origin main
-            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null && git cat-file -e "origin/main:$RUN_DIR/run-state.json" 2>/dev/null; then
-              git merge --ff-only origin/main
-              if python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
-          import hashlib,json,sys
-          from pathlib import Path
-          run=Path(sys.argv[1]); observation=Path(sys.argv[2])
-          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
-          digest=hashlib.sha256(observation.read_bytes()).hexdigest()
-          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
-              raise SystemExit(1)
-          if state["stages"]["STAGE_2"].get("output_sha256")!=digest:
-              raise SystemExit(1)
-          PY
-              then
-                FOUND=true
-                break
-              fi
+            git merge --ff-only origin/main
+            if git cat-file -e "HEAD:$OBSERVATION_PATH" 2>/dev/null; then
+              python production/runner/accept_stage_submission.py --run-dir "$RUN_DIR" --stage STAGE_2
+              FOUND=true
+              break
             fi
             sleep 30
           done
-          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the current-Run observation bundle within 15 minutes."; exit 1; }
-          python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
-          import hashlib, json, subprocess, sys
-          from pathlib import Path
-          run=Path(sys.argv[1]); observation=Path(sys.argv[2])
-          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
-          payload=json.loads(observation.read_text(encoding="utf-8"))
-          receipt_sha=hashlib.sha256((run/"stage1-receipt.json").read_bytes()).hexdigest()
-          context_sha=hashlib.sha256((run/"run-context.json").read_bytes()).hexdigest()
-          fixture_sha=hashlib.sha256((run/"stage1-fixture.json").read_bytes()).hexdigest()
-          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
-          expected={"run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
-            "stage1_receipt_sha256":receipt_sha,"run_context_sha256":context_sha,"stage1_fixture_sha256":fixture_sha}
-          for key,value in expected.items():
-            if payload.get(key)!=value: raise SystemExit(f"Stage 2 handoff {key} does not match Stage 1 output")
-          pinned_wr=subprocess.check_output(["git","show",f"{context['main_commit_sha']}:production/stages/STAGE_2_MARKET.md"])
-          pinned_wr_sha=hashlib.sha256(pinned_wr).hexdigest()
-          if payload.get("stage2_wr_sha256") != pinned_wr_sha:
-            raise SystemExit("Stage 2 handoff WR SHA differs from Stage 1 pinned Stage 2 WR")
-          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
-            raise SystemExit("Stage 2 state is not SUBMITTED")
-          if state["stages"]["STAGE_2"].get("output_sha256")!=hashlib.sha256(observation.read_bytes()).hexdigest():
-            raise SystemExit("Stage 2 state submission SHA does not match observation file")
-          print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
-          PY
+          test "$FOUND" = true || { echo "::error::Stage 2 worker did not publish the exact Run-scoped observation bundle within 15 minutes."; exit 1; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR/run-state.json"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(tac): accept Stage 2 Run-bound worker handoff $RUN_ID"
+            git fetch origin main
+            git rebase origin/main
+            PUSHED=false
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:main; then PUSHED=true; break; fi
+              git fetch origin main
+              git rebase origin/main
+            done
+            test "$PUSHED" = true
+            git fetch origin main
+            git merge --ff-only origin/main
+          fi
       - name: Stage 2 — validate and freeze 44 market indicators
         if: ${{ steps.run-state.outputs.stage2_status != 'PASS' && steps.run-state.outputs.stage2_status != 'PARTIAL' }}
         run: |
@@ -679,7 +654,7 @@ jobs:
           python -m playwright install --with-deps chromium
           npm install --no-save playwright
           npx playwright install chromium
-      - name: Resolve exact Run and wait for Stage 4 submission
+      - name: Resolve exact Run and accept Stage 4 worker submission
         id: resolve
         shell: bash
         env:
@@ -698,29 +673,31 @@ jobs:
           for attempt in $(seq 1 30); do
             git fetch origin main
             git merge --ff-only origin/main
-            if [ -s "$CONTENT_FILE" ] && [ -s "$RUN_DIR/run-state.json" ] && python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
-          import hashlib,json,sys
-          from pathlib import Path
-          content_path=Path(sys.argv[1]); run=Path(sys.argv[2]); report_date=sys.argv[3]
-          content=json.loads(content_path.read_text(encoding="utf-8"))
-          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
-          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
-          digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
-          if context.get("run_id")!=run.name or context.get("report_date")!=report_date: raise SystemExit(1)
-          if content.get("run_id")!=run.name or content.get("report_date")!=report_date: raise SystemExit(1)
-          stage4=state.get("stages",{}).get("STAGE_4",{})
-          if stage4.get("status")=="SUBMITTED" and stage4.get("output_sha256")==digest: raise SystemExit(0)
-          if stage4.get("status")=="PASS" and stage4.get("input_sha256")==digest: raise SystemExit(0)
-          raise SystemExit(1)
-          PY
-            then
+            if [ -s "$CONTENT_FILE" ]; then
+              python production/runner/accept_stage_submission.py --run-dir "$RUN_DIR" --stage STAGE_4
               READY=true
               break
             fi
             sleep 30
           done
-          test "$READY" = true
-          for file in run-context.json run-state.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
+          test "$READY" = true || { echo "::error::Stage 4 worker did not publish the exact Run-scoped editorial artifact within 15 minutes."; exit 1; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$RUN_DIR/run-state.json"
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(tac): accept Stage 4 Run-bound worker handoff $RUN_ID"
+            git fetch origin main
+            git rebase origin/main
+            PUSHED=false
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:main; then PUSHED=true; break; fi
+              git fetch origin main
+              git rebase origin/main
+            done
+            test "$PUSHED" = true
+            git fetch origin main
+            git merge --ff-only origin/main
+          fi
           python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
           import hashlib,json,sys
           from pathlib import Path
