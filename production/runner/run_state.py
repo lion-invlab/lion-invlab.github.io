@@ -55,7 +55,7 @@ def _empty_stage(status: str = "NOT_STARTED") -> dict:
     }
 
 
-def initial_run_state(context: dict, stage1_receipt: dict, now: str | None = None) -> dict:
+def initial_run_state(context: dict, stage1_receipt: dict, stage1_receipt_sha256: str, now: str | None = None) -> dict:
     """Create the one authoritative state file when Stage 1 commits its Run."""
     run_id = context.get("run_id")
     if not isinstance(run_id, str) or not run_id:
@@ -64,6 +64,8 @@ def initial_run_state(context: dict, stage1_receipt: dict, now: str | None = Non
         raise ValueError("Stage 1 receipt run_id differs from run-context")
     if stage1_receipt.get("status") != "PASS":
         raise ValueError("Stage 1 state can only be initialized from a PASS receipt")
+    if not isinstance(stage1_receipt_sha256, str) or len(stage1_receipt_sha256) != 64:
+        raise ValueError("Stage 1 receipt SHA-256 is required to initialize run-state")
     timestamp = now or utc_now()
     stages = {key: _empty_stage() for key in STAGES}
     stages["STAGE_1"] = {
@@ -72,7 +74,7 @@ def initial_run_state(context: dict, stage1_receipt: dict, now: str | None = Non
         "started_at": context.get("started_at") or timestamp,
         "completed_at": timestamp,
         "input_sha256": None,
-        "output_sha256": stage1_receipt.get("run_context_sha256"),
+        "output_sha256": stage1_receipt_sha256,
         "receipt_path": f"production/runs/{run_id}/stage1-receipt.json",
     }
     stages["STAGE_2"]["status"] = "READY"
@@ -100,8 +102,9 @@ def _derive(state: dict) -> None:
     stages = state["stages"]
     passed = [s for s in STAGES if stages[s]["status"] == "PASS"]
     state["last_passed_stage"] = passed[-1] if passed else None
-    active = [s for s in STAGES if stages[s]["status"] in ACTIVE_STAGE or stages[s]["status"] in {"FAILED", "PARTIAL"}]
-    state["current_stage"] = active[0] if active else None
+    active = [s for s in STAGES if stages[s]["status"] in ACTIVE_STAGE]
+    failed = [s for s in STAGES if stages[s]["status"] == "FAILED"]
+    state["current_stage"] = active[0] if active else (failed[0] if failed else None)
     if stages["STAGE_6"]["status"] == "PASS":
         state["overall_status"] = "AWAITING_APPROVAL"
     elif any(stages[s]["status"] == "FAILED" for s in STAGES):
@@ -221,6 +224,25 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
     stages = state.get("stages")
     if not isinstance(stages, dict) or set(stages) != set(STAGES):
         raise ValueError("run-state must contain exactly six canonical stages")
+    if stages["STAGE_1"]["status"] != "PASS":
+        raise ValueError("Stage 1 must remain PASS for every initialized Run")
+    partial_stages = [s for s in STAGES if stages[s]["status"] == "PARTIAL"]
+    if any(s not in {"STAGE_2", "STAGE_5"} for s in partial_stages):
+        raise ValueError("Only Stage 2 and Stage 5 may be PARTIAL")
+    dependencies = {
+        "STAGE_3": {"STAGE_2": {"PASS", "PARTIAL"}},
+        "STAGE_4": {"STAGE_3": {"PASS"}},
+        "STAGE_5": {"STAGE_4": {"PASS"}},
+        "STAGE_6": {"STAGE_5": {"PASS"}},
+    }
+    for downstream, requirements in dependencies.items():
+        downstream_status = stages[downstream]["status"]
+        if downstream_status != "NOT_STARTED":
+            for upstream, allowed_statuses in requirements.items():
+                if stages[upstream]["status"] not in allowed_statuses:
+                    raise ValueError(f"{downstream} cannot advance before {upstream} reaches {sorted(allowed_statuses)}")
+    if stages["STAGE_5"]["status"] == "PARTIAL" and stages["STAGE_6"]["status"] != "SKIPPED":
+        raise ValueError("Stage 5 PARTIAL must explicitly skip Stage 6")
     running = []
     for stage in STAGES:
         item = stages[stage]
@@ -240,3 +262,6 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
         raise ValueError("run-state current_stage is invalid")
     if state.get("last_passed_stage") not in set(STAGES) | {None}:
         raise ValueError("run-state last_passed_stage is invalid")
+    expected_passed = [s for s in STAGES if stages[s]["status"] == "PASS"]
+    if state.get("last_passed_stage") != (expected_passed[-1] if expected_passed else None):
+        raise ValueError("run-state last_passed_stage does not match stage receipts")
