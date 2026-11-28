@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """Per-Run stage state machine for TAC Main production.
 
-This module is deliberately storage-agnostic. The caller must persist the
-returned state with compare-and-swap semantics (GitHub Contents API expected
-blob SHA, or a fast-forward-only git push from the observed main HEAD).
+This module is deliberately storage-agnostic. Main production uses one
+serialized GitHub Actions workflow as the sole run-state.json writer.
+ChatGPT workers submit Run-scoped artifacts only; the workflow validates
+those artifacts and performs state transitions before invoking the stage
+runner. Git persistence must remain serialized and fast-forward-only; if a
+second state writer is ever introduced, compare-and-swap against the observed
+state blob SHA becomes mandatory.
 """
 from __future__ import annotations
 
