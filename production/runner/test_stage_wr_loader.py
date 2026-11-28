@@ -32,6 +32,18 @@ class StageWRLoaderTests(unittest.TestCase):
         self.assertNotIn("wr_git_blob_sha",result)
         self.assertNotIn("wr_sha256",result)
 
+    def test_executor_receives_complete_wr_text_when_requested(self):
+        with patch.object(stage_wr_loader,"_git_blob",side_effect=AssertionError("must not call git")):
+            result=stage_wr_loader.load_stage_wr("STAGE_3",include_rules_text=True)
+        self.assertEqual(result["rules_text"],self.raw.decode("utf-8"))
+        self.assertEqual(result["wr_bytes_read"],len(self.raw))
+        self.assertNotIn("wr_sha256",result)
+
+    def test_default_metadata_does_not_claim_execution_compliance(self):
+        result=stage_wr_loader.load_stage_wr("STAGE_3")
+        self.assertNotIn("rules_text",result)
+        self.assertNotIn("rules_compliant",result)
+
     def test_missing_wr_blocks_work(self):
         (self.root/self.rel).unlink()
         with self.assertRaises(SystemExit):
