@@ -113,8 +113,10 @@ class RunStateTests(unittest.TestCase):
                      lease_owner="github-stage5", lease_expires_at="2026-11-28T00:45:00Z")
         state = step(state, "STAGE_5", "RUNNING", "PASS",
                      receipt_path="stage5-receipt.json", output_sha256="2" * 64)
+        self.assertEqual(state["overall_status"], "REVIEW_READY")
         state = step(state, "STAGE_6", "READY", "RUNNING",
                      lease_owner="github-stage6", lease_expires_at="2026-11-28T01:00:00Z")
+        self.assertEqual(state["overall_status"], "RUNNING")
         state = step(state, "STAGE_6", "RUNNING", "PASS",
                      receipt_path="stage6-delivery-receipt.json", output_sha256="3" * 64)
         self.assertEqual(state["overall_status"], "AWAITING_APPROVAL")
