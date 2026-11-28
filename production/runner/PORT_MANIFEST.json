@@ -348,12 +348,6 @@
       "status": "MAIN_NATIVE_STAGE1_FACTORY"
     },
     {
-      "path": "production/runner/validate_stage2_run_handoff.py",
-      "purpose": "Fail-closed Run ID, Stage 1 receipt/run-context/immutable fixture SHA and exact 44-row handoff validator; optional CNN/screenshot bundles are Run-bound",
-      "main_blob_sha": "ee3c61cedb04bdd6d7e028aa93012e76fe741b6f",
-      "status": "TESTED_NOT_YET_WIRED_INTO_RUN_STAGE2"
-    },
-    {
       "path": "production/runner/test_stage2_chart3_guard.py",
       "purpose": "Verify verified S&P 500 is preserved as a Run-scoped candidate and not appended by the unapproved R3 writer",
       "main_blob_sha": "ec9bd33ab086225cde2265bf0b0269db72cc0a7c",
