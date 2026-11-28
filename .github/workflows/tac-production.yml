@@ -306,20 +306,23 @@ jobs:
                   validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
                   print("")
                   sys.exit(0)
+              stateful=[p for p in matches if (p/"run-state.json").is_file()]
+              if not stateful:
+                  if mode=="recover":
+                      raise SystemExit("No stateful Run exists to recover; legacy Runs are read-only and never reused.")
+                  print("")
+                  sys.exit(0)
               if mode not in ("recover","rerun"):
-                  raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
+                  raise SystemExit(f"A stateful Run already exists for {target}; explicit recover/rerun mode is required.")
               if mode == "recover":
                   eligible=[]
-                  for candidate in matches:
-                      state_path=candidate/"run-state.json"
-                      if not state_path.is_file():
-                          continue
-                      state=json.loads(state_path.read_text(encoding="utf-8"))
+                  for candidate in stateful:
+                      state=json.loads((candidate/"run-state.json").read_text(encoding="utf-8"))
                       validate_state(state,expected_run_id=candidate.name)
                       if state.get("overall_status") not in ("RUNNING","PARTIAL","FAILED"):
                           continue
                       stages=state.get("stages") or {}
-                      if stages.get("STAGE_5",{}).get("status")=="PASS" or stages.get("STAGE_6",{}).get("status")=="PASS":
+                      if stages.get("STAGE_5",{}).get("status") in ("PASS","PARTIAL") or stages.get("STAGE_6",{}).get("status")=="PASS":
                           continue
                       preview=[Path("preview")/f"{target}-review.html",Path("preview")/f"{target}-review.qa.json",Path("preview")/f"{target}-review.delivery.json"]
                       if any(path.exists() for path in preview):
@@ -328,15 +331,6 @@ jobs:
                   if len(eligible)!=1:
                       raise SystemExit(f"Recovery requires exactly one valid unfinished Run with run-state; found {len(eligible)}.")
                   prior=eligible[0]
-              else:
-                  prior=matches[-1]
-              if mode == "rerun":
-                  if len(matches) != 1:
-                      raise SystemExit(f"Explicit rerun requires exactly one prior Run; found {len(matches)}.")
-                  expected={"2026-11-27":"TAC-2026-11-27-45937649928-1"}
-                  if expected.get(target) != prior.name:
-                      raise SystemExit(f"Explicit rerun is not authorized for this report date/prior Run: {target} / {prior.name}")
-              else:
                   delivered_files=[
                       Path("preview")/f"{target}-review.html",
                       Path("preview")/f"{target}-review.qa.json",
@@ -346,6 +340,10 @@ jobs:
                       or (prior/"stage6-delivery-receipt.json").exists()
                       or any(path.exists() for path in delivered_files)):
                       raise SystemExit(f"Prior Run {prior.name} has Stage 5/6 or Preview evidence; recover is prohibited.")
+              else:
+                  if len(stateful)!=1:
+                      raise SystemExit(f"Explicit rerun requires exactly one stateful prior Run; found {len(stateful)}.")
+                  prior=stateful[0]
               supersedes=prior.name
           print(supersedes)
           PY
