@@ -157,7 +157,7 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         full_wr_text = "complete Stage 4 WR test text"
         wr4 = {"status": "PASS", "wr_sha256": hashlib.sha256(full_wr_text.encode()).hexdigest(),
                "wr_git_blob_sha": "d"*40}
-        put(self.run / "capture-stage-receipt.json", {
+        put(self.run / "stage4-work-instructions.json", {
             "status": "AWAITING_EDITORIAL_INPUT", "run_id": self.context["run_id"],
             "report_date": self.context["report_date"],
             "stage4_work_instructions": {
@@ -188,7 +188,7 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         full_wr_text = "complete Stage 4 WR test text"
         wr4 = {"status": "PASS", "wr_sha256": hashlib.sha256(full_wr_text.encode()).hexdigest(),
                "wr_git_blob_sha": "d"*40}
-        put(self.run / "capture-stage-receipt.json", {"status": "AWAITING_EDITORIAL_INPUT",
+        put(self.run / "stage4-work-instructions.json", {"status": "AWAITING_EDITORIAL_INPUT",
             "run_id": self.context["run_id"], "report_date": self.context["report_date"],
             "stage4_work_instructions": {"path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
                 "sha256": wr4["wr_sha256"], "git_blob_sha": wr4["wr_git_blob_sha"],
