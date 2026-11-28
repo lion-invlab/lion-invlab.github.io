@@ -46,7 +46,7 @@ def main():
     stage2_receipt_path=run_dir/"stage2-market-snapshot-receipt.json"
     if not stage2_receipt_path.is_file():raise SystemExit("Stage 3 requires the Stage 2 snapshot receipt")
     stage2_receipt=json.loads(stage2_receipt_path.read_text(encoding="utf-8"))
-        if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
+    if stage2_receipt.get("run_id")!=context["run_id"] or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
         raise SystemExit("Stage 3 Stage 2 receipt identity/status does not match the current Run")
     report_date=context["report_date"]
     pinned=context["main_commit_sha"]
