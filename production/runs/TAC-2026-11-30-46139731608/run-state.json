@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "state_version": 8,
+  "state_version": 9,
   "run_id": "TAC-2026-11-30-46139731608",
   "report_date": "2026-11-30",
   "production_date": "2026-11-28",
@@ -8,9 +8,9 @@
   "main_commit_sha": "94dcf0c4a7685861746a914fe035792ea907e2b8",
   "workflow_run_id": "46139731608",
   "created_at": "2026-11-28T11:24:35.327326Z",
-  "updated_at": "2026-11-28T11:33:46.647714Z",
-  "current_stage": "STAGE_4",
-  "last_passed_stage": "STAGE_3",
+  "updated_at": "2026-11-28T11:33:48.132652Z",
+  "current_stage": "STAGE_5",
+  "last_passed_stage": "STAGE_4",
   "overall_status": "RUNNING",
   "stages": {
     "STAGE_1": {
@@ -50,19 +50,19 @@
       "lease_expires_at": null
     },
     "STAGE_4": {
-      "status": "SUBMITTED",
+      "status": "PASS",
       "attempt": 1,
       "started_at": "2026-11-28T11:33:46.647616Z",
-      "completed_at": "2026-11-28T11:33:46.647714Z",
-      "input_sha256": null,
-      "output_sha256": "d4c504da3ce63dc7ab25527c16650aea52591b81304815690f877e586119b00e",
-      "receipt_path": "production/runs/TAC-2026-11-30-46139731608/stage4-editorial-content.json",
+      "completed_at": "2026-11-28T11:33:48.132652Z",
+      "input_sha256": "d4c504da3ce63dc7ab25527c16650aea52591b81304815690f877e586119b00e",
+      "output_sha256": "d8d753b89dc33fbf7ba680d6af4916c7e70dd8e305d9aebbdf390efbf277908f",
+      "receipt_path": "production/runs/TAC-2026-11-30-46139731608/stage4-analysis-receipt.json",
       "error_code": null,
       "lease_owner": null,
       "lease_expires_at": null
     },
     "STAGE_5": {
-      "status": "NOT_STARTED",
+      "status": "READY",
       "attempt": 0,
       "started_at": null,
       "completed_at": null,
