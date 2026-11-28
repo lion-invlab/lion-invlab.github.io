@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 from datetime import date
-from create_run_fixture import build, write_run_files, report_cutoff_taipei, report_target_date, report_template_key, stable_run_id
+from create_run_fixture import build, write_run_files, report_cutoff_taipei, report_target_date, report_template_key, stable_run_id, collect_legacy_prior_run_ids
 
 class RunFixtureFactoryTests(unittest.TestCase):
     def test_creates_fresh_blank_first_44_row_fixture(self):
@@ -63,6 +63,29 @@ class RunFixtureFactoryTests(unittest.TestCase):
     def test_records_explicit_superseded_run_without_mutating_it(self):
         result=build(date(2026,11,27),"TAC-2026-11-27-new-1",date(2026,11,26),supersedes_run_id="TAC-2026-11-27-old-1")
         self.assertEqual(result["run_context"]["supersedes_run_id"],"TAC-2026-11-27-old-1")
+
+    def test_classifies_unstateful_same_date_runs_as_legacy_only(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            legacy=root/"TAC-2026-11-30-legacy-1"
+            legacy.mkdir()
+            (legacy/"run-context.json").write_text("{}",encoding="utf-8")
+            stateful=root/"TAC-2026-11-30-stateful-1"
+            stateful.mkdir()
+            (stateful/"run-context.json").write_text("{}",encoding="utf-8")
+            (stateful/"run-state.json").write_text("{}",encoding="utf-8")
+            current=root/"TAC-2026-11-30-current-1"
+            current.mkdir()
+            (current/"run-context.json").write_text("{}",encoding="utf-8")
+            other=root/"TAC-2026-11-27-legacy-1"
+            other.mkdir()
+            (other/"run-context.json").write_text("{}",encoding="utf-8")
+            self.assertEqual(
+                collect_legacy_prior_run_ids(root,date(2026,11,30),"TAC-2026-11-30-current-1"),
+                ["TAC-2026-11-30-legacy-1"]
+            )
 
     def test_workflow_retry_attempt_does_not_change_run_id(self):
         self.assertEqual(stable_run_id(date(2026,11,30),"46069359215"),"TAC-2026-11-30-46069359215")
