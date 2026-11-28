@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "run_id": "TAC-2026-11-30-46108156744",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "stage1_receipt_sha256": "0f5d7400e12c532e4fd2caa07504b274b8c769d9077e17998611daa5402be3e7",
+  "run_context_sha256": "d4587a1a8b61a2e8517ceac057ef9ef8d1910a066df538c119c994872d6bd37c",
+  "stage1_fixture_sha256": "faf9167a22c374b06684de98213564372367d150ac97bcd3ecb9635160edd068",
+  "captured_at_utc": "2026-11-28T07:24:46Z",
+  "observations": []
+}
