@@ -55,7 +55,7 @@ def validate_research_bundle_binding(content:dict,context:dict,receipt:dict,bund
         raise ValueError("Stage 4 research bundle contents are not bound to the exact Run, dates and market snapshot")
     return {"path":str(bundle_path.relative_to(ROOT)),"sha256":receipt["bundle_sha256"]}
 
-def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)->dict:
+def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_loaded:dict)->dict:
     """Ensure the Stage 4 instruction text is present; no WR hash attestation is required."""
     instructions=capture.get("stage4_work_instructions") or {}
     full_text=instructions.get("full_text")
@@ -265,7 +265,7 @@ def main():
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
     try:
-        editorial_wr_attestation=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
+        stage4_instructions_loaded=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
     except ValueError as exc:
         raise SystemExit(str(exc))
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
@@ -318,7 +318,7 @@ def main():
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
       "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],
-      "editorial_worker_wr_attestation":editorial_wr_attestation,
+      "editorial_stage2_instructions_loaded":editorial_wr_attestation,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
