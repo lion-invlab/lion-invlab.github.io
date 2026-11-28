@@ -6,7 +6,7 @@ import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
-from run_state import transition_state, validate_state
+from run_state import transition_state, validate_state, write_state_atomic
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
@@ -291,7 +291,7 @@ def main():
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),
         input_sha256=web_bundle_sha256,output_sha256=hashlib.sha256(receipt_path.read_bytes()).hexdigest(),
         receipt_path=str(receipt_path.relative_to(ROOT)))
-    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    write_state_atomic(state_path,state)
     summary["run_state"]={"state_version":state["state_version"],"stage2_status":state["stages"]["STAGE_2"]["status"],"next_stage":state["current_stage"]}
     summary["outputs"]["run-state.json"]={"path":str(state_path.relative_to(ROOT)),"sha256":hashlib.sha256(state_path.read_bytes()).hexdigest()}
     summary_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
