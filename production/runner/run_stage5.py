@@ -17,7 +17,9 @@ def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
 def write_state_json(path:Path,state:dict)->None:
     raw=json.dumps(state,ensure_ascii=False,indent=2)+"\n"
     json.loads(raw)
-    path.write_text(raw,encoding="utf-8")
+    temp=path.with_name(path.name+".tmp")
+    temp.write_text(raw,encoding="utf-8")
+    temp.replace(path)
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
 def determine_stage5_status(stage2_doc:dict, fixture_doc:dict)->str:
     """Never promote unresolved market/editorial inputs to REVIEW_READY."""
