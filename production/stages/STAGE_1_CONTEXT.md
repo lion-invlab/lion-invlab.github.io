@@ -1,4 +1,5 @@
 # Stage 1｜開工基準與母版鎖定
+版本：Main E2E v1.2（2026-11-28）
 - 正式製作日為台灣週二至週六；週一、週日不自動製作。週二至週五 report_date=製作當日；週六製作時 report_date=隔週一（production_date+2 days），trading_date=週五，使用 Monday mother。週六不是 report_date，不得以週六日期命名 Preview。
 - 週二至週五使用 Weekday mother；週六生產的週一早報使用 Monday mother，讀取報告週及前一週 ISO-week 行事曆資料。
 - report_cutoff_taipei 代表實際生產日的收盤後資料截點。週二至週五按 report_date 前一個 New York 日期 16:25 ET 換算；週六生產的週一早報則按 report_date 前第三個 New York 日期（週五）16:25 ET 換算，對應台灣週六 05:25 冬令／04:25 夏令。
