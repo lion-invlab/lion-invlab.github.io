@@ -45,7 +45,7 @@ market fixture、44-row Observation bundle、source manifest、metadata audit、
 44 項逐項有值或明確狀態；未核實值不得進入分析當成事實；PENDING 不得讓 Runner crash；Stage 3–6 對行情快照唯讀。首次 concurrency=4 真實早報測試須記錄起訖、總耗時、實際網頁讀取數及各狀態數。
 
 ## 截圖 sidecar 必要欄位
-固定路徑：`production/runs/<run_id>/market-screenshot-observations.json`；原始圖片封存於 `production/runs/<run_id>/screenshots/`。JSON 根層欄位為 `schema_version=1.1`、`run_id`、`report_date`、`trading_date`、`captured_at_utc`、、`observations`。每筆 observation 含 `group`、`name`、`data_date`、`source_url`、`instrument_identity`、`fields`。fields 是欄位名稱對應物件，key 限 `close`、`change`、`open`、`high`、`low`、`score`、`band`；每個欄位物件必含 `value`、`field_name`、`evidence_path`、`evidence_sha256`、`captured_at`，可含 `quote_timestamp`。source_url 必須與該 fixture 指標來源 URL 完全一致；data_date 必須等於該商品 observation 的 target_date；不得要求等於共用 trading_date。圖片 SHA-256 由 Runner 重新計算；不得只填看似有效的 SHA 字串。聊天附件不會自動出現在 GitHub Runner checkout，必須先封存原圖與 sidecar 才能由排程讀取。
+固定路徑：`production/runs/<run_id>/market-screenshot-observations.json`；原始圖片封存於 `production/runs/<run_id>/screenshots/`。JSON 根層欄位為 `schema_version=1.1`、`run_id`、`report_date`、`trading_date`、`captured_at_utc`、`observations`。每筆 observation 含 `group`、`name`、`data_date`、`source_url`、`instrument_identity`、`fields`。fields 是欄位名稱對應物件，key 限 `close`、`change`、`open`、`high`、`low`、`score`、`band`；每個欄位物件必含 `value`、`field_name`、`evidence_path`、`evidence_sha256`、`captured_at`，可含 `quote_timestamp`。source_url 必須與該 fixture 指標來源 URL 完全一致；data_date 必須等於該商品 observation 的 target_date；不得要求等於共用 trading_date。圖片 SHA-256 由 Runner 重新計算；不得只填看似有效的 SHA 字串。聊天附件不會自動出現在 GitHub Runner checkout，必須先封存原圖與 sidecar 才能由排程讀取。
 
 
 ## 官方休市 Observation 證據契約（Main）
