@@ -20,7 +20,7 @@
     "market_comments",
     "run_id",
     "market_snapshot_sha256",
-    "research_bundle_sha256",
+    "research_bundle_sha256"
   ],
   "properties": {
     "report_date": {
