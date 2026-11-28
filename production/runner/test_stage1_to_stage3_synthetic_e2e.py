@@ -56,6 +56,11 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 self.assertEqual(context["mother"]["key"], "monday")
             else:
                 self.assertEqual(context["mother"]["key"], "weekdays")
+            if report_date.weekday() == 0:
+                self.assertEqual(context["production_date"], "2026-11-28")
+                self.assertEqual(context["mother"]["key"], "monday")
+            else:
+                self.assertEqual(context["mother"]["key"], "weekdays")
 
             wr = stage_wr_preflight("STAGE_2", context)
             sample_data = json.loads((ROOT / f"production/testdata/report-data-{sample_date.isoformat()}.json").read_text(encoding="utf-8"))
@@ -131,6 +136,13 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             stage3_receipt = json.loads((run_dir / "stage3-calendar-receipt.json").read_text(encoding="utf-8"))
             self.assertEqual(stage3_receipt["run_id"], run_id)
             self.assertEqual(stage3_receipt["current_week"]["week_id"], expected_current_week)
+            self.assertEqual(stage3_receipt["current_week"]["week_id"], "2026-W49" if report_date.weekday() == 0 else "2026-W48")
+            self.assertEqual(stage3_receipt["current_week"]["path"], f"data/calendar/weeks/{expected_current_week}.json")
+            if expected_previous_week:
+                self.assertEqual(stage3_receipt["previous_week"]["week_id"], "2026-W48")
+                self.assertEqual(stage3_receipt["previous_week"]["path"], "data/calendar/weeks/2026-W48.json")
+            else:
+                self.assertIsNone(stage3_receipt["previous_week"])
             if expected_previous_week is None:
                 self.assertIsNone(stage3_receipt["previous_week"])
             else:
