@@ -130,7 +130,7 @@ def main():
         input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest())
     state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
-        report_date=context["report_date"]
+    report_date=context["report_date"]
     html=run_dir/"review.html";qa=run_dir/"qa-sidecar.json"
     render_path=run_dir/"render-manifest.json";stage4_path=run_dir/"stage4-analysis-receipt.json"
     if not html.is_file() or not qa.is_file() or not render_path.is_file() or not stage4_path.is_file():
