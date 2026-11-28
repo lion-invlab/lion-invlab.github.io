@@ -11,6 +11,9 @@ from run_state import transition_state, validate_state
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
 
+FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
+FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
+
 def load(path:Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
