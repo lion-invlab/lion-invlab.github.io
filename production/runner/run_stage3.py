@@ -82,13 +82,13 @@ def main():
           "earnings_count":bundle["previous"]["earnings_count"]
       } if bundle.get("previous") is not None else None),
       "source_json_read_only":True,"projection_is_in_memory":True,
-      "wr_preflight":wr_preflight,"stage2_receipt_sha256":sha(stage2_receipt_path),"state_version_before":state["state_version"],"outputs":outputs
+      "wr_preflight":wr_preflight,"state_version_before":state["state_version"],"outputs":outputs
     }
     rp=run_dir/"stage3-calendar-receipt.json"
     rp.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     state=json.loads(state_path.read_text(encoding="utf-8"))
     state=transition_state(state,stage="STAGE_3",expected_version=state["state_version"],expected_status="RUNNING",new_status="PASS",
-        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=receipt["stage2_receipt_sha256"],
+        now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=None,
         output_sha256=sha(rp),receipt_path=str(rp.relative_to(ROOT)))
     state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
