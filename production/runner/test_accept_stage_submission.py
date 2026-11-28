@@ -128,11 +128,16 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         put(self.run / "stage4-research-bundle-receipt.json", {"bundle_sha256": bundle_sha})
         market_sha = "f"*64
         put(self.run / "stage2-run-summary.json", {"market_snapshot_sha256": market_sha})
+        full_wr_text = "complete Stage 4 WR test text"
+        wr4 = {"status": "PASS", "wr_sha256": hashlib.sha256(full_wr_text.encode()).hexdigest(),
+               "git_blob_sha": "d"*40}
         put(self.run / "capture-stage-receipt.json", {
-            "status": "AWAITING_EDITORIAL_INPUT",
+            "status": "AWAITING_EDITORIAL_INPUT", "run_id": self.context["run_id"],
+            "report_date": self.context["report_date"],
             "stage4_work_instructions": {
                 "path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
-                "sha256": self.wr["wr_sha256"], "git_blob_sha": self.wr["wr_git_blob_sha"]
+                "sha256": wr4["wr_sha256"], "git_blob_sha": wr4["git_blob_sha"],
+                "full_text": full_wr_text
             }
         })
         content = {
@@ -140,10 +145,10 @@ class AcceptStageSubmissionTests(unittest.TestCase):
             "trading_date": self.context["trading_date"], "market_snapshot_sha256": market_sha,
             "research_bundle_sha256": bundle_sha,
             "stage3_receipt_sha256": sha(self.run / "stage3-calendar-receipt.json"),
-            "stage4_wr_sha256": self.wr["wr_sha256"],
+            "stage4_wr_sha256": wr4["wr_sha256"],
         }
         put(self.run / "stage4-editorial-content.json", content)
-        with patch.object(acceptor, "stage_wr_preflight", return_value=self.wr):
+        with patch.object(acceptor, "stage_wr_preflight", return_value=wr4):
             result = acceptor.accept_stage_submission(self.run, "STAGE_4")
         state = json.loads((self.run / "run-state.json").read_text(encoding="utf-8"))
         self.assertEqual(result["status"], "SUBMITTED")
@@ -154,16 +159,21 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         put(self.run / "stage3-calendar-receipt.json", {"status": "PASS", "run_id": self.context["run_id"]})
         put(self.run / "stage4-research-bundle-receipt.json", {"bundle_sha256": "e"*64})
         put(self.run / "stage2-run-summary.json", {"market_snapshot_sha256": "f"*64})
+        full_wr_text = "complete Stage 4 WR test text"
+        wr4 = {"status": "PASS", "wr_sha256": hashlib.sha256(full_wr_text.encode()).hexdigest(),
+               "git_blob_sha": "d"*40}
         put(self.run / "capture-stage-receipt.json", {"status": "AWAITING_EDITORIAL_INPUT",
+            "run_id": self.context["run_id"], "report_date": self.context["report_date"],
             "stage4_work_instructions": {"path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
-                "sha256": self.wr["wr_sha256"], "git_blob_sha": self.wr["wr_git_blob_sha"]}})
+                "sha256": wr4["wr_sha256"], "git_blob_sha": wr4["git_blob_sha"],
+                "full_text": full_wr_text}})
         put(self.run / "stage4-editorial-content.json", {
             "run_id": self.context["run_id"], "report_date": self.context["report_date"],
             "trading_date": self.context["trading_date"], "market_snapshot_sha256": "f"*64,
             "research_bundle_sha256": "0"*64,
             "stage3_receipt_sha256": sha(self.run / "stage3-calendar-receipt.json"),
-            "stage4_wr_sha256": self.wr["wr_sha256"]})
-        with patch.object(acceptor, "stage_wr_preflight", return_value=self.wr):
+            "stage4_wr_sha256": wr4["wr_sha256"]})
+        with patch.object(acceptor, "stage_wr_preflight", return_value=wr4):
             with self.assertRaisesRegex(ValueError, "research_bundle_sha256"):
                 acceptor.accept_stage_submission(self.run, "STAGE_4")
 
