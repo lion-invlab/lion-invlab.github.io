@@ -265,7 +265,7 @@ def main():
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
     try:
-        stage4_instructions_loaded=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_preflight)
+        stage4_instructions_loaded=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_loaded)
     except ValueError as exc:
         raise SystemExit(str(exc))
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
