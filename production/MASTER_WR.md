@@ -142,7 +142,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 ## 14. Main Run state v1.2（唯一狀態真相）
 
-- 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md 的完整內容，並核對其版本／SHA；此分支只建立提示詞文件，不修改線上任務或排程。
+- 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為最小 bootstrap：每次喚醒先讀取並嚴格遵循 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md，再以 Stage 1 governance pin 核對該檔 Git blob SHA；若缺檔或 SHA 不符即 DEFERRED。此分支只建立並 pin 提示詞文件，不修改線上任務或排程。
 - 初始狀態由 Stage 1 與 run-context、fixture、Stage 1 receipt 同一 commit 提交：Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED。
 - 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL，且 PARTIAL 是終態，不得重新開啟。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、AWAITING_APPROVAL、PUBLISHED。Stage 5 PASS=REVIEW_READY；Stage 6 PASS=AWAITING_APPROVAL；DELIVERED_AND_PUBLICLY_VERIFIED 僅為 Stage 6 receipt status。
 - Stage 2 worker 只能在 Stage 2=READY 時 claim RUNNING；Observation 寫入 production/runs/<run_id>/market-history-web-observations.json，提交後將狀態改為 SUBMITTED 並記錄 Observation SHA。GitHub Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
