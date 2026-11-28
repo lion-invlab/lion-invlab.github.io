@@ -120,6 +120,7 @@ jobs:
             test_run_state \
             test_accept_stage_submission \
             test_production_workflow_structure \
+            test_stage2_close_wait \
             test_stage_wr_preflight \
             test_stage2_fedwatch \
             test_homepage_publication_lock \
@@ -480,11 +481,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Stage 1 creates the Run at 15:45 ET; formal US close and the Stage 2
-          # worker checkpoint begin at 16:00 ET. Never expire the handoff wait early.
-          while [ "$(TZ=America/New_York date +%H%M)" -lt 1600 ]; do
-            sleep 15
-          done
+          # Wait against this Run's trading_date. A late recovery after that
+          # date's close must proceed immediately, not wait for tomorrow's close.
+          python production/runner/wait_for_trading_date_close.py "$RUN_DIR/run-context.json"
           OBSERVATION_PATH="$RUN_DIR/market-history-web-observations.json"
           FOUND=false
           for attempt in $(seq 1 30); do
