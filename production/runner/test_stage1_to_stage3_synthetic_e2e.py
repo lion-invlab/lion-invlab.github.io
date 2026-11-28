@@ -150,7 +150,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "stage2_pending_rows": stage2_receipt.get("pending_rows", []),
                 "capture_trigger": {"event_name": "synthetic_e2e", "dispatch_mode": "synthetic", "workflow_run_id": token},
             }
-            (run_dir / "capture-stage-receipt.json").write_text(json.dumps(capture, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+            (run_dir / "capture-stage-receipt.json").write_text(json.dumps(capture, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
             editorial = sample_stage4_content()
             editorial.update({
@@ -176,7 +176,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 for source in layer["sources"]:
                     source["checked_at"] = "2026-11-24T05:00:00+08:00"
             editorial_path = run_dir / "stage4-editorial-content.json"
-            editorial_path.write_text(json.dumps(editorial, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+            editorial_path.write_text(json.dumps(editorial, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             submitted4 = accept_stage_submission(run_dir, "STAGE_4")
             self.assertEqual(submitted4["status"], "SUBMITTED")
 
