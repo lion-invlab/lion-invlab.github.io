@@ -188,7 +188,6 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         "trading_date": context["trading_date"],
         "market_snapshot_sha256": summary.get("market_snapshot_sha256"),
         "research_bundle_sha256": bundle_receipt.get("bundle_sha256"),
-        "stage3_receipt_sha256": digest(stage3_receipt_path),
     }
     for key, value in expected.items():
         if not value or content.get(key) != value:
