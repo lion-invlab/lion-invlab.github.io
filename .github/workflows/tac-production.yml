@@ -5,6 +5,18 @@ on:
     # Stage 1 starts 15 minutes before the Stage 2 worker: 03:45 Taiwan summer / 04:45 winter.
     - cron: "45 19 * * 1-5"
     - cron: "45 20 * * 1-5"
+  pull_request:
+    branches: [main]
+    paths:
+      - "production/MASTER_WR.md"
+      - "production/runner/**"
+      - "production/stages/**"
+      - "production/contracts/**"
+      - "production/config/**"
+      - "production/templates/**"
+      - "production/input/*.schema.json"
+      - "production/input/STAGE4_README.md"
+      - ".github/workflows/tac-production.yml"
   push:
     branches: [main, "refactor/**"]
     paths:
@@ -41,7 +53,7 @@ concurrency:
 
 jobs:
   validate-main-production:
-    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
