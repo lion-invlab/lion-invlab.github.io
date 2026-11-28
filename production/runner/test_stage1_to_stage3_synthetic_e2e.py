@@ -29,7 +29,7 @@ def digest(path: Path) -> str:
 class Stage1To3SyntheticE2ETests(unittest.TestCase):
     def test_stage1_to_stage3_uses_one_run_and_no_live_market_or_calendar_writes(self):
         report_date = date(2026, 11, 24)
-        token = str(900000000 + os.getpid())
+        token = os.environ.get("GITHUB_RUN_ID") or str(900000000 + os.getpid())
         run_id = stable_run_id(report_date, token)
         run_dir = ROOT / "production" / "runs" / run_id
         if run_dir.exists():
