@@ -46,7 +46,7 @@ Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run
 
 ## Main Run state contract v1.2
 - Stage 4 必須確認同一 Run 的 Stage 3=PASS、Stage 4=READY，並重新核對 Stage 3 receipt、Research Bundle、Stage 2 market snapshot 的 SHA 與 Run ID。Stage 4=DEFERRED 可依 state machine 回 READY；Stage 4=FAILED 可使用 recovery=true 回 READY；RUNNING 只能在 lease 到期後恢復。若已存在完整且 SHA 正確的 editorial JSON，重試只重送既有檔案，不得重新研究或改寫。
-- 編輯工作者先以 compare-and-swap 將 Stage 4 從 READY 改為 RUNNING；完成內容後寫入唯一路徑 production/runs/<run_id>/stage4-editorial-content.json。禁止寫入或讀取 production/input/report-content-YYYY-MM-DD.json 日期共用檔。
-- 編輯內容至少包含 run_id、report_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256、stage4_wr_sha256。計算完整 JSON bytes SHA-256 後，將 Stage 4 狀態改為 SUBMITTED，並將 output_sha256 設為該檔案 SHA；狀態檔更新須以先前讀取的 Git blob SHA compare-and-swap，不得盲目覆寫。
-- Stage 4 提交該 editorial JSON 的 Git commit message 必須包含 [tac-stage4-submit:<run_id>] 作為稽核標籤；它不是 Workflow 觸發器。正式排程的同一 workflow run 會在 Stage 3 完成後等待該檔案、Stage 4 SUBMITTED 狀態及 SHA 完全相符，再自動執行 Stage 4–6。
-- Stage 4 Runner 驗證 WR、研究包、行情快照、內容 schema 及狀態後，寫出 stage4-analysis-receipt.json，再將 Stage 4 由 SUBMITTED 改為 PASS、Stage 5 設為 READY。缺少 Stage 3 PASS 或 SHA 不符時不得進入 Stage 5。
+- ChatGPT Stage 4 worker 只負責完成並提交唯一路徑 `production/runs/<run_id>/stage4-editorial-content.json`，禁止寫入或讀取 `production/input/report-content-YYYY-MM-DD.json` 日期共用檔；worker 不得修改 run-state.json。
+- 編輯內容至少包含 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256、stage4_wr_sha256。worker 提交並回讀完整 JSON bytes SHA-256 後，由 Main GitHub workflow 呼叫 `accept_stage_submission.py --stage STAGE_4`，驗證 Stage 3 PASS、Run／日期／快照／Research Bundle／WR SHA，並由唯一 state writer 將 Stage 4 依 READY → RUNNING → SUBMITTED 更新；output_sha256 必須等於該檔案 SHA。
+- Stage 4 editorial JSON commit message 可使用 `[tac-stage4-submit:<run_id>]` 作為稽核標籤，但它不是 Workflow 觸發器。正式排程的同一 workflow run 會在 Stage 3 完成後等待該檔案，並由 handoff acceptor 寫入 Stage 4 SUBMITTED 狀態及 SHA，再自動執行 Stage 4–6。
+- Stage 4 Runner 驗證 WR、研究包、行情快照、內容 schema 及狀態後，寫出 stage4-analysis-receipt.json，再將 Stage 4 由 SUBMITTED 改為 PASS、Stage 5 設為 READY。缺少 Stage 3 PASS 或 SHA 不符時不得進入 Stage 5。ChatGPT worker 不得自行推進 PASS。
