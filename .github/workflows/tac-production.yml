@@ -332,9 +332,9 @@ jobs:
                       raise SystemExit(f"Recovery requires exactly one valid unfinished Run with run-state; found {len(eligible)}.")
                   prior=eligible[0]
                   delivered_files=[
-                      Path("preview")/f"{target}-review.html",
-                      Path("preview")/f"{target}-review.qa.json",
-                      Path("preview")/f"{target}-review.delivery.json"
+                      Path("preview/main")/f"{target}-review.html",
+                      Path("preview/main")/f"{target}-review.qa.json",
+                      Path("preview/main")/f"{target}-review.delivery.json"
                   ]
                   if ((prior/"stage5-render-qa-receipt.json").exists()
                       or (prior/"stage6-delivery-receipt.json").exists()
