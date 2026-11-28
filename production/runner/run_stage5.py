@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 5: pre-build receipt, main Builder, structural/visual QA, and immutable review artifact."""
+"""Stage 5: main Builder, complete QA, and immutable review artifact."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys, time
 from datetime import datetime, timedelta, timezone
