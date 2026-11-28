@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import unittest
-from run_state import initial_run_state, transition_state, validate_state
+from run_state import initial_run_state, register_workflow_run, transition_state, validate_state
 
 CTX = {
     "run_id": "TAC-2026-11-30-46069359215",
