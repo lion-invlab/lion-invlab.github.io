@@ -169,6 +169,17 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
                 "news_cutoff_taipei": "2026-11-24 05:25",
             })
+            editorial["observation"] = {
+                "heading": "盤面觀察重點",
+                "text": "合成測試觀察：市場反彈、產業輪動與風險指標僅用於驗證五個固定觀察槽位的完整交接。",
+                "points": [
+                    {"label": "市場廣度", "text": "觀察主要指數反彈是否擴散至更多產業與成分股。"},
+                    {"label": "利率定價", "text": "追蹤美債殖利率變化是否支持風險資產估值。"},
+                    {"label": "產業輪動", "text": "確認大型科技股以外的產業是否跟進。"},
+                    {"label": "跨市場訊號", "text": "比較美元、商品與亞洲市場走勢是否一致。"},
+                    {"label": "風險控制", "text": "以波動度與信用壓力決定部位調整節奏。"},
+                ],
+            }
             for item in editorial["focus_news"] + editorial["headlines"]:
                 item["published_at_tw"] = "2026-11-23 13:00"
                 item["published_at_source"] = "Nov 23, 2026 1:00 PM"
