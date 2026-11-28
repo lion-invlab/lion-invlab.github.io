@@ -72,6 +72,35 @@ def validate_stage4_wr_handoff(capture:dict, editorial:dict, wr_preflight:dict)-
             "full_text_sha256":full_sha,"handoff_path":instructions["path"],
             "handoff_git_blob_sha":instructions["git_blob_sha"]}
 
+def normalize_news_publication_times(content:dict)->list[dict]:
+    """Recompute Taiwan publication timestamps from preserved source time and IANA timezone."""
+    changes=[]
+    for section in ("focus_news","headlines"):
+        for index,item in enumerate(content.get(section,[])):
+            raw=str(item.get("published_at_source") or "").strip()
+            zone=str(item.get("source_timezone") or "").strip()
+            if not raw or not zone:
+                continue
+            tz=ZoneInfo(zone)
+            parts=raw.rsplit(" ",1)
+            candidate=parts[0] if len(parts)==2 else raw
+            parsed=None
+            for fmt in ("%Y-%m-%d %H:%M","%Y-%m-%d %I:%M %p","%b %d %Y %I:%M %p"):
+                try:
+                    parsed=datetime.strptime(candidate,fmt)
+                    break
+                except ValueError:
+                    pass
+            if parsed is None:
+                raise ValueError(f"{section}[{index}] source publication timestamp cannot be parsed: {raw!r}")
+            expected=parsed.replace(tzinfo=tz).astimezone(TZ).strftime("%Y-%m-%d %H:%M")
+            supplied=str(item.get("published_at_tw") or "").strip()
+            if supplied!=expected:
+                changes.append({"section":section,"index":index,"source":raw,"timezone":zone,
+                                "previous_taipei":supplied,"normalized_taipei":expected})
+                item["published_at_tw"]=expected
+    return changes
+
 def validate_content(content:dict,context:dict,data:dict,bundle:dict|None=None)->dict:
     current_snapshot_sha=market_snapshot_digest(data)
     schema=json.loads((ROOT/"production/input/report-content.schema.json").read_text(encoding="utf-8"))
@@ -235,6 +264,7 @@ def main():
     if state["stages"]["STAGE_4"].get("output_sha256")!=content_sha256:
         raise SystemExit("Stage 4 submitted state SHA does not match the exact Run-scoped editorial content")
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
+    timestamp_repairs=normalize_news_publication_times(editorial)
     stage3_receipt_sha256=sha(stage3_receipt_path)
     if editorial.get("stage3_receipt_sha256")!=stage3_receipt_sha256:
         raise ValueError("Stage 4 content Stage 3 receipt SHA does not match this Run")
@@ -288,7 +318,7 @@ def main():
     receipt={
       "schema_version":"1.0","stage":"STAGE_4_NEWS_ANALYSIS","status":"PASS",
       "run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
-      "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
+      "news_counts":window["news_counts"],"publication_timestamp_normalizations":timestamp_repairs,"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
       "stage3_receipt_sha256":stage3_receipt_sha256,
