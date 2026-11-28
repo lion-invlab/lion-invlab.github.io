@@ -214,7 +214,8 @@ def main():
         raise SystemExit("Stage 4 requires Stage 3 PASS and Stage 4 SUBMITTED in the authoritative Run state")
     fixture_path=run_dir/"report-data.json"
     stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
-    stage3_receipt=json.loads((run_dir/"stage3-calendar-receipt.json").read_text(encoding="utf-8"))
+    stage3_receipt_path=run_dir/"stage3-calendar-receipt.json"
+    stage3_receipt=json.loads(stage3_receipt_path.read_text(encoding="utf-8"))
     require_stage_wr_receipt(stage2_receipt,"STAGE_2",context)
     require_stage_wr_receipt(stage3_receipt,"STAGE_3",context)
     if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
@@ -234,6 +235,9 @@ def main():
     if state["stages"]["STAGE_4"].get("output_sha256")!=content_sha256:
         raise SystemExit("Stage 4 submitted state SHA does not match the exact Run-scoped editorial content")
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
+    stage3_receipt_sha256=sha(stage3_receipt_path)
+    if editorial.get("stage3_receipt_sha256")!=stage3_receipt_sha256:
+        raise ValueError("Stage 4 content Stage 3 receipt SHA does not match this Run")
     capture_path=run_dir/"capture-stage-receipt.json"
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
@@ -287,6 +291,7 @@ def main():
       "news_counts":window["news_counts"],"summary_points":len(editorial["summary_points"]),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
+      "stage3_receipt_sha256":stage3_receipt_sha256,
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
