@@ -49,13 +49,15 @@ jobs:
               context=json.loads(p.read_text(encoding="utf-8"))
               if str(context.get("workflow_run_id")) == workflow_run_id:
                   matches.append(p.parent)
-          if len(matches)!=1:
-              print(f"No unique Main Run for completed workflow_run_id={workflow_run_id}; Chart 3 branch will be skipped.")
+          if not matches:
+              print(f"No Main Run for completed workflow_run_id={workflow_run_id}; this was not a production capture run.")
               out(False); raise SystemExit(0)
+          if len(matches)!=1:
+              raise SystemExit(f"Integrity error: {len(matches)} Main Runs match workflow_run_id={workflow_run_id}.")
           run=matches[0]
           state_path=run/"run-state.json"
           if not state_path.is_file():
-              out(False); raise SystemExit(0)
+              raise SystemExit(f"Integrity error: {run.name} has no authoritative run-state.json.")
           state=json.loads(state_path.read_text(encoding="utf-8"))
           stages=state.get("stages",{})
           stage2=stages.get("STAGE_2",{}).get("status")
@@ -64,7 +66,7 @@ jobs:
               print(f"Run {run.name} did not complete Stage 2/3; Chart 3 branch will be skipped.")
               out(False); raise SystemExit(0)
           if not (run/"stage2-market-snapshot-receipt.json").is_file() or not (run/"stage3-calendar-receipt.json").is_file():
-              out(False); raise SystemExit(0)
+              raise SystemExit(f"Integrity error: {run.name} is PASS for Stage 2/3 but a required receipt is missing.")
           print(f"Chart 3 handoff accepted for exact Main Run {run.name} (Stage2={stage2}, Stage3=PASS).")
           out(True,run.name)
           PY
