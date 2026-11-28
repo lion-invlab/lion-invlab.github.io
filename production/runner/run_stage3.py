@@ -26,7 +26,7 @@ def main():
     if run_dir.parent!=runs_root.resolve():
         raise SystemExit("Stage 3 run directory must be a direct non-symlink child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=load_stage_wr("STAGE_3",context)
+    wr_loaded=load_stage_wr("STAGE_3",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
