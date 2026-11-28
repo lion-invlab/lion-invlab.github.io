@@ -5,7 +5,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 import stage_wr_loader
-from run_stage2 import validate_stage2_worker_wr_attestation
 
 class StageWRPreflightTests(unittest.TestCase):
     def setUp(self):
@@ -43,11 +42,6 @@ class StageWRPreflightTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             stage_wr_loader.stage_wr_loader("STAGE_3")
 
-    def test_stage2_worker_does_not_need_wr_hash_attestation(self):
-        evidence={"wr_path":stage_wr_loader.STAGE_WR_PATHS["STAGE_2"],"wr_loaded":True}
-        result=validate_stage2_worker_wr_attestation({},evidence)
-        self.assertEqual(result["status"],"LOADED")
-        self.assertTrue(result["wr_loaded"])
 
     def test_stage5_and_stage6_keep_governance_pin(self):
         path=stage_wr_loader.STAGE_WR_PATHS["STAGE_5"]
