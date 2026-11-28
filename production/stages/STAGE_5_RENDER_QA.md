@@ -5,7 +5,6 @@
 - 開工前完整讀取本文件；Stage 5 的工作規範必須完整可讀。
 - Stage 5 依同一 Run 的 Main governance snapshot 確認母版、Builder、QA 契約及執行版本；不要求 Stage 1–4 提交 WR SHA 證明。
 - 本文件缺檔、空檔或無法完整讀取時停止 Stage 5。
-- 不建立額外的 WR Preflight receipt。
  
 Stage 5 完整讀取本文件後，直接執行 Builder 與完整 QA。
 
