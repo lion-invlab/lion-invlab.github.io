@@ -244,6 +244,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      actions: read
     steps:
       - name: Checkout main only with full history
         uses: actions/checkout@v4
@@ -278,6 +279,7 @@ jobs:
         env:
           REQUESTED_REPORT_DATE: ${{ inputs.report_date }}
           DISPATCH_MODE: ${{ inputs.mode || '' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           if [ "$DISPATCH_MODE" = "rerun" ] || [ "$DISPATCH_MODE" = "recover" ]; then
@@ -300,9 +302,26 @@ jobs:
           )"
           fi
           SUPERSEDES_RUN_ID="$(python - "$REPORT_DATE" <<'PY'
-          import json, sys, os
+          import json, sys, os, urllib.request
           from pathlib import Path
           from datetime import date
+          def assert_prior_workflow_inactive(candidate):
+              context=json.loads((candidate/"run-context.json").read_text(encoding="utf-8"))
+              prior_workflow_id=context.get("workflow_run_id")
+              if not prior_workflow_id:
+                  raise SystemExit(f"Prior Run {candidate.name} has no workflow_run_id; refusing unsafe recovery/rerun.")
+              url=f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{prior_workflow_id}"
+              request=urllib.request.Request(url,headers={
+                  "Accept":"application/vnd.github+json",
+                  "Authorization":f"Bearer {os.environ['GITHUB_TOKEN']}",
+                  "X-GitHub-Api-Version":"2022-11-28"})
+              try:
+                  with urllib.request.urlopen(request,timeout=15) as response:
+                      prior_workflow=json.load(response)
+              except Exception as exc:
+                  raise SystemExit(f"Cannot verify prior workflow {prior_workflow_id} status; refusing recovery/rerun: {exc}")
+              if prior_workflow.get("status")!="completed":
+                  raise SystemExit(f"Prior workflow {prior_workflow_id} is still {prior_workflow.get('status')}; refusing concurrent Run for the same report date.")
           target=sys.argv[1]
           try:
               date.fromisoformat(target)
@@ -366,6 +385,7 @@ jobs:
                   if len(stateful)!=1:
                       raise SystemExit(f"Explicit rerun requires exactly one stateful prior Run; found {len(stateful)}.")
                   prior=stateful[0]
+              assert_prior_workflow_inactive(prior)
               supersedes=prior.name
           print(supersedes)
           PY
