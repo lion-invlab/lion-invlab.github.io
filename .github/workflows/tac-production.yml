@@ -35,10 +35,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: tac-main-production-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   validate-main-production:
     if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'validate') }}
@@ -203,6 +199,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       should_run: ${{ steps.dst.outputs.should_run }}
+      report_date: ${{ steps.dst.outputs.report_date }}
     steps:
       - name: Select the single post-close Taiwan trigger using New York DST
         id: dst
@@ -212,14 +209,22 @@ jobs:
         run: |
           python - <<'PY' >> "$GITHUB_OUTPUT"
           import os
-          from datetime import datetime, timezone
+          from datetime import datetime, timezone, timedelta
           from zoneinfo import ZoneInfo
           now = datetime.now(timezone.utc)
           ny = now.astimezone(ZoneInfo("America/New_York"))
           expected_cron = "45 19 * * 1-5" if ny.dst() and ny.dst().total_seconds() else "45 20 * * 1-5"
           actual_cron = os.environ.get("SCHEDULE_CRON", "")
           should_run = actual_cron == expected_cron
+          tw = now.astimezone(ZoneInfo("Asia/Taipei"))
+          if tw.weekday() == 5:
+              report_date = (tw.date() + timedelta(days=2)).isoformat()
+          elif tw.weekday() in (1, 2, 3, 4):
+              report_date = tw.date().isoformat()
+          else:
+              report_date = ""
           print(f"should_run={'true' if should_run else 'false'}")
+          print(f"report_date={report_date}")
           print(f"actual_cron={actual_cron}")
           print(f"expected_cron={expected_cron}")
           print(f"new_york_now={ny.isoformat()}")
@@ -231,6 +236,9 @@ jobs:
       report_date: ${{ steps.resolve.outputs.report_date }}
       run_dir: ${{ steps.resolve.outputs.run_dir }}
     needs: [schedule-window]
+    concurrency:
+      group: tac-main-stage1-${{ inputs.report_date || needs['schedule-window'].outputs.report_date || github.run_id }}
+      cancel-in-progress: false
     if: ${{ github.ref == 'refs/heads/main' && always() && ((github.event_name == 'schedule' && needs['schedule-window'].outputs.should_run == 'true') || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'recover' || inputs.mode == 'rerun'))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -272,7 +280,7 @@ jobs:
           DISPATCH_MODE: ${{ inputs.mode || '' }}
         run: |
           set -euo pipefail
-          if [ "$DISPATCH_MODE" = "rerun" ] || { [ "$DISPATCH_MODE" = "recover" ] && [ -n "${REQUESTED_REPORT_DATE:-}" ]; }; then
+          if [ "$DISPATCH_MODE" = "rerun" ] || [ "$DISPATCH_MODE" = "recover" ]; then
             [ -n "${REQUESTED_REPORT_DATE:-}" ] || { echo "::error::Manual recovery/rerun requires an explicit Taiwan report_date (YYYY-MM-DD)."; exit 1; }
             REPORT_DATE="$REQUESTED_REPORT_DATE"
           elif [ -n "${REQUESTED_REPORT_DATE:-}" ]; then
