@@ -46,22 +46,31 @@ def evaluate_scenario_qa(fixture_doc:dict, strategy_paragraphs:list, builder_sca
     return {"coverage":coverage,"status":"PASS","reason":"Political findings are present; all three required scenarios were verified."}
 
 
-def validate_stage4_handoff(stage4_doc:dict, stage2_summary_doc:dict, context:dict)->dict:
+def validate_stage4_handoff(stage4_doc:dict, stage2_summary_doc:dict, context:dict,
+                            editorial_doc:dict, actual_bundle_sha256:str)->dict:
     if (stage4_doc.get("status")!="PASS" or stage4_doc.get("run_id")!=context.get("run_id")
             or stage4_doc.get("report_date")!=context.get("report_date")
             or stage4_doc.get("trading_date")!=context.get("trading_date")
             or stage4_doc.get("market_snapshot_unchanged") is not True):
-        raise ValueError("Stage 4 receipt status/run/date/frozen-market identity mismatch")
+        raise ValueError("Stage 4 output status/run/date/frozen-market identity mismatch")
     binding=stage4_doc.get("editorial_run_binding") or {}
     bundle=stage4_doc.get("research_bundle") or {}
     if (binding.get("run_id")!=context.get("run_id")
             or binding.get("market_snapshot_sha256")!=stage4_doc.get("market_snapshot_sha256_before")
             or stage4_doc.get("market_snapshot_sha256_before")!=stage4_doc.get("market_snapshot_sha256_after")
             or not binding.get("research_bundle_sha256")
-            or binding.get("research_bundle_sha256")!=bundle.get("sha256")):
-        raise ValueError("Stage 4 editorial Run/snapshot/research-bundle binding is incomplete or inconsistent")
+            or binding.get("research_bundle_sha256")!=bundle.get("sha256")
+            or binding.get("research_bundle_sha256")!=actual_bundle_sha256):
+        raise ValueError("Stage 5 QA found inconsistent Stage 4 research-bundle/snapshot provenance")
     if stage2_summary_doc.get("market_snapshot_sha256")!=binding.get("market_snapshot_sha256"):
-        raise ValueError("Stage 4 market snapshot SHA differs from the Stage 2 frozen snapshot")
+        raise ValueError("Stage 4 market snapshot differs from the Stage 2 frozen snapshot")
+    expected={"run_id":context.get("run_id"),"report_date":context.get("report_date"),
+              "trading_date":context.get("trading_date"),
+              "market_snapshot_sha256":binding.get("market_snapshot_sha256"),
+              "research_bundle_sha256":binding.get("research_bundle_sha256")}
+    for key,value in expected.items():
+        if not value or editorial_doc.get(key)!=value:
+            raise ValueError(f"Stage 5 QA found missing or mismatched Stage 4 editorial binding: {key}")
     return binding
 
 def execute(cmd:list[str],log_path:Path)->str:
@@ -125,12 +134,16 @@ def main():
     stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
-                if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
+    editorial_path=run_dir/"stage4-editorial-content.json"
+    editorial_doc=json.loads(editorial_path.read_text(encoding="utf-8"))
+    research_bundle_path=run_dir/"stage4-research-bundle.json"
+    actual_bundle_sha=sha(research_bundle_path)
+    if stage2_doc.get("run_id")!=context["run_id"] or stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("workflow_run_id")!=str(context.get("workflow_run_id")):
         raise SystemExit("Stage 2 receipt status/run identity mismatch")
     if stage3_doc.get("status")!="PASS" or stage3_doc.get("run_id")!=context["run_id"] or stage3_doc.get("main_commit_sha")!=context["main_commit_sha"]:
         raise SystemExit("Stage 3 receipt status/run/pinned commit mismatch")
     try:
-        editorial_binding=validate_stage4_handoff(stage4_doc,stage2_summary_doc,context)
+        editorial_binding=validate_stage4_handoff(stage4_doc,stage2_summary_doc,context,editorial_doc,actual_bundle_sha)
     except ValueError as exc:
         raise SystemExit(str(exc))
     fixture_doc=json.loads(fixture.read_text(encoding="utf-8"))
