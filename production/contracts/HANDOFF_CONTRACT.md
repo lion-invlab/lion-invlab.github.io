@@ -1,6 +1,6 @@
 # HANDOFF CONTRACT v1.2
 
-Every handoff is scoped to one run_id and report_date and includes schema_version, stage, created_at with timezone, input_refs and SHA-256, output_refs and SHA-256, status_summary, unresolved_items and consumer_notes. Every producer first claims its stage in the same Run state; every consumer validates the exact Run state version, producer receipt and SHA before work.
+Every handoff is scoped to one run_id and report_date and includes schema_version, stage, created_at with timezone, input_refs and SHA-256, output_refs and SHA-256, status_summary, unresolved_items and consumer_notes. ChatGPT workers publish only their own Run-scoped artifacts; the Main GitHub production workflow is the sole run-state writer and claims/advances stages after validating the exact producer artifact, upstream receipt and SHA.
 
 ## Canonical Run-scoped paths
 
