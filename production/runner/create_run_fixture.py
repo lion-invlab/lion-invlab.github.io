@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 
 from stage2_market_fixture_bootstrap import blank_fixture
 from builder_approval import current_governance_blob_shas
-from stage_wr_preflight import stage_wr_preflight
+from stage_wr_loader import load_stage_wr
 from run_state import initial_run_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -67,7 +67,7 @@ def collect_legacy_prior_run_ids(runs_root:Path, report_date:date, run_id:str)->
 
 
 def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_run_id:str|None=None)->dict:
-    stage1_wr = stage_wr_preflight("STAGE_1")
+    stage1_wr = load_stage_wr("STAGE_1")
     main_commit_sha=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
     if report_date.weekday() not in (0,1,2,3,4): raise ValueError(f"Report date must be Monday (produced Saturday) or Tuesday-Friday: {report_date}")
     production_date=report_date-timedelta(days=2) if report_date.weekday()==0 else report_date
