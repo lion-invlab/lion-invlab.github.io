@@ -17,8 +17,7 @@ STAGE_STATUS = {
     "DEFERRED", "PARTIAL", "FAILED", "SKIPPED",
 }
 OVERALL_STATUS = {
-    "RUNNING", "PARTIAL", "FAILED", "REVIEW_READY",
-    "DELIVERED", "AWAITING_APPROVAL", "PUBLISHED",
+    "RUNNING", "PARTIAL", "FAILED", "REVIEW_READY", "AWAITING_APPROVAL", "PUBLISHED",
 }
 TERMINAL_STAGE = {"PASS", "PARTIAL", "FAILED", "SKIPPED"}
 ACTIVE_STAGE = {"READY", "RUNNING", "SUBMITTED", "DEFERRED"}
@@ -113,6 +112,10 @@ def _derive(state: dict) -> None:
         state["overall_status"] = "FAILED"
     elif any(stages[s]["status"] == "PARTIAL" for s in STAGES):
         state["overall_status"] = "PARTIAL"
+    elif stages["STAGE_6"]["status"] == "RUNNING":
+        state["overall_status"] = "RUNNING"
+    elif stages["STAGE_5"]["status"] == "PASS":
+        state["overall_status"] = "REVIEW_READY"
     else:
         state["overall_status"] = "RUNNING"
 
