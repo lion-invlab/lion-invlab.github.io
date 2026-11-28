@@ -632,32 +632,41 @@ jobs:
       - name: Resolve report date and exact captured Run
         shell: bash
         env:
-          TRIGGER_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          TRIGGER_COMMIT_MESSAGE: \${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
-          if [[ "${TRIGGER_COMMIT_MESSAGE:-}" =~ \[build-tac-report:([0-9]{4}-[0-9]{2}-[0-9]{2})\] ]]; then
-            REPORT_DATE="${BASH_REMATCH[1]}"
+          if [[ "\${TRIGGER_COMMIT_MESSAGE:-}" =~ \[tac-stage4-submit:(TAC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+)\] ]]; then
+            RUN_ID="\${BASH_REMATCH[1]}"
           else
-            echo "::error::Build requires the single [build-tac-report:YYYY-MM-DD] commit marker."; exit 1
+            echo "::error::Build requires the exact [tac-stage4-submit:TAC-YYYY-MM-DD-RUNID] marker."; exit 1
           fi
-          [[ "$REPORT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
-          CONTENT_FILE="production/input/report-content-$REPORT_DATE.json"
-          test -s "$CONTENT_FILE"
-          RUN_ID="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["run_id"])' "$CONTENT_FILE")"
           RUN_DIR="production/runs/$RUN_ID"
-          for file in run-context.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
+          CONTENT_FILE="$RUN_DIR/stage4-editorial-content.json"
+          test -s "$RUN_DIR/run-context.json"
+          test -s "$RUN_DIR/run-state.json"
+          test -s "$CONTENT_FILE"
+          REPORT_DATE="$(python -c 'import json,sys; print(json.load(open(sys.argv[1],encoding="utf-8"))["report_date"])' "$RUN_DIR/run-context.json")"
+          for file in run-context.json run-state.json report-data.json stage2-market-snapshot-receipt.json stage2-run-summary.json stage3-calendar-receipt.json capture-stage-receipt.json stage4-research-bundle.json stage4-research-bundle-receipt.json; do test -s "$RUN_DIR/$file"; done
           python - "$CONTENT_FILE" "$RUN_DIR" "$REPORT_DATE" <<'PY'
-          import json,sys
-          content=json.load(open(sys.argv[1],encoding="utf-8")); run_dir=sys.argv[2]; date=sys.argv[3]
-          context=json.load(open(run_dir+"/run-context.json",encoding="utf-8"))
-          summary=json.load(open(run_dir+"/stage2-run-summary.json",encoding="utf-8"))
-          capture=json.load(open(run_dir+"/capture-stage-receipt.json",encoding="utf-8"))
-          bundle=json.load(open(run_dir+"/stage4-research-bundle-receipt.json",encoding="utf-8"))
-          assert content["report_date"]==date==context["report_date"]
-          assert content["run_id"]==context["run_id"]
+          import hashlib,json,sys
+          from pathlib import Path
+          content_path=Path(sys.argv[1]); run_dir=Path(sys.argv[2]); report_date=sys.argv[3]
+          content=json.loads(content_path.read_text(encoding="utf-8"))
+          context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
+          state=json.loads((run_dir/"run-state.json").read_text(encoding="utf-8"))
+          summary=json.loads((run_dir/"stage2-run-summary.json").read_text(encoding="utf-8"))
+          capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
+          bundle=json.loads((run_dir/"stage4-research-bundle-receipt.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
+          assert context["run_id"]==run_dir.name==content["run_id"]
+          assert context["report_date"]==report_date==content["report_date"]
+          assert state["run_id"]==context["run_id"]
+          assert state["stages"]["STAGE_3"]["status"]=="PASS"
+          assert state["stages"]["STAGE_4"]["status"]=="SUBMITTED"
+          assert state["stages"]["STAGE_4"]["output_sha256"]==digest
           assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]
           assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
-          print("PASS: Stage 4 editorial content is bound to exact captured Run, market snapshot and research bundle.")
+          print("PASS: Stage 4 content, submission state, market snapshot and research bundle share the exact Run.")
           PY
           git cat-file -e "HEAD:$RUN_DIR/run-context.json"
           echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
@@ -665,6 +674,7 @@ jobs:
           echo "RUN_ID=$RUN_ID" >> "$GITHUB_ENV"
           echo "RUN_DIR=$RUN_DIR" >> "$GITHUB_ENV"
       - name: Stage 4 — validate and merge current editorial research
+        id: stage4
         run: |
           set -euo pipefail
           python production/runner/run_stage4.py --run-dir "$RUN_DIR" --content "$CONTENT_FILE"
