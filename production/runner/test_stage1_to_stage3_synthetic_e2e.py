@@ -198,15 +198,15 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             # Synthetic same-day cash-index OHLC used only to exercise the pivot-level schema;
             # values are deterministic transformations of the synthetic closes, not market observations.
             key_level_specs = [
-                ("dow", "道瓊工業指數"),
-                ("sp500", "標普500指數"),
-                ("nasdaq", "那斯達克綜合指數"),
-                ("sox", "費城半導體指數"),
-                ("russell2000", "羅素2000指數"),
+                ("dow", "道瓊工業指數", "道瓊工業指數"),
+                ("sp500", "標普500指數", "S&P 500"),
+                ("nasdaq", "那斯達克綜合指數", "Nasdaq Composite"),
+                ("sox", "費城半導體指數", "費城半導體指數（SOX）"),
+                ("russell2000", "羅素2000指數", "Russell 2000"),
             ]
             synthetic_levels = []
             q = Decimal("0.01")
-            for key, market_name in key_level_specs:
+            for key, market_name, display_name in key_level_specs:
                 close = Decimal(sample_data["global_markets"][market_name]["source"]["close_value"].replace(",", ""))
                 open_value = (close * Decimal("0.999")).quantize(q, rounding=ROUND_HALF_UP)
                 high = (close * Decimal("1.002")).quantize(q, rounding=ROUND_HALF_UP)
@@ -218,7 +218,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 r2 = pivot + (high - low)
                 source_url = synthetic_seed["global_markets"][market_name]["source"]["url"]
                 synthetic_levels.append({
-                    "key": key, "name": market_name, "trading_date": context["trading_date"],
+                    "key": key, "name": display_name, "trading_date": context["trading_date"],
                     "quote_type": "cash_index",
                     "ohlc": f"O {open_value}｜H {high}｜L {low}｜C {close}",
                     "s2": str(s2.quantize(q, rounding=ROUND_HALF_UP)),
