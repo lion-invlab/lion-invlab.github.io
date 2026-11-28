@@ -48,6 +48,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
 
             wr = stage_wr_preflight("STAGE_2", context)
             sample_data = json.loads((ROOT / "production/testdata/report-data-2026-11-24.json").read_text(encoding="utf-8"))
+            sample_data["risk"]["move"]["source"]["approved_backup_urls"] = ["https://www.tradingview.com/symbols/ICE-MOVE/"]
             bundle = make_bundle(sample_data)
             bundle.update({
                 "schema_version": "1.1",
