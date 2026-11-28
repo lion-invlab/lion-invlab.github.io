@@ -86,7 +86,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     if report_date.weekday()==0:
         weeks.append(week_id(previous_week_start(report_date)))
     legacy_prior_run_ids=sorted(p.name for p in (ROOT/"production/runs").glob(f"TAC-{report_date.isoformat()}-*")
-                                if p.is_dir() and p.name!=run_id and not (p/"run-state.json").is_file())
+                                if p.is_dir() and p.name!=run_id and (p/"run-context.json").is_file() and not (p/"run-state.json").is_file())
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"
