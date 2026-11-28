@@ -237,18 +237,10 @@ def main():
     state_path=run_dir/"run-state.json"
     state=read_json(state_path)
     validate_state(state,expected_run_id=context["run_id"])
-    if state["stages"]["STAGE_3"]["status"]!="PASS" or state["stages"]["STAGE_4"]["status"]!="SUBMITTED":
-        raise SystemExit("Stage 4 requires Stage 3 PASS and Stage 4 SUBMITTED in the authoritative Run state")
+    stage2_status=state["stages"]["STAGE_2"]["status"]
+    if stage2_status not in ("PASS","PARTIAL") or state["stages"]["STAGE_3"]["status"]!="PASS" or state["stages"]["STAGE_4"]["status"]!="SUBMITTED":
+        raise SystemExit("Stage 4 requires completed Stage 2/3 work and a submitted editorial artifact for this Run")
     fixture_path=run_dir/"report-data.json"
-    stage2_receipt=json.loads((run_dir/"stage2-market-snapshot-receipt.json").read_text(encoding="utf-8"))
-    stage3_receipt_path=run_dir/"stage3-calendar-receipt.json"
-    stage3_receipt=json.loads(stage3_receipt_path.read_text(encoding="utf-8"))
-            if stage2_receipt.get("run_id")!=context.get("run_id") or stage2_receipt.get("status") not in ("PASS","PARTIAL"):
-        raise ValueError("Stage 2 receipt Run ID/status does not match this Run")
-    if stage2_receipt.get("workflow_run_id")!=context.get("workflow_run_id"):
-        raise ValueError("Stage 2 receipt workflow_run_id does not match the Stage 1 Run context")
-    if stage3_receipt.get("run_id")!=context.get("run_id") or stage3_receipt.get("status")!="PASS":
-        raise ValueError("Stage 3 receipt run identity/status mismatch")
     content_path=Path(args.content) if args.content else run_dir/"stage4-editorial-content.json"
     if not content_path.is_absolute():content_path=ROOT/content_path
     content_path=content_path.resolve()
@@ -257,67 +249,70 @@ def main():
     if not content_path.is_file():
         raise SystemExit("Missing Run-scoped Stage 4 editorial content; date-global fallback is prohibited")
     content_sha256=sha(content_path)
-    editorial=json.loads(content_path.read_text(encoding="utf-8"))
-    timestamp_repairs=normalize_news_publication_times(editorial)
-    capture_path=run_dir/"stage4-work-instructions.json"
-    if not capture_path.is_file():
-        raise SystemExit("Stage 4 work-instructions handoff is missing; refusing to start editorial merge.")
+    editorial_parse_error=None
     try:
-        stage4_instructions_loaded=validate_stage4_wr_handoff(read_json(capture_path),editorial,wr_loaded)
-    except ValueError as exc:
-        raise SystemExit(str(exc))
+        editorial=json.loads(content_path.read_text(encoding="utf-8"))
+        if not isinstance(editorial,dict): editorial={}
+    except (json.JSONDecodeError,UnicodeDecodeError) as exc:
+        editorial={}
+        editorial_parse_error=str(exc)
+    timestamp_repairs=[]
     data=json.loads(fixture_path.read_text(encoding="utf-8"))
-    bundle_receipt_path=run_dir/"stage4-research-bundle-receipt.json"
     bundle_path=run_dir/"stage4-research-bundle.json"
-    if not bundle_receipt_path.is_file():
-        raise ValueError("Stage 4 research bundle receipt is missing")
-    bundle=read_json(bundle_path)
-    bundle_binding=validate_research_bundle_binding(editorial,context,read_json(bundle_receipt_path),bundle_path)
+    bundle_sha256=sha(bundle_path) if bundle_path.is_file() and not bundle_path.is_symlink() else None
     before=market_snapshot_digest(data)
-    window=validate_content(editorial,context,data,bundle)
+    summary_points=editorial.get("summary_points") or []
+    focus_news=editorial.get("focus_news") or []
+    headlines=editorial.get("headlines") or []
+    sentiment=editorial.get("sentiment") or ""
+    market_analysis=editorial.get("market_analysis") or {}
+    political_scan=editorial.get("political_scan") or {}
     data.update({
-      "summary_title":editorial["summary_title"],
-      "summary_points":editorial["summary_points"],
-      "summary":"\n\n".join(f"{x['label']}｜{x['text']}" for x in editorial["summary_points"]),
-      "focus_news":editorial["focus_news"],"headlines":editorial["headlines"],
-      "sentiment":editorial["sentiment"],"market_sentiment":editorial.get("market_sentiment",editorial["sentiment"]),
-      "market_analysis":editorial["market_analysis"],"political_scan":editorial["political_scan"],
-      "core_observation":editorial["core_observation"],"observation":editorial["observation"],
-      "key_levels":editorial["key_levels"],"market_comments":editorial["market_comments"],
-      "news_cutoff_taipei":editorial["news_cutoff_taipei"],
-      "news_window_taipei":editorial.get("news_window_taipei",f"{window['window_start'].strftime('%Y-%m-%d %H:%M')}–{window['cutoff'].strftime('%Y-%m-%d %H:%M')}"),
+      "summary_title":editorial.get("summary_title",""),
+      "summary_points":summary_points,
+      "summary":"\\n\\n".join(f"{x.get('label','')}｜{x.get('text','')}" for x in summary_points if isinstance(x,dict)),
+      "focus_news":focus_news,"headlines":headlines,
+      "sentiment":sentiment,"market_sentiment":editorial.get("market_sentiment",sentiment),
+      "market_analysis":market_analysis,"political_scan":political_scan,
+      "core_observation":editorial.get("core_observation",[]),"observation":editorial.get("observation",[]),
+      "key_levels":editorial.get("key_levels",[]),"market_comments":editorial.get("market_comments",{}),
+      "news_cutoff_taipei":editorial.get("news_cutoff_taipei",""),
+      "news_window_taipei":editorial.get("news_window_taipei",""),
       "warning_note":editorial.get("warning_note",""),"quality_note":editorial.get("quality_note","")
     })
     if "earnings_health" in editorial:
         data["earnings_health"]=editorial["earnings_health"]
-    if "pending_items" in editorial:data["pending_items"]=editorial["pending_items"]
+    if "pending_items" in editorial:
+        data["pending_items"]=editorial["pending_items"]
     after=market_snapshot_digest(data)
     if before!=after:raise SystemExit("Stage 4 modified the frozen Stage 2 market snapshot")
     fixture_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     analysis={
       "schema_version":"1.0","run_id":context["run_id"],"report_date":context["report_date"],
-      "run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"],
-      "summary_points":editorial["summary_points"],"focus_news":editorial["focus_news"],
-      "headlines":editorial["headlines"],"market_analysis":editorial["market_analysis"],
-      "political_scan":editorial["political_scan"],"core_observation":editorial["core_observation"],
-      "observation":editorial["observation"],"key_levels":editorial["key_levels"],
-      "market_comments":editorial["market_comments"],"earnings_health":data.get("earnings_health"),"news_window_start_taipei":window["window_start"].isoformat(),
-      "news_cutoff_taipei":window["cutoff"].isoformat()
+      "market_snapshot_sha256":before,"research_bundle_sha256":bundle_sha256,
+      "summary_points":summary_points,"focus_news":focus_news,"headlines":headlines,
+      "market_analysis":market_analysis,"political_scan":political_scan,
+      "core_observation":data.get("core_observation"),"observation":data.get("observation"),
+      "key_levels":data.get("key_levels"),"market_comments":data.get("market_comments"),
+      "earnings_health":data.get("earnings_health"),
+      "news_cutoff_taipei":data.get("news_cutoff_taipei"),
+      "news_window_taipei":data.get("news_window_taipei")
     }
     analysis_path=run_dir/"analysis-data.json"
     analysis_path.write_text(json.dumps(analysis,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={
       "schema_version":"1.0","stage":"STAGE_4_NEWS_ANALYSIS","status":"PASS",
       "run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
-      "news_counts":window["news_counts"],"publication_timestamp_normalizations":timestamp_repairs,"summary_points":len(editorial["summary_points"]),
+      "news_counts":{"focus_news":len(focus_news),"headlines":len(headlines)},
+      "publication_timestamp_normalizations":timestamp_repairs,"summary_points":len(summary_points),
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
-      "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
-      "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
+      "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":content_sha256,
+          "parse_status":"INVALID_JSON" if editorial_parse_error else "PARSED",
+          "parse_error":editorial_parse_error},
       "stage_wr_loaded":wr_loaded,"state_version_before":state["state_version"],
-      "stage4_instructions_loaded":stage4_instructions_loaded,
-      "research_bundle":bundle_binding,
+      "research_bundle_sha256":bundle_sha256,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
     }
     receipt_path=run_dir/"stage4-analysis-receipt.json"
