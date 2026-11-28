@@ -73,4 +73,63 @@ class Stage56HandoffTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"render manifest"):
             validate_stage5_handoff(s5,qa,render,CONTEXT,"c"*64,"e"*64,stage4(),"1"*64)
 
+
+    def test_stage6_accepts_only_complete_same_run_verified_existing_triplet(self):
+        import hashlib, json, tempfile
+        from pathlib import Path
+        from run_stage6 import validate_existing_preview_triplet, blob, sha
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            report="preview/main/2026-11-26-review.html"
+            qa="preview/main/2026-11-26-review.qa.json"
+            delivery="preview/main/2026-11-26-review.delivery.json"
+            for rel in (report,qa,delivery):
+                (root/rel).parent.mkdir(parents=True,exist_ok=True)
+            html=b"<html><meta name='report-date' content='2026-11-26'></html>"
+            (root/report).write_bytes(html)
+            qa_doc={"status":"REVIEW_READY","run_id":CONTEXT["run_id"],"report_date":CONTEXT["report_date"],
+                    "delivery":{"status":"DELIVERED_AND_PUBLICLY_VERIFIED","run_id":CONTEXT["run_id"],
+                                "html_sha256":sha(html),"public_url_verified":True}}
+            delivery_doc={"status":"DELIVERED_AND_PUBLICLY_VERIFIED","run_id":CONTEXT["run_id"],
+                          "report_date":CONTEXT["report_date"],
+                          "targets":{"html":report,"qa":qa,"delivery_receipt":delivery},
+                          "public_url_verified":True,
+                          "html":{"sha256":sha(html),"git_blob_sha":blob(html)},
+                          "formal_homepage_modified":False,"history_archive_modified":False}
+            (root/qa).write_text(json.dumps(qa_doc),encoding="utf-8")
+            (root/delivery).write_text(json.dumps(delivery_doc),encoding="utf-8")
+            self.assertTrue(validate_existing_preview_triplet(root,report,qa,delivery,CONTEXT))
+
+    def test_stage6_rejects_existing_preview_from_another_run(self):
+        import json, tempfile
+        from pathlib import Path
+        from run_stage6 import validate_existing_preview_triplet
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            report="preview/main/2026-11-26-review.html"
+            qa="preview/main/2026-11-26-review.qa.json"
+            delivery="preview/main/2026-11-26-review.delivery.json"
+            for rel in (report,qa,delivery):
+                (root/rel).parent.mkdir(parents=True,exist_ok=True)
+                (root/rel).write_text("{}",encoding="utf-8")
+            with self.assertRaisesRegex(SystemExit,"another Run/date"):
+                validate_existing_preview_triplet(root,report,qa,delivery,CONTEXT)
+
+    def test_stage6_rejects_incomplete_existing_preview_triplet(self):
+        import tempfile
+        from pathlib import Path
+        from run_stage6 import validate_existing_preview_triplet
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            report="preview/main/2026-11-26-review.html"
+            qa="preview/main/2026-11-26-review.qa.json"
+            delivery="preview/main/2026-11-26-review.delivery.json"
+            (root/report).parent.mkdir(parents=True,exist_ok=True)
+            (root/report).write_text("existing",encoding="utf-8")
+            with self.assertRaisesRegex(SystemExit,"incomplete"):
+                validate_existing_preview_triplet(root,report,qa,delivery,CONTEXT)
+
 if __name__=="__main__":unittest.main()
