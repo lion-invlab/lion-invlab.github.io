@@ -24,6 +24,7 @@
 ### 狀態接管
 - 只在 Stage 2=READY 時，以 compare-and-swap 將同一 Run 的 Stage 2 改為 RUNNING，記錄 attempt、started_at、lease_owner、lease_expires_at、input SHA 及 state_version。
 - 若 Stage 2=DEFERRED，依 state machine 回到 READY 後再 claim。
+- 若 Stage 2=FAILED，只有在確認該 Run 的 Stage 3 尚未啟動時，才使用 recovery=true 回 READY；若已有完整 Observation，先驗證後重用，不得重抓已成功資料。
 - 若 Stage 2=RUNNING，先核對 lease 是否到期。未到期不得接管；已到期才可依 state machine 將舊 lease 標為 DEFERRED，再重新 claim。
 - 若 Stage 2=SUBMITTED，驗證既有 Observation SHA，禁止重抓；直接等待 GitHub Stage 2／Stage 3。
 - 若 Stage 2=PASS 或 PARTIAL，不得重做 Stage 2；直接檢查 Stage 3 是否 PASS，再決定是否進 Stage 4。
