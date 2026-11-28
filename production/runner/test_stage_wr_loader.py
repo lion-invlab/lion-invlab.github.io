@@ -25,7 +25,7 @@ class StageWRPreflightTests(unittest.TestCase):
 
     def test_stage1_to_4_read_full_wr_without_git_or_sha_pin(self):
         with patch.object(stage_wr_loader,"_git_blob",side_effect=AssertionError("must not call git")):
-            result=stage_wr_loader.stage_wr_loader("STAGE_3",{"governance":{}})
+            result=stage_wr_loader.load_stage_wr("STAGE_3",{"governance":{}})
         self.assertEqual(result["status"],"PASS")
         self.assertTrue(result["wr_loaded"])
         self.assertEqual(result["wr_bytes_read"],len(self.raw))
