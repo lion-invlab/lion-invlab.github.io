@@ -27,6 +27,9 @@
 
 ### P0-A｜Workflow concurrency 不符合可靠排隊語義
 
+**已取得實際重現證據：** 本輪隔離分支連續提交 validation commits 時，workflow runs `46110310886`、`46110304909`、`46110280778` 被標記為 `cancelled`，較新的 pending run 取代先前 pending run；目前 run `46110318791` 正在執行。這證明 branch-global concurrency 不是 FIFO queue，並非純理論風險。該測試只觸發 validate job，Stage 1–6 production jobs 均 skipped，未啟動正式生產。
+
+
 目前 `.github/workflows/tac-production.yml` 在 workflow 層使用：
 
 ```yaml
@@ -107,7 +110,15 @@ Stage 1 會掃描既有 Run、判斷 legacy/stateful、決定 supersedes，再�
 5. 先通過單元／契約測試，再做兩種母版的完整 synthetic Stage 1–6 E2E。
 6. 通過後才申請真實 11/30 fresh-data E2E；不更動首頁及正式排程。
 
-## 6. 本輪狀態
+## 6. 本輪程式修正與 CI 證據
+
+- 發現 Main Stage 5 在進入 RUNNING 時曾以雙重跳脫的 `\\\\n` 寫入 run-state JSON，可能留下 JSON 不可解析的檔案。
+- 隔離分支已改為 `write_state_json()`：先序列化並以 `json.loads` 自我驗證，再透過暫存檔 `replace` 原子替換。
+- 新增 `test_stage5_state_persistence.py`，驗證 RUNNING state 可被 JSON parser 回讀且檔案以正常 newline 結尾；已加入 Main deterministic validation suite。
+- 新 workflow trigger 已納入 `rebuild/**`，且 provenance allowlist 同步放行；只執行 validate job，不啟動 Stage 1–6。
+- 首個修正前後的完整 validation run 正在執行／排隊；尚未取得最終 PASS，因此此修正目前只標示為已提交、待 CI 驗證。
+
+## 7. 本輪狀態
 
 - Phase 0：進行中，核心流程與 24 workflow 初步分類已完成。
 - Architecture Decision：已建立並修正來源歸屬說明。
