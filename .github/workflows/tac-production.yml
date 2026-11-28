@@ -6,7 +6,7 @@ on:
     - cron: "45 19 * * 1-5"
     - cron: "45 20 * * 1-5"
   push:
-    branches: [main, "refactor/**"]
+    branches: [main, "refactor/**", "rebuild/**"]
     paths:
       # Push events validate Main code and contracts only; production delivery is one scheduled / recover workflow run.
       # Run-scoped Stage artifacts are consumed by the active capture and delivery jobs, not push triggers.
@@ -59,7 +59,7 @@ jobs:
         run: |
           set -euo pipefail
           case "$VALIDATION_BRANCH" in
-            main|refactor/*) ;;
+            main|refactor/*|rebuild/*) ;;
             *) echo "Production validation is limited to main and refactor branches." >&2; exit 1 ;;
           esac
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
