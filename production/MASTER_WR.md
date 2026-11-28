@@ -144,7 +144,7 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 
 - 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。
 - 初始狀態由 Stage 1 與 run-context、fixture、Stage 1 receipt 同一 commit 提交：Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED。
-- 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、DELIVERED、AWAITING_APPROVAL、PUBLISHED。
+- 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、AWAITING_APPROVAL、PUBLISHED。Stage 5 PASS=REVIEW_READY；Stage 6 PASS=AWAITING_APPROVAL；DELIVERED_AND_PUBLICLY_VERIFIED 僅為 Stage 6 receipt status。
 - Stage 2 worker 只能在 Stage 2=READY 時 claim RUNNING；Observation 寫入 production/runs/<run_id>/market-history-web-observations.json，提交後將狀態改為 SUBMITTED 並記錄 Observation SHA。GitHub Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
 - Stage 3 只在 Stage 2 PASS/PARTIAL 後啟動；完成後將 Stage 3 改 PASS、Stage 4 設 READY。
 - Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256 與 stage4_wr_sha256。Stage 4 worker claim RUNNING，提交完整內容後改為 SUBMITTED 並記錄 SHA；commit message 使用 [tac-stage4-submit:<run_id>] 喚醒 delivery workflow。GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。
