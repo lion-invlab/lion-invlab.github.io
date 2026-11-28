@@ -631,9 +631,9 @@ jobs:
             "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
             "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
             "next_action":"Read the complete stage4_work_instructions.full_text, then read stage4-research-bundle.json and produce the news and analysis for this exact Run. Deliver the editorial content directly to Stage 5 through the normal Stage 4 handoff."}
-          receipt_path=run/"stage4-work-instructions.json"
+          instructions_path=run/"stage4-work-instructions.json"
           if receipt_path.exists():
-              existing=json.loads(receipt_path.read_text(encoding="utf-8"))
+              existing=json.loads(instructions_path.read_text(encoding="utf-8"))
               checks={
                 "run_id":context["run_id"],
                 "report_date":context["report_date"],
@@ -642,8 +642,8 @@ jobs:
               }
               for key,value in checks.items():
                   if existing.get(key)!=value:
-                      raise SystemExit(f"Existing capture-stage-receipt {key} mismatch; refusing overwrite.")
-              print("Existing exact capture-stage-receipt verified; no rewrite.")
+                      raise SystemExit(f"Existing Stage 4 work-instructions file {key} mismatch; refusing overwrite.")
+              print("Existing Stage 4 work-instructions file verified; no rewrite.")
           else:
               receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
           print(json.dumps(receipt,ensure_ascii=False,indent=2))
