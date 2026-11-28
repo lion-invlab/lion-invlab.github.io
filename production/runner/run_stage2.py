@@ -240,7 +240,7 @@ def main():
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
-      "stage_wr_loaded":wr_preflight,
+      "stage_wr_loaded":wr_loaded,
       "fedwatch_status":fedwatch_observation["status"],
       "fedwatch_observation_sha256":fedwatch_observation["observation_sha256"],
       "fedwatch_target_meeting":fedwatch_observation.get("target_meeting"),
