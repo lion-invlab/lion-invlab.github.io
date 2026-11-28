@@ -194,7 +194,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
             raise ValueError(f"Stage 4 editorial artifact {key} does not match the exact Run handoff")
     artifact_sha = digest(artifact)
     state = _transition_to_submitted(state, "STAGE_4", context, artifact_sha, artifact,
-                                     expected["stage3_receipt_sha256"])
+                                     digest(stage3_receipt_path))
     return state, {"stage": "STAGE_4", "status": "SUBMITTED",
                    "artifact_path": str(artifact.relative_to(ROOT)),
                    "artifact_sha256": artifact_sha, "wr_sha256": wr["wr_sha256"]}
