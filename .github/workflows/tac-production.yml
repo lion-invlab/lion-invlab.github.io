@@ -631,7 +631,7 @@ jobs:
             "current_week":stage3["current_week"]["week_id"],"previous_week":(stage3["previous_week"]["week_id"] if stage3.get("previous_week") else None),
             "editorial_input_path":f"{run.as_posix()}/stage4-editorial-content.json",
             "next_action":"Read the complete stage4_work_instructions.full_text, then read stage4-research-bundle.json and produce the news and analysis for this exact Run. Deliver the editorial content directly to Stage 5 through the normal Stage 4 handoff."}
-          receipt_path=run/"capture-stage-receipt.json"
+          receipt_path=run/"stage4-work-instructions.json"
           if receipt_path.exists():
               existing=json.loads(receipt_path.read_text(encoding="utf-8"))
               checks={
@@ -767,7 +767,7 @@ jobs:
           context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
           state=json.loads((run_dir/"run-state.json").read_text(encoding="utf-8"))
           summary=json.loads((run_dir/"stage2-run-summary.json").read_text(encoding="utf-8"))
-          capture=json.loads((run_dir/"capture-stage-receipt.json").read_text(encoding="utf-8"))
+          capture=json.loads((run_dir/"stage4-work-instructions.json").read_text(encoding="utf-8"))
           bundle=json.loads((run_dir/"stage4-research-bundle-receipt.json").read_text(encoding="utf-8"))
           digest=hashlib.sha256(content_path.read_bytes()).hexdigest()
           assert context["run_id"]==run_dir.name==content["run_id"]
