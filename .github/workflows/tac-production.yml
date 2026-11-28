@@ -418,14 +418,27 @@ jobs:
             sleep 15
           done
           echo "Stage 2 worker window opened at $(TZ=America/New_York date --iso-8601=seconds)"
-          OBSERVATION_PATH="production/input/market-history-web-observations-$REPORT_DATE.json"
+          OBSERVATION_PATH="$RUN_DIR/market-history-web-observations.json"
           FOUND=false
           for attempt in $(seq 1 30); do
             git fetch origin main
-            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null; then
+            if git cat-file -e "origin/main:$OBSERVATION_PATH" 2>/dev/null && git cat-file -e "origin/main:$RUN_DIR/run-state.json" 2>/dev/null; then
               git merge --ff-only origin/main
-              FOUND=true
-              break
+              if python - "$RUN_DIR" "$OBSERVATION_PATH" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          run=Path(sys.argv[1]); observation=Path(sys.argv[2])
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          digest=hashlib.sha256(observation.read_bytes()).hexdigest()
+          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
+              raise SystemExit(1)
+          if state["stages"]["STAGE_2"].get("output_sha256")!=digest:
+              raise SystemExit(1)
+          PY
+              then
+                FOUND=true
+                break
+              fi
             fi
             sleep 30
           done
@@ -439,6 +452,7 @@ jobs:
           receipt_sha=hashlib.sha256((run/"stage1-receipt.json").read_bytes()).hexdigest()
           context_sha=hashlib.sha256((run/"run-context.json").read_bytes()).hexdigest()
           fixture_sha=hashlib.sha256((run/"stage1-fixture.json").read_bytes()).hexdigest()
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
           expected={"run_id":context["run_id"],"report_date":context["report_date"],"trading_date":context["trading_date"],
             "stage1_receipt_sha256":receipt_sha,"run_context_sha256":context_sha,"stage1_fixture_sha256":fixture_sha}
           for key,value in expected.items():
@@ -447,6 +461,10 @@ jobs:
           pinned_wr_sha=hashlib.sha256(pinned_wr).hexdigest()
           if payload.get("stage2_wr_sha256") != pinned_wr_sha:
             raise SystemExit("Stage 2 handoff WR SHA differs from Stage 1 pinned Stage 2 WR")
+          if state.get("stages",{}).get("STAGE_2",{}).get("status")!="SUBMITTED":
+            raise SystemExit("Stage 2 state is not SUBMITTED")
+          if state["stages"]["STAGE_2"].get("output_sha256")!=hashlib.sha256(observation.read_bytes()).hexdigest():
+            raise SystemExit("Stage 2 state submission SHA does not match observation file")
           print(json.dumps({"status":"PASS","run_id":context["run_id"],"observation_sha256":hashlib.sha256(observation.read_bytes()).hexdigest()},ensure_ascii=False))
           PY
       - name: Stage 2 — validate and freeze 44 market indicators
