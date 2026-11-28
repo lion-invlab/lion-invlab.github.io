@@ -153,7 +153,7 @@ class RunStateTests(unittest.TestCase):
         self.assertEqual(recovered["stages"]["STAGE_2"]["status"], "READY")
 
     def test_workflow_recovery_attempt_is_recorded_without_changing_run_id(self):
-        state=initial_run_state(self.context)
+        state=self.state
         original_run_id=state["run_id"]
         same_attempt=register_workflow_run(state,"1001",1)
         self.assertEqual(same_attempt["state_version"],state["state_version"])
