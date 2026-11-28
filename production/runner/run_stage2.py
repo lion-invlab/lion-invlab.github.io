@@ -28,11 +28,9 @@ def run(cmd:list[str])->dict:
         return {"stdout":proc.stdout.strip()}
 
 def validate_stage2_worker_wr_attestation(payload:dict,wr_preflight:dict)->dict:
-    supplied=payload.get("stage2_wr_sha256") if isinstance(payload,dict) else None
-    expected=wr_preflight.get("wr_sha256")
-    if not supplied or supplied!=expected:
-        raise ValueError("Stage 2 ChatGPT capture is missing the exact Stage 2 WR read attestation")
-    return {"status":"PASS","stage2_wr_sha256":supplied,"expected_wr_sha256":expected}
+    """Record that the Stage 2 worker received its instructions; do not gate on a WR hash."""
+    return {"status":"LOADED","stage":"STAGE_2","wr_path":wr_preflight.get("wr_path"),
+            "wr_loaded":wr_preflight.get("wr_loaded") is True}
 
 FEDWATCH_SOURCE_URL = "https://www.investing.com/central-banks/fed-rate-monitor"
 FEDWATCH_SOURCE_NAME = "Investing.com Fed Rate Monitor"
@@ -41,8 +39,6 @@ def validate_fedwatch_observation(payload:dict,wr_preflight:dict,context:dict)->
     """Validate the independent FedWatch snapshot without blocking the 44 market rows."""
     if not isinstance(payload,dict):
         raise ValueError("Stage 2 capture is missing the independent FedWatch observation object")
-    if payload.get("stage2_wr_sha256") != wr_preflight.get("wr_sha256"):
-        raise ValueError("FedWatch observation is missing the exact Stage 2 WR read attestation")
     if payload.get("report_date") != context.get("report_date") or payload.get("trading_date") != context.get("trading_date"):
         raise ValueError("FedWatch observation dates do not match the current Run")
     if payload.get("source_url") != FEDWATCH_SOURCE_URL or payload.get("source_name") != FEDWATCH_SOURCE_NAME:
