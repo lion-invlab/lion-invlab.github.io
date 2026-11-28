@@ -140,19 +140,19 @@ Stage 1 基準與母版鎖定 → Stage 2 44 項行情及獨立 FedWatch → Sta
 - Stage 2 target date 與每個商品的實際 market data_date 仍依市場交易日曆核對；本規則只定義共用交易日錨點，不可用它覆蓋各商品個別日期。
 
 
-## 14. Main Run state v1.2（唯一狀態真相）
+## 14. Main Run state v1.3（唯一狀態真相）
 
-- 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.2.md 的完整內容，並核對其版本／SHA；此分支只建立提示詞文件，不修改線上任務或排程。
+- 每個 Run 只有一個權威狀態檔：production/runs/<run_id>/run-state.json；不另建第二套 state DB、日期共用 lock DB 或重複 receipt ledger。正式切換前，既有 Automation 任務提示詞必須更新為 production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md 的完整內容，並核對其版本／SHA；此分支只建立提示詞文件，不修改線上任務或排程。
 - 初始狀態由 Stage 1 與 run-context、fixture、Stage 1 receipt 同一 commit 提交：Stage 1=PASS、Stage 2=READY、Stage 3–6=NOT_STARTED。
 - 每階段狀態：NOT_STARTED、READY、RUNNING、SUBMITTED、PASS、DEFERRED、PARTIAL、FAILED、SKIPPED。只有 Stage 2/4 ChatGPT submission 可用 SUBMITTED；只有 Stage 2/5 可用 PARTIAL，且 PARTIAL 是終態，不得重新開啟。整體狀態：RUNNING、PARTIAL、FAILED、REVIEW_READY、AWAITING_APPROVAL、PUBLISHED。Stage 5 PASS=REVIEW_READY；Stage 6 PASS=AWAITING_APPROVAL；DELIVERED_AND_PUBLICLY_VERIFIED 僅為 Stage 6 receipt status。
-- Stage 2 worker 只能在 Stage 2=READY 時 claim RUNNING；Observation 寫入 production/runs/<run_id>/market-history-web-observations.json，提交後將狀態改為 SUBMITTED 並記錄 Observation SHA。GitHub Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
+- Stage 2 ChatGPT worker 僅提交 production/runs/<run_id>/market-history-web-observations.json 與必要 sidecar，不得 claim 或修改 run-state.json。GitHub workflow 的 accept_stage_submission.py 驗證 exact Run／Stage 1／WR／44 rows／FedWatch／SHA 後，由唯一 state writer 將 Stage 2 READY → RUNNING → SUBMITTED；Stage 2 Runner 驗證 exact SHA 後才可改 PASS/PARTIAL。
 - Stage 3 只在 Stage 2 PASS/PARTIAL 後啟動；完成後將 Stage 3 改 PASS、Stage 4 設 READY。
-- Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256 與 stage4_wr_sha256。Stage 4 worker claim RUNNING，提交完整內容後改為 SUBMITTED 並記錄 SHA；commit message 使用 [tac-stage4-submit:<run_id>] 作為稽核標籤；同一正式 workflow run 的 build-and-deliver job 會輪詢該檔案與 SUBMITTED state，不依賴 push event。GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。
+- Stage 4 編輯內容唯一位置為 production/runs/<run_id>/stage4-editorial-content.json，必須綁定 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256、stage3_receipt_sha256 與 stage4_wr_sha256。ChatGPT worker 僅提交完整內容並回讀 SHA，不得 claim 或修改 run-state.json；同一正式 workflow run 的 build-and-deliver job 呼叫 accept_stage_submission.py，由唯一 state writer 將 Stage 4 READY → RUNNING → SUBMITTED，再由 GitHub Runner 驗證後改 Stage 4 PASS、Stage 5 READY。Marker 僅作可選稽核標籤，不觸發 Workflow。
 - Stage 5 PASS 對應 QA receipt REVIEW_READY，Stage 5 PARTIAL 必須使 Stage 6=SKIPPED。Stage 2 PARTIAL 不得被 Stage 5 或 HTML Builder 覆蓋為 PASS。
 - Stage 6 只接受 Stage 5 PASS；公開 Preview 驗證成功後改 Stage 6 PASS、overall_status=AWAITING_APPROVAL。這不代表已獲准更新 index.html 或正式 history。
-- 每次狀態更新必須帶 expected state_version、expected previous status、input/output SHA 與 receipt path。GitHub Contents API 使用已讀取 blob SHA compare-and-swap；Actions git push 僅允許 fast-forward。遇到 stale SHA、non-fast-forward 或雙重 claim，重新讀取狀態後決定，不得 force-push 或盲目覆寫。
+- 每次狀態更新必須帶 expected state_version、expected previous status、input/output SHA 與 receipt path。Main production workflow 是唯一 run-state writer，依 workflow concurrency 序列化各階段狀態更新，並以原子檔案替換及 fast-forward-only git push 持久化；ChatGPT worker 僅寫入各自 Run-scoped artifact。若未來引入第二個 state writer，必須使用已讀取 blob SHA compare-and-swap。遇到 stale state version 或 non-fast-forward，重新讀取狀態後決定，不得 force-push 或盲目覆寫。
 - RUNNING 必須記錄 lease_owner 與 lease_expires_at。未到期 lease 不可被其他 worker 接管；逾期恢復前先核對該 Run 最後一個 receipt 與實際產物。DEFERRED 不是 FAILED，不得停用 automation。
-- Stage 1 是唯一正常 Run creator。Stage 1 必須先以標準函式庫建立並提交完整 handoff，再安裝重型依賴。相同 workflow retry 沿用相同 Run ID；recover 沿用既有 Run ID；只有明確 rerun 建立新 Run。
+- Stage 1 是唯一正常 Run creator。Stage 1 必須先以標準函式庫建立並提交完整 handoff，再安裝重型依賴。相同 workflow retry 沿用相同 Run ID；recover 沿用既有 Run ID；只有明確 rerun 建立新 Run。ChatGPT worker 不建立 Run，也不寫 run-state.json。
 - Stage 2 與 Stage 4 的日期共用檔 production/input/market-history-web-observations-YYYY-MM-DD.json 及 production/input/report-content-YYYY-MM-DD.json 不再是正式輸入來源；任何新 Run 不得讀取或寫入這些舊路徑。
 - 不依賴 GitHub connector push 喚醒第二個 Workflow；該觸發行為未獲證實。Stage 4–6 是同一正式 schedule／recover workflow run 的第二個 job，等待同一 Run 的 editorial JSON、Stage 4 SUBMITTED state 與 SHA。Marker 僅作稽核標籤。Build job 必須再次驗證 exact run_id、run-state、提交內容 SHA、Stage 3 receipt 與 Research Bundle SHA。
 - Chart 3 是下游非阻塞支線。Chart 3 workflow_run 以 workflow_run_id 對應唯一 Main Run，只在同一 Run 的 Stage 2=PASS/PARTIAL 且 Stage 3=PASS 時接手；不依賴 push marker。Stage 2 增量 append 或 Chart 3 merge 失敗不得改變 Stage 2 PASS/PARTIAL，也不得阻止 Stage 4–6。
