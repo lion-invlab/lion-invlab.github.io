@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "state_version": 1,
+  "state_version": 3,
   "run_id": "TAC-2026-11-30-46124045922",
   "report_date": "2026-11-30",
   "production_date": "2026-11-28",
@@ -8,7 +8,7 @@
   "main_commit_sha": "2339fe7ae9bec1a7600a03820a78f53ea5ec3991",
   "workflow_run_id": "46124045922",
   "created_at": "2026-11-28T08:04:00.499661Z",
-  "updated_at": "2026-11-28T08:04:00.499661Z",
+  "updated_at": "2026-11-28T08:07:56.942508Z",
   "current_stage": "STAGE_2",
   "last_passed_stage": "STAGE_1",
   "overall_status": "RUNNING",
@@ -26,13 +26,13 @@
       "lease_expires_at": null
     },
     "STAGE_2": {
-      "status": "READY",
-      "attempt": 0,
-      "started_at": null,
-      "completed_at": null,
-      "input_sha256": null,
-      "output_sha256": null,
-      "receipt_path": null,
+      "status": "SUBMITTED",
+      "attempt": 1,
+      "started_at": "2026-11-28T08:07:56.942385Z",
+      "completed_at": "2026-11-28T08:07:56.942508Z",
+      "input_sha256": "604d3662ed60dd4a2046ffe8dd61797509ee0a43e7d5afd8ff91b72d17786f2a",
+      "output_sha256": "3a1ee5a174fccacc8ff6d8b5b4122d606a05b2ed3acc022b8005efa349c9b079",
+      "receipt_path": "production/runs/TAC-2026-11-30-46124045922/market-history-web-observations.json",
       "error_code": null,
       "lease_owner": null,
       "lease_expires_at": null
