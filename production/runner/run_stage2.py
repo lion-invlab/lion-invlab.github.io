@@ -183,8 +183,6 @@ def main():
     web_bundle_sha256=hashlib.sha256(web_bundle.read_bytes()).hexdigest()
     if state["stages"]["STAGE_2"].get("output_sha256")!=web_bundle_sha256:
         raise SystemExit("Stage 2 submitted state SHA does not match the exact Run-scoped observation file")
-    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
-        "--run-dir",str(run_dir.relative_to(ROOT))])
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
@@ -197,9 +195,9 @@ def main():
             "report_date":report_date, "trading_date":context["trading_date"],
             "captured_at_utc":load(web_bundle)["captured_at_utc"], "observations":[]
         },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    # Re-run the handoff gate after creating the optional empty CNN packet so
-    # every input consumed below is bound to the same Stage 1 receipt.
-    handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
+    # One direct handoff check is sufficient; the optional CNN packet does not
+    # alter the 44-row Stage 2 observation or Run identity.
+    run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
         "--run-dir",str(run_dir.relative_to(ROOT))])
     run([sys.executable,str(RUNNER/"validate_chatgpt_web_observations.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
