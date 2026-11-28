@@ -36,11 +36,11 @@ class FedWatchObservationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"missing the independent FedWatch"):
             validate_fedwatch_observation(None,{"wr_sha256":WR_SHA},CONTEXT)
 
-    def test_worker_must_attest_exact_stage2_wr(self):
+    def test_worker_wr_digest_is_not_a_fedwatch_gate(self):
         payload=valid_payload()
         payload["stage2_wr_sha256"]="b"*64
-        with self.assertRaisesRegex(ValueError,"exact Stage 2 WR"):
-            validate_fedwatch_observation(payload,{"wr_sha256":WR_SHA},CONTEXT)
+        result=validate_fedwatch_observation(payload,{},CONTEXT)
+        self.assertEqual(result["status"],"VERIFIED")
 
     def test_dates_must_match_the_same_run(self):
         payload=valid_payload()
