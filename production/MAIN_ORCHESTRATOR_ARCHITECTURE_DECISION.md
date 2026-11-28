@@ -10,20 +10,18 @@
 
 Implement the existing Main rebuild plan as one autonomous Stage 1–6 production pipeline. This document is an architecture decision record, not evidence that implementation or E2E acceptance has passed.
 
-## 2. Source recommendations being integrated
+## 2. Recommendation provenance and integrated requirements
 
-### Claude
-- Make Stage 1 a lightweight, early Run creation and handoff.
-- Downstream workers identify work only by exact `run_id`, report date and SHA-bound artifacts.
-- Stage 2 and Stage 3 continue as independent handoffs; do not depend on date-global files.
-- Recover from the last valid stage using Retry/Resume; do not repeat completed work.
+The original Claude/Gemini diagnostic files were not found in the Main repository or the available file-library search during this execution. Therefore this record does **not** claim to reproduce either model's complete original report or attribute individual bullets to one model. The following is the combined requirement set previously confirmed in the project conversation; it is the implementation baseline until the original reports are recovered and compared.
 
-### Gemini
-- Use one central GitHub Actions Orchestrator.
-- Enforce one Active Run for a report date.
-- Use one authoritative `run-state.json` state machine.
-- Require WR and Receipt preflight before each stage.
-- Include a Watchdog for stalled or interrupted work.
+- Stage 1 is a lightweight, early Run creation and handoff.
+- One central GitHub Actions Orchestrator coordinates all six stages.
+- One Active Run per report date; retries/resumes preserve the exact Run identity.
+- One authoritative `run-state.json` state machine.
+- Stage 2 and Stage 4 workers submit Run-bound, SHA-bound artifacts; they do not own state transitions.
+- Every stage reads its own WR and validates the exact upstream handoff.
+- Retry/Resume continues from the last valid stage without repeating completed work.
+- A Watchdog detects stalled/interrupted work but does not create a competing Run.
 
 ### Existing user-approved Main constraints
 - GitHub Actions owns Stage 1, 3, 5 and 6.
