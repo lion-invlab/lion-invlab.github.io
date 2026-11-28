@@ -215,7 +215,7 @@ def main():
         "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
-    stage2_receipt_doc["stage_wr_loaded"]=wr_preflight
+    stage2_receipt_doc["stage_wr_loaded"]=wr_loaded
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=stage2_receipt_doc
