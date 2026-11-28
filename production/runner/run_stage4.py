@@ -22,9 +22,6 @@ def market_snapshot_digest(data:dict)->str:
     groups={k:data.get(k) for k in ("global_markets","sectors","sector_sources","bonds","fx","energy","metals","risk","fedwatch")}
     return sha_bytes(json.dumps(groups,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode())
 
-def read_json(path:Path)->dict:
-    return json.loads(path.read_text(encoding="utf-8"))
-
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--run-dir",required=True)
