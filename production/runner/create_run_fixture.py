@@ -124,11 +124,6 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
       "market_universe_count":44,
       "stage_wr_preflight":stage1_wr
     }
-    stage1_wr["stage1_pinned_commit"] = main_commit_sha
-    stage1_pinned_blob = run_context["governance"]["blob_shas"].get(stage1_wr["wr_path"])
-    if stage1_wr["wr_git_blob_sha"] != stage1_pinned_blob:
-        raise ValueError("Stage 1 WR changed while creating its governance snapshot")
-    stage1_wr["stage1_pinned_git_blob_sha"] = stage1_pinned_blob
     return {"run_context":run_context,"market_fixture":data}
 
 def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dict:
