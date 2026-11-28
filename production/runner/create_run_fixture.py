@@ -85,6 +85,8 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
     weeks=[week_id(report_date)]
     if report_date.weekday()==0:
         weeks.append(week_id(previous_week_start(report_date)))
+    legacy_prior_run_ids=sorted(p.name for p in (ROOT/"production/runs").glob(f"TAC-{report_date.isoformat()}-*")
+                                if p.is_dir() and p.name!=run_id and not (p/"run-state.json").is_file())
     calendar_receipts=[]
     for wid in dict.fromkeys(weeks):
         path=ROOT/f"data/calendar/weeks/{wid}.json"
@@ -94,7 +96,7 @@ def build(report_date:date, run_id:str, trading_date:date|None=None, supersedes_
         calendar_receipts.append({"path":str(path.relative_to(ROOT)),"sha256":sha256(path),"git_blob_sha":git_blob(path,main_commit_sha)})
     run_context={
       "schema_version":"1.0","run_id":run_id,"production_date":production_date.isoformat(),"report_date":report_date.isoformat(),
-      "supersedes_run_id":supersedes_run_id,
+      "supersedes_run_id":supersedes_run_id,"legacy_prior_run_ids":legacy_prior_run_ids,
       "trading_date":trading_date.isoformat(),"timezone":"Asia/Taipei",
       "started_at":datetime.now(TZ).isoformat(),
       "repository":"lion-invlab/lion-invlab.github.io","branch":"main",
@@ -153,7 +155,7 @@ def write_run_files(output:Path,run_id:str,result:dict,repo_root:Path=ROOT)->dic
              "market_rows":44,"preexisting_market_values_used":False,"screenshot_fields":0,
              "screenshot_input_receipt":{"status":"NOT_READ_AT_STAGE1","handoff_stage":"STAGE2","fields":[]},
              "wr_preflight":context["stage_wr_preflight"],
-             "supersedes_run_id":context.get("supersedes_run_id")}
+             "supersedes_run_id":context.get("supersedes_run_id"),"legacy_prior_run_ids":context.get("legacy_prior_run_ids",[])}
     receipt_path=output/"stage1-receipt.json"
     receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     state=initial_run_state(context,receipt,sha256(receipt_path))
