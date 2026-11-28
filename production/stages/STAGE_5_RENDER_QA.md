@@ -1,4 +1,5 @@
 # Stage 5｜唯一 HTML Builder 組裝與 QA
+版本：Main E2E v1.2（2026-11-28）
 
 ## 開工前強制 WR Preflight
 - Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
