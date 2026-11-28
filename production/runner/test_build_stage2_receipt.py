@@ -54,10 +54,10 @@ def write_json(path,obj):
 def main():
     data,audit,manifest,obs=make_inputs()
     with tempfile.TemporaryDirectory() as tmp:
-        paths={k:Path(tmp)/f"{k}.json" for k in ("data","audit","manifest","obs")}
-        write_json(paths["data"],data);write_json(paths["audit"],audit)
+        paths={k:Path(tmp)/f"{k}.json" for k in ("data","manifest","obs","audit")}
+        write_json(paths["data"],data)
         write_json(paths["manifest"],manifest);write_json(paths["obs"],obs)
-        args=SimpleNamespace(report_date="2026-11-26",data=str(paths["data"]),audit=str(paths["audit"]),
+        args=SimpleNamespace(report_date="2026-11-26",data=str(paths["data"]),audit_output=str(paths["audit"]),
             manifest=str(paths["manifest"]),observations=str(paths["obs"]),output=str(Path(tmp)/"receipt.json"),
             run_id="12345",workflow_run_id="46105765414",commit_sha="a"*40,branch="main")
         receipt=build_receipt(args)
