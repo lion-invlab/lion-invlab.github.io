@@ -56,6 +56,7 @@ assert "Wait for this Run's trading_date close" in stage2
 
 # Recovery must exclude any Run superseded by a later Run for the same report date.
 assert "if not context_path.is_file():" in stage1
+assert 'context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))' in stage1
 assert "superseded_ids=set()" in stage1
 assert 'superseded=context.get("supersedes_run_id")' in stage1
 assert 'p.name not in superseded_ids' in stage1
