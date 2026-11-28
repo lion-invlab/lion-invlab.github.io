@@ -251,6 +251,17 @@ jobs:
           set -euo pipefail
           git fetch origin main
           git merge --ff-only origin/main
+      - name: Stage 1 WR preflight before report-date or Run resolution
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "production/runner")
+          from stage_wr_preflight import stage_wr_preflight
+          evidence = stage_wr_preflight("STAGE_1")
+          if evidence.get("status") != "PASS" or evidence.get("wr_loaded") is not True:
+              raise SystemExit("Stage 1 WR preflight failed before Run resolution.")
+          print(evidence)
+          PY
 
       - name: Resolve report date and unique Run ID
         id: resolve
