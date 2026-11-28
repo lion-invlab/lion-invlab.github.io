@@ -29,7 +29,7 @@ calendar-data.json、earnings-data.json、event/source references 及未核實�
 
 
 ## Main Run state contract v1.2
-- Stage 3 必須讀取同一 Run 的 run-state.json；Stage 2 必須已由 GitHub validator 標記 PASS 或 PARTIAL，Stage 2 receipt 的 run_id 必須等於 run-context.run_id。Stage 2 SUBMITTED 尚未驗證時，不得開始 Stage 3。
+- Stage 3 必須讀取同一 Run 的 run-state.json；僅依 Stage 2 狀態為 PASS 或 PARTIAL 判定前一階段已完成。Stage 2 狀態尚未完成時，不得開始 Stage 3；不再重讀或驗證 Stage 2 receipt、SHA 或重複的 Run 身分。
 - Stage 3 只在 Stage 2 完成後讀取同一 Run 的行情成果與行事曆資料，執行唯讀投影。
 - Stage 3 完成 calendar-data.json 與 earnings-data.json 後，標記完成並交付 Stage 4。可保留一份簡短執行摘要，但不得以 receipt SHA 作為 Stage 4 的交接門檻。
 - Stage 3 不建立 Run、不重抓行情、不改寫週 JSON、不以日期共用檔作輸入；Run ID 或日期不符時停止，避免混用不同 Run。
