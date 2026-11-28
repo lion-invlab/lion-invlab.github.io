@@ -632,11 +632,11 @@ jobs:
       - name: Resolve report date and exact captured Run
         shell: bash
         env:
-          TRIGGER_COMMIT_MESSAGE: \${{ github.event.head_commit.message }}
+          TRIGGER_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           set -euo pipefail
-          if [[ "\${TRIGGER_COMMIT_MESSAGE:-}" =~ \[tac-stage4-submit:(TAC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+)\] ]]; then
-            RUN_ID="\${BASH_REMATCH[1]}"
+          if [[ "${TRIGGER_COMMIT_MESSAGE:-}" =~ \[tac-stage4-submit:(TAC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]+)\] ]]; then
+            RUN_ID="${BASH_REMATCH[1]}"
           else
             echo "::error::Build requires the exact [tac-stage4-submit:TAC-YYYY-MM-DD-RUNID] marker."; exit 1
           fi
