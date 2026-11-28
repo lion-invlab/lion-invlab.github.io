@@ -58,8 +58,8 @@ market fixture、44-row Observation bundle、source manifest、metadata audit、
 
 ## Main Run state contract v1.3
 - Stage 2 只能操作 Stage 1 明確建立的同一 run_id；不得以 report_date 單獨識別 Run，不得自行建立新 Run。
-- ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 2=READY 時可擷取；Stage 2=DEFERRED 且同一 Run 前置條件已具備時可提交 Observation，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時只驗證既有 SHA；PASS/PARTIAL 時不得重做；FAILED 只等待已核准的 GitHub recover 流程。
-- Stage 2 Observation 唯一路徑為 `production/runs/<run_id>/market-history-web-observations.json`；所有截圖、CNN sidecar 與原圖亦須位於同一 Run 目錄。ChatGPT worker 提交後讀回並計算 SHA；由 Main GitHub workflow 的 handoff acceptor 更新 Stage 2 為 SUBMITTED，output_sha256 必須等於 Observation 完整 bytes SHA。
-- Stage 2 Runner 只接受相同 Run 的 SUBMITTED，驗證成功後才改 PASS/PARTIAL 並寫入 receipt SHA。ChatGPT worker 不得修改任何 Stage 狀態；若 Runner 尚未完成，不得重抓或自行推進狀態。
+- ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 2=READY 時可擷取；Stage 2=DEFERRED 且同一 Run 前置條件已具備時可提交 Observation，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時交由 Runner 處理；PASS/PARTIAL 時不得重做；FAILED 只等待已核准的 GitHub recover 流程。
+- Stage 2 Observation 唯一路徑為 `production/runs/<run_id>/market-history-web-observations.json`；所有截圖、CNN sidecar 與原圖亦須位於同一 Run 目錄。ChatGPT worker 提交後回讀確認檔案已成功提交；handoff acceptor 只確認 Run ID 及日期，將 Stage 2 更新為 SUBMITTED，不要求 Observation SHA 作為額外交接 Gate。
+- Stage 2 Runner 讀取同一 Run 的 SUBMITTED Observation，完成一次資料轉換及輸出後將 Stage 2 更新為 PASS/PARTIAL，並交付 Stage 3。ChatGPT worker 不得修改任何 Stage 狀態；若 Runner 尚未完成，不得重抓或自行推進狀態。
 - PARTIAL 是終態，不得重新開啟；未核實欄位必須保留明確狀態，不得以其他 Run 或舊日期資料補值。
 - Stage 2 完成後由 GitHub capture job 自動接續 Stage 3；worker 只讀取狀態等待 Stage 3 PASS，不得自行執行 Stage 3、改寫行事曆 DB 或建立第二套 receipt。
