@@ -2,7 +2,6 @@ from __future__ import annotations
 import unittest
 from run_stage2 import validate_fedwatch_observation
 
-WR_SHA="a"*64
 CONTEXT={"report_date":"2026-11-30","trading_date":"2026-11-27"}
 
 def valid_payload():
@@ -20,13 +19,12 @@ def valid_payload():
         "web_reader_ref":"turn-fedwatch-test",
         "web_line_start":10,
         "web_line_end":22,
-        "reason":None,
-        "stage2_wr_sha256":WR_SHA
+        "reason":None
     }
 
 class FedWatchObservationTests(unittest.TestCase):
     def test_valid_two_outcome_snapshot_is_bound_and_preserved(self):
-        result=validate_fedwatch_observation(valid_payload(),{"wr_sha256":WR_SHA},CONTEXT)
+        result=validate_fedwatch_observation(valid_payload(),{},CONTEXT)
         self.assertEqual(result["status"],"VERIFIED")
         self.assertEqual(result["current_target_range"],"3.75%-4.00%")
         self.assertEqual(len(result["probabilities"]),2)
