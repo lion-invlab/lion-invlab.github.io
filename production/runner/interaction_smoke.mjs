@@ -234,12 +234,12 @@ try {
     for (let i = 0; i < expectedFedEvents.length; i++) {
       const expected = expectedFedEvents[i];
       const row = agendaRows.nth(i);
-      const rowText = (await row.innerText()).replace(/\\s+/g, " ").trim();
+      const rowText = (await row.innerText()).replace(/\s+/g, " ").trim();
       const iso = String(expected.date || "");
       const datePart = iso.slice(0, 10);
       const [year, month, day] = datePart.split("-").map(Number);
       const weekday = ["日", "一", "二", "三", "四", "五", "六"][new Date(Date.UTC(year, month - 1, day)).getUTCDay()];
-      const time = iso.match(/T(\\d{2}:\\d{2})/)?.[1] || "00:00";
+      const time = iso.match(/T(\d{2}:\d{2})/)?.[1] || "00:00";
       const status = ["released", "published", "completed"].includes(String(expected.status || "").toLowerCase()) ? "已發表" : "預定";
       const expectedDateLabel = `${status}｜${month}/${day} ${weekday} ${time}`;
       if (!rowText.includes(expectedDateLabel) || !rowText.includes(String(expected.name || ""))) {
