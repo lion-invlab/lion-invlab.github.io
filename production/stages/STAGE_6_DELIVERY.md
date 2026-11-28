@@ -1,16 +1,16 @@
 # Stage 6｜main/preview 審核版交付與驗證
 版本：Main E2E v1.2（2026-11-28）
 
-## 開工前強制 WR Preflight
-- Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，呼叫 `stage_wr_preflight` 完整讀取本階段 WR。
+## 開工前讀取 Stage 6 WR
+- Stage Runner 必須在任何本階段資料處理、分析、組裝或交付動作前，完整讀取本文件後才執行交付。
 - Stage 1 以當前 main HEAD 的本階段 WR 為基準；Stage 2–6 必須同時核對 Stage 1 `governance.blob_shas`、鎖定 commit 與當前 WR Git blob SHA。
 - 缺檔、空檔、無法完整 UTF-8 讀取、Run 未鎖定該 WR、SHA 不一致，均立即 FAIL-CLOSED；不得跳過、fallback 或繼續工作。
 - 本階段輸出收據必須包含 `wr_preflight`，至少記錄 `wr_path`、`wr_loaded`、`wr_sha256`、`wr_git_blob_sha`、`stage1_pinned_git_blob_sha`、讀取位元組數及 PASS 狀態。沒有該證據不得宣告本階段完成。
  
-Stage 6 必須先完整讀取本文件及完成 WR Preflight，才可建立 worktree、寫入 preview 或啟動 Pages 驗證。
+Stage 6 必須先完整讀取本文件及完成 WR 讀取，才可建立 worktree、寫入 preview 或啟動 Pages 驗證。
 
 ## 輸入
-Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、pre-build receipt、Builder／母版 provenance。 若 Stage 5 receipt／QA sidecar 為 `PARTIAL`，只保留 Run 內 HTML 與 QA 證據供內部檢視，不建立 main/preview 三檔、不啟動 Pages；Workflow 應明確略過 Stage 6。Stage 6 只接受 `REVIEW_READY`。
+Stage 5 REVIEW_READY HTML bytes、HTML SHA-256、Git blob SHA、QA sidecar、Builder／母版 provenance。 若 Stage 5 receipt／QA sidecar 為 `PARTIAL`，只保留 Run 內 HTML 與 QA 證據供內部檢視，不建立 main/preview 三檔、不啟動 Pages；Workflow 應明確略過 Stage 6。Stage 6 只接受 `REVIEW_READY`。
 
 ## 執行
 1. 從 main 最新 HEAD 建立獨立 worktree；Main 一般 Run 只寫 `preview/main/YYYY-MM-DD-review.html`、`.qa.json`、`.delivery.json`，與 Simulation 的 `preview/` 根層輸出完全隔離。若 Run context 含 `supersedes_run_id`（使用者明確核准的同日期 rerun），改寫入獨立的 `preview/main/YYYY-MM-DD-rerun-review.html`、`.qa.json`、`.delivery.json`；不得覆蓋原已核准 Preview，確保首頁發布鎖仍可核對原版。
