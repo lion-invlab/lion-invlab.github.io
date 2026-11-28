@@ -142,8 +142,6 @@ jobs:
             test_stage2_screenshot_inputs \
             test_validate_chatgpt_web_observations \
             test_market_source_verification_manifest \
-            test_build_stage2_receipt \
-            test_validate_market_snapshot \
             test_stage2_field_provenance \
             test_stage2_chart3_guard \
             test_browser_http_classification \
@@ -151,14 +149,12 @@ jobs:
           # Executable assertion scripts are not run by unittest import alone.
           python production/runner/test_stage2_screenshot_inputs.py
           python production/runner/test_validate_chatgpt_web_observations.py
-          python production/runner/test_validate_market_snapshot.py
           # test_quote_type_guard.py is deferred until the approved Simulation mothers are imported into Main; it currently reads a Simulation-only path unavailable in this main-only checkout.
           python production/runner/test_stage2_field_provenance.py
           # test_browser_http_classification.py belongs to the retired Playwright Stage 2 reader and is intentionally not run.
           python production/runner/test_market_source_verification_manifest.py
-          python production/runner/test_build_stage2_receipt.py
 
-      - name: Run Builder and earnings deterministic tests
+      - name: Run Stage 5 QA, Builder and earnings deterministic tests
         env:
           PYTHONPATH: production/runner
         run: |
@@ -175,7 +171,11 @@ jobs:
             test_fear_greed_marker \
             test_builder_approval \
             test_stage56_handoff \
-            test_stage5_scenario_qa
+            test_stage5_scenario_qa \
+            test_build_stage2_receipt \
+            test_validate_market_snapshot
+          python production/runner/test_validate_market_snapshot.py
+          python production/runner/test_build_stage2_receipt.py
 
       - name: Run full candidate Builder against isolated test fixtures
         env:
