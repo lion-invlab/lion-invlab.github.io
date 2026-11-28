@@ -76,8 +76,10 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                     if old_source.get(field) is not None:
                         source[field] = old_source[field]
             bundle = make_bundle(synthetic_seed)
-            # make_bundle derives dates from a sample template; each synthetic row
-            # must carry the exact current Run dates before Stage 2 accepts it.
+            # The helper retains a legacy sample report date. Bind the envelope
+            # and each observation to this Run before Stage 2 acceptance.
+            bundle["report_date"] = context["report_date"]
+            bundle["trading_date"] = context["trading_date"]
             for row in bundle["observations"]:
                 row["report_date"] = context["report_date"]
                 row["trading_date"] = context["trading_date"]
