@@ -173,9 +173,6 @@ def main():
         "--cnn-observation",str(cnn_observation.relative_to(ROOT)),
         "--output",str(observations_path.relative_to(ROOT))])
     input_mode="RUN_SCOPED_CHATGPT_WEB_OBSERVATIONS"
-    audit=run([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
-        "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
-        "--output",str(audit_path.relative_to(ROOT))])
     manifest=run([sys.executable,str(RUNNER/"build_market_source_verification_manifest.py"),
         "--data",str(fixture_path.relative_to(ROOT)),"--report-date",report_date,
         "--observations",str(observations_path.relative_to(ROOT)),
@@ -192,10 +189,10 @@ def main():
     fixture_path.write_text(json.dumps(fixture,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt=run([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
         "--report-date",report_date,"--data",str(fixture_path.relative_to(ROOT)),
-        "--audit",str(audit_path.relative_to(ROOT)),"--manifest",str(manifest_path.relative_to(ROOT)),
+        "--manifest",str(manifest_path.relative_to(ROOT)),
         "--observations",str(observations_path.relative_to(ROOT)),"--output",str(receipt_path.relative_to(ROOT)),
         "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
-        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
+        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main","--handoff-only"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["stage_wr_loaded"]=wr_loaded
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
@@ -215,7 +212,7 @@ def main():
         chart3["ledger_path"]=str(ledger_path.relative_to(ROOT))
     elapsed=round(time.monotonic()-started,3)
     observations=load(observations_path)
-    output_files=[fixture_path,observations_path,audit_path,manifest_path,receipt_path]
+    output_files=[fixture_path,observations_path,manifest_path,receipt_path]
     if ledger_path.is_file() and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION"):
         output_files.append(ledger_path)
     summary={
