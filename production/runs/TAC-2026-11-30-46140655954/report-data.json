@@ -1117,12 +1117,10 @@
     "reason": null,
     "observation_sha256": "3a035a7b181d023ec8f303144dc175ea95d8eb710c48a392a728e87e4e5d8969"
   },
-  "observation": [
-    "確認美股反彈是否延續至非科技產業，而非僅由晶片與大型科技股支撐。",
-    "追蹤美國10年期殖利率與Fed利率預期是否再度上修。",
-    "觀察中國官方製造業PMI是否仍低於50，以及民間調查與官方數據的差距。",
-    "檢查AI雲端業者CDS利差與資料中心融資條件是否改善。"
-  ],
+  "observation": {
+    "heading": "盤面觀察重點",
+    "text": "美股半日市全面收高，晶片與大型科技股領漲，VIX下跌11.16%；但美債殖利率同步走高，顯示反彈仍受利率約束。中國股市在政策穩市訊號下強彈，惟製造業PMI預估仍低於50。短線偏向急跌後修復，尚未確認趨勢翻多。"
+  },
   "calendar": {},
   "earnings": {},
   "summary_title": "反彈修復風險偏好，但AI融資與利率定價仍是市場約束",
@@ -1404,34 +1402,47 @@
       "browser_observation_record_sha256": "429cfa2a0792c4a38d7f222b71d1bd71c2ea1ab9673c466ab85742e9334460c5"
     }
   },
-  "key_levels": [
-    {
-      "name": "S&P 500",
-      "value": "7,297.49",
-      "context": "11/27收盤；觀察反彈能否守住本週回升區間"
-    },
-    {
-      "name": "NASDAQ Composite",
-      "value": "24,129.50",
-      "context": "11/27收盤；觀察半導體領漲是否擴散"
-    },
-    {
-      "name": "VIX",
-      "value": "23.81",
-      "context": "仍高於常態低波動區，需觀察能否持續回落"
-    },
-    {
-      "name": "US 10Y",
-      "value": "4.934%",
-      "context": "殖利率續升將壓抑長久期資產估值"
-    }
-  ],
-  "core_observation": [
-    "美股反彈由半導體領漲，但需要確認漲勢能否延伸至更廣泛產業與中小型股。",
-    "10年期美債殖利率升至4.934%，若續升將對高估值與長久期資產形成壓力。",
-    "中國穩市政策改善短線信心，週一官方PMI是政策是否傳導至實體需求的第一個檢驗。",
-    "AI產業風險焦點由單純估值轉向資本支出回報、信用利差、債務與再融資能力。"
-  ],
+  "key_levels": {
+    "baseline_date": "2026-11-27",
+    "formula": "樞紐點 P=(最高價+最低價+收盤價)/3；R1=2P−最低價；S1=2P−最高價。以下僅列本輪可回查的五項現金指數 OHLC。",
+    "items": [
+      {
+        "name": "S&P 500",
+        "ohlc": "Open 7,262.61｜High 7,304.10｜Low 7,211.46｜Close 7,297.49",
+        "url": "https://www.investing.com/indices/us-spx-500-historical-data",
+        "source_name": "Investing.com Historical Data"
+      },
+      {
+        "name": "Dow Jones",
+        "ohlc": "Open 50,458.86｜High 50,830.19｜Low 50,398.29｜Close 50,774.94",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "source_name": "Investing.com HK Historical Data"
+      },
+      {
+        "name": "NASDAQ Composite",
+        "ohlc": "Open 23,958.46｜High 24,149.09｜Low 23,690.60｜Close 24,129.50",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "source_name": "Investing.com HK Historical Data"
+      },
+      {
+        "name": "Russell 2000",
+        "ohlc": "Open 2,721.39｜High 2,751.42｜Low 2,721.39｜Close 2,750.30",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "source_name": "Investing.com Historical Data"
+      },
+      {
+        "name": "PHLX Semiconductor",
+        "ohlc": "Open 9,036.30｜High 9,213.60｜Low 8,789.30｜Close 9,186.70",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "source_name": "Investing.com HK Historical Data"
+      }
+    ]
+  },
+  "core_observation": {
+    "heading": "今日核心觀察",
+    "text": "本週反彈由半導體領漲，VIX回落顯示短線恐慌降溫，但10年期美債殖利率升至4.934%，AI信用與融資風險仍未消失。週一中國官方PMI將檢驗穩市政策能否傳導至實體需求；下週美國非農就業則是12月Fed定價的重要變數。操作上保留核心部位、不追逐單日急彈，新增資金分批投入，並以市場廣度、長端殖利率及AI信用利差作為風險控制條件。",
+    "points": []
+  },
   "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
   "market_sentiment": "市場情緒由極端避險轉向急跌後回補，但尚未回到低波動、廣泛參與的健康風險偏好。VIX降至23.81、科技與半導體領漲，代表短線賣壓緩和；然而10年期美債殖利率升至4.934%，AI相關信用風險與融資成本仍未同步解除。現階段應視為反彈修復，而非新一輪全面追價訊號。",
   "quality_note": "FedWatch本輪已重新開啟Investing.com Fed Rate Monitor頁面確認：12/9會議維持4.00%–4.25%機率95.8%，降至3.75%–4.00%機率4.2%，更新時間2026/11/28 12:35 AM EST；原始頁面行號390–416。",
