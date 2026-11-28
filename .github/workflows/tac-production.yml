@@ -380,6 +380,26 @@ jobs:
           test -s "$RUN_DIR/report-data.json"
           test -s "$RUN_DIR/stage1-receipt.json"
           test -s "$RUN_DIR/run-state.json"
+      - name: Register current GitHub workflow attempt in Run state
+        env:
+          CURRENT_WORKFLOW_RUN_ID: ${{ github.run_id }}
+          CURRENT_WORKFLOW_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python - "$RUN_DIR/run-state.json" <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0,"production/runner")
+          from run_state import register_workflow_run
+          path=Path(sys.argv[1])
+          state=json.loads(path.read_text(encoding="utf-8"))
+          updated=register_workflow_run(state,os.environ["CURRENT_WORKFLOW_RUN_ID"],int(os.environ["CURRENT_WORKFLOW_RUN_ATTEMPT"]))
+          if updated != state:
+              temp=path.with_suffix(".json.tmp")
+              temp.write_text(json.dumps(updated,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+              temp.replace(path)
+          print(json.dumps({"run_id":updated["run_id"],"workflow_run_id":updated["workflow_run_id"],
+              "workflow_run_attempt":updated["workflow_run_attempt"],"state_version":updated["state_version"]},indent=2))
+          PY
       - name: Publish Stage 1 handoff before Stage 2 starts
         shell: bash
         run: |
