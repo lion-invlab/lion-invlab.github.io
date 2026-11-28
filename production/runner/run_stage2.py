@@ -27,7 +27,7 @@ def run(cmd:list[str])->dict:
             except json.JSONDecodeError: pass
         return {"stdout":proc.stdout.strip()}
 
-def validate_stage2_worker_wr_attestation(payload:dict,wr_preflight:dict)->dict:
+def validate_stage2_stage2_instructions_loaded(payload:dict,wr_loaded:dict)->dict:
     """Record that the Stage 2 worker received its instructions; do not gate on a WR hash."""
     return {"status":"LOADED","stage":"STAGE_2","wr_path":wr_preflight.get("wr_path"),
             "wr_loaded":wr_preflight.get("wr_loaded") is True}
