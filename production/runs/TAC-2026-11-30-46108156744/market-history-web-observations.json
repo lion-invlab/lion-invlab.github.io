@@ -1602,7 +1602,7 @@
       "name": "fear_greed",
       "source_url": "https://fgscore.com/en/markets/sp500",
       "target_date": "2026-11-27",
-      "observed_date": "2026-11-27",
+      "observed_date": null,
       "page_title": "US stocks · CNN Fear & Greed Index — Today's Score & Chart",
       "instrument_identity": "CNN Fear & Greed Index (provider index)",
       "read_method": "CHATGPT_WEB_OPEN_HISTORICAL_PAGE",
