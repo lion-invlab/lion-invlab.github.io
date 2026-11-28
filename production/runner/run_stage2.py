@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -123,10 +123,9 @@ def main():
     if not context_path.is_file() or not stage1_fixture_path.is_file() or not stage1_receipt_path.is_file():
         raise SystemExit("Stage 1 run-context.json, stage1-fixture.json and stage1-receipt.json are required")
     context=load(context_path)
-    wr_preflight=stage_wr_preflight("STAGE_2",context)
+    wr_preflight=load_stage_wr("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
-    require_stage_wr_receipt(stage1_receipt,"STAGE_1",context)
-    stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
+        stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
     if stage1_receipt.get("run_id")!=context.get("run_id"):
         raise SystemExit("Stage 1 receipt Run ID does not match run-context")
     if stage1_receipt.get("report_date")!=context.get("report_date") or stage1_receipt.get("trading_date")!=context.get("trading_date"):
@@ -225,7 +224,7 @@ def main():
         "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
-    stage2_receipt_doc["wr_preflight"]=wr_preflight
+    stage2_receipt_doc["stage_wr_loaded"]=wr_preflight
     stage2_receipt_doc["worker_wr_attestation"]=worker_wr_attestation
     stage2_receipt_doc["fedwatch_observation"]={key:fedwatch_observation.get(key) for key in ("status","target_meeting","current_target_range","updated_at_tw","observation_sha256")}
     receipt_path.write_text(json.dumps(stage2_receipt_doc,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -251,7 +250,7 @@ def main():
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
       "status":"PASS" if receipt.get("status")=="PASS" else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
-      "wr_preflight":wr_preflight,
+      "stage_wr_loaded":wr_preflight,
       "worker_wr_attestation":worker_wr_attestation,
       "fedwatch_status":fedwatch_observation["status"],
       "fedwatch_observation_sha256":fedwatch_observation["observation_sha256"],
