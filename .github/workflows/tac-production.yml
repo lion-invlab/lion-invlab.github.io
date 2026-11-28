@@ -269,8 +269,8 @@ jobs:
           python - <<'PY'
           import sys
           sys.path.insert(0, "production/runner")
-          from stage_wr_preflight import stage_wr_preflight
-          evidence = stage_wr_preflight("STAGE_1")
+          from stage_wr_loader import load_stage_wr
+          evidence = load_stage_wr("STAGE_1")
           if evidence.get("status") != "PASS" or evidence.get("wr_loaded") is not True:
               raise SystemExit("Stage 1 Work Rules could not be loaded.")
           print(evidence)
