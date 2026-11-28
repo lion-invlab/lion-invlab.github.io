@@ -743,6 +743,10 @@ jobs:
           else:
               assert state["stages"]["STAGE_4"]["input_sha256"]==digest
               assert (run_dir/"stage4-analysis-receipt.json").is_file()
+          if state["stages"]["STAGE_5"]["status"] in ("PASS","PARTIAL"):
+              assert (run_dir/"stage5-render-qa-receipt.json").is_file()
+          if state["stages"]["STAGE_6"]["status"]=="PASS":
+              assert (run_dir/"stage6-delivery-receipt.json").is_file()
           assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]
           assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]
           assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]
