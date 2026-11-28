@@ -40,22 +40,16 @@ class Stage4ContentTests(unittest.TestCase):
     def setUp(self):
         self.context={"run_id":"TAC-2026-11-26-test-1","report_date":"2026-11-26","trading_date":"2026-11-25"}
         self.data={"global_markets":{},"bonds":{},"fx":{},"energy":{},"metals":{},"risk":{"fear_greed":{"display":"待核實","source":{"verification_status":"PENDING"}}}}
-    def test_stage4_wr_handoff_requires_full_exact_text(self):
-        import hashlib
-        text = "# Stage 4\nFull rules\n"
-        digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
-        blob = "a" * 40
+    def test_stage4_wr_handoff_requires_readable_full_text_not_hash_proof(self):
+        text = "# Stage 4\\nFull rules\\n"
         capture = {"status":"AWAITING_EDITORIAL_INPUT","stage4_work_instructions":{
-            "path":"production/stages/STAGE_4_NEWS_ANALYSIS.md","full_text":text,
-            "sha256":digest,"git_blob_sha":blob}}
-        editorial = {"stage4_wr_sha256":digest}
-        preflight = {"wr_sha256":digest,"wr_git_blob_sha":blob}
-        attestation = validate_stage4_wr_handoff(capture,editorial,preflight)
-        self.assertEqual(attestation["status"],"PASS")
-        self.assertEqual(attestation["stage4_wr_sha256"],digest)
-        editorial["stage4_wr_sha256"] = "b" * 64
-        with self.assertRaisesRegex(ValueError,"attestation"):
-            validate_stage4_wr_handoff(capture,editorial,preflight)
+            "path":"production/stages/STAGE_4_NEWS_ANALYSIS.md","full_text":text}}
+        attestation = validate_stage4_wr_handoff(capture,{}, {"wr_loaded":True})
+        self.assertEqual(attestation["status"],"LOADED")
+        self.assertTrue(attestation["full_text_available"])
+        capture["stage4_work_instructions"]["full_text"] = ""
+        with self.assertRaisesRegex(ValueError,"complete Stage 4 instructions"):
+            validate_stage4_wr_handoff(capture,{}, {"wr_loaded":True})
 
     def test_valid_three_summary_five_ten_and_five_layers(self):
         x=sample();x["market_snapshot_sha256"]=market_snapshot_digest(self.data)
