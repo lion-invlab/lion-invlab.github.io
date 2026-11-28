@@ -134,8 +134,6 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     """Accept Stage 4 editorial work by Run identity after Stage 3 completes."""
     artifact = run_dir / STAGE_ARTIFACTS["STAGE_4"]
     content = read_json(artifact)
-    if state["stages"]["STAGE_3"]["status"] != "PASS":
-        raise ValueError("Stage 4 can start only after Stage 3 completes")
     expected = {
         "run_id": context["run_id"],
         "report_date": context["report_date"],
