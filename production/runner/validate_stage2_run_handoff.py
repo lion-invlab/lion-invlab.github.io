@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path
+from run_state import validate_state
 
 WEB = "market-history-web-observations.json"
 OPTIONAL = ("cnn-fear-greed-observation.json", "market-screenshot-observations.json")
@@ -40,10 +41,15 @@ def validate_stage2_run_handoff(run_dir: str|Path, repo_root: str|Path|None=None
     need(run.parent==runs.resolve(),"Run directory must be a direct child of production/runs")
     context_path=run/"run-context.json"; stage1_fixture_path=run/"stage1-fixture.json"
     working_fixture_path=run/"report-data.json"; receipt_path=run/"stage1-receipt.json"
-    for p in (context_path,stage1_fixture_path,working_fixture_path,receipt_path):
+    state_path=run/"run-state.json"
+    for p in (context_path,stage1_fixture_path,working_fixture_path,receipt_path,state_path):
         need(p.is_file() and not p.is_symlink(),f"Missing Stage 1/working file: {p.name}")
     context=read(context_path); fixture=read(stage1_fixture_path)
     working_fixture=read(working_fixture_path); receipt=read(receipt_path)
+    state=read(state_path)
+    validate_state(state,expected_run_id=run.name)
+    need(state["stages"]["STAGE_1"]["status"]=="PASS","Stage 1 state must be PASS")
+    need(state["stages"]["STAGE_2"]["status"]=="SUBMITTED","Stage 2 must be SUBMITTED before GitHub validation")
     run_id=str(context.get("run_id") or ""); report=str(context.get("report_date") or ""); trading=str(context.get("trading_date") or "")
     need(run_id==run.name and run_id.startswith(f"TAC-{report}-"),"run-context Run ID does not match directory/report date")
     need(receipt.get("status")=="PASS" and receipt.get("run_id")==run_id,"Stage 1 receipt status/Run ID mismatch")
@@ -89,7 +95,9 @@ def validate_stage2_run_handoff(run_dir: str|Path, repo_root: str|Path|None=None
             loaded=load_screenshot_bundle(path,fixture,run)
             screenshot={"row_count":len(loaded),"field_count":sum(len(x.get("fields") or {}) for x in loaded.values())}
         hashes[name]=sha(path)
-    return {"status":"PASS",**binding,"stage1_fixture_path":str(stage1_fixture_path.relative_to(root)),
+    need(state["stages"]["STAGE_2"].get("output_sha256")==hashes[WEB],
+         "Stage 2 state submission SHA does not match the Run-scoped web observation bundle")
+    return {"status":"PASS",**binding,"run_state_version":state["state_version"],"stage2_submission_sha256":hashes[WEB],"stage1_fixture_path":str(stage1_fixture_path.relative_to(root)),
             "working_fixture_path":str(working_fixture_path.relative_to(root)),"bundle_sha256":hashes[WEB],
             "optional_bundle_sha256":{k:v for k,v in hashes.items() if k!=WEB},
             "screenshot":screenshot}
