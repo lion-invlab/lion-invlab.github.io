@@ -33,8 +33,7 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 class Stage1To3SyntheticE2ETests(unittest.TestCase):
-    def test_stage1_to_stage6_pre_delivery_uses_one_run_and_no_live_market_or_calendar_writes(self):
-        report_date = date(2026, 11, 24)
+    def _run_full_synthetic_e2e(self, report_date: date, trading_date: date, sample_date: date, expected_current_week: str, expected_previous_week: str | None):
         token = os.environ.get("GITHUB_RUN_ID") or str(900000000 + os.getpid())
         run_id = stable_run_id(report_date, token)
         run_dir = ROOT / "production" / "runs" / run_id
@@ -45,16 +44,21 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
         os.environ["GITHUB_REF"] = "refs/heads/main"
         os.environ["GITHUB_RUN_ID"] = token
         try:
-            result = build(report_date, run_id, date(2026, 11, 23))
+            result = build(report_date, run_id, trading_date)
             stage1 = write_run_files(run_dir, run_id, result, ROOT)
             context = json.loads((run_dir / "run-context.json").read_text(encoding="utf-8"))
             self.assertEqual(stage1["status"], "PASS")
             self.assertEqual(context["run_id"], run_id)
-            self.assertEqual(context["report_date"], "2026-11-24")
-            self.assertEqual(context["trading_date"], "2026-11-23")
+            self.assertEqual(context["report_date"], report_date.isoformat())
+            self.assertEqual(context["trading_date"], trading_date.isoformat())
+            if report_date.weekday() == 0:
+                self.assertEqual(context["production_date"], "2026-11-28")
+                self.assertEqual(context["mother"]["key"], "monday")
+            else:
+                self.assertEqual(context["mother"]["key"], "weekdays")
 
             wr = stage_wr_preflight("STAGE_2", context)
-            sample_data = json.loads((ROOT / "production/testdata/report-data-2026-11-24.json").read_text(encoding="utf-8"))
+            sample_data = json.loads((ROOT / f"production/testdata/report-data-{sample_date.isoformat()}.json").read_text(encoding="utf-8"))
             synthetic_seed = copy.deepcopy(json.loads((run_dir / "stage1-fixture.json").read_text(encoding="utf-8")))
             # Keep current Main source policy/URLs from the blank-first Stage 1 fixture;
             # import only synthetic numeric values from the historical test fixture.
@@ -126,7 +130,11 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             self.assertEqual(state["stages"]["STAGE_3"]["status"], "PASS")
             stage3_receipt = json.loads((run_dir / "stage3-calendar-receipt.json").read_text(encoding="utf-8"))
             self.assertEqual(stage3_receipt["run_id"], run_id)
-            self.assertEqual(stage3_receipt["current_week"]["week_id"], "2026-W48")
+            self.assertEqual(stage3_receipt["current_week"]["week_id"], expected_current_week)
+            if expected_previous_week is None:
+                self.assertIsNone(stage3_receipt["previous_week"])
+            else:
+                self.assertEqual(stage3_receipt["previous_week"]["week_id"], expected_previous_week)
             self.assertEqual(state["last_passed_stage"], "STAGE_3")
 
             with patch.object(sys, "argv", ["prepare_stage4_research_bundle.py", "--run-dir", str(run_dir.relative_to(ROOT))]):
@@ -168,7 +176,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "research_bundle_sha256": bundle_receipt["bundle_sha256"],
                 "stage3_receipt_sha256": digest(run_dir / "stage3-calendar-receipt.json"),
                 "stage4_wr_sha256": stage4_wr["wr_sha256"],
-                "news_cutoff_taipei": "2026-11-24 05:25",
+                "news_cutoff_taipei": f"{report_date.isoformat()} 05:25",
             })
             editorial["core_observation"] = {
                 "heading": "本週三大觀察焦點",
@@ -192,9 +200,9 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 ],
             }
             for item in editorial["focus_news"] + editorial["headlines"]:
-                item["published_at_tw"] = "2026-11-23 13:00"
-                item["published_at_source"] = "Nov 23, 2026 1:00 PM"
-                item["updated_at_source"] = "Nov 23, 2026 1:10 PM"
+                item["published_at_tw"] = f"{trading_date.isoformat()} 13:00"
+                item["published_at_source"] = trading_date.strftime("%b %d, %Y 1:00 PM")
+                item["updated_at_source"] = trading_date.strftime("%b %d, %Y 1:10 PM")
                 item["publisher"] = item.get("publisher") or "Synthetic E2E source"
             editorial["market_comments"]["global_markets"] = editorial["market_comments"]["global_markets"][:3]
             # Synthetic same-day cash-index OHLC used only to exercise the pivot-level schema;
@@ -234,7 +242,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
             editorial["key_levels"] = {
                 "baseline_date": context["trading_date"],
                 "trading_date": context["trading_date"],
-                "captured_at_taipei": "2026-11-24 05:00:00",
+                "captured_at_taipei": f"{report_date.isoformat()} 05:00:00",
                 "formula": "Synthetic test fixture: pivot levels calculated from deterministic OHLC derived from synthetic close values.",
                 "items": synthetic_levels,
             }
@@ -244,7 +252,7 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 "風險情境：若波動率及信用利差同步上升，降低高Beta與槓桿曝險。",
                 "嚴重情境：若政策與流動性風險擴大，優先保留現金並分散單一市場風險。",
             ])
-            editorial["political_scan"]["checked_at"] = "2026-11-24T05:00:00+08:00"
+            editorial["political_scan"]["checked_at"] = f"{report_date.isoformat()}T05:00:00+08:00"
             for finding in editorial["political_scan"]["findings"]:
                 finding["checked_at"] = "2026-11-24T05:00:00+08:00"
                 if isinstance(finding.get("transmission"), dict):
@@ -318,6 +326,20 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 os.environ.pop("GITHUB_RUN_ID", None)
             else:
                 os.environ["GITHUB_RUN_ID"] = original_run_id
+
+    def test_weekday_run_stage1_to_stage6_pre_delivery(self):
+        self._run_full_synthetic_e2e(
+            report_date=date(2026, 11, 24), trading_date=date(2026, 11, 23),
+            sample_date=date(2026, 11, 24), expected_current_week="2026-W48",
+            expected_previous_week=None
+        )
+
+    def test_saturday_to_monday_run_stage1_to_stage6_pre_delivery(self):
+        self._run_full_synthetic_e2e(
+            report_date=date(2026, 11, 30), trading_date=date(2026, 11, 27),
+            sample_date=date(2026, 11, 24), expected_current_week="2026-W49",
+            expected_previous_week="2026-W48"
+        )
 
 if __name__ == "__main__":
     unittest.main()
