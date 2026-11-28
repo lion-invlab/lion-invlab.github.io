@@ -38,6 +38,7 @@ assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_2" in st
 assert "if: ${{ always() && needs['stage2-and-stage3'].result == 'success' }}" in build
 assert "needs: [stage2-and-stage3]" in build
 assert "needs['stage2-and-stage3'].outputs.run_id" in build or "needs.stage2-and-stage3.outputs.run_id" in build
+assert 'pinned_wr_blob=((context.get("governance") or {}).get("blob_shas") or {}).get(wr_path.as_posix())' in build
 assert "stage4-editorial-content.json" in build
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in build
 
