@@ -71,6 +71,12 @@ assert "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview deliv
 assert "capture-and-calendar" not in workflow
 assert "production/input/market-history-web-observations-" not in workflow
 assert "production/input/report-content-" not in workflow
+# Stage 2 close waiting is bound to this Run's trading_date, not the current
+# New York time-of-day (which caused next-day recoveries to wait another day).
+assert "wait_for_trading_date_close.py \"$RUN_DIR/run-context.json\"" in stage2
+assert "date +%H%M" not in stage2
+assert "trading_date-bound close wait" in stage2
+
 print("PASS: Stage 1 exits after Run handoff; Stage 2/3 and Stage 4/6 are downstream jobs.")
 
 # Stage 4 editorial handoff must be tied to the same Run created by Stage 1,
