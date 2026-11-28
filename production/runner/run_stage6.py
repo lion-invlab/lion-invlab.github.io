@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup
 
-from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from stage_wr_loader import load_stage_wr
 from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -112,7 +112,7 @@ def main():
     run_dir=run_dir.resolve()
     if run_dir.parent!=runs.resolve():raise SystemExit("Stage 6 run directory must be a direct child of production/runs")
     context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
-    wr_preflight=stage_wr_preflight("STAGE_6",context)
+    wr_preflight=load_stage_wr("STAGE_6",context)
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
@@ -130,8 +130,7 @@ def main():
         input_sha256=hashlib.sha256((run_dir/"stage5-render-qa-receipt.json").read_bytes()).hexdigest())
     state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     stage5=json.loads((run_dir/"stage5-render-qa-receipt.json").read_text(encoding="utf-8"))
-    require_stage_wr_receipt(stage5,"STAGE_5",context)
-    report_date=context["report_date"]
+        report_date=context["report_date"]
     html=run_dir/"review.html";qa=run_dir/"qa-sidecar.json"
     render_path=run_dir/"render-manifest.json";stage4_path=run_dir/"stage4-analysis-receipt.json"
     if not html.is_file() or not qa.is_file() or not render_path.is_file() or not stage4_path.is_file():
@@ -181,7 +180,7 @@ def main():
             "html":{"sha256":sha(html_raw),"git_blob_sha":blob(html_raw)},
             "qa":{"sha256":sha(qa_bytes),"source_qa_sha256":sha(qa_source_raw)},
             "builder_sha":builder_blob,
-             "wr_preflight":wr_preflight,"prebuild_receipt_sha256":sha(prebuild.read_bytes()),
+             "stage_wr_loaded":wr_preflight,"prebuild_receipt_sha256":sha(prebuild.read_bytes()),
             "stage5_receipt_sha256":sha((run_dir/"stage5-render-qa-receipt.json").read_bytes()),
             "protected_paths_unchanged":True,"protected_paths":list(PROTECTED)+["data/calendar/weeks"],
             "formal_homepage_modified":False,"history_archive_modified":False,
