@@ -23,6 +23,13 @@ def sample():
     }
 
 class Stage4ContentTests(unittest.TestCase):
+    def test_source_timestamp_with_am_pm_and_no_abbreviation_is_parsed(self):
+        content={"focus_news":[{"published_at_source":"Nov 25 2026 1:00 PM",
+                                "source_timezone":"Asia/Taipei",
+                                "published_at_tw":"2026-11-25 13:00"}],"headlines":[]}
+        repairs=normalize_news_publication_times(content)
+        self.assertEqual(content["focus_news"][0]["published_at_tw"],"2026-11-25 13:00")
+        self.assertEqual(repairs,[])
     def test_source_timezone_is_authoritative_for_taipei_publication_time(self):
         content={"focus_news":[{"published_at_source":"2026-11-27 07:24 PM AEDT",
                                 "source_timezone":"Australia/Sydney",
