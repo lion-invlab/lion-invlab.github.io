@@ -90,7 +90,7 @@ def main():
     state=transition_state(state,stage="STAGE_3",expected_version=state["state_version"],expected_status="RUNNING",new_status="PASS",
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),input_sha256=receipt["stage2_receipt_sha256"],
         output_sha256=sha(rp),receipt_path=str(rp.relative_to(ROOT)))
-    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    write_state_atomic(state_path,state)
     print(json.dumps(receipt,ensure_ascii=False,indent=2))
 
 if __name__=="__main__":main()
