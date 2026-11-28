@@ -167,9 +167,14 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
         raise ValueError("Stage 4 cannot be accepted before Stage 3 state is PASS")
     instructions = capture.get("stage4_work_instructions") or {}
     wr = stage_wr_preflight("STAGE_4", context)
+    full_wr_text = instructions.get("full_text")
+    full_wr_sha = hashlib.sha256(full_wr_text.encode("utf-8")).hexdigest() if isinstance(full_wr_text, str) else None
     if (capture.get("status") != "AWAITING_EDITORIAL_INPUT"
+            or capture.get("run_id") != context["run_id"]
+            or capture.get("report_date") != context["report_date"]
             or instructions.get("path") != "production/stages/STAGE_4_NEWS_ANALYSIS.md"
             or instructions.get("sha256") != wr["wr_sha256"]
+            or full_wr_sha != wr["wr_sha256"]
             or instructions.get("git_blob_sha") != wr["wr_git_blob_sha"]):
         raise ValueError("Stage 4 capture handoff does not match the pinned full Stage 4 WR")
     expected = {
