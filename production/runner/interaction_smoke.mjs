@@ -245,7 +245,7 @@ try {
   if (await agenda.count() !== 1 || !(await agenda.isVisible())) {
     throw new Error("本週聯準會官員行程 block missing or hidden");
   }
-  const reportDate = document.querySelector('meta[name="report-date"]')?.getAttribute("content") || "";
+  const reportDate = await page.locator('meta[name="report-date"]').getAttribute("content") || "";
   const agendaEvents = agenda.locator('.fc-fomc-weekly-event:not([data-fed-event-template="true"])');
   const agendaEventCount = await agendaEvents.count();
   if (reportDate === "2026-11-24") {
