@@ -293,6 +293,8 @@ jobs:
                   matches.append(context_path.parent)
           matches.sort(key=lambda p: json.loads((p/"run-context.json").read_text(encoding="utf-8")).get("started_at",""))
           supersedes=""
+          sys.path.insert(0, "production/runner")
+          from run_state import validate_state
           if matches:
               mode=os.environ.get("DISPATCH_MODE")
               stable_id=f"TAC-{target}-{os.environ.get('GITHUB_RUN_ID','')}"
@@ -301,14 +303,33 @@ jobs:
                   state_path=same/"run-state.json"
                   if not state_path.is_file():
                       raise SystemExit(f"Existing same-workflow Run {same.name} has no authoritative run-state; refusing overwrite.")
-                  sys.path.insert(0, "production/runner")
-                  from run_state import validate_state
                   validate_state(json.loads(state_path.read_text(encoding="utf-8")),expected_run_id=stable_id)
                   print("")
                   sys.exit(0)
               if mode not in ("recover","rerun"):
                   raise SystemExit(f"Run already exists for {target}; use the explicitly authorized recover/rerun mode.")
-              prior=matches[-1]
+              if mode == "recover":
+                  eligible=[]
+                  for candidate in matches:
+                      state_path=candidate/"run-state.json"
+                      if not state_path.is_file():
+                          continue
+                      state=json.loads(state_path.read_text(encoding="utf-8"))
+                      validate_state(state,expected_run_id=candidate.name)
+                      if state.get("overall_status") not in ("RUNNING","PARTIAL","FAILED"):
+                          continue
+                      stages=state.get("stages") or {}
+                      if stages.get("STAGE_5",{}).get("status")=="PASS" or stages.get("STAGE_6",{}).get("status")=="PASS":
+                          continue
+                      preview=[Path("preview")/f"{target}-review.html",Path("preview")/f"{target}-review.qa.json",Path("preview")/f"{target}-review.delivery.json"]
+                      if any(path.exists() for path in preview):
+                          continue
+                      eligible.append(candidate)
+                  if len(eligible)!=1:
+                      raise SystemExit(f"Recovery requires exactly one valid unfinished Run with run-state; found {len(eligible)}.")
+                  prior=eligible[0]
+              else:
+                  prior=matches[-1]
               if mode == "rerun":
                   if len(matches) != 1:
                       raise SystemExit(f"Explicit rerun requires exactly one prior Run; found {len(matches)}.")
