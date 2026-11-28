@@ -1,6 +1,7 @@
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 import accept_stage_submission as acceptor
@@ -58,7 +59,7 @@ class AcceptStageSubmissionTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         self.run, self.context = make_run(self.root)
-        self.patcher = __import__("unittest").mock.patch.object(acceptor, "ROOT", self.root)
+        self.patcher = patch.object(acceptor, "ROOT", self.root)
         self.patcher.start()
 
     def tearDown(self):
