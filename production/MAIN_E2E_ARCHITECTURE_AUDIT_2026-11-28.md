@@ -4,6 +4,7 @@
 **Repository：** `lion-invlab/lion-invlab.github.io`  
 **正式分支：** `main`（唯讀基線）  
 **施工分支：** `rebuild/tac-main-e2e-architecture-20261128`  
+**Draft PR：** [#364](https://github.com/lion-invlab/lion-invlab.github.io/pull/364)（未合併）  
 **Simulation 參考分支：** `simulation/tac-process-lab-2026-11-06`（唯讀，未修改）
 
 ## 1. 本次施工目標與邊界
