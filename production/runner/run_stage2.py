@@ -117,7 +117,7 @@ def main():
     context=load(context_path)
     wr_loaded=load_stage_wr("STAGE_2",context)
     stage1_receipt=load(stage1_receipt_path)
-        stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
+    stage1_fixture_sha256=hashlib.sha256(stage1_fixture_path.read_bytes()).hexdigest()
     if stage1_receipt.get("run_id")!=context.get("run_id"):
         raise SystemExit("Stage 1 receipt Run ID does not match run-context")
     if stage1_receipt.get("report_date")!=context.get("report_date") or stage1_receipt.get("trading_date")!=context.get("trading_date"):
