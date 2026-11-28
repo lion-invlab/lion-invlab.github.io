@@ -405,6 +405,24 @@ jobs:
             git rebase origin/main
           done
           test "$PUSHED" = true
+      - name: Inspect authoritative Run state before resuming
+        id: run-state
+        run: |
+          python - "$RUN_DIR" <<'PY'
+          import json,sys
+          from pathlib import Path
+          sys.path.insert(0,"production/runner")
+          from run_state import validate_state
+          run=Path(sys.argv[1])
+          context=json.loads((run/"run-context.json").read_text(encoding="utf-8"))
+          state=json.loads((run/"run-state.json").read_text(encoding="utf-8"))
+          validate_state(state,expected_run_id=context["run_id"])
+          with open(__import__("os").environ["GITHUB_OUTPUT"],"a",encoding="utf-8") as f:
+              f.write(f"stage2_status={state['stages']['STAGE_2']['status']}\n")
+              f.write(f"stage3_status={state['stages']['STAGE_3']['status']}\n")
+          print(json.dumps({"run_id":state["run_id"],"state_version":state["state_version"],
+              "stage2":state["stages"]["STAGE_2"]["status"],"stage3":state["stages"]["STAGE_3"]["status"]},indent=2))
+          PY
       - name: Install Stage 2-3 dependencies after Stage 1 handoff
         run: |
           python -m pip install --disable-pip-version-check beautifulsoup4 lxml jsonschema pandas yfinance pandas-market-calendars playwright
