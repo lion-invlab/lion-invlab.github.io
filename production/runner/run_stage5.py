@@ -12,6 +12,12 @@ from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
 from run_state import transition_state, validate_state
 
 def sha(path:Path)->str:return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_state_json(path:Path,state:dict)->None:
+    raw=json.dumps(state,ensure_ascii=False,indent=2)+"\n"
+    json.loads(raw)
+    path.write_text(raw,encoding="utf-8")
 def git_blob(path:str)->str:return subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],cwd=ROOT,text=True).strip()
 def determine_stage5_status(stage2_doc:dict, fixture_doc:dict)->str:
     """Never promote unresolved market/editorial inputs to REVIEW_READY."""
@@ -100,7 +106,7 @@ def main():
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage5",
         lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
         input_sha256=hashlib.sha256((run_dir/"stage4-analysis-receipt.json").read_bytes()).hexdigest())
-    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    write_state_json(state_path,state)
     try:
         governance_snapshot=verify_governance_snapshot(context,ROOT)
     except (ValueError, OSError, subprocess.CalledProcessError) as exc:
