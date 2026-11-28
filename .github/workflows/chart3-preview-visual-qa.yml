@@ -7,6 +7,8 @@ on:
   workflow_run:
     workflows:
       - "TAC Chart 3 incremental update (main branch trigger)"
+      - "TAC Chart 3 merge verified S&P 500 daily increments"
+      - "TAC Chart 3 bootstrap baseline from completed run"
     branches:
       - main
     types:
