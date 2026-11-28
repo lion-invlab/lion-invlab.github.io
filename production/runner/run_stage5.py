@@ -274,7 +274,7 @@ def main():
     qa_path=run_dir/"qa-sidecar.json"
     qa_path.write_text(json.dumps(qa,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     receipt={"status":stage5_status,"run_id":context["run_id"],"report_date":report_date,"trading_date":context["trading_date"],
-      "wr_loaded":wr_preflight,
+      "stage_wr_loaded":wr_loaded,
       "stage4_receipt_sha256":sha(stage4),"builder_blob_sha":git_blob("production/runner/build_review_html.py"),"research_bundle_sha256":editorial_binding["research_bundle_sha256"],
       "market_snapshot_sha256":editorial_binding["market_snapshot_sha256"],"html_path":str(output.relative_to(ROOT)),"html_sha256":html_sha,
       "render_manifest_sha256":sha(render_path),"qa_sidecar_sha256":sha(qa_path),
