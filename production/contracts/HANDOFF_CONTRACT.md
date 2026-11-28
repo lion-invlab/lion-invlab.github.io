@@ -1,4 +1,4 @@
-# HANDOFF CONTRACT v1.2
+# HANDOFF CONTRACT v1.3
 
 Every handoff is scoped to one run_id and report_date and includes schema_version, stage, created_at with timezone, input_refs and SHA-256, output_refs and SHA-256, status_summary, unresolved_items and consumer_notes. Every producer first claims its stage in the same Run state; every consumer validates the exact Run state version, producer receipt and SHA before work.
 
