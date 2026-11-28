@@ -116,18 +116,6 @@
       "updated_at_tw": "原文未標示"
     },
     {
-      "title": "安森美半導體盤中走高，市場買盤擴及功率元件",
-      "summary": "鉅亨盤中速報顯示安森美股價上漲，反映半導體反彈擴散至功率元件；單一個股盤中漲幅不代表產業需求全面回升，仍須觀察訂單與庫存。",
-      "url": "https://news.cnyes.com/news/id/6674216",
-      "published_at_tw": "2026-11-28 00:49",
-      "published_at_source": "2026-11-28 00:49",
-      "source_timezone": "Asia/Taipei",
-      "source": "鉅亨網",
-      "checked_at_tw": "2026-11-28 19:40",
-      "updated_at_source": "原文未標示",
-      "updated_at_tw": "原文未標示"
-    },
-    {
       "title": "那斯達克盤中V形回升，Anthropic與儲存股領漲",
       "summary": "盤中科技股買盤回流，費城半導體指數漲幅擴大，Anthropic、SanDisk與光通訊股走強；盤中急彈顯示風險偏好改善，但價格波動仍大。",
       "url": "https://news.cnyes.com/news/id/6674233",
@@ -1073,7 +1061,7 @@
           "https://staging.fcontext.com/en/fear-and-greed"
         ],
         "source_page_fetched": true,
-        "close_value": 25.0,
+        "close_value": 25,
         "daily_change_percent": null,
         "history_close": 25,
         "score_value": 25,
