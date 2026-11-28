@@ -55,6 +55,18 @@ assert 'pinned_wr_blob=((context.get("governance") or {}).get("blob_shas") or {}
 assert "stage4-editorial-content.json" in build
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in build
 
+# Stage 5/6 must be a single downstream delivery chain with explicit PARTIAL isolation.
+assert "Stage 5 — build exact mother and run full QA" in build
+assert 'python production/runner/run_stage5.py --run-dir "$RUN_DIR"' in build
+assert "Persist Stage 5 QA receipt and state" in build
+assert "Stage 6 — deliver three preview files and verify Pages" in build
+assert 'python production/runner/run_stage6.py --run-dir "$RUN_DIR"' in build
+assert "Persist Stage 6 delivery receipt and final state" in build
+assert "steps.resolve.outputs.stage5_status == 'PASS' || steps.stage5.outputs.status == 'REVIEW_READY'" in build
+assert "steps.resolve.outputs.stage6_status != 'PASS'" in build
+assert "steps.resolve.outputs.stage5_status == 'PARTIAL' || steps.stage5.outputs.status == 'PARTIAL'" in build
+assert "Stage 5 is PARTIAL; retaining Run artifacts, skipping main/preview delivery." in build
+
 # No stale job identity or date-global worker handoff may remain.
 assert "capture-and-calendar" not in workflow
 assert "production/input/market-history-web-observations-" not in workflow
