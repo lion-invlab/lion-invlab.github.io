@@ -13,7 +13,7 @@
 ## Per-Run state machine
 
 - Exactly one authoritative file: production/runs/<run_id>/run-state.json.
-- run-state includes schema_version, state_version, run_id, production_date, report_date, trading_date, main_commit_sha, workflow_run_id, created_at, updated_at, current_stage, last_passed_stage, overall_status, and a six-entry stages object.
+- run-state includes schema_version, state_version, stable run_id, production_date, report_date, trading_date, main_commit_sha, current workflow_run_id, workflow_run_attempt, workflow_run_history, created_at, updated_at, current_stage, last_passed_stage, overall_status, and a six-entry stages object. run-context.workflow_run_id remains the immutable initial creator ID.
 - Each stage entry includes status, attempt, started_at, completed_at, input_sha256, output_sha256, receipt_path, error_code, lease_owner and lease_expires_at.
 - Stage statuses: NOT_STARTED, READY, RUNNING, SUBMITTED, PASS, DEFERRED, PARTIAL, FAILED, SKIPPED. Only Stage 2 and Stage 4 (ChatGPT-owned submissions) may use SUBMITTED. Only Stage 2 and Stage 5 may use PARTIAL. Stage 5 PARTIAL must set Stage 6 SKIPPED.
 - Overall statuses: RUNNING, PARTIAL, FAILED, REVIEW_READY, AWAITING_APPROVAL, PUBLISHED. Stage 5 PASS means REVIEW_READY; Stage 6 PASS means AWAITING_APPROVAL; it never means PUBLISHED. DELIVERED_AND_PUBLICLY_VERIFIED is the Stage 6 receipt status, not a separate overall state.
