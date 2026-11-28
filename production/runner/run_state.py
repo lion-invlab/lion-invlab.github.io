@@ -255,6 +255,17 @@ def validate_state(state: dict, expected_run_id: str | None = None) -> None:
         raise ValueError("run-state run_id does not match expected Run")
     if state.get("overall_status") not in OVERALL_STATUS:
         raise ValueError("run-state overall_status is invalid")
+    workflow_run_id=state.get("workflow_run_id")
+    if not isinstance(workflow_run_id,str) or not workflow_run_id.strip():
+        raise ValueError("workflow_run_id must be a non-empty string")
+    if "workflow_run_attempt" in state and int(state["workflow_run_attempt"]) < 1:
+        raise ValueError("workflow_run_attempt must be positive")
+    history=state.get("workflow_run_history",[])
+    if not isinstance(history,list):
+        raise ValueError("workflow_run_history must be a list")
+    for item in history:
+        if not isinstance(item,dict) or not str(item.get("workflow_run_id","")).strip() or int(item.get("attempt",0)) < 1:
+            raise ValueError("workflow_run_history entries require workflow_run_id and positive attempt")
     stages = state.get("stages")
     if not isinstance(stages, dict) or set(stages) != set(STAGES):
         raise ValueError("run-state must contain exactly six canonical stages")
