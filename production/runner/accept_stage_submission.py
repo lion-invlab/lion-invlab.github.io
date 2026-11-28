@@ -170,7 +170,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
     if state["stages"]["STAGE_3"]["status"] != "PASS":
         raise ValueError("Stage 4 cannot be accepted before Stage 3 state is PASS")
     instructions = capture.get("stage4_work_instructions") or {}
-    wr = stage_wr_preflight("STAGE_4", context)
+    wr = load_stage_wr("STAGE_4", context)
     full_wr_text = instructions.get("full_text")
     full_wr_sha = hashlib.sha256(full_wr_text.encode("utf-8")).hexdigest() if isinstance(full_wr_text, str) else None
     if (capture.get("status") != "AWAITING_EDITORIAL_INPUT"
