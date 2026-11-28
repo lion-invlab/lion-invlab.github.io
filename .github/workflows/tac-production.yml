@@ -327,8 +327,8 @@ jobs:
               # A later Run explicitly supersedes its predecessor. Superseded
               # Runs remain immutable evidence and must never be selected for recovery.
               superseded_ids=set()
-              for context_path in matches:
-                  context=json.loads(context_path.read_text(encoding="utf-8"))
+              for run_dir in matches:
+                  context=json.loads((run_dir/"run-context.json").read_text(encoding="utf-8"))
                   superseded=context.get("supersedes_run_id")
                   if superseded:
                       superseded_ids.add(superseded)
