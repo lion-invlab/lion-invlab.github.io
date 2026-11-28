@@ -308,6 +308,8 @@ def main():
       "analysis_layers":list(LAYERS),"political_domains":list(DOMAINS),
       "market_snapshot_sha256_before":before,"market_snapshot_sha256_after":after,
       "market_snapshot_unchanged":True,
+      "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_sha256},
+      "research_bundle":{"sha256":bundle_sha256},
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":content_sha256,
           "parse_status":"INVALID_JSON" if editorial_parse_error else "PARSED",
           "parse_error":editorial_parse_error},
