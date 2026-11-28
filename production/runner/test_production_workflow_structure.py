@@ -23,6 +23,8 @@ assert "Manual recovery/rerun requires an explicit Taiwan report_date" in stage1
 assert "actions: read" in stage1
 assert "assert_prior_workflow_inactive(prior)" in stage1
 assert "Prior workflow" in stage1
+assert "playwright==1.65.2" in workflow
+assert "npm install --no-save --no-package-lock playwright@1.65.2" in workflow
 
 # Stage 1 must create, publish, and exit before any Stage 2 dependency is installed.
 assert "timeout-minutes: 10" in stage1
