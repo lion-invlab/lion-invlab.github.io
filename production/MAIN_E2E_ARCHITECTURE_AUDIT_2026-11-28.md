@@ -330,3 +330,54 @@ Legal stage states should be small and non-overlapping: NOT_STARTED, READY, RUNN
 8. Add recovery/resume, concurrency, stale-input, duplicate-attempt and push-token non-trigger tests.
 9. Run full isolated fixture E2E and visual QA; then live-data E2E only after separate approval.
 10. Request approval for live automation/schedule cutover, PR merge, formal report production, Pages/preview release, and any homepage/archive publication.
+
+
+## 10. Confirmed schedule-window root cause (workflow run 46096657083)
+
+The schedule-window job log was retrieved directly from GitHub Actions job 140829445307.
+
+Observed values:
+- Workflow event: `schedule`.
+- `github.event.schedule` / `SCHEDULE_CRON`: `45 19 * * 1-5`.
+- The job's New York timezone calculation selected the winter expected cron: `45 20 * * 1-5`.
+- The workflow's decision is exact string equality: `should_run = actual_cron == expected_cron`.
+- Therefore `should_run=false`; `capture-and-calendar` was skipped by its `needs.schedule-window.outputs.should_run == 'true'` condition. The overall workflow can still conclude SUCCESS because the skip is intentional under the job condition.
+
+This is the direct, evidenced reason that this particular schedule event did not start Stage 1. It is not a GitHub schedule delivery failure. The workflow contains both summer and winter UTC cron entries, and the summer entry did fire on the winter date; the DST selector correctly rejected that wrong seasonal entry. The incident must not be described as "the schedule never fired."
+
+The schedule selector currently evaluates New York DST at job execution time, not against an immutable scheduled-instant value. Queue delay and duplicate seasonal cron events therefore need explicit treatment in the target design. Do not solve this by simply removing the equality check or accepting both cron strings: that would permit early Stage 1 starts. The approved design must produce exactly one Taiwan-local 04:45 Stage 1 start and record the selected event/target local instant. Any live schedule change remains gated by owner approval and the production cutover gate.
+
+## 11. Additional architecture findings from the isolated rebuild branch
+
+The rebuild branch now contains a per-Run state implementation absent from the Main baseline inspected at `d401f31bdd2c016ff5497934ac5230c08763c551`:
+- `production/runner/run_state.py` defines six canonical stage states, transition validation, version increments, receipt references and lease fields.
+- `create_run_fixture.py` initializes `run-state.json` with Stage 1 PASS and Stage 2 READY.
+- Stage 2–6 runners import and update the state machine in the rebuild branch.
+- `validate_stage2_run_handoff.py` requires the Run state file and verifies Stage 2 SUBMITTED with the exact Run-scoped observation SHA.
+
+This is a useful implementation direction, but the state module itself is storage-agnostic: its own docstring requires the caller to persist with compare-and-swap semantics. The current workflow uses git fetch/merge/rebase/push loops; these are not yet a formal atomic lease/CAS protocol for concurrent writers. The state design must not be considered race-safe until one authoritative writer/update mechanism and stale-version conflict behavior are tested.
+
+The current Main baseline's `run_stage2.py` and the rebuild branch's `run_stage2.py` are not identical. The audit and all subsequent code changes must pin the exact branch/ref and blob SHA being inspected; do not mix Main and rebuild-branch evidence.
+
+## 12. Cross-contract contradictions and missing integration proof
+
+1. **Schedule manifest drift:** `production/config/schedule.json` still describes daily report production as Monday–Friday at 05:25 and Chart 3 at 05:30, while the approved cadence is Taiwan Tuesday–Saturday with Stage 1 at 04:45 winter / 03:45 summer, Stage 2 at 05:00 winter / 04:00 summer, and Preview target 05:30 winter / 04:30 summer. The file also says `NOT_CUT_OVER`. This is a configuration/documentation inconsistency, not permission to change a live schedule.
+2. **Stage 2 handoff path:** the current workflow must use the exact Run-scoped `production/runs/<run_id>/market-history-web-observations.json` and verify Stage 2 SUBMITTED state plus SHA. Date-global `production/input/market-history-web-observations-<date>.json` must not be accepted as the authoritative handoff or allow another Run to consume it.
+3. **Stage 2/3 ownership:** the current workflow still keeps a long-running job waiting for ChatGPT Stage 2 and then runs Stage 2 validation/freeze and Stage 3. The worker boundary is not event-driven; a missed ChatGPT wake is not automatically retried by GitHub.
+4. **Stage 4 ownership:** Stage 4 requires Run-scoped editorial content, exact Stage 3 receipt SHA, research bundle SHA and Stage 4 WR attestation. The workflow must not launch Stage 4 merely because a date-global content file or generic push marker exists.
+5. **Stage 5/6 readiness:** Builder exact-blob approval, four-category QA, Preview remote readback, Pages deployment and public URL verification are separate acceptance facts. A single workflow conclusion SUCCESS is insufficient evidence of delivered Preview.
+6. **State semantics:** `run_state.py` currently allows `DEFERRED` as an active state and `FAILED` recovery only through an explicit transition flag. The orchestrator must define when deferred work is retried, lease expiry handling, and how a stale worker is prevented from overwriting a newer state version. No second state database is needed.
+7. **Run lock:** per-report-date uniqueness is currently checked by reading committed Run directories before creating the new one. That check is not atomic across two concurrent workflows. The target needs an atomic reservation/lock before either writer can create a Run; Git push conflict/retry alone is not a sufficient lock contract.
+8. **Automation wake-up:** GitHub Actions cannot directly assume it can wake a scheduled ChatGPT automation. The supported design must use the existing ChatGPT worker schedule/checkpoint plus bounded state polling/retry, or a separately approved integration. A push marker must not be treated as proof that ChatGPT executed Stage 4.
+9. **Schedule manifest and actual cron:** the winter/summer cron entries must be validated against Taiwan local time and weekday mapping with deterministic tests covering both DST transitions, Saturday production, holidays and delayed workflow starts.
+
+## 13. Immediate implementation order
+
+1. Finish the 24-workflow trigger/permission/concurrency/write-path matrix and identify every writer that can touch Preview, index, archive, calendar, Chart 3 or production Run artifacts.
+2. Finish the six Stage WR / nine contract / Manifest / Runner call-graph crosswalk. Record exact path, input, output, receipt, state transition, owner and retry behavior for each stage.
+3. Define and test the minimal atomic Run reservation and state compare-and-swap protocol. Use one Run state file; do not add a second state store.
+4. Define a reliable Stage 1 → Stage 2 and Stage 3 → Stage 4 worker checkpoint contract, including delayed/missed wake recovery without indefinite polling or manual "continue".
+5. Refactor the single long Capture job into resumable stage jobs/checkpoints only after the contracts and deterministic tests are complete.
+6. Add an isolated end-to-end test harness using synthetic fixtures; no live market capture and no schedule activation during architecture development.
+7. Run Main-only deterministic tests and both mother-template test paths; preserve Main homepage, current Preview, calendar DB, Chart 3 data and Simulation.
+8. Produce a draft PR and a precise acceptance report. Do not merge or activate schedules without owner approval.
