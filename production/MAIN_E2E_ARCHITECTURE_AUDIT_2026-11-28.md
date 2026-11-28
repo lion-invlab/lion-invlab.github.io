@@ -429,6 +429,8 @@ Branch: `refactor/tac-main-e2e-architecture-20261128`
 
 - Added `production/runner/accept_stage_submission.py`: a single GitHub-owned acceptance step for ChatGPT Stage 2 and Stage 4 artifacts. It verifies exact Run identity and upstream SHA bindings, then performs READY → RUNNING → SUBMITTED and writes `run-state.json` atomically.
 - Updated the Stage 2 and Stage 4 WRs plus `HANDOFF_CONTRACT.md`: ChatGPT workers submit only their Run-scoped artifact and sidecars; the GitHub production workflow is the sole writer of `run-state.json`. This removes a second writer and avoids a state/artifact commit race.
+- Split the workflow into a dedicated lightweight `stage1-create-run` job that preflights Stage 1 WR before report-date/Run resolution, commits and reads back the Run handoff, then exits. `stage2-and-stage3` is a separate downstream job; `build-and-deliver` depends on it.
+- Added a workflow-structure regression test proving Stage 1 has no Stage 2 dependency installation, Stage 2/3 depends on Stage 1, and Stage 4–6 depends on Stage 2/3.
 - Updated the Stage 2 and Stage 4 workflow handoff steps to call the acceptance runner and persist state before invoking Stage 2/4 validators.
 - Restored the 16:00 ET gate before the Stage 2 observation polling window; otherwise the 15-minute timeout could expire before the 16:00 ET worker wake.
 - Added deterministic tests for Stage 2 44-row identity, Stage 4 Research Bundle/Stage 3/WR binding, and the legacy Run classifier.
@@ -437,7 +439,7 @@ Branch: `refactor/tac-main-e2e-architecture-20261128`
 
 ### Validation result
 
-GitHub Actions validation run `46104298636` on commit `4b5e612fa2ee3e56e05b85784a093b00e95b34b4` completed SUCCESS. The validation job passed: Python compile, browser QA syntax, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, isolated candidate Builder, and mother-owned DOM checks. Subsequent branch changes were documentation-only (audit wording and removal of superseded prompt v1.2); no runtime code changed after this successful validation.
+GitHub Actions validation run `46104298636` on commit `4b5e612fa2ee3e56e05b85784a093b00e95b34b4` completed SUCCESS for the prior handoff implementation. The later Stage 1 job split and WR preflight ordering are under a new isolated validation run `46104811908`. The validation job passed: Python compile, browser QA syntax, SHA-locked mother/manifest validation, Stage 2 and pre-build deterministic tests, Builder and earnings tests, isolated candidate Builder, and mother-owned DOM checks. Subsequent branch changes were documentation-only (audit wording and removal of superseded prompt v1.2); no runtime code changed after this successful validation.
 
 ### Cutover dependency not yet applied
 
