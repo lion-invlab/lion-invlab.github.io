@@ -116,8 +116,12 @@ def main():
     state_path=run_dir/"run-state.json"
     state=json.loads(state_path.read_text(encoding="utf-8"))
     validate_state(state,expected_run_id=context["run_id"])
-    if state["stages"]["STAGE_5"]["status"]!="PASS" or state["stages"]["STAGE_6"]["status"]!="READY":
-        raise SystemExit("Stage 6 requires Stage 5 PASS and Stage 6 READY in the authoritative Run state")
+    if state["stages"]["STAGE_5"]["status"]!="PASS":
+        raise SystemExit("Stage 6 requires Stage 5 PASS in the authoritative Run state")
+    if state["stages"]["STAGE_6"]["status"]=="DEFERRED":
+        state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="DEFERRED",new_status="READY")
+    if state["stages"]["STAGE_6"]["status"]!="READY":
+        raise SystemExit("Stage 6 is not READY in the authoritative Run state")
     state=transition_state(state,stage="STAGE_6",expected_version=state["state_version"],expected_status="READY",new_status="RUNNING",
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage6",
         lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
