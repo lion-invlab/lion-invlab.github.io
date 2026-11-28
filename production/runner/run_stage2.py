@@ -174,7 +174,7 @@ def main():
     if not web_bundle.is_file():
         raise SystemExit("Missing Run-scoped market-history-web-observations.json; Stage 2 is blocked.")
     web_payload=load(web_bundle)
-    fedwatch_observation=validate_fedwatch_observation(web_payload.get("fedwatch"),wr_preflight,context)
+    fedwatch_observation=validate_fedwatch_observation(web_payload.get("fedwatch"),context)
     if not cnn_observation.is_file():
         cnn_observation.write_text(json.dumps({
             "schema_version":"1.0", "run_id":context["run_id"],
