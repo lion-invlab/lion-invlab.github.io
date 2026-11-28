@@ -249,7 +249,7 @@ def main():
       "builder_blob_sha":git_blob("production/runner/build_review_html.py"),
       "builder_approval":builder_approval,
       "governance_snapshot":governance_snapshot,
-      "stage_wr_loaded":wr_preflight,
+      "stage_wr_loaded":wr_loaded,
       "mother_blob_sha":expected_master_sha,
       "master_wr_blob_sha":git_blob("production/MASTER_WR.md"),
       "qa_contract_blob_sha":git_blob("production/contracts/MOTHER_TEMPLATE_QA.md"),
