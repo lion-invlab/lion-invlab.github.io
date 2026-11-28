@@ -307,19 +307,21 @@ async def observe_once(context,row,target,timeout,sem,challenge_wait_ms=9000):
                     return out
                 target_dt=datetime.strptime(target,"%Y-%m-%d")
                 date_label=target_dt.strftime("%b/%d/%Y")
-                rows=await page.locator("table tr").all_inner_texts()
+                rows=await page.locator("table tr").all()
                 selected=None
-                for line in rows:
-                    cells=[x.strip() for x in re.split(r"\\s{2,}|\\t",line) if x.strip()]
-                    if target_dt.strftime("%b/%d/%Y").lower() in line.lower() or target_dt.strftime("%b %d, %Y").lower() in line.lower():
-                        nums=re.findall(r"(?<![A-Za-z])[-+]?\\d[\\d,]*(?:\\.\\d+)?",line)
-                        if len(nums)>=4:
-                            selected={"row_text":line,"open":nums[-4],"high":nums[-3],"low":nums[-2],"close":nums[-1]}
-                            break
-                if selected is None:
-                    out.update({"source_page_fetched":True,"status":"SOURCE_NO_DATA",
-                                "read_status":"SOURCE_NO_DATA","page_body_excerpt":body[:1200]})
-                    return out
+                target_labels=(target_dt.strftime("%b/%d/%Y").lower(),target_dt.strftime("%b %d, %Y").lower())
+                for table_row in rows:
+                    cells=[str(x).strip() for x in await table_row.locator("th,td").all_inner_texts()]
+                    if not cells:
+                        continue
+                    row_date=" ".join(cells[:1]).lower()
+                    if not any(label in row_date for label in target_labels):
+                        continue
+                    values=[re.sub(r"[^0-9,.+-]","",x) for x in cells[1:]]
+                    values=[x for x in values if re.search(r"\\d",x)]
+                    if len(values)>=4:
+                        selected={"row_text":" | ".join(cells),"open":values[0],"high":values[1],"low":values[2],"close":values[3]}
+                        break
                 mmddyyyy=target_dt.strftime("%m%d%Y")
                 summary_url=f"https://indexes.nikkei.co.jp/en/nkave/archives/summary?dt={mmddyyyy}&idx=nk225"
                 summary=await context.new_page()
