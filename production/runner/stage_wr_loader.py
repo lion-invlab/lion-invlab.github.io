@@ -52,8 +52,6 @@ def load_stage_wr(stage: str, context: dict | None = None, *, include_rules_text
         "wr_read_mode": "FULL_UTF8_FILE_READ",
         "wr_bytes_read": len(raw),
         "rules_text_loaded": True,
-        # Return the actual instructions to the caller; a PASS flag alone is not execution guidance.
-        "rules_text": full_text,
     }
 
     if include_rules_text:
