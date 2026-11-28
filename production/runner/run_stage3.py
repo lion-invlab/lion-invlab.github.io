@@ -81,7 +81,7 @@ def main():
           "earnings_count":bundle["previous"]["earnings_count"]
       } if bundle.get("previous") is not None else None),
       "source_json_read_only":True,"projection_is_in_memory":True,
-      "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],"outputs":outputs
+      "stage_wr_loaded":wr_loaded,"state_version_before":state["state_version"],"outputs":outputs
     }
     rp=run_dir/"stage3-calendar-receipt.json"
     rp.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
