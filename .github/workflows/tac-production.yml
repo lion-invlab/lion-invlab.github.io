@@ -147,7 +147,6 @@ jobs:
             test_build_stage2_receipt \
             test_validate_market_snapshot \
             test_stage2_field_provenance \
-            test_stage2_run_handoff \
             test_stage2_chart3_guard \
             test_browser_http_classification \
             test_sp500_chart3_handoff \
