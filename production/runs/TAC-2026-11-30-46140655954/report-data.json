@@ -1418,7 +1418,7 @@
         "r2": "7363.66"
       },
       {
-        "name": "Dow Jones",
+        "name": "道瓊工業指數",
         "ohlc": "Open 50,458.86｜High 50,830.19｜Low 50,398.29｜Close 50,774.94",
         "url": "https://hk.investing.com/indices/us-30-historical-data",
         "source_name": "Investing.com HK Historical Data",
@@ -1429,7 +1429,7 @@
         "r2": "51099.71"
       },
       {
-        "name": "NASDAQ Composite",
+        "name": "Nasdaq Composite",
         "ohlc": "Open 23,958.46｜High 24,149.09｜Low 23,690.60｜Close 24,129.50",
         "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
         "source_name": "Investing.com HK Historical Data",
@@ -1451,7 +1451,7 @@
         "r2": "2771.07"
       },
       {
-        "name": "PHLX Semiconductor",
+        "name": "費城半導體指數（SOX）",
         "ohlc": "Open 9,036.30｜High 9,213.60｜Low 8,789.30｜Close 9,186.70",
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "source_name": "Investing.com HK Historical Data",
@@ -1464,9 +1464,10 @@
     ]
   },
   "core_observation": {
-    "heading": "今日核心觀察",
-    "text": "Fear & Greed 指數因CNN官方當期頁面無法讀取，本輪採用FGScore核准備援，分數25（Fear）；官方來源日期映射尚未解決，該分數不應視為CNN官方即時值。 本週反彈由半導體領漲，VIX回落顯示短線恐慌降溫，但10年期美債殖利率升至4.934%，AI信用與融資風險仍未消失。週一中國官方PMI將檢驗穩市政策能否傳導至實體需求；下週美國非農就業則是12月Fed定價的重要變數。操作上保留核心部位、不追逐單日急彈，新增資金分批投入，並以市場廣度、長端殖利率及AI信用利差作為風險控制條件。",
-    "points": []
+    "heading": "本週三大觀察焦點",
+    "text": "本週反彈由半導體領漲，VIX回落顯示短線恐慌降溫，但10年期美債殖利率升至4.934%，AI信用與融資風險仍未消失。週一中國官方PMI將檢驗穩市政策能否傳導至實體需求；下週美國非農就業則是12月Fed定價的重要變數。操作上保留核心部位、不追逐單日急彈，新增資金分批投入，並以市場廣度、長端殖利率及AI信用利差作為風險控制條件。",
+    "points": [],
+    "details": "① 觀察中國官方PMI能否回到50以上，驗證政策支持是否傳導至內需。② 追蹤美國非農就業與通膨，評估12月Fed利率決策的重新定價。③ 監控10年期美債殖利率、AI雲端信用利差與市場廣度，決定是否恢復加碼。"
   },
   "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
   "market_sentiment": "市場情緒由極端避險轉向急跌後回補，但尚未回到低波動、廣泛參與的健康風險偏好。VIX降至23.81、科技與半導體領漲，代表短線賣壓緩和；然而10年期美債殖利率升至4.934%，AI相關信用風險與融資成本仍未同步解除。現階段應視為反彈修復，而非新一輪全面追價訊號。",
