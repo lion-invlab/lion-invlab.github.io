@@ -100,7 +100,7 @@ def main():
         now=datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),lease_owner="github-actions-stage5",
         lease_expires_at=(datetime.now(timezone.utc)+timedelta(minutes=30)).isoformat().replace("+00:00","Z"),
         input_sha256=hashlib.sha256((run_dir/"stage4-analysis-receipt.json").read_bytes()).hexdigest())
-    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     try:
         governance_snapshot=verify_governance_snapshot(context,ROOT)
     except (ValueError, OSError, subprocess.CalledProcessError) as exc:
