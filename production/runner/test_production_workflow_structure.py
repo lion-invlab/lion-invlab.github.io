@@ -89,11 +89,21 @@ assert "sleep 30" in stage4_resolve
 assert "accept_stage_submission.py --run-dir \"$RUN_DIR\" --stage STAGE_4" in stage4_resolve
 assert "Stage 4 worker did not publish the exact Run-scoped editorial artifact within 15 minutes." in stage4_resolve
 
-# Editorial acceptance must verify Stage 3 PASS and all evidence hashes before
-# Stage 4 execution; the downstream Builder and delivery remain one job chain.
-assert 'state["stages"]["STAGE_3"]["status"]=="PASS"' in build
-assert 'content["run_id"]==context["run_id"]' in build
-assert 'content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in build
-assert 'content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]' in build
-assert 'content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]' in build
-assert 'content["stage4_wr_sha256"]==stage4_wr_sha' in build
+# Editorial acceptance is performed by the dedicated Stage 4 execution step,
+# not by the earlier handoff polling step. Assert the checks against that exact
+# executable block so the contract test cannot pass on unrelated comments.
+stage4_exec_end = build.index("      - name: Persist Stage 4 receipt and state")
+stage4_exec = build[stage4_exec_start:stage4_exec_end]
+assert 'assert context["run_id"]==run_dir.name==content["run_id"]' in stage4_exec
+assert 'assert context["report_date"]==report_date==content["report_date"]' in stage4_exec
+assert 'assert state["stages"]["STAGE_3"]["status"]=="PASS"' in stage4_exec
+assert 'assert content["market_snapshot_sha256"]==summary["market_snapshot_sha256"]' in stage4_exec
+assert 'assert content["research_bundle_sha256"]==bundle["bundle_sha256"]==capture["research_bundle_sha256"]' in stage4_exec
+assert 'assert content["stage3_receipt_sha256"]==stage3_sha==capture["stage3_receipt_sha256"]' in stage4_exec
+assert 'assert content["stage4_wr_sha256"]==stage4_wr_sha' in stage4_exec
+
+
+
+
+
+
