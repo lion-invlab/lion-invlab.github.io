@@ -6,6 +6,7 @@ import argparse, hashlib, json, subprocess, sys, time
 from pathlib import Path
 
 from stage_wr_preflight import stage_wr_preflight, require_stage_wr_receipt
+from run_state import transition_state, validate_state
 
 ROOT=Path(__file__).resolve().parents[2]
 RUNNER=Path(__file__).resolve().parent
@@ -152,45 +153,40 @@ def main():
     # market-session target_date and the worker supplies Stage 1 SHA bindings.
     web_bundle=run_dir/"market-history-web-observations.json"
     if not web_bundle.is_file():
-        source_bundle=ROOT/"production"/"input"/f"market-history-web-observations-{report_date}.json"
-        if not source_bundle.is_file():
-            raise SystemExit(f"Missing current-date market observations: {source_bundle}")
-        payload=load(source_bundle)
-        if payload.get("report_date")!=report_date or payload.get("trading_date")!=context.get("trading_date"):
-            raise SystemExit("Date-global observations do not match this Run's report/trading dates")
-        from datetime import datetime, timezone
-        captured=datetime.fromisoformat(str(payload.get("captured_at_utc","")).replace("Z","+00:00"))
-        age=(datetime.now(timezone.utc)-captured).total_seconds()
-        if age < -300 or age > 24*3600:
-            raise SystemExit("Current-date observations are outside the 24-hour freshness window")
-        expected=set()
-        stage1_fixture=load(stage1_fixture_path)
-        for group in ("global_markets","bonds","fx","energy","metals","risk"):
-            expected.update((group,str(name)) for name in (stage1_fixture.get(group) or {}))
-        expected.update(("sectors",str(name)) for name in (stage1_fixture.get("sectors") or {}))
-        rows=payload.get("observations")
-        keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
-        if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
-            raise SystemExit("Current-date observations do not match the exact 44-row Stage 1 universe")
-        from datetime import date
-        report_day=date.fromisoformat(report_date)
-        for row in rows:
-            try:
-                target_day=date.fromisoformat(str(row.get("target_date")))
-            except ValueError as exc:
-                raise SystemExit(f"Invalid per-instrument target_date: {row.get('name')}") from exc
-            if target_day > report_day:
-                raise SystemExit(f"Observation target_date is later than report_date: {row.get('name')}")
-        expected_binding={
-            "run_id":context["run_id"],
-            "stage1_receipt_sha256":hashlib.sha256(stage1_receipt_path.read_bytes()).hexdigest(),
-            "run_context_sha256":hashlib.sha256(context_path.read_bytes()).hexdigest(),
-            "stage1_fixture_sha256":stage1_fixture_sha256,
-        }
-        for key,value in expected_binding.items():
-            if payload.get(key)!=value:
-                raise SystemExit(f"Stage 2 worker bundle {key} is missing or differs from Stage 1; Runner will not attach or repair handoff identity.")
-        web_bundle.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        raise SystemExit("Missing Run-scoped market-history-web-observations.json; date-global fallback is prohibited.")
+    web_payload=load(web_bundle)
+    if web_payload.get("report_date")!=report_date or web_payload.get("trading_date")!=context.get("trading_date"):
+        raise SystemExit("Run-scoped observations do not match this Run's report/trading dates")
+    from datetime import datetime, timezone, date
+    captured=datetime.fromisoformat(str(web_payload.get("captured_at_utc","")).replace("Z","+00:00"))
+    age=(datetime.now(timezone.utc)-captured).total_seconds()
+    if age < -300 or age > 24*3600:
+        raise SystemExit("Run-scoped observations are outside the 24-hour freshness window")
+    expected=set()
+    stage1_fixture=load(stage1_fixture_path)
+    for group in ("global_markets","bonds","fx","energy","metals","risk"):
+        expected.update((group,str(name)) for name in (stage1_fixture.get(group) or {}))
+    expected.update(("sectors",str(name)) for name in (stage1_fixture.get("sectors") or {}))
+    rows=web_payload.get("observations")
+    keys={(x.get("group"),str(x.get("name"))) for x in rows if isinstance(x,dict)}
+    if len(rows or [])!=44 or len(keys)!=44 or keys!=expected:
+        raise SystemExit("Run-scoped observations do not match the exact 44-row Stage 1 universe")
+    report_day=date.fromisoformat(report_date)
+    for row in rows:
+        try:
+            target_day=date.fromisoformat(str(row.get("target_date")))
+        except ValueError as exc:
+            raise SystemExit(f"Invalid per-instrument target_date: {row.get('name')}") from exc
+        if target_day > report_day:
+            raise SystemExit(f"Observation target_date is later than report_date: {row.get('name')}")
+    state_path=run_dir/"run-state.json"
+    state=load(state_path)
+    validate_state(state,expected_run_id=context["run_id"])
+    if state["stages"]["STAGE_2"]["status"]!="SUBMITTED":
+        raise SystemExit("Stage 2 worker must submit the Run-scoped bundle before GitHub validation")
+    web_bundle_sha256=hashlib.sha256(web_bundle.read_bytes()).hexdigest()
+    if state["stages"]["STAGE_2"].get("output_sha256")!=web_bundle_sha256:
+        raise SystemExit("Stage 2 submitted state SHA does not match the exact Run-scoped observation file")
     handoff=run([sys.executable,str(RUNNER/"validate_stage2_run_handoff.py"),
         "--run-dir",str(run_dir.relative_to(ROOT))])
     cnn_observation=run_dir/"cnn-fear-greed-observation.json"
@@ -239,7 +235,7 @@ def main():
         "--report-date",report_date,"--data",str(fixture_path.relative_to(ROOT)),
         "--audit",str(audit_path.relative_to(ROOT)),"--manifest",str(manifest_path.relative_to(ROOT)),
         "--observations",str(observations_path.relative_to(ROOT)),"--output",str(receipt_path.relative_to(ROOT)),
-        "--run-id",str(context.get("workflow_run_id","LOCAL")),
+        "--run-id",str(context["run_id"]),
         "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"])
     stage2_receipt_doc=load(receipt_path)
     stage2_receipt_doc["wr_preflight"]=wr_preflight
@@ -254,7 +250,10 @@ def main():
     chart3={"status":"SKIPPED_UNVERIFIED","reason":"S&P 500 cash-index close is not VERIFIED; no Chart 3 increment is written."}
     ledger_path=ROOT/"data/tac-chart3/sp500_daily_increment.jsonl"
     if (sp500.get("source") or {}).get("verification_status")=="VERIFIED":
-        chart3=append_chart3_sp500_increment(fixture_path)
+        try:
+            chart3=append_chart3_sp500_increment(fixture_path)
+        except Exception as exc:
+            chart3={"status":"FAILED_NON_BLOCKING","reason":f"Chart 3 increment failed after Stage 2 capture: {type(exc).__name__}: {exc}"}
         chart3["ledger_path"]=str(ledger_path.relative_to(ROOT))
     elapsed=round(time.monotonic()-started,3)
     observations=load(observations_path)
@@ -263,7 +262,7 @@ def main():
         output_files.append(ledger_path)
     summary={
       "schema_version":"1.0","stage":"STAGE_2_MARKET","market_snapshot_sha256":market_snapshot_sha256,
-      "status":"PASS" if receipt.get("status")=="PASS" and chart3.get("status") in ("APPENDED","NOOP_IDENTICAL_OBSERVATION","PASS") else "PARTIAL",
+      "status":"PASS" if receipt.get("status")=="PASS" else "PARTIAL",
       "run_id":context["run_id"],"stage1_fixture_sha256":stage1_fixture_sha256,
       "wr_preflight":wr_preflight,
       "worker_wr_attestation":worker_wr_attestation,
@@ -284,7 +283,18 @@ def main():
       "outputs":{p.name:{"path":str(p.relative_to(ROOT)),"sha256":__import__("hashlib").sha256(p.read_bytes()).hexdigest()}
                  for p in output_files}
     }
-    (run_dir/"stage2-run-summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    summary_path=run_dir/"stage2-run-summary.json"
+    summary_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    state=load(state_path)
+    stage2_status="PASS" if summary["status"]=="PASS" else "PARTIAL"
+    state=transition_state(state,stage="STAGE_2",expected_version=state["state_version"],expected_status="SUBMITTED",new_status=stage2_status,
+        now=__import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat().replace("+00:00","Z"),
+        input_sha256=web_bundle_sha256,output_sha256=hashlib.sha256(receipt_path.read_bytes()).hexdigest(),
+        receipt_path=str(receipt_path.relative_to(ROOT)))
+    state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    summary["run_state"]={"state_version":state["state_version"],"stage2_status":state2_status if False else state["stages"]["STAGE_2"]["status"],"next_stage":state["current_stage"]}
+    summary["outputs"]["run-state.json"]={"path":str(state_path.relative_to(ROOT)),"sha256":hashlib.sha256(state_path.read_bytes()).hexdigest()}
+    summary_path.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(summary,ensure_ascii=False,indent=2))
     if summary["status"] not in ("PASS","PARTIAL"):
         raise SystemExit("Stage 2 did not produce a valid handoff")
