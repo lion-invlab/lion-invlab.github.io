@@ -9,6 +9,7 @@ import os
 import sys
 import unittest
 from datetime import date, datetime, timezone
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from unittest.mock import patch
 
@@ -174,6 +175,47 @@ class Stage1To3SyntheticE2ETests(unittest.TestCase):
                 item["updated_at_source"] = "Nov 23, 2026 1:10 PM"
                 item["publisher"] = item.get("publisher") or "Synthetic E2E source"
             editorial["market_comments"]["global_markets"] = editorial["market_comments"]["global_markets"][:3]
+            # Synthetic same-day cash-index OHLC used only to exercise the pivot-level schema;
+            # values are deterministic transformations of the synthetic closes, not market observations.
+            key_level_specs = [
+                ("dow", "道瓊工業指數"),
+                ("sp500", "標普500指數"),
+                ("nasdaq", "那斯達克綜合指數"),
+                ("sox", "費城半導體指數"),
+                ("russell2000", "羅素2000指數"),
+            ]
+            synthetic_levels = []
+            q = Decimal("0.01")
+            for key, market_name in key_level_specs:
+                close = Decimal(sample_data["global_markets"][market_name]["source"]["close_value"].replace(",", ""))
+                open_value = (close * Decimal("0.999")).quantize(q, rounding=ROUND_HALF_UP)
+                high = (close * Decimal("1.002")).quantize(q, rounding=ROUND_HALF_UP)
+                low = (close * Decimal("0.998")).quantize(q, rounding=ROUND_HALF_UP)
+                pivot = (high + low + close) / Decimal(3)
+                s1 = Decimal(2) * pivot - high
+                s2 = pivot - (high - low)
+                r1 = Decimal(2) * pivot - low
+                r2 = pivot + (high - low)
+                source_url = synthetic_seed["global_markets"][market_name]["source"]["url"]
+                synthetic_levels.append({
+                    "key": key, "name": market_name, "trading_date": context["trading_date"],
+                    "quote_type": "cash_index",
+                    "ohlc": f"O {open_value}｜H {high}｜L {low}｜C {close}",
+                    "s2": str(s2.quantize(q, rounding=ROUND_HALF_UP)),
+                    "s1": str(s1.quantize(q, rounding=ROUND_HALF_UP)),
+                    "p": str(pivot.quantize(q, rounding=ROUND_HALF_UP)),
+                    "r1": str(r1.quantize(q, rounding=ROUND_HALF_UP)),
+                    "r2": str(r2.quantize(q, rounding=ROUND_HALF_UP)),
+                    "source_name": "Synthetic E2E fixture only; not a real market observation",
+                    "url": source_url,
+                })
+            editorial["key_levels"] = {
+                "baseline_date": context["trading_date"],
+                "trading_date": context["trading_date"],
+                "captured_at_taipei": "2026-11-24 05:00:00",
+                "formula": "Synthetic test fixture: pivot levels calculated from deterministic OHLC derived from synthetic close values.",
+                "items": synthetic_levels,
+            }
             editorial["market_analysis"]["markets"]["paragraphs"].append("Fear & Greed 指數採 FGScore 備援來源，讀值 17；此為合成測試資料的來源揭露。")
             editorial["political_scan"]["checked_at"] = "2026-11-24T05:00:00+08:00"
             for finding in editorial["political_scan"]["findings"]:
