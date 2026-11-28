@@ -225,3 +225,108 @@ The target worker split remains fixed: GitHub Actions = Stages 1, 3, 5, 6; ChatG
 - No Chart 3 precondition for report delivery.
 - No lowering QA standards.
 - No Main homepage update.
+
+## 12. Root-cause confirmation from exact incident logs
+
+### 12.1 Stage 1 handoff was delayed by heavy setup before Run creation
+
+Workflow Run 46069359215, job capture-and-calendar (140742318218), completed steps in this order:
+
+1. Checkout main.
+2. Set up Python.
+3. Install Stage 1–3 dependencies, including Playwright and Chromium.
+4. Refresh main.
+5. Resolve report date / Run ID.
+6. Create Stage 1 Run.
+7. Commit the four Stage 1 handoff files.
+8. Wait for Stage 2 Observation.
+
+The Stage 2 worker was scheduled at 16:00 ET (Taiwan 05:00 winter) and its prompt allows only five minutes for the Stage 1 handoff. The automation record shows it woke at 21:03:37Z and completed at 21:05:49Z with BLOCKED because the Run did not yet exist. The GitHub capture job did not reach its Stage 2 wait-window log until 2026-11-27 21:18:36Z (16:18:36 ET), then polled until 21:33:41Z and failed because no Observation was published.
+
+**Confirmed primary root cause:** Stage 1 is not lightweight in execution. Installing Python packages and downloading/installing Chromium happens before Run creation and consumes the Stage 2 worker's five-minute handoff window. The workflow then waits for a worker that has already exited. The 15-minute poll cannot recover a one-shot worker. This is a deterministic ordering/timing defect, not a market-source issue and not evidence that the Stage 2 instructions themselves were skipped.
+
+PR #363's move of heavy dependencies/Chromium to after Stage 1 is directionally correct and should be carried into the rebuild, but only as one part of the state-driven architecture; do not merge PR #363 as-is.
+
+### 12.2 Duplicate Run recovery failure is a separate consequence
+
+Workflow Run 46074632631, capture job 140766054677, was on attempt 2 and failed during the same-date recovery guard with:
+
+Cannot supersede 2 prior Runs for 2026-11-30; manual reconciliation required.
+
+Main contains two 2026-11-30 Run directories:
+- TAC-2026-11-30-46069359215-1
+- TAC-2026-11-30-46074632631-1
+
+The latter is the earlier attempt's Run directory; retrying the workflow creates another workflow attempt, not a continuation of the previous Run. The current workflow's report-date scan treats all same-date Run directories as undifferentiated prior Runs and refuses recovery when there is more than one. It does not consult a per-Run authoritative state ledger to distinguish active, failed-before-Stage2, recoverable, superseded, or delivered Runs.
+
+**Confirmed secondary root cause:** workflow attempt identity, Run identity, and same-date recovery selection are not represented by one authoritative state machine. A workflow retry can leave a second Stage 1 Run directory, after which the recover guard cannot safely choose the correct predecessor. Do not delete or overwrite either Run; preserve both as incident evidence.
+
+### 12.3 Why extending the timeout is not a repair
+
+- Stage 2 worker's five-minute wait is a prerequisite check, not an asynchronous queue.
+- GitHub's 15-minute polling loop cannot wake or replay a completed ChatGPT automation.
+- Increasing either timeout only prolongs a deadlock and risks stale date-global Observation consumption.
+- The correct repair is to make Stage 1 complete and publish quickly, let Stage 2 run independently, and have each later Stage consume a committed handoff/state checkpoint. A deferred worker must be safely re-invokable without creating another Run.
+
+## 13. Additional contract and runtime mismatches
+
+1. Stage 1 WR requires Run creation and remote publication before Stage 2 starts. The implementation violates the intended timing by installing the full Stage 1–3 browser stack first.
+2. RUN_CONTRACT v1.1 requires one active Run per report_date, recover from the last valid Stage, and immutable old evidence. The workflow implements this by scanning directory names and refuses all multiple-prior-Run cases; there is no durable state to determine which Run owns the date or where it stopped.
+3. ChatGPT writes a date-global Stage 2 Observation file at production/input/market-history-web-observations-YYYY-MM-DD.json; Stage 2 Runner later validates that it contains the exact Run ID and Stage 1 hashes. A shared date-level path is a mutable rendezvous point and cannot safely represent retries/reruns or overlapping attempts. Target design must use a Run-scoped handoff path; any date-level alias, if retained for compatibility, must never be the source of truth.
+4. Date-global Stage 4 editorial input at production/input/report-content-YYYY-MM-DD.json has the same concurrency and stale-input risk. It must be Run-scoped or carry an immutable exact Run identity and be atomically committed without replacing another Run's content.
+5. production/config/schedule.json still declares Monday–Friday 05:25 for daily reports and Monday–Friday for calendar/Chart3, while the operational requirement is Tuesday–Saturday, Stage 1 at 04:45 winter / 03:45 summer, Stage 2 at 05:00 winter / 04:00 summer, calendar writer at 04:35 winter / 03:35 summer, and Chart3 monitor at 05:30 winter / 04:30 summer. README states the workflow, not the stale run_daily_report.py path, is the entry point. Treat schedule.json as stale documentation/config and reconcile it in the rebuild; do not change live schedules in this phase.
+6. archive_index.yml has a daily schedule and manual dispatch with contents: write; its job runs verify_homepage_publication_lock.py --require-approved before archiving. It can mutate history/ independently of the new Stage 6 preview delivery and needs to be gated by an explicit publication/archive authorization model before production activation.
+7. pages.yml deploys on preview/history/research/chart data pushes and workflow_dispatch. It has pages: write and id-token: write, but only contents: read. Stage 6's current explicit Pages dispatch and remote public-URL verification are compatible in principle; deployment event correlation must be by exact payload commit, not merely latest Pages run.
+8. main.yml and company_nasdaq100.yml have scheduled/manual writers using yfinance and write data files. They are not Stage 2 fallbacks. Their output paths must be excluded from formal 44-item capture and report inputs unless an explicit contract names them.
+9. tac-simulation-lab.yml is mirrored on Main but its job checks out the Simulation branch and can publish a Simulation Preview handoff to main. Preserve the Simulation branch unchanged; in the Main rebuild, document and test a non-overlapping delivery namespace/ownership boundary so the two flows cannot overwrite each other's preview artifacts.
+10. Chart 3 ALFRED incremental and S&P 500 merge workflows listen to successful completion of TAC production and filter for a Main push carrying the build marker. Chart 3 is not a prerequisite for the report; the trigger must be updated to the final Stage 6 delivery event/state and remain non-blocking.
+
+## 14. Exact target handoff design
+
+The target flow remains six logical stages with four GitHub stages and two ChatGPT stages:
+
+| Stage | Worker | Input | Durable output | Next action |
+|---|---|---|---|---|
+| 1 | GitHub Actions | report date, main commit, governance, mother, calendar pin | one Run context, blank fixture, Stage 1 receipt, state STAGE1_READY | exit immediately; Stage 2 worker may start |
+| 2 | ChatGPT automation | exact Run-scoped Stage 1 handoff, full Stage 2 WR, current screenshots if supplied | Run-scoped 44-row Observation + FedWatch + provenance, state submission STAGE2_SUBMITTED | stop; no waiting for Stage 3 |
+| 2 validation / 3 | GitHub Actions | exact Run-scoped Observation | frozen market snapshot, Stage 2 receipt, Stage 3 calendar/earnings projection, Research Bundle, state STAGE3_READY | exit; Stage 4 worker may start |
+| 4 | ChatGPT automation | same Run's Research Bundle and Stage 4 WR | Run-scoped editorial JSON + source evidence, state submission STAGE4_SUBMITTED | stop; no build-marker race |
+| 4 validation / 5 / 6 | GitHub Actions | same Run's editorial handoff | Stage 4 receipt, Stage 5 HTML/QA receipt, Stage 6 three-file preview + public URL verification | final state DELIVERED / AWAITING_APPROVAL |
+
+Stage 2/4 submission and GitHub validation are distinct. A submission never marks a Stage PASS. Each worker can be awakened more than once; an absent prerequisite returns DEFERRED without creating a Run or permanently disabling the worker. A recovery invocation selects the exact existing Run and resumes from its last validated stage. Only an explicitly approved rerun creates a new Run.
+
+### Minimum state record
+
+Use one per-Run authoritative run-state.json (no separate state database), atomically updated with:
+- run_id, report_date, production_date, trading_date
+- main_commit_sha, workflow_run_id, workflow_run_attempt
+- current_stage, last_passed_stage, overall_status
+- each Stage's status, attempt, started_at, completed_at, input_sha256, output_sha256, receipt_path, error_code
+- supersedes_run_id only for an explicit recovery/rerun lineage, not as a substitute for state.
+
+Legal stage states should be small and non-overlapping: NOT_STARTED, READY, RUNNING, SUBMITTED, PASS, DEFERRED, PARTIAL, FAILED, SKIPPED. Overall states: RUNNING, PARTIAL, FAILED, REVIEW_READY, DELIVERED, AWAITING_APPROVAL, PUBLISHED. Every transition must compare the expected previous state/version and update atomically; two workers must never both acquire the same stage.
+
+### Ownership / trigger rules
+
+- Stage 1 is the only creator of a normal Run. It must run before heavy setup, publish the Run handoff, and exit.
+- Stage 2 ChatGPT task is a scheduled/conditional worker only; it never creates a Run and never waits for the whole Capture workflow.
+- GitHub's Stage 2 validator owns promotion from STAGE2_SUBMITTED to Stage 2 PASS and then Stage 3.
+- Stage 3 GitHub job exits after Research Bundle and Stage 3 PASS.
+- Stage 4 ChatGPT task is a separate checkpoint; it never waits for Stage 5/6.
+- GitHub validates Stage 4 submission and owns Stage 4 PASS before Stage 5.
+- Stage 5 and Stage 6 may remain sequential jobs within the same continuation workflow but must each write their own receipt and state transition.
+- GITHUB_TOKEN push events are not assumed to trigger another workflow. Use an explicit dispatch/continuation mechanism only after testing its permissions and exact event correlation. A safe polling/watchdog may observe state but cannot create competing Runs.
+- Preview is the automated terminal deliverable. Home page and archive remain separate approval-gated actions.
+
+## 15. Updated implementation order
+
+1. Finish contract/schema/runner call-graph audit and reconcile all path names and WR pins.
+2. Define the exact atomic claim/update method using GitHub's supported primitives; test races on an isolated branch without dispatching production.
+3. Add per-Run state and stage receipt validators; make same-date duplicate detection state-aware and idempotent.
+4. Move all heavy Stage 1–3 dependencies after Stage 1 commit; Stage 1 must not install Chromium.
+5. Replace date-global Stage 2 and Stage 4 files with Run-scoped immutable handoffs; update schema/validators/tests.
+6. Split ChatGPT work into two independently resumable logical checkpoints (Stage 2 and Stage 4); keep live automation prompt/schedule unchanged until separately authorized.
+7. Split GitHub workflow into short Stage 1, Stage 2/3 continuation, and Stage 4/5/6 continuation jobs/workflows, with exact run-state triggers; never use a long wait as a handoff.
+8. Add recovery/resume, concurrency, stale-input, duplicate-attempt and push-token non-trigger tests.
+9. Run full isolated fixture E2E and visual QA; then live-data E2E only after separate approval.
+10. Request approval for live automation/schedule cutover, PR merge, formal report production, Pages/preview release, and any homepage/archive publication.
