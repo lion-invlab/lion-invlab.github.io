@@ -317,7 +317,7 @@ def main():
       "editorial_run_binding":{"run_id":context["run_id"],"market_snapshot_sha256":before,"research_bundle_sha256":bundle_binding["sha256"]},
       "market_snapshot_unchanged":True,
       "editorial_input":{"path":str(content_path.relative_to(ROOT)),"sha256":sha(content_path)},
-      "stage_wr_loaded":wr_preflight,"state_version_before":state["state_version"],
+      "stage_wr_loaded":wr_loaded,"state_version_before":state["state_version"],
       "stage4_instructions_loaded":stage4_instructions_loaded,
       "research_bundle":bundle_binding,
       "outputs":{"analysis-data.json":sha(analysis_path),"report-data.json":sha(fixture_path)}
