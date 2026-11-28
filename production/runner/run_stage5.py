@@ -128,9 +128,27 @@ def main():
     stage2_summary=run_dir/"stage2-run-summary.json"
     stage3=run_dir/"stage3-calendar-receipt.json"
     stage4=run_dir/"stage4-analysis-receipt.json"
-    for p in (fixture,audit,manifest,observations,stage2,stage2_summary,stage3,stage4):
+    for p in (fixture,manifest,observations,stage2,stage2_summary,stage3,stage4):
         if not p.is_file():raise SystemExit(f"Stage 5 missing required input: {p.relative_to(ROOT)}")
+    handoff_stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    if (handoff_stage2_doc.get("qa_status")!="PENDING_STAGE5"
+            or handoff_stage2_doc.get("run_id")!=context["run_id"]
+            or handoff_stage2_doc.get("report_date")!=report_date
+            or handoff_stage2_doc.get("trading_date")!=context["trading_date"]):
+        raise SystemExit("Stage 5 received a missing or mismatched Stage 2 handoff receipt")
+    execute([sys.executable,str(RUNNER/"validate_market_snapshot.py"),
+        "--data",str(fixture.relative_to(ROOT)),"--report-date",report_date,
+        "--output",str(audit.relative_to(ROOT))],run_dir/"qa-market-snapshot.log")
+    execute([sys.executable,str(RUNNER/"build_stage2_receipt.py"),
+        "--report-date",report_date,"--data",str(fixture.relative_to(ROOT)),
+        "--audit",str(audit.relative_to(ROOT)),"--manifest",str(manifest.relative_to(ROOT)),
+        "--observations",str(observations.relative_to(ROOT)),"--output",str(stage2.relative_to(ROOT)),
+        "--run-id",str(context["run_id"]),"--workflow-run-id",str(context.get("workflow_run_id","LOCAL")),
+        "--commit-sha",str(context.get("main_commit_sha","UNKNOWN")),"--branch","main"],
+        run_dir/"qa-stage2-receipt.log")
     stage2_doc=json.loads(stage2.read_text(encoding="utf-8"))
+    if stage2_doc.get("status") not in ("PASS","PARTIAL") or stage2_doc.get("run_id")!=context["run_id"]:
+        raise SystemExit("Stage 5 full Stage 2 QA receipt is not bound to this Run")
     stage2_summary_doc=json.loads(stage2_summary.read_text(encoding="utf-8"))
     stage3_doc=json.loads(stage3.read_text(encoding="utf-8"))
     stage4_doc=json.loads(stage4.read_text(encoding="utf-8"))
