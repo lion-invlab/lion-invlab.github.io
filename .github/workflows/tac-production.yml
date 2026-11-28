@@ -422,7 +422,7 @@ jobs:
 
   stage2-and-stage3:
     needs: [stage1-create-run]
-    if: ${{ needs['stage1-create-run'].result == 'success' }}
+    if: ${{ always() && needs['stage1-create-run'].result == 'success' }}
     outputs:
       run_id: ${{ needs['stage1-create-run'].outputs.run_id }}
       report_date: ${{ needs['stage1-create-run'].outputs.report_date }}
@@ -675,7 +675,7 @@ jobs:
 
   build-and-deliver:
     needs: [stage2-and-stage3]
-    if: ${{ needs['stage2-and-stage3'].result == 'success' }}
+    if: ${{ always() && needs['stage2-and-stage3'].result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
