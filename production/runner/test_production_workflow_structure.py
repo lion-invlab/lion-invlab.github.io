@@ -53,3 +53,8 @@ print("PASS: Stage 1 exits after Run handoff; Stage 2/3 and Stage 4/6 are downst
 assert 'wait_for_trading_date_close.py "$RUN_DIR/run-context.json"' in stage2
 assert "date +%H%M" not in stage2
 assert "Wait for this Run's trading_date close" in stage2
+
+# Recovery must exclude any Run superseded by a later Run for the same report date.
+assert "superseded_ids=set()" in stage1
+assert 'superseded=context.get("supersedes_run_id")' in stage1
+assert 'p.name not in superseded_ids' in stage1
