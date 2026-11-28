@@ -69,12 +69,12 @@
 1. 編輯內容唯一位置：`production/runs/<run_id>/stage4-editorial-content.json`。
 2. JSON 必須包含 `run_id`、`report_date`、`market_snapshot_sha256`、`research_bundle_sha256`、`stage3_receipt_sha256`、`stage4_wr_sha256`，並符合 `production/input/report-content.schema.json`。
 3. 提交完整 JSON，commit message 必須包含精確 marker：`[tac-stage4-submit:<run_id>]`。重新讀回檔案，計算完整 bytes SHA-256。
-4. 內容檔提交及讀回完成後，再以 compare-and-swap 將 Stage 4 RUNNING 改為 SUBMITTED，寫入 output_sha256、input_sha256、state_version，提交 run-state.json。Delivery Workflow 會因內容 commit 被喚醒，並等待 SUBMITTED state 與 SHA 相符。
+4. 內容檔提交及讀回完成後，再以 compare-and-swap 將 Stage 4 RUNNING 改為 SUBMITTED，寫入 output_sha256、input_sha256、state_version，提交 run-state.json。同一正式 workflow run 的 build-and-deliver job 會輪詢並等待 SUBMITTED state 與 SHA 相符；不得假設內容 commit 會觸發第二個 Workflow。
 5. GitHub Stage 4 Runner 驗證後會將 Stage 4 改為 PASS、Stage 5 設 READY。之後由 GitHub Actions 自動執行 Stage 5/6；你不得手動重建 HTML、改 Preview 或更新首頁。
 
 ## 結束條件與回報
 
-- Stage 4 SUBMITTED 後，確認 Main 上同一 Run 的狀態及 build-and-deliver Workflow 已被觸發；不要要求使用者回覆「繼續」。
+- Stage 4 SUBMITTED 後，確認 Main 上同一 Run 的狀態；同一 workflow run 的 build-and-deliver job 會自動接續，不要要求使用者回覆「繼續」。
 - 若 Stage 2/3/4 的必要前置條件不存在，依 state machine 標 DEFERRED，保留 Run 並回報具體原因；不得偽造 PASS 或停用 Automation。
 - Stage 5 PASS 後 overall_status=REVIEW_READY；Stage 5 PARTIAL 必須使 Stage 6=SKIPPED。
 - Stage 6 PASS 後 overall_status=AWAITING_APPROVAL，交付公開 Preview URL 與 QA／Delivery receipt 狀態。這不代表可更新 `index.html` 或正式封存。
