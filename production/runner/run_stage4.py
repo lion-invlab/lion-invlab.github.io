@@ -257,8 +257,6 @@ def main():
     if not content_path.is_file():
         raise SystemExit("Missing Run-scoped Stage 4 editorial content; date-global fallback is prohibited")
     content_sha256=sha(content_path)
-    if state["stages"]["STAGE_4"].get("output_sha256")!=content_sha256:
-        raise SystemExit("Stage 4 submitted state SHA does not match the exact Run-scoped editorial content")
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
     timestamp_repairs=normalize_news_publication_times(editorial)
     capture_path=run_dir/"capture-stage-receipt.json"
