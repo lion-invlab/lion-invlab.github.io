@@ -94,6 +94,11 @@
       "file": "prepare_stage4_research_bundle.py",
       "status": "MAIN_PATCHED_PER_ROW_CLOSURE_EVIDENCE_BINDING",
       "main_blob_sha": "f051f79fcdf1f49f98fdaf5f8de8589f79f37969"
+    },
+    {
+      "file": "run_state.py",
+      "status": "MAIN_NATIVE_PER_RUN_STATE_MACHINE",
+      "main_blob_sha": "379727df9eef9bf360f132fcd634cd065b9349e7"
     }
   ],
   "validation_tests_copied": [
@@ -125,7 +130,8 @@
     "test_stage56_handoff.py",
     "production/runner/test_stage2_run_handoff.py",
     "production/runner/test_create_run_fixture.py",
-    "production/runner/test_stage2_chart3_guard.py"
+    "production/runner/test_stage2_chart3_guard.py",
+    "production/runner/test_run_state.py"
   ],
   "not_yet_production_ready": [
     "The Stage 4 ChatGPT continuation automation is configured to create report-content-YYYY-MM-DD.json from the exact captured Run without an external LLM API; successful same-day Run-bound production and Stage 4-6 E2E remain NOT_VERIFIED.",
@@ -134,7 +140,8 @@
     "No real-data Stage 1-6 E2E, main preview delivery, remote Pages verification or formal schedule cutover has been completed.",
     "Stage 2 Run-scoped bundle validation is not yet wired into run_stage2.py; current capture workflow still consumes date-level inputs and retains automatic Playwright/TradingView fallback paths.",
     "Stage 1 factory and Stage 2 retry now preserve the immutable stage1-fixture.json SHA; Run-scoped bundle creation, workflow split and screenshot-sidecar relocation remain pending.",
-    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database."
+    "R3 Chart 3 S&P 500 writer/merge contract remains unapproved; verified S&P 500 rows are preserved as Run-scoped candidates only and are not appended to the Chart 3 database.",
+    "Per-Run state machine and stable retry identity are implemented on the isolated rebuild branch; state transitions are not yet wired through all six production Stage runners or a cutover workflow."
   ],
   "main_status": {
     "workflow": ".github/workflows/tac-production.yml",
