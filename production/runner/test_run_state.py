@@ -152,6 +152,16 @@ class RunStateTests(unittest.TestCase):
         self.assertEqual(recovered["stages"]["STAGE_1"]["status"], "PASS")
         self.assertEqual(recovered["stages"]["STAGE_2"]["status"], "READY")
 
+    def test_partial_stage_is_terminal_and_cannot_be_reopened(self):
+        state = step(self.state, "STAGE_2", "READY", "RUNNING",
+                     lease_owner="worker", lease_expires_at="2026-11-28T00:15:00Z")
+        state = step(state, "STAGE_2", "RUNNING", "SUBMITTED", output_sha256="c" * 64)
+        state = step(state, "STAGE_2", "SUBMITTED", "PARTIAL",
+                     receipt_path="stage2-receipt.json", output_sha256="d" * 64)
+        with self.assertRaisesRegex(ValueError, "Illegal stage transition"):
+            transition_state(state, stage="STAGE_2", expected_version=state["state_version"],
+                expected_status="PARTIAL", new_status="READY", recovery=True)
+
     def test_rejects_more_than_one_running_stage(self):
         state = dict(self.state)
         state["stages"] = {k: dict(v) for k, v in self.state["stages"].items()}
