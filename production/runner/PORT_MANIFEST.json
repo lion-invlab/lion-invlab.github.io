@@ -409,5 +409,8 @@
     "validation_run_id": 45908064532,
     "validation_result": "PASS",
     "validation_scope": "Main-only deterministic validation; real-data Capture and Stage 4-6 E2E not run"
-  }
+  },
+  "governance_artifacts": [
+    "production/CHATGPT_AUTOMATION_PROMPT_MAIN_v1.3.md"
+  ]
 }
