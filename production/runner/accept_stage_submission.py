@@ -170,7 +170,7 @@ def accept_stage4(run_dir: Path, context: dict, state: dict) -> tuple[dict, dict
             or capture.get("report_date") != context["report_date"]
             or instructions.get("path") != "production/stages/STAGE_4_NEWS_ANALYSIS.md"
             or not isinstance(full_wr_text, str) or not full_wr_text.strip()):
-        raise ValueError("Stage 4 capture handoff does not match the pinned full Stage 4 WR")
+        raise ValueError("Stage 4 work-instructions handoff is missing or belongs to a different Run")
     expected = {
         "run_id": context["run_id"],
         "report_date": context["report_date"],
