@@ -2,10 +2,192 @@
   "report_date": "2026-11-30",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-27",
-  "summary": "",
-  "sentiment": "",
-  "focus_news": [],
-  "headlines": [],
+  "summary": "上週回顧｜上週全球股市在AI估值與融資疑慮引發劇烈震盪後，週五出現廣泛反彈；美股標普500單週上漲5.6%，亞洲科技市場同步回升。但反彈主要反映跌深買盤與政策穩市訊號，全球股票基金單週仍淨流出227.3億美元，資金尚未確認全面回流。\n\n核心矛盾｜AI需求仍支撐台灣出口與企業獲利，FactSet截至11月20日資料顯示標普500第三季獲利年增32.9%；但美國AI設備進口推高商品貿易逆差，AI融資回報、資金循環與高利率壓力仍未解決。市場必須從題材熱度轉向檢驗現金流、融資成本及實際投資回報。\n\n本週展望｜本週先看中國官方PMI與歐元區通膨，再追蹤美國ISM、ADP及週五非農就業；Marvell與Salesforce財報將檢驗AI供應鏈訂單及獲利品質。操作上不追逐單日反彈，先維持風險控管，待市場廣度、殖利率與資金流同步改善後再分批提高風險曝險。",
+  "sentiment": "市場情緒由極端避險轉為短線修復：美股、亞洲科技股反彈，VIX與MOVE同步回落，但美債殖利率上升、全球股票基金仍大幅淨流出，代表風險承擔尚未恢復穩定。CNN Fear & Greed 本次資料未能取得可核實日期與數值，標示待核實，不沿用舊值。",
+  "focus_news": [
+    {
+      "id": "focus-cn-national-team",
+      "title": "北京擴大國家隊穩市角色，中國股市與人民幣反彈",
+      "summary": "中國國務院要求中央匯金等國家隊投資者在市場動盪時強化穩定市場功能，並引導長期資金進入資本市場。消息帶動上證與滬深300盤中大幅反彈，顯示政策訊號可短線改善風險偏好；但國家隊買盤規模與持續性未公開，尚不能視為內需、房市或企業獲利問題已解決。",
+      "url": "https://www.investing.com/news/stock-market-news/china-stocks-yuan-rally-after-beijing-vows-stronger-market-support-5053026",
+      "published_at_tw": "2026-11-27 14:43",
+      "published_at_source": "2026-11-27 01:43 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 01:48 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "focus-tw-gdp",
+      "title": "AI需求推升台灣經濟成長預測至13.28%",
+      "summary": "主計總處將台灣2026年經濟成長預測由11.05%上修至13.28%，預估為1978年以來最快；2027年預測亦上修至6.51%。AI晶片出口仍是主要引擎，但美國出口管制、AI監管、關稅與融資成本是明年風險，現階段訂單強勁不代表需求增速可無限延續。",
+      "url": "https://www.investing.com/news/economy-news/taiwans-economy-expected-to-grow-at-its-fastest-rate-in-nearly-50-years-due-to-ai-demand-5053540",
+      "published_at_tw": "2026-11-27 21:44",
+      "published_at_source": "2026-11-27 08:44 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 08:48 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "focus-us-trade",
+      "title": "AI設備進口推高美國商品貿易逆差至1495億美元",
+      "summary": "美國10月商品貿易逆差擴大10.7%至1495億美元，明顯高於市場預估；進口增加6.1%至創紀錄的3653億美元，其中資本財進口跳升8.5%。AI資料中心投資帶動設備需求，但大量設備仰賴進口，意味企業資本支出對美國本土GDP的淨貢獻可能低於名目投資額所呈現的幅度。",
+      "url": "https://www.investing.com/news/economic-indicators/us-goods-trade-deficit-widens-sharply-in-october-5053539",
+      "published_at_tw": "2026-11-27 21:44",
+      "published_at_source": "2026-11-27 08:44 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 08:48 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "focus-ecb-rates",
+      "title": "德國央行總裁警告歐元區通膨可能促使ECB再升息",
+      "summary": "德國央行總裁Nagel表示，歐元區通膨在2027年可能持續高於3%，貨幣政策不排除需要進一步緊縮。這使市場不能只因歐洲成長偏弱便假設ECB即將轉向寬鬆；能源價格與服務通膨若維持黏著，將使企業融資、主權債務與估值同時承受壓力。",
+      "url": "https://www.investing.com/news/economy-news/ecb-may-have-to-raise-rates-further-as-inflation-stays-above-3-5053495",
+      "published_at_tw": "2026-11-27 21:15",
+      "published_at_source": "2026-11-27 08:15 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 08:18 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "focus-december-risk-map",
+      "title": "Reuters：12月市場面臨AI融資、通膨、央行與選舉多重考驗",
+      "summary": "Reuters整理12月主要風險，包括中東衝突、通膨、AI融資透明度、Nvidia事件後續、關稅政策及多國政治選舉。美國就業報告與聯準會12月會議將檢驗經濟韌性及利率路徑，OPEC+會議則牽動能源供給預期；市場反彈尚未消除這些跨資產風險。",
+      "url": "https://www.investing.com/news/economy-news/take-five-a-december-to-remember-5053153",
+      "published_at_tw": "2026-11-27 16:43",
+      "published_at_source": "2026-11-27 03:43 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 03:48 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    }
+  ],
+  "headlines": [
+    {
+      "id": "headline-fr-inflation",
+      "title": "法國11月通膨降溫，HICP年增回落至3.2%",
+      "summary": "法國11月調和消費者物價指數年增率由10月3.7%降至3.2%，低於分析師預期；國內CPI年增率亦降至2.9%。能源價格放緩是主要因素之一，短線有助降低通膨壓力，但服務與食品價格仍需追蹤，單月初值不足以確認歐元區通膨已進入持續下行趨勢。",
+      "url": "https://www.investing.com/news/economy-news/french-preliminary-inflation-at-32-in-november-5053065",
+      "published_at_tw": "2026-11-27 15:50",
+      "published_at_source": "2026-11-27 02:50 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 02:54 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-fr-gdp",
+      "title": "法國第三季GDP下修至季減0.2%，出口與投資拖累",
+      "summary": "INSEE最終資料顯示法國第三季GDP季減0.2%，差於初估及市場預期；出口下滑1.6%，固定資本形成減少0.9%。家庭消費仍小幅成長，但外需與投資疲弱使經濟陷入技術性衰退，財政整頓與政治不確定性將更難兼顧。",
+      "url": "https://www.investing.com/news/economy-news/french-economy-contracts-more-than-expected-in-third-quarter-5053113",
+      "published_at_tw": "2026-11-27 16:21",
+      "published_at_source": "2026-11-27 03:21 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 03:24 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-de-jobs",
+      "title": "德國11月經季調失業人數增加9000人，高於預期",
+      "summary": "德國經季調失業人數增加9,000人至302.5萬人，高於市場預期增加4,000人，失業率維持6.4%。未季調人數下降主要反映季節因素，官方指出景氣小幅復甦尚未帶動勞動市場改善，顯示歐洲最大經濟體內需與就業仍偏弱。",
+      "url": "https://www.investing.com/news/economy-news/german-unemployment-rises-more-than-expected-in-november-5053161",
+      "published_at_tw": "2026-11-27 16:58",
+      "published_at_source": "2026-11-27 03:58 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 04:00 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-equity-flows",
+      "title": "全球股票基金單週淨流出227.3億美元，創14個月最大",
+      "summary": "LSEG Lipper資料顯示，截至11月25日當週全球股票基金淨流出227.3億美元，為14個月來最大單週流出。AI基礎設施投資回報疑慮與聯準會官員偏鷹談話壓抑風險胃納；即使本週股市反彈，資金流向仍顯示機構投資人尚未全面重新承擔風險。",
+      "url": "https://www.investing.com/news/economy-news/global-equity-funds-log-biggest-weekly-outflow-in-14-months-5053188",
+      "published_at_tw": "2026-11-27 17:41",
+      "published_at_source": "2026-11-27 04:41 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 04:42 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-us-jobs-focus",
+      "title": "美股投資人轉向下週就業報告，Fed利率路徑成反彈考驗",
+      "summary": "Reuters指出，AI相關股票劇烈震盪後，市場焦點轉向12月4日美國就業報告及12月8日至9日聯準會會議。若就業再度偏強，可能強化更長時間維持高利率的定價；若勞動市場降溫，才有助緩解估值壓力。Nvidia融資與AI投資回報問題仍未消失。",
+      "url": "https://www.investing.com/news/economy-news/sliding-stock-market-confronts-jobs-data-rate-view-as-next-tests-5053316",
+      "published_at_tw": "2026-11-27 19:02",
+      "published_at_source": "2026-11-27 06:02 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 06:08 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-dollar-hedging",
+      "title": "美股波動改變海外投資人匯率避險，美元出現非典型買盤",
+      "summary": "Citi指出，海外投資人持有大量美股並以遠期市場避險，當美股急跌、避險比率超出設定區間時，投資人可能回補美元空頭，形成股市下跌後美元反而走強的現象。海外持有美股規模約25兆美元，動態避險與月底再平衡可能放大短期匯率波動。",
+      "url": "https://www.investing.com/news/economy-news/us-stock-selloffs-trigger-a-new-kind-of-dollar-bounce-5053494",
+      "published_at_tw": "2026-11-27 21:16",
+      "published_at_source": "2026-11-27 08:16 AM ET",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 08:18 AM ET",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-europe-stocks",
+      "title": "歐股週五續彈，半導體與礦業領漲，市場轉看西班牙大選",
+      "summary": "STOXX 600週五上漲1%，全週接近上漲3%，科技股與礦業股領漲；ASML、ASM International及Infineon走強。Reuters指出，反彈較像跌深買盤回流，尚無明確基本面催化，市場接下來將觀察西班牙大選及AI債務融資回報疑慮。",
+      "url": "https://au.investing.com/news/stock-market-news/european-stocks-extend-recovery-as-tech-miners-advance-4798644",
+      "published_at_tw": "2026-11-27 16:24",
+      "published_at_source": "2026-11-27 07:24 PM AEDT",
+      "source_timezone": "Australia/Sydney",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-28 04:29 AM AEDT",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-fr-rating",
+      "title": "S&P將法國信用展望下調至負向，財政與政治風險升高",
+      "summary": "S&P維持法國主權評等A+/A-1，但將展望由穩定調降為負向，理由包括經濟成長疲弱、利息支出增加及預算赤字整頓困難。若政治分裂妨礙削減赤字與改革，法國融資成本可能持續高於歐元區核心同儕，並提高歐洲主權債利差風險。",
+      "url": "https://www.investing.com/news/economy-news/sp-revises-france-outlook-to-negative-on-mounting-budget-pressures-weak-growth-5053881",
+      "published_at_tw": "2026-11-28 05:27",
+      "published_at_source": "2026-11-27 04:27 PM EST",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "原文頁面未標示更新時間",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-brazil-finance",
+      "title": "巴西總統提名Bradesco董事長出任財長，市場解讀偏向財政務實",
+      "summary": "Lula提名Bradesco董事長Luiz Carlos Trabuco出任下一任財長，巴西雷亞爾一度大幅升值，利率期貨與國際債券同步反彈。市場將人事安排視為財政政策可能更重視投資人信心的訊號，但公共債務接近GDP的83%，新任財長仍須提出可信的支出與債務穩定方案。",
+      "url": "https://www.investing.com/news/economy-news/brazilian-markets-rally-after-lula-taps-bradesco-chairman-for-finance-chief-5053727",
+      "published_at_tw": "2026-11-28 00:53",
+      "published_at_source": "2026-11-27 11:53 AM EST",
+      "source_timezone": "America/New_York",
+      "publisher": "Reuters／Investing.com",
+      "updated_at_source": "2026-11-27 11:54 AM EST",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    },
+    {
+      "id": "headline-oil-supply",
+      "title": "中東航運與能源設施風險推升油價週線，Brent終止連三週跌勢",
+      "summary": "Reuters報導，荷姆茲海峽油輪與沙烏地能源設施遇襲消息，使市場重新評估中東供給風險；Brent週線上漲約3%，終止連續三週下跌，但週五收盤回落至每桶95.44美元。短線價格反映風險溢價，實際供應損失仍須與航運流量及OPEC+政策決策交叉確認。",
+      "url": "https://live.euronext.com/en/financial-news/oil-notches-first-weekly-gain-november-supply-fears",
+      "published_at_tw": "2026-11-28 05:12",
+      "published_at_source": "2026-11-27 21:12 UTC",
+      "source_timezone": "UTC",
+      "publisher": "Reuters／Euronext",
+      "updated_at_source": "原文頁面未標示更新時間",
+      "checked_at": "2026-11-28T15:54:00+08:00"
+    }
+  ],
   "global_markets": {
     "道瓊工業指數": {
       "display": "50,774.94",
@@ -928,15 +1110,42 @@
     "stage2_wr_sha256": "6788d4c0e9c7ac40485caeeada9447df7a9194cb18a7e04e0d84daee27f29957",
     "observation_sha256": "80f6590c2c5e10344c57c7b031a73edb0e962f64d373367c7e2994d7d939ebe5"
   },
-  "observation": {},
+  "observation": {
+    "text": "本週先確認中國與美國景氣數據、歐元區通膨及美國就業是否改變利率定價；同時檢查股市反彈廣度、全球股票基金流向與AI資本支出回報。若三者未同步改善，不追價擴大高估值部位。"
+  },
   "calendar": {},
   "earnings": {},
-  "summary_title": "",
-  "market_comments": "",
+  "summary_title": "科技股急彈，資金與利率考驗未解",
+  "market_comments": {
+    "global_markets": [
+      "美股：道瓊上漲1.18%至50,774.94，標普500上漲1.60%至7,297.49，那斯達克上漲2.31%至24,129.50；科技股領漲，但感恩節後縮短交易時段使成交量與延續性仍需觀察。",
+      "亞洲：日經225上漲2.11%，KOSPI上漲4.34%，上證上漲3.73%、深證成指上漲7.24%；中國政策支持訊號帶動反彈，台灣加權指數則上漲0.40%，區域表現分化。",
+      "歐洲：STOXX Europe 600上漲1.08%，DAX上漲0.90%、FTSE 100上漲0.84%、CAC 40上漲0.58%；科技與礦業股支撐指數，但法國財政與歐洲成長風險仍在。"
+    ],
+    "sectors": "標普11大產業ETF全數收紅，科技XLK上漲2.80%領先，其次為非必需消費XLY上漲2.11%、通訊服務XLC上漲1.99%；必需消費XLP僅上漲0.41%，反映反彈仍偏向成長與景氣循環類股。",
+    "bonds": "美國2年、10年、30年期公債殖利率分別為4.704%、4.934%、5.323%，單日上升5.0、6.5、7.1個基點；風險偏好回升與經濟韌性使殖利率上行，長端利率仍是高估值股票的折現壓力。",
+    "fx": "美元指數收104.01、上漲0.34%；美元兌新台幣32.999、上漲0.13%，歐元兌美元下跌0.31%，英鎊兌美元下跌0.10%，澳幣兌美元上漲0.20%，美元兌日圓上漲0.19%。美元表現受利率預期與跨境股票避險再平衡影響。",
+    "energy": "WTI原油收83.08美元、下跌2.17%；Brent收95.44美元、下跌1.17%。雖然Brent週線終止連三週跌勢，但週五回落顯示市場同時衡量中東供給風險與需求前景。",
+    "metals": "黃金期貨上漲2.10%至3,655.30美元，白銀上漲5.08%至43.368美元；貴金屬反彈與風險資產同步，仍須觀察實質利率及美元走勢。",
+    "risk": "VIX回落11.16%至23.81，MOVE回落2.30%至95.30，顯示股債波動壓力短線緩解；CNN Fear & Greed 本次未取得可確認日期與數值，維持待核實，不沿用先前讀值。"
+  },
   "last_week_calendar": {},
   "last_week_earnings": {},
-  "summary_points": [],
-  "warning_note": "",
+  "summary_points": [
+    {
+      "label": "上週回顧",
+      "text": "上週全球股市在AI估值與融資疑慮引發劇烈震盪後，週五出現廣泛反彈；美股標普500單週上漲5.6%，亞洲科技市場同步回升。但反彈主要反映跌深買盤與政策穩市訊號，全球股票基金單週仍淨流出227.3億美元，資金尚未確認全面回流。"
+    },
+    {
+      "label": "核心矛盾",
+      "text": "AI需求仍支撐台灣出口與企業獲利，FactSet截至11月20日資料顯示標普500第三季獲利年增32.9%；但美國AI設備進口推高商品貿易逆差，AI融資回報、資金循環與高利率壓力仍未解決。市場必須從題材熱度轉向檢驗現金流、融資成本及實際投資回報。"
+    },
+    {
+      "label": "本週展望",
+      "text": "本週先看中國官方PMI與歐元區通膨，再追蹤美國ISM、ADP及週五非農就業；Marvell與Salesforce財報將檢驗AI供應鏈訂單及獲利品質。操作上不追逐單日反彈，先維持風險控管，待市場廣度、殖利率與資金流同步改善後再分批提高風險曝險。"
+    }
+  ],
+  "warning_note": "Stage 2 共44項行情，43項已核實；CNN Fear & Greed 1項為SOURCE_NO_DATA，顯示待核實且不沿用舊值。此缺項已保留於本Run交接紀錄。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com Global｜SPDR Select Sector ETF historical data",
@@ -1181,16 +1390,51 @@
       "browser_observation_record_sha256": "4bdb9ec02efc242ec49708a3a8132cbb5523497310172a81fb40a1fbf3903817"
     }
   },
-  "key_levels": {},
-  "core_observation": "",
+  "key_levels": {
+    "items": []
+  },
+  "core_observation": {
+    "heading": "反彈要看廣度，更要看資金來源",
+    "text": "週五風險資產同步回升，但殖利率仍上行、機構股票基金仍淨流出；短線價格修復尚未證明AI投資回報與融資風險已解除。",
+    "details": "上週回顧：市場先因AI估值、融資結構與政策不確定性急跌，再於週五出現跌深反彈；中國政策穩市與科技股回補提供支撐，但全球股票基金單週流出規模仍大。宏觀數據方面，美國成長韌性與歐洲成長疲弱並存，通膨壓力又使主要央行難以快速轉向寬鬆。財報方面，HPE、ADI、Dell等企業已公布結果，但部分市場共識資料尚未齊備，因此不以未驗證的EPS或營收驚喜作結論。\n\n本週展望：中國製造業PMI、歐元區HICP、美國ISM與就業數據將決定市場如何重新定價成長與利率；Marvell、Salesforce等科技財報則檢驗AI供應鏈需求是否延續。先確認股市反彈能否擴散、資金流是否改善，以及長端殖利率是否穩定，再決定是否提高風險部位。",
+    "points": [
+      {
+        "label": "市場廣度",
+        "text": "觀察半導體以外的產業與中小型股能否延續反彈，避免只由少數大型科技股推動指數。"
+      },
+      {
+        "label": "利率條件",
+        "text": "追蹤美國10年期殖利率是否停止上行，以及就業與通膨數據是否改變Fed定價。"
+      },
+      {
+        "label": "AI回報",
+        "text": "檢驗資料中心資本支出、訂單能見度、自由現金流與融資成本，不只看營收成長。"
+      },
+      {
+        "label": "風險失效",
+        "text": "若基金流出擴大、信用利差走寬或高估值科技股跌破反彈區間，應重新降低風險曝險。"
+      }
+    ]
+  },
   "qa_run_revision": "SIM-1.4-manual-takeover-2026-11-26-retry-2",
-  "market_sentiment": {},
-  "quality_note": "",
+  "market_sentiment": "短線風險偏好回升，但資金流與利率尚未確認趨勢反轉；以反彈觀察而非全面轉多處理。",
+  "quality_note": "新聞原始發布時間均落在2026-11-27 12:00至2026-11-28 15:54台灣時間窗口；市場分析僅引用同一Run已凍結且驗證通過的行情。週一回顧使用W48已公布行事曆與財報投影，展望使用W49行事曆與財報投影。",
   "report_cutoff_taipei": "2026-11-28 05:25",
-  "news_window_taipei": "",
+  "news_window_taipei": "2026-11-27 12:00–2026-11-28 15:54",
   "key_levels_overrides": [],
   "review_notice": "本頁為Simulation隔離區審核版，非正式首頁；需使用者核准後才可進行任何正式發布。",
-  "pending_items": [],
+  "pending_items": [
+    {
+      "item": "CNN Fear & Greed Index（2026-11-27）",
+      "status": "SOURCE_NO_DATA",
+      "reason": "本次頁面未提供可核實的對應日期與分數；不得沿用舊值，顯示待核實。"
+    },
+    {
+      "item": "上週部分企業財報市場共識",
+      "status": "PENDING",
+      "reason": "HPE、ADI、Dell等部分EPS／營收共識尚未取得可核實資料，不自行推定beat或miss。"
+    }
+  ],
   "review_ready_blockers": [],
   "earnings_health": {
     "source": "FactSet｜S&P 500 Earnings Insight（2026/11/20）",
@@ -1203,7 +1447,6 @@
     "blended_eps_yoy": "+32.9%",
     "blended_revenue_yoy": "+14.6%",
     "eps_surprise": "+3.5%",
-    "revenue_surprise": "+2.2%",
     "forward_pe": "17.1 倍",
     "eps_beat_avg_5y": "78%",
     "eps_beat_avg_10y": "77%",
@@ -1211,46 +1454,308 @@
     "revenue_beat_avg_10y": "68%",
     "eps_surprise_avg_5y": "7.5%",
     "eps_surprise_avg_10y": "8.0%",
-    "revenue_surprise_avg_5y": "1.8%",
+    "revenue_surprise_avg_5y": "2.2%",
     "forward_pe_avg_5y": "19.8 倍",
     "forward_pe_avg_10y": "19.1 倍",
     "prior_blended_eps_yoy": "+31.9%",
     "prior_blended_revenue_yoy": "+14.4%",
     "mag7_eps_growth": "+27.0%",
     "other_493_eps_growth": "+34.7%",
-    "interpretation": "Q3獲利與營收年增仍強；EPS beat比例84%，但EPS surprise 3.5%低於五年平均7.5%。Mag 7 EPS成長27.0%，低於其他493家公司的34.7%，顯示獲利成長來源擴散；市場仍需檢驗資本支出回報與現金流。"
+    "interpretation": "Q3獲利與營收年增仍強，但EPS驚喜幅度3.5%低於五年平均7.5%；Mag 7 EPS成長27.0%，低於其餘493家公司的34.7%，顯示獲利成長來源擴散。市場仍須檢驗AI資本支出的現金流回報與融資品質。"
   },
   "report_layer_earnings_actuals": [],
-  "news_cutoff_taipei": "",
+  "news_cutoff_taipei": "2026-11-28 15:54",
   "report_layer_earnings_status": [],
   "last_week_economic_overrides": [],
   "last_week_earnings_actuals": [],
   "market_analysis": {
     "political": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "美國關稅與晶片出口管制仍是跨國供應鏈的政策風險。荷蘭首相表示將在G20與美國總統討論MATCH Act，該法案仍在國會審議，可能要求荷蘭、日本等盟友加嚴對中晶片設備出口限制；目前屬提案與外交協商，不能當成已生效禁令。",
+        "中東航運及能源設施遇襲報導提高油價風險溢價，但現有報導不足以單獨證明整體出口量已出現持續性中斷。美國對多個貿易夥伴提出的新關稅上限亦仍屬政策提案，後續須觀察正式法規、豁免範圍及談判結果。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜荷蘭首相將與美方討論MATCH Act晶片設備出口管制",
+          "url": "https://www.reuters.com/technology/dutch-pm-discuss-match-act-chipmaking-export-controls-with-trump-g20-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T14:07:00Z",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜中東航運及能源設施供應風險",
+          "url": "https://live.euronext.com/en/financial-news/oil-notches-first-weekly-gain-november-supply-fears",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T21:12:00Z",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜美國商品貿易逆差及關稅提案背景",
+          "url": "https://www.reuters.com/business/us-goods-trade-deficit-widens-sharply-october-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        }
+      ]
     },
     "policy_industry": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "AI投資需求仍是半導體、伺服器、網通與電力基礎設施的主要成長引擎。台灣官方將2026年GDP成長預測上修至13.28%，出口預測上修至46.67%，顯示目前訂單動能強；但美國進口數據顯示AI資本財大量仰賴海外供應，且出口管制與融資成本可能改變2027年採購節奏。",
+        "FactSet截至11月20日的第三季標普500財報統計顯示，93%企業已公布，84% EPS優於預期、74%營收優於預期，混合EPS年增32.9%、營收年增14.6%。但EPS驚喜幅度3.5%低於五年平均7.5%，投資人仍須驗證高額資本支出是否轉化為持續現金流；上週HPE、ADI、Dell等公布財報，部分EPS／營收共識資料尚未齊備，不宜自行判定全面優於預期。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜台灣經濟成長預測與AI出口需求",
+          "url": "https://www.reuters.com/world/asia-pacific/taiwans-economy-expected-grow-its-fastest-rate-nearly-50-years-due-ai-demand-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27T08:44:00-05:00",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜美國AI資本財進口與商品貿易逆差",
+          "url": "https://www.reuters.com/business/us-goods-trade-deficit-widens-sharply-october-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "FactSet｜S&P 500 Earnings Insight 2026-11-20",
+          "url": "https://insight.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_112026A.pdf",
+          "status": "VERIFIED",
+          "published_at": "2026-11-20",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "global_markets",
+          "name": "費城半導體指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "台灣加權指數"
+        }
+      ]
     },
     "macro": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "美國經濟呈現需求韌性與外貿拖累並存：第三季GDP第二次估值年化成長4.3%，但10月商品貿易逆差擴大至1495億美元，AI設備進口是資本財進口增加的重要來源。這意味美國內需與企業投資仍強，卻不能忽略淨出口對第四季GDP的負貢獻。",
+        "歐洲則面臨成長疲弱與通膨黏著的政策拉扯。法國第三季GDP季減0.2%，德國11月季調失業增加9,000人；另一方面，ECB官員警告2027年通膨可能持續高於3%。美國聯準會12月9日會議的FedWatch觀察值為維持4.00%至4.25%機率95.8%、降息機率4.2%，市場對快速寬鬆仍無明確定價。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters／BEA｜美國商品貿易逆差",
+          "url": "https://www.reuters.com/business/us-goods-trade-deficit-widens-sharply-october-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜法國第三季GDP季減0.2%",
+          "url": "https://www.investing.com/news/economy-news/french-economy-contracts-more-than-expected-in-third-quarter-5053113",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27 03:21 ET",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜德國11月失業人數增加",
+          "url": "https://www.investing.com/news/economy-news/german-unemployment-rises-more-than-expected-in-november-5053161",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27 03:58 ET",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜ECB官員談2027年通膨與升息風險",
+          "url": "https://www.investing.com/news/economy-news/ecb-may-have-to-raise-rates-further-as-inflation-stays-above-3-5053495",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27 08:15 ET",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Investing.com Fed Rate Monitor｜2026-12-09會議定價",
+          "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T13:35:00+08:00",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "bonds",
+          "name": "10年期美債殖利率"
+        }
+      ]
     },
     "markets": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "11月27日美股縮短交易時段全面反彈，標普500上漲1.60%、那斯達克綜合指數上漲2.31%、費城半導體指數上漲4.69%；亞洲市場以深證成指上漲7.24%、KOSPI上漲4.34%較強。這反映科技股跌深回補與中國政策訊號共同推升風險偏好，但假期低成交量使單日漲幅的延續性仍待確認。",
+        "美國2年、10年與30年公債殖利率分別上升5.0、6.5及7.1個基點；VIX回落11.16%至23.81，MOVE回落2.30%至95.30。股市上漲與波動指標回落屬正面訊號，但長端殖利率上行會提高折現率，且CNN Fear & Greed 本次待核實，不能以未確認情緒指標補足風險判讀。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜全球市場反彈與11月市場脈絡",
+          "url": "https://www.reuters.com/world/china/global-markets-global-markets-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "AP｜美股週五反彈及週線表現",
+          "url": "https://apnews.com/article/c7ef10c1dbc5fa09668bd4fe0729c613",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Stage 2｜同一Run凍結行情快照",
+          "url": "https://github.com/lion-invlab/lion-invlab.github.io/blob/main/production/runs/TAC-2026-11-30-46108156744/report-data.json",
+          "status": "VERIFIED",
+          "published_at": "2026-11-28T15:24:46+08:00",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "global_markets",
+          "name": "標普500指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "那斯達克綜合指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "費城半導體指數"
+        },
+        {
+          "group": "global_markets",
+          "name": "深證成指"
+        },
+        {
+          "group": "bonds",
+          "name": "10年期美債殖利率"
+        },
+        {
+          "group": "risk",
+          "name": "vix"
+        },
+        {
+          "group": "risk",
+          "name": "move"
+        }
+      ]
     },
     "strategy": {
-      "paragraphs": [],
-      "sources": []
+      "paragraphs": [
+        "目前較合適的立場是中性偏審慎，而不是把單日反彈當成趨勢反轉。先維持核心部位與流動性，避免追價擴大高估值AI曝險；若半導體與大型科技股反彈能擴散至更多產業、全球股票基金流出收斂、10年期美債殖利率停止急升，再以分批方式增加風險資產。",
+        "若AI資本支出指引下修、融資條件轉緊、信用利差擴大，或美債殖利率續升而股市廣度轉弱，應優先降低高槓桿、高估值及現金流尚未驗證的部位。反之，若就業與通膨數據溫和降溫、企業獲利兌現且市場廣度持續改善，才逐步提高股票配置；上述條件未成立前，反彈仍以交易性修復看待。"
+      ],
+      "sources": [
+        {
+          "label": "Reuters｜全球股票基金創14個月最大單週流出",
+          "url": "https://www.investing.com/news/economy-news/global-equity-funds-log-biggest-weekly-outflow-in-14-months-5053188",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27 04:41 ET",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜美股波動與下週就業數據風險",
+          "url": "https://www.investing.com/news/economy-news/sliding-stock-market-confronts-jobs-data-rate-view-as-next-tests-5053316",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27 06:02 ET",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        },
+        {
+          "label": "Reuters｜美元避險再平衡與美股波動",
+          "url": "https://www.reuters.com/business/us-stock-selloffs-trigger-new-kind-dollar-bounce-2026-11-27/",
+          "status": "VERIFIED",
+          "published_at": "2026-11-27",
+          "checked_at": "2026-11-28T15:54:00+08:00"
+        }
+      ],
+      "supporting_market_rows": [
+        {
+          "group": "global_markets",
+          "name": "標普500指數"
+        },
+        {
+          "group": "bonds",
+          "name": "10年期美債殖利率"
+        },
+        {
+          "group": "risk",
+          "name": "vix"
+        }
+      ]
     }
   },
   "political_scan": {
-    "domains_checked": [],
-    "findings": [],
-    "checked_at": ""
+    "checked_at": "2026-11-28T15:54:00+08:00",
+    "domains_checked": [
+      "us_policy",
+      "us_china",
+      "geopolitics",
+      "trade_sanctions",
+      "major_economies",
+      "energy_resources"
+    ],
+    "findings": [
+      {
+        "title": "美國提出對多個貿易夥伴提高關稅上限的政策方案",
+        "domain": "us_policy",
+        "classification": "announced_not_implemented",
+        "source_url": "https://www.reuters.com/business/us-goods-trade-deficit-widens-sharply-october-2026-11-27/",
+        "published_at": "2026-11-27 08:44 ET（報導提及本週已提出方案）",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "屬已提出但尚未全面生效的關稅方案；若實施，將提高進口成本並影響企業供應鏈配置、商品價格與貿易流量，須待正式法規及豁免細節確認。"
+      },
+      {
+        "title": "荷蘭反對美國MATCH Act擴大晶片設備出口管制",
+        "domain": "us_china",
+        "classification": "announced_not_implemented",
+        "source_url": "https://www.reuters.com/technology/dutch-pm-discuss-match-act-chipmaking-export-controls-with-trump-g20-2026-11-27/",
+        "published_at": "2026-11-27 14:07 UTC",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "法案仍在美國國會審議，荷蘭將與美方協商；若擴大管制，可能影響ASML及日本設備商對中出貨、半導體供應鏈與中國AI算力建置，現階段不得視為已生效禁令。"
+      },
+      {
+        "title": "荷姆茲海峽油輪及中東能源設施遭遇襲擊風險",
+        "domain": "geopolitics",
+        "classification": "reported_incident_no_confirmed_supply_disruption",
+        "source_url": "https://live.euronext.com/en/financial-news/oil-notches-first-weekly-gain-november-supply-fears",
+        "published_at": "2026-11-27 21:12 UTC",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "相關報導推升能源風險溢價，但不能僅憑事件報導推定持續性供應中斷；應追蹤實際裝船、航運流量、保險成本及油價期限結構。"
+      },
+      {
+        "title": "晶片設備出口管制與關稅方案仍處政策協商階段",
+        "domain": "trade_sanctions",
+        "classification": "announced_not_implemented",
+        "source_url": "https://www.reuters.com/technology/dutch-pm-discuss-match-act-chipmaking-export-controls-with-trump-g20-2026-11-27/",
+        "published_at": "2026-11-27 14:07 UTC",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "美國盟友對管制範圍與主權權限仍有分歧，後續可能影響半導體設備商市場准入、企業資本支出與跨國投資決策；尚無足夠證據將提案等同正式制裁。"
+      },
+      {
+        "title": "台灣上修2026年經濟成長預測至13.28%",
+        "domain": "major_economies",
+        "classification": "economic_data_released",
+        "source_url": "https://www.reuters.com/world/asia-pacific/taiwans-economy-expected-grow-its-fastest-rate-nearly-50-years-due-ai-demand-2026-11-27/",
+        "published_at": "2026-11-27 08:44 ET",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "AI晶片需求推升出口與成長預測，但美國出口管制、關稅、AI監管及融資成本構成2027年下行風險，需同步追蹤訂單與終端需求。"
+      },
+      {
+        "title": "OPEC+會前中東供給風險與產量配額爭議升高",
+        "domain": "energy_resources",
+        "classification": "reported_incident_no_confirmed_supply_disruption",
+        "source_url": "https://live.euronext.com/en/financial-news/oil-notches-first-weekly-gain-november-supply-fears",
+        "published_at": "2026-11-27 21:12 UTC",
+        "checked_at": "2026-11-28T15:54:00+08:00",
+        "transmission": "油輪與能源設施遇襲提高供給風險溢價；OPEC+週末會議將討論2027年產量政策，需區分實際供應損失、預防性風險定價與產油國配額談判。"
+      }
+    ],
+    "no_material_change_note": "六個領域均已完成掃描；上述列出本窗口內可核實的政策提案、地緣事件及經濟資料。其他未有充分證據的政治表態、傳聞或推測不升格為已生效政策或確定供應中斷。"
   },
   "news_window": {},
   "run_metadata": {

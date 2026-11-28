@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "stage": "STAGE_4_NEWS_ANALYSIS",
+  "status": "PASS",
+  "run_id": "TAC-2026-11-30-46108156744",
+  "report_date": "2026-11-30",
+  "trading_date": "2026-11-27",
+  "news_counts": {
+    "focus_news": 5,
+    "headlines": 10
+  },
+  "summary_points": 3,
+  "analysis_layers": [
+    "political",
+    "policy_industry",
+    "macro",
+    "markets",
+    "strategy"
+  ],
+  "political_domains": [
+    "us_policy",
+    "us_china",
+    "geopolitics",
+    "trade_sanctions",
+    "major_economies",
+    "energy_resources"
+  ],
+  "market_snapshot_sha256_before": "e5713635d8663de5ffd8b7200426a4e8957e1bd99996267c19d96f282ba1e763",
+  "market_snapshot_sha256_after": "e5713635d8663de5ffd8b7200426a4e8957e1bd99996267c19d96f282ba1e763",
+  "stage3_receipt_sha256": "0d85d6e521ca46ffd0a535a45f5925e81d4ca9e903d7b46c28514f4aa62c8219",
+  "editorial_run_binding": {
+    "run_id": "TAC-2026-11-30-46108156744",
+    "market_snapshot_sha256": "e5713635d8663de5ffd8b7200426a4e8957e1bd99996267c19d96f282ba1e763",
+    "research_bundle_sha256": "d1662a50f88e5ee734e07546625a232e74693bd73092f7e7482da02c21b6b16e"
+  },
+  "market_snapshot_unchanged": true,
+  "editorial_input": {
+    "path": "production/runs/TAC-2026-11-30-46108156744/stage4-editorial-content.json",
+    "sha256": "ca2c1d579ea98fa43cf253101d568ea05ac78528afbda90d99418b163a3de466"
+  },
+  "wr_preflight": {
+    "status": "PASS",
+    "stage": "STAGE_4",
+    "wr_path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
+    "wr_loaded": true,
+    "wr_read_mode": "FULL_UTF8_FILE_READ",
+    "wr_bytes_read": 6831,
+    "wr_sha256": "5e23f24f4568d8358744446572b8ae55f54b585327333fce6dc2c649792b9079",
+    "wr_git_blob_sha": "d140689989cb9dd4c92200d56e615eddbdaf6edb",
+    "stage1_pinned_git_blob_sha": "d140689989cb9dd4c92200d56e615eddbdaf6edb",
+    "stage1_pinned_commit": "562d9fdf90e86a8272550c92931f410e6b282a15",
+    "rules_text_loaded": true
+  },
+  "state_version_before": 14,
+  "editorial_worker_wr_attestation": {
+    "status": "PASS",
+    "stage4_wr_sha256": "5e23f24f4568d8358744446572b8ae55f54b585327333fce6dc2c649792b9079",
+    "full_text_sha256": "5e23f24f4568d8358744446572b8ae55f54b585327333fce6dc2c649792b9079",
+    "handoff_path": "production/stages/STAGE_4_NEWS_ANALYSIS.md",
+    "handoff_git_blob_sha": "d140689989cb9dd4c92200d56e615eddbdaf6edb"
+  },
+  "research_bundle": {
+    "path": "production/runs/TAC-2026-11-30-46108156744/stage4-research-bundle.json",
+    "sha256": "d1662a50f88e5ee734e07546625a232e74693bd73092f7e7482da02c21b6b16e"
+  },
+  "outputs": {
+    "analysis-data.json": "aa4935c5c3b875169cd17f8a8a2cd90bf3294bd0aa7e953baa5d2c78072321f9",
+    "report-data.json": "d30d0c099e200d788f892aaa9fc6caaac3906d6487501f50f63b712bce763e2e"
+  }
+}
