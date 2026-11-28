@@ -82,15 +82,20 @@ def normalize_news_publication_times(content:dict)->list[dict]:
             if not raw or not zone:
                 continue
             tz=ZoneInfo(zone)
-            parts=raw.rsplit(" ",1)
-            candidate=parts[0] if len(parts)==2 else raw
             parsed=None
-            for fmt in ("%Y-%m-%d %H:%M","%Y-%m-%d %I:%M %p","%b %d %Y %I:%M %p"):
-                try:
-                    parsed=datetime.strptime(candidate,fmt)
+            candidates=[raw]
+            parts=raw.rsplit(" ",1)
+            if len(parts)==2:
+                candidates.append(parts[0])
+            for candidate in candidates:
+                for fmt in ("%Y-%m-%d %H:%M","%Y-%m-%d %I:%M %p","%b %d %Y %I:%M %p"):
+                    try:
+                        parsed=datetime.strptime(candidate,fmt)
+                        break
+                    except ValueError:
+                        pass
+                if parsed is not None:
                     break
-                except ValueError:
-                    pass
             if parsed is None:
                 raise ValueError(f"{section}[{index}] source publication timestamp cannot be parsed: {raw!r}")
             expected=parsed.replace(tzinfo=tz).astimezone(TZ).strftime("%Y-%m-%d %H:%M")
