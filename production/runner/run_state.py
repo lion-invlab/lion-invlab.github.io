@@ -214,6 +214,35 @@ def transition_state(
     return result
 
 
+def register_workflow_run(state: dict, workflow_run_id: str, attempt: int, now: str | None = None) -> dict:
+    """Record the current GitHub workflow execution while preserving the stable Run ID."""
+    validate_state(state)
+    workflow_run_id = str(workflow_run_id).strip()
+    attempt = int(attempt)
+    if not workflow_run_id or attempt < 1:
+        raise ValueError("workflow_run_id and positive attempt are required")
+    updated = deepcopy(state)
+    history = list(updated.get("workflow_run_history") or [])
+    previous_id = str(updated.get("workflow_run_id") or "").strip()
+    previous_attempt = int(updated.get("workflow_run_attempt", 1))
+    if previous_id:
+        previous = {"workflow_run_id": previous_id, "attempt": previous_attempt}
+        if previous not in history:
+            history.append(previous)
+    current = {"workflow_run_id": workflow_run_id, "attempt": attempt}
+    if current not in history:
+        history.append(current)
+    if previous_id == workflow_run_id and previous_attempt == attempt and updated.get("workflow_run_history") == history:
+        return updated
+    updated["workflow_run_id"] = workflow_run_id
+    updated["workflow_run_attempt"] = attempt
+    updated["workflow_run_history"] = history
+    updated["state_version"] = int(updated["state_version"]) + 1
+    updated["updated_at"] = now or utc_now()
+    validate_state(updated)
+    return updated
+
+
 def validate_state(state: dict, expected_run_id: str | None = None) -> None:
     if not isinstance(state, dict) or state.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("Unsupported or missing run-state schema_version")
