@@ -263,7 +263,6 @@ def main():
         raise SystemExit("Stage 4 submitted state SHA does not match the exact Run-scoped editorial content")
     editorial=json.loads(content_path.read_text(encoding="utf-8"))
     timestamp_repairs=normalize_news_publication_times(editorial)
-    stage3_receipt_sha256=sha(stage3_receipt_path)
     capture_path=run_dir/"capture-stage-receipt.json"
     if not capture_path.is_file():
         raise SystemExit("Stage 4 full-WR capture handoff is missing; refusing to start editorial merge.")
