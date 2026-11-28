@@ -7,7 +7,7 @@
 - Stage 4 使用同一 Run 的 Stage 2 行情及 Stage 3 行事曆／財報成果；完成新聞與分析後直接交付 Stage 5。
 
 ## 輸入
-Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及其 SHA receipt、核准新聞來源及台灣時間截稿窗口。編輯內容 JSON 必須攜帶 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三個必填綁定欄位；Stage 4 直接使用同一 Run 的研究包及行情快照，不重複驗證上游 receipt SHA。
+Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run 的 `stage4-research-bundle.json` 及來源資料、核准新聞來源及台灣時間截稿窗口。編輯內容 JSON 必須攜帶 `run_id`、`market_snapshot_sha256`、`research_bundle_sha256` 三個必填綁定欄位；Stage 4 直接使用同一 Run 的研究包及行情快照，不重複驗證上游 receipt SHA。
 
 ## 新聞
 - Global Focus News 目標 5 則，主要來自鉅亨網及 Investing.com，聚焦總體經濟、政策與全球宏觀事件。
@@ -44,8 +44,8 @@ Stage 2 凍結行情與 FedWatch、Stage 3 行事曆／財報投影、同一 Run
 
 
 ## Main Run state contract v1.3
-- Stage 4 使用同一 Run 的行情快照、行事曆與財報輸出；以 Run ID 及日期確認資料歸屬，不做上游 WR receipt／SHA 鏈式驗證。ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 4=DEFERRED 且 Stage 3 PASS 時可提交同一 Run 的 editorial JSON，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時只核對既有 SHA；PASS 時直接結束；FAILED 只等待已核准的 GitHub recover 流程。若已存在完整且 SHA 正確的 editorial JSON，重試只重送既有檔案，不得重新研究或改寫。
+- Stage 4 使用同一 Run 的行情快照、行事曆與財報輸出；以 Run ID 及日期確認資料歸屬，不做上游 WR receipt／SHA 鏈式驗證。ChatGPT worker 對 run-state.json 僅能讀取，不得 claim、更新 lease、改狀態、改 state_version 或提交 run-state.json。Stage 4=DEFERRED 且 Stage 3 PASS 時可提交同一 Run 的 editorial JSON，由 GitHub acceptance runner 轉移狀態；RUNNING 時不得搶占；SUBMITTED 時只讀取既有內容，不重新研究或覆寫；PASS 時直接結束；FAILED 只等待已核准的 GitHub recover 流程。若已存在完整且 SHA 正確的 editorial JSON，重試只重送既有檔案，不得重新研究或改寫。
 - ChatGPT Stage 4 worker 只負責完成並提交唯一路徑 `production/runs/<run_id>/stage4-editorial-content.json`，禁止寫入或讀取 `production/input/report-content-YYYY-MM-DD.json` 日期共用檔；worker 不得修改 run-state.json。
-- 編輯內容至少包含 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256。worker 提交並回讀完整 JSON bytes SHA-256 後，由 Main GitHub workflow 呼叫 `accept_stage_submission.py --stage STAGE_4`，確認 Stage 3 已完成及 Run／日期／快照／Research Bundle，並由唯一 state writer 將 Stage 4 依 READY → RUNNING → SUBMITTED 更新；output_sha256 必須等於該檔案 SHA。
+- 編輯內容至少包含 run_id、report_date、trading_date、market_snapshot_sha256、research_bundle_sha256。worker 提交同一 Run 的完整編輯內容後，由 Main GitHub workflow 呼叫 `accept_stage_submission.py --stage STAGE_4`，確認 Stage 3 已完成及 Run／日期／快照／Research Bundle，並由唯一 state writer 將 Stage 4 依 READY → RUNNING → SUBMITTED 更新；output_sha256 必須等於該檔案 SHA。
 - Stage 4 editorial JSON commit message 可使用 `[tac-stage4-submit:<run_id>]` 作為稽核標籤，但它不是 Workflow 觸發器。正式排程的同一 workflow run 會在 Stage 3 完成後等待該檔案，並由 handoff acceptor 寫入 Stage 4 SUBMITTED 狀態及 SHA，再自動執行 Stage 4–6。
 - Stage 4 Runner 讀取本階段 WR，並處理研究包、行情快照及內容後，寫出 stage4-analysis-receipt.json，再將 Stage 4 由 SUBMITTED 改為 PASS、Stage 5 設為 READY。Stage 3 資料未交付或 Run／日期不符時，不得把不完整內容交給 Stage 5。ChatGPT worker 不得自行推進 PASS。
